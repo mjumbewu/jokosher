@@ -1,0 +1,35 @@
+Jokosher
+
+Welcome one and all to Jokosher development!
+
+The aim of this project is to create a simple, and easy to use Open Source multi-track editor. Much of the design has been inspired by
+a blog post at http://www.jonobacon.org/viewcomments.php?id=621 - see that for an overview of how the core interface should work. Currently
+we are in development mode, so some stuff may work, and some may not.
+
+> Requirements <
+
+Python
+GStreamer
+librsvg
+PyGTK
+
+> Running Jokosher <
+
+To get started, simply make the main Jokosher script executable:
+
+foo@bar:~$ chmod a+x Jokosher.py
+
+Then run it:
+
+foo@bar:~$ ./Jokosher.py
+
+> Getting Involved <
+
+For Jokosher to become what we all want it to become, we need a range of volunteers to help out. This includes developers, testers, artists,
+documentation writers and more.
+
+To get involved, see http://jokosher.org/trac and have a look at what you would like to contribute. You should take a
+look at http://jokosher.org/trac/report/9 to see which tasks are currently unassigned and looking for volunteers.
+
+You should also join our mailing list at http://jasonfield.com/cgi-bin/mailman/listinfo/jonoedit - feel free to ask any
+questions there, or send patches in. :)
