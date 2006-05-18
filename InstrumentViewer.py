@@ -150,8 +150,9 @@ class InstrumentViewer(gtk.EventBox):
 				self.editlabel.destroy()
 			self.labeleventbox.show_all()
 			
-			#this must be done last because it triggers update
-			self.instrument.SetName(name)
+			if name != self.instrument.name:
+				#this must be done last because it triggers update
+				self.instrument.SetName(name)
 		
 	#_____________________________________________________________________
 	
