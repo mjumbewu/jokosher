@@ -434,9 +434,12 @@ class MainApp:
 				gtk.MESSAGE_WARNING,
 				gtk.BUTTONS_NONE)
 			dlg.set_markup(message)
+			
 			dlg.add_button("Close _Without Saving", gtk.RESPONSE_NO)
 			dlg.add_button(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL)
-			dlg.add_button(gtk.STOCK_SAVE, gtk.RESPONSE_YES)
+			defaultAction = dlg.add_button(gtk.STOCK_SAVE, gtk.RESPONSE_YES)
+			#make save the default action when enter is pressed
+			dlg.set_default(defaultAction)
 			
 			response = dlg.run()
 			dlg.destroy()
@@ -742,6 +745,11 @@ class MainApp:
 		
 print "Starting up"
 
-app=MainApp()
-gtk.threads_init()
-gtk.main()
+def main():
+	app=MainApp()
+	gtk.threads_init()
+	gtk.main()
+
+if __name__ == "__main__":
+	main()
+

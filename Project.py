@@ -525,11 +525,6 @@ class Project(Monitored, CommandManaged):
 		audio_dir = os.path.join(os.path.split(self.projectfile)[0], "audio")
 		instr.path = os.path.join(audio_dir)
 		
-		#check is this instrument should be muted
-		for i in self.instruments:
-			if i.isSolo:
-				instr.isMuted = True
-		
 		self.temp = instr.id
 		self.instruments.append(instr)	
 		
@@ -543,6 +538,10 @@ class Project(Monitored, CommandManaged):
 		instr = [x for x in self.instruments if x.id == id][0]
 		self.graveyard.append(instr)
 		self.instruments.remove(instr)
+		if instr.isSolo:
+			self.soloInstrCount -= 1
+			self.OnAllInstrumentsMute()
+			
 		self.temp = id
 	
 	#_____________________________________________________________________
@@ -553,6 +552,9 @@ class Project(Monitored, CommandManaged):
 		'''
 		instr = [x for x in self.graveyard if x.id == id][0]
 		self.instruments.append(instr)
+		if instr.isSolo:
+			self.soloInstrCount += 1
+			self.OnAllInstrumentsMute()
 		instr.isVisible = True
 		self.graveyard.remove(instr)
 		self.temp = id

@@ -45,7 +45,7 @@ class MixerStrip(gtk.Frame):
 		self.recButton.set_property("image", img)
 		self.recButton.connect("toggled", self.OnArm)
 
-		self.muteButton = gtk.ToggleButton("M")
+		self.muteButton = gtk.ToggleButton("")
 		self.muteButton.connect("toggled", self.OnMute)
 		
 		self.soloButton = gtk.ToggleButton("S")
@@ -74,6 +74,8 @@ class MixerStrip(gtk.Frame):
 		self.vbox.pack_end(hb, False, False)
 		self.vbox.show_all()
 		self.show_all()
+		
+		self.Update()
 		
 	#_____________________________________________________________________
 
@@ -105,7 +107,14 @@ class MixerStrip(gtk.Frame):
 		
 		self.label.set_text(self.instrument.name)
 		self.recButton.set_active(self.instrument.isArmed)
+		
 		self.muteButton.set_active(self.instrument.actuallyIsMuted)
+		if self.instrument.actuallyIsMuted:
+			self.muteButton.set_image(gtk.image_new_from_icon_name("stock_volume-mute", gtk.ICON_SIZE_BUTTON))
+		else:
+			self.muteButton.set_image(gtk.image_new_from_icon_name("stock_volume", gtk.ICON_SIZE_BUTTON))
+		
+		
 		self.soloButton.set_active(self.instrument.isSolo)
 		
 		self.Updating = False

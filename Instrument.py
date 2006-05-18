@@ -87,6 +87,9 @@ class Instrument(Monitored, CommandManaged):
 		self.composition.connect("pad-added", self.project.newPad, self)
 		self.composition.connect("pad-removed", self.project.removePad, self)
 		
+		#mute this instrument if another one is solo
+		self.OnMute()
+		
 	#_____________________________________________________________________
 	
 	def __repr__(self):

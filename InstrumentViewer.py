@@ -80,7 +80,7 @@ class InstrumentViewer(gtk.EventBox):
 			self.recButton = gtk.ToggleButton("")
 			self.recButton.set_property("image", img)
 			self.recButton.connect("toggled", self.OnArm)
-
+			
 			self.muteButton = gtk.ToggleButton("Mute")
 			self.muteButton.connect("toggled", self.OnMute)
 			
