@@ -15,6 +15,24 @@ class EventViewer(gtk.DrawingArea):
 
 	__gtype_name__ = 'EventViewer'
 	
+	#the maximum width of the stroke above the fill
+	#stroke width will shrink when zooming out
+	_MAX_LINE_WIDTH = 2
+	
+	"""various colour configurations
+	   ORGBA = Offset, Red, Green, Blue, Alpha
+	   RGBA = Red, Green, Blue, Alpha
+	   RGB = Red, Green, Blue
+	"""
+	_OPAQUE_GRADIENT_STOP_ORGBA = (0.2, 138./255, 226./255, 52./255, 1)
+	_TRANSPARENT_GRADIENT_STOP_ORGBA = (1, 138./255, 226./255, 52./255, 0.5)
+	_BORDER_RGB = (79./255, 154./255, 6./255)
+	_BACKGROUND_RGB = (1, 1, 1)
+	_TEXT_RGB = (0, 0, 0)
+	_SELECTED_RGBA = (0, 0, 1, 0.2)
+	_PLAY_POSITION_RGB = (1, 0, 0)
+	_HIGHLIGHT_POSITION_RGB = (0, 0, 1)
+	
 	#_____________________________________________________________________
 
 	def __init__(self, lane, project, event, height, small = False):
@@ -79,7 +97,7 @@ class EventViewer(gtk.DrawingArea):
 		if self.event.isSelected:
 			context.rectangle(event.area.x, event.area.y,
 							  event.area.width, event.area.height)
-			context.set_source_rgba(0, 0, 1.0, 0.2)
+			context.set_source_rgba(*self._SELECTED_RGBA)
 			context.fill()
 		
 		#Draw play position
@@ -88,14 +106,14 @@ class EventViewer(gtk.DrawingArea):
 		context.set_antialias(cairo.ANTIALIAS_NONE)
 		context.move_to(x+1, 0)
 		context.line_to(x+1, self.allocation.height)
-		context.set_source_rgb(1.0, 0, 0)
+		context.set_source_rgb(*self._PLAY_POSITION_RGB)
 		context.stroke()
 		
 		# Draw the highlight cursor if it's over us
 		if self.highlightCursor:
 			context.move_to(self.highlightCursor, 0)
 			context.line_to(self.highlightCursor, self.allocation.height)
-			context.set_source_rgb(0, 0, 1.0)
+			context.set_source_rgb(*self._HIGHLIGHT_POSITION_RGB)
 			context.stroke()
 
 		return False
@@ -115,12 +133,12 @@ class EventViewer(gtk.DrawingArea):
 		if self.event.isLoading:
 			# Draw a white background
 			context.rectangle(0, 0, rect.width, rect.height)
-			context.set_source_rgb(1, 1, 1)
+			context.set_source_rgb(*self._BACKGROUND_RGB)
 			context.fill()
 			# and a border
 			context.set_line_width(2)
 			context.rectangle(0, 0, rect.width, rect.height)
-			context.set_source_rgb(0, 0, 0)
+			context.set_source_rgb(*self._TEXT_RGB)
 			context.stroke()
 			# Write "Loading..."
 			context.move_to(5, 12)
@@ -138,11 +156,10 @@ class EventViewer(gtk.DrawingArea):
 			raise "Trying to draw an event with no level data!"
 		
 		scale = (self.event.duration * self.project.viewScale) / float(len(self.event.levels))
-		context.scale(scale, 1.0)
 
 		# Draw white background
-		context.rectangle(0, 0, len(self.event.levels), rect.height)
-		context.set_source_rgb(1, 1, 1)
+		context.rectangle(0, 0, len(self.event.levels)*scale, rect.height)
+		context.set_source_rgb(*self._BACKGROUND_RGB)
 		context.fill()
 
 		# Draw volume curve
@@ -151,14 +168,25 @@ class EventViewer(gtk.DrawingArea):
 
 		for peak in self.event.levels:
 			scaled_peak = peak * rect.height
-			context.line_to(x_pos, rect.height - int(scaled_peak))
+			context.line_to(x_pos*scale, rect.height - int(scaled_peak))
 			x_pos += 1
 
-		context.line_to(x_pos, rect.height)
-		context.set_source_rgb(0, 1, 0.0)
+		context.line_to(x_pos*scale, rect.height)
+		
+		#levels gradient fill
+		gradient = cairo.LinearGradient(0.0, 0.0, 0, rect.height)
+		gradient.add_color_stop_rgba(*self._OPAQUE_GRADIENT_STOP_ORGBA)
+		gradient.add_color_stop_rgba(*self._TRANSPARENT_GRADIENT_STOP_ORGBA)
+		context.set_source(gradient)
 		context.fill_preserve()
-		context.set_source_rgb(0, 0.0, 0)
-		context.set_line_width(0.6)
+		
+		#levels path (on top of the fill)
+		context.set_source_rgb(*self._BORDER_RGB)
+		context.set_line_join(cairo.LINE_JOIN_ROUND)
+		if scale < self._MAX_LINE_WIDTH:
+			context.set_line_width(scale)
+		else:
+			context.set_line_width(self._MAX_LINE_WIDTH)
 		context.stroke()
 		
 		# Reset the drawing scale
@@ -171,11 +199,12 @@ class EventViewer(gtk.DrawingArea):
 		else:
 			context.set_line_width(2)
 		context.rectangle(0, 0, rect.width, rect.height)
-		context.set_source_rgb(0, 0, 0)
+		context.set_source_rgb(*self._BORDER_RGB)
 		context.stroke()
 		context.set_line_width(2)
 		
 		# Draw Event name
+		context.set_source_rgb(*self._TEXT_RGB)
 		context.move_to(5, 12)
 		context.show_text(self.event.name)
 		
