@@ -37,7 +37,8 @@ def LoadFromFile(file):
 	try:
 		gzipfile = gzip.GzipFile(file, "r")
 		doc = xml.parse(gzipfile)
-	except:
+	except Exception, e:
+		print e.__class__, e
 		raise OpenProjectError
 	
 	p.projectfile = file
@@ -56,6 +57,24 @@ def LoadFromFile(file):
 					setattr(p, n.tagName, False)
 			else:
 				setattr(p, n.tagName, n.getAttribute("value"))
+	
+	try:
+		undo = doc.getElementsByTagName("Undo")[0]
+	except IndexError:
+		print "No saved undo in project file"
+	else:
+		for n in undo.childNodes:
+			if n.nodeType == xml.Node.ELEMENT_NODE:
+				p.savedUndoStack.append(str(n.getAttribute("value")))
+	
+	try:
+		redo = doc.getElementsByTagName("Redo")[0]
+	except IndexError:
+		print "No saved redo in project file"
+	else:
+		for n in redo.childNodes:
+			if n.nodeType == xml.Node.ELEMENT_NODE:
+				p.redoStack.append(str(n.getAttribute("value")))
 	
 	for instr in doc.getElementsByTagName("Instrument"):
 		i = Instrument(p, None, None, None)
@@ -397,6 +416,14 @@ class Project(Monitored, CommandManaged):
 		#sync the transport's mode with the one which will be saved
 		self.transportMode = self.transport.mode
 		
+		self.unsavedChanges = False
+		#purge main undo stack so that it will not prompt to save on exit
+		self.savedUndoStack.extend(self.undoStack)
+		self.undoStack = []
+		#purge savedRedoStack so that it will not prompt to save on exit
+		self.redoStack.extend(self.savedRedoStack)
+		self.savedRedoStack = []
+		
 		doc = xml.Document()
 		head = doc.createElement("JokosherProject")
 		doc.appendChild(head)
@@ -423,21 +450,26 @@ class Project(Monitored, CommandManaged):
 			e.setAttribute("value", str(getattr(self, i)))
 			params.appendChild(e)
 			
+		undo = doc.createElement("Undo")
+		head.appendChild(undo)
+		for cmd in self.savedUndoStack:
+			e = doc.createElement("Command")
+			e.setAttribute("value", str(cmd))
+			undo.appendChild(e)
+		
+		redo = doc.createElement("Redo")
+		head.appendChild(redo)
+		for cmd in self.redoStack:
+			e = doc.createElement("Command")
+			e.setAttribute("value", str(cmd))
+			redo.appendChild(e)
+			
 		for i in self.instruments:
 			i.StoreToXML(doc, head)
 			
 		f = gzip.GzipFile(path, "w")
 		f.write(doc.toprettyxml())
 		f.close()
-		
-		self.unsavedChanges = False
-		#purge main undo stack so that it will not prompt to save on exit
-		self.savedUndoStack.extend(self.undoStack)
-		self.undoStack = []
-		
-		#purge savedRedoStack so that it will not prompt to save on exit
-		self.redoStack.extend(self.savedRedoStack)
-		self.savedRedoStack = []
 		
 		self.StateChanged()
 	

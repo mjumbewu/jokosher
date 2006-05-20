@@ -471,7 +471,7 @@ class MainApp:
 
 	#_____________________________________________________________________
 	
-	def OnStateChanged(self, obj):
+	def OnStateChanged(self, obj=None):
 		#for when undo and redo history change
 		undo = len(self.project.undoStack) or len(self.project.savedUndoStack)
 		self.undo.set_sensitive(undo)
@@ -624,11 +624,8 @@ class MainApp:
 			for c in ctrls:
 				c.set_sensitive(True)
 			
-			self.undo.set_sensitive((len(self.project.undoStack) > 0))
-			self.redo.set_sensitive((len(self.project.redoStack) > 0))
-			
-			# Put project name in window title
-			self.window.set_title('%s - Jokosher' % self.project.name)
+			#set undo/redo if there is saved undo history
+			self.OnStateChanged()
 				
 			# Create our custom widgets
 			self.timeview = TimeView.TimeView(self.project)
