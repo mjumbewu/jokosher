@@ -113,11 +113,18 @@ class Project(Monitored, CommandManaged):
 		# The place where deleted objects go
 		self.graveyard = []
 		
+		#This is to indicate that something which is not 
+		#on the undo/redo stack needs to be saved
+		self.unsavedChanges = False
+		
 		# Storage for the undo/redo states
 		self.undoStack = []
 		self.redoStack = []
+		self.savedUndoStack = []
+		self.savedRedoStack = []
 		self.performingUndo = False
 		self.performingRedo = False
+		self.savedUndo = False
 
 		self.IsPlaying = False
 		
@@ -422,6 +429,17 @@ class Project(Monitored, CommandManaged):
 		f = gzip.GzipFile(path, "w")
 		f.write(doc.toprettyxml())
 		f.close()
+		
+		self.unsavedChanges = False
+		#purge main undo stack so that it will not prompt to save on exit
+		self.savedUndoStack.extend(self.undoStack)
+		self.undoStack = []
+		
+		#purge savedRedoStack so that it will not prompt to save on exit
+		self.redoStack.extend(self.savedRedoStack)
+		self.savedRedoStack = []
+		
+		self.StateChanged()
 	
 	#_____________________________________________________________________
 
@@ -441,32 +459,68 @@ class Project(Monitored, CommandManaged):
 	#_____________________________________________________________________
 	
 	def Undo(self):
+		self.performingUndo = True
+		
 		if len(self.undoStack):
-			self.performingUndo = True
 			cmd = self.undoStack.pop()
 			self.ExecuteCommand(cmd)
-			self.performingUndo = False
+			
+		elif len(self.savedUndoStack):
+			self.savedUndo = True
+			cmd = self.savedUndoStack.pop()
+			self.ExecuteCommand(cmd)
+			self.savedUndo = False
+			
+		self.performingUndo = False
 	
 	#_____________________________________________________________________
 	
 	def Redo(self):
-		if len(self.redoStack):
-			self.performingRedo = True
+		self.performingRedo = True
+		
+		if len(self.savedRedoStack):
+			self.savedUndo = True
+			cmd = self.savedRedoStack.pop()
+			self.ExecuteCommand(cmd)
+			self.savedUndo = False
+			
+		elif len(self.redoStack):
 			cmd = self.redoStack.pop()
 			self.ExecuteCommand(cmd)
-			self.performingUndo = False
+			
+		self.performingRedo = False
 
 	#_____________________________________________________________________
 	
 	def AppendToCurrentStack(self, object):
-		if self.performingUndo:
+		if self.savedUndo and self.performingUndo:
+			self.savedRedoStack.append(object)
+		elif self.savedUndo and self.performingRedo:
+			self.savedUndoStack.append(object)
+		elif self.performingUndo:
 			self.redoStack.append(object)
 		elif self.performingRedo:
 			self.undoStack.append(object)
 		else:
 			self.undoStack.append(object)
 			self.redoStack = []
+			#if we have undone anything that was previously saved
+			if len(self.savedRedoStack):
+				self.savedRedoStack = []
+				#since there is no other record that something has 
+				#changed after savedRedoStack is purged
+				self.unsavedChanges = True
 		self.StateChanged()
+	
+	#_____________________________________________________________________
+	
+	def CheckUnsavedChanges(self):
+		"""Uses boolean self.unsavedChanges and Undo/Redo to 
+		   determine if the program needs to save anything on exit
+		"""
+		return self.unsavedChanges or \
+			len(self.undoStack) > 0 or \
+			len(self.savedRedoStack) > 0
 	
 	#_____________________________________________________________________
 	

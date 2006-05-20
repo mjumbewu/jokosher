@@ -106,4 +106,7 @@ class InstrumentConnectionsDialog:
 		print instr.name
 		device = self.AlsaID[widget.get_active()]
 		print device
-		instr.input = "alsasrc device=" + device
+		newInput = "alsasrc device=" + device
+		if newInput != instr.input:
+			instr.input = newInput
+			self.project.unsavedChanges = True

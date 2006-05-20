@@ -425,7 +425,7 @@ class MainApp:
 		
 		print "Shutting down",
 		self.Stop()
-		if len(self.project.undoStack) > 0:
+		if self.project.CheckUnsavedChanges():
 			message = "<span size='large' weight='bold'>Save changes to project \"%s\" before closing?</span>\n\nYour changes will be lost if you don't save them." % self.project.name
 			
 			dlg = gtk.MessageDialog(self.window,
@@ -473,14 +473,15 @@ class MainApp:
 	
 	def OnStateChanged(self, obj):
 		#for when undo and redo history change
-		if len(self.project.undoStack) > 0:
-			self.undo.set_sensitive(True)
+		undo = len(self.project.undoStack) or len(self.project.savedUndoStack)
+		self.undo.set_sensitive(undo)
+		redo = len(self.project.redoStack) or len(self.project.savedRedoStack)
+		self.redo.set_sensitive(redo)
+		
+		if self.project.CheckUnsavedChanges():
 			self.window.set_title('*%s - Jokosher' % self.project.name)
 		else:
-			self.undo.set_sensitive(False)
 			self.window.set_title('%s - Jokosher' % self.project.name)
-
-		self.redo.set_sensitive(len(self.project.redoStack) > 0)	
 		
 	#_____________________________________________________________________
 
