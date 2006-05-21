@@ -98,6 +98,7 @@ class EventLaneViewer(gtk.EventBox):
 			for w in widgets:
 				if w.event not in self.instrument.events:
 					self.fixed.remove(w)
+					self.childActive = False
 
 			# Check if any events have been added
 			widget_events = [w.event for w in widgets]
