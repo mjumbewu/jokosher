@@ -227,6 +227,16 @@ class Instrument(Monitored, CommandManaged):
 		self.StateChanged()
 		
 	#_____________________________________________________________________
+	
+	def DeleteEvent(self, eventid):
+		'''Removes an event from this instrument. 
+		   It does not register with undo or append it to the graveyard,
+		   because both are done by event.Delete()
+		'''
+		event = [x for x in self.events if x.id == eventid][0]
+		event.Delete()
+	
+	#_____________________________________________________________________
 
 	def MultipleEventsSelected(self):
 		''' Confirms whether or not multiple events are selected '''

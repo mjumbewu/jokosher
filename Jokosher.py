@@ -441,6 +441,8 @@ class MainApp:
 			#make save the default action when enter is pressed
 			dlg.set_default(defaultAction)
 			
+			dlg.set_transient_for(self.window)
+			
 			response = dlg.run()
 			dlg.destroy()
 			if response == gtk.RESPONSE_YES:
