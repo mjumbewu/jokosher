@@ -4,6 +4,7 @@ import InstrumentViewer
 import TimeLineBar
 import gobject
 import Globals
+import Monitored
 
 #=========================================================================
 
@@ -156,8 +157,9 @@ class RecordingView(gtk.Frame):
 		
 	#_____________________________________________________________________
 	
-	def OnStateChanged(self, obj):
-		self.Update()
+	def OnStateChanged(self, obj, change=None):
+		if change != Monitored.LEVEL:
+			self.Update()
 		
 	#_____________________________________________________________________	
 #=========================================================================

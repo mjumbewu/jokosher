@@ -165,7 +165,7 @@ class TimeLine(gtk.DrawingArea):
 		
 	#_____________________________________________________________________
 	
-	def OnStateChanged(self, obj):
+	def OnStateChanged(self, obj, change=None):
 		""" 
 		Called when there is a change fo state in transport
 		manager.Could be one of

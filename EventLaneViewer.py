@@ -178,7 +178,7 @@ class EventLaneViewer(gtk.EventBox):
 		
 	#_____________________________________________________________________
 	
-	def OnStateChanged(self, obj):
+	def OnStateChanged(self, obj, change=None):
 		if type(obj) == type(self.project) or type(obj) == Instrument.Instrument:
 			self.Update()
 		else:

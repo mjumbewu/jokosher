@@ -145,7 +145,7 @@ class CompactMixView(gtk.Frame):
 	
 	#_____________________________________________________________________
 	
-	def OnStateChanged(self, obj):
+	def OnStateChanged(self, obj, change=None):
 		self.Update()
 		
 	#_____________________________________________________________________

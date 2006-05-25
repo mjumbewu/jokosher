@@ -13,6 +13,6 @@ profile.runcall(Jokosher.main)
 s = stats.load("Jokosher")
 
 s.strip_dirs()
-s.sort_stats("time", "calls")
-s.print_stats()
+s.sort_stats("cumulative", "calls").print_stats()
+s.sort_stats("time", "calls").print_stats()
 

@@ -273,7 +273,7 @@ class Instrument(Monitored, CommandManaged):
 		""" Note that this sets the current REPORTED level, NOT THE VOLUME!
 		"""
 		self.level = level
-		self.StateChanged()
+		self.StateChanged(LEVEL)
 	
 	#_____________________________________________________________________
 

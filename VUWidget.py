@@ -166,7 +166,7 @@ class VUWidget(gtk.DrawingArea):
 		
 	#_____________________________________________________________________
 	
-	def OnStateChanged(self, obj):
+	def OnStateChanged(self, obj, change=None):
 		self.RedrawCount += 1
 		if self.RedrawCount > 6:
 			self.queue_draw()

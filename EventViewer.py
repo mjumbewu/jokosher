@@ -350,7 +350,7 @@ class EventViewer(gtk.DrawingArea):
 
 	#_____________________________________________________________________
 	
-	def OnStateChanged(self, obj):
+	def OnStateChanged(self, obj, change=None):
 				
 		if self.isLoading != self.event.isLoading:
 			self.DrawWaveform()

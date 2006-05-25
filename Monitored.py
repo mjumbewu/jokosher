@@ -1,5 +1,6 @@
 
 #=========================================================================
+LEVEL=1
 
 class Monitored:
 	""" This class defines a set of functions to allow derived classes to
@@ -26,9 +27,9 @@ class Monitored:
 			
 	#_____________________________________________________________________
 			
-	def StateChanged(self):
+	def StateChanged(self,change=None):
 		for obj in self.listeners:
-			obj.OnStateChanged(self)
+			obj.OnStateChanged(self,change)
 			
 	#_____________________________________________________________________
 	

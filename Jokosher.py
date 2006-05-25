@@ -473,7 +473,7 @@ class MainApp:
 
 	#_____________________________________________________________________
 	
-	def OnStateChanged(self, obj=None):
+	def OnStateChanged(self, obj=None, change=None):
 		#for when undo and redo history change
 		undo = len(self.project.undoStack) or len(self.project.savedUndoStack)
 		self.undo.set_sensitive(undo)
