@@ -50,7 +50,6 @@ class EventViewer(gtk.DrawingArea):
 		self.connect("leave_notify_event", self.OnMouseLeave)
 		self.connect("button_press_event", self.OnMouseDown)
 		self.connect("button_release_event", self.OnMouseUp)
-		self.connect("configure_event", self.OnSizeChanged)
 		
 		self.height = height			# Height of this object in pixels
 		self.event = event				# The event this widget is representing
@@ -60,10 +59,12 @@ class EventViewer(gtk.DrawingArea):
 		self.last_num_levels = 0		# Used to track if we need to resize the GUI object
 		self.isLoading = False			# Used to track if we need to update the GUI after loading a waveform
 		self.currentScale = 0			# Tracks if the project viewScale has changed
+		self.redrawWaveform = False		# Force redraw the cached waveform on next expose event
 		
 		# source is an offscreen canvas to hold our waveform image
-		self.source = cairo.ImageSurface(cairo.FORMAT_ARGB32, self.allocation.width, self.allocation.height)
-		self.DrawWaveform()
+		self.source = cairo.ImageSurface(cairo.FORMAT_ARGB32, 0, 0)
+		#rectangle of cached draw area
+		self.cachedDrawArea = gtk.gdk.Rectangle(0, 0, 0, 0)
 
 		# Monitor the things this object cares about
 		self.project.AddListener(self)
@@ -78,17 +79,18 @@ class EventViewer(gtk.DrawingArea):
 		""" This function blits the waveform data onto the screen, and
 			then draws the play cursor over it.
 		"""
-
+		c = self.cachedDrawArea
+		e = event.area
+		
+		#check if the expose area is within the already cached rectangle
+		if e.x < c.x or (e.x + e.width > c.x + c.width) or self.redrawWaveform:
+			self.DrawWaveform(event.area)
+		
 		# Get a cairo surface for this drawing op
 		context = widget.window.cairo_create()
 
 		# Give it our waveform image as a source
-		context.set_source_surface(self.source, 0, 0)	
-		
-		# set a clip region for the expose event
-		context.rectangle(event.area.x, event.area.y,
-							  event.area.width, event.area.height)
-		context.clip()
+		context.set_source_surface(self.source, self.cachedDrawArea.x, self.cachedDrawArea.y)	
 
 		# Blit our waveform across
 		context.paint()
@@ -120,11 +122,21 @@ class EventViewer(gtk.DrawingArea):
 		
 	#_____________________________________________________________________
 
-	def DrawWaveform(self):
+	def DrawWaveform(self, exposeArea):
 		""" This function uses Cairo to draw the waveform level information
 			onto a canvas in memory.
 		"""
-		rect = self.get_allocation()
+		allocArea = self.get_allocation()
+		
+		rect = gtk.gdk.Rectangle(exposeArea.x - exposeArea.width, exposeArea.y,
+						exposeArea.width*3, exposeArea.height)
+		#Check if our area to cache is outside the allocated area
+		if rect.x < 0:
+			rect.x = 0
+		if rect.x + rect.width > allocArea.width:
+			rect.width = allocArea.width - rect.x
+			
+		self.source = cairo.ImageSurface(cairo.FORMAT_ARGB32, rect.width, rect.height)
 
 		context = cairo.Context(self.source)
 		context.set_line_width(2)
@@ -143,11 +155,10 @@ class EventViewer(gtk.DrawingArea):
 			# Write "Loading..."
 			context.move_to(5, 12)
 			if self.event.duration == 0:
-				displayLength = "0%"
+				displayLength = 0
 			else:
-				displayLength = "%d%%" % int(100 * self.event.loadingLength /
-			  														 self.event.duration)
-			context.show_text("Loading (%s)..." % displayLength)
+				displayLength = int(100 * self.event.loadingLength / self.event.duration)
+			context.show_text("Loading (%d%%)..." % displayLength)
 			context.stroke()
 			# And exit here
 			return
@@ -158,20 +169,24 @@ class EventViewer(gtk.DrawingArea):
 		scale = (self.event.duration * self.project.viewScale) / float(len(self.event.levels))
 
 		# Draw white background
-		context.rectangle(0, 0, len(self.event.levels)*scale, rect.height)
+		context.rectangle(0, 0, rect.width, rect.height)
 		context.set_source_rgb(*self._BACKGROUND_RGB)
 		context.fill()
 
 		# Draw volume curve
-		x_pos = 0
+		x_pos = int(rect.x/scale)
+		x = 0
 		context.move_to(0,rect.height)
-
-		for peak in self.event.levels:
-			scaled_peak = peak * rect.height
-			context.line_to(x_pos*scale, rect.height - int(scaled_peak))
+		
+		for peak in self.event.levels[x_pos:]:
+			x = (x_pos*scale) - rect.x
+			context.line_to(x, rect.height - int(peak * rect.height))
+			
+			if x > rect.width:
+				break
 			x_pos += 1
-
-		context.line_to(x_pos*scale, rect.height)
+		
+		context.line_to(x, rect.height)
 		
 		#levels gradient fill
 		gradient = cairo.LinearGradient(0.0, 0.0, 0, rect.height)
@@ -203,11 +218,16 @@ class EventViewer(gtk.DrawingArea):
 		context.stroke()
 		context.set_line_width(2)
 		
-		# Draw Event name
-		context.set_source_rgb(*self._TEXT_RGB)
-		context.move_to(5, 12)
-		context.show_text(self.event.name)
+		#check if we are at the beginning
+		if rect.x == 0:
+			#Draw event name
+			context.set_source_rgb(*self._TEXT_RGB)
+			context.move_to(5, 12)
+			context.show_text(self.event.name)
 		
+		#set area to record where the cached surface goes
+		self.cachedDrawArea = rect
+		self.redrawWaveform = False
 
 	#_____________________________________________________________________
 
@@ -353,29 +373,22 @@ class EventViewer(gtk.DrawingArea):
 	def OnStateChanged(self, obj, change=None):
 				
 		if self.isLoading != self.event.isLoading:
-			self.DrawWaveform()
+			self.redrawWaveform = True
 			self.isLoading = self.event.isLoading
 				
 		if len(self.event.levels) != self.last_num_levels:
+			self.redrawWaveform = True
 			self.queue_resize()
-			self.DrawWaveform()
 			self.last_num_levels = len(self.event.levels)
 			
 		if type(obj) == Project.Project:
 			if self.currentScale != self.project.viewScale:
+				self.redrawWaveform = True
 				self.queue_resize()
-				self.DrawWaveform()
 				self.last_num_levels = len(self.event.levels)
 				self.currentScale = self.project.viewScale
 
 		self.queue_draw()
-
-	#_____________________________________________________________________
-
-	def OnSizeChanged(self, obj, evt):
-		if self.allocation.width != self.source.get_width() or self.allocation.height != self.source.get_height():
-			self.source = cairo.ImageSurface(cairo.FORMAT_ARGB32, self.allocation.width, self.allocation.height)
-			self.DrawWaveform()
 
 	#_____________________________________________________________________
 
