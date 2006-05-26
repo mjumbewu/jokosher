@@ -5,6 +5,7 @@ import pygst
 pygst.require("0.10")
 import gst
 import gtk
+import os, stat    #for file's timestamp
 from Monitored import *
 from Utils import *
 
@@ -63,6 +64,20 @@ class Event(Monitored, CommandManaged):
 			
 			node.setAttribute("value", str(getattr(self, i)))
 			params.appendChild(node)
+		
+		if self.levels:
+			modified = doc.createElement("FileLastModified")
+			ev.appendChild(modified)
+			timestamp = str(os.stat(self.file)[stat.ST_MTIME])
+			modified.setAttribute("value", timestamp)
+			
+			levelsXML = doc.createElement("Levels")
+			ev.appendChild(levelsXML)
+			
+			for level in self.levels:
+				e = doc.createElement("Level")
+				e.setAttribute("value", str(level))
+				levelsXML.appendChild(e)
 			
 	#_____________________________________________________________________
 			
@@ -82,8 +97,30 @@ class Event(Monitored, CommandManaged):
 						setattr(self, n.tagName, False)
 				else:
 					setattr(self, n.tagName, n.getAttribute("value"))
-					
-		self.GenerateWaveform()
+		
+		fileModified = True
+		try:
+			n = node.getElementsByTagName("FileLastModified")[0]
+		except IndexError:
+			pass
+		else:
+			if n.nodeType == xml.Node.ELEMENT_NODE:
+				value = int(n.getAttribute("value"))
+				timestamp = os.stat(self.file)[stat.ST_MTIME]
+				fileModified = timestamp > value
+		
+		if fileModified:
+			self.GenerateWaveform()
+		else:
+			try:	
+				levelsXML = node.getElementsByTagName("Levels")[0]
+			except IndexError:
+				print "No event levels in project file"
+				self.GenerateWaveform()
+			else:
+				for n in levelsXML.childNodes:
+					if n.nodeType == xml.Node.ELEMENT_NODE:
+						self.levels.append(float(n.getAttribute("value")))
 		
 	#_____________________________________________________________________
 		
