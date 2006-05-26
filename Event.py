@@ -15,12 +15,12 @@ class Event(Monitored, CommandManaged):
 	
 	#_____________________________________________________________________
 	
-	def __init__(self, instrument, id=None):
+	def __init__(self, instrument, file=None, id=None):
 		Monitored.__init__(self)
 		
 		self.start = 0.0			# Time in seconds at which the event begins
 		self.duration = 0.0			# Duration in seconds of the event
-		self.file = None			# The file this event should play
+		self.file = file			# The file this event should play
 		self.colour = "#FFEEEE"
 		self.isSelected = False		# True if the event is currently selected
 		self.name = "New Event"		# Name of this event
@@ -36,7 +36,26 @@ class Event(Monitored, CommandManaged):
 		self.isLoading = False		# True if the event is currently loading level data
 		self.loadingLength = 0
 		self.lastEnd = 0
+		if file:
+			self.CreateFilesource()
+	#_____________________________________________________________________
+	
+	def CreateFilesource(self):	
+		self.filesrc = gst.element_factory_make("gnlfilesource")
+		self.instrument.composition.add(self.filesrc)
+	#_____________________________________________________________________
 		
+	def SetProperties(self):
+		print "start set properties"
+		gst.debug("setting event properties")
+		self.filesrc.set_property("location", self.file)
+		self.filesrc.set_property("start", long(self.start * gst.SECOND))
+		self.filesrc.set_property("duration", long(self.duration * gst.SECOND))
+		self.filesrc.set_property("media-start", long(self.offset * gst.SECOND))
+		self.filesrc.set_property("media-duration", long(self.duration * gst.SECOND))
+		
+		print "event properties set"
+
 	#_____________________________________________________________________
 
 	def StoreToXML(self, doc, parent):
@@ -121,6 +140,8 @@ class Event(Monitored, CommandManaged):
 				for n in levelsXML.childNodes:
 					if n.nodeType == xml.Node.ELEMENT_NODE:
 						self.levels.append(float(n.getAttribute("value")))
+		self.CreateFilesource()
+		self.SetProperties()
 		
 	#_____________________________________________________________________
 		
@@ -150,7 +171,7 @@ class Event(Monitored, CommandManaged):
 		self.duration = split_point
 		
 		if id == -1:
-			e = Event(self.instrument)
+			e = Event(self.instrument, self.file)
 			e.start = self.start + split_point
 			e.offset = self.offset + split_point
 			e.duration = d - split_point
@@ -259,6 +280,7 @@ class Event(Monitored, CommandManaged):
 			q = self.bin.query_duration(gst.FORMAT_TIME)
 			if self.duration == 0:
 				self.duration = float(q[0] / 1000000000)
+				self.SetProperties()
 		except:
 			# no size available yet
 			pass
@@ -293,15 +315,5 @@ class Event(Monitored, CommandManaged):
 	
 	#_____________________________________________________________________
 
-	def PrepareForPlayback(self, composition):
-		filesrc = gst.element_factory_make("gnlfilesource")
-		filesrc.set_property("location", self.file)
-		filesrc.set_property("start", long(self.start * gst.SECOND))
-		filesrc.set_property("duration", long(self.duration * gst.SECOND))
-		filesrc.set_property("media-start", long(self.offset * gst.SECOND))
-		filesrc.set_property("media-duration", long(self.duration * gst.SECOND))
-		composition.add(filesrc)
-
-	#_____________________________________________________________________
 
 #=========================================================================	

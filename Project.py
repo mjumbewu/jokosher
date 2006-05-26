@@ -158,7 +158,10 @@ class Project(Monitored, CommandManaged):
 
 		self.convert = gst.element_factory_make("audioconvert")
 		self.bin.add(self.convert)
-		self.adder.link(self.convert)
+		# need to restrict the format on adder's output
+		caps = gst.caps_from_string ("audio/x-raw-int,"
+		    "rate=44100,channels=2,endianness=1234,width=16,depth=16,signed=(boolean)true")
+		self.adder.link(self.convert, caps)
 		print "added audioconvert (project)"
 
 		self.level = gst.element_factory_make("level", "MasterLevel")
@@ -183,6 +186,9 @@ class Project(Monitored, CommandManaged):
 		print "added alsasink (project)"
 
 		self.level.link(self.out)
+		self.bus = self.bin.get_bus()
+		self.bus.add_signal_watch()
+		self.bus.connect("message::element", self.bus_message)
 
 
 		# [DEBUG]
@@ -218,28 +224,6 @@ class Project(Monitored, CommandManaged):
 		'''Set all instruments playing'''
 		
 		if len(self.instruments) > 0:
-#			self.bin = gst.Pipeline("timeline")
-#			if export:
-#				self.out = gst.element_factory_make("filesink")
-#				self.out.set_property("location", filename)
-#			else:
-#				self.out = gst.element_factory_make("alsasink")
-#				try:
-#					outdevice = Globals.settings.playback["devicecardnum"]
-#				except:
-#					outdevice =  "default"
-#				if outdevice == "value":
-#					outdevice = "default"
-#				self.out.set_property("device", outdevice)
-			
-#			self.bin.add(self.out)
-#			self.level.link(self.out)
-			
-#			self.adder = gst.element_factory_make("adder")
-#			self.bin.add(self.adder)
-#			convert = gst.element_factory_make("audioconvert")
-#			self.bin.add(self.convert)
-#			self.adder.link(self.convert)
 
 			if export:
 				#Create pipeline for exporting to file
@@ -262,34 +246,8 @@ class Project(Monitored, CommandManaged):
 				else:
 					encode.link(self.out)
 			else:
-				# Set up a level element to give us the master output levels
-				#level = gst.element_factory_make("level", "MasterLevel")
-				#level.set_property("interval", gst.SECOND / 50)
-				#level.set_property("message", True)
-				#self.bin.add(self.level)
-				#self.convert.link(self.level)
-				#self.level.link(self.out)
-				self.bus = self.bin.get_bus()
-				self.bus.add_signal_watch()
+				pass
 				
-				# Connect the message to the transport for now so that it knows where the playback position is
-				self.bus.connect("message::element", self.bus_message)
-
-				
-			#Using an adder for mixing since gnloperation doesn't exist yet
-			for instr in self.instruments:
-				#self.bin.add(instr.volumeElement)
-				#self.bin.add(instr.levelElement)
-				#self.bin.add(instr.converterElement)
-				
-				#composition = gst.element_factory_make("gnlcomposition")
-				#self.bin.add(composition)
-				#composition.connect("pad-added", self.newPad, instr)
-				for event in instr.events:
-					event.PrepareForPlayback(instr.composition)
-
-			# Wind the timeline on to our current playback position...
-			self.bin.set_new_stream_time(long(self.transport.position * gst.SECOND))
 
 			gst.debug("Play pressed, about to set state to PLAYING")
 			
@@ -380,12 +338,12 @@ class Project(Monitored, CommandManaged):
 			#self.bin.remove(instr.levelElement)
 			#print "removed instrument level (project)"
 
-			gst.debug("Stop pressed, about to set state to NULL")
+			gst.debug("Stop pressed, about to set state to PAUSED")
 
-			self.bin.set_state(gst.STATE_NULL)
+			self.bin.set_state(gst.STATE_PAUSED)
 			self.IsPlaying = False
 			
-			gst.debug("Stop pressed, state just set to NULL")
+			gst.debug("Stop pressed, state just set to PAUSED")
 
 			print "PIPELINE AFTER STOP:"
 			# [DEBUG]

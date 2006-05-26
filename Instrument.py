@@ -72,6 +72,15 @@ class Instrument(Monitored, CommandManaged):
 
 		self.project.bin.add(self.composition)
 		print "added composition (instrument)"
+		
+		self.convert = gst.element_factory_make("audioconvert")
+		self.project.bin.add(self.convert)
+		print "added audioconvert (instrument)"
+		
+		self.resample = gst.element_factory_make("audioresample")
+		self.project.bin.add(self.resample)
+		print "added audioresample (instrument)"
+		
 
 		# link elements
 		
@@ -81,8 +90,14 @@ class Instrument(Monitored, CommandManaged):
 		self.volumeElement.link(self.levelElement)
 		print "linked instrument volume to instrument level (project)"
 
-		self.levelElement.link(self.project.adder)
-		print "linked instrument level to adder (project)"
+		self.levelElement.link(self.convert)
+		print "linked instrument level to instrument convert (project)"
+		
+		self.convert.link(self.resample)
+		print "linked instrument convert to instrument resample (project)"
+		
+		self.resample.link(self.project.adder)
+		print "linked instrument resample to adder (project)"
 
 		self.composition.connect("pad-added", self.project.newPad, self)
 		self.composition.connect("pad-removed", self.project.removePad, self)
@@ -148,8 +163,7 @@ class Instrument(Monitored, CommandManaged):
 					
 		events = node.getElementsByTagName("Event")
 		for ev in events:
-			e = Event(None)
-			e.instrument = self
+			e = Event(self)
 			e.LoadFromXML(ev)
 			self.events.append(e)
 		
@@ -197,6 +211,7 @@ class Instrument(Monitored, CommandManaged):
 
 	def stop(self):
 		if self.bin:
+			print "instrument stop"
 			self.bin.set_state(gst.STATE_NULL)
 			self.events.append(self.tmpe)
 			self.tmpe.GenerateWaveform()
@@ -215,10 +230,9 @@ class Instrument(Monitored, CommandManaged):
 			undo : DeleteEvent(%(temp)d)
 		'''
 		
-		e = Event(self)
+		e = Event(self, file)
 		e.start = start
 		e.name = file.split(os.sep)[-1]
-		e.file = file
 		self.events.append(e)
 		e.GenerateWaveform()
 

@@ -2,6 +2,7 @@
 import gtk
 import pango
 import gobject
+import gst
 
 #=========================================================================
 
@@ -180,13 +181,15 @@ class TimeLine(gtk.DrawingArea):
 			return
 		x1 = int((self.project.transport.PrevPosition - self.project.viewStart) * self.project.viewScale)
 		x2 = int((self.project.transport.position - self.project.viewStart) * self.project.viewScale)
-		self.queue_draw_area(min(x1,x2), 0, 1 + abs(x2 - x1), self.allocation.height)
+		#print x1,x2
+		self.queue_draw_area(min(x1,x2), 0, 4 + abs(x2 - x1), self.allocation.height)
 	#_____________________________________________________________________
 		
 	def onMouseDown(self, widget, event):
 		self.buttonDown = True
 		self.dragging = False
 		self.moveHead(event.x)
+		return True
 
 	#_____________________________________________________________________
 
@@ -212,8 +215,14 @@ class TimeLine(gtk.DrawingArea):
 	#_____________________________________________________________________
 		
 	def moveHead(self, xpos):
-		self.project.transport.SetPosition(self.project.viewStart + xpos/ self.project.viewScale)
-		
+		pos = self.project.viewStart + xpos/ self.project.viewScale
+		self.project.transport.SetPosition(pos)
+		res,state,pending = self.project.bin.get_state(0)
+		if not state in [gst.STATE_PAUSED, gst.STATE_PLAYING]:
+			self.project.bin.set_state(gst.STATE_PAUSED)
+		r=self.project.bin.seek( 1.0, gst.FORMAT_TIME, gst.SEEK_FLAG_FLUSH,
+			       gst.SEEK_TYPE_SET, long(pos * gst.SECOND), gst.SEEK_TYPE_NONE, 0 )
+		print pos,r
 	#_____________________________________________________________________
 	
 	def autoscroll(self, direction, xpos):
