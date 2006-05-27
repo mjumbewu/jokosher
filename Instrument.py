@@ -193,7 +193,7 @@ class Instrument(Monitored, CommandManaged):
 			self.input = "alsasrc device=default"
 
 		#Create event file based on timestamp
-		file = "%s_%d_%d.ogg"%(os.path.join(self.path, self.name), self.id, int(time.time()))
+		file = "%s_%d_%d.ogg"%(os.path.join(self.path, self.name.replace(" ", "_")), self.id, int(time.time()))
 		self.tmpe = Event(self)
 		self.tmpe.start = 0
 		self.tmpe.name = "Recorded audio"
@@ -205,8 +205,7 @@ class Instrument(Monitored, CommandManaged):
 		self.bin = gst.parse_launch(self.input + self.effects + self.output)
 		self.bin.set_state(gst.STATE_PLAYING)
 		gobject.idle_add(self.bin.elements)
-
-
+		
 	#_____________________________________________________________________
 
 	def stop(self):

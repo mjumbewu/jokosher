@@ -36,11 +36,13 @@ class Event(Monitored, CommandManaged):
 		self.isLoading = False		# True if the event is currently loading level data
 		self.loadingLength = 0
 		self.lastEnd = 0
-		if file:
-			self.CreateFilesource()
+				
+		#if file:
+		self.CreateFilesource()
 	#_____________________________________________________________________
 	
 	def CreateFilesource(self):	
+		print "create file source"
 		self.filesrc = gst.element_factory_make("gnlfilesource")
 		self.instrument.composition.add(self.filesrc)
 	#_____________________________________________________________________
@@ -288,9 +290,10 @@ class Event(Monitored, CommandManaged):
 	def GenerateWaveform(self):
 		""" Renders the level information for the GUI
 		"""
+		print self.file
 		pipe = """filesrc name=src location=%s ! decodebin ! audioconvert ! 
 		level interval=100000000 message=true ! 
-		progressreport name=prog silent=true update-freq=1 ! fakesink""" % self.file.replace(" ", "\ ")
+		progressreport name=prog silent=true update-freq=1 ! fakesink""" % self.file
 		self.bin = gst.parse_launch(pipe)
 
 		src = self.bin.get_by_name("src")
@@ -305,7 +308,6 @@ class Event(Monitored, CommandManaged):
 		self.isLoading = True
 
 		self.bin.set_state(gst.STATE_PLAYING)
-		
 		return	
 	#_____________________________________________________________________
 
