@@ -340,7 +340,7 @@ class Project(Monitored, CommandManaged):
 
 			gst.debug("Stop pressed, about to set state to PAUSED")
 
-			self.bin.set_state(gst.STATE_PAUSED)
+			self.bin.set_state(gst.STATE_NULL)
 			self.IsPlaying = False
 			
 			gst.debug("Stop pressed, state just set to PAUSED")
