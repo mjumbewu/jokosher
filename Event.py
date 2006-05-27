@@ -94,11 +94,8 @@ class Event(Monitored, CommandManaged):
 			
 			levelsXML = doc.createElement("Levels")
 			ev.appendChild(levelsXML)
-			
-			for level in self.levels:
-				e = doc.createElement("Level")
-				e.setAttribute("value", str(level))
-				levelsXML.appendChild(e)
+			stringList = map(str, self.levels)
+			levelsXML.setAttribute("value", ",".join(stringList))
 			
 	#_____________________________________________________________________
 			
@@ -138,10 +135,11 @@ class Event(Monitored, CommandManaged):
 			except IndexError:
 				print "No event levels in project file"
 				self.GenerateWaveform()
-			else:
-				for n in levelsXML.childNodes:
-					if n.nodeType == xml.Node.ELEMENT_NODE:
-						self.levels.append(float(n.getAttribute("value")))
+			else: 
+				if levelsXML.nodeType == xml.Node.ELEMENT_NODE:
+					value = str(levelsXML.getAttribute("value"))
+					self.levels = map(float, value.split(","))
+
 		self.CreateFilesource()
 		self.SetProperties()
 		
