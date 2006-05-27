@@ -23,6 +23,8 @@ class Instrument(Monitored, CommandManaged):
 		
 		self.project = project
 		
+		self.recordingbin = None
+		
 		self.path = ""
 		self.events = []				# List of events attached to this instrument
 		self.name = name				# Name of this instrument
@@ -43,7 +45,7 @@ class Instrument(Monitored, CommandManaged):
 		self.input = "alsasrc device=" + indevice
 		self.output = ""
 		self.effects = " ! "
-		self.bin = None
+		self.recordingbin = None
 		if id:
 			self.id = id				# Unique object ID
 		else:
@@ -59,45 +61,54 @@ class Instrument(Monitored, CommandManaged):
 		self.levelElement.set_property("peak-ttl", 0)
 		self.levelElement.set_property("peak-falloff", 20)
 
-		self.project.bin.add(self.volumeElement)
+		self.playbackbin = gst.element_factory_make("bin")
+
+		self.playbackbin.add(self.volumeElement)
 		print "added volume (instrument)"
 
-		self.project.bin.add(self.levelElement)
+		self.playbackbin.add(self.levelElement)
 		print "added level (instrument)"
 
-		self.project.bin.add(self.converterElement)
+		self.playbackbin.add(self.converterElement)
 		print "added audioconvert (instrument)"
 		
 		self.composition = gst.element_factory_make("gnlcomposition")
 
-		self.project.bin.add(self.composition)
+		self.playbackbin.add(self.composition)
 		print "added composition (instrument)"
 		
 		self.convert = gst.element_factory_make("audioconvert")
-		self.project.bin.add(self.convert)
+		self.playbackbin.add(self.convert)
 		print "added audioconvert (instrument)"
 		
 		self.resample = gst.element_factory_make("audioresample")
-		self.project.bin.add(self.resample)
+		self.playbackbin.add(self.resample)
 		print "added audioresample (instrument)"
 		
 
 		# link elements
 		
 		self.converterElement.link(self.volumeElement)
-		print "linked instrument audioconvert to instrument volume (project)"
+		print "linked instrument audioconvert to instrument volume"
 
 		self.volumeElement.link(self.levelElement)
-		print "linked instrument volume to instrument level (project)"
+		print "linked instrument volume to instrument level"
 
 		self.levelElement.link(self.convert)
-		print "linked instrument level to instrument convert (project)"
+		print "linked instrument level to instrument convert"
 		
 		self.convert.link(self.resample)
-		print "linked instrument convert to instrument resample (project)"
+		print "linked instrument convert to instrument resample"
 		
-		self.resample.link(self.project.adder)
-		print "linked instrument resample to adder (project)"
+		playghost = gst.GhostPad("src", self.resample.get_pad("src"))
+		self.playbackbin.add_pad(playghost)
+		print "created ghostpad for instrument playbackbin"
+	
+		self.project.playbackbin.add(self.playbackbin)
+		print "added instrument playbackbin to adder playbackbin"
+	
+		self.playbackbin.link(self.project.adder)
+		print "linked instrument playbackbin to adder (project)"
 
 		self.composition.connect("pad-added", self.project.newPad, self)
 		self.composition.connect("pad-removed", self.project.removePad, self)
@@ -189,6 +200,8 @@ class Instrument(Monitored, CommandManaged):
 	
 	def record(self):
 		'''Record to this instrument's temporary file.'''
+
+		gst.debug("instrument recording")
 		if self.input == "alsasrc device=value":
 			self.input = "alsasrc device=default"
 
@@ -202,19 +215,27 @@ class Instrument(Monitored, CommandManaged):
 		self.output = "audioconvert ! vorbisenc ! oggmux ! filesink location=" + file
 		print "Using pipeline:", self.input + self.effects + self.output
 
-		self.bin = gst.parse_launch(self.input + self.effects + self.output)
-		self.bin.set_state(gst.STATE_PLAYING)
-		gobject.idle_add(self.bin.elements)
+		self.recordingbin = gst.parse_launch("bin.( " + self.input + self.effects + self.output + " )")
+		#print self.recordingbin
+		#We remove this instrument's playbin from the project so it doesn't try to record and play from the same file
+		self.playbackbin.unlink(self.project.adder)
+		self.project.playbackbin.remove(self.playbackbin)
+		self.project.mainpipeline.add(self.recordingbin)
 		
 	#_____________________________________________________________________
 
 	def stop(self):
-		if self.bin:
+		if self.recordingbin:
 			print "instrument stop"
-			self.bin.set_state(gst.STATE_NULL)
+			self.project.mainpipeline.remove(self.recordingbin)
+			self.recordingbin.set_state(gst.STATE_NULL)
+			self.recordingbin = None
 			self.events.append(self.tmpe)
 			self.tmpe.GenerateWaveform()
 			self.temp = self.tmpe.id
+			#Relink playbackbin
+			self.project.playbackbin.add(self.playbackbin)
+			self.playbackbin.link(self.project.adder)
 			self.StateChanged()
 			
 	#_____________________________________________________________________

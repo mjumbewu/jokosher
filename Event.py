@@ -248,6 +248,7 @@ class Event(Monitored, CommandManaged):
 				end = st["endtime"] / 1000000000.
 				self.levels.append(DbToFloat(st["peak"][0]))
 				self.loadingLength = int(end)
+											
 				# Only send events every second processed to reduce GUI load
 				if self.loadingLength != self.lastEnd:
 					self.lastEnd = self.loadingLength 
@@ -269,7 +270,7 @@ class Event(Monitored, CommandManaged):
 			# We're done with the bin so release it
 			self.bin.set_state(gst.STATE_NULL)
 			self.isLoading = False
-			
+
 			# Signal to interested objects that we've changed
 			self.StateChanged()
 			return False
@@ -288,7 +289,7 @@ class Event(Monitored, CommandManaged):
 	def GenerateWaveform(self):
 		""" Renders the level information for the GUI
 		"""
-		print self.file
+		
 		pipe = """filesrc name=src location=%s ! decodebin ! audioconvert ! 
 		level interval=100000000 message=true ! 
 		progressreport name=prog silent=true update-freq=1 ! fakesink""" % self.file
@@ -306,6 +307,7 @@ class Event(Monitored, CommandManaged):
 		self.isLoading = True
 
 		self.bin.set_state(gst.STATE_PLAYING)
+
 		return	
 	#_____________________________________________________________________
 

@@ -115,7 +115,7 @@ class Project(Monitored, CommandManaged):
 		# the name of the project file, complete with path
 		self.projectfile = ""
 		
-		self.bin = None
+		self.mainpipeline = None
 		
 		#mode for transport manager that hasn't been initialized yet
 		self.transportMode = TransportManager.TransportManager.MODE_BARS_BEATS
@@ -149,15 +149,17 @@ class Project(Monitored, CommandManaged):
 		
 		self.RedrawTimeLine = False
 
-		self.bin = gst.Pipeline("timeline")
+		self.mainpipeline = gst.Pipeline("timeline")
 		print "created pipeline (project)"
 		
+		self.playbackbin = gst.Bin("playbackbin")
+		
 		self.adder = gst.element_factory_make("adder")
-		self.bin.add(self.adder)
+		self.playbackbin.add(self.adder)
 		print "added adder (project)"
 
 		self.convert = gst.element_factory_make("audioconvert")
-		self.bin.add(self.convert)
+		self.playbackbin.add(self.convert)
 		# need to restrict the format on adder's output
 		caps = gst.caps_from_string ("audio/x-raw-int,"
 		    "rate=44100,channels=2,endianness=1234,width=16,depth=16,signed=(boolean)true")
@@ -167,7 +169,7 @@ class Project(Monitored, CommandManaged):
 		self.level = gst.element_factory_make("level", "MasterLevel")
 		self.level.set_property("interval", gst.SECOND / 50)
 		self.level.set_property("message", True)
-		self.bin.add(self.level)
+		self.playbackbin.add(self.level)
 		print "added master level (project)"
 
 		self.convert.link(self.level)
@@ -182,14 +184,15 @@ class Project(Monitored, CommandManaged):
 			outdevice = "default"
 		self.out.set_property("device", outdevice)
 
-		self.bin.add(self.out)
+		self.playbackbin.add(self.out)
 		print "added alsasink (project)"
 
 		self.level.link(self.out)
-		self.bus = self.bin.get_bus()
+		self.bus = self.mainpipeline.get_bus()
 		self.bus.add_signal_watch()
 		self.bus.connect("message::element", self.bus_message)
-
+		
+		self.mainpipeline.add(self.playbackbin)
 
 		# [DEBUG]
 		# This debug block will be removed when we release. If you see this in a release version, we
@@ -217,6 +220,20 @@ class Project(Monitored, CommandManaged):
 		for instr in self.instruments:
 			if instr.isArmed:
 				instr.record()
+		
+		self.mainpipeline.set_state(gst.STATE_PLAYING)				
+		self.IsPlaying = True
+
+		# [DEBUG]
+		# This debug block will be removed when we release. If you see this in a release version, we
+		# obviously suck. Please email us and tell us about how shit we are.
+		try:
+			if os.environ['JOKOSHER_DEBUG']:
+				print "Play Pipeline:"
+				self.debug.ShowPipelineTree(self.mainpipeline)
+		except:
+			pass
+		# [/DEBUG]
 				
 	#_____________________________________________________________________
 				
@@ -231,14 +248,14 @@ class Project(Monitored, CommandManaged):
 					encode = gst.element_factory_make("vorbisenc")
 					encode.set_property("quality", 1);
 					mux = gst.element_factory_make("oggmux")
-					self.bin.add(mux)
+					self.mainpipeline.add(mux)
 				elif filename[-3:] == "mp3":
 					encode = gst.element_factory_make("lame")
 				else:
 					print "Unknown filetype for export"
 					self.stop()
 					return
-				self.bin.add(encode)
+				self.mainpipeline.add(encode)
 				convert.link(encode)
 				if filename[-3:] == "ogg":
 					encode.link(mux)
@@ -252,7 +269,7 @@ class Project(Monitored, CommandManaged):
 			gst.debug("Play pressed, about to set state to PLAYING")
 			
 			# And set it going
-			self.bin.set_state(gst.STATE_PLAYING)
+			self.mainpipeline.set_state(gst.STATE_PLAYING)
 			self.IsPlaying = True
 
 			gst.debug("just set state to PLAYING")
@@ -263,7 +280,7 @@ class Project(Monitored, CommandManaged):
 			try:
 				if os.environ['JOKOSHER_DEBUG']:
 					print "Play Pipeline:"
-					self.debug.ShowPipelineTree(self.bin)
+					self.debug.ShowPipelineTree(self.mainpipeline)
 			except:
 				pass
 			# [/DEBUG]
@@ -285,7 +302,9 @@ class Project(Monitored, CommandManaged):
 						if instr.id == id:
 							instr.SetLevel(DbToFloat(st["decay"][0]))
 							break
+
 		return True
+
 
 	#_____________________________________________________________________
 				
@@ -328,7 +347,7 @@ class Project(Monitored, CommandManaged):
 		for instr in self.instruments:
 			instr.stop()
 
-		if self.bin:
+		if self.mainpipeline:
 			#self.bin.remove(instr.converterElement)
 			#print "removed instrument audioconvert (project)"
 			
@@ -340,7 +359,7 @@ class Project(Monitored, CommandManaged):
 
 			gst.debug("Stop pressed, about to set state to PAUSED")
 
-			self.bin.set_state(gst.STATE_NULL)
+			self.mainpipeline.set_state(gst.STATE_NULL)
 			self.IsPlaying = False
 			
 			gst.debug("Stop pressed, state just set to PAUSED")
@@ -352,7 +371,7 @@ class Project(Monitored, CommandManaged):
 			try:
 				if os.environ['JOKOSHER_DEBUG']:
 					print "Play Pipeline:"
-					self.debug.ShowPipelineTree(self.bin)
+					self.debug.ShowPipelineTree(self.mainpipeline)
 			except:
 				pass
 			# [/DEBUG]
