@@ -68,7 +68,7 @@ class NewProjectDialog:
 					"A folder with that name already exists.\n" +
 					"Are you sure you want to overwrite it?")
 			response = dlg.run()
-			if response == gtk.RESPONSE_NO:
+			if response == gtk.RESPONSE_NO or response == gtk.RESPONSE_DELETE_EVENT:
 				dlg.destroy()
 				return
 			elif response == gtk.RESPONSE_YES:

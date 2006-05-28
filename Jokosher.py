@@ -462,7 +462,7 @@ class MainApp:
 				self.OnSaveProject()
 			elif response == gtk.RESPONSE_NO:
 				pass
-			elif response == gtk.RESPONSE_CANCEL:
+			elif response == gtk.RESPONSE_CANCEL or response == gtk.RESPONSE_DELETE_EVENT:
 				return 1
 				
 		self.project.closeProject()
