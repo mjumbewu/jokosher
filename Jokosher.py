@@ -321,11 +321,14 @@ class MainApp:
 		
 	#_____________________________________________________________________
 	
-	def OnPreferences(self, widget):
+	def OnPreferences(self, widget, destroyCallback=None):
 		if (self.project):
 			prefsdlg = PreferencesDialog.PreferencesDialog(self.project, self.UpdateDisplay, self.icon)
 		else:
 			prefsdlg = PreferencesDialog.PreferencesDialog(self.project, None, self.icon)
+			
+		if destroyCallback:
+			prefsdlg.dlg.connect("destroy", destroyCallback)
 	
 	#_____________________________________________________________________
 	
@@ -359,7 +362,7 @@ class MainApp:
 		
 	#_____________________________________________________________________
 
-	def OnOpenProject(self, widget):
+	def OnOpenProject(self, widget, destroyCallback=None):
 		
 		chooser = gtk.FileChooserDialog(('Choose a Jokosher project file'), None, gtk.FILE_CHOOSER_ACTION_OPEN, (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, gtk.STOCK_OPEN, gtk.RESPONSE_OK))
 		chooser.set_default_response(gtk.RESPONSE_OK)
@@ -375,26 +378,34 @@ class MainApp:
 		chooser.add_filter(jokfilter)
 		chooser.add_filter(allfilter)
 		
-		response = chooser.run()
+		if destroyCallback:
+			chooser.connect("destroy", destroyCallback)
 		
-		if response == gtk.RESPONSE_OK:
+		while True:
+			response = chooser.run()
 			
-			filename = chooser.get_filename()
-			chooser.destroy()
-			try:
-				self.SetProject(Project.LoadFromFile(filename))
-			except Project.OpenProjectError:
-				dlg = gtk.MessageDialog(self.window,
-					gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
-					gtk.MESSAGE_ERROR,
-					gtk.BUTTONS_OK,
-					"The project file could not be opened.\n")
-				dlg.run()
-				dlg.destroy()
-				return
-			
-		elif response == gtk.RESPONSE_CANCEL:
-			chooser.destroy()
+			if response == gtk.RESPONSE_OK:
+				
+				filename = chooser.get_filename()
+				
+				try:
+					self.SetProject(Project.LoadFromFile(filename))
+				except Project.OpenProjectError:
+					dlg = gtk.MessageDialog(chooser,
+						gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
+						gtk.MESSAGE_ERROR,
+						gtk.BUTTONS_OK,
+						"The project file could not be opened.\n")
+					dlg.set_icon(self.icon)
+					dlg.run()
+					dlg.destroy()
+				else:
+					break
+				
+			elif response == gtk.RESPONSE_CANCEL or response == gtk.RESPONSE_DELETE_EVENT:
+				break
+		
+		chooser.destroy()
 		
 	#_____________________________________________________________________
 		
@@ -406,9 +417,11 @@ class MainApp:
 			
 	#_____________________________________________________________________
 
-	def OnNewProject(self, widget):
+	def OnNewProject(self, widget, destroyCallback=None):
 		""" Creates and shows the 'New Project' dialog box """
 		newdlg = NewProjectDialog.NewProjectDialog(self)
+		if destroyCallback:
+			newdlg.dlg.connect("destroy", destroyCallback)
 		
 	#_____________________________________________________________________
 		

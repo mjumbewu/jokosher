@@ -69,27 +69,28 @@ class WelcomeDialog:
 	#_____________________________________________________________________
 	
 	def OnNewProject(self, widget):
-		self.window.destroy()
-		self.mainwindow.OnNewProject(self)
+		self.window.hide()
+		self.mainwindow.OnNewProject(self, self.OnDialogClose)
 	
 	#_____________________________________________________________________
 			
 	def OnOpenProject(self, button=None):
-		self.window.destroy()
-		self.mainwindow.OnOpenProject(self)
+		self.window.hide()
+		self.mainwindow.OnOpenProject(self, self.OnDialogClose)
 		
 	#_____________________________________________________________________
 	
 	def OnPreferences(self, button):
 		self.window.hide()
-		pref = PreferencesDialog.PreferencesDialog(None, None, self.mainwindow.icon)
-		pref.dlg.connect("destroy", self.OnPreferencesDialogClose)
-		pref.dlg.set_transient_for(self.mainwindow.window)
+		self.mainwindow.OnPreferences(self, self.OnDialogClose)
 		
 	#_____________________________________________________________________
  
-	def OnPreferencesDialogClose(self, dialog=None):
-		self.window.show_all()
+	def OnDialogClose(self, dialog=None):
+		if self.mainwindow.project:
+			self.window.destroy()
+		else:
+			self.window.show_all()
 		
 	#_____________________________________________________________________
 
