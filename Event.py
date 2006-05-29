@@ -32,13 +32,15 @@ class Event(Monitored, CommandManaged):
 		else:
 			self.id = Project.GenerateUniqueID()
 		self.instrument = instrument	# The parent instrument
+		
 		self.offset = 0.0			# Offset through the file in seconds
 		self.isLoading = False		# True if the event is currently loading level data
 		self.loadingLength = 0
 		self.lastEnd = 0
 				
-		#if file:
-		self.CreateFilesource()
+		if self.instrument:
+			self.instrumentID = instrument.id
+			self.CreateFilesource()
 	#_____________________________________________________________________
 	
 	def CreateFilesource(self):	
@@ -60,31 +62,21 @@ class Event(Monitored, CommandManaged):
 
 	#_____________________________________________________________________
 
-	def StoreToXML(self, doc, parent):
-		ev = doc.createElement("Event")
+	def StoreToXML(self, doc, parent, graveyard=False):
+		if graveyard:
+			ev = doc.createElement("DeadEvent")
+		else:
+			ev = doc.createElement("Event")
 		parent.appendChild(ev)
 		
 		params = doc.createElement("Parameters")
 		ev.appendChild(params)
 		
-		items = ["id", "start", "duration", "colour", "isSelected", 
+		items = ["id", "instrumentID", "start", "duration", "colour", "isSelected", 
 				  "name", "offset", "file"
 				]
 		
-		for i in items:
-			node = doc.createElement(i)
-			
-			if type(getattr(self, i)) == int:
-				node.setAttribute("type", "int")
-			elif type(getattr(self, i)) == float:
-				node.setAttribute("type", "float")
-			elif type(getattr(self, i)) == bool:
-				node.setAttribute("type", "bool")
-			else:
-				node.setAttribute("type", "str")
-			
-			node.setAttribute("value", str(getattr(self, i)))
-			params.appendChild(node)
+		StoreParametersToXML(self, doc, params, items)
 		
 		if self.levels:
 			modified = doc.createElement("FileLastModified")
@@ -102,19 +94,7 @@ class Event(Monitored, CommandManaged):
 	def LoadFromXML(self, node):
 		params = node.getElementsByTagName("Parameters")[0]
 		
-		for n in params.childNodes:
-			if n.nodeType == xml.Node.ELEMENT_NODE:
-				if n.getAttribute("type") == "int":
-					setattr(self, n.tagName, int(n.getAttribute("value")))
-				elif n.getAttribute("type") == "float":
-					setattr(self, n.tagName, float(n.getAttribute("value")))
-				elif n.getAttribute("type") == "bool":
-					if n.getAttribute("value") == "True":
-						setattr(self, n.tagName, True)
-					elif n.getAttribute("value") == "False":
-						setattr(self, n.tagName, False)
-				else:
-					setattr(self, n.tagName, n.getAttribute("value"))
+		LoadParametersFromXML(self, params)
 		
 		fileModified = True
 		try:
@@ -139,9 +119,10 @@ class Event(Monitored, CommandManaged):
 				if levelsXML.nodeType == xml.Node.ELEMENT_NODE:
 					value = str(levelsXML.getAttribute("value"))
 					self.levels = map(float, value.split(","))
-
-		self.CreateFilesource()
-		self.SetProperties()
+		
+		if self.instrument:
+			self.CreateFilesource()
+			self.SetProperties()
 		
 	#_____________________________________________________________________
 		
@@ -232,10 +213,14 @@ class Event(Monitored, CommandManaged):
 		"""
 			undo : Delete()
 		"""
+		project = Project.GlobalProjectObject
+		if self in project.graveyard:
+			self.instrument = [x for x in project.instruments if x.id == self.instrumentID][0]
+			self.CreateFilesource()
+			self.SetProperties()
 		
-		event = [x for x in Project.GlobalProjectObject.graveyard if x.id == self.id][0]
-		self.instrument.events.append(event)
-		Project.GlobalProjectObject.graveyard.remove(event)
+			self.instrument.events.append(self)
+			project.graveyard.remove(self)
 		
 	#______________________________________________________________________
 				

@@ -8,6 +8,7 @@ import gst
 import os
 import time
 from Monitored import *
+from Utils import *
 import gobject
 import AddInstrumentDialog
 import Globals
@@ -123,8 +124,11 @@ class Instrument(Monitored, CommandManaged):
 		
 	#_____________________________________________________________________
 		
-	def StoreToXML(self, doc, parent):
-		ins = doc.createElement("Instrument")
+	def StoreToXML(self, doc, parent, graveyard=False):
+		if graveyard:
+			ins = doc.createElement("DeadInstrument")
+		else:
+			ins = doc.createElement("Instrument")
 		parent.appendChild(ins)
 		
 		items = ["id", "path", "name", "isArmed", 
@@ -134,20 +138,7 @@ class Instrument(Monitored, CommandManaged):
 		params = doc.createElement("Parameters")
 		ins.appendChild(params)
 		
-		for i in items:
-			node = doc.createElement(i)
-			
-			if type(getattr(self, i)) == int:
-				node.setAttribute("type", "int")
-			elif type(getattr(self, i)) == float:
-				node.setAttribute("type", "float")
-			elif type(getattr(self, i)) == bool:
-				node.setAttribute("type", "bool")
-			else:
-				node.setAttribute("type", "str")
-			
-			node.setAttribute("value", str(getattr(self, i)))
-			params.appendChild(node)
+		StoreParametersToXML(self, doc, params, items)
 			
 		for e in self.events:
 			e.StoreToXML(doc, ins)
@@ -158,19 +149,7 @@ class Instrument(Monitored, CommandManaged):
 		
 		params = node.getElementsByTagName("Parameters")[0]
 		
-		for n in params.childNodes:
-			if n.nodeType == xml.Node.ELEMENT_NODE:
-				if n.getAttribute("type") == "int":
-					setattr(self, n.tagName, int(n.getAttribute("value")))
-				elif n.getAttribute("type") == "float":
-					setattr(self, n.tagName, float(n.getAttribute("value")))
-				elif n.getAttribute("type") == "bool":
-					if n.getAttribute("value") == "True":
-						setattr(self, n.tagName, True)
-					elif n.getAttribute("value") == "False":
-						setattr(self, n.tagName, False)
-				else:
-					setattr(self, n.tagName, n.getAttribute("value"))
+		LoadParametersFromXML(self, params)
 					
 		events = node.getElementsByTagName("Event")
 		for ev in events:

@@ -44,19 +44,8 @@ def LoadFromFile(file):
 	p.projectfile = file
 	
 	params = doc.getElementsByTagName("Parameters")[0]
-	for n in params.childNodes:
-		if n.nodeType == xml.Node.ELEMENT_NODE:
-			if n.getAttribute("type") == "int":
-				setattr(p, n.tagName, int(n.getAttribute("value")))
-			elif n.getAttribute("type") == "float":
-				setattr(p, n.tagName, float(n.getAttribute("value")))
-			elif n.getAttribute("type") == "bool":
-				if n.getAttribute("value") == "True":
-					setattr(p, n.tagName, True)
-				elif n.getAttribute("value") == "False":
-					setattr(p, n.tagName, False)
-			else:
-				setattr(p, n.tagName, n.getAttribute("value"))
+	
+	LoadParametersFromXML(p, params)
 	
 	try:
 		undo = doc.getElementsByTagName("Undo")[0]
@@ -82,7 +71,16 @@ def LoadFromFile(file):
 		p.instruments.append(i)
 		if i.isSolo:
 			p.soloInstrCount += 1
-		
+	
+	for instr in doc.getElementsByTagName("DeadInstrument"):
+		i = Instrument(p, None, None, None)
+		i.LoadFromXML(instr)
+		p.graveyard.append(i)
+	
+	for event in doc.getElementsByTagName("DeadEvent"):
+		e = Event(None)
+		e.LoadFromXML(event)
+		p.graveyard.append(e)
 
 	p.startTransportThread()
 	return p
@@ -414,18 +412,7 @@ class Project(Monitored, CommandManaged):
 		
 		items = ["viewScale", "viewStart", "name", "author", "transportMode"]
 		
-		for i in items:
-			e = doc.createElement(i)
-			if type(getattr(self, i)) == int:
-				e.setAttribute("type", "int")
-			elif type(getattr(self, i)) == float:
-				e.setAttribute("type", "float")
-			elif type(getattr(self, i)) == bool:
-				e.setAttribute("type", "bool")
-			else:
-				e.setAttribute("type", "str")
-			e.setAttribute("value", str(getattr(self, i)))
-			params.appendChild(e)
+		StoreParametersToXML(self, doc, params, items)
 			
 		undo = doc.createElement("Undo")
 		head.appendChild(undo)
@@ -443,6 +430,9 @@ class Project(Monitored, CommandManaged):
 			
 		for i in self.instruments:
 			i.StoreToXML(doc, head)
+			
+		for i in self.graveyard:
+			i.StoreToXML(doc, head, graveyard=True)
 			
 		f = gzip.GzipFile(path, "w")
 		f.write(doc.toprettyxml())
