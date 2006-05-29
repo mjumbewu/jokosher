@@ -78,10 +78,6 @@ class Instrument(Monitored, CommandManaged):
 		self.playbackbin.add(self.composition)
 		print "added composition (instrument)"
 		
-		self.convert = gst.element_factory_make("audioconvert")
-		self.playbackbin.add(self.convert)
-		print "added audioconvert (instrument)"
-		
 		self.resample = gst.element_factory_make("audioresample")
 		self.playbackbin.add(self.resample)
 		print "added audioresample (instrument)"
@@ -95,11 +91,8 @@ class Instrument(Monitored, CommandManaged):
 		self.volumeElement.link(self.levelElement)
 		print "linked instrument volume to instrument level"
 
-		self.levelElement.link(self.convert)
-		print "linked instrument level to instrument convert"
-		
-		self.convert.link(self.resample)
-		print "linked instrument convert to instrument resample"
+		self.levelElement.link(self.resample)
+		print "linked instrument level to instrument resample"
 		
 		playghost = gst.GhostPad("src", self.resample.get_pad("src"))
 		self.playbackbin.add_pad(playghost)

@@ -156,21 +156,16 @@ class Project(Monitored, CommandManaged):
 		self.playbackbin.add(self.adder)
 		print "added adder (project)"
 
-		self.convert = gst.element_factory_make("audioconvert")
-		self.playbackbin.add(self.convert)
-		# need to restrict the format on adder's output
-		caps = gst.caps_from_string ("audio/x-raw-int,"
-		    "rate=44100,channels=2,endianness=1234,width=16,depth=16,signed=(boolean)true")
-		self.adder.link(self.convert, caps)
-		print "added audioconvert (project)"
-
 		self.level = gst.element_factory_make("level", "MasterLevel")
 		self.level.set_property("interval", gst.SECOND / 50)
 		self.level.set_property("message", True)
 		self.playbackbin.add(self.level)
 		print "added master level (project)"
 
-		self.convert.link(self.level)
+		#Restrict adder's output caps due to adder bug
+		caps = gst.caps_from_string ("audio/x-raw-int,"
+			"rate=44100,channels=2,endianness=1234,width=16,depth=16,signed=(boolean)true")
+		self.adder.link(self.level, caps)
 
 		self.out = gst.element_factory_make("alsasink")
 		
@@ -219,8 +214,9 @@ class Project(Monitored, CommandManaged):
 			if instr.isArmed:
 				instr.record()
 		
-		self.mainpipeline.set_state(gst.STATE_PLAYING)				
-		self.IsPlaying = True
+		self.mainpipeline.set_state(gst.STATE_PAUSED)				
+		self.bus.connect("message::state-changed", self.state_changed)
+		#self.IsPlaying = True
 
 		# [DEBUG]
 		# This debug block will be removed when we release. If you see this in a release version, we
@@ -233,6 +229,18 @@ class Project(Monitored, CommandManaged):
 			pass
 		# [/DEBUG]
 				
+	#_____________________________________________________________________
+
+	def state_changed(self, bus, message):
+		old, new, pending = self.mainpipeline.get_state(0)
+		#Move forward to playing when we reach paused (check pending to make sure this is the final destination)
+		#print "State changed from: ", old, " to ", new, " pending ", pending
+		if new == gst.STATE_PAUSED and pending == gst.STATE_VOID_PENDING and self.IsPlaying == False:
+			print "--- STARTING HERE ---"
+			self.mainpipeline.set_state(gst.STATE_PLAYING)
+			self.IsPlaying = True
+			
+
 	#_____________________________________________________________________
 				
 	def play(self, export=False, filename=None):
