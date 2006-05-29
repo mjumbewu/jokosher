@@ -215,8 +215,7 @@ class Project(Monitored, CommandManaged):
 				instr.record()
 		
 		self.mainpipeline.set_state(gst.STATE_PAUSED)				
-		self.bus.connect("message::state-changed", self.state_changed)
-		#self.IsPlaying = True
+		self.state_id = self.bus.connect("message::state-changed", self.state_changed)
 
 		# [DEBUG]
 		# This debug block will be removed when we release. If you see this in a release version, we
@@ -234,9 +233,8 @@ class Project(Monitored, CommandManaged):
 	def state_changed(self, bus, message):
 		old, new, pending = self.mainpipeline.get_state(0)
 		#Move forward to playing when we reach paused (check pending to make sure this is the final destination)
-		#print "State changed from: ", old, " to ", new, " pending ", pending
 		if new == gst.STATE_PAUSED and pending == gst.STATE_VOID_PENDING and self.IsPlaying == False:
-			print "--- STARTING HERE ---"
+			bus.disconnect(self.state_id)
 			self.mainpipeline.set_state(gst.STATE_PLAYING)
 			self.IsPlaying = True
 			
