@@ -53,42 +53,25 @@ class JokDebug:
 
         print self.DEBUG_PREFIX + finalpipe
 
-    def ShowPipelineTree(self, pipeline):
+    def ShowPipelineTree(self, pipeline, recurseDepth = 0, maxDepth = 3):
         '''Display a tree of pipeline elements and their children'''
+        if recurseDepth > maxDepth:
+            return
 
-        pipechildren = []
+        if recurseDepth == 0:
+            print self.DEBUG_PREFIX + "PIPELINE END"
 
-        pipe = pipeline.sorted()
-
-        pipelinechildren = []
-        finalpipe = ""
-
-        print self.DEBUG_PREFIX + "PIPELINE END"
         for element in pipeline.sorted():
             try:
-                childelements = element.elements()
-                print self.DEBUG_PREFIX + element.get_factory().get_name()
+                print self.DEBUG_PREFIX,
+                for i in range(recurseDepth):
+                    print "\t",
+                print element.get_factory().get_name() + ": " + element.get_name()
 
-                for el in childelements:
-                    print self.DEBUG_PREFIX + "\t" + el.get_factory().get_name()
-
-                    try:
-                        grandchildelements = el.elements()
-                        
-                        for gel in grandchildelements:
-                            print self.DEBUG_PREFIX + "\t\t" + gel.get_factory().get_name()
-
-                            try:
-                                grgrandchildelements = gel.elements()
-                        
-                                for gel in grgrandchildelements:
-                                    print self.DEBUG_PREFIX + "\t\t\t" + gel.get_factory().get_name()
-                            except:
-                                pass     
-                    except:
-                        pass
+                self.ShowPipelineTree(element, recurseDepth+1, maxDepth)
             except:
-                print self.DEBUG_PREFIX + element.get_factory().get_name()
+                pass
 
-        print self.DEBUG_PREFIX + "PIPELINE START"
+        if recurseDepth == 0:
+            print self.DEBUG_PREFIX + "PIPELINE START"
                 
