@@ -62,7 +62,7 @@ class Instrument(Monitored, CommandManaged):
 		self.levelElement.set_property("peak-ttl", 0)
 		self.levelElement.set_property("peak-falloff", 20)
 
-		self.playbackbin = gst.element_factory_make("bin")
+		self.playbackbin = gst.element_factory_make("bin", "Instrument_%d"%self.id)
 
 		self.playbackbin.add(self.volumeElement)
 		print "added volume (instrument)"

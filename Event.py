@@ -32,21 +32,25 @@ class Event(Monitored, CommandManaged):
 		else:
 			self.id = Project.GenerateUniqueID()
 		self.instrument = instrument	# The parent instrument
+		self.filesrc = None
 		
 		self.offset = 0.0			# Offset through the file in seconds
 		self.isLoading = False		# True if the event is currently loading level data
 		self.loadingLength = 0
 		self.lastEnd = 0
-				
+		
 		if self.instrument:
 			self.instrumentID = instrument.id
-			self.CreateFilesource()
+		self.CreateFilesource()
 	#_____________________________________________________________________
 	
 	def CreateFilesource(self):	
 		print "create file source"
-		self.filesrc = gst.element_factory_make("gnlfilesource")
-		self.instrument.composition.add(self.filesrc)
+		if self.instrument and not self.filesrc:
+			self.filesrc = gst.element_factory_make("gnlfilesource", "Event_%d"%self.id)
+			self.instrument.composition.add(self.filesrc)
+		if self.file:
+			self.SetProperties()
 	#_____________________________________________________________________
 		
 	def SetProperties(self):
@@ -121,8 +125,8 @@ class Event(Monitored, CommandManaged):
 					self.levels = map(float, value.split(","))
 		
 		if self.instrument:
-			self.CreateFilesource()
-			self.SetProperties()
+			self.instrumentID = self.instrument.id
+		self.CreateFilesource()
 		
 	#_____________________________________________________________________
 		
@@ -206,6 +210,8 @@ class Event(Monitored, CommandManaged):
 		
 		Project.GlobalProjectObject.graveyard.append(self)
 		self.instrument.events.remove(self)
+		self.instrument.composition.remove(self.filesrc)
+		self.filesrc = None
 
 	#_____________________________________________________________________
 	
@@ -217,7 +223,6 @@ class Event(Monitored, CommandManaged):
 		if self in project.graveyard:
 			self.instrument = [x for x in project.instruments if x.id == self.instrumentID][0]
 			self.CreateFilesource()
-			self.SetProperties()
 		
 			self.instrument.events.append(self)
 			project.graveyard.remove(self)
