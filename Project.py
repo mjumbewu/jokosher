@@ -595,9 +595,8 @@ class Project(Monitored, CommandManaged):
 		'''
 		
 		instr = [x for x in self.instruments if x.id == id][0]
-		#remove instrument from the pipeline
-		instr.playbackbin.unlink(self.adder)
-		self.playbackbin.remove(instr.playbackbin)
+		
+		instr.RemoveAndUnlinkPlaybackbin()
 		
 		self.graveyard.append(instr)
 		self.instruments.remove(instr)
@@ -614,9 +613,8 @@ class Project(Monitored, CommandManaged):
 			undo : DeleteInstrument(%(temp)d)
 		'''
 		instr = [x for x in self.graveyard if x.id == id][0]
-		#re-add the instrument to the pipeline
-		self.playbackbin.add(instr.playbackbin)
-		instr.playbackbin.link(self.adder)
+		
+		instr.AddAndLinkPlaybackbin()
 		
 		self.instruments.append(instr)
 		if instr.isSolo:

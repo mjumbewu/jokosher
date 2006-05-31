@@ -94,15 +94,11 @@ class Instrument(Monitored, CommandManaged):
 		self.levelElement.link(self.resample)
 		print "linked instrument level to instrument resample"
 		
-		playghost = gst.GhostPad("src", self.resample.get_pad("src"))
-		self.playbackbin.add_pad(playghost)
+		self.playghostpad = gst.GhostPad("src", self.resample.get_pad("src"))
+		self.playbackbin.add_pad(self.playghostpad)
 		print "created ghostpad for instrument playbackbin"
 	
-		self.project.playbackbin.add(self.playbackbin)
-		print "added instrument playbackbin to adder playbackbin"
-	
-		self.playbackbin.link(self.project.adder)
-		print "linked instrument playbackbin to adder (project)"
+		self.AddAndLinkPlaybackbin()
 
 		self.composition.connect("pad-added", self.project.newPad, self)
 		self.composition.connect("pad-removed", self.project.removePad, self)
@@ -190,8 +186,7 @@ class Instrument(Monitored, CommandManaged):
 		self.recordingbin = gst.parse_launch("bin.( " + self.input + self.effects + self.output + " )")
 		#print self.recordingbin
 		#We remove this instrument's playbin from the project so it doesn't try to record and play from the same file
-		self.playbackbin.unlink(self.project.adder)
-		self.project.playbackbin.remove(self.playbackbin)
+		self.RemoveAndUnlinkPlaybackbin()
 		self.project.mainpipeline.add(self.recordingbin)
 		
 	#_____________________________________________________________________
@@ -206,8 +201,7 @@ class Instrument(Monitored, CommandManaged):
 			self.tmpe.GenerateWaveform()
 			self.temp = self.tmpe.id
 			#Relink playbackbin
-			self.project.playbackbin.add(self.playbackbin)
-			self.playbackbin.link(self.project.adder)
+			self.AddAndLinkPlaybackbin()
 			self.StateChanged()
 			
 	#_____________________________________________________________________
@@ -398,6 +392,31 @@ class Instrument(Monitored, CommandManaged):
 			self.actuallyIsMuted = True
 		else:
 			self.actuallyIsMuted = False
+	
+	#_____________________________________________________________________
+	
+	def AddAndLinkPlaybackbin(self):
+		if not self.playbackbin in list(self.project.playbackbin.elements()):
+			self.project.playbackbin.add(self.playbackbin)
+			print "added instrument playbackbin to adder playbackbin"
+		if not self.playghostpad.get_peer():
+			self.playbackbin.link(self.project.adder)
+			print "linked instrument playbackbin to adder (project)"
+
+	#_____________________________________________________________________
+	
+	def RemoveAndUnlinkPlaybackbin(self):
+		#get reference to pad before removing self.playbackbin from project.playbackbin!
+		pad = self.playghostpad.get_peer()
+		
+		if self.playbackbin in list(self.project.playbackbin.elements()):
+			self.project.playbackbin.remove(self.playbackbin)
+			print "removed instrument playbackbin from project playbackbin"
+		
+		if pad:
+			self.playbackbin.unlink(self.project.adder)
+			self.project.adder.release_request_pad(pad)
+			print "unlinked instrument playbackbin from adder"
 	
 	#_____________________________________________________________________
 #=========================================================================	
