@@ -378,7 +378,7 @@ class EventViewer(gtk.DrawingArea):
 				              self.project.viewScale)
 				if selection_direction == "ltor":
 					width = self.drawer.allocation.width
-					if width == 1: width = 20 # fudge it because it has no width initially
+					if width == 1: width = 40 # fudge it because it has no width initially
 					x = int(self.Selection[1] - width)
 					if self.drawer.parent == self.lane.fixed:
 						self.lane.fixed.remove(self.drawer)
