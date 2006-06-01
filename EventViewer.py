@@ -30,6 +30,7 @@ class EventViewer(gtk.DrawingArea):
 	_BACKGROUND_RGB = (1, 1, 1)
 	_TEXT_RGB = (0, 0, 0)
 	_SELECTED_RGBA = (0, 0, 1, 0.2)
+	_SELECTION_RGBA = (0, 0, 1, 0.5)
 	_PLAY_POSITION_RGB = (1, 0, 0)
 	_HIGHLIGHT_POSITION_RGB = (0, 0, 1)
 	
@@ -55,6 +56,10 @@ class EventViewer(gtk.DrawingArea):
 		self.event = event				# The event this widget is representing
 		self.project = project			# A reference to the open project
 		self.isDragging = False			# True if this event is currently being dragged
+		# Selections--marking part of the waveform. Don't confuse this with
+		# self.event.isSelected, which means the whole waveform is selected.
+		self.isSelecting = False		# True if a selection is currently being set
+		self.Selection = [0,0]			# Selection begin and end points
 		self.lane = lane				# The parent lane for this object
 		self.last_num_levels = 0		# Used to track if we need to resize the GUI object
 		self.isLoading = False			# Used to track if we need to update the GUI after loading a waveform
@@ -100,6 +105,16 @@ class EventViewer(gtk.DrawingArea):
 			context.rectangle(event.area.x, event.area.y,
 							  event.area.width, event.area.height)
 			context.set_source_rgba(*self._SELECTED_RGBA)
+			context.fill()
+		
+		# Overlay an extra rect if there is a selection
+		if self.Selection != [0,0]:
+			x1,x2 = self.Selection[:]
+			if x2 < x1:
+				x2,x1 = x1,x2
+			context.rectangle(event.area.x + x1, event.area.y,
+							  event.area.x + x2 - x1, event.area.height)
+			context.set_source_rgba(*self._SELECTION_RGBA)
 			context.fill()
 		
 		#Draw play position
@@ -247,6 +262,8 @@ class EventViewer(gtk.DrawingArea):
 			self.mouseAnchor = [x, y]
 			self.lane.Update(self)
 			self.highlightCursor = None
+		elif self.isSelecting:
+			self.Selection[1] = mouse.x
 		else:
 			self.highlightCursor = mouse.x
 		
@@ -256,52 +273,66 @@ class EventViewer(gtk.DrawingArea):
 	#_____________________________________________________________________
 	
 	def OnMouseDown(self, widget, mouse):
-	
-		# Check if control is being pressed
-		if 'GDK_CONTROL_MASK' in mouse.state.value_names:
-			control = True
-		else:
-			control = False
-
+		# Possible clicks to capture:
+		# LMB: deselect all events, remove any existing selection in this event,
+		#   select this event, begin moving the event
+		# LMB+shift: remove any existing selection in this event, begin 
+		#   selecting part of this event
+		# LMB+ctrl: select this event without deselecting other events
+		# RMB: context menu
+		
+		# RMB: context menu
 		if mouse.button == 3:
-			m = gtk.Menu()
-			items = [	("Split", self.OnSplit, True),
-						("Join", self.OnJoin, self.event.instrument.MultipleEventsSelected()),
-						("---", None, None),
-						("Delete", self.OnDelete, self.event.isSelected)
-					 ] 
-
-			for i, cb, sense in items: 
-				if i == "---":
-					a = gtk.SeparatorMenuItem()
-				else:
-					a = gtk.MenuItem(i)
-					if sense:
-						a.set_sensitive(True)
-					else:
-						a.set_sensitive(False)
-				a.show() 
-				m.append(a) 
-				if cb:
-					a.connect("activate", cb) 
-			self.highlightCursor = mouse.x
-			self.popupIsActive = True
-
-			m.popup(None, None, None, mouse.button, mouse.time)
-			m.connect("selection-done",self.OnMenuDone)
-			
-			self.mouseAnchor = [mouse.x, mouse.y]
-			
-		else:
-			self.isDragging = True
-			if not (control):
-				self.project.ClearEventSelections()
-				self.project.ClearInstrumentSelections()
-			self.event.SetSelected(True)
-			self.eventStart = self.event.start
-			ptr = gtk.gdk.display_get_default().get_pointer()
-			self.mouseAnchor = [ptr[1], ptr[2]]
+			self.ContextMenu(mouse)
+		elif mouse.button == 1:
+			if 'GDK_SHIFT_MASK' in mouse.state.value_names:
+				# LMB+shift: remove any existing selection in this event, begin 
+				#   selecting part of this event
+				self.isSelecting = True
+				self.Selection[0] = mouse.x
+			else:
+				# LMB: deselect all events, select this event, begin moving the event
+				# LMB+ctrl: select this event without deselecting other events
+				self.isDragging = True
+				self.Selection = [0,0]
+				if 'GDK_CONTROL_MASK' not in mouse.state.value_names:
+					self.project.ClearEventSelections()
+					self.project.ClearInstrumentSelections()
+				self.event.SetSelected(True)
+				self.eventStart = self.event.start
+				ptr = gtk.gdk.display_get_default().get_pointer()
+				self.mouseAnchor = [ptr[1], ptr[2]]
+	
 		return True
+
+	def ContextMenu(self,mouse):
+		m = gtk.Menu()
+		items = [	("Split", self.OnSplit, True),
+					("Join", self.OnJoin, self.event.instrument.MultipleEventsSelected()),
+					("---", None, None),
+					("Delete", self.OnDelete, self.event.isSelected)
+				 ] 
+
+		for i, cb, sense in items: 
+			if i == "---":
+				a = gtk.SeparatorMenuItem()
+			else:
+				a = gtk.MenuItem(i)
+				if sense:
+					a.set_sensitive(True)
+				else:
+					a.set_sensitive(False)
+			a.show() 
+			m.append(a) 
+			if cb:
+				a.connect("activate", cb) 
+		self.highlightCursor = mouse.x
+		self.popupIsActive = True
+
+		m.popup(None, None, None, mouse.button, mouse.time)
+		m.connect("selection-done",self.OnMenuDone)
+		
+		self.mouseAnchor = [mouse.x, mouse.y]
 			
 	#_____________________________________________________________________
 	
@@ -313,11 +344,18 @@ class EventViewer(gtk.DrawingArea):
 		
 	def OnMouseUp(self, widget, mouse):
 		
-		if mouse.button != 3:		
-			self.isDragging = False
-			if (self.eventStart != self.event.start):
-				self.event.Move(self.eventStart, self.event.start)
-				return False #need to pass this button release up to RecordingView
+		if mouse.button == 1:
+			if self.isDragging:		
+				self.isDragging = False
+				if (self.eventStart != self.event.start):
+					self.event.Move(self.eventStart, self.event.start)
+					return False #need to pass this button release up to RecordingView
+			elif self.isSelecting:
+				self.isSelecting = False
+				if self.Selection[0] > self.Selection[1]:
+				  self.Selection = [self.Selection[1], self.Selection[0]]
+				
+				
 	#_____________________________________________________________________
 		
 	def OnMouseLeave(self, widget, event):
