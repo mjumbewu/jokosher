@@ -88,6 +88,7 @@ class EventLaneViewer(gtk.EventBox):
 			# Get a list of the active EventViewer widgets
 			widgets = []
 			self.fixed.foreach(lambda x: widgets.append(x))
+			widgets = [x for x in widgets if type(x) == EventViewer]
 			
 			# Move them to the correct positions
 			for w in widgets:

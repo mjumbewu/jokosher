@@ -148,7 +148,8 @@ class Event(Monitored, CommandManaged):
 		'''
 			Splits this event at time offset split_point in seconds. If
 			id is specified, then the created event will be pulled from
-			the graveyard (for undo/redo compatibility).
+			the graveyard (for undo/redo compatibility). Returns the
+			newly created event, which is the one on the right (after the splitpoint).
 		
 			undo : Join(%(temp)d)
 		'''
@@ -168,6 +169,7 @@ class Event(Monitored, CommandManaged):
 			self.instrument.events.append(e)
 			self.temp = e.id
 			self.StateChanged()
+			return e
 		else:
 			event = [x for x in Project.GlobalProjectObject.graveyard if x.id == id][0]
 			self.instrument.events.append(event)

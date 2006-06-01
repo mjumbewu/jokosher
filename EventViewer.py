@@ -78,6 +78,13 @@ class EventViewer(gtk.DrawingArea):
 		# This defines where the blue cursor indicator should be drawn (in pixels)
 		self.highlightCursor = None
 		
+		self.drawer = gtk.HBox()
+		trimButton = gtk.Button("T")
+		self.drawer.add(trimButton)
+		trimButton.connect("clicked", self.TrimToSelection)
+		self.drawer.show()
+		
+		
 	#_____________________________________________________________________
 
 	def OnDraw(self, widget, event):
@@ -263,7 +270,7 @@ class EventViewer(gtk.DrawingArea):
 			self.lane.Update(self)
 			self.highlightCursor = None
 		elif self.isSelecting:
-			self.Selection[1] = mouse.x
+			self.Selection[1] = max(0,min(self.allocation.width,mouse.x))
 		else:
 			self.highlightCursor = mouse.x
 		
@@ -293,8 +300,11 @@ class EventViewer(gtk.DrawingArea):
 			else:
 				# LMB: deselect all events, select this event, begin moving the event
 				# LMB+ctrl: select this event without deselecting other events
-				self.isDragging = True
+				# remove any existing selection in this event
 				self.Selection = [0,0]
+				if self.drawer.parent == self.lane.fixed:
+					self.lane.fixed.remove(self.drawer)
+				self.isDragging = True
 				if 'GDK_CONTROL_MASK' not in mouse.state.value_names:
 					self.project.ClearEventSelections()
 					self.project.ClearInstrumentSelections()
@@ -352,8 +362,24 @@ class EventViewer(gtk.DrawingArea):
 					return False #need to pass this button release up to RecordingView
 			elif self.isSelecting:
 				self.isSelecting = False
+				selection_direction = "ltor"
 				if self.Selection[0] > self.Selection[1]:
-				  self.Selection = [self.Selection[1], self.Selection[0]]
+					self.Selection = [self.Selection[1], self.Selection[0]]
+					selection_direction = "rtol"
+				eventx = int((self.event.start - self.project.viewStart) *
+				              self.project.viewScale)
+				if selection_direction == "ltor":
+					width = self.drawer.allocation.width
+					if width == 1: width = 20 # fudge it because it has no width initially
+					x = int(self.Selection[1] - width)
+					if self.drawer.parent == self.lane.fixed:
+						self.lane.fixed.remove(self.drawer)
+					self.lane.fixed.put(self.drawer,eventx + x,75)
+				else:
+					if self.drawer.parent == self.lane.fixed:
+						self.lane.fixed.remove(self.drawer)
+					self.lane.fixed.put(self.drawer,eventx + int(self.Selection[0]),75)
+				self.lane.Update()
 				
 				
 	#_____________________________________________________________________
@@ -384,6 +410,28 @@ class EventViewer(gtk.DrawingArea):
 		self.lane.childActive = False
 		self.event.Delete()
 		self.lane.Update()
+		
+	def TrimToSelection(self, evt):
+		# Cut this event down so only the selected bit remains. This event
+		# is L-S-R, where S is the selected bit; we're removing L and R.
+
+		leftOfSel = self.Selection[0] / float(self.project.viewScale)
+		rightOfSel = self.Selection[1] / float(self.project.viewScale)
+		
+		# Hide the drawer
+		self.lane.fixed.remove(self.drawer)
+
+		# Split at the right of the selection; returns R.event. We are now L-S.
+		R = self.event.Split(rightOfSel)
+		
+		# Split at the left of the selection: returns S.event. We are now L.
+		S = self.event.Split(leftOfSel)
+		
+		# We are now L. Delete R.
+		R.Delete()
+		
+		# Delete L (which is us), leaving S, which was the selected bit.
+		self.OnDelete(None)
 
 	#_____________________________________________________________________
 	
