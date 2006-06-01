@@ -81,6 +81,8 @@ class EventViewer(gtk.DrawingArea):
 		self.drawer = gtk.HBox()
 		trimButton = gtk.Button("T")
 		self.drawer.add(trimButton)
+		effectButton = gtk.Button("E")
+		self.drawer.add(effectButton)
 		trimButton.connect("clicked", self.TrimToSelection)
 		self.drawer.show()
 		
@@ -138,6 +140,7 @@ class EventViewer(gtk.DrawingArea):
 			context.move_to(self.highlightCursor, 0)
 			context.line_to(self.highlightCursor, self.allocation.height)
 			context.set_source_rgb(*self._HIGHLIGHT_POSITION_RGB)
+			context.set_dash([3,1],1)
 			context.stroke()
 
 		return False
@@ -287,6 +290,7 @@ class EventViewer(gtk.DrawingArea):
 		#   selecting part of this event
 		# LMB+ctrl: select this event without deselecting other events
 		# RMB: context menu
+		# LMB double-click: split here
 		
 		# RMB: context menu
 		if mouse.button == 3:
@@ -298,6 +302,10 @@ class EventViewer(gtk.DrawingArea):
 				self.isSelecting = True
 				self.Selection[0] = mouse.x
 			else:
+				if mouse.type == gtk.gdk._2BUTTON_PRESS:
+					self.mouseAnchor[0] = mouse.x
+					self.OnSplit(None)
+					return True
 				# LMB: deselect all events, select this event, begin moving the event
 				# LMB+ctrl: select this event without deselecting other events
 				# remove any existing selection in this event
