@@ -46,8 +46,9 @@ def CreateNew(folder,name,author):
 	projectdir = os.path.join(folder, name)
 
 	try:
-	        project = Project()
-	except:
+		project = Project()
+	except Exception, e:
+		print "Could not make project object:", e
 		raise CreateProjectError(1)
 
 	project.name = name

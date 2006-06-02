@@ -9,7 +9,9 @@ import gobject
 import pygst
 pygst.require("0.10")
 import gst
-if not gst.element_factory_find("gnlcomposition"):
+try:
+	gst.element_factory_make("gnlcomposition")
+except:
 	print "Gstreamer plugin gnonlin is not installed."
 	print "See http://jokosher.org/trac/wiki/GettingJokosher for more details."
 	sys.exit()
