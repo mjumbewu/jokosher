@@ -31,6 +31,7 @@ class EventViewer(gtk.DrawingArea):
 	_TEXT_RGB = (0, 0, 0)
 	_SELECTED_RGBA = (0, 0, 1, 0.2)
 	_SELECTION_RGBA = (0, 0, 1, 0.5)
+	_FADEMARKERS_RGBA = (1, 0, 0, 0.8)
 	_PLAY_POSITION_RGB = (1, 0, 0)
 	_HIGHLIGHT_POSITION_RGB = (0, 0, 1)
 	
@@ -60,6 +61,7 @@ class EventViewer(gtk.DrawingArea):
 		# self.event.isSelected, which means the whole waveform is selected.
 		self.isSelecting = False		# True if a selection is currently being set
 		self.Selection = [0,0]			# Selection begin and end points
+		self.isDraggingFade = False		# True if the user is dragging a fade marker
 		self.lane = lane				# The parent lane for this object
 		self.last_num_levels = 0		# Used to track if we need to resize the GUI object
 		self.isLoading = False			# Used to track if we need to update the GUI after loading a waveform
@@ -78,6 +80,9 @@ class EventViewer(gtk.DrawingArea):
 		# This defines where the blue cursor indicator should be drawn (in pixels)
 		self.highlightCursor = None
 		
+		self.fadeMarkersContext = None
+		
+		# drawer: this will probably be its own object in time
 		self.drawer = gtk.HBox()
 		trimButton = gtk.Button("T")
 		self.drawer.add(trimButton)
@@ -116,15 +121,6 @@ class EventViewer(gtk.DrawingArea):
 			context.set_source_rgba(*self._SELECTED_RGBA)
 			context.fill()
 		
-		# Overlay an extra rect if there is a selection
-		if self.Selection != [0,0]:
-			x1,x2 = self.Selection[:]
-			if x2 < x1:
-				x2,x1 = x1,x2
-			context.rectangle(event.area.x + x1, event.area.y,
-							  event.area.x + x2 - x1, event.area.height)
-			context.set_source_rgba(*self._SELECTION_RGBA)
-			context.fill()
 		
 		#Draw play position
 		x = int((self.project.transport.position - self.event.start) * self.project.viewScale)
@@ -135,8 +131,8 @@ class EventViewer(gtk.DrawingArea):
 		context.set_source_rgb(*self._PLAY_POSITION_RGB)
 		context.stroke()
 		
-		# Draw the highlight cursor if it's over us
-		if self.highlightCursor:
+		# Draw the highlight cursor if it's over us and we're not dragging a fadeMarker
+		if self.highlightCursor and not self.isDraggingFade:
 			context.move_to(self.highlightCursor, 0)
 			context.line_to(self.highlightCursor, self.allocation.height)
 			context.set_source_rgb(*self._HIGHLIGHT_POSITION_RGB)
@@ -144,6 +140,47 @@ class EventViewer(gtk.DrawingArea):
 			context.stroke()
 			pixbuf = widget.render_icon(gtk.STOCK_CUT, gtk.ICON_SIZE_SMALL_TOOLBAR)
 			widget.window.draw_pixbuf(None, pixbuf, 0, 0, int(self.highlightCursor), 0)
+			
+
+		# Overlay an extra rect if there is a selection
+		self.fadeMarkersContext = None
+		if self.Selection != [0,0]:
+			x1,x2 = self.Selection[:]
+			if x2 < x1:
+				x2,x1 = x1,x2
+			context.rectangle(event.area.x + x1, event.area.y,
+							  event.area.x + x2 - x1, event.area.height)
+			context.set_source_rgba(*self._SELECTION_RGBA)
+			context.fill()
+			
+			# and overlay the fademarkers
+			FADEMARKER_WIDTH = 30
+			FADEMARKER_HEIGHT = 11
+			context.set_source_rgba(*self._FADEMARKERS_RGBA)
+			fm_left_x = event.area.x + x1 + 1 - FADEMARKER_WIDTH
+			fm_left_y = event.area.y + int(event.area.height * 
+			                           (100-self.fadePoints[0]) / 100.0)
+			context.rectangle(fm_left_x, fm_left_y,
+			                  FADEMARKER_WIDTH, FADEMARKER_HEIGHT)
+			fm_right_x = event.area.x + x2
+			fm_right_y = event.area.y + int(event.area.height * 
+			                           (100-self.fadePoints[1]) / 100.0)
+			context.rectangle(fm_right_x, fm_right_y,
+			                  FADEMARKER_WIDTH, FADEMARKER_HEIGHT)
+			context.fill()
+			context.set_source_rgba(1,1,1,1)
+			context.move_to(fm_left_x + 1, fm_left_y + FADEMARKER_HEIGHT - 1)
+			context.show_text("%s%%" % int(self.fadePoints[0]))
+			context.move_to(fm_right_x + 1, fm_right_y + FADEMARKER_HEIGHT - 1)
+			context.show_text("%s%%"% int(self.fadePoints[1]))
+			context.stroke()
+			
+			# redo the rectangles so they're the path and we can in_fill() check later
+			context.rectangle(fm_left_x, fm_left_y,
+			                  FADEMARKER_WIDTH, FADEMARKER_HEIGHT)
+			context.rectangle(fm_right_x, fm_right_y,
+			                  FADEMARKER_WIDTH, FADEMARKER_HEIGHT)
+			self.fadeMarkersContext = context
 
 		return False
 		
@@ -262,6 +299,16 @@ class EventViewer(gtk.DrawingArea):
 	
 		if not self.window:
 			return
+		
+		if self.isDraggingFade:
+			self.fadePoints[self.fadeBeingDragged] = 100-int((mouse.y / float(self.allocation.height)) * 100)
+			self.queue_draw()
+			return
+
+		if self.fadeMarkersContext and self.fadeMarkersContext.in_fill(mouse.x, mouse.y):
+			# quit this function now, so the highlightCursor doesn't move
+			# while you're over a fadeMarker
+			return
 			
 		if self.isDragging:
 			ptr = gtk.gdk.display_get_default().get_pointer()
@@ -293,7 +340,8 @@ class EventViewer(gtk.DrawingArea):
 		# LMB+ctrl: select this event without deselecting other events
 		# RMB: context menu
 		# LMB double-click: split here
-		
+		# LMB over a fadeMarker: drag that marker
+
 		# RMB: context menu
 		if mouse.button == 3:
 			self.ContextMenu(mouse)
@@ -303,8 +351,19 @@ class EventViewer(gtk.DrawingArea):
 				#   selecting part of this event
 				self.isSelecting = True
 				self.Selection[0] = mouse.x
+				self.fadePoints = [80,90]
 			else:
+				if self.fadeMarkersContext and self.fadeMarkersContext.in_fill(mouse.x, mouse.y):
+					# LMB over a fadeMarker: drag that marker
+					self.isDraggingFade = True
+					if mouse.x > self.Selection[1]:
+						self.fadeBeingDragged = 1
+						return True
+					else:
+						self.fadeBeingDragged = 0
+						return True
 				if mouse.type == gtk.gdk._2BUTTON_PRESS:
+					# LMB double-click: split here
 					self.mouseAnchor[0] = mouse.x
 					self.OnSplit(None)
 					return True
@@ -370,6 +429,8 @@ class EventViewer(gtk.DrawingArea):
 				if (self.eventStart != self.event.start):
 					self.event.Move(self.eventStart, self.event.start)
 					return False #need to pass this button release up to RecordingView
+			elif self.isDraggingFade:
+				self.isDraggingFade = False
 			elif self.isSelecting:
 				self.isSelecting = False
 				selection_direction = "ltor"
