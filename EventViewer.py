@@ -142,6 +142,8 @@ class EventViewer(gtk.DrawingArea):
 			context.set_source_rgb(*self._HIGHLIGHT_POSITION_RGB)
 			context.set_dash([3,1],1)
 			context.stroke()
+			pixbuf = widget.render_icon(gtk.STOCK_CUT, gtk.ICON_SIZE_SMALL_TOOLBAR)
+			widget.window.draw_pixbuf(None, pixbuf, 0, 0, int(self.highlightCursor), 0)
 
 		return False
 		
