@@ -32,6 +32,45 @@ def GenerateUniqueID():
 
 #_____________________________________________________________________
 
+def CreateNew(folder,name,author):
+	if name=="":
+		name="NewProject"
+
+	if author=="":
+		author="Unknown"
+
+	if folder=="":
+		folder="~"
+
+	filename = (name + ".jok")
+	projectdir = os.path.join(folder, name)
+
+	try:
+	        project = Project()
+	except:
+		raise CreateProjectError(1)
+
+	project.name = name
+	project.author = author
+	project.projectfile = os.path.join(projectdir, filename)
+
+	if os.path.exists(projectdir):
+		raise CreateProjectError(2)
+	else: 
+		audio_dir = os.path.join(projectdir, "audio")
+		try:
+			os.mkdir(projectdir)
+			os.mkdir(audio_dir)
+		except:
+			raise CreateProjectError(3)
+
+	project.startTransportThread()
+	project.saveProjectFile(project.projectfile)
+
+	return project
+
+#_____________________________________________________________________
+
 def LoadFromFile(file):	
 	p = Project()
 	try:
@@ -673,8 +712,19 @@ class Project(Monitored, CommandManaged):
 #=========================================================================
 	
 class OpenProjectError(EnvironmentError):
-		def __init__(self):
-			pass
+	def __init__(self):
+		pass
+
+#=========================================================================
+
+class CreateProjectError(Exception):
+	def __init__(self, errno):
+		"""Error numbers:
+		   1) Unable to create a project object
+		   2) Path for project file already exists
+		   3) Unable to create file. (Invalid permissions, read-only, or the disk is full)
+		"""
+		self.errno=errno
 
 #=========================================================================
 

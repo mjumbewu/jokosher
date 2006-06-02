@@ -3,7 +3,6 @@ import gtk
 import gtk.glade
 import gobject
 import os
-import re
 from ConfigParser import SafeConfigParser
 import Project
 import AddInstrumentDialog
@@ -51,47 +50,34 @@ class NewProjectDialog:
 		self.dlg.resize(350, 300)
 		self.dlg.set_icon(self.parent.icon)
 		self.dlg.set_transient_for(self.parent.window)
-								
+	
 	#_____________________________________________________________________	
-								
+		
 	def OnOK(self, button):
 		name = self.name.get_text()
-		delimname = re.sub(' ', '_', name)
-		filename = (delimname + ".jok")
-		projectdir = os.path.join(self.folder.get_current_folder(), delimname)
+		author = self.author.get_text()
+		folder = self.folder.get_current_folder()
 		
-		if os.path.exists(projectdir):
+		try:
+			project=Project.CreateNew(folder,name, author)
+		except Project.CreateProjectError, e:
+			if e.errno == 1:
+				message = "Could not initialize project."
+			elif e.errno == 2:
+				message = "A file or folder with this name already exists. Please chose a different project name and try again."
+			elif e.errno == 3:
+				message = "The file or folder location is write-protected.",
+				
 			dlg = gtk.MessageDialog(self.dlg,
-					gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
-					gtk.MESSAGE_QUESTION,
-					gtk.BUTTONS_YES_NO,
-					"A folder with that name already exists.\n" +
-					"Are you sure you want to overwrite it?")
-			response = dlg.run()
-			if response == gtk.RESPONSE_NO or response == gtk.RESPONSE_DELETE_EVENT:
-				dlg.destroy()
-				return
-			elif response == gtk.RESPONSE_YES:
-				dlg.destroy()
+				gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
+				gtk.MESSAGE_ERROR,
+				gtk.BUTTONS_OK,
+				"Unable to create project.\n\n%s" % message)
+			dlg.run()
+			dlg.destroy()
 		else:
-			os.mkdir(projectdir)
-			
-		audio_dir = os.path.join(projectdir, "audio")
-		if not os.path.exists(audio_dir):
-			os.mkdir(audio_dir)
-
-		project = Project.Project()
-		project.name = name
-		project.author = self.author.get_text()
-		project.startTransportThread()
-	
-		# remember that projectfile contains the path
-		project.projectfile = os.path.join(projectdir, filename)
-		project.saveProjectFile(project.projectfile)
-		
-		self.parent.SetProject(project)
-			
-		self.dlg.destroy()
+			self.parent.SetProject(project)
+			self.dlg.destroy()
 		
 	#_____________________________________________________________________	
 				
