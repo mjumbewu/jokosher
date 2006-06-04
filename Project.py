@@ -116,11 +116,6 @@ def LoadFromFile(file):
 		i = Instrument(p, None, None, None)
 		i.LoadFromXML(instr)
 		p.graveyard.append(i)
-	
-	for event in doc.getElementsByTagName("DeadEvent"):
-		e = Event(None)
-		e.LoadFromXML(event)
-		p.graveyard.append(e)
 
 	p.startTransportThread()
 	return p
@@ -167,7 +162,7 @@ class Project(Monitored, CommandManaged):
 		#number of solo instruments (to know if others must be muted)
 		self.soloInstrCount = 0
 		
-		# The place where deleted objects go
+		# The place where deleted instruments go
 		self.graveyard = []
 		
 		#This is to indicate that something which is not 
@@ -596,18 +591,15 @@ class Project(Monitored, CommandManaged):
 		elif obj[0] == "E":		# Check if the object is an Event
 			id = int(obj[1:])
 
-			# First of all see if it's alive on an instrument
 			for i in self.instruments:
-				l = [x for x in i.events if x.id==id]
-				if l and len(l):
-					target_object = l[0]
+				# First of all see if it's alive on an instrument
+				n = [x for x in i.events if x.id==id]
+				if not n:
+					# If not, check the graveyard on each instrument
+					n = [x for x in i.graveyard if x.id==id]
+				if n:
+					target_object = n[0]
 					break
-
-			# If not, check the graveyard
-			if not target_object:
-				for dead in GlobalProjectObject.graveyard:
-					if dead.id == id:
-						target_object = dead
 
 		exec("target_object.%s"%func)
 				

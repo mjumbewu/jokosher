@@ -39,30 +39,31 @@ class Event(Monitored, CommandManaged):
 		self.loadingLength = 0
 		self.lastEnd = 0
 		
-		if self.instrument:
-			self.instrumentID = instrument.id
 		self.CreateFilesource()
 	#_____________________________________________________________________
 	
 	def CreateFilesource(self):	
 		print "create file source"
-		if self.instrument and not self.filesrc:
+		if not self.filesrc:
 			self.filesrc = gst.element_factory_make("gnlfilesource", "Event_%d"%self.id)
+		if not self.filesrc in list(self.instrument.composition.elements()):
 			self.instrument.composition.add(self.filesrc)
-		if self.file:
-			self.SetProperties()
+		
+		self.SetProperties()
+		
 	#_____________________________________________________________________
 		
 	def SetProperties(self):
-		print "start set properties"
-		gst.debug("setting event properties")
-		self.filesrc.set_property("location", self.file)
-		self.filesrc.set_property("start", long(self.start * gst.SECOND))
-		self.filesrc.set_property("duration", long(self.duration * gst.SECOND))
-		self.filesrc.set_property("media-start", long(self.offset * gst.SECOND))
-		self.filesrc.set_property("media-duration", long(self.duration * gst.SECOND))
-		
-		print "event properties set"
+		if self.file:
+			print "start set properties"
+			gst.debug("setting event properties")
+			self.filesrc.set_property("location", self.file)
+			self.filesrc.set_property("start", long(self.start * gst.SECOND))
+			self.filesrc.set_property("duration", long(self.duration * gst.SECOND))
+			self.filesrc.set_property("media-start", long(self.offset * gst.SECOND))
+			self.filesrc.set_property("media-duration", long(self.duration * gst.SECOND))
+			
+			print "event properties set"
 
 	#_____________________________________________________________________
 
@@ -76,7 +77,7 @@ class Event(Monitored, CommandManaged):
 		params = doc.createElement("Parameters")
 		ev.appendChild(params)
 		
-		items = ["id", "instrumentID", "start", "duration", "colour", "isSelected", 
+		items = ["id", "start", "duration", "colour", "isSelected", 
 				  "name", "offset", "file"
 				]
 		
@@ -124,8 +125,6 @@ class Event(Monitored, CommandManaged):
 					value = str(levelsXML.getAttribute("value"))
 					self.levels = map(float, value.split(","))
 		
-		if self.instrument:
-			self.instrumentID = self.instrument.id
 		self.CreateFilesource()
 		
 	#_____________________________________________________________________
@@ -171,7 +170,7 @@ class Event(Monitored, CommandManaged):
 			self.StateChanged()
 			return e
 		else:
-			event = [x for x in Project.GlobalProjectObject.graveyard if x.id == id][0]
+			event = [x for x in self.instrument.graveyard if x.id == id][0]
 			self.instrument.events.append(event)
 			
 			nl = int(len(self.levels) * (split_point / d))
@@ -198,7 +197,7 @@ class Event(Monitored, CommandManaged):
 
 		# Now that they're joined, move rightEvent to the graveyard
 		self.instrument.events.remove(event)
-		Project.GlobalProjectObject.graveyard.append(event)
+		self.instrument.graveyard.append(event)
 		self.temp2 = event.id
 		self.StateChanged()
 
@@ -209,11 +208,9 @@ class Event(Monitored, CommandManaged):
 		"""	
 			undo : Resurrect()
 		"""
-		
-		Project.GlobalProjectObject.graveyard.append(self)
+		self.instrument.graveyard.append(self)
 		self.instrument.events.remove(self)
 		self.instrument.composition.remove(self.filesrc)
-		self.filesrc = None
 
 	#_____________________________________________________________________
 	
@@ -221,13 +218,9 @@ class Event(Monitored, CommandManaged):
 		"""
 			undo : Delete()
 		"""
-		project = Project.GlobalProjectObject
-		if self in project.graveyard:
-			self.instrument = [x for x in project.instruments if x.id == self.instrumentID][0]
-			self.CreateFilesource()
-		
-			self.instrument.events.append(self)
-			project.graveyard.remove(self)
+		self.instrument.events.append(self)
+		self.instrument.graveyard.remove(self)
+		self.CreateFilesource()
 		
 	#______________________________________________________________________
 				

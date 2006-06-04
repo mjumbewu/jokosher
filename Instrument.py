@@ -28,6 +28,7 @@ class Instrument(Monitored, CommandManaged):
 		
 		self.path = ""
 		self.events = []				# List of events attached to this instrument
+		self.graveyard = []				# List of events that have been deleted (kept for undo)
 		self.name = name				# Name of this instrument
 		self.pixbuf = pixbuf			# The icon pixbuf resource
 		self.pixbufPath = pixbufPath	# The path to the icon
@@ -131,6 +132,8 @@ class Instrument(Monitored, CommandManaged):
 			
 		for e in self.events:
 			e.StoreToXML(doc, ins)
+		for e in self.graveyard:
+			e.StoreToXML(doc, ins, graveyard=True)
 			
 	#_____________________________________________________________________	
 			
@@ -145,6 +148,12 @@ class Instrument(Monitored, CommandManaged):
 			e = Event(self)
 			e.LoadFromXML(ev)
 			self.events.append(e)
+		
+		deadevents = node.getElementsByTagName("DeadEvent")
+		for ev in deadevents:
+			e = Event(self)
+			e.LoadFromXML(ev)
+			self.graveyard.append(e)
 		
 		#load image from file based on saved path
 		#TODO replace this with proper cache manager
