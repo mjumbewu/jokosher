@@ -21,15 +21,6 @@ from Utils import *
 
 #=========================================================================
 
-___id_counter = 0
-
-#_____________________________________________________________________
-
-def GenerateUniqueID():
-	global ___id_counter
-	___id_counter += 1
-	return ___id_counter
-
 #_____________________________________________________________________
 
 def CreateNew(folder,name,author):
@@ -106,14 +97,22 @@ def LoadFromFile(file):
 				p.redoStack.append(str(n.getAttribute("value")))
 	
 	for instr in doc.getElementsByTagName("Instrument"):
-		i = Instrument(p, None, None, None)
+		try:
+			id = int(instr.getAttribute("id"))
+		except ValueError:
+			id = None
+		i = Instrument(p, None, None, None, id)
 		i.LoadFromXML(instr)
 		p.instruments.append(i)
 		if i.isSolo:
 			p.soloInstrCount += 1
 	
 	for instr in doc.getElementsByTagName("DeadInstrument"):
-		i = Instrument(p, None, None, None)
+		try:
+			id = int(instr.getAttribute("id"))
+		except ValueError:
+			id = None
+		i = Instrument(p, None, None, None, id)
 		i.LoadFromXML(instr)
 		p.graveyard.append(i)
 
@@ -140,6 +139,7 @@ class Project(Monitored, CommandManaged):
 		Monitored.__init__(self)
 		
 		# set up some important lists and dictionaries:
+		self.___id_list = []
 		self.instruments = []
 		
 		self.author = "<none>"
@@ -707,6 +707,23 @@ class Project(Monitored, CommandManaged):
 		for instr in self.instruments:
 			instr.OnMute()
 			
+	#_____________________________________________________________________
+	
+	def GenerateUniqueID(self, id = None):
+		if id != None:
+			if id in self.___id_list:
+				print "Error: id", id, "already taken"
+			else:
+				self.___id_list.append(id)
+				return id
+				
+		counter = 0
+		while True:
+			if not counter in self.___id_list:
+				self.___id_list.append(counter)
+				return counter
+			counter += 1
+	
 	#_____________________________________________________________________
 #=========================================================================
 	

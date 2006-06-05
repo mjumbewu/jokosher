@@ -48,10 +48,7 @@ class Instrument(Monitored, CommandManaged):
 		self.output = ""
 		self.effects = " ! "
 		self.recordingbin = None
-		if id:
-			self.id = id				# Unique object ID
-		else:
-			self.id = Project.GenerateUniqueID()
+		self.id = project.GenerateUniqueID(id) #check is id is already being used before setting
 		self.isSelected = False			# True if the instrument is currently selected
 		
 		# GStreamer pipeline elements for this instrument		
@@ -120,8 +117,9 @@ class Instrument(Monitored, CommandManaged):
 		else:
 			ins = doc.createElement("Instrument")
 		parent.appendChild(ins)
+		ins.setAttribute("id", str(self.id))
 		
-		items = ["id", "path", "name", "isArmed", 
+		items = ["path", "name", "isArmed", 
 				  "isMuted", "isSolo", "input", "output", "effects",
 				  "isSelected", "pixbufPath", "isVisible"]
 		
@@ -143,15 +141,21 @@ class Instrument(Monitored, CommandManaged):
 		
 		LoadParametersFromXML(self, params)
 					
-		events = node.getElementsByTagName("Event")
-		for ev in events:
-			e = Event(self)
+		for ev in node.getElementsByTagName("Event"):
+			try:
+				id = int(ev.getAttribute("id"))
+			except ValueError:
+				id = None
+			e = Event(self, None, id)
 			e.LoadFromXML(ev)
 			self.events.append(e)
-		
-		deadevents = node.getElementsByTagName("DeadEvent")
-		for ev in deadevents:
-			e = Event(self)
+	
+		for ev in node.getElementsByTagName("DeadEvent"):
+			try:
+				id = int(ev.getAttribute("id"))
+			except ValueError:
+				id = None
+			e = Event(self, None, id)
 			e.LoadFromXML(ev)
 			self.graveyard.append(e)
 		

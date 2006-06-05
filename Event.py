@@ -27,10 +27,8 @@ class Event(Monitored, CommandManaged):
 		self.isLHSHot = False
 		self.isRHSHot = False
 		self.levels = []			# Array of audio levels to be drawn for this event
-		if id:
-			self.id = id			# Unique ID
-		else:
-			self.id = Project.GenerateUniqueID()
+		
+		self.id = instrument.project.GenerateUniqueID(id)  #check is id is already taken, then set it.
 		self.instrument = instrument	# The parent instrument
 		self.filesrc = None
 		
@@ -73,11 +71,12 @@ class Event(Monitored, CommandManaged):
 		else:
 			ev = doc.createElement("Event")
 		parent.appendChild(ev)
+		ev.setAttribute("id", str(self.id))
 		
 		params = doc.createElement("Parameters")
 		ev.appendChild(params)
 		
-		items = ["id", "start", "duration", "colour", "isSelected", 
+		items = ["start", "duration", "colour", "isSelected", 
 				  "name", "offset", "file"
 				]
 		
