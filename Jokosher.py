@@ -374,8 +374,8 @@ class MainApp:
 		allfilter.add_pattern("*")
 		
 		jokfilter = gtk.FileFilter()
-		jokfilter.set_name("Jokosher Project File")
-		jokfilter.add_pattern("*.jok")
+		jokfilter.set_name("Jokosher Project File (*.jokosher)")
+		jokfilter.add_pattern("*.jokosher")
 		
 		chooser.add_filter(jokfilter)
 		chooser.add_filter(allfilter)

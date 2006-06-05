@@ -42,7 +42,7 @@ def CreateNew(folder,name,author):
 	if folder=="":
 		folder="~"
 
-	filename = (name + ".jok")
+	filename = (name + ".jokosher")
 	projectdir = os.path.join(folder, name)
 
 	try:
