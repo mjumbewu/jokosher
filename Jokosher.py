@@ -691,6 +691,7 @@ class MainApp:
 			65471:self.OnRecordingView, # F2 - Recording View
 			65472:self.OnCompactMixView, # F3 - Compact Mix View
 			65535:self.OnDelKey, # delete key - remove selected item
+			65288:self.OnDelKey, # backspace key
 		}
 
 		if event.keyval in keysdict:

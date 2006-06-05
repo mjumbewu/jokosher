@@ -198,8 +198,14 @@ class Project(Monitored, CommandManaged):
 		print "added master level (project)"
 
 		#Restrict adder's output caps due to adder bug
+		if sys.byteorder =="big":
+			endian="4321"
+		else:	
+			endian="1234"
+
 		caps = gst.caps_from_string ("audio/x-raw-int,"
-			"rate=44100,channels=2,endianness=1234,width=16,depth=16,signed=(boolean)true")
+			"rate=44100,channels=2,endianness=\"%s\",width=16,depth=16,signed=(boolean)true" % endian)
+	
 		self.adder.link(self.level, caps)
 
 		self.out = gst.element_factory_make("alsasink")
