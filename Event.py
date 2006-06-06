@@ -276,7 +276,7 @@ class Event(Monitored, CommandManaged):
 		
 		pipe = """filesrc name=src location=%s ! decodebin ! audioconvert ! 
 		level interval=100000000 message=true ! 
-		progressreport name=prog silent=true update-freq=1 ! fakesink""" % self.file
+		progressreport name=prog silent=true update-freq=1 ! fakesink""" % self.file.replace(" ", "\ ")
 		self.bin = gst.parse_launch(pipe)
 
 		src = self.bin.get_by_name("src")

@@ -1,6 +1,7 @@
 
 import gtk, Instrument
 from EventViewer import *
+import Monitored
 
 #=========================================================================
 
@@ -180,7 +181,9 @@ class EventLaneViewer(gtk.EventBox):
 	#_____________________________________________________________________
 	
 	def OnStateChanged(self, obj, change=None):
-		if type(obj) == type(self.project) or type(obj) == Instrument.Instrument:
+		if change == Monitored.LEVEL:
+			return
+		elif obj is self.project or obj is self.instrument:
 			self.Update()
 		else:
 			x1 = int((self.project.transport.PrevPosition - self.project.viewStart) * self.project.viewScale)

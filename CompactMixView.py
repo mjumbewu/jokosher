@@ -5,6 +5,7 @@ import InstrumentViewer
 import gobject
 import TimeLineBar
 import Globals
+import Monitored
 
 #create signal to be emitted by MixerStrip
 gobject.signal_new("minimise", MixerStrip, gobject.SIGNAL_RUN_FIRST, gobject.TYPE_NONE, ())
@@ -146,7 +147,8 @@ class CompactMixView(gtk.Frame):
 	#_____________________________________________________________________
 	
 	def OnStateChanged(self, obj, change=None):
-		self.Update()
+		if change != Monitored.LEVEL:
+			self.Update()
 		
 	#_____________________________________________________________________
 	

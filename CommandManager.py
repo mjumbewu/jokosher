@@ -9,41 +9,35 @@ class CommandManaged(object):
 	#_____________________________________________________________________
 	
 	def __getattribute__(self,attr):
-		
 		if attr == "__class__":
 			return type(self)
 		
 		actual = super(CommandManaged,self).__getattribute__(attr)
-
-		try:
-			name = actual.__name__
-		except:
-			name = "notAFunctionObject"
-		  
-		if name in ['wrapperFunction','notAFunctionObject']:
+		
+		if not callable(actual) or (not actual.__doc__) or (not "undo : " in actual.__doc__):
 			return actual
 		else:
-			wrapperfn = CommandManagerFunctionCurry(self.wrapperFunction,actual)
-			return wrapperfn
-	
+			return CommandManagerFunctionCurry(self.wrapperFunction,actual)
+
 	#_____________________________________________________________________
 	
 	def wrapperFunction(self,func,*args,**kwargs):
 		out = func(*args,**kwargs)
 		d = func.__doc__
-		if d and "undo : " in d:
-			undo = d[d.find("undo : ") + 7:].split("\n")[0]
-			cmd = undo % makeDict(func.im_self)
-			
-			obj = ""
-			if type(self) == Project.Project:
-				obj = "P"
-			elif type(self) == Project.Instrument:
-				obj = "I%d"%self.id
-			elif type(self) == Project.Event:
-				obj = "E%d"%self.id
-			print "LOG COMMAND: ",obj, cmd
-			Project.GlobalProjectObject.AppendToCurrentStack(obj + " " + cmd)
+		
+		undo = d[d.find("undo : ") + 7:].split("\n")[0]
+		cmd = undo % makeDict(func.im_self)
+		
+		obj = ""
+		if type(self) == Project.Project:
+			obj = "P"
+		elif type(self) == Project.Instrument:
+			obj = "I%d"%self.id
+		elif type(self) == Project.Event:
+			obj = "E%d"%self.id
+		print "LOG COMMAND: ",obj, cmd
+		Project.GlobalProjectObject.AppendToCurrentStack("%s %s" % (obj, cmd))
+		
 		return out
 
 	#_____________________________________________________________________
@@ -54,7 +48,7 @@ class makeDict(dict):
 	
 	#_____________________________________________________________________
 	
-  	def __init__(self,obj):
+	def __init__(self,obj):
 		self.obj = obj
 		
 	#_____________________________________________________________________

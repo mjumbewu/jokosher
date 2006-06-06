@@ -334,22 +334,17 @@ class Project(Monitored, CommandManaged):
 	#_____________________________________________________________________
 
 	def bus_message(self, bus, message):
-		#print bus, message
 		st = message.structure
-		if st:
-			if st.get_name() == "level":
-				if message.src.get_name() == "MasterLevel":
-					position = float(st["endtime"]) / gst.SECOND
-					self.transport.SetPosition(position)
-				else:
-					id = int(message.src.get_name().split("_")[-1])
-					for instr in self.instruments:
-						if instr.id == id:
-							instr.SetLevel(DbToFloat(st["decay"][0]))
-							break
-
+		if st and st.get_name() == "level":
+			if message.src is self.level:
+				position = float(st["endtime"]) / gst.SECOND
+				self.transport.SetPosition(position)
+			else:
+				for instr in self.instruments:
+					if message.src is instr.levelElement:
+						instr.SetLevel(DbToFloat(st["decay"][0]))
+						break
 		return True
-
 
 	#_____________________________________________________________________
 				
