@@ -179,6 +179,7 @@ class Project(Monitored, CommandManaged):
 		self.savedUndo = False
 
 		self.IsPlaying = False
+		self.IsExporting = False
 		
 		self.RedrawTimeLine = False
 
@@ -198,16 +199,14 @@ class Project(Monitored, CommandManaged):
 		print "added master level (project)"
 
 		#Restrict adder's output caps due to adder bug
-		if sys.byteorder =="big":
-			endian="4321"
-		else:	
-			endian="1234"
-
-		caps = gst.caps_from_string ("audio/x-raw-int,"
-			"rate=44100,channels=2,endianness=\"%s\",width=16,depth=16,signed=(boolean)true" % endian)
-	
-		self.adder.link(self.level, caps)
-
+		self.levelcaps = gst.element_factory_make("capsfilter", "levelcaps")
+		caps = gst.caps_from_string("audio/x-raw-int,rate=44100,channels=2,width=16,depth=16,signed=(boolean)true")
+		self.levelcaps.set_property("caps", caps)
+		self.playbackbin.add(self.levelcaps)
+		
+		self.adder.link(self.levelcaps)
+		self.levelcaps.link(self.level)
+		
 		self.out = gst.element_factory_make("alsasink")
 		
 		try:
@@ -224,7 +223,8 @@ class Project(Monitored, CommandManaged):
 		self.level.link(self.out)
 		self.bus = self.mainpipeline.get_bus()
 		self.bus.add_signal_watch()
-		self.bus.connect("message::element", self.bus_message)
+		self.Mhandler = self.bus.connect("message", self.bus_message)
+		self.EOShandler = self.bus.connect("message::eos", self.stop)
 		
 		self.mainpipeline.add(self.playbackbin)
 
@@ -282,35 +282,10 @@ class Project(Monitored, CommandManaged):
 
 	#_____________________________________________________________________
 				
-	def play(self, export=False, filename=None):
+	def play(self):
 		'''Set all instruments playing'''
 		
 		if len(self.instruments) > 0:
-
-			if export:
-				#Create pipeline for exporting to file
-				if filename[-3:] == "ogg":
-					encode = gst.element_factory_make("vorbisenc")
-					encode.set_property("quality", 1);
-					mux = gst.element_factory_make("oggmux")
-					self.mainpipeline.add(mux)
-				elif filename[-3:] == "mp3":
-					encode = gst.element_factory_make("lame")
-				else:
-					print "Unknown filetype for export"
-					self.stop()
-					return
-				self.mainpipeline.add(encode)
-				convert.link(encode)
-				if filename[-3:] == "ogg":
-					encode.link(mux)
-					mux.link(self.out)
-				else:
-					encode.link(self.out)
-			else:
-				pass
-				
-
 			gst.debug("Play pressed, about to set state to PLAYING")
 			
 			# And set it going
@@ -329,7 +304,6 @@ class Project(Monitored, CommandManaged):
 			except:
 				pass
 			# [/DEBUG]
-
 
 	#_____________________________________________________________________
 
@@ -378,11 +352,86 @@ class Project(Monitored, CommandManaged):
 	#Alias to self.play
 	def export(self, filename):
 		'''Export to ogg/mp3'''
-		self.play(True, filename)
+		self.mainpipeline.set_state(gst.STATE_READY)
+		#Create pipeline for exporting to file
+		
+		if filename[-3:] == "ogg":
+			print "Export ogg:", filename
+			#create filesink, and vorbis encoder
+			self.outfile = gst.element_factory_make("filesink", "export_file")
+			self.outfile.set_property("location", filename)
+			self.encode = gst.element_factory_make("vorbisenc")
+##			self.encode.set_property("quality", 1)
+			self.mux = gst.element_factory_make("oggmux")
+			
+			#audioconvert is required because level and vorbisenc have different caps
+			self.exportconvert = gst.element_factory_make("audioconvert", "export_convert")
+		
+			self.playbackbin.add(self.exportconvert, self.encode, self.mux, self.outfile)
+			
+			#remove and unlink the alsasink
+			self.playbackbin.remove(self.out, self.level)
+			self.levelcaps.unlink(self.level)
+			
+			caps = gst.caps_from_string ("audio/x-raw-float,rate=44100,channels=2,endianness=1234,width=32")
+			
+			self.levelcaps.link(self.exportconvert)
+			self.exportconvert.link(self.encode)
+			self.encode.link(self.mux)
+			self.mux.link(self.outfile)
+			
+			#disconnect the bus_message() which will make the transport manager progress move
+			self.bus.disconnect(self.Mhandler)
+			self.bus.disconnect(self.EOShandler)
+			self.EOShandler = self.bus.connect("message::eos", self.export_eos)
+	
+		else:
+			print "Unknown filetype for export"
+			return
+		
+		self.IsExporting = True
+		#start the pipeline!
+		self.play()
 
 	#_____________________________________________________________________
 	
-	def stop(self):
+	def export_eos(self, bus=None, message=None):
+		#connected to eos on mainpipeline while export is taking place
+		self.stop()
+		self.IsExporting = False
+	
+		self.bus.disconnect(self.EOShandler)
+		self.Mhandler = self.bus.connect("message::element", self.bus_message)
+		self.EOShandler = self.bus.connect("message::eos", self.stop)
+		
+		#remove all the export elements
+		self.playbackbin.remove(self.encode, self.mux, self.outfile)
+		
+		#re-add all the alsa playback elements
+		self.playbackbin.add(self.out, self.level)
+		self.levelcaps.unlink(self.exportconvert)
+		self.levelcaps.link(self.level)
+		
+		self.exportconvert.unlink(self.encode)
+		self.encode.unlink(self.mux)
+		self.mux.unlink(self.outfile)
+	
+	#_____________________________________________________________________
+	
+	def get_export_progress(self):
+		if self.IsExporting:
+			try:
+				total = float(self.mainpipeline.query_duration(gst.FORMAT_TIME)[0])
+				cur = float(self.mainpipeline.query_position(gst.FORMAT_TIME)[0])
+				return int(cur / total * 100.0)
+			except gst.QueryError:
+				return 0
+		else:
+			return 100
+		
+	#_____________________________________________________________________
+	
+	def stop(self, bus=None, message=None):
 		'''Stop playing or recording'''
 		for instr in self.instruments:
 			instr.stop()
@@ -399,7 +448,7 @@ class Project(Monitored, CommandManaged):
 
 			gst.debug("Stop pressed, about to set state to PAUSED")
 
-			self.mainpipeline.set_state(gst.STATE_NULL)
+			self.mainpipeline.set_state(gst.STATE_READY)
 			self.IsPlaying = False
 			
 			gst.debug("Stop pressed, state just set to PAUSED")

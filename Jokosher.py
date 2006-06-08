@@ -306,21 +306,36 @@ class MainApp:
 	
 	def OnExport(self, widget = None):
 		'''Display a save dialog allowing the user to export as ogg or mp3'''
-		chooser = gtk.FileChooserDialog(title=None,action=gtk.FILE_CHOOSER_ACTION_SAVE, buttons=(gtk.STOCK_CANCEL,gtk.RESPONSE_CANCEL,gtk.STOCK_SAVE,gtk.RESPONSE_OK))
-		chooser.set_transient_for(self.window)
-		mp3filter = gtk.FileFilter()
-		mp3filter.set_name("MP3")
-		mp3filter.add_pattern("*.mp3")
+		buttons = (gtk.STOCK_CANCEL,gtk.RESPONSE_CANCEL,gtk.STOCK_SAVE,gtk.RESPONSE_OK)
+		chooser = gtk.FileChooserDialog("Export Project", self.window, gtk.FILE_CHOOSER_ACTION_SAVE, buttons)
+		
 		oggfilter = gtk.FileFilter()
-		oggfilter.set_name("Ogg Vorbis")
+		oggfilter.set_name("Ogg Vorbis (*.ogg)")
 		oggfilter.add_pattern("*.ogg")
+		
+		mp3filter = gtk.FileFilter()
+		mp3filter.set_name("MP3 (*.mp3)")
+		mp3filter.add_pattern("*.mp3")
+		
 		chooser.add_filter(mp3filter)
 		chooser.add_filter(oggfilter)
+		
 		response = chooser.run()
 		if response == gtk.RESPONSE_OK:
+			gobject.timeout_add(500, self.UpdateExportDialog)
 			self.project.export(chooser.get_filename())
 		chooser.destroy()
 		
+	#_____________________________________________________________________
+	
+	def UpdateExportDialog(self):
+		percent = self.project.get_export_progress()
+		print "Exporting: %d%%" % percent
+		if percent == 100:
+			print "Exporting: Done"
+			return False
+		return True
+	
 	#_____________________________________________________________________
 	
 	def OnPreferences(self, widget, destroyCallback=None):
