@@ -450,12 +450,12 @@ class Project(Monitored, CommandManaged):
 			#self.bin.remove(instr.levelElement)
 			#print "removed instrument level (project)"
 
-			gst.debug("Stop pressed, about to set state to PAUSED")
+			gst.debug("Stop pressed, about to set state to READY")
 
 			self.mainpipeline.set_state(gst.STATE_READY)
 			self.IsPlaying = False
 			
-			gst.debug("Stop pressed, state just set to PAUSED")
+			gst.debug("Stop pressed, state just set to READY")
 
 			print "PIPELINE AFTER STOP:"
 			# [DEBUG]
@@ -606,6 +606,30 @@ class Project(Monitored, CommandManaged):
 				self.unsavedChanges = True
 		self.StateChanged()
 	
+	#_____________________________________________________________________
+	
+	def PurgeUndoHistory(self):
+		"""Clears the undo/redo stacks as well as deletes
+		   any objects in the graveyard
+		"""
+		self.performingUndo = False
+		self.performingRedo = False
+		self.savedUndo = False
+		
+		self.undoStack = []
+		self.redoStack = []
+		self.savedUndoStack = []
+		self.savedRedoStack = []
+		
+		self.graveyard = []
+		for instr in self.instruments:
+			instr.graveyard = []
+		
+		#Now that everything is cleared, we should prompt to save
+		self.unsavedChanges = True
+		#Notify GUI to update undo/redo button
+		self.StateChanged()
+		
 	#_____________________________________________________________________
 	
 	def CheckUnsavedChanges(self):
