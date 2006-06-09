@@ -322,19 +322,40 @@ class MainApp:
 		
 		response = chooser.run()
 		if response == gtk.RESPONSE_OK:
-			gobject.timeout_add(500, self.UpdateExportDialog)
+			export = gtk.glade.XML ("Jokosher.glade", "ProgressDialog")
+			export.signal_autoconnect({"on_cancel_clicked": self.OnExportCancel})
+			self.exportdlg = export.get_widget("ProgressDialog")
+			
+			label = export.get_widget("progressLabel")
+			label.set_text("Exporting project to %s" % chooser.get_filename())
+			
+			self.exportprogress = export.get_widget("progressBar")
+			
+			gobject.timeout_add(100, self.UpdateExportDialog)
 			self.project.export(chooser.get_filename())
 		chooser.destroy()
 		
 	#_____________________________________________________________________
 	
 	def UpdateExportDialog(self):
-		percent = self.project.get_export_progress()
-		print "Exporting: %d%%" % percent
-		if percent == 100:
-			print "Exporting: Done"
+		tuple = self.project.get_export_progress()
+		if tuple[0] == -1:
+			self.exportprogress.set_fraction(0.0)
+			self.exportprogress.set_text("0 of unknown seconds completed")
+		elif tuple[0] == tuple[1] == 100:
+			self.exportdlg.destroy()
 			return False
+		else:
+			self.exportprogress.set_fraction(tuple[0]/tuple[1])
+			self.exportprogress.set_text("%d of %d seconds completed" % (tuple[0], tuple[1]))
+			
 		return True
+	
+	#_____________________________________________________________________
+	
+	def OnExportCancel(self, widget=None):
+		self.exportdlg.destroy()
+		self.project.export_eos()
 	
 	#_____________________________________________________________________
 	

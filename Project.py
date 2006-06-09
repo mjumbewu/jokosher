@@ -352,7 +352,8 @@ class Project(Monitored, CommandManaged):
 	#Alias to self.play
 	def export(self, filename):
 		'''Export to ogg/mp3'''
-		self.mainpipeline.set_state(gst.STATE_READY)
+		#NULL is required because some elements will be destroyed when we remove the references
+		self.mainpipeline.set_state(gst.STATE_NULL)
 		#Create pipeline for exporting to file
 		
 		if filename[-3:] == "ogg":
@@ -399,13 +400,15 @@ class Project(Monitored, CommandManaged):
 		#connected to eos on mainpipeline while export is taking place
 		self.stop()
 		self.IsExporting = False
+		#NULL is required because some elements will be destroyed when we remove them
+		self.mainpipeline.set_state(gst.STATE_NULL)
 	
 		self.bus.disconnect(self.EOShandler)
 		self.Mhandler = self.bus.connect("message::element", self.bus_message)
 		self.EOShandler = self.bus.connect("message::eos", self.stop)
 		
 		#remove all the export elements
-		self.playbackbin.remove(self.encode, self.mux, self.outfile)
+		self.playbackbin.remove(self.exportconvert, self.encode, self.mux, self.outfile)
 		
 		#re-add all the alsa playback elements
 		self.playbackbin.add(self.out, self.level)
@@ -419,15 +422,16 @@ class Project(Monitored, CommandManaged):
 	#_____________________________________________________________________
 	
 	def get_export_progress(self):
+		#Returns tuple with number of seconds done, and number of total seconds
 		if self.IsExporting:
 			try:
 				total = float(self.mainpipeline.query_duration(gst.FORMAT_TIME)[0])
 				cur = float(self.mainpipeline.query_position(gst.FORMAT_TIME)[0])
-				return int(cur / total * 100.0)
+				return (cur/gst.SECOND, total/gst.SECOND)
 			except gst.QueryError:
-				return 0
+				return (-1., -1.)
 		else:
-			return 100
+			return (100., 100.)
 		
 	#_____________________________________________________________________
 	
