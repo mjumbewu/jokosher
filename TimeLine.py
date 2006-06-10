@@ -227,8 +227,11 @@ class TimeLine(gtk.DrawingArea):
 	#_____________________________________________________________________
 		
 	def OnTimeOut(self):
-		pos = float(self.project.mainpipeline.query_position(gst.FORMAT_TIME)[0]) / gst.SECOND + self.project.transport.startPosition
-		self.project.transport.SetPosition(pos)
+		try:
+			pos = float(self.project.mainpipeline.query_position(gst.FORMAT_TIME)[0]) / gst.SECOND + self.project.transport.startPosition
+			self.project.transport.SetPosition(pos)
+		except:
+			return True
 		if self.project.IsPlaying:
 			return True
 		else:
