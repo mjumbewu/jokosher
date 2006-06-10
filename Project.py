@@ -130,6 +130,9 @@ class Project(Monitored, CommandManaged):
 	"""
 	
 	VERSION = 0.1	# The project structure version. Will be useful for handling old save files
+	
+	#Export audio formats
+	NOT_EXPORTING, EXPORTING_VORBIS, EXPORTING_MP3, EXPORTING_WAV, EXPORTING_FLAC = range(5)
 
 	#_____________________________________________________________________
 
@@ -179,7 +182,7 @@ class Project(Monitored, CommandManaged):
 		self.savedUndo = False
 
 		self.IsPlaying = False
-		self.IsExporting = False
+		self.Exporting = self.NOT_EXPORTING
 		
 		self.RedrawTimeLine = False
 
@@ -351,43 +354,56 @@ class Project(Monitored, CommandManaged):
 		'''Export to ogg/mp3'''
 		#NULL is required because some elements will be destroyed when we remove the references
 		self.mainpipeline.set_state(gst.STATE_NULL)
-		#Create pipeline for exporting to file
 		
-		if filename[-3:] == "ogg":
-			print "Export ogg:", filename
-			#create filesink, and vorbis encoder
-			self.outfile = gst.element_factory_make("filesink", "export_file")
-			self.outfile.set_property("location", filename)
+		formats = {"ogg":self.EXPORTING_VORBIS, "mp3":self.EXPORTING_MP3,
+					"wav":self.EXPORTING_WAV, "flac":self.EXPORTING_FLAC}
+		ext = filename[filename.rfind(".")+1:].lower()
+		if ext in formats:
+			self.Exporting = formats[ext]
+		else:
+			print "Unknown filetype for export"
+			return
+		
+		#remove and unlink the alsasink
+		self.playbackbin.remove(self.out, self.level)
+		self.levelcaps.unlink(self.level)
+		#create filesink
+		self.outfile = gst.element_factory_make("filesink", "export_file")
+		self.outfile.set_property("location", filename)
+		self.playbackbin.add(self.outfile)
+		
+		if self.Exporting == self.EXPORTING_VORBIS:
 			self.encode = gst.element_factory_make("vorbisenc")
-##			self.encode.set_property("quality", 1)
 			self.mux = gst.element_factory_make("oggmux")
 			
 			#audioconvert is required because level and vorbisenc have different caps
 			self.exportconvert = gst.element_factory_make("audioconvert", "export_convert")
 		
-			self.playbackbin.add(self.exportconvert, self.encode, self.mux, self.outfile)
-			
-			#remove and unlink the alsasink
-			self.playbackbin.remove(self.out, self.level)
-			self.levelcaps.unlink(self.level)
-			
-			caps = gst.caps_from_string ("audio/x-raw-float,rate=44100,channels=2,endianness=1234,width=32")
+			self.playbackbin.add(self.exportconvert, self.encode, self.mux)
 			
 			self.levelcaps.link(self.exportconvert)
 			self.exportconvert.link(self.encode)
 			self.encode.link(self.mux)
 			self.mux.link(self.outfile)
-			
-			#disconnect the bus_message() which will make the transport manager progress move
-			self.bus.disconnect(self.Mhandler)
-			self.bus.disconnect(self.EOShandler)
-			self.EOShandler = self.bus.connect("message::eos", self.export_eos)
-	
-		else:
-			print "Unknown filetype for export"
-			return
 		
-		self.IsExporting = True
+		elif self.Exporting == self.EXPORTING_MP3 or self.Exporting == self.EXPORTING_WAV \
+					or self.Exporting == self.EXPORTING_FLAC:
+			if self.Exporting == self.EXPORTING_MP3:
+				self.encode = gst.element_factory_make("lame")			
+			elif self.Exporting == self.EXPORTING_WAV:
+				self.encode = gst.element_factory_make("wavenc")				
+			elif self.Exporting == self.EXPORTING_FLAC:
+				self.encode = gst.element_factory_make("flacenc")
+			
+			self.playbackbin.add(self.encode)
+			self.levelcaps.link(self.encode)
+			self.encode.link(self.outfile)
+			
+		#disconnect the bus_message() which will make the transport manager progress move
+		self.bus.disconnect(self.Mhandler)
+		self.bus.disconnect(self.EOShandler)
+		self.EOShandler = self.bus.connect("message::eos", self.export_eos)
+		
 		#start the pipeline!
 		self.play()
 
@@ -395,9 +411,15 @@ class Project(Monitored, CommandManaged):
 	
 	def export_eos(self, bus=None, message=None):
 		#connected to eos on mainpipeline while export is taking place
+		
+		if self.Exporting == self.NOT_EXPORTING:
+			return
+		else:
+			exportType = self.Exporting
+			self.Exporting = self.NOT_EXPORTING
+	
 		self.stop()
-		self.IsExporting = False
-		#NULL is required because some elements will be destroyed when we remove them
+		#NULL is required because elements will be destroyed when we delete them
 		self.mainpipeline.set_state(gst.STATE_NULL)
 	
 		self.bus.disconnect(self.EOShandler)
@@ -405,22 +427,29 @@ class Project(Monitored, CommandManaged):
 		self.EOShandler = self.bus.connect("message::eos", self.stop)
 		
 		#remove all the export elements
-		self.playbackbin.remove(self.exportconvert, self.encode, self.mux, self.outfile)
+		self.playbackbin.remove(self.outfile)
+		del self.outfile
+		
+		if exportType == self.EXPORTING_VORBIS:
+			self.playbackbin.remove(self.exportconvert, self.encode, self.mux)
+			self.levelcaps.unlink(self.exportconvert)			
+			del self.exportconvert, self.encode, self.mux
+		
+		elif exportType == self.EXPORTING_MP3 or exportType == self.EXPORTING_WAV \
+					or exportType == self.EXPORTING_FLAC:
+			self.playbackbin.remove(self.encode)
+			self.levelcaps.unlink(self.encode)
+			del self.encode
 		
 		#re-add all the alsa playback elements
 		self.playbackbin.add(self.out, self.level)
-		self.levelcaps.unlink(self.exportconvert)
 		self.levelcaps.link(self.level)
-		
-		self.exportconvert.unlink(self.encode)
-		self.encode.unlink(self.mux)
-		self.mux.unlink(self.outfile)
 	
 	#_____________________________________________________________________
 	
 	def get_export_progress(self):
 		#Returns tuple with number of seconds done, and number of total seconds
-		if self.IsExporting:
+		if self.Exporting != self.NOT_EXPORTING:
 			try:
 				total = float(self.mainpipeline.query_duration(gst.FORMAT_TIME)[0])
 				cur = float(self.mainpipeline.query_position(gst.FORMAT_TIME)[0])
