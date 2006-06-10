@@ -451,13 +451,16 @@ class Project(Monitored, CommandManaged):
 		#Returns tuple with number of seconds done, and number of total seconds
 		if self.Exporting != self.NOT_EXPORTING:
 			try:
-				total = float(self.mainpipeline.query_duration(gst.FORMAT_TIME)[0])
-				cur = float(self.mainpipeline.query_position(gst.FORMAT_TIME)[0])
-				return (cur/gst.SECOND, total/gst.SECOND)
+				total = self.mainpipeline.query_duration(gst.FORMAT_TIME)[0]
+				cur = self.mainpipeline.query_position(gst.FORMAT_TIME)[0]
 			except gst.QueryError:
-				return (-1., -1.)
+				return (-1, -1)
+			else:
+				if cur > total:
+					total = cur
+				return (float(cur)/gst.SECOND, float(total)/gst.SECOND)
 		else:
-			return (100., 100.)
+			return (100, 100)
 		
 	#_____________________________________________________________________
 	
