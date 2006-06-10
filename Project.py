@@ -310,10 +310,7 @@ class Project(Monitored, CommandManaged):
 	def bus_message(self, bus, message):
 		st = message.structure
 		if st and st.get_name() == "level":
-			if message.src is self.level:
-				position = float(st["endtime"]) / gst.SECOND
-				self.transport.SetPosition(position)
-			else:
+			if not message.src is self.level:
 				for instr in self.instruments:
 					if message.src is instr.levelElement:
 						instr.SetLevel(DbToFloat(st["decay"][0]))

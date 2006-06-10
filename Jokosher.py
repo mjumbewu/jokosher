@@ -261,6 +261,7 @@ class MainApp:
 		self.stop.set_sensitive(self.isPlaying)
 		self.record.set_sensitive(not self.isPlaying)
 		if self.isPlaying:
+			gobject.timeout_add(50, self.recording.timelinebar.timeline.OnTimeOut)
 			self.project.play()
 		else:
 			self.project.stop()

@@ -217,14 +217,25 @@ class TimeLine(gtk.DrawingArea):
 	def moveHead(self, xpos):
 		pos = self.project.viewStart + xpos/ self.project.viewScale
 		self.project.transport.SetPosition(pos)
+		self.project.transport.startPosition = pos
 		res,state,pending = self.project.mainpipeline.get_state(0)
 		if not state in [gst.STATE_PAUSED, gst.STATE_PLAYING]:
 			self.project.mainpipeline.set_state(gst.STATE_PAUSED)
 		r=self.project.mainpipeline.seek( 1.0, gst.FORMAT_TIME, gst.SEEK_FLAG_FLUSH,
 			       gst.SEEK_TYPE_SET, long(pos * gst.SECOND), gst.SEEK_TYPE_NONE, 0 )
-		print pos,r
+		#print pos,r
 	#_____________________________________________________________________
-	
+		
+	def OnTimeOut(self):
+		pos = float(self.project.mainpipeline.query_position(gst.FORMAT_TIME)[0]) / gst.SECOND + self.project.transport.startPosition
+		self.project.transport.SetPosition(pos)
+		if self.project.IsPlaying:
+			return True
+		else:
+			return False
+		
+	#_____________________________________________________________________
+		
 	def autoscroll(self, direction, xpos):
 		if not self.dragging:
 			return False

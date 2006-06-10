@@ -44,6 +44,7 @@ class TransportManager(Monitored):
 		                            # in TimeLine
 		
 		self.mode = initialMode
+		self.startPosition = 0
 
 	#_____________________________________________________________________
 
