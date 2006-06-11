@@ -323,18 +323,25 @@ class MainApp:
 		
 		response = chooser.run()
 		if response == gtk.RESPONSE_OK:
+			filename = chooser.get_filename()
+			chooser.destroy()
+		
 			export = gtk.glade.XML ("Jokosher.glade", "ProgressDialog")
-			export.signal_autoconnect({"on_cancel_clicked": self.OnExportCancel})
+			export.signal_connect("on_cancel_clicked", self.OnExportCancel)
+			
 			self.exportdlg = export.get_widget("ProgressDialog")
+			self.exportdlg.set_icon(self.icon)
+			self.exportdlg.set_transient_for(self.window)
 			
 			label = export.get_widget("progressLabel")
-			label.set_text("Exporting project to %s" % chooser.get_filename())
+			label.set_text("Exporting project to file: %s" %filename)
 			
 			self.exportprogress = export.get_widget("progressBar")
 			
 			gobject.timeout_add(100, self.UpdateExportDialog)
-			self.project.export(chooser.get_filename())
-		chooser.destroy()
+			self.project.export(filename)
+		else:
+			chooser.destroy()
 		
 	#_____________________________________________________________________
 	
@@ -342,13 +349,13 @@ class MainApp:
 		tuple = self.project.get_export_progress()
 		if tuple[0] == -1:
 			self.exportprogress.set_fraction(0.0)
-			self.exportprogress.set_text("0 of unknown seconds completed")
+			self.exportprogress.set_text("Preparing to export project")
 		elif tuple[0] == tuple[1] == 100:
 			self.exportdlg.destroy()
 			return False
 		else:
 			self.exportprogress.set_fraction(tuple[0]/tuple[1])
-			self.exportprogress.set_text("%d of %d seconds completed" % (tuple[0], tuple[1]))
+			self.exportprogress.set_text("%d of %d seconds exported" % (tuple[0], tuple[1]))
 			
 		return True
 	
