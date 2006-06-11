@@ -637,30 +637,6 @@ class Project(Monitored, CommandManaged):
 	
 	#_____________________________________________________________________
 	
-	def PurgeUndoHistory(self):
-		"""Clears the undo/redo stacks as well as deletes
-		   any objects in the graveyard
-		"""
-		self.performingUndo = False
-		self.performingRedo = False
-		self.savedUndo = False
-		
-		self.undoStack = []
-		self.redoStack = []
-		self.savedUndoStack = []
-		self.savedRedoStack = []
-		
-		self.graveyard = []
-		for instr in self.instruments:
-			instr.graveyard = []
-		
-		#Now that everything is cleared, we should prompt to save
-		self.unsavedChanges = True
-		#Notify GUI to update undo/redo button
-		self.StateChanged()
-		
-	#_____________________________________________________________________
-	
 	def CheckUnsavedChanges(self):
 		"""Uses boolean self.unsavedChanges and Undo/Redo to 
 		   determine if the program needs to save anything on exit

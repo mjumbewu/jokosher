@@ -68,8 +68,7 @@ class MainApp:
 			"on_redo_activate" : self.OnRedo,
 			"on_MouseDown" : self.OnMouseDown,
 			"on_instrumentconnections_activate" : self.OnInstrumentConnectonsDialog,
-			"on_projectmenu_activate" : self.OnProjectMenu,
-			"on_clearundo_activate" : self.OnClearUndoHistory
+			"on_projectmenu_activate" : self.OnProjectMenu
 		}
 		self.wTree.signal_autoconnect(signals)
 		
@@ -756,11 +755,6 @@ class MainApp:
 		b.set_active(transport.mode == transport.MODE_HOURS_MINS_SECS)
 		
 		self.settingButtons = False
-	
-	#_____________________________________________________________________
-	
-	def OnClearUndoHistory(self, widget):
-		self.project.PurgeUndoHistory()
 	
 	#_____________________________________________________________________
 	
