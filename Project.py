@@ -367,6 +367,8 @@ class Project(Monitored, CommandManaged):
 		#remove and unlink the alsasink
 		self.playbackbin.remove(self.out, self.level)
 		self.levelcaps.unlink(self.level)
+		self.level.unlink(self.out)
+		
 		#create filesink
 		self.outfile = gst.element_factory_make("filesink", "export_file")
 		self.outfile.set_property("location", filename)
@@ -444,6 +446,7 @@ class Project(Monitored, CommandManaged):
 		#re-add all the alsa playback elements
 		self.playbackbin.add(self.out, self.level)
 		self.levelcaps.link(self.level)
+		self.level.link(self.out)
 	
 	#_____________________________________________________________________
 	
