@@ -139,6 +139,7 @@ class Event(Monitored, CommandManaged):
 		'''
 		self.temp = frm
 		self.start = to
+		self.SetProperties()
 	
 	#_____________________________________________________________________
 	
@@ -150,25 +151,17 @@ class Event(Monitored, CommandManaged):
 			newly created event, which is the one on the right (after the splitpoint).
 		
 			undo : Join(%(temp)d)
-		'''
-		d = self.duration
-		self.duration = split_point
-		
+		'''		
 		if id == -1:
-			e = Event(self.instrument, self.file)
-			e.start = self.start + split_point
-			e.offset = self.offset + split_point
-			e.duration = d - split_point
-			e.file = self.file
-			nl = int(len(self.levels) * (split_point / d))
-			e.levels = self.levels[nl:]
-			self.levels = self.levels[:nl]
-			e.name = self.name
+			e = self.split_event(split_point)
 			self.instrument.events.append(e)
 			self.temp = e.id
 			self.StateChanged()
 			return e
 		else:
+			d = self.duration
+			self.duration = split_point
+			
 			event = [x for x in self.instrument.graveyard if x.id == id][0]
 			self.instrument.events.append(event)
 			
@@ -179,28 +172,125 @@ class Event(Monitored, CommandManaged):
 			self.StateChanged()
 		
 	#_____________________________________________________________________
-
-	def Join(self, joinEvent):
+	
+	def Join(self, joinEventID):
 		''' Joins 2 events together. 
 
 			undo : Split(%(temp)f, %(temp2)d)
 		'''
+		event = [x for x in self.instrument.events if x.id == joinEventID][0]
 
-		event = [x for x in self.instrument.events if x.id == joinEvent][0]
-
-		# Note that at this point, the joined event will retain the name
-		# and file of the leftEvent
 		self.temp = self.duration
-		self.duration = self.duration + event.duration
-		self.levels = self.levels + event.levels
-
+		self.temp2 = event.id
+		
+		self.join_event(event)
 		# Now that they're joined, move rightEvent to the graveyard
 		self.instrument.events.remove(event)
 		self.instrument.graveyard.append(event)
-		self.temp2 = event.id
+		
 		self.StateChanged()
 
-
+	#_____________________________________________________________________
+	
+	def split_event(self, split_point, cutRightSide=True):
+		"""helper function for Split() and Trim(). All other methods and classes
+		   should not invoke this function directly since there is no undo for it.
+		   
+		   If cutRightSide is True, a new event will be created to represent 
+		   the piece on the right which was split. This instance will be the one on the left.
+		   If cutRightSide is False, this instance is the one on the right.
+		"""
+		dur = self.duration
+		
+		e = Event(self.instrument, self.file)
+		e.name = self.name
+		
+		if cutRightSide:
+			e.start = self.start + split_point
+			e.offset = self.offset + split_point
+			e.duration = dur - split_point
+			self.duration = split_point
+			
+			nl = int(len(self.levels) * (split_point / dur))
+			e.levels = self.levels[nl:]
+			self.levels = self.levels[:nl]
+		else:
+			e.start = self.start
+			e.offset = self.offset
+			e.duration = split_point
+		
+			self.start = self.start + split_point
+			self.offset = self.offset + split_point
+			self.duration = dur - split_point
+			
+			nl = int(len(self.levels) * (split_point / dur))
+			e.levels = self.levels[:nl]
+			self.levels = self.levels[nl:]
+		
+		return e
+	
+	#_____________________________________________________________________
+	
+	def join_event(self, joinEvent, joinToRight=True):
+		"""helper function for Join() and Trim(). All other methods and classes
+		   should not invoke this function directly since there is no undo for it.
+		   
+		   After joining the events on either side, this method will not remove the event
+		   from the instrument lane. This must be done from the function that called this one.
+		"""
+		if joinToRight:
+			self.duration += joinEvent.duration
+			self.levels.extend(joinEvent.levels)
+		else:
+			self.start = joinEvent.start
+			self.offset = joinEvent.offset
+			self.duration += joinEvent.duration
+			self.levels = joinEvent.levels + self.levels
+		
+	#_____________________________________________________________________
+	
+	def Trim(self, start_split, end_split):
+		"""Splits the event at points start_split and end_split
+		   and then deletes the first and last sections leaving only
+		   the middle section.
+		   
+		   undo : UndoTrim(%(temp)d, %(temp2)d)
+		"""
+		# Split off the left section of the event, then put it in the graveyard for undo
+		leftSplit = self.split_event(start_split, False)
+		self.instrument.graveyard.append(leftSplit)
+		self.temp = leftSplit.id
+		
+		#Adjust the end_split value since splitting the left has changed self.duration
+		end_split = end_split - start_split
+		
+		# Split off the right section of the event, then put it in the graveyard for undo
+		rightSplit = self.split_event(end_split)
+		self.instrument.graveyard.append(rightSplit)
+		self.temp2 = rightSplit.id
+		
+		self.StateChanged()
+	#_____________________________________________________________________
+	
+	def UndoTrim(self, leftID, rightID):
+		"""Resurrects two pieces from the graveyard and joins them to
+		   either side of this event.
+		   
+		   undo : Trim(%(temp)f, %(temp2)f)
+		"""
+		leftEvent = [x for x in self.instrument.graveyard if x.id == leftID][0]
+		rightEvent = [x for x in self.instrument.graveyard if x.id == rightID][0]
+		
+		self.temp = leftEvent.duration
+		self.temp2 = leftEvent.duration + self.duration
+		
+		self.join_event(leftEvent, False)
+		self.join_event(rightEvent)
+		
+		self.instrument.graveyard.remove(leftEvent)
+		self.instrument.graveyard.remove(rightEvent)
+		
+		self.StateChanged()
 	#_____________________________________________________________________
 	
 	def Delete(self):

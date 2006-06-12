@@ -5,6 +5,7 @@ import gtk
 import math
 import cairo
 import Project
+import Monitored
 
 #=========================================================================
 
@@ -492,17 +493,8 @@ class EventViewer(gtk.DrawingArea):
 		# Hide the drawer
 		self.lane.fixed.remove(self.drawer)
 
-		# Split at the right of the selection; returns R.event. We are now L-S.
-		R = self.event.Split(rightOfSel)
-		
-		# Split at the left of the selection: returns S.event. We are now L.
-		S = self.event.Split(leftOfSel)
-		
-		# We are now L. Delete R.
-		R.Delete()
-		
-		# Delete L (which is us), leaving S, which was the selected bit.
-		self.OnDelete(None)
+		self.event.Trim(leftOfSel, rightOfSel)
+		self.Selection = [0,0]
 
 	#_____________________________________________________________________
 	
@@ -528,7 +520,6 @@ class EventViewer(gtk.DrawingArea):
 	#_____________________________________________________________________
 	
 	def OnStateChanged(self, obj, change=None):
-				
 		if self.isLoading != self.event.isLoading:
 			self.redrawWaveform = True
 			self.isLoading = self.event.isLoading
