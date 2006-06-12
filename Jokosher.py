@@ -260,8 +260,8 @@ class MainApp:
 		self.stop.set_sensitive(self.isPlaying)
 		self.record.set_sensitive(not self.isPlaying)
 		if self.isPlaying:
-			gobject.timeout_add(50, self.recording.timelinebar.timeline.OnTimeOut)
 			self.project.play()
+			gobject.timeout_add(50, self.OnTimeOut)
 		else:
 			self.project.stop()
 
@@ -295,6 +295,21 @@ class MainApp:
 	def OnForwardReleased(self, widget = None):
 		self.project.transport.Forward(False)
 	
+	#_____________________________________________________________________
+	
+	def OnTimeOut(self):
+		if self.project and self.project.IsPlaying:
+			try:
+				newpos = self.project.mainpipeline.query_position(gst.FORMAT_TIME)[0]
+			except gst.QueryError:
+				pass
+			else:
+				pos = float(newpos) / gst.SECOND + self.project.transport.startPosition
+				self.project.transport.SetPosition(pos)
+			return True
+		else:
+			return False
+		
 	#_____________________________________________________________________
 	
 	def InstrumentSelected(self, widget = None, event = None):

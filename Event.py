@@ -270,6 +270,7 @@ class Event(Monitored, CommandManaged):
 		self.instrument.graveyard.append(rightSplit)
 		self.temp2 = rightSplit.id
 		
+		self.SetProperties()
 		self.StateChanged()
 	#_____________________________________________________________________
 	
@@ -291,6 +292,7 @@ class Event(Monitored, CommandManaged):
 		self.instrument.graveyard.remove(leftEvent)
 		self.instrument.graveyard.remove(rightEvent)
 		
+		self.SetProperties()
 		self.StateChanged()
 	#_____________________________________________________________________
 	

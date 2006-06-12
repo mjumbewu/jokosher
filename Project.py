@@ -312,12 +312,11 @@ class Project(Monitored, CommandManaged):
 
 	def bus_message(self, bus, message):
 		st = message.structure
-		if st and st.get_name() == "level":
-			if not message.src is self.level:
-				for instr in self.instruments:
-					if message.src is instr.levelElement:
-						instr.SetLevel(DbToFloat(st["decay"][0]))
-						break
+		if st and st.get_name() == "level" and not message.src is self.level:
+			for instr in self.instruments:
+				if message.src is instr.levelElement:
+					instr.SetLevel(DbToFloat(st["decay"][0]))
+					break
 		return True
 
 	#_____________________________________________________________________

@@ -226,21 +226,6 @@ class TimeLine(gtk.DrawingArea):
 		#print pos,r
 	#_____________________________________________________________________
 		
-	def OnTimeOut(self):
-		if self.project.IsPlaying:
-			try:
-				newpos = self.project.mainpipeline.query_position(gst.FORMAT_TIME)[0]
-			except gst.QueryError:
-				pass
-			else:
-				pos = float(newpos) / gst.SECOND + self.project.transport.startPosition
-				self.project.transport.SetPosition(pos)
-			return True
-		else:
-			return False
-		
-	#_____________________________________________________________________
-		
 	def autoscroll(self, direction, xpos):
 		if not self.dragging:
 			return False
