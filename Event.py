@@ -156,6 +156,7 @@ class Event(Monitored, CommandManaged):
 			e = self.split_event(split_point)
 			self.instrument.events.append(e)
 			self.temp = e.id
+			self.SetProperties()
 			self.StateChanged()
 			return e
 		else:
