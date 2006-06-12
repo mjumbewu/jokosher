@@ -85,25 +85,19 @@ class EventLaneViewer(gtk.EventBox):
 		if child:
 			x = int((child.event.start - self.project.viewStart) * self.project.viewScale)
 			self.fixed.move( child, x, 0 )
-		else:
-			# Get a list of the active EventViewer widgets
-			widgets = []
-			self.fixed.foreach(lambda x: widgets.append(x))
-			widgets = [x for x in widgets if type(x) == EventViewer]
-			
+		else:			
 			# Move them to the correct positions
-			for w in widgets:
-				x = int((w.event.start - self.project.viewStart) * self.project.viewScale)
-				self.fixed.move(w, x, 0)
-				
-			# Check if any events have been deleted
-			for w in widgets:
+			for w in self.fixed.get_children():
 				if w.event not in self.instrument.events:
+					# Check if any events have been deleted
 					self.fixed.remove(w)
 					self.childActive = False
+				else:
+					x = int((w.event.start - self.project.viewStart) * self.project.viewScale)
+					self.fixed.move(w, x, 0)
 
 			# Check if any events have been added
-			widget_events = [w.event for w in widgets]
+			widget_events = [w.event for w in self.fixed.get_children()]
 			for ev in self.instrument.events:
 				if ev not in widget_events:
 					x = int((ev.start - self.project.viewStart) * self.project.viewScale)

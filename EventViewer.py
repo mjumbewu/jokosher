@@ -318,9 +318,12 @@ class EventViewer(gtk.DrawingArea):
 			dx = float(x - self.mouseAnchor[0]) / self.project.viewScale
 			time = self.event.start + dx
 			time = max(0, time)
-			self.event.start = time
-			self.mouseAnchor = [x, y]
-			self.lane.Update(self)
+			
+			if self.event.MayPlace(time):
+				self.event.start = time
+				self.lane.Update(self)
+				self.mouseAnchor = [x, y]
+				
 			self.highlightCursor = None
 		elif self.isSelecting:
 			self.Selection[1] = max(0,min(self.allocation.width,mouse.x))

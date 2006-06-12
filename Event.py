@@ -392,6 +392,15 @@ class Event(Monitored, CommandManaged):
 		self.StateChanged()
 	
 	#_____________________________________________________________________
-
+	
+	def MayPlace(self, xpos):
+		for e in self.instrument.events:
+			if e is self:
+				continue
+			if not (e.start + e.duration <= xpos or e.start >= xpos + self.duration):
+				return False
+		return True
+		
+	#_____________________________________________________________________
 
 #=========================================================================	
