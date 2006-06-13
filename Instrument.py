@@ -206,10 +206,10 @@ class Instrument(Monitored, CommandManaged):
 		self.tmpe.name = "Recorded audio"
 		self.tmpe.file = file
 
-		self.output = "audioconvert ! vorbisenc ! oggmux ! filesink location=" + file
+		self.output = "audioconvert ! vorbisenc ! oggmux ! filesink location=%s" % file.replace(" ", "\ ")
 		print "Using pipeline:", self.input + self.effects + self.output
 
-		self.recordingbin = gst.parse_launch("bin.( " + self.input + self.effects + self.output + " )")
+		self.recordingbin = gst.parse_launch("bin.( %s%s%s )" % (self.input, self.effects, self.output))
 		#print self.recordingbin
 		#We remove this instrument's playbin from the project so it doesn't try to record and play from the same file
 		self.RemoveAndUnlinkPlaybackbin()
