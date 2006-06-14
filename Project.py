@@ -56,7 +56,6 @@ def CreateNew(folder,name,author):
 		except:
 			raise CreateProjectError(3)
 
-	project.startTransportThread()
 	project.saveProjectFile(project.projectfile)
 
 	return project
@@ -116,7 +115,6 @@ def LoadFromFile(file):
 		i.LoadFromXML(instr)
 		p.graveyard.append(i)
 
-	p.startTransportThread()
 	return p
 
 #_____________________________________________________________________	
@@ -150,11 +148,6 @@ class Project(Monitored, CommandManaged):
 		
 		# the name of the project file, complete with path
 		self.projectfile = ""
-		
-		self.mainpipeline = None
-		
-		#mode for transport manager that hasn't been initialized yet
-		self.transportMode = TransportManager.TransportManager.MODE_BARS_BEATS
 		
 		# View scale as pixels per second
 		self.viewScale = 25.
@@ -230,6 +223,9 @@ class Project(Monitored, CommandManaged):
 		self.EOShandler = self.bus.connect("message::eos", self.stop)
 		
 		self.mainpipeline.add(self.playbackbin)
+		
+		self.transportMode = TransportManager.TransportManager.MODE_BARS_BEATS
+		self.transport = TransportManager.TransportManager(self.transportMode, self.mainpipeline)
 
 		# [DEBUG]
 		# This debug block will be removed when we release. If you see this in a release version, we
@@ -244,12 +240,6 @@ class Project(Monitored, CommandManaged):
 			pass
 		# [/DEBUG]
 
-
-	#_____________________________________________________________________
-	
-	def startTransportThread(self):
-		self.transport = TransportManager.TransportManager(self.transportMode)
-	
 	#_____________________________________________________________________
 		
 	def record(self):
@@ -281,6 +271,7 @@ class Project(Monitored, CommandManaged):
 			bus.disconnect(self.state_id)
 			self.mainpipeline.set_state(gst.STATE_PLAYING)
 			self.IsPlaying = True
+			self.transport.Play()
 			
 
 	#_____________________________________________________________________
@@ -292,9 +283,12 @@ class Project(Monitored, CommandManaged):
 			gst.debug("Play pressed, about to set state to PLAYING")
 			
 			# And set it going
-			self.mainpipeline.set_state(gst.STATE_PLAYING)
+			self.transport.busid = self.bus.connect("message::state-changed", self.transport.Play)
+			#set to PAUSED so the transport manager can seek first (if needed)
+			#the pipeline will be set to PLAY by the transport manager
+			self.mainpipeline.set_state(gst.STATE_PAUSED)
+			
 			self.IsPlaying = True
-
 			gst.debug("just set state to PLAYING")
 
 			# [DEBUG]
@@ -471,34 +465,24 @@ class Project(Monitored, CommandManaged):
 		for instr in self.instruments:
 			instr.stop()
 
-		if self.mainpipeline:
-			#self.bin.remove(instr.converterElement)
-			#print "removed instrument audioconvert (project)"
+		gst.debug("Stop pressed, about to set state to READY")
+
+		self.mainpipeline.set_state(gst.STATE_READY)
+		self.IsPlaying = False
 			
-			#self.bin.remove(instr.volumeElement)
-			#print "removed instrument volume (project)"
+		gst.debug("Stop pressed, state just set to READY")
 
-			#self.bin.remove(instr.levelElement)
-			#print "removed instrument level (project)"
-
-			gst.debug("Stop pressed, about to set state to READY")
-
-			self.mainpipeline.set_state(gst.STATE_READY)
-			self.IsPlaying = False
-			
-			gst.debug("Stop pressed, state just set to READY")
-
-			print "PIPELINE AFTER STOP:"
-			# [DEBUG]
-			# This debug block will be removed when we release. If you see this in a release version, we
-			# obviously suck. Please email us and tell us about how shit we are.
-			try:
-				if os.environ['JOKOSHER_DEBUG']:
-					print "Play Pipeline:"
-					self.debug.ShowPipelineTree(self.mainpipeline)
-			except:
-				pass
-			# [/DEBUG]
+		print "PIPELINE AFTER STOP:"
+		# [DEBUG]
+		# This debug block will be removed when we release. If you see this in a release version, we
+		# obviously suck. Please email us and tell us about how shit we are.
+		try:
+			if os.environ['JOKOSHER_DEBUG']:
+				print "Play Pipeline:"
+				self.debug.ShowPipelineTree(self.mainpipeline)
+		except:
+			pass
+		# [/DEBUG]
 			
 		self.transport.Stop()
 			
@@ -572,8 +556,6 @@ class Project(Monitored, CommandManaged):
 		global GlobalProjectObject
 		GlobalProjectObject = None
 		
-		if self.transport:
-			self.transport.Destroy()
 		self.instruments = []
 		self.metadata = {}
 		self.projectfile = ""

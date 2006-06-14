@@ -216,14 +216,8 @@ class TimeLine(gtk.DrawingArea):
 		
 	def moveHead(self, xpos):
 		pos = self.project.viewStart + xpos/ self.project.viewScale
-		self.project.transport.SetPosition(pos)
-		self.project.transport.startPosition = pos
-		res,state,pending = self.project.mainpipeline.get_state(0)
-		if not state in [gst.STATE_PAUSED, gst.STATE_PLAYING]:
-			self.project.mainpipeline.set_state(gst.STATE_PAUSED)
-		r=self.project.mainpipeline.seek( 1.0, gst.FORMAT_TIME, gst.SEEK_FLAG_FLUSH,
-			       gst.SEEK_TYPE_SET, long(pos * gst.SECOND), gst.SEEK_TYPE_NONE, 0 )
-		#print pos,r
+		self.project.transport.SeekTo(pos)
+		
 	#_____________________________________________________________________
 		
 	def autoscroll(self, direction, xpos):

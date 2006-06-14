@@ -154,6 +154,7 @@ class Event(Monitored, CommandManaged):
 		'''		
 		if id == -1:
 			e = self.split_event(split_point)
+			e.SetProperties()
 			self.instrument.events.append(e)
 			self.temp = e.id
 			self.SetProperties()

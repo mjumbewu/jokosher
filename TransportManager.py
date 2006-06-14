@@ -2,7 +2,7 @@
 import pygst
 pygst.require("0.10")
 import gst
-import threading
+import gobject
 import time
 from Monitored import *
 
@@ -15,118 +15,91 @@ class TransportManager(Monitored):
 
 	FPS = 30. 				# Position update rate in Frames Per Second
 	TICKS_PER_BEAT = 256 	# Timing resolution - number of ticks ber beat
-	SEEK_RATE = 10.			# How many times normal speed the position moves when seeking
+	SEEK_RATE = 5.			# How many times normal speed the position moves when seeking
 	
 	MODE_HOURS_MINS_SECS = 1
 	MODE_BARS_BEATS = 2
 
 	#_____________________________________________________________________
 
-	def __init__(self, initialMode):
+	def __init__(self, initialMode, mainpipeline):
 		Monitored.__init__(self)
 		
+		self.pipeline = mainpipeline
 		self.position = 0
 		self.PrevPosition = 0
 		self.bpm = 120.			# Tempo in BPM
 		self.meter_nom = 4		# Meter nominator
 		self.meter_denom = 4	# Meter denominator
 		
-		self.oldTime = time.time()
-		self.stopThread = threading.Event()
-		self.threadStopped = threading.Event()
-		self.thread = threading.Thread(target=self.ThreadProc, name="TransportManager")
-		self.thread.start()
-		
 		self.isPlaying = False
 		self.isReversing = False
 		self.isForwarding = False
 		self.RedrawTimeLine = False # set by SetMode to force redraw
 		                            # in TimeLine
+		self.UpdateTimeout = False
 		
 		self.mode = initialMode
 		self.startPosition = 0
 
 	#_____________________________________________________________________
-
-	""" Note TransportManagers are equal without regard to the threading
-	"""
-	def __eq__(self, tm):
-		if(self.position != tm.position):
-			return False
-		if(self.bpm != tm.bpm):
-			return False
-		if(self.meter_nom != tm.meter_nom):
-			return False
-		if(self.meter_denom != tm.meter_denom):
-			return False
-
-		if(self.isPlaying != tm.isPlaying):
-			return False
-		if(self.isReversing != tm.isReversing):
-			return False
-		if(self.isForwarding != tm.isForwarding):
-			return False
-		
-		if(self.mode != tm.mode):
-			return False
-
-		return True
-		
-	#_____________________________________________________________________
-		
-	def Destroy(self):
-		self.stopThread.set()
-		self.threadStopped.wait()
-				
-	#_____________________________________________________________________
-		
-	def ThreadProc(self):
-		while True:
-			self.stopThread.wait(1. / self.FPS)
-			if self.stopThread.isSet():
-				self.threadStopped.set()
-				return
-			else:
-				if self.isPlaying:
-					t = time.time()
-					self.position += t - self.oldTime
-					self.oldTime = t
-					self.StateChanged()
-					
-				if self.isForwarding:
-					t = time.time()
-					self.position += (t - self.oldTime) * self.SEEK_RATE
-					self.oldTime = t
-					self.StateChanged()
-					
-				if self.isReversing:
-					t = time.time()
-					self.position -= (t - self.oldTime) * self.SEEK_RATE
-					self.position = max(0, self.position)
-					self.oldTime = t
-					self.StateChanged()
-
-	#_____________________________________________________________________
-		
-	def Play(self):
+	
+	def Play(self, bus, message):
+		#called when state changed bus message is sent
+		if self.pipeline.get_state(0)[1] != gst.STATE_PAUSED:
+			return
+		else:
+			bus.disconnect(self.busid)
+			
 		self.isPlaying = True
+		if self.startPosition > 0.01:
+			self.SeekTo(self.startPosition)
+			
+		self.pipeline.set_state(gst.STATE_PLAYING)
+		self.StartUpdateTimeout()
 		
 	#_____________________________________________________________________
 		
 	def Stop(self):
 		self.isPlaying = False
+		self.startPosition = 0.
+		self.SetPosition(0.0)
 		
 	#_____________________________________________________________________
 		
-	def Reverse(self, rev):
-		self.isReversing = rev
-		self.oldTime = time.time()
+	def Reverse(self, turnOn):
+		if self.isReversing == turnOn:
+			#there is no change in reversing state
+			return
+		
+		self.isReversing = turnOn
+		if turnOn:
+			#Pause playback while seeking
+			self.pipeline.set_state(gst.STATE_PAUSED)
+			self.StartUpdateTimeout()
+		else:
+			self.SeekTo(self.GetPosition())
+			if self.isPlaying:
+				#resume playback if it was playing before
+				self.pipeline.set_state(gst.STATE_PLAYING)
 		
 	#_____________________________________________________________________
 		
-	def Forward(self, fwd):
-		self.isForwarding = fwd
-		self.oldTime = time.time()
+	def Forward(self, turnOn):
+		if self.isForwarding == turnOn:
+			#there is no change in the forwarding state
+			return
+	
+		self.isForwarding = turnOn
+		if turnOn:
+			#Pause playback while seeking
+			self.pipeline.set_state(gst.STATE_PAUSED)
+			self.StartUpdateTimeout()
+		else:
+			self.SeekTo(self.GetPosition())
+			if self.isPlaying:
+				#resume playback if it was playing before
+				self.pipeline.set_state(gst.STATE_PLAYING)
 		
 	#_____________________________________________________________________
 	
@@ -160,12 +133,10 @@ class TransportManager(Monitored):
 	#_____________________________________________________________________
 	
 	def GetPositionAsHoursMinutesSeconds(self):
-		mins = int(self.position / 60.)
-		hours = int(mins / 60.)
-		mins -= hours * 60
-		secs = int(self.position)
-		secs -= (hours * 60 * 60) + (mins * 60)
-		millis = (self.position - int(self.position)) * 1000
+		hours = int(self.position / 3600)
+		mins = int((self.position % 3600) / 60)
+		secs = int(self.position % 60)
+		millis = int((self.position * 10000) % 10000)
 		
 		return (hours, mins, secs, millis)
 	
@@ -183,7 +154,46 @@ class TransportManager(Monitored):
 		self.StateChanged()
 
 	#_____________________________________________________________________
+	
+	def StartUpdateTimeout(self):
+		if not self.UpdateTimeout:
+			gobject.timeout_add(int(1000/self.FPS), self.OnUpdate)
+	
+	#_____________________________________________________________________
+	
+	def OnUpdate(self):
+		if self.isReversing:
+			self.SetPosition(self.position - self.SEEK_RATE/self.FPS)
+		elif self.isForwarding:
+			self.SetPosition(self.position + self.SEEK_RATE/self.FPS)
+		elif self.isPlaying:
+			try:
+				newpos = self.pipeline.query_position(gst.FORMAT_TIME)[0]
+			except gst.QueryError:
+				pass
+			else:
+				pos = float(newpos) / gst.SECOND + self.startPosition
+				self.SetPosition(pos)
+		else:
+			self.UpdateTimeout = False
+			#Prevent the timeout from calling us again
+			return False
+			
+		#Make sure the timeout calls us again
+		return True
 		
+	#_____________________________________________________________________
+	
+	def SeekTo(self, pos):
+		if self.isPlaying:
+			self.pipeline.seek( 1.0, gst.FORMAT_TIME, gst.SEEK_FLAG_FLUSH,
+					gst.SEEK_TYPE_SET, long(pos * gst.SECOND), 
+					gst.SEEK_TYPE_NONE, -1)
+		
+		self.startPosition = pos
+		self.SetPosition(pos)
+	
+	#_____________________________________________________________________
 	
 #=========================================================================
 
