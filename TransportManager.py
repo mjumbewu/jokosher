@@ -74,8 +74,9 @@ class TransportManager(Monitored):
 		
 		self.isReversing = turnOn
 		if turnOn:
-			#Pause playback while seeking
-			self.pipeline.set_state(gst.STATE_PAUSED)
+			if self.isPlaying:
+				#Pause playback while seeking
+				self.pipeline.set_state(gst.STATE_PAUSED)
 			self.StartUpdateTimeout()
 		else:
 			self.SeekTo(self.GetPosition())
@@ -92,8 +93,9 @@ class TransportManager(Monitored):
 	
 		self.isForwarding = turnOn
 		if turnOn:
-			#Pause playback while seeking
-			self.pipeline.set_state(gst.STATE_PAUSED)
+			if self.isPlaying:
+				#Pause playback while seeking
+				self.pipeline.set_state(gst.STATE_PAUSED)
 			self.StartUpdateTimeout()
 		else:
 			self.SeekTo(self.GetPosition())
@@ -163,7 +165,8 @@ class TransportManager(Monitored):
 	
 	def OnUpdate(self):
 		if self.isReversing:
-			self.SetPosition(self.position - self.SEEK_RATE/self.FPS)
+			newpos = self.position - self.SEEK_RATE/self.FPS
+			self.SetPosition(max(newpos, 0))
 		elif self.isForwarding:
 			self.SetPosition(self.position + self.SEEK_RATE/self.FPS)
 		elif self.isPlaying:
