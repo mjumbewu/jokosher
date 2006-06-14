@@ -36,7 +36,7 @@ class InstrumentViewer(gtk.EventBox):
 		
 		self.headerBox = gtk.VBox()
 		self.eventLane = EventLaneViewer(project, instrument, self.small)
-																	
+		
 		self.mainBox.pack_start(self.headerBox, False, False)
 		self.mainBox.pack_end(self.eventLane, True, True)
 
@@ -71,9 +71,9 @@ class InstrumentViewer(gtk.EventBox):
 		
 		self.labelbox.pack_start(image, False)
 		self.labelbox.pack_end(self.labeleventbox)
-		self.headerBox.pack_start(self.labelbox, False, False)
+		self.headerBox.pack_start(self.labelbox)
 		self.controlsBox = gtk.HBox()
-		self.headerBox.add(self.controlsBox)
+		self.headerBox.pack_start(self.controlsBox, False)
 		
 		if not (self.small):
 			img = gtk.image_new_from_stock(gtk.STOCK_MEDIA_RECORD, gtk.ICON_SIZE_BUTTON)

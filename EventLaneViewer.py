@@ -88,13 +88,15 @@ class EventLaneViewer(gtk.EventBox):
 		else:			
 			# Move them to the correct positions
 			for w in self.fixed.get_children():
-				if w.event not in self.instrument.events:
-					# Check if any events have been deleted
-					self.fixed.remove(w)
-					self.childActive = False
-				else:
-					x = int((w.event.start - self.project.viewStart) * self.project.viewScale)
-					self.fixed.move(w, x, 0)
+				#Check that it is EventViewer (could be a button drawer)
+				if type(w) == EventViewer:
+					if w.event not in self.instrument.events:
+						# Check if any events have been deleted
+						self.fixed.remove(w)
+						self.childActive = False
+					else:
+						x = int((w.event.start - self.project.viewStart) * self.project.viewScale)
+						self.fixed.move(w, x, 0)
 
 			# Check if any events have been added
 			widget_events = [w.event for w in self.fixed.get_children()]
