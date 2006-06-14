@@ -55,9 +55,9 @@ class TimeLineBar(gtk.Fixed):
 		self.headerhbox = gtk.HBox()
 		self.headerhbox.set_border_width(5)
 		self.headerhbox.set_spacing(5)
-		self.headerhbox.pack_start(self.clickbutton, False, False)
-		self.headerhbox.pack_start(self.bpmframe, False, False)
-		self.headerhbox.pack_start(self.sigframe, False, False)
+		self.headerhbox.pack_start(self.clickbutton, True, True)
+		self.headerhbox.pack_start(self.bpmframe, True, True)
+		self.headerhbox.pack_start(self.sigframe, True, True)
 		
 		self.put(self.headerhbox, 0, 0)
 		self.headerhbox.connect("check-resize", self.parentUpdateMethod)

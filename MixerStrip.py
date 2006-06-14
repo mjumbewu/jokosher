@@ -51,12 +51,9 @@ class MixerStrip(gtk.Frame):
 		self.soloButton = gtk.ToggleButton("S")
 		self.soloButton.connect("toggled", self.OnSolo)
 		
-		self.sourceButton = gtk.ToggleButton("In")
-		
 		hb.add(self.recButton)
 		hb.add(self.muteButton)
 		hb.add(self.soloButton)
-		hb.add(self.sourceButton)
 		self.vbox.pack_start(hb, False, False)
 		
 		# Label and icon

@@ -81,7 +81,7 @@ class InstrumentViewer(gtk.EventBox):
 			self.recButton.set_property("image", img)
 			self.recButton.connect("toggled", self.OnArm)
 			
-			self.muteButton = gtk.ToggleButton("Mute")
+			self.muteButton = gtk.ToggleButton("")
 			self.muteButton.connect("toggled", self.OnMute)
 			
 			self.soloButton = gtk.ToggleButton("Solo")
@@ -163,6 +163,11 @@ class InstrumentViewer(gtk.EventBox):
 			self.muteButton.set_active(self.instrument.actuallyIsMuted)
 			self.soloButton.set_active(self.instrument.isSolo)
 		
+			if self.instrument.actuallyIsMuted:
+				self.muteButton.set_image(gtk.image_new_from_icon_name("stock_volume-mute", gtk.ICON_SIZE_BUTTON))
+			else:
+				self.muteButton.set_image(gtk.image_new_from_icon_name("stock_volume", gtk.ICON_SIZE_BUTTON))
+				
 		if self.instrument.isSelected:
 			self.modify_bg(gtk.STATE_NORMAL, self.SELECTED_COLOUR)
 			self.labeleventbox.modify_bg(gtk.STATE_NORMAL, self.SELECTED_COLOUR)
