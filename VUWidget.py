@@ -32,8 +32,6 @@ class VUWidget(gtk.DrawingArea):
 		self.fader_active = False
 		self.fader_hover = False
 		
-		self.RedrawCount = 6
-
 		self.instrument.AddListener(self)
 		self.source = cairo.ImageSurface(cairo.FORMAT_ARGB32, self.allocation.width, self.allocation.height)
 		
@@ -167,10 +165,7 @@ class VUWidget(gtk.DrawingArea):
 	#_____________________________________________________________________
 	
 	def OnStateChanged(self, obj, change=None):
-		self.RedrawCount += 1
-		if self.RedrawCount > 6:
-			self.queue_draw()
-			self.RedrawCount = 0
+		self.queue_draw()
 		
 	#_____________________________________________________________________
 	

@@ -259,6 +259,7 @@ class MainApp:
 		self.isPlaying = not self.isPlaying
 		self.stop.set_sensitive(self.isPlaying)
 		self.record.set_sensitive(not self.isPlaying)
+		self.compactmix.StartUpdateTimeout()
 		if self.isPlaying:
 			self.project.play()
 		else:

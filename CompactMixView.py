@@ -13,6 +13,10 @@ gobject.signal_new("minimise", MixerStrip, gobject.SIGNAL_RUN_FIRST, gobject.TYP
 #=========================================================================
 
 class CompactMixView(gtk.Frame):
+	""" This class implements the mix view
+	"""
+	
+	FPS = 10 # number of times a second the VUWidgets need updating
 	
 	#_____________________________________________________________________
 	
@@ -43,6 +47,9 @@ class CompactMixView(gtk.Frame):
 		
 		self.hbox = gtk.HBox()
 		self.vpaned.add(self.hbox)
+
+		self.UpdateTimeout = False
+
 
 		self.connect("button_press_event", self.OnMouseDown)
 		
@@ -149,7 +156,29 @@ class CompactMixView(gtk.Frame):
 	def OnStateChanged(self, obj, change=None):
 		if change != Monitored.LEVEL:
 			self.Update()
+	#_____________________________________________________________________
+	
+	def OnUpdateTimeout(self):
+		""" Called at intervals (self.FPS) to update the VU meters
+		"""
+		if self.project.IsPlaying:
+			# redraw VU widgets for each instrument
+			for mix in self.channels:
+				mix.vu.queue_draw()
+			return True
+		else:
+			# kill timeout when play has stopped
+			self.UpdateTimeout = False
+			return False
+	#_____________________________________________________________________
 		
+	def StartUpdateTimeout(self):
+		""" Initiates the OnUpdateTimeout - called from MainApp.play()
+		when the play button is pressed
+		"""
+		if not self.UpdateTimeout:
+			gobject.timeout_add(int(1000 / self.FPS), self.OnUpdateTimeout, priority = gobject.PRIORITY_LOW)
+			self.UpdateTimeout = True
 	#_____________________________________________________________________
 	
 #=========================================================================
