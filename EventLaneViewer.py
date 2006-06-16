@@ -82,7 +82,7 @@ class EventLaneViewer(gtk.EventBox):
 	def Update(self, child=None):
 		
 		if child:
-			x = int((child.event.start - self.project.viewStart) * self.project.viewScale)
+			x = int(round((child.event.start - self.project.viewStart) * self.project.viewScale))
 			self.fixed.move( child, x, 0 )
 		else:			
 			# Move them to the correct positions
@@ -94,14 +94,14 @@ class EventLaneViewer(gtk.EventBox):
 						self.fixed.remove(w)
 						self.childActive = False
 					else:
-						x = int((w.event.start - self.project.viewStart) * self.project.viewScale)
+						x = int(round((w.event.start - self.project.viewStart) * self.project.viewScale))
 						self.fixed.move(w, x, 0)
 
 			# Check if any events have been added
 			widget_events = [w.event for w in self.fixed.get_children()]
 			for ev in self.instrument.events:
 				if ev not in widget_events:
-					x = int((ev.start - self.project.viewStart) * self.project.viewScale)
+					x = int(round((ev.start - self.project.viewStart) * self.project.viewScale))
 					child = EventViewer(self, self.project, ev, self.allocation.height, self.small)
 					self.fixed.put(	child, x, 0)
 				
