@@ -124,7 +124,7 @@ class EventViewer(gtk.DrawingArea):
 		
 		
 		#Draw play position
-		x = int((self.project.transport.position - self.event.start) * self.project.viewScale)
+		x = int(round((self.project.transport.position - self.event.start) * self.project.viewScale))
 		context.set_line_width(1)
 		context.set_antialias(cairo.ANTIALIAS_NONE)
 		context.move_to(x+1, 0)

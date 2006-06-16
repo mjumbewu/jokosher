@@ -63,11 +63,9 @@ class TimeLine(gtk.DrawingArea):
 		# Draw play cursor position
 		col = gc.get_colormap().alloc_color("#FF0000")
 		gc.set_foreground(col)
-		
-		pos = self.project.transport.position - self.project.viewStart
-		if pos >= 0.:
-			x = int(pos * self.project.viewScale)
-			d.draw_line(gc, x, 0, x, self.allocation.height)	
+		 
+		x = int(round((self.project.transport.position - self.project.viewStart) * self.project.viewScale))
+		d.draw_line(gc, x, 0, x, self.allocation.height)	
 	
 	#_____________________________________________________________________
 		
@@ -179,10 +177,12 @@ class TimeLine(gtk.DrawingArea):
 		if self.project.transport.RedrawTimeLine or self.project.RedrawTimeLine:
 			self.queue_draw()
 			return
-		x1 = int((self.project.transport.PrevPosition - self.project.viewStart) * self.project.viewScale)
-		x2 = int((self.project.transport.position - self.project.viewStart) * self.project.viewScale)
-		#print x1,x2
-		self.queue_draw_area(min(x1,x2), 0, 4 + abs(x2 - x1), self.allocation.height)
+		x1 = round((self.project.transport.PrevPosition - self.project.viewStart) * self.project.viewScale)
+		x2 = round((self.project.transport.position - self.project.viewStart) * self.project.viewScale)
+		
+		self.queue_draw_area(int(x1)-1, 0, 3, self.allocation.height)
+		self.queue_draw_area(int(x2)-1, 0, 3, self.allocation.height)
+		
 	#_____________________________________________________________________
 		
 	def onMouseDown(self, widget, event):

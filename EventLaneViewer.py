@@ -68,8 +68,7 @@ class EventLaneViewer(gtk.EventBox):
 		col = gc.get_colormap().alloc_color("#FF0000")
 		gc.set_foreground(col)
 		
-		pos = transport.position - self.project.viewStart
-		x = int(pos * self.project.viewScale)
+		x = int(round((transport.position - self.project.viewStart) * self.project.viewScale))
 		d.draw_line(gc, x, 0, x, self.allocation.height)
 		
 		# Draw edit position
@@ -180,9 +179,10 @@ class EventLaneViewer(gtk.EventBox):
 		if obj is self.project or obj is self.instrument:
 			self.Update()
 		else:
-			x1 = int((self.project.transport.PrevPosition - self.project.viewStart) * self.project.viewScale)
-			x2 = int((self.project.transport.position - self.project.viewStart) * self.project.viewScale)
-			self.queue_draw_area(min(x1,x2), 0, 1 + abs(x2 - x1), self.allocation.height)
+			x1 = round((self.project.transport.PrevPosition - self.project.viewStart) * self.project.viewScale)
+			x2 = round((self.project.transport.position - self.project.viewStart) * self.project.viewScale)
+			self.queue_draw_area(int(x1)-1, 0, 3, self.allocation.height)
+			self.queue_draw_area(int(x2)-1, 0, 3, self.allocation.height)
 		
 	#_____________________________________________________________________
 	
