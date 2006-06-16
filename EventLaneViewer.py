@@ -177,9 +177,7 @@ class EventLaneViewer(gtk.EventBox):
 	#_____________________________________________________________________
 	
 	def OnStateChanged(self, obj, change=None):
-		if change == Monitored.LEVEL:
-			return
-		elif obj is self.project or obj is self.instrument:
+		if obj is self.project or obj is self.instrument:
 			self.Update()
 		else:
 			x1 = int((self.project.transport.PrevPosition - self.project.viewStart) * self.project.viewScale)

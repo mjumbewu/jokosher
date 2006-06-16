@@ -1,6 +1,5 @@
 
 #=========================================================================
-LEVEL=1
 
 class Monitored:
 	""" This class defines a set of functions to allow derived classes to

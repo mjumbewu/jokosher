@@ -154,8 +154,7 @@ class CompactMixView(gtk.Frame):
 	#_____________________________________________________________________
 	
 	def OnStateChanged(self, obj, change=None):
-		if change != Monitored.LEVEL:
-			self.Update()
+		self.Update()
 	#_____________________________________________________________________
 	
 	def OnUpdateTimeout(self):

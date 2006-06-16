@@ -160,6 +160,7 @@ class TransportManager(Monitored):
 	def StartUpdateTimeout(self):
 		if not self.UpdateTimeout:
 			gobject.timeout_add(int(1000/self.FPS), self.OnUpdate)
+			self.UpdateTimeout = True
 	
 	#_____________________________________________________________________
 	
