@@ -1046,7 +1046,7 @@ Ben Thorp &lt;mrben@jedimoose.org&gt;</property>
   <property name="artists">Dan Nawara &lt;dan@itsawisechild.com&gt;
 Gregory Sheeran &lt;greg@grogoreo.co.uk&gt;</property>
   <property name="translator_credits" translatable="yes" comments="TRANSLATORS: Replace this string with your names, one name per line.">translator-credits</property>
-  <property name="logo">logo.png</property>
+  <property name="logo">jokosher.png</property>
 </widget>
 
 <widget class="GtkWindow" id="AddInstrumentDialog">

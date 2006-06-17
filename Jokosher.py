@@ -137,7 +137,7 @@ class MainApp:
 		self.PopulateRecentProjects()
 		
 		#set window icon
-		self.window.set_icon_from_file("logo.png")
+		self.window.set_icon_from_file("jokosher.png")
 		#make icon available to others
 		self.icon = self.window.get_icon()
 		
