@@ -18,6 +18,7 @@ import xml.dom.minidom as xml
 from Instrument import *
 from Monitored import *
 from Utils import *
+import time #remove after ticket #111 is closed
 
 #=========================================================================
 
@@ -316,11 +317,14 @@ class Project(Monitored, CommandManaged):
 	#_____________________________________________________________________
 				
 	def newPad(self, element, pad, instrument):
-		print "before new pad"
+##		print "before new pad"
 		print pad
 		convpad = instrument.converterElement.get_compatible_pad(pad, pad.get_caps())
+		t = time.time()
 		pad.link(convpad)
-		print "linked composition to instrument audioconvert (project)"
+		t2 = time.time()
+		print "TOTAL TIME TAKEN TO LINK", t2 - t
+##		print "linked composition to instrument audioconvert (project)"
 		
 		#instrument.converterElement.link(instrument.volumeElement)
 		#print "linked instrument audioconvert to instrument volume (project)"
