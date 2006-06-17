@@ -27,11 +27,7 @@ class MixerStrip(gtk.Frame):
 		self.minbutt.set_image(img)
 		self.minbutt.connect("clicked", self.EmitMinimise)
 				
-		self.tophb = gtk.HBox()
-		self.tophb.pack_start(gtk.Label("foo"))
-		self.tophb.pack_end(self.minbutt)
-
-		self.vbox.pack_start(self.tophb, False)
+		self.vbox.pack_start(self.minbutt, False)
 		
 		# VU Meter
 		self.vu = VUWidget(instrument)
