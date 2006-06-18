@@ -104,7 +104,9 @@ class CompactMixView(gtk.Frame):
 					self.channels.append(strip)
 					
 				self.hbox.pack_start(strip, False, False)
-				self.hbox.pack_end(self.mastermixer, False, False)
+		
+		#Pack the master vuwidget
+		self.hbox.pack_end(self.mastermixer, False, False)
 			
 		#create the minimise instruments bar
 		if self.instrbar:

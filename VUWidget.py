@@ -13,9 +13,9 @@ class VUWidget(gtk.DrawingArea):
 	
 	#_____________________________________________________________________
 	
-	def __init__(self, instrument):
+	def __init__(self, mixerstrip):
 		gtk.DrawingArea.__init__(self)
-		self.instrument = instrument
+		self.mixerstrip = mixerstrip
 		
 		self.set_events(	gtk.gdk.POINTER_MOTION_MASK |
 							gtk.gdk.BUTTON_RELEASE_MASK |
@@ -39,7 +39,7 @@ class VUWidget(gtk.DrawingArea):
 		
 	def OnMouseDown(self, widget, mouse):
 		rect = self.get_allocation()
-		pos = (rect.height-self.BAR_WIDTH) * (1. - self.instrument.GetVolume()) + (self.BAR_WIDTH/2)
+		pos = (rect.height-self.BAR_WIDTH) * (1. - self.mixerstrip.GetVolume()) + (self.BAR_WIDTH/2)
 		if mouse.y > pos - (self.BAR_WIDTH / 2) and mouse.y < pos + (self.BAR_WIDTH / 2):
 			self.fader_active = True
 	
@@ -47,7 +47,7 @@ class VUWidget(gtk.DrawingArea):
 	
 	def OnMouseMove(self, widget, mouse):
 		rect = self.get_allocation()
-		pos = (rect.height-self.BAR_WIDTH) * (1. - self.instrument.GetVolume()) + (self.BAR_WIDTH/2)
+		pos = (rect.height-self.BAR_WIDTH) * (1. - self.mixerstrip.GetVolume()) + (self.BAR_WIDTH/2)
 		if mouse.y > pos - (self.BAR_WIDTH / 2) and mouse.y < pos + (self.BAR_WIDTH / 2):
 			self.fader_hover = True
 		else:
@@ -58,7 +58,7 @@ class VUWidget(gtk.DrawingArea):
 						   /  (rect.height-self.BAR_WIDTH))
 			v  = max(v, 0.)
 			v  = min(v, 1.)
-			self.instrument.SetVolume(v)
+			self.mixerstrip.SetVolume(v)
 			self.queue_draw()
 	
 	#_____________________________________________________________________
@@ -119,7 +119,7 @@ class VUWidget(gtk.DrawingArea):
 		ctx.fill()
 
 		# Blit across the cached gradient backgound
-		ctx.rectangle(0, rect.height * (1. - self.instrument.GetLevel()), rect.width, rect.height)
+		ctx.rectangle(0, rect.height * (1. - self.mixerstrip.GetLevel()), rect.width, rect.height)
 		ctx.clip()
 		ctx.set_source_surface(self.source, 0, 0)	
 		ctx.paint()
@@ -128,7 +128,7 @@ class VUWidget(gtk.DrawingArea):
 		ctx.reset_clip()
 		
 		# Draw the current volume level bar, with highlight if appropriate
-		vpos = (rect.height-self.BAR_WIDTH) * (1. - self.instrument.GetVolume()) + (self.BAR_WIDTH/2)
+		vpos = (rect.height-self.BAR_WIDTH) * (1. - self.mixerstrip.GetVolume()) + (self.BAR_WIDTH/2)
 		if self.fader_active:
 			ctx.set_source_rgba(0.5, 0., 0., 0.75)
 			ctx.set_line_width(self.BAR_WIDTH + 5)
@@ -151,7 +151,7 @@ class VUWidget(gtk.DrawingArea):
 		# Draw the volume level in the bar
 		ctx.set_source_rgba(0., 0., 0., 1.)
 		ctx.move_to(18, vpos + 3)
-		ctx.show_text("Volume: %.2f"%self.instrument.GetVolume())
+		ctx.show_text("Volume: %.2f"%self.mixerstrip.GetVolume())
 
 		return False
 		

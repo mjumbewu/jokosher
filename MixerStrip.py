@@ -19,8 +19,6 @@ class MixerStrip(gtk.Frame):
 		self.instrument = instrument
 		self.Updating = False
 		
-		self.instrument.AddListener(self)
-		
 		self.vbox = gtk.VBox()
 		self.add(self.vbox)
 
@@ -116,11 +114,6 @@ class MixerStrip(gtk.Frame):
 	
 	#_____________________________________________________________________
 
-	def OnStateChanged(self, obj, change=None):
-		self.vu.queue_draw()
-		
-	#_____________________________________________________________________
-
 	def GetLevel(self):
 		return self.instrument.level
 		
@@ -132,7 +125,6 @@ class MixerStrip(gtk.Frame):
 	#_____________________________________________________________________
 
 	def SetVolume(self, vol):
-		self.instrument.volume = vol
 		self.instrument.SetVolume(vol)
 		
 	#_____________________________________________________________________

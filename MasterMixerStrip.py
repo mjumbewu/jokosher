@@ -18,8 +18,6 @@ class MasterMixerStrip(gtk.Frame):
 		self.project = project
 		self.Updating = False
 		
-		self.project.AddListener(self)
-		
 		self.vbox = gtk.VBox()
 		self.add(self.vbox)
 
@@ -40,12 +38,6 @@ class MasterMixerStrip(gtk.Frame):
 		self.emit("minimise")
 	
 	#_____________________________________________________________________
-	
-	def OnStateChanged(self, obj, change=None):
-		print "state changed"
-		self.vu.queue_draw()
-		
-	#_____________________________________________________________________
 
 	def GetLevel(self):
 		return self.project.masterlevel
@@ -58,7 +50,6 @@ class MasterMixerStrip(gtk.Frame):
 	#_____________________________________________________________________
 
 	def SetVolume(self, vol):
-		self.project.mastervolume = vol
 		self.project.SetVolume(vol)
 		
 	#_____________________________________________________________________
