@@ -19,6 +19,8 @@ class MixerStrip(gtk.Frame):
 		self.instrument = instrument
 		self.Updating = False
 		
+		self.instrument.AddListener(self)
+		
 		self.vbox = gtk.VBox()
 		self.add(self.vbox)
 
@@ -30,7 +32,7 @@ class MixerStrip(gtk.Frame):
 		self.vbox.pack_start(self.minbutt, False)
 		
 		# VU Meter
-		self.vu = VUWidget(instrument)
+		self.vu = VUWidget(self)
 		self.vbox.pack_start(self.vu, True, True)
 		
 		#Control Buttons
@@ -112,6 +114,27 @@ class MixerStrip(gtk.Frame):
 		
 		self.Updating = False
 	
+	#_____________________________________________________________________
+
+	def OnStateChanged(self, obj, change=None):
+		self.vu.queue_draw()
+		
+	#_____________________________________________________________________
+
+	def GetLevel(self):
+		return self.instrument.level
+		
+	#_____________________________________________________________________
+
+	def GetVolume(self):
+		return self.instrument.volume
+		
+	#_____________________________________________________________________
+
+	def SetVolume(self, vol):
+		self.instrument.volume = vol
+		self.instrument.SetVolume(vol)
+		
 	#_____________________________________________________________________
 	
 #=========================================================================
