@@ -1,0 +1,11 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Jokosher
+GenericName=Jokosher audio editing
+Comment=Multi-track non-linear audio editing
+Exec=Jokosher.py
+Icon=jokosher.png
+Terminal=false
+Type=Application
+Categories=Application;AudioVideo;
+Version=0.1
