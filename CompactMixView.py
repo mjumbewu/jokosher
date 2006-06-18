@@ -6,6 +6,7 @@ import gobject
 import TimeLineBar
 import Globals
 import Monitored
+from MasterMixerStrip import *
 
 #create signal to be emitted by MixerStrip
 gobject.signal_new("minimise", MixerStrip, gobject.SIGNAL_RUN_FIRST, gobject.TYPE_NONE, ())
@@ -47,9 +48,13 @@ class CompactMixView(gtk.Frame):
 		
 		self.hbox = gtk.HBox()
 		self.vpaned.add(self.hbox)
-
+		
+		#self.masterfaderhbox = gtk.HBox()
+		self.mastermixer = MasterMixerStrip(self.project)
+		
+		#self.vpaned.add(self.masterfaderhbox)
+		self.show_all()
 		self.UpdateTimeout = False
-
 
 		self.connect("button_press_event", self.OnMouseDown)
 		
@@ -99,6 +104,7 @@ class CompactMixView(gtk.Frame):
 					self.channels.append(strip)
 					
 				self.hbox.pack_start(strip, False, False)
+				self.hbox.pack_end(self.mastermixer, False, False)
 			
 		#create the minimise instruments bar
 		if self.instrbar:
@@ -161,9 +167,12 @@ class CompactMixView(gtk.Frame):
 		""" Called at intervals (self.FPS) to update the VU meters
 		"""
 		if self.project.IsPlaying:
+			self.mastermixer.vu.queue_draw()
+			
 			# redraw VU widgets for each instrument
 			for mix in self.channels:
 				mix.vu.queue_draw()
+			
 			return True
 		else:
 			# kill timeout when play has stopped

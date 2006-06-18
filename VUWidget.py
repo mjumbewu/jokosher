@@ -108,7 +108,7 @@ class VUWidget(gtk.DrawingArea):
 	def OnDraw(self, widget, event):
 		""" Handles the GTK paint event.
 		"""
-
+		
 		ctx = widget.window.cairo_create()
 		
 		rect = self.get_allocation()

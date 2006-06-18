@@ -189,6 +189,15 @@ class Project(Monitored, CommandManaged):
 		self.playbackbin.add(self.adder)
 		print "added adder (project)"
 
+		self.mastervolume = 0.5
+		
+		self.volume = gst.element_factory_make("volume")
+		self.playbackbin.add(self.volume)
+		print "added volume (project)"
+		
+		self.adder.link(self.volume)
+		
+		self.masterlevel = 0.0
 		self.level = gst.element_factory_make("level", "MasterLevel")
 		self.level.set_property("interval", gst.SECOND / 50)
 		self.level.set_property("message", True)
@@ -201,7 +210,7 @@ class Project(Monitored, CommandManaged):
 		self.levelcaps.set_property("caps", caps)
 		self.playbackbin.add(self.levelcaps)
 		
-		self.adder.link(self.levelcaps)
+		self.volume.link(self.levelcaps)
 		self.levelcaps.link(self.level)
 		
 		self.out = gst.element_factory_make("alsasink")
@@ -213,6 +222,7 @@ class Project(Monitored, CommandManaged):
 		if outdevice == "value":
 			outdevice = "default"
 		self.out.set_property("device", outdevice)
+
 
 		self.playbackbin.add(self.out)
 		print "added alsasink (project)"
@@ -307,11 +317,16 @@ class Project(Monitored, CommandManaged):
 
 	def bus_message(self, bus, message):
 		st = message.structure
+		
 		if st and st.get_name() == "level" and not message.src is self.level:
 			for instr in self.instruments:
 				if message.src is instr.levelElement:
 					instr.SetLevel(DbToFloat(st["decay"][0]))
 					break
+				
+		if st and st.get_name() == "level" and message.src is self.level:
+			self.SetLevel(DbToFloat(st["decay"][0]))
+			
 		return True
 
 	#_____________________________________________________________________
@@ -790,6 +805,20 @@ class Project(Monitored, CommandManaged):
 			counter += 1
 	
 	#_____________________________________________________________________
+
+	def SetVolume(self, volume):
+		"""Sets the volume of the instrument in the range 0..1
+		"""
+		self.mastervolume = volume
+		self.volume.set_property("volume", volume)
+
+	#_____________________________________________________________________
+
+	def SetLevel(self, level):
+		""" Note that this sets the current REPORTED level, NOT THE VOLUME!
+		"""
+		self.masterlevel = level
+
 #=========================================================================
 	
 class OpenProjectError(EnvironmentError):
