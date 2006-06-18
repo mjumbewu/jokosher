@@ -60,6 +60,7 @@ class MainApp:
 			"on_preferences_activate" : self.OnPreferences,
 			"on_open_activate" : self.OnOpenProject,
 			"on_save_activate" : self.OnSaveProject,
+			"on_save_as_activate" : self.OnSaveAsProject,
 			"on_new_activate" : self.OnNewProject,
 			"on_close_activate" : self.OnCloseProject,
 			"on_show_as_bars_beats_ticks_toggled" : self.OnShowBarsBeats,
@@ -461,6 +462,22 @@ class MainApp:
 			self.project.ClearEventSelections()
 			self.project.saveProjectFile()
 			
+	#_____________________________________________________________________
+	
+	def OnSaveAsProject(self, widget=None):
+		buttons = (gtk.STOCK_CANCEL,gtk.RESPONSE_CANCEL,gtk.STOCK_SAVE,gtk.RESPONSE_OK)
+		chooser = gtk.FileChooserDialog("Choose a location to save the project", self.window, gtk.FILE_CHOOSER_ACTION_SAVE, buttons)
+		
+		response = chooser.run()
+		if response == gtk.RESPONSE_OK:
+			filename = chooser.get_filename()
+			
+			self.project.ClearInstrumentSelections()
+			self.project.ClearEventSelections()
+			self.project.saveProjectFile(filename)
+			
+		chooser.destroy()
+		
 	#_____________________________________________________________________
 
 	def OnNewProject(self, widget, destroyCallback=None):

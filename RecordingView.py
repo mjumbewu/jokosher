@@ -11,7 +11,6 @@ import Monitored
 class RecordingView(gtk.Frame):
 
 	__gtype_name__ = 'RecordingView'
-	FPS = 30
 	INSTRUMENT_HEADER_WIDTH = 150
 
 	#_____________________________________________________________________

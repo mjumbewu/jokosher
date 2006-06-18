@@ -12,7 +12,6 @@ class TimeLine(gtk.DrawingArea):
 	"""
 
 	__gtype_name__ = 'TimeLine'
-	FPS = 30.
 
 	#_____________________________________________________________________
 

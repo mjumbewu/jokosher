@@ -517,6 +517,9 @@ class Project(Monitored, CommandManaged):
 				raise "No save path specified!"
 			path = self.projectfile
 			
+		if not path.endswith(".jokosher"):
+			path = path + ".jokosher"
+			
 		#sync the transport's mode with the one which will be saved
 		self.transportMode = self.transport.mode
 		
