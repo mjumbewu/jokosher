@@ -44,12 +44,10 @@ class TransportManager(Monitored):
 
 	#_____________________________________________________________________
 	
-	def Play(self, bus, message):
-		#called when state changed bus message is sent
+	def Play(self):
+		#the state must be set to paused before playing
 		if self.pipeline.get_state(0)[1] != gst.STATE_PAUSED:
 			return
-		else:
-			bus.disconnect(self.busid)
 			
 		self.isPlaying = True
 		if self.startPosition > 0.01:

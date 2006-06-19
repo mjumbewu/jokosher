@@ -259,8 +259,11 @@ class Project(Monitored, CommandManaged):
 			if instr.isArmed:
 				instr.record()
 		
-		self.mainpipeline.set_state(gst.STATE_PAUSED)				
+		#Make sure we start playing from the beginning
+		self.transport.Stop()
+		
 		self.state_id = self.bus.connect("message::state-changed", self.state_changed)
+		self.mainpipeline.set_state(gst.STATE_PAUSED)
 
 		# [DEBUG]
 		# This debug block will be removed when we release. If you see this in a release version, we
@@ -280,10 +283,9 @@ class Project(Monitored, CommandManaged):
 		#Move forward to playing when we reach paused (check pending to make sure this is the final destination)
 		if new == gst.STATE_PAUSED and pending == gst.STATE_VOID_PENDING and self.IsPlaying == False:
 			bus.disconnect(self.state_id)
-			self.mainpipeline.set_state(gst.STATE_PLAYING)
-			self.IsPlaying = True
+			#The transport manager will seek if necessary, and then set the pipeline to STATE_PLAYING
 			self.transport.Play()
-			
+			self.IsPlaying = True
 
 	#_____________________________________________________________________
 				
@@ -294,12 +296,11 @@ class Project(Monitored, CommandManaged):
 			gst.debug("Play pressed, about to set state to PLAYING")
 			
 			# And set it going
-			self.transport.busid = self.bus.connect("message::state-changed", self.transport.Play)
+			self.state_id = self.bus.connect("message::state-changed", self.state_changed)
 			#set to PAUSED so the transport manager can seek first (if needed)
-			#the pipeline will be set to PLAY by the transport manager
+			#the pipeline will be set to PLAY by self.state_changed()
 			self.mainpipeline.set_state(gst.STATE_PAUSED)
 			
-			self.IsPlaying = True
 			gst.debug("just set state to PLAYING")
 
 			# [DEBUG]
