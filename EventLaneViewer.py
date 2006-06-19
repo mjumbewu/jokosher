@@ -118,7 +118,7 @@ class EventLaneViewer(gtk.EventBox):
 		# Create context menu on RMB 
 		if mouse.button == 3: 
 			m = gtk.Menu() 
-			items = [	("Create Event From File", self.CreateEventFromFile),
+			items = [	("Import Audio File...", self.CreateEventFromFile),
 					 ] 
 
 			for i, cb in items: 

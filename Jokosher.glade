@@ -117,11 +117,23 @@
 		  </child>
 
 		  <child>
-		    <widget class="GtkMenuItem" id="export">
+		    <widget class="GtkImageMenuItem" id="export">
 		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">_Export</property>
+		      <property name="label" translatable="yes">_Mixdown Project</property>
 		      <property name="use_underline">True</property>
 		      <signal name="activate" handler="on_export_activate" last_modification_time="Mon, 27 Feb 2006 11:30:03 GMT"/>
+
+		      <child internal-child="image">
+			<widget class="GtkImage" id="image52">
+			  <property name="visible">True</property>
+			  <property name="stock">gtk-jump-to</property>
+			  <property name="icon_size">1</property>
+			  <property name="xalign">0.5</property>
+			  <property name="yalign">0.5</property>
+			  <property name="xpad">0</property>
+			  <property name="ypad">0</property>
+			</widget>
+		      </child>
 		    </widget>
 		  </child>
 
@@ -162,7 +174,7 @@
 		      <accelerator key="Z" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image37">
+			<widget class="GtkImage" id="image53">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-undo</property>
 			  <property name="icon_size">1</property>
@@ -184,7 +196,7 @@
 		      <accelerator key="Z" modifiers="GDK_CONTROL_MASK | GDK_SHIFT_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image38">
+			<widget class="GtkImage" id="image54">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-redo</property>
 			  <property name="icon_size">1</property>
@@ -276,7 +288,7 @@
 		      <signal name="activate" handler="on_AddInstrument_clicked" last_modification_time="Mon, 27 Feb 2006 11:47:45 GMT"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image39">
+			<widget class="GtkImage" id="image55">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-add</property>
 			  <property name="icon_size">1</property>
@@ -297,7 +309,7 @@
 		      <signal name="activate" handler="on_instrumentconnections_activate" last_modification_time="Mon, 27 Mar 2006 20:48:19 GMT"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image40">
+			<widget class="GtkImage" id="image56">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-preferences</property>
 			  <property name="icon_size">1</property>
@@ -334,7 +346,7 @@
 			      <property name="visible">True</property>
 			      <property name="label" translatable="yes">Show as Hours, Minutes, Seconds</property>
 			      <property name="use_underline">True</property>
-			      <property name="active">False</property>
+			      <property name="active">True</property>
 			      <property name="group">show_as_bars_beats_ticks</property>
 			      <signal name="toggled" handler="on_show_as_hours_minutes_seconds_toggled" last_modification_time="Sat, 04 Mar 2006 21:17:56 GMT"/>
 			    </widget>
