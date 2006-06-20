@@ -9,12 +9,6 @@ import gobject
 import pygst
 pygst.require("0.10")
 import gst
-try:
-	gst.element_factory_make("gnlcomposition")
-except:
-	print "Gstreamer plugin gnonlin is not installed."
-	print "See http://jokosher.org/trac/wiki/GettingJokosher for more details."
-	sys.exit()
 
 import xml.dom.minidom as xml
 
@@ -152,8 +146,9 @@ class MainApp:
 		self.window.connect_after("key-press-event", self.OnKeyPress)
 		self.window.connect("button_press_event", self.OnMouseDown)
 
-		# check if we should display the startup dialog
+		self.CheckGstreamerVersions()
 		
+		# check if we should display the startup dialog
 		if Globals.settings.general["startupaction"] == PreferencesDialog.STARTUP_LAST_PROJECT:
 			self.OpenLastProject()
 		elif Globals.settings.general["startupaction"] == PreferencesDialog.STARTUP_NOTHING:
@@ -816,6 +811,30 @@ class MainApp:
 		# make various buttons and menu items enabled now we have a project
 		self.SetGUIProjectLoaded()
 		
+	#_____________________________________________________________________
+	
+	def CheckGstreamerVersions(self):
+		#Check for CVS versions of Gstreamer and gnonlin
+		message = None
+		v = gst.version()
+		if (v[1] < 10) or (v[2] < 8) or (v[3] < 1):
+			message = "You must have Gstreamer version 0.10.8.1 (CVS) or higher."
+		gnl = gst.registry_get_default().find_plugin("gnonlin")
+		if gnl and gnl.get_version() != "0.10.4.2" and gnl.get_version() != "0.10.5":
+			message =  "You must have Gstreamer plugin gnonlin version 0.10.4.2 (CVS) or 0.10.5."
+		elif not gnl:
+			message = "Gstreamer plugin gnonlin is not installed." + \
+			"\nSee http://jokosher.org/trac/wiki/GettingJokosher for more details."
+			
+		if message:
+			dlg = gtk.MessageDialog(self.window,
+				gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
+				gtk.MESSAGE_WARNING,
+				gtk.BUTTONS_CLOSE)
+			dlg.set_markup("<big>Some functionality will not work correctly or at all.</big>\n\n%s" % message)
+			dlg.run()
+			dlg.destroy()
+	
 	#_____________________________________________________________________
 
 #=========================================================================
