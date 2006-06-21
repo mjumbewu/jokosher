@@ -15,11 +15,12 @@ class RecordingView(gtk.Frame):
 
 	#_____________________________________________________________________
 
-	def __init__(self, project):
+	def __init__(self, project, mainview):
 		gtk.Frame.__init__(self)
 
 		self.project = project
-		self.timelinebar = TimeLineBar.TimeLineBar(self.project, self.Update)
+		self.mainview = mainview
+		self.timelinebar = TimeLineBar.TimeLineBar(self.project, self, mainview)
 
 		self.vbox = gtk.VBox()
 		self.add(self.vbox)
@@ -78,7 +79,7 @@ class RecordingView(gtk.Frame):
 					iv = instrV
 					break
 			if not iv:
-				iv = InstrumentViewer.InstrumentViewer(self.project, instr)
+				iv = InstrumentViewer.InstrumentViewer(self.project, instr, self, self.mainview)
 				instr.AddListener(self)
 				self.views.append((instr.id, iv))
 				iv.headerBox.connect("size-allocate", self.UpdateSize)

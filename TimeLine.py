@@ -15,13 +15,15 @@ class TimeLine(gtk.DrawingArea):
 
 	#_____________________________________________________________________
 
-	def __init__(self, project):
+	def __init__(self, project, timelinebar, mainview):
 		""" project - reference to the active project
 		"""
 		
 		gtk.DrawingArea.__init__(self)
 	
 		self.project = project
+		self.timelinebar = timelinebar
+		self.mainview = mainview
 		self.project.transport.AddListener(self)
 		self.project.AddListener(self)
 		self.height = 44

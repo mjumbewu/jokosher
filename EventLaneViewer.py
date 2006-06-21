@@ -9,10 +9,12 @@ class EventLaneViewer(gtk.EventBox):
 
 	#_____________________________________________________________________
 
-	def __init__(self, project, instrument, small = False):
+	def __init__(self, project, instrument, instrumentviewer, mainview, small = False):
 		gtk.EventBox.__init__(self)
 
 		self.small = small
+		self.instrumentviewer = instrumentviewer
+		self.mainview = mainview
 		self.vbox = gtk.VBox()
 		self.fixed = gtk.Fixed()
 
@@ -102,7 +104,7 @@ class EventLaneViewer(gtk.EventBox):
 			for ev in self.instrument.events:
 				if ev not in widget_events:
 					x = int(round((ev.start - self.project.viewStart) * self.project.viewScale))
-					child = EventViewer(self, self.project, ev, self.allocation.height, self.small)
+					child = EventViewer(self, self.project, ev, self.allocation.height, self, self.mainview, self.small)
 					self.fixed.put(	child, x, 0)
 				
 			self.fixed.show_all()

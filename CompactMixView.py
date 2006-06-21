@@ -21,9 +21,10 @@ class CompactMixView(gtk.Frame):
 	
 	#_____________________________________________________________________
 	
-	def __init__(self, project):
+	def __init__(self, project, mainview):
 		gtk.Container.__init__(self)
 		self.project = project
+		self.mainview = mainview
 		self.vbox = None
 		self.channels = []
 		self.lanes = []
@@ -35,7 +36,7 @@ class CompactMixView(gtk.Frame):
 		self.vbox = gtk.VBox()
 		self.add(self.vbox)
 		
-		self.timelinebar = TimeLineBar.TimeLineBar(self.project, self.Update)
+		self.timelinebar = TimeLineBar.TimeLineBar(self.project, self, mainview)
 		self.vbox.pack_start(self.timelinebar, False, False)
 		
 		self.vpaned = gtk.VPaned()
@@ -84,7 +85,7 @@ class CompactMixView(gtk.Frame):
 						break
 					
 				if not lanebox:
-					lanebox = InstrumentViewer.InstrumentViewer(self.project, instr, True)
+					lanebox = InstrumentViewer.InstrumentViewer(self.project, instr, self, self.mainview, True)
 					instr.AddListener(self)
 					self.lanes.append(lanebox)
 				

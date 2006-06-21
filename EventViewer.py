@@ -38,7 +38,7 @@ class EventViewer(gtk.DrawingArea):
 	
 	#_____________________________________________________________________
 
-	def __init__(self, lane, project, event, height, small = False):
+	def __init__(self, lane, project, event, height, eventlaneviewer, mainview,  small = False):
 
 		self.small = small
 		gtk.DrawingArea.__init__(self)
@@ -92,6 +92,9 @@ class EventViewer(gtk.DrawingArea):
 		trimButton.connect("clicked", self.TrimToSelection)
 		self.drawer.show()
 		
+		self.mainview = mainview
+		self.eventlaneviewer = eventlaneviewer
+		self.messageID = None
 		
 	#_____________________________________________________________________
 
@@ -301,6 +304,10 @@ class EventViewer(gtk.DrawingArea):
 		if not self.window:
 			return
 		
+		# display status bar message if has not already been displayed
+		if not self.messageID: 
+			self.messageID = self.mainview.SetStatusBar("To Split, Double-Click the wave - To Select, Shift-Click and drag the mouse")
+		
 		if self.isDraggingFade:
 			self.fadePoints[self.fadeBeingDragged] = 100-int((mouse.y / float(self.allocation.height)) * 100)
 			self.queue_draw()
@@ -469,6 +476,9 @@ class EventViewer(gtk.DrawingArea):
 	#_____________________________________________________________________
 		
 	def OnMouseLeave(self, widget, event):
+		if self.messageID:   #clesr status bar if not already clear
+			self.mainview.ClearStatusBar(self.messageID)
+			self.messageID = None
 		self.highlightCursor = None
 		self.lane.childActive = False
 		self.queue_draw()

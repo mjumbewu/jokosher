@@ -90,11 +90,14 @@ class MainApp:
 		self.export = self.wTree.get_widget("export")
 		self.recentprojects = self.wTree.get_widget("recentprojects")
 		self.menubar = self.wTree.get_widget("menubar")
+		self.statusbar = self.wTree.get_widget("statusbar")
 		
 		self.recentprojectitems = []
 
 		self.recentprojectsmenu = gtk.Menu()
 		self.recentprojects.set_submenu(self.recentprojectsmenu)
+		
+		self.statusbarContextID = self.statusbar.get_context_id("JokosherStatusBar")
 
 		self.project = None
 		self.recording = None
@@ -702,8 +705,8 @@ class MainApp:
 				
 			# Create our custom widgets
 			self.timeview = TimeView.TimeView(self.project)
-			self.compactmix = CompactMixView.CompactMixView(self.project)
-			self.recording = RecordingView.RecordingView(self.project)
+			self.compactmix = CompactMixView.CompactMixView(self.project, self)
+			self.recording = RecordingView.RecordingView(self.project, self)
 			
 			# Add them to the main window
 			self.main_vbox.pack_end(self.recording, True, True)
@@ -834,6 +837,16 @@ class MainApp:
 			dlg.set_markup("<big>Some functionality will not work correctly or at all.</big>\n\n%s" % message)
 			dlg.run()
 			dlg.destroy()
+	
+	#_____________________________________________________________________
+
+	def SetStatusBar(self, message):
+		return self.statusbar.push(self.statusbarContextID, message)
+	
+	#_____________________________________________________________________
+
+	def ClearStatusBar(self, messageID):
+		self.statusbar.remove(self.statusbarContextID, messageID)
 	
 	#_____________________________________________________________________
 

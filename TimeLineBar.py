@@ -2,12 +2,13 @@ import gtk
 import TimeLine
 
 class TimeLineBar(gtk.Fixed):
-	def __init__(self, project, parentUpdateMethod):
+	def __init__(self, project, projectview, mainview):
 		gtk.Fixed.__init__(self)
 		
 		self.project = project
-		self.parentUpdateMethod = parentUpdateMethod
-		self.timeline = TimeLine.TimeLine(self.project)
+		self.projectview = projectview
+		self.mainview = mainview
+		self.timeline = TimeLine.TimeLine(self.project, self, mainview)
 		self.Updating = False
 		
 		# add click / bpm / signature box
@@ -60,7 +61,7 @@ class TimeLineBar(gtk.Fixed):
 		self.headerhbox.pack_start(self.sigframe, True, True)
 		
 		self.put(self.headerhbox, 0, 0)
-		self.headerhbox.connect("check-resize", self.parentUpdateMethod)
+		self.headerhbox.connect("check-resize", self.projectview.Update)
 	
 	#_____________________________________________________________________
 	

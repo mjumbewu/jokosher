@@ -19,12 +19,14 @@ class InstrumentViewer(gtk.EventBox):
 	
 	#_____________________________________________________________________
 	
-	def __init__(self, project, instrument, small = False):
+	def __init__(self, project, instrument, projectview, mainview, small = False):
 		gtk.EventBox.__init__(self)
 		
 		self.instrument = instrument
 		self.project = project
 		self.small = small
+		self.projectview = projectview
+		self.mainview = mainview
 		
 		self.Updating = False
 		
@@ -35,7 +37,7 @@ class InstrumentViewer(gtk.EventBox):
 		self.add(self.mainBox)
 		
 		self.headerBox = gtk.VBox()
-		self.eventLane = EventLaneViewer(project, instrument, self.small)
+		self.eventLane = EventLaneViewer(project, instrument, self, mainview, self.small)
 		
 		self.mainBox.pack_start(self.headerBox, False, False)
 		self.mainBox.pack_end(self.eventLane, True, True)
