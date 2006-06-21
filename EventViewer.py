@@ -323,6 +323,16 @@ class EventViewer(gtk.DrawingArea):
 				self.event.start = time
 				self.lane.Update(self)
 				self.mouseAnchor = [x, y]
+			else:
+				temp = self.event.start
+				self.event.MoveButDoNotOverlap(time)
+				self.lane.Update(self)
+				
+				#MoveButDoNotOverlap() moves the event out of sync with the mouse
+				#and the mouseAnchor must be updated manually.
+				delta = (self.event.start - temp) * self.project.viewScale
+				self.mouseAnchor[0] += int(delta)
+				
 				
 			self.highlightCursor = None
 		elif self.isSelecting:
@@ -391,7 +401,6 @@ class EventViewer(gtk.DrawingArea):
 	def ContextMenu(self,mouse):
 		m = gtk.Menu()
 		items = [	("Split", self.OnSplit, True),
-					("Join", self.OnJoin, self.event.instrument.MultipleEventsSelected()),
 					("---", None, None),
 					("Delete", self.OnDelete, self.event.isSelected)
 				 ] 
@@ -474,17 +483,13 @@ class EventViewer(gtk.DrawingArea):
 		
 	#_____________________________________________________________________
 
-	def OnJoin(self, evt):
-		self.event.instrument.JoinEvents()
-		self.lane.Update()
-
-	#_____________________________________________________________________
-
 	def OnDelete(self, evt):
 		# delete event
 		self.lane.childActive = False
 		self.event.Delete()
 		self.lane.Update()
+	
+	#_____________________________________________________________________
 		
 	def TrimToSelection(self, evt):
 		# Cut this event down so only the selected bit remains. This event

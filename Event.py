@@ -403,5 +403,26 @@ class Event(Monitored, CommandManaged):
 		return True
 		
 	#_____________________________________________________________________
+	
+	def MoveButDoNotOverlap(self, xpos):
+		"""This method will attempt to move this event to the given position (xpos)
+		   If the position requires overlapping, this event will be put flush
+		   against the closest side of the event which is in the way.
+		"""
+		for e in self.instrument.events:
+			if e is self:
+				continue
+			if not (e.start + e.duration <= xpos or e.start >= xpos + self.duration):
+				if e.start + e.duration > xpos and e.start + e.duration/2 < xpos + self.duration/2:
+					start = e.start + e.duration
+				else:
+					start = max(e.start - self.duration, 0)
+				if self.MayPlace(start):
+					self.start = start
+				return
+		#There were no overlapping events
+		self.start = xpos
+	
+	#_____________________________________________________________________
 
 #=========================================================================	
