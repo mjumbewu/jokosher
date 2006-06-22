@@ -254,6 +254,29 @@ class Instrument(Monitored, CommandManaged):
 		
 	#_____________________________________________________________________
 	
+	def addEventFromEvent(self, start, event):
+		"""Creates a new event instance identical to the event parameter 
+		   and adds it to this instrument to this instrument (for paste functionality).
+		      start - The offset time in seconds
+		      event - The event to be recreated on this instrument
+		      
+		      undo : DeleteEvent(%(temp)d)
+		"""
+		e = Event(self, event.file)
+		e.start = start
+		for i in ["duration", "name", "offset"]:
+			setattr(e, i, getattr(event, i))
+		e.levels = event.levels[:]
+		
+		self.events.append(e)
+		e.SetProperties()
+		e.MoveButDoNotOverlap(e.start)
+		
+		self.temp = e.id
+		self.StateChanged()
+	
+	#_____________________________________________________________________
+	
 	def DeleteEvent(self, eventid):
 		'''Removes an event from this instrument. 
 		   It does not register with undo or append it to the graveyard,
@@ -385,13 +408,11 @@ class Instrument(Monitored, CommandManaged):
 	
 	#_____________________________________________________________________
 	
-	def SetSelected(self):
+	def SetSelected(self, sel):
 		"""Sets the instrument to be highlighted 
 		   and receive keyboard actions
 		"""
-		self.project.ClearInstrumentSelections()
-		self.project.ClearEventSelections()
-		self.isSelected = True
+		self.isSelected = sel
 		self.StateChanged()
 	
 	#_____________________________________________________________________

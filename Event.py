@@ -133,6 +133,14 @@ class Event(Monitored, CommandManaged):
 		
 	#_____________________________________________________________________
 	
+	def __cmp__(self, object):
+		if type(object) != type(self):
+			return -1
+		else:
+			return cmp(self.start, object.start)
+	
+	#_____________________________________________________________________
+	
 	def Move(self, frm, to):
 		'''
 			undo : Move(%(start)f, %(temp)f)
@@ -348,7 +356,7 @@ class Event(Monitored, CommandManaged):
 			# We're done with the bin so release it
 			self.bin.set_state(gst.STATE_NULL)
 			self.isLoading = False
-
+			
 			# Signal to interested objects that we've changed
 			self.StateChanged()
 			return False
@@ -360,6 +368,9 @@ class Event(Monitored, CommandManaged):
 			if self.duration == 0:
 				self.duration = float(q[0] / 1000000000)
 				self.SetProperties()
+				#update position with proper duration
+				self.MoveButDoNotOverlap(self.start)
+				self.StateChanged()
 		except:
 			# no size available yet
 			pass
@@ -409,19 +420,40 @@ class Event(Monitored, CommandManaged):
 		   If the position requires overlapping, this event will be put flush
 		   against the closest side of the event which is in the way.
 		"""
+		alreadyTriedRemovingOverlap = False
+		self.instrument.events.sort()
 		for e in self.instrument.events:
 			if e is self:
 				continue
-			if not (e.start + e.duration <= xpos or e.start >= xpos + self.duration):
+			
+			elif alreadyTriedRemovingOverlap:
+				start = e.start + e.duration
+				if self.MayPlace(start):
+					self.start = start
+					
+			elif not (e.start + e.duration <= xpos or e.start >= xpos + self.duration):
 				if e.start + e.duration > xpos and e.start + e.duration/2 < xpos + self.duration/2:
 					start = e.start + e.duration
 				else:
 					start = max(e.start - self.duration, 0)
+					
 				if self.MayPlace(start):
 					self.start = start
-				return
-		#There were no overlapping events
-		self.start = xpos
+					return
+				else:
+					alreadyTriedRemovingOverlap = True
+					
+		if alreadyTriedRemovingOverlap:
+			#last ditch effort to place it at the end of all other events
+			last = self.instrument.events[-1]
+			if last is self:
+				last = self.instrument.events[-2]
+			start = last.start + last.duration
+			if self.MayPlace(start):
+				self.start = start
+		else:
+			#There were no overlapping events
+			self.start = xpos
 	
 	#_____________________________________________________________________
 

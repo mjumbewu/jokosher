@@ -159,8 +159,11 @@ class Project(Monitored, CommandManaged):
 		#number of solo instruments (to know if others must be muted)
 		self.soloInstrCount = 0
 		
-		# The place where deleted instruments go
+		# The place where deleted instruments/events go
 		self.graveyard = []
+		
+		#The list containing the events to cut/copy
+		self.clipboardList = None
 		
 		#This is to indicate that something which is not 
 		#on the undo/redo stack needs to be saved
@@ -759,7 +762,7 @@ class Project(Monitored, CommandManaged):
 	def ClearInstrumentSelections(self):
 		''' Clears the selection of any instruments '''
 		for instr in self.instruments:
-			instr.isSelected = False
+			instr.SetSelected(False)
 			
 	#_____________________________________________________________________
 	

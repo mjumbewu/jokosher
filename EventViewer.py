@@ -68,6 +68,7 @@ class EventViewer(gtk.DrawingArea):
 		self.isLoading = False			# Used to track if we need to update the GUI after loading a waveform
 		self.currentScale = 0			# Tracks if the project viewScale has changed
 		self.redrawWaveform = False		# Force redraw the cached waveform on next expose event
+		self.eventDuration = 0
 		
 		# source is an offscreen canvas to hold our waveform image
 		self.source = cairo.ImageSurface(cairo.FORMAT_ARGB32, 0, 0)
@@ -353,16 +354,24 @@ class EventViewer(gtk.DrawingArea):
 	#_____________________________________________________________________
 	
 	def OnMouseDown(self, widget, mouse):
-		# Possible clicks to capture:
-		# LMB: deselect all events, remove any existing selection in this event,
-		#   select this event, begin moving the event
-		# LMB+shift: remove any existing selection in this event, begin 
-		#   selecting part of this event
-		# LMB+ctrl: select this event without deselecting other events
-		# RMB: context menu
-		# LMB double-click: split here
-		# LMB over a fadeMarker: drag that marker
-
+		""" Possible clicks to capture:
+		   {L|R}MB: deselect all events, remove any existing selection in this event,
+		      select this event, begin moving the event
+		   LMB+shift: remove any existing selection in this event, begin 
+		      selecting part of this event
+		   {L|R}MB+ctrl: select this event without deselecting other events
+		   RMB: context menu
+		   LMB double-click: split here
+		   LMB over a fadeMarker: drag that marker
+		"""
+		
+		# {L|R}MB: deselect all events, select this event, begin moving the event
+		# {L|R}MB+ctrl: select this event without deselecting other events
+		if 'GDK_CONTROL_MASK' not in mouse.state.value_names:
+			self.project.ClearEventSelections()
+			self.project.ClearInstrumentSelections()
+		self.event.SetSelected(True)
+		
 		# RMB: context menu
 		if mouse.button == 3:
 			self.ContextMenu(mouse)
@@ -388,39 +397,37 @@ class EventViewer(gtk.DrawingArea):
 					self.mouseAnchor[0] = mouse.x
 					self.OnSplit(None)
 					return True
-				# LMB: deselect all events, select this event, begin moving the event
-				# LMB+ctrl: select this event without deselecting other events
+				
 				# remove any existing selection in this event
 				self.Selection = [0,0]
 				if self.drawer.parent == self.lane.fixed:
 					self.lane.fixed.remove(self.drawer)
 				self.isDragging = True
-				if 'GDK_CONTROL_MASK' not in mouse.state.value_names:
-					self.project.ClearEventSelections()
-					self.project.ClearInstrumentSelections()
-				self.event.SetSelected(True)
+				
 				self.eventStart = self.event.start
 				ptr = gtk.gdk.display_get_default().get_pointer()
 				self.mouseAnchor = [ptr[1], ptr[2]]
 	
 		return True
 
+	#_____________________________________________________________________
+		
 	def ContextMenu(self,mouse):
 		m = gtk.Menu()
 		items = [	("Split", self.OnSplit, True),
 					("---", None, None),
-					("Delete", self.OnDelete, self.event.isSelected)
-				 ] 
+					("Cut", self.OnCut, True),
+					("Copy", self.OnCopy, True),
+					("Delete", self.OnDelete, True)
+				] 
 
-		for i, cb, sense in items: 
+		for i, cb, sensitive in items: 
 			if i == "---":
 				a = gtk.SeparatorMenuItem()
 			else:
 				a = gtk.MenuItem(i)
-				if sense:
-					a.set_sensitive(True)
-				else:
-					a.set_sensitive(False)
+			
+			a.set_sensitive(bool(sensitive))
 			a.show() 
 			m.append(a) 
 			if cb:
@@ -492,8 +499,19 @@ class EventViewer(gtk.DrawingArea):
 		self.lane.Update()
 		
 	#_____________________________________________________________________
+	
+	def OnCut(self, gtkevent):
+		self.project.clipboardList = [self.event]
+		self.OnDelete()
+	
+	#_____________________________________________________________________
+	
+	def OnCopy(self, gtkevent):
+		self.project.clipboardList = [self.event]
+	
+	#_____________________________________________________________________
 
-	def OnDelete(self, evt):
+	def OnDelete(self, evt=None):
 		# delete event
 		self.lane.childActive = False
 		self.event.Delete()
@@ -541,6 +559,11 @@ class EventViewer(gtk.DrawingArea):
 		if self.isLoading != self.event.isLoading:
 			self.redrawWaveform = True
 			self.isLoading = self.event.isLoading
+		
+		if self.event.duration != self.eventDuration:
+			#the position may have changed once the correct duration was determined
+			self.lane.Update(self)
+			self.eventDuration = self.event.duration
 				
 		if len(self.event.levels) != self.last_num_levels:
 			self.redrawWaveform = True

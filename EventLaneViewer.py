@@ -38,6 +38,9 @@ class EventLaneViewer(gtk.EventBox):
 		# True if the popup menu is visible
 		self.popupIsActive = False
 		
+		#The position where the last mouse click was
+		self.mouseDownPos = [0,0]
+		
 		# True if the cursor is inside a child event object
 		self.childActive = False
 		
@@ -117,17 +120,24 @@ class EventLaneViewer(gtk.EventBox):
 		if self.childActive:
 			return
 		
+		self.mouseDownPos = [mouse.x, mouse.y]
+		
 		# Create context menu on RMB 
 		if mouse.button == 3: 
 			m = gtk.Menu() 
-			items = [	("Import Audio File...", self.CreateEventFromFile),
+			items = [	("Import Audio File...", self.CreateEventFromFile, True),
+					("---", None, None),
+					("Paste", self.OnPaste, self.project.clipboardList),
+					("Delete", self.OnDelete, True)
 					 ] 
 
-			for i, cb in items: 
+			for i, cb, sensitive in items: 
 				if i == "---":
 					a = gtk.SeparatorMenuItem()
 				else:
-					a = gtk.MenuItem(label=i) 
+					a = gtk.MenuItem(label=i)
+					
+				a.set_sensitive(bool(sensitive))
 				a.show() 
 				m.append(a) 
 				if cb:
@@ -161,20 +171,31 @@ class EventLaneViewer(gtk.EventBox):
 	#_____________________________________________________________________
 	
 	def CreateEventFromFile(self, evt):
-		dlg = gtk.FileChooserDialog("Import file...", action=gtk.FILE_CHOOSER_ACTION_OPEN, buttons=(("Select", 1)))
-		dlg.connect("response", self.OnDialogResponse)
-		dlg.connect("file-activated", self.OnDialogResponse)
-		dlg.run()
+		buttons = (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, gtk.STOCK_OPEN, gtk.RESPONSE_OK)
+		dlg = gtk.FileChooserDialog("Import file...", action=gtk.FILE_CHOOSER_ACTION_OPEN, buttons=buttons)
+		response = dlg.run()
+		if response == gtk.RESPONSE_OK:
+			dlg.hide()
+			start = (self.mouseDownPos[0]/self.project.viewScale) + self.project.viewStart
+			self.instrument.addEventFromFile(start, dlg.get_filename())
+		dlg.destroy()
 	
 	#_____________________________________________________________________
 	
-	def OnDialogResponse(self, dlg, evt=None):
-		if evt == None or evt == 1:
-			dlg.hide()
-			self.instrument.addEventFromFile(0, dlg.get_filename())
-		dlg.destroy()
-		self.Update()
+	def OnPaste(self, widget):
+		if not self.project.clipboardList:
+			return
 		
+		for event in self.project.clipboardList:
+			start = (self.mouseDownPos[0]/self.project.viewScale) + self.project.viewStart
+			self.instrument.addEventFromEvent(start, event)
+		
+	#_____________________________________________________________________
+	
+	def OnDelete(self, event):
+		self.project.DeleteInstrument(self.instrument.id)
+		self.mainview.UpdateDisplay()
+	
 	#_____________________________________________________________________
 	
 	def OnStateChanged(self, obj, change=None):

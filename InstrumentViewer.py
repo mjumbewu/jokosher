@@ -120,8 +120,11 @@ class InstrumentViewer(gtk.EventBox):
 		
 	#_____________________________________________________________________
 
-	def OnSelect(self, widget, event=None):
-		self.instrument.SetSelected()
+	def OnSelect(self, widget, event):
+		if 'GDK_CONTROL_MASK' not in event.state.value_names:
+			self.project.ClearEventSelections()
+			self.project.ClearInstrumentSelections()
+		self.instrument.SetSelected(True)
 		return True
 
 	#_____________________________________________________________________
