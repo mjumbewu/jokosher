@@ -15,7 +15,7 @@ class InstrumentViewer(gtk.EventBox):
 	BAR_WIDTH = 15
 	MAX_PEAK = 30
 	UNSELECTED_COLOUR = None
-	SELECTED_COLOUR = gtk.gdk.Color(int(65535*0.9), int(65535*0.9), 65535)
+	SELECTED_COLOUR = None
 	
 	#_____________________________________________________________________
 	
@@ -32,6 +32,7 @@ class InstrumentViewer(gtk.EventBox):
 		
 		#get the default colour for the current theme
 		self.UNSELECTED_COLOR = self.get_style().bg[0]
+		
 		
 		self.mainBox = gtk.HBox()
 		self.add(self.mainBox)
@@ -163,6 +164,7 @@ class InstrumentViewer(gtk.EventBox):
 	
 	def Update(self):
 		self.Updating = True
+
 		if not self.small:
 			self.recButton.set_active(self.instrument.isArmed)
 			self.muteButton.set_active(self.instrument.actuallyIsMuted)
@@ -172,8 +174,11 @@ class InstrumentViewer(gtk.EventBox):
 				self.muteButton.set_image(gtk.image_new_from_icon_name("stock_volume-mute", gtk.ICON_SIZE_BUTTON))
 			else:
 				self.muteButton.set_image(gtk.image_new_from_icon_name("stock_volume", gtk.ICON_SIZE_BUTTON))
-				
+		
 		if self.instrument.isSelected:
+			#For some reason, putting self.style.base[3] in __init__ makes it return the wrong colour.
+			self.SELECTED_COLOUR = self.get_style().base[3]
+			
 			self.modify_bg(gtk.STATE_NORMAL, self.SELECTED_COLOUR)
 			self.labeleventbox.modify_bg(gtk.STATE_NORMAL, self.SELECTED_COLOUR)
 			self.eventLane.modify_bg(gtk.STATE_NORMAL, self.SELECTED_COLOUR)
