@@ -62,8 +62,13 @@ class MainApp:
 			"on_show_as_hours_minutes_seconds_toggled" : self.OnShowHoursMins,
 			"on_undo_activate" : self.OnUndo,
 			"on_redo_activate" : self.OnRedo,
+			"on_cut_activate" : self.OnCut,
+			"on_copy_activate" : self.OnCopy,
+			"on_paste_activate" : self.OnPaste,
+			"on_delete_activate" : self.OnDelete,
 			"on_MouseDown" : self.OnMouseDown,
 			"on_instrumentconnections_activate" : self.OnInstrumentConnectonsDialog,
+			"on_editmenu_activate" : self.OnEditMenu,
 			"on_projectmenu_activate" : self.OnProjectMenu
 		}
 		self.wTree.signal_autoconnect(signals)
@@ -644,24 +649,51 @@ class MainApp:
 		
 	#______________________________________________________________________
 	
-	def OnDelKey(self):
+	def OnCut(self, widget, cut=True):
+		#Wipe the clipboard clean
+		self.project.clipboardList = []
+		for instr in self.project.instruments:
+			for event in instr.events:
+				if event.isSelected:
+					#Add to the clipboard
+					self.project.clipboardList.append(event)
+					if cut:
+						#if we are cutting (as opposed to copying)
+						event.Delete()
+
+		self.UpdateDisplay()
+	
+	#______________________________________________________________________
+	
+	def OnCopy(self, widget):
+		self.OnCut(widget, False)
+	
+	#______________________________________________________________________
+	
+	def OnPaste(self, widget):
+		for instr in self.project.instruments:
+			if instr.isSelected:
+				for event in self.project.clipboardList:
+					instr.addEventFromEvent(0, event)
+				break
+		
+		self.UpdateDisplay()
+	
+	#______________________________________________________________________
+	
+	def OnDelete(self, widget):
 		# Delete any select instruments
 		for instr in self.project.instruments:
 			if (instr.isSelected):
-				# Select all the instruments events to delete
-				for ev in instr.events:
-					ev.isSelected = True
 				#set not selected so when we undo we don't get two selected instruments
 				instr.isSelected = False
 				self.project.DeleteInstrument(instr.id)
-
-		# Delete any selected events
-		for instr in self.project.instruments:
-			for ev in instr.events:
-				if ev.isSelected:
-					ev.Delete()
-
-		self.undo.set_sensitive(True)
+			else:
+				# Delete any selected events
+				for ev in instr.events:
+					if ev.isSelected:
+						ev.Delete()
+	
 		self.UpdateDisplay()
 	
 	#______________________________________________________________________
@@ -750,18 +782,37 @@ class MainApp:
 		keysdict = {
 			65471:self.OnRecordingView, # F2 - Recording View
 			65472:self.OnCompactMixView, # F3 - Compact Mix View
-			65535:self.OnDelKey, # delete key - remove selected item
-			65288:self.OnDelKey, # backspace key
-		}
+		}		
 
 		if event.keyval in keysdict:
 			keysdict[event.keyval]()
-
+		
 	#_____________________________________________________________________
 	
 	def OnInstrumentConnectonsDialog(self, widget):
 		dlg = InstrumentConnectionsDialog.InstrumentConnectionsDialog(self.project, self)
 		
+	#_____________________________________________________________________
+	
+	def OnEditMenu(self, widget):
+		#HACK: when the edit menu opens, check if any events or
+		#instruments are selected and set the cut, copy, paste and delete accordingly
+		instrSelected = False
+		eventSelected = False
+		for instr in self.project.instruments:
+			if instr.isSelected:
+				instrSelected = True
+				break
+			else:
+				for ev in instr.events:
+					if ev.isSelected:
+						eventSelected = True
+		
+		self.cut.set_sensitive(instrSelected or eventSelected)
+		self.copy.set_sensitive(instrSelected or eventSelected)
+		self.paste.set_sensitive(instrSelected and bool(self.project.clipboardList))
+		self.delete.set_sensitive(instrSelected or eventSelected)
+	
 	#_____________________________________________________________________
 	
 	def OnProjectMenu(self, widget):

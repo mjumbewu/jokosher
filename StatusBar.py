@@ -9,7 +9,6 @@ class StatusBar(gtk.HBox):
 	def __init__(self):
 		gtk.HBox.__init__(self)
 		self.latest_id = 0
-		self.set_size_request(-1, 35)
 		self.label = gtk.Label()
 		self.label.set_justify(gtk.JUSTIFY_LEFT)
 		self.pack_start(self.label, False)

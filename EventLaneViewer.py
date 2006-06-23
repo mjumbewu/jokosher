@@ -88,7 +88,7 @@ class EventLaneViewer(gtk.EventBox):
 		
 	def Update(self, child=None):
 		
-		if child:
+		if child and child in self.fixed.get_children():
 			x = int(round((child.event.start - self.project.viewStart) * self.project.viewScale))
 			self.fixed.move( child, x, 0 )
 		else:			
