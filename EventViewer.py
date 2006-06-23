@@ -307,17 +307,17 @@ class EventViewer(gtk.DrawingArea):
 		
 		# display status bar message if has not already been displayed
 		if not self.messageID: 
-			self.messageID = self.mainview.SetStatusBar("To Split, Double-Click the wave - To Select, Shift-Click and drag the mouse")
+			self.messageID = self.mainview.SetStatusBar("To <b>Split, Double-Click</b> the wave - To <b>Select, Shift-Click</b> and drag the mouse")
 		
 		if self.isDraggingFade:
 			self.fadePoints[self.fadeBeingDragged] = 100-int((mouse.y / float(self.allocation.height)) * 100)
 			self.queue_draw()
-			return
+			return True
 
 		if self.fadeMarkersContext and self.fadeMarkersContext.in_fill(mouse.x, mouse.y):
 			# quit this function now, so the highlightCursor doesn't move
 			# while you're over a fadeMarker
-			return
+			return True
 			
 		if self.isDragging:
 			ptr = gtk.gdk.display_get_default().get_pointer()
@@ -350,6 +350,7 @@ class EventViewer(gtk.DrawingArea):
 		
 		self.lane.childActive = True
 		self.queue_draw()
+		return True
 
 	#_____________________________________________________________________
 	

@@ -23,6 +23,7 @@ import ConfigParser
 import Globals
 import WelcomeDialog
 import InstrumentConnectionsDialog
+import StatusBar
 
 gobject.threads_init()
 
@@ -90,15 +91,12 @@ class MainApp:
 		self.export = self.wTree.get_widget("export")
 		self.recentprojects = self.wTree.get_widget("recentprojects")
 		self.menubar = self.wTree.get_widget("menubar")
-		self.statusbar = self.wTree.get_widget("statusbar")
 		
 		self.recentprojectitems = []
 
 		self.recentprojectsmenu = gtk.Menu()
 		self.recentprojects.set_submenu(self.recentprojectsmenu)
 		
-		self.statusbarContextID = self.statusbar.get_context_id("JokosherStatusBar")
-
 		self.project = None
 		self.recording = None
 		self.headerhbox = None
@@ -107,6 +105,9 @@ class MainApp:
 		self.recording = None
 		self.compactmix = None
 		self.main_vbox = self.wTree.get_widget("main_vbox")
+		
+		self.statusbar = StatusBar.StatusBar()
+		self.main_vbox.pack_end(self.statusbar, False)
 		
 		# Initialise some useful vars
 		self.mode = None
@@ -841,12 +842,12 @@ class MainApp:
 	#_____________________________________________________________________
 
 	def SetStatusBar(self, message):
-		return self.statusbar.push(self.statusbarContextID, message)
+		return self.statusbar.Push(message)
 	
 	#_____________________________________________________________________
 
 	def ClearStatusBar(self, messageID):
-		self.statusbar.remove(self.statusbarContextID, messageID)
+		self.statusbar.Remove(messageID)
 	
 	#_____________________________________________________________________
 

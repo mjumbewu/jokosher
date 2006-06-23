@@ -53,6 +53,8 @@ class EventLaneViewer(gtk.EventBox):
 		self.connect("leave_notify_event", self.OnMouseLeave)
 		self.fixed.connect("expose-event", self.OnDraw)
 		
+		self.messageID = None
+		
 		self.Update()
 		
 	#_____________________________________________________________________
@@ -157,6 +159,9 @@ class EventLaneViewer(gtk.EventBox):
 	#_____________________________________________________________________
 
 	def OnMouseMove(self, widget, mouse):
+		# display status bar message if has not already been displayed
+		if not self.messageID: 
+			self.messageID = self.mainview.SetStatusBar("<b>Right-click</b> for more options.")
 		# TODO - we need to add code here to snap to beat/bar etc.
 		self.highlightCursor = mouse.x
 		self.queue_draw()
@@ -164,6 +169,9 @@ class EventLaneViewer(gtk.EventBox):
 	#_____________________________________________________________________
 		
 	def OnMouseLeave(self, widget, mouse):
+		if self.messageID:   #clesr status bar if not already clear
+			self.mainview.ClearStatusBar(self.messageID)
+			self.messageID = None
 		if not self.popupIsActive:
 			self.highlightCursor = None
 		self.queue_draw()
