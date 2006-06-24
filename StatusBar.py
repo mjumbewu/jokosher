@@ -3,7 +3,8 @@ import gtk
 #=========================================================================
 
 class StatusBar(gtk.HBox):
-	
+	""" This class implements the status bar
+	"""
 	#_____________________________________________________________________
 
 	def __init__(self):
@@ -44,9 +45,7 @@ class StatusBar(gtk.HBox):
 			self.label.set_markup("")
 			return
 		# find the message at the top of the stack and display it
-		stackList = self.stack.keys()
-		stackList.sort()
-		self.label.set_markup(self.stack[stackList[-1]])
+		self.label.set_markup(self.stack[max(self.stack.keys())])
 	#_____________________________________________________________________
 
 #=========================================================================

@@ -13,10 +13,12 @@ class MixerStrip(gtk.Frame):
 	
 	#_____________________________________________________________________
 	
-	def __init__(self, project, instrument):
+	def __init__(self, project, instrument, mixview, mainview):
 		gtk.Container.__init__(self)
 		self.project = project
 		self.instrument = instrument
+		self.mixview = mixview
+		self.mainview = mainview
 		self.Updating = False
 		
 		self.vbox = gtk.VBox()
@@ -30,7 +32,7 @@ class MixerStrip(gtk.Frame):
 		self.vbox.pack_start(self.minbutt, False)
 		
 		# VU Meter
-		self.vu = VUWidget(self)
+		self.vu = VUWidget(self, self.mainview)
 		self.vbox.pack_start(self.vu, True, True)
 		
 		#Control Buttons

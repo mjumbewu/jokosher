@@ -51,7 +51,7 @@ class CompactMixView(gtk.Frame):
 		self.vpaned.add(self.hbox)
 		
 		#self.masterfaderhbox = gtk.HBox()
-		self.mastermixer = MasterMixerStrip(self.project)
+		self.mastermixer = MasterMixerStrip(self.project, self, self.mainview)
 		
 		#self.vpaned.add(self.masterfaderhbox)
 		self.show_all()
@@ -100,7 +100,7 @@ class CompactMixView(gtk.Frame):
 						break
 				
 				if not strip:
-					strip = MixerStrip(self.project, instr)
+					strip = MixerStrip(self.project, instr, self, self.mainview)
 					strip.connect("minimise", self.OnMinimiseTrack, instr)
 					self.channels.append(strip)
 					

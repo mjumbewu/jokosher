@@ -13,9 +13,10 @@ class VUWidget(gtk.DrawingArea):
 	
 	#_____________________________________________________________________
 	
-	def __init__(self, mixerstrip):
+	def __init__(self, mixerstrip, mainview):
 		gtk.DrawingArea.__init__(self)
 		self.mixerstrip = mixerstrip
+		self.mainview = mainview
 		
 		self.set_events(	gtk.gdk.POINTER_MOTION_MASK |
 							gtk.gdk.BUTTON_RELEASE_MASK |
@@ -31,6 +32,7 @@ class VUWidget(gtk.DrawingArea):
 		
 		self.fader_active = False
 		self.fader_hover = False
+		self.message_id = None
 		
 		self.source = cairo.ImageSurface(cairo.FORMAT_ARGB32, self.allocation.width, self.allocation.height)
 		
@@ -46,6 +48,8 @@ class VUWidget(gtk.DrawingArea):
 	#_____________________________________________________________________
 	
 	def OnMouseMove(self, widget, mouse):
+		if not self.message_id:
+			self.message_id = self.mainview.SetStatusBar("<b>Drag</b> the <b>slider</b> to alter volume levels")
 		rect = self.get_allocation()
 		pos = (rect.height-self.BAR_WIDTH) * (1. - self.mixerstrip.GetVolume()) + (self.BAR_WIDTH/2)
 		if mouse.y > pos - (self.BAR_WIDTH / 2) and mouse.y < pos + (self.BAR_WIDTH / 2):
@@ -69,7 +73,9 @@ class VUWidget(gtk.DrawingArea):
 	#_____________________________________________________________________
 	
 	def OnMouseLeave(self, widget, mouse):
-		pass
+		if self.message_id:
+			self.mainview.ClearStatusBar(self.message_id)
+			self.message_id = None
 
 	#_____________________________________________________________________
 

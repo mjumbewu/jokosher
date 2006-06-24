@@ -13,9 +13,11 @@ class MasterMixerStrip(gtk.Frame):
 	
 	#_____________________________________________________________________
 	
-	def __init__(self, project):
+	def __init__(self, project, mixview, mainview):
 		gtk.Container.__init__(self)
 		self.project = project
+		self.mixview = mixview
+		self.mainview = mainview
 		self.Updating = False
 		
 		self.vbox = gtk.VBox()
@@ -26,7 +28,7 @@ class MasterMixerStrip(gtk.Frame):
 		self.vbox.pack_start(self.label, False)
 		
 		# VU Meter
-		self.vu = VUWidget(self)
+		self.vu = VUWidget(self, self.mainview)
 		self.vbox.pack_start(self.vu, True, True)
 				
 		self.vbox.show_all()
