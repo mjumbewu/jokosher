@@ -21,7 +21,6 @@ class Event(Monitored, CommandManaged):
 		self.start = 0.0			# Time in seconds at which the event begins
 		self.duration = 0.0			# Duration in seconds of the event
 		self.file = file			# The file this event should play
-		self.colour = "#FFEEEE"
 		self.isSelected = False		# True if the event is currently selected
 		self.name = "New Event"		# Name of this event
 		self.isLHSHot = False
@@ -76,18 +75,13 @@ class Event(Monitored, CommandManaged):
 		params = doc.createElement("Parameters")
 		ev.appendChild(params)
 		
-		items = ["start", "duration", "colour", "isSelected", 
+		items = ["start", "duration", "isSelected", 
 				  "name", "offset", "file"
 				]
 		
 		StoreParametersToXML(self, doc, params, items)
 		
 		if self.levels:
-			modified = doc.createElement("FileLastModified")
-			ev.appendChild(modified)
-			timestamp = str(os.stat(self.file)[stat.ST_MTIME])
-			modified.setAttribute("value", timestamp)
-			
 			levelsXML = doc.createElement("Levels")
 			ev.appendChild(levelsXML)
 			stringList = map(str, self.levels)
@@ -100,29 +94,15 @@ class Event(Monitored, CommandManaged):
 		
 		LoadParametersFromXML(self, params)
 		
-		fileModified = True
-		try:
-			n = node.getElementsByTagName("FileLastModified")[0]
+		try:	
+			levelsXML = node.getElementsByTagName("Levels")[0]
 		except IndexError:
-			pass
-		else:
-			if n.nodeType == xml.Node.ELEMENT_NODE:
-				value = int(n.getAttribute("value"))
-				timestamp = os.stat(self.file)[stat.ST_MTIME]
-				fileModified = timestamp > value
-		
-		if fileModified:
+			print "No event levels in project file"
 			self.GenerateWaveform()
-		else:
-			try:	
-				levelsXML = node.getElementsByTagName("Levels")[0]
-			except IndexError:
-				print "No event levels in project file"
-				self.GenerateWaveform()
-			else: 
-				if levelsXML.nodeType == xml.Node.ELEMENT_NODE:
-					value = str(levelsXML.getAttribute("value"))
-					self.levels = map(float, value.split(","))
+		else: 
+			if levelsXML.nodeType == xml.Node.ELEMENT_NODE:
+				value = str(levelsXML.getAttribute("value"))
+				self.levels = map(float, value.split(","))
 		
 		self.CreateFilesource()
 		
