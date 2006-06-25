@@ -24,6 +24,7 @@ import Globals
 import WelcomeDialog
 import InstrumentConnectionsDialog
 import StatusBar
+import AlsaDevices
 
 gobject.threads_init()
 
@@ -236,6 +237,28 @@ class MainApp:
 		for i in self.project.instruments:
 			if i.isArmed:
 				canRecord = True
+
+		#Check to see if any instruments are trying to use the same input channel
+		usedChannels = {}
+		for instr in self.project.instruments:
+			if instr.isArmed:
+				if usedChannels.has_key(instr.input):
+					if usedChannels[instr.input].has_key(instr.inTrack):
+						dlg = gtk.MessageDialog(self.window,
+							gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
+							gtk.MESSAGE_INFO,
+							gtk.BUTTONS_CLOSE,
+							"The instruments '%s' and '%s' both have the same input selected (%s). Please either disarm one, or connect it to a different input through 'Project -> Instrument Connections'"%(usedChannels[instr.input][instr.inTrack], instr.name, instr.inTrack))
+						dlg.connect('response', lambda dlg, response: dlg.destroy())
+						dlg.run()
+						self.settingButtons = True
+						widget.set_active(False)
+						self.settingButtons = False
+						return
+					else:
+						usedChannels[instr.input][instr.inTrack] = instr.name
+				else:
+					usedChannels[instr.input] = {instr.inTrack : instr.name}
 				
 		if not canRecord:
 			dlg = gtk.MessageDialog(self.window,
@@ -249,11 +272,41 @@ class MainApp:
 			widget.set_active(False)
 			self.settingButtons = False
 		else:		
+			#Deselect all input channels (the required ones will be reselected by each instrument)
+			devices = AlsaDevices.GetAlsaList("capture").values()
+			for device in devices: 
+				mixer = gst.element_factory_make('alsamixer')
+				mixer.set_property("device", device)
+				mixer.set_state(gst.STATE_READY)
+
+				for track in mixer.list_tracks():
+					if track.flags & gst.interfaces.MIXER_TRACK_INPUT:
+						mixer.set_record(track, False)
+					#Most cards incapable of multiple simultanious input have a channel called 'Capture' which must be enabled along with the actual input channel
+					if track.label == 'Capture':
+						mixer.set_record(track, True)
+
+				mixer.set_state(gst.STATE_NULL)
+							
 			self.isRecording = not self.isRecording
 			self.stop.set_sensitive(self.isRecording)
 			self.play.set_sensitive(not self.isRecording)
 			if self.isRecording:
-				self.project.record()
+				try:
+					self.project.record()
+				except Project.MultipleInputsError:
+					dlg = gtk.MessageDialog(self.window,
+						gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
+						gtk.MESSAGE_INFO,
+						gtk.BUTTONS_CLOSE,
+						"Your sound card isn't capable of recording from multiple sources at the same time. Please disarm all but one instrument.")
+					dlg.connect('response', lambda dlg, response: dlg.destroy())
+					dlg.run()
+					self.project.terminate()
+					self.isRecording = not self.isRecording
+					self.stop.set_sensitive(self.isRecording)
+					self.play.set_sensitive(not self.isRecording)
+					self.record.set_active(self.isRecording)
 			else:
 				self.project.stop()
 

@@ -41,10 +41,10 @@ class Instrument(Monitored, CommandManaged):
 		self.volume = 0.5				# Gain of the current instrument in range 0..1
 		
 		try:
-			indevice = Globals.settings.recording["devicecardnum"]
+			self.input = Globals.settings.recording["devicecardnum"]
 		except:
-			indevice =  "default"
-		self.input = "alsasrc device=" + indevice
+			self.input =  "default"
+		self.inTrack = None	# Mixer track to record from
 		self.output = ""
 		self.effects = " ! "
 		self.recordingbin = None
@@ -134,7 +134,7 @@ class Instrument(Monitored, CommandManaged):
 		
 		items = ["path", "name", "isArmed", 
 				  "isMuted", "isSolo", "input", "output", "effects",
-				  "isSelected", "pixbufPath", "isVisible"]
+				  "isSelected", "pixbufPath", "isVisible", "inTrack"]
 		
 		params = doc.createElement("Parameters")
 		ins.appendChild(params)
@@ -196,9 +196,21 @@ class Instrument(Monitored, CommandManaged):
 		'''Record to this instrument's temporary file.'''
 
 		gst.debug("instrument recording")
-		if self.input == "alsasrc device=value":
-			self.input = "alsasrc device=default"
+		if self.input == "value":
+			self.input = "default"
 
+		#Set input channel on device mixer
+		mixer = gst.element_factory_make('alsamixer')
+		mixer.set_property("device", self.input)
+		mixer.set_state(gst.STATE_READY)
+
+		for track in mixer.list_tracks():
+			if track.label == self.inTrack:
+				mixer.set_record(track, True)
+				break
+
+		mixer.set_state(gst.STATE_NULL)
+		
 		#Create event file based on timestamp
 		file = "%s_%d_%d.ogg"%(os.path.join(self.path, self.name.replace(" ", "_")), self.id, int(time.time()))
 		self.tmpe = Event(self)
@@ -206,31 +218,40 @@ class Instrument(Monitored, CommandManaged):
 		self.tmpe.name = "Recorded audio"
 		self.tmpe.file = file
 
-		self.output = "audioconvert ! vorbisenc ! oggmux ! filesink location=%s" % file.replace(" ", "\ ")
-		print "Using pipeline:", self.input + self.effects + self.output
+		self.output = "audioconvert ! vorbisenc ! oggmux ! filesink location=%s"%file
+		print "Using pipeline: alsasrc device=%s%s%s"%(self.input, self.effects, self.output)
 
-		self.recordingbin = gst.parse_launch("bin.( %s%s%s )" % (self.input, self.effects, self.output))
-		#print self.recordingbin
+		self.recordingbin = gst.parse_launch("bin.( alsasrc device=%s %s %s )"%(self.input, self.effects, self.output))
 		#We remove this instrument's playbin from the project so it doesn't try to record and play from the same file
 		self.RemoveAndUnlinkPlaybackbin()
 		self.project.mainpipeline.add(self.recordingbin)
 		
 	#_____________________________________________________________________
 
+
 	def stop(self):
 		if self.recordingbin:
 			print "instrument stop"
-			self.project.mainpipeline.remove(self.recordingbin)
-			self.recordingbin.set_state(gst.STATE_NULL)
-			self.recordingbin = None
+			self.terminate()
 			self.events.append(self.tmpe)
 			self.tmpe.GenerateWaveform()
 			self.temp = self.tmpe.id
-			#Relink playbackbin
-			self.AddAndLinkPlaybackbin()
 			self.StateChanged()
 			
 	#_____________________________________________________________________
+
+	def terminate(self):
+		#Separated from stop so that instruments can be stopped without their events being kept (for terminating after errors)
+		if self.recordingbin:
+			self.project.mainpipeline.remove(self.recordingbin)
+			self.recordingbin.set_state(gst.STATE_NULL)
+			self.recordingbin = None
+			#Relink playbackbin
+			self.AddAndLinkPlaybackbin()
+			self.StateChanged()
+
+	#_____________________________________________________________________
+	
 	
 	def addEventFromFile(self, start, file):
 		''' Adds an event to this instrument, and attaches the specified

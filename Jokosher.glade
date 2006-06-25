@@ -428,8 +428,8 @@
 		  <property name="visible_vertical">True</property>
 		  <property name="is_important">False</property>
 		  <accessibility>
-		    <atkrelation target="Record" type="flows-to"/>
 		    <atkrelation target="Rewind" type="flows-to"/>
+		    <atkrelation target="Record" type="flows-to"/>
 		  </accessibility>
 		  <signal name="clicked" handler="on_AddInstrument_clicked" last_modification_time="Mon, 20 Feb 2006 00:04:19 GMT"/>
 		</widget>
@@ -460,8 +460,8 @@
 		  <property name="visible_vertical">True</property>
 		  <property name="is_important">False</property>
 		  <accessibility>
-		    <atkrelation target="Stop" type="flows-to"/>
 		    <atkrelation target="AddInstrument" type="flows-from"/>
+		    <atkrelation target="Stop" type="flows-to"/>
 		  </accessibility>
 		  <signal name="clicked" handler="on_Rewind_clicked" last_modification_time="Mon, 20 Feb 2006 00:02:54 GMT"/>
 		</widget>
@@ -480,8 +480,8 @@
 		  <property name="visible_vertical">True</property>
 		  <property name="is_important">False</property>
 		  <accessibility>
-		    <atkrelation target="Play" type="flows-to"/>
 		    <atkrelation target="Rewind" type="flows-from"/>
+		    <atkrelation target="Play" type="flows-to"/>
 		  </accessibility>
 		  <signal name="clicked" handler="on_Stop_clicked" last_modification_time="Mon, 20 Feb 2006 00:03:02 GMT"/>
 		</widget>
@@ -500,8 +500,8 @@
 		  <property name="is_important">False</property>
 		  <property name="active">False</property>
 		  <accessibility>
-		    <atkrelation target="Forward" type="flows-to"/>
 		    <atkrelation target="Stop" type="flows-from"/>
+		    <atkrelation target="Forward" type="flows-to"/>
 		  </accessibility>
 		  <signal name="toggled" handler="on_Play_toggled" last_modification_time="Sun, 19 Feb 2006 23:59:51 GMT"/>
 		</widget>
@@ -519,8 +519,8 @@
 		  <property name="visible_vertical">True</property>
 		  <property name="is_important">False</property>
 		  <accessibility>
-		    <atkrelation target="Record" type="flows-to"/>
 		    <atkrelation target="Play" type="flows-from"/>
+		    <atkrelation target="Record" type="flows-to"/>
 		  </accessibility>
 		  <signal name="clicked" handler="on_Forward_clicked" last_modification_time="Mon, 20 Feb 2006 00:02:46 GMT"/>
 		</widget>
@@ -1069,7 +1069,10 @@ Stuart Langridge &lt;sil@kryogenix.org&gt;
 Laszlo Pandy &lt;laszlok2@gmail.com&gt;
 Michael Sheldon &lt;mike@mikeasoft.com&gt;
 Ben Thorp &lt;mrben@jedimoose.org&gt;</property>
-  <property name="documenters">Alasdair MacLeod &lt;alasdair.macleod@gmail.com&gt;</property>
+  <property name="documenters">Jono Bacon &lt;jono@jonobacon.org&gt;
+Alasdair MacLeod &lt;alasdair.macleod@gmail.com&gt;
+Jeff Ratliff &lt;jefrat@gmail.com&gt;
+</property>
   <property name="artists">Dan Nawara &lt;dan@itsawisechild.com&gt;
 Gregory Sheeran &lt;greg@grogoreo.co.uk&gt;</property>
   <property name="translator_credits" translatable="yes" comments="TRANSLATORS: Replace this string with your names, one name per line.">translator-credits</property>

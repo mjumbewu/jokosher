@@ -52,9 +52,13 @@ class InstrumentConnectionsDialog:
 		self.window.destroy()
 
 	def Populate(self):
-		mixers = {}
+		self.mixers = {}
 	
 		for device in AlsaDevices.GetAlsaList("capture").values():
+
+			#Don't want the default device twice (once as 'default' and once as its actual hw ref)
+			if device == "default":
+				continue
 
 			mixer = gst.element_factory_make('alsamixer')
 			mixer.set_property("device", device)
@@ -63,7 +67,7 @@ class InstrumentConnectionsDialog:
 			if not mixer.implements_interface(gst.interfaces.Mixer):
 				print 'Cannot get mixer tracks from the device. Check permissions on the mixer device.'
 			else:
-				mixers[device] = mixer.list_tracks()
+				self.mixers[device] = mixer.list_tracks()
 			
 			mixer.set_state(gst.STATE_NULL)
 		
@@ -75,9 +79,6 @@ class InstrumentConnectionsDialog:
 			image.set_from_pixbuf(instrument.pixbuf)
 			label = gtk.Label(instrument.name)
 			
-			# we will need to pre-select the current input in the combo box
-			# but its not coded yet
-			
 			liststore = gtk.ListStore(gobject.TYPE_STRING)
 			combobox = gtk.ComboBox(liststore)
 			cell = gtk.CellRendererText()
@@ -86,12 +87,16 @@ class InstrumentConnectionsDialog:
 
 			self.AlsaID = []
 
-			for device in mixers:
-				mixertracks = mixers[device]
+			currentItem = 0
+			for device in self.mixers:
+				mixertracks = self.mixers[device]
 				for t in mixertracks:
 					if t.flags & gst.interfaces.MIXER_TRACK_INPUT:
 						combobox.append_text(t.label)
+						if instr.inTrack and instr.input == device and t.label == instr.inTrack:
+							combobox.set_active(currentItem)
 						self.AlsaID.append(device)
+						currentItem += 1
 			
 			combobox.connect("changed", self.OnSelected, instr)
 			row.pack_start(combobox, False, False)
@@ -102,11 +107,13 @@ class InstrumentConnectionsDialog:
 			
 	def OnSelected(self, widget, instr):
 		'''Set the instrument's input'''
-		print widget.get_active_text()
-		print instr.name
 		device = self.AlsaID[widget.get_active()]
-		print device
-		newInput = "alsasrc device=" + device
-		if newInput != instr.input:
-			instr.input = newInput
+		mixertracks = self.mixers[device]
+		for track in mixertracks:
+			if track.label == widget.get_active_text():
+				inTrack = track.label
+		print inTrack
+		if device != instr.input or inTrack != instr.inTrack:
+			instr.input = device
+			instr.inTrack = inTrack
 			self.project.unsavedChanges = True

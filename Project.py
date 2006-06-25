@@ -18,6 +18,7 @@ import xml.dom.minidom as xml
 from Instrument import *
 from Monitored import *
 from Utils import *
+from AlsaDevices import *
 import time #remove after ticket #111 is closed
 
 #=========================================================================
@@ -258,9 +259,30 @@ class Project(Monitored, CommandManaged):
 		
 	def record(self):
 		'''Start all selected instruments recording'''
+
+		#Add all instruments to the pipeline
+		numInstruments = 0
 		for instr in self.instruments:
 			if instr.isArmed:
 				instr.record()
+				numInstruments += 1
+
+		#Check mixer states for all devices
+		recMixers = []
+		for device in GetAlsaList('capture').values():
+			if device != 'default':
+				#FIXME: Checking mixer states would be best handled via the record-toggled signal
+				#in the GstMixer interface, unfortunately alsamixer doesn't support signals 
+				#See bug: http://bugzilla.gnome.org/show_bug.cgi?id=152864       
+				#This hasn't been resolved for nearly 2 years, so I'm having to talk to alsa 
+				#directly instead. This'll make porting to different sound systems a bit of a pain.
+				recMixers += GetRecordingMixers(device)
+
+		#Make sure the number of recording mixers corresponds to the number of recording instruments
+		#This will fail if a sound card doesn't support multiple simultanious inputs and is being told to
+		#record multiple instruments at the same time.
+		if len(recMixers) < numInstruments:
+			raise MultipleInputsError("Your sound card is incapable of multiple simultanious inputs")
 		
 		#Make sure we start playing from the beginning
 		self.transport.Stop()
@@ -511,6 +533,20 @@ class Project(Monitored, CommandManaged):
 			
 		self.transport.Stop()
 			
+	#_____________________________________________________________________
+
+	def terminate(self):
+		'''Terminate all instruments (used to disregard recording when an error occurs after instruments have started)'''
+		for instr in self.instruments:
+			instr.terminate()
+
+		gst.debug("Terminating recording.")
+
+		self.mainpipeline.set_state(gst.STATE_READY)
+		self.IsPlaying = False
+
+		self.transport.Stop()
+
 	#_____________________________________________________________________
 	
 	def saveProjectFile(self, path=None):
@@ -846,5 +882,9 @@ class CreateProjectError(Exception):
 		self.errno=errno
 
 #=========================================================================
+
+class MultipleInputsError(Exception):
+	def __init__(self, string):
+		self.__str__ = string
 
 GlobalProjectObject = None
