@@ -44,7 +44,7 @@ class TransportManager(Monitored):
 
 	#_____________________________________________________________________
 	
-	def Play(self):
+	def Play(self, movePlayhead):
 		#the state must be set to paused before playing
 		if self.pipeline.get_state(0)[1] != gst.STATE_PAUSED:
 			return
@@ -54,7 +54,8 @@ class TransportManager(Monitored):
 			self.SeekTo(self.startPosition)
 			
 		self.pipeline.set_state(gst.STATE_PLAYING)
-		self.StartUpdateTimeout()
+		if movePlayhead:
+			self.StartUpdateTimeout()
 		
 	#_____________________________________________________________________
 		

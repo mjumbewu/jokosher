@@ -281,25 +281,25 @@ class Project(Monitored, CommandManaged):
 				
 	#_____________________________________________________________________
 
-	def state_changed(self, bus, message):
+	def state_changed(self, bus, message, movePlayhead=True):
 		old, new, pending = self.mainpipeline.get_state(0)
 		#Move forward to playing when we reach paused (check pending to make sure this is the final destination)
 		if new == gst.STATE_PAUSED and pending == gst.STATE_VOID_PENDING and self.IsPlaying == False:
 			bus.disconnect(self.state_id)
 			#The transport manager will seek if necessary, and then set the pipeline to STATE_PLAYING
-			self.transport.Play()
+			self.transport.Play(movePlayhead)
 			self.IsPlaying = True
 
 	#_____________________________________________________________________
 				
-	def play(self):
+	def play(self, movePlayhead = True):
 		'''Set all instruments playing'''
 		
 		if len(self.instruments) > 0:
 			gst.debug("Play pressed, about to set state to PLAYING")
 			
 			# And set it going
-			self.state_id = self.bus.connect("message::state-changed", self.state_changed)
+			self.state_id = self.bus.connect("message::state-changed", self.state_changed, movePlayhead)
 			#set to PAUSED so the transport manager can seek first (if needed)
 			#the pipeline will be set to PLAY by self.state_changed()
 			self.mainpipeline.set_state(gst.STATE_PAUSED)
@@ -422,8 +422,10 @@ class Project(Monitored, CommandManaged):
 		self.bus.disconnect(self.EOShandler)
 		self.EOShandler = self.bus.connect("message::eos", self.export_eos)
 		
+		#Make sure we start playing from the beginning
+		self.transport.Stop()
 		#start the pipeline!
-		self.play()
+		self.play(movePlayhead=False)
 
 	#_____________________________________________________________________
 	

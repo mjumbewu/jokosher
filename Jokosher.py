@@ -313,22 +313,33 @@ class MainApp:
 	def OnExport(self, widget = None):
 		'''Display a save dialog allowing the user to export as ogg or mp3'''
 		buttons = (gtk.STOCK_CANCEL,gtk.RESPONSE_CANCEL,gtk.STOCK_SAVE,gtk.RESPONSE_OK)
-		chooser = gtk.FileChooserDialog("Export Project", self.window, gtk.FILE_CHOOSER_ACTION_SAVE, buttons)
+		chooser = gtk.FileChooserDialog("Mixdown Project", self.window, gtk.FILE_CHOOSER_ACTION_SAVE, buttons)
 		
-		oggfilter = gtk.FileFilter()
-		oggfilter.set_name("Ogg Vorbis (*.ogg)")
-		oggfilter.add_pattern("*.ogg")
+		saveLabel = gtk.Label("Save as file type:")		
+		typeCombo = gtk.combo_box_new_text()
+		#tuples containing the display test, and the extension (without ".")
+		types = [("Ogg Vorbis (.ogg)","ogg"), ("MP3 (.mp3)","mp3"), 
+					("Flac (.flac)","flac"), ("WAV (.wav)","wav")]
+		for i in types:
+			typeCombo.append_text(i[0])
+		#Default file type is ogg
+		typeCombo.set_active(0)
 		
-		mp3filter = gtk.FileFilter()
-		mp3filter.set_name("MP3 (*.mp3)")
-		mp3filter.add_pattern("*.mp3")
-		
-		chooser.add_filter(mp3filter)
-		chooser.add_filter(oggfilter)
+		extraHBox = gtk.HBox()
+		extraHBox.pack_start(saveLabel, False)
+		extraHBox.pack_end(typeCombo, False)
+		extraHBox.show_all()
+		chooser.set_extra_widget(extraHBox)
 		
 		response = chooser.run()
 		if response == gtk.RESPONSE_OK:
 			filename = chooser.get_filename()
+			#If they haven't already appended the extension for the 
+			#chosen file type, add it to the end of the file.
+			filetype = types[typeCombo.get_active()][1]
+			if not filename.lower().endswith(filetype):
+				filename = filename + "." + filetype
+				
 			chooser.destroy()
 		
 			export = gtk.glade.XML ("Jokosher.glade", "ProgressDialog")
@@ -339,7 +350,7 @@ class MainApp:
 			self.exportdlg.set_transient_for(self.window)
 			
 			label = export.get_widget("progressLabel")
-			label.set_text("Exporting project to file: %s" %filename)
+			label.set_text("Mixing project to file: %s" %filename)
 			
 			self.exportprogress = export.get_widget("progressBar")
 			
@@ -354,13 +365,13 @@ class MainApp:
 		tuple = self.project.get_export_progress()
 		if tuple[0] == -1:
 			self.exportprogress.set_fraction(0.0)
-			self.exportprogress.set_text("Preparing to export project")
+			self.exportprogress.set_text("Preparing to mixdown project")
 		elif tuple[0] == tuple[1] == 100:
 			self.exportdlg.destroy()
 			return False
 		else:
 			self.exportprogress.set_fraction(tuple[0]/tuple[1])
-			self.exportprogress.set_text("%d of %d seconds exported" % (tuple[0], tuple[1]))
+			self.exportprogress.set_text("%d of %d seconds completed" % (tuple[0], tuple[1]))
 			
 		return True
 	
