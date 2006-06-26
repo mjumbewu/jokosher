@@ -30,7 +30,7 @@ def GetRecordingMixers(device):
 	lastmixer = None
 	for mixer in mixers:
 		try:
-			#We may get more than one mixer with the same name, this have incremental IDs. I'm assuming they always appear consecutively withing the mixers() list (empirical evidence supports this)
+			#We may get more than one mixer with the same name, these have incremental IDs. I'm assuming they always appear consecutively within the mixers() list (empirical evidence supports this)
 			if lastmixer == mixer:
 				id += 1
 			else:
