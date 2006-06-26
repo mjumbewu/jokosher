@@ -27,13 +27,20 @@ def GetRecordingMixers(device):
 	recmixers = []
 	mixers = alsaaudio.mixers(device)
 
+	lastmixer = None
 	for mixer in mixers:
-		mixdev = alsaaudio.Mixer(mixer)
 		try:
+			#We may get more than one mixer with the same name, this have incremental IDs. I'm assuming they always appear consecutively withing the mixers() list (empirical evidence supports this)
+			if lastmixer == mixer:
+				id += 1
+			else:
+				id = 0
+			mixdev = alsaaudio.Mixer(mixer, id, device)
 			#Ignore 'Capture' channel due to it being a requirement for recording on most low-end cards
 			if mixdev.getrec() == [0, 0] and mixdev.mixer() != 'Capture':
 				recmixers.append(mixdev)
 		except alsaaudio.ALSAAudioError:
 			pass
 
+	print device, recmixers
 	return recmixers
