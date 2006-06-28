@@ -20,7 +20,10 @@ class Event(Monitored, CommandManaged):
 		
 		self.start = 0.0			# Time in seconds at which the event begins
 		self.duration = 0.0			# Duration in seconds of the event
-		self.file = file			# The file this event should play
+		# The file this event should play (without escaped characters)
+		# If you need characters escaped, please do self.file.replace(" ", "\ ") 
+		# but **do not** assign it to this variable.
+		self.file = file
 		self.isSelected = False		# True if the event is currently selected
 		self.name = "New Event"		# Name of this event
 		self.isLHSHot = False
