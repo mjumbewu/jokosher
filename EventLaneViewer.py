@@ -180,14 +180,20 @@ class EventLaneViewer(gtk.EventBox):
 	
 	def CreateEventFromFile(self, evt):
 		buttons = (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, gtk.STOCK_OPEN, gtk.RESPONSE_OK)
+
+		copyfile=gtk.CheckButton("Copy file to project")
+		copyfile.show()
+
 		dlg = gtk.FileChooserDialog("Import file...", action=gtk.FILE_CHOOSER_ACTION_OPEN, buttons=buttons)
+		dlg.set_extra_widget(copyfile)
 		response = dlg.run()
+
 		if response == gtk.RESPONSE_OK:
 			dlg.hide()
 			start = (self.mouseDownPos[0]/self.project.viewScale) + self.project.viewStart
-			self.instrument.addEventFromFile(start, dlg.get_filename())
+			self.instrument.addEventFromFile(start, dlg.get_filename(),copyfile.get_active())
 		dlg.destroy()
-	
+
 	#_____________________________________________________________________
 	
 	def OnPaste(self, widget):

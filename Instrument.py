@@ -12,6 +12,7 @@ from Utils import *
 import gobject
 import AddInstrumentDialog
 import Globals
+import shutil
 
 #=========================================================================	
 
@@ -253,19 +254,33 @@ class Instrument(Monitored, CommandManaged):
 	#_____________________________________________________________________
 	
 	
-	def addEventFromFile(self, start, file):
+	def addEventFromFile(self, start, file, copyfile=False):
 		''' Adds an event to this instrument, and attaches the specified
 			file to it. 
 			
 			start - The offset time in seconds
 			file - file path
-		
+			copyfile - if True copy file to project audio dir
+			
 			undo : DeleteEvent(%(temp)d)
 		'''
 		
+		if copyfile:
+			audio_dir = os.path.join(os.path.split(self.project.projectfile)[0], "audio")
+			basename = os.path.split(file.replace(" ", "_"))[1]
+			basecomp = basename.rsplit('.',1)
+			newfile = "%s_%d_%d.%s" % (basecomp[0], self.id, int(time.time()), basecomp[1])
+
+			audio_file = os.path.join(audio_dir,newfile)
+			shutil.copyfile(file,audio_file)
+			file = audio_file
+			name = basename
+		else:
+			name = file.split(os.sep)[-1]
+
 		e = Event(self, file)
 		e.start = start
-		e.name = file.split(os.sep)[-1]
+		e.name = name
 		self.events.append(e)
 		e.GenerateWaveform()
 
