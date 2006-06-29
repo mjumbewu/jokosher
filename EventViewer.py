@@ -1,4 +1,4 @@
-#!/usr/bin/python
+	#!/usr/bin/python
 
 import sys
 import gtk
@@ -35,6 +35,7 @@ class EventViewer(gtk.DrawingArea):
 	_FADEMARKERS_RGBA = (1, 0, 0, 0.8)
 	_PLAY_POSITION_RGB = (1, 0, 0)
 	_HIGHLIGHT_POSITION_RGB = (0, 0, 1)
+	_FADELINE_RGB = (1, 0.7, 0.7)
 	
 	#_____________________________________________________________________
 
@@ -159,32 +160,32 @@ class EventViewer(gtk.DrawingArea):
 			context.fill()
 			
 			# and overlay the fademarkers
-			FADEMARKER_WIDTH = 30
-			FADEMARKER_HEIGHT = 11
+			pixxFADEMARKER_WIDTH = 30
+			pixyFADEMARKER_HEIGHT = 11
 			context.set_source_rgba(*self._FADEMARKERS_RGBA)
-			fm_left_x = event.area.x + x1 + 1 - FADEMARKER_WIDTH
-			fm_left_y = event.area.y + int(event.area.height * 
+			pixxFM_left = event.area.x + x1 + 1 - pixxFADEMARKER_WIDTH
+			pixyFM_left = event.area.y + int(event.area.height * 
 			                           (100-self.fadePoints[0]) / 100.0)
-			context.rectangle(fm_left_x, fm_left_y,
-			                  FADEMARKER_WIDTH, FADEMARKER_HEIGHT)
-			fm_right_x = event.area.x + x2
-			fm_right_y = event.area.y + int(event.area.height * 
+			context.rectangle(pixxFM_left, pixyFM_left,
+			                  pixxFADEMARKER_WIDTH, pixyFADEMARKER_HEIGHT)
+			pixxFM_right = event.area.x + x2
+			pixyFM_right = event.area.y + int(event.area.height * 
 			                           (100-self.fadePoints[1]) / 100.0)
-			context.rectangle(fm_right_x, fm_right_y,
-			                  FADEMARKER_WIDTH, FADEMARKER_HEIGHT)
+			context.rectangle(pixxFM_right, pixyFM_right,
+			                  pixxFADEMARKER_WIDTH, pixyFADEMARKER_HEIGHT)
 			context.fill()
 			context.set_source_rgba(1,1,1,1)
-			context.move_to(fm_left_x + 1, fm_left_y + FADEMARKER_HEIGHT - 1)
+			context.move_to(pixxFM_left + 1, pixyFM_left + pixyFADEMARKER_HEIGHT - 1)
 			context.show_text("%s%%" % int(self.fadePoints[0]))
-			context.move_to(fm_right_x + 1, fm_right_y + FADEMARKER_HEIGHT - 1)
+			context.move_to(pixxFM_right + 1, pixyFM_right + pixyFADEMARKER_HEIGHT - 1)
 			context.show_text("%s%%"% int(self.fadePoints[1]))
 			context.stroke()
 			
 			# redo the rectangles so they're the path and we can in_fill() check later
-			context.rectangle(fm_left_x, fm_left_y,
-			                  FADEMARKER_WIDTH, FADEMARKER_HEIGHT)
-			context.rectangle(fm_right_x, fm_right_y,
-			                  FADEMARKER_WIDTH, FADEMARKER_HEIGHT)
+			context.rectangle(pixxFM_left, pixyFM_left,
+			                  pixxFADEMARKER_WIDTH, pixyFADEMARKER_HEIGHT)
+			context.rectangle(pixxFM_right, pixyFM_right,
+			                  pixxFADEMARKER_WIDTH, pixyFADEMARKER_HEIGHT)
 			self.fadeMarkersContext = context
 
 		return False
@@ -236,20 +237,43 @@ class EventViewer(gtk.DrawingArea):
 			raise "Trying to draw an event with no level data!"
 		
 		scale = (self.event.duration * self.project.viewScale) / float(len(self.event.levels))
+		oneLevel = self.event.duration / float(len(self.event.levels))
 
 		# Draw white background
 		context.rectangle(0, 0, rect.width, rect.height)
 		context.set_source_rgb(*self._BACKGROUND_RGB)
 		context.fill()
 
+		# draw the fade line
+		context.set_source_rgb(*self._FADELINE_RGB)
+		context.move_to(0,0) # FIXME: scale the Y!
+		pixy = 0
+		for sec,vol in self.event.audioFadePoints:
+			pixx = self.pixxFromSec(sec)
+			pixy = self.pixyFromVol(vol)
+			context.line_to(pixx,pixy)
+		pixxEnd = self.pixxFromSec(self.event.duration)
+		context.line_to(pixxEnd,pixy)
+		
+		context.stroke()
+
 		# Draw volume curve
 		x_pos = int(rect.x/scale)
 		x = 0
 		context.move_to(0,rect.height)
+				
+		# calculate the fade curve
+		fadecurve = self.getFadeCurve(self.event.duration, 
+		            self.event.audioFadePoints, 
+		            len(self.event.levels))
+		# apply the fade curve to the volume curve to get new volumes
+		levelsToUse = [x[0]*x[1] for x in zip(self.event.levels,fadecurve)]
 		
-		for peak in self.event.levels[x_pos:]:
+		for peak in levelsToUse[x_pos:]:
 			x = (x_pos*scale) - rect.x
-			context.line_to(x, rect.height - int(peak * rect.height))
+			seconds = x * oneLevel
+			peakOnScreen = int(peak * rect.height)
+			context.line_to(x, rect.height - peakOnScreen)
 			
 			if x > rect.width:
 				break
@@ -304,7 +328,6 @@ class EventViewer(gtk.DrawingArea):
 	
 		if not self.window:
 			return
-		
 		# display status bar message if has not already been displayed
 		if not self.messageID: 
 			self.messageID = self.mainview.SetStatusBar("To <b>Split, Double-Click</b> the wave - To <b>Select, Shift-Click</b> and drag the mouse")
@@ -382,7 +405,7 @@ class EventViewer(gtk.DrawingArea):
 				#   selecting part of this event
 				self.isSelecting = True
 				self.Selection[0] = mouse.x
-				self.fadePoints = [80,90]
+				self.fadePoints = [100,100]
 			else:
 				if self.fadeMarkersContext and self.fadeMarkersContext.in_fill(mouse.x, mouse.y):
 					# LMB over a fadeMarker: drag that marker
@@ -459,6 +482,8 @@ class EventViewer(gtk.DrawingArea):
 					return False #need to pass this button release up to RecordingView
 			elif self.isDraggingFade:
 				self.isDraggingFade = False
+				# set the audioFadePoints appropriately
+				self.setAudioFadePointsFromCurrentSelection()
 			elif self.isSelecting:
 				self.isSelecting = False
 				selection_direction = "ltor"
@@ -581,5 +606,64 @@ class EventViewer(gtk.DrawingArea):
 		self.queue_draw()
 
 	#_____________________________________________________________________
+	def getFadeCurve(self, duration, fades, totalLevels):
+		"""The fade curve is a list of multipliers; the list is the
+		length of the levels list, and to make the actual levels list,
+		you take the ordinary levels list and multiply each level by
+		its corresponding entry in the fadecurve.
+		Pass the duration of the sample, the list of audio fade points, 
+		and the number of levels"""
+		import Utils
+		# no fades registered
+		if not fades:
+			return [1.0] * totalLevels
+    
+		oneSecondInLevels = int(totalLevels / duration)
+		# get the first volume value; the whole clip must start at that
+		fadecurve = []
+		currentfade = (0.0,fades[0][1])
+		myfades = fades + [(duration,fades[-1][1])]
+		for thisfade in myfades:
+			levelsInThisSection = int((thisfade[0] - currentfade[0]) * oneSecondInLevels)
+			if thisfade[1] == currentfade[1]:
+				# not actually a fade, just two points at the same volume
+				fadecurve += [currentfade[1]] * levelsInThisSection
+			else:
+				step = (thisfade[1] - currentfade[1]) / levelsInThisSection
+				adder = list(Utils.xfrange(currentfade[1], thisfade[1], step))
+				fadecurve += adder
+			currentfade = thisfade
+		return fadecurve
+
+	def pixxFromSec(self, sec):
+		"Converts seconds to an X pixel position in the waveform"
+		max_pixx = self.project.viewScale * float(self.event.duration)
+		sec_proportion = float(sec) / self.event.duration
+		return sec_proportion * max_pixx
+		
+	def secFromPixx(self,pixx):
+		"Converts an X pixel position in the waveform into seconds"
+		max_pixx = self.project.viewScale * float(self.event.duration)
+		return (float(pixx) / max_pixx) * self.event.duration
+		
+	def pixyFromVol(self, vol):
+		"Converts volume (0.0-1.0) to a Y pixel position in the waveform"
+		return float(1.0-vol) * 77 # fixme: height hardcoded!
+		
+	def volFromPixy(self,pixy):
+		"Converts a Y pixel position in the waveform into a volume (0.0-1.0)"
+		return 1.0 - (float(pixy) / 77) # fixme hardcoded
+
+	def setAudioFadePointsFromCurrentSelection(self):
+		secLeft = self.secFromPixx(self.Selection[0])
+		secRight = self.secFromPixx(self.Selection[1])
+		# fadePoints values are a percentage
+		pixyLeft = ((100-self.fadePoints[0]) / 100.0) * 77 # fixme hardcoded
+		pixyRight = ((100-self.fadePoints[1]) / 100.0) * 77 # fixme hardcoded
+		volLeft = self.volFromPixy(pixyLeft)
+		volRight = self.volFromPixy(pixyRight)
+		self.event.addAudioFadePoints((secLeft,volLeft),
+		                              (secRight,volRight))
+		self.redrawWaveform = True
 
 #=========================================================================

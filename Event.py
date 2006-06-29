@@ -40,6 +40,17 @@ class Event(Monitored, CommandManaged):
 		self.lastEnd = 0
 		
 		self.CreateFilesource()
+		
+		# A list of points where fading should happen
+		# List will look like [ (0, 0.8), (5.3, 0.8), (6.5, 0.0), (7.5, 1.0) ]
+		# where each tuple is (time in seconds, volume between 0 and 1)
+		# so the above list will make the sample start at 0.8 volume, 
+		# continue at 0.8 until 5.3s, then fade down to zero by 6.5s, and
+		# then fade back up to full volume at 7.5s. The list *must* be
+		# ordered by time-in-seconds, so if you fiddle with the list be 
+		# sure thatyou re-sort it afterwards.
+		self.audioFadePoints = []
+		
 	#_____________________________________________________________________
 	
 	def CreateFilesource(self):	
@@ -79,7 +90,7 @@ class Event(Monitored, CommandManaged):
 		ev.appendChild(params)
 		
 		items = ["start", "duration", "isSelected", 
-				  "name", "offset", "file"
+				  "name", "offset", "file", "audioFadePoints"
 				]
 		
 		StoreParametersToXML(self, doc, params, items)
@@ -439,5 +450,18 @@ class Event(Monitored, CommandManaged):
 			self.start = xpos
 	
 	#_____________________________________________________________________
+
+	def addAudioFadePoints(self, p1, p2):
+		"""Add the two passed points to the audioFadePoints list.
+		If either point exists already, replace it, and resort
+		the list by time.
+		
+		undo : FIXME_undo_adding_a_fade_point() """
+		remp1 = [x for x in self.audioFadePoints if x[0]==p1[0]]
+		if remp1: self.audioFadePoints.remove(remp1[0])
+		remp2 = [x for x in self.audioFadePoints if x[0]==p2[0]]
+		if remp2: self.audioFadePoints.remove(remp2[0])
+		self.audioFadePoints += [p1,p2]
+		self.audioFadePoints.sort(lambda x,y:cmp(x[0],y[0]))
 
 #=========================================================================	

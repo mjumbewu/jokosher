@@ -22,6 +22,8 @@ def StoreParametersToXML(self, doc, parent, parameters):
 			node.setAttribute("type", "float")
 		elif type(getattr(self, i)) == bool:
 			node.setAttribute("type", "bool")
+		elif type(getattr(self, i)) == list:
+			node.setAttribute("type", "list")
 		else:
 			node.setAttribute("type", "str")
 		
@@ -40,7 +42,31 @@ def LoadParametersFromXML(self, parentElement):
 			elif n.getAttribute("type") == "bool":
 				value = (n.getAttribute("value") == "True")
 				setattr(self, n.tagName, value)
+			elif n.getAttribute("type") == "list":
+				# Must not use eval here. We should serialise a list
+				# to XML properly. This is a quick hack to get it
+				# working; fix it as soon as possible!
+				setattr(self, n.tagName, eval(n.getAttribute("value")))
 			else:
 				setattr(self, n.tagName, n.getAttribute("value"))
 
 #_____________________________________________________________________
+def xfrange(start, end=None, inc=None):
+    """A range function, that does accept float increments..."""
+    import math
+
+    if end == None:
+        end = start + 0.0
+        start = 0.0
+    else: start += 0.0 # force it to be a float
+
+    if inc == None:
+        inc = 1.0
+    count = int(math.ceil((end - start) / inc))
+
+    L = [None,] * count
+
+    L[0] = start
+    for i in xrange(1,count):
+        L[i] = L[i-1] + inc
+    return L
