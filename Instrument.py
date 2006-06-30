@@ -175,12 +175,18 @@ class Instrument(Monitored, CommandManaged):
 		
 		#load image from file based on saved path
 		#TODO replace this with proper cache manager
+		if not os.path.isabs(self.pixbufPath):
+			#hack for backwards compatibility for projects created when
+			#the pixbufPaths were relative
+			basepath = os.path.dirname(os.path.abspath(__file__))
+			self.pixbufPath = os.path.join(basepath, self.pixbufPath)
+			
 		for i in AddInstrumentDialog.getCachedInstruments():
 			if self.pixbufPath == i[4]:
 				self.pixbuf = i[1]
 				break
 		if not self.pixbuf:
-			print "Error, could not load image:", pixbufPath
+			print "Error, could not load image:", self.pixbufPath
 			
 		#initialize the actuallyIsMuted variable
 		self.checkActuallyIsMuted()

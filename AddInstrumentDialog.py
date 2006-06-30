@@ -21,7 +21,7 @@ class AddInstrumentDialog:
 		self.parent = parent
 		self.project = project
 		
-		self.res = gtk.glade.XML ("Jokosher.glade", "AddInstrumentDialog")
+		self.res = gtk.glade.XML(parent.GLADE_PATH, "AddInstrumentDialog")
 
 		self.signals = {
 			"on_OK_clicked" : self.OnOK,
@@ -116,12 +116,15 @@ def _cacheInstruments():
 
 	if len(instrumentPropertyList) > 0:
 		return
+		
+	basepath = os.path.dirname(os.path.abspath(__file__))
+	instrpath = os.path.join(basepath, "Instruments")
 	
-	for path,dirs,files in os.walk("Instruments"):
+	for path,dirs,files in os.walk(instrpath):
 		for f in files:
 			if f[-6:] == ".instr":
 				config = SafeConfigParser()
-				config.read(os.path.join("Instruments", f))
+				config.read(os.path.join(instrpath, f))
 				
 				if config.has_option('core', 'name') and config.has_option('core', 'icon'):
 					name = config.get('core', 'name')
@@ -129,7 +132,7 @@ def _cacheInstruments():
 				else:
 					continue
 				
-				pixbufPath = os.path.join("Instruments", "images", icon)
+				pixbufPath = os.path.join(instrpath, "images", icon)
 				pixbuf = gtk.gdk.pixbuf_new_from_file(pixbufPath)
 	
 				if config.has_option('core', 'import'):

@@ -16,11 +16,11 @@ STARTUP_LAST_PROJECT = "lastproject"
 STARTUP_NOTHING = "nothing"
 
 class PreferencesDialog:	
-	def __init__(self, project, parentUpdateMethod, icon=None):
+	def __init__(self, project, mainwindow, icon=None):
 		self.project = project
-		self.parentUpdateMethod = parentUpdateMethod
+		self.mainwindow = mainwindow
 
-		self.res = gtk.glade.XML ("Jokosher.glade", "PreferencesDialog")
+		self.res = gtk.glade.XML(self.mainwindow.GLADE_PATH, "PreferencesDialog")
 
 		self.signals = {
 			"on_Setting_changed" : self.OnSettingChanged,
@@ -103,8 +103,8 @@ class PreferencesDialog:
 			Globals.settings.general["startupaction"] = STARTUP_NOTHING
 			
 		Globals.settings.write()
-		if self.parentUpdateMethod:
-			self.parentUpdateMethod()
+		
+		self.mainwindow.UpdateDisplay()
 
 	def OnCheckEncoders(self):
 		"""list the available encoders on the computer"""

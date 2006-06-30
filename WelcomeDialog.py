@@ -22,7 +22,7 @@ class WelcomeDialog:
 				
 		self.mainwindow = mainwindow
 				
-		self.res = gtk.glade.XML ("Jokosher.glade", "WelcomeDialog")
+		self.res = gtk.glade.XML(mainwindow.GLADE_PATH, "WelcomeDialog")
 
 		self.signals = {
 			"on_newproject_clicked" : self.OnNewProject,
@@ -41,7 +41,7 @@ class WelcomeDialog:
 		
 		self.tree = self.res.get_widget("recentprojectslist")
 		self.headerimage = self.res.get_widget("headerimage")
-		self.headerimage.set_from_file("images/welcomeheader.png")
+		self.headerimage.set_from_file(os.path.join(mainwindow.JOKOSHER_PATH, "images", "welcomeheader.png"))
 
 		self.openrecentbutton = self.res.get_widget("openrecentprojectbutton")
 		self.openrecentbutton.set_sensitive(False)
@@ -85,7 +85,7 @@ class WelcomeDialog:
 		self.mainwindow.OnPreferences(self, self.OnDialogClose)
 		
 	#_____________________________________________________________________
- 
+
 	def OnDialogClose(self, dialog=None):
 		if self.mainwindow.project:
 			self.window.destroy()

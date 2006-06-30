@@ -16,7 +16,7 @@ class NewProjectDialog:
 
 		self.parent = parent
 		
-		self.res = gtk.glade.XML ("Jokosher.glade", "NewProjectDialog")
+		self.res = gtk.glade.XML(parent.GLADE_PATH, "NewProjectDialog")
 
 		self.signals = {
 			"on_OK_clicked" : self.OnOK,
@@ -28,7 +28,7 @@ class NewProjectDialog:
 		self.dlg = self.res.get_widget("NewProjectDialog")
 
 		self.sideimage = self.res.get_widget("sideimage")
-		self.sideimage.set_from_file("images/newproject.png")
+		self.sideimage.set_from_file(os.path.join(parent.JOKOSHER_PATH, "images", "newproject.png"))
 		
 		self.name = self.res.get_widget("name")
 		self.folder = self.res.get_widget("folder")

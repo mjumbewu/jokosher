@@ -32,6 +32,10 @@ gobject.threads_init()
 
 class MainApp:
 	
+	#in case we are imported from another python file
+	JOKOSHER_PATH = None		#set in __init__()
+	GLADE_PATH = None		#set in __init__()
+	
 	# Class Constants
 	MODE_RECORDING = 1
 	MODE_COMPACT_MIX = 2
@@ -39,8 +43,12 @@ class MainApp:
 	#_____________________________________________________________________
 
 	def __init__(self):
-
-		self.wTree = gtk.glade.XML ("Jokosher.glade", "MainWindow")
+		
+		#Find the absolute path in case we were imported from another directory
+		self.JOKOSHER_PATH = os.path.dirname(os.path.abspath(__file__))
+		self.GLADE_PATH = os.path.join(self.JOKOSHER_PATH, "Jokosher.glade")
+		
+		self.wTree = gtk.glade.XML(self.GLADE_PATH, "MainWindow")
 		
 		#Connect event handlers
 		signals = {
@@ -142,7 +150,7 @@ class MainApp:
 		self.PopulateRecentProjects()
 		
 		#set window icon
-		self.window.set_icon_from_file("jokosher.png")
+		self.window.set_icon_from_file(os.path.join(self.JOKOSHER_PATH, "jokosher.png"))
 		#make icon available to others
 		self.icon = self.window.get_icon()
 		
@@ -220,7 +228,7 @@ class MainApp:
 	
 	def About(self, widget = None):
 		'''Display about dialog'''
-		aboutTree = gtk.glade.XML ("Jokosher.glade", "AboutDialog")
+		aboutTree = gtk.glade.XML(self.GLADE_PATH, "AboutDialog")
 		dlg = aboutTree.get_widget("AboutDialog")
 		dlg.set_transient_for(self.window)
 		dlg.set_icon(self.icon)
@@ -395,7 +403,7 @@ class MainApp:
 				
 			chooser.destroy()
 		
-			export = gtk.glade.XML ("Jokosher.glade", "ProgressDialog")
+			export = gtk.glade.XML (self.GLADE_PATH, "ProgressDialog")
 			export.signal_connect("on_cancel_clicked", self.OnExportCancel)
 			
 			self.exportdlg = export.get_widget("ProgressDialog")
@@ -437,10 +445,7 @@ class MainApp:
 	#_____________________________________________________________________
 	
 	def OnPreferences(self, widget, destroyCallback=None):
-		if (self.project):
-			prefsdlg = PreferencesDialog.PreferencesDialog(self.project, self.UpdateDisplay, self.icon)
-		else:
-			prefsdlg = PreferencesDialog.PreferencesDialog(self.project, None, self.icon)
+		prefsdlg = PreferencesDialog.PreferencesDialog(self.project, self, self.icon)
 			
 		if destroyCallback:
 			prefsdlg.dlg.connect("destroy", destroyCallback)
