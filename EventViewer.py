@@ -20,6 +20,10 @@ class EventViewer(gtk.DrawingArea):
 	#stroke width will shrink when zooming out
 	_MAX_LINE_WIDTH = 2
 	
+	#the width and height of the volume curve handles
+	_PIXX_FADEMARKER_WIDTH = 30
+	_PIXY_FADEMARKER_HEIGHT = 11
+	
 	"""various colour configurations
 	   ORGBA = Offset, Red, Green, Blue, Alpha
 	   RGBA = Red, Green, Blue, Alpha
@@ -159,33 +163,36 @@ class EventViewer(gtk.DrawingArea):
 			context.set_source_rgba(*self._SELECTION_RGBA)
 			context.fill()
 			
+			#subtract fade marker height so that it is not drawn partially offscreen
+			padded_height = self.allocation.height - self._PIXY_FADEMARKER_HEIGHT
+			
 			# and overlay the fademarkers
-			pixxFADEMARKER_WIDTH = 30
-			pixyFADEMARKER_HEIGHT = 11
 			context.set_source_rgba(*self._FADEMARKERS_RGBA)
-			pixxFM_left = event.area.x + x1 + 1 - pixxFADEMARKER_WIDTH
-			pixyFM_left = event.area.y + int(event.area.height * 
-			                           (100-self.fadePoints[0]) / 100.0)
+			
+			pixxFM_left = event.area.x + x1 + 1 - self._PIXX_FADEMARKER_WIDTH
+			pixyFM_left = int(padded_height * (100-self.fadePoints[0]) / 100.0)
 			context.rectangle(pixxFM_left, pixyFM_left,
-			                  pixxFADEMARKER_WIDTH, pixyFADEMARKER_HEIGHT)
+			                  self._PIXX_FADEMARKER_WIDTH , self._PIXY_FADEMARKER_HEIGHT)
+			
 			pixxFM_right = event.area.x + x2
-			pixyFM_right = event.area.y + int(event.area.height * 
-			                           (100-self.fadePoints[1]) / 100.0)
+			pixyFM_right = int(padded_height * (100-self.fadePoints[1]) / 100.0)
 			context.rectangle(pixxFM_right, pixyFM_right,
-			                  pixxFADEMARKER_WIDTH, pixyFADEMARKER_HEIGHT)
+			                  self._PIXX_FADEMARKER_WIDTH, self._PIXY_FADEMARKER_HEIGHT)
+			
 			context.fill()
+			
 			context.set_source_rgba(1,1,1,1)
-			context.move_to(pixxFM_left + 1, pixyFM_left + pixyFADEMARKER_HEIGHT - 1)
+			context.move_to(pixxFM_left + 1, pixyFM_left + self._PIXY_FADEMARKER_HEIGHT - 1)
 			context.show_text("%s%%" % int(self.fadePoints[0]))
-			context.move_to(pixxFM_right + 1, pixyFM_right + pixyFADEMARKER_HEIGHT - 1)
+			context.move_to(pixxFM_right + 1, pixyFM_right + self._PIXY_FADEMARKER_HEIGHT - 1)
 			context.show_text("%s%%"% int(self.fadePoints[1]))
 			context.stroke()
 			
 			# redo the rectangles so they're the path and we can in_fill() check later
 			context.rectangle(pixxFM_left, pixyFM_left,
-			                  pixxFADEMARKER_WIDTH, pixyFADEMARKER_HEIGHT)
+			                  self._PIXX_FADEMARKER_WIDTH, self._PIXY_FADEMARKER_HEIGHT)
 			context.rectangle(pixxFM_right, pixyFM_right,
-			                  pixxFADEMARKER_WIDTH, pixyFADEMARKER_HEIGHT)
+			                  self._PIXX_FADEMARKER_WIDTH, self._PIXY_FADEMARKER_HEIGHT)
 			self.fadeMarkersContext = context
 
 		return False
@@ -331,7 +338,14 @@ class EventViewer(gtk.DrawingArea):
 			self.messageID = self.mainview.SetStatusBar("To <b>Split, Double-Click</b> the wave - To <b>Select, Shift-Click</b> and drag the mouse")
 		
 		if self.isDraggingFade:
-			self.fadePoints[self.fadeBeingDragged] = 100-int((mouse.y / float(self.allocation.height)) * 100)
+			#subtract half the fademarker height so it doesnt go half off the screen
+			cur_pos = (mouse.y - (self._PIXY_FADEMARKER_HEIGHT / 2))
+			height = self.allocation.height - self._PIXY_FADEMARKER_HEIGHT
+			percent = cur_pos / float(height)
+			percent = max(0, percent)
+			percent = min(1, percent)
+			
+			self.fadePoints[self.fadeBeingDragged] = 100 - int(percent * 100)
 			self.queue_draw()
 			return True
 
