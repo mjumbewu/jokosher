@@ -107,6 +107,7 @@ class MainApp:
 		self.menubar = self.wTree.get_widget("menubar")
 		
 		self.recentprojectitems = []
+		self.lastopenedproject = None
 
 		self.recentprojectsmenu = gtk.Menu()
 		self.recentprojects.set_submenu(self.recentprojectsmenu)
@@ -683,7 +684,11 @@ class MainApp:
 					print "Error: Couldn't open recent project", path
 				else:
 					self.recentprojectitems.append((path, name))
-		
+			
+			#the first project is our last opened project
+			if recentprojectitems and os.path.exists(recentprojectitems[0][0]):
+				self.lastopenedproject = recentprojectitems[0]
+			
 		self.SaveRecentProjects()
 
 	#_____________________________________________________________________
@@ -902,22 +907,24 @@ class MainApp:
 	#_____________________________________________________________________
 	
 	def OpenLastProject(self):
-		if len(self.recentprojectitems) > 0:
-			path = self.recentprojectitems[0][0]
-			name = self.recentprojectitems[0][1]
+		if self.lastopenedproject:
+			path = self.lastopenedproject[0]
+			name = self.lastopenedproject[1]
 			try:
 				self.SetProject(Project.LoadFromFile(path))
-			except Project.OpenProjectError:
-				dlg = gtk.MessageDialog(self.window,
-					gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
-					gtk.MESSAGE_ERROR,
-					gtk.BUTTONS_OK,
-					"The previous project file could not be opened.\n")
-				dlg.run()
-				dlg.destroy()
-				#launch welcome dialog instead
-				WelcomeDialog.WelcomeDialog(self)
 				return
+			except Project.OpenProjectError:
+				pass
+				
+		dlg = gtk.MessageDialog(self.window,
+			gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
+			gtk.MESSAGE_ERROR,
+			gtk.BUTTONS_OK,
+			"The previous project file could not be opened.\n")
+		dlg.run()
+		dlg.destroy()
+		#launch welcome dialog instead
+		WelcomeDialog.WelcomeDialog(self)
 	
 	#_____________________________________________________________________
 	
