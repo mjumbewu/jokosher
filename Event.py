@@ -453,15 +453,22 @@ class Event(Monitored, CommandManaged):
 
 	def addAudioFadePoints(self, p1, p2):
 		"""Add the two passed points to the audioFadePoints list.
-		If either point exists already, replace it, and resort
-		the list by time.
+		   If either point exists already, replace it, and resort
+		   the list by time.
 		
-		undo : FIXME_undo_adding_a_fade_point() """
+		   undo : FIXME_undo_adding_a_fade_point()
+		"""
 		remp1 = [x for x in self.audioFadePoints if x[0]==p1[0]]
-		if remp1: self.audioFadePoints.remove(remp1[0])
+		if remp1:
+			self.audioFadePoints.remove(remp1[0])
+		
 		remp2 = [x for x in self.audioFadePoints if x[0]==p2[0]]
-		if remp2: self.audioFadePoints.remove(remp2[0])
+		if remp2:
+			self.audioFadePoints.remove(remp2[0])
+		
 		self.audioFadePoints += [p1,p2]
 		self.audioFadePoints.sort(lambda x,y:cmp(x[0],y[0]))
+	
+	#_____________________________________________________________________
 
 #=========================================================================	

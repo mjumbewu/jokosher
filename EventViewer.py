@@ -1,4 +1,3 @@
-	#!/usr/bin/python
 
 import sys
 import gtk
@@ -6,6 +5,7 @@ import math
 import cairo
 import Project
 import Monitored
+import Utils
 
 #=========================================================================
 
@@ -237,7 +237,6 @@ class EventViewer(gtk.DrawingArea):
 			raise "Trying to draw an event with no level data!"
 		
 		scale = (self.event.duration * self.project.viewScale) / float(len(self.event.levels))
-		oneLevel = self.event.duration / float(len(self.event.levels))
 
 		# Draw white background
 		context.rectangle(0, 0, rect.width, rect.height)
@@ -271,7 +270,6 @@ class EventViewer(gtk.DrawingArea):
 		
 		for peak in levelsToUse[x_pos:]:
 			x = (x_pos*scale) - rect.x
-			seconds = x * oneLevel
 			peakOnScreen = int(peak * rect.height)
 			context.line_to(x, rect.height - peakOnScreen)
 			
@@ -606,18 +604,20 @@ class EventViewer(gtk.DrawingArea):
 		self.queue_draw()
 
 	#_____________________________________________________________________
+	
 	def getFadeCurve(self, duration, fades, totalLevels):
 		"""The fade curve is a list of multipliers; the list is the
-		length of the levels list, and to make the actual levels list,
-		you take the ordinary levels list and multiply each level by
-		its corresponding entry in the fadecurve.
-		Pass the duration of the sample, the list of audio fade points, 
-		and the number of levels"""
-		import Utils
+		   length of the levels list, and to make the actual levels list,
+		   you take the ordinary levels list and multiply each level by
+		   its corresponding entry in the fadecurve.
+		   Pass the duration of the sample, the list of audio fade points, 
+		   and the number of levels
+		"""
+		
 		# no fades registered
 		if not fades:
 			return [1.0] * totalLevels
-    
+		
 		oneSecondInLevels = int(totalLevels / duration)
 		# get the first volume value; the whole clip must start at that
 		fadecurve = []
@@ -630,40 +630,51 @@ class EventViewer(gtk.DrawingArea):
 				fadecurve += [currentfade[1]] * levelsInThisSection
 			else:
 				step = (thisfade[1] - currentfade[1]) / levelsInThisSection
-				adder = list(Utils.xfrange(currentfade[1], thisfade[1], step))
+				adder = list(Utils.floatRange(currentfade[1], thisfade[1], step))
 				fadecurve += adder
 			currentfade = thisfade
 		return fadecurve
+		
+	#_____________________________________________________________________
 
 	def pixxFromSec(self, sec):
-		"Converts seconds to an X pixel position in the waveform"
-		max_pixx = self.project.viewScale * float(self.event.duration)
-		sec_proportion = float(sec) / self.event.duration
-		return sec_proportion * max_pixx
-		
+		"""Converts seconds to an X pixel position in the waveform"""
+		return round(float(sec) / self.event.duration * self.allocation.width)
+	
+	#_____________________________________________________________________
+	
 	def secFromPixx(self,pixx):
-		"Converts an X pixel position in the waveform into seconds"
-		max_pixx = self.project.viewScale * float(self.event.duration)
-		return (float(pixx) / max_pixx) * self.event.duration
-		
+		"""Converts an X pixel position in the waveform into seconds"""
+		return (float(pixx) / self.allocation.width) * self.event.duration
+	
+	#_____________________________________________________________________
+	
 	def pixyFromVol(self, vol):
-		"Converts volume (0.0-1.0) to a Y pixel position in the waveform"
-		return float(1.0-vol) * 77 # fixme: height hardcoded!
-		
+		"""Converts volume (0.0-1.0) to a Y pixel position in the waveform"""
+		return round((1.0 - vol) * self.allocation.height)
+	
+	#_____________________________________________________________________
+	
 	def volFromPixy(self,pixy):
-		"Converts a Y pixel position in the waveform into a volume (0.0-1.0)"
-		return 1.0 - (float(pixy) / 77) # fixme hardcoded
+		"""Converts a Y pixel position in the waveform into a volume (0.0-1.0)"""
+		return 1.0 - (float(pixy) / self.allocation.height)
 
+	#_____________________________________________________________________
+	
 	def setAudioFadePointsFromCurrentSelection(self):
 		secLeft = self.secFromPixx(self.Selection[0])
 		secRight = self.secFromPixx(self.Selection[1])
+		
 		# fadePoints values are a percentage
-		pixyLeft = ((100-self.fadePoints[0]) / 100.0) * 77 # fixme hardcoded
-		pixyRight = ((100-self.fadePoints[1]) / 100.0) * 77 # fixme hardcoded
+		pixyLeft = ((100-self.fadePoints[0]) / 100.0) * self.allocation.height
+		pixyRight = ((100-self.fadePoints[1]) / 100.0) * self.allocation.height
+		
 		volLeft = self.volFromPixy(pixyLeft)
 		volRight = self.volFromPixy(pixyRight)
-		self.event.addAudioFadePoints((secLeft,volLeft),
-		                              (secRight,volRight))
+		
+		self.event.addAudioFadePoints((secLeft,volLeft), (secRight,volRight))
 		self.redrawWaveform = True
-
+		
+	#_____________________________________________________________________
+	
 #=========================================================================
