@@ -13,6 +13,7 @@ class TimeLineBar(gtk.Fixed):
 		
 		# add click / bpm / signature box
 		self.clickbutton = gtk.ToggleButton("C")
+		self.clickbutton.connect("toggled", self.OnClick)
 					
 		self.bpmeventbox = gtk.EventBox()
 		self.bpmeventbox.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse("#87d987"))
@@ -43,15 +44,18 @@ class TimeLineBar(gtk.Fixed):
 		self.sigeditPacked = False
 
 		# set events
-		self.bpmeventbox.set_events(gtk.gdk.BUTTON_PRESS_MASK)
-		self.bpmeventbox.connect("button_press_event", self.OnEditBPM)
-		self.bpmeventbox.connect("enter_notify_event", self.OnMouseMoveBPM)
-		self.bpmeventbox.connect("leave_notify_event", self.OnMouseMoveBPM)
+		# ##### BPM boxes disabled in 0.1 - re-enable for 0.2 #######
+		#self.bpmeventbox.set_events(gtk.gdk.BUTTON_PRESS_MASK)
+		#self.bpmeventbox.connect("button_press_event", self.OnEditBPM)
+		#self.bpmeventbox.connect("enter_notify_event", self.OnMouseMoveBPM)
+		#self.bpmeventbox.connect("leave_notify_event", self.OnMouseMoveBPM)
 		
-		self.sigeventbox.set_events(gtk.gdk.BUTTON_PRESS_MASK)
-		self.sigeventbox.connect("button_press_event", self.OnEditSig)
-		self.sigeventbox.connect("enter_notify_event", self.OnMouseMoveSig)
-		self.sigeventbox.connect("leave_notify_event", self.OnMouseMoveSig)
+		#self.sigeventbox.set_events(gtk.gdk.BUTTON_PRESS_MASK)
+		#self.sigeventbox.connect("button_press_event", self.OnEditSig)
+		#self.sigeventbox.connect("enter_notify_event", self.OnMouseMoveSig)
+		#self.sigeventbox.connect("leave_notify_event", self.OnMouseMoveSig)
+		
+		# ###########################################################
 		
 		self.headerhbox = gtk.HBox()
 		self.headerhbox.set_border_width(5)
@@ -167,5 +171,14 @@ class TimeLineBar(gtk.Fixed):
 			widget.window.set_cursor(None)
 		
 	#_____________________________________________________________________
-	
+
+	def OnClick(self, widget):
+		dlg = gtk.MessageDialog(None,
+			gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
+			gtk.MESSAGE_WARNING,
+			gtk.BUTTONS_CLOSE)
+		dlg.set_markup("<big>Click Track</big>\n\nThis button enables and disables the Click Track in Jokosher.\n\nThe current version of Jokosher does not have the click track available. It will be ready in version 0.2.")
+		dlg.run()
+		dlg.destroy()
+		
 #=========================================================================
