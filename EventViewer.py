@@ -101,7 +101,8 @@ class EventViewer(gtk.DrawingArea):
 		self.mainview = mainview
 		self.eventlaneviewer = eventlaneviewer
 		self.messageID = None
-		
+		self.volmessageID = None
+		self.selmessageID = None
 	#_____________________________________________________________________
 
 	def OnDraw(self, widget, event):
@@ -347,6 +348,10 @@ class EventViewer(gtk.DrawingArea):
 			
 			self.fadePoints[self.fadeBeingDragged] = 100 - int(percent * 100)
 			self.queue_draw()
+			
+			if not self.volmessageID:
+				self.volmessageID = self.mainview.SetStatusBar("<b>NOTE</b>: The volume sliders in this pre-release version of Jokosher do not affect the audio.")
+			
 			return True
 
 		if self.fadeMarkersContext and self.fadeMarkersContext.in_fill(mouse.x, mouse.y):
@@ -418,6 +423,8 @@ class EventViewer(gtk.DrawingArea):
 				self.isSelecting = True
 				self.Selection[0] = mouse.x
 				self.fadePoints = [100,100]
+				if not self.selmessageID: 
+					self.selmessageID = self.mainview.SetStatusBar("<b>Click</b> the buttons below the selection to do something to that portion of audio.")
 			else:
 				if self.fadeMarkersContext and self.fadeMarkersContext.in_fill(mouse.x, mouse.y):
 					# LMB over a fadeMarker: drag that marker
@@ -438,6 +445,12 @@ class EventViewer(gtk.DrawingArea):
 				self.Selection = [0,0]
 				if self.drawer.parent == self.lane.fixed:
 					self.lane.fixed.remove(self.drawer)
+					if self.volmessageID:   #clesr status bar if not already clear
+						self.mainview.ClearStatusBar(self.volmessageID)
+						self.volmessageID = None
+					if self.selmessageID:   #clesr status bar if not already clear
+						self.mainview.ClearStatusBar(self.selmessageID)
+						self.selmessageID = None	
 				self.isDragging = True
 				
 				self.eventStart = self.event.start
