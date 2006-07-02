@@ -78,7 +78,10 @@ class MainApp:
 			"on_MouseDown" : self.OnMouseDown,
 			"on_instrumentconnections_activate" : self.OnInstrumentConnectonsDialog,
 			"on_editmenu_activate" : self.OnEditMenu,
-			"on_projectmenu_activate" : self.OnProjectMenu
+			"on_projectmenu_activate" : self.OnProjectMenu,
+			"on_prereleasenotes_activate" : self.OnPreReleaseNotes,
+			"on_contributing_activate" : self.OnContributingDialog
+
 		}
 		self.wTree.signal_autoconnect(signals)
 		
@@ -977,6 +980,29 @@ class MainApp:
 		self.statusbar.Remove(messageID)
 	
 	#_____________________________________________________________________
+
+	def OnPreReleaseNotes(self, widget):
+		dlg = gtk.MessageDialog(self.window,
+			gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
+			gtk.MESSAGE_WARNING,
+			gtk.BUTTONS_CLOSE)
+		dlg.set_markup("<big>Notes about this release</big>\n\nThis version of Jokosher (0.1) is a pre-release version, and is infact, our very first release. As such, you may encounter some bugs and functionality that is not present.")
+		dlg.run()
+		dlg.destroy()
+
+	#_____________________________________________________________________
+
+	def OnContributingDialog(self, widget):
+		
+		self.contribTree = gtk.glade.XML(self.GLADE_PATH, "ContributingDialog")
+
+		self.topimage = self.contribTree.get_widget("topimage")
+		self.topimage.set_from_file(os.path.join(self.JOKOSHER_PATH, "images", "jokosher-logo.png"))
+		
+		# grab some references to bits of the GUI
+		self.contribdialog = self.wTree.get_widget("ContributingDialog")
+		#self.contribdialog.show_all()
+		
 
 #=========================================================================
 		
