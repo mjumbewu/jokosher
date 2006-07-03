@@ -545,6 +545,8 @@ class EventViewer(gtk.DrawingArea):
 			
 	def OnSplit(self, evt):
 		x = self.mouseAnchor[0]
+		if x==0.0:
+			return
 		x /= float(self.project.viewScale)
 		self.event.Split(x)
 		self.lane.Update()
