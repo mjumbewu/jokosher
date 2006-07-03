@@ -1,6 +1,10 @@
 import dbus
-import alsaaudio
-
+try:
+	import alsaaudio
+except:
+	# we warn about this in Project.CheckGstreamerVersions
+	pass
+	
 def GetAlsaList(type):
 	#Get HAL Manager
 	bus = dbus.SystemBus()
