@@ -37,8 +37,15 @@ class TimeLine(gtk.DrawingArea):
 		self.connect("button_release_event", self.onMouseUp)
 		self.connect("button_press_event", self.onMouseDown)
 		self.connect("motion_notify_event", self.onMouseMove)
+		self.connect("size_allocate", self.OnAllocate)
 		self.savedLine = None
 	#_____________________________________________________________________
+
+	def OnAllocate(self, widget, allocation):
+		self.allocation = allocation
+		print widget, allocation.width
+		#Redraw timeline
+		self.DrawLine(widget)
 		
 	def OnDraw(self, widget, event):
 		""" Fires off the drawing operation. """
@@ -59,19 +66,18 @@ class TimeLine(gtk.DrawingArea):
 		d.draw_image(gc, self.savedLine, event.area.x,
 		event.area.y, event.area.x, event.area.y,
 		event.area.width, event.area.height)
-		
-			
+
 		# Draw play cursor position
 		col = gc.get_colormap().alloc_color("#FF0000")
 		gc.set_foreground(col)
 		 
 		x = int(round((self.project.transport.position - self.project.viewStart) * self.project.viewScale))
-		d.draw_line(gc, x, 0, x, self.allocation.height)	
+		d.draw_line(gc, x, 0, x, self.get_allocation().height)	
 	
 	#_____________________________________________________________________
 		
 	def DrawLine(self, widget):
-		""" Draws the timeline and saves it tmemory
+		""" Draws the timeline and saves it to memory
 		    - Must be called initially and to redraw the timeline
 				  after moving the project start
 		"""
@@ -88,8 +94,8 @@ class TimeLine(gtk.DrawingArea):
 		d.draw_rectangle(	gc, True, 
 							0, 
 							0, 
-							self.allocation.width, 
-							self.allocation.height)
+							self.get_allocation().width, 
+							self.get_allocation().height)
 							
 		col = gc.get_colormap().alloc_color("#555555")
 		gc.set_foreground(col)
@@ -97,8 +103,8 @@ class TimeLine(gtk.DrawingArea):
 		d.draw_rectangle(	gc, False, 
 							0, 
 							0, 
-							self.allocation.width, 
-							self.allocation.height)
+							self.get_allocation().width, 
+							self.get_allocation().height)
 		
 		transport = self.project.transport
 		x = 0
@@ -114,13 +120,13 @@ class TimeLine(gtk.DrawingArea):
 				x += (self.project.viewScale * 60.) / transport.bpm
 				beat += 1
 		
-			while x < self.allocation.width:
+			while x < self.get_allocation().width:
 				# Draw the beat/bar divisions
 				ix = int(x)
 				if beat % transport.meter_nom:
-					d.draw_line(gc, ix, int(self.allocation.height/1.2), ix, self.allocation.height)
+					d.draw_line(gc, ix, int(self.get_allocation().height/1.2), ix, self.get_allocation().height)
 				else:
-					d.draw_line(gc, ix, int(self.allocation.height/2), ix, self.allocation.height)
+					d.draw_line(gc, ix, int(self.get_allocation().height/2), ix, self.get_allocation().height)
 					
 					# Draw the bar number
 					l = pango.Layout(self.create_pango_context())
@@ -141,12 +147,12 @@ class TimeLine(gtk.DrawingArea):
 				sec += 1
 				
 			# Draw ticks up to the end of our display
-			while x < self.allocation.width:
+			while x < self.get_allocation().width:
 				ix = int(x)
 				if sec % 5:
-					d.draw_line(gc, ix, int(self.allocation.height/1.2), ix, self.allocation.height)
+					d.draw_line(gc, ix, int(self.get_allocation().height/1.2), ix, self.get_allocation().height)
 				else:
-					d.draw_line(gc, ix, int(self.allocation.height/2), ix, self.allocation.height)
+					d.draw_line(gc, ix, int(self.get_allocation().height/2), ix, self.get_allocation().height)
 					
 					# Draw the bar number
 					l = pango.Layout(self.create_pango_context())
@@ -155,12 +161,12 @@ class TimeLine(gtk.DrawingArea):
 					
 				sec += 1
 				x += self.project.viewScale
-		self.savedLine = d.get_image(0, 0, self.allocation.width, self.allocation.height)
+		self.savedLine = d.get_image(0, 0, self.get_allocation().width, self.get_allocation().height)
 			
 	#_____________________________________________________________________
 		
 	def do_size_request(self, requisition):
-		requisition.width = 1000
+		requisition.width = self.get_allocation().width
 		requisition.height = self.height
 		
 	#_____________________________________________________________________
@@ -181,8 +187,8 @@ class TimeLine(gtk.DrawingArea):
 		x1 = round((self.project.transport.PrevPosition - self.project.viewStart) * self.project.viewScale)
 		x2 = round((self.project.transport.position - self.project.viewStart) * self.project.viewScale)
 		
-		self.queue_draw_area(int(x1)-1, 0, 3, self.allocation.height)
-		self.queue_draw_area(int(x2)-1, 0, 3, self.allocation.height)
+		self.queue_draw_area(int(x1)-1, 0, 3, self.get_allocation().height)
+		self.queue_draw_area(int(x2)-1, 0, 3, self.get_allocation().height)
 		
 	#_____________________________________________________________________
 		

@@ -60,6 +60,7 @@ class RecordingView(gtk.Frame):
 		self.connect("expose-event", self.OnExpose)
 		self.connect("button_release_event", self.OnExpose)
 		self.connect("button_press_event", self.OnMouseDown)
+		self.connect("size-allocate", self.OnAllocate)
 		
 		self.Update()
 	#_____________________________________________________________________
@@ -68,8 +69,15 @@ class RecordingView(gtk.Frame):
 		self.scrollRange.page_size = (self.allocation.width - 180) / self.project.viewScale
 		self.scrollRange.page_increment = self.scrollRange.page_size
 		self.scrollRange.upper = self.project.GetProjectLength()
+		
+	#_____________________________________________________________________
+
+	def OnAllocate(self, widget, allocation):
+		self.allocation = allocation
+		
 	#_____________________________________________________________________
 	
+
 	def Update(self):
 		children = self.instrumentBox.get_children()
 		for instr in self.project.instruments:

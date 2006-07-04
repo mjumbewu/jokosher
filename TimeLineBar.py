@@ -1,9 +1,9 @@
 import gtk
 import TimeLine
 
-class TimeLineBar(gtk.Fixed):
+class TimeLineBar(gtk.Frame):
 	def __init__(self, project, projectview, mainview):
-		gtk.Fixed.__init__(self)
+		gtk.Frame.__init__(self)
 		
 		self.project = project
 		self.projectview = projectview
@@ -58,15 +58,23 @@ class TimeLineBar(gtk.Fixed):
 		# ###########################################################
 		
 		self.headerhbox = gtk.HBox()
-		self.headerhbox.set_border_width(5)
+		self.headerhbox.set_border_width(2)
 		self.headerhbox.set_spacing(5)
 		self.headerhbox.pack_start(self.clickbutton, True, True)
 		self.headerhbox.pack_start(self.bpmframe, True, True)
 		self.headerhbox.pack_start(self.sigframe, True, True)
 		
-		self.put(self.headerhbox, 0, 0)
+		self.hbox = gtk.HBox()
+		self.hbox.pack_start(self.headerhbox, False, False)
+		self.add(self.hbox)
 		self.headerhbox.connect("check-resize", self.projectview.Update)
+		self.connect("size-allocate", self.OnAllocate)
 	
+	#_____________________________________________________________________
+
+	def OnAllocate(self, widget, allocation):
+		self.allocation = allocation
+
 	#_____________________________________________________________________
 	
 	def Update(self, width):
@@ -76,7 +84,8 @@ class TimeLineBar(gtk.Fixed):
 			if self.timeline in self.get_children():
 				self.remove(self.timeline)
 				
-			self.put(self.timeline, width, 0)
+			self.hbox.pack_start(self.timeline)
+			
 			self.OnAcceptEditBPM()
 			self.OnAcceptEditSig()
 			self.timeline.queue_draw()

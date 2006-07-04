@@ -58,11 +58,17 @@ class CompactMixView(gtk.Frame):
 		self.UpdateTimeout = False
 
 		self.connect("button_press_event", self.OnMouseDown)
+		self.connect("size_allocate", self.OnAllocate)
 		
 		self.Update()
 		
 	#_____________________________________________________________________
-		
+
+	def OnAllocate(self, widget, allocation):
+		self.allocation = allocation
+	
+	#_____________________________________________________________________
+
 	def Update(self):
 		if self.Updating:
 			return

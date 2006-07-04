@@ -819,7 +819,7 @@ class MainApp:
 			self.recording = RecordingView.RecordingView(self.project, self)
 			
 			# Add them to the main window
-			self.main_vbox.pack_end(self.recording, True, True)
+			self.main_vbox.pack_start(self.recording, True, True)
 			
 			self.tvtoolitem = gtk.ToolItem()
 			self.tvtoolitem.add(self.timeview)
