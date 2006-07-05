@@ -65,10 +65,13 @@ class TimeLineBar(gtk.Frame):
 		self.headerhbox.pack_start(self.sigframe, True, True)
 		
 		self.hbox = gtk.HBox()
-		self.hbox.pack_start(self.headerhbox, False, False)
+		self.alignment = gtk.Alignment(0, 0, 1.0, 1.0)
+		self.alignment.add(self.headerhbox)
+		self.hbox.pack_start(self.alignment, False, False)
 		self.add(self.hbox)
 		self.headerhbox.connect("check-resize", self.projectview.Update)
 		self.connect("size-allocate", self.OnAllocate)
+		self.hbox.pack_start(self.timeline)
 	
 	#_____________________________________________________________________
 
@@ -81,11 +84,14 @@ class TimeLineBar(gtk.Frame):
 		if not self.Updating:
 			self.Updating = True
 			
-			if self.timeline in self.get_children():
-				self.remove(self.timeline)
-				
-			self.hbox.pack_start(self.timeline)
-			
+			#Adjust padding on header to match instrument headers 
+			#(so the timeline bar lines up regardless of themes/fonts etc.)
+			padding = self.alignment.get_padding()[3]
+			padding += (width - self.alignment.size_request()[0])
+			padding -= 2 #This adjustment seems constant between themes, but I'd like to know what causes the need for it
+			if padding >= 0:
+				self.alignment.set_padding(0, 0, 0, padding)
+
 			self.OnAcceptEditBPM()
 			self.OnAcceptEditSig()
 			self.timeline.queue_draw()

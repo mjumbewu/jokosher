@@ -43,7 +43,6 @@ class TimeLine(gtk.DrawingArea):
 
 	def OnAllocate(self, widget, allocation):
 		self.allocation = allocation
-		print widget, allocation.width
 		#Redraw timeline
 		self.DrawLine(widget)
 		
@@ -162,7 +161,7 @@ class TimeLine(gtk.DrawingArea):
 				sec += 1
 				x += self.project.viewScale
 		self.savedLine = d.get_image(0, 0, self.get_allocation().width, self.get_allocation().height)
-			
+	
 	#_____________________________________________________________________
 		
 	def do_size_request(self, requisition):
