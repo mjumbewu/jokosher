@@ -175,7 +175,7 @@ class CompactMixView(gtk.Frame):
 	def OnUpdateTimeout(self):
 		""" Called at intervals (self.FPS) to update the VU meters
 		"""
-		if self.project.IsPlaying:
+		if self.mainview.isPlaying:
 			self.mastermixer.vu.queue_draw()
 			
 			# redraw VU widgets for each instrument
