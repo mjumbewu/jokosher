@@ -38,9 +38,11 @@ class InstrumentViewer(gtk.EventBox):
 		self.add(self.mainBox)
 		
 		self.headerBox = gtk.VBox()
+		self.headerAlign = gtk.Alignment(0, 0, 1.0, 1.0)
+		self.headerAlign.add(self.headerBox)
 		self.eventLane = EventLaneViewer(project, instrument, self, mainview, self.small)
 		
-		self.mainBox.pack_start(self.headerBox, False, False)
+		self.mainBox.pack_start(self.headerAlign, False, False)
 		self.mainBox.pack_end(self.eventLane, True, True)
 
 		# create track header bits
@@ -202,6 +204,10 @@ class InstrumentViewer(gtk.EventBox):
 			self.window.set_cursor(gtk.gdk.Cursor(gtk.gdk.XTERM))
 		else:
 			self.window.set_cursor(None)
+
+	def ResizeHeader(self, width):
+		padding = width - self.headerBox.size_request()[0]
+		self.headerAlign.set_padding(0, 0, 0, padding)
 
 #=========================================================================	
 

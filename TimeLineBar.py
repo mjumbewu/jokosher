@@ -1,5 +1,6 @@
 import gtk
 import TimeLine
+import RecordingView, CompactMixView
 
 class TimeLineBar(gtk.Frame):
 	def __init__(self, project, projectview, mainview):
@@ -84,13 +85,20 @@ class TimeLineBar(gtk.Frame):
 		if not self.Updating:
 			self.Updating = True
 			
-			#Adjust padding on header to match instrument headers 
-			#(so the timeline bar lines up regardless of themes/fonts etc.)
-			padding = self.alignment.get_padding()[3]
-			padding += (width - self.alignment.size_request()[0])
-			padding -= 2 #This adjustment seems constant between themes, but I'd like to know what causes the need for it
-			if padding >= 0:
-				self.alignment.set_padding(0, 0, 0, padding)
+			#Make sure everything has finished realisation
+			if self.alignment.size_request()[0] != 0 and width > 1:
+				#Adjust padding on header to match instrument headers
+				#(so the timeline bar lines up regardless of themes/fonts etc.)
+				padding = self.alignment.get_padding()[3]
+				padding += (width - self.alignment.size_request()[0])
+				padding -= 2 #This adjustment seems constant between themes, but I'd like to know what causes the need for it
+				if padding >= 0:
+					self.alignment.set_padding(0, 0, 0, padding)
+				else:
+					#This means the instrument headers are smaller than the timeline bar header and must be resized
+					if self.mainview.recording:
+						for ident, iv in self.mainview.recording.views:
+							iv.ResizeHeader(width - padding)
 
 			self.OnAcceptEditBPM()
 			self.OnAcceptEditSig()

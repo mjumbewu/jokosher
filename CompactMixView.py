@@ -88,6 +88,7 @@ class CompactMixView(gtk.Frame):
 					if i.instrument is instr:
 						lanebox = i
 						lanebox.Update()
+						lanebox.headerAlign.connect("size-allocate", self.UpdateSize)
 						break
 					
 				if not lanebox:
@@ -151,6 +152,22 @@ class CompactMixView(gtk.Frame):
 		#for when being called from gobject thread
 		return False
 	#_____________________________________________________________________
+
+	#TODO: Unify this with RecordingView's UpdateSize. *Both* need to accept these signals incase the font size or theme is changed while the program is running
+	#Perhaps a View superclass for them both to derive from?
+	def UpdateSize(self, widget=None, size=None):
+		#find the width of the instrument headers (they should all be the same size)
+		if size:
+			tempWidth = size.width
+		else:
+			tempWidth = self.INSTRUMENT_HEADER_WIDTH
+			
+		Globals.INSTRUMENT_HEADER_WIDTH = tempWidth
+		
+		self.timelinebar.Update(tempWidth)
+	
+	#_____________________________________________________________________
+
 
 	def OnMinimiseTrack(self, widget, instr):
 		instr.SetVisible(False)

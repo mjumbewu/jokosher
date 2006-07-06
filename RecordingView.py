@@ -90,7 +90,7 @@ class RecordingView(gtk.Frame):
 				iv = InstrumentViewer.InstrumentViewer(self.project, instr, self, self.mainview)
 				instr.AddListener(self)
 				self.views.append((instr.id, iv))
-				iv.headerBox.connect("size-allocate", self.UpdateSize)
+				iv.headerAlign.connect("size-allocate", self.UpdateSize)
 			
 			if not iv in children:
 				self.instrumentBox.pack_start(iv, False, False)
@@ -105,14 +105,14 @@ class RecordingView(gtk.Frame):
 				iv.Update()
 		
 		if len(self.views) > 0:
-			self.UpdateSize(None, self.views[0][1].headerBox.get_allocation())
+			self.UpdateSize(None, self.views[0][1].headerAlign.get_allocation())
 		else:
 			self.UpdateSize(None, None)
 		self.show_all()
 	
 	#_____________________________________________________________________
 		
-	def UpdateSize(self, widget, size):
+	def UpdateSize(self, widget=None, size=None):
 		#find the width of the instrument headers (they should all be the same size)
 		if size:
 			tempWidth = size.width
