@@ -188,6 +188,9 @@ class TransportManager(Monitored):
 	#_____________________________________________________________________
 	
 	def SeekTo(self, pos):
+		#make sure we cant seek to before the beginning
+		pos = max(0, pos)
+		
 		if self.isPlaying:
 			self.pipeline.seek( 1.0, gst.FORMAT_TIME, gst.SEEK_FLAG_FLUSH,
 					gst.SEEK_TYPE_SET, long(pos * gst.SECOND), 

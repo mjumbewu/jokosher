@@ -949,7 +949,6 @@ class MainApp:
 	
 	def CheckGstreamerVersions(self):
 		#Check for CVS versions of Gstreamer and gnonlin
-		print "here"
 		message = ""
 		v = gst.version()
 		if (v[1] < 10) or (v[2] < 8) or (v[3] < 1):

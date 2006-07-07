@@ -46,6 +46,8 @@ class TimeLine(gtk.DrawingArea):
 		#Redraw timeline
 		self.DrawLine(widget)
 		
+	#_____________________________________________________________________
+		
 	def OnDraw(self, widget, event):
 		""" Fires off the drawing operation. """
 		
@@ -204,12 +206,6 @@ class TimeLine(gtk.DrawingArea):
 			return
 		self.dragging = True
 		
-		if event.x > self.window.get_frame_extents().width - 181:
-			gobject.timeout_add(500, self.autoscroll, 1, event.x)
-			return
-		if (event.x < 10) and (self.project.viewStart >= 0):
-			gobject.timeout_add(500, self.autoscroll, -1, event.x)
-			return
 		self.moveHead(event.x)
 		
 	#_____________________________________________________________________
@@ -224,22 +220,5 @@ class TimeLine(gtk.DrawingArea):
 		pos = self.project.viewStart + xpos/ self.project.viewScale
 		self.project.transport.SeekTo(pos)
 		
-	#_____________________________________________________________________
-		
-	def autoscroll(self, direction, xpos):
-		if not self.dragging:
-			return False
-		recordingView = self.parent.parent.parent
-		recordingView.scrollRange.value += direction
-		self.project.transport.SetPosition(recordingView.scrollRange.value + xpos/ self.project.viewScale)
-		if recordingView.scrollRange.value + recordingView.scrollRange.page_size >= recordingView.scrollRange.upper:
-			recordingView.scrollRange.value = recordingView.scrollRange.upper - recordingView.scrollRange.page_size
-			return False
-		if recordingView.scrollRange.value < 0:
-			recordingView.scrollRange.value = 0
-			return False
-		return True
-#_____________________________________________________________________
-
-	
+	#_____________________________________________________________________	
 #=========================================================================
