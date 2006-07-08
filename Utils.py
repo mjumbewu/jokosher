@@ -23,8 +23,6 @@ def StoreParametersToXML(self, doc, parent, parameters):
 			node.setAttribute("type", "float")
 		elif type(getattr(self, i)) == bool:
 			node.setAttribute("type", "bool")
-		elif type(getattr(self, i)) == list:
-			node.setAttribute("type", "list")
 		else:
 			node.setAttribute("type", "str")
 		
@@ -43,11 +41,6 @@ def LoadParametersFromXML(self, parentElement):
 			elif n.getAttribute("type") == "bool":
 				value = (n.getAttribute("value") == "True")
 				setattr(self, n.tagName, value)
-			elif n.getAttribute("type") == "list":
-				# Must not use eval here. We should serialise a list
-				# to XML properly. This is a quick hack to get it
-				# working; fix it as soon as possible!
-				setattr(self, n.tagName, eval(n.getAttribute("value")))
 			else:
 				setattr(self, n.tagName, n.getAttribute("value"))
 

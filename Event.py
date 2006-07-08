@@ -92,10 +92,19 @@ class Event(Monitored, CommandManaged):
 		ev.appendChild(params)
 		
 		items = ["start", "duration", "isSelected", 
-				  "name", "offset", "file", "audioFadePoints"
+				  "name", "offset", "file"
 				]
 		
 		StoreParametersToXML(self, doc, params, items)
+		
+		
+		xmlPoints = doc.createElement("FadePoints")
+		ev.appendChild(xmlPoints)
+		for position, fade in self.audioFadePoints:
+			e = doc.createElement("FadePoint")
+			e.setAttribute("position", str(position))
+			e.setAttribute("fade", str(fade))
+			xmlPoints.appendChild(e)
 		
 		if self.levels:
 			levelsXML = doc.createElement("Levels")
@@ -109,6 +118,16 @@ class Event(Monitored, CommandManaged):
 		params = node.getElementsByTagName("Parameters")[0]
 		
 		LoadParametersFromXML(self, params)
+		
+		try:
+			xmlPoints = node.getElementsByTagName("FadePoints")[0]
+		except IndexError:
+			print "Missing FadePoints in Event XML"
+		else:
+			for n in xmlPoints.childNodes:
+				if n.nodeType == xml.Node.ELEMENT_NODE:
+					point = (float(n.getAttribute("position")), float(n.getAttribute("fade")))
+					self.audioFadePoints.append(point)
 		
 		try:	
 			levelsXML = node.getElementsByTagName("Levels")[0]
