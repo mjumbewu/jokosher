@@ -5,13 +5,15 @@ import pygst
 pygst.require("0.10")
 import gst
 import gtk
-import os, stat    #for file's timestamp
 from Monitored import *
 from Utils import *
 
-#=========================================================================	
+#=========================================================================
 
 class Event(Monitored, CommandManaged):
+	
+	#state changed types (to be sent through the Monitored class)
+	LOADINGSTATUS, DURATION, LEVELS, AUDIOFADES = range(4)
 	
 	#_____________________________________________________________________
 	
@@ -160,7 +162,7 @@ class Event(Monitored, CommandManaged):
 			self.instrument.events.append(e)
 			self.temp = e.id
 			self.SetProperties()
-			self.StateChanged()
+			self.StateChanged(self.DURATION)
 			return e
 		else:
 			d = self.duration
@@ -173,7 +175,7 @@ class Event(Monitored, CommandManaged):
 			self.levels = self.levels[:nl]
 			
 			self.temp = event.id
-			self.StateChanged()
+			self.StateChanged(self.DURATION)
 		
 	#_____________________________________________________________________
 	
@@ -192,7 +194,7 @@ class Event(Monitored, CommandManaged):
 		self.instrument.events.remove(event)
 		self.instrument.graveyard.append(event)
 		
-		self.StateChanged()
+		self.StateChanged(self.DURATION)
 
 	#_____________________________________________________________________
 	
@@ -274,7 +276,7 @@ class Event(Monitored, CommandManaged):
 		self.temp2 = rightSplit.id
 		
 		self.SetProperties()
-		self.StateChanged()
+		self.StateChanged(self.DURATION)
 	#_____________________________________________________________________
 	
 	def UndoTrim(self, leftID, rightID):
@@ -296,7 +298,7 @@ class Event(Monitored, CommandManaged):
 		self.instrument.graveyard.remove(rightEvent)
 		
 		self.SetProperties()
-		self.StateChanged()
+		self.StateChanged(self.DURATION)
 	#_____________________________________________________________________
 	
 	def Delete(self):
@@ -332,7 +334,7 @@ class Event(Monitored, CommandManaged):
 				# Only send events every second processed to reduce GUI load
 				if self.loadingLength != self.lastEnd:
 					self.lastEnd = self.loadingLength 
-					self.StateChanged() # tell the GUI
+					self.StateChanged(self.LEVELS) # tell the GUI
 		return True
 		
 	def bus_eos(self, bus, message):	
@@ -352,7 +354,7 @@ class Event(Monitored, CommandManaged):
 			self.isLoading = False
 			
 			# Signal to interested objects that we've changed
-			self.StateChanged()
+			self.StateChanged(self.LOADINGSTATUS)
 			return False
 
 	def bus_message_statechange(self, bus, message):	
@@ -364,7 +366,7 @@ class Event(Monitored, CommandManaged):
 				self.SetProperties()
 				#update position with proper duration
 				self.MoveButDoNotOverlap(self.start)
-				self.StateChanged()
+				self.StateChanged(self.DURATION)
 		except:
 			# no size available yet
 			pass
@@ -456,18 +458,59 @@ class Event(Monitored, CommandManaged):
 		   If either point exists already, replace it, and resort
 		   the list by time.
 		
-		   undo : FIXME_undo_adding_a_fade_point()
+		   undo : removeAudioFadePoints(%(temp)s, %(temp2)s, %(temp3)f, %(temp4)f)
 		"""
+		#for command manager to use with undo
+		self.temp = p1
+		self.temp2 = p2
+		self.temp3 = 0.0
+		self.temp4 = 0.0
+		
 		remp1 = [x for x in self.audioFadePoints if x[0]==p1[0]]
 		if remp1:
 			self.audioFadePoints.remove(remp1[0])
+			#save the old value for undo compatibility
+			self.temp3 = remp1[0][1]
 		
 		remp2 = [x for x in self.audioFadePoints if x[0]==p2[0]]
 		if remp2:
 			self.audioFadePoints.remove(remp2[0])
+			self.temp4 = remp2[0][1]
 		
 		self.audioFadePoints += [p1,p2]
 		self.audioFadePoints.sort(lambda x,y:cmp(x[0],y[0]))
+		
+		self.StateChanged(self.AUDIOFADES)
+	
+	#_____________________________________________________________________
+	
+	def removeAudioFadePoints(self, new1, new2, oldLevel1, oldLevel2):
+		"""Removed a point with values from the fade list.
+		    The only use for this method is as an undo of addAudioFadePoints()
+		    
+		    undo : addAudioFadePoints(%(temp)s, %(temp2)s)
+		"""
+		#undo values
+		self.temp = new1
+		self.temp2 = new2
+		
+		#if we have old levels, just replace those inline
+		if oldLevel1:
+			tupleList = [x for x in self.audioFadePoints if x[0]==new1[0]]
+			if tupleList:
+				tupleList[0][1] = oldLevel1
+		#else, remove the point entirely
+		else:
+			self.audioFadePoints.remove(new1)
+			
+		if oldLevel2:
+			tupleList = [x for x in self.audioFadePoints if x[0]==new2[0]]
+			if tupleList:
+				tupleList[0][1] = oldLevel2
+		else:
+			self.audioFadePoints.remove(new2)
+			
+		self.StateChanged(self.AUDIOFADES)
 	
 	#_____________________________________________________________________
 

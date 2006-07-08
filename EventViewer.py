@@ -69,11 +69,8 @@ class EventViewer(gtk.DrawingArea):
 		self.Selection = [0,0]			# Selection begin and end points
 		self.isDraggingFade = False		# True if the user is dragging a fade marker
 		self.lane = lane				# The parent lane for this object
-		self.last_num_levels = 0		# Used to track if we need to resize the GUI object
-		self.isLoading = False			# Used to track if we need to update the GUI after loading a waveform
 		self.currentScale = 0			# Tracks if the project viewScale has changed
 		self.redrawWaveform = False		# Force redraw the cached waveform on next expose event
-		self.eventDuration = 0
 		
 		# source is an offscreen canvas to hold our waveform image
 		self.source = cairo.ImageSurface(cairo.FORMAT_ARGB32, 0, 0)
@@ -609,26 +606,23 @@ class EventViewer(gtk.DrawingArea):
 	#_____________________________________________________________________
 	
 	def OnStateChanged(self, obj, change=None):
-		if self.isLoading != self.event.isLoading:
+		if change == self.event.LOADINGSTATUS or change == self.event.AUDIOFADES:
 			self.redrawWaveform = True
-			self.isLoading = self.event.isLoading
 		
-		if self.event.duration != self.eventDuration:
+		elif change == self.event.DURATION:
 			#the position may have changed once the correct duration was determined
+			#or a split/join has occured
 			self.lane.Update(self)
-			self.eventDuration = self.event.duration
-				
-		if len(self.event.levels) != self.last_num_levels:
+		
+		elif change == self.event.LEVELS:
+			self.redrawWaveform = True
+			self.queue_resize()
+			
+		elif type(obj) == Project.Project and self.currentScale != self.project.viewScale:
 			self.redrawWaveform = True
 			self.queue_resize()
 			self.last_num_levels = len(self.event.levels)
-			
-		if type(obj) == Project.Project:
-			if self.currentScale != self.project.viewScale:
-				self.redrawWaveform = True
-				self.queue_resize()
-				self.last_num_levels = len(self.event.levels)
-				self.currentScale = self.project.viewScale
+			self.currentScale = self.project.viewScale
 
 		self.queue_draw()
 
@@ -702,7 +696,6 @@ class EventViewer(gtk.DrawingArea):
 		volRight = self.volFromPixy(pixyRight)
 		
 		self.event.addAudioFadePoints((secLeft,volLeft), (secRight,volRight))
-		self.redrawWaveform = True
 		
 	#_____________________________________________________________________
 	
