@@ -41,7 +41,7 @@ class WelcomeDialog:
 		
 		self.tree = self.res.get_widget("recentprojectslist")
 		self.headerimage = self.res.get_widget("headerimage")
-		self.headerimage.set_from_file(os.path.join(mainwindow.JOKOSHER_PATH, "images", "welcomeheader.png"))
+		self.headerimage.set_from_file(os.path.join(Globals.JOKOSHER_PATH, "images", "welcomeheader.png"))
 
 		self.openrecentbutton = self.res.get_widget("openrecentprojectbutton")
 		self.openrecentbutton.set_sensitive(False)

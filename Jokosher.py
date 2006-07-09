@@ -33,7 +33,6 @@ gobject.threads_init()
 class MainApp:
 	
 	#in case we are imported from another python file
-	JOKOSHER_PATH = None		#set in __init__()
 	GLADE_PATH = None		#set in __init__()
 	
 	# Class Constants
@@ -45,8 +44,8 @@ class MainApp:
 	def __init__(self):
 		
 		#Find the absolute path in case we were imported from another directory
-		self.JOKOSHER_PATH = os.path.dirname(os.path.abspath(__file__))
-		self.GLADE_PATH = os.path.join(self.JOKOSHER_PATH, "Jokosher.glade")
+		Globals.JOKOSHER_PATH = os.path.dirname(os.path.abspath(__file__))
+		self.GLADE_PATH = os.path.join(Globals.JOKOSHER_PATH, "Jokosher.glade")
 		
 		self.wTree = gtk.glade.XML(self.GLADE_PATH, "MainWindow")
 		
@@ -154,7 +153,7 @@ class MainApp:
 		self.PopulateRecentProjects()
 		
 		#set window icon
-		self.window.set_icon_from_file(os.path.join(self.JOKOSHER_PATH, "jokosher.png"))
+		self.window.set_icon_from_file(os.path.join(Globals.JOKOSHER_PATH, "jokosher.png"))
 		#make icon available to others
 		self.icon = self.window.get_icon()
 		
@@ -1002,7 +1001,7 @@ class MainApp:
 		self.contribTree = gtk.glade.XML(self.GLADE_PATH, "ContributingDialog")
 
 		self.topimage = self.contribTree.get_widget("topimage")
-		self.topimage.set_from_file(os.path.join(self.JOKOSHER_PATH, "images", "jokosher-logo.png"))
+		self.topimage.set_from_file(os.path.join(Globals.JOKOSHER_PATH, "images", "jokosher-logo.png"))
 		
 		# grab some references to bits of the GUI
 		self.contribdialog = self.wTree.get_widget("ContributingDialog")

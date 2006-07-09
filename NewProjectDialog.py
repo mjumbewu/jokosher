@@ -7,7 +7,7 @@ from ConfigParser import SafeConfigParser
 import Project
 import AddInstrumentDialog
 import pwd
-
+import Globals
 class NewProjectDialog:
 	
 	#_____________________________________________________________________	
@@ -28,7 +28,7 @@ class NewProjectDialog:
 		self.dlg = self.res.get_widget("NewProjectDialog")
 
 		self.sideimage = self.res.get_widget("sideimage")
-		self.sideimage.set_from_file(os.path.join(parent.JOKOSHER_PATH, "images", "newproject.png"))
+		self.sideimage.set_from_file(os.path.join(Globals.JOKOSHER_PATH, "images", "newproject.png"))
 		
 		self.name = self.res.get_widget("name")
 		self.folder = self.res.get_widget("folder")

@@ -2,6 +2,8 @@
 import pygtk
 pygtk.require("2.0")
 import gtk
+import os
+import Globals
 
 from VUWidget import *
 
@@ -46,7 +48,10 @@ class MixerStrip(gtk.Frame):
 		self.muteButton = gtk.ToggleButton("")
 		self.muteButton.connect("toggled", self.OnMute)
 		
-		self.soloButton = gtk.ToggleButton("S")
+		soloimg = gtk.Image()
+		soloimg.set_from_file(os.path.join(Globals.JOKOSHER_PATH, "images", "solo.png"))
+		self.soloButton = gtk.ToggleButton("")
+		self.soloButton.set_image(soloimg)
 		self.soloButton.connect("toggled", self.OnSolo)
 		
 		hb.add(self.recButton)

@@ -48,3 +48,4 @@ class Settings:
 settings = Settings()
 
 INSTRUMENT_HEADER_WIDTH = 0
+JOKOSHER_PATH = None

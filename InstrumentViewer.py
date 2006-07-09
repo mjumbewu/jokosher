@@ -81,15 +81,19 @@ class InstrumentViewer(gtk.EventBox):
 		self.headerBox.pack_start(self.controlsBox, False)
 		
 		if not (self.small):
-			img = gtk.image_new_from_stock(gtk.STOCK_MEDIA_RECORD, gtk.ICON_SIZE_BUTTON)
+			recimg = gtk.image_new_from_stock(gtk.STOCK_MEDIA_RECORD, gtk.ICON_SIZE_BUTTON)
 			self.recButton = gtk.ToggleButton("")
-			self.recButton.set_property("image", img)
+			self.recButton.set_property("image", recimg)
 			self.recButton.connect("toggled", self.OnArm)
 			
 			self.muteButton = gtk.ToggleButton("")
 			self.muteButton.connect("toggled", self.OnMute)
 			
-			self.soloButton = gtk.ToggleButton("Solo")
+			soloimg = gtk.Image()
+			soloimg.set_from_file(os.path.join(Globals.JOKOSHER_PATH, "images", "solo.png"))
+			self.soloButton = gtk.ToggleButton("")
+			self.soloButton.set_image(soloimg)
+			#self.recButton.set_property("image", soloimg)
 			self.soloButton.connect("toggled", self.OnSolo)
 			
 			self.sourceButton = gtk.ToggleButton("In")
