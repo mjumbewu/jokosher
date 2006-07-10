@@ -13,7 +13,7 @@ from Utils import *
 class Event(Monitored, CommandManaged):
 	
 	#state changed types (to be sent through the Monitored class)
-	LOADINGSTATUS, DURATION, LEVELS, AUDIOFADES = range(4)
+	WAVEFORM, MOVE, LENGTH = range(3)
 	
 	#_____________________________________________________________________
 	
@@ -181,7 +181,8 @@ class Event(Monitored, CommandManaged):
 			self.instrument.events.append(e)
 			self.temp = e.id
 			self.SetProperties()
-			self.StateChanged(self.DURATION)
+			self.StateChanged(self.LENGTH)
+			
 			return e
 		else:
 			d = self.duration
@@ -194,7 +195,8 @@ class Event(Monitored, CommandManaged):
 			self.levels = self.levels[:nl]
 			
 			self.temp = event.id
-			self.StateChanged(self.DURATION)
+			
+			self.StateChanged(self.LENGTH)
 		
 	#_____________________________________________________________________
 	
@@ -213,7 +215,7 @@ class Event(Monitored, CommandManaged):
 		self.instrument.events.remove(event)
 		self.instrument.graveyard.append(event)
 		
-		self.StateChanged(self.DURATION)
+		self.StateChanged(self.LENGTH)
 
 	#_____________________________________________________________________
 	
@@ -295,7 +297,8 @@ class Event(Monitored, CommandManaged):
 		self.temp2 = rightSplit.id
 		
 		self.SetProperties()
-		self.StateChanged(self.DURATION)
+		self.StateChanged(self.LENGTH)
+		
 	#_____________________________________________________________________
 	
 	def UndoTrim(self, leftID, rightID):
@@ -317,7 +320,8 @@ class Event(Monitored, CommandManaged):
 		self.instrument.graveyard.remove(rightEvent)
 		
 		self.SetProperties()
-		self.StateChanged(self.DURATION)
+		self.StateChanged(self.LENGTH)
+		
 	#_____________________________________________________________________
 	
 	def Delete(self):
@@ -353,7 +357,7 @@ class Event(Monitored, CommandManaged):
 				# Only send events every second processed to reduce GUI load
 				if self.loadingLength != self.lastEnd:
 					self.lastEnd = self.loadingLength 
-					self.StateChanged(self.LEVELS) # tell the GUI
+					self.StateChanged(self.LENGTH) # tell the GUI
 		return True
 		
 	def bus_eos(self, bus, message):	
@@ -373,7 +377,7 @@ class Event(Monitored, CommandManaged):
 			self.isLoading = False
 			
 			# Signal to interested objects that we've changed
-			self.StateChanged(self.LOADINGSTATUS)
+			self.StateChanged(self.WAVEFORM)
 			return False
 
 	def bus_message_statechange(self, bus, message):	
@@ -385,7 +389,8 @@ class Event(Monitored, CommandManaged):
 				self.SetProperties()
 				#update position with proper duration
 				self.MoveButDoNotOverlap(self.start)
-				self.StateChanged(self.DURATION)
+				self.StateChanged(self.MOVE)
+				self.StateChanged(self.LENGTH)
 		except:
 			# no size available yet
 			pass
@@ -437,38 +442,39 @@ class Event(Monitored, CommandManaged):
 		"""
 		alreadyTriedRemovingOverlap = False
 		self.instrument.events.sort()
+		
 		for e in self.instrument.events:
 			if e is self:
 				continue
 			
 			elif alreadyTriedRemovingOverlap:
+				#we have already attempted to place to the left, on the last iteration
+				#from now on we only try placing on the right side
 				start = e.start + e.duration
 				if self.MayPlace(start):
 					self.start = start
-					
-			elif not (e.start + e.duration <= xpos or e.start >= xpos + self.duration):
-				if e.start + e.duration > xpos and e.start + e.duration/2 < xpos + self.duration/2:
-					start = e.start + e.duration
-				else:
-					start = max(e.start - self.duration, 0)
-					
-				if self.MayPlace(start):
-					self.start = start
 					return
-				else:
-					alreadyTriedRemovingOverlap = True
-					
-		if alreadyTriedRemovingOverlap:
-			#last ditch effort to place it at the end of all other events
-			last = self.instrument.events[-1]
-			if last is self:
-				last = self.instrument.events[-2]
-			start = last.start + last.duration
-			if self.MayPlace(start):
-				self.start = start
-		else:
-			#There were no overlapping events
-			self.start = xpos
+				continue
+			
+			rightPos = e.start + e.duration
+			leftPos = e.start - self.duration
+			#if this event IS overlapping with the other event
+			if not (rightPos <= xpos or leftPos >= xpos):
+				#if the middle of this event is on the RIGHT of the middle of the other event
+				if rightPos > xpos and e.start + (e.duration/2) < xpos + (self.duration/2):
+					order = (rightPos, max(leftPos, 0))
+				else: #if the middle is on the LEFT
+					order = (max(leftPos, 0), rightPos)
+				
+				for start in order:
+					if self.MayPlace(start):
+						self.start = start
+						return
+				
+				alreadyTriedRemovingOverlap = True
+				
+		#There are no other events overlapping with this one
+		self.start = xpos
 	
 	#_____________________________________________________________________
 
@@ -499,7 +505,7 @@ class Event(Monitored, CommandManaged):
 		self.audioFadePoints += [p1,p2]
 		self.audioFadePoints.sort(lambda x,y:cmp(x[0],y[0]))
 		
-		self.StateChanged(self.AUDIOFADES)
+		self.StateChanged(self.WAVEFORM)
 	
 	#_____________________________________________________________________
 	
@@ -529,7 +535,7 @@ class Event(Monitored, CommandManaged):
 		else:
 			self.audioFadePoints.remove(new2)
 			
-		self.StateChanged(self.AUDIOFADES)
+		self.StateChanged(self.WAVEFORM)
 	
 	#_____________________________________________________________________
 

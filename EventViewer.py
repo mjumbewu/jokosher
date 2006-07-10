@@ -88,10 +88,12 @@ class EventViewer(gtk.DrawingArea):
 		
 		# drawer: this will probably be its own object in time
 		self.drawer = gtk.HBox()
-		trimButton = gtk.Button("T")
+		trimButton = gtk.Button("Trim")
 		self.drawer.add(trimButton)
-		effectButton = gtk.Button("E")
-		self.drawer.add(effectButton)
+		
+		#TODO: bring back effects button when it actually does something
+		#effectButton = gtk.Button("E")
+		#self.drawer.add(effectButton)
 		trimButton.connect("clicked", self.TrimToSelection)
 		self.drawer.show()
 		
@@ -606,15 +608,13 @@ class EventViewer(gtk.DrawingArea):
 	#_____________________________________________________________________
 	
 	def OnStateChanged(self, obj, change=None):
-		if change == self.event.LOADINGSTATUS or change == self.event.AUDIOFADES:
+		if change == self.event.WAVEFORM:
 			self.redrawWaveform = True
 		
-		elif change == self.event.DURATION:
-			#the position may have changed once the correct duration was determined
-			#or a split/join has occured
+		elif change == self.event.MOVE:
 			self.lane.Update(self)
 		
-		elif change == self.event.LEVELS:
+		elif change == self.event.LENGTH:
 			self.redrawWaveform = True
 			self.queue_resize()
 			
