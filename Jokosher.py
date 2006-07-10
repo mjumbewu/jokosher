@@ -931,6 +931,28 @@ class MainApp:
 	#_____________________________________________________________________
 	
 	def SetProject(self, project):
+		try:
+			project.ValidateProject()
+		except Project.InvalidProjectError, e:
+			message=""
+			if e.files:
+				message+="The project references non-existant files:\n"
+				for f in e.files:
+					message += f + "\n"
+			if e.images:
+				message+="\nThe project references non-existant images:\n"
+				for f in e.images:
+					message += f + "\n"
+
+			dlg = gtk.MessageDialog(self.window,
+				gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
+				gtk.MESSAGE_ERROR,
+				gtk.BUTTONS_OK,
+				"%s\n Invalid or corrupt project file, will not open."%message)
+			dlg.run()
+			dlg.destroy()
+			return
+
 		if self.project:
 			if self.CloseProject() != 0:
 				return

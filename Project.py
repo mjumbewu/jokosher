@@ -864,6 +864,25 @@ class Project(Monitored, CommandManaged):
 		"""
 		self.masterlevel = level
 
+	#_____________________________________________________________________
+
+	def ValidateProject(self):
+		unknownfiles=[]
+		unknownimages=[]
+
+		for instr in self.instruments:
+			if (not os.path.exists(instr.pixbufPath)) and (instr.pixbufPath not in unknownimages) and (not instr.pixbufPath in unknownimages):
+				unknownimages.append(instr.pixbufPath)
+
+			for ev in instr.events:
+				if (ev.file!=None) and (not os.path.exists(ev.file)) and (not ev.file in unknownfiles):
+					unknownfiles.append(ev.file)
+		if len(unknownfiles)>0 or len(unknownimages)>0:
+			raise InvalidProjectError(unknownfiles,unknownimages)
+
+		return True
+
+
 #=========================================================================
 	
 class OpenProjectError(EnvironmentError):
@@ -886,5 +905,13 @@ class CreateProjectError(Exception):
 class MultipleInputsError(Exception):
 	def __init__(self, string):
 		self.__str__ = string
+
+#=========================================================================
+
+class InvalidProjectError(Exception):
+	def __init__(self, missingfiles,missingimages):
+		self.files=missingfiles
+		self.images=missingimages
+
 
 GlobalProjectObject = None
