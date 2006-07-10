@@ -64,7 +64,7 @@ class NewProjectDialog:
 			if e.errno == 1:
 				message = "Could not initialize project."
 			elif e.errno == 2:
-				message = "A file or folder with this name already exists. Please chose a different project name and try again."
+				message = "A file or folder with this name already exists. Please choose a different project name and try again."
 			elif e.errno == 3:
 				message = "The file or folder location is write-protected.",
 				
