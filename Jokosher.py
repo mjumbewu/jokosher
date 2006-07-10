@@ -513,15 +513,8 @@ class MainApp:
 				
 				try:
 					self.SetProject(Project.LoadFromFile(filename))
-				except Project.OpenProjectError:
-					dlg = gtk.MessageDialog(chooser,
-						gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
-						gtk.MESSAGE_ERROR,
-						gtk.BUTTONS_OK,
-						"The project file could not be opened.\n")
-					dlg.set_icon(self.icon)
-					dlg.run()
-					dlg.destroy()
+				except Project.OpenProjectError, e:
+					self.ShowOpenProjectErrorDialog(e, chooser)
 				else:
 					break
 				
@@ -698,15 +691,8 @@ class MainApp:
 	def OnRecentProjectsItem(self, widget, path, name):
 		try:
 			self.SetProject(Project.LoadFromFile(path))
-		except Project.OpenProjectError:
-			dlg = gtk.MessageDialog(self.window,
-				gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
-				gtk.MESSAGE_ERROR,
-				gtk.BUTTONS_OK,
-				"The project file could not be opened.\n")
-			dlg.run()
-			dlg.destroy()
-			return
+		except Project.OpenProjectError, e:
+			self.ShowOpenProjectErrorDialog(e)
 	
 	#_____________________________________________________________________
 
@@ -914,19 +900,10 @@ class MainApp:
 			name = self.lastopenedproject[1]
 			try:
 				self.SetProject(Project.LoadFromFile(path))
-				return
-			except Project.OpenProjectError:
-				pass
-				
-		dlg = gtk.MessageDialog(self.window,
-			gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
-			gtk.MESSAGE_ERROR,
-			gtk.BUTTONS_OK,
-			"The previous project file could not be opened.\n")
-		dlg.run()
-		dlg.destroy()
-		#launch welcome dialog instead
-		WelcomeDialog.WelcomeDialog(self)
+			except Project.OpenProjectError, e:
+				self.ShowOpenProjectErrorDialog(e)
+				#launch welcome dialog instead
+				WelcomeDialog.WelcomeDialog(self)
 	
 	#_____________________________________________________________________
 	
@@ -1029,6 +1006,28 @@ class MainApp:
 		self.contribdialog = self.wTree.get_widget("ContributingDialog")
 		#self.contribdialog.show_all()
 		
+	#_____________________________________________________________________
+	
+	def ShowOpenProjectErrorDialog(self, error, parent=None):
+		if not parent:
+			parent = self.window
+		
+		if type(error.version) != str:
+			message = "The project file could not be opened.\n"
+		else:
+			message = "The project file was created with version \"%s\" of Jokosher.\n"%error.version + \
+						"Projects from version \"%s\" are incompatible with this release.\n"%error.version
+			
+		dlg = gtk.MessageDialog(parent,
+			gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
+			gtk.MESSAGE_ERROR,
+			gtk.BUTTONS_OK,
+			message)
+		dlg.set_icon(self.icon)
+		dlg.run()
+		dlg.destroy()
+	
+	#_____________________________________________________________________
 
 #=========================================================================
 		

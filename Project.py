@@ -75,6 +75,11 @@ def LoadFromFile(file):
 	
 	p.projectfile = file
 	
+	#only open projects with the proper version number
+	version = doc.firstChild.getAttribute("version")
+	if version != Project.VERSION:
+		raise OpenProjectError(version)
+	
 	params = doc.getElementsByTagName("Parameters")[0]
 	
 	LoadParametersFromXML(p, params)
@@ -129,7 +134,7 @@ class Project(Monitored, CommandManaged):
 		project.
 	"""
 	
-	VERSION = 0.1	# The project structure version. Will be useful for handling old save files
+	VERSION = "0.1"	# The project structure version. Will be useful for handling old save files
 	
 	#Export audio formats
 	NOT_EXPORTING, EXPORTING_VORBIS, EXPORTING_MP3, EXPORTING_WAV, EXPORTING_FLAC = range(5)
@@ -577,9 +582,7 @@ class Project(Monitored, CommandManaged):
 		head = doc.createElement("JokosherProject")
 		doc.appendChild(head)
 		
-		vers = doc.createElement("Version")
-		vers.appendChild(doc.createTextNode(str(self.VERSION)))
-		head.appendChild(vers)
+		head.setAttribute("version", self.VERSION)
 		
 		params = doc.createElement("Parameters")
 		head.appendChild(params)
@@ -886,8 +889,12 @@ class Project(Monitored, CommandManaged):
 #=========================================================================
 	
 class OpenProjectError(EnvironmentError):
-	def __init__(self):
-		pass
+	def __init__(self, incorrectVerionString = None):
+		"""If version string is omitted, assume a general error.
+		   If a version string is given, it means the project file was created by
+		   another version of Jokosher. That version is specified in the string.
+		"""
+		self.version = incorrectVerionString
 
 #=========================================================================
 
