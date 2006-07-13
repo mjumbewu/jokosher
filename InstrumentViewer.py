@@ -149,6 +149,7 @@ class InstrumentViewer(gtk.EventBox):
 			self.labelbox.pack_end(self.editlabel)
 			self.editlabel.grab_focus()
 			self.editlabelPacked = True
+			return True
 	
 	#_____________________________________________________________________
 
