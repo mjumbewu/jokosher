@@ -246,23 +246,9 @@
 		  <child>
 		    <widget class="GtkImageMenuItem" id="delete">
 		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">_Delete</property>
-		      <property name="use_underline">True</property>
-		      <signal name="activate" handler="on_delete_activate" last_modification_time="Wed, 08 Mar 2006 22:41:27 GMT"/>
-		      <accelerator key="Delete" modifiers="0" signal="activate"/>
-		      <accelerator key="BackSpace" modifiers="0" signal="activate"/>
-
-		      <child internal-child="image">
-			<widget class="GtkImage" id="image105">
-			  <property name="visible">True</property>
-			  <property name="stock">gtk-delete</property>
-			  <property name="icon_size">1</property>
-			  <property name="xalign">0.5</property>
-			  <property name="yalign">0.5</property>
-			  <property name="xpad">0</property>
-			  <property name="ypad">0</property>
-			</widget>
-		      </child>
+		      <property name="label">gtk-delete</property>
+		      <property name="use_stock">True</property>
+		      <signal name="activate" handler="on_delete_activate" last_modification_time="Fri, 23 Jun 2006 04:41:00 GMT"/>
 		    </widget>
 		  </child>
 

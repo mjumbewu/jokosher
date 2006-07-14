@@ -149,6 +149,7 @@ class InstrumentViewer(gtk.EventBox):
 			self.labelbox.pack_end(self.editlabel)
 			self.editlabel.grab_focus()
 			self.editlabelPacked = True
+			self.mainview.instrNameEntry = self.editlabel
 			return True
 	
 	#_____________________________________________________________________
@@ -156,14 +157,16 @@ class InstrumentViewer(gtk.EventBox):
 	def OnAcceptEditLabel(self, widget=None):
 		if self.editlabelPacked:	
 			name = self.editlabel.get_text()
-			self.instrlabel.set_text(name)
+			if name != "":
+				self.instrlabel.set_text(name)
 			self.labelbox.remove(self.editlabel)
 			self.editlabelPacked = False
+			self.mainview.instrNameEntry = None
 			if self.editlabel:
 				self.editlabel.destroy()
 			self.labeleventbox.show_all()
 			
-			if name != self.instrument.name:
+			if name != "" and name != self.instrument.name:
 				#this must be done last because it triggers update
 				self.instrument.SetName(name)
 		

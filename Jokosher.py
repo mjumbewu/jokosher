@@ -121,6 +121,7 @@ class MainApp:
 		self.tvtoolitem = None #wrapper for putting timeview in toolbar
 		self.recording = None
 		self.compactmix = None
+		self.instrNameEntry = None #the gtk.Entry when editing an instrument name
 		self.main_vbox = self.wTree.get_widget("main_vbox")
 		
 		self.statusbar = StatusBar.StatusBar()
@@ -712,6 +713,14 @@ class MainApp:
 	#______________________________________________________________________
 	
 	def OnCut(self, widget, cut=True):
+		if self.instrNameEntry:
+			#if an instrument name is currently being edited
+			if cut:
+				self.instrNameEntry.cut_clipboard()
+			else:
+				self.instrNameEntry.copy_clipboard()
+			return
+	
 		#Wipe the clipboard clean
 		self.project.clipboardList = []
 		for instr in self.project.instruments:
@@ -733,6 +742,11 @@ class MainApp:
 	#______________________________________________________________________
 	
 	def OnPaste(self, widget):
+		if self.instrNameEntry:
+			#if an instrument name is currently being edited
+			self.instrNameEntry.paste_clipboard()
+			return
+	
 		for instr in self.project.instruments:
 			if instr.isSelected:
 				for event in self.project.clipboardList:
@@ -743,7 +757,7 @@ class MainApp:
 	
 	#______________________________________________________________________
 	
-	def OnDelete(self, widget):
+	def OnDelete(self, widget=None):
 		# Delete any select instruments
 		for instr in self.project.instruments:
 			if (instr.isSelected):
@@ -844,6 +858,8 @@ class MainApp:
 		keysdict = {
 			65471:self.OnRecordingView, # F2 - Recording View
 			65472:self.OnCompactMixView, # F3 - Compact Mix View
+			65535:self.OnDelete, # delete key - remove selected item
+			65288:self.OnDelete, # backspace key
 		}		
 
 		if event.keyval in keysdict:
