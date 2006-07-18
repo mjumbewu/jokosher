@@ -624,7 +624,7 @@ class EventViewer(gtk.DrawingArea):
 			self.last_num_levels = len(self.event.levels)
 			self.currentScale = self.project.viewScale
 		
-		elif type(obj) == Project.Project:
+		if type(obj) == Project.Project:
 			# remove any existing selection in this event
 			self.Selection = [0,0]
 			if self.drawer.parent == self.lane.fixed:
