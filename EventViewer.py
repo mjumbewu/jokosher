@@ -623,6 +623,10 @@ class EventViewer(gtk.DrawingArea):
 			self.queue_resize()
 			self.last_num_levels = len(self.event.levels)
 			self.currentScale = self.project.viewScale
+			# remove any existing selection in this event
+			self.Selection = [0,0]
+			if self.drawer.parent == self.lane.fixed:
+				self.lane.fixed.remove(self.drawer)
 
 		self.queue_draw()
 
