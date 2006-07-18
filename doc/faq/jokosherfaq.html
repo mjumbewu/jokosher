@@ -1,0 +1,77 @@
+<html>
+ <head>
+  <title>Jokosher FAQ</title>
+ </head>
+<body>
+        <h1>Jokosher FAQ</h1>
+<p>
+<strong>Jeff Ratliff</strong><br />
+&lt;jefrat AT gmail DOT com&gt;
+</p>
+<hr />
+<h2>Jokosher History</h2>
+<p>
+<strong>Q:</strong> Why is it called Jokosher?
+</p>
+<p>
+<strong>A:</strong> The idea for Jokohser was originally conceived on the <a class="ext-link" title="http://forums.lugradio.org" href="http://forums.lugradio.org">LUGRadio Forums</a>. It was originally dubbed &#34;JonoEdit&#34; in honor of Jono Bacon who edits LUGRadio, and couldn't find a multi-track editor on Linux he liked. 
+</p>
+<p>
+Jokosher comes from Mr Bacon's name: 
+</p>
+<blockquote>
+<p>
+Jo from (Jo)no<br />
+Kosher = no bacon (pork != kosher)
+</p>
+</blockquote>
+<p>
+<strong>Q:</strong> What happened to Jonoedit?
+</p>
+<p>
+<strong>A:</strong> Per Mr. Ben:
+</p>
+<blockquote>
+<p>
+Jono was adamant, and I agree with him, that the name Jonoedit should not be used, because it is a community project, not just 'his'. Even though he was the one who came up with the spec, and has provided much of the impetous, there are many others involved in the project. Jokosher was the name chosen...
+</p>
+</blockquote>
+<h2>General Usage</h2>
+<p>
+<strong>Q:</strong> What is a <strong>Project</strong>?
+</p>
+<p>
+<strong>A:</strong> A <strong>Project</strong> is the thing you're working on in Jokosher, whether it be a song, a podcast or you doig karaoke over an audio file your parents sent you. It's a way of grouping sounds, instruments, and audio files into something that will eventually be mixed and released as a single audio file. 
+</p>
+<p>
+<strong>Q:</strong> What is an <strong>Instrument</strong>?
+</p>
+<p>
+<strong>A:</strong> What other editors call a <i>track</i> or a <i>file</i> is an <strong>Instrument</strong> in Jokosher. After all, that's what you're dealing with in real life. You've got 4 voices for a podcast, or drums, bass, guitar, vocal for a song. You think in terms of instruments, not tracks or files, so why not work that way? It's just one less hoop to make your brain jump through when you're trying to create. (Note that an Intrument technically is a collection of files that all have to do with the same intrument/voice/audio source. More than one piece of audio can be recorded into the same Instrument.)
+</p>
+<p>
+<strong>Q:</strong> Why can't I import an audio file from the <strong>File</strong> menu?
+</p>
+<p>
+<strong>A:</strong> Jokosher is all about <strong>Projects</strong> and <strong>Instruments</strong>. Files don't really exist. What you want to do is add an instrument, and have that instrument be an audio file. 
+</p>
+<ol><li>click <strong>Add Instrument</strong> (upper left corner of main window)
+</li><li>choose <strong>audio file</strong> as the instrument type (you can actually choose any instrument type you want, but most of the time &#34;audio file&#34; makes the most sense)
+</li><li>click <strong>OK</strong>
+</li><li>now, just right click on the new Instrument and choose &#34;import file&#34;. You will get a dialog box that will let you bring in an existing audio file for editing. 
+</li></ol><h2>Problems and Bugs</h2>
+<p>
+<strong>Q:</strong> I have many inputs on my sound card. Why can't I arm and record more than one Instrument at the same time?
+</p>
+<p>
+<strong>A:</strong> Recording multiple instruments at once is a planned function, but it didn't make the the 0.1 release. Once technical details are worked out, it will be implemented. 
+</p>
+<p>
+<strong>Q:</strong> During playback if I play past the end of an instrument then hit <strong>Stop</strong>, Jokosher freezes
+</p>
+<p>
+<strong>A:</strong> This is a know bug in Gnonlin, part of the Gstreamer libraries. Plans are to have this fixed by the <strong>0.1</strong> release of Jokosher. The CVS version of Gnonlin from around June 6 2006 works just fine. If you've already got a CVS version of gnonlin you can got the that directory and do <tt>cvs update -D 2006-06-06</tt> to pull the CVS version for that date. Jokosher will complain that your version of gnonlin is tool old and that you're missing features. You'll have to decide between features and freezes.  
+</p>
+
+</body>
+</html>

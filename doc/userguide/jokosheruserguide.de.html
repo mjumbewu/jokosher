@@ -1,0 +1,508 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+	<head>
+		<title>Jokosher Benutzerhandbuch</title>
+		<meta http-equiv=Content-Type content="text/html; charset=utf-8">
+	</head>
+<body>
+        <h1>Jokosher Benutzerhandbuch</h1>
+	<b>Von Jono Bacon jono@jonobacon.org</b><br>
+	<b>Übersetzt von Dennis Lichtenthäler dennis.lichtenthaeler@episode-iv.de</b>
+	<p>Version 0.1 für Jokosher v0.1</p>
+	<p> Diese Anleitung steht unter der GNU General Public License, Version
+	2 und darf im Rahmen dieser Lizenz weiterverbreitet, kopiert und
+	verändert werden. Wenn hier irgendetwas falsch aussieht oder besser
+	erklärt werden könnte, kannst du gern die notwendigen Änderungen
+	vornehmen und an uns schicken. Mehr Informationen dazu gibt es auf der
+	Jokosher <a
+		href="http://www.jokosher.org/development">Mitmachseite</a>.
+	</p>
+	<h3>Inhalt</h3>
+	<ol>
+	       	<li><a href="#Welcome">Willkommen!</a></li>
+		<li><a href="#Getting_Started">Aller Anfang...</a>
+		<ul>
+			<li><a href="#Creating_a_New_Jokosher_Project">Ein neues Jokosher-Projekt erstellen</a></li>
+			<li><a href="#Opening_Jokosher_Projects">Ein Jokosher-Projekt öffnen</a></li>
+		</ul></li>
+		<li><a href="#The_Main_Jokosher_Window">Das Jokosher-Hauptfenster</a>
+		<ul>
+			<li><a href="#The_Toolbar">Die Werkzeugleiste</a></li>
+			<li><a href="#The_Menus">Die Menüs</a></li>
+			<li><a href="#Configuring_Jokosher_Preferences">Jokosher konfigurieren</a></li> 
+		</ul> </li>
+		<li><a href="#The_Workspaces">Die Aufgabenbereiche</a>
+		<ul> 
+			<li><a href="#Recording_View">Der Aufnahmebereich</a></li>  
+			<li><a href="#Mixing_View">Der Mixbereich</a></li> 
+		</ul></li>
+	</ol> 
+	<h2><a name="Welcome">Willkommen!</a></h2>
+	<p> Willkommen am Beginn einer aufregenden Reise!  </p>
+	<p> Jokosher ist einfach zu benutzen, trotzdem aber verflucht
+	leistungsfähig.  Mit Jokosher kannst du Musik machen, aufnehmen und
+	noch viel mehr. Jokosher wurde entworfen, um einfach benutzbar zu sein
+	und dir zu erlauben, die Software zu ignorieren und dich auf dein
+	Projekt zu konzentrieren. Wir haben versucht, die Software so intuitiv
+	wie möglich zu machen, aber natürlich ist ein Handbuch immer wichtig,
+	um die Details zu erklären. Dies hier ist dieses Handbuch.  </p>
+	<p> Jokosher ist ein organisches Stückchen Software, das allmählich
+	wächst und verbessert wird. Da es sich um Open Source-Software handelt,
+	sind verschiedene Leute auf der ganzen Welt daran beteiligt, Jokosher
+	zum besten Werkzeug zur einfachen Erstellung von Audio und Musik zu
+	machen. Diese Anleitung spiegelt diese Art der Entwicklung wider und
+	wächst mit dem Projekt. Dieses Dokument bietet eine komplette Anleitung
+	zu allen Features und Funktionen von Jokosher.  Sobald eine neue
+	Version am Horizont auftaucht, werden hier auch die grandiosen neuen
+	Features dieser Version erklärt.  </p>
+	<p> Wie jedes andere Open Source-Projekt auch brauchen Jokosher und
+	diese Anleitung deine Hilfe. In den meisten Open Source-Projekten wird
+	die Dokumentation eher stiefmütterlich behandelt und bleibt oft weit
+	hinter der Anwendung zurück, die sie beschreiben soll. Wir wollen
+	wirklich, wirklich, wirklich nicht, dass das mit Jokosher auch
+	passiert. Jokosher wurde vor allem für Musiker gemacht und wir wollen,
+	dass es klar und einfach zu benutzen ist.  Dafür spielt diese Anleitung
+	eine wichtige Rolle. Wenn hier irgendetwas ungenau, veraltet oder
+	einfach nicht richtig sein sollte, roll' die Ärmel hoch und verbessere
+	es. Auch das ist ein wichtiger Beitrag zu dem Projekt.  </p>
+	<h2><a name="Getting_Started">Aller Anfang...</a></h2>
+	<p> Starte Jokosher über <b>Anwendungen-&gt;Sound &amp; Video-&gt;Jokosher</b>.</p>
+	<p> Sobald Jokosher startet, wirst du mit dem Willkommen-Dialog begrüßt
+	(Grafik 2-1).</p>
+	<img src="images/welcomedialog.png" alt="Willkommen-Dialog"/> 
+	<p><b>Grafik 2-1</b><br /><i>Der Willkommen-Dialog</i></p>
+	<p> Der Willkommen-Dialog bietet folgende Möglichkeiten: </p>
+	<ul>
+		<li><b>Bisherige Projekte</b> (Recent Projects) - die Liste der
+		bisherigen Projekte bietet einen einfachen Weg, um auf deine
+		zuletzt geöffneten Projekte zuzugreifen. Um ein Projekt zu
+		laden, klicke doppelt darauf</li>
+		<li><b>Neues Projekt erstellen</b> (Create a New Project) -
+		hier kannst du ein neues Projekt erstellen. Mehr dazu im
+		Bereich <i>Ein neues Jokosher-Projekt erstellen</i>.</li>
+		<li><b>Projekt öffnen</b> (Browse for an Existing Project) -
+		hinter diesem Button verbirgt sich ein Dialogfenster, das es
+		erlaubt, Projekte auf deinem Computer zu suchen. Mehr dazu
+		unter <i>Ein Jokosher-Projekt öffnen</i>.</li>
+		<li><b>Einstellungen</b> (Preferences) - über diesen Button
+		gelangst du in das Jokosher-Einstellungsfenster</li>
+		<li><b>Beenden</b> (Quit) - hiermit verlässt du Jokosher.
+	       	</li>
+	</ul>
+	<p>Manche Leute scheinen solche Willkommen-Dialoge nicht wirklich zu
+	mögen, deshalb gibt es unten eine schöne große <b>Nicht mehr
+		anzeigen</b>-Checkbox (Don't show this on start-up). Wenn du
+	diese anklickst, wirst du nie wieder von diesem Fenster belästigt. Es
+	gibt ein paar andere nette Bereiche, in denen du das Startverhalten von
+	Jokosher beeinflussen kannst, die dreckigen Details findest du unter
+	<a href="#Configuring_Jokosher_Preferences">Jokosher konfigurieren</a>.</p>
+	<p>Und, welche Option hast du ausgewählt? Egal, gehen wir sie mal
+	durch...  </p>
+	<h3><a name="Creating_a_New_Jokosher_Project">Ein neues Jokosher-Projekt erstellen</a></h3>
+	<p>Du kannst ein neues Projekt erstellen, indem du entweder im
+	Willkommen-Dialog auf <b>Neues Projekt erstellen</b> klickst, oder
+	<b>Datei-&gt;Neues Projekt</b> (File-&gt;New Project) im Hauptfenster
+	auswählst.  </p>
+	<p> Nun erscheint ein Dialogfenster und fragt dich nach ein paar
+	Details: </p>
+	<ul>
+		<li><b>Name des Projektes</b> (Project Name) - hier kannst du
+		deinem Projekt einen Namen geben, wahrscheinlich den Song- oder
+		Podcast-Titel.  </li>
+		<li><b>Ordner</b> (Folder) - hier wählst du den Ordner aus, in
+		dem das Projekt gespeichert wird. Für dein Projekt wird hier
+		ein neuer Unterordner angelegt. Wenn du also zum Beispiel
+		/home/bob/projekte auswählst und deinem Projekt den Namen
+		&#34;Booya&#34; gibst, wird automatisch ein neues Verzeichnis
+		/home/bob/projekte/Booya angelegt.</li>
+		<li><b>Autor</b> (Author) - hier kannst du deinen Namen oder
+		den Namen deiner Band hinterlegen.  </li>
+	</ul>
+	<p> Wenn du alle Details angegeben hast, klicke auf den
+	<b>OK</b>-Button.</p>
+	<p><i>Wenn das dein erster Ausflug in Jokosher ist, lies bei <a
+			href="#The_Main_Jokosher_Window">Das
+			Jokosher-Hauptfenster</a> weiter.</i></p>
+	<h3><a name="Opening_Jokosher_Projects">Ein Jokosher-Projekt öffnen</a></h3>
+	<p>Du kannst ein existierendes Jokosher-Projekt öffnen, indem du
+	entweder  im Willkommen-Dialog auf <b>Projekt öffnen</b> (Browse for an
+	Existing Project) klickst, oder <b>Datei-&gt;Öffnen</b> (File-&gt;Open)
+	im Hauptfenster auswählst.  </p>
+	<p> Wenn du diese Option auswählst, erscheint ein GNOME-Dialog zur
+	Dateiauswahl. Jokosher-Projekte werden in einem Verzeichnis mit dem
+	Namen des Projektes gespeichert. In diesem Verzeichnis befindet sich
+	eine <tt>.jokosher</tt>-Datei, die du per Doppelklick laden kannst.
+	</p>
+	<p><i>Wenn das dein erster Ausflug in Jokosher ist, lies bei <a
+			href="#The_Main_Jokosher_Window">Das
+			Jokosher-Hauptfenster</a> weiter.</i></p>
+	<h2><a name="The_Main_Jokosher_Window">Das Jokosher-Hauptfenster</h2>
+		<p> Im Hauptfenster von Jokosher passieren all die spannenden
+		Dinge (Grafik 3-1):</p>
+	<img alt="Das Jokosher-Hauptfenster" src="images/mainwindow.de.png"> 
+	<p><b>Grafik 3-1</b><br /><i>Das Jokosher-Hauptfenster</i> </p>
+	<p> Im Gegensatz zu den ganzen anderen langweiligen und tollen
+	Multitrack-Editoren, belästigt dich Jokosher nicht mit hunderten von
+	winzigen Dialogen. Hier geschieht alles Wichtige in einem einzigen
+	Fenster, so dass du immer sehen kannst, was gerade passiert.  </p>
+	<h3><a name="The_Toolbar">Die Werkzeugleiste</a></h3>
+	<p> Unter den Menüs gibt es die Werkzeugleiste. Die Buttons hier sind
+	groß genug, dass du sie auch treffen kannst, wenn du dich mit einer
+	Gitarre um den Hals über deinen Schreibtisch lehnst. Diese Knöpfe tun
+	einige interessante Dinge: </p>
+	<ul>
+		<li><b>Instrument hinzufügen</b> (Add Instrument) - über diesen
+		Button kannst du ein Instrument zum Projekt hinzufügen. Mehr
+		unter <a href="#Adding_Instruments">Instrumente hinzufügen</a>.
+		</li>
+		<li><b>Zurückspulen, Play, Vorspulen, Aufnehmen</b> (Rewind,
+		Play, Forward, Record)  - diese Buttons sind für die Steuerung
+		der Wiedergabe und Aufnahme zuständig.</li>
+		<li><b>Zeitanzeige</b> (Time display) - hier siehst du die
+		bereits abgelaufene Zeit im Projekt. Die Zeit wird in Stunden,
+		Minuten und Sekunden oder in Takten, Schlägen und Ticks
+		angezeigt, je nachdem, welches Zeitformat du im Projekt-Menü
+		ausgewählt hast.</li>
+		<li><b>Aufgabenbereich</b> (Workspace Selector) - über diese
+		Buttons kannst du zwischen den zwei Aufgabenbereichen in
+		Jokosher wechseln.  </li>
+		<li><b>Klick-Spur</b> (Click Track) - dieses Feature erzeugt
+		einen Klick, der dir beim Halten des Tempos hilft. Du kannst
+		die Geschwindigkeit in Schlägen pro Minute (Beats per Minute)
+		und den Takt einstellen. (Diese Funktion ist momentan nicht
+		verfügbar.) </li>
+		<li><b>Zeitleiste</b> (Time Line) - diese Anzeige erlaubt es
+		dir, auf einen Blick zu sehen, in welchem Bereich des Projektes
+		du dich momentan befindest.  </li>
+		<li><b>Zoom</b> (Project Zoom) - dieser Bereich dient dazu,
+		Bereiche des Projektes zu vergrößern und verkleinern und
+		schnell durch das Projekt zu scrollen. Die Minus- und
+		Plus-Icons vergrößern bzw. verkleinern den angezeigten Bereich.
+		Das Symbol in der Mitte bringt dich zur mittleren Zoomstufe
+		zurück. Du kannst dich durch dein Projekt bewegen, indem du den
+		Scrollbalken nach links oder rechts ziehst, wenn dein Projekt
+		nicht vollständig auf den Bildschirm passt.  </li>
+	</ul>
+	<h3><a name="The_Menus">Die Menüs</a></h3>
+	<p> Am oberen Rand des Bildschirms findest du einige Menüs und darin
+	praktisch alle Funktionen von Jokosher. Wenn du partout nicht darauf
+	kommst, wie irgendetwas funktioniert, schau dich einfach in den Menüs
+	um.</p>
+	<h4>Datei (File)</h4>
+	<ul>
+		<li><b>Neu</b> (New) - erstellt ein neues Projekt im aktuellen
+		Fenster. Wenn das momentan geöffne Projekt verändert wurde,
+		erscheint eine Abfrage, ob die Änderungen gespeichert werden
+		sollen.  </li>
+		<li><b>Öffnen</b> (Open) - öffnet ein existierendes Projekt.
+		Wenn das momentan geöffne Projekt verändert wurde, erscheint
+		eine Abfrage, ob die Änderungen gespeichert werden sollen.
+		</li>
+		<li><b>Speichern</b> (Save) - speichert das aktuelle Projekt.
+		Alle Informationen über das Projekt werden hier gespeichert,
+		auch alle Rückgängig- und Wiederherstellen-Schritte.  </li>
+		<li><b>Speichern unter</b> (Save as) - erlaubt dir, das Projekt
+		unter einem anderen Namen oder an einem anderen Ort zu
+		speichern.  </li>
+		<li><b>Schließen</b> (Close) - schließt das Projekt, ohne
+		Jokosher zu beenden. Auch hier hast du die Chance, vorgenommene
+		Änderungen zu speichern.  </li>
+		<li><b>Bisherige Projekte</b> (Recent Projects) - in diesem
+		Untermenü werden maximal die letzten 8 Projekte angezeigt, die
+		du in Jokosher geöffnet hast. So kannst du schnell von einem
+		Projekt zum anderen wechseln.  </li>
+		<li><a name="Mixdown_Project"><b>Projekt abmischen</b></a>
+		(Mixdown Project) - öffnet einen Dialog, der dir beim letzten
+		Schritt deines Projektes hilft - dem Mixdown. Hier kannst du
+		einen Namen und Ort für die Ausgabedatei und das Ausgabeformat
+		wählen. Jokosher wird dann das Projekt abmischen und als
+		einzelne Audio-Datei im ausgewählten Format speichern.  </li>
+		<li><b>Beenden</b> (Quit) - beendet Jokosher. Du erhältst die
+		Chance, vorgenommene Änderungen noch zu speichern.  </li>
+	</ul>
+	<h4>Bearbeiten (Edit)</h4>
+	<ul>
+		<li><b>Rückgängig</b> (Undo) - macht die letzte Änderung am
+		Projekt rückgängig.  </li>
+		<li><b>Wiederherstellen</b> (Redo) - stellt die letzte Änderung
+		wieder her, die über <b>Rückgängig</b> aufgehoben wurde.  </li>
+		<li><b>Ausschneiden</b> (Cut) - entfernt das ausgewählte Objekt
+		aus dem Projekt und legt es in die Zwischenablage. Der
+		bisherige Inhalt der Zwischenablage wird ersetzt.  </li>
+		<li><b>Kopieren</b> (Copy) - legt eine Kopie des momentan
+		ausgewählten Objektes in die Zwischenablage. Der bisherige
+		Inhalt der Zwischenablage wird ersetzt.  </li>
+		<li><b>Einfügen</b> (Paste) - fügt den Inhalt der
+		Zwischenablage im Projekt ein. Mehr Informationen zum Auswählen
+		und Bearbeiten von Audioblöcken gibt es unter <a
+			href="#Editing_Functions">Audio Editieren</a>.</li>
+		<li><b>Löschen</b> (Delete) - Entfernt das ausgewählte Objekt
+		aus dem Projekt </li>
+		<li><b>Einstellungen</b> (Preferences) - öffnet ein Fenster, in
+		dem du <a href="#Configuring_Jokosher_Preferences">Jokosher
+			konfigurieren</a> kannst.  </li>
+	</ul>
+	<h4>Projekt (Project)</h4>
+	<ul>
+		<li><b>Instrument hinzufügen</b> (Add Instrument) - siehe
+		<a href="#Adding_Instruments">Instrumente hinzufügen</a></li>
+		<li><a name="Instrument_Connections"><b>Verbindungen</b></a>
+		(Instrument Connections) - Dieser Dialog zeigt eine Liste von
+		allen Instrumenten in diesem Projekt. In den Auswahlfeldern
+		daneben findest du den Eingang deiner Soundkarte, der momentan
+		diesem Instrument zugeordnet ist und kannst diesen ändern.
+		</li>
+		<li><b>Zeitformat</b> - erlaubt dir, einzustellen, in welcher
+		Einheit die Zeit angezeigt wird, entweder in <b>Takten,
+			Schlägen, Ticks</b> oder <b>Stunden, Minuten,
+			Sekunden</b> </li>
+	</ul>
+	<h4>Hilfe (Help)</h4>
+	<ul>
+		<li><b>Aktuelle Informationen</b> (Pre-release Notes) - Hier
+		findest du aktuelle Informationen zu dieser Jokosher-Version.
+		</li>
+		<li><b>Mithelfen</b> (Contributing to Jokosher) - Zeigt dir
+		Möglichkeiten, wie du an Jokosher mitarbeiten kannst. Wir
+		befinden uns immernoch in der Entwicklung und können jede Hilfe
+		brauchen.  </li>
+		<li><b>Über</b> (About)
+		<ul>
+			<li><b>Credits</b> (Credits) - Öffnet eine Dialogbox,
+			die die vielen Menschen auflistet, die an Jokosher
+			mitgearbeitet haben.  </li>
+			<li><b>Lizenz</b> (License) - Die komplette
+			Jokosher-Lizenz </li>
+		</ul></li>
+	</ul>
+	<h3><a name="Configuring_Jokosher_Preferences">Jokosher konfigurieren</a></h3>
+	<p> Alle Jokosher-Einstellungen findest du im Menü unter
+	<b>Bearbeiten-&gt;Einstellungen</b> (Edit-&gt;Preferences). Hier kannst
+	du Einstellungen ändern, die das Verhalten von Jokosher global und
+	nicht projektbezogen beeinflussen.</p>
+	<ul>
+		<li><b>Allgemein</b> (General)
+		<ul>
+			<li><b>Start</b> (Application Start-up) - Hier kannst
+			du das Startverhalten von Jokosher beeinflussen.
+			Verfügbar sind folgende Optionen
+			<ul>
+				<li><b>Willkommen-Dialog anzeigen</b> (Show
+				welcome dialog) - die Standardeinstellung.
+				Wähle diese Einstellung, wenn du bei jedem
+				Jokosher-Start ein Projekt laden möchtest</li>
+				<li><b>Letztes Projekt öffnen</b> (Open most
+				recent project) - Wähle diese Option, wenn du
+				den Willkommen-Dialog überspringen und direkt
+				zu dem Projekts springen willst, das du zuletzt
+				in Jokosher geöffnet hattest.  </li>
+				<li><b>Nichts öffnen</b> (Don't open anything)
+				- Diese Option bietet dir die totale Kontrolle.
+				Du kannst jederzeit ein Projekt über das
+				Datei-Menü öffnen.  </li>
+
+			</ul></li>
+			<li><b>Audioqualität</b> (Audio Quality) - Hier gibt es
+			zwei Optionen, <b>Samplingrate</b> (Sample Rate) und
+			<b>Sample-Format</b> (Sample Format), die die
+			Aufnahmequalität von Instrumenten in Jokosher
+			beeinflussen. Die Auswahlmöglichkeiten sind abhängig
+			von den Fähigkeiten deiner Soundkarte. Bei beiden
+			Optionen gilt: Je höher der Wert, desto besser die
+			Qualität, desto höher aber auch der
+			Speicherplatzbedarf. Größere Dateien können dafür
+			sorgen, dass Jokosher langsamer arbeitet.  </li>
+			<li><b>Abmischen</b> (Audio Mixdown) - Ändert das
+			<b>Ausgabeformat</b>, das Jokosher beim <a
+				href="#Mixdown_Project">Abmischen</a> benutzt.
+			Die entstehende Datei wird im ausgewählten Format
+			gespeichert. Welche Ausgabeformate verfügbar sind,
+			hängt davon ab, welche Plugins du auf deinem System
+			installiert hast.</li>
+		</ul></li>
+		<li><b>Aufnahme</b> (Recording)
+		<ul>
+			<li><b>Qualität</b> (Quality) - Ändert das Format, in
+			dem Jokosher während der Arbeit an einem Projekt
+			aufgenommene Instrumente abspeichert.  </li>
+		</ul></li>
+		<li><b>Wiedergabe</b> (Playback)
+		<ul>
+			<li><b>Gerät</b> (Device) - Ändert die für die
+			Wiedergabe benutzte Soundkarte. Dies hängt ebenfalls
+			von der Hardware deines Systems ab und wahrscheinlich
+			hast du hier nur eine Auswahlmöglichkeit.  </li>
+		</ul></li>
+	</ul>
+	<h2><a name="The_Workspaces">Die Aufgabenbereiche</a></h2>
+	<h3><a name="Recording_View">Aufnahme (Recording View)</a></h3>
+	<p> Im Aufnahmebereich werden nur die Instrumente angezeigt. Hier wirst
+	du vermutlich die meiste Zeit damit verbringen, Audio aufzunehmen und
+	zu editieren.  </p>
+	<p> Die Aufnahme ist der erste Schritt beim Erstellen eines Projektes.
+	Du wirst hier Instrumente hinzufügen (meistens nur eins auf einmal),
+	Audiomaterial für dieses Instrument aufnehmen und dann das nächste
+	Instrument hinzufügen.  </p>
+	<p> Die Arbeit im Aufnahmebereich folgt normalerweise folgenden
+	Schritten: </p>
+	<h4><a name="Recording_Functions">Aufnahmefunktionen</a></h4>
+	<ol>
+		<li><b>Instrument hinzufügen</b> - Unter <a
+			href="#Adding_Instruments">Instrumente hinzufügen</a>
+		findest du Details zu diesem Schritt. Nachdem du ein Instrument
+		hinzugefügt hast, siehst du dort folgende Funktionen:
+		<p><img alt="Instrument Features" src="images/instrumentfeatures.de.png"><br>
+		<b>Grafik 3-2</b></p>
+		<ul>
+			<li><b>Instrumentensymbol</b> - Das Symbol, das du beim
+			Erstellen des Instrumentes ausgewählt hast.</li>
+			<li><b>Bezeichnung</b> - Diese kann durch einfaches
+			Anklicken geändert werden. Dies ist nur ein Name für
+			das Instrument für den Fall, dass du mehrere
+			Instrumente mit dem gleichen Symbol in einem Projekt
+			hast.</li>
+			<li><b>Scharfschalten-Button</b> - Mit diesem Button
+			schaltest du ein Instrument für die Aufnahme scharf.
+			</li>
+			<li><b>Stumnmschalten-Button</b> - Dieser Button sorgt
+			dafür, dass das Instrument während der Wiedergabe nicht
+			zu hören ist.</li>
+			<li><b>Solo-Button</b> - Das Gegenteil von
+			<b>Stummschalten</b>. Wenn dieser Button gedrückt ist,
+			hörst du während der Wiedergabe nur dieses Instrument,
+			alle anderen sind stummgeschaltet.</li>
+			<li><b>Aufnahmebereich</b> - Rechts neben den Buttons
+			befindet sich der Bereich, in dem das für dieses
+			Instrument aufgenommene Material angezeigt wird.</li>
+		</ul></li>
+		<li><b>Verbindungen festlegen</b> - Wie weiter oben bei den
+		<a href="#Instrument_Connections">Verbindungen</a> beschrieben,
+		können die verschiedenen Eingänge deiner Soundkarte
+		unterschiedlichen Instrumenten zugewiesen werden. Selbst wenn
+		du nur einen Eingang besitzt, kannst du mehrere Instrumente
+		aufnehmen, indem du diesen Eingang reihum den verschiedenen
+		Instrumenten zuweist.</li>
+		<li><b>Aufnehmen</b> - Jetzt bist du so weit, ein instrument
+		aufzunehmen. Wenn es sich um ein <i>Live-Instrument</i>
+		handelt, schließe es an deine Soundkarte an, klicke auf den
+		<b>Scharfschalten</b>-Button und klicke dann auf
+		<b>Aufnehmen</b> (Record) in der Werkzeugleiste. Wenn du mit
+		der Aufnahme fertig bist, klicke auf <b>Stop</b>. Um eine
+		existierende Audiodatei einzufügen, klicke mit der rechten
+		Maustaste auf den Aufnahmebereich und dann auf <b>Audiodatei
+			Immportieren</b> (Import Audio File). Suche dir nun die
+		Datei aus, die du importieren möchtest und klicke anschließend
+		auf <b>Öffnen</b> (Open). Der Audioblock (egal ob aufgenommen
+		oder eingefügt) wird nun im Aufnahmebereich angezeigt. Die
+		Wellenform darauf zeigt die aktuelle Lautstärke des Blocks zu
+		jedem Zeitpunkt der Aufnahme.</li>
+		<li><b>Wieder von vorn...</b> - Entferne nun die
+		Scharfschaltung von diesem Instrument. Jetzt geht es wieder mit
+		dem Hinzufügen eines Instrumentes los - so lange, bis du alle
+		Instrumente aufgenommen hast.  </li>
+	</ol>
+	<h4><a name="Editing_Functions">Editierfunktionen<a/></h4>
+	<p>Sobald alle Instrumente aufgenommen sind, beginnt das Editieren.
+	Stell dir die Instrumente als Rohmaterial vor, die du dann zu deinem
+	finalen Projekt zusammenstellst. Jokosher bietet verschiedene
+	Werkzeuge, um dir beim Bearbeiten zu helfen.</p>
+	<ul>
+		<li><b>Verschieben</b> - Diese Funktion verschiebt einen
+		Audioblock auf der Zeitleiste. Klicke einfach auf einen Block
+		und ziehe ihn nach links oder rechts, bis er an der gewünschten
+		Position ist. Wenn du mehre Instrumente nacheinander aufnimmst,
+		kann diese Funktion dazu benutzt werden, alle Instrumente
+		synchron zu bekommen.  </li>
+	</ul>
+	<p> Bei der Bearbeitung müssen Audioblöcke oft in kleinere Einheiten
+	aufgeteilt werden. Jokosher bietet dazu zwei Werkzeuge: </p>
+	<ul>
+		<li><b>Aufteilen</b> (Split) - Diese Funktion teilt einen
+		Audioblock in zwei Teile auf. Benutze <b>Aufteilen</b>, wenn du
+		die gesamte Aufnahme behalten, sie aber in mehreren Stücken
+		vorliegen haben möchtest. Um einen Block aufzuteilen, klicke
+		doppelt an der Stelle darauf, an der der Schnitt erfolgen soll.
+		</li>
+		<li><b>Verkürzen</b> (Trim) - Mit dieser Funktion löschst du
+		alles außer dem gewünschten Teil einer Aufnahme. Dazu hältst du
+		die <b>Shift</b>-Taste fest, klickst auf den Anfang des
+		Bereichs, den du behalten möchtest, ziehst die Maus zum Ende
+		dieses Bereichs und lässt dann die <b>Shift</b>- und die
+		Maustaste los. Unter der Auswahl erscheint ein
+		<b>Verkürzen</b>-Reiter (Trim). Klicke darauf, um die
+		Verkürzung anzuwenden.</li>
+	</ul>
+	<ul>
+		<li><b>Ausschneiden und einfügen</b> (Cut &amp; Paste) - Mit
+		dieser Funktion bewegst du Audioblöcke von einem Ort an einen
+		anderen. Wenn du keine komplete Aufnahme <b>Ausschneiden</b>
+		willst, kannst du sie vorher in mehrere Teile <b>aufteilen</b>
+		oder <b>verkürzen</b>, wie oben beschrieben. Klicke dann auf
+		den Teil, den du <b>Ausschneiden</b> willst und dann auf
+		<b>Bearbeiten-&gt;Ausschneiden</b> (Edit-&gt;Cut) oder Drücke
+		<b>STRG+X</b> auf der Tastatur. Klicke nun an die Stelle, an
+		die du dieses Stück verschieben willst und klicke auf
+		<b>Bearbeiten-&gt;Einfügen</b> (Edit-&gt;Paste) oder drücke
+		<b>STRG+V</b> auf der Tastatur.  </li>
+		<li><b>Kopieren und einfügen</b> (Copy &amp; Paste) - Mit
+		dieser Funktion erstellst du Kopien von einem Audioblock an
+		verschiedenen Stellen. Du benutzt sie genau wie das
+		<b>Ausschneiden und einfügen</b> weiter oben. Wähle zunächst
+		den gewünschen Audioblock aus, klicke dann auf
+		<b>Bearbeiten-&gt;Kopieren</b> (Edit-&gt;Copy) oder drücke
+		<b>STRG+C</b> auf der Tastatur. Klicke dann auf die Stelle, an
+		der eine Kopie erstellt werden soll und dann auf
+		<b>Bearbeiten-&gt;Einfügen</b> (Edit-&gt;Paste) oder drücke
+		<b>STRG+V</b> auf deiner Tastatur.  </li>
+		<li><b>Löschen</b> (Delete) - Hiermit entfernst du einen
+		Audioblock komplett aus dem Projekt. Wähle den Block aus, den
+		du löschen willst und klicke dann auf
+		<b>Bearbeiten-&gt;Löschen</b> (Edit-&gt;Delete) oder drücke die
+		<b>Entfernen</b>-Taste auf deiner Tastatur.  </li>
+	</ul>
+	<h3><a name="Mixing_View">Abmischen (Mixing View)</a></h3>
+	<p> In diesem Bereich werden kleinere Versionen der Instrumente sowie
+	Lautstärkeregler für jedes einzelne Instrument angezeigt. Hier kannst
+	du dein Projekt abmischen.  Die meisten Funktionen aus dem
+	<b>Aufnahmebereich</b> sind hier immernoch vorhanden. Der Schwerpunkt
+	hier liegt aber darauf, die Balance zwischen den Instrumenten
+	einzustellen.  </p>
+	<p><b>Lautstärkeregler</b> - Jedes Instrument hat einen dazugehörigen
+	Lautstärkeregler. Diese Regler kontrollieren die Gesamtlautstärke
+	dieses Instrumentes im finalen Mix. Die Lautstärke wird auf dem Regler
+	im Bereich von 0 bis 1,00 angezeigt. Wenn du den Regler bewegst, ändert
+	sich die Lautstärke hör- und sichtbar.  </p>
+	<p><b>Instrument verstecken</b> - Über dem Lautstärkeregler findest du
+	ein Symbol, mit dem du das Instrument verstecken kannst. Es ist zwar
+	noch vorhanden, wird aber jetzt nicht mehr angezeigt. Ganz unten auf
+	dem Bildschirm gibt es einen Bereich <b>Versteckte Instrumente</b>
+	(Instruments Not Shown).  Klicke hier einfach auf ein Instrument, um es
+	wieder anzuzeigen.  </p>
+	<p>Das Verstecken von Instrumenten ist sehr nützlich, wenn du viele
+	Instrumente in einem Projekt hast und nur mit einigen arbeiten
+	möchtest. Wenn du zum Beispiel drei Sänger hast, könntest du alle
+	anderen Instrumente <b>Stummschalten</b> und verstecken, während du nur
+	diese drei Stimmen abmischst.  </p>
+	<p><b>Gesamtlautstärke</b> - Ganz rechts auf dem Bildschirm findest du
+	den Regler für die <b>Gesamtlautstärke</b> (Master Volume). Dieser
+	Regler ändert die Gesamtlautstärke des Projektes.  </p>
+	<h4><a name="Adding_Instruments">Instrumente hinzufügen</a></h4>
+	<p> Instrumente sind das wichtigste Konzept in Jokosher. Denke in
+	Instrumenten anstatt in Spuren. Instrumente erlauben es dir, direkt
+	Informationen über dein Projekt zu sehen. Spuren sind nur Spuren!  </p>
+	<p> Momentan sind Instrumente sehr einfach - sie bestehen nur aus einem
+	Namen und einem passenden Icon. In der Zukunft ist es geplant,
+	Audioeinstellungen für jede Art von Instrumenten zu speichern. Wenn du
+	zum Beispiel eine Snare Drum aufnehmen willst, wird der Equalizer
+	automatisch für eine Snare Drum optimiert.  </p>
+	<img alt="The Add Instrument Dialog" src="images/addinstrumentdialog.png">
+	<p><b>Figure 4-1</b><br><i>Instrumente hinzufügen ist leicht</i></p>
+	<p> Um ein Instrument hinzuzufügen, klicke auf den <i>Instrument
+		Hinzufügen</i>-Button (Add Instrument). Wähle nun einfach das
+	Instrument aus, das dem am nächsten kommt, was du aufnehmen willst.
+	Klicke auf <b>OK</b> und das war's.</p>
+	<p> Sobald du ein Instrument hinzugefügt hast, kannst du übrigens auch
+	auf seinen Namen klicken und das Instrument beliebig umbenennen.  </p>
+</body>
+</html>
+        

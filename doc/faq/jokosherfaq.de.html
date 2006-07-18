@@ -1,0 +1,71 @@
+<html>
+ <head>
+  <title>FAQ - Häufig gestellte Fragen</title>
+ </head>
+<body>
+        <h1>FAQ - Häufig gestellte Fragen</h1>
+<p>
+<strong>Übersetzt von Dennis Lichtenthäler dennis.lichtenthaeler@episode-iv.de</strong>
+</p>
+<h2>Die Geschichte von Jokosher</h2>
+<p>
+<strong>F:</strong> Warum Jokosher?
+</p>
+<p>
+<strong>A:</strong> Die Idee für Jokosher stammt ursprünglich aus dem <a class="ext-link" title="http://forums.lugradio.org" href="http://forums.lugradio.org">LUGRadio-Forum</a>. Zunächst wurde das Projekt nach Jono Bacon, dem Editor von LUGradio, &#34;JonoEdit&#34; getauft. Jono hatte keinen Multitrack-Editor für Linux gefunden, der ihm zusagte und deshalb beschlossen, das Projekt ins Leben zu rufen.
+</p>
+<p>
+Jokosher kommt von Jonos Namen:
+</p>
+<blockquote>
+<p>
+Jo von <strong>Jo</strong>no<br />
+Kosher (koscher) = kein Speck (no bacon)
+</p>
+</blockquote>
+<p>
+<strong>F:</strong> Was ist mit Jonoedit passiert?
+</p>
+<p>
+<strong>A:</strong> Jono bestand darauf, dass der Name Jonoedit nicht verwendet werden sollte, da es sich um ein Projekt der Community handelt und nicht um sein eigenes. Obwohl er derjenige war, der die ursprüngliche Spezifikation geschrieben und das Projekt ins Rolleng gebracht hatte, sind außer ihm noch viele andere in Jokosher involviert.
+</p>
+<h2>Jokosher allgemein</h2>
+<p>
+<strong>F:</strong> Was ist ein <strong>Projekt</strong>?
+</p>
+<p>
+<strong>A:</strong> Ein <strong>Projekt</strong> ist das Ding, an dem du in Jokosher arbeitest, sei es ein Stück, ein Podcast oder deine Karaoke-Version von einem Musikstück, das dir deine Eltern geschickt haben. In einem Projekt werden Sounds, Instrumente und Audiodateien zusammengefasst und am Ende in eine einzige Datei zusammengemischt und exportiert.
+</p>
+<p>
+<strong>F:</strong> Was ist ein <strong>Instrument</strong>?
+</p>
+<p>
+<strong>A:</strong> Was in anderen Multitrack-Editoren als <i>Track</i>, <i>Spur</i> oder <i>Datei</i> bezeichnet wird, ist in Jokosher ein <strong>Instrument</strong>, denn schließlich geht es im echten Leben ja um Instrumente. Bei einem Podcast hast du vielleicht vier Stimmen, bei einem Song Schlagzeug, Bass, Gitarre und Gesang. Wenn du also schon in Instrumenten denkst, warum dann nicht auch damit arbeiten? Eine Hürde weniger, wenn du einfach nur etwas produzieren willst. (Technisch gesehen ist ein Instrument eine Gruppe von Dateien, die alle mit dem gleichen Instrument, der gleichen Stimme oder Audioquelle zu tun haben. Ein Instrument kann mehr als eine Audiodatei enthalten.)
+</p>
+<p>
+<strong>F:</strong> Warum kann ich keine Audiodateien über das <strong>File</strong>-Menü importieren?
+</p>
+<p>
+<strong>A:</strong> Bei Jokosher geht es um <strong>Projekte</strong> und <strong>Instrumente</strong>, Dateien gibt es eigentlich nicht wirklich. In Wirklichkeit willst du ein Instrument hinzufügen und in dieses eine Audiodatei importieren:
+</p>
+<ol><li>Klicke auf <strong>Instrument hinzufügen</strong> (Add instrument) (oben links im Hauptfenster)
+</li><li>Wähle <strong>Audiodatei</strong> (audio file) als Instrumenttyp (du kannst eigentlich jeden Instrumententyp wählen, aber &#34;Audiodatei&#34; ist hier wohl am sinnvollsten)
+</li><li>Klicke auf <strong>OK</strong>
+</li><li>Über einen Rechtsklick auf die Zeitleiste rechts neben dem Instrument kannst du eine <strong>Datei importieren</strong>. In dem jetzt erscheinenden Fenster kannst du eine existierende Audiodatei zum Editieren einfügen.
+</li></ol><h2>Probleme und Bugs</h2>
+<p>
+<strong>F:</strong> Ich habe mehr als einen Eingang an meiner Soundkarte. Wieso kann ich nicht mehr als ein Instrument gleichzeitig scharfschalten und davon aufnehmen?
+</p>
+<p>
+<strong>A:</strong> Die gleichzeitige Aufnahme von mehreren Instrumenten ist eine geplante Funktion, ist aber bis zum 0.1-Release nicht fertig geworden. Sobald die technischen Details geklärt sind, wird dieses Feature implementiert.
+</p>
+<p>
+<strong>F:</strong> Wenn ich Jokosher nach dem Ende eines Instruments weiterlaufen lasse und dann <strong>Stop</strong> drücke, reagiert das Programm nicht mehr.
+</p>
+<p>
+<strong>A:</strong> Das ist ein bekannter Fehler in Gnonlin, einer Komponente der Gstreamer-Bibliotheken. Zum <strong>0.1</strong>-Release von Jokosher sollte dieser Fehler behoben sein. Die CVS-Version von Gnonlin (zum Beispiel vom 6. Juli 2006) funktioniert bereits. Wenn du sowieso schon die CVS-Version von Gnonlin benutzt, kannst du in das Verzeichnis wechseln und per <tt>cvs update -D 2006-06-06</tt> genau die CVS-Version herunterladen. Jokosher wird sich zwar beschweren, dass deine Gnonlin-Version zu alt ist und dass dir deshalb einige Features fehlen werden, aber im Moment musst du dich zwischen Features und Abstürzen entscheiden.
+</p>
+
+</body>
+</html>
+        
