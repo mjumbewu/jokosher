@@ -968,17 +968,16 @@ class MainApp:
 		if (v[1] < 10) or (v[2] < 9):
 			message += "You must have Gstreamer version 0.10.9 or higher.\n"
 		gnl = gst.registry_get_default().find_plugin("gnonlin")
-		if gnl and gnl.get_version() != "0.10.4.2" and gnl.get_version() != "0.10.5":
-			message += "You must have Gstreamer plugin gnonlin version 0.10.4.2 (CVS) or 0.10.5.\n"
+		if gnl:
+			ignored, gnlMajor, gnlMinor = gnl.get_version().split(".", 2)
+			#Compare gnlMajor and gnlMinor as a float so later versions of gnonlin will work
+			gnlMajor = float(gnlMajor)
+			gnlMinor = float(gnlMinor)
+			if gnlMajor < 10 or gnlMinor < 4.2:
+				message += "You must have Gstreamer plugin gnonlin version 0.10.4.2 or later.\n"
 		elif not gnl:
 			message += "Gstreamer plugin gnonlin is not installed." + \
 			"\nSee http://jokosher.org/trac/wiki/GettingJokosher for more details.\n"
-		try:
-			import alsaaudio
-		except:
-			message += 'You must have the Python alsaaudio package installed.\n' + \
-			'Please install python-alsaaudio or fetch from ' + \
-			'http://www.wilstrup.net/pyalsaaudio/.'
 		if message:
 			dlg = gtk.MessageDialog(self.window,
 				gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
