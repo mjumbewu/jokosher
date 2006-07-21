@@ -1,9 +1,5 @@
 import dbus
-try:
-	import alsaaudio
-except:
-	# we warn about this in Project.CheckGstreamerVersions
-	pass
+import gst, gst.interfaces
 	
 def GetAlsaList(type):
 	#Get HAL Manager
@@ -27,24 +23,23 @@ def GetAlsaList(type):
 
 def GetRecordingMixers(device):
 	"""Returns a list containing all the channels which have recording switched on."""
-	
+
 	recmixers = []
-	mixers = alsaaudio.mixers(device)
-
-	lastmixer = None
-	for mixer in mixers:
-		try:
-			#We may get more than one mixer with the same name, these have incremental IDs. I'm assuming they always appear consecutively within the mixers() list (empirical evidence supports this)
-			if lastmixer == mixer:
-				id += 1
-			else:
-				id = 0
-			mixdev = alsaaudio.Mixer(mixer, id, device)
-			#Ignore 'Capture' channel due to it being a requirement for recording on most low-end cards
-			if mixdev.getrec() == [0, 0] and mixdev.mixer() != 'Capture':
-				recmixers.append(mixdev)
-		except alsaaudio.ALSAAudioError:
-			pass
-
-	print device, recmixers
+	alsamixer = gst.element_factory_make('alsamixer')
+	alsamixer.set_property('device', device)
+	alsamixer.set_state(gst.STATE_PAUSED)
+	
+	if alsamixer.implements_interface(gst.interfaces.Mixer):
+		for track in alsamixer.list_tracks():
+			#Check for recordinging status
+			if track.flags & gst.interfaces.MIXER_TRACK_INPUT and track.flags & gst.interfaces.MIXER_TRACK_RECORD:
+				# Ignore 'Capture' channel due to it being a requirement for recording on most low-end cards
+				if (track.label != 'Capture'):
+					recmixers.append(track)
+				else:
+					print ('Could not get the mixer for ALSA device %s, check your permissions' % (device,))
+					recmixers = []
+	
+	alsamixer.set_state(gst.STATE_NULL)
+	
 	return recmixers
