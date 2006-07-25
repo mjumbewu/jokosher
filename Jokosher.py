@@ -241,8 +241,7 @@ class MainApp:
 
 	def Record(self, widget = None):
 		'''Toggle recording'''
-		
-		if self.settingButtons:
+		if self.settingButtons or widget.get_active()==False:
 			return
 		
 		canRecord = False
@@ -299,19 +298,24 @@ class MainApp:
 						mixer.set_record(track, True)
 
 				mixer.set_state(gst.STATE_NULL)
-							
+
 			self.isRecording = not self.isRecording
 			self.stop.set_sensitive(self.isRecording)
 			self.play.set_sensitive(not self.isRecording)
 			if self.isRecording:
 				try:
 					self.project.record()
-				except Project.MultipleInputsError:
+				except Project.AudioInputsError, e:
+					if e.errno==0:
+						message="No channels capable of recording have found, please attach a device and try again."
+					else:
+						message="Your sound card isn't capable of recording from multiple sources at the same time. Please disarm all but one instrument."
+
 					dlg = gtk.MessageDialog(self.window,
 						gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
 						gtk.MESSAGE_INFO,
 						gtk.BUTTONS_CLOSE,
-						"Your sound card isn't capable of recording from multiple sources at the same time. Please disarm all but one instrument.")
+						message)
 					dlg.connect('response', lambda dlg, response: dlg.destroy())
 					dlg.run()
 					self.project.terminate()

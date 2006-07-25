@@ -286,8 +286,14 @@ class Project(Monitored, CommandManaged):
 		#Make sure the number of recording mixers corresponds to the number of recording instruments
 		#This will fail if a sound card doesn't support multiple simultanious inputs and is being told to
 		#record multiple instruments at the same time.
+		if len(recMixers)==0:
+			print "No channels capable of recording found"
+			raise AudioInputsError("No channels capable of recording found",0)
+
 		if len(recMixers) < numInstruments:
-			raise MultipleInputsError("Your sound card is incapable of multiple simultanious inputs")
+			print "%s %s"%(len(recMixers),numInstruments)
+			raise AudioInputsError("Your sound card is incapable of multiple simultaneous inputs",1)
+
 		
 		#Make sure we start playing from the beginning
 		self.transport.Stop()
@@ -909,8 +915,9 @@ class CreateProjectError(Exception):
 
 #=========================================================================
 
-class MultipleInputsError(Exception):
-	def __init__(self, string):
+class AudioInputsError(Exception):
+	def __init__(self, string, errno):
+		self.errno = errno
 		self.__str__ = string
 
 #=========================================================================
