@@ -26,12 +26,14 @@ class AddInstrumentDialog:
 		self.signals = {
 			"on_OK_clicked" : self.OnOK,
 			"on_Cancel_clicked" : self.OnCancel,
+			"on_instrument_search_changed" : self.OnSearchChange,
 		}
 		
 		self.res.signal_autoconnect(self.signals)
 		
 		self.dlg = self.res.get_widget("AddInstrumentDialog")
 		self.tree = self.res.get_widget("Instruments")
+		self.search_entry = self.res.get_widget("instrument_search")
 		
 		self.okbutton = self.res.get_widget("okButton")
 		self.okbutton.set_sensitive(False)
@@ -68,7 +70,7 @@ class AddInstrumentDialog:
 	def OnOK(self, button=None):
 		sel = self.tree.get_selected_items()
 		for i in sel:
-			currentItem = getCachedInstruments()[i[0]]
+			currentItem = self.model[i[0]]
 			
 			filenameList = []
 			for i in currentItem[3].split(","):
@@ -105,6 +107,18 @@ class AddInstrumentDialog:
 		else:
 			self.okbutton.set_sensitive(True)
 			
+	#_____________________________________________________________________
+	
+	def OnSearchChange(self, widget):
+		search_text = self.search_entry.get_text()
+		self.model = gtk.ListStore(str, gtk.gdk.Pixbuf, str, str, str)
+		
+		for i in getCachedInstruments():
+			if search_text.lower() in i[0].lower():
+				self.model.append(i)
+		
+		self.tree.set_model(self.model)
+		
 	#_____________________________________________________________________
 
 #=========================================================================
