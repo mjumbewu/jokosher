@@ -16,7 +16,7 @@ class NewProjectDialog:
 
 		self.parent = parent
 		
-		self.res = gtk.glade.XML(parent.GLADE_PATH, "NewProjectDialog")
+		self.res = gtk.glade.XML(Globals.GLADE_PATH, "NewProjectDialog")
 
 		self.signals = {
 			"on_OK_clicked" : self.OnOK,

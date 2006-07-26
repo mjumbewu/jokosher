@@ -20,7 +20,7 @@ class PreferencesDialog:
 		self.project = project
 		self.mainwindow = mainwindow
 
-		self.res = gtk.glade.XML(self.mainwindow.GLADE_PATH, "PreferencesDialog")
+		self.res = gtk.glade.XML(Globals.GLADE_PATH, "PreferencesDialog")
 
 		self.signals = {
 			"on_Setting_changed" : self.OnSettingChanged,

@@ -21,7 +21,7 @@ class AddInstrumentDialog:
 		self.parent = parent
 		self.project = project
 		
-		self.res = gtk.glade.XML(parent.GLADE_PATH, "AddInstrumentDialog")
+		self.res = gtk.glade.XML(Globals.GLADE_PATH, "AddInstrumentDialog")
 
 		self.signals = {
 			"on_OK_clicked" : self.OnOK,

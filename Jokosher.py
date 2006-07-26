@@ -32,8 +32,6 @@ gobject.threads_init()
 
 class MainApp:
 	
-	#in case we are imported from another python file
-	GLADE_PATH = None		#set in __init__()
 	
 	# Class Constants
 	MODE_RECORDING = 1
@@ -45,9 +43,9 @@ class MainApp:
 		
 		#Find the absolute path in case we were imported from another directory
 		Globals.JOKOSHER_PATH = os.path.dirname(os.path.abspath(__file__))
-		self.GLADE_PATH = os.path.join(Globals.JOKOSHER_PATH, "Jokosher.glade")
+		Globals.GLADE_PATH = os.path.join(Globals.JOKOSHER_PATH, "Jokosher.glade")
 		
-		self.wTree = gtk.glade.XML(self.GLADE_PATH, "MainWindow")
+		self.wTree = gtk.glade.XML(Globals.GLADE_PATH, "MainWindow")
 		
 		#Connect event handlers
 		signals = {
@@ -232,7 +230,7 @@ class MainApp:
 	
 	def About(self, widget = None):
 		'''Display about dialog'''
-		aboutTree = gtk.glade.XML(self.GLADE_PATH, "AboutDialog")
+		aboutTree = gtk.glade.XML(Globals.GLADE_PATH, "AboutDialog")
 		dlg = aboutTree.get_widget("AboutDialog")
 		dlg.set_transient_for(self.window)
 		dlg.set_icon(self.icon)
@@ -411,7 +409,7 @@ class MainApp:
 				
 			chooser.destroy()
 		
-			export = gtk.glade.XML (self.GLADE_PATH, "ProgressDialog")
+			export = gtk.glade.XML (Globals.GLADE_PATH, "ProgressDialog")
 			export.signal_connect("on_cancel_clicked", self.OnExportCancel)
 			
 			self.exportdlg = export.get_widget("ProgressDialog")
@@ -1016,7 +1014,7 @@ class MainApp:
 
 	def OnContributingDialog(self, widget):
 		
-		self.contribTree = gtk.glade.XML(self.GLADE_PATH, "ContributingDialog")
+		self.contribTree = gtk.glade.XML(Globals.GLADE_PATH, "ContributingDialog")
 
 		self.topimage = self.contribTree.get_widget("topimage")
 		self.topimage.set_from_file(os.path.join(Globals.JOKOSHER_PATH, "images", "jokosher-logo.png"))

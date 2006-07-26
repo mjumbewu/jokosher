@@ -26,7 +26,7 @@ class InstrumentConnectionsDialog:
 		else:
 			return
 		
-		self.res = gtk.glade.XML(parent.GLADE_PATH, "InstrumentConnectionsDialog")
+		self.res = gtk.glade.XML(Globals.GLADE_PATH, "InstrumentConnectionsDialog")
 
 		self.signals = {
 			"on_close_clicked" : self.OnClose,

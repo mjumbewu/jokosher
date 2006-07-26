@@ -22,7 +22,7 @@ class WelcomeDialog:
 				
 		self.mainwindow = mainwindow
 				
-		self.res = gtk.glade.XML(mainwindow.GLADE_PATH, "WelcomeDialog")
+		self.res = gtk.glade.XML(Globals.GLADE_PATH, "WelcomeDialog")
 
 		self.signals = {
 			"on_newproject_clicked" : self.OnNewProject,
