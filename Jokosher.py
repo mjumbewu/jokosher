@@ -9,6 +9,8 @@ import gobject
 import pygst
 pygst.require("0.10")
 import gst
+import optparse
+import urlparse
 
 import locale
 import gettext
@@ -142,6 +144,13 @@ class MainApp:
 		
 		self.isRecording = False
 		self.isPlaying = False
+
+		# parse command line
+		openproject = None
+		parser = optparse.OptionParser("usage: %prog [project]")
+		(options, args) = parser.parse_args()
+		if len(args) > 0:
+			openproject = args[0]
 		
 		# set sensitivity
 		self.SetGUIProjectLoaded()
@@ -176,14 +185,30 @@ class MainApp:
 		self.window.connect("button_press_event", self.OnMouseDown)
 
 		self.CheckGstreamerVersions()
-		
-		# check if we should display the startup dialog
-		if Globals.settings.general["startupaction"] == PreferencesDialog.STARTUP_LAST_PROJECT:
-			self.OpenLastProject()
-		elif Globals.settings.general["startupaction"] == PreferencesDialog.STARTUP_NOTHING:
-			pass
-		else: #default option if no preference is set
-			WelcomeDialog.WelcomeDialog(self)
+
+		if openproject:
+			try:
+				(scheme, domain, path, params, query, fragment) = urlparse.urlparse(openproject, "file")
+				if scheme != "file":
+					raise ImportError, "Invalid URI scheme"
+				self.SetProject(Project.LoadFromFile(path))
+			except (Project.OpenProjectError, ImportError), e:
+				dlg = gtk.MessageDialog(self.window,
+					gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
+					gtk.MESSAGE_ERROR,
+					gtk.BUTTONS_OK,
+					"The project file could not be opened.\n")
+				dlg.set_icon(self.icon)
+				dlg.run()
+				dlg.destroy()
+		else:
+			# check if we should display the startup dialog
+			if Globals.settings.general["startupaction"] == PreferencesDialog.STARTUP_LAST_PROJECT:
+				self.OpenLastProject()
+			elif Globals.settings.general["startupaction"] == PreferencesDialog.STARTUP_NOTHING:
+				pass
+			else: #default option if no preference is set
+				WelcomeDialog.WelcomeDialog(self)
 		
 	#_____________________________________________________________________
 
@@ -1057,8 +1082,6 @@ class MainApp:
 	#_____________________________________________________________________
 
 #=========================================================================
-		
-print "Starting up"
 
 def main():
 	MainApp()
