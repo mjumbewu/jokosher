@@ -49,7 +49,7 @@ class MixerStrip(gtk.Frame):
 		self.muteButton.connect("toggled", self.OnMute)
 		
 		soloimg = gtk.Image()
-		soloimg.set_from_file(os.path.join(Globals.JOKOSHER_PATH, "images", "solo.png"))
+		soloimg.set_from_file(os.path.join(Globals.IMAGE_PATH, "solo.png"))
 		self.soloButton = gtk.ToggleButton("")
 		self.soloButton.set_image(soloimg)
 		self.soloButton.connect("toggled", self.OnSolo)

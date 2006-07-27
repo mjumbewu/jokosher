@@ -46,10 +46,7 @@ class MainApp:
 	def __init__(self):
 		
 		#Find the absolute path in case we were imported from another directory
-		Globals.JOKOSHER_PATH = os.path.dirname(os.path.abspath(__file__))
-		Globals.GLADE_PATH = os.path.join(Globals.JOKOSHER_PATH, "Jokosher.glade")
-		Globals.LOCALE_DIR = os.path.join(Globals.JOKOSHER_PATH, "locale")
-		Globals.LOCALE_APP = "jokosher"
+		Globals.SetAbsPaths()
 		
 		try:
 			locale.setlocale(locale.LC_ALL, '')
@@ -167,7 +164,7 @@ class MainApp:
 		self.PopulateRecentProjects()
 		
 		#set window icon
-		self.window.set_icon_from_file(os.path.join(Globals.JOKOSHER_PATH, "jokosher.png"))
+		self.window.set_icon_from_file(os.path.join(Globals.IMAGE_PATH, "jokosher-icon.png"))
 		#make icon available to others
 		self.icon = self.window.get_icon()
 		
@@ -1032,7 +1029,7 @@ class MainApp:
 		self.contribTree = gtk.glade.XML(Globals.GLADE_PATH, "ContributingDialog")
 
 		self.topimage = self.contribTree.get_widget("topimage")
-		self.topimage.set_from_file(os.path.join(Globals.JOKOSHER_PATH, "images", "jokosher-logo.png"))
+		self.topimage.set_from_file(os.path.join(Globals.IMAGE_PATH, "jokosher-logo.png"))
 		
 		# grab some references to bits of the GUI
 		self.contribdialog = self.wTree.get_widget("ContributingDialog")

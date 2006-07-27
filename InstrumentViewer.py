@@ -92,7 +92,7 @@ class InstrumentViewer(gtk.EventBox):
 			self.muteButton.connect("toggled", self.OnMute)
 			
 			soloimg = gtk.Image()
-			soloimg.set_from_file(os.path.join(Globals.JOKOSHER_PATH, "images", "solo.png"))
+			soloimg.set_from_file(os.path.join(Globals.IMAGE_PATH, "solo.png"))
 			self.soloButton = gtk.ToggleButton("")
 			self.soloButton.set_image(soloimg)
 			#self.recButton.set_property("image", soloimg)
