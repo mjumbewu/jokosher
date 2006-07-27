@@ -52,7 +52,6 @@ class AddInstrumentDialog:
 		self.tree.set_pixbuf_column(1)
 		self.tree.set_orientation(gtk.ORIENTATION_VERTICAL)
 		self.tree.set_selection_mode(gtk.SELECTION_MULTIPLE)
-		self.tree.set_columns(3)
 		self.tree.set_item_width(90)
 		self.tree.set_size_request(72, -1)
 		self.dlg.resize(350, 300)
