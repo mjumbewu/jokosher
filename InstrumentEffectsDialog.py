@@ -57,10 +57,12 @@ class InstrumentEffectsDialog:
 		for item in self.effects:
 			self.effectscombo.append_text(item.get_longname())
 
+		if not self.effects == []:
+			self.PopulateEffects()
 
-		self.window.resize(350, 300)
-		self.window.set_icon(self.parent.icon)
-		self.window.set_transient_for(self.parent.window)
+		#self.window.resize(350, 300)
+		#self.window.set_icon(self.parent.icon)
+		#self.window.set_transient_for(self.parent.window)
 	
 	#_____________________________________________________________________	
 		
@@ -90,19 +92,22 @@ class InstrumentEffectsDialog:
 
 	def OnAddEffect(self, combo):
 		print self.currentplugin
-		self.effect = gst.element_factory_make(self.currentplugin, "effect")
-		self.instrument.effects.append(self.effect)
+		self.instrument.effects.append(gst.element_factory_make(self.currentplugin, "effect"))
+		#self.instrument.effects.append(self.effect)
 		
 		button = gtk.Button(self.currentplugin)
 		button.connect("clicked", self.OnEffectSetting)
-		self.effectsbox.pack_end(button)
+		self.effectsbox.pack_start(button)
 		
+		print self.instrument.effects
 		self.effectsbox.show_all()
 
 	#_____________________________________________________________________	
 		
-	def OnEffectSetting(self, combo):
+	def OnEffectSetting(self, button):
 		print "Showing plugin settings"
+
+		buttonpos = self.effectsbox.child_get_property(button, "position")
 
 		self.settWin = gtk.glade.XML(Globals.GLADE_PATH, "EffectSettingsDialog")
 
@@ -118,7 +123,7 @@ class InstrumentEffectsDialog:
 		self.effectlabel = self.settWin.get_widget("effectlabel")
 		self.settingstable = self.settWin.get_widget("settingstable")
 
-		proplist = gobject.list_properties(self.effect)
+		proplist = gobject.list_properties(self.instrument.effects[buttonpos])
 		
 		rows = 0
 		
@@ -127,7 +132,7 @@ class InstrumentEffectsDialog:
 			scale = gtk.HScale()
 
 	        	print property.name + " " + property.value_type.name
-	        	print "\tvalue: " + str(self.effect.get_property(property.name))
+	        	print "\tvalue: " + str(self.instrument.effects[buttonpos].get_property(property.name))
 			if hasattr(property, "minimum") == True:
 				scale.set_range(property.minimum, property.maximum)
 
@@ -152,4 +157,17 @@ class InstrumentEffectsDialog:
 	def OnEffectSettingCancel(self, button):
 			self.window.destroy()
 		
+	#_____________________________________________________________________	
 		
+	def PopulateEffects(self):
+			print "Populating effects"
+			
+			for effect in self.instrument.effects:
+				self.currentplugin =  effect.get_factory().get_name()
+				print effect.get_factory().get_name()
+				
+				button = gtk.Button(self.currentplugin)
+				button.connect("clicked", self.OnEffectSetting)
+				self.effectsbox.pack_start(button)
+		
+				self.effectsbox.show_all()
