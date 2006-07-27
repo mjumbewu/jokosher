@@ -14,8 +14,6 @@ import locale
 import gettext
 _ = gettext.gettext
 
-import xml.dom.minidom as xml
-
 import AddInstrumentDialog
 import TimeView
 import CompactMixView
@@ -23,7 +21,6 @@ import PreferencesDialog
 import RecordingView
 import NewProjectDialog
 import Project
-import ConfigParser
 import Globals
 import WelcomeDialog
 import InstrumentConnectionsDialog
@@ -218,12 +215,14 @@ class MainApp:
 	
 	def OnRecordingView(self, window=None):
 		if hasattr(self, "recording"):
-			self.OnChangeView(self.recording, self.MODE_RECORDING)	
+			self.OnChangeView(self.recording, self.MODE_RECORDING)
+			
 	#_____________________________________________________________________
 	
 	def OnCompactMixView(self, window=None):
 		if hasattr(self, "compactmix"):
 			self.OnChangeView(self.compactmix, self.MODE_COMPACT_MIX)
+		
 	#_____________________________________________________________________
 	
 	def OnDestroy(self, widget=None, event=None):
@@ -236,7 +235,7 @@ class MainApp:
 	
 	def OnShowAddInstrumentDialog(self, widget):
 		""" Creates and shows the 'Add Instrument' dialog box """
-		dlg = AddInstrumentDialog.AddInstrumentDialog(self.project, self)
+		AddInstrumentDialog.AddInstrumentDialog(self.project, self)
 	
 	#_____________________________________________________________________
 	
@@ -251,7 +250,7 @@ class MainApp:
 
 	def Record(self, widget = None):
 		'''Toggle recording'''
-		if self.settingButtons or widget.get_active()==False:
+		if self.settingButtons or not widget.get_active():
 			return
 		
 		canRecord = False
@@ -882,7 +881,7 @@ class MainApp:
 	#_____________________________________________________________________
 	
 	def OnInstrumentConnectonsDialog(self, widget):
-		dlg = InstrumentConnectionsDialog.InstrumentConnectionsDialog(self.project, self)
+		InstrumentConnectionsDialog.InstrumentConnectionsDialog(self.project, self)
 		
 	#_____________________________________________________________________
 	
@@ -927,7 +926,6 @@ class MainApp:
 	def OpenLastProject(self):
 		if self.lastopenedproject:
 			path = self.lastopenedproject[0]
-			name = self.lastopenedproject[1]
 			try:
 				self.SetProject(Project.LoadFromFile(path))
 			except Project.OpenProjectError, e:
@@ -1063,7 +1061,7 @@ class MainApp:
 print "Starting up"
 
 def main():
-	app=MainApp()
+	MainApp()
 	gtk.threads_init()
 	gtk.main()
 
