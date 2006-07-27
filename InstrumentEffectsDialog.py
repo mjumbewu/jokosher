@@ -21,10 +21,7 @@ class InstrumentEffectsDialog:
 
 		# this refers to the current effects Plugin
 		self.currentplugin = None
-
-		print "EFFECTS:"
-		print self.instrument.effects
-		print self.instrument.name
+		self.currentedit = None
 		
 		self.signals = {
 			"on_okbutton_clicked" : self.OnOK,
@@ -108,7 +105,8 @@ class InstrumentEffectsDialog:
 		print "Showing plugin settings"
 
 		buttonpos = self.effectsbox.child_get_property(button, "position")
-
+		self.currentedit = buttonpos
+		
 		self.settWin = gtk.glade.XML(Globals.GLADE_PATH, "EffectSettingsDialog")
 
 		settsignals = {
@@ -127,14 +125,17 @@ class InstrumentEffectsDialog:
 		
 		rows = 0
 		
-	        for property in proplist:
-			lab = gtk.Label(property.name)
+		for property in proplist:
 			scale = gtk.HScale()
-
+			lab = gtk.Label(property.name)
 	        	print property.name + " " + property.value_type.name
 	        	print "\tvalue: " + str(self.instrument.effects[buttonpos].get_property(property.name))
 			if hasattr(property, "minimum") == True:
+				print "GET:"
+				#print self.instrument.effects[self.currentedit].get_property(property.name)
+				scale.connect("value-changed", self.SetEffectSetting, property.name)
 				scale.set_range(property.minimum, property.maximum)
+				scale.set_value(self.instrument.effects[self.currentedit].get_property(property.name))
 
 			self.settingstable.resize(rows, 2)
 			self.settingstable.attach(lab, 0, 1, rows-1, rows)
@@ -171,3 +172,12 @@ class InstrumentEffectsDialog:
 				self.effectsbox.pack_start(button)
 		
 				self.effectsbox.show_all()
+				
+	#_____________________________________________________________________	
+		
+	def SetEffectSetting(self, slider, name):
+		#print slider
+		print name
+		print "NEW"
+		print slider.get_value()
+		self.instrument.effects[self.currentedit].set_property(name, slider.get_value())
