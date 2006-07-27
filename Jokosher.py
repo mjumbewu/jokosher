@@ -10,6 +10,10 @@ import pygst
 pygst.require("0.10")
 import gst
 
+import locale
+import gettext
+_ = gettext.gettext
+
 import xml.dom.minidom as xml
 
 import AddInstrumentDialog
@@ -44,6 +48,17 @@ class MainApp:
 		#Find the absolute path in case we were imported from another directory
 		Globals.JOKOSHER_PATH = os.path.dirname(os.path.abspath(__file__))
 		Globals.GLADE_PATH = os.path.join(Globals.JOKOSHER_PATH, "Jokosher.glade")
+		Globals.LOCALE_DIR = os.path.join(Globals.JOKOSHER_PATH, "locale")
+		Globals.LOCALE_APP = "jokosher"
+		
+		try:
+			locale.setlocale(locale.LC_ALL, '')
+			gettext.bindtextdomain(Globals.LOCALE_APP, Globals.LOCALE_DIR)
+			gettext.textdomain(Globals.LOCALE_APP)
+			gtk.glade.bindtextdomain(Globals.LOCALE_APP, Globals.LOCALE_DIR)
+			gtk.glade.textdomain(Globals.LOCALE_APP)
+		except locale.Error:
+			print "Locale unsupported, defaulting to english for all Jokosher specific text"
 		
 		self.wTree = gtk.glade.XML(Globals.GLADE_PATH, "MainWindow")
 		
@@ -274,7 +289,7 @@ class MainApp:
 				gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
 				gtk.MESSAGE_INFO,
 				gtk.BUTTONS_CLOSE,
-				"No instruments are armed for recording. You need to arm an instrument before you can begin recording.")
+				_("No instruments are armed for recording. You need to arm an instrument before you can begin recording."))
 			dlg.connect('response', lambda dlg, response: dlg.destroy())
 			dlg.run()
 			self.settingButtons = True
@@ -305,9 +320,9 @@ class MainApp:
 					self.project.record()
 				except Project.AudioInputsError, e:
 					if e.errno==0:
-						message="No channels capable of recording have found, please attach a device and try again."
+						message=_("No channels capable of recording have found, please attach a device and try again.")
 					else:
-						message="Your sound card isn't capable of recording from multiple sources at the same time. Please disarm all but one instrument."
+						message=_("Your sound card isn't capable of recording from multiple sources at the same time. Please disarm all but one instrument.")
 
 					dlg = gtk.MessageDialog(self.window,
 						gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
@@ -380,9 +395,9 @@ class MainApp:
 	def OnExport(self, widget = None):
 		'''Display a save dialog allowing the user to export as ogg or mp3'''
 		buttons = (gtk.STOCK_CANCEL,gtk.RESPONSE_CANCEL,gtk.STOCK_SAVE,gtk.RESPONSE_OK)
-		chooser = gtk.FileChooserDialog("Mixdown Project", self.window, gtk.FILE_CHOOSER_ACTION_SAVE, buttons)
+		chooser = gtk.FileChooserDialog(_("Mixdown Project"), self.window, gtk.FILE_CHOOSER_ACTION_SAVE, buttons)
 		
-		saveLabel = gtk.Label("Save as file type:")		
+		saveLabel = gtk.Label(_("Save as file type:"))		
 		typeCombo = gtk.combo_box_new_text()
 		#tuples containing the display test, and the extension (without ".")
 		types = [("Ogg Vorbis (.ogg)","ogg"), ("MP3 (.mp3)","mp3"), 
@@ -432,7 +447,7 @@ class MainApp:
 		tuple = self.project.get_export_progress()
 		if tuple[0] == -1:
 			self.exportprogress.set_fraction(0.0)
-			self.exportprogress.set_text("Preparing to mixdown project")
+			self.exportprogress.set_text(_("Preparing to mixdown project"))
 		elif tuple[0] == tuple[1] == 100:
 			self.exportdlg.destroy()
 			return False
@@ -490,15 +505,15 @@ class MainApp:
 
 	def OnOpenProject(self, widget, destroyCallback=None):
 		
-		chooser = gtk.FileChooserDialog(('Choose a Jokosher project file'), None, gtk.FILE_CHOOSER_ACTION_OPEN, (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, gtk.STOCK_OPEN, gtk.RESPONSE_OK))
+		chooser = gtk.FileChooserDialog((_('Choose a Jokosher project file')), None, gtk.FILE_CHOOSER_ACTION_OPEN, (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, gtk.STOCK_OPEN, gtk.RESPONSE_OK))
 		chooser.set_default_response(gtk.RESPONSE_OK)
 		chooser.set_transient_for(self.window)
 		allfilter = gtk.FileFilter()
-		allfilter.set_name("All Files")
+		allfilter.set_name(_("All Files"))
 		allfilter.add_pattern("*")
 		
 		jokfilter = gtk.FileFilter()
-		jokfilter.set_name("Jokosher Project File (*.jokosher)")
+		jokfilter.set_name(_("Jokosher Project File (*.jokosher)"))
 		jokfilter.add_pattern("*.jokosher")
 		
 		chooser.add_filter(jokfilter)
@@ -538,7 +553,7 @@ class MainApp:
 	
 	def OnSaveAsProject(self, widget=None):
 		buttons = (gtk.STOCK_CANCEL,gtk.RESPONSE_CANCEL,gtk.STOCK_SAVE,gtk.RESPONSE_OK)
-		chooser = gtk.FileChooserDialog("Choose a location to save the project", self.window, gtk.FILE_CHOOSER_ACTION_SAVE, buttons)
+		chooser = gtk.FileChooserDialog(_("Choose a location to save the project"), self.window, gtk.FILE_CHOOSER_ACTION_SAVE, buttons)
 		
 		response = chooser.run()
 		if response == gtk.RESPONSE_OK:
@@ -931,11 +946,11 @@ class MainApp:
 		except Project.InvalidProjectError, e:
 			message=""
 			if e.files:
-				message+="The project references non-existant files:\n"
+				message+=_("The project references non-existant files:\n")
 				for f in e.files:
 					message += f + "\n"
 			if e.images:
-				message+="\nThe project references non-existant images:\n"
+				message+=_("\nThe project references non-existant images:\n")
 				for f in e.images:
 					message += f + "\n"
 
@@ -968,7 +983,7 @@ class MainApp:
 		message = ""
 		v = gst.version()
 		if (v[1] < 10) or (v[2] < 9):
-			message += "You must have Gstreamer version 0.10.9 or higher.\n"
+			message += _("You must have Gstreamer version 0.10.9 or higher.\n")
 		gnl = gst.registry_get_default().find_plugin("gnonlin")
 		if gnl:
 			ignored, gnlMajor, gnlMinor = gnl.get_version().split(".", 2)
@@ -976,10 +991,10 @@ class MainApp:
 			gnlMajor = float(gnlMajor)
 			gnlMinor = float(gnlMinor)
 			if gnlMajor < 10 or gnlMinor < 4.2:
-				message += "You must have Gstreamer plugin gnonlin version 0.10.4.2 or later.\n"
+				message += _("You must have Gstreamer plugin gnonlin version 0.10.4.2 or later.\n")
 		elif not gnl:
-			message += "Gstreamer plugin gnonlin is not installed." + \
-			"\nSee http://jokosher.org/trac/wiki/GettingJokosher for more details.\n"
+			message += _("Gstreamer plugin gnonlin is not installed.") + \
+			_("\nSee http://jokosher.org/trac/wiki/GettingJokosher for more details.\n")
 		if message:
 			dlg = gtk.MessageDialog(self.window,
 				gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
@@ -1006,7 +1021,7 @@ class MainApp:
 			gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
 			gtk.MESSAGE_WARNING,
 			gtk.BUTTONS_CLOSE)
-		dlg.set_markup("<big>Notes about this release</big>\n\nThis version of Jokosher (0.1) is a pre-release version, and is infact, our very first release. As such, you may encounter some bugs and functionality that is not present.")
+		dlg.set_markup(_("<big>Notes about this release</big>\n\nThis version of Jokosher (0.1) is a pre-release version, and is infact, our very first release. As such, you may encounter some bugs and functionality that is not present."))
 		dlg.run()
 		dlg.destroy()
 
@@ -1030,7 +1045,7 @@ class MainApp:
 			parent = self.window
 		
 		if type(error.version) != str:
-			message = "The project file could not be opened.\n"
+			message = _("The project file could not be opened.\n")
 		else:
 			message = "The project file was created with version \"%s\" of Jokosher.\n"%error.version + \
 						"Projects from version \"%s\" are incompatible with this release.\n"%error.version
