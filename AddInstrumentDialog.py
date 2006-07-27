@@ -5,8 +5,6 @@ import gobject
 import os
 from ConfigParser import SafeConfigParser
 import Globals
-import InstrumentViewer
-import Project
 import operator #for sorting instrument list
 
 #=========================================================================

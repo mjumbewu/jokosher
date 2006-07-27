@@ -134,8 +134,8 @@ class InstrumentEffectsDialog:
 		for property in proplist:
 			scale = gtk.HScale()
 			lab = gtk.Label(property.name)
-	        	print property.name + " " + property.value_type.name
-	        	print "\tvalue: " + str(self.instrument.effects[buttonpos].get_property(property.name))
+			print property.name + " " + property.value_type.name
+			print "\tvalue: " + str(self.instrument.effects[buttonpos].get_property(property.name))
 			if hasattr(property, "minimum") == True:
 				print "GET:"
 				#print self.instrument.effects[self.currentedit].get_property(property.name)
@@ -187,3 +187,4 @@ class InstrumentEffectsDialog:
 		print "NEW"
 		print slider.get_value()
 		self.instrument.effects[self.currentedit].set_property(name, slider.get_value())
+		

@@ -403,8 +403,6 @@ class Event(Monitored, CommandManaged):
 		level interval=100000000 message=true ! fakesink""" % self.file.replace(" ", "\ ")
 		self.bin = gst.parse_launch(pipe)
 
-		src = self.bin.get_by_name("src")
-
 		self.bus = self.bin.get_bus()
 		self.bus.add_signal_watch()
 		self.bus.connect("message::element", self.bus_message)
@@ -416,7 +414,6 @@ class Event(Monitored, CommandManaged):
 
 		self.bin.set_state(gst.STATE_PLAYING)
 
-		return	
 	#_____________________________________________________________________
 
 	def SetSelected(self, sel):

@@ -5,7 +5,6 @@ import InstrumentViewer
 import gobject
 import TimeLineBar
 import Globals
-import Monitored
 from MasterMixerStrip import *
 
 #create signal to be emitted by MixerStrip

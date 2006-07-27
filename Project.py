@@ -1,17 +1,10 @@
 
-import gobject
-import gtk
 import pygst
 pygst.require("0.10")
 import gst
 import os
-import sys
-from math import *
 import gzip
 import TransportManager
-import ConfigParser
-import traceback
-import tempfile
 from CommandManager import *
 import Globals
 import xml.dom.minidom as xml
@@ -317,7 +310,7 @@ class Project(Monitored, CommandManaged):
 	def state_changed(self, bus, message, movePlayhead=True):
 		old, new, pending = self.mainpipeline.get_state(0)
 		#Move forward to playing when we reach paused (check pending to make sure this is the final destination)
-		if new == gst.STATE_PAUSED and pending == gst.STATE_VOID_PENDING and self.IsPlaying == False:
+		if new == gst.STATE_PAUSED and pending == gst.STATE_VOID_PENDING and not self.IsPlaying:
 			bus.disconnect(self.state_id)
 			#The transport manager will seek if necessary, and then set the pipeline to STATE_PLAYING
 			self.transport.Play(movePlayhead)
@@ -900,6 +893,7 @@ class OpenProjectError(EnvironmentError):
 		   If a version string is given, it means the project file was created by
 		   another version of Jokosher. That version is specified in the string.
 		"""
+		EnvironmentError.__init__(self)
 		self.version = incorrectVerionString
 
 #=========================================================================
@@ -911,12 +905,14 @@ class CreateProjectError(Exception):
 		   2) Path for project file already exists
 		   3) Unable to create file. (Invalid permissions, read-only, or the disk is full)
 		"""
+		Exception.__init__(self)
 		self.errno=errno
 
 #=========================================================================
 
 class AudioInputsError(Exception):
 	def __init__(self, string, errno):
+		Exception.__init__(self)
 		self.errno = errno
 		self.__str__ = string
 
@@ -924,6 +920,7 @@ class AudioInputsError(Exception):
 
 class InvalidProjectError(Exception):
 	def __init__(self, missingfiles,missingimages):
+		Exception.__init__(self)
 		self.files=missingfiles
 		self.images=missingimages
 

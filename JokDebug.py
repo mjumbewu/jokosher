@@ -6,11 +6,6 @@
 #
 #    JOKOSHER_DEBUG=1
 
-import pygst
-pygst.require("0.10")
-import gst
-import gtk
-
 class JokDebug:
     def __init__(self):
         # remember the trailing space

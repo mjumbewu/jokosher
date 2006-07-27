@@ -5,10 +5,7 @@ import gobject
 import pygst
 pygst.require("0.10")
 import gst
-import os
-import sys
 import Globals
-import Project
 import AlsaDevices
 
 #=========================================================================
