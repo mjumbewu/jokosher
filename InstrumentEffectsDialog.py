@@ -52,7 +52,13 @@ class InstrumentEffectsDialog:
 		self.effectscombo.set_model(self.model)
 
 		for item in self.effects:
-			self.effectscombo.append_text(item.get_longname())
+			longname = item.get_longname()
+			shortname = longname[:30]
+			
+			if len(longname) > 30:
+				shortname = shortname + "..."
+			
+			self.effectscombo.append_text(shortname)
 
 		if not self.effects == []:
 			self.PopulateEffects()
@@ -151,12 +157,12 @@ class InstrumentEffectsDialog:
 	#_____________________________________________________________________	
 		
 	def OnEffectSettingOK(self, button):
-			self.window.destroy()
+			self.settingswindow.destroy()
 
 	#_____________________________________________________________________	
 		
 	def OnEffectSettingCancel(self, button):
-			self.window.destroy()
+			self.settingswindow.destroy()
 		
 	#_____________________________________________________________________	
 		
