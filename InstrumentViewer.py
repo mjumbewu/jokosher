@@ -4,6 +4,8 @@ import pango
 from Project import *
 from EventLaneViewer import *
 import Waveform
+import Globals
+import InstrumentEffectsDialog
 
 #=========================================================================	
 
@@ -96,12 +98,13 @@ class InstrumentViewer(gtk.EventBox):
 			#self.recButton.set_property("image", soloimg)
 			self.soloButton.connect("toggled", self.OnSolo)
 			
-			self.sourceButton = gtk.ToggleButton("In")
+			self.propsButton = gtk.Button("In")
+			self.propsButton.connect("clicked", self.OnProps)
 			
 			self.controlsBox.add(self.recButton)
 			self.controlsBox.add(self.muteButton)
 			self.controlsBox.add(self.soloButton)
-			self.controlsBox.add(self.sourceButton)
+			self.controlsBox.add(self.propsButton)
 		else:
 			self.separator = gtk.HSeparator()
 			self.headerBox.pack_end(self.separator, False, True)
@@ -217,5 +220,15 @@ class InstrumentViewer(gtk.EventBox):
 		padding = width - self.headerBox.size_request()[0]
 		self.headerAlign.set_padding(0, 0, 0, padding)
 
-#=========================================================================	
+
+	#______________________________________________________________________
+
+	def OnProps(self, widget):
+		""" Creates and shows the instrument effects dialog"""
+		print "props button pressed"
+		newdlg = InstrumentEffectsDialog.InstrumentEffectsDialog(self.instrument)
+		#if destroyCallback:
+		#	newdlg.dlg.connect("destroy", destroyCallback)
+
+	#=========================================================================	
 

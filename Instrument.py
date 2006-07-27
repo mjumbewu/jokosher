@@ -40,6 +40,7 @@ class Instrument(Monitored, CommandManaged):
 		self.isVisible = True			# True if the instrument should be displayed in the mixer views
 		self.level = 0.0				# Current audio level in range 0..1
 		self.volume = 0.5				# Gain of the current instrument in range 0..1
+		self.effects = []				# List of GStreamer effect elements
 		
 		try:
 			self.input = Globals.settings.recording["devicecardnum"]
@@ -47,7 +48,6 @@ class Instrument(Monitored, CommandManaged):
 			self.input =  "default"
 		self.inTrack = None	# Mixer track to record from
 		self.output = ""
-		self.effects = " ! "
 		self.recordingbin = None
 		self.id = project.GenerateUniqueID(id) #check is id is already being used before setting
 		self.isSelected = False			# True if the instrument is currently selected
@@ -226,9 +226,9 @@ class Instrument(Monitored, CommandManaged):
 		self.tmpe.file = file
 
 		self.output = "audioconvert ! vorbisenc ! oggmux ! filesink location=%s"%file.replace(" ", "\ ")
-		print "Using pipeline: alsasrc device=%s%s%s"%(self.input, self.effects, self.output)
+		print "Using pipeline: alsasrc device=%s%s"%(self.input, self.output)
 
-		self.recordingbin = gst.parse_launch("bin.( alsasrc device=%s %s %s )"%(self.input, self.effects, self.output))
+		self.recordingbin = gst.parse_launch("bin.( alsasrc device=%s %s )"%(self.input, self.output))
 		#We remove this instrument's playbin from the project so it doesn't try to record and play from the same file
 		self.RemoveAndUnlinkPlaybackbin()
 		self.project.mainpipeline.add(self.recordingbin)
