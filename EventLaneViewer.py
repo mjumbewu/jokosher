@@ -189,8 +189,14 @@ class EventLaneViewer(gtk.EventBox):
 		dlg.set_current_folder(self.mainview.defaultlocation)
 		dlg.set_extra_widget(copyfile)
 		
+		
+		vbox = gtk.VBox()
 		audiopreview = AudioPreview()
-		dlg.set_preview_widget(audiopreview)
+		vbox.pack_start(audiopreview, True, False)
+		vbox.show_all()
+		
+		dlg.set_preview_widget(vbox)
+		dlg.set_use_preview_label(False)
 		dlg.connect("selection-changed", audiopreview.OnSelection)
 		
 		response = dlg.run()

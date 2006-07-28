@@ -10,7 +10,11 @@ class AudioPreview(gtk.ToggleButton):
 		self.connect("toggled", self.OnToggle)
 		self.connect("destroy", self.OnDestroy)
 		self.previewbin = gst.element_factory_make ("playbin", "preview");
-		self.filesrc = gst.element_factory_make
+		
+		self.bus = self.previewbin.get_bus()
+		self.bus.add_signal_watch()
+		self.bus.connect("message::eos", self.OnEOS)
+		self.bus.connect("message::error", self.OnEOS)
 
 	def OnSelection(self, widget):
 		self.uri = widget.get_preview_uri()
@@ -22,6 +26,9 @@ class AudioPreview(gtk.ToggleButton):
 			self.previewbin.set_state(gst.STATE_PLAYING)
 		else:
 			self.previewbin.set_state(gst.STATE_READY)
+			
+	def OnEOS(self, bus, message):
+		self.set_active(False)
 
 	def OnDestroy(self, widget):
 		self.previewbin.set_state(gst.STATE_NULL)
