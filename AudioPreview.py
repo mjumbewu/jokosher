@@ -1,6 +1,8 @@
 import gtk
 import gst
 
+#=========================================================================
+
 class AudioPreview(gtk.ToggleButton):
 
 	def __init__(self):
@@ -15,10 +17,14 @@ class AudioPreview(gtk.ToggleButton):
 		self.bus.add_signal_watch()
 		self.bus.connect("message::eos", self.OnEOS)
 		self.bus.connect("message::error", self.OnEOS)
+		
+	#_____________________________________________________________________
 
 	def OnSelection(self, widget):
 		self.uri = widget.get_preview_uri()
 		self.set_active(False)
+		
+	#_____________________________________________________________________
 
 	def OnToggle(self, widget):
 		if self.get_active():
@@ -27,8 +33,16 @@ class AudioPreview(gtk.ToggleButton):
 		else:
 			self.previewbin.set_state(gst.STATE_READY)
 			
+	#_____________________________________________________________________
+			
 	def OnEOS(self, bus, message):
 		self.set_active(False)
+		
+	#_____________________________________________________________________
 
 	def OnDestroy(self, widget):
 		self.previewbin.set_state(gst.STATE_NULL)
+	
+	#_____________________________________________________________________
+
+#=========================================================================
