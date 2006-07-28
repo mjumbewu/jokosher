@@ -143,7 +143,7 @@ class MainApp:
 		self.settingButtons = True
 		self.wTree.get_widget("Recording").set_active(True)
 		self.settingButtons = False
-		self.defaultlocation=""	
+		self.defaultlocation = ""	
 		self.isRecording = False
 		self.isPlaying = False
 
@@ -199,7 +199,7 @@ class MainApp:
 					gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
 					gtk.MESSAGE_ERROR,
 					gtk.BUTTONS_OK,
-					"The project file could not be opened.\n")
+					_("The project file could not be opened.\n"))
 				dlg.set_icon(self.icon)
 				dlg.run()
 				dlg.destroy()
@@ -291,11 +291,15 @@ class MainApp:
 			if instr.isArmed:
 				if usedChannels.has_key(instr.input):
 					if usedChannels[instr.input].has_key(instr.inTrack):
+						string = _("The instruments '%s' and '%s' both have the same input selected (%s). " + \
+								"Please either disarm one, or connect it to a different input through " + \
+								"'Project -> Instrument Connections'")
+						message = string % (usedChannels[instr.input][instr.inTrack], instr.name, instr.inTrack)
 						dlg = gtk.MessageDialog(self.window,
 							gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
 							gtk.MESSAGE_INFO,
 							gtk.BUTTONS_CLOSE,
-							"The instruments '%s' and '%s' both have the same input selected (%s). Please either disarm one, or connect it to a different input through 'Project -> Instrument Connections'"%(usedChannels[instr.input][instr.inTrack], instr.name, instr.inTrack))
+							message)
 						dlg.connect('response', lambda dlg, response: dlg.destroy())
 						dlg.run()
 						self.settingButtons = True
@@ -440,7 +444,7 @@ class MainApp:
 		response = chooser.run()
 		if response == gtk.RESPONSE_OK:
 			filename = chooser.get_filename()
-			self.defaultlocation=os.path.dirname(filename)
+			self.defaultlocation = os.path.dirname(filename)
 			#If they haven't already appended the extension for the 
 			#chosen file type, add it to the end of the file.
 			filetype = types[typeCombo.get_active()][1]
@@ -457,13 +461,12 @@ class MainApp:
 			self.exportdlg.set_transient_for(self.window)
 			
 			label = export.get_widget("progressLabel")
-			label.set_text("Mixing project to file: %s" %filename)
+			label.set_text(_("Mixing project to file: %s") %filename)
 			
 			self.exportprogress = export.get_widget("progressBar")
 			
 			gobject.timeout_add(100, self.UpdateExportDialog)
 			self.project.export(filename)
-			self.defaultlocation(os.path.basename(filename))
 		else:
 			chooser.destroy()
 		
@@ -471,7 +474,7 @@ class MainApp:
 	
 	def UpdateExportDialog(self):
 		tuple = self.project.get_export_progress()
-		if tuple[0] == -1:
+		if tuple[0] == -1 or tuple[1] == 0:
 			self.exportprogress.set_fraction(0.0)
 			self.exportprogress.set_text(_("Preparing to mixdown project"))
 		elif tuple[0] == tuple[1] == 100:
@@ -479,7 +482,7 @@ class MainApp:
 			return False
 		else:
 			self.exportprogress.set_fraction(tuple[0]/tuple[1])
-			self.exportprogress.set_text("%d of %d seconds completed" % (tuple[0], tuple[1]))
+			self.exportprogress.set_text(_("%d of %d seconds completed") % (tuple[0], tuple[1]))
 			
 		return True
 	
@@ -556,10 +559,9 @@ class MainApp:
 			if response == gtk.RESPONSE_OK:
 				
 				filename = chooser.get_filename()
-				self.defaultlocation=os.path.dirname(filename)
+				self.defaultlocation = os.path.dirname(filename)
 				try:
 					self.SetProject(Project.LoadFromFile(filename))
-					self.defaultlocation(os.path.basename(filename))
 				except Project.OpenProjectError, e:
 					self.ShowOpenProjectErrorDialog(e, chooser)
 				else:
@@ -588,11 +590,10 @@ class MainApp:
 		response = chooser.run()
 		if response == gtk.RESPONSE_OK:
 			filename = chooser.get_filename()
-			self.defaultlocation=os.path.dirname(filename)
+			self.defaultlocation = os.path.dirname(filename)
 			self.project.ClearInstrumentSelections()
 			self.project.ClearEventSelections()
 			self.project.saveProjectFile(filename)
-			self.defaultlocation(os.path.basename(filename))
 		chooser.destroy()
 		
 	#_____________________________________________________________________
@@ -616,10 +617,9 @@ class MainApp:
 		if not self.project:
 			return 0
 		
-		print "Shutting down",
 		self.Stop()
 		if self.project.CheckUnsavedChanges():
-			message = "<span size='large' weight='bold'>Save changes to project \"%s\" before closing?</span>\n\nYour changes will be lost if you don't save them." % self.project.name
+			message = _("<span size='large' weight='bold'>Save changes to project \"%s\" before closing?</span>\n\nYour changes will be lost if you don't save them.") % self.project.name
 			
 			dlg = gtk.MessageDialog(self.window,
 				gtk.DIALOG_MODAL |
@@ -628,7 +628,7 @@ class MainApp:
 				gtk.BUTTONS_NONE)
 			dlg.set_markup(message)
 			
-			dlg.add_button("Close _Without Saving", gtk.RESPONSE_NO)
+			dlg.add_button(_("Close _Without Saving"), gtk.RESPONSE_NO)
 			dlg.add_button(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL)
 			defaultAction = dlg.add_button(gtk.STOCK_SAVE, gtk.RESPONSE_YES)
 			#make save the default action when enter is pressed
@@ -646,7 +646,6 @@ class MainApp:
 				return 1
 				
 		self.project.closeProject()
-		print "Done"
 		
 		self.project = None
 		self.mode = None
@@ -674,9 +673,9 @@ class MainApp:
 		self.redo.set_sensitive(redo)
 		
 		if self.project.CheckUnsavedChanges():
-			self.window.set_title('*%s - Jokosher' % self.project.name)
+			self.window.set_title(_('*%s - Jokosher') % self.project.name)
 		else:
-			self.window.set_title('%s - Jokosher' % self.project.name)
+			self.window.set_title(_('%s - Jokosher') % self.project.name)
 		
 	#_____________________________________________________________________
 
@@ -885,7 +884,7 @@ class MainApp:
 			self.settingButtons = False
 				
 			# Set window title with no project name
-			self.window.set_title('Jokosher')
+			self.window.set_title(_('Jokosher'))
 			
 			# Destroy our custom widgets
 			if self.recording:
@@ -987,7 +986,7 @@ class MainApp:
 				gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
 				gtk.MESSAGE_ERROR,
 				gtk.BUTTONS_OK,
-				"%s\n Invalid or corrupt project file, will not open."%message)
+				_("%s\n Invalid or corrupt project file, will not open.")%message)
 			dlg.run()
 			dlg.destroy()
 			return
@@ -1029,7 +1028,7 @@ class MainApp:
 				gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
 				gtk.MESSAGE_WARNING,
 				gtk.BUTTONS_CLOSE)
-			dlg.set_markup("<big>Some functionality will not work correctly or at all.</big>\n\n%s" % message)
+			dlg.set_markup(_("<big>Some functionality will not work correctly or at all.</big>\n\n%s") % message)
 			dlg.run()
 			dlg.destroy()
 	
@@ -1076,8 +1075,8 @@ class MainApp:
 		if type(error.version) != str:
 			message = _("The project file could not be opened.\n")
 		else:
-			message = "The project file was created with version \"%s\" of Jokosher.\n"%error.version + \
-						"Projects from version \"%s\" are incompatible with this release.\n"%error.version
+			message = _("The project file was created with version \"%s\" of Jokosher.\n") % error.version + \
+						_("Projects from version \"%s\" are incompatible with this release.\n") % error.version
 			
 		dlg = gtk.MessageDialog(parent,
 			gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,

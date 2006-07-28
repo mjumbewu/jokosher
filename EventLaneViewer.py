@@ -205,7 +205,7 @@ class EventLaneViewer(gtk.EventBox):
 			dlg.hide()
 			start = (self.mouseDownPos[0]/self.project.viewScale) + self.project.viewStart
 			self.instrument.addEventFromFile(start, dlg.get_filename(),copyfile.get_active())
-			self.mainview.defaultlocation=os.path.dirname(dlg.get_filename())
+			self.mainview.defaultlocation = os.path.dirname(dlg.get_filename())
 		dlg.destroy()
 
 	#_____________________________________________________________________
