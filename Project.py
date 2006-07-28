@@ -281,11 +281,11 @@ class Project(Monitored, CommandManaged):
 		#record multiple instruments at the same time.
 		if len(recMixers)==0:
 			print "No channels capable of recording found"
-			raise AudioInputsError("No channels capable of recording found",0)
+			raise AudioInputsError(0)
 
 		if len(recMixers) < numInstruments:
 			print "%s %s"%(len(recMixers),numInstruments)
-			raise AudioInputsError("Your sound card is incapable of multiple simultaneous inputs",1)
+			raise AudioInputsError(1)
 
 		
 		#Make sure we start playing from the beginning
@@ -911,10 +911,13 @@ class CreateProjectError(Exception):
 #=========================================================================
 
 class AudioInputsError(Exception):
-	def __init__(self, string, errno):
+	def __init__(self, errno):
+		"""Error numbers:
+		   1) No recording channels found
+		   2) Sound card is not capable of multiple simultanious inputs
+		"""
 		Exception.__init__(self)
 		self.errno = errno
-		self.__str__ = string
 
 #=========================================================================
 
@@ -924,5 +927,6 @@ class InvalidProjectError(Exception):
 		self.files=missingfiles
 		self.images=missingimages
 
+#=========================================================================
 
 GlobalProjectObject = None
