@@ -1,6 +1,7 @@
 
 import gtk, Instrument
 from EventViewer import *
+from AudioPreview import AudioPreview
 import Monitored
 import os.path
 
@@ -187,6 +188,11 @@ class EventLaneViewer(gtk.EventBox):
 		dlg = gtk.FileChooserDialog("Import file...", action=gtk.FILE_CHOOSER_ACTION_OPEN, buttons=buttons)
 		dlg.set_current_folder(self.mainview.defaultlocation)
 		dlg.set_extra_widget(copyfile)
+		
+		audiopreview = AudioPreview()
+		dlg.set_preview_widget(audiopreview)
+		dlg.connect("selection-changed", audiopreview.OnSelection)
+		
 		response = dlg.run()
 
 		if response == gtk.RESPONSE_OK:
