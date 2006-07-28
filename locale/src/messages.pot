@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-07-27 13:35+0200\n"
+"POT-Creation-Date: 2006-07-28 19:30+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -469,7 +469,7 @@ msgid "Browse for an Existing Project"
 msgstr ""
 
 #: ../../Jokosher.glade.h:382
-msgid "Choose an instrument to add to your project."
+msgid "Choose one or more instruments to add to your project."
 msgstr ""
 
 #: ../../Jokosher.glade.h:383
@@ -594,7 +594,7 @@ msgid "Sample Rate (Hz)"
 msgstr ""
 
 #: ../../Jokosher.glade.h:413
-msgid "Search"
+msgid "Search:"
 msgstr ""
 
 #: ../../Jokosher.glade.h:414
@@ -653,7 +653,7 @@ msgid ""
 "Ogg Vorbis"
 msgstr ""
 
-#: ../../Jokosher.glade.h:429 ../../Jokosher.py:60
+#: ../../Jokosher.glade.h:429
 msgid "Welcome to Jokosher!"
 msgstr ""
 
@@ -693,89 +693,81 @@ msgstr ""
 msgid "translator-credits"
 msgstr ""
 
-#: ../../Jokosher.py:293
+#: ../../Jokosher.py:314
 msgid ""
 "No instruments are armed for recording. You need to arm an instrument before "
 "you can begin recording."
 msgstr ""
 
-#: ../../Jokosher.py:324
+#: ../../Jokosher.py:345
 msgid ""
 "No channels capable of recording have found, please attach a device and try "
 "again."
 msgstr ""
 
-#: ../../Jokosher.py:326
+#: ../../Jokosher.py:347
 msgid ""
 "Your sound card isn't capable of recording from multiple sources at the same "
 "time. Please disarm all but one instrument."
 msgstr ""
 
-#: ../../Jokosher.py:399
+#: ../../Jokosher.py:420
 msgid "Mixdown Project"
 msgstr ""
 
-#: ../../Jokosher.py:401
+#: ../../Jokosher.py:423
 msgid "Save as file type:"
 msgstr ""
 
-#: ../../Jokosher.py:451
+#: ../../Jokosher.py:475
 msgid "Preparing to mixdown project"
 msgstr ""
 
-#: ../../Jokosher.py:509
+#: ../../Jokosher.py:533
 msgid "Choose a Jokosher project file"
 msgstr ""
 
-#: ../../Jokosher.py:513
+#: ../../Jokosher.py:539
 msgid "All Files"
 msgstr ""
 
-#: ../../Jokosher.py:517
+#: ../../Jokosher.py:543
 msgid "Jokosher Project File (*.jokosher)"
 msgstr ""
 
-#: ../../Jokosher.py:557
+#: ../../Jokosher.py:584
 msgid "Choose a location to save the project"
 msgstr ""
 
-#: ../../Jokosher.py:950
+#: ../../Jokosher.py:977
 msgid "The project references non-existant files:\n"
 msgstr ""
 
-#: ../../Jokosher.py:954
+#: ../../Jokosher.py:981
 msgid ""
 "\n"
 "The project references non-existant images:\n"
 msgstr ""
 
-#: ../../Jokosher.py:987
+#: ../../Jokosher.py:1014
 msgid "You must have Gstreamer version 0.10.9 or higher.\n"
 msgstr ""
 
-#: ../../Jokosher.py:995
+#: ../../Jokosher.py:1022
 msgid "You must have Gstreamer plugin gnonlin version 0.10.4.2 or later.\n"
 msgstr ""
 
-#: ../../Jokosher.py:997
+#: ../../Jokosher.py:1024
 msgid "Gstreamer plugin gnonlin is not installed."
 msgstr ""
 
-#: ../../Jokosher.py:998
+#: ../../Jokosher.py:1025
 msgid ""
 "\n"
 "See http://jokosher.org/trac/wiki/GettingJokosher for more details.\n"
 msgstr ""
 
-#: ../../Jokosher.py:1004
-#, python-format
-msgid ""
-"<big>Some functionality will not work correctly or at all.</big>\n"
-"\n"
-"%s"
-msgstr ""
-
-#: ../../Jokosher.py:1025
+#: ../../Jokosher.py:1052
 msgid ""
 "<big>Notes about this release</big>\n"
 "\n"
@@ -784,6 +776,6 @@ msgid ""
 "that is not present."
 msgstr ""
 
-#: ../../Jokosher.py:1049
+#: ../../Jokosher.py:1076
 msgid "The project file could not be opened.\n"
 msgstr ""

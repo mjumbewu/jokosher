@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jokosher HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-07-27 13:35+0200\n"
+"POT-Creation-Date: 2006-07-28 19:30+0200\n"
 "PO-Revision-Date: 2006-07-28 12:07+0600\n"
 "Last-Translator: Artem Popov <artfwo@gmail.com>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -475,7 +475,8 @@ msgid "Browse for an Existing Project"
 msgstr "Открыть существующий проект"
 
 #: ../../Jokosher.glade.h:382
-msgid "Choose an instrument to add to your project."
+#, fuzzy
+msgid "Choose one or more instruments to add to your project."
 msgstr "Выберите инструмент для добавления к проекту."
 
 #: ../../Jokosher.glade.h:383
@@ -510,7 +511,8 @@ msgstr "Рисование иконок, изображений и прочей 
 msgid ""
 "Enter a name for your project and select a folder to store the project in:"
 msgstr ""
-"Введите название вашего проекта и выберите папку, в которой он будет храниться:"
+"Введите название вашего проекта и выберите папку, в которой он будет "
+"храниться:"
 
 #: ../../Jokosher.glade.h:391
 msgid "Files Saves As"
@@ -601,7 +603,8 @@ msgid "Sample Rate (Hz)"
 msgstr "Частота дискретизации"
 
 #: ../../Jokosher.glade.h:413
-msgid "Search"
+#, fuzzy
+msgid "Search:"
 msgstr "Поиск"
 
 #: ../../Jokosher.glade.h:414
@@ -652,7 +655,8 @@ msgstr "Отменить"
 msgid ""
 "Use the combo boxes below to select which input is used with which instrument"
 msgstr ""
-"Используйте поля внизу, для указанния, какой вход соотвествует какому инструменту"
+"Используйте поля внизу, для указанния, какой вход соотвествует какому "
+"инструменту"
 
 #: ../../Jokosher.glade.h:426
 msgid ""
@@ -661,7 +665,7 @@ msgid ""
 "Ogg Vorbis"
 msgstr ""
 
-#: ../../Jokosher.glade.h:429 ../../Jokosher.py:60
+#: ../../Jokosher.glade.h:429
 msgid "Welcome to Jokosher!"
 msgstr "Добро пожаловать в Jokosher!"
 
@@ -701,15 +705,15 @@ msgstr "П_роект"
 msgid "translator-credits"
 msgstr "Артём Попов <artfwo@gmail.com>"
 
-#: ../../Jokosher.py:293
+#: ../../Jokosher.py:314
 msgid ""
 "No instruments are armed for recording. You need to arm an instrument before "
 "you can begin recording."
 msgstr ""
-"Ни один инструмент не выбран для записи. Необходимо указать инструмент, прежде "
-"чем можно будет начать запись."
+"Ни один инструмент не выбран для записи. Необходимо указать инструмент, "
+"прежде чем можно будет начать запись."
 
-#: ../../Jokosher.py:324
+#: ../../Jokosher.py:345
 msgid ""
 "No channels capable of recording have found, please attach a device and try "
 "again."
@@ -717,47 +721,47 @@ msgstr ""
 "Не найдено каналов, пригодных для записи, присоедините устройство и "
 "попробуйте ещё раз."
 
-#: ../../Jokosher.py:326
+#: ../../Jokosher.py:347
 msgid ""
 "Your sound card isn't capable of recording from multiple sources at the same "
 "time. Please disarm all but one instrument."
 msgstr ""
-"Ваша звуковая плата не поддерживает одновременную запись с нескольких входов. "
-"Отключите все инструменты кроме одного."
+"Ваша звуковая плата не поддерживает одновременную запись с нескольких "
+"входов. Отключите все инструменты кроме одного."
 
-#: ../../Jokosher.py:399
+#: ../../Jokosher.py:420
 msgid "Mixdown Project"
 msgstr "Свести проект"
 
-#: ../../Jokosher.py:401
+#: ../../Jokosher.py:423
 msgid "Save as file type:"
 msgstr "Сохранить как файл типа:"
 
-#: ../../Jokosher.py:451
+#: ../../Jokosher.py:475
 msgid "Preparing to mixdown project"
 msgstr "Подготовка к сведению проекта"
 
-#: ../../Jokosher.py:509
+#: ../../Jokosher.py:533
 msgid "Choose a Jokosher project file"
 msgstr "Выберите файл проекта Jokosher"
 
-#: ../../Jokosher.py:513
+#: ../../Jokosher.py:539
 msgid "All Files"
 msgstr "Все файлы"
 
-#: ../../Jokosher.py:517
+#: ../../Jokosher.py:543
 msgid "Jokosher Project File (*.jokosher)"
 msgstr "Файлы проектов Jokosher (*.jokosher)"
 
-#: ../../Jokosher.py:557
+#: ../../Jokosher.py:584
 msgid "Choose a location to save the project"
 msgstr "Выберите местоположение сохранения проекта"
 
-#: ../../Jokosher.py:950
+#: ../../Jokosher.py:977
 msgid "The project references non-existant files:\n"
 msgstr "Проект ссылается на несуществующие файлы:\n"
 
-#: ../../Jokosher.py:954
+#: ../../Jokosher.py:981
 msgid ""
 "\n"
 "The project references non-existant images:\n"
@@ -765,38 +769,28 @@ msgstr ""
 "\n"
 "Проект ссылается на несуществующие изображения:\n"
 
-#: ../../Jokosher.py:987
+#: ../../Jokosher.py:1014
 msgid "You must have Gstreamer version 0.10.9 or higher.\n"
 msgstr "Вам требуется Gstreamer версии 0.10.9 или выше.\n"
 
-#: ../../Jokosher.py:995
+#: ../../Jokosher.py:1022
 msgid "You must have Gstreamer plugin gnonlin version 0.10.4.2 or later.\n"
 msgstr "Вам требуется модуль Gstreamer gnonlin версии 0.10.4.2 или выше.\n"
 
-#: ../../Jokosher.py:997
+#: ../../Jokosher.py:1024
 msgid "Gstreamer plugin gnonlin is not installed."
 msgstr "Модуль Gstreamer gnonlin не установлен."
 
-#: ../../Jokosher.py:998
+#: ../../Jokosher.py:1025
 msgid ""
 "\n"
 "See http://jokosher.org/trac/wiki/GettingJokosher for more details.\n"
 msgstr ""
 "\n"
-"См. http://jokosher.org/trac/wiki/GettingJokosher для дополнительной информации.\n"
+"См. http://jokosher.org/trac/wiki/GettingJokosher для дополнительной "
+"информации.\n"
 
-#: ../../Jokosher.py:1004
-#, python-format
-msgid ""
-"<big>Some functionality will not work correctly or at all.</big>\n"
-"\n"
-"%s"
-msgstr ""
-"<big>Некоторые функции будут работать неправильно или будут отключены.</big>\n"
-"\n"
-"%s"
-
-#: ../../Jokosher.py:1025
+#: ../../Jokosher.py:1052
 msgid ""
 "<big>Notes about this release</big>\n"
 "\n"
@@ -806,10 +800,20 @@ msgid ""
 msgstr ""
 "<big>Заметки к версии</big>\n"
 "\n"
-"Данная версия Jokosher (0.1) - это предварительная версия, и, фактически, наш "
-"первый релиз. Как следствие, вы можете столкнуться с ошибками и отстуствующими "
-"возможностями."
+"Данная версия Jokosher (0.1) - это предварительная версия, и, фактически, "
+"наш первый релиз. Как следствие, вы можете столкнуться с ошибками и "
+"отстуствующими возможностями."
 
-#: ../../Jokosher.py:1049
+#: ../../Jokosher.py:1076
 msgid "The project file could not be opened.\n"
 msgstr "Файл проекта не может быть открыт.\n"
+
+#~ msgid ""
+#~ "<big>Some functionality will not work correctly or at all.</big>\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "<big>Некоторые функции будут работать неправильно или будут отключены.</"
+#~ "big>\n"
+#~ "\n"
+#~ "%s"

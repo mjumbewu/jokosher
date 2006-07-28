@@ -51,6 +51,7 @@ class MainApp:
 		try:
 			locale.setlocale(locale.LC_ALL, '')
 			gettext.bindtextdomain(Globals.LOCALE_APP, Globals.LOCALE_DIR)
+			gettext.bind_textdomain_codeset(Globals.LOCALE_APP, "UTF-8");
 			gettext.textdomain(Globals.LOCALE_APP)
 			gtk.glade.bindtextdomain(Globals.LOCALE_APP, Globals.LOCALE_DIR)
 			gtk.glade.textdomain(Globals.LOCALE_APP)
