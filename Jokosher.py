@@ -5,6 +5,7 @@ pygtk.require("2.0")
 import gtk
 import gtk.glade
 import sys, os
+import os.path
 import gobject
 import pygst
 pygst.require("0.10")
@@ -63,7 +64,7 @@ class MainApp:
 			"on_MainWindow_destroy" : self.OnDestroy,
 			"on_AddInstrument_clicked" : self.OnShowAddInstrumentDialog,
 			"on_About_activate" : self.About,
-			"on_Record_toggled" : self.Record,
+			"on_Record_toggled" : self.Record, 
 			"on_Play_toggled" : self.Play,
 			"on_Stop_clicked" : self.Stop,
 			"on_Recording_toggled" : self.OnRecordingView,
@@ -141,7 +142,7 @@ class MainApp:
 		self.settingButtons = True
 		self.wTree.get_widget("Recording").set_active(True)
 		self.settingButtons = False
-		
+		self.defaultlocation=""	
 		self.isRecording = False
 		self.isPlaying = False
 
@@ -417,7 +418,8 @@ class MainApp:
 		'''Display a save dialog allowing the user to export as ogg or mp3'''
 		buttons = (gtk.STOCK_CANCEL,gtk.RESPONSE_CANCEL,gtk.STOCK_SAVE,gtk.RESPONSE_OK)
 		chooser = gtk.FileChooserDialog(_("Mixdown Project"), self.window, gtk.FILE_CHOOSER_ACTION_SAVE, buttons)
-		
+		chooser.set_current_folder(self.defaultlocation)
+
 		saveLabel = gtk.Label(_("Save as file type:"))		
 		typeCombo = gtk.combo_box_new_text()
 		#tuples containing the display test, and the extension (without ".")
@@ -437,6 +439,7 @@ class MainApp:
 		response = chooser.run()
 		if response == gtk.RESPONSE_OK:
 			filename = chooser.get_filename()
+			self.defaultlocation=os.path.dirname(filename)
 			#If they haven't already appended the extension for the 
 			#chosen file type, add it to the end of the file.
 			filetype = types[typeCombo.get_active()][1]
@@ -459,6 +462,7 @@ class MainApp:
 			
 			gobject.timeout_add(100, self.UpdateExportDialog)
 			self.project.export(filename)
+			self.defaultlocation(os.path.basename(filename))
 		else:
 			chooser.destroy()
 		
@@ -527,6 +531,8 @@ class MainApp:
 	def OnOpenProject(self, widget, destroyCallback=None):
 		
 		chooser = gtk.FileChooserDialog((_('Choose a Jokosher project file')), None, gtk.FILE_CHOOSER_ACTION_OPEN, (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, gtk.STOCK_OPEN, gtk.RESPONSE_OK))
+		chooser.set_current_folder(self.mainview.defaultlocation)
+
 		chooser.set_default_response(gtk.RESPONSE_OK)
 		chooser.set_transient_for(self.window)
 		allfilter = gtk.FileFilter()
@@ -549,9 +555,10 @@ class MainApp:
 			if response == gtk.RESPONSE_OK:
 				
 				filename = chooser.get_filename()
-				
+				self.defaultlocation=os.path.dirname(filename)
 				try:
 					self.SetProject(Project.LoadFromFile(filename))
+					self.defaultlocation(os.path.basename(filename))
 				except Project.OpenProjectError, e:
 					self.ShowOpenProjectErrorDialog(e, chooser)
 				else:
@@ -559,7 +566,7 @@ class MainApp:
 				
 			elif response == gtk.RESPONSE_CANCEL or response == gtk.RESPONSE_DELETE_EVENT:
 				break
-		
+
 		chooser.destroy()
 		
 	#_____________________________________________________________________
@@ -575,15 +582,16 @@ class MainApp:
 	def OnSaveAsProject(self, widget=None):
 		buttons = (gtk.STOCK_CANCEL,gtk.RESPONSE_CANCEL,gtk.STOCK_SAVE,gtk.RESPONSE_OK)
 		chooser = gtk.FileChooserDialog(_("Choose a location to save the project"), self.window, gtk.FILE_CHOOSER_ACTION_SAVE, buttons)
-		
+		chooser.set_current_folder(self.defaultlocation)
+
 		response = chooser.run()
 		if response == gtk.RESPONSE_OK:
 			filename = chooser.get_filename()
-			
+			self.defaultlocation=os.path.dirname(filename)
 			self.project.ClearInstrumentSelections()
 			self.project.ClearEventSelections()
 			self.project.saveProjectFile(filename)
-			
+			self.defaultlocation(os.path.basename(filename))
 		chooser.destroy()
 		
 	#_____________________________________________________________________
@@ -1080,6 +1088,7 @@ class MainApp:
 		dlg.destroy()
 	
 	#_____________________________________________________________________
+
 
 #=========================================================================
 

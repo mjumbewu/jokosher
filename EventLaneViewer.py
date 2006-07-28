@@ -2,6 +2,7 @@
 import gtk, Instrument
 from EventViewer import *
 import Monitored
+import os.path
 
 #=========================================================================
 
@@ -87,7 +88,7 @@ class EventLaneViewer(gtk.EventBox):
 	#_____________________________________________________________________
 		
 	def Update(self, child=None):
-		
+
 		if child and child in self.fixed.get_children():
 			x = int(round((child.event.start - self.project.viewStart) * self.project.viewScale))
 			self.fixed.move( child, x, 0 )
@@ -111,7 +112,6 @@ class EventLaneViewer(gtk.EventBox):
 					x = int(round((ev.start - self.project.viewStart) * self.project.viewScale))
 					child = EventViewer(self, self.project, ev, self.allocation.height, self, self.mainview, self.small)
 					self.fixed.put(	child, x, 0)
-				
 			self.fixed.show_all()
 		self.queue_draw()
 			
@@ -185,6 +185,7 @@ class EventLaneViewer(gtk.EventBox):
 		copyfile.show()
 
 		dlg = gtk.FileChooserDialog("Import file...", action=gtk.FILE_CHOOSER_ACTION_OPEN, buttons=buttons)
+		dlg.set_current_folder(self.mainview.defaultlocation)
 		dlg.set_extra_widget(copyfile)
 		response = dlg.run()
 
@@ -192,6 +193,7 @@ class EventLaneViewer(gtk.EventBox):
 			dlg.hide()
 			start = (self.mouseDownPos[0]/self.project.viewScale) + self.project.viewStart
 			self.instrument.addEventFromFile(start, dlg.get_filename(),copyfile.get_active())
+			self.mainview.defaultlocation=os.path.dirname(dlg.get_filename())
 		dlg.destroy()
 
 	#_____________________________________________________________________
@@ -223,4 +225,5 @@ class EventLaneViewer(gtk.EventBox):
 		
 	#_____________________________________________________________________
 	
+
 #=========================================================================
