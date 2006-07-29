@@ -291,9 +291,7 @@ class MainApp:
 			if instr.isArmed:
 				if usedChannels.has_key(instr.input):
 					if usedChannels[instr.input].has_key(instr.inTrack):
-						string = _("The instruments '%s' and '%s' both have the same input selected (%s). " + \
-								"Please either disarm one, or connect it to a different input through " + \
-								"'Project -> Instrument Connections'")
+						string = _("The instruments '%s' and '%s' both have the same input selected (%s). Please either disarm one, or connect it to a different input through 'Project -> Instrument Connections'")
 						message = string % (usedChannels[instr.input][instr.inTrack], instr.name, instr.inTrack)
 						dlg = gtk.MessageDialog(self.window,
 							gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jokosher HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-07-29 10:12+0200\n"
+"POT-Creation-Date: 2006-07-29 09:19-0400\n"
 "PO-Revision-Date: 2006-07-28 12:07+0600\n"
 "Last-Translator: Artem Popov <artfwo@gmail.com>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -528,7 +528,7 @@ msgstr "Общие"
 msgid "Instrument Connections"
 msgstr "Связи инструментов"
 
-#: ../../Jokosher.glade.h:395 ../../Jokosher.py:887
+#: ../../Jokosher.glade.h:395 ../../Jokosher.py:885
 msgid "Jokosher"
 msgstr ""
 
@@ -703,25 +703,19 @@ msgstr "П_роект"
 msgid "translator-credits"
 msgstr "Артём Попов <artfwo@gmail.com>"
 
-#: ../../Jokosher.py:202 ../../Jokosher.py:1076
+#: ../../Jokosher.py:202 ../../Jokosher.py:1074
 msgid "The project file could not be opened.\n"
 msgstr "Файл проекта не может быть открыт.\n"
 
 #: ../../Jokosher.py:294
 #, python-format
-msgid "The instruments '%s' and '%s' both have the same input selected (%s). "
+msgid ""
+"The instruments '%s' and '%s' both have the same input selected (%s). Please "
+"either disarm one, or connect it to a different input through 'Project -> "
+"Instrument Connections'"
 msgstr ""
 
-#: ../../Jokosher.py:295
-msgid "Please either disarm one, or connect it to a different input through "
-msgstr ""
-
-#: ../../Jokosher.py:296
-#, fuzzy
-msgid "'Project -> Instrument Connections'"
-msgstr "Связи инструментов"
-
-#: ../../Jokosher.py:319
+#: ../../Jokosher.py:317
 msgid ""
 "No instruments are armed for recording. You need to arm an instrument before "
 "you can begin recording."
@@ -729,7 +723,7 @@ msgstr ""
 "Ни один инструмент не выбран для записи. Необходимо указать инструмент, "
 "прежде чем можно будет начать запись."
 
-#: ../../Jokosher.py:350
+#: ../../Jokosher.py:348
 msgid ""
 "No channels capable of recording have found, please attach a device and try "
 "again."
@@ -737,7 +731,7 @@ msgstr ""
 "Не найдено каналов, пригодных для записи, присоедините устройство и "
 "попробуйте ещё раз."
 
-#: ../../Jokosher.py:352
+#: ../../Jokosher.py:350
 msgid ""
 "Your sound card isn't capable of recording from multiple sources at the same "
 "time. Please disarm all but one instrument."
@@ -745,45 +739,45 @@ msgstr ""
 "Ваша звуковая плата не поддерживает одновременную запись с нескольких "
 "входов. Отключите все инструменты кроме одного."
 
-#: ../../Jokosher.py:425
+#: ../../Jokosher.py:423
 msgid "Mixdown Project"
 msgstr "Свести проект"
 
-#: ../../Jokosher.py:428
+#: ../../Jokosher.py:426
 msgid "Save as file type:"
 msgstr "Сохранить как файл типа:"
 
-#: ../../Jokosher.py:464
+#: ../../Jokosher.py:462
 #, fuzzy, python-format
 msgid "Mixing project to file: %s"
 msgstr "Сведение проекта"
 
-#: ../../Jokosher.py:479
+#: ../../Jokosher.py:477
 msgid "Preparing to mixdown project"
 msgstr "Подготовка к сведению проекта"
 
-#: ../../Jokosher.py:485
+#: ../../Jokosher.py:483
 #, python-format
 msgid "%d of %d seconds completed"
 msgstr ""
 
-#: ../../Jokosher.py:537
+#: ../../Jokosher.py:535
 msgid "Choose a Jokosher project file"
 msgstr "Выберите файл проекта Jokosher"
 
-#: ../../Jokosher.py:543
+#: ../../Jokosher.py:541
 msgid "All Files"
 msgstr "Все файлы"
 
-#: ../../Jokosher.py:547
+#: ../../Jokosher.py:545
 msgid "Jokosher Project File (*.jokosher)"
 msgstr "Файлы проектов Jokosher (*.jokosher)"
 
-#: ../../Jokosher.py:587
+#: ../../Jokosher.py:585
 msgid "Choose a location to save the project"
 msgstr "Выберите местоположение сохранения проекта"
 
-#: ../../Jokosher.py:622
+#: ../../Jokosher.py:620
 #, python-format
 msgid ""
 "<span size='large' weight='bold'>Save changes to project \"%s\" before "
@@ -792,25 +786,25 @@ msgid ""
 "Your changes will be lost if you don't save them."
 msgstr ""
 
-#: ../../Jokosher.py:631
+#: ../../Jokosher.py:629
 msgid "Close _Without Saving"
 msgstr ""
 
-#: ../../Jokosher.py:676
+#: ../../Jokosher.py:674
 #, python-format
 msgid "*%s - Jokosher"
 msgstr ""
 
-#: ../../Jokosher.py:678
+#: ../../Jokosher.py:676
 #, fuzzy, python-format
 msgid "%s - Jokosher"
 msgstr "Добро пожаловать в Jokosher!"
 
-#: ../../Jokosher.py:977
+#: ../../Jokosher.py:975
 msgid "The project references non-existant files:\n"
 msgstr "Проект ссылается на несуществующие файлы:\n"
 
-#: ../../Jokosher.py:981
+#: ../../Jokosher.py:979
 msgid ""
 "\n"
 "The project references non-existant images:\n"
@@ -818,26 +812,26 @@ msgstr ""
 "\n"
 "Проект ссылается на несуществующие изображения:\n"
 
-#: ../../Jokosher.py:989
+#: ../../Jokosher.py:987
 #, python-format
 msgid ""
 "%s\n"
 " Invalid or corrupt project file, will not open."
 msgstr ""
 
-#: ../../Jokosher.py:1014
+#: ../../Jokosher.py:1012
 msgid "You must have Gstreamer version 0.10.9 or higher.\n"
 msgstr "Вам требуется Gstreamer версии 0.10.9 или выше.\n"
 
-#: ../../Jokosher.py:1022
+#: ../../Jokosher.py:1020
 msgid "You must have Gstreamer plugin gnonlin version 0.10.4.2 or later.\n"
 msgstr "Вам требуется модуль Gstreamer gnonlin версии 0.10.4.2 или выше.\n"
 
-#: ../../Jokosher.py:1024
+#: ../../Jokosher.py:1022
 msgid "Gstreamer plugin gnonlin is not installed."
 msgstr "Модуль Gstreamer gnonlin не установлен."
 
-#: ../../Jokosher.py:1025
+#: ../../Jokosher.py:1023
 msgid ""
 "\n"
 "See http://jokosher.org/trac/wiki/GettingJokosher for more details.\n"
@@ -846,7 +840,7 @@ msgstr ""
 "См. http://jokosher.org/trac/wiki/GettingJokosher для дополнительной "
 "информации.\n"
 
-#: ../../Jokosher.py:1031
+#: ../../Jokosher.py:1029
 #, python-format
 msgid ""
 "<big>Some functionality will not work correctly or at all.</big>\n"
@@ -858,7 +852,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../../Jokosher.py:1052
+#: ../../Jokosher.py:1050
 msgid ""
 "<big>Notes about this release</big>\n"
 "\n"
@@ -872,12 +866,16 @@ msgstr ""
 "наш первый релиз. Как следствие, вы можете столкнуться с ошибками и "
 "отстуствующими возможностями."
 
-#: ../../Jokosher.py:1078
+#: ../../Jokosher.py:1076
 #, python-format
 msgid "The project file was created with version \"%s\" of Jokosher.\n"
 msgstr ""
 
-#: ../../Jokosher.py:1079
+#: ../../Jokosher.py:1077
 #, python-format
 msgid "Projects from version \"%s\" are incompatible with this release.\n"
 msgstr ""
+
+#, fuzzy
+#~ msgid "'Project -> Instrument Connections'"
+#~ msgstr "Связи инструментов"
