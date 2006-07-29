@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-07-28 19:30+0200\n"
+"POT-Creation-Date: 2006-07-29 10:12+0200\n"
 "PO-Revision-Date: 2006-07-08 11:33+0100\n"
 "Last-Translator: Dennis Lichtenthäler <dennis.lichtenthaeler@episode-iv.de>\n"
 "Language-Team: German <translation-team-de@lists.sourceforge.net>\n"
@@ -524,7 +524,7 @@ msgstr "Allgemein"
 msgid "Instrument Connections"
 msgstr "Verbindungen"
 
-#: ../../Jokosher.glade.h:395
+#: ../../Jokosher.glade.h:395 ../../Jokosher.py:887
 msgid "Jokosher"
 msgstr ""
 
@@ -700,51 +700,102 @@ msgstr "_Projekt"
 msgid "translator-credits"
 msgstr ""
 
-#: ../../Jokosher.py:314
+#: ../../Jokosher.py:202 ../../Jokosher.py:1076
+msgid "The project file could not be opened.\n"
+msgstr "Die Projektdatei konnte nicht geöffnet werden.\n"
+
+#: ../../Jokosher.py:294
+#, python-format
+msgid "The instruments '%s' and '%s' both have the same input selected (%s). "
+msgstr ""
+
+#: ../../Jokosher.py:295
+msgid "Please either disarm one, or connect it to a different input through "
+msgstr ""
+
+#: ../../Jokosher.py:296
+#, fuzzy
+msgid "'Project -> Instrument Connections'"
+msgstr "Verbindungen"
+
+#: ../../Jokosher.py:319
 msgid ""
 "No instruments are armed for recording. You need to arm an instrument before "
 "you can begin recording."
 msgstr ""
 
-#: ../../Jokosher.py:345
+#: ../../Jokosher.py:350
 msgid ""
 "No channels capable of recording have found, please attach a device and try "
 "again."
 msgstr ""
 
-#: ../../Jokosher.py:347
+#: ../../Jokosher.py:352
 msgid ""
 "Your sound card isn't capable of recording from multiple sources at the same "
 "time. Please disarm all but one instrument."
 msgstr ""
 
-#: ../../Jokosher.py:420
+#: ../../Jokosher.py:425
 msgid "Mixdown Project"
 msgstr "Projekt abmischen"
 
-#: ../../Jokosher.py:423
+#: ../../Jokosher.py:428
 msgid "Save as file type:"
 msgstr "Speichern als:"
 
-#: ../../Jokosher.py:475
+#: ../../Jokosher.py:464
+#, python-format
+msgid "Mixing project to file: %s"
+msgstr ""
+
+#: ../../Jokosher.py:479
 msgid "Preparing to mixdown project"
 msgstr "Abmischen vorbereiten"
 
-#: ../../Jokosher.py:533
+#: ../../Jokosher.py:485
+#, python-format
+msgid "%d of %d seconds completed"
+msgstr ""
+
+#: ../../Jokosher.py:537
 msgid "Choose a Jokosher project file"
 msgstr "Jokosher-Projektdatei auswählen"
 
-#: ../../Jokosher.py:539
+#: ../../Jokosher.py:543
 msgid "All Files"
 msgstr "Alle Dateien"
 
-#: ../../Jokosher.py:543
+#: ../../Jokosher.py:547
 msgid "Jokosher Project File (*.jokosher)"
 msgstr "Jokosher-Projektdatei (*.jokosher)"
 
-#: ../../Jokosher.py:584
+#: ../../Jokosher.py:587
 msgid "Choose a location to save the project"
 msgstr "Wähle den Speicherort für das Projekt aus"
+
+#: ../../Jokosher.py:622
+#, python-format
+msgid ""
+"<span size='large' weight='bold'>Save changes to project \"%s\" before "
+"closing?</span>\n"
+"\n"
+"Your changes will be lost if you don't save them."
+msgstr ""
+
+#: ../../Jokosher.py:631
+msgid "Close _Without Saving"
+msgstr ""
+
+#: ../../Jokosher.py:676
+#, python-format
+msgid "*%s - Jokosher"
+msgstr ""
+
+#: ../../Jokosher.py:678
+#, fuzzy, python-format
+msgid "%s - Jokosher"
+msgstr "Willkommen zu Jokosher!"
 
 #: ../../Jokosher.py:977
 msgid "The project references non-existant files:\n"
@@ -754,6 +805,13 @@ msgstr "Dieses Projekt bezieht sich auf fehlende Dateien:\n"
 msgid ""
 "\n"
 "The project references non-existant images:\n"
+msgstr ""
+
+#: ../../Jokosher.py:989
+#, python-format
+msgid ""
+"%s\n"
+" Invalid or corrupt project file, will not open."
 msgstr ""
 
 #: ../../Jokosher.py:1014
@@ -775,6 +833,14 @@ msgid ""
 "See http://jokosher.org/trac/wiki/GettingJokosher for more details.\n"
 msgstr ""
 
+#: ../../Jokosher.py:1031
+#, python-format
+msgid ""
+"<big>Some functionality will not work correctly or at all.</big>\n"
+"\n"
+"%s"
+msgstr ""
+
 #: ../../Jokosher.py:1052
 msgid ""
 "<big>Notes about this release</big>\n"
@@ -784,6 +850,12 @@ msgid ""
 "that is not present."
 msgstr ""
 
-#: ../../Jokosher.py:1076
-msgid "The project file could not be opened.\n"
-msgstr "Die Projektdatei konnte nicht geöffnet werden.\n"
+#: ../../Jokosher.py:1078
+#, python-format
+msgid "The project file was created with version \"%s\" of Jokosher.\n"
+msgstr ""
+
+#: ../../Jokosher.py:1079
+#, python-format
+msgid "Projects from version \"%s\" are incompatible with this release.\n"
+msgstr ""
