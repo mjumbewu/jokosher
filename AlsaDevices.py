@@ -36,9 +36,9 @@ def GetRecordingMixers(device):
 				# Ignore 'Capture' channel due to it being a requirement for recording on most low-end cards
 				if (track.label != 'Capture'):
 					recmixers.append(track)
-				else:
-					print ('Could not get the mixer for ALSA device %s, check your permissions' % (device,))
-					recmixers = []
+	else:
+		print ('Could not get the mixer for ALSA device %s, check your permissions' % (device,))
+		recmixers = []
 	
 	alsamixer.set_state(gst.STATE_NULL)
 	
