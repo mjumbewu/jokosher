@@ -134,7 +134,7 @@ class Instrument(Monitored, CommandManaged):
 		ins.setAttribute("id", str(self.id))
 		
 		items = ["path", "name", "isArmed", 
-				  "isMuted", "isSolo", "input", "output", "effects",
+				  "isMuted", "isSolo", "input", "output",
 				  "isSelected", "pixbufPath", "isVisible", "inTrack"]
 		
 		params = doc.createElement("Parameters")
