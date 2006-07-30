@@ -148,11 +148,9 @@ class Instrument(Monitored, CommandManaged):
 			ins.appendChild(globaleffect)
 		
 			propsdict = {}
-			propslist = gobject.list_properties(effect)
-			for prop in propslist:
+			for prop in gobject.list_properties(effect):
 				propsdict[prop.name] = effect.get_property(prop.name)
 			
-			print propsdict
 			StoreDictionaryToXML(self, doc, globaleffect, propsdict)
 			
 		for e in self.events:
@@ -171,21 +169,13 @@ class Instrument(Monitored, CommandManaged):
 		globaleffect = node.getElementsByTagName("GlobalEffect")
 		
 		for effect in globaleffect:
-			print "LOAD AN EFFECT"
 			elementname = str(effect.getAttribute("element"))
-			print elementname
+			print "Loading effect:", elementname
 			instance = gst.element_factory_make(elementname, "effect")
 			
-
-			for n in effect.childNodes:
-				if n.nodeType == xml.Node.ELEMENT_NODE:
-					if n.getAttribute("type") == "float":
-						instance.set_property(n.tagName, float(n.getAttribute("value")))
-					elif n.getAttribute("type") == "int":
-						instance.set_property(n.tagName, int(n.getAttribute("value")))
-					else:
-						instance.set_property(n.tagName, n.getAttribute("value"))
-		
+			propsdict = LoadDictionaryFromXML(effect)
+			for i in propsdict:
+				instance.set_property(i, propsdict[i])		
 			self.effects.append(instance)
 			
 		for ev in node.getElementsByTagName("Event"):

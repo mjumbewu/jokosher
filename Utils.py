@@ -70,7 +70,7 @@ def floatRange(start, end=None, inc=None):
 #_____________________________________________________________________
 
 def StoreDictionaryToXML(self, doc, parent, dict):
-	'''Saves a dictioanry of settings
+	'''Saves a dictionary of settings
 	   in an XML document (doc) with the parent XML tag (parent)
 	'''
 	for i in dict:
@@ -87,3 +87,23 @@ def StoreDictionaryToXML(self, doc, parent, dict):
 		
 		node.setAttribute("value", str(dict[i]))
 		parent.appendChild(node)
+		
+#_____________________________________________________________________
+		
+def LoadDictionaryFromXML(parentElement):
+	dictionary = {}
+	for n in parentElement.childNodes:
+		if n.nodeType == xml.Node.ELEMENT_NODE:
+			if n.getAttribute("type") == "int":
+				dictionary[n.tagName] = int(n.getAttribute("value"))
+			elif n.getAttribute("type") == "float":
+				dictionary[n.tagName] = float(n.getAttribute("value"))
+			elif n.getAttribute("type") == "bool":
+				value = (n.getAttribute("value") == "True")
+				dictionary[n.tagName] = value
+			else:
+				dictionary[n.tagName] = n.getAttribute("value")
+				
+	return dictionary
+
+#_____________________________________________________________________
