@@ -99,7 +99,7 @@ class InstrumentViewer(gtk.EventBox):
 			self.soloButton.connect("toggled", self.OnSolo)
 			
 			self.propsButton = gtk.Button("In")
-			self.propsButton.connect("clicked", self.OnProps)
+			self.propsButton.connect("clicked", self.OnProcessingMenu)
 			
 			self.controlsBox.add(self.recButton)
 			self.controlsBox.add(self.muteButton)
@@ -223,12 +223,30 @@ class InstrumentViewer(gtk.EventBox):
 
 	#______________________________________________________________________
 
-	def OnProps(self, widget):
+	def OnInstrumentEffects(self, widget):
 		""" Creates and shows the instrument effects dialog"""
 		print "props button pressed"
 		newdlg = InstrumentEffectsDialog.InstrumentEffectsDialog(self.instrument)
 		#if destroyCallback:
 		#	newdlg.dlg.connect("destroy", destroyCallback)
 
+
+	#______________________________________________________________________
+
+	def OnProcessingMenu(self, widget):
+		#self.mouseDownPos = [mouse.x, mouse.y]
+		print "menu"
+		# Create context menu on RMB 
+		m = gtk.Menu() 
+		items = [("Instrument Effects...", self.OnInstrumentEffects)] 
+		for i, cb in items:
+			a = gtk.MenuItem(label=i)
+			a.show() 
+			m.append(a)
+			if cb:
+				a.connect("activate", cb)
+
+		#m.popup(None, None, None, mouse.button, mouse.time)
+		
 	#=========================================================================	
 
