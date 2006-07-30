@@ -141,6 +141,19 @@ class Instrument(Monitored, CommandManaged):
 		ins.appendChild(params)
 		
 		StoreParametersToXML(self, doc, params, items)
+		
+		for effect in self.effects:
+			globaleffect = doc.createElement("GlobalEffect")
+			globaleffect.setAttribute("element", effect.get_factory().get_name())
+			ins.appendChild(globaleffect)
+		
+			propsdict = {}
+			propslist = gobject.list_properties(effect)
+			for prop in propslist:
+				propsdict[prop.name] = effect.get_property(prop.name)
+			
+			print propsdict
+			StoreDictionaryToXML(self, doc, globaleffect, propsdict)
 			
 		for e in self.events:
 			e.StoreToXML(doc, ins)
