@@ -73,19 +73,19 @@ def StoreDictionaryToXML(self, doc, parent, dict):
 	'''Saves a dictionary of settings
 	   in an XML document (doc) with the parent XML tag (parent)
 	'''
-	for i in dict:
-		node = doc.createElement(i)
+	for key, value in dict.iteritems():
+		node = doc.createElement(key)
 			
-		if type(dict[i]) == int:
+		if type(value) == int:
 			node.setAttribute("type", "int")
-		elif type(dict[i]) == float:
+		elif type(value) == float:
 			node.setAttribute("type", "float")
-		elif type(dict[i]) == bool:
+		elif type(value) == bool:
 			node.setAttribute("type", "bool")
 		else:
 			node.setAttribute("type", "str")
 		
-		node.setAttribute("value", str(dict[i]))
+		node.setAttribute("value", str(value))
 		parent.appendChild(node)
 		
 #_____________________________________________________________________

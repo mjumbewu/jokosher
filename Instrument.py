@@ -174,8 +174,8 @@ class Instrument(Monitored, CommandManaged):
 			instance = gst.element_factory_make(elementname, "effect")
 			
 			propsdict = LoadDictionaryFromXML(effect)
-			for i in propsdict:
-				instance.set_property(i, propsdict[i])		
+			for key, value in propsdict.iteritems():
+				instance.set_property(key, value)		
 			self.effects.append(instance)
 			
 		for ev in node.getElementsByTagName("Event"):
