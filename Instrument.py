@@ -167,7 +167,27 @@ class Instrument(Monitored, CommandManaged):
 		params = node.getElementsByTagName("Parameters")[0]
 		
 		LoadParametersFromXML(self, params)
-					
+		
+		globaleffect = node.getElementsByTagName("GlobalEffect")
+		
+		for effect in globaleffect:
+			print "LOAD AN EFFECT"
+			elementname = str(effect.getAttribute("element"))
+			print elementname
+			instance = gst.element_factory_make(elementname, "effect")
+			
+
+			for n in effect.childNodes:
+				if n.nodeType == xml.Node.ELEMENT_NODE:
+					if n.getAttribute("type") == "float":
+						instance.set_property(n.tagName, float(n.getAttribute("value")))
+					elif n.getAttribute("type") == "int":
+						instance.set_property(n.tagName, int(n.getAttribute("value")))
+					else:
+						instance.set_property(n.tagName, n.getAttribute("value"))
+		
+			self.effects.append(instance)
+			
 		for ev in node.getElementsByTagName("Event"):
 			try:
 				id = int(ev.getAttribute("id"))
