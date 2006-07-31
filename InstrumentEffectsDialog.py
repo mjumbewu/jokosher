@@ -9,6 +9,7 @@ import os
 from ConfigParser import SafeConfigParser
 import Project
 import Globals
+import EffectPresets
 
 class InstrumentEffectsDialog:
 	
@@ -63,6 +64,8 @@ class InstrumentEffectsDialog:
 		if not self.effects == []:
 			self.PopulateEffects()
 
+		self.presets = EffectPresets.EffectPresets()
+		
 		#self.window.resize(350, 300)
 		#self.window.set_icon(self.parent.icon)
 		#self.window.set_transient_for(self.parent.window)
@@ -94,7 +97,6 @@ class InstrumentEffectsDialog:
 	#_____________________________________________________________________	
 
 	def OnAddEffect(self, combo):
-		print self.currentplugin
 		self.instrument.effects.append(gst.element_factory_make(self.currentplugin, "effect"))
 		#self.instrument.effects.append(self.effect)
 		
@@ -102,23 +104,27 @@ class InstrumentEffectsDialog:
 		button.connect("clicked", self.OnEffectSetting)
 		self.effectsbox.pack_start(button)
 		
-		print self.instrument.effects
 		self.effectsbox.show_all()
 
 	#_____________________________________________________________________	
 		
 	def OnEffectSetting(self, button):
-		print "Showing plugin settings"
+		"""Show specific effects settings"""
+		
+		"""TODO: Make this modal or as part of the effects window"""
 
 		buttonpos = self.effectsbox.child_get_property(button, "position")
-		self.currentedit = buttonpos
 		
+		# set the index of the current edited effect - used to reference the
+		# effect elsewhere
+		self.currentedit = buttonpos
+						
 		self.settWin = gtk.glade.XML(Globals.GLADE_PATH, "EffectSettingsDialog")
 
 		settsignals = {
 			"on_cancelbutton_clicked" : self.OnEffectSettingCancel,
 			"on_okbutton_clicked" : self.OnEffectSettingOK,
-
+			"on_savepresetbutton_clicked" : self.OnSaveSingleEffectPreset,
 		}
 
 		self.settWin.signal_autoconnect(settsignals)
@@ -126,7 +132,8 @@ class InstrumentEffectsDialog:
 		self.settingswindow = self.settWin.get_widget("EffectSettingsDialog")
 		self.effectlabel = self.settWin.get_widget("effectlabel")
 		self.settingstable = self.settWin.get_widget("settingstable")
-
+		self.presetcombo = self.settWin.get_widget("presetcombo")
+		
 		proplist = gobject.list_properties(self.instrument.effects[buttonpos])
 		
 		rows = 0
@@ -134,11 +141,7 @@ class InstrumentEffectsDialog:
 		for property in proplist:
 			scale = gtk.HScale()
 			lab = gtk.Label(property.name)
-			print property.name + " " + property.value_type.name
-			print "\tvalue: " + str(self.instrument.effects[buttonpos].get_property(property.name))
 			if hasattr(property, "minimum") == True:
-				print "GET:"
-				#print self.instrument.effects[self.currentedit].get_property(property.name)
 				scale.connect("value-changed", self.SetEffectSetting, property.name)
 				scale.set_range(property.minimum, property.maximum)
 				scale.set_value(self.instrument.effects[self.currentedit].get_property(property.name))
@@ -182,9 +185,24 @@ class InstrumentEffectsDialog:
 	#_____________________________________________________________________	
 		
 	def SetEffectSetting(self, slider, name):
-		#print slider
-		print name
-		print "NEW"
-		print slider.get_value()
+		"""set the value of an effects slider to its property"""
 		self.instrument.effects[self.currentedit].set_property(name, slider.get_value())
 		
+	#_____________________________________________________________________	
+
+
+	def OnSaveSingleEffectPreset(self, widget):
+		"""Grab the effect properties and send it to the presets code to be saved"""
+
+		label = self.presetcombo.get_active_text()
+		
+		effectdict = {}
+		
+		effect = self.instrument.effects[self.currentedit]
+		
+		proplist = gobject.list_properties(effect)
+		
+		for property in proplist:
+			effectdict[property.name] = effect.get_property(property.name)
+
+		self.presets.SaveSingleEffect(label, effectdict)
