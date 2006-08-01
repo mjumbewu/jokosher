@@ -199,10 +199,11 @@ class InstrumentEffectsDialog:
 		effectdict = {}
 		
 		effect = self.instrument.effects[self.currentedit]
+		effectelement = effect.get_factory().get_name()
 		
 		proplist = gobject.list_properties(effect)
 		
 		for property in proplist:
 			effectdict[property.name] = effect.get_property(property.name)
 
-		self.presets.SaveSingleEffect(label, effectdict)
+		self.presets.SaveSingleEffect(label, effectdict, effectelement, "LADSPA")

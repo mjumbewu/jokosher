@@ -70,7 +70,7 @@ def LoadFromFile(file):
 	
 	#only open projects with the proper version number
 	version = doc.firstChild.getAttribute("version")
-	if version != Project.VERSION:
+	if version != Globals.VERSION:
 		raise OpenProjectError(version)
 	
 	params = doc.getElementsByTagName("Parameters")[0]
@@ -127,7 +127,7 @@ class Project(Monitored, CommandManaged):
 		project.
 	"""
 	
-	VERSION = "0.1"	# The project structure version. Will be useful for handling old save files
+	Globals.VERSION = "0.1"	# The project structure version. Will be useful for handling old save files
 	
 	#Export audio formats
 	NOT_EXPORTING, EXPORTING_VORBIS, EXPORTING_MP3, EXPORTING_WAV, EXPORTING_FLAC = range(5)
@@ -581,7 +581,7 @@ class Project(Monitored, CommandManaged):
 		head = doc.createElement("JokosherProject")
 		doc.appendChild(head)
 		
-		head.setAttribute("version", self.VERSION)
+		head.setAttribute("version", Globals.VERSION)
 		
 		params = doc.createElement("Parameters")
 		head.appendChild(params)
