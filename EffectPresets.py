@@ -16,7 +16,7 @@ class EffectPresets:
     #_____________________________________________________________________    
     
     def __init__(self):
-        Globals.EFFECTPRESETSVERSION = "0.2"
+        Globals.EFFECT_PRESETS_VERSION = "0.2"
       
     #_____________________________________________________________________    
 
@@ -26,14 +26,14 @@ class EffectPresets:
         self.effectelement = effectelement
         self.effecttype = effecttype
         
-        if not Globals.EFFECTPRESETS_PATH:
+        if not Globals.EFFECT_PRESETS_PATH:
             raise "No save path specified!"    
            
         doc = xml.Document()
         head = doc.createElement("JokosherPreset")
         doc.appendChild(head)
         
-        head.setAttribute("version", Globals.EFFECTPRESETSVERSION)
+        head.setAttribute("version", Globals.EFFECT_PRESETS_VERSION)
 
         effectblock = doc.createElement("Effect")
         #effectblock.setAttribute("element", effectelement)
@@ -52,7 +52,7 @@ class EffectPresets:
         
         StoreDictionaryToXML(self, doc, settingsblock, effectdict)
         
-        f = gzip.GzipFile(Globals.EFFECTPRESETS_PATH + "/" + label + ".jpreset", "w")
+        f = gzip.GzipFile(Globals.EFFECT_PRESETS_PATH + "/" + label + ".jpreset", "w")
         f.write(doc.toprettyxml())
         f.close()
 
@@ -64,14 +64,14 @@ class EffectPresets:
         self.effectelement = None
         self.effecttype = None
                 
-        if not Globals.EFFECTPRESETS_PATH:
+        if not Globals.EFFECT_PRESETS_PATH:
             raise "No save path specified!"    
            
         doc = xml.Document()
         head = doc.createElement("JokosherPreset")
         doc.appendChild(head)
         
-        head.setAttribute("version", Globals.EFFECTPRESETSVERSION)
+        head.setAttribute("version", Globals.EFFECT_PRESETS_VERSION)
 
         for eff in effectlist:
             self.effectelement = eff["effectelement"]
@@ -94,7 +94,7 @@ class EffectPresets:
         
             StoreDictionaryToXML(self, doc, settingsblock, eff["settings"])
 
-        f = gzip.GzipFile(Globals.EFFECTPRESETS_PATH + "/" + label + ".jpreset", "w")
+        f = gzip.GzipFile(Globals.EFFECT_PRESETS_PATH + "/" + label + ".jpreset", "w")
         f.write(doc.toprettyxml())
         f.close()
 

@@ -46,11 +46,11 @@ class Settings:
 		file.close()
 		
 def SetAbsPaths():
-	global JOKOSHER_PATH, IMAGE_PATH, GLADE_PATH, LOCALE_DIR, LOCALE_APP, EFFECTPRESETS_PATH
+	global JOKOSHER_PATH, IMAGE_PATH, GLADE_PATH, LOCALE_DIR, LOCALE_APP, EFFECT_PRESETS_PATH
 	
 	JOKOSHER_PATH = os.path.dirname(os.path.abspath(__file__))
 	IMAGE_PATH = os.path.join(JOKOSHER_PATH, "images")
-	EFFECTPRESETS_PATH = os.path.join(JOKOSHER_PATH, "effectspresets")
+	EFFECT_PRESETS_PATH = os.path.join(JOKOSHER_PATH, "effectspresets")
 	GLADE_PATH = os.path.join(JOKOSHER_PATH, "Jokosher.glade")
 	LOCALE_DIR = os.path.join(JOKOSHER_PATH, "locale")
 	LOCALE_APP = "jokosher"
@@ -64,4 +64,4 @@ GLADE_PATH = None
 LOCALE_DIR = None
 LOCALE_APP = None
 VERSION = None
-EFFECTPRESETSVERSION = None
+EFFECT_PRESETS_VERSION = None
