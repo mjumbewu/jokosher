@@ -1,20 +1,31 @@
-#German
-de:
-	msgfmt de.po -o ../de/LC_MESSAGES/jokosher.mo
+#Generic rule for MO files
+%.mo: DIR1 = ../$(basename $@)
+%.mo: DIR2 = $(DIR1)/LC_MESSAGES
+%.mo: %.po
+	##############
+	#GENERATING $@
+	##############
+	if [ ! -d $(DIR1) ]; then mkdir $(DIR1); fi
+	if [ ! -d $(DIR2) ]; then mkdir $(DIR2); fi
+	msgfmt $< -o $@
+	cp $@ $(DIR2)/jokosher.mo
 
-#Russian
-ru:
-	msgfmt ru.po -o ../ru/LC_MESSAGES/jokosher.mo
-	
+#Generic rule for PO files
+%.po: messages.pot
+	##################
+	#MERGING $@ AND $<
+	##################
+	msgmerge $@ messages.pot > tmp
+	mv tmp $@
 
-update:
+#Generic rule for POT files
+%.pot: ../../Jokosher.glade.h ../../*.py
+	############
+	#CREATING $@
+	############
 	intltool-extract --type=gettext/glade ../../Jokosher.glade	
-	xgettext -k_ -kN_ -o messages.pot ../../Jokosher.glade.h ../../*.py
-	#German
-	msgmerge de.po messages.pot > tmp
-	mv tmp de.po
-	#Russian
-	msgmerge ru.po messages.pot > tmp
-	mv tmp ru.po
+	xgettext -k_ -kN_ -o $@ $^
 
-all: de ru
+update: $(shell ls *.po)
+
+all: $(subst .po,.mo,$(shell ls *.po))
