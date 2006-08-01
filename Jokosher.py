@@ -533,7 +533,7 @@ class MainApp:
 	def OnOpenProject(self, widget, destroyCallback=None):
 		
 		chooser = gtk.FileChooserDialog((_('Choose a Jokosher project file')), None, gtk.FILE_CHOOSER_ACTION_OPEN, (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, gtk.STOCK_OPEN, gtk.RESPONSE_OK))
-		chooser.set_current_folder(self.mainview.defaultlocation)
+		chooser.set_current_folder(self.defaultlocation)
 
 		chooser.set_default_response(gtk.RESPONSE_OK)
 		chooser.set_transient_for(self.window)
