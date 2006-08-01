@@ -29,8 +29,8 @@ class InstrumentEffectsDialog:
 			"on_cancelbutton_clicked" : self.OnCancel,
 			"on_previewbutton_clicked" : self.OnPreview,
 			"on_effectscombo_changed" : self.OnSelectEffect,
-			"on_addbutton_clicked" : self.OnAddEffect
-
+			"on_addbutton_clicked" : self.OnAddEffect,
+			"on_chainpresetsave_clicked" : self.OnSaveEffectChainPreset
 		}
 		
 		self.res.signal_autoconnect(self.signals)
@@ -40,6 +40,7 @@ class InstrumentEffectsDialog:
 		self.effectsbox = self.res.get_widget("effectsbox")
 		self.addeffect = self.res.get_widget("addbutton")
 		self.instrumentimage = self.res.get_widget("instrumentimage")
+		self.chainpresetcombo = self.res.get_widget("chainpresetcombo")
 		
 		self.instrumentimage.set_from_file(self.instrument.pixbufPath)
 		
@@ -207,3 +208,30 @@ class InstrumentEffectsDialog:
 			effectdict[property.name] = effect.get_property(property.name)
 
 		self.presets.SaveSingleEffect(label, effectdict, effectelement, "LADSPA")
+		
+	#_____________________________________________________________________	
+	
+	def OnSaveEffectChainPreset(self, widget):
+		"""Grab the effect properties and send it to the presets code to be saved"""
+
+		label = self.chainpresetcombo.get_active_text()
+		
+		self.effectlist = []
+				
+		for effect in self.instrument.effects:
+			effectdict = {}
+			effectsettings = {}
+
+			proplist = gobject.list_properties(effect)
+		
+			for property in proplist:
+				effectsettings[property.name] = effect.get_property(property.name)
+
+			effectdict["effectelement"] = effect.get_factory().get_name()
+			effectdict["effecttype"] = "LADSPA"
+			effectdict["settings"] = effectsettings
+			
+			self.effectlist.append(effectdict)			
+			
+		self.presets.SaveEffectChain(label, self.effectlist)
+		

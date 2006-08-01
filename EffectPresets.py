@@ -17,14 +17,15 @@ class EffectPresets:
     
     def __init__(self):
         Globals.EFFECTPRESETSVERSION = "0.2"
- 
+      
     #_____________________________________________________________________    
-        
-    def SaveSingleEffect(self, label, effectdict, effectelement, effecttype):
-        print "save single effect"
-        print label
-        print effectdict
 
+    def SaveSingleEffect(self, label, effectdict, effectelement, effecttype):
+        """Write a single effect preset to a preset file"""
+        
+        self.effectelement = effectelement
+        self.effecttype = effecttype
+        
         if not Globals.EFFECTPRESETS_PATH:
             raise "No save path specified!"    
            
@@ -35,18 +36,69 @@ class EffectPresets:
         head.setAttribute("version", Globals.EFFECTPRESETSVERSION)
 
         effectblock = doc.createElement("Effect")
-        effectblock.setAttribute("element", effectelement)
-        effectblock.setAttribute("effectype", effecttype)
+        #effectblock.setAttribute("element", effectelement)
+        #effectblock.setAttribute("effectype", effecttype)
         head.appendChild(effectblock)
         
-        StoreDictionaryToXML(self, doc, effectblock, effectdict)
+        paramsblock = doc.createElement("Parameters")
+        effectblock.appendChild(paramsblock)
+        
+        paramslist = ["effectelement", "effecttype"]
+        
+        StoreParametersToXML(self, doc, paramsblock, paramslist)
+            
+        settingsblock = doc.createElement("Settings")
+        effectblock.appendChild(settingsblock)
+        
+        StoreDictionaryToXML(self, doc, settingsblock, effectdict)
         
         f = gzip.GzipFile(Globals.EFFECTPRESETS_PATH + "/" + label + ".jpreset", "w")
         f.write(doc.toprettyxml())
         f.close()
 
-        
     #_____________________________________________________________________    
+
+    def SaveEffectChain(self, label, effectlist):
+        """Write an effect chain to a preset file"""        
+                
+        self.effectelement = None
+        self.effecttype = None
+                
+        if not Globals.EFFECTPRESETS_PATH:
+            raise "No save path specified!"    
+           
+        doc = xml.Document()
+        head = doc.createElement("JokosherPreset")
+        doc.appendChild(head)
+        
+        head.setAttribute("version", Globals.EFFECTPRESETSVERSION)
+
+        for eff in effectlist:
+            self.effectelement = eff["effectelement"]
+            self.effecttype = eff["effecttype"]
+            
+            print self.effectelement
+            
+            effectblock = doc.createElement("Effect")
+            head.appendChild(effectblock)
+        
+            paramsblock = doc.createElement("Parameters")
+            effectblock.appendChild(paramsblock)
+        
+            paramslist = ["effectelement", "effecttype"]
+        
+            StoreParametersToXML(self, doc, paramsblock, paramslist)
+            
+            settingsblock = doc.createElement("Settings")
+            effectblock.appendChild(settingsblock)
+        
+            StoreDictionaryToXML(self, doc, settingsblock, eff["settings"])
+
+        f = gzip.GzipFile(Globals.EFFECTPRESETS_PATH + "/" + label + ".jpreset", "w")
+        f.write(doc.toprettyxml())
+        f.close()
+
+    #_____________________________________________________________________
         
     def LoadSingleEffectSettings(self):
         pass
