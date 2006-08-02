@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-01 20:58-0400\n"
+"POT-Creation-Date: 2006-08-02 08:01-0400\n"
 "PO-Revision-Date: 2006-07-08 11:33+0100\n"
 "Last-Translator: Dennis Lichtenthäler <dennis.lichtenthaeler@episode-iv.de>\n"
 "Language-Team: German <translation-team-de@lists.sourceforge.net>\n"
@@ -524,7 +524,7 @@ msgstr "Allgemein"
 msgid "Instrument Connections"
 msgstr "Verbindungen"
 
-#: ../../Jokosher.glade.h:395 ../../Jokosher.py:885
+#: ../../Jokosher.glade.h:395 ../../Jokosher.py:868
 msgid "Jokosher"
 msgstr ""
 
@@ -778,11 +778,7 @@ msgstr "Wähle das Instrument aus, das zum Projekt hinzugefügt werden soll"
 msgid "Instrument Effects..."
 msgstr "Instrumenteneffekte konfigurieren"
 
-#: ../../Jokosher.py:202 ../../Jokosher.py:1074
-msgid "The project file could not be opened.\n"
-msgstr "Die Projektdatei konnte nicht geöffnet werden.\n"
-
-#: ../../Jokosher.py:294
+#: ../../Jokosher.py:284
 #, python-format
 msgid ""
 "The instruments '%s' and '%s' both have the same input selected (%s). Please "
@@ -790,63 +786,63 @@ msgid ""
 "Instrument Connections'"
 msgstr ""
 
-#: ../../Jokosher.py:317
+#: ../../Jokosher.py:307
 msgid ""
 "No instruments are armed for recording. You need to arm an instrument before "
 "you can begin recording."
 msgstr ""
 
-#: ../../Jokosher.py:348
+#: ../../Jokosher.py:338
 msgid ""
 "No channels capable of recording have found, please attach a device and try "
 "again."
 msgstr ""
 
-#: ../../Jokosher.py:350
+#: ../../Jokosher.py:340
 msgid ""
 "Your sound card isn't capable of recording from multiple sources at the same "
 "time. Please disarm all but one instrument."
 msgstr ""
 
-#: ../../Jokosher.py:423
+#: ../../Jokosher.py:413
 msgid "Mixdown Project"
 msgstr "Projekt abmischen"
 
-#: ../../Jokosher.py:426
+#: ../../Jokosher.py:416
 msgid "Save as file type:"
 msgstr "Speichern als:"
 
-#: ../../Jokosher.py:462
+#: ../../Jokosher.py:452
 #, python-format
 msgid "Mixing project to file: %s"
 msgstr ""
 
-#: ../../Jokosher.py:477
+#: ../../Jokosher.py:467
 msgid "Preparing to mixdown project"
 msgstr "Abmischen vorbereiten"
 
-#: ../../Jokosher.py:483
+#: ../../Jokosher.py:473
 #, python-format
 msgid "%d of %d seconds completed"
 msgstr ""
 
-#: ../../Jokosher.py:535
+#: ../../Jokosher.py:525
 msgid "Choose a Jokosher project file"
 msgstr "Jokosher-Projektdatei auswählen"
 
-#: ../../Jokosher.py:541
+#: ../../Jokosher.py:531
 msgid "All Files"
 msgstr "Alle Dateien"
 
-#: ../../Jokosher.py:545
+#: ../../Jokosher.py:535
 msgid "Jokosher Project File (*.jokosher)"
 msgstr "Jokosher-Projektdatei (*.jokosher)"
 
-#: ../../Jokosher.py:585
+#: ../../Jokosher.py:571
 msgid "Choose a location to save the project"
 msgstr "Wähle den Speicherort für das Projekt aus"
 
-#: ../../Jokosher.py:620
+#: ../../Jokosher.py:606
 #, python-format
 msgid ""
 "<span size='large' weight='bold'>Save changes to project \"%s\" before "
@@ -855,57 +851,57 @@ msgid ""
 "Your changes will be lost if you don't save them."
 msgstr ""
 
-#: ../../Jokosher.py:629
+#: ../../Jokosher.py:615
 msgid "Close _Without Saving"
 msgstr ""
 
-#: ../../Jokosher.py:674
+#: ../../Jokosher.py:660
 #, python-format
 msgid "*%s - Jokosher"
 msgstr ""
 
-#: ../../Jokosher.py:676
+#: ../../Jokosher.py:662
 #, fuzzy, python-format
 msgid "%s - Jokosher"
 msgstr "Willkommen zu Jokosher!"
 
-#: ../../Jokosher.py:975
+#: ../../Jokosher.py:957
 msgid "The project references non-existant files:\n"
 msgstr "Dieses Projekt bezieht sich auf fehlende Dateien:\n"
 
-#: ../../Jokosher.py:979
+#: ../../Jokosher.py:961
 msgid ""
 "\n"
 "The project references non-existant images:\n"
 msgstr ""
 
-#: ../../Jokosher.py:987
+#: ../../Jokosher.py:969
 #, python-format
 msgid ""
 "%s\n"
 " Invalid or corrupt project file, will not open."
 msgstr ""
 
-#: ../../Jokosher.py:1012
+#: ../../Jokosher.py:994
 msgid "You must have Gstreamer version 0.10.9 or higher.\n"
 msgstr "Du benötigst Gstreamer 0.10.9 oder höher.\n"
 
-#: ../../Jokosher.py:1020
+#: ../../Jokosher.py:1002
 msgid "You must have Gstreamer plugin gnonlin version 0.10.4.2 or later.\n"
 msgstr ""
 "Du benötigst das Gstreamer-Plugin gnonlin in Version 0.10.4.2 oder höher.\n"
 
-#: ../../Jokosher.py:1022
+#: ../../Jokosher.py:1004
 msgid "Gstreamer plugin gnonlin is not installed."
 msgstr "Das Gstreamer-Plugin gnonlin ist nicht installiert."
 
-#: ../../Jokosher.py:1023
+#: ../../Jokosher.py:1005
 msgid ""
 "\n"
 "See http://jokosher.org/trac/wiki/GettingJokosher for more details.\n"
 msgstr ""
 
-#: ../../Jokosher.py:1029
+#: ../../Jokosher.py:1011
 #, python-format
 msgid ""
 "<big>Some functionality will not work correctly or at all.</big>\n"
@@ -913,7 +909,7 @@ msgid ""
 "%s"
 msgstr ""
 
-#: ../../Jokosher.py:1050
+#: ../../Jokosher.py:1032
 msgid ""
 "<big>Notes about this release</big>\n"
 "\n"
@@ -922,15 +918,38 @@ msgid ""
 "that is not present."
 msgstr ""
 
-#: ../../Jokosher.py:1076
+#: ../../Jokosher.py:1056
+#, python-format
+msgid "The uri scheme '%s' is either invalid or not supported."
+msgstr ""
+
+#: ../../Jokosher.py:1058
+#, python-format
+msgid "Unable to unzip the project file %s"
+msgstr ""
+
+#: ../../Jokosher.py:1060
 #, python-format
 msgid "The project file was created with version \"%s\" of Jokosher.\n"
 msgstr ""
 
-#: ../../Jokosher.py:1077
+#: ../../Jokosher.py:1061
 #, python-format
 msgid "Projects from version \"%s\" are incompatible with this release.\n"
 msgstr ""
+
+#: ../../Jokosher.py:1063
+#, python-format
+msgid ""
+"The project:\n"
+"%s\n"
+"\n"
+"does not exist.\n"
+msgstr ""
+
+#: ../../Jokosher.py:1065
+msgid "The project file could not be opened.\n"
+msgstr "Die Projektdatei konnte nicht geöffnet werden.\n"
 
 #: ../../MasterMixerStrip.py:28
 msgid "Master Volume"
@@ -959,7 +978,11 @@ msgstr ""
 msgid "Invalid name or author."
 msgstr ""
 
-#: ../../NewProjectDialog.py:88
+#: ../../NewProjectDialog.py:84
+msgid "The uri scheme given is either invalid or not supported"
+msgstr ""
+
+#: ../../NewProjectDialog.py:90
 #, python-format
 msgid ""
 "Unable to create project.\n"

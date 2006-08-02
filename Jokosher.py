@@ -196,7 +196,7 @@ class MainApp:
 		elif Globals.settings.general["startupaction"] == PreferencesDialog.STARTUP_NOTHING:
 			return
 
-		##if everything else bombs out resort to the welcome dialog
+		#if everything else bombs out resort to the welcome dialog
 		if self.project == None:
 			WelcomeDialog.WelcomeDialog(self)
 
