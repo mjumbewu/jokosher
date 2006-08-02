@@ -15,8 +15,7 @@
 	##################
 	#MERGING $@ AND $<
 	##################
-	msgmerge $@ messages.pot > tmp
-	mv tmp $@
+	msgmerge -UN $@ messages.pot
 
 #Generic rule for POT files
 %.pot: ../../Jokosher.glade.h ../../*.py

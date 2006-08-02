@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Jokosher HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-08-01 20:58-0400\n"
-"PO-Revision-Date: 2006-07-28 12:07+0600\n"
+"PO-Revision-Date: 2006-08-02 08:51+0600\n"
 "Last-Translator: Artem Popov <artfwo@gmail.com>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -473,9 +473,8 @@ msgid "Browse for an Existing Project"
 msgstr "Открыть существующий проект"
 
 #: ../../Jokosher.glade.h:382
-#, fuzzy
 msgid "Choose one or more instruments to add to your project."
-msgstr "Выберите инструмент для добавления к проекту."
+msgstr "Выберите один или несколько инструментов для добавления к проекту."
 
 #: ../../Jokosher.glade.h:383
 msgid "Configure Instrument Effects"
@@ -601,9 +600,8 @@ msgid "Sample Rate (Hz)"
 msgstr "Частота дискретизации"
 
 #: ../../Jokosher.glade.h:413
-#, fuzzy
 msgid "Search:"
-msgstr "Поиск"
+msgstr "Поиск:"
 
 #: ../../Jokosher.glade.h:414
 msgid "Select A Folder"
@@ -704,82 +702,84 @@ msgid "translator-credits"
 msgstr "Артём Попов <artfwo@gmail.com>"
 
 #: ../../CompactMixView.py:130
-#, fuzzy
 msgid "<b>Instruments Not Shown:</b>"
-msgstr "<b>Документация</b>"
+msgstr "<b>Непоказываемые инструменты:</b>"
 
 #: ../../EventLaneViewer.py:133
 msgid "Import Audio File..."
-msgstr ""
+msgstr "Импортировать аудио-файл..."
 
 #: ../../EventLaneViewer.py:135
 msgid "Paste"
-msgstr ""
+msgstr "Вставить"
 
 #: ../../EventLaneViewer.py:136 ../../EventViewer.py:472
 msgid "Delete"
-msgstr ""
+msgstr "Удалить"
 
 #: ../../EventLaneViewer.py:167
 msgid "<b>Right-click</b> for more options."
-msgstr ""
+msgstr "Кликните <b>правой кнопкой мыши</b> для дополнительных функций."
 
 #: ../../EventLaneViewer.py:187
 msgid "Copy file to project"
-msgstr ""
+msgstr "Копировать файл в проект"
 
 #: ../../EventLaneViewer.py:190
 msgid "Import file..."
-msgstr ""
+msgstr "Импортировать файл..."
 
 #: ../../EventViewer.py:93
 msgid "Trim"
-msgstr ""
+msgstr "Обрезать"
 
 #: ../../EventViewer.py:241
 #, python-format
 msgid "Loading (%d%%)..."
-msgstr ""
+msgstr "Загрузка (%d%%)..."
 
 #: ../../EventViewer.py:341
 msgid ""
 "To <b>Split, Double-Click</b> the wave - To <b>Select, Shift-Click</b> and "
 "drag the mouse"
-msgstr ""
+msgstr "Чтобы <b>разделить, дважды кликните<b> по дорожке, чтобы <b>выбрать, "
+"удерживайте Shift</b> и перетаскивайте мышью"
 
 #: ../../EventViewer.py:355
 msgid ""
 "<b>NOTE</b>: The volume sliders in this pre-release version of Jokosher do "
 "not affect the audio."
 msgstr ""
+"<b>ВНИМАНИЕ</b>: Регуляторы громкости в предварительной версии Jokosher не "
+"работают."
 
 #: ../../EventViewer.py:429
 msgid ""
 "<b>Click</b> the buttons below the selection to do something to that portion "
 "of audio."
 msgstr ""
+"<b>Щелкните</b> кнопками мыши под выделением, чтобы сделать что-либо с "
+"данной частью дорожки."
 
 #: ../../EventViewer.py:468
 msgid "Split"
-msgstr ""
+msgstr "Разделить"
 
 #: ../../EventViewer.py:470
 msgid "Cut"
-msgstr ""
+msgstr "Вырезать"
 
 #: ../../EventViewer.py:471
 msgid "Copy"
-msgstr ""
+msgstr "Копировать"
 
 #: ../../InstrumentConnectionsDialog.py:42
-#, fuzzy
 msgid "There are no instruments to connect"
-msgstr "Выберите инструмент для добавления к проекту."
+msgstr "Нет инструментов для присоединения"
 
 #: ../../InstrumentViewer.py:240
-#, fuzzy
 msgid "Instrument Effects..."
-msgstr "Настройка эффектов инструмента"
+msgstr "Эффекты инструмента..."
 
 #: ../../Jokosher.py:202 ../../Jokosher.py:1074
 msgid "The project file could not be opened.\n"
@@ -792,6 +792,9 @@ msgid ""
 "either disarm one, or connect it to a different input through 'Project -> "
 "Instrument Connections'"
 msgstr ""
+"Инструменты '%s' и '%s' подключены к одному и тому же источнику (%s). "
+"Попробуйте оключить один из них, или присоединить его к другому входу в "
+"диалоге 'Проект -> Связи инструментов'"
 
 #: ../../Jokosher.py:317
 msgid ""
@@ -826,9 +829,9 @@ msgid "Save as file type:"
 msgstr "Сохранить как файл типа:"
 
 #: ../../Jokosher.py:462
-#, fuzzy, python-format
+#, python-format
 msgid "Mixing project to file: %s"
-msgstr "Сведение проекта"
+msgstr "Сведение проекта в файл: %s"
 
 #: ../../Jokosher.py:477
 msgid "Preparing to mixdown project"
@@ -837,7 +840,7 @@ msgstr "Подготовка к сведению проекта"
 #: ../../Jokosher.py:483
 #, python-format
 msgid "%d of %d seconds completed"
-msgstr ""
+msgstr "%d из %d секунд выполнено"
 
 #: ../../Jokosher.py:535
 msgid "Choose a Jokosher project file"
@@ -863,10 +866,14 @@ msgid ""
 "\n"
 "Your changes will be lost if you don't save them."
 msgstr ""
+"<span size='large' weight='bold'>Сохранить изменения в проект \"%s\" перед "
+"закрытием?</span>\n"
+"\n"
+"Несохранённые изменения будут утеряны."
 
 #: ../../Jokosher.py:629
 msgid "Close _Without Saving"
-msgstr ""
+msgstr "Закрыть _без сохранения"
 
 #: ../../Jokosher.py:674
 #, python-format
@@ -874,9 +881,9 @@ msgid "*%s - Jokosher"
 msgstr ""
 
 #: ../../Jokosher.py:676
-#, fuzzy, python-format
+#, python-format
 msgid "%s - Jokosher"
-msgstr "Добро пожаловать в Jokosher!"
+msgstr ""
 
 #: ../../Jokosher.py:975
 msgid "The project references non-existant files:\n"
@@ -896,6 +903,8 @@ msgid ""
 "%s\n"
 " Invalid or corrupt project file, will not open."
 msgstr ""
+"%s\n"
+" Неверный или повреждённый файл проекта, невозможно открыть."
 
 #: ../../Jokosher.py:1012
 msgid "You must have Gstreamer version 0.10.9 or higher.\n"
@@ -947,39 +956,40 @@ msgstr ""
 #: ../../Jokosher.py:1076
 #, python-format
 msgid "The project file was created with version \"%s\" of Jokosher.\n"
-msgstr ""
+msgstr "Файл проекта был создан в Jokosher версии \"%s\".\n"
 
 #: ../../Jokosher.py:1077
 #, python-format
 msgid "Projects from version \"%s\" are incompatible with this release.\n"
-msgstr ""
+msgstr "Проекты версии \"%s\" несовместимы с данным релизом.\n"
 
 #: ../../MasterMixerStrip.py:28
 msgid "Master Volume"
-msgstr ""
+msgstr "Общая громкость"
 
 #: ../../NewProjectDialog.py:66
-#, fuzzy
 msgid "Unknown Author"
-msgstr "Автор"
+msgstr "Неизвестный Автор"
 
 #: ../../NewProjectDialog.py:76
 msgid "Could not initialize project."
-msgstr ""
+msgstr "Невозможно инициализировать проект."
 
 #: ../../NewProjectDialog.py:78
 msgid ""
 "A file or folder with this name already exists. Please choose a different "
 "project name and try again."
 msgstr ""
+"Файл или папка с таким именем уже существует. Попробуйте выбрать другое "
+"название проекта и попытайтесь ещё раз."
 
 #: ../../NewProjectDialog.py:80
 msgid "The file or folder location is write-protected."
-msgstr ""
+msgstr "Местоположение файла или папки защищено от записи."
 
 #: ../../NewProjectDialog.py:82
 msgid "Invalid name or author."
-msgstr ""
+msgstr "Неверное название или автор."
 
 #: ../../NewProjectDialog.py:88
 #, python-format
@@ -988,16 +998,15 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Невозможно создать проект.\n"
+"\n"
+"%s"
 
 #: ../../VUWidget.py:55
 msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"
-msgstr ""
+msgstr "<b>Перетащите ползунок</b>, чтобы изменить уровень громкости"
 
 #: ../../VUWidget.py:163
 #, python-format
 msgid "Volume: %.2f"
-msgstr ""
-
-#, fuzzy
-#~ msgid "'Project -> Instrument Connections'"
-#~ msgstr "Связи инструментов"
+msgstr "Громкость: %.2f"
