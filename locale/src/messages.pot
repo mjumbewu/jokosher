@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-07-31 21:19-0400\n"
+"POT-Creation-Date: 2006-08-01 20:18-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -533,7 +533,7 @@ msgstr ""
 msgid "Mixing Project"
 msgstr ""
 
-#: ../../Jokosher.glade.h:398
+#: ../../Jokosher.glade.h:398 ../../NewProjectDialog.py:62
 msgid "New Project"
 msgstr ""
 

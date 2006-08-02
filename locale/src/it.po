@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-07-29 09:19-0400\n"
+"POT-Creation-Date: 2006-08-01 20:18-0400\n"
 "PO-Revision-Date: 2006-07-30 12:14+0200\n"
 "Last-Translator: Daniele Medri <dmedri@gmail.com>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit"
+"Content-Transfer-Encoding: 8bit\n"
 
 #: ../../Jokosher.glade.h:1
 msgid ""
@@ -802,7 +802,8 @@ msgid ""
 "<b>Jokosher is an Open Source project that is driven by a community of "
 "contributors. To make Jokosher rock, we need your help!</b>"
 msgstr ""
-"<b>Jokosher·è un progetto·progetto Open·Source·guidato da una comunità di sviluppatori. Per renderlo superiore, abbiamo bisogno del tuo aiuto!</b>"
+"<b>Jokosher·è un progetto·progetto Open·Source·guidato da una comunità di "
+"sviluppatori. Per renderlo superiore, abbiamo bisogno del tuo aiuto!</b>"
 
 #: ../../Jokosher.glade.h:372
 msgid "<b>Quality</b>"
@@ -879,7 +880,8 @@ msgstr "Icone, immagini e altre componenti artistiche."
 #: ../../Jokosher.glade.h:390
 msgid ""
 "Enter a name for your project and select a folder to store the project in:"
-msgstr "Indica un nome per il tuo progetto e scegli una cartella dove salvarlo:"
+msgstr ""
+"Indica un nome per il tuo progetto e scegli una cartella dove salvarlo:"
 
 #: ../../Jokosher.glade.h:391
 msgid "Files Saves As"
@@ -909,7 +911,7 @@ msgstr "Mixing"
 msgid "Mixing Project"
 msgstr "Progetto mixing"
 
-#: ../../Jokosher.glade.h:398
+#: ../../Jokosher.glade.h:398 ../../NewProjectDialog.py:62
 msgid "New Project"
 msgstr "Nuovo progetto"
 
@@ -1021,7 +1023,8 @@ msgstr "Annulla"
 msgid ""
 "Use the combo boxes below to select which input is used with which instrument"
 msgstr ""
-"Utilizza il menù a tendina sottostante per scegliere quale ingresso utilizzare con lo strumento"
+"Utilizza il menù a tendina sottostante per scegliere quale ingresso "
+"utilizzare con lo strumento"
 
 #: ../../Jokosher.glade.h:426
 msgid ""
@@ -1083,15 +1086,17 @@ msgid ""
 "The instruments '%s' and '%s' both have the same input selected (%s). Please "
 "either disarm one, or connect it to a different input through 'Project -> "
 "Instrument Connections'"
-msgstr "Gli strumenti '%s' e '%s' hanno il medesimo ingresso selezionato (%s). Per piacere, disabiliti entrambi o connettili ad ingressi differenti tramite 'Progetto -> Connessioni strumenti'"
+msgstr ""
+"Gli strumenti '%s' e '%s' hanno il medesimo ingresso selezionato (%s). Per "
+"piacere, disabiliti entrambi o connettili ad ingressi differenti tramite "
+"'Progetto -> Connessioni strumenti'"
 
 #: ../../Jokosher.py:317
 msgid ""
 "No instruments are armed for recording. You need to arm an instrument before "
 "you can begin recording."
 msgstr ""
-"Nessuno strumento è selezionato per la registrazione. E' necessario"
-" "
+"Nessuno strumento è selezionato per la registrazione. E' necessario "
 "selezionarne uno per registrare."
 
 #: ../../Jokosher.py:348
@@ -1099,14 +1104,16 @@ msgid ""
 "No channels capable of recording have found, please attach a device and try "
 "again."
 msgstr ""
-"Nessun canale disponibile per la registrazione, per piacere, collega il dispositivo e riprova."
+"Nessun canale disponibile per la registrazione, per piacere, collega il "
+"dispositivo e riprova."
 
 #: ../../Jokosher.py:350
 msgid ""
 "Your sound card isn't capable of recording from multiple sources at the same "
 "time. Please disarm all but one instrument."
 msgstr ""
-"La tua scheda sonora non può registrare da multipli ingressi contemporaneamente. Per piacere, deseleziona gli strumenti tranne uno."
+"La tua scheda sonora non può registrare da multipli ingressi "
+"contemporaneamente. Per piacere, deseleziona gli strumenti tranne uno."
 
 #: ../../Jokosher.py:423
 msgid "Mixdown Project"
@@ -1154,7 +1161,8 @@ msgid ""
 "\n"
 "Your changes will be lost if you don't save them."
 msgstr ""
-"<span·size='large'·weight='bold'>Salva i cambiamenti al progetto·\"%s\"·prima di uscire?</span>\n"
+"<span·size='large'·weight='bold'>Salva i cambiamenti al progetto·\"%s"
+"\"·prima di uscire?</span>\n"
 "\n"
 "Le tue modifiche andranno perse se non le salvi."
 
@@ -1195,11 +1203,14 @@ msgstr ""
 
 #: ../../Jokosher.py:1012
 msgid "You must have Gstreamer version 0.10.9 or higher.\n"
-msgstr "Devi disporre di una versione di Gstreamer uguale o superiore alla 0.10.9.\n"
+msgstr ""
+"Devi disporre di una versione di Gstreamer uguale o superiore alla 0.10.9.\n"
 
 #: ../../Jokosher.py:1020
 msgid "You must have Gstreamer plugin gnonlin version 0.10.4.2 or later.\n"
-msgstr "Devi avere il plugin gnonlin di Gstreamer della versione 0.10.4.2 o successiva.\n"
+msgstr ""
+"Devi avere il plugin gnonlin di Gstreamer della versione 0.10.4.2 o "
+"successiva.\n"
 
 #: ../../Jokosher.py:1022
 msgid "Gstreamer plugin gnonlin is not installed."
@@ -1234,15 +1245,17 @@ msgid ""
 msgstr ""
 "<big>Note su questa versione</big>\n"
 "\n"
-"La versione di Jokosher·(0.1)·è una·pre-release, la prima rilasciata. Per questo motivo si potranno trovare molteplici bug e funzionalità non presenti."
+"La versione di Jokosher·(0.1)·è una·pre-release, la prima rilasciata. Per "
+"questo motivo si potranno trovare molteplici bug e funzionalità non presenti."
 
 #: ../../Jokosher.py:1076
 #, python-format
 msgid "The project file was created with version \"%s\" of Jokosher.\n"
-msgstr "Il file di progetto era stato creato con la versione \"%s\" di Jokosher.\n"
+msgstr ""
+"Il file di progetto era stato creato con la versione \"%s\" di Jokosher.\n"
 
 #: ../../Jokosher.py:1077
 #, python-format
 msgid "Projects from version \"%s\" are incompatible with this release.\n"
-msgstr "I progetti della versione \"%s\" sono incompatibili con questa versione.\n"
-
+msgstr ""
+"I progetti della versione \"%s\" sono incompatibili con questa versione.\n"

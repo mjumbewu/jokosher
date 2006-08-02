@@ -8,6 +8,9 @@ import Project
 import AddInstrumentDialog
 import pwd
 import Globals
+import gettext
+_ = gettext.gettext
+
 class NewProjectDialog:
 	
 	#_____________________________________________________________________	
@@ -55,8 +58,16 @@ class NewProjectDialog:
 		
 	def OnOK(self, button):
 		name = self.name.get_text()
+		if not name:
+			name = _("New Project")
+			
 		author = self.author.get_text()
+		if not author:
+			author = "Unknown Author"
+			
 		folder = self.folder.get_current_folder()
+		if not folder:
+			folder = "~"
 		
 		try:
 			project=Project.CreateNew(folder,name, author)
@@ -66,7 +77,9 @@ class NewProjectDialog:
 			elif e.errno == 2:
 				message = "A file or folder with this name already exists. Please choose a different project name and try again."
 			elif e.errno == 3:
-				message = "The file or folder location is write-protected.",
+				message = "The file or folder location is write-protected."
+			elif e.errno == 4:
+				message = "Invalid name or author."
 				
 			dlg = gtk.MessageDialog(self.dlg,
 				gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
@@ -80,7 +93,7 @@ class NewProjectDialog:
 			self.dlg.destroy()
 		
 	#_____________________________________________________________________	
-				
+	
 	def OnCancel(self, button):
 		self.dlg.destroy()
 

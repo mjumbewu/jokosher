@@ -18,15 +18,9 @@ import time #remove after ticket #111 is closed
 
 #_____________________________________________________________________
 
-def CreateNew(folder,name,author):
-	if name=="":
-		name="NewProject"
-
-	if author=="":
-		author="Unknown"
-
-	if folder=="":
-		folder="~"
+def CreateNew(folder, name, author):
+	if name == "" or author == "" or folder == "":
+		raise CreateProjectError(4)
 
 	filename = (name + ".jokosher")
 	projectdir = os.path.join(folder, name)
@@ -904,6 +898,7 @@ class CreateProjectError(Exception):
 		   1) Unable to create a project object
 		   2) Path for project file already exists
 		   3) Unable to create file. (Invalid permissions, read-only, or the disk is full)
+		   4) Invalid path, name or author
 		"""
 		Exception.__init__(self)
 		self.errno=errno
