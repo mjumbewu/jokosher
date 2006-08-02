@@ -80,6 +80,8 @@ class NewProjectDialog:
 				message = _("The file or folder location is write-protected.")
 			elif e.errno == 4:
 				message = _("Invalid name or author.")
+			elif e.errno == 5:
+				message = _("The uri scheme given is either invalid or not supported")
 				
 			dlg = gtk.MessageDialog(self.dlg,
 				gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,

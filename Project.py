@@ -4,6 +4,8 @@ pygst.require("0.10")
 import gst
 import os
 import gzip
+import urlparse
+
 import TransportManager
 from CommandManager import *
 import Globals
@@ -18,9 +20,15 @@ import time #remove after ticket #111 is closed
 
 #_____________________________________________________________________
 
-def CreateNew(folder, name, author):
-	if name == "" or author == "" or folder == "":
+def CreateNew(projecturi, name, author):
+	if name == "" or author == "" or projecturi == "":
 		raise CreateProjectError(4)
+
+	(scheme, domain,folder, params, query, fragment) = urlparse.urlparse(projecturi, "file")
+
+	if scheme!="file":
+		# raise "The URI scheme used is invalid." message
+		raise CreateProjectError(5)
 
 	filename = (name + ".jokosher")
 	projectdir = os.path.join(folder, name)
@@ -51,21 +59,34 @@ def CreateNew(folder, name, author):
 
 #_____________________________________________________________________
 
-def LoadFromFile(file):	
+def LoadFromFile(uri):	
 	p = Project()
+
+	(scheme, domain, projectfile, params, query, fragment) = urlparse.urlparse(uri, "file")
+	if scheme != "file":
+		# raise "The URI scheme used is invalid." message
+		raise OpenProjectError(1,scheme)
+
+	print projectfile
+
+	if not os.path.exists(projectfile):
+		raise OpenProjectError(4,projectfile)
+
 	try:
-		gzipfile = gzip.GzipFile(file, "r")
+		gzipfile = gzip.GzipFile(projectfile, "r")
 		doc = xml.parse(gzipfile)
 	except Exception, e:
 		print e.__class__, e
-		raise OpenProjectError
+		# raise "This file doesn't unzip" message
+		raise OpenProjectError(2,projectfile)
 	
-	p.projectfile = file
+	p.projectfile = projectfile
 	
 	#only open projects with the proper version number
 	version = doc.firstChild.getAttribute("version")
 	if version != Globals.VERSION:
-		raise OpenProjectError(version)
+		# raise a "this project was created in a different version of Jokosher" message
+		raise OpenProjectError(3,version)
 	
 	params = doc.getElementsByTagName("Parameters")[0]
 	
@@ -882,14 +903,19 @@ class Project(Monitored, CommandManaged):
 #=========================================================================
 	
 class OpenProjectError(EnvironmentError):
-	def __init__(self, incorrectVerionString = None):
-		"""If version string is omitted, assume a general error.
-		   If a version string is given, it means the project file was created by
-		   another version of Jokosher. That version is specified in the string.
+	def __init__(self, errno,info = None):
+		""" Error Numbers:
+		   1) Invalid uri passed for the project file
+		   2) Unable to unzip the project
+		   3) Project created by a different version of Jokosher 
+		If a version string is given, it means the project file was created by
+		another version of Jokosher. That version is specified in the string.
+		   4) Project file doesn't exist
 		"""
 		EnvironmentError.__init__(self)
-		self.version = incorrectVerionString
-
+		self.info = info
+		self.errno = errno
+		
 #=========================================================================
 
 class CreateProjectError(Exception):
@@ -899,6 +925,7 @@ class CreateProjectError(Exception):
 		   2) Path for project file already exists
 		   3) Unable to create file. (Invalid permissions, read-only, or the disk is full)
 		   4) Invalid path, name or author
+		   5) Invalid uri passed for the project file
 		"""
 		Exception.__init__(self)
 		self.errno=errno

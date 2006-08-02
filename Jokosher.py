@@ -11,7 +11,7 @@ import pygst
 pygst.require("0.10")
 import gst
 import optparse
-import urlparse
+
 
 import locale
 import gettext
@@ -44,10 +44,10 @@ class MainApp:
 	#_____________________________________________________________________
 
 	def __init__(self):
-		
+
 		#Find the absolute path in case we were imported from another directory
 		Globals.SetAbsPaths()
-		
+
 		try:
 			locale.setlocale(locale.LC_ALL, '')
 			gettext.bindtextdomain(Globals.LOCALE_APP, Globals.LOCALE_DIR)
@@ -143,7 +143,7 @@ class MainApp:
 		self.settingButtons = True
 		self.wTree.get_widget("Recording").set_active(True)
 		self.settingButtons = False
-		self.defaultlocation = ""	
+		self.defaultlocation = "."	
 		self.isRecording = False
 		self.isPlaying = False
 
@@ -153,7 +153,7 @@ class MainApp:
 		(options, args) = parser.parse_args()
 		if len(args) > 0:
 			openproject = args[0]
-		
+
 		# set sensitivity
 		self.SetGUIProjectLoaded()
 
@@ -188,30 +188,20 @@ class MainApp:
 
 		self.CheckGstreamerVersions()
 
+
 		if openproject:
-			try:
-				(scheme, domain, path, params, query, fragment) = urlparse.urlparse(openproject, "file")
-				if scheme != "file":
-					raise ImportError, "Invalid URI scheme"
-				self.SetProject(Project.LoadFromFile(path))
-			except (Project.OpenProjectError, ImportError), e:
-				dlg = gtk.MessageDialog(self.window,
-					gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
-					gtk.MESSAGE_ERROR,
-					gtk.BUTTONS_OK,
-					_("The project file could not be opened.\n"))
-				dlg.set_icon(self.icon)
-				dlg.run()
-				dlg.destroy()
-		else:
-			# check if we should display the startup dialog
-			if Globals.settings.general["startupaction"] == PreferencesDialog.STARTUP_LAST_PROJECT:
-				self.OpenLastProject()
-			elif Globals.settings.general["startupaction"] == PreferencesDialog.STARTUP_NOTHING:
-				pass
-			else: #default option if no preference is set
-				WelcomeDialog.WelcomeDialog(self)
-		
+			self.OpenProjectFromPath(openproject)
+		elif Globals.settings.general["startupaction"] == PreferencesDialog.STARTUP_LAST_PROJECT:
+			self.OpenProjectFromPath(self.lastopenedproject[0])
+		elif Globals.settings.general["startupaction"] == PreferencesDialog.STARTUP_NOTHING:
+			return
+
+		##if everything else bombs out resort to the welcome dialog
+		if self.project == None:
+			WelcomeDialog.WelcomeDialog(self)
+
+
+
 	#_____________________________________________________________________
 
 	def clean(self):
@@ -558,11 +548,7 @@ class MainApp:
 				
 				filename = chooser.get_filename()
 				self.defaultlocation = os.path.dirname(filename)
-				try:
-					self.SetProject(Project.LoadFromFile(filename))
-				except Project.OpenProjectError, e:
-					self.ShowOpenProjectErrorDialog(e, chooser)
-				else:
+				if self.OpenProjectFromPath(filename,chooser):
 					break
 				
 			elif response == gtk.RESPONSE_CANCEL or response == gtk.RESPONSE_DELETE_EVENT:
@@ -734,11 +720,8 @@ class MainApp:
 	#_____________________________________________________________________
 	
 	def OnRecentProjectsItem(self, widget, path, name):
-		try:
-			self.SetProject(Project.LoadFromFile(path))
-		except Project.OpenProjectError, e:
-			self.ShowOpenProjectErrorDialog(e)
-	
+		self.OpenProjectFromPath(path)
+
 	#_____________________________________________________________________
 
 	def SaveRecentProjects(self):
@@ -953,18 +936,17 @@ class MainApp:
 		self.settingButtons = False
 	
 	#_____________________________________________________________________
-	
-	def OpenLastProject(self):
-		if self.lastopenedproject:
-			path = self.lastopenedproject[0]
-			try:
-				self.SetProject(Project.LoadFromFile(path))
-			except Project.OpenProjectError, e:
-				self.ShowOpenProjectErrorDialog(e)
-				#launch welcome dialog instead
-				WelcomeDialog.WelcomeDialog(self)
-	
+
+	def OpenProjectFromPath(self,path, parent=None):
+		try:
+			self.SetProject(Project.LoadFromFile(path))
+			return True
+		except Project.OpenProjectError, e:
+			self.ShowOpenProjectErrorDialog(e,parent)
+			return False
+
 	#_____________________________________________________________________
+	
 	
 	def SetProject(self, project):
 		try:
@@ -1069,12 +1051,19 @@ class MainApp:
 	def ShowOpenProjectErrorDialog(self, error, parent=None):
 		if not parent:
 			parent = self.window
-		
-		if type(error.version) != str:
-			message = _("The project file could not be opened.\n")
+
+		if error.errno==1:
+			message = _("The uri scheme '%s' is either invalid or not supported."%error.info)
+		elif error.errno==2:
+			message = _("Unable to unzip the project file %s"%error.info)
+		elif error.errno==3:		
+			message = _("The project file was created with version \"%s\" of Jokosher.\n") % error.info + \
+					  _("Projects from version \"%s\" are incompatible with this release.\n") % error.info
+		elif error.errno==4:
+			message = _("The project:\n%s\n\ndoes not exist.\n") % error.info
 		else:
-			message = _("The project file was created with version \"%s\" of Jokosher.\n") % error.version + \
-						_("Projects from version \"%s\" are incompatible with this release.\n") % error.version
+			message = _("The project file could not be opened.\n")
+
 			
 		dlg = gtk.MessageDialog(parent,
 			gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
@@ -1094,6 +1083,8 @@ def main():
 	MainApp()
 	gtk.threads_init()
 	gtk.main()
+
+
 
 if __name__ == "__main__":
 	main()
