@@ -2,3 +2,4 @@
 name = Drum Kit
 icon = drumkit.svg
 #import = snare.instr, bassdrum.instr, tomtom.instr
+type = drumkit

@@ -754,16 +754,16 @@ class Project(Monitored, CommandManaged):
 
 	#_____________________________________________________________________
 	
-	def AddInstrument(self, name, pixbuf, pixbufPath):
+	def AddInstrument(self, name, pixbuf, pixbufPath, type):
 		''' Adds a new instrument to the project
 		
 			undo : DeleteInstrument(%(temp)d)
 		'''
 			
-		instr = Instrument(self, name, pixbuf, pixbufPath)
+		instr = Instrument(self, name, pixbuf, pixbufPath, type)
 		audio_dir = os.path.join(os.path.split(self.projectfile)[0], "audio")
 		instr.path = os.path.join(audio_dir)
-		
+				
 		self.temp = instr.id
 		self.instruments.append(instr)	
 		

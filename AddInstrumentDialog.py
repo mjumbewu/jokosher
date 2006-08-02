@@ -41,7 +41,7 @@ class AddInstrumentDialog:
 		self.tree.connect("item-activated", self.OnSelected)
 		self.tree.connect("selection-changed", self.OnSelectionChanged)
 
-		self.model = gtk.ListStore(str, gtk.gdk.Pixbuf, str, str, str)
+		self.model = gtk.ListStore(str, gtk.gdk.Pixbuf, str, str, str, str)
 			
 		for i in getCachedInstruments():
 			self.model.append(i)
@@ -78,13 +78,13 @@ class AddInstrumentDialog:
 			if len(filenameList) == 1 and len(filenameList[0]) == 0:
 				filenameList = []
 				#this instrument has no imports, so add this instrument
-				self.project.AddInstrument(currentItem[0], currentItem[1], currentItem[4])
+				self.project.AddInstrument(currentItem[0], currentItem[1], currentItem[4], currentItem[5])
 		
 			for k in instrumentPropertyList:
 				if len(filenameList) == 0:
 					break
 				if k[2] in filenameList:
-					self.project.AddInstrument(k[0], k[1], k[4])
+					self.project.AddInstrument(k[0], k[1], k[4], k[5])
 					filenameList.remove(k[2])
 	
 		self.parent.UpdateDisplay()
@@ -142,6 +142,7 @@ def _cacheInstruments():
 				if config.has_option('core', 'name') and config.has_option('core', 'icon'):
 					name = config.get('core', 'name')
 					icon = config.get('core', 'icon')
+					type = config.get('core', 'type')
 				else:
 					continue
 				
@@ -153,7 +154,7 @@ def _cacheInstruments():
 				else:
 					importfiles = ""
 				
-				instrumentPropertyList.append((name, pixbuf, f, importfiles, pixbufPath))
+				instrumentPropertyList.append((name, pixbuf, f, importfiles, pixbufPath, type))
 	
 	#sort the instruments alphabetically
 	#using the name (at index 0)

@@ -20,7 +20,7 @@ class Instrument(Monitored, CommandManaged):
 	
 	#_____________________________________________________________________
 	
-	def __init__(self, project, name, pixbuf, pixbufPath, id=None):
+	def __init__(self, project, name, pixbuf, pixbufPath, type, id=None):
 		Monitored.__init__(self)
 		
 		self.project = project
@@ -40,6 +40,7 @@ class Instrument(Monitored, CommandManaged):
 		self.isVisible = True			# True if the instrument should be displayed in the mixer views
 		self.level = 0.0				# Current audio level in range 0..1
 		self.volume = 0.5				# Gain of the current instrument in range 0..1
+		self.type = type				# The type of instrument
 		self.effects = []				# List of GStreamer effect elements
 		
 		try:
@@ -135,7 +136,7 @@ class Instrument(Monitored, CommandManaged):
 		
 		items = ["path", "name", "isArmed", 
 				  "isMuted", "isSolo", "input", "output",
-				  "isSelected", "pixbufPath", "isVisible", "inTrack"]
+				  "isSelected", "pixbufPath", "isVisible", "inTrack", "type"]
 		
 		params = doc.createElement("Parameters")
 		ins.appendChild(params)
