@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-01 20:18-0400\n"
+"POT-Creation-Date: 2006-08-01 20:58-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -693,6 +693,81 @@ msgstr ""
 msgid "translator-credits"
 msgstr ""
 
+#: ../../CompactMixView.py:130
+msgid "<b>Instruments Not Shown:</b>"
+msgstr ""
+
+#: ../../EventLaneViewer.py:133
+msgid "Import Audio File..."
+msgstr ""
+
+#: ../../EventLaneViewer.py:135
+msgid "Paste"
+msgstr ""
+
+#: ../../EventLaneViewer.py:136 ../../EventViewer.py:472
+msgid "Delete"
+msgstr ""
+
+#: ../../EventLaneViewer.py:167
+msgid "<b>Right-click</b> for more options."
+msgstr ""
+
+#: ../../EventLaneViewer.py:187
+msgid "Copy file to project"
+msgstr ""
+
+#: ../../EventLaneViewer.py:190
+msgid "Import file..."
+msgstr ""
+
+#: ../../EventViewer.py:93
+msgid "Trim"
+msgstr ""
+
+#: ../../EventViewer.py:241
+#, python-format
+msgid "Loading (%d%%)..."
+msgstr ""
+
+#: ../../EventViewer.py:341
+msgid ""
+"To <b>Split, Double-Click</b> the wave - To <b>Select, Shift-Click</b> and "
+"drag the mouse"
+msgstr ""
+
+#: ../../EventViewer.py:355
+msgid ""
+"<b>NOTE</b>: The volume sliders in this pre-release version of Jokosher do "
+"not affect the audio."
+msgstr ""
+
+#: ../../EventViewer.py:429
+msgid ""
+"<b>Click</b> the buttons below the selection to do something to that portion "
+"of audio."
+msgstr ""
+
+#: ../../EventViewer.py:468
+msgid "Split"
+msgstr ""
+
+#: ../../EventViewer.py:470
+msgid "Cut"
+msgstr ""
+
+#: ../../EventViewer.py:471
+msgid "Copy"
+msgstr ""
+
+#: ../../InstrumentConnectionsDialog.py:42
+msgid "There are no instruments to connect"
+msgstr ""
+
+#: ../../InstrumentViewer.py:240
+msgid "Instrument Effects..."
+msgstr ""
+
 #: ../../Jokosher.py:202 ../../Jokosher.py:1074
 msgid "The project file could not be opened.\n"
 msgstr ""
@@ -844,4 +919,47 @@ msgstr ""
 #: ../../Jokosher.py:1077
 #, python-format
 msgid "Projects from version \"%s\" are incompatible with this release.\n"
+msgstr ""
+
+#: ../../MasterMixerStrip.py:28
+msgid "Master Volume"
+msgstr ""
+
+#: ../../NewProjectDialog.py:66
+msgid "Unknown Author"
+msgstr ""
+
+#: ../../NewProjectDialog.py:76
+msgid "Could not initialize project."
+msgstr ""
+
+#: ../../NewProjectDialog.py:78
+msgid ""
+"A file or folder with this name already exists. Please choose a different "
+"project name and try again."
+msgstr ""
+
+#: ../../NewProjectDialog.py:80
+msgid "The file or folder location is write-protected."
+msgstr ""
+
+#: ../../NewProjectDialog.py:82
+msgid "Invalid name or author."
+msgstr ""
+
+#: ../../NewProjectDialog.py:88
+#, python-format
+msgid ""
+"Unable to create project.\n"
+"\n"
+"%s"
+msgstr ""
+
+#: ../../VUWidget.py:55
+msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"
+msgstr ""
+
+#: ../../VUWidget.py:163
+#, python-format
+msgid "Volume: %.2f"
 msgstr ""

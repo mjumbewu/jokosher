@@ -6,6 +6,8 @@ import gobject
 import TimeLineBar
 import Globals
 from MasterMixerStrip import *
+import gettext
+_ = gettext.gettext
 
 #create signal to be emitted by MixerStrip
 gobject.signal_new("minimise", MixerStrip, gobject.SIGNAL_RUN_FIRST, gobject.TYPE_NONE, ())
@@ -125,7 +127,7 @@ class CompactMixView(gtk.Frame):
 		
 		toollab = gtk.ToolItem()
 		lab = gtk.Label()
-		lab.set_markup("<b>Instruments Not Shown:</b>")
+		lab.set_markup(_("<b>Instruments Not Shown:</b>"))
 		toollab.add(lab)
 		toollab.set_is_important(True)
 		self.instrbar.insert(toollab, 0)

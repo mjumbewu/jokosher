@@ -4,6 +4,8 @@ pygtk.require("2.0")
 import gtk
 
 from VUWidget import *
+import gettext
+_ = gettext.gettext
 
 #=========================================================================
 
@@ -23,7 +25,7 @@ class MasterMixerStrip(gtk.Frame):
 		self.vbox = gtk.VBox()
 		self.add(self.vbox)
 
-		self.label = gtk.Label("Master Volume")
+		self.label = gtk.Label(_("Master Volume"))
 				
 		self.vbox.pack_start(self.label, False)
 		

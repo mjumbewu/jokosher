@@ -6,6 +6,8 @@ import cairo
 import Project
 import Monitored
 import Utils
+import gettext
+_ = gettext.gettext
 
 #=========================================================================
 
@@ -88,7 +90,7 @@ class EventViewer(gtk.DrawingArea):
 		
 		# drawer: this will probably be its own object in time
 		self.drawer = gtk.HBox()
-		trimButton = gtk.Button("Trim")
+		trimButton = gtk.Button(_("Trim"))
 		self.drawer.add(trimButton)
 		
 		#TODO: bring back effects button when it actually does something
@@ -102,6 +104,7 @@ class EventViewer(gtk.DrawingArea):
 		self.messageID = None
 		self.volmessageID = None
 		self.selmessageID = None
+		
 	#_____________________________________________________________________
 
 	def OnDraw(self, widget, event):
@@ -235,7 +238,7 @@ class EventViewer(gtk.DrawingArea):
 				displayLength = 0
 			else:
 				displayLength = int(100 * self.event.loadingLength / self.event.duration)
-			context.show_text("Loading (%d%%)..." % displayLength)
+			context.show_text(_("Loading (%d%%)...") % displayLength)
 			context.stroke()
 			# And exit here
 			return
@@ -335,7 +338,7 @@ class EventViewer(gtk.DrawingArea):
 			return
 		# display status bar message if has not already been displayed
 		if not self.messageID: 
-			self.messageID = self.mainview.SetStatusBar("To <b>Split, Double-Click</b> the wave - To <b>Select, Shift-Click</b> and drag the mouse")
+			self.messageID = self.mainview.SetStatusBar(_("To <b>Split, Double-Click</b> the wave - To <b>Select, Shift-Click</b> and drag the mouse"))
 		
 		if self.isDraggingFade:
 			#subtract half the fademarker height so it doesnt go half off the screen
@@ -349,7 +352,7 @@ class EventViewer(gtk.DrawingArea):
 			self.queue_draw()
 			
 			if not self.volmessageID:
-				self.volmessageID = self.mainview.SetStatusBar("<b>NOTE</b>: The volume sliders in this pre-release version of Jokosher do not affect the audio.")
+				self.volmessageID = self.mainview.SetStatusBar(_("<b>NOTE</b>: The volume sliders in this pre-release version of Jokosher do not affect the audio."))
 			
 			return True
 
@@ -423,7 +426,7 @@ class EventViewer(gtk.DrawingArea):
 				self.Selection[0] = mouse.x
 				self.fadePoints = [100,100]
 				if not self.selmessageID: 
-					self.selmessageID = self.mainview.SetStatusBar("<b>Click</b> the buttons below the selection to do something to that portion of audio.")
+					self.selmessageID = self.mainview.SetStatusBar(_("<b>Click</b> the buttons below the selection to do something to that portion of audio."))
 			else:
 				if self.fadeMarkersContext and self.fadeMarkersContext.in_fill(mouse.x, mouse.y):
 					# LMB over a fadeMarker: drag that marker
@@ -462,11 +465,11 @@ class EventViewer(gtk.DrawingArea):
 		
 	def ContextMenu(self,mouse):
 		m = gtk.Menu()
-		items = [	("Split", self.OnSplit, True),
+		items = [	(_("Split"), self.OnSplit, True),
 					("---", None, None),
-					("Cut", self.OnCut, True),
-					("Copy", self.OnCopy, True),
-					("Delete", self.OnDelete, True)
+					(_("Cut"), self.OnCut, True),
+					(_("Copy"), self.OnCopy, True),
+					(_("Delete"), self.OnDelete, True)
 				] 
 
 		for i, cb, sensitive in items: 

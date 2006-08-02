@@ -63,7 +63,7 @@ class NewProjectDialog:
 			
 		author = self.author.get_text()
 		if not author:
-			author = "Unknown Author"
+			author = _("Unknown Author")
 			
 		folder = self.folder.get_current_folder()
 		if not folder:
@@ -73,19 +73,19 @@ class NewProjectDialog:
 			project=Project.CreateNew(folder,name, author)
 		except Project.CreateProjectError, e:
 			if e.errno == 1:
-				message = "Could not initialize project."
+				message = _("Could not initialize project.")
 			elif e.errno == 2:
-				message = "A file or folder with this name already exists. Please choose a different project name and try again."
+				message = _("A file or folder with this name already exists. Please choose a different project name and try again.")
 			elif e.errno == 3:
-				message = "The file or folder location is write-protected."
+				message = _("The file or folder location is write-protected.")
 			elif e.errno == 4:
-				message = "Invalid name or author."
+				message = _("Invalid name or author.")
 				
 			dlg = gtk.MessageDialog(self.dlg,
 				gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
 				gtk.MESSAGE_ERROR,
 				gtk.BUTTONS_OK,
-				"Unable to create project.\n\n%s" % message)
+				_("Unable to create project.\n\n%s") % message)
 			dlg.run()
 			dlg.destroy()
 		else:

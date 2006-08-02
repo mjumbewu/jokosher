@@ -3,6 +3,9 @@ pygtk.require("2.0")
 import gtk
 import cairo
 
+import gettext
+_ = gettext.gettext
+
 #=========================================================================
 
 class VUWidget(gtk.DrawingArea):
@@ -49,7 +52,7 @@ class VUWidget(gtk.DrawingArea):
 	
 	def OnMouseMove(self, widget, mouse):
 		if not self.message_id:
-			self.message_id = self.mainview.SetStatusBar("<b>Drag</b> the <b>slider</b> to alter volume levels")
+			self.message_id = self.mainview.SetStatusBar(_("<b>Drag</b> the <b>slider</b> to alter volume levels"))
 		rect = self.get_allocation()
 		pos = (rect.height-self.BAR_WIDTH) * (1. - self.mixerstrip.GetVolume()) + (self.BAR_WIDTH/2)
 		if mouse.y > pos - (self.BAR_WIDTH / 2) and mouse.y < pos + (self.BAR_WIDTH / 2):
@@ -157,7 +160,7 @@ class VUWidget(gtk.DrawingArea):
 		# Draw the volume level in the bar
 		ctx.set_source_rgba(0., 0., 0., 1.)
 		ctx.move_to(18, vpos + 3)
-		ctx.show_text("Volume: %.2f"%self.mixerstrip.GetVolume())
+		ctx.show_text(_("Volume: %.2f") % self.mixerstrip.GetVolume())
 
 		return False
 		

@@ -7,6 +7,8 @@ pygst.require("0.10")
 import gst
 import Globals
 import AlsaDevices
+import gettext
+_ = gettext.gettext
 
 #=========================================================================
 
@@ -37,7 +39,7 @@ class InstrumentConnectionsDialog:
 		if len(self.project.instruments) > 0:
 			self.Populate()
 		else:
-			self.res.get_widget("explainLabel").set_text("There are no instruments to connect")
+			self.res.get_widget("explainLabel").set_text(_("There are no instruments to connect"))
 
 		self.parent = parent
 		self.window.set_icon(self.parent.icon)
@@ -47,6 +49,8 @@ class InstrumentConnectionsDialog:
 
 	def OnClose(self, button):
 		self.window.destroy()
+	
+	#_____________________________________________________________________
 
 	def Populate(self):
 		self.mixers = {}
@@ -101,6 +105,8 @@ class InstrumentConnectionsDialog:
 			row.pack_start(label, False, False)
 			
 			self.vbox.add(row)
+	
+	#_____________________________________________________________________
 			
 	def OnSelected(self, widget, instr):
 		'''Set the instrument's input'''
@@ -114,3 +120,7 @@ class InstrumentConnectionsDialog:
 			instr.input = device
 			instr.inTrack = inTrack
 			self.project.unsavedChanges = True
+			
+	#_____________________________________________________________________
+	
+#=========================================================================

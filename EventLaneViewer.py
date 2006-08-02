@@ -4,6 +4,8 @@ from EventViewer import *
 from AudioPreview import AudioPreview
 import Monitored
 import os.path
+import gettext
+_ = gettext.gettext
 
 #=========================================================================
 
@@ -128,10 +130,10 @@ class EventLaneViewer(gtk.EventBox):
 		# Create context menu on RMB 
 		if mouse.button == 3: 
 			m = gtk.Menu() 
-			items = [	("Import Audio File...", self.CreateEventFromFile, True),
+			items = [	(_("Import Audio File..."), self.CreateEventFromFile, True),
 					("---", None, None),
-					("Paste", self.OnPaste, self.project.clipboardList),
-					("Delete", self.OnDelete, True)
+					(_("Paste"), self.OnPaste, self.project.clipboardList),
+					(_("Delete"), self.OnDelete, True)
 					 ] 
 
 			for i, cb, sensitive in items: 
@@ -162,7 +164,7 @@ class EventLaneViewer(gtk.EventBox):
 	def OnMouseMove(self, widget, mouse):
 		# display status bar message if has not already been displayed
 		if not self.messageID: 
-			self.messageID = self.mainview.SetStatusBar("<b>Right-click</b> for more options.")
+			self.messageID = self.mainview.SetStatusBar(_("<b>Right-click</b> for more options."))
 		# TODO - we need to add code here to snap to beat/bar etc.
 		self.highlightCursor = mouse.x
 		self.queue_draw()
@@ -182,10 +184,10 @@ class EventLaneViewer(gtk.EventBox):
 	def CreateEventFromFile(self, evt):
 		buttons = (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, gtk.STOCK_OPEN, gtk.RESPONSE_OK)
 
-		copyfile=gtk.CheckButton("Copy file to project")
+		copyfile = gtk.CheckButton(_("Copy file to project"))
 		copyfile.show()
 
-		dlg = gtk.FileChooserDialog("Import file...", action=gtk.FILE_CHOOSER_ACTION_OPEN, buttons=buttons)
+		dlg = gtk.FileChooserDialog(_("Import file..."), action=gtk.FILE_CHOOSER_ACTION_OPEN, buttons=buttons)
 		dlg.set_current_folder(self.mainview.defaultlocation)
 		dlg.set_extra_widget(copyfile)
 		

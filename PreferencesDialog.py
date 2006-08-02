@@ -7,9 +7,9 @@ from ConfigParser import SafeConfigParser
 import Project
 import Globals
 import AlsaDevices
-import gst
 import pygst
 pygst.require("0.10")
+import gst
 
 STARTUP_WELCOME_DIALOG = "welcome"
 STARTUP_LAST_PROJECT = "lastproject"

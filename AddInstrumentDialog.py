@@ -6,6 +6,8 @@ import os
 from ConfigParser import SafeConfigParser
 import Globals
 import operator #for sorting instrument list
+import gettext
+_ = gettext.gettext
 
 #=========================================================================
 

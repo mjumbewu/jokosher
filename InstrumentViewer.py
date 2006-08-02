@@ -6,6 +6,8 @@ from EventLaneViewer import *
 import Waveform
 import Globals
 import InstrumentEffectsDialog
+import gettext
+_ = gettext.gettext
 
 #=========================================================================	
 
@@ -235,7 +237,7 @@ class InstrumentViewer(gtk.EventBox):
 
 	def OnProcessingMenu(self, widget, mouse):
 		m = gtk.Menu() 
-		items = [("Instrument Effects...", self.OnInstrumentEffects)] 
+		items = [(_("Instrument Effects..."), self.OnInstrumentEffects)] 
 		for i, cb in items:
 			a = gtk.MenuItem(label=i)
 			a.show() 
