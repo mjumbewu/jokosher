@@ -98,7 +98,7 @@ class InstrumentEffectsDialog:
 	#_____________________________________________________________________	
 
 	def OnAddEffect(self, combo):
-		self.instrument.effects.append(gst.element_factory_make(self.currentplugin, "effect"))
+		self.instrument.effects.append(gst.element_factory_make(self.currentplugin, self.currentplugin))
 		#self.instrument.effects.append(self.effect)
 		
 		button = gtk.Button(self.currentplugin)

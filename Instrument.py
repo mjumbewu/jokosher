@@ -540,15 +540,16 @@ class Instrument(Monitored, CommandManaged):
 	#_____________________________________________________________________
 
 	def PrepareEffectsBin(self):	
-		acnum = 1
+		aclistnum = 1
 
 		self.aclist = []
 
 		numeffects = len(self.effects)
 
 		for i in range(numeffects):
-			aconvert = gst.element_factory_make("audioconvert", "EffectConverter_%d"%acnum)
-			self.aclist.append(aconvert)	
+			aconvert = gst.element_factory_make("audioconvert", "EffectConverter_%d"%aclistnum)
+			self.aclist.append(aconvert)
+			aclistnum += 1
 			
 		print "LIST OF ACs"
 		print self.aclist
@@ -563,7 +564,7 @@ class Instrument(Monitored, CommandManaged):
 				effect.link(self.aclist[acnum])
 				efflink = 0
 			else:
-				self.aclist[num].link(effect)
+				self.aclist[acnum].link(effect)
 				efflink = 1
 			
 			acnum += 1
