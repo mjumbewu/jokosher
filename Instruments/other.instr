@@ -1,4 +1,6 @@
 [core]
-name = Other
 icon = other.svg
 type = other
+
+[i18n]
+en_GB = Other

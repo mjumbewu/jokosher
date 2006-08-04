@@ -1,4 +1,6 @@
 [core]
-name = Snare
 icon = snare.svg
 type = snare
+
+[i18n]
+en_GB = Snare

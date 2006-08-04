@@ -1,4 +1,6 @@
 [core]
-name = Effect
 icon = effect.svg
 type = effect
+
+[i18n]
+en_GB = Effect

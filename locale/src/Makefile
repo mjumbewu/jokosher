@@ -11,20 +11,24 @@
 	cp $@ $(DIR2)/jokosher.mo
 
 #Generic rule for PO files
-%.po: messages.pot
+%.po: jokosher.pot
 	##################
 	#MERGING $@ AND $<
 	##################
-	msgmerge -UN $@ messages.pot
+	msgmerge -UN $@ $<
 
 #Generic rule for POT files
-%.pot: ../../Jokosher.glade.h ../../*.py
+%.pot: ../../Jokosher.glade ../../*.py ../../Instruments/*.instr
 	############
 	#CREATING $@
 	############
-	intltool-extract --type=gettext/glade ../../Jokosher.glade	
-	xgettext -k_ -kN_ -o $@ $^
+	intltool-extract --type=gettext/glade ../../Jokosher.glade
+	python i18nReadInstr.py ../../Instruments/*.instr > i18n.instr.h
+	xgettext -k_ -kN_ -o $@ ../../Jokosher.glade.h ../../*.py i18n.instr.h
 
 update: $(shell ls *.po)
 
 all: $(subst .po,.mo,$(shell ls *.po))
+
+clean:
+	rm *.mo i18n.instr.h ../../Jokosher.glade.h

@@ -1,4 +1,6 @@
 [core]
-name = Bass Drum
 icon = bassdrum.svg
 type = bassdrum
+
+[i18n]
+en_GB = Bass Drum

@@ -7,7 +7,7 @@
   <property name="width_request">900</property>
   <property name="height_request">550</property>
   <property name="visible">True</property>
-  <property name="title" translatable="yes">Jokosher</property>
+  <property name="title">Jokosher</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_NONE</property>
   <property name="modal">False</property>
@@ -456,8 +456,8 @@
 		  <property name="visible_vertical">True</property>
 		  <property name="is_important">False</property>
 		  <accessibility>
-		    <atkrelation target="Rewind" type="flows-to"/>
 		    <atkrelation target="Record" type="flows-to"/>
+		    <atkrelation target="Rewind" type="flows-to"/>
 		  </accessibility>
 		  <signal name="clicked" handler="on_AddInstrument_clicked" last_modification_time="Mon, 20 Feb 2006 00:04:19 GMT"/>
 		</widget>
@@ -488,8 +488,8 @@
 		  <property name="visible_vertical">True</property>
 		  <property name="is_important">False</property>
 		  <accessibility>
-		    <atkrelation target="AddInstrument" type="flows-from"/>
 		    <atkrelation target="Stop" type="flows-to"/>
+		    <atkrelation target="AddInstrument" type="flows-from"/>
 		  </accessibility>
 		  <signal name="clicked" handler="on_Rewind_clicked" last_modification_time="Mon, 20 Feb 2006 00:02:54 GMT"/>
 		</widget>
@@ -508,8 +508,8 @@
 		  <property name="visible_vertical">True</property>
 		  <property name="is_important">False</property>
 		  <accessibility>
-		    <atkrelation target="Rewind" type="flows-from"/>
 		    <atkrelation target="Play" type="flows-to"/>
+		    <atkrelation target="Rewind" type="flows-from"/>
 		  </accessibility>
 		  <signal name="clicked" handler="on_Stop_clicked" last_modification_time="Mon, 20 Feb 2006 00:03:02 GMT"/>
 		</widget>
@@ -528,8 +528,8 @@
 		  <property name="is_important">False</property>
 		  <property name="active">False</property>
 		  <accessibility>
-		    <atkrelation target="Stop" type="flows-from"/>
 		    <atkrelation target="Forward" type="flows-to"/>
+		    <atkrelation target="Stop" type="flows-from"/>
 		  </accessibility>
 		  <signal name="toggled" handler="on_Play_toggled" last_modification_time="Sun, 19 Feb 2006 23:59:51 GMT"/>
 		</widget>
@@ -547,8 +547,8 @@
 		  <property name="visible_vertical">True</property>
 		  <property name="is_important">False</property>
 		  <accessibility>
-		    <atkrelation target="Play" type="flows-from"/>
 		    <atkrelation target="Record" type="flows-to"/>
+		    <atkrelation target="Play" type="flows-from"/>
 		  </accessibility>
 		  <signal name="clicked" handler="on_Forward_clicked" last_modification_time="Mon, 20 Feb 2006 00:02:46 GMT"/>
 		</widget>
@@ -735,9 +735,9 @@
 <widget class="GtkAboutDialog" id="AboutDialog">
   <property name="visible">True</property>
   <property name="destroy_with_parent">True</property>
-  <property name="name" translatable="yes">Jokosher</property>
+  <property name="name">Jokosher</property>
   <property name="comments" translatable="yes">Audio production made simple.</property>
-  <property name="license" translatable="yes">    GNU GENERAL PUBLIC LICENSE
+  <property name="license">    GNU GENERAL PUBLIC LICENSE
 		       Version 2, June 1991
 
  Copyright (C) 1989, 1991 Free Software Foundation, Inc.
@@ -4107,8 +4107,7 @@ http://www.jokosher.org/contribute</property>
 		      <child>
 			<widget class="GtkImage" id="image121">
 			  <property name="visible">True</property>
-			  <property name="stock">gnome-stock-volume</property>
-			  <property name="icon_size">4</property>
+			  <property name="pixbuf">gnome-stock-volume</property>
 			  <property name="xalign">0.5</property>
 			  <property name="yalign">0.5</property>
 			  <property name="xpad">0</property>

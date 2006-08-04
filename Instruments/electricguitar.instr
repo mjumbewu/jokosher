@@ -1,4 +1,6 @@
 [core]
-name = Electric Guitar
 icon = electricguitar.svg
 type = electricguitar
+
+[i18n]
+en_GB = Electric Guitar

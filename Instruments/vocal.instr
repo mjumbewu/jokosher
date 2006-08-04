@@ -1,4 +1,6 @@
 [core]
-name = Vocal
 icon = vocal.svg
 type = vocal
+
+[i18n]
+en_GB = Vocal

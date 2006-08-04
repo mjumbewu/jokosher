@@ -20,7 +20,7 @@ class Instrument(Monitored, CommandManaged):
 	
 	#_____________________________________________________________________
 	
-	def __init__(self, project, name, pixbuf, pixbufPath, type, id=None):
+	def __init__(self, project, name, type, pixbuf, id=None):
 		Monitored.__init__(self)
 		
 		self.project = project
@@ -32,7 +32,6 @@ class Instrument(Monitored, CommandManaged):
 		self.graveyard = []				# List of events that have been deleted (kept for undo)
 		self.name = name				# Name of this instrument
 		self.pixbuf = pixbuf			# The icon pixbuf resource
-		self.pixbufPath = pixbufPath	# The path to the icon
 		self.isArmed = False			# True if the instrument is armed for recording
 		self.isMuted = False			# True if the "mute" button is toggled on
 		self.actuallyIsMuted = False		# True if the instrument is muted (silent)
@@ -40,7 +39,7 @@ class Instrument(Monitored, CommandManaged):
 		self.isVisible = True			# True if the instrument should be displayed in the mixer views
 		self.level = 0.0				# Current audio level in range 0..1
 		self.volume = 0.5				# Gain of the current instrument in range 0..1
-		self.type = type				# The type of instrument
+		self.instrType = type				# The type of instrument
 		self.effects = []				# List of GStreamer effect elements
 		
 		try:
@@ -143,7 +142,7 @@ class Instrument(Monitored, CommandManaged):
 		
 		items = ["path", "name", "isArmed", 
 				  "isMuted", "isSolo", "input", "output",
-				  "isSelected", "pixbufPath", "isVisible", "inTrack", "type"]
+				  "isSelected", "isVisible", "inTrack", "instrType"]
 		
 		params = doc.createElement("Parameters")
 		ins.appendChild(params)
@@ -204,20 +203,14 @@ class Instrument(Monitored, CommandManaged):
 			e.LoadFromXML(ev)
 			self.graveyard.append(e)
 		
-		#load image from file based on saved path
+		#load image from file based on unique type
 		#TODO replace this with proper cache manager
-		if not os.path.isabs(self.pixbufPath):
-			#hack for backwards compatibility for projects created when
-			#the pixbufPaths were relative
-			basepath = os.path.dirname(os.path.abspath(__file__))
-			self.pixbufPath = os.path.join(basepath, self.pixbufPath)
-			
 		for i in AddInstrumentDialog.getCachedInstruments():
-			if self.pixbufPath == i[4]:
-				self.pixbuf = i[1]
+			if self.instrType == i[1]:
+				self.pixbuf = i[2]
 				break
 		if not self.pixbuf:
-			print "Error, could not load image:", self.pixbufPath
+			print "Error, could not load image:", self.instrType
 			
 		#initialize the actuallyIsMuted variable
 		self.checkActuallyIsMuted()

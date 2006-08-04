@@ -1,5 +1,6 @@
 [core]
-name = Drum Kit
 icon = drumkit.svg
-#import = snare.instr, bassdrum.instr, tomtom.instr
 type = drumkit
+
+[i18n]
+en_GB = Drum Kit

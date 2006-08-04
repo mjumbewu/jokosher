@@ -767,16 +767,16 @@ class Project(Monitored, CommandManaged):
 
 	#_____________________________________________________________________
 	
-	def AddInstrument(self, name, pixbuf, pixbufPath, type):
+	def AddInstrument(self, name, type, pixbuf):
 		''' Adds a new instrument to the project
 		
 			undo : DeleteInstrument(%(temp)d)
 		'''
 			
-		instr = Instrument(self, name, pixbuf, pixbufPath, type)
+		instr = Instrument(self, name, type, pixbuf)
 		audio_dir = os.path.join(os.path.split(self.projectfile)[0], "audio")
 		instr.path = os.path.join(audio_dir)
-				
+		
 		self.temp = instr.id
 		self.instruments.append(instr)	
 		
@@ -901,9 +901,6 @@ class Project(Monitored, CommandManaged):
 		unknownimages=[]
 
 		for instr in self.instruments:
-			if (not os.path.exists(instr.pixbufPath)) and (instr.pixbufPath not in unknownimages) and (not instr.pixbufPath in unknownimages):
-				unknownimages.append(instr.pixbufPath)
-
 			for ev in instr.events:
 				if (ev.file!=None) and (not os.path.exists(ev.file)) and (not ev.file in unknownfiles):
 					unknownfiles.append(ev.file)

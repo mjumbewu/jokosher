@@ -42,7 +42,7 @@ class InstrumentEffectsDialog:
 		self.instrumentimage = self.res.get_widget("instrumentimage")
 		self.chainpresetcombo = self.res.get_widget("chainpresetcombo")
 		
-		self.instrumentimage.set_from_file(self.instrument.pixbufPath)
+		self.instrumentimage.set_from_pixbuf(self.instrument.pixbuf)
 		
 		thelist = gst.registry_get_default().get_feature_list(gst.ElementFactory)
 		self.effects = []

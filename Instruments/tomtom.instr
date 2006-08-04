@@ -1,4 +1,6 @@
 [core]
-name = Tom Tom
 icon = tomtom.svg
 type = tomtom
+
+[i18n]
+en_GB = Tom Tom

@@ -1,4 +1,6 @@
 [core]
-name = Audio File
 icon = audiofile.svg
 type = audiofile
+
+[i18n]
+en_GB = Audio File

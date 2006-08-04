@@ -1,4 +1,6 @@
 [core]
-name = Keyboard
 icon = keyboard.svg
 type = keyboard
+
+[i18n]
+en_GB = Keyboard

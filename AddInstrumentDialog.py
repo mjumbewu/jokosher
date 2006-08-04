@@ -6,8 +6,7 @@ import os
 from ConfigParser import SafeConfigParser
 import Globals
 import operator #for sorting instrument list
-import gettext
-_ = gettext.gettext
+import locale, gettext
 
 #=========================================================================
 
@@ -41,7 +40,7 @@ class AddInstrumentDialog:
 		self.tree.connect("item-activated", self.OnSelected)
 		self.tree.connect("selection-changed", self.OnSelectionChanged)
 
-		self.model = gtk.ListStore(str, gtk.gdk.Pixbuf, str, str, str, str)
+		self.model = gtk.ListStore(str, str, gtk.gdk.Pixbuf)
 			
 		for i in getCachedInstruments():
 			self.model.append(i)
@@ -49,7 +48,7 @@ class AddInstrumentDialog:
 		self.tree.set_model(self.model)
 			
 		self.tree.set_text_column(0)
-		self.tree.set_pixbuf_column(1)
+		self.tree.set_pixbuf_column(2)
 		self.tree.set_orientation(gtk.ORIENTATION_VERTICAL)
 		self.tree.set_selection_mode(gtk.SELECTION_MULTIPLE)
 		self.tree.set_item_width(90)
@@ -70,22 +69,7 @@ class AddInstrumentDialog:
 		sel = self.tree.get_selected_items()
 		for i in sel:
 			currentItem = self.model[i[0]]
-			
-			filenameList = []
-			for i in currentItem[3].split(","):
-				filenameList.append(i.strip())
-				
-			if len(filenameList) == 1 and len(filenameList[0]) == 0:
-				filenameList = []
-				#this instrument has no imports, so add this instrument
-				self.project.AddInstrument(currentItem[0], currentItem[1], currentItem[4], currentItem[5])
-		
-			for k in instrumentPropertyList:
-				if len(filenameList) == 0:
-					break
-				if k[2] in filenameList:
-					self.project.AddInstrument(k[0], k[1], k[4], k[5])
-					filenameList.remove(k[2])
+			self.project.AddInstrument(currentItem[0], currentItem[1], currentItem[2])
 	
 		self.parent.UpdateDisplay()
 		self.parent.undo.set_sensitive(True)
@@ -110,7 +94,7 @@ class AddInstrumentDialog:
 	
 	def OnSearchChange(self, widget):
 		search_text = self.search_entry.get_text()
-		self.model = gtk.ListStore(str, gtk.gdk.Pixbuf, str, str, str)
+		self.model = gtk.ListStore(str, str, gtk.gdk.Pixbuf)
 		
 		for i in getCachedInstruments():
 			if search_text.lower() in i[0].lower():
@@ -133,28 +117,34 @@ def _cacheInstruments():
 	basepath = os.path.dirname(os.path.abspath(__file__))
 	instrpath = os.path.join(basepath, "Instruments")
 	
-	for path,dirs,files in os.walk(instrpath):
-		for f in files:
-			if f[-6:] == ".instr":
-				config = SafeConfigParser()
-				config.read(os.path.join(instrpath, f))
-				
-				if config.has_option('core', 'name') and config.has_option('core', 'icon'):
-					name = config.get('core', 'name')
-					icon = config.get('core', 'icon')
-					type = config.get('core', 'type')
-				else:
-					continue
-				
-				pixbufPath = os.path.join(instrpath, "images", icon)
-				pixbuf = gtk.gdk.pixbuf_new_from_file(pixbufPath)
-	
-				if config.has_option('core', 'import'):
-					importfiles = config.get('core', 'import')
-				else:
-					importfiles = ""
-				
-				instrumentPropertyList.append((name, pixbuf, f, importfiles, pixbufPath, type))
+	files = os.walk(instrpath).next()[2]
+	instrFiles = [x for x in files if x.endswith(".instr")]
+	for f in instrFiles:
+		config = SafeConfigParser()
+		config.read(os.path.join(instrpath, f))
+		
+		if config.has_option('core', 'type') and config.has_option('core', 'icon'):
+			icon = config.get('core', 'icon')
+			type = config.get('core', 'type')
+		else:
+			continue
+		
+		#getlocale() will usually return  a tuple like: ('en_GB', 'UTF-8')
+		lang = locale.getlocale()[0]
+		if config.has_option('i18n', lang):
+			name = config.get('i18n', lang)
+		elif config.has_option('i18n', lang.split("_")[0]):
+			#in case lang was 'de_DE', use only 'de'
+			name = config.get('i18n', lang.split("_")[0])
+		elif config.has_option('i18n', 'en_GB'):
+			#fall back on english (or a PO translation, if there is any)
+			name = gettext.gettext(config.get( 'i18n', 'en_GB'))
+		else:
+			continue
+		
+		pixbufPath = os.path.join(instrpath, "images", icon)
+		pixbuf = gtk.gdk.pixbuf_new_from_file(pixbufPath)
+		instrumentPropertyList.append((name, type, pixbuf))
 	
 	#sort the instruments alphabetically
 	#using the name (at index 0)
@@ -163,7 +153,7 @@ def _cacheInstruments():
 def getCachedInstruments():
 	global instrumentPropertyList
 	if len(instrumentPropertyList) == 0:
-			_cacheInstruments()
+		_cacheInstruments()
 	return instrumentPropertyList
 
 gobject.idle_add(_cacheInstruments)
