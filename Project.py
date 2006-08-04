@@ -323,6 +323,7 @@ class Project(Monitored, CommandManaged):
 	#_____________________________________________________________________
 
 	def state_changed(self, bus, message, movePlayhead=True):
+		gst.debug("STATE CHANGED")
 		old, new, pending = self.mainpipeline.get_state(0)
 		#Move forward to playing when we reach paused (check pending to make sure this is the final destination)
 		if new == gst.STATE_PAUSED and pending == gst.STATE_VOID_PENDING and not self.IsPlaying:
@@ -338,7 +339,17 @@ class Project(Monitored, CommandManaged):
 		
 		if len(self.instruments) > 0:
 			gst.debug("Play pressed, about to set state to PLAYING")
-			
+
+			for ins in self.instruments:
+				if ins.effects:
+					if self.mainpipeline.get_state(0)[1] == gst.STATE_NULL:
+						ins.PrepareEffectsBin()
+						ins.converterElement.link(ins.effectsbin)
+						ins.effectsbin.link(ins.volumeElement)
+				else:
+					if self.mainpipeline.get_state(0)[1] == gst.STATE_NULL:
+						ins.converterElement.link(ins.volumeElement)
+
 			# And set it going
 			self.state_id = self.bus.connect("message::state-changed", self.state_changed, movePlayhead)
 			#set to PAUSED so the transport manager can seek first (if needed)
@@ -346,6 +357,7 @@ class Project(Monitored, CommandManaged):
 			self.mainpipeline.set_state(gst.STATE_PAUSED)
 			
 			gst.debug("just set state to PLAYING")
+			
 
 			# [DEBUG]
 			# This debug block will be removed when we release. If you see this in a release version, we
@@ -378,12 +390,13 @@ class Project(Monitored, CommandManaged):
 				
 	def newPad(self, element, pad, instrument):
 ##		print "before new pad"
+		gst.debug("NEW PAD")
 		print pad
 		convpad = instrument.converterElement.get_compatible_pad(pad, pad.get_caps())
-		t = time.time()
+		#t = time.time()
 		pad.link(convpad)
-		t2 = time.time()
-		print "TOTAL TIME TAKEN TO LINK", t2 - t
+		#t2 = time.time()
+		#print "TOTAL TIME TAKEN TO LINK", t2 - t
 ##		print "linked composition to instrument audioconvert (project)"
 		
 		#instrument.converterElement.link(instrument.volumeElement)

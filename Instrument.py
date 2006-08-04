@@ -56,6 +56,7 @@ class Instrument(Monitored, CommandManaged):
 		# GStreamer pipeline elements for this instrument		
 		self.volumeElement = gst.element_factory_make("volume", "Instrument_Volume_%d"%self.id)
 		self.converterElement = gst.element_factory_make("audioconvert", "Instrument_Converter_%d"%self.id)
+		#self.endConverterElement = gst.element_factory_make("audioconvert", "End_Instrument_Converter_%d"%self.id)
 		self.levelElement = gst.element_factory_make("level", "Instrument_Level_%d"%self.id)
 		self.levelElement.set_property("interval", gst.SECOND / 50)
 		self.levelElement.set_property("message", True)
@@ -72,6 +73,9 @@ class Instrument(Monitored, CommandManaged):
 
 		self.playbackbin.add(self.converterElement)
 		print "added audioconvert (instrument)"
+
+		self.effectsbin = gst.element_factory_make("bin", "InstrumentEffects_%d"%self.id)
+		self.playbackbin.add(self.effectsbin)
 		
 		self.composition = gst.element_factory_make("gnlcomposition")
 
@@ -98,8 +102,8 @@ class Instrument(Monitored, CommandManaged):
 
 		# link elements
 		
-		self.converterElement.link(self.volumeElement)
-		print "linked instrument audioconvert to instrument volume"
+		#self.converterElement.link(self.volumeElement)
+		#print "linked instrument audioconvert to instrument volume"
 
 		self.volumeElement.link(self.levelElement)
 		print "linked instrument volume to instrument level"
@@ -118,6 +122,9 @@ class Instrument(Monitored, CommandManaged):
 		
 		#mute this instrument if another one is solo
 		self.OnMute()
+
+		self.effectbinsrc = None
+		self.effectbinsink = None
 		
 	#_____________________________________________________________________
 	
@@ -531,4 +538,44 @@ class Instrument(Monitored, CommandManaged):
 			print "unlinked instrument playbackbin from adder"
 	
 	#_____________________________________________________________________
+
+	def PrepareEffectsBin(self):	
+		acnum = 1
+
+		self.aclist = []
+
+		numeffects = len(self.effects)
+
+		for i in range(numeffects):
+			aconvert = gst.element_factory_make("audioconvert", "EffectConverter_%d"%acnum)
+			self.aclist.append(aconvert)	
+			
+		print "LIST OF ACs"
+		print self.aclist
+
+		efflink = 1
+		acnum = 0
+		for effect in self.effects:	
+			self.effectsbin.add(effect)
+			self.effectsbin.add(self.aclist[acnum])
+			
+			if efflink == 1:
+				effect.link(self.aclist[acnum])
+				efflink = 0
+			else:
+				self.aclist[num].link(effect)
+				efflink = 1
+			
+			acnum += 1
+
+		self.effectsbinsink = gst.GhostPad("sink", self.effects[0].get_pad("Input"))		
+		self.effectsbinsrc = gst.GhostPad("src", self.aclist[-1].get_pad("src"))
+		
+		self.effectsbin.add_pad(self.effectsbinsink)
+		self.effectsbin.add_pad(self.effectsbinsrc)
+		
+		print "PADS"
+		print self.aclist[-1].get_pad("src")
+		print self.effects[0].get_pad("Input")
+		
 #=========================================================================	
