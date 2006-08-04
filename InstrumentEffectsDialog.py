@@ -118,7 +118,6 @@ class InstrumentEffectsDialog:
 		
 		# set the index of the current edited effect - used to reference the
 		# effect elsewhere
-		self.currentedit = buttonpos
 						
 		self.settWin = gtk.glade.XML(Globals.GLADE_PATH, "EffectSettingsDialog")
 
@@ -136,27 +135,110 @@ class InstrumentEffectsDialog:
 		self.presetcombo = self.settWin.get_widget("presetcombo")
 		
 		proplist = gobject.list_properties(self.instrument.effects[buttonpos])
+
+		self.settingstable.resize(len(proplist), 2)
 		
-		rows = 0
-		
-		for property in proplist:
-			scale = gtk.HScale()
-			lab = gtk.Label(property.name)
-			if hasattr(property, "minimum") == True:
-				scale.connect("value-changed", self.SetEffectSetting, property.name)
-				scale.set_range(property.minimum, property.maximum)
-				scale.set_value(self.instrument.effects[self.currentedit].get_property(property.name))
+		count = 0
 
-			self.settingstable.resize(rows, 2)
-			self.settingstable.attach(lab, 0, 1, rows-1, rows)
-			self.settingstable.attach(scale, 1, 2, rows-1, rows)
-			lab.show()
-			scale.show()
-			rows = rows + 1
+		element = self.instrument.effects[buttonpos]
 
-		self.effectlabel.set_text("hello")
+		for property in proplist:		            
+			#non readable params
+			if not(property.flags & gobject.PARAM_READABLE):
+				label = gtk.Label(property.name)
+				label.set_alignment(1,0.5)
+				self.settingstable.attach(label, 0, 1, count, count+1)
 
-		self.settingswindow.show()
+				rlabel = gtk.Label("-parameter not readable-")
+				self.settingstable.attach(rlabel, 1, 2, count, count+1)
+
+			# just display non-writable param values
+			elif not(property.flags & gobject.PARAM_WRITABLE):
+				label = gtk.Label(property.name)
+				label.set_alignment(1,0.5)
+				self.settingstable.attach(label, 0, 1, count, count+1)
+
+				wvalue = self.element.get_property(property.name)
+				if wvalue:
+					wlabel = gtk.Label(wvalue)
+					self.settingstable.attach(wlabel, 1, 2, count, count+1)
+
+			#TODO: tooltips using property.blurb
+
+			elif hasattr(property, "minimum") and hasattr(property, "maximum"):
+				label = gtk.Label(property.name)
+				label.set_alignment(1,0.5)
+				self.settingstable.attach(label, 0, 1, count, count+1)
+
+				#guess that it's numeric - we can use an HScale
+				value = element.get_property(property.name)
+				adj = gtk.Adjustment(value, property.minimum, property.maximum)
+
+				adj.connect("value_changed", self.SetEffectSetting, property.name, property)
+				hscale = gtk.HScale(adj)
+				hscale.set_value_pos(gtk.POS_RIGHT)
+                
+				#check for ints and change digits
+				if not((property.value_type == gobject.TYPE_FLOAT) or
+					   (property.value_type == gobject.TYPE_DOUBLE)):
+					hscale.set_digits(0)
+	
+				self.settingstable.attach(hscale, 1, 2, count, count+1)
+                
+			"""elif gobject.type_is_a(property.value_type, gobject.TYPE_BOOLEAN):
+				label = gtk.Label(property.name)
+				label.set_alignment(1,0.5)
+				self.settingstable.attach(label, 0, 1, count, count+1)
+
+				#booleans get a toggle button
+				tstate = self.element.get_property(property.name)
+				if tstate:
+					button = gtk.ToggleButton("On")
+				else:
+					button = gtk.ToggleButton("Off")
+					button.set_active(tstate)
+					button.set_size_request(40,30)
+					button.connect("toggled", self.onToggled, property)
+					self.settingstable.attach(button, 1, 2, count, count+1)
+
+			elif hasattr(property, "enum_class"):
+				label = gtk.Label(property.name)
+				label.set_alignment(1,0.5)
+				self.settingstable.attach(label, 0, 1, count, count+1)
+				
+				#for enumerated types, use a combobox
+				choices = _getChoices(property)
+				enum = element.get_property(property.name)
+
+				combo = gtk.ComboBox(choices)
+				cell = gtk.CellRendererText()
+				combo.pack_start(cell, True)
+				combo.add_attribute(cell, 'text', 0)
+				combo.set_active(enum)
+
+				combo.connect("changed", self.onComboBoxChanged, property)
+				self.settingstable.attach(combo, 1, 2, count, count+1)
+
+			elif gobject.type_is_a(property.value_type, gobject.TYPE_STRING):
+				label = gtk.Label(property.name)
+				label.set_alignment(1,0.5)
+				self.settingstable.attach(label, 0, 1, count, count+1)
+
+				#strings get a gtk.Entry widget
+				entry = gtk.Entry()
+				text = element.get_property(property.name)
+				# ignore empty strings
+				if text:
+					entry.set_text(text)
+
+				entry.connect("changed", self.OnSettingEntryChanged, property)
+				self.settingstable.attach(entry, 1, 2, count, count+1)"""
+
+			count += 1
+
+		#self.effectlabel.set_text("hello")
+		self.settingstable.show()
+		self.settingswindow.show_all()
 
 	#_____________________________________________________________________	
 		
@@ -185,9 +267,18 @@ class InstrumentEffectsDialog:
 				
 	#_____________________________________________________________________	
 		
-	def SetEffectSetting(self, slider, name):
+	def SetEffectSetting(self, slider, name, property):
 		"""set the value of an effects slider to its property"""
-		self.instrument.effects[self.currentedit].set_property(name, slider.get_value())
+		
+		if not((property.value_type == gobject.TYPE_FLOAT) or
+			   (property.value_type == gobject.TYPE_DOUBLE)):
+			value = int(slider.get_value())
+			print "int"
+		else:
+			value = slider.get_value()
+			print "float"
+		
+		self.instrument.effects[self.currentedit].set_property(name, value)
 		
 	#_____________________________________________________________________	
 
@@ -234,4 +325,9 @@ class InstrumentEffectsDialog:
 			self.effectlist.append(effectdict)			
 			
 		self.presets.SaveEffectChain(label, self.effectlist)
+
+	#_____________________________________________________________________	
+	
+	def OnSettingEntryChanged(self, widget):
+		pass
 		
