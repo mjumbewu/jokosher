@@ -135,9 +135,9 @@ def _cacheInstruments():
 		elif config.has_option('i18n', lang.split("_")[0]):
 			#in case lang was 'de_DE', use only 'de'
 			name = config.get('i18n', lang.split("_")[0])
-		elif config.has_option('i18n', 'en_GB'):
+		elif config.has_option('i18n', 'en'):
 			#fall back on english (or a PO translation, if there is any)
-			name = gettext.gettext(config.get( 'i18n', 'en_GB'))
+			name = gettext.gettext(config.get( 'i18n', 'en'))
 		else:
 			continue
 		
