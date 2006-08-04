@@ -5,7 +5,6 @@ import gobject
 import os
 from ConfigParser import SafeConfigParser
 import Globals
-import operator #for sorting instrument list
 import locale, gettext
 
 #=========================================================================
@@ -144,11 +143,12 @@ def _cacheInstruments():
 		
 		pixbufPath = os.path.join(instrpath, "images", icon)
 		pixbuf = gtk.gdk.pixbuf_new_from_file(pixbufPath)
+		
 		instrumentPropertyList.append((name, type, pixbuf))
 	
 	#sort the instruments alphabetically
-	#using the name (at index 0)
-	instrumentPropertyList.sort(key=operator.itemgetter(0))
+	#using the lowercase of the name (at index 0)
+	instrumentPropertyList.sort(key=lambda x: x[0].lower())
 	
 def getCachedInstruments():
 	global instrumentPropertyList
