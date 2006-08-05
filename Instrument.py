@@ -550,21 +550,29 @@ class Instrument(Monitored, CommandManaged):
 		efflink = 1
 		acnum = 0
 		for effect in self.effects:	
+			print "effect iter"
 			self.effectsbin.add(effect)
 			self.effectsbin.add(self.aclist[acnum])
 			
 			if efflink == 1:
 				effect.link(self.aclist[acnum])
 				efflink = 0
+				print "link effect to audioconvert"
 			else:
 				self.aclist[acnum].link(effect)
 				efflink = 1
+				print "link audioconvert to effect"
 			
 			acnum += 1
 
-		self.effectsbinsink = gst.GhostPad("sink", self.effects[0].get_pad("Input"))		
-		self.effectsbinsrc = gst.GhostPad("src", self.aclist[-1].get_pad("src"))
-		
+		for pad in self.effects[0].pads():
+			if pad.get_direction() == gst.PAD_SINK:
+				self.effectsbinsink = gst.GhostPad("sink", pad)
+
+		for pad in self.aclist[-1].pads():
+			if pad.get_direction() == gst.PAD_SRC:
+				self.effectsbinsrc = gst.GhostPad("src", pad)
+
 		self.effectsbin.add_pad(self.effectsbinsink)
 		self.effectsbin.add_pad(self.effectsbinsrc)
 		
