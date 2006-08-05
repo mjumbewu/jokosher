@@ -83,9 +83,7 @@ class RecordingView(gtk.Frame):
 		#       Project.instruments to keep the drag and drop of InstrumentViews
 		#       consistent!
 		children = self.instrumentBox.get_children()
-		#Remove all instrumentviews, they will be added inside the for loop
-		for child in children:
-			self.instrumentBox.remove(child)
+		orderCounter = 0
 		for instr in self.project.instruments:
 			#Find the InstrumentView that matches instr:
 			iv = None
@@ -100,10 +98,19 @@ class RecordingView(gtk.Frame):
 				#Add it to the views
 				self.views.append((instr.id, iv))
 				iv.headerAlign.connect("size-allocate", self.UpdateSize)
-			#Add the InstrumentView to the VBox
-			self.instrumentBox.pack_start(iv, False, False)
+			
+			if iv not in children:
+				#Add the InstrumentView to the VBox
+				self.instrumentBox.pack_start(iv, False, False)
+			else:
+				#If the InstrumentView has already been added, just move it
+				self.instrumentBox.reorder_child(iv, orderCounter)
+				
 			#Make sure the InstrumentView is visible:
 			iv.show()
+			
+			orderCounter += 1
+			
 		#self.views is up to date now
 		for ident, iv in self.views:
 			#check if instrument has been deleted
