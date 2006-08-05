@@ -21,6 +21,11 @@ class InstrumentViewer(gtk.EventBox):
 	UNSELECTED_COLOUR = None
 	SELECTED_COLOUR = None
 	
+	INSTR_DRAG_TYPE = 83			# Number only to be used inside Jokosher
+	DRAG_TARGETS = [ ( "jokosher_instr_move", 	# A custom name for the instruments
+					   gtk.TARGET_SAME_APP,		# Only move inside Jo
+					   INSTR_DRAG_TYPE )]		# Use the custom number
+	
 	#_____________________________________________________________________
 	
 	def __init__(self, project, instrument, projectview, mainview, small = False):
@@ -42,8 +47,10 @@ class InstrumentViewer(gtk.EventBox):
 		self.add(self.mainBox)
 		
 		self.headerBox = gtk.VBox()
+		self.headerEventBox = gtk.EventBox()
+		self.headerEventBox.add(self.headerBox)
 		self.headerAlign = gtk.Alignment(0, 0, 1.0, 1.0)
-		self.headerAlign.add(self.headerBox)
+		self.headerAlign.add(self.headerEventBox)
 		self.eventLane = EventLaneViewer(project, instrument, self, mainview, self.small)
 		
 		self.mainBox.pack_start(self.headerAlign, False, False)
@@ -111,6 +118,18 @@ class InstrumentViewer(gtk.EventBox):
 			self.separator = gtk.HSeparator()
 			self.headerBox.pack_end(self.separator, False, True)
 		self.instrument.isSelected = False
+		
+		# Begin Drag and Drop code
+		self.headerEventBox.drag_dest_set(gtk.DEST_DEFAULT_DROP,
+										  self.DRAG_TARGETS, 
+										  gtk.gdk.ACTION_MOVE)
+		self.headerEventBox.connect('drag_motion', self.OnDragMotion)
+		self.headerEventBox.drag_source_set(gtk.gdk.BUTTON1_MASK, 
+										    self.DRAG_TARGETS, 
+										    gtk.gdk.ACTION_MOVE)
+		# Connect to drag_begin to add a custom icon
+		self.headerEventBox.connect('drag_begin', self.OnDragBegin)
+		self.headerEventBox.connect('drag_drop', self.OnDragDrop)
 
 	#_____________________________________________________________________
 
@@ -195,11 +214,13 @@ class InstrumentViewer(gtk.EventBox):
 			self.SELECTED_COLOUR = self.get_style().base[3]
 			
 			self.modify_bg(gtk.STATE_NORMAL, self.SELECTED_COLOUR)
+			self.headerEventBox.modify_bg(gtk.STATE_NORMAL, self.SELECTED_COLOUR)
 			self.labeleventbox.modify_bg(gtk.STATE_NORMAL, self.SELECTED_COLOUR)
 			self.eventLane.modify_bg(gtk.STATE_NORMAL, self.SELECTED_COLOUR)
 			
 		else:
 			self.modify_bg(gtk.STATE_NORMAL, self.UNSELECTED_COLOUR)
+			self.headerEventBox.modify_bg(gtk.STATE_NORMAL, self.UNSELECTED_COLOUR)
 			self.labeleventbox.modify_bg(gtk.STATE_NORMAL, self.UNSELECTED_COLOUR)
 			self.eventLane.modify_bg(gtk.STATE_NORMAL, self.UNSELECTED_COLOUR)
 		
@@ -246,6 +267,66 @@ class InstrumentViewer(gtk.EventBox):
 				a.connect("activate", cb)
 
 		m.popup(None, None, None, mouse.button, mouse.time)
-		
-	#=========================================================================	
+	
+	#______________________________________________________________________
+	
+	def OnDragMotion(self, widget, context, x, y, time):
+		'''
+			Called each time the user moves his/her mouse while dragging.
+			'if' clause checks if mouse is on an instrument that isn't the
+			source instrument. If so, it swaps that instrument and the
+			source instrument in the GUI. Swapping of the Instrument objects
+			in self.project.instruments happens in OnDragDrop().
+		'''
+		source_header = context.get_source_widget() 	# Will return an EventBox (self.headerEventBox)
+		if widget != source_header: 					# Dont swap with self
+			box = self.GetInstrumentViewVBox()
+			iv_array = box.get_children()				# InstrumentView array
+			index_iv = iv_array.index(self)
+			
+			source_iv = [iv for iv in iv_array if iv.headerEventBox == source_header][0]
+			index_source_iv = iv_array.index(source_iv)
+			
+			box.reorder_child(source_iv, index_iv)		# Immediate visual feedback
+		# Without these lines the icon would fly back to the start of the drag when dropping
+		context.drag_status(gtk.gdk.ACTION_MOVE, time)
+		return True
 
+	#______________________________________________________________________
+	
+	def OnDragBegin(self, widget, context):
+		'''
+			Called at the start of the drag and drop.
+			Displays the instrument icon when dragging.
+		'''
+		widget.drag_source_set_icon_pixbuf(self.instrument.pixbuf)
+		return True
+	
+	#______________________________________________________________________
+	
+	def OnDragDrop(self, widget, context, x, y, time):
+		'''
+			Called when the user releases MOUSE1.
+			Calls MoveInstrument, which moves the dragged
+			instrument to the end position in the
+			self.project.instruments array.
+			MoveInstrument is undo-able.
+		'''
+		id = self.instrument.id
+		box = self.GetInstrumentViewVBox()
+		position = box.get_children().index(self)
+		self.project.MoveInstrument(id, position)
+	
+	#______________________________________________________________________
+
+	def GetInstrumentViewVBox(self):
+		'''
+			Returns the instrumentBox if the current view is a RecordingView.
+			Returns the timebox if the current view is a CompactMixView.
+		'''
+		if hasattr(self.projectview, "instrumentBox"):
+			return self.projectview.instrumentBox
+		else:
+			return self.projectview.timebox
+	
+	#=========================================================================	

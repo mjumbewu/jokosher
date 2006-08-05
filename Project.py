@@ -819,6 +819,23 @@ class Project(Monitored, CommandManaged):
 		
 	#_____________________________________________________________________
 	
+	def MoveInstrument(self, id, position):
+		'''
+			Move an instrument in the instrument list.
+			Used for drag and drop ordering of instruments in
+			InstrumentViewer.py
+			
+			undo : MoveInstrument(%(temp)d, %(temp1)d)
+		'''
+		self.temp = id
+		instr = [x for x in self.instruments if x.id == id][0]
+		self.temp1 = self.instruments.index(instr)
+		
+		self.instruments.remove(instr)
+		self.instruments.insert(position, instr)		
+	
+	#_____________________________________________________________________
+	
 	def ClearEventSelections(self):
 		''' Clears the selection of any events '''
 		for instr in self.instruments:

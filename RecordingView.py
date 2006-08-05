@@ -79,30 +79,39 @@ class RecordingView(gtk.Frame):
 	
 
 	def Update(self):
+		# Note: InstrumentViews MUST have the order that the instruments have in
+		#       Project.instruments to keep the drag and drop of InstrumentViews
+		#       consistent!
 		children = self.instrumentBox.get_children()
+		#Remove all instrumentviews, they will be added inside the for loop
+		for child in children:
+			self.instrumentBox.remove(child)
 		for instr in self.project.instruments:
+			#Find the InstrumentView that matches instr:
 			iv = None
 			for ident, instrV in self.views:
 				if instrV.instrument is instr:
 					iv = instrV
 					break
+			#If there is no InstrumentView for instr, create one:
 			if not iv:
 				iv = InstrumentViewer.InstrumentViewer(self.project, instr, self, self.mainview)
 				instr.AddListener(self)
+				#Add it to the views
 				self.views.append((instr.id, iv))
 				iv.headerAlign.connect("size-allocate", self.UpdateSize)
-			
-			if not iv in children:
-				self.instrumentBox.pack_start(iv, False, False)
-			
+			#Add the InstrumentView to the VBox
+			self.instrumentBox.pack_start(iv, False, False)
+			#Make sure the InstrumentView is visible:
 			iv.show()
-		
+		#self.views is up to date now
 		for ident, iv in self.views:
 			#check if instrument has been deleted
 			if not iv.instrument in self.project.instruments and iv in children:
 				self.instrumentBox.remove(iv)
 			else:
-				iv.Update()
+				iv.Update() #Update non-deleted instruments
+		
 		
 		if len(self.views) > 0:
 			self.UpdateSize(None, self.views[0][1].headerAlign.get_allocation())
