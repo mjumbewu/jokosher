@@ -22,7 +22,6 @@ class InstrumentEffectsDialog:
 
 		# this refers to the current effects Plugin
 		self.currentplugin = None
-		self.currentedit = None
 		
 		self.signals = {
 			"on_okbutton_clicked" : self.OnOK,
@@ -114,7 +113,7 @@ class InstrumentEffectsDialog:
 		
 		"""TODO: Make this modal or as part of the effects window"""
 
-		buttonpos = self.effectsbox.child_get_property(button, "position")
+		self.effectpos = self.effectsbox.child_get_property(button, "position")
 		
 		# set the index of the current edited effect - used to reference the
 		# effect elsewhere
@@ -134,13 +133,13 @@ class InstrumentEffectsDialog:
 		self.settingstable = self.settWin.get_widget("settingstable")
 		self.presetcombo = self.settWin.get_widget("presetcombo")
 		
-		proplist = gobject.list_properties(self.instrument.effects[buttonpos])
+		proplist = gobject.list_properties(self.instrument.effects[self.effectpos])
 
 		self.settingstable.resize(len(proplist), 2)
 		
 		count = 0
 
-		element = self.instrument.effects[buttonpos]
+		element = self.instrument.effects[self.effectpos]
 
 		for property in proplist:		            
 			#non readable params
@@ -273,12 +272,10 @@ class InstrumentEffectsDialog:
 		if not((property.value_type == gobject.TYPE_FLOAT) or
 			   (property.value_type == gobject.TYPE_DOUBLE)):
 			value = int(slider.get_value())
-			print "int"
 		else:
 			value = slider.get_value()
-			print "float"
 		
-		self.instrument.effects[self.currentedit].set_property(name, value)
+		self.instrument.effects[self.effectpos].set_property(name, value)
 		
 	#_____________________________________________________________________	
 
@@ -290,7 +287,7 @@ class InstrumentEffectsDialog:
 		
 		effectdict = {}
 		
-		effect = self.instrument.effects[self.currentedit]
+		effect = self.instrument.effects[self.effectpos]
 		effectelement = effect.get_factory().get_name()
 		
 		proplist = gobject.list_properties(effect)
