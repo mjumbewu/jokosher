@@ -157,7 +157,7 @@ class InstrumentEffectsDialog:
 				label.set_alignment(1,0.5)
 				self.settingstable.attach(label, 0, 1, count, count+1)
 
-				wvalue = self.element.get_property(property.name)
+				wvalue = element.get_property(property.name)
 				if wvalue:
 					wlabel = gtk.Label(wvalue)
 					self.settingstable.attach(wlabel, 1, 2, count, count+1)
