@@ -13,6 +13,7 @@ import gobject
 import AddInstrumentDialog
 import Globals
 import shutil
+import JokDebug
 
 #=========================================================================	
 
@@ -542,29 +543,30 @@ class Instrument(Monitored, CommandManaged):
 		for i in range(numeffects):
 			aconvert = gst.element_factory_make("audioconvert", "EffectConverter_%d"%aclistnum)
 			self.aclist.append(aconvert)
+			self.effectsbin.add(aconvert)
 			aclistnum += 1
 			
-		print "LIST OF ACs"
-		print self.aclist
+		
+		for effect in self.effects:	
+			self.effectsbin.add(effect)
 
 		efflink = 1
 		acnum = 0
-		for effect in self.effects:	
-			print "effect iter"
-			self.effectsbin.add(effect)
-			self.effectsbin.add(self.aclist[acnum])
-			
-			if efflink == 1:
-				effect.link(self.aclist[acnum])
-				efflink = 0
-				print "link effect to audioconvert"
-			else:
-				self.aclist[acnum].link(effect)
-				efflink = 1
-				print "link audioconvert to effect"
-			
-			acnum += 1
+		effectnum = 0
 
+		itertimes = (numeffects * 2) - 1
+		
+		gst.debug("link effects")
+		for i in range(itertimes):
+			if efflink == 1:
+				self.effects[effectnum].link(self.aclist[acnum])
+				effectnum += 1
+				efflink = 0
+			else:
+				self.aclist[acnum].link(self.effects[effectnum])
+				acnum += 1 
+				efflink = 1
+	
 		for pad in self.effects[0].pads():
 			if pad.get_direction() == gst.PAD_SINK:
 				self.effectsbinsink = gst.GhostPad("sink", pad)
@@ -578,8 +580,5 @@ class Instrument(Monitored, CommandManaged):
 		self.effectsbin.add_pad(self.effectsbinsink)
 		self.effectsbin.add_pad(self.effectsbinsrc)
 		
-		print "PADS"
-		print self.aclist[-1].get_pad("src")
-		print self.effects[0].get_pad("Input")
 		
 #=========================================================================	
