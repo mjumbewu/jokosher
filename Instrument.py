@@ -568,10 +568,12 @@ class Instrument(Monitored, CommandManaged):
 		for pad in self.effects[0].pads():
 			if pad.get_direction() == gst.PAD_SINK:
 				self.effectsbinsink = gst.GhostPad("sink", pad)
+				break
 
 		for pad in self.aclist[-1].pads():
 			if pad.get_direction() == gst.PAD_SRC:
 				self.effectsbinsrc = gst.GhostPad("src", pad)
+				break
 
 		self.effectsbin.add_pad(self.effectsbinsink)
 		self.effectsbin.add_pad(self.effectsbinsrc)

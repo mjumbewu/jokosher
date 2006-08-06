@@ -315,6 +315,11 @@ class InstrumentViewer(gtk.EventBox):
 		id = self.instrument.id
 		box = self.GetInstrumentViewVBox()
 		position = box.get_children().index(self)
+		
+		if self.project.instruments.index(self.instrument) == position:
+			#there is no change in position
+			return
+		
 		self.project.MoveInstrument(id, position)
 	
 	#______________________________________________________________________
