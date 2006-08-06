@@ -157,7 +157,8 @@ class Instrument(Monitored, CommandManaged):
 		
 			propsdict = {}
 			for prop in gobject.list_properties(effect):
-				propsdict[prop.name] = effect.get_property(prop.name)
+				if prop.flags & gobject.PARAM_WRITABLE:
+					propsdict[prop.name] = effect.get_property(prop.name)
 			
 			StoreDictionaryToXML(self, doc, globaleffect, propsdict)
 			
