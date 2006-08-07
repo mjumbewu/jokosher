@@ -184,55 +184,6 @@ class InstrumentEffectsDialog:
 	
 				self.settingstable.attach(hscale, 1, 2, count, count+1)
                 
-			"""elif gobject.type_is_a(property.value_type, gobject.TYPE_BOOLEAN):
-				label = gtk.Label(property.name)
-				label.set_alignment(1,0.5)
-				self.settingstable.attach(label, 0, 1, count, count+1)
-
-				#booleans get a toggle button
-				tstate = self.element.get_property(property.name)
-				if tstate:
-					button = gtk.ToggleButton("On")
-				else:
-					button = gtk.ToggleButton("Off")
-					button.set_active(tstate)
-					button.set_size_request(40,30)
-					button.connect("toggled", self.onToggled, property)
-					self.settingstable.attach(button, 1, 2, count, count+1)
-
-			elif hasattr(property, "enum_class"):
-				label = gtk.Label(property.name)
-				label.set_alignment(1,0.5)
-				self.settingstable.attach(label, 0, 1, count, count+1)
-				
-				#for enumerated types, use a combobox
-				choices = _getChoices(property)
-				enum = element.get_property(property.name)
-
-				combo = gtk.ComboBox(choices)
-				cell = gtk.CellRendererText()
-				combo.pack_start(cell, True)
-				combo.add_attribute(cell, 'text', 0)
-				combo.set_active(enum)
-
-				combo.connect("changed", self.onComboBoxChanged, property)
-				self.settingstable.attach(combo, 1, 2, count, count+1)
-
-			elif gobject.type_is_a(property.value_type, gobject.TYPE_STRING):
-				label = gtk.Label(property.name)
-				label.set_alignment(1,0.5)
-				self.settingstable.attach(label, 0, 1, count, count+1)
-
-				#strings get a gtk.Entry widget
-				entry = gtk.Entry()
-				text = element.get_property(property.name)
-				# ignore empty strings
-				if text:
-					entry.set_text(text)
-
-				entry.connect("changed", self.OnSettingEntryChanged, property)
-				self.settingstable.attach(entry, 1, 2, count, count+1)"""
-
 			count += 1
 
 		#self.effectlabel.set_text("hello")
@@ -321,7 +272,7 @@ class InstrumentEffectsDialog:
 			
 			self.effectlist.append(effectdict)			
 			
-		self.presets.SaveEffectChain(label, self.effectlist)
+		self.presets.SaveEffectChain(label, self.effectlist, self.instrument.instrType)
 
 	#_____________________________________________________________________	
 	

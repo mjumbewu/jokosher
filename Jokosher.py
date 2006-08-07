@@ -29,6 +29,7 @@ import WelcomeDialog
 import InstrumentConnectionsDialog
 import StatusBar
 import AlsaDevices
+from EffectPresets import *
 
 gobject.threads_init()
 
@@ -200,7 +201,8 @@ class MainApp:
 		if self.project == None:
 			WelcomeDialog.WelcomeDialog(self)
 
-
+		# set up presets registry - this should probably be removed here	
+		EffectPresets().FillEffectsPresetsRegistry()
 
 	#_____________________________________________________________________
 

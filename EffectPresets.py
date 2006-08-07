@@ -9,7 +9,8 @@ import xml.dom.minidom as xml
 import os
 import Globals
 from Utils import *
-import gzip
+import glob
+import string
 
 #=========================================================================
 
@@ -54,13 +55,13 @@ class EffectPresets:
 		
 		StoreDictionaryToXML(self, doc, settingsblock, effectdict)
 		
-		f = gzip.GzipFile(Globals.EFFECT_PRESETS_PATH + "/" + label + ".jpreset", "w")
+		f = open(Globals.EFFECT_PRESETS_PATH + "/" + label + ".jpreset", "w")
 		f.write(doc.toprettyxml())
 		f.close()
 		
 	#_____________________________________________________________________    
 
-	def SaveEffectChain(self, label, effectlist):
+	def SaveEffectChain(self, label, effectlist, instrumenttype):
 		"""Write an effect chain to a preset file"""        
 		
 		self.effectelement = None
@@ -75,15 +76,23 @@ class EffectPresets:
 		
 		head.setAttribute("version", Globals.EFFECT_PRESETS_VERSION)
 
+		chainblock = doc.createElement("Chain")
+		head.appendChild(chainblock)
+			
+		chaindict = {}
+		chaindict["instrument"] = instrumenttype
+
+		StoreDictionaryToXML(self, doc, chainblock, chaindict)
+
 		for eff in effectlist:
 			self.effectelement = eff["effectelement"]
 			self.effecttype = eff["effecttype"]
 		
 			print self.effectelement
-			
+
 			effectblock = doc.createElement("Effect")
 			head.appendChild(effectblock)
-			
+						
 			paramsblock = doc.createElement("Parameters")
 			effectblock.appendChild(paramsblock)
 			
@@ -96,7 +105,7 @@ class EffectPresets:
 			
 			StoreDictionaryToXML(self, doc, settingsblock, eff["settings"])
 		
-		f = gzip.GzipFile(Globals.EFFECT_PRESETS_PATH + "/" + label + ".jpreset", "w")
+		f = open(Globals.EFFECT_PRESETS_PATH + "/" + label + ".jpreset", "w")
 		f.write(doc.toprettyxml())
 		f.close()
 		
@@ -122,4 +131,60 @@ class EffectPresets:
 		
 	#_____________________________________________________________________
 	
-#=========================================================================
+	def FillEffectsPresetsRegistry(self):
+		"""Read in all presets into the main presets registry"""
+		
+		print "Reading in presets..."
+		presetsfiles = glob.glob(Globals.EFFECT_PRESETS_PATH + "/*.jpreset")
+		
+		effectpresetregistry = {}
+		
+		for f in presetsfiles:
+			preset = {}
+			depslist = []
+			presetname = None
+			
+			if not os.path.exists(f):
+				print "preset file does not exist"
+			else:	
+				xmlfile = open(f, "r")
+				doc = xml.parse(f)
+
+			ischain = None
+			
+			try:	
+				instrument = doc.getElementsByTagName('Chain')[0].getElementsByTagName('instrument')[0].getAttribute('value')
+				ischain = 1
+			except:
+				instrument = None
+			
+			
+			for eff in doc.getElementsByTagName("Effect"):
+				paramtags = eff.getElementsByTagName("Parameters")[0]
+
+				for n in paramtags.childNodes:
+					if n.nodeType == xml.Node.ELEMENT_NODE:
+						if n.getAttribute("type") == "int":
+							pass
+						elif n.getAttribute("type") == "float":
+							pass
+						#elif n.getAttribute("type") == "bool":
+						#	value = (n.getAttribute("value") == "True")
+						#	setattr(self, n.tagName, value)
+						else:
+							if n.tagName == "effectelement":
+								depslist.append(str(n.getAttribute("value")))
+			
+			presetname = f.replace(str(Globals.EFFECT_PRESETS_PATH + "/"), "")
+			presetfile = presetname
+			presetname = presetname.replace(".jpreset", "")
+			
+			preset["dependencies"] = set(depslist)
+			preset["file"] = str(presetfile)
+			
+			if ischain == 1:
+				preset["instrument"] = str(instrument)
+			
+			effectpresetregistry[presetname] = preset
+		
+		print "...done"
