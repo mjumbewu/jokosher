@@ -360,6 +360,8 @@ class Event(Monitored, CommandManaged):
 					self.StateChanged(self.LENGTH) # tell the GUI
 		return True
 		
+	#_____________________________________________________________________
+		
 	def bus_eos(self, bus, message):	
 		if message.type == gst.MESSAGE_EOS:
 			
@@ -379,6 +381,8 @@ class Event(Monitored, CommandManaged):
 			# Signal to interested objects that we've changed
 			self.StateChanged(self.WAVEFORM)
 			return False
+			
+	#_____________________________________________________________________
 
 	def bus_message_statechange(self, bus, message):	
 		# state has changed
@@ -394,6 +398,8 @@ class Event(Monitored, CommandManaged):
 		except:
 			# no size available yet
 			pass
+	
+	#_____________________________________________________________________
 	
 	def GenerateWaveform(self):
 		""" Renders the level information for the GUI
