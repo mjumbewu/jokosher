@@ -7,6 +7,7 @@ import gst
 import gtk
 from Monitored import *
 from Utils import *
+import os
 
 #=========================================================================
 
@@ -95,8 +96,15 @@ class Event(Monitored, CommandManaged):
 				  "name", "offset", "file"
 				]
 		
+		self.temp = self.file
+		if os.path.samefile(self.instrument.path, os.path.dirname(self.file)):
+			# If the file is in the audio dir, just include the filename, not the absolute path
+			self.file = os.path.basename(self.file)
+		
 		StoreParametersToXML(self, doc, params, items)
 		
+		# Put self.file back to its absolute path
+		self.file = self.temp
 		
 		xmlPoints = doc.createElement("FadePoints")
 		ev.appendChild(xmlPoints)
@@ -118,6 +126,10 @@ class Event(Monitored, CommandManaged):
 		params = node.getElementsByTagName("Parameters")[0]
 		
 		LoadParametersFromXML(self, params)
+		
+		if not os.path.isabs(self.file):
+			# If there is a relative path for self.file, assume it is in the audio dir
+			self.file = os.path.join(self.instrument.path, self.file)
 		
 		try:
 			xmlPoints = node.getElementsByTagName("FadePoints")[0]

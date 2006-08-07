@@ -28,7 +28,7 @@ class Instrument(Monitored, CommandManaged):
 		
 		self.recordingbin = None
 		
-		self.path = ""
+		self.path = ""					# The 'audio' directory for this instrument
 		self.events = []				# List of events attached to this instrument
 		self.graveyard = []				# List of events that have been deleted (kept for undo)
 		self.name = name				# Name of this instrument
@@ -141,7 +141,7 @@ class Instrument(Monitored, CommandManaged):
 		parent.appendChild(ins)
 		ins.setAttribute("id", str(self.id))
 		
-		items = ["path", "name", "isArmed", 
+		items = ["name", "isArmed", 
 				  "isMuted", "isSolo", "input", "output",
 				  "isSelected", "isVisible", "inTrack", "instrType"]
 		
@@ -174,6 +174,9 @@ class Instrument(Monitored, CommandManaged):
 		params = node.getElementsByTagName("Parameters")[0]
 		
 		LoadParametersFromXML(self, params)
+		
+		#figure out the instrument's path based on the location of the projectfile
+		self.path = os.path.join(os.path.dirname(self.project.projectfile), "audio")
 		
 		globaleffect = node.getElementsByTagName("GlobalEffect")
 		
@@ -298,12 +301,11 @@ class Instrument(Monitored, CommandManaged):
 		'''
 		
 		if copyfile:
-			audio_dir = os.path.join(os.path.split(self.project.projectfile)[0], "audio")
 			basename = os.path.split(file.replace(" ", "_"))[1]
-			basecomp = basename.rsplit('.',1)
+			basecomp = basename.rsplit('.', 1)
 			newfile = "%s_%d_%d.%s" % (basecomp[0], self.id, int(time.time()), basecomp[1])
 
-			audio_file = os.path.join(audio_dir,newfile)
+			audio_file = os.path.join(self.path, newfile)
 			shutil.copyfile(file,audio_file)
 			file = audio_file
 			name = basename

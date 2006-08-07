@@ -185,6 +185,8 @@ class EventLaneViewer(gtk.EventBox):
 		buttons = (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, gtk.STOCK_OPEN, gtk.RESPONSE_OK)
 
 		copyfile = gtk.CheckButton(_("Copy file to project"))
+		# Make it copy files to audio dir by default
+		copyfile.set_active(True)
 		copyfile.show()
 
 		dlg = gtk.FileChooserDialog(_("Import file..."), action=gtk.FILE_CHOOSER_ACTION_OPEN, buttons=buttons)
