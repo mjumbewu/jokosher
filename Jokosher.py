@@ -143,7 +143,7 @@ class MainApp:
 		self.settingButtons = True
 		self.wTree.get_widget("Recording").set_active(True)
 		self.settingButtons = False
-		self.defaultlocation = "."	
+		self.defaultlocation = os.path.realpath(".")
 		self.isRecording = False
 		self.isPlaying = False
 
