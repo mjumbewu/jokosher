@@ -20,6 +20,13 @@ class EffectPresets:
 	
 	def __init__(self):
 		Globals.EFFECT_PRESETS_VERSION = "0.2"
+		
+		# this is the main dictionary of presets
+		self.effectpresetregistry = {}
+		self.ladsparegistry = []
+		
+		self.FillLADSPARegistry()
+		self.FillEffectsPresetsRegistry()
 	
 	#_____________________________________________________________________    
 
@@ -111,8 +118,24 @@ class EffectPresets:
 		
 	#_____________________________________________________________________
 	
-	def LoadSingleEffectSettings(self):
-		pass
+	def LoadSingleEffectSettings(self, effectelement, presetname):
+		print effectelement
+		print presetname
+
+		presetfile = Globals.EFFECT_PRESETS_PATH + "/" + presetname + ".jpreset"
+		print presetfile
+			
+		if not os.path.exists(presetfile):
+			print "preset file does not exist"
+		else:	
+			xmlfile = open(presetfile, "r")
+			doc = xml.parse(presetfile)
+
+		settingstags = doc.getElementsByTagName('Effect')[0].getElementsByTagName('Settings')[0]
+		settdict = LoadDictionaryFromXML(settingstags)
+		
+		for sett in settdict:
+			effectelement.set_property(sett, settdict[sett])
 		
 	#_____________________________________________________________________    
 	
@@ -136,8 +159,6 @@ class EffectPresets:
 		
 		print "Reading in presets..."
 		presetsfiles = glob.glob(Globals.EFFECT_PRESETS_PATH + "/*.jpreset")
-		
-		effectpresetregistry = {}
 		
 		for f in presetsfiles:
 			preset = {}
@@ -185,6 +206,20 @@ class EffectPresets:
 			if ischain == 1:
 				preset["instrument"] = str(instrument)
 			
-			effectpresetregistry[presetname] = preset
+			self.effectpresetregistry[presetname] = preset
 		
 		print "...done"
+		
+	#_____________________________________________________________________
+	
+	def FillLADSPARegistry(self):
+		thelist = gst.registry_get_default().get_feature_list(gst.ElementFactory)
+		
+		effects = []
+		
+		for f in thelist:
+			if "Filter/Effect/Audio/LADSPA" in f.get_klass():
+				effects.append(f.get_name())
+		
+		self.ladsparegistry = set(effects)
+		

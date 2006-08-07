@@ -29,7 +29,8 @@ class InstrumentEffectsDialog:
 			"on_previewbutton_clicked" : self.OnPreview,
 			"on_effectscombo_changed" : self.OnSelectEffect,
 			"on_addbutton_clicked" : self.OnAddEffect,
-			"on_chainpresetsave_clicked" : self.OnSaveEffectChainPreset
+			"on_chainpresetsave_clicked" : self.OnSaveEffectChainPreset,
+			"on_chainpresetcombo_changed" : self.OnChainPresetChanged
 		}
 		
 		self.res.signal_autoconnect(self.signals)
@@ -114,6 +115,7 @@ class InstrumentEffectsDialog:
 		"""TODO: Make this modal or as part of the effects window"""
 
 		self.effectpos = self.effectsbox.child_get_property(button, "position")
+		self.effectelement = self.instrument.effects[self.effectpos]
 		
 		# set the index of the current edited effect - used to reference the
 		# effect elsewhere
@@ -124,6 +126,7 @@ class InstrumentEffectsDialog:
 			"on_cancelbutton_clicked" : self.OnEffectSettingCancel,
 			"on_okbutton_clicked" : self.OnEffectSettingOK,
 			"on_savepresetbutton_clicked" : self.OnSaveSingleEffectPreset,
+			"on_presetcombo_changed" : self.OnEffectPresetChanged
 		}
 
 		self.settWin.signal_autoconnect(settsignals)
@@ -138,9 +141,7 @@ class InstrumentEffectsDialog:
 		self.settingstable.resize(len(proplist), 2)
 		
 		count = 0
-
-		element = self.instrument.effects[self.effectpos]
-
+		
 		for property in proplist:		            
 			#non readable params
 			if not(property.flags & gobject.PARAM_READABLE):
@@ -157,7 +158,7 @@ class InstrumentEffectsDialog:
 				label.set_alignment(1,0.5)
 				self.settingstable.attach(label, 0, 1, count, count+1)
 
-				wvalue = element.get_property(property.name)
+				wvalue = self.effectelement.get_property(property.name)
 				if wvalue:
 					wlabel = gtk.Label(wvalue)
 					self.settingstable.attach(wlabel, 1, 2, count, count+1)
@@ -170,7 +171,7 @@ class InstrumentEffectsDialog:
 				self.settingstable.attach(label, 0, 1, count, count+1)
 
 				#guess that it's numeric - we can use an HScale
-				value = element.get_property(property.name)
+				value = self.effectelement.get_property(property.name)
 				adj = gtk.Adjustment(value, property.minimum, property.maximum)
 
 				adj.connect("value_changed", self.SetEffectSetting, property.name, property)
@@ -186,7 +187,21 @@ class InstrumentEffectsDialog:
                 
 			count += 1
 
-		#self.effectlabel.set_text("hello")
+		# set up presets
+		
+		elementfactory = self.effectelement.get_factory().get_name()
+		
+		self.model = gtk.ListStore(str)
+		self.presetcombo.set_model(self.model)
+
+		# mighty list comprehension that returns presets for this effects plugin
+		# if (a) it is on the system (in ladsparegistry) and (b) if the preset is
+		# only for that plugin. Witness the m/\d skillz
+		availpresets = [x for x in self.presets.effectpresetregistry if self.presets.effectpresetregistry[x]['dependencies']==set([elementfactory]) and elementfactory in self.presets.ladsparegistry]
+
+		for pres in availpresets:
+			self.presetcombo.append_text(pres)
+			
 		self.settingstable.show()
 		self.settingswindow.show_all()
 
@@ -278,4 +293,17 @@ class InstrumentEffectsDialog:
 	
 	def OnSettingEntryChanged(self, widget):
 		pass
-		
+
+	#_____________________________________________________________________	
+	
+	def OnEffectPresetChanged(self, combo):
+		print "selected foo"
+		presetname = name = combo.get_active_text()
+		self.presets.LoadSingleEffectSettings(self.effectelement, presetname)
+
+		self.settingswindow.show_all()
+
+	#_____________________________________________________________________	
+	
+	def OnChainPresetChanged(self, widget):
+		pass
