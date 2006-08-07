@@ -21,11 +21,6 @@ import time #remove after ticket #111 is closed
 #_____________________________________________________________________
 
 def CreateNew(projecturi, name, author):
-	
-	name=name.strip()
-	author=author.strip()
-	projecturi=projecturi.strip()
-
 	if name == "" or author == "" or projecturi == "":
 		raise CreateProjectError(4)
 
