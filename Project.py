@@ -650,6 +650,12 @@ class Project(Monitored, CommandManaged):
 		global GlobalProjectObject
 		GlobalProjectObject = None
 		
+		for instr in self.instruments:
+			for ev in instr.events:
+				if not ev.filePathSaved and os.path.samefile(instr.path, os.path.dirname(ev.file)):
+					print "Deleting copied audio file:", ev.file
+					os.remove(ev.file)
+		
 		self.instruments = []
 		self.metadata = {}
 		self.projectfile = ""
