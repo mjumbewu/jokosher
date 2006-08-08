@@ -5,12 +5,19 @@ from AudioPreview import AudioPreview
 import Monitored
 import os.path
 import gettext
+import urlparse # To split up URI's
+import urllib # To decode URI's
 _ = gettext.gettext
 
 #=========================================================================
 
 class EventLaneViewer(gtk.EventBox):
-
+	
+	URI_DRAG_TYPE = 84			# Number only to be used inside Jokosher
+	DRAG_TARGETS = [ ( "text/uri-list", 	# Accept uri-lists
+					   0,					# From everywhere
+					   URI_DRAG_TYPE )]		# Use the custom number
+	
 	#_____________________________________________________________________
 
 	def __init__(self, project, instrument, instrumentviewer, mainview, small = False):
@@ -55,6 +62,12 @@ class EventLaneViewer(gtk.EventBox):
 		self.connect("button-press-event", self.OnMouseDown)
 		self.connect("motion_notify_event", self.OnMouseMove)
 		self.connect("leave_notify_event", self.OnMouseLeave)
+		self.fixed.drag_dest_set(	gtk.DEST_DEFAULT_DROP,
+									self.DRAG_TARGETS, 
+									gtk.gdk.ACTION_COPY)
+		self.fixed.connect("drag_data_received", self.OnDragDataReceived)
+		self.fixed.connect("drag_motion", self.OnDragMotion)
+		self.fixed.connect("drag_leave", self.OnDragLeave)
 		self.fixed.connect("expose-event", self.OnDraw)
 		
 		self.messageID = None
@@ -91,7 +104,6 @@ class EventLaneViewer(gtk.EventBox):
 	#_____________________________________________________________________
 		
 	def Update(self, child=None):
-
 		if child and child in self.fixed.get_children():
 			x = int(round((child.event.start - self.project.viewStart) * self.project.viewScale))
 			self.fixed.move( child, x, 0 )
@@ -172,7 +184,7 @@ class EventLaneViewer(gtk.EventBox):
 	#_____________________________________________________________________
 		
 	def OnMouseLeave(self, widget, mouse):
-		if self.messageID:   #clesr status bar if not already clear
+		if self.messageID:   #clear status bar if not already clear
 			self.mainview.ClearStatusBar(self.messageID)
 			self.messageID = None
 		if not self.popupIsActive:
@@ -241,5 +253,43 @@ class EventLaneViewer(gtk.EventBox):
 		
 	#_____________________________________________________________________
 	
-
+	def OnDragDataReceived(self, widget, context, x, y, selection, targetType, time):
+		'''
+			Called when the drop succeeds. Adds an event for each "file://"-uri
+			in the uri-list to the instrument, one after the other. The files
+			will be copied to the project audio directory.
+		'''
+		start = (x/self.project.viewScale) + self.project.viewStart
+		# Splitlines to separate the uri's, unquote to decode the uri-encoding ('%20' -> ' ')
+		uris = [urllib.unquote(uri) for uri in selection.data.splitlines()]
+		for uri in uris:
+			# Parse the uri, and continue only if it is pointing to a local file
+			(scheme, domain, file, params, query, fragment) = urlparse.urlparse(uri, "file")
+			if scheme == "file":
+				event = self.instrument.addEventFromFile(start, file, True) # True: copy
+				event.MoveButDoNotOverlap(event.start)
+				start = event.start # Should improve performance with very large file-lists
+		context.finish(True, False, time)
+		return True
+	
+	#_____________________________________________________________________
+	
+	def OnDragMotion(self, widget, context, x, y, time):
+		'''
+			Draws a cursor on the EventLane while dragging something over it.
+		'''
+		context.drag_status(gtk.gdk.ACTION_COPY, time)
+		self.highlightCursor = x
+		self.queue_draw()
+		return True
+	
+	#_____________________________________________________________________
+	
+	def OnDragLeave(self, widget, drag_context, timestamp):
+		'''
+			Removes the cursor when dragging out of the EventLane.
+		'''
+		self.highlightCursor = None
+		self.queue_draw()
+	
 #=========================================================================

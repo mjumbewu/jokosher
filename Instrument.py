@@ -322,11 +322,13 @@ class Instrument(Monitored, CommandManaged):
 		
 		self.StateChanged()
 		
+		return e
+		
 	#_____________________________________________________________________
 	
 	def addEventFromEvent(self, start, event):
 		"""Creates a new event instance identical to the event parameter 
-		   and adds it to this instrument to this instrument (for paste functionality).
+		   and adds it to this instrument (for paste functionality).
 		      start - The offset time in seconds
 		      event - The event to be recreated on this instrument
 		      

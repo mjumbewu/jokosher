@@ -171,7 +171,9 @@ class Event(Monitored, CommandManaged):
 		if type(object) != type(self):
 			return -1
 		else:
-			return cmp(self.start, object.start)
+			# If cmp(self.start, object.start) is not zero, return it.
+			# If it is zero, return cmp(seld.id, object.id).
+			return cmp(self.start, object.start) or cmp(self.id, object.id)
 	
 	#_____________________________________________________________________
 	

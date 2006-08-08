@@ -120,7 +120,7 @@ class InstrumentViewer(gtk.EventBox):
 		self.instrument.isSelected = False
 		
 		# Begin Drag and Drop code
-		self.headerEventBox.drag_dest_set(gtk.DEST_DEFAULT_DROP,
+		self.headerEventBox.drag_dest_set(gtk.DEST_DEFAULT_MOTION,
 										  self.DRAG_TARGETS, 
 										  gtk.gdk.ACTION_MOVE)
 		self.headerEventBox.connect('drag_motion', self.OnDragMotion)
@@ -278,13 +278,13 @@ class InstrumentViewer(gtk.EventBox):
 			source instrument in the GUI. Swapping of the Instrument objects
 			in self.project.instruments happens in OnDragDrop().
 		'''
-		source_header = context.get_source_widget() 	# Will return an EventBox (self.headerEventBox)
-		if widget != source_header: 					# Dont swap with self
+		source = context.get_source_widget() 	# Will return an EventBox (self.headerEventBox)
+		if widget != source:					# Dont swap with self
 			box = self.GetInstrumentViewVBox()
 			iv_array = box.get_children()				# InstrumentView array
 			index_iv = iv_array.index(self)
 			
-			source_iv = [iv for iv in iv_array if iv.headerEventBox == source_header][0]
+			source_iv = [iv for iv in iv_array if iv.headerEventBox == source][0]
 			index_source_iv = iv_array.index(source_iv)
 			
 			box.reorder_child(source_iv, index_iv)		# Immediate visual feedback
@@ -321,6 +321,7 @@ class InstrumentViewer(gtk.EventBox):
 			return
 		
 		self.project.MoveInstrument(id, position)
+		context.finish(True, False, time)
 	
 	#______________________________________________________________________
 
