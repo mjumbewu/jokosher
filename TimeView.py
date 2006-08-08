@@ -44,9 +44,9 @@ class TimeView(gtk.EventBox):
 		if event.type == gtk.gdk._2BUTTON_PRESS:
 			transport = self.project.transport
 			if transport.mode == transport.MODE_BARS_BEATS:
-				transport.SetMode(transport.MODE_HOURS_MINS_SECS)
+				self.project.SetTransportMode(transport.MODE_HOURS_MINS_SECS)
 			else:
-				transport.SetMode(transport.MODE_BARS_BEATS)
+				self.project.SetTransportMode(transport.MODE_BARS_BEATS)
 			
 	#_____________________________________________________________________
 					

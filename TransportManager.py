@@ -117,6 +117,10 @@ class TransportManager(Monitored):
 	#_____________________________________________________________________
 
 	def SetMode(self, mode):
+		"""
+		   For undo compatibility please use Project.SetTransportMode().
+		   That method should be used instead in most cases.
+		"""
 		self.mode = mode
 		self.RedrawTimeLine = True
 		self.StateChanged()

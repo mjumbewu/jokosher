@@ -92,6 +92,9 @@ def LoadFromFile(uri):
 	
 	LoadParametersFromXML(p, params)
 	
+	# Hack to set the transport mode
+	p.transport.SetMode(p.transportMode)
+	
 	try:
 		undo = doc.getElementsByTagName("Undo")[0]
 	except IndexError:
@@ -931,7 +934,17 @@ class Project(Monitored, CommandManaged):
 			raise InvalidProjectError(unknownfiles,unknownimages)
 
 		return True
-
+	
+	#_____________________________________________________________________
+	
+	def SetTransportMode(self, val):
+		"""
+			Sets the Mode in the Transportmanager. Used to enable Undo/Redo.
+			
+			undo : SetTransportMode(%(temp)d)
+		"""
+		self.temp = self.transport.mode
+		self.transport.SetMode(val)
 
 #=========================================================================
 	

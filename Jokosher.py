@@ -493,14 +493,18 @@ class MainApp:
 	#_____________________________________________________________________
 	
 	def OnShowBarsBeats(self, widget):
-		if self.project and self.project.transport:
-			self.project.transport.SetMode(self.project.transport.MODE_BARS_BEATS)
+		if self.settingButtons:
+			return
+		if widget.get_active() and self.project and self.project.transport:
+			self.project.SetTransportMode(self.project.transport.MODE_BARS_BEATS)
 		
 	#_____________________________________________________________________
 	
 	def OnShowHoursMins(self, widget):
-		if self.project and self.project.transport:
-			self.project.transport.SetMode(self.project.transport.MODE_HOURS_MINS_SECS)
+		if self.settingButtons:
+			return
+		if widget.get_active() and self.project and self.project.transport:
+			self.project.SetTransportMode(self.project.transport.MODE_HOURS_MINS_SECS)
 		
 	#_____________________________________________________________________
 	
