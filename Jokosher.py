@@ -745,7 +745,7 @@ class MainApp:
 		
 	#______________________________________________________________________
 	
-	def OnCut(self, widget, cut=True):
+	def OnCut(self, widget=None, cut=True):
 		if self.instrNameEntry:
 			#if an instrument name is currently being edited
 			if cut:
@@ -769,12 +769,12 @@ class MainApp:
 	
 	#______________________________________________________________________
 	
-	def OnCopy(self, widget):
+	def OnCopy(self, widget=None):
 		self.OnCut(widget, False)
 	
 	#______________________________________________________________________
 	
-	def OnPaste(self, widget):
+	def OnPaste(self, widget=None):
 		if self.instrNameEntry:
 			#if an instrument name is currently being edited
 			self.instrNameEntry.paste_clipboard()
@@ -888,13 +888,20 @@ class MainApp:
 	
 	def OnKeyPress(self, widget, event):
 		
-		keysdict = {
-			65471:self.OnRecordingView, # F2 - Recording View
-			65472:self.OnCompactMixView, # F3 - Compact Mix View
-			65535:self.OnDelete, # delete key - remove selected item
-			65288:self.OnDelete, # backspace key
-		}		
-
+		if 'GDK_CONTROL_MASK' in event.state.value_names:
+			keysdict = {
+				120:self.OnCut, # Ctrl-X
+				99: self.OnCopy, # Ctrl-C
+				118:self.OnPaste, # Ctrl-V
+			}
+		else:
+			keysdict = {
+				65471:self.OnRecordingView, # F2 - Recording View
+				65472:self.OnCompactMixView, # F3 - Compact Mix View
+				65535:self.OnDelete, # delete key - remove selected item
+				65288:self.OnDelete, # backspace key
+			}	
+		
 		if event.keyval in keysdict:
 			keysdict[event.keyval]()
 		
