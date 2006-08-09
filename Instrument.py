@@ -307,6 +307,8 @@ class Instrument(Monitored, CommandManaged):
 
 			audio_file = os.path.join(self.path, newfile)
 			shutil.copyfile(file,audio_file)
+			self.project.deleteOnCloseAudioFiles.append(audio_file)
+			
 			file = audio_file
 			name = basename
 		else:

@@ -176,8 +176,11 @@ class Project(Monitored, CommandManaged):
 		#number of solo instruments (to know if others must be muted)
 		self.soloInstrCount = 0
 		
-		# The place where deleted instruments/events go
+		# The place where deleted instruments go
 		self.graveyard = []
+		
+		# WARNING: any paths in this list will be deleted on exit!
+		self.deleteOnCloseAudioFiles = []
 		
 		#The list containing the events to cut/copy
 		self.clipboardList = None
@@ -653,11 +656,11 @@ class Project(Monitored, CommandManaged):
 		global GlobalProjectObject
 		GlobalProjectObject = None
 		
-		for instr in self.instruments:
-			for ev in instr.events:
-				if not ev.filePathSaved and os.path.samefile(instr.path, os.path.dirname(ev.file)):
-					print "Deleting copied audio file:", ev.file
-					os.remove(ev.file)
+		for file in self.deleteOnCloseAudioFiles:
+			if os.path.exists(file):
+				print "Deleting copied audio file:", file
+				os.remove(file)
+		self.deleteOnCloseAudioFiles = []
 		
 		self.instruments = []
 		self.metadata = {}

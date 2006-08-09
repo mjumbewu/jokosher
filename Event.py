@@ -27,7 +27,6 @@ class Event(Monitored, CommandManaged):
 		# If you need characters escaped, please do self.file.replace(" ", "\ ") 
 		# but **do not** assign it to this variable.
 		self.file = file
-		self.filePathSaved = False	# To know to delete the file from the audio dir if changes are not saved
 		self.isSelected = False		# True if the event is currently selected
 		self.name = "New Event"		# Name of this event
 		self.isLHSHot = False
@@ -96,6 +95,10 @@ class Event(Monitored, CommandManaged):
 		items = ["start", "duration", "isSelected", 
 				  "name", "offset", "file"
 				]
+				
+		#Since we are saving the path to the project file, don't delete it on exit
+		if self.file in self.instrument.project.deleteOnCloseAudioFiles:
+			self.instrument.project.deleteOnCloseAudioFiles.remove(self.file)
 		
 		self.temp = self.file
 		if os.path.samefile(self.instrument.path, os.path.dirname(self.file)):
@@ -103,9 +106,6 @@ class Event(Monitored, CommandManaged):
 			self.file = os.path.basename(self.file)
 		
 		StoreParametersToXML(self, doc, params, items)
-		
-		# WARNING: If filePathSaved is False, this event's file will be DELETED on exit
-		self.filePathSaved = True
 		
 		# Put self.file back to its absolute path
 		self.file = self.temp
@@ -134,9 +134,6 @@ class Event(Monitored, CommandManaged):
 		if not os.path.isabs(self.file):
 			# If there is a relative path for self.file, assume it is in the audio dir
 			self.file = os.path.join(self.instrument.path, self.file)
-			
-		# WARNING: If filePathSaved is False, this event's file will be DELETED on exit
-		self.filePathSaved = True
 		
 		try:
 			xmlPoints = node.getElementsByTagName("FadePoints")[0]
