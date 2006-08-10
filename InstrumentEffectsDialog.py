@@ -117,6 +117,8 @@ class InstrumentEffectsDialog:
 		self.effectpos = self.effectsbox.child_get_property(button, "position")
 		self.effectelement = self.instrument.effects[self.effectpos]
 		
+		self.sliderdict = {}
+		
 		# set the index of the current edited effect - used to reference the
 		# effect elsewhere
 						
@@ -175,7 +177,7 @@ class InstrumentEffectsDialog:
 				adj = gtk.Adjustment(value, property.minimum, property.maximum)
 
 				adj.connect("value_changed", self.SetEffectSetting, property.name, property)
-				hscale = gtk.HScale(adj)
+				self.sliderdict[property.name] = hscale = gtk.HScale(adj)
 				hscale.set_value_pos(gtk.POS_RIGHT)
                 
 				#check for ints and change digits
@@ -183,7 +185,7 @@ class InstrumentEffectsDialog:
 					   (property.value_type == gobject.TYPE_DOUBLE)):
 					hscale.set_digits(0)
 	
-				self.settingstable.attach(hscale, 1, 2, count, count+1)
+				self.settingstable.attach(self.sliderdict[property.name], 1, 2, count, count+1)
                 
 			count += 1
 
@@ -201,7 +203,8 @@ class InstrumentEffectsDialog:
 
 		for pres in availpresets:
 			self.presetcombo.append_text(pres)
-			
+		
+		print self.sliderdict	
 		self.settingstable.show()
 		self.settingswindow.show_all()
 
@@ -299,8 +302,17 @@ class InstrumentEffectsDialog:
 	def OnEffectPresetChanged(self, combo):
 		print "selected foo"
 		presetname = name = combo.get_active_text()
-		self.presets.LoadSingleEffectSettings(self.effectelement, presetname)
+		settings = self.presets.LoadSingleEffectSettings(self.effectelement, presetname)
 
+		for item in settings:
+			#self.sliderdict[str(item)]
+			try:
+				self.effectelement.set_property(item, settings[item])
+				self.sliderdict[str(item)].set_value(settings[item])
+			except:
+				pass
+		
+		self.settingstable.show()
 		self.settingswindow.show_all()
 
 	#_____________________________________________________________________	

@@ -134,9 +134,7 @@ class EffectPresets:
 		settingstags = doc.getElementsByTagName('Effect')[0].getElementsByTagName('Settings')[0]
 		settdict = LoadDictionaryFromXML(settingstags)
 		
-		for sett in settdict:
-			effectelement.set_property(sett, settdict[sett])
-		
+		return settdict
 	#_____________________________________________________________________    
 	
 	def LoadSingleEffectList(self):
