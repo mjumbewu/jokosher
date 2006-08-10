@@ -161,7 +161,11 @@ class InstrumentViewer(gtk.EventBox):
 	#_____________________________________________________________________
 
 	def OnEditLabel(self, widget, event):
-		self.OnSelect(widget, event)
+		if not self.instrument.isSelected:
+			self.OnSelect(widget, event)
+			# Don't edit label unless the user clicks while we are already selected
+			return True
+			
 		if event.type == gtk.gdk.BUTTON_PRESS:
 			self.labeleventbox.hide_all()
 			
