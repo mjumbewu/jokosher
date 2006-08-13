@@ -1,6 +1,6 @@
 import gtk
 import TimeLine
-import RecordingView, CompactMixView
+import RecordingView
 
 class TimeLineBar(gtk.Frame):
 	def __init__(self, project, projectview, mainview):
@@ -98,6 +98,9 @@ class TimeLineBar(gtk.Frame):
 					#This means the instrument headers are smaller than the timeline bar header and must be resized
 					if self.mainview.recording:
 						for ident, iv in self.mainview.recording.views:
+							iv.ResizeHeader(width - padding)
+					if self.mainview.compactmix:
+						for ident, iv in self.mainview.compactmix.projectview.views:
 							iv.ResizeHeader(width - padding)
 
 			self.OnAcceptEditBPM()

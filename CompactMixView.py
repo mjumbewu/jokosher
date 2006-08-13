@@ -1,10 +1,8 @@
-
 import gtk
-from MixerStrip import *
-import InstrumentViewer
 import gobject
-import TimeLineBar
 import Globals
+import RecordingView
+from MixerStrip import *
 from MasterMixerStrip import *
 import gettext
 _ = gettext.gettext
@@ -23,83 +21,41 @@ class CompactMixView(gtk.Frame):
 	#_____________________________________________________________________
 	
 	def __init__(self, project, mainview):
-		gtk.Container.__init__(self)
+		gtk.Frame.__init__(self)
 		self.project = project
 		self.mainview = mainview
-		self.vbox = None
 		self.channels = []
 		self.lanes = []
-		self.hbox = None
-		self.timebox = None
-		self.instrbar = None
 		self.Updating = False
+		self.instrbar = None
 		
 		self.vbox = gtk.VBox()
 		self.add(self.vbox)
-		
-		self.timelinebar = TimeLineBar.TimeLineBar(self.project, self, mainview)
-		self.vbox.pack_start(self.timelinebar, False, False)
-		
 		self.vpaned = gtk.VPaned()
 		self.vbox.pack_start(self.vpaned, True, True)
-		
-		self.timebox = gtk.VBox()
-		scrolledwindow = gtk.ScrolledWindow()
-		scrolledwindow.add_with_viewport(self.timebox)
-		self.vpaned.add(scrolledwindow)
-		
+		self.projectview = RecordingView.RecordingView(project, mainview, self, True)
+		self.vpaned.add(self.projectview)
 		self.hbox = gtk.HBox()
 		self.vpaned.add(self.hbox)
 		
-		#self.masterfaderhbox = gtk.HBox()
 		self.mastermixer = MasterMixerStrip(self.project, self, self.mainview)
 		
-		#self.vpaned.add(self.masterfaderhbox)
 		self.show_all()
 		self.UpdateTimeout = False
-
-		self.connect("button_press_event", self.OnMouseDown)
-		self.connect("size_allocate", self.OnAllocate)
-		
 		self.Update()
-		
-	#_____________________________________________________________________
-
-	def OnAllocate(self, widget, allocation):
-		self.allocation = allocation
-	
 	#_____________________________________________________________________
 
 	def Update(self):
 		if self.Updating:
 			return
+		
 		self.Updating = True
-		
-		self.timelinebar.Update(Globals.INSTRUMENT_HEADER_WIDTH)
-		
-		for i in self.timebox.get_children():
-			self.timebox.remove(i)
+		self.projectview.Update()
 		for i in self.hbox.get_children():
 			self.hbox.remove(i)
 		
 		for instr in self.project.instruments:
 			if instr.isVisible:
-				lanebox = None
-				for i in self.lanes:
-					if i.instrument is instr:
-						lanebox = i
-						lanebox.Update()
-						lanebox.headerAlign.connect("size-allocate", self.UpdateSize)
-						break
-					
-				if not lanebox:
-					lanebox = InstrumentViewer.InstrumentViewer(self.project, instr, self, self.mainview, True)
-					instr.AddListener(self)
-					self.lanes.append(lanebox)
-				
-				self.timebox.pack_start(lanebox)
-				lanebox.headerBox.set_size_request(Globals.INSTRUMENT_HEADER_WIDTH, -1)
-				
 				strip = None
 				for i in self.channels:
 					if i.instrument is instr:
@@ -113,9 +69,6 @@ class CompactMixView(gtk.Frame):
 					self.channels.append(strip)
 					
 				self.hbox.pack_start(strip, False, False)
-		
-		#Pack the master vuwidget
-		self.hbox.pack_end(self.mastermixer, False, False)
 			
 		#create the minimise instruments bar
 		if self.instrbar:
@@ -154,22 +107,6 @@ class CompactMixView(gtk.Frame):
 		return False
 	#_____________________________________________________________________
 
-	#TODO: Unify this with RecordingView's UpdateSize. *Both* need to accept these signals incase the font size or theme is changed while the program is running
-	#Perhaps a View superclass for them both to derive from?
-	def UpdateSize(self, widget=None, size=None):
-		#find the width of the instrument headers (they should all be the same size)
-		if size:
-			tempWidth = size.width
-		else:
-			tempWidth = self.INSTRUMENT_HEADER_WIDTH
-			
-		Globals.INSTRUMENT_HEADER_WIDTH = tempWidth
-		
-		self.timelinebar.Update(tempWidth)
-	
-	#_____________________________________________________________________
-
-
 	def OnMinimiseTrack(self, widget, instr):
 		instr.SetVisible(False)
 		
@@ -177,13 +114,6 @@ class CompactMixView(gtk.Frame):
 
 	def OnMaximiseTrack(self, widget, instr):
 		instr.SetVisible(True)
-		
-	#_____________________________________________________________________
-
-	def OnMouseDown(self, widget, event):
-		self.project.ClearEventSelections()
-		self.project.ClearInstrumentSelections()
-	
 	#_____________________________________________________________________
 	
 	def OnStateChanged(self, obj, change=None):
@@ -214,7 +144,6 @@ class CompactMixView(gtk.Frame):
 		if not self.UpdateTimeout:
 			gobject.timeout_add(int(1000 / self.FPS), self.OnUpdateTimeout, priority = gobject.PRIORITY_LOW)
 			self.UpdateTimeout = True
-	#_____________________________________________________________________
 	
 #=========================================================================
 		

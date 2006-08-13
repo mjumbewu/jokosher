@@ -15,11 +15,13 @@ class RecordingView(gtk.Frame):
 
 	#_____________________________________________________________________
 
-	def __init__(self, project, mainview):
+	def __init__(self, project, mainview, mixView=None, small=False):
 		gtk.Frame.__init__(self)
 
 		self.project = project
 		self.mainview = mainview
+		self.mixView = mixView
+		self.small = small
 		self.timelinebar = TimeLineBar.TimeLineBar(self.project, self, mainview)
 
 		self.vbox = gtk.VBox()
@@ -41,21 +43,22 @@ class RecordingView(gtk.Frame):
 		self.al.add(sb)
 		self.al.set_padding(0, 0, 0, 0)
 		self.hb.pack_start(self.al)
-		zoom_out = gtk.ToolButton(gtk.STOCK_ZOOM_OUT)
-		zoom = gtk.ToolButton(gtk.STOCK_ZOOM_100)
-		zoom_in = gtk.ToolButton(gtk.STOCK_ZOOM_IN)
-		self.hb.pack_start( zoom_out, False, False)
-		self.hb.pack_start( zoom, False, False)
-		self.hb.pack_start( zoom_in, False, False)
+		if not self.mixView:
+			zoom_out = gtk.ToolButton(gtk.STOCK_ZOOM_OUT)
+			zoom = gtk.ToolButton(gtk.STOCK_ZOOM_100)
+			zoom_in = gtk.ToolButton(gtk.STOCK_ZOOM_IN)
+			self.hb.pack_start( zoom_out, False, False)
+			self.hb.pack_start( zoom, False, False)
+			self.hb.pack_start( zoom_in, False, False)
+			zoom_out.connect("clicked", self.OnZoomOut)
+			zoom.connect("clicked", self.OnZoom100)
+			zoom_in.connect("clicked", self.OnZoomIn)
 		
 		self.scrollRange.lower = 0
 		self.scrollRange.upper = 100
 		self.scrollRange.value = 0
 		self.scrollRange.step_increment = 1
 		
-		zoom_out.connect("clicked", self.OnZoomOut)
-		zoom.connect("clicked", self.OnZoom100)
-		zoom_in.connect("clicked", self.OnZoomIn)
 		sb.connect("value-changed", self.OnScroll)
 		self.connect("expose-event", self.OnExpose)
 		self.connect("button_release_event", self.OnExpose)
@@ -66,9 +69,23 @@ class RecordingView(gtk.Frame):
 	#_____________________________________________________________________
 
 	def OnExpose(self, widget, event):
-		self.scrollRange.page_size = (self.allocation.width - 180) / self.project.viewScale
+		""" Sets scrollbar properties once space has been allocated """
+		
+		# calculate scrollable width - allow 4 pixels for borders
+		self.scrollRange.page_size = (self.allocation.width - Globals.INSTRUMENT_HEADER_WIDTH - 4) / self.project.viewScale
 		self.scrollRange.page_increment = self.scrollRange.page_size
-		self.scrollRange.upper = self.project.GetProjectLength()
+		length = self.project.GetProjectLength()
+		self.scrollRange.upper = length
+		# Need to adjust project view start if we are zooming out
+		# and the end of the project is now before the end of the page.
+		# Project end will be at right edge unless the start is also on 
+		# screen, in which case the start will be at the left.
+		if self.project.viewStart + self.scrollRange.page_size > length:
+			start = max(0, length - self.scrollRange.page_size)
+			self.scrollRange.value = start
+			if start != self.project.SetViewStart:
+				self.project.SetViewStart(start)
+			
 		
 	#_____________________________________________________________________
 
@@ -93,8 +110,13 @@ class RecordingView(gtk.Frame):
 					break
 			#If there is no InstrumentView for instr, create one:
 			if not iv:
-				iv = InstrumentViewer.InstrumentViewer(self.project, instr, self, self.mainview)
-				instr.AddListener(self)
+				iv = InstrumentViewer.InstrumentViewer(self.project, instr, self, self.mainview, self.small)
+				# if this is mix view then add parent (CompactMixView) as listener
+				# otherwise add self
+				if self.mixView:
+					instr.AddListener(self.mixView)
+				else:
+					instr.AddListener(self)
 				#Add it to the views
 				self.views.append((instr.id, iv))
 				iv.headerAlign.connect("size-allocate", self.UpdateSize)

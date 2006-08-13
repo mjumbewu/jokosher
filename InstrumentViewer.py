@@ -76,8 +76,6 @@ class InstrumentViewer(gtk.EventBox):
 		self.labeleventbox.connect("leave_notify_event", self.OnMouseMove)
 		self.connect("button_press_event", self.OnSelect)
 		
-		self.labelbox.set_size_request(0, -1)
-		
 		image = gtk.Image()
 		if not (self.small):
 			image.set_from_pixbuf(self.instrument.pixbuf)
@@ -171,6 +169,7 @@ class InstrumentViewer(gtk.EventBox):
 			
 			self.editlabel = gtk.Entry()
 			self.editlabel.set_text(self.instrument.name)
+			self.editlabel.set_width_chars(len(self.instrument.name))
 			self.editlabel.connect("activate", self.OnAcceptEditLabel)
 			self.editlabel.show()
 			
