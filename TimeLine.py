@@ -13,7 +13,7 @@ class TimeLine(gtk.DrawingArea):
 
 	__gtype_name__ = 'TimeLine'
 	
-	N_LINES = 5 # Number of 'short' lines + 1
+	_NUM_LINES = 5 # Number of 'short' lines + 1
 
 	#_____________________________________________________________________
 
@@ -143,7 +143,7 @@ class TimeLine(gtk.DrawingArea):
 			# Working in milliseconds here. Using seconds gives modulus problems because they're floats
 			viewScale = self.project.viewScale / 1000.
 			viewStart = int(self.project.viewStart * 1000)
-			factor, displayMilliseconds = self.get_factor(viewScale)
+			factor, displayMilliseconds = self.GetZoomFactor(viewScale)
 			
 			# Calculate our scroll offset
 			# sec : viewStart, truncated to 1000ms; the second that has past just before the beginning of our surface
@@ -165,7 +165,7 @@ class TimeLine(gtk.DrawingArea):
 			# Draw ticks up to the end of our display
 			while x < self.get_allocation().width:
 				ix = int(x)
-				if msec % (self.N_LINES * factor):
+				if msec % (self._NUM_LINES * factor):
 					d.draw_line(gc, ix, int(self.get_allocation().height/1.2), ix, self.get_allocation().height)
 				else:
 					d.draw_line(gc, ix, int(self.get_allocation().height/2), ix, self.get_allocation().height)
@@ -241,8 +241,8 @@ class TimeLine(gtk.DrawingArea):
 		
 	#_____________________________________________________________________
 	
-	def get_factor(self, viewScale):
-		'''
+	def GetZoomFactor(self, viewScale):
+		"""
 			To be used for drawing the MODE_HOURS_MINS_SECS timeline
 			
 			Returns:
@@ -250,25 +250,25 @@ class TimeLine(gtk.DrawingArea):
 				- a boolean indicating if milliseconds should be displayed
 			The default factor is 1000, meaning that the distance between the short lines of the timeline
 			symbolizes 1000 milliseconds. The code will increase of decrease this factor to keep the
-			timeline readable. The factors can be set with the ZOOM_LEVELS array. This array
+			timeline readable. The factors can be set with the zoomLevels array. This array
 			contains zoom levels that support precision from 20 ms to 1 minute. More extreme zoom
 			levels could be added, but would never be reached because the viewScale is limited.
-		'''
-		SHORT_TEXT_WIDTH = 28 # for '0:00' notation
-		LONG_TEXT_WIDTH = 56 # for '0:00:000' notation
-		TEXT_WIDTH = SHORT_TEXT_WIDTH
-		WHITESPACE = 50
+		"""
+		shortTextWidth = 28 # for '0:00' notation
+		longTextWidth = 56 # for '0:00:000' notation
+		textWidth = shortTextWidth
+		whiteSpace = 50
 		factor = 1000 # Default factor is 1 second for 1 line
-		ZOOM_LEVELS = [20, 100, 200, 1000, 4000, 12000, 60000]
-		if (TEXT_WIDTH + WHITESPACE) > (self.N_LINES * factor * viewScale):
-			factor = ZOOM_LEVELS[ZOOM_LEVELS.index(factor) + 1]
-			while (TEXT_WIDTH + WHITESPACE) > (self.N_LINES * factor * viewScale) and factor != ZOOM_LEVELS[-1]:
-				factor = ZOOM_LEVELS[ZOOM_LEVELS.index(factor) + 1]
+		zoomLevels = [20, 100, 200, 1000, 4000, 12000, 60000]
+		if (textWidth + whiteSpace) > (self._NUM_LINES * factor * viewScale):
+			factor = zoomLevels[zoomLevels.index(factor) + 1]
+			while (textWidth + whiteSpace) > (self._NUM_LINES * factor * viewScale) and factor != zoomLevels[-1]:
+				factor = zoomLevels[zoomLevels.index(factor) + 1]
 		else:
-			while (TEXT_WIDTH + WHITESPACE) < (factor * viewScale) and factor != ZOOM_LEVELS[0]:
-				factor = ZOOM_LEVELS[ZOOM_LEVELS.index(factor) - 1]
+			while (textWidth + whiteSpace) < (factor * viewScale) and factor != zoomLevels[0]:
+				factor = zoomLevels[zoomLevels.index(factor) - 1]
 				if factor == 200:
-					TEXT_WIDTH = LONG_TEXT_WIDTH
+					textWidth = longTextWidth
 		return factor, (factor < 200) # 0.2 * 5 = 1.0 second, if the interval is smaller, milliseconds are needed
 	
 #=========================================================================
