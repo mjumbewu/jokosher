@@ -303,7 +303,10 @@ class Instrument(Monitored, CommandManaged):
 		if copyfile:
 			basename = os.path.split(file.replace(" ", "_"))[1]
 			basecomp = basename.rsplit('.', 1)
-			newfile = "%s_%d_%d.%s" % (basecomp[0], self.id, int(time.time()), basecomp[1])
+			if len(basecomp) > 1:
+				newfile = "%s_%d_%d.%s" % (basecomp[0], self.id, int(time.time()), basecomp[len(basecomp)-1])
+			else:
+				newfile = "%s_%d_%d" % (basecomp[0], self.id, int(time.time()))
 
 			audio_file = os.path.join(self.path, newfile)
 			shutil.copyfile(file,audio_file)
