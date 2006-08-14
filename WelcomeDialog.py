@@ -77,7 +77,6 @@ class WelcomeDialog:
 	def OnOpenProject(self, button=None):
 		self.window.hide()
 		self.mainwindow.OnOpenProject(self, self.OnDialogClose)
-		print "open project"
 		
 	#_____________________________________________________________________
 	
