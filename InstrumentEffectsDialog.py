@@ -66,10 +66,21 @@ class InstrumentEffectsDialog:
 			self.PopulateEffects()
 
 		self.presets = EffectPresets.EffectPresets()
+
+		# set up presets
+						
+		self.model = gtk.ListStore(str)
+		self.chainpresetcombo.set_model(self.model)
+
+		# mighty list comprehension that returns presets for this instrument
+		# if it is on the system (in ladsparegistry)
+
+		availpresets = [x[0] for x in self.presets.effectpresetregistry.items() if x[1].get('instrument')== self.instrument.instrType and x[1]['dependencies'].issubset(self.presets.ladsparegistry)]
 		
-		#self.window.resize(350, 300)
-		#self.window.set_icon(self.parent.icon)
-		#self.window.set_transient_for(self.parent.window)
+		for pres in availpresets:
+			self.chainpresetcombo.append_text(pres)
+		
+		print availpresets
 	
 	#_____________________________________________________________________	
 		
@@ -223,6 +234,8 @@ class InstrumentEffectsDialog:
 	def PopulateEffects(self):
 			print "Populating effects"
 			
+			map(self.effectsbox.remove, self.effectsbox.get_children())
+			
 			for effect in self.instrument.effects:
 				self.currentplugin =  effect.get_factory().get_name()
 				print effect.get_factory().get_name()
@@ -300,7 +313,6 @@ class InstrumentEffectsDialog:
 	#_____________________________________________________________________	
 	
 	def OnEffectPresetChanged(self, combo):
-		print "selected foo"
 		presetname = name = combo.get_active_text()
 		settings = self.presets.LoadSingleEffectSettings(self.effectelement, presetname)
 
@@ -317,5 +329,21 @@ class InstrumentEffectsDialog:
 
 	#_____________________________________________________________________	
 	
-	def OnChainPresetChanged(self, widget):
-		pass
+	def OnChainPresetChanged(self, combo):
+		presetname = name = combo.get_active_text()
+		settings = self.presets.LoadInstrumentEffectChain(presetname)
+		
+		self.instrument.effects = []
+		
+		for item in settings:
+			effect = gst.element_factory_make(item, item)
+			
+			for sett in settings[item]:
+				try:
+					settings[item][sett]
+					effect.set_property(sett, settings[item][sett])
+				except:
+					pass
+		
+			self.instrument.effects.append(effect)
+		self.PopulateEffects()

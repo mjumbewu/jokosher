@@ -147,8 +147,28 @@ class EffectPresets:
 		
 	#_____________________________________________________________________    
 	
-	def LoadInstrumentEffectChain(self):
-		pass
+	def LoadInstrumentEffectChain(self, presetname):
+		print presetname
+
+		presetfile = Globals.EFFECT_PRESETS_PATH + "/" + presetname + ".jpreset"
+		print presetfile
+			
+		if not os.path.exists(presetfile):
+			print "preset file does not exist"
+		else:	
+			xmlfile = open(presetfile, "r")
+			doc = xml.parse(presetfile)
+
+		settdict = {}
+		
+		for eff in doc.getElementsByTagName('Effect'):
+			settingstags = eff.getElementsByTagName('Settings')[0]
+			#print settingstags
+			setts = LoadDictionaryFromXML(settingstags)
+			elementname = setts["name"]
+			settdict[str(elementname)] = setts
+		
+		return settdict
 		
 	#_____________________________________________________________________
 	
