@@ -86,6 +86,7 @@ def LoadFromFile(uri):
 	version = doc.firstChild.getAttribute("version")
 	if version != Globals.VERSION:
 		# raise a "this project was created in a different version of Jokosher" message
+		if not version: version = "0.1" # 0.1 projects had version as element, not attr
 		raise OpenProjectError(3,version)
 	
 	params = doc.getElementsByTagName("Parameters")[0]

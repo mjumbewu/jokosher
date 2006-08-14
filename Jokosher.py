@@ -193,7 +193,8 @@ class MainApp:
 		if openproject:
 			self.OpenProjectFromPath(openproject)
 		elif Globals.settings.general["startupaction"] == PreferencesDialog.STARTUP_LAST_PROJECT:
-			self.OpenProjectFromPath(self.lastopenedproject[0])
+			if self.lastopenedproject:
+				self.OpenProjectFromPath(self.lastopenedproject[0])
 		elif Globals.settings.general["startupaction"] == PreferencesDialog.STARTUP_NOTHING:
 			return
 
