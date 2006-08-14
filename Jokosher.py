@@ -1024,6 +1024,9 @@ class MainApp:
 		elif not gnl:
 			message += _("Gstreamer plugin gnonlin is not installed.") + \
 			_("\nSee http://jokosher.org/trac/wiki/GettingJokosher for more details.\n")
+
+		if not gst.registry_get_default().find_plugin("level"):
+			message += _("You must have the Gstreamer plugin packs gst-plugins-base and gst-plugins-good installed.\n")
 		if message:
 			dlg = gtk.MessageDialog(self.window,
 				gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
