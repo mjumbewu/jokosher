@@ -44,17 +44,11 @@ class InstrumentEffectsDialog:
 		
 		self.instrumentimage.set_from_pixbuf(self.instrument.pixbuf)
 		
-		thelist = gst.registry_get_default().get_feature_list(gst.ElementFactory)
-		self.effects = []
-		for f in thelist:
-			if "Filter/Effect/Audio/LADSPA" in f.get_klass():
-				self.effects.append(f)
-
 		self.model = gtk.ListStore(str)
 		self.effectscombo.set_model(self.model)
 
-		for item in self.effects:
-			longname = item.get_longname()
+		for item in Globals.LADSPA_NAME_MAP:
+			longname = Globals.LADSPA_NAME_MAP[item]
 			shortname = longname[:30]
 			
 			if len(longname) > 30:
@@ -62,7 +56,7 @@ class InstrumentEffectsDialog:
 			
 			self.effectscombo.append_text(shortname)
 
-		if not self.effects == []:
+		if not self.instrument.effects == []:
 			self.PopulateEffects()
 
 		self.presets = EffectPresets.EffectPresets()
@@ -73,9 +67,9 @@ class InstrumentEffectsDialog:
 		self.chainpresetcombo.set_model(self.model)
 
 		# mighty list comprehension that returns presets for this instrument
-		# if it is on the system (in ladsparegistry)
+		# if it is on the system (in LADSPA_FACTORY_REGISTRY)
 
-		availpresets = [x[0] for x in self.presets.effectpresetregistry.items() if x[1].get('instrument')== self.instrument.instrType and x[1]['dependencies'].issubset(self.presets.ladsparegistry)]
+		availpresets = [x[0] for x in self.presets.effectpresetregistry.items() if x[1].get('instrument')== self.instrument.instrType and x[1]['dependencies'].issubset(Globals.LADSPA_FACTORY_REGISTRY)]
 		
 		for pres in availpresets:
 			self.chainpresetcombo.append_text(pres)
@@ -102,9 +96,9 @@ class InstrumentEffectsDialog:
 	def OnSelectEffect(self, combo):
 		name = combo.get_active_text()
 
-		for e in self.effects:
-			if e.get_longname() == name:
-				self.currentplugin = e.get_name()
+		for e in Globals.LADSPA_NAME_MAP:
+			if Globals.LADSPA_NAME_MAP[e] == name:
+				self.currentplugin = e
 
 	#_____________________________________________________________________	
 
@@ -208,9 +202,9 @@ class InstrumentEffectsDialog:
 		self.presetcombo.set_model(self.model)
 
 		# mighty list comprehension that returns presets for this effects plugin
-		# if (a) it is on the system (in ladsparegistry) and (b) if the preset is
+		# if (a) it is on the system (in LADSPA_FACTORY_REGISTRY) and (b) if the preset is
 		# only for that plugin. Witness the m/\d skillz
-		availpresets = [x for x in self.presets.effectpresetregistry if self.presets.effectpresetregistry[x]['dependencies']==set([elementfactory]) and elementfactory in self.presets.ladsparegistry]
+		availpresets = [x for x in self.presets.effectpresetregistry if self.presets.effectpresetregistry[x]['dependencies']==set([elementfactory]) and elementfactory in Globals.LADSPA_FACTORY_REGISTRY]
 
 		for pres in availpresets:
 			self.presetcombo.append_text(pres)

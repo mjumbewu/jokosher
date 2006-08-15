@@ -23,7 +23,6 @@ class EffectPresets:
 		
 		# this is the main dictionary of presets
 		self.effectpresetregistry = {}
-		self.ladsparegistry = []
 		
 		self.FillLADSPARegistry()
 		self.FillEffectsPresetsRegistry()
@@ -238,6 +237,8 @@ class EffectPresets:
 		for f in thelist:
 			if "Filter/Effect/Audio/LADSPA" in f.get_klass():
 				effects.append(f.get_name())
+				Globals.LADSPA_NAME_MAP[f.get_name()] = f.get_longname()
+				
+		Globals.LADSPA_FACTORY_REGISTRY = set(effects)
 		
-		self.ladsparegistry = set(effects)
-		
+		print Globals.LADSPA_NAME_MAP
