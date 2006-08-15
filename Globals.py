@@ -9,7 +9,7 @@ class Settings:
 	
 	def __init__(self, filename = None):
 		if not filename:
-			self.filename = os.path.join(os.environ['HOME'], '.jokosher')
+			self.filename = os.path.expanduser("~/.jokosher/config")
 		else:
 			self.filename = filename
 		self.config = ConfigParser.ConfigParser()
@@ -40,11 +40,44 @@ class Settings:
 			self.config.set("Recording", key, self.recording[key])
 		for key in self.playback:
 			self.config.set("Playback", key, self.playback[key])
-
+			
+		# delete a .jokosher file if it exists, because that's old-fashioned
+		old_jokosher_file = os.path.expanduser("~/.jokosher")
+		if os.path.isfile(old_jokosher_file):
+		  os.unlink(old_jokosher_file)
+		  
+		# make sure that the directory that the config file is in exists
+		new_jokosher_file_dir = os.path.split(self.filename)[0]
+		if not os.path.isdir(new_jokosher_file_dir): 
+			os.makedirs(new_jokosher_file_dir)
 		file = open(self.filename, 'w')
 		self.config.write(file)
 		file.close()
 		
+		# make sure that the directory that the config file is in exists
+		new_jokosher_file_dir = os.path.split(self.filename)[0]
+		if not os.path.isdir(new_jokosher_file_dir): 
+			os.makedirs(new_jokosher_file_dir)
+		file = open(self.filename, 'w')
+		self.config.write(file)
+		file.close()
+		
+		# make some other directories that we're going to need later
+		for d in ['plugins', 'instruments', 'presets']:
+			new_dir = os.path.join(new_jokosher_file_dir, d)
+			if not os.path.isdir(new_dir): 
+				try:
+					os.makedirs(new_dir)
+				except:
+					raise "Failed to create user config directory %s" % new_dir
+		for d in ['effects', 'mixdown']:
+			new_dir = os.path.join(new_jokosher_file_dir, 'presets', d)
+			if not os.path.isdir(new_dir): 
+				try:
+					os.makedirs(new_dir)
+				except:
+					raise "Failed to create user config directory %s" % new_dir
+
 def SetAbsPaths():
 	global JOKOSHER_PATH, IMAGE_PATH, GLADE_PATH, LOCALE_DIR, LOCALE_APP, EFFECT_PRESETS_PATH
 	
