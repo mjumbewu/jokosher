@@ -53,17 +53,9 @@ class Settings:
 		file = open(self.filename, 'w')
 		self.config.write(file)
 		file.close()
-		
-		# make sure that the directory that the config file is in exists
-		new_jokosher_file_dir = os.path.split(self.filename)[0]
-		if not os.path.isdir(new_jokosher_file_dir): 
-			os.makedirs(new_jokosher_file_dir)
-		file = open(self.filename, 'w')
-		self.config.write(file)
-		file.close()
-		
+				
 		# make some other directories that we're going to need later
-		for d in ['plugins', 'instruments', 'presets']:
+		for d in ['extensions', 'instruments', 'presets']:
 			new_dir = os.path.join(new_jokosher_file_dir, d)
 			if not os.path.isdir(new_dir): 
 				try:
