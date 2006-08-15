@@ -41,6 +41,9 @@ class InstrumentEffectsDialog:
 		self.addeffect = self.res.get_widget("addbutton")
 		self.instrumentimage = self.res.get_widget("instrumentimage")
 		self.chainpresetcombo = self.res.get_widget("chainpresetcombo")
+
+		self.headerimage = self.res.get_widget("headerimage")
+		self.headerimage.set_from_file(os.path.join(Globals.IMAGE_PATH, "effectsheader.png"))
 		
 		self.instrumentimage.set_from_pixbuf(self.instrument.pixbuf)
 		
@@ -139,9 +142,14 @@ class InstrumentEffectsDialog:
 		self.settWin.signal_autoconnect(settsignals)
 
 		self.settingswindow = self.settWin.get_widget("EffectSettingsDialog")
+		
 		self.effectlabel = self.settWin.get_widget("effectlabel")
+		self.effectlabel.set_text(Globals.LADSPA_NAME_MAP[self.effectelement.get_name()])
 		self.settingstable = self.settWin.get_widget("settingstable")
 		self.presetcombo = self.settWin.get_widget("presetcombo")
+
+		self.headerimage = self.settWin.get_widget("headerimage")
+		self.headerimage.set_from_file(os.path.join(Globals.IMAGE_PATH, "effectsettingsheader.png"))
 		
 		proplist = gobject.list_properties(self.instrument.effects[self.effectpos])
 
