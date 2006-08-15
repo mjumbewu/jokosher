@@ -91,22 +91,30 @@ class InstrumentViewer(gtk.EventBox):
 		
 		if not (self.small):
 			recimg = gtk.image_new_from_stock(gtk.STOCK_MEDIA_RECORD, gtk.ICON_SIZE_BUTTON)
+			self.recTip = gtk.Tooltips()
 			self.recButton = gtk.ToggleButton("")
 			self.recButton.set_property("image", recimg)
+			self.recTip.set_tip(self.recButton, _("Enable this instrument for recording"), None)
 			self.recButton.connect("toggled", self.OnArm)
 			
 			self.muteButton = gtk.ToggleButton("")
 			self.muteButton.connect("toggled", self.OnMute)
+			self.muteTip = gtk.Tooltips()
+			self.muteTip.set_tip(self.muteButton, _("Mute - silence this instrument"), None)
 			
 			soloimg = gtk.Image()
 			soloimg.set_from_file(os.path.join(Globals.IMAGE_PATH, "solo.png"))
 			self.soloButton = gtk.ToggleButton("")
 			self.soloButton.set_image(soloimg)
+			self.soloTip = gtk.Tooltips()
+			self.soloTip.set_tip(self.soloButton, _("Solo - silence all other instruments"), None)
 			#self.recButton.set_property("image", soloimg)
 			self.soloButton.connect("toggled", self.OnSolo)
 			
 			self.propsButton = gtk.Button("In")
 			self.propsButton.connect("button_press_event", self.OnProcessingMenu)
+			self.propsTip = gtk.Tooltips()
+			self.propsTip.set_tip(self.propsButton, _("Instrument Effects"), None)
 			
 			self.controlsBox.add(self.recButton)
 			self.controlsBox.add(self.muteButton)
@@ -204,13 +212,17 @@ class InstrumentViewer(gtk.EventBox):
 
 		if not self.small:
 			self.recButton.set_active(self.instrument.isArmed)
+			self.recTip.enable()
 			self.muteButton.set_active(self.instrument.actuallyIsMuted)
 			self.soloButton.set_active(self.instrument.isSolo)
+			self.soloTip.enable()
 		
 			if self.instrument.actuallyIsMuted:
 				self.muteButton.set_image(gtk.image_new_from_icon_name("stock_volume-mute", gtk.ICON_SIZE_BUTTON))
+				self.muteTip.set_tip(self.muteButton, _("Muted"), None)
 			else:
 				self.muteButton.set_image(gtk.image_new_from_icon_name("stock_volume", gtk.ICON_SIZE_BUTTON))
+				self.muteTip.set_tip(self.muteButton, _("Unmuted"), None)
 		
 		if self.instrument.isSelected:
 			#For some reason, putting self.style.base[3] in __init__ makes it return the wrong colour.

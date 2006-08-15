@@ -5,6 +5,9 @@ import gtk
 import os
 import Globals
 
+import gettext
+_ = gettext.gettext
+
 from VUWidget import *
 
 #=========================================================================
@@ -29,6 +32,8 @@ class MixerStrip(gtk.Frame):
 		self.minbutt = gtk.Button()
 		img = gtk.image_new_from_stock(gtk.STOCK_GOTO_BOTTOM, gtk.ICON_SIZE_MENU)
 		self.minbutt.set_image(img)
+		self.mintip = gtk.Tooltips()
+		self.mintip.set_tip(self.minbutt, _("Minimize instrument"), None)
 		self.minbutt.connect("clicked", self.EmitMinimise)
 				
 		self.vbox.pack_start(self.minbutt, False)
@@ -44,14 +49,20 @@ class MixerStrip(gtk.Frame):
 		self.recButton = gtk.ToggleButton("")
 		self.recButton.set_property("image", img)
 		self.recButton.connect("toggled", self.OnArm)
+		self.recTip = gtk.Tooltips()
+		self.recTip.set_tip(self.recButton, _("Enable this instrument for recording"), None)
 
 		self.muteButton = gtk.ToggleButton("")
 		self.muteButton.connect("toggled", self.OnMute)
+		self.muteTip = gtk.Tooltips()
+		self.muteTip.set_tip(self.muteButton, "Mute - silence this instrument", None)
 		
 		soloimg = gtk.Image()
 		soloimg.set_from_file(os.path.join(Globals.IMAGE_PATH, "solo.png"))
 		self.soloButton = gtk.ToggleButton("")
 		self.soloButton.set_image(soloimg)
+		self.soloTip = gtk.Tooltips()
+		self.soloTip.set_tip(self.soloButton, _("Solo - silence all other instruments"), None)
 		self.soloButton.connect("toggled", self.OnSolo)
 		
 		hb.add(self.recButton)
@@ -105,17 +116,22 @@ class MixerStrip(gtk.Frame):
 	def Update(self):
 		self.Updating = True
 		
+		self.mintip.enable()
 		self.label.set_text(self.instrument.name)
 		self.recButton.set_active(self.instrument.isArmed)
+		self.recTip.enable()
 		
 		self.muteButton.set_active(self.instrument.actuallyIsMuted)
 		if self.instrument.actuallyIsMuted:
 			self.muteButton.set_image(gtk.image_new_from_icon_name("stock_volume-mute", gtk.ICON_SIZE_BUTTON))
+			self.muteTip.set_tip(self.muteButton, _("Muted"), None)
 		else:
 			self.muteButton.set_image(gtk.image_new_from_icon_name("stock_volume", gtk.ICON_SIZE_BUTTON))
+			self.muteTip.set_tip(self.muteButton, _("Unmuted"), None)
 		
 		
 		self.soloButton.set_active(self.instrument.isSolo)
+		self.soloTip.enable()
 		
 		self.Updating = False
 	
