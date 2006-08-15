@@ -14,11 +14,11 @@ import os
 class Event(Monitored, CommandManaged):
 	
 	#state changed types (to be sent through the Monitored class)
-	WAVEFORM, MOVE, LENGTH = range(3)
+	WAVEFORM, MOVE, LENGTH, CORRUPT = range(4)
 	
 	#_____________________________________________________________________
 	
-	def __init__(self, instrument, file=None, id=None):
+	def __init__(self, instrument, file=None, id=None, filelabel=None):
 		Monitored.__init__(self)
 		
 		self.start = 0.0			# Time in seconds at which the event begins
@@ -27,6 +27,14 @@ class Event(Monitored, CommandManaged):
 		# If you need characters escaped, please do self.file.replace(" ", "\ ") 
 		# but **do not** assign it to this variable.
 		self.file = file
+
+		# the label is the filename to print in error messages
+		# if it differs from the real filename (i.e its been copied into the project)
+		if filelabel!=None:
+			self.filelabel = filelabel
+		else:
+			self.filelabel = file
+
 		self.isSelected = False		# True if the event is currently selected
 		self.name = "New Event"		# Name of this event
 		self.isLHSHot = False
@@ -43,7 +51,7 @@ class Event(Monitored, CommandManaged):
 		self.lastEnd = 0
 		
 		self.CreateFilesource()
-		
+
 		# A list of points where fading should happen
 		# List will look like [ (0, 0.8), (5.3, 0.8), (6.5, 0.0), (7.5, 1.0) ]
 		# where each tuple is (time in seconds, volume between 0 and 1)
@@ -53,7 +61,7 @@ class Event(Monitored, CommandManaged):
 		# ordered by time-in-seconds, so if you fiddle with the list be 
 		# sure thatyou re-sort it afterwards.
 		self.audioFadePoints = []
-		
+
 	#_____________________________________________________________________
 	
 	def CreateFilesource(self):	
@@ -416,13 +424,18 @@ class Event(Monitored, CommandManaged):
 		except:
 			# no size available yet
 			pass
+
+	#_____________________________________________________________________
+
+	def bus_error(self, bus, message):
+		print "bus error"
+		self.StateChanged(self.CORRUPT)
 	
 	#_____________________________________________________________________
 	
 	def GenerateWaveform(self):
 		""" Renders the level information for the GUI
 		"""
-		
 		pipe = """filesrc name=src location=%s ! decodebin ! audioconvert ! 
 		level interval=100000000 message=true ! fakesink""" % self.file.replace(" ", "\ ")
 		self.bin = gst.parse_launch(pipe)
@@ -432,7 +445,8 @@ class Event(Monitored, CommandManaged):
 		self.bus.connect("message::element", self.bus_message)
 		self.bus.connect("message::state-changed", self.bus_message_statechange)
 		self.bus.connect("message::eos", self.bus_eos)
-			 
+		self.bus.connect("message::error", self.bus_error)
+
 		self.levels = []
 		self.isLoading = True
 

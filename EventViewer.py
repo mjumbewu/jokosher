@@ -620,7 +620,18 @@ class EventViewer(gtk.DrawingArea):
 		elif change == self.event.LENGTH:
 			self.redrawWaveform = True
 			self.queue_resize()
-			
+		elif change == self.event.CORRUPT and self.small==False:
+			message=_("%s\n\nFile is corrupt, not an audio file, or the associated plugin is not installed"%self.event.filelabel)
+
+			dlg = gtk.MessageDialog(None,
+				gtk.DIALOG_MODAL,
+				gtk.MESSAGE_ERROR,
+				gtk.BUTTONS_CLOSE,
+				message)
+			dlg.connect('response', lambda dlg, response: dlg.destroy())
+			dlg.show()
+			self.OnDelete()
+	
 		elif type(obj) == Project.Project and self.currentScale != self.project.viewScale:
 			self.redrawWaveform = True
 			self.queue_resize()

@@ -299,7 +299,8 @@ class Instrument(Monitored, CommandManaged):
 			
 			undo : DeleteEvent(%(temp)d)
 		'''
-		
+		filelabel=file
+
 		if copyfile:
 			basename = os.path.split(file.replace(" ", "_"))[1]
 			basecomp = basename.rsplit('.', 1)
@@ -317,7 +318,7 @@ class Instrument(Monitored, CommandManaged):
 		else:
 			name = file.split(os.sep)[-1]
 
-		e = Event(self, file)
+		e = Event(self, file,None,filelabel)
 		e.start = start
 		e.name = name
 		self.events.append(e)
