@@ -30,6 +30,7 @@ import InstrumentConnectionsDialog
 import StatusBar
 import AlsaDevices
 from EffectPresets import *
+import Extension
 
 gobject.threads_init()
 
@@ -204,7 +205,10 @@ class MainApp:
 
 		# set up presets registry - this should probably be removed here	
 		EffectPresets().FillEffectsPresetsRegistry()
-
+		
+		# Load extensions -- this should probably go somewhere more appropriate
+		Extension.API.mainapp = self
+		Extension.LoadAllExtensions()
 	#_____________________________________________________________________
 
 	def clean(self):

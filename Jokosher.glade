@@ -124,7 +124,7 @@
 		      <signal name="activate" handler="on_export_activate" last_modification_time="Mon, 27 Feb 2006 11:30:03 GMT"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image102">
+			<widget class="GtkImage" id="image124">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-jump-to</property>
 			  <property name="icon_size">1</property>
@@ -175,7 +175,7 @@
 		      <accelerator key="Z" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image103">
+			<widget class="GtkImage" id="image125">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-undo</property>
 			  <property name="icon_size">1</property>
@@ -197,7 +197,7 @@
 		      <accelerator key="Z" modifiers="GDK_CONTROL_MASK | GDK_SHIFT_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image104">
+			<widget class="GtkImage" id="image126">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-redo</property>
 			  <property name="icon_size">1</property>
@@ -289,7 +289,7 @@
 		      <signal name="activate" handler="on_AddInstrument_clicked" last_modification_time="Mon, 27 Feb 2006 11:47:45 GMT"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image106">
+			<widget class="GtkImage" id="image127">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-add</property>
 			  <property name="icon_size">1</property>
@@ -310,7 +310,7 @@
 		      <signal name="activate" handler="on_instrumentconnections_activate" last_modification_time="Mon, 27 Mar 2006 20:48:19 GMT"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image107">
+			<widget class="GtkImage" id="image128">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-preferences</property>
 			  <property name="icon_size">1</property>
@@ -337,7 +337,7 @@
 			      <property name="visible">True</property>
 			      <property name="label" translatable="yes">Show as Bars, Beats, Ticks</property>
 			      <property name="use_underline">True</property>
-			      <property name="active">False</property>
+			      <property name="active">True</property>
 			      <signal name="toggled" handler="on_show_as_bars_beats_ticks_toggled" last_modification_time="Sat, 04 Mar 2006 21:20:46 GMT"/>
 			    </widget>
 			  </child>
@@ -362,6 +362,34 @@
 	  </child>
 
 	  <child>
+	    <widget class="GtkMenuItem" id="extensionsmenu">
+	      <property name="visible">True</property>
+	      <property name="label" translatable="yes">_Extensions</property>
+	      <property name="use_underline">True</property>
+
+	      <child>
+		<widget class="GtkMenu" id="extensionsmenu_menu">
+
+		  <child>
+		    <widget class="GtkSeparatorMenuItem" id="separator4">
+		      <property name="visible">True</property>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="manage_extensions1">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">_Manage Extensions</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_ExtensionManager_activate" last_modification_time="Wed, 16 Aug 2006 18:44:51 GMT"/>
+		    </widget>
+		  </child>
+		</widget>
+	      </child>
+	    </widget>
+	  </child>
+
+	  <child>
 	    <widget class="GtkMenuItem" id="menuitem4">
 	      <property name="visible">True</property>
 	      <property name="label" translatable="yes">_Help</property>
@@ -378,7 +406,7 @@
 		      <signal name="activate" handler="on_prereleasenotes_activate" last_modification_time="Sun, 02 Jul 2006 02:13:02 GMT"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image108">
+			<widget class="GtkImage" id="image129">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-info</property>
 			  <property name="icon_size">1</property>
@@ -399,7 +427,7 @@
 		      <signal name="activate" handler="on_contributing_activate" last_modification_time="Sun, 02 Jul 2006 02:57:34 GMT"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image109">
+			<widget class="GtkImage" id="image130">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-index</property>
 			  <property name="icon_size">1</property>
@@ -456,8 +484,8 @@
 		  <property name="visible_vertical">True</property>
 		  <property name="is_important">False</property>
 		  <accessibility>
-		    <atkrelation target="Rewind" type="flows-to"/>
 		    <atkrelation target="Record" type="flows-to"/>
+		    <atkrelation target="Rewind" type="flows-to"/>
 		  </accessibility>
 		  <signal name="clicked" handler="on_AddInstrument_clicked" last_modification_time="Mon, 20 Feb 2006 00:04:19 GMT"/>
 		</widget>
@@ -488,8 +516,8 @@
 		  <property name="visible_vertical">True</property>
 		  <property name="is_important">False</property>
 		  <accessibility>
-		    <atkrelation target="AddInstrument" type="flows-from"/>
 		    <atkrelation target="Stop" type="flows-to"/>
+		    <atkrelation target="AddInstrument" type="flows-from"/>
 		  </accessibility>
 		  <signal name="clicked" handler="on_Rewind_clicked" last_modification_time="Mon, 20 Feb 2006 00:02:54 GMT"/>
 		</widget>
@@ -508,8 +536,8 @@
 		  <property name="visible_vertical">True</property>
 		  <property name="is_important">False</property>
 		  <accessibility>
-		    <atkrelation target="Rewind" type="flows-from"/>
 		    <atkrelation target="Play" type="flows-to"/>
+		    <atkrelation target="Rewind" type="flows-from"/>
 		  </accessibility>
 		  <signal name="clicked" handler="on_Stop_clicked" last_modification_time="Mon, 20 Feb 2006 00:03:02 GMT"/>
 		</widget>
@@ -528,8 +556,8 @@
 		  <property name="is_important">False</property>
 		  <property name="active">False</property>
 		  <accessibility>
-		    <atkrelation target="Stop" type="flows-from"/>
 		    <atkrelation target="Forward" type="flows-to"/>
+		    <atkrelation target="Stop" type="flows-from"/>
 		  </accessibility>
 		  <signal name="toggled" handler="on_Play_toggled" last_modification_time="Sun, 19 Feb 2006 23:59:51 GMT"/>
 		</widget>
@@ -547,8 +575,8 @@
 		  <property name="visible_vertical">True</property>
 		  <property name="is_important">False</property>
 		  <accessibility>
-		    <atkrelation target="Play" type="flows-from"/>
 		    <atkrelation target="Record" type="flows-to"/>
+		    <atkrelation target="Play" type="flows-from"/>
 		  </accessibility>
 		  <signal name="clicked" handler="on_Forward_clicked" last_modification_time="Mon, 20 Feb 2006 00:02:46 GMT"/>
 		</widget>

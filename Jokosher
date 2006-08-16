@@ -1,0 +1,5 @@
+#!/bin/bash
+
+PYTHONPATH=$(dirname $(dirname $0)) python $(dirname $0)/JokosherApp.py
+
+
