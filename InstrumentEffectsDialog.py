@@ -1,3 +1,14 @@
+#
+#	THIS FILE IS PART OF THE JOKOSHER PROJECT AND LICENSED UNDER THE GPL. SEE
+#	THE 'COPYING' FILE FOR DETAILS
+#
+#	InstrumentEffectsDialog.py
+#	
+#	This module us used to present the dialog for adding and managing instrument
+#	effects. Note that this module deals with the main effects dialog *and* the
+#	effect settings dialog.
+#
+#-------------------------------------------------------------------------------
 
 import gtk
 import gtk.glade
@@ -16,6 +27,9 @@ class InstrumentEffectsDialog:
 	#_____________________________________________________________________	
 	
 	def __init__(self, instrument):
+		"""This constructor enables a bunch of variables, reads in the glade
+		file for the main dialog, and populates the effects and presets
+		combo boxes"""
 		
 		self.instrument = instrument
 		self.res = gtk.glade.XML(Globals.GLADE_PATH, "InstrumentEffectsDialog")
@@ -33,8 +47,10 @@ class InstrumentEffectsDialog:
 			"on_chainpresetcombo_changed" : self.OnChainPresetChanged
 		}
 		
+		# auto connect the signals to the methods
 		self.res.signal_autoconnect(self.signals)
 
+		# grab some references to Glade items
 		self.window = self.res.get_widget("InstrumentEffectsDialog")
 		self.effectscombo = self.res.get_widget("effectscombo")
 		self.effectsbox = self.res.get_widget("effectsbox")
@@ -42,11 +58,14 @@ class InstrumentEffectsDialog:
 		self.instrumentimage = self.res.get_widget("instrumentimage")
 		self.chainpresetcombo = self.res.get_widget("chainpresetcombo")
 
+		# here we grab the headerimage reference and then set the image
 		self.headerimage = self.res.get_widget("headerimage")
 		self.headerimage.set_from_file(os.path.join(Globals.IMAGE_PATH, "effectsheader.png"))
 		
+		# set the instrumentimage to the self.instrument icon
 		self.instrumentimage.set_from_pixbuf(self.instrument.pixbuf)
 		
+		# set the model for the effects combo to a ListStore
 		self.model = gtk.ListStore(str)
 		self.effectscombo.set_model(self.model)
 
@@ -70,15 +89,14 @@ class InstrumentEffectsDialog:
 		self.chainpresetcombo.set_model(self.model)
 
 		# mighty list comprehension that returns presets for this instrument
-		# if it is on the system (in LADSPA_FACTORY_REGISTRY)
+		# if it is on the system (in LADSPA_FACTORY_REGISTRY). It then adds the
+		# presets to the chain presets combo box.
 
 		availpresets = [x[0] for x in self.presets.effectpresetregistry.items() if x[1].get('instrument')== self.instrument.instrType and x[1]['dependencies'].issubset(Globals.LADSPA_FACTORY_REGISTRY)]
 		
 		for pres in availpresets:
 			self.chainpresetcombo.append_text(pres)
-		
-		print availpresets
-	
+			
 	#_____________________________________________________________________	
 		
 	def OnOK(self, button):
@@ -97,6 +115,11 @@ class InstrumentEffectsDialog:
 	#_____________________________________________________________________	
 
 	def OnSelectEffect(self, combo):
+		"""Callback for when an effect is selected from the effects list. This
+		method looks up the name from the combo box in LADSPA_NAME_MAP and
+		returns the factory name (e.g. ladspa-foo-effect). This is then set to
+		self.currentplugin."""
+		
 		name = combo.get_active_text()
 
 		for e in Globals.LADSPA_NAME_MAP:
@@ -106,6 +129,9 @@ class InstrumentEffectsDialog:
 	#_____________________________________________________________________	
 
 	def OnAddEffect(self, combo):
+		"""The effect element is created and added to the
+		self.instrument.effects list"""
+		
 		self.instrument.effects.append(gst.element_factory_make(self.currentplugin, self.currentplugin))
 		#self.instrument.effects.append(self.effect)
 		
@@ -118,13 +144,16 @@ class InstrumentEffectsDialog:
 	#_____________________________________________________________________	
 		
 	def OnEffectSetting(self, button):
-		"""Show specific effects settings"""
+		"""Show a dialog filled with settings sliders for a specific effect"""
 		
 		"""TODO: Make this modal or as part of the effects window"""
 
+		# grab references the effect position in the table and the
+		# effect element itself
 		self.effectpos = self.effectsbox.child_get_property(button, "position")
 		self.effectelement = self.instrument.effects[self.effectpos]
 		
+		# this variable is used to slash the values for the different sliders
 		self.sliderdict = {}
 		
 		# set the index of the current edited effect - used to reference the
@@ -141,22 +170,28 @@ class InstrumentEffectsDialog:
 
 		self.settWin.signal_autoconnect(settsignals)
 
+		# create references to glade items
 		self.settingswindow = self.settWin.get_widget("EffectSettingsDialog")
-		
 		self.effectlabel = self.settWin.get_widget("effectlabel")
 		self.effectlabel.set_text(Globals.LADSPA_NAME_MAP[self.effectelement.get_name()])
 		self.settingstable = self.settWin.get_widget("settingstable")
 		self.presetcombo = self.settWin.get_widget("presetcombo")
 
+		# set the dialog image
 		self.headerimage = self.settWin.get_widget("headerimage")
 		self.headerimage.set_from_file(os.path.join(Globals.IMAGE_PATH, "effectsettingsheader.png"))
 		
+		# grab a list of properties from the effect
 		proplist = gobject.list_properties(self.instrument.effects[self.effectpos])
-
+		
+		# resize the settingstable to accomodate the number of effects
+		# sliders required
 		self.settingstable.resize(len(proplist), 2)
 		
 		count = 0
 		
+		# iterate through the properties list and determine the value type
+		# of the property and show it where needed
 		for property in proplist:		            
 			#non readable params
 			if not(property.flags & gobject.PARAM_READABLE):
@@ -211,54 +246,61 @@ class InstrumentEffectsDialog:
 
 		# mighty list comprehension that returns presets for this effects plugin
 		# if (a) it is on the system (in LADSPA_FACTORY_REGISTRY) and (b) if the preset is
-		# only for that plugin. Witness the m/\d skillz
+		# only for that plugin. Witness the m/\d skillz. The values returned
+		# are shown in the presets combo box for this effect
 		availpresets = [x for x in self.presets.effectpresetregistry if self.presets.effectpresetregistry[x]['dependencies']==set([elementfactory]) and elementfactory in Globals.LADSPA_FACTORY_REGISTRY]
 
 		for pres in availpresets:
 			self.presetcombo.append_text(pres)
 		
-		print self.sliderdict	
 		self.settingstable.show()
 		self.settingswindow.show_all()
 
 	#_____________________________________________________________________	
 		
 	def OnEffectSettingOK(self, button):
-			self.settingswindow.destroy()
+		"""Close the window"""
+		self.settingswindow.destroy()
 
 	#_____________________________________________________________________	
 		
 	def OnEffectSettingCancel(self, button):
-			self.settingswindow.destroy()
+		"""Close the window"""
+		self.settingswindow.destroy()
 		
 	#_____________________________________________________________________	
 		
 	def PopulateEffects(self):
-			print "Populating effects"
-			
-			map(self.effectsbox.remove, self.effectsbox.get_children())
-			
-			for effect in self.instrument.effects:
-				self.currentplugin =  effect.get_factory().get_name()
-				print effect.get_factory().get_name()
-				
-				button = gtk.Button(self.currentplugin)
-				button.connect("clicked", self.OnEffectSetting)
-				self.effectsbox.pack_start(button)
+		"""Fill the effectsbox table with the effects, iterated from the
+		effects list"""
 		
-				self.effectsbox.show_all()
+		# remove all effects from the effectsbox table
+		map(self.effectsbox.remove, self.effectsbox.get_children())
+		
+		# for each effect in self.instrument.effects, add a button to the
+		# table and connect a callback
+		for effect in self.instrument.effects:
+			self.currentplugin =  effect.get_factory().get_name()
+				
+			button = gtk.Button(self.currentplugin)
+			button.connect("clicked", self.OnEffectSetting)
+			self.effectsbox.pack_start(button)
+		
+			self.effectsbox.show_all()
 				
 	#_____________________________________________________________________	
 		
 	def SetEffectSetting(self, slider, name, property):
-		"""set the value of an effects slider to its property"""
+		"""Set the value of a gstreamer property from an effects slider"""
 		
+		# grab the slider setting
 		if not((property.value_type == gobject.TYPE_FLOAT) or
 			   (property.value_type == gobject.TYPE_DOUBLE)):
 			value = int(slider.get_value())
 		else:
 			value = slider.get_value()
 		
+		# now set the gstreamer property
 		self.instrument.effects[self.effectpos].set_property(name, value)
 		
 	#_____________________________________________________________________	
@@ -267,6 +309,7 @@ class InstrumentEffectsDialog:
 	def OnSaveSingleEffectPreset(self, widget):
 		"""Grab the effect properties and send it to the presets code to be saved"""
 
+		# grab the label from the combo
 		label = self.presetcombo.get_active_text()
 		
 		effectdict = {}
@@ -276,15 +319,17 @@ class InstrumentEffectsDialog:
 		
 		proplist = gobject.list_properties(effect)
 		
+		# for each property in proplist, add it to the effectdict dictionary
 		for property in proplist:
 			effectdict[property.name] = effect.get_property(property.name)
 
+		# save the preset	
 		self.presets.SaveSingleEffect(label, effectdict, effectelement, "LADSPA")
 		
 	#_____________________________________________________________________	
 	
 	def OnSaveEffectChainPreset(self, widget):
-		"""Grab the effect properties and send it to the presets code to be saved"""
+		"""Grab the chain send it to the presets code to be saved"""
 
 		label = self.chainpresetcombo.get_active_text()
 		
@@ -315,6 +360,7 @@ class InstrumentEffectsDialog:
 	#_____________________________________________________________________	
 	
 	def OnEffectPresetChanged(self, combo):
+		"""A preset is selected from the single effect preset combo. Load it."""
 		presetname = name = combo.get_active_text()
 		settings = self.presets.LoadSingleEffectSettings(self.effectelement, presetname)
 
@@ -332,6 +378,7 @@ class InstrumentEffectsDialog:
 	#_____________________________________________________________________	
 	
 	def OnChainPresetChanged(self, combo):
+		"""A preset is selected from the chain preset combo. Load it."""
 		presetname = name = combo.get_active_text()
 		settings = self.presets.LoadInstrumentEffectChain(presetname)
 		
