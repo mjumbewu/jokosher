@@ -349,7 +349,7 @@ class Project(Monitored, CommandManaged):
 
 			for ins in self.instruments:
 				if ins.effects:
-					if self.mainpipeline.get_state(0)[1] == gst.STATE_NULL:
+					if self.mainpipeline.get_state(0)[1] == gst.STATE_NULL or gst.STATE_READY:
 						ins.PrepareEffectsBin()
 						ins.converterElement.link(ins.effectsbin)
 						ins.effectsbin.link(ins.volumeElement)

@@ -544,7 +544,27 @@ class Instrument(Monitored, CommandManaged):
 	
 	#_____________________________________________________________________
 
-	def PrepareEffectsBin(self):	
+	def PrepareEffectsBin(self):
+		self.project.mainpipeline.set_state(gst.STATE_NULL)
+		
+		effBinHasKids = False
+		
+		try:
+			self.effectsbin.elements().next()
+			effBinHasKids = True
+		except:
+			effBinHasKids = False
+		
+		if effBinHasKids:
+			for eff in list(self.effectsbin.elements()):
+				self.effectsbin.remove(eff)
+			
+			self.effectsbin.remove_pad(self.effectsbinsink)
+			self.effectsbin.remove_pad(self.effectsbinsrc)
+	
+			self.effectsbinsink = None
+			self.effectsbinsrc = None		
+		
 		aclistnum = 1
 
 		self.aclist = []
@@ -557,7 +577,6 @@ class Instrument(Monitored, CommandManaged):
 			self.effectsbin.add(aconvert)
 			aclistnum += 1
 			
-		
 		for effect in self.effects:	
 			self.effectsbin.add(effect)
 
