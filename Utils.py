@@ -1,19 +1,30 @@
+#
+#	THIS FILE IS PART OF THE JOKOSHER PROJECT AND LICENSED UNDER THE GPL. SEE
+#	THE 'COPYING' FILE FOR DETAILS
+#
+#	Utils.py
+#	
+#	This module contains a bunch of useful helper methods used elsewhere in
+#	the code.
+#
+#-------------------------------------------------------------------------------
+
 import xml.dom.minidom as xml
 import math
 
 #_____________________________________________________________________
 
 def DbToFloat(f):
-	''' Converts f from the decibel scale to a 0..1 float
-	'''
+	"""Converts f from the decibel scale to a 0..1 float"""
+	
 	return pow(10., f / 20.)
 
 #_____________________________________________________________________
 
 def StoreParametersToXML(self, doc, parent, parameters):
-	'''Saves a list of variable names (parameters)
-	   in an XML document (doc) with the parent XML tag (parent)
-	'''
+	"""Saves a list of variable names (parameters)
+	   in an XML document (doc) with the parent XML tag (parent)"""
+	   
 	for i in parameters:
 		node = doc.createElement(i)
 			
@@ -32,6 +43,10 @@ def StoreParametersToXML(self, doc, parent, parameters):
 #_____________________________________________________________________
 
 def LoadParametersFromXML(self, parentElement):
+	"""Loads parameters from the XML and fills variables of the same name
+	in that module. The parentElement is the block of XML with the
+	parameters."""
+	
 	for n in parentElement.childNodes:
 		if n.nodeType == xml.Node.ELEMENT_NODE:
 			if n.getAttribute("type") == "int":
@@ -70,9 +85,9 @@ def floatRange(start, end=None, inc=None):
 #_____________________________________________________________________
 
 def StoreDictionaryToXML(self, doc, parent, dict):
-	'''Saves a dictionary of settings
-	   in an XML document (doc) with the parent XML tag (parent)
-	'''
+	"""Saves a dictionary of settings
+	   in an XML document (doc) with the parent XML tag (parent)"""
+	   
 	for key, value in dict.iteritems():
 		node = doc.createElement(key)
 			
@@ -91,7 +106,11 @@ def StoreDictionaryToXML(self, doc, parent, dict):
 #_____________________________________________________________________
 		
 def LoadDictionaryFromXML(parentElement):
+	"""For those times when you don't want to fill module variables with
+	parameters from the XML but just want to fill a dictionary instead."""
+	
 	dictionary = {}
+	
 	for n in parentElement.childNodes:
 		if n.nodeType == xml.Node.ELEMENT_NODE:
 			if n.getAttribute("type") == "int":

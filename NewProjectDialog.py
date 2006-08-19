@@ -1,3 +1,13 @@
+#
+#	THIS FILE IS PART OF THE JOKOSHER PROJECT AND LICENSED UNDER THE GPL. SEE
+#	THE 'COPYING' FILE FOR DETAILS
+#
+#	NewDialog.py
+#	
+#	This module shows the New Project which is used to create a new Jokosher
+#	project.
+#
+#-------------------------------------------------------------------------------
 
 import gtk
 import gtk.glade
@@ -57,6 +67,7 @@ class NewProjectDialog:
 	#_____________________________________________________________________	
 		
 	def OnOK(self, button):
+		"""OK button has been pressed."""
 		name = self.name.get_text()
 		if not name:
 			name = _("New Project")
@@ -82,7 +93,8 @@ class NewProjectDialog:
 				message = _("Invalid name or author.")
 			elif e.errno == 5:
 				message = _("The uri scheme given is either invalid or not supported")
-				
+			
+			# show the error dialog with the relavent error message	
 			dlg = gtk.MessageDialog(self.dlg,
 				gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
 				gtk.MESSAGE_ERROR,
@@ -97,6 +109,7 @@ class NewProjectDialog:
 	#_____________________________________________________________________	
 	
 	def OnCancel(self, button):
+		"""Cancel button is pressed."""
 		self.dlg.destroy()
 
 	#_____________________________________________________________________	

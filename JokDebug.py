@@ -1,10 +1,19 @@
-# This class provides a bunch of debugging methods that are mainly intended for cracking open pipelines and
-# looking at the goo inside. This most likely won't be shipped with the final release and is mainly useful for
-# hackers who are involved in the project.
 #
-# To enable debugging mode, set an environmental variable:
+#    THIS FILE IS PART OF THE JOKOSHER PROJECT AND LICENSED UNDER THE GPL. SEE
+#    THE 'COPYING' FILE FOR DETAILS
 #
-#    JOKOSHER_DEBUG=1
+#    NewDialog.py
+#
+#    This class provides a bunch of debugging methods that are mainly intended
+#    for cracking open pipelines and looking at the goo inside. This most likely
+#    won't be shipped with the final release and is mainly useful for hackers
+#    who are involved in the project.
+#
+#    To enable debugging mode, set an environmental variable:
+#
+#       foo@bar~$ export JOKOSHER_DEBUG=1
+#
+#-------------------------------------------------------------------------------
 
 class JokDebug:
     def __init__(self):

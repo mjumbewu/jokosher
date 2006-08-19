@@ -1,3 +1,12 @@
+#
+#	THIS FILE IS PART OF THE JOKOSHER PROJECT AND LICENSED UNDER THE GPL. SEE
+#	THE 'COPYING' FILE FOR DETAILS
+#
+#	WelcomeDialog.py
+#	
+#	This dialog popus up the welcome dialog when the application starts.
+#
+#-------------------------------------------------------------------------------
 
 import gtk
 import gtk.glade
@@ -69,24 +78,32 @@ class WelcomeDialog:
 	#_____________________________________________________________________
 	
 	def OnNewProject(self, widget):
+		"""Start a new project."""
+		
 		self.window.hide()
 		self.mainwindow.OnNewProject(self, self.OnDialogClose)
 	
 	#_____________________________________________________________________
 			
 	def OnOpenProject(self, button=None):
+		"""Open a project."""
+		
 		self.window.hide()
 		self.mainwindow.OnOpenProject(self, self.OnDialogClose)
 		
 	#_____________________________________________________________________
 	
 	def OnPreferences(self, button):
+		"""Show the preferences window."""
+		
 		self.window.hide()
 		self.mainwindow.OnPreferences(self, self.OnDialogClose)
 		
 	#_____________________________________________________________________
 
 	def OnDialogClose(self, dialog=None):
+		"""The dialog was closed."""
+		
 		if self.mainwindow.project:
 			self.window.destroy()
 		else:
@@ -95,6 +112,8 @@ class WelcomeDialog:
 	#_____________________________________________________________________
 
 	def OnQuit(self, button):
+		"""Quit Jokosher."""
+		
 		gtk.main_quit()
 
 	#_____________________________________________________________________
@@ -107,6 +126,9 @@ class WelcomeDialog:
 	#_____________________________________________________________________
 
 	def OnRecentProjectSelected(self, treeview, path, view_column):
+		"""This method is called when one of the entries in the recent projects
+		list is selected."""
+		
 		item = self.model[path]
 		self.mainwindow.OnRecentProjectsItem(self, item[2], item[1])
 		self.window.destroy()
@@ -114,11 +136,15 @@ class WelcomeDialog:
 	#_____________________________________________________________________
 
 	def OnEnableRecentProjectButton(self, treeview):
+		"""When a recent project is selected, make the button to load it
+		able to be clicked."""
+		
 		self.openrecentbutton.set_sensitive(True)
 		
 	#_____________________________________________________________________
 
 	def OnOpenRecentProjectButton(self, widget):
+		"""Load the selected recent project."""
 		item = self.model[self.tree.get_cursor()[0]]
 		self.mainwindow.OnRecentProjectsItem(self, item[2], item[1])
 		self.window.destroy()
@@ -126,6 +152,9 @@ class WelcomeDialog:
 	#_____________________________________________________________________
 
 	def OnStartupToggled(self, widget):
+		"""When the startup toggle box is toggled, this method is run to update
+		the setting in Globals."""
+		
 		if widget.get_active():
 			Globals.settings.general["startupaction"] = PreferencesDialog.STARTUP_NOTHING
 		else:	
