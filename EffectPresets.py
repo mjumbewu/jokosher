@@ -1,3 +1,21 @@
+#
+#	THIS FILE IS PART OF THE JOKOSHER PROJECT AND LICENSED UNDER THE GPL. SEE
+#	THE 'COPYING' FILE FOR DETAILS
+#
+#	EffectPresets.py
+#	
+#	This module implements support for effects presets. These presets are used
+#	to store settings for single effects and multiple effects strung together
+#	(called a 'chain').
+#
+#	The way this works is that we have a LADSPA_FACTORY_REGISTRY filled with
+#	the system's LADSPA effects, LADSPA_NAME_MAP which amps LADSPA element
+#	factory names (Such as ladspa-delay-5s) to the effect name (such as
+#	Simple Delay) and self.effectpresetsregistry which contains a generated
+#	dictionary of effects. This dictionary is search with list comprehensions
+#	to get the relavent presets out.
+#
+#-------------------------------------------------------------------------------
 
 import gtk
 import gtk.glade
@@ -24,6 +42,8 @@ class EffectPresets:
 		# this is the main dictionary of presets
 		self.effectpresetregistry = {}
 		
+		# fill the different data structures with information. The LADSPA
+		# structures are part of Globals.py
 		self.FillLADSPARegistry()
 		self.FillEffectsPresetsRegistry()
 	
@@ -82,6 +102,8 @@ class EffectPresets:
 		
 		head.setAttribute("version", Globals.EFFECT_PRESETS_VERSION)
 
+		# effect chain preset files have an extra <Chain> block which mainly
+		# serves to indicate which type of instrument the effect is for
 		chainblock = doc.createElement("Chain")
 		head.appendChild(chainblock)
 			
@@ -90,6 +112,9 @@ class EffectPresets:
 
 		StoreDictionaryToXML(self, doc, chainblock, chaindict)
 
+		# the structure of each <Effect> tag is not different from the single
+		# effect presets, there is just an <Effect> block for each effect in
+		# the chain
 		for eff in effectlist:
 			self.effectelement = eff["effectelement"]
 			self.effecttype = eff["effecttype"]
@@ -118,8 +143,7 @@ class EffectPresets:
 	#_____________________________________________________________________
 	
 	def LoadSingleEffectSettings(self, effectelement, presetname):
-		print effectelement
-		print presetname
+		"""Load effect settings from a preset file for a single effect"""
 
 		presetfile = Globals.EFFECT_PRESETS_PATH + "/" + presetname + ".jpreset"
 		print presetfile
@@ -147,10 +171,9 @@ class EffectPresets:
 	#_____________________________________________________________________    
 	
 	def LoadInstrumentEffectChain(self, presetname):
-		print presetname
-
+		"""Load settings from the preset file for an effects chain"""
+		
 		presetfile = Globals.EFFECT_PRESETS_PATH + "/" + presetname + ".jpreset"
-		print presetfile
 			
 		if not os.path.exists(presetfile):
 			print "preset file does not exist"
@@ -162,7 +185,6 @@ class EffectPresets:
 		
 		for eff in doc.getElementsByTagName('Effect'):
 			settingstags = eff.getElementsByTagName('Settings')[0]
-			#print settingstags
 			setts = LoadDictionaryFromXML(settingstags)
 			elementname = setts["name"]
 			settdict[str(elementname)] = setts
@@ -206,9 +228,6 @@ class EffectPresets:
 							pass
 						elif n.getAttribute("type") == "float":
 							pass
-						#elif n.getAttribute("type") == "bool":
-						#	value = (n.getAttribute("value") == "True")
-						#	setattr(self, n.tagName, value)
 						else:
 							if n.tagName == "effectelement":
 								depslist.append(str(n.getAttribute("value")))
@@ -230,6 +249,9 @@ class EffectPresets:
 	#_____________________________________________________________________
 	
 	def FillLADSPARegistry(self):
+		"""Fill Globals.LADSPA_FACTORY_REGISTRY with effects on the system. This
+		is to ensure only presets with effects on the current system are listed."""
+		
 		thelist = gst.registry_get_default().get_feature_list(gst.ElementFactory)
 		
 		effects = []
@@ -240,5 +262,3 @@ class EffectPresets:
 				Globals.LADSPA_NAME_MAP[f.get_name()] = f.get_longname()
 				
 		Globals.LADSPA_FACTORY_REGISTRY = set(effects)
-		
-		print Globals.LADSPA_NAME_MAP

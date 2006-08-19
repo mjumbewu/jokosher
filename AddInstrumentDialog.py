@@ -1,3 +1,14 @@
+#
+#	THIS FILE IS PART OF THE JOKOSHER PROJECT AND LICENSED UNDER THE GPL. SEE
+#	THE 'COPYING' FILE FOR DETAILS
+#
+#	AddInstrumentDialog.py
+#	
+#	This module handles the dialog for adding instruments to a project. Don't
+#	you just love instruments. We do. In fact, I suspect Laszlo has printed a
+#	picture of the dialog box out and sleeps next to it.
+#
+#-------------------------------------------------------------------------------
 
 import gtk
 import gtk.glade
@@ -60,11 +71,15 @@ class AddInstrumentDialog:
 	#_____________________________________________________________________
 	
 	def OnSelected(self, iconview, path):
+		"""An instrument is selected"""
+		
 		self.OnOK()
 
 	#_____________________________________________________________________
 			
 	def OnOK(self, button=None):
+		"""OK pushed on the dialog"""
+		
 		sel = self.tree.get_selected_items()
 		for i in sel:
 			currentItem = self.model[i[0]]
@@ -77,11 +92,14 @@ class AddInstrumentDialog:
 	#_____________________________________________________________________
 	
 	def OnCancel(self, button):
+		"""Cancel button is pressed"""
+		
 		self.dlg.destroy()
 		
 	#_____________________________________________________________________
 
 	def OnSelectionChanged(self, button):
+		"""If a new instrument icon is chosen, this method is called"""
 		sel = self.tree.get_selected_items()
 
 		if len(sel) <= 0:
@@ -92,6 +110,8 @@ class AddInstrumentDialog:
 	#_____________________________________________________________________
 	
 	def OnSearchChange(self, widget):
+		"""A new letter is added to the search box, so update the search"""
+		
 		search_text = self.search_entry.get_text()
 		self.model = gtk.ListStore(str, str, gtk.gdk.Pixbuf)
 		
@@ -108,6 +128,8 @@ class AddInstrumentDialog:
 instrumentPropertyList = []
 
 def _cacheInstruments():
+	"""The current list of instruments, cached"""
+	
 	global instrumentPropertyList
 
 	if len(instrumentPropertyList) > 0:
@@ -151,6 +173,8 @@ def _cacheInstruments():
 	instrumentPropertyList.sort(key=lambda x: x[0].lower())
 	
 def getCachedInstruments():
+	"""Update the instrument cache"""
+	
 	global instrumentPropertyList
 	if len(instrumentPropertyList) == 0:
 		_cacheInstruments()

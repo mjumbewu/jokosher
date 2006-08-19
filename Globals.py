@@ -1,8 +1,21 @@
+#
+#	THIS FILE IS PART OF THE JOKOSHER PROJECT AND LICENSED UNDER THE GPL. SEE
+#	THE 'COPYING' FILE FOR DETAILS
+#
+#	Globals.py
+#	
+#	This module contains variable definitions that can be used across the code
+#	base and also includes methods for reading and writing these settings to
+#	the Jokosher configuration in ~/.jokosher/config.
+#
+#-------------------------------------------------------------------------------
+
 import ConfigParser
 import os
 
 class Settings:
 
+	# the different settings in each config block
 	general = {"mixdownformat": "value", "recentprojects": "value", "samplerate": "value", "sampleformat": "value", "startupaction" : "value"}
 	recording = {"device": "value", "fileformat": "value", "devicecardnum": "value"}
 	playback = {"device": "value", "devicecardnum": "value"}
@@ -17,6 +30,8 @@ class Settings:
 		self.read()
 
 	def read(self):
+		"""Read in configuration settings from the config file"""
+		
 		self.config.read(self.filename)
 	
 		if not self.config.has_section("General"):
@@ -34,6 +49,8 @@ class Settings:
 			self.playback[key] = value
 		
 	def write(self):
+		"""Write config settings to the config file"""
+		
 		for key in self.general:
 			self.config.set("General", key, self.general[key])
 		for key in self.recording:
@@ -71,6 +88,8 @@ class Settings:
 					raise "Failed to create user config directory %s" % new_dir
 
 def SetAbsPaths():
+	"""Set a bunch of paths for use across the project. This is particularly
+	useful for that 'orrible packaging lot"""
 	global JOKOSHER_PATH, IMAGE_PATH, GLADE_PATH, LOCALE_DIR, LOCALE_APP, EFFECT_PRESETS_PATH
 	
 	JOKOSHER_PATH = os.path.dirname(os.path.abspath(__file__))
@@ -92,3 +111,7 @@ VERSION = None
 EFFECT_PRESETS_VERSION = None
 LADSPA_FACTORY_REGISTRY = None
 LADSPA_NAME_MAP = {}
+
+# I have decided that Globals.py is a boring source file. So, here is a little
+# joke. What does the tax office and a pelican have in common? They can both stick
+# their bills up their arses. Har har har.
