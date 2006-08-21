@@ -258,7 +258,23 @@ class EffectPresets:
 		
 		for f in thelist:
 			if "Filter/Effect/Audio/LADSPA" in f.get_klass():
-				effects.append(f.get_name())
-				Globals.LADSPA_NAME_MAP[f.get_name()] = f.get_longname()
+				# from the list of LADSPA effects we check which ones only
+				# have a single sink and a single src so we know they work
+				if f.get_num_pad_templates() == 2:
+					sinkpads = 0
+					srcpads = 0
+					pads = f.get_static_pad_templates()
 				
+					for p in pads:
+						if p.direction == gst.PAD_SINK:
+							sinkpads += 1
+
+						if p.direction == gst.PAD_SRC:
+							srcpads += 1
+					
+					if srcpads == 1 and sinkpads == 1:
+						effects.append(f.get_name())
+						Globals.LADSPA_NAME_MAP[f.get_name()] = f.get_longname()
+
+		print str(len(effects)) + " LADSPA effects loaded"
 		Globals.LADSPA_FACTORY_REGISTRY = set(effects)
