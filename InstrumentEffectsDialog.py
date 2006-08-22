@@ -132,6 +132,12 @@ class InstrumentEffectsDialog:
 		"""The effect element is created and added to the
 		self.instrument.effects list"""
 		
+		# if self.instrument.effects is empty, this is the first effect being
+		# added, and we need to unlink the converter and volume elements as
+		# they had no effectsbin between them
+		if self.instrument.effects == []:
+			self.instrument.converterElement.unlink(self.instrument.volumeElement)
+		
 		self.instrument.effects.append(gst.element_factory_make(self.currentplugin, self.currentplugin))
 		#self.instrument.effects.append(self.effect)
 		
