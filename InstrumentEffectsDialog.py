@@ -40,7 +40,7 @@ class InstrumentEffectsDialog:
 		self.signals = {
 			"on_okbutton_clicked" : self.OnOK,
 			"on_cancelbutton_clicked" : self.OnCancel,
-			"on_previewbutton_clicked" : self.OnPreview,
+			"on_transportbutton_clicked" : self.OnTransport,
 			"on_effectscombo_changed" : self.OnSelectEffect,
 			"on_addbutton_clicked" : self.OnAddEffect,
 			"on_chainpresetsave_clicked" : self.OnSaveEffectChainPreset,
@@ -57,6 +57,8 @@ class InstrumentEffectsDialog:
 		self.addeffect = self.res.get_widget("addbutton")
 		self.instrumentimage = self.res.get_widget("instrumentimage")
 		self.chainpresetcombo = self.res.get_widget("chainpresetcombo")
+		self.chainsave = self.res.get_widget("chainpresetsave")
+		self.transportbutton = self.res.get_widget("transportbutton")
 
 		# here we grab the headerimage reference and then set the image
 		self.headerimage = self.res.get_widget("headerimage")
@@ -97,6 +99,10 @@ class InstrumentEffectsDialog:
 		for pres in availpresets:
 			self.chainpresetcombo.append_text(pres)
 			
+		# this says if the project is playing, so we know to toggle the
+		# transport button in the dialog	
+		self.isPlaying = False	
+			
 	#_____________________________________________________________________	
 		
 	def OnOK(self, button):
@@ -109,8 +115,26 @@ class InstrumentEffectsDialog:
 
 	#_____________________________________________________________________	
 
-	def OnPreview(self, button):
-		self.window.destroy()
+	def OnTransport(self, button):
+		if self.isPlaying == False:
+			self.instrument.project.play()
+			self.transportbutton.set_use_stock(True)
+			self.transportbutton.set_label(gtk.STOCK_MEDIA_STOP)
+			self.chainsave.set_sensitive(False)
+			self.addeffect.set_sensitive(False)
+			self.chainpresetcombo.set_sensitive(False)
+			self.effectscombo.set_sensitive(False)
+			self.isPlaying = True
+		else:
+			self.instrument.project.stop()
+			self.transportbutton.set_use_stock(True)
+			self.transportbutton.set_label(gtk.STOCK_MEDIA_PLAY)
+			self.chainsave.set_sensitive(True)
+			self.addeffect.set_sensitive(True)
+			self.chainpresetcombo.set_sensitive(True)
+			self.effectscombo.set_sensitive(True)
+			self.isPlaying = False
+					
 
 	#_____________________________________________________________________	
 
