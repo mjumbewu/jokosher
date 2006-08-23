@@ -254,7 +254,7 @@ class Instrument(Monitored, CommandManaged):
 		self.tmpe.name = "Recorded audio"
 		self.tmpe.file = file
 
-		self.output = "audioconvert ! vorbisenc ! oggmux ! filesink location=%s"%file.replace(" ", "\ ")
+		self.output = " ! audioconvert ! vorbisenc ! oggmux ! filesink location=%s"%file.replace(" ", "\ ")
 		print "Using pipeline: alsasrc device=%s%s"%(self.input, self.output)
 
 		self.recordingbin = gst.parse_launch("bin.( alsasrc device=%s %s )"%(self.input, self.output))

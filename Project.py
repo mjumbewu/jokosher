@@ -290,11 +290,6 @@ class Project(Monitored, CommandManaged):
 		recMixers = []
 		for device in GetAlsaList('capture').values():
 			if device != 'default':
-				#FIXME: Checking mixer states would be best handled via the record-toggled signal
-				#in the GstMixer interface, unfortunately alsamixer doesn't support signals 
-				#See bug: http://bugzilla.gnome.org/show_bug.cgi?id=152864       
-				#This hasn't been resolved for nearly 2 years, so I'm having to talk to alsa 
-				#directly instead. This'll make porting to different sound systems a bit of a pain.
 				recMixers += GetRecordingMixers(device)
 
 		#Make sure the number of recording mixers corresponds to the number of recording instruments
