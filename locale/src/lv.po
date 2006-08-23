@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: jokosher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-23 17:11-0400\n"
+"POT-Creation-Date: 2006-08-23 17:30-0400\n"
 "PO-Revision-Date: 2006-08-22 11:18+0000\n"
 "Last-Translator: Pecisk <pecisk@gmail.com>\n"
 "Language-Team: Latvian <lv@li.org>\n"
@@ -161,90 +161,90 @@ msgstr ""
 "Ievadiet jūsu projekta nosaukumu un izvēlieties mapi kurā šo projektu glabāt:"
 
 #: ../../Jokosher.glade.h:39
-msgid "Files Saves As"
-msgstr "Faili glabājas kā"
-
-#: ../../Jokosher.glade.h:40
 msgid "Folder"
 msgstr "Mapi"
 
-#: ../../Jokosher.glade.h:41
+#: ../../Jokosher.glade.h:40
 msgid "General"
 msgstr "Vispārēji"
 
-#: ../../Jokosher.glade.h:42
+#: ../../Jokosher.glade.h:41
 msgid "Instrument Connections"
 msgstr "Instrumentu konekcijas"
 
-#: ../../Jokosher.glade.h:43
+#: ../../Jokosher.glade.h:42
 msgid "Mixing"
 msgstr "Miksēšana"
 
-#: ../../Jokosher.glade.h:44
+#: ../../Jokosher.glade.h:43
 msgid "Mixing Project"
 msgstr "Miksēt projektu"
 
-#: ../../Jokosher.glade.h:45 ../../NewProjectDialog.py:73
+#: ../../Jokosher.glade.h:44 ../../NewProjectDialog.py:73
 msgid "New Project"
 msgstr "Jauns projekts"
 
-#: ../../Jokosher.glade.h:46
+#: ../../Jokosher.glade.h:45
 msgid "Open Selected Project"
 msgstr "Atvērt izvēlēto projektu"
 
-#: ../../Jokosher.glade.h:47
+#: ../../Jokosher.glade.h:46
 msgid "Open most recent project"
 msgstr "Atvērt visjaunāko projektu"
 
-#: ../../Jokosher.glade.h:48
+#: ../../Jokosher.glade.h:47
 msgid "Output Format"
 msgstr "Izvades formāts"
 
-#: ../../Jokosher.glade.h:49
+#: ../../Jokosher.glade.h:48
 msgid "Playback"
 msgstr "Atskaņot"
 
-#: ../../Jokosher.glade.h:50
+#: ../../Jokosher.glade.h:49
 msgid "Pre-release Notes"
 msgstr "Pirmsizlaiduma piezīmes"
 
-#: ../../Jokosher.glade.h:51
+#: ../../Jokosher.glade.h:50
 msgid "Preferences"
 msgstr "Preferences"
 
-#: ../../Jokosher.glade.h:52
+#: ../../Jokosher.glade.h:51
 msgid "Presets"
 msgstr ""
 
-#: ../../Jokosher.glade.h:53
+#: ../../Jokosher.glade.h:52
 msgid "Preview"
 msgstr ""
 
-#: ../../Jokosher.glade.h:54
+#: ../../Jokosher.glade.h:53
 msgid "Project Name"
 msgstr "Projekta nosaukums"
 
-#: ../../Jokosher.glade.h:55
+#: ../../Jokosher.glade.h:54
 msgid "Recent Projects"
 msgstr "Nesenie projekti"
 
-#: ../../Jokosher.glade.h:56
+#: ../../Jokosher.glade.h:55
 msgid "Recording"
 msgstr "Ieraksts"
 
-#: ../../Jokosher.glade.h:57
+#: ../../Jokosher.glade.h:56
 msgid "Redo"
 msgstr "Atsaukt"
 
-#: ../../Jokosher.glade.h:58
+#: ../../Jokosher.glade.h:57
 #, fuzzy
 msgid "Sample Format"
 msgstr "Paraugformāts"
 
-#: ../../Jokosher.glade.h:59
+#: ../../Jokosher.glade.h:58
 #, fuzzy
 msgid "Sample Rate (Hz)"
 msgstr "Frekvence (Hz)"
+
+#: ../../Jokosher.glade.h:59
+msgid "Save Files As"
+msgstr ""
 
 #: ../../Jokosher.glade.h:60
 msgid "Search:"
@@ -497,11 +497,9 @@ msgstr ""
 
 #: ../../JokosherApp.py:352
 msgid ""
-"No channels capable of recording have found, please attach a device and try "
-"again."
+"No channels capable of recording have been found, please attach a device and "
+"try again."
 msgstr ""
-"Nav atrasti ierakstīt spējīgi kanāli, lūdzu pievienojiet iekārtu un "
-"provējiet vēlreiz."
 
 #: ../../JokosherApp.py:354
 msgid ""
@@ -651,7 +649,7 @@ msgstr ""
 
 #: ../../JokosherApp.py:1084
 #, python-format
-msgid "The uri scheme '%s' is either invalid or not supported."
+msgid "The URI scheme '%s' is either invalid or not supported."
 msgstr ""
 
 #: ../../JokosherApp.py:1086
@@ -713,7 +711,7 @@ msgid "Invalid name or author."
 msgstr ""
 
 #: ../../NewProjectDialog.py:95
-msgid "The uri scheme given is either invalid or not supported"
+msgid "The URI scheme given is either invalid or not supported"
 msgstr ""
 
 #: ../../NewProjectDialog.py:102
@@ -796,3 +794,13 @@ msgstr ""
 #: i18n.instr.h:16
 msgid "Vocal"
 msgstr ""
+
+#~ msgid "Files Saves As"
+#~ msgstr "Faili glabājas kā"
+
+#~ msgid ""
+#~ "No channels capable of recording have found, please attach a device and "
+#~ "try again."
+#~ msgstr ""
+#~ "Nav atrasti ierakstīt spējīgi kanāli, lūdzu pievienojiet iekārtu un "
+#~ "provējiet vēlreiz."

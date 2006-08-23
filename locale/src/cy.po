@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: jokosher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-23 17:11-0400\n"
+"POT-Creation-Date: 2006-08-23 17:30-0400\n"
 "PO-Revision-Date: 2006-08-14 21:03+0000\n"
 "Last-Translator: Iestyn Pryce <dylunio@gmail.com>\n"
 "Language-Team: Welsh <cy@li.org>\n"
@@ -159,88 +159,88 @@ msgstr ""
 "Rhowch enw i'ch prosiect a dewiswch plygell i arbed eich prosiect ynddo:"
 
 #: ../../Jokosher.glade.h:39
-msgid "Files Saves As"
-msgstr "Cadw Ffeiliau Fel"
-
-#: ../../Jokosher.glade.h:40
 msgid "Folder"
 msgstr "Plygell"
 
-#: ../../Jokosher.glade.h:41
+#: ../../Jokosher.glade.h:40
 msgid "General"
 msgstr "Cyffredinol"
 
-#: ../../Jokosher.glade.h:42
+#: ../../Jokosher.glade.h:41
 msgid "Instrument Connections"
 msgstr "Cysylltiadau Offeryn"
 
-#: ../../Jokosher.glade.h:43
+#: ../../Jokosher.glade.h:42
 msgid "Mixing"
 msgstr "Cymysgu"
 
-#: ../../Jokosher.glade.h:44
+#: ../../Jokosher.glade.h:43
 msgid "Mixing Project"
 msgstr "Prosiect Cymysgu"
 
-#: ../../Jokosher.glade.h:45 ../../NewProjectDialog.py:73
+#: ../../Jokosher.glade.h:44 ../../NewProjectDialog.py:73
 msgid "New Project"
 msgstr "Prosiect Newydd"
 
-#: ../../Jokosher.glade.h:46
+#: ../../Jokosher.glade.h:45
 msgid "Open Selected Project"
 msgstr "Agor Prosiect Benodol"
 
-#: ../../Jokosher.glade.h:47
+#: ../../Jokosher.glade.h:46
 msgid "Open most recent project"
 msgstr "Agor prosiect mwyaf diweddar"
 
-#: ../../Jokosher.glade.h:48
+#: ../../Jokosher.glade.h:47
 msgid "Output Format"
 msgstr "Fformat Allbwn"
 
-#: ../../Jokosher.glade.h:49
+#: ../../Jokosher.glade.h:48
 msgid "Playback"
 msgstr "Chwarae"
 
-#: ../../Jokosher.glade.h:50
+#: ../../Jokosher.glade.h:49
 msgid "Pre-release Notes"
 msgstr "Nodiauau Cyn-ryddhad"
 
-#: ../../Jokosher.glade.h:51
+#: ../../Jokosher.glade.h:50
 msgid "Preferences"
 msgstr "Hoffterau"
 
-#: ../../Jokosher.glade.h:52
+#: ../../Jokosher.glade.h:51
 msgid "Presets"
 msgstr "Rhagosodau"
 
-#: ../../Jokosher.glade.h:53
+#: ../../Jokosher.glade.h:52
 msgid "Preview"
 msgstr "Rhagweld"
 
-#: ../../Jokosher.glade.h:54
+#: ../../Jokosher.glade.h:53
 msgid "Project Name"
 msgstr "Enw Prosiect"
 
-#: ../../Jokosher.glade.h:55
+#: ../../Jokosher.glade.h:54
 msgid "Recent Projects"
 msgstr "Prosiectau Diweddar"
 
-#: ../../Jokosher.glade.h:56
+#: ../../Jokosher.glade.h:55
 msgid "Recording"
 msgstr "Recordio"
 
-#: ../../Jokosher.glade.h:57
+#: ../../Jokosher.glade.h:56
 msgid "Redo"
 msgstr "Ailwneud"
 
-#: ../../Jokosher.glade.h:58
+#: ../../Jokosher.glade.h:57
 msgid "Sample Format"
 msgstr "Fformat Samplu"
 
-#: ../../Jokosher.glade.h:59
+#: ../../Jokosher.glade.h:58
 msgid "Sample Rate (Hz)"
 msgstr "Cyfradd Samplu (Hz)"
+
+#: ../../Jokosher.glade.h:59
+msgid "Save Files As"
+msgstr ""
 
 #: ../../Jokosher.glade.h:60
 msgid "Search:"
@@ -493,11 +493,9 @@ msgstr ""
 
 #: ../../JokosherApp.py:352
 msgid ""
-"No channels capable of recording have found, please attach a device and try "
-"again."
+"No channels capable of recording have been found, please attach a device and "
+"try again."
 msgstr ""
-"Does dim sianeli sy'n gallu recordio wedi ei ddarganfod, cysylltwch y dyfais "
-"eto os gwelwch yn dda."
 
 #: ../../JokosherApp.py:354
 msgid ""
@@ -650,8 +648,8 @@ msgstr ""
 
 #: ../../JokosherApp.py:1084
 #, python-format
-msgid "The uri scheme '%s' is either invalid or not supported."
-msgstr "Mae cynllun uri '%s' yn annilys neu ddim yn gynhaliol."
+msgid "The URI scheme '%s' is either invalid or not supported."
+msgstr ""
 
 #: ../../JokosherApp.py:1086
 #, python-format
@@ -718,8 +716,8 @@ msgid "Invalid name or author."
 msgstr "Enw neu awdur annilys"
 
 #: ../../NewProjectDialog.py:95
-msgid "The uri scheme given is either invalid or not supported"
-msgstr "Mae'r cynllun uri a rhoddwyd yn annilys neu heb ei gynal."
+msgid "The URI scheme given is either invalid or not supported"
+msgstr ""
 
 #: ../../NewProjectDialog.py:102
 #, python-format
@@ -804,3 +802,19 @@ msgstr ""
 #: i18n.instr.h:16
 msgid "Vocal"
 msgstr "Llaisiol"
+
+#~ msgid "Files Saves As"
+#~ msgstr "Cadw Ffeiliau Fel"
+
+#~ msgid ""
+#~ "No channels capable of recording have found, please attach a device and "
+#~ "try again."
+#~ msgstr ""
+#~ "Does dim sianeli sy'n gallu recordio wedi ei ddarganfod, cysylltwch y "
+#~ "dyfais eto os gwelwch yn dda."
+
+#~ msgid "The uri scheme '%s' is either invalid or not supported."
+#~ msgstr "Mae cynllun uri '%s' yn annilys neu ddim yn gynhaliol."
+
+#~ msgid "The uri scheme given is either invalid or not supported"
+#~ msgstr "Mae'r cynllun uri a rhoddwyd yn annilys neu heb ei gynal."

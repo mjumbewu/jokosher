@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: jokosher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-23 17:11-0400\n"
+"POT-Creation-Date: 2006-08-23 17:30-0400\n"
 "PO-Revision-Date: 2006-08-23 09:41+0000\n"
 "Last-Translator: Peter Baričič <denton_sk@centrum.cz>\n"
 "Language-Team: Slovak <sk@li.org>\n"
@@ -170,89 +170,88 @@ msgid ""
 msgstr "Vlož názov pre tvoj projekt a vyber priečinok kam sa projekt uloží"
 
 #: ../../Jokosher.glade.h:39
-#, fuzzy
-msgid "Files Saves As"
-msgstr "Ukladať súbory ako"
-
-#: ../../Jokosher.glade.h:40
 msgid "Folder"
 msgstr "Priečinok"
 
-#: ../../Jokosher.glade.h:41
+#: ../../Jokosher.glade.h:40
 msgid "General"
 msgstr "Všeobecné"
 
-#: ../../Jokosher.glade.h:42
+#: ../../Jokosher.glade.h:41
 msgid "Instrument Connections"
 msgstr "Prepojenia nástrojov"
 
-#: ../../Jokosher.glade.h:43
+#: ../../Jokosher.glade.h:42
 msgid "Mixing"
 msgstr "Mixovanie"
 
-#: ../../Jokosher.glade.h:44
+#: ../../Jokosher.glade.h:43
 msgid "Mixing Project"
 msgstr "Mixovanie projektu"
 
-#: ../../Jokosher.glade.h:45 ../../NewProjectDialog.py:73
+#: ../../Jokosher.glade.h:44 ../../NewProjectDialog.py:73
 msgid "New Project"
 msgstr "Nový projekt"
 
-#: ../../Jokosher.glade.h:46
+#: ../../Jokosher.glade.h:45
 msgid "Open Selected Project"
 msgstr "Otvor vybraný projekt"
 
-#: ../../Jokosher.glade.h:47
+#: ../../Jokosher.glade.h:46
 msgid "Open most recent project"
 msgstr "Otvor posledný projekt"
 
-#: ../../Jokosher.glade.h:48
+#: ../../Jokosher.glade.h:47
 msgid "Output Format"
 msgstr "Výstupný formát"
 
-#: ../../Jokosher.glade.h:49
+#: ../../Jokosher.glade.h:48
 msgid "Playback"
 msgstr "Prehrávanie"
 
-#: ../../Jokosher.glade.h:50
+#: ../../Jokosher.glade.h:49
 msgid "Pre-release Notes"
 msgstr "Poznámky k vydaniu"
 
-#: ../../Jokosher.glade.h:51
+#: ../../Jokosher.glade.h:50
 msgid "Preferences"
 msgstr "Nastavenie"
 
-#: ../../Jokosher.glade.h:52
+#: ../../Jokosher.glade.h:51
 msgid "Presets"
 msgstr "Predvoľby"
 
-#: ../../Jokosher.glade.h:53
+#: ../../Jokosher.glade.h:52
 msgid "Preview"
 msgstr "Náhľad"
 
-#: ../../Jokosher.glade.h:54
+#: ../../Jokosher.glade.h:53
 msgid "Project Name"
 msgstr "Názov projektu"
 
-#: ../../Jokosher.glade.h:55
+#: ../../Jokosher.glade.h:54
 msgid "Recent Projects"
 msgstr "Nedávne projekty"
 
-#: ../../Jokosher.glade.h:56
+#: ../../Jokosher.glade.h:55
 msgid "Recording"
 msgstr "Nahrávanie"
 
-#: ../../Jokosher.glade.h:57
+#: ../../Jokosher.glade.h:56
 msgid "Redo"
 msgstr "Opakovať vrátené"
 
-#: ../../Jokosher.glade.h:58
+#: ../../Jokosher.glade.h:57
 msgid "Sample Format"
 msgstr "Formát vzorkovania"
 
-#: ../../Jokosher.glade.h:59
+#: ../../Jokosher.glade.h:58
 msgid "Sample Rate (Hz)"
 msgstr "Frekvencia vzorkovania"
+
+#: ../../Jokosher.glade.h:59
+msgid "Save Files As"
+msgstr ""
 
 #: ../../Jokosher.glade.h:60
 msgid "Search:"
@@ -499,13 +498,10 @@ msgid ""
 msgstr ""
 
 #: ../../JokosherApp.py:352
-#, fuzzy
 msgid ""
-"No channels capable of recording have found, please attach a device and try "
-"again."
+"No channels capable of recording have been found, please attach a device and "
+"try again."
 msgstr ""
-"Nenašli sa žiadne kanály schopné nahravania, prosím pripojte zariadenie a "
-"skúste znovu."
 
 #: ../../JokosherApp.py:354
 msgid ""
@@ -656,7 +652,7 @@ msgstr ""
 
 #: ../../JokosherApp.py:1084
 #, python-format
-msgid "The uri scheme '%s' is either invalid or not supported."
+msgid "The URI scheme '%s' is either invalid or not supported."
 msgstr ""
 
 #: ../../JokosherApp.py:1086
@@ -724,7 +720,7 @@ msgid "Invalid name or author."
 msgstr "Neplatný názov alebo autor."
 
 #: ../../NewProjectDialog.py:95
-msgid "The uri scheme given is either invalid or not supported"
+msgid "The URI scheme given is either invalid or not supported"
 msgstr ""
 
 #: ../../NewProjectDialog.py:102
@@ -810,3 +806,15 @@ msgstr ""
 #: i18n.instr.h:16
 msgid "Vocal"
 msgstr "Spev"
+
+#, fuzzy
+#~ msgid "Files Saves As"
+#~ msgstr "Ukladať súbory ako"
+
+#, fuzzy
+#~ msgid ""
+#~ "No channels capable of recording have found, please attach a device and "
+#~ "try again."
+#~ msgstr ""
+#~ "Nenašli sa žiadne kanály schopné nahravania, prosím pripojte zariadenie a "
+#~ "skúste znovu."

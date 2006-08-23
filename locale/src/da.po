@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: jokosher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-23 17:11-0400\n"
+"POT-Creation-Date: 2006-08-23 17:30-0400\n"
 "PO-Revision-Date: 2006-08-23 14:49+0000\n"
 "Last-Translator: David Nielsen <david@lovesunix.net>\n"
 "Language-Team: Danish <da@li.org>\n"
@@ -158,88 +158,88 @@ msgid ""
 msgstr "Indtast et navn for dit projekt og vælg en folder til lagre det i:"
 
 #: ../../Jokosher.glade.h:39
-msgid "Files Saves As"
-msgstr "Filer gemmes som"
-
-#: ../../Jokosher.glade.h:40
 msgid "Folder"
 msgstr "Folder"
 
-#: ../../Jokosher.glade.h:41
+#: ../../Jokosher.glade.h:40
 msgid "General"
 msgstr "Generelt"
 
-#: ../../Jokosher.glade.h:42
+#: ../../Jokosher.glade.h:41
 msgid "Instrument Connections"
 msgstr "Indtrument forbindelser"
 
-#: ../../Jokosher.glade.h:43
+#: ../../Jokosher.glade.h:42
 msgid "Mixing"
 msgstr "Miksning"
 
-#: ../../Jokosher.glade.h:44
+#: ../../Jokosher.glade.h:43
 msgid "Mixing Project"
 msgstr "Mikser projekt"
 
-#: ../../Jokosher.glade.h:45 ../../NewProjectDialog.py:73
+#: ../../Jokosher.glade.h:44 ../../NewProjectDialog.py:73
 msgid "New Project"
 msgstr "Nyt projekt"
 
-#: ../../Jokosher.glade.h:46
+#: ../../Jokosher.glade.h:45
 msgid "Open Selected Project"
 msgstr "Åbn valgte projekt"
 
-#: ../../Jokosher.glade.h:47
+#: ../../Jokosher.glade.h:46
 msgid "Open most recent project"
 msgstr "Åbn nyeste projekt"
 
-#: ../../Jokosher.glade.h:48
+#: ../../Jokosher.glade.h:47
 msgid "Output Format"
 msgstr "Uddataformat"
 
-#: ../../Jokosher.glade.h:49
+#: ../../Jokosher.glade.h:48
 msgid "Playback"
 msgstr "Afspilning"
 
-#: ../../Jokosher.glade.h:50
+#: ../../Jokosher.glade.h:49
 msgid "Pre-release Notes"
 msgstr "Forløbige udgivelsesnoter"
 
-#: ../../Jokosher.glade.h:51
+#: ../../Jokosher.glade.h:50
 msgid "Preferences"
 msgstr "Indstillinger"
 
-#: ../../Jokosher.glade.h:52
+#: ../../Jokosher.glade.h:51
 msgid "Presets"
 msgstr "Forudindstillinger"
 
-#: ../../Jokosher.glade.h:53
+#: ../../Jokosher.glade.h:52
 msgid "Preview"
 msgstr "Forhåndsvisning"
 
-#: ../../Jokosher.glade.h:54
+#: ../../Jokosher.glade.h:53
 msgid "Project Name"
 msgstr "Projektnavn"
 
-#: ../../Jokosher.glade.h:55
+#: ../../Jokosher.glade.h:54
 msgid "Recent Projects"
 msgstr "Nylige projekter"
 
-#: ../../Jokosher.glade.h:56
+#: ../../Jokosher.glade.h:55
 msgid "Recording"
 msgstr "Optager"
 
-#: ../../Jokosher.glade.h:57
+#: ../../Jokosher.glade.h:56
 msgid "Redo"
 msgstr "Omgør"
 
-#: ../../Jokosher.glade.h:58
+#: ../../Jokosher.glade.h:57
 msgid "Sample Format"
 msgstr "Sampleformat"
 
-#: ../../Jokosher.glade.h:59
+#: ../../Jokosher.glade.h:58
 msgid "Sample Rate (Hz)"
 msgstr "Samplerate (Hz)"
+
+#: ../../Jokosher.glade.h:59
+msgid "Save Files As"
+msgstr ""
 
 #: ../../Jokosher.glade.h:60
 msgid "Search:"
@@ -491,11 +491,9 @@ msgstr ""
 
 #: ../../JokosherApp.py:352
 msgid ""
-"No channels capable of recording have found, please attach a device and try "
-"again."
+"No channels capable of recording have been found, please attach a device and "
+"try again."
 msgstr ""
-"Ingen kanaler som er istand til optagelse blev fundet, tilslut venligst en "
-"enhed og forsøg igen."
 
 #: ../../JokosherApp.py:354
 msgid ""
@@ -650,8 +648,8 @@ msgstr ""
 
 #: ../../JokosherApp.py:1084
 #, python-format
-msgid "The uri scheme '%s' is either invalid or not supported."
-msgstr "Uri skemaet \"%s\" er enten ugyldigt eller ikke-understøttet."
+msgid "The URI scheme '%s' is either invalid or not supported."
+msgstr ""
 
 #: ../../JokosherApp.py:1086
 #, python-format
@@ -718,8 +716,8 @@ msgid "Invalid name or author."
 msgstr "Ugyldigt navn eller forfatter."
 
 #: ../../NewProjectDialog.py:95
-msgid "The uri scheme given is either invalid or not supported"
-msgstr "Det opgivne uri skema er enten ugyldig eller ikke understøttet"
+msgid "The URI scheme given is either invalid or not supported"
+msgstr ""
 
 #: ../../NewProjectDialog.py:102
 #, python-format
@@ -804,3 +802,19 @@ msgstr ""
 #: i18n.instr.h:16
 msgid "Vocal"
 msgstr "Vokal"
+
+#~ msgid "Files Saves As"
+#~ msgstr "Filer gemmes som"
+
+#~ msgid ""
+#~ "No channels capable of recording have found, please attach a device and "
+#~ "try again."
+#~ msgstr ""
+#~ "Ingen kanaler som er istand til optagelse blev fundet, tilslut venligst "
+#~ "en enhed og forsøg igen."
+
+#~ msgid "The uri scheme '%s' is either invalid or not supported."
+#~ msgstr "Uri skemaet \"%s\" er enten ugyldigt eller ikke-understøttet."
+
+#~ msgid "The uri scheme given is either invalid or not supported"
+#~ msgstr "Det opgivne uri skema er enten ugyldig eller ikke understøttet"

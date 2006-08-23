@@ -92,7 +92,7 @@ class NewProjectDialog:
 			elif e.errno == 4:
 				message = _("Invalid name or author.")
 			elif e.errno == 5:
-				message = _("The uri scheme given is either invalid or not supported")
+				message = _("The URI scheme given is either invalid or not supported")
 			
 			# show the error dialog with the relavent error message	
 			dlg = gtk.MessageDialog(self.dlg,

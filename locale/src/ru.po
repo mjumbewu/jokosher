@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jokosher HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-23 17:11-0400\n"
+"POT-Creation-Date: 2006-08-23 17:30-0400\n"
 "PO-Revision-Date: 2006-08-16 02:16+0000\n"
 "Last-Translator: Артём Попов <artfwo@gmail.com>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -159,88 +159,88 @@ msgstr ""
 "храниться:"
 
 #: ../../Jokosher.glade.h:39
-msgid "Files Saves As"
-msgstr "Файлы сохраняются в"
-
-#: ../../Jokosher.glade.h:40
 msgid "Folder"
 msgstr "Папка"
 
-#: ../../Jokosher.glade.h:41
+#: ../../Jokosher.glade.h:40
 msgid "General"
 msgstr "Общие"
 
-#: ../../Jokosher.glade.h:42
+#: ../../Jokosher.glade.h:41
 msgid "Instrument Connections"
 msgstr "Связи инструментов"
 
-#: ../../Jokosher.glade.h:43
+#: ../../Jokosher.glade.h:42
 msgid "Mixing"
 msgstr "Сведение"
 
-#: ../../Jokosher.glade.h:44
+#: ../../Jokosher.glade.h:43
 msgid "Mixing Project"
 msgstr "Сведение проекта"
 
-#: ../../Jokosher.glade.h:45 ../../NewProjectDialog.py:73
+#: ../../Jokosher.glade.h:44 ../../NewProjectDialog.py:73
 msgid "New Project"
 msgstr "Новый проект"
 
-#: ../../Jokosher.glade.h:46
+#: ../../Jokosher.glade.h:45
 msgid "Open Selected Project"
 msgstr "Открыть выбранный проект"
 
-#: ../../Jokosher.glade.h:47
+#: ../../Jokosher.glade.h:46
 msgid "Open most recent project"
 msgstr "Открывать последний проект"
 
-#: ../../Jokosher.glade.h:48
+#: ../../Jokosher.glade.h:47
 msgid "Output Format"
 msgstr "Формат вывода"
 
-#: ../../Jokosher.glade.h:49
+#: ../../Jokosher.glade.h:48
 msgid "Playback"
 msgstr "Воспроизведение"
 
-#: ../../Jokosher.glade.h:50
+#: ../../Jokosher.glade.h:49
 msgid "Pre-release Notes"
 msgstr "Замечания к пред. версии"
 
-#: ../../Jokosher.glade.h:51
+#: ../../Jokosher.glade.h:50
 msgid "Preferences"
 msgstr "Настройки"
 
-#: ../../Jokosher.glade.h:52
+#: ../../Jokosher.glade.h:51
 msgid "Presets"
 msgstr "Предустановки"
 
-#: ../../Jokosher.glade.h:53
+#: ../../Jokosher.glade.h:52
 msgid "Preview"
 msgstr "Предв. просмотр"
 
-#: ../../Jokosher.glade.h:54
+#: ../../Jokosher.glade.h:53
 msgid "Project Name"
 msgstr "Название проекта"
 
-#: ../../Jokosher.glade.h:55
+#: ../../Jokosher.glade.h:54
 msgid "Recent Projects"
 msgstr "Последние проекты"
 
-#: ../../Jokosher.glade.h:56
+#: ../../Jokosher.glade.h:55
 msgid "Recording"
 msgstr "Запись"
 
-#: ../../Jokosher.glade.h:57
+#: ../../Jokosher.glade.h:56
 msgid "Redo"
 msgstr "Вернуть"
 
-#: ../../Jokosher.glade.h:58
+#: ../../Jokosher.glade.h:57
 msgid "Sample Format"
 msgstr "Формат дискретизации"
 
-#: ../../Jokosher.glade.h:59
+#: ../../Jokosher.glade.h:58
 msgid "Sample Rate (Hz)"
 msgstr "Частота дискретизации"
+
+#: ../../Jokosher.glade.h:59
+msgid "Save Files As"
+msgstr ""
 
 #: ../../Jokosher.glade.h:60
 msgid "Search:"
@@ -492,11 +492,9 @@ msgstr ""
 
 #: ../../JokosherApp.py:352
 msgid ""
-"No channels capable of recording have found, please attach a device and try "
-"again."
+"No channels capable of recording have been found, please attach a device and "
+"try again."
 msgstr ""
-"Не найдено каналов, пригодных для записи, присоедините устройство и "
-"попробуйте ещё раз."
 
 #: ../../JokosherApp.py:354
 msgid ""
@@ -651,8 +649,8 @@ msgstr ""
 
 #: ../../JokosherApp.py:1084
 #, python-format
-msgid "The uri scheme '%s' is either invalid or not supported."
-msgstr "Схема обращения к ресурсу '%s' не верна или не поддерживается."
+msgid "The URI scheme '%s' is either invalid or not supported."
+msgstr ""
 
 #: ../../JokosherApp.py:1086
 #, python-format
@@ -719,8 +717,8 @@ msgid "Invalid name or author."
 msgstr "Неверное название или имя автора."
 
 #: ../../NewProjectDialog.py:95
-msgid "The uri scheme given is either invalid or not supported"
-msgstr "Данная схема обращения к ресурсу не верна или не поддерживается"
+msgid "The URI scheme given is either invalid or not supported"
+msgstr ""
 
 #: ../../NewProjectDialog.py:102
 #, python-format
@@ -805,3 +803,19 @@ msgstr ""
 #: i18n.instr.h:16
 msgid "Vocal"
 msgstr "Вокал"
+
+#~ msgid "Files Saves As"
+#~ msgstr "Файлы сохраняются в"
+
+#~ msgid ""
+#~ "No channels capable of recording have found, please attach a device and "
+#~ "try again."
+#~ msgstr ""
+#~ "Не найдено каналов, пригодных для записи, присоедините устройство и "
+#~ "попробуйте ещё раз."
+
+#~ msgid "The uri scheme '%s' is either invalid or not supported."
+#~ msgstr "Схема обращения к ресурсу '%s' не верна или не поддерживается."
+
+#~ msgid "The uri scheme given is either invalid or not supported"
+#~ msgstr "Данная схема обращения к ресурсу не верна или не поддерживается"

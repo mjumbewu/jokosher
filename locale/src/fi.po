@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: jokosher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-23 17:11-0400\n"
+"POT-Creation-Date: 2006-08-23 17:30-0400\n"
 "PO-Revision-Date: 2006-08-16 14:57+0000\n"
 "Last-Translator: Boyd Timothy <btimothy@gmail.com>\n"
 "Language-Team: Finnish <fi@li.org>\n"
@@ -162,92 +162,91 @@ msgid ""
 msgstr "Anna projektisi nimi ja valitse kansio jonne se tallennetaan:"
 
 #: ../../Jokosher.glade.h:39
-#, fuzzy
-msgid "Files Saves As"
-msgstr "Tiedosto Tallentaan"
-
-#: ../../Jokosher.glade.h:40
 msgid "Folder"
 msgstr "Kansio"
 
-#: ../../Jokosher.glade.h:41
+#: ../../Jokosher.glade.h:40
 msgid "General"
 msgstr "Yleiset"
 
-#: ../../Jokosher.glade.h:42
+#: ../../Jokosher.glade.h:41
 msgid "Instrument Connections"
 msgstr "Soittimien liitännät"
 
-#: ../../Jokosher.glade.h:43
+#: ../../Jokosher.glade.h:42
 msgid "Mixing"
 msgstr "Miksaus"
 
-#: ../../Jokosher.glade.h:44
+#: ../../Jokosher.glade.h:43
 msgid "Mixing Project"
 msgstr "Miksausprojekti"
 
-#: ../../Jokosher.glade.h:45 ../../NewProjectDialog.py:73
+#: ../../Jokosher.glade.h:44 ../../NewProjectDialog.py:73
 msgid "New Project"
 msgstr "Uusi projekti"
 
-#: ../../Jokosher.glade.h:46
+#: ../../Jokosher.glade.h:45
 msgid "Open Selected Project"
 msgstr "Avaa valittu projekti"
 
-#: ../../Jokosher.glade.h:47
+#: ../../Jokosher.glade.h:46
 msgid "Open most recent project"
 msgstr "Avaa viimeisin projekti"
 
-#: ../../Jokosher.glade.h:48
+#: ../../Jokosher.glade.h:47
 msgid "Output Format"
 msgstr "Tulostusmuoto"
 
-#: ../../Jokosher.glade.h:49
+#: ../../Jokosher.glade.h:48
 #, fuzzy
 msgid "Playback"
 msgstr "Toisto"
 
-#: ../../Jokosher.glade.h:50
+#: ../../Jokosher.glade.h:49
 msgid "Pre-release Notes"
 msgstr "Esi-julkaisun tiedot"
 
-#: ../../Jokosher.glade.h:51
+#: ../../Jokosher.glade.h:50
 #, fuzzy
 msgid "Preferences"
 msgstr "Ominaisuudet"
 
-#: ../../Jokosher.glade.h:52
+#: ../../Jokosher.glade.h:51
 msgid "Presets"
 msgstr "Esivalinnat"
 
-#: ../../Jokosher.glade.h:53
+#: ../../Jokosher.glade.h:52
 msgid "Preview"
 msgstr "Esikatselu"
 
-#: ../../Jokosher.glade.h:54
+#: ../../Jokosher.glade.h:53
 msgid "Project Name"
 msgstr "Projektin nimi"
 
-#: ../../Jokosher.glade.h:55
+#: ../../Jokosher.glade.h:54
 msgid "Recent Projects"
 msgstr "Viimeisimmät projektit"
 
-#: ../../Jokosher.glade.h:56
+#: ../../Jokosher.glade.h:55
 msgid "Recording"
 msgstr "Äänitys"
 
-#: ../../Jokosher.glade.h:57
+#: ../../Jokosher.glade.h:56
 msgid "Redo"
 msgstr "Toista"
 
-#: ../../Jokosher.glade.h:58
+#: ../../Jokosher.glade.h:57
 #, fuzzy
 msgid "Sample Format"
 msgstr "Näytteen formaatti"
 
-#: ../../Jokosher.glade.h:59
+#: ../../Jokosher.glade.h:58
 msgid "Sample Rate (Hz)"
 msgstr "Näytteenottotaajuus (Hz)"
+
+#: ../../Jokosher.glade.h:59
+msgid "Save Files As"
+msgstr ""
 
 #: ../../Jokosher.glade.h:60
 #, fuzzy
@@ -504,9 +503,9 @@ msgstr ""
 
 #: ../../JokosherApp.py:352
 msgid ""
-"No channels capable of recording have found, please attach a device and try "
-"again."
-msgstr "Yhtään äänityskanavaa ei löytynyt. Liitä laite ja yritä uudestaan."
+"No channels capable of recording have been found, please attach a device and "
+"try again."
+msgstr ""
 
 #: ../../JokosherApp.py:354
 msgid ""
@@ -663,8 +662,8 @@ msgstr ""
 
 #: ../../JokosherApp.py:1084
 #, python-format
-msgid "The uri scheme '%s' is either invalid or not supported."
-msgstr "URI:n tyyppiä '%s' ei tueta tai se on virheellinen."
+msgid "The URI scheme '%s' is either invalid or not supported."
+msgstr ""
 
 #: ../../JokosherApp.py:1086
 #, python-format
@@ -733,8 +732,8 @@ msgid "Invalid name or author."
 msgstr "Virheellinen nimi tai tekijä."
 
 #: ../../NewProjectDialog.py:95
-msgid "The uri scheme given is either invalid or not supported"
-msgstr "URI:n tyyppiä ei ole määritelty tai sitä ei tueta"
+msgid "The URI scheme given is either invalid or not supported"
+msgstr ""
 
 #: ../../NewProjectDialog.py:102
 #, python-format
@@ -820,3 +819,18 @@ msgstr ""
 #: i18n.instr.h:16
 msgid "Vocal"
 msgstr "Laulu"
+
+#, fuzzy
+#~ msgid "Files Saves As"
+#~ msgstr "Tiedosto Tallentaan"
+
+#~ msgid ""
+#~ "No channels capable of recording have found, please attach a device and "
+#~ "try again."
+#~ msgstr "Yhtään äänityskanavaa ei löytynyt. Liitä laite ja yritä uudestaan."
+
+#~ msgid "The uri scheme '%s' is either invalid or not supported."
+#~ msgstr "URI:n tyyppiä '%s' ei tueta tai se on virheellinen."
+
+#~ msgid "The uri scheme given is either invalid or not supported"
+#~ msgstr "URI:n tyyppiä ei ole määritelty tai sitä ei tueta"

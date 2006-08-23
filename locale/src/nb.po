@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: jokosher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-23 17:11-0400\n"
+"POT-Creation-Date: 2006-08-23 17:30-0400\n"
 "PO-Revision-Date: 2006-08-23 15:50+0000\n"
 "Last-Translator: Hender <simsalabimladen@gmail.com>\n"
 "Language-Team: Norwegian Bokmål <nb@li.org>\n"
@@ -172,96 +172,95 @@ msgstr ""
 "Skriv inn et navn til ditt prosjekt og velg en mappe å lagre prosjektet i:"
 
 #: ../../Jokosher.glade.h:39
-#, fuzzy
-msgid "Files Saves As"
-msgstr "Lagre filer som"
-
-#: ../../Jokosher.glade.h:40
 msgid "Folder"
 msgstr "Mappe"
 
-#: ../../Jokosher.glade.h:41
+#: ../../Jokosher.glade.h:40
 #, fuzzy
 msgid "General"
 msgstr "Generelt"
 
-#: ../../Jokosher.glade.h:42
+#: ../../Jokosher.glade.h:41
 #, fuzzy
 msgid "Instrument Connections"
 msgstr "Instrumenttilkoblinger"
 
-#: ../../Jokosher.glade.h:43
+#: ../../Jokosher.glade.h:42
 #, fuzzy
 msgid "Mixing"
 msgstr "Miksing"
 
-#: ../../Jokosher.glade.h:44
+#: ../../Jokosher.glade.h:43
 msgid "Mixing Project"
 msgstr "Mikser prosjekt"
 
-#: ../../Jokosher.glade.h:45 ../../NewProjectDialog.py:73
+#: ../../Jokosher.glade.h:44 ../../NewProjectDialog.py:73
 msgid "New Project"
 msgstr "Nytt prosjekt"
 
-#: ../../Jokosher.glade.h:46
+#: ../../Jokosher.glade.h:45
 #, fuzzy
 msgid "Open Selected Project"
 msgstr "Åpne valgt prosjekt"
 
-#: ../../Jokosher.glade.h:47
+#: ../../Jokosher.glade.h:46
 #, fuzzy
 msgid "Open most recent project"
 msgstr "Åpne nyeste prosjekt"
 
-#: ../../Jokosher.glade.h:48
+#: ../../Jokosher.glade.h:47
 msgid "Output Format"
 msgstr ""
 
-#: ../../Jokosher.glade.h:49
+#: ../../Jokosher.glade.h:48
 #, fuzzy
 msgid "Playback"
 msgstr "Tilbakespilling"
 
-#: ../../Jokosher.glade.h:50
+#: ../../Jokosher.glade.h:49
 msgid "Pre-release Notes"
 msgstr ""
 
-#: ../../Jokosher.glade.h:51
+#: ../../Jokosher.glade.h:50
 msgid "Preferences"
 msgstr "Innstillinger"
 
-#: ../../Jokosher.glade.h:52
+#: ../../Jokosher.glade.h:51
 #, fuzzy
 msgid "Presets"
 msgstr "Maler"
 
-#: ../../Jokosher.glade.h:53
+#: ../../Jokosher.glade.h:52
 msgid "Preview"
 msgstr "Forhåndsbilde"
 
-#: ../../Jokosher.glade.h:54
+#: ../../Jokosher.glade.h:53
 msgid "Project Name"
 msgstr "Prosjektnavn"
 
-#: ../../Jokosher.glade.h:55
+#: ../../Jokosher.glade.h:54
 #, fuzzy
 msgid "Recent Projects"
 msgstr "Nyåpnede prosjekter"
 
-#: ../../Jokosher.glade.h:56
+#: ../../Jokosher.glade.h:55
 msgid "Recording"
 msgstr "Opptak"
 
-#: ../../Jokosher.glade.h:57
+#: ../../Jokosher.glade.h:56
 msgid "Redo"
 msgstr "Gjenta"
 
-#: ../../Jokosher.glade.h:58
+#: ../../Jokosher.glade.h:57
 msgid "Sample Format"
 msgstr ""
 
-#: ../../Jokosher.glade.h:59
+#: ../../Jokosher.glade.h:58
 msgid "Sample Rate (Hz)"
+msgstr ""
+
+#: ../../Jokosher.glade.h:59
+msgid "Save Files As"
 msgstr ""
 
 #: ../../Jokosher.glade.h:60
@@ -513,8 +512,8 @@ msgstr ""
 
 #: ../../JokosherApp.py:352
 msgid ""
-"No channels capable of recording have found, please attach a device and try "
-"again."
+"No channels capable of recording have been found, please attach a device and "
+"try again."
 msgstr ""
 
 #: ../../JokosherApp.py:354
@@ -648,7 +647,7 @@ msgstr ""
 
 #: ../../JokosherApp.py:1084
 #, python-format
-msgid "The uri scheme '%s' is either invalid or not supported."
+msgid "The URI scheme '%s' is either invalid or not supported."
 msgstr ""
 
 #: ../../JokosherApp.py:1086
@@ -710,7 +709,7 @@ msgid "Invalid name or author."
 msgstr ""
 
 #: ../../NewProjectDialog.py:95
-msgid "The uri scheme given is either invalid or not supported"
+msgid "The URI scheme given is either invalid or not supported"
 msgstr ""
 
 #: ../../NewProjectDialog.py:102
@@ -793,3 +792,7 @@ msgstr ""
 #: i18n.instr.h:16
 msgid "Vocal"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Files Saves As"
+#~ msgstr "Lagre filer som"

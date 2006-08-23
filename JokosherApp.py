@@ -349,7 +349,7 @@ class MainApp:
 					self.project.record()
 				except Project.AudioInputsError, e:
 					if e.errno==0:
-						message=_("No channels capable of recording have found, please attach a device and try again.")
+						message=_("No channels capable of recording have been found, please attach a device and try again.")
 					else:
 						message=_("Your sound card isn't capable of recording from multiple sources at the same time. Please disarm all but one instrument.")
 
@@ -1081,7 +1081,7 @@ class MainApp:
 			parent = self.window
 
 		if error.errno==1:
-			message = _("The uri scheme '%s' is either invalid or not supported."%error.info)
+			message = _("The URI scheme '%s' is either invalid or not supported."%error.info)
 		elif error.errno==2:
 			message = _("Unable to unzip the project file %s"%error.info)
 		elif error.errno==3:		

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: jokosher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-23 17:11-0400\n"
+"POT-Creation-Date: 2006-08-23 17:30-0400\n"
 "PO-Revision-Date: 2006-08-23 01:18+0000\n"
 "Last-Translator: Manuel Duran Moyano <mduran@ubiobio.cl>\n"
 "Language-Team: Spanish <es@li.org>\n"
@@ -170,90 +170,90 @@ msgstr ""
 "proyecto:"
 
 #: ../../Jokosher.glade.h:39
-msgid "Files Saves As"
-msgstr "Ficheros Guardados Como"
-
-#: ../../Jokosher.glade.h:40
 msgid "Folder"
 msgstr "Carpeta"
 
-#: ../../Jokosher.glade.h:41
+#: ../../Jokosher.glade.h:40
 msgid "General"
 msgstr "General"
 
-#: ../../Jokosher.glade.h:42
+#: ../../Jokosher.glade.h:41
 msgid "Instrument Connections"
 msgstr "Conexiones a instrumentos"
 
-#: ../../Jokosher.glade.h:43
+#: ../../Jokosher.glade.h:42
 msgid "Mixing"
 msgstr "Mezclar"
 
-#: ../../Jokosher.glade.h:44
+#: ../../Jokosher.glade.h:43
 msgid "Mixing Project"
 msgstr "Mezclar Proyecto"
 
-#: ../../Jokosher.glade.h:45 ../../NewProjectDialog.py:73
+#: ../../Jokosher.glade.h:44 ../../NewProjectDialog.py:73
 msgid "New Project"
 msgstr "Proyecto nuevo"
 
-#: ../../Jokosher.glade.h:46
+#: ../../Jokosher.glade.h:45
 #, fuzzy
 msgid "Open Selected Project"
 msgstr "Abrir Proyecto Seleccionado"
 
-#: ../../Jokosher.glade.h:47
+#: ../../Jokosher.glade.h:46
 msgid "Open most recent project"
 msgstr "Abrir proyecto más reciente"
 
-#: ../../Jokosher.glade.h:48
+#: ../../Jokosher.glade.h:47
 msgid "Output Format"
 msgstr "Formato de Salida"
 
-#: ../../Jokosher.glade.h:49
+#: ../../Jokosher.glade.h:48
 msgid "Playback"
 msgstr "Reproducción"
 
-#: ../../Jokosher.glade.h:50
+#: ../../Jokosher.glade.h:49
 #, fuzzy
 msgid "Pre-release Notes"
 msgstr "Notas de preproducción"
 
-#: ../../Jokosher.glade.h:51
+#: ../../Jokosher.glade.h:50
 msgid "Preferences"
 msgstr "Preferencias"
 
-#: ../../Jokosher.glade.h:52
+#: ../../Jokosher.glade.h:51
 msgid "Presets"
 msgstr "Preselecciones"
 
-#: ../../Jokosher.glade.h:53
+#: ../../Jokosher.glade.h:52
 msgid "Preview"
 msgstr "Vista previa"
 
-#: ../../Jokosher.glade.h:54
+#: ../../Jokosher.glade.h:53
 msgid "Project Name"
 msgstr "Nombre del proyecto"
 
-#: ../../Jokosher.glade.h:55
+#: ../../Jokosher.glade.h:54
 msgid "Recent Projects"
 msgstr "Proyectos recientes"
 
-#: ../../Jokosher.glade.h:56
+#: ../../Jokosher.glade.h:55
 msgid "Recording"
 msgstr "Grabación"
 
-#: ../../Jokosher.glade.h:57
+#: ../../Jokosher.glade.h:56
 msgid "Redo"
 msgstr "Rehacer"
 
-#: ../../Jokosher.glade.h:58
+#: ../../Jokosher.glade.h:57
 msgid "Sample Format"
 msgstr "Formato de muestra"
 
-#: ../../Jokosher.glade.h:59
+#: ../../Jokosher.glade.h:58
 msgid "Sample Rate (Hz)"
 msgstr "Muestreo (Hz)"
+
+#: ../../Jokosher.glade.h:59
+msgid "Save Files As"
+msgstr ""
 
 #: ../../Jokosher.glade.h:60
 msgid "Search:"
@@ -499,8 +499,8 @@ msgstr ""
 
 #: ../../JokosherApp.py:352
 msgid ""
-"No channels capable of recording have found, please attach a device and try "
-"again."
+"No channels capable of recording have been found, please attach a device and "
+"try again."
 msgstr ""
 
 #: ../../JokosherApp.py:354
@@ -634,7 +634,7 @@ msgstr ""
 
 #: ../../JokosherApp.py:1084
 #, python-format
-msgid "The uri scheme '%s' is either invalid or not supported."
+msgid "The URI scheme '%s' is either invalid or not supported."
 msgstr ""
 
 #: ../../JokosherApp.py:1086
@@ -698,7 +698,7 @@ msgid "Invalid name or author."
 msgstr "Nombre o autor invalido"
 
 #: ../../NewProjectDialog.py:95
-msgid "The uri scheme given is either invalid or not supported"
+msgid "The URI scheme given is either invalid or not supported"
 msgstr ""
 
 #: ../../NewProjectDialog.py:102
@@ -784,3 +784,6 @@ msgstr ""
 #: i18n.instr.h:16
 msgid "Vocal"
 msgstr ""
+
+#~ msgid "Files Saves As"
+#~ msgstr "Ficheros Guardados Como"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: jokosher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-23 17:11-0400\n"
+"POT-Creation-Date: 2006-08-23 17:30-0400\n"
 "PO-Revision-Date: 2006-08-15 19:16+0000\n"
 "Last-Translator: Igor Khanin <igorkh@freeshell.org>\n"
 "Language-Team: Hebrew <he@li.org>\n"
@@ -160,90 +160,90 @@ msgid ""
 msgstr "הכנס שם לפרויקט שלך ובחר תיקייה בה הפרויקט ישמר:"
 
 #: ../../Jokosher.glade.h:39
-msgid "Files Saves As"
-msgstr "שמור קבצים כ"
-
-#: ../../Jokosher.glade.h:40
 msgid "Folder"
 msgstr "תיקייה"
 
-#: ../../Jokosher.glade.h:41
+#: ../../Jokosher.glade.h:40
 msgid "General"
 msgstr "כללי"
 
-#: ../../Jokosher.glade.h:42
+#: ../../Jokosher.glade.h:41
 msgid "Instrument Connections"
 msgstr "חיבורי כלים"
 
-#: ../../Jokosher.glade.h:43
+#: ../../Jokosher.glade.h:42
 #, fuzzy
 msgid "Mixing"
 msgstr "ערבול"
 
-#: ../../Jokosher.glade.h:44
+#: ../../Jokosher.glade.h:43
 #, fuzzy
 msgid "Mixing Project"
 msgstr "פרויקט ערבול"
 
-#: ../../Jokosher.glade.h:45 ../../NewProjectDialog.py:73
+#: ../../Jokosher.glade.h:44 ../../NewProjectDialog.py:73
 msgid "New Project"
 msgstr "פרויקט חדש"
 
-#: ../../Jokosher.glade.h:46
+#: ../../Jokosher.glade.h:45
 msgid "Open Selected Project"
 msgstr "פתח פרויקט נבחר"
 
-#: ../../Jokosher.glade.h:47
+#: ../../Jokosher.glade.h:46
 msgid "Open most recent project"
 msgstr "פתח את הפרויקט האחרון"
 
-#: ../../Jokosher.glade.h:48
+#: ../../Jokosher.glade.h:47
 msgid "Output Format"
 msgstr "תבנית הפלט"
 
-#: ../../Jokosher.glade.h:49
+#: ../../Jokosher.glade.h:48
 msgid "Playback"
 msgstr "השמעה"
 
-#: ../../Jokosher.glade.h:50
+#: ../../Jokosher.glade.h:49
 msgid "Pre-release Notes"
 msgstr ""
 
-#: ../../Jokosher.glade.h:51
+#: ../../Jokosher.glade.h:50
 msgid "Preferences"
 msgstr "העדפות"
 
-#: ../../Jokosher.glade.h:52
+#: ../../Jokosher.glade.h:51
 msgid "Presets"
 msgstr ""
 
-#: ../../Jokosher.glade.h:53
+#: ../../Jokosher.glade.h:52
 msgid "Preview"
 msgstr "תצוגה מקדימה"
 
-#: ../../Jokosher.glade.h:54
+#: ../../Jokosher.glade.h:53
 msgid "Project Name"
 msgstr "שם הפרויקט"
 
-#: ../../Jokosher.glade.h:55
+#: ../../Jokosher.glade.h:54
 msgid "Recent Projects"
 msgstr "פרויקטים אחרונים"
 
-#: ../../Jokosher.glade.h:56
+#: ../../Jokosher.glade.h:55
 msgid "Recording"
 msgstr "הקלטה"
 
-#: ../../Jokosher.glade.h:57
+#: ../../Jokosher.glade.h:56
 msgid "Redo"
 msgstr "בצע שוב"
 
-#: ../../Jokosher.glade.h:58
+#: ../../Jokosher.glade.h:57
 msgid "Sample Format"
 msgstr "תבנית דגימה"
 
-#: ../../Jokosher.glade.h:59
+#: ../../Jokosher.glade.h:58
 msgid "Sample Rate (Hz)"
 msgstr "קצב דגימה (הרץ)"
+
+#: ../../Jokosher.glade.h:59
+msgid "Save Files As"
+msgstr ""
 
 #: ../../Jokosher.glade.h:60
 msgid "Search:"
@@ -481,8 +481,8 @@ msgstr ""
 
 #: ../../JokosherApp.py:352
 msgid ""
-"No channels capable of recording have found, please attach a device and try "
-"again."
+"No channels capable of recording have been found, please attach a device and "
+"try again."
 msgstr ""
 
 #: ../../JokosherApp.py:354
@@ -617,7 +617,7 @@ msgstr ""
 
 #: ../../JokosherApp.py:1084
 #, python-format
-msgid "The uri scheme '%s' is either invalid or not supported."
+msgid "The URI scheme '%s' is either invalid or not supported."
 msgstr ""
 
 #: ../../JokosherApp.py:1086
@@ -679,7 +679,7 @@ msgid "Invalid name or author."
 msgstr ""
 
 #: ../../NewProjectDialog.py:95
-msgid "The uri scheme given is either invalid or not supported"
+msgid "The URI scheme given is either invalid or not supported"
 msgstr ""
 
 #: ../../NewProjectDialog.py:102
@@ -762,3 +762,6 @@ msgstr ""
 #: i18n.instr.h:16
 msgid "Vocal"
 msgstr ""
+
+#~ msgid "Files Saves As"
+#~ msgstr "שמור קבצים כ"

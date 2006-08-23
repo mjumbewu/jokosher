@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-23 17:11-0400\n"
+"POT-Creation-Date: 2006-08-23 17:30-0400\n"
 "PO-Revision-Date: 2006-08-15 15:15+0000\n"
 "Last-Translator: Dennis Lichtenthäler <dennis.lichtenthaeler@episode-iv.de>\n"
 "Language-Team: German <translation-team-de@lists.sourceforge.net>\n"
@@ -165,88 +165,88 @@ msgstr ""
 "es gespeichert werden soll:"
 
 #: ../../Jokosher.glade.h:39
-msgid "Files Saves As"
-msgstr "Dateien speichern als"
-
-#: ../../Jokosher.glade.h:40
 msgid "Folder"
 msgstr "Ordner"
 
-#: ../../Jokosher.glade.h:41
+#: ../../Jokosher.glade.h:40
 msgid "General"
 msgstr "Allgemein"
 
-#: ../../Jokosher.glade.h:42
+#: ../../Jokosher.glade.h:41
 msgid "Instrument Connections"
 msgstr "Verbindungen"
 
-#: ../../Jokosher.glade.h:43
+#: ../../Jokosher.glade.h:42
 msgid "Mixing"
 msgstr "Abmischen"
 
-#: ../../Jokosher.glade.h:44
+#: ../../Jokosher.glade.h:43
 msgid "Mixing Project"
 msgstr "Projekt Abmischen"
 
-#: ../../Jokosher.glade.h:45 ../../NewProjectDialog.py:73
+#: ../../Jokosher.glade.h:44 ../../NewProjectDialog.py:73
 msgid "New Project"
 msgstr "Neues Projekt"
 
-#: ../../Jokosher.glade.h:46
+#: ../../Jokosher.glade.h:45
 msgid "Open Selected Project"
 msgstr "Ausgewähltes Projekt öffnen"
 
-#: ../../Jokosher.glade.h:47
+#: ../../Jokosher.glade.h:46
 msgid "Open most recent project"
 msgstr "Letztes Projekt öffnen"
 
-#: ../../Jokosher.glade.h:48
+#: ../../Jokosher.glade.h:47
 msgid "Output Format"
 msgstr "Ausgabeformat"
 
-#: ../../Jokosher.glade.h:49
+#: ../../Jokosher.glade.h:48
 msgid "Playback"
 msgstr "Wiedergabe"
 
-#: ../../Jokosher.glade.h:50
+#: ../../Jokosher.glade.h:49
 msgid "Pre-release Notes"
 msgstr "Aktuelle Informationen"
 
-#: ../../Jokosher.glade.h:51
+#: ../../Jokosher.glade.h:50
 msgid "Preferences"
 msgstr "Einstellungen"
 
-#: ../../Jokosher.glade.h:52
+#: ../../Jokosher.glade.h:51
 msgid "Presets"
 msgstr "Vorgaben"
 
-#: ../../Jokosher.glade.h:53
+#: ../../Jokosher.glade.h:52
 msgid "Preview"
 msgstr "Vorschau"
 
-#: ../../Jokosher.glade.h:54
+#: ../../Jokosher.glade.h:53
 msgid "Project Name"
 msgstr "Projektname"
 
-#: ../../Jokosher.glade.h:55
+#: ../../Jokosher.glade.h:54
 msgid "Recent Projects"
 msgstr "Bisherige Projekte"
 
-#: ../../Jokosher.glade.h:56
+#: ../../Jokosher.glade.h:55
 msgid "Recording"
 msgstr "Aufnahme"
 
-#: ../../Jokosher.glade.h:57
+#: ../../Jokosher.glade.h:56
 msgid "Redo"
 msgstr "Wiederherstellen"
 
-#: ../../Jokosher.glade.h:58
+#: ../../Jokosher.glade.h:57
 msgid "Sample Format"
 msgstr "Sample-Format"
 
-#: ../../Jokosher.glade.h:59
+#: ../../Jokosher.glade.h:58
 msgid "Sample Rate (Hz)"
 msgstr "Samplingrate (Hz)"
+
+#: ../../Jokosher.glade.h:59
+msgid "Save Files As"
+msgstr ""
 
 #: ../../Jokosher.glade.h:60
 #, fuzzy
@@ -498,11 +498,9 @@ msgstr ""
 
 #: ../../JokosherApp.py:352
 msgid ""
-"No channels capable of recording have found, please attach a device and try "
-"again."
+"No channels capable of recording have been found, please attach a device and "
+"try again."
 msgstr ""
-"Es wurden keine aufnahmebereiten Kanäle gefunden. Bitte schließe ein Gerät "
-"an und versuche es erneut."
 
 #: ../../JokosherApp.py:354
 #, fuzzy
@@ -658,9 +656,8 @@ msgstr ""
 
 #: ../../JokosherApp.py:1084
 #, python-format
-msgid "The uri scheme '%s' is either invalid or not supported."
+msgid "The URI scheme '%s' is either invalid or not supported."
 msgstr ""
-"Das Adressschema '%s' ist entweder ungültig oder wird nicht unterstützt."
 
 #: ../../JokosherApp.py:1086
 #, python-format
@@ -729,8 +726,8 @@ msgid "Invalid name or author."
 msgstr "Ungültiger Projektname oder Autor."
 
 #: ../../NewProjectDialog.py:95
-msgid "The uri scheme given is either invalid or not supported"
-msgstr "Das Adressschema ist entweder ungültig oder wird nicht unterstützt"
+msgid "The URI scheme given is either invalid or not supported"
+msgstr ""
 
 #: ../../NewProjectDialog.py:102
 #, python-format
@@ -817,6 +814,23 @@ msgstr ""
 #, fuzzy
 msgid "Vocal"
 msgstr "Sprache/Gesang"
+
+#~ msgid "Files Saves As"
+#~ msgstr "Dateien speichern als"
+
+#~ msgid ""
+#~ "No channels capable of recording have found, please attach a device and "
+#~ "try again."
+#~ msgstr ""
+#~ "Es wurden keine aufnahmebereiten Kanäle gefunden. Bitte schließe ein "
+#~ "Gerät an und versuche es erneut."
+
+#~ msgid "The uri scheme '%s' is either invalid or not supported."
+#~ msgstr ""
+#~ "Das Adressschema '%s' ist entweder ungültig oder wird nicht unterstützt."
+
+#~ msgid "The uri scheme given is either invalid or not supported"
+#~ msgstr "Das Adressschema ist entweder ungültig oder wird nicht unterstützt"
 
 #, fuzzy
 #~ msgid ""

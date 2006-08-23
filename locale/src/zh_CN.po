@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: jokosher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-23 17:11-0400\n"
+"POT-Creation-Date: 2006-08-23 17:30-0400\n"
 "PO-Revision-Date: 2006-08-15 23:28+0000\n"
 "Last-Translator: daave <fan.d.liu@gmail.com>\n"
 "Language-Team: Chinese (China) <zh_CN@li.org>\n"
@@ -185,108 +185,107 @@ msgstr "输入项目名称并选择存放文件夹。"
 
 #: ../../Jokosher.glade.h:39
 #, fuzzy
-msgid "Files Saves As"
-msgstr "文件另存为"
-
-#: ../../Jokosher.glade.h:40
-#, fuzzy
 msgid "Folder"
 msgstr "文件夹"
 
-#: ../../Jokosher.glade.h:41
+#: ../../Jokosher.glade.h:40
 #, fuzzy
 msgid "General"
 msgstr "概况"
 
-#: ../../Jokosher.glade.h:42
+#: ../../Jokosher.glade.h:41
 #, fuzzy
 msgid "Instrument Connections"
 msgstr "乐器连接"
 
-#: ../../Jokosher.glade.h:43
+#: ../../Jokosher.glade.h:42
 #, fuzzy
 msgid "Mixing"
 msgstr "混音中"
 
-#: ../../Jokosher.glade.h:44
+#: ../../Jokosher.glade.h:43
 #, fuzzy
 msgid "Mixing Project"
 msgstr "混合项目"
 
-#: ../../Jokosher.glade.h:45 ../../NewProjectDialog.py:73
+#: ../../Jokosher.glade.h:44 ../../NewProjectDialog.py:73
 #, fuzzy
 msgid "New Project"
 msgstr "新项目"
 
-#: ../../Jokosher.glade.h:46
+#: ../../Jokosher.glade.h:45
 #, fuzzy
 msgid "Open Selected Project"
 msgstr "打开所选的项目"
 
-#: ../../Jokosher.glade.h:47
+#: ../../Jokosher.glade.h:46
 #, fuzzy
 msgid "Open most recent project"
 msgstr "打开最近的项目"
 
-#: ../../Jokosher.glade.h:48
+#: ../../Jokosher.glade.h:47
 #, fuzzy
 msgid "Output Format"
 msgstr "输出格式"
 
-#: ../../Jokosher.glade.h:49
+#: ../../Jokosher.glade.h:48
 #, fuzzy
 msgid "Playback"
 msgstr "回放"
 
-#: ../../Jokosher.glade.h:50
+#: ../../Jokosher.glade.h:49
 #, fuzzy
 msgid "Pre-release Notes"
 msgstr "预先发行版摘要"
 
-#: ../../Jokosher.glade.h:51
+#: ../../Jokosher.glade.h:50
 #, fuzzy
 msgid "Preferences"
 msgstr "首选项"
 
-#: ../../Jokosher.glade.h:52
+#: ../../Jokosher.glade.h:51
 #, fuzzy
 msgid "Presets"
 msgstr "预设值"
 
-#: ../../Jokosher.glade.h:53
+#: ../../Jokosher.glade.h:52
 #, fuzzy
 msgid "Preview"
 msgstr "预览"
 
-#: ../../Jokosher.glade.h:54
+#: ../../Jokosher.glade.h:53
 #, fuzzy
 msgid "Project Name"
 msgstr "项目名称"
 
-#: ../../Jokosher.glade.h:55
+#: ../../Jokosher.glade.h:54
 #, fuzzy
 msgid "Recent Projects"
 msgstr "最近的项目"
 
-#: ../../Jokosher.glade.h:56
+#: ../../Jokosher.glade.h:55
 #, fuzzy
 msgid "Recording"
 msgstr "录音中"
 
-#: ../../Jokosher.glade.h:57
+#: ../../Jokosher.glade.h:56
 #, fuzzy
 msgid "Redo"
 msgstr "恢复"
 
-#: ../../Jokosher.glade.h:58
+#: ../../Jokosher.glade.h:57
 #, fuzzy
 msgid "Sample Format"
 msgstr "采样格式"
 
-#: ../../Jokosher.glade.h:59
+#: ../../Jokosher.glade.h:58
 #, fuzzy
 msgid "Sample Rate (Hz)"
 msgstr "采样率（Hz）"
+
+#: ../../Jokosher.glade.h:59
+msgid "Save Files As"
+msgstr ""
 
 #: ../../Jokosher.glade.h:60
 #, fuzzy
@@ -562,11 +561,10 @@ msgid ""
 msgstr "没有连接乐器来录音。你需要在录音前连接一件乐器。"
 
 #: ../../JokosherApp.py:352
-#, fuzzy
 msgid ""
-"No channels capable of recording have found, please attach a device and try "
-"again."
-msgstr "没有发现能够录音的频道，请连接一件设备并重试。"
+"No channels capable of recording have been found, please attach a device and "
+"try again."
+msgstr ""
 
 #: ../../JokosherApp.py:354
 #, fuzzy
@@ -731,9 +729,9 @@ msgstr ""
 "遭遇到一些错误或者尚不存在的功能。"
 
 #: ../../JokosherApp.py:1084
-#, fuzzy, python-format
-msgid "The uri scheme '%s' is either invalid or not supported."
-msgstr "这个uri scheme '%s' 非法活不被支持。"
+#, python-format
+msgid "The URI scheme '%s' is either invalid or not supported."
+msgstr ""
 
 #: ../../JokosherApp.py:1086
 #, fuzzy, python-format
@@ -805,9 +803,8 @@ msgid "Invalid name or author."
 msgstr "非法的名称或作者。"
 
 #: ../../NewProjectDialog.py:95
-#, fuzzy
-msgid "The uri scheme given is either invalid or not supported"
-msgstr "给定的uri scheme非法或不被支持。"
+msgid "The URI scheme given is either invalid or not supported"
+msgstr ""
 
 #: ../../NewProjectDialog.py:102
 #, fuzzy, python-format
@@ -906,3 +903,21 @@ msgstr ""
 #, fuzzy
 msgid "Vocal"
 msgstr "人声"
+
+#, fuzzy
+#~ msgid "Files Saves As"
+#~ msgstr "文件另存为"
+
+#, fuzzy
+#~ msgid ""
+#~ "No channels capable of recording have found, please attach a device and "
+#~ "try again."
+#~ msgstr "没有发现能够录音的频道，请连接一件设备并重试。"
+
+#, fuzzy
+#~ msgid "The uri scheme '%s' is either invalid or not supported."
+#~ msgstr "这个uri scheme '%s' 非法活不被支持。"
+
+#, fuzzy
+#~ msgid "The uri scheme given is either invalid or not supported"
+#~ msgstr "给定的uri scheme非法或不被支持。"
