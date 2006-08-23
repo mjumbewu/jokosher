@@ -110,7 +110,7 @@ LOCALE_APP = None
 VERSION = None
 EFFECT_PRESETS_VERSION = None
 LADSPA_FACTORY_REGISTRY = None
-LADSPA_NAME_MAP = {}
+LADSPA_NAME_MAP = []
 
 # I have decided that Globals.py is a boring source file. So, here is a little
 # joke. What does the tax office and a pelican have in common? They can both stick

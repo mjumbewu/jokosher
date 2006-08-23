@@ -72,7 +72,8 @@ class InstrumentEffectsDialog:
 		self.effectscombo.set_model(self.model)
 
 		for item in Globals.LADSPA_NAME_MAP:
-			longname = Globals.LADSPA_NAME_MAP[item]
+			print item[1]
+			longname = item[1]
 			shortname = longname[:30]
 			
 			if len(longname) > 30:
@@ -144,18 +145,20 @@ class InstrumentEffectsDialog:
 		returns the factory name (e.g. ladspa-foo-effect). This is then set to
 		self.currentplugin."""
 		
-		name = combo.get_active_text()
-
-		for e in Globals.LADSPA_NAME_MAP:
-			if Globals.LADSPA_NAME_MAP[e] == name:
-				self.currentplugin = e
+		effindex = combo.get_active()
+		
+		self.currentplugin = Globals.LADSPA_NAME_MAP[effindex][0]
+		
+		#for e in Globals.LADSPA_NAME_MAP:
+			#if Globals.LADSPA_NAME_MAP[e] == name:
+				#self.currentplugin = e
 
 	#_____________________________________________________________________	
 
 	def OnAddEffect(self, combo):
 		"""The effect element is created and added to the
 		self.instrument.effects list"""
-		
+				
 		# if self.instrument.effects is empty, this is the first effect being
 		# added, and we need to unlink the converter and volume elements as
 		# they had no effectsbin between them
@@ -164,6 +167,7 @@ class InstrumentEffectsDialog:
 		
 		self.instrument.effects.append(gst.element_factory_make(self.currentplugin, self.currentplugin))
 		#self.instrument.effects.append(self.effect)
+		
 		
 		button = gtk.Button(self.currentplugin)
 		button.connect("clicked", self.OnEffectSetting)
@@ -203,7 +207,7 @@ class InstrumentEffectsDialog:
 		# create references to glade items
 		self.settingswindow = self.settWin.get_widget("EffectSettingsDialog")
 		self.effectlabel = self.settWin.get_widget("effectlabel")
-		self.effectlabel.set_text(Globals.LADSPA_NAME_MAP[self.effectelement.get_name()])
+		self.effectlabel.set_text(self.currentplugin)
 		self.settingstable = self.settWin.get_widget("settingstable")
 		self.presetcombo = self.settWin.get_widget("presetcombo")
 

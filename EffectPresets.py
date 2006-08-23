@@ -274,7 +274,7 @@ class EffectPresets:
 					
 					if srcpads == 1 and sinkpads == 1:
 						effects.append(f.get_name())
-						Globals.LADSPA_NAME_MAP[f.get_name()] = f.get_longname()
+						Globals.LADSPA_NAME_MAP.append((f.get_name(), f.get_longname()))
 
 		print str(len(effects)) + " LADSPA effects loaded"
 		Globals.LADSPA_FACTORY_REGISTRY = set(effects)
