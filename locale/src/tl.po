@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: jokosher\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2006-08-04 01:40-0400\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-08-23 17:11-0400\n"
 "PO-Revision-Date: 2006-08-16 06:00+0000\n"
 "Last-Translator: Jerome S. Gotangco <jgotangco@ubuntu.com>\n"
 "Language-Team: Tagalog <tl@li.org>\n"
@@ -184,7 +184,7 @@ msgstr ""
 msgid "Mixing Project"
 msgstr ""
 
-#: ../../Jokosher.glade.h:45 ../../NewProjectDialog.py:62
+#: ../../Jokosher.glade.h:45 ../../NewProjectDialog.py:73
 msgid "New Project"
 msgstr "Bagong Proyekto"
 
@@ -331,52 +331,64 @@ msgid "_Edit"
 msgstr ""
 
 #: ../../Jokosher.glade.h:81
-msgid "_File"
+msgid "_Extensions"
 msgstr ""
 
 #: ../../Jokosher.glade.h:82
+msgid "_File"
+msgstr ""
+
+#: ../../Jokosher.glade.h:83
 #, fuzzy
 msgid "_Help"
 msgstr "_Tulong"
 
-#: ../../Jokosher.glade.h:83
+#: ../../Jokosher.glade.h:84
+msgid "_Manage Extensions"
+msgstr ""
+
+#: ../../Jokosher.glade.h:85
 msgid "_Mixdown Project"
 msgstr ""
 
-#: ../../Jokosher.glade.h:84
+#: ../../Jokosher.glade.h:86
 #, fuzzy
 msgid "_Project"
 msgstr "_Proyekto"
 
-#: ../../Jokosher.glade.h:86
+#: ../../Jokosher.glade.h:87
+msgid "foo"
+msgstr ""
+
+#: ../../Jokosher.glade.h:89
 msgid "translator-credits"
 msgstr "Jerome Gotangco <jgotangco@ubuntu.com>, 2006"
 
-#: ../../CompactMixView.py:130
+#: ../../CompactMixView.py:83
 msgid "<b>Instruments Not Shown:</b>"
 msgstr "<b>Mga Instrumentong hindi pinakita:</b>"
 
-#: ../../EventLaneViewer.py:133
+#: ../../EventLaneViewer.py:145
 msgid "Import Audio File..."
 msgstr "Angkatin ang Talaksang Audio..."
 
-#: ../../EventLaneViewer.py:135
+#: ../../EventLaneViewer.py:147
 msgid "Paste"
 msgstr "Idikit"
 
-#: ../../EventLaneViewer.py:136 ../../EventViewer.py:472
+#: ../../EventLaneViewer.py:148 ../../EventViewer.py:472
 msgid "Delete"
 msgstr "Alisin"
 
-#: ../../EventLaneViewer.py:167
+#: ../../EventLaneViewer.py:179
 msgid "<b>Right-click</b> for more options."
 msgstr "<b>Right-click</b> para sa iba pang mga opsiyon."
 
-#: ../../EventLaneViewer.py:187
+#: ../../EventLaneViewer.py:199
 msgid "Copy file to project"
 msgstr "Kopyahin ang file sa proyekto"
 
-#: ../../EventLaneViewer.py:190
+#: ../../EventLaneViewer.py:204
 msgid "Import file..."
 msgstr "Angkatin ang talaksan..."
 
@@ -394,8 +406,8 @@ msgid ""
 "To <b>Split, Double-Click</b> the wave - To <b>Select, Shift-Click</b> and "
 "drag the mouse"
 msgstr ""
-"Para <b>hatiin, mag Double-Click</b> sa wave - Para <b>Piliin, Shift-"
-"Click</b> at hilahin ang mouse."
+"Para <b>hatiin, mag Double-Click</b> sa wave - Para <b>Piliin, Shift-Click</"
+"b> at hilahin ang mouse."
 
 #: ../../EventViewer.py:355
 msgid ""
@@ -421,15 +433,47 @@ msgstr "Putulin"
 msgid "Copy"
 msgstr "Kopyahin"
 
+#: ../../EventViewer.py:624
+#, python-format
+msgid ""
+"%s\n"
+"\n"
+"File is corrupt, not an audio file, or the associated plugin is not installed"
+msgstr ""
+
 #: ../../InstrumentConnectionsDialog.py:42
 msgid "There are no instruments to connect"
 msgstr ""
 
-#: ../../InstrumentViewer.py:240
+#: ../../InstrumentViewer.py:97 ../../MixerStrip.py:53
+msgid "Enable this instrument for recording"
+msgstr ""
+
+#: ../../InstrumentViewer.py:103
+msgid "Mute - silence this instrument"
+msgstr ""
+
+#: ../../InstrumentViewer.py:110 ../../MixerStrip.py:65
+msgid "Solo - silence all other instruments"
+msgstr ""
+
+#: ../../InstrumentViewer.py:117
+msgid "Instrument Effects"
+msgstr ""
+
+#: ../../InstrumentViewer.py:222 ../../MixerStrip.py:127
+msgid "Muted"
+msgstr ""
+
+#: ../../InstrumentViewer.py:225 ../../MixerStrip.py:130
+msgid "Unmuted"
+msgstr ""
+
+#: ../../InstrumentViewer.py:276
 msgid "Instrument Effects..."
 msgstr "Mga Epekto ng Instrumento..."
 
-#: ../../Jokosher.py:284
+#: ../../JokosherApp.py:298
 #, python-format
 msgid ""
 "The instruments '%s' and '%s' both have the same input selected (%s). Please "
@@ -437,63 +481,63 @@ msgid ""
 "Instrument Connections'"
 msgstr ""
 
-#: ../../Jokosher.py:307
+#: ../../JokosherApp.py:321
 msgid ""
 "No instruments are armed for recording. You need to arm an instrument before "
 "you can begin recording."
 msgstr ""
 
-#: ../../Jokosher.py:338
+#: ../../JokosherApp.py:352
 msgid ""
 "No channels capable of recording have found, please attach a device and try "
 "again."
 msgstr ""
 
-#: ../../Jokosher.py:340
+#: ../../JokosherApp.py:354
 msgid ""
 "Your sound card isn't capable of recording from multiple sources at the same "
 "time. Please disarm all but one instrument."
 msgstr ""
 
-#: ../../Jokosher.py:413
+#: ../../JokosherApp.py:427
 msgid "Mixdown Project"
 msgstr "I-Mixdown ang Proyekto"
 
-#: ../../Jokosher.py:416
+#: ../../JokosherApp.py:430
 msgid "Save as file type:"
 msgstr "Ilagak ang talaksan bilang:"
 
-#: ../../Jokosher.py:452
+#: ../../JokosherApp.py:466
 #, python-format
 msgid "Mixing project to file: %s"
 msgstr ""
 
-#: ../../Jokosher.py:467
+#: ../../JokosherApp.py:481
 msgid "Preparing to mixdown project"
 msgstr ""
 
-#: ../../Jokosher.py:473
+#: ../../JokosherApp.py:487
 #, python-format
 msgid "%d of %d seconds completed"
 msgstr "%d ng %d na segundo ang nakumpleto na"
 
-#: ../../Jokosher.py:525
+#: ../../JokosherApp.py:543
 msgid "Choose a Jokosher project file"
 msgstr "Pumili ng talaksang proyekto ng Jokosher"
 
-#: ../../Jokosher.py:531
+#: ../../JokosherApp.py:549
 msgid "All Files"
 msgstr "Lahat ng talaksan"
 
-#: ../../Jokosher.py:535
+#: ../../JokosherApp.py:553
 msgid "Jokosher Project File (*.jokosher)"
 msgstr "Talaksang Proyekto ng Jokosher (*.jokosher)"
 
-#: ../../Jokosher.py:571
+#: ../../JokosherApp.py:589
 msgid "Choose a location to save the project"
 msgstr "Pumili ng lokasyon kung saan ilalagak ang proyekto"
 
-#: ../../Jokosher.py:606
+#: ../../JokosherApp.py:624
 #, python-format
 msgid ""
 "<span size='large' weight='bold'>Save changes to project \"%s\" before "
@@ -502,54 +546,54 @@ msgid ""
 "Your changes will be lost if you don't save them."
 msgstr ""
 
-#: ../../Jokosher.py:615
+#: ../../JokosherApp.py:633
 msgid "Close _Without Saving"
 msgstr ""
 
-#: ../../Jokosher.py:660
+#: ../../JokosherApp.py:678
 #, python-format
 msgid "*%s - Jokosher"
 msgstr "*%s - Jokosher"
 
-#: ../../Jokosher.py:662
+#: ../../JokosherApp.py:680
 #, python-format
 msgid "%s - Jokosher"
 msgstr "%s - Jokosher"
 
-#: ../../Jokosher.py:868
+#: ../../JokosherApp.py:886
 msgid "Jokosher"
 msgstr "Jokosher"
 
-#: ../../Jokosher.py:957
+#: ../../JokosherApp.py:982
 msgid "The project references non-existant files:\n"
 msgstr ""
 
-#: ../../Jokosher.py:961
+#: ../../JokosherApp.py:986
 msgid ""
 "\n"
 "The project references non-existant images:\n"
 msgstr ""
 
-#: ../../Jokosher.py:969
+#: ../../JokosherApp.py:994
 #, python-format
 msgid ""
 "%s\n"
 " Invalid or corrupt project file, will not open."
 msgstr ""
 
-#: ../../Jokosher.py:994
+#: ../../JokosherApp.py:1019
 msgid "You must have Gstreamer version 0.10.9 or higher.\n"
 msgstr "Kailangan mo ng Gstreamer bersiyon 0.10.9 pataas.\n"
 
-#: ../../Jokosher.py:1002
+#: ../../JokosherApp.py:1027
 msgid "You must have Gstreamer plugin gnonlin version 0.10.4.2 or later.\n"
 msgstr "Kailangan mo ang Gstreamer plugin gnolin bersiyon 0.10.4.2 pataas.\n"
 
-#: ../../Jokosher.py:1004
+#: ../../JokosherApp.py:1029
 msgid "Gstreamer plugin gnonlin is not installed."
 msgstr "Ang Gstreamer plugin gnolin ay hindi naka luklok."
 
-#: ../../Jokosher.py:1005
+#: ../../JokosherApp.py:1030
 msgid ""
 "\n"
 "See http://jokosher.org/trac/wiki/GettingJokosher for more details.\n"
@@ -558,8 +602,14 @@ msgstr ""
 "Pumunta sa http://jokosher.org/trac/wiki/GettingJokosher para sa mga "
 "detalye.\n"
 
-#: ../../Jokosher.py:1011
-#, fuzzy
+#: ../../JokosherApp.py:1033
+msgid ""
+"You must have the Gstreamer plugin packs gst-plugins-base and gst-plugins-"
+"good installed.\n"
+msgstr ""
+
+#: ../../JokosherApp.py:1039
+#, fuzzy, python-format
 msgid ""
 "<big>Some functionality will not work correctly or at all.</big>\n"
 "\n"
@@ -569,7 +619,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../../Jokosher.py:1032
+#: ../../JokosherApp.py:1060
 msgid ""
 "<big>Notes about this release</big>\n"
 "\n"
@@ -578,30 +628,30 @@ msgid ""
 "that is not present."
 msgstr ""
 
-#: ../../Jokosher.py:1056
+#: ../../JokosherApp.py:1084
 #, python-format
 msgid "The uri scheme '%s' is either invalid or not supported."
 msgstr ""
 
-#: ../../Jokosher.py:1058
+#: ../../JokosherApp.py:1086
 #, python-format
 msgid "Unable to unzip the project file %s"
 msgstr ""
 
-#: ../../Jokosher.py:1060
+#: ../../JokosherApp.py:1088
 #, python-format
 msgid "The project file was created with version \"%s\" of Jokosher.\n"
 msgstr "Ang talaksang proyekto ay binuo sa bersiyon \"%s\" ng Jokosher.\n"
 
-#: ../../Jokosher.py:1061
+#: ../../JokosherApp.py:1089
 #, python-format
 msgid "Projects from version \"%s\" are incompatible with this release.\n"
 msgstr ""
 "Ang mga proyektong mula sa bersiyon \"%s\" ay hindi akma para sa labas na "
 "ito.\n"
 
-#: ../../Jokosher.py:1063
-#, fuzzy
+#: ../../JokosherApp.py:1091
+#, fuzzy, python-format
 msgid ""
 "The project:\n"
 "%s\n"
@@ -613,7 +663,7 @@ msgstr ""
 "\n"
 "ay hindi umiiral.\n"
 
-#: ../../Jokosher.py:1065
+#: ../../JokosherApp.py:1093
 msgid "The project file could not be opened.\n"
 msgstr "Ang talaksang proyekto ay hindi mabuksan.\n"
 
@@ -621,15 +671,19 @@ msgstr "Ang talaksang proyekto ay hindi mabuksan.\n"
 msgid "Master Volume"
 msgstr "Master Volume"
 
-#: ../../NewProjectDialog.py:66
+#: ../../MixerStrip.py:36
+msgid "Minimize instrument"
+msgstr ""
+
+#: ../../NewProjectDialog.py:77
 msgid "Unknown Author"
 msgstr "Hindi kilala ang May-Katha"
 
-#: ../../NewProjectDialog.py:76
+#: ../../NewProjectDialog.py:87
 msgid "Could not initialize project."
 msgstr "Hindi masimulan ang proyekto."
 
-#: ../../NewProjectDialog.py:78
+#: ../../NewProjectDialog.py:89
 msgid ""
 "A file or folder with this name already exists. Please choose a different "
 "project name and try again."
@@ -637,19 +691,19 @@ msgstr ""
 "Mayroon nang talaksan o polder na may kaparehong pangalan. Pumili ng ibang "
 "pangalan ng proyekto ang subukan muli."
 
-#: ../../NewProjectDialog.py:80
+#: ../../NewProjectDialog.py:91
 msgid "The file or folder location is write-protected."
 msgstr "Ang kinalalagyan ng talaksan o polder ay hindi maaring sulatan."
 
-#: ../../NewProjectDialog.py:82
+#: ../../NewProjectDialog.py:93
 msgid "Invalid name or author."
 msgstr "Hindi akma na pangalan o may-katha."
 
-#: ../../NewProjectDialog.py:84
+#: ../../NewProjectDialog.py:95
 msgid "The uri scheme given is either invalid or not supported"
 msgstr ""
 
-#: ../../NewProjectDialog.py:90
+#: ../../NewProjectDialog.py:102
 #, python-format
 msgid ""
 "Unable to create project.\n"
@@ -702,21 +756,33 @@ msgid "Electric Guitar"
 msgstr "Gitarang Di-kuryente"
 
 #: i18n.instr.h:9
+msgid "Harmonica"
+msgstr ""
+
+#: i18n.instr.h:10
 msgid "Keyboard"
 msgstr "Teklado"
 
-#: i18n.instr.h:10
+#: i18n.instr.h:11
 msgid "Other"
 msgstr "Iba pa"
 
-#: i18n.instr.h:11
+#: i18n.instr.h:12
 msgid "Snare"
 msgstr "Snare"
 
-#: i18n.instr.h:12
+#: i18n.instr.h:13
 msgid "Tom Tom"
 msgstr "Tom Tom"
 
-#: i18n.instr.h:13
+#: i18n.instr.h:14
+msgid "Trumpet"
+msgstr ""
+
+#: i18n.instr.h:15
+msgid "Violin"
+msgstr ""
+
+#: i18n.instr.h:16
 msgid "Vocal"
 msgstr "Boses"

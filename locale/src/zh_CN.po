@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: jokosher\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2006-08-04 01:40-0400\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-08-23 17:11-0400\n"
 "PO-Revision-Date: 2006-08-15 23:28+0000\n"
 "Last-Translator: daave <fan.d.liu@gmail.com>\n"
 "Language-Team: Chinese (China) <zh_CN@li.org>\n"
@@ -84,7 +84,9 @@ msgstr "文档"
 msgid ""
 "<b>Jokosher is an Open Source project that is driven by a community of "
 "contributors. To make Jokosher rock, we need your help!</b>"
-msgstr "Jokosher是由一个社区支持的开放源码的项目。为了使Jokosher更棒，我们需要你的帮助！"
+msgstr ""
+"Jokosher是由一个社区支持的开放源码的项目。为了使Jokosher更棒，我们需要你的帮"
+"助！"
 
 #: ../../Jokosher.glade.h:20
 #, fuzzy
@@ -211,7 +213,7 @@ msgstr "混音中"
 msgid "Mixing Project"
 msgstr "混合项目"
 
-#: ../../Jokosher.glade.h:45 ../../NewProjectDialog.py:62
+#: ../../Jokosher.glade.h:45 ../../NewProjectDialog.py:73
 #, fuzzy
 msgid "New Project"
 msgstr "新项目"
@@ -388,58 +390,70 @@ msgid "_Edit"
 msgstr "_E编辑"
 
 #: ../../Jokosher.glade.h:81
+msgid "_Extensions"
+msgstr ""
+
+#: ../../Jokosher.glade.h:82
 #, fuzzy
 msgid "_File"
 msgstr "_F文件"
 
-#: ../../Jokosher.glade.h:82
+#: ../../Jokosher.glade.h:83
 #, fuzzy
 msgid "_Help"
 msgstr "_H帮助"
 
-#: ../../Jokosher.glade.h:83
+#: ../../Jokosher.glade.h:84
+msgid "_Manage Extensions"
+msgstr ""
+
+#: ../../Jokosher.glade.h:85
 #, fuzzy
 msgid "_Mixdown Project"
 msgstr "_M项目混音"
 
-#: ../../Jokosher.glade.h:84
+#: ../../Jokosher.glade.h:86
 #, fuzzy
 msgid "_Project"
 msgstr "_P项目"
 
-#: ../../Jokosher.glade.h:86
+#: ../../Jokosher.glade.h:87
+msgid "foo"
+msgstr ""
+
+#: ../../Jokosher.glade.h:89
 #, fuzzy
 msgid "translator-credits"
 msgstr "翻译者-感谢"
 
-#: ../../CompactMixView.py:130
+#: ../../CompactMixView.py:83
 #, fuzzy
 msgid "<b>Instruments Not Shown:</b>"
 msgstr "<b>没有显示出来的乐器：</b>"
 
-#: ../../EventLaneViewer.py:133
+#: ../../EventLaneViewer.py:145
 #, fuzzy
 msgid "Import Audio File..."
 msgstr "导入音频文件..."
 
-#: ../../EventLaneViewer.py:135
+#: ../../EventLaneViewer.py:147
 msgid "Paste"
 msgstr "粘贴"
 
-#: ../../EventLaneViewer.py:136 ../../EventViewer.py:472
+#: ../../EventLaneViewer.py:148 ../../EventViewer.py:472
 msgid "Delete"
 msgstr "删除"
 
-#: ../../EventLaneViewer.py:167
+#: ../../EventLaneViewer.py:179
 msgid "<b>Right-click</b> for more options."
 msgstr "<b>右键点击</b>更多选项。"
 
-#: ../../EventLaneViewer.py:187
+#: ../../EventLaneViewer.py:199
 #, fuzzy
 msgid "Copy file to project"
 msgstr "拷贝文件到项目"
 
-#: ../../EventLaneViewer.py:190
+#: ../../EventLaneViewer.py:204
 #, fuzzy
 msgid "Import file..."
 msgstr "导入文件..."
@@ -488,92 +502,126 @@ msgstr "剪切"
 msgid "Copy"
 msgstr "复制"
 
+#: ../../EventViewer.py:624
+#, python-format
+msgid ""
+"%s\n"
+"\n"
+"File is corrupt, not an audio file, or the associated plugin is not installed"
+msgstr ""
+
 #: ../../InstrumentConnectionsDialog.py:42
 #, fuzzy
 msgid "There are no instruments to connect"
 msgstr "没有连接的乐器"
 
-#: ../../InstrumentViewer.py:240
+#: ../../InstrumentViewer.py:97 ../../MixerStrip.py:53
+msgid "Enable this instrument for recording"
+msgstr ""
+
+#: ../../InstrumentViewer.py:103
+msgid "Mute - silence this instrument"
+msgstr ""
+
+#: ../../InstrumentViewer.py:110 ../../MixerStrip.py:65
+msgid "Solo - silence all other instruments"
+msgstr ""
+
+#: ../../InstrumentViewer.py:117
+msgid "Instrument Effects"
+msgstr ""
+
+#: ../../InstrumentViewer.py:222 ../../MixerStrip.py:127
+msgid "Muted"
+msgstr ""
+
+#: ../../InstrumentViewer.py:225 ../../MixerStrip.py:130
+msgid "Unmuted"
+msgstr ""
+
+#: ../../InstrumentViewer.py:276
 #, fuzzy
 msgid "Instrument Effects..."
 msgstr "乐器效果..."
 
-#: ../../Jokosher.py:284
-#, fuzzy
+#: ../../JokosherApp.py:298
+#, fuzzy, python-format
 msgid ""
 "The instruments '%s' and '%s' both have the same input selected (%s). Please "
 "either disarm one, or connect it to a different input through 'Project -> "
 "Instrument Connections'"
-msgstr "乐器'%s'和'%s'有选择了相同的输入(%s)。请或者除去一个，或者用‘项目->乐器连接’来将其连接到一个不同的输入。"
+msgstr ""
+"乐器'%s'和'%s'有选择了相同的输入(%s)。请或者除去一个，或者用‘项目->乐器连"
+"接’来将其连接到一个不同的输入。"
 
-#: ../../Jokosher.py:307
+#: ../../JokosherApp.py:321
 #, fuzzy
 msgid ""
 "No instruments are armed for recording. You need to arm an instrument before "
 "you can begin recording."
 msgstr "没有连接乐器来录音。你需要在录音前连接一件乐器。"
 
-#: ../../Jokosher.py:338
+#: ../../JokosherApp.py:352
 #, fuzzy
 msgid ""
 "No channels capable of recording have found, please attach a device and try "
 "again."
 msgstr "没有发现能够录音的频道，请连接一件设备并重试。"
 
-#: ../../Jokosher.py:340
+#: ../../JokosherApp.py:354
 #, fuzzy
 msgid ""
 "Your sound card isn't capable of recording from multiple sources at the same "
 "time. Please disarm all but one instrument."
 msgstr "你的声卡不能同时录制多个源。请只连接一件乐器。"
 
-#: ../../Jokosher.py:413
+#: ../../JokosherApp.py:427
 #, fuzzy
 msgid "Mixdown Project"
 msgstr "混音项目"
 
-#: ../../Jokosher.py:416
+#: ../../JokosherApp.py:430
 #, fuzzy
 msgid "Save as file type:"
 msgstr "另存为文件类型："
 
-#: ../../Jokosher.py:452
-#, fuzzy
+#: ../../JokosherApp.py:466
+#, fuzzy, python-format
 msgid "Mixing project to file: %s"
 msgstr "混音项目到文件：%s"
 
-#: ../../Jokosher.py:467
+#: ../../JokosherApp.py:481
 #, fuzzy
 msgid "Preparing to mixdown project"
 msgstr "正在准备混音项目"
 
-#: ../../Jokosher.py:473
-#, fuzzy
+#: ../../JokosherApp.py:487
+#, fuzzy, python-format
 msgid "%d of %d seconds completed"
 msgstr "%d/%d秒已完成"
 
-#: ../../Jokosher.py:525
+#: ../../JokosherApp.py:543
 #, fuzzy
 msgid "Choose a Jokosher project file"
 msgstr "选择一个Jokosher项目文件"
 
-#: ../../Jokosher.py:531
+#: ../../JokosherApp.py:549
 #, fuzzy
 msgid "All Files"
 msgstr "所以文件"
 
-#: ../../Jokosher.py:535
+#: ../../JokosherApp.py:553
 #, fuzzy
 msgid "Jokosher Project File (*.jokosher)"
 msgstr "Jokosher项目文件(*.jokosher)"
 
-#: ../../Jokosher.py:571
+#: ../../JokosherApp.py:589
 #, fuzzy
 msgid "Choose a location to save the project"
 msgstr "选择位置来保存项目"
 
-#: ../../Jokosher.py:606
-#, fuzzy
+#: ../../JokosherApp.py:624
+#, fuzzy, python-format
 msgid ""
 "<span size='large' weight='bold'>Save changes to project \"%s\" before "
 "closing?</span>\n"
@@ -584,32 +632,32 @@ msgstr ""
 "\n"
 "如不保存，更改会丢失。"
 
-#: ../../Jokosher.py:615
+#: ../../JokosherApp.py:633
 #, fuzzy
 msgid "Close _Without Saving"
 msgstr "_W关闭不保存"
 
-#: ../../Jokosher.py:660
-#, fuzzy
+#: ../../JokosherApp.py:678
+#, fuzzy, python-format
 msgid "*%s - Jokosher"
 msgstr "*%s - Jokosher"
 
-#: ../../Jokosher.py:662
-#, fuzzy
+#: ../../JokosherApp.py:680
+#, fuzzy, python-format
 msgid "%s - Jokosher"
 msgstr "%s - Jokosher"
 
-#: ../../Jokosher.py:868
+#: ../../JokosherApp.py:886
 #, fuzzy
 msgid "Jokosher"
 msgstr "Jokosher"
 
-#: ../../Jokosher.py:957
+#: ../../JokosherApp.py:982
 #, fuzzy
 msgid "The project references non-existant files:\n"
 msgstr "项目参考不存在的文件：\n"
 
-#: ../../Jokosher.py:961
+#: ../../JokosherApp.py:986
 #, fuzzy
 msgid ""
 "\n"
@@ -618,8 +666,8 @@ msgstr ""
 "\n"
 "项目参考不存在的图片：\n"
 
-#: ../../Jokosher.py:969
-#, fuzzy
+#: ../../JokosherApp.py:994
+#, fuzzy, python-format
 msgid ""
 "%s\n"
 " Invalid or corrupt project file, will not open."
@@ -627,22 +675,22 @@ msgstr ""
 "%s\n"
 " 非法或已破坏的项目文件，不能打开。"
 
-#: ../../Jokosher.py:994
+#: ../../JokosherApp.py:1019
 #, fuzzy
 msgid "You must have Gstreamer version 0.10.9 or higher.\n"
 msgstr "必需Gstreamer 0.10.9或更高版本。\n"
 
-#: ../../Jokosher.py:1002
+#: ../../JokosherApp.py:1027
 #, fuzzy
 msgid "You must have Gstreamer plugin gnonlin version 0.10.4.2 or later.\n"
 msgstr "必需Gstreamer插件gnonlin 0.10.4.2或更高版本。\n"
 
-#: ../../Jokosher.py:1004
+#: ../../JokosherApp.py:1029
 #, fuzzy
 msgid "Gstreamer plugin gnonlin is not installed."
 msgstr "Gstreamer插件gnonlin没有安装。"
 
-#: ../../Jokosher.py:1005
+#: ../../JokosherApp.py:1030
 #, fuzzy
 msgid ""
 "\n"
@@ -651,8 +699,14 @@ msgstr ""
 "\n"
 "查看详情： http://jokosher.org/trac/wiki/GettingJokosher\n"
 
-#: ../../Jokosher.py:1011
-#, fuzzy
+#: ../../JokosherApp.py:1033
+msgid ""
+"You must have the Gstreamer plugin packs gst-plugins-base and gst-plugins-"
+"good installed.\n"
+msgstr ""
+
+#: ../../JokosherApp.py:1039
+#, fuzzy, python-format
 msgid ""
 "<big>Some functionality will not work correctly or at all.</big>\n"
 "\n"
@@ -662,7 +716,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../../Jokosher.py:1032
+#: ../../JokosherApp.py:1060
 #, fuzzy
 msgid ""
 "<big>Notes about this release</big>\n"
@@ -673,30 +727,31 @@ msgid ""
 msgstr ""
 "<big>本发行版注意事项</big>\n"
 "\n"
-"本版Jokosher（0.1）为预发行版，并且是事实上我们的第一个发行版。因此，你可能会遭遇到一些错误或者尚不存在的功能。"
+"本版Jokosher（0.1）为预发行版，并且是事实上我们的第一个发行版。因此，你可能会"
+"遭遇到一些错误或者尚不存在的功能。"
 
-#: ../../Jokosher.py:1056
-#, fuzzy
+#: ../../JokosherApp.py:1084
+#, fuzzy, python-format
 msgid "The uri scheme '%s' is either invalid or not supported."
 msgstr "这个uri scheme '%s' 非法活不被支持。"
 
-#: ../../Jokosher.py:1058
-#, fuzzy
+#: ../../JokosherApp.py:1086
+#, fuzzy, python-format
 msgid "Unable to unzip the project file %s"
 msgstr "不能unzip项目文件 %s"
 
-#: ../../Jokosher.py:1060
-#, fuzzy
+#: ../../JokosherApp.py:1088
+#, fuzzy, python-format
 msgid "The project file was created with version \"%s\" of Jokosher.\n"
 msgstr "这个项目文件是由Jokosher \"%s\"版创建。\n"
 
-#: ../../Jokosher.py:1061
-#, fuzzy
+#: ../../JokosherApp.py:1089
+#, fuzzy, python-format
 msgid "Projects from version \"%s\" are incompatible with this release.\n"
 msgstr "\"%s\"版创建的项目和本发行版不兼容。\n"
 
-#: ../../Jokosher.py:1063
-#, fuzzy
+#: ../../JokosherApp.py:1091
+#, fuzzy, python-format
 msgid ""
 "The project:\n"
 "%s\n"
@@ -708,7 +763,7 @@ msgstr ""
 "\n"
 "不存在。\n"
 
-#: ../../Jokosher.py:1065
+#: ../../JokosherApp.py:1093
 #, fuzzy
 msgid "The project file could not be opened.\n"
 msgstr "项目文件打不开。\n"
@@ -718,40 +773,44 @@ msgstr "项目文件打不开。\n"
 msgid "Master Volume"
 msgstr "主音量"
 
-#: ../../NewProjectDialog.py:66
+#: ../../MixerStrip.py:36
+msgid "Minimize instrument"
+msgstr ""
+
+#: ../../NewProjectDialog.py:77
 #, fuzzy
 msgid "Unknown Author"
 msgstr "未知作者"
 
-#: ../../NewProjectDialog.py:76
+#: ../../NewProjectDialog.py:87
 #, fuzzy
 msgid "Could not initialize project."
 msgstr "不能初始化项目。"
 
-#: ../../NewProjectDialog.py:78
+#: ../../NewProjectDialog.py:89
 #, fuzzy
 msgid ""
 "A file or folder with this name already exists. Please choose a different "
 "project name and try again."
 msgstr "同名的文件或文件夹已存在。请选择不同的项目名称并重试。"
 
-#: ../../NewProjectDialog.py:80
+#: ../../NewProjectDialog.py:91
 #, fuzzy
 msgid "The file or folder location is write-protected."
 msgstr "此文件或文件夹已被写保护。"
 
-#: ../../NewProjectDialog.py:82
+#: ../../NewProjectDialog.py:93
 #, fuzzy
 msgid "Invalid name or author."
 msgstr "非法的名称或作者。"
 
-#: ../../NewProjectDialog.py:84
+#: ../../NewProjectDialog.py:95
 #, fuzzy
 msgid "The uri scheme given is either invalid or not supported"
 msgstr "给定的uri scheme非法或不被支持。"
 
-#: ../../NewProjectDialog.py:90
-#, fuzzy
+#: ../../NewProjectDialog.py:102
+#, fuzzy, python-format
 msgid ""
 "Unable to create project.\n"
 "\n"
@@ -767,7 +826,7 @@ msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"
 msgstr "<b>拖动滑杆</b>来改变音量水平。"
 
 #: ../../VUWidget.py:163
-#, fuzzy
+#, fuzzy, python-format
 msgid "Volume: %.2f"
 msgstr "音量：%.2f"
 
@@ -812,26 +871,38 @@ msgid "Electric Guitar"
 msgstr "电吉他"
 
 #: i18n.instr.h:9
+msgid "Harmonica"
+msgstr ""
+
+#: i18n.instr.h:10
 #, fuzzy
 msgid "Keyboard"
 msgstr "键盘"
 
-#: i18n.instr.h:10
+#: i18n.instr.h:11
 #, fuzzy
 msgid "Other"
 msgstr "其它"
 
-#: i18n.instr.h:11
+#: i18n.instr.h:12
 #, fuzzy
 msgid "Snare"
 msgstr "军鼓"
 
-#: i18n.instr.h:12
+#: i18n.instr.h:13
 #, fuzzy
 msgid "Tom Tom"
 msgstr "筒鼓"
 
-#: i18n.instr.h:13
+#: i18n.instr.h:14
+msgid "Trumpet"
+msgstr ""
+
+#: i18n.instr.h:15
+msgid "Violin"
+msgstr ""
+
+#: i18n.instr.h:16
 #, fuzzy
 msgid "Vocal"
 msgstr "人声"
