@@ -11,7 +11,7 @@ PLUGIN_DIRS = [PLUGIN_DIR_USER, '/usr/lib/jokosher/extensions/']
 # add your own plugin dirs with envar JOKOSHER_PLUGIN_DIRS, colon-separated
 OVERRIDE_PLUGIN_DIRS = os.environ.get('JOKOSHER_EXTENSION_DIRS','')
 if OVERRIDE_PLUGIN_DIRS:
-  PLUGIN_DIRS = OVERRIDE_PLUGIN_DIRS.split(':') + PLUGIN_DIRS
+	PLUGIN_DIRS = OVERRIDE_PLUGIN_DIRS.split(':') + PLUGIN_DIRS
 PREFERRED_PLUGIN_DIR = PLUGIN_DIRS[0]
 
 RESP_INSTALL = 9999
@@ -22,12 +22,12 @@ RESP_REPLACE = 9998
 import inspect
 plugin_that_imported_me = inspect.currentframe().f_back
 try:
-  thing_that_imported_plugin = plugin_that_imported_me.f_back 
+	thing_that_imported_plugin = plugin_that_imported_me.f_back 
 except:
-  pass
+	thing_that_imported_plugin = None
 	
 if thing_that_imported_plugin is None and \
- os.path.split(plugin_that_imported_me.f_code.co_filename)[1] != 'JokosherApp.py':
+			os.path.split(plugin_that_imported_me.f_code.co_filename)[1] != 'JokosherApp.py':
 	# the plugin is being run directly; pop up the error 
 	try:
 		import gtk
@@ -35,8 +35,7 @@ if thing_that_imported_plugin is None and \
 		# no Gtk either! Print a message and die
 		import sys
 		print "This is a Jokosher plugin; it is not meant to be run directly."
-		print "To install it, move it to the directory %s\nand run Jokosher." % (
-		  PLUGIN_DIR_LOCAL)
+		print "To install it, move it to the directory %s\nand run Jokosher." % (PLUGIN_DIR_LOCAL)
 		sys.exit(1)
 	d = gtk.MessageDialog(message_format="This is a Jokosher plugin, which needs "+\
 	                      "to be installed. Would you like to install it?",
@@ -51,9 +50,9 @@ if thing_that_imported_plugin is None and \
 		new_plugin_path_and_file = os.path.join(PREFERRED_PLUGIN_DIR,plugin_file_name)
 		if os.path.exists(new_plugin_path_and_file):
 			d = gtk.MessageDialog(message_format="You already have a plugin with "+\
-		                       "the name %s installed; would you like to " +\
-		                       "replace it?" % os.path.splitext(plugin_file_name)[0],
-		                       type=gtk.MESSAGE_QUESTION)
+					"the name %s installed; would you like to " +\
+					"replace it?" % os.path.splitext(plugin_file_name)[0],
+					type=gtk.MESSAGE_QUESTION)
 			d.add_buttons(gtk.STOCK_CANCEL,gtk.RESPONSE_CANCEL,'Replace',RESP_REPLACE)
 			d.set_default_response(RESP_REPLACE)
 			ret = d.run()
@@ -89,23 +88,26 @@ class ExtensionAPI:
 
 
 def LoadAllExtensions():
-	for d in PLUGIN_DIRS:
-		if not os.path.isdir(d): continue
-		for f in os.listdir(d):
-			fn,ext = os.path.splitext(f)
+	for dir in PLUGIN_DIRS:
+		if not os.path.isdir(dir):
+			continue
+		for f in os.listdir(dir):
+			fn, ext = os.path.splitext(f)
 			if ext == ".py":
-				print "importing extension",f,
-				fil, filename, description = imp.find_module(fn, [d])
+				print "importing extension", f,
+				file, filename, description = imp.find_module(fn, [dir])
+				
 				try:
-					try:
-						m = imp.load_module(fn, fil, filename, description)
-						print "done."
-					except:
-						print "failed."
-				finally:
-					if fil: fil.close()
+					module = imp.load_module(fn, file, filename, description)
+					print "done."
+				except:
+					print "failed."
+				
+				if file:
+					file.close()
+				
 				try:
-					m.startup(API)
+					module.startup(API)
 				except:
 					pass
 		
