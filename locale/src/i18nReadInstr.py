@@ -27,11 +27,11 @@ for path in sys.argv[1:]:
 			continue
 		
 		config.read(path)
-		if not config.has_option("i18n", "en_GB"):
-			sys.stderr.write("No en_GB option in %s\n" % path)
+		if not config.has_option("i18n", "en"):
+			sys.stderr.write("No en option in %s\n" % path)
 			continue
 		
-		listOfEnglishStrings.append(config.get("i18n", "en_GB"))
+		listOfEnglishStrings.append(config.get("i18n", "en"))
 		
 for string in listOfEnglishStrings:
 	print StringTemplate % string

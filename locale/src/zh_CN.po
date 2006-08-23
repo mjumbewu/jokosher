@@ -1,31 +1,34 @@
-# Russian translations for Jokosher package.
-# Copyright (C) 2006 THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the Jokosher package.
-# Artem Popov <artfwo@gmail.com>, 2006.
+# Chinese (China) translation for jokosher
+# Copyright (c) (c) 2006 Canonical Ltd, and Rosetta Contributors 2006
+# This file is distributed under the same license as the jokosher package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2006.
 #
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Jokosher HEAD\n"
-"Report-Msgid-Bugs-To:\n"
+"Project-Id-Version: jokosher\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2006-08-04 01:40-0400\n"
-"PO-Revision-Date: 2006-08-16 02:16+0000\n"
-"Last-Translator: Артём Попов <artfwo@gmail.com>\n"
-"Language-Team: Russian <ru@li.org>\n"
+"PO-Revision-Date: 2006-08-15 23:28+0000\n"
+"Last-Translator: daave <fan.d.liu@gmail.com>\n"
+"Language-Team: Chinese (China) <zh_CN@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../../Jokosher.glade.h:1
+#, fuzzy
 msgid ""
 "16 bit\n"
 "24 bit\n"
 "32 bit"
 msgstr ""
-"16 бит\n"
-"24 бита\n"
-"32 бита"
+"16位\n"
+"24位\n"
+"32位"
 
 #: ../../Jokosher.glade.h:4
+#, fuzzy
 msgid ""
 "96000\n"
 "48000\n"
@@ -48,544 +51,619 @@ msgstr ""
 "8000"
 
 #: ../../Jokosher.glade.h:13
+#, fuzzy
 msgid "<b>Application Start-up</b>"
-msgstr "<b>Запуск приложения</b>"
+msgstr "应用程序启动"
 
 #: ../../Jokosher.glade.h:14
 msgid "<b>Art</b>"
-msgstr "<b>Графика</b>"
+msgstr "艺术"
 
 #: ../../Jokosher.glade.h:15
+#, fuzzy
 msgid "<b>Audio Mixdown</b>"
-msgstr "<b>Сведение</b>"
+msgstr "混音"
 
 #: ../../Jokosher.glade.h:16
+#, fuzzy
 msgid "<b>Audio Quality</b>"
-msgstr "<b>Качество сигнала</b>"
+msgstr "音频质量"
 
 #: ../../Jokosher.glade.h:17
+#, fuzzy
 msgid "<b>Coding</b>"
-msgstr "<b>Программирование</b>"
+msgstr "编码"
 
 #: ../../Jokosher.glade.h:18
+#, fuzzy
 msgid "<b>Documentation</b>"
-msgstr "<b>Документация</b>"
+msgstr "文档"
 
 #: ../../Jokosher.glade.h:19
+#, fuzzy
 msgid ""
 "<b>Jokosher is an Open Source project that is driven by a community of "
 "contributors. To make Jokosher rock, we need your help!</b>"
-msgstr ""
-"<b>Jokosher - это проект с открытым исходным кодом, создаваемый сообществом "
-"добровольцев. Вы могли бы помочь нам сделать Jokosher лучше!</b>"
+msgstr "Jokosher是由一个社区支持的开放源码的项目。为了使Jokosher更棒，我们需要你的帮助！"
 
 #: ../../Jokosher.glade.h:20
+#, fuzzy
 msgid "<b>Quality</b>"
-msgstr "<b>Качество</b>"
+msgstr "质量"
 
 #: ../../Jokosher.glade.h:21
+#, fuzzy
 msgid "<b>Recent Projects</b>"
-msgstr "<b>Последние проекты</b>"
+msgstr "<b>近期项目</b>"
 
 #: ../../Jokosher.glade.h:22
+#, fuzzy
 msgid "<b>Testing</b>"
-msgstr "<b>Тестирование</b>"
+msgstr "<b>测试</b>"
 
 #: ../../Jokosher.glade.h:23
+#, fuzzy
 msgid ""
 "<b>To find out more, visit:</b>\n"
 "http://www.jokosher.org/contribute"
 msgstr ""
-"<b>Если хотите узнать больше, посетите:</b>\n"
+"<b>更多信息，访问：</b>\n"
 "http://www.jokosher.org/contribute"
 
 #: ../../Jokosher.glade.h:25
+#, fuzzy
 msgid "Add Instrument"
-msgstr "Добавить инструмент"
+msgstr "添加乐器"
 
 #: ../../Jokosher.glade.h:26
+#, fuzzy
 msgid "Add an instrument"
-msgstr "Добавить инструмент"
+msgstr "添加一件乐器"
 
 #: ../../Jokosher.glade.h:27
+#, fuzzy
 msgid "Audio production made simple."
-msgstr "Аудио-продукция - это просто."
+msgstr "简单化的音频生产"
 
 #: ../../Jokosher.glade.h:28
+#, fuzzy
 msgid "Author"
-msgstr "Автор"
+msgstr "作者"
 
 #: ../../Jokosher.glade.h:29
+#, fuzzy
 msgid "Browse for an Existing Project"
-msgstr "Открыть существующий проект"
+msgstr "浏览一个已经存在的项目"
 
 #: ../../Jokosher.glade.h:30
+#, fuzzy
 msgid "Choose one or more instruments to add to your project."
-msgstr "Выберите один или несколько инструментов для добавления к проекту."
+msgstr "选择一件或多件乐器添加到你的项目中"
 
 #: ../../Jokosher.glade.h:31
+#, fuzzy
 msgid "Configure Instrument Effects"
-msgstr "Настройка эффектов инструмента"
+msgstr "配置乐器效果"
 
 #: ../../Jokosher.glade.h:32
+#, fuzzy
 msgid "Contributing to Jokosher"
-msgstr "Как стать участником проекта Jokosher"
+msgstr "向Jokosher作贡献"
 
 #: ../../Jokosher.glade.h:33
+#, fuzzy
 msgid "Create a New Project"
-msgstr "Создать новый проект"
+msgstr "创建一个新的项目"
 
 #: ../../Jokosher.glade.h:34
+#, fuzzy
 msgid "Device"
-msgstr "Устройство"
+msgstr "设备"
 
 #: ../../Jokosher.glade.h:35
+#, fuzzy
 msgid "Don't open anything"
-msgstr "Не открывать ничего"
+msgstr "不要打开任何东西"
 
 #: ../../Jokosher.glade.h:36
+#, fuzzy
 msgid "Don't show this on start-up"
-msgstr "Не показывать этот диалог при запуске"
+msgstr "不要在启动时显示这个"
 
 #: ../../Jokosher.glade.h:37
+#, fuzzy
 msgid "Drawing icons, images and other art."
-msgstr "Создание иконок, изображений и прочей графики."
+msgstr "正在绘图图标、图片和其它美术品。"
 
 #: ../../Jokosher.glade.h:38
+#, fuzzy
 msgid ""
 "Enter a name for your project and select a folder to store the project in:"
-msgstr ""
-"Введите название вашего проекта и выберите папку, в которой он будет "
-"храниться:"
+msgstr "输入项目名称并选择存放文件夹。"
 
 #: ../../Jokosher.glade.h:39
+#, fuzzy
 msgid "Files Saves As"
-msgstr "Файлы сохраняются в"
+msgstr "文件另存为"
 
 #: ../../Jokosher.glade.h:40
+#, fuzzy
 msgid "Folder"
-msgstr "Папка"
+msgstr "文件夹"
 
 #: ../../Jokosher.glade.h:41
+#, fuzzy
 msgid "General"
-msgstr "Общие"
+msgstr "概况"
 
 #: ../../Jokosher.glade.h:42
+#, fuzzy
 msgid "Instrument Connections"
-msgstr "Связи инструментов"
+msgstr "乐器连接"
 
 #: ../../Jokosher.glade.h:43
+#, fuzzy
 msgid "Mixing"
-msgstr "Сведение"
+msgstr "混音中"
 
 #: ../../Jokosher.glade.h:44
+#, fuzzy
 msgid "Mixing Project"
-msgstr "Сведение проекта"
+msgstr "混合项目"
 
 #: ../../Jokosher.glade.h:45 ../../NewProjectDialog.py:62
+#, fuzzy
 msgid "New Project"
-msgstr "Новый проект"
+msgstr "新项目"
 
 #: ../../Jokosher.glade.h:46
+#, fuzzy
 msgid "Open Selected Project"
-msgstr "Открыть выбранный проект"
+msgstr "打开所选的项目"
 
 #: ../../Jokosher.glade.h:47
+#, fuzzy
 msgid "Open most recent project"
-msgstr "Открывать последний проект"
+msgstr "打开最近的项目"
 
 #: ../../Jokosher.glade.h:48
+#, fuzzy
 msgid "Output Format"
-msgstr "Формат вывода"
+msgstr "输出格式"
 
 #: ../../Jokosher.glade.h:49
+#, fuzzy
 msgid "Playback"
-msgstr "Воспроизведение"
+msgstr "回放"
 
 #: ../../Jokosher.glade.h:50
+#, fuzzy
 msgid "Pre-release Notes"
-msgstr "Замечания к пред. версии"
+msgstr "预先发行版摘要"
 
 #: ../../Jokosher.glade.h:51
+#, fuzzy
 msgid "Preferences"
-msgstr "Настройки"
+msgstr "首选项"
 
 #: ../../Jokosher.glade.h:52
+#, fuzzy
 msgid "Presets"
-msgstr "Предустановки"
+msgstr "预设值"
 
 #: ../../Jokosher.glade.h:53
+#, fuzzy
 msgid "Preview"
-msgstr "Предв. просмотр"
+msgstr "预览"
 
 #: ../../Jokosher.glade.h:54
+#, fuzzy
 msgid "Project Name"
-msgstr "Название проекта"
+msgstr "项目名称"
 
 #: ../../Jokosher.glade.h:55
+#, fuzzy
 msgid "Recent Projects"
-msgstr "Последние проекты"
+msgstr "最近的项目"
 
 #: ../../Jokosher.glade.h:56
+#, fuzzy
 msgid "Recording"
-msgstr "Запись"
+msgstr "录音中"
 
 #: ../../Jokosher.glade.h:57
+#, fuzzy
 msgid "Redo"
-msgstr "Вернуть"
+msgstr "恢复"
 
 #: ../../Jokosher.glade.h:58
+#, fuzzy
 msgid "Sample Format"
-msgstr "Формат дискретизации"
+msgstr "采样格式"
 
 #: ../../Jokosher.glade.h:59
+#, fuzzy
 msgid "Sample Rate (Hz)"
-msgstr "Частота дискретизации"
+msgstr "采样率（Hz）"
 
 #: ../../Jokosher.glade.h:60
+#, fuzzy
 msgid "Search:"
-msgstr "Поиск:"
+msgstr "搜索："
 
 #: ../../Jokosher.glade.h:61
+#, fuzzy
 msgid "Select A Folder"
-msgstr "Выберите папку"
+msgstr "选择一个文件夹"
 
 #: ../../Jokosher.glade.h:62
+#, fuzzy
 msgid "Select an effect"
-msgstr "Выберите эффект"
+msgstr "选择一个效果"
 
 #: ../../Jokosher.glade.h:63
+#, fuzzy
 msgid "Select an effect to add to the instrument"
-msgstr "Выберите эффект для добавления к инструменту"
+msgstr "选择一个效果来加入到乐器中"
 
 #: ../../Jokosher.glade.h:64
+#, fuzzy
 msgid "Select an instrument, then click here to begin recording"
-msgstr "Выберите инструмент, затем кликните эту кнопку, чтобы начать запись"
+msgstr "选择一件乐器，然后点击这里开始录音"
 
 #: ../../Jokosher.glade.h:65
 msgid "Settings"
-msgstr "Установки"
+msgstr "设置"
 
 #: ../../Jokosher.glade.h:66
+#, fuzzy
 msgid "Show as Bars, Beats, Ticks"
-msgstr "Показывать такты, доли, тики"
+msgstr "显示为小节，拍子，Ticks"
 
 #: ../../Jokosher.glade.h:67
+#, fuzzy
 msgid "Show as Hours, Minutes, Seconds"
-msgstr "Показывать часы, минуты, секунды"
+msgstr "显示为小时，分钟，秒"
 
 #: ../../Jokosher.glade.h:68
+#, fuzzy
 msgid "Show welcome dialog"
-msgstr "Показывать диалог приветствия"
+msgstr "显示欢迎对话框"
 
 #: ../../Jokosher.glade.h:69
+#, fuzzy
 msgid "Testing Jokosher, and submitting bugs."
-msgstr "Тестирование и сообщение об ошибках."
+msgstr "测试Jokosher，并提交错误报告。"
 
 #: ../../Jokosher.glade.h:70
+#, fuzzy
 msgid "Time Format"
-msgstr "Формат времени"
+msgstr "时间格式"
 
 #: ../../Jokosher.glade.h:71
+#, fuzzy
 msgid "Undo"
-msgstr "Отменить"
+msgstr "撤销"
 
 #: ../../Jokosher.glade.h:72
+#, fuzzy
 msgid ""
 "Use the combo boxes below to select which input is used with which instrument"
-msgstr ""
-"Используйте поля внизу для указания, какие входы используются инструментами"
+msgstr "使用下面综合对话框选择哪件乐器使用那个输入。"
 
 #: ../../Jokosher.glade.h:73
+#, fuzzy
 msgid ""
 "Wave\n"
 "FLAC\n"
 "Ogg Vorbis"
 msgstr ""
-"Wave\n"
+"波形\n"
 "FLAC\n"
 "Ogg Vorbis"
 
 #: ../../Jokosher.glade.h:76
+#, fuzzy
 msgid "Welcome to Jokosher!"
-msgstr "Добро пожаловать в Jokosher!"
+msgstr "欢迎来到Jokosher！"
 
 #: ../../Jokosher.glade.h:77
+#, fuzzy
 msgid "Workspaces"
-msgstr "Контекст"
+msgstr "工作空间"
 
 #: ../../Jokosher.glade.h:78
+#, fuzzy
 msgid "Writing code and features in Python."
-msgstr "Написание кода и новых возможностей на языке Python."
+msgstr "用Python书写代码和特性"
 
 #: ../../Jokosher.glade.h:79
+#, fuzzy
 msgid "Writing simple to read documentation."
-msgstr "Написание доступной документации."
+msgstr "书写易读的文档"
 
 #: ../../Jokosher.glade.h:80
+#, fuzzy
 msgid "_Edit"
-msgstr "_Правка"
+msgstr "_E编辑"
 
 #: ../../Jokosher.glade.h:81
+#, fuzzy
 msgid "_File"
-msgstr "_Файл"
+msgstr "_F文件"
 
 #: ../../Jokosher.glade.h:82
+#, fuzzy
 msgid "_Help"
-msgstr "_Справка"
+msgstr "_H帮助"
 
 #: ../../Jokosher.glade.h:83
+#, fuzzy
 msgid "_Mixdown Project"
-msgstr "Свести _проект"
+msgstr "_M项目混音"
 
 #: ../../Jokosher.glade.h:84
+#, fuzzy
 msgid "_Project"
-msgstr "П_роект"
+msgstr "_P项目"
 
 #: ../../Jokosher.glade.h:86
+#, fuzzy
 msgid "translator-credits"
-msgstr "Артём Попов <artfwo@gmail.com>"
+msgstr "翻译者-感谢"
 
 #: ../../CompactMixView.py:130
+#, fuzzy
 msgid "<b>Instruments Not Shown:</b>"
-msgstr "Скрытые инструменты:"
+msgstr "<b>没有显示出来的乐器：</b>"
 
 #: ../../EventLaneViewer.py:133
+#, fuzzy
 msgid "Import Audio File..."
-msgstr "Импортировать аудио-файл..."
+msgstr "导入音频文件..."
 
 #: ../../EventLaneViewer.py:135
 msgid "Paste"
-msgstr "Вставить"
+msgstr "粘贴"
 
 #: ../../EventLaneViewer.py:136 ../../EventViewer.py:472
 msgid "Delete"
-msgstr "Удалить"
+msgstr "删除"
 
 #: ../../EventLaneViewer.py:167
 msgid "<b>Right-click</b> for more options."
-msgstr "Кликните <b>правой кнопкой мыши</b> для дополнительных функций."
+msgstr "<b>右键点击</b>更多选项。"
 
 #: ../../EventLaneViewer.py:187
+#, fuzzy
 msgid "Copy file to project"
-msgstr "Копировать файл в проект"
+msgstr "拷贝文件到项目"
 
 #: ../../EventLaneViewer.py:190
+#, fuzzy
 msgid "Import file..."
-msgstr "Импортировать файл..."
+msgstr "导入文件..."
 
 #: ../../EventViewer.py:93
+#, fuzzy
 msgid "Trim"
-msgstr "Вырезать"
+msgstr "修剪"
 
 #: ../../EventViewer.py:241
 #, python-format
 msgid "Loading (%d%%)..."
-msgstr "Загрузка (%d%%)..."
+msgstr "载入中(%d%%)..."
 
 #: ../../EventViewer.py:341
 msgid ""
 "To <b>Split, Double-Click</b> the wave - To <b>Select, Shift-Click</b> and "
 "drag the mouse"
-msgstr ""
-"Чтобы <b>разделить, дважды кликните<b> по дорожке, чтобы <b>выбрать,  "
-"кликните мышью, удерживая Shift</b> и перетащите курсор"
+msgstr "<b>分割，请双击</b>波形-<b>选择，请Shift-点击</b>并拖动鼠标"
 
 #: ../../EventViewer.py:355
+#, fuzzy
 msgid ""
 "<b>NOTE</b>: The volume sliders in this pre-release version of Jokosher do "
 "not affect the audio."
-msgstr ""
-"<b>ВНИМАНИЕ</b>: Регуляторы громкости в не работают в предварительной версии "
-"Jokosher."
+msgstr "<b>注意</b>：Jokosher的本预先发行版里音量滑杆并不影响音频。"
 
 #: ../../EventViewer.py:429
+#, fuzzy
 msgid ""
 "<b>Click</b> the buttons below the selection to do something to that portion "
 "of audio."
-msgstr ""
-"<b>Щелкните</b> кнопками мыши под выделением, чтобы сделать что-либо с "
-"данной частью дорожки."
+msgstr "<b>点击</b>所选部分音频下面的按钮来执行对此部分的操作。"
 
 #: ../../EventViewer.py:468
+#, fuzzy
 msgid "Split"
-msgstr "Разделить"
+msgstr "分割"
 
 #: ../../EventViewer.py:470
+#, fuzzy
 msgid "Cut"
-msgstr "Вырезать"
+msgstr "剪切"
 
 #: ../../EventViewer.py:471
 msgid "Copy"
-msgstr "Копировать"
+msgstr "复制"
 
 #: ../../InstrumentConnectionsDialog.py:42
+#, fuzzy
 msgid "There are no instruments to connect"
-msgstr "Нет инструментов для присоединения"
+msgstr "没有连接的乐器"
 
 #: ../../InstrumentViewer.py:240
+#, fuzzy
 msgid "Instrument Effects..."
-msgstr "Эффекты инструмента..."
+msgstr "乐器效果..."
 
 #: ../../Jokosher.py:284
-#, python-format
+#, fuzzy
 msgid ""
 "The instruments '%s' and '%s' both have the same input selected (%s). Please "
 "either disarm one, or connect it to a different input through 'Project -> "
 "Instrument Connections'"
-msgstr ""
-"Инструменты '%s' и '%s' подключены к одному и тому же входу (%s). Попробуйте "
-"оключить один из них, или присоединить его к другому входу в диалоге 'Проект "
-"-> Связи инструментов'"
+msgstr "乐器'%s'和'%s'有选择了相同的输入(%s)。请或者除去一个，或者用‘项目->乐器连接’来将其连接到一个不同的输入。"
 
 #: ../../Jokosher.py:307
+#, fuzzy
 msgid ""
 "No instruments are armed for recording. You need to arm an instrument before "
 "you can begin recording."
-msgstr ""
-"Ни один инструмент не готов для записи. Прежде чем можно будет начать "
-"запись, необходимо привести инструмент в состояние готовности."
+msgstr "没有连接乐器来录音。你需要在录音前连接一件乐器。"
 
 #: ../../Jokosher.py:338
+#, fuzzy
 msgid ""
 "No channels capable of recording have found, please attach a device and try "
 "again."
-msgstr ""
-"Не найдено каналов, пригодных для записи, присоедините устройство и "
-"попробуйте ещё раз."
+msgstr "没有发现能够录音的频道，请连接一件设备并重试。"
 
 #: ../../Jokosher.py:340
+#, fuzzy
 msgid ""
 "Your sound card isn't capable of recording from multiple sources at the same "
 "time. Please disarm all but one instrument."
-msgstr ""
-"Ваша звуковая плата не поддерживает одновременную запись с нескольких "
-"входов. Попробуйте отключить все инструменты, кроме одного."
+msgstr "你的声卡不能同时录制多个源。请只连接一件乐器。"
 
 #: ../../Jokosher.py:413
+#, fuzzy
 msgid "Mixdown Project"
-msgstr "Свести проект"
+msgstr "混音项目"
 
 #: ../../Jokosher.py:416
+#, fuzzy
 msgid "Save as file type:"
-msgstr "Сохранить в формате:"
+msgstr "另存为文件类型："
 
 #: ../../Jokosher.py:452
-#, python-format
+#, fuzzy
 msgid "Mixing project to file: %s"
-msgstr "Сведение проекта в файл: %s"
+msgstr "混音项目到文件：%s"
 
 #: ../../Jokosher.py:467
+#, fuzzy
 msgid "Preparing to mixdown project"
-msgstr "Подготовка к сведению проекта"
+msgstr "正在准备混音项目"
 
 #: ../../Jokosher.py:473
-#, python-format
+#, fuzzy
 msgid "%d of %d seconds completed"
-msgstr "%d из %d секунд выполнено"
+msgstr "%d/%d秒已完成"
 
 #: ../../Jokosher.py:525
+#, fuzzy
 msgid "Choose a Jokosher project file"
-msgstr "Выберите файл проекта Jokosher"
+msgstr "选择一个Jokosher项目文件"
 
 #: ../../Jokosher.py:531
+#, fuzzy
 msgid "All Files"
-msgstr "Все файлы"
+msgstr "所以文件"
 
 #: ../../Jokosher.py:535
+#, fuzzy
 msgid "Jokosher Project File (*.jokosher)"
-msgstr "Файлы проектов Jokosher (*.jokosher)"
+msgstr "Jokosher项目文件(*.jokosher)"
 
 #: ../../Jokosher.py:571
+#, fuzzy
 msgid "Choose a location to save the project"
-msgstr "Выберите местоположение для сохранения проекта"
+msgstr "选择位置来保存项目"
 
 #: ../../Jokosher.py:606
-#, python-format
+#, fuzzy
 msgid ""
 "<span size='large' weight='bold'>Save changes to project \"%s\" before "
 "closing?</span>\n"
 "\n"
 "Your changes will be lost if you don't save them."
 msgstr ""
-"<span size='large' weight='bold'>Сохранить изменения в проект \\\"%s\\\" "
-"перед закрытием?</span>\n"
+"<span size='large' weight='bold'>关闭前，保存更改到项目\"%s\"</span>\n"
 "\n"
-"Несохранённые изменения будут утеряны."
+"如不保存，更改会丢失。"
 
 #: ../../Jokosher.py:615
+#, fuzzy
 msgid "Close _Without Saving"
-msgstr "Закрыть _без сохранения"
+msgstr "_W关闭不保存"
 
 #: ../../Jokosher.py:660
-#, python-format
+#, fuzzy
 msgid "*%s - Jokosher"
 msgstr "*%s - Jokosher"
 
 #: ../../Jokosher.py:662
-#, python-format
+#, fuzzy
 msgid "%s - Jokosher"
 msgstr "%s - Jokosher"
 
 #: ../../Jokosher.py:868
+#, fuzzy
 msgid "Jokosher"
 msgstr "Jokosher"
 
 #: ../../Jokosher.py:957
+#, fuzzy
 msgid "The project references non-existant files:\n"
-msgstr "Проект ссылается на несуществующие файлы:\n"
+msgstr "项目参考不存在的文件：\n"
 
 #: ../../Jokosher.py:961
+#, fuzzy
 msgid ""
 "\n"
 "The project references non-existant images:\n"
 msgstr ""
 "\n"
-"Проект ссылается на несуществующие изображения:\n"
+"项目参考不存在的图片：\n"
 
 #: ../../Jokosher.py:969
-#, python-format
+#, fuzzy
 msgid ""
 "%s\n"
 " Invalid or corrupt project file, will not open."
 msgstr ""
 "%s\n"
-" Неверный или повреждённый файл проекта, невозможно открыть."
+" 非法或已破坏的项目文件，不能打开。"
 
 #: ../../Jokosher.py:994
+#, fuzzy
 msgid "You must have Gstreamer version 0.10.9 or higher.\n"
-msgstr "Вам требуется Gstreamer версии 0.10.9 или выше.\n"
+msgstr "必需Gstreamer 0.10.9或更高版本。\n"
 
 #: ../../Jokosher.py:1002
+#, fuzzy
 msgid "You must have Gstreamer plugin gnonlin version 0.10.4.2 or later.\n"
-msgstr "Вам требуется модуль Gstreamer gnonlin версии 0.10.4.2 или выше.\n"
+msgstr "必需Gstreamer插件gnonlin 0.10.4.2或更高版本。\n"
 
 #: ../../Jokosher.py:1004
+#, fuzzy
 msgid "Gstreamer plugin gnonlin is not installed."
-msgstr "Модуль Gstreamer gnonlin не установлен."
+msgstr "Gstreamer插件gnonlin没有安装。"
 
 #: ../../Jokosher.py:1005
+#, fuzzy
 msgid ""
 "\n"
 "See http://jokosher.org/trac/wiki/GettingJokosher for more details.\n"
 msgstr ""
 "\n"
-"См. http://jokosher.org/trac/wiki/GettingJokosher для дополнительной "
-"информации.\n"
+"查看详情： http://jokosher.org/trac/wiki/GettingJokosher\n"
 
 #: ../../Jokosher.py:1011
-#, python-format
+#, fuzzy
 msgid ""
 "<big>Some functionality will not work correctly or at all.</big>\n"
 "\n"
 "%s"
 msgstr ""
-"<big>Некоторые функции будут работать неправильно или будут "
-"недоступны.</big>\n"
+"<big>部分功能不能正确运行或完全不能运行。</big>\n"
 "\n"
 "%s"
 
 #: ../../Jokosher.py:1032
+#, fuzzy
 msgid ""
 "<big>Notes about this release</big>\n"
 "\n"
@@ -593,149 +671,167 @@ msgid ""
 "very first release. As such, you may encounter some bugs and functionality "
 "that is not present."
 msgstr ""
-"<big>Заметки к версии</big>\n"
+"<big>本发行版注意事项</big>\n"
 "\n"
-"Данная версия Jokosher (0.1) - это предварительная версия, и, фактически, "
-"наш первый релиз. Как следствие, вы можете столкнуться с ошибками и "
-"отстуствующими возможностями."
+"本版Jokosher（0.1）为预发行版，并且是事实上我们的第一个发行版。因此，你可能会遭遇到一些错误或者尚不存在的功能。"
 
 #: ../../Jokosher.py:1056
-#, python-format
+#, fuzzy
 msgid "The uri scheme '%s' is either invalid or not supported."
-msgstr "Схема обращения к ресурсу '%s' не верна или не поддерживается."
+msgstr "这个uri scheme '%s' 非法活不被支持。"
 
 #: ../../Jokosher.py:1058
-#, python-format
+#, fuzzy
 msgid "Unable to unzip the project file %s"
-msgstr "Невозможно распаковать файл проекта %s"
+msgstr "不能unzip项目文件 %s"
 
 #: ../../Jokosher.py:1060
-#, python-format
+#, fuzzy
 msgid "The project file was created with version \"%s\" of Jokosher.\n"
-msgstr "Файл проекта был создан в Jokosher версии \\\"%s\\\".\n"
+msgstr "这个项目文件是由Jokosher \"%s\"版创建。\n"
 
 #: ../../Jokosher.py:1061
-#, python-format
+#, fuzzy
 msgid "Projects from version \"%s\" are incompatible with this release.\n"
-msgstr "Проекты версии \\\"%s\\\" несовместимы с данным релизом.\n"
+msgstr "\"%s\"版创建的项目和本发行版不兼容。\n"
 
 #: ../../Jokosher.py:1063
-#, python-format
+#, fuzzy
 msgid ""
 "The project:\n"
 "%s\n"
 "\n"
 "does not exist.\n"
 msgstr ""
-"Проект:\n"
+"项目：\n"
 "%s\n"
 "\n"
-"не существует.\n"
+"不存在。\n"
 
 #: ../../Jokosher.py:1065
+#, fuzzy
 msgid "The project file could not be opened.\n"
-msgstr "Файл проекта не может быть открыт.\n"
+msgstr "项目文件打不开。\n"
 
 #: ../../MasterMixerStrip.py:28
+#, fuzzy
 msgid "Master Volume"
-msgstr "Общий уровень"
+msgstr "主音量"
 
 #: ../../NewProjectDialog.py:66
+#, fuzzy
 msgid "Unknown Author"
-msgstr "Неизвестный автор"
+msgstr "未知作者"
 
 #: ../../NewProjectDialog.py:76
+#, fuzzy
 msgid "Could not initialize project."
-msgstr "Невозможно инициализировать проект."
+msgstr "不能初始化项目。"
 
 #: ../../NewProjectDialog.py:78
+#, fuzzy
 msgid ""
 "A file or folder with this name already exists. Please choose a different "
 "project name and try again."
-msgstr ""
-"Файл или папка с таким именем уже существует. Попробуйте выбрать другое "
-"название проекта и попытайтесь ещё раз."
+msgstr "同名的文件或文件夹已存在。请选择不同的项目名称并重试。"
 
 #: ../../NewProjectDialog.py:80
+#, fuzzy
 msgid "The file or folder location is write-protected."
-msgstr "Местоположение файла или папки защищено от записи."
+msgstr "此文件或文件夹已被写保护。"
 
 #: ../../NewProjectDialog.py:82
+#, fuzzy
 msgid "Invalid name or author."
-msgstr "Неверное название или имя автора."
+msgstr "非法的名称或作者。"
 
 #: ../../NewProjectDialog.py:84
+#, fuzzy
 msgid "The uri scheme given is either invalid or not supported"
-msgstr "Данная схема обращения к ресурсу не верна или не поддерживается"
+msgstr "给定的uri scheme非法或不被支持。"
 
 #: ../../NewProjectDialog.py:90
-#, python-format
+#, fuzzy
 msgid ""
 "Unable to create project.\n"
 "\n"
 "%s"
 msgstr ""
-"Невозможно создать проект.\n"
+"不能创建项目。\n"
 "\n"
 "%s"
 
 #: ../../VUWidget.py:55
+#, fuzzy
 msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"
-msgstr "<b>Перетащите ползунок</b>, чтобы изменить уровень громкости"
+msgstr "<b>拖动滑杆</b>来改变音量水平。"
 
 #: ../../VUWidget.py:163
-#, python-format
+#, fuzzy
 msgid "Volume: %.2f"
-msgstr "Уровень: %.2f"
+msgstr "音量：%.2f"
 
 #: i18n.instr.h:1
+#, fuzzy
 msgid "Audio File"
-msgstr "Аудио-файл"
+msgstr "音频文件"
 
 #: i18n.instr.h:2
+#, fuzzy
 msgid "Bass Drum"
-msgstr "Большой барабан"
+msgstr "低音鼓"
 
 #: i18n.instr.h:3
+#, fuzzy
 msgid "Bass Guitar"
-msgstr "Бас-гитара"
+msgstr "贝司"
 
 #: i18n.instr.h:4
+#, fuzzy
 msgid "Cello"
-msgstr "Виолончель"
+msgstr "大提琴"
 
 #: i18n.instr.h:5
+#, fuzzy
 msgid "Cymbal"
-msgstr "Тарелка"
+msgstr "铙钹"
 
 #: i18n.instr.h:6
+#, fuzzy
 msgid "Drum Kit"
-msgstr "Ударные"
+msgstr "爵士鼓"
 
 #: i18n.instr.h:7
+#, fuzzy
 msgid "Effect"
-msgstr "Эффект"
+msgstr "效果"
 
 #: i18n.instr.h:8
+#, fuzzy
 msgid "Electric Guitar"
-msgstr "Электрогитара"
+msgstr "电吉他"
 
 #: i18n.instr.h:9
+#, fuzzy
 msgid "Keyboard"
-msgstr "Клавишные"
+msgstr "键盘"
 
 #: i18n.instr.h:10
+#, fuzzy
 msgid "Other"
-msgstr "Другое"
+msgstr "其它"
 
 #: i18n.instr.h:11
+#, fuzzy
 msgid "Snare"
-msgstr "Малый барабан"
+msgstr "军鼓"
 
 #: i18n.instr.h:12
+#, fuzzy
 msgid "Tom Tom"
-msgstr "Том-том"
+msgstr "筒鼓"
 
 #: i18n.instr.h:13
+#, fuzzy
 msgid "Vocal"
-msgstr "Вокал"
+msgstr "人声"
