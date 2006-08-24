@@ -37,6 +37,25 @@ class MixerStrip(gtk.Frame):
 		self.minbutt.connect("clicked", self.EmitMinimise)
 				
 		self.vbox.pack_start(self.minbutt, False)
+
+		# add the panning slider
+		self.panbox = gtk.HBox()
+		self.leftlab = gtk.Label(_("L"))
+		self.rightlab = gtk.Label(_("R"))
+		self.pan = gtk.HScale()
+		self.pan.set_range(-100, 100)
+		self.pan.set_draw_value(False)
+		
+		if self.instrument.pan is not None:
+			self.pan.set_value(self.instrument.pan)
+		
+		self.pan.connect("value-changed", self.OnPanChanged)
+		self.panbox.pack_start(self.leftlab, False)
+		self.panbox.pack_start(self.pan, True)
+		self.panbox.pack_start(self.rightlab, False)
+		
+		self.vbox.pack_start(self.panbox, False)
+
 		
 		# VU Meter
 		self.vu = VUWidget(self, self.mainview)
@@ -151,6 +170,13 @@ class MixerStrip(gtk.Frame):
 		self.instrument.SetVolume(vol)
 		
 	#_____________________________________________________________________
+	
+	def OnPanChanged(self, slider):
+		"""change the instrument's audiopanorama value"""
+		value = slider.get_value()
+
+		self.instrument.pan = value
+		self.instrument.panElement.set_property("panorama", value)
 	
 #=========================================================================
 

@@ -35,13 +35,14 @@ class Instrument(Monitored, CommandManaged):
 		self.pixbuf = pixbuf			# The icon pixbuf resource
 		self.isArmed = False			# True if the instrument is armed for recording
 		self.isMuted = False			# True if the "mute" button is toggled on
-		self.actuallyIsMuted = False		# True if the instrument is muted (silent)
+		self.actuallyIsMuted = False	# True if the instrument is muted (silent)
 		self.isSolo = False				# True if the instrument is solo'd (only instrument active)
 		self.isVisible = True			# True if the instrument should be displayed in the mixer views
 		self.level = 0.0				# Current audio level in range 0..1
 		self.volume = 0.5				# Gain of the current instrument in range 0..1
-		self.instrType = type				# The type of instrument
+		self.instrType = type			# The type of instrument
 		self.effects = []				# List of GStreamer effect elements
+		self.pan = None					# pan number (between -100 and 100)
 		
 		try:
 			self.input = Globals.settings.recording["devicecardnum"]
@@ -63,6 +64,8 @@ class Instrument(Monitored, CommandManaged):
 		self.levelElement.set_property("peak-ttl", 0)
 		self.levelElement.set_property("peak-falloff", 20)
 
+		self.panElement = gst.element_factory_make("audiopanorama", "Instrument_Pan_%d"%self.id)
+
 		self.playbackbin = gst.element_factory_make("bin", "Instrument_%d"%self.id)
 
 		self.playbackbin.add(self.volumeElement)
@@ -70,6 +73,10 @@ class Instrument(Monitored, CommandManaged):
 
 		self.playbackbin.add(self.levelElement)
 		print "added level (instrument)"
+
+		self.playbackbin.add(self.panElement)
+		print "added audiopanorama (instrument)"
+
 
 		self.playbackbin.add(self.converterElement)
 		print "added audioconvert (instrument)"
@@ -108,8 +115,13 @@ class Instrument(Monitored, CommandManaged):
 		self.volumeElement.link(self.levelElement)
 		print "linked instrument volume to instrument level"
 
-		self.levelElement.link(self.resample)
-		print "linked instrument level to instrument resample"
+		self.levelElement.link(self.panElement)
+		self.panElement.set_property("panorama", 0)
+		print "linked instrument level to instrument pan"
+
+
+		self.panElement.link(self.resample)
+		print "linked instrument pan to instrument resample"
 		
 		self.playghostpad = gst.GhostPad("src", self.resample.get_pad("src"))
 		self.playbackbin.add_pad(self.playghostpad)
@@ -143,7 +155,7 @@ class Instrument(Monitored, CommandManaged):
 		
 		items = ["name", "isArmed", 
 				  "isMuted", "isSolo", "input", "output",
-				  "isSelected", "isVisible", "inTrack", "instrType"]
+				  "isSelected", "isVisible", "inTrack", "instrType", "pan"]
 		
 		params = doc.createElement("Parameters")
 		ins.appendChild(params)
@@ -216,6 +228,10 @@ class Instrument(Monitored, CommandManaged):
 				break
 		if not self.pixbuf:
 			print "Error, could not load image:", self.instrType
+		
+		# load pan level
+		
+		self.panElement.set_property("panorama", self.pan)
 			
 		#initialize the actuallyIsMuted variable
 		self.checkActuallyIsMuted()
