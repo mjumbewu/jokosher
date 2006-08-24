@@ -109,7 +109,7 @@ class ExtensionAPI:
 	def add_file_to_selected_instrument(self, uri):
 		"""
 		   Creates a new event from the file at the given URI and 
-		   adds it to the selected instrument.
+		   adds it to the first selected instrument.
 		   Return values:
 		   0: success
 		   1: bad URI or file could not be loaded
@@ -131,22 +131,22 @@ class ExtensionAPI:
 
 
 def LoadAllExtensions():
-	for dir in EXTENSION_DIRS:
-		if not os.path.isdir(dir):
+	for exten_dir in EXTENSION_DIRS:
+		if not os.path.isdir(exten_dir):
 			continue
-		for f in os.listdir(dir):
+		for f in os.listdir(exten_dir):
 			fn, ext = os.path.splitext(f)
 			if ext == ".py":
 				print "importing extension", f,
-				file, filename, description = imp.find_module(fn, [dir])
+				exten_file, filename, description = imp.find_module(fn, [exten_dir])
 				
 				try:
-					module = imp.load_module(fn, file, filename, description)
+					module = imp.load_module(fn, exten_file, filename, description)
 					print "done."
 				except:
 					print "failed."
-				if file:
-					file.close()
+				if exten_file:
+					exten_file.close()
 				
 				try:
 					module.startup(API)
