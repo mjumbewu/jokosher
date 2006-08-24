@@ -93,10 +93,10 @@ def SetAbsPaths():
 	global JOKOSHER_PATH, IMAGE_PATH, GLADE_PATH, LOCALE_DIR, LOCALE_APP, EFFECT_PRESETS_PATH
 	
 	JOKOSHER_PATH = os.path.dirname(os.path.abspath(__file__))
-	IMAGE_PATH = os.path.join(JOKOSHER_PATH, "images")
-	EFFECT_PRESETS_PATH = os.path.join(JOKOSHER_PATH, "effectspresets")
+	IMAGE_PATH = os.path.join(JOKOSHER_PATH, "..", "images")
+	EFFECT_PRESETS_PATH = os.path.join(JOKOSHER_PATH, "..", "effectspresets")
 	GLADE_PATH = os.path.join(JOKOSHER_PATH, "Jokosher.glade")
-	LOCALE_DIR = os.path.join(JOKOSHER_PATH, "locale")
+	LOCALE_DIR = os.path.join(JOKOSHER_PATH, "..", "locale")
 	LOCALE_APP = "jokosher"
 	
 settings = Settings()

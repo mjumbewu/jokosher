@@ -136,7 +136,7 @@ def _cacheInstruments():
 		return
 		
 	basepath = os.path.dirname(os.path.abspath(__file__))
-	instrpath = os.path.join(basepath, "Instruments")
+	instrpath = os.path.join(basepath, "..", "Instruments")
 	
 	files = os.walk(instrpath).next()[2]
 	instrFiles = [x for x in files if x.endswith(".instr")]
