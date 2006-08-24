@@ -34,13 +34,13 @@ if thing_that_imported_extension is None and \
 	except:
 		# no Gtk either! Print a message and die
 		import sys
-		print "This is a Jokosher extension; it is not meant to be run directly."
-		print "To install it, move it to the directory %s\nand run Jokosher." % (EXTENSION_DIR_LOCAL)
+		print _("This is a Jokosher extension; it is not meant to be run directly.")
+		print _("To install it, move it to the directory %s\nand run Jokosher.") % (EXTENSION_DIR_LOCAL)
 		sys.exit(1)
-	d = gtk.MessageDialog(message_format="This is a Jokosher extension, which needs "+\
-	                      "to be installed. Would you like to install it?",
-	                      type=gtk.MESSAGE_ERROR)
-	d.add_buttons(gtk.STOCK_CANCEL,gtk.RESPONSE_CANCEL,'Install',RESP_INSTALL)
+		
+	message = _("This is a Jokosher extension, which needs to be installed. Would you like to install it?")
+	d = gtk.MessageDialog(message_format=message, type=gtk.MESSAGE_ERROR)
+	d.add_buttons(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, _('Install'), RESP_INSTALL)
 	d.set_default_response(RESP_INSTALL)
 	ret = d.run()
 	d.destroy()
@@ -49,15 +49,14 @@ if thing_that_imported_extension is None and \
 		extension_file_name = os.path.split(extension_path_and_file)[1]
 		new_extension_path_and_file = os.path.join(PREFERRED_EXTENSION_DIR, extension_file_name)
 		if os.path.exists(new_extension_path_and_file):
-			d = gtk.MessageDialog(message_format="You already have a extension with "+\
-					"the name %s installed; would you like to " +\
-					"replace it?" % os.path.splitext(extension_file_name)[0],
-					type=gtk.MESSAGE_QUESTION)
-			d.add_buttons(gtk.STOCK_CANCEL,gtk.RESPONSE_CANCEL,'Replace',RESP_REPLACE)
+			message_template = _("You already have a extension with the name %s installed; would you like to replace it?")
+			message = message_template % os.path.splitext(extension_file_name)[0]
+			d = gtk.MessageDialog(message_format=message, type=gtk.MESSAGE_QUESTION)
+			d.add_buttons(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, _('Replace'), RESP_REPLACE)
 			d.set_default_response(RESP_REPLACE)
 			ret = d.run()
 			d.destroy()
-			if ret <> RESP_REPLACE:
+			if ret != RESP_REPLACE:
 				sys.exit(0)
 		# confirm that the new path exists!
 		try:
@@ -66,8 +65,7 @@ if thing_that_imported_extension is None and \
 			pass # already exists
 		# and move the extension
 		os.rename(extension_path_and_file, new_extension_path_and_file)
-		d = gtk.MessageDialog(message_format="Your new extension is now available in "+\
-		                      "Jokosher!",buttons=gtk.BUTTONS_OK)
+		d = gtk.MessageDialog(message_format=_("Your new extension is now available in Jokosher!"), buttons=gtk.BUTTONS_OK)
 		d.destroy()
 		sys.exit(0)
 
