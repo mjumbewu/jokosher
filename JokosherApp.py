@@ -209,13 +209,8 @@ class MainApp:
 		# Load extensions -- this should probably go somewhere more appropriate
 		Extension.API.mainapp = self
 		Extension.LoadAllExtensions()
-	#_____________________________________________________________________
-
-	def clean(self):
-		self.project.clean()
-		
 	#_____________________________________________________________________	
-		
+
 	def OnChangeView(self, view, mode):
 		if not self.settingButtons:
 			self.settingButtons = True
