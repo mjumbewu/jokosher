@@ -207,7 +207,7 @@ class MainApp:
 		EffectPresets().FillEffectsPresetsRegistry()
 		
 		# Load extensions -- this should probably go somewhere more appropriate
-		Extension.API.mainapp = self
+		Extension.API = Extenion.ExtensionAPI(self)
 		Extension.LoadAllExtensions()
 	#_____________________________________________________________________	
 

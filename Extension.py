@@ -76,8 +76,8 @@ if thing_that_imported_extension is None and \
 ############################################################################
 
 class ExtensionAPI:
-	def __init__(self):
-		pass
+	def __init__(self, mainapp):
+		self.mainapp = mainapp
 		
 	def add_menu_item(self, menu_item_name, callback_function):
 		"""
@@ -153,4 +153,4 @@ def LoadAllExtensions():
 				except:
 					pass
 		
-API = ExtensionAPI()
+API = None
