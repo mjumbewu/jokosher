@@ -42,7 +42,7 @@ class Instrument(Monitored, CommandManaged):
 		self.volume = 0.5				# Gain of the current instrument in range 0..1
 		self.instrType = type			# The type of instrument
 		self.effects = []				# List of GStreamer effect elements
-		self.pan = None					# pan number (between -100 and 100)
+		self.pan = 0.0					# pan number (between -100 and 100)
 		
 		try:
 			self.input = Globals.settings.recording["devicecardnum"]
