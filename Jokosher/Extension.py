@@ -141,8 +141,10 @@ def LoadAllExtensions():
 				try:
 					module = imp.load_module(fn, exten_file, filename, description)
 					print "done."
-				except:
+				except Exception, e:
 					print "failed."
+					print e
+					
 				if exten_file:
 					exten_file.close()
 				
