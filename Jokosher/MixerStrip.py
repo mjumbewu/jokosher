@@ -43,7 +43,7 @@ class MixerStrip(gtk.Frame):
 		self.leftlab = gtk.Label(_("L"))
 		self.rightlab = gtk.Label(_("R"))
 		self.pan = gtk.HScale()
-		self.pan.set_range(-100, 100)
+		self.pan.set_range(-1.0, 1.0)
 		self.pan.set_draw_value(False)
 		
 		if self.instrument.pan is not None:
