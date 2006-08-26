@@ -274,10 +274,14 @@ class MainApp:
 		
 	#_____________________________________________________________________
 
-	def Record(self, widget = None):
+	def Record(self, widget=None):
 		'''Toggle recording'''
-		if self.settingButtons or not widget.get_active():
-			return
+		
+		# I don't quite get what the following two lines do, but by commenting
+		# them out it fixed the transport buttons bugs we had.
+		 
+		#if self.settingButtons or not widget.get_active():
+			#return
 		
 		canRecord = False
 		for i in self.project.instruments:
@@ -309,6 +313,7 @@ class MainApp:
 					usedChannels[instr.input] = {instr.inTrack : instr.name}
 				
 		if not canRecord:
+			print "not can record"
 			dlg = gtk.MessageDialog(self.window,
 				gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
 				gtk.MESSAGE_INFO,
@@ -319,7 +324,8 @@ class MainApp:
 			self.settingButtons = True
 			widget.set_active(False)
 			self.settingButtons = False
-		else:		
+		else:
+			print "can record"
 			#Deselect all input channels (the required ones will be reselected by each instrument)
 			devices = AlsaDevices.GetAlsaList("capture").values()
 			for device in devices: 
@@ -361,6 +367,7 @@ class MainApp:
 					self.play.set_sensitive(not self.isRecording)
 					self.record.set_active(self.isRecording)
 			else:
+				print "else else can record"
 				self.project.stop()
 
 	#_____________________________________________________________________
@@ -381,6 +388,7 @@ class MainApp:
 	#The stop button is really just an alias for toggling play/record to off
 	def Stop(self, widget = None):
 		'''Stop recording/playing (whichever is happening)'''
+				
 		if self.isRecording: 
 			self.record.set_active(False)
 		if self.isPlaying: 
