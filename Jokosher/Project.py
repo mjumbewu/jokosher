@@ -398,17 +398,14 @@ class Project(Monitored, CommandManaged):
 		introstring = _("Argh! Something went wrong and a serious error occurred:")
 		outrostring = _("It is recommended that you report this to the Jokosher developers or get help at http://www.jokosher.org/forums/")
 		outputtext = introstring + "\n\n" + str(error) + "\n\n" + str(debug) + "\n\n" + outrostring
-
-		# we need to throw up a graphical error message, but I could not get
-		# the damn Cancel button to work. Any takers?
 		
-		#dlg = gtk.MessageDialog(None,
-		#	0,
-		#	gtk.MESSAGE_ERROR,
-		#	gtk.BUTTONS_CANCEL,
-		#	outputtext)
-		#dlg.connect('response', lambda dlg, response: dlg.destroy())
-		#dlg.run()
+		dlg = gtk.MessageDialog(None,
+			0,
+			gtk.MESSAGE_ERROR,
+			gtk.BUTTONS_CANCEL,
+			outputtext)
+		dlg.connect('response', lambda dlg, response: dlg.destroy())
+		dlg.show()
 		
 		print outputtext
 
