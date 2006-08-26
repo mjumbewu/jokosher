@@ -126,14 +126,11 @@ class AddInstrumentDialog:
 #=========================================================================
 #static list of all the instrument files (to prevent having to reimport files)
 instrumentPropertyList = []
+_alreadyCached = False
+_cacheGeneratorObject = None
 
-def _cacheInstruments():
+def _cacheInstrumentsGenerator():
 	"""The current list of instruments, cached"""
-	
-	global instrumentPropertyList
-
-	if len(instrumentPropertyList) > 0:
-		return
 		
 	basepath = os.path.dirname(os.path.abspath(__file__))
 	instrpath = os.path.join(basepath, "..", "Instruments")
@@ -166,18 +163,52 @@ def _cacheInstruments():
 		pixbufPath = os.path.join(instrpath, "images", icon)
 		pixbuf = gtk.gdk.pixbuf_new_from_file(pixbufPath)
 		
-		instrumentPropertyList.append((name, type, pixbuf))
+		yield (name, type, pixbuf)
 	
+def getCachedInstruments():
+	"""
+	   Create the instrument cache if it hasn't been 
+	   created already and return the list.
+	"""
+	
+	global instrumentPropertyList, _alreadyCached
+	if _alreadyCached:
+		return instrumentPropertyList
+	else:
+		_alreadyCached = True
+	
+	try:
+		instrumentPropertyList = list(_cacheInstrumentsGenerator())
+	except StopIteration:
+		pass
+		
 	#sort the instruments alphabetically
 	#using the lowercase of the name (at index 0)
 	instrumentPropertyList.sort(key=lambda x: x[0].lower())
 	
-def getCachedInstruments():
-	"""Update the instrument cache"""
-	
-	global instrumentPropertyList
-	if len(instrumentPropertyList) == 0:
-		_cacheInstruments()
 	return instrumentPropertyList
-
-gobject.idle_add(_cacheInstruments)
+	
+def idleCacheInstruments():
+	global instrumentPropertyList, _alreadyCached, _cacheGeneratorObject
+	if _alreadyCached:
+		#Stop idle_add from calling us again
+		return False
+	#create the generator if it hasnt been already
+	if not _cacheGeneratorObject:
+		_cacheGeneratorObject = _cacheInstrumentsGenerator()
+	
+	try:
+		instrumentPropertyList.append(_cacheGeneratorObject.next())
+		#Make sure idle add calls us again
+		return True
+	except StopIteration:
+		_alreadyCached = True
+	
+	#sort the instruments alphabetically
+	#using the lowercase of the name (at index 0)
+	instrumentPropertyList.sort(key=lambda x: x[0].lower())
+		
+	#Stop idle_add from calling us again
+	return False
+	
+gobject.idle_add(idleCacheInstruments)
