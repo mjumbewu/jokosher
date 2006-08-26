@@ -152,5 +152,8 @@ def LoadAllExtensions():
 					module.startup(API)
 				except:
 					pass
+				#don't block the gui when loading many extensions
+				while gtk.events_pending():
+					gtk.main_iteration()
 		
 API = None
