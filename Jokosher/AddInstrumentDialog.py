@@ -149,9 +149,9 @@ def _cacheInstrumentsGenerator():
 		
 		#getlocale() will usually return  a tuple like: ('en_GB', 'UTF-8')
 		lang = locale.getlocale()[0]
-		if config.has_option('i18n', lang):
+		if lang and config.has_option('i18n', lang):
 			name = config.get('i18n', lang)
-		elif config.has_option('i18n', lang.split("_")[0]):
+		elif lang and config.has_option('i18n', lang.split("_")[0]):
 			#in case lang was 'de_DE', use only 'de'
 			name = config.get('i18n', lang.split("_")[0])
 		elif config.has_option('i18n', 'en'):
