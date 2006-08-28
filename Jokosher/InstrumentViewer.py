@@ -76,6 +76,10 @@ class InstrumentViewer(gtk.EventBox):
 		self.labeleventbox.connect("leave_notify_event", self.OnMouseMove)
 		self.connect("button_press_event", self.OnSelect)
 		
+		#load missing image icon if instrument has no icon
+		if not self.instrument.pixbuf:
+			self.instrument.pixbuf = self.render_icon(gtk.STOCK_MISSING_IMAGE, gtk.ICON_SIZE_DIALOG)
+		
 		image = gtk.Image()
 		if not (self.small):
 			image.set_from_pixbuf(self.instrument.pixbuf)
