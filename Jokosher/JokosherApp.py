@@ -47,9 +47,6 @@ class MainApp:
 
 	def __init__(self):
 
-		#Find the absolute path in case we were imported from another directory
-		Globals.SetAbsPaths()
-
 		try:
 			locale.setlocale(locale.LC_ALL, '')
 			gettext.bindtextdomain(Globals.LOCALE_APP, Globals.LOCALE_DIR)

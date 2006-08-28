@@ -126,6 +126,30 @@ class ExtensionAPI:
 		instr.addEventFromFile(0, uri)
 		#TODO: find out if the add failed and return 1
 		return 0
+		
+	def get_available_instruments(self):
+		"""
+		   Returns a list of instrument 'type' strings.
+		   The list will contain exactly one string for each
+		   available type of instrument.
+		"""
+		from Jokosher import Globals
+		return [x[1] for x in Globals.getCachedInstruments()]
+		
+	def add_instrument(self, instr_type):
+		"""
+		   Adds an instrument with the type 'instr_type'
+		   from get_available_instruments() to the project.
+		   Return values:
+		   0: success
+		   1: that project type does not exist
+		"""
+		from Jokosher import Globals
+		for i in Globals.getCachedInstruments():
+			if i[1] == instr_type:
+				self.mainapp.project.AddInstrument(i[0], i[1], i[2])
+				return 0
+		return 1
 
 
 def LoadAllExtensions():

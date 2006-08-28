@@ -12,11 +12,8 @@
 
 import gtk
 import gtk.glade
-import gobject
 import os
-from ConfigParser import SafeConfigParser
 import Globals
-import locale, gettext
 
 #=========================================================================
 
@@ -52,7 +49,7 @@ class AddInstrumentDialog:
 
 		self.model = gtk.ListStore(str, str, gtk.gdk.Pixbuf)
 			
-		for i in getCachedInstruments():
+		for i in Globals.getCachedInstruments():
 			self.model.append(i)
 		
 		self.tree.set_model(self.model)
@@ -115,7 +112,7 @@ class AddInstrumentDialog:
 		search_text = self.search_entry.get_text()
 		self.model = gtk.ListStore(str, str, gtk.gdk.Pixbuf)
 		
-		for i in getCachedInstruments():
+		for i in Globals.getCachedInstruments():
 			if search_text.lower() in i[0].lower():
 				self.model.append(i)
 		
@@ -124,91 +121,3 @@ class AddInstrumentDialog:
 	#_____________________________________________________________________
 
 #=========================================================================
-#static list of all the instrument files (to prevent having to reimport files)
-instrumentPropertyList = []
-_alreadyCached = False
-_cacheGeneratorObject = None
-
-def _cacheInstrumentsGenerator():
-	"""The current list of instruments, cached"""
-		
-	basepath = os.path.dirname(os.path.abspath(__file__))
-	instrpath = os.path.join(basepath, "..", "Instruments")
-	
-	files = os.walk(instrpath).next()[2]
-	instrFiles = [x for x in files if x.endswith(".instr")]
-	for f in instrFiles:
-		config = SafeConfigParser()
-		config.read(os.path.join(instrpath, f))
-		
-		if config.has_option('core', 'type') and config.has_option('core', 'icon'):
-			icon = config.get('core', 'icon')
-			type = config.get('core', 'type')
-		else:
-			continue
-		
-		#getlocale() will usually return  a tuple like: ('en_GB', 'UTF-8')
-		lang = locale.getlocale()[0]
-		if lang and config.has_option('i18n', lang):
-			name = config.get('i18n', lang)
-		elif lang and config.has_option('i18n', lang.split("_")[0]):
-			#in case lang was 'de_DE', use only 'de'
-			name = config.get('i18n', lang.split("_")[0])
-		elif config.has_option('i18n', 'en'):
-			#fall back on english (or a PO translation, if there is any)
-			name = gettext.gettext(config.get( 'i18n', 'en'))
-		else:
-			continue
-		
-		pixbufPath = os.path.join(instrpath, "images", icon)
-		pixbuf = gtk.gdk.pixbuf_new_from_file(pixbufPath)
-		
-		yield (name, type, pixbuf)
-	
-def getCachedInstruments():
-	"""
-	   Create the instrument cache if it hasn't been 
-	   created already and return the list.
-	"""
-	
-	global instrumentPropertyList, _alreadyCached
-	if _alreadyCached:
-		return instrumentPropertyList
-	else:
-		_alreadyCached = True
-	
-	try:
-		instrumentPropertyList = list(_cacheInstrumentsGenerator())
-	except StopIteration:
-		pass
-		
-	#sort the instruments alphabetically
-	#using the lowercase of the name (at index 0)
-	instrumentPropertyList.sort(key=lambda x: x[0].lower())
-	
-	return instrumentPropertyList
-	
-def idleCacheInstruments():
-	global instrumentPropertyList, _alreadyCached, _cacheGeneratorObject
-	if _alreadyCached:
-		#Stop idle_add from calling us again
-		return False
-	#create the generator if it hasnt been already
-	if not _cacheGeneratorObject:
-		_cacheGeneratorObject = _cacheInstrumentsGenerator()
-	
-	try:
-		instrumentPropertyList.append(_cacheGeneratorObject.next())
-		#Make sure idle add calls us again
-		return True
-	except StopIteration:
-		_alreadyCached = True
-	
-	#sort the instruments alphabetically
-	#using the lowercase of the name (at index 0)
-	instrumentPropertyList.sort(key=lambda x: x[0].lower())
-		
-	#Stop idle_add from calling us again
-	return False
-	
-gobject.idle_add(idleCacheInstruments)

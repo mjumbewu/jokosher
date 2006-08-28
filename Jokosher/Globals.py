@@ -12,6 +12,8 @@
 
 import ConfigParser
 import os
+import locale, gettext
+import gobject, gtk
 
 class Settings:
 
@@ -87,30 +89,108 @@ class Settings:
 				except:
 					raise "Failed to create user config directory %s" % new_dir
 
-def SetAbsPaths():
-	"""Set a bunch of paths for use across the project. This is particularly
-	useful for that 'orrible packaging lot"""
-	global JOKOSHER_PATH, IMAGE_PATH, GLADE_PATH, LOCALE_DIR, LOCALE_APP, EFFECT_PRESETS_PATH
+#static list of all the instrument files (to prevent having to reimport files)
+instrumentPropertyList = []
+_alreadyCached = False
+_cacheGeneratorObject = None
+
+def _cacheInstrumentsGenerator():
+	"""The current list of instruments, cached"""
+		
+	instrpath = os.path.join(JOKOSHER_PATH, "..", "Instruments")
 	
-	JOKOSHER_PATH = os.path.dirname(os.path.abspath(__file__))
-	IMAGE_PATH = os.path.join(JOKOSHER_PATH, "..", "images")
-	EFFECT_PRESETS_PATH = os.path.join(JOKOSHER_PATH, "..", "effectspresets")
-	GLADE_PATH = os.path.join(JOKOSHER_PATH, "Jokosher.glade")
-	LOCALE_DIR = os.path.join(JOKOSHER_PATH, "..", "locale")
-	LOCALE_APP = "jokosher"
+	files = os.walk(instrpath).next()[2]
+	instrFiles = [x for x in files if x.endswith(".instr")]
+	for f in instrFiles:
+		config = ConfigParser.SafeConfigParser()
+		config.read(os.path.join(instrpath, f))
+		
+		if config.has_option('core', 'type') and config.has_option('core', 'icon'):
+			icon = config.get('core', 'icon')
+			type = config.get('core', 'type')
+		else:
+			continue
+		
+		#getlocale() will usually return  a tuple like: ('en_GB', 'UTF-8')
+		lang = locale.getlocale()[0]
+		if lang and config.has_option('i18n', lang):
+			name = config.get('i18n', lang)
+		elif lang and config.has_option('i18n', lang.split("_")[0]):
+			#in case lang was 'de_DE', use only 'de'
+			name = config.get('i18n', lang.split("_")[0])
+		elif config.has_option('i18n', 'en'):
+			#fall back on english (or a PO translation, if there is any)
+			name = gettext.gettext(config.get( 'i18n', 'en'))
+		else:
+			continue
+		
+		pixbufPath = os.path.join(instrpath, "images", icon)
+		pixbuf = gtk.gdk.pixbuf_new_from_file(pixbufPath)
+		
+		yield (name, type, pixbuf)
 	
-settings = Settings()
+def getCachedInstruments():
+	"""
+	   Create the instrument cache if it hasn't been 
+	   created already and return the list.
+	"""
+	global instrumentPropertyList, _alreadyCached
+	if _alreadyCached:
+		return instrumentPropertyList
+	else:
+		_alreadyCached = True
+	
+	try:
+		instrumentPropertyList = list(_cacheInstrumentsGenerator())
+	except StopIteration:
+		pass
+
+	#sort the instruments alphabetically
+	#using the lowercase of the name (at index 0)
+	instrumentPropertyList.sort(key=lambda x: x[0].lower())
+	return instrumentPropertyList
+	
+def idleCacheInstruments():
+	global instrumentPropertyList, _alreadyCached, _cacheGeneratorObject
+	if _alreadyCached:
+		#Stop idle_add from calling us again
+		return False
+	#create the generator if it hasnt been already
+	if not _cacheGeneratorObject:
+		_cacheGeneratorObject = _cacheInstrumentsGenerator()
+	
+	try:
+		instrumentPropertyList.append(_cacheGeneratorObject.next())
+		#Make sure idle add calls us again
+		return True
+	except StopIteration:
+		_alreadyCached = True
+	
+	#sort the instruments alphabetically
+	#using the lowercase of the name (at index 0)
+	instrumentPropertyList.sort(key=lambda x: x[0].lower())
+	#Stop idle_add from calling us again
+	return False
 
 INSTRUMENT_HEADER_WIDTH = 0
-JOKOSHER_PATH = None
-IMAGE_PATH = None
-GLADE_PATH = None
-LOCALE_DIR = None
-LOCALE_APP = None
+JOKOSHER_PATH = os.path.dirname(os.path.abspath(__file__))
+IMAGE_PATH = os.path.join(JOKOSHER_PATH, "..", "images")
+GLADE_PATH = os.path.join(JOKOSHER_PATH, "Jokosher.glade")
+LOCALE_DIR = os.path.join(JOKOSHER_PATH, "..", "locale")
+LOCALE_APP = "jokosher"
+#set in Project.py
 VERSION = None
 EFFECT_PRESETS_VERSION = None
+EFFECT_PRESETS_PATH = os.path.join(JOKOSHER_PATH, "..", "effectspresets")
 LADSPA_FACTORY_REGISTRY = None
 LADSPA_NAME_MAP = []
+
+#Find the absolute path in case we were imported from another directory
+SetAbsPaths()
+#init Settings
+settings = Settings()
+#cache instruments
+gobject.idle_add(idleCacheInstruments)
 
 # I have decided that Globals.py is a boring source file. So, here is a little
 # joke. What does the tax office and a pelican have in common? They can both stick

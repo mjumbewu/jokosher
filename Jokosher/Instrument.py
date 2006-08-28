@@ -10,7 +10,6 @@ import time
 from Monitored import *
 from Utils import *
 import gobject
-import AddInstrumentDialog
 import Globals
 import shutil
 import JokDebug
@@ -222,7 +221,7 @@ class Instrument(Monitored, CommandManaged):
 		
 		#load image from file based on unique type
 		#TODO replace this with proper cache manager
-		for i in AddInstrumentDialog.getCachedInstruments():
+		for i in Globals.getCachedInstruments():
 			if self.instrType == i[1]:
 				self.pixbuf = i[2]
 				break
