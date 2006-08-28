@@ -185,8 +185,6 @@ EFFECT_PRESETS_PATH = os.path.join(JOKOSHER_PATH, "..", "effectspresets")
 LADSPA_FACTORY_REGISTRY = None
 LADSPA_NAME_MAP = []
 
-#Find the absolute path in case we were imported from another directory
-SetAbsPaths()
 #init Settings
 settings = Settings()
 #cache instruments
