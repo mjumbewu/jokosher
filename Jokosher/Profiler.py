@@ -5,12 +5,12 @@
 import hotshot
 from hotshot import stats
 
-import Jokosher
+import JokosherApp
 
-profile = hotshot.Profile("Jokosher", lineevents=1)
-profile.runcall(Jokosher.main)
+profile = hotshot.Profile("JokosherApp", lineevents=1)
+profile.runcall(JokosherApp.main)
 
-s = stats.load("Jokosher")
+s = stats.load("JokosherApp")
 
 s.strip_dirs()
 s.sort_stats("cumulative", "calls").print_stats()

@@ -395,8 +395,8 @@ class Project(Monitored, CommandManaged):
 		st = message.structure
 		error, debug = message.parse_error()
 		
-		introstring = _("Argh! Something went wrong and a serious error occurred:")
-		outrostring = _("It is recommended that you report this to the Jokosher developers or get help at http://www.jokosher.org/forums/")
+		introstring = "Argh! Something went wrong and a serious error occurred:"
+		outrostring = "It is recommended that you report this to the Jokosher developers or get help at http://www.jokosher.org/forums/"
 		outputtext = introstring + "\n\n" + str(error) + "\n\n" + str(debug) + "\n\n" + outrostring
 		
 		dlg = gtk.MessageDialog(None,
