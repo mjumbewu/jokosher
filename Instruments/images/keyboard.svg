@@ -7,41 +7,17 @@
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:xlink="http://www.w3.org/1999/xlink"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:sodipodi="http://inkscape.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="48px"
    height="48px"
    id="svg4289"
    sodipodi:version="0.32"
-   inkscape:version="0.43+0.44pre0"
-   sodipodi:docbase="/home/andreas/project/jokosher"
+   inkscape:version="0.43"
+   sodipodi:docbase="/home/laszlo/Software/SVN/jokosher/JonoEdit/trunk/Instruments/images"
    sodipodi:docname="keyboard.svg">
   <defs
      id="defs4291">
-    <linearGradient
-       inkscape:collect="always"
-       id="linearGradient5442">
-      <stop
-         style="stop-color:black;stop-opacity:1;"
-         offset="0"
-         id="stop5444" />
-      <stop
-         style="stop-color:black;stop-opacity:0;"
-         offset="1"
-         id="stop5446" />
-    </linearGradient>
-    <linearGradient
-       inkscape:collect="always"
-       id="linearGradient5432">
-      <stop
-         style="stop-color:#555753;stop-opacity:1"
-         offset="0"
-         id="stop5434" />
-      <stop
-         style="stop-color:#2e3436;stop-opacity:0;"
-         offset="1"
-         id="stop5436" />
-    </linearGradient>
     <linearGradient
        inkscape:collect="always"
        id="linearGradient5269">
@@ -176,24 +152,6 @@
        y1="24.135147"
        x2="42.072853"
        y2="35.006912" />
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient5432"
-       id="linearGradient5438"
-       x1="34.471451"
-       y1="5.3025274"
-       x2="34.471451"
-       y2="0.93826199"
-       gradientUnits="userSpaceOnUse" />
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient5442"
-       id="linearGradient5448"
-       x1="34.471451"
-       y1="5.3025274"
-       x2="34.471451"
-       y2="0.93826199"
-       gradientUnits="userSpaceOnUse" />
   </defs>
   <sodipodi:namedview
      id="base"

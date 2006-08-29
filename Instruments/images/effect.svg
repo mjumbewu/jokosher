@@ -7,16 +7,16 @@
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:xlink="http://www.w3.org/1999/xlink"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:sodipodi="http://inkscape.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="48"
    height="48"
    id="svg2152"
    sodipodi:version="0.32"
-   inkscape:version="0.44"
+   inkscape:version="0.43"
    version="1.0"
-   sodipodi:docbase="C:\Program Files\Inkscape"
-   sodipodi:docname="bolt.svg">
+   sodipodi:docbase="/home/laszlo/Software/SVN/jokosher/JonoEdit/trunk/Instruments/images"
+   sodipodi:docname="effect.svg">
   <defs
      id="defs2154">
     <linearGradient
@@ -29,17 +29,6 @@
          style="stop-color:#fcaf3e;stop-opacity:0;"
          offset="1"
          id="stop13068" />
-    </linearGradient>
-    <linearGradient
-       id="linearGradient7627">
-      <stop
-         style="stop-color:#ce5c00;stop-opacity:1;"
-         offset="0"
-         id="stop7629" />
-      <stop
-         style="stop-color:#ce5c00;stop-opacity:0;"
-         offset="1"
-         id="stop7631" />
     </linearGradient>
     <linearGradient
        id="linearGradient7610">
@@ -55,28 +44,6 @@
          style="stop-color:white;stop-opacity:1;"
          offset="1"
          id="stop7614" />
-    </linearGradient>
-    <linearGradient
-       id="linearGradient7600">
-      <stop
-         style="stop-color:#c4a000;stop-opacity:1;"
-         offset="0"
-         id="stop7602" />
-      <stop
-         style="stop-color:#fce94f;stop-opacity:1;"
-         offset="1"
-         id="stop7604" />
-    </linearGradient>
-    <linearGradient
-       id="linearGradient7588">
-      <stop
-         style="stop-color:#ffe94f;stop-opacity:0;"
-         offset="0"
-         id="stop7590" />
-      <stop
-         style="stop-color:#fce94f;stop-opacity:1;"
-         offset="1"
-         id="stop7592" />
     </linearGradient>
     <linearGradient
        inkscape:collect="always"
