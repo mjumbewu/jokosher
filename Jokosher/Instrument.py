@@ -87,7 +87,7 @@ class Instrument(Monitored, CommandManaged):
 
 		# adding default source - this adds silence betweent the tracks
 		self.silenceaudio = gst.element_factory_make("audiotestsrc")
-		self.silenceaudio.set_property("volume", 0.0)
+		self.silenceaudio.set_property("wave", 4)	#4 is silence
 		
 		self.silencesource = gst.element_factory_make("gnlsource")
 		self.silencesource.set_property("priority", 1000)

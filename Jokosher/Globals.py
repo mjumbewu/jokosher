@@ -99,6 +99,12 @@ def _cacheInstrumentsGenerator():
 		
 	instrpath = os.path.join(JOKOSHER_PATH, "..", "Instruments")
 	
+	try:
+		#getlocale() will usually return  a tuple like: ('en_GB', 'UTF-8')
+		lang = locale.getlocale()[0]
+	except:
+		lang = None
+	
 	files = os.walk(instrpath).next()[2]
 	instrFiles = [x for x in files if x.endswith(".instr")]
 	for f in instrFiles:
@@ -111,8 +117,6 @@ def _cacheInstrumentsGenerator():
 		else:
 			continue
 		
-		#getlocale() will usually return  a tuple like: ('en_GB', 'UTF-8')
-		lang = locale.getlocale()[0]
 		if lang and config.has_option('i18n', lang):
 			name = config.get('i18n', lang)
 		elif lang and config.has_option('i18n', lang.split("_")[0]):
