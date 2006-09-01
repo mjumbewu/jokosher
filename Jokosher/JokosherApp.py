@@ -929,14 +929,15 @@ class MainApp:
 		#instruments are selected and set the cut, copy, paste and delete accordingly
 		instrSelected = False
 		eventSelected = False
-		for instr in self.project.instruments:
-			if instr.isSelected:
-				instrSelected = True
-				break
-			else:
-				for ev in instr.events:
-					if ev.isSelected:
-						eventSelected = True
+		if self.project:
+			for instr in self.project.instruments:
+				if instr.isSelected:
+					instrSelected = True
+					break
+				else:
+					for ev in instr.events:
+						if ev.isSelected:
+							eventSelected = True
 		
 		self.cut.set_sensitive(instrSelected or eventSelected)
 		self.copy.set_sensitive(instrSelected or eventSelected)
