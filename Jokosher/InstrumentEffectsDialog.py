@@ -21,6 +21,7 @@ from ConfigParser import SafeConfigParser
 import Project
 import Globals
 import EffectPresets
+from EffectWidget import EffectWidget
 
 class InstrumentEffectsDialog:
 	
@@ -145,9 +146,9 @@ class InstrumentEffectsDialog:
 		returns the factory name (e.g. ladspa-foo-effect). This is then set to
 		self.currentplugin."""
 		
-		effindex = combo.get_active()
+		self.effectindex = combo.get_active()
 		
-		self.currentplugin = Globals.LADSPA_NAME_MAP[effindex][0]
+		self.currentplugin = Globals.LADSPA_NAME_MAP[self.effectindex][0]
 		
 		#for e in Globals.LADSPA_NAME_MAP:
 			#if Globals.LADSPA_NAME_MAP[e] == name:
@@ -164,14 +165,20 @@ class InstrumentEffectsDialog:
 		# they had no effectsbin between them
 		if self.instrument.effects == []:
 			self.instrument.converterElement.unlink(self.instrument.volumeElement)
-		
+
 		self.instrument.effects.append(gst.element_factory_make(self.currentplugin, self.currentplugin))
 		#self.instrument.effects.append(self.effect)
-		
+
+		#print self.currentplugin
+		print Globals.LADSPA_NAME_MAP
+
+		effectname = Globals.LADSPA_NAME_MAP[self.effectindex][1]
 		
 		button = gtk.Button(self.currentplugin)
 		button.connect("clicked", self.OnEffectSetting)
-		self.effectsbox.pack_start(button)
+		#self.effectsbox.pack_start(button)
+		effwidg = EffectWidget(self, effectname)
+		self.effectsbox.pack_start(effwidg, True)
 		
 		self.effectsbox.show_all()
 
@@ -430,3 +437,8 @@ class InstrumentEffectsDialog:
 		
 			self.instrument.effects.append(effect)
 		self.PopulateEffects()
+
+	#_____________________________________________________________________	
+	
+	def OnRemoveEffect(self, widget):
+		print widget
