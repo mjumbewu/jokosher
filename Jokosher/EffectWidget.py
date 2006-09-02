@@ -1,4 +1,13 @@
-#!/usr/bin/env python
+#
+#    THIS FILE IS PART OF THE JOKOSHER PROJECT AND LICENSED UNDER THE GPL. SEE
+#    THE 'COPYING' FILE FOR DETAILS
+#
+#    EffectWidget.py
+#    
+#    This module us used to create the custom Cairo widget that is used to
+#    represent an effect.
+#
+#-------------------------------------------------------------------------------
 
 import gtk
 import math

@@ -174,9 +174,6 @@ class InstrumentEffectsDialog:
 
 		effectname = Globals.LADSPA_NAME_MAP[self.effectindex][1]
 		
-		button = gtk.Button(self.currentplugin)
-		button.connect("clicked", self.OnEffectSetting)
-		#self.effectsbox.pack_start(button)
 		effwidg = EffectWidget(self, effectname)
 		self.effectsbox.pack_start(effwidg, True)
 		
@@ -322,10 +319,12 @@ class InstrumentEffectsDialog:
 		# table and connect a callback
 		for effect in self.instrument.effects:
 			self.currentplugin =  effect.get_factory().get_name()
+			effectname =  effect.get_factory().get_longname()
 				
-			button = gtk.Button(self.currentplugin)
-			button.connect("clicked", self.OnEffectSetting)
-			self.effectsbox.pack_start(button)
+			effwidg = EffectWidget(self, effectname)
+			self.effectsbox.pack_start(effwidg, True)
+			
+			self.effectsbox.pack_start(effwidg)
 		
 			self.effectsbox.show_all()
 				
@@ -442,3 +441,4 @@ class InstrumentEffectsDialog:
 	
 	def OnRemoveEffect(self, widget):
 		print widget
+
