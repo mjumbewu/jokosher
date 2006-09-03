@@ -17,13 +17,14 @@ import string
 
 
 class EffectWidget(gtk.DrawingArea):
-    def __init__(self, effectsdialog, effectname):
+    def __init__(self, effectsdialog, effectname, effectnum):
         gtk.DrawingArea.__init__(self)
         self.BACKGROUND_RGB = (1, 1, 1)
         self.TEXT_RGB = (0, 0, 0)
         
         self.effectname = effectname
         self.effectsdialog = effectsdialog
+        self.effectnum = effectnum
 
         self.set_size_request(150, 80)
 
@@ -151,12 +152,13 @@ class EffectWidget(gtk.DrawingArea):
 
     def OnMouseDown(self, widget, mouse):
         if self.context.in_fill(mouse.x, mouse.y):
-            self.effectsdialog.OnRemoveEffect(self)
+            self.effectsdialog.OnRemoveEffect(self, self.effectnum)
         else:
             if mouse.type == gtk.gdk._2BUTTON_PRESS:
                 self.effectsdialog.OnEffectSetting(self)
             else:
-                print "single click"
+                # effect moving happens here, but its not in yet
+                pass
 
     def formatEffectText(self, text):
         words = string.split(text)

@@ -169,12 +169,11 @@ class InstrumentEffectsDialog:
 		self.instrument.effects.append(gst.element_factory_make(self.currentplugin, self.currentplugin))
 		#self.instrument.effects.append(self.effect)
 
-		#print self.currentplugin
-		print Globals.LADSPA_NAME_MAP
-
 		effectname = Globals.LADSPA_NAME_MAP[self.effectindex][1]
-		
-		effwidg = EffectWidget(self, effectname)
+		effectnum = len(self.instrument.effects) - 1
+		print "ADDED INSTRUMENT NUMBER:"
+		print effectnum
+		effwidg = EffectWidget(self, effectname, effectnum)
 		self.effectsbox.pack_start(effwidg, True)
 		
 		self.effectsbox.show_all()
@@ -320,8 +319,9 @@ class InstrumentEffectsDialog:
 		for effect in self.instrument.effects:
 			self.currentplugin =  effect.get_factory().get_name()
 			effectname =  effect.get_factory().get_longname()
+			effectnum = len(self.instrument.effects) - 1
 				
-			effwidg = EffectWidget(self, effectname)
+			effwidg = EffectWidget(self, effectname, effectnum)
 			self.effectsbox.pack_start(effwidg, True)
 			
 			self.effectsbox.pack_start(effwidg)
@@ -439,6 +439,14 @@ class InstrumentEffectsDialog:
 
 	#_____________________________________________________________________	
 	
-	def OnRemoveEffect(self, widget):
-		print widget
+	def OnRemoveEffect(self, widget, effectnum):
 
+		try:
+			self.instrument.effectsbin.remove(self.instrument.effects[effectnum])
+		except:
+			pass
+		
+		self.instrument.effects.pop(effectnum)
+		
+		self.PopulateEffects()
+		
