@@ -264,6 +264,11 @@ class InstrumentEffectsDialog:
 				adj.connect("value_changed", self.SetEffectSetting, property.name, property)
 				self.sliderdict[property.name] = hscale = gtk.HScale(adj)
 				hscale.set_value_pos(gtk.POS_RIGHT)
+				#add step increment for mouse-wheel scrolling - proportional
+				#to range in view. Must be at least the smallest interval
+				#possible (determined by get_digits()) or scroll doesn't happen
+				adj.step_increment = (property.maximum - property.minimum) / 100
+				adj.step_increment = max(adj.step_increment, 1.0 / (10 ** hscale.get_digits()))
                 
 				#check for ints and change digits
 				if not((property.value_type == gobject.TYPE_FLOAT) or
