@@ -1,4 +1,7 @@
 #!/bin/bash
-
-PYTHONPATH=$(dirname $(dirname $0)):$PYTHONPATH python $(dirname $0)/JokosherApp.py $*
+#set -x
+pushd $(dirname $0)
+PARENTDIR=$(dirname `pwd`)
+popd
+PYTHONPATH=$PARENTDIR:$(dirname $0):$PYTHONPATH python $(dirname $0)/JokosherApp.py $*
 
