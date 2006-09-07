@@ -175,9 +175,6 @@ class MainApp:
 		#make icon available to others
 		self.icon = self.window.get_icon()
 		
-		# Show the main window
-		self.window.show_all()
-		
 		# Make sure we can import for the instruments folder
 		sys.path.append("Instruments")
 		
@@ -188,6 +185,17 @@ class MainApp:
 		self.CheckGstreamerVersions()
 
 
+		# set up presets registry - this should probably be removed here	
+		EffectPresets().FillEffectsPresetsRegistry()
+		
+		# Load extensions -- this should probably go somewhere more appropriate
+		Extension.API = Extension.ExtensionAPI(self)
+		Extension.LoadAllExtensions()
+
+		# Show the main window
+		self.window.show_all()
+
+		# Setup is complete so load a project or not depending.
 		if openproject:
 			self.OpenProjectFromPath(openproject)
 		elif Globals.settings.general["startupaction"] == PreferencesDialog.STARTUP_LAST_PROJECT:
@@ -200,12 +208,7 @@ class MainApp:
 		if self.project == None:
 			WelcomeDialog.WelcomeDialog(self)
 
-		# set up presets registry - this should probably be removed here	
-		EffectPresets().FillEffectsPresetsRegistry()
-		
-		# Load extensions -- this should probably go somewhere more appropriate
-		Extension.API = Extension.ExtensionAPI(self)
-		Extension.LoadAllExtensions()
+
 	#_____________________________________________________________________	
 
 	def OnChangeView(self, view, mode):
