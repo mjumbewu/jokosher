@@ -469,16 +469,19 @@ class EventViewer(gtk.DrawingArea):
 					("---", None, None),
 					(_("Cut"), self.OnCut, True),
 					(_("Copy"), self.OnCopy, True),
-					(_("Delete"), self.OnDelete, True)
+					(_("Delete"), self.OnDelete, False)
 				] 
 
-		for i, cb, sensitive in items: 
+		for i, cb, sometimes in items: 
 			if i == "---":
 				a = gtk.SeparatorMenuItem()
 			else:
 				a = gtk.MenuItem(i)
 			
-			a.set_sensitive(bool(sensitive))
+			if self.event.isLoading and sometimes:
+				a.set_sensitive(False)
+			else:
+				a.set_sensitive(True)
 			a.show() 
 			m.append(a) 
 			if cb:
@@ -577,7 +580,8 @@ class EventViewer(gtk.DrawingArea):
 	def TrimToSelection(self, evt):
 		# Cut this event down so only the selected bit remains. This event
 		# is L-S-R, where S is the selected bit; we're removing L and R.
-
+		if self.event.isLoading == True:
+			return
 		leftOfSel = self.Selection[0] / float(self.project.viewScale)
 		rightOfSel = self.Selection[1] / float(self.project.viewScale)
 		
