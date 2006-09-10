@@ -1,3 +1,13 @@
+#
+#       THIS FILE IS PART OF THE JOKOSHER PROJECT AND LICENSED UNDER THE GPL. SEE
+#       THE 'COPYING' FILE FOR DETAILS
+#
+#       Monitored.py
+#       
+#       Offers an abstract class for reporting changes to other objects
+#
+#-------------------------------------------------------------------------------
+
 
 #=========================================================================
 
@@ -15,18 +25,33 @@ class Monitored:
 	#_____________________________________________________________________
 		
 	def AddListener(self, obj):
+		"""Adds an object to report changes too.
+		
+		Keyword arguments:
+		obj -- An object to inform when StateChanged is called."""
+
 		if not obj in self.listeners:
 			self.listeners.append(obj)
 			
 	#_____________________________________________________________________
 			
 	def RemoveListener(self, obj):
+		"""Stop reporting changes to the specified object.
+		
+		Keyword arguments:
+		obj -- The object which should no longer receive change updates."""
+
 		if obj in self.listeners:
 			self.listeners.remove(obj)
 			
 	#_____________________________________________________________________
 			
 	def StateChanged(self,change=None):
+		"""This function should be called when we want a change to be reported to all objects previously added by AddListener. 
+		
+		Keyword arguments:
+		change -- The change which has occured (optional)."""
+
 		for obj in self.listeners:
 			obj.OnStateChanged(self,change)
 			
