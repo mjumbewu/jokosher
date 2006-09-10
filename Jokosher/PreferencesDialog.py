@@ -1,3 +1,12 @@
+#
+#       THIS FILE IS PART OF THE JOKOSHER PROJECT AND LICENSED UNDER THE GPL. SEE
+#       THE 'COPYING' FILE FOR DETAILS
+#
+#       PreferencesDialog.py
+#       
+#       This dialog handles the setting of preferences
+#
+#-------------------------------------------------------------------------------
 
 import gtk
 import gtk.glade
@@ -15,11 +24,21 @@ STARTUP_WELCOME_DIALOG = "welcome"
 STARTUP_LAST_PROJECT = "lastproject"
 STARTUP_NOTHING = "nothing"
 
+#=========================================================================
+
 class PreferencesDialog:	
+	"""This class creates a dialog for selecting and saving global preferences."""
+
 	def __init__(self, project, mainwindow, icon=None):
+		"""Keyword arguments:
+		project -- The jokosher project currently loaded.
+		mainwindow -- A reference to the main Jokosher window
+		icon -- The icon for the window manager to display for this window (optional)."""
+
 		self.project = project
 		self.mainwindow = mainwindow
 
+		#Initialize GTK resources from glade file
 		self.res = gtk.glade.XML(Globals.GLADE_PATH, "PreferencesDialog")
 
 		self.signals = {
@@ -38,8 +57,6 @@ class PreferencesDialog:
 		self.radioWelcome = self.res.get_widget("startupWelcomeDialog")
 		self.radioLastProject = self.res.get_widget("startupLastProject")
 		self.radioNothing = self.res.get_widget("startupNothing")
-
-		self.devicetocardnum = {}
 
 		#Find all ALSA devices 
 		self.playbacks = AlsaDevices.GetAlsaList("playback")
@@ -66,24 +83,46 @@ class PreferencesDialog:
 		else: #default in case no preference is saved
 			self.radioWelcome.set_active(True)
 		
+	#_____________________________________________________________________
 		
 	def LoadSetting(self, widget, section, property):
+		"""Sets the selected value in a combobox to that specified by a configuration object
+		
+		Keyword arguments:
+		widget -- The combobox to select the value in.
+		section -- The configuration section object to find the property in.
+		property -- The property of the configuration section to use when selecting the combobox value."""
+
 		if section.has_key(property):
 			model = widget.get_model()
 			
 			iter = model.get_iter_first()
 			while iter:
+				#Iterate through all entries in the combobox until we find one matching the value saved in property
 				if model.get_value(iter, 0) == section[property]:
 					widget.set_active_iter(iter)
 					break
 				else:
+					#Default to having the first item in the combobox selected
 					widget.set_active(0)
 				iter = model.iter_next(iter)
 
-	def OnClose(self, button): 
+	def OnClose(self, button=None): 
+		"""Called when the user closes the preferences dialog.
+		
+		Keyword arguments:
+		button -- The button widget that was clicked (unused, automatically specified by gtk)."""
+
 		self.dlg.destroy()
 
-	def OnSettingChanged(self, combobox):
+	#_____________________________________________________________________
+
+	def OnSettingChanged(self, combobox=None):
+		"""Called when a setting is changed to update the currently used settings and write an updated settings file
+		
+		Keyword arguments:
+		combobox -- The combobox widget that has changed (unused, automatically specified by gtk)."""
+
 		if self.loading:
 			return
 		
@@ -106,8 +145,10 @@ class PreferencesDialog:
 		
 		self.mainwindow.UpdateDisplay()
 
+	#_____________________________________________________________________
+
 	def OnCheckEncoders(self):
-		"""list the available encoders on the computer"""
+		"""List the available encoders installed on the computer"""
 
 		thelist = gst.registry_get_default().get_feature_list(gst.ElementFactory)
 		encoders = []
