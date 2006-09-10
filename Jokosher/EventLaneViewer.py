@@ -12,6 +12,10 @@ _ = gettext.gettext
 #=========================================================================
 
 class EventLaneViewer(gtk.EventBox):
+	"""
+		This class is a container for all the individual EventViewers
+		for a single instrument.
+	"""
 	
 	URI_DRAG_TYPE = 84			# Number only to be used inside Jokosher
 	DRAG_TARGETS = [ ( "text/uri-list", 	# Accept uri-lists
@@ -21,6 +25,13 @@ class EventLaneViewer(gtk.EventBox):
 	#_____________________________________________________________________
 
 	def __init__(self, project, instrument, instrumentviewer, mainview, small = False):
+		"""
+			project - the current active project
+			instrument - the instrument that the event lane belongs
+			instrumentviewer - the instrumentviewer holding the event lane
+			mainview - the main Jokosher window
+			small - set to True if we want small edit views (i.e. for mix view)
+		"""
 		gtk.EventBox.__init__(self)
 
 		self.small = small
@@ -77,6 +88,10 @@ class EventLaneViewer(gtk.EventBox):
 	#_____________________________________________________________________
 		
 	def OnDraw(self, widget, event):
+		"""
+			Callback for 'expose-event'
+			The drawing areas cannot be drawn on until this point
+		"""
 
 		d = widget.window
 		gc = d.new_gc()
@@ -104,6 +119,9 @@ class EventLaneViewer(gtk.EventBox):
 	#_____________________________________________________________________
 		
 	def Update(self, child=None):
+		"""
+			Updates the complete view when requested by OnStateChanged or __init__
+		"""
 		if child and child in self.fixed.get_children():
 			x = int(round((child.event.start - self.project.viewStart) * self.project.viewScale))
 			self.fixed.move( child, x, 0 )
@@ -133,6 +151,9 @@ class EventLaneViewer(gtk.EventBox):
 	#_____________________________________________________________________
 
 	def OnMouseDown(self, widget, mouse):
+		"""
+			Callback for 'button-press-event' signal 
+		"""
 		
 		if self.childActive:
 			return
@@ -168,12 +189,18 @@ class EventLaneViewer(gtk.EventBox):
 	#_____________________________________________________________________
 	
 	def OnMenuDone(self, widget):
+		"""
+			Callback for 'selection-done' signal - context menu selected
+		"""
 		self.popupIsActive = False
 		self.highlightCursor = None
 	
 	#_____________________________________________________________________
 
 	def OnMouseMove(self, widget, mouse):
+		"""
+			Callback for 'motion_notify_event' - mouse moved/entered eventlaneviewer
+		"""
 		# display status bar message if has not already been displayed
 		if not self.messageID: 
 			self.messageID = self.mainview.SetStatusBar(_("<b>Right-click</b> for more options."))
@@ -184,6 +211,9 @@ class EventLaneViewer(gtk.EventBox):
 	#_____________________________________________________________________
 		
 	def OnMouseLeave(self, widget, mouse):
+		"""
+			Callback for 'leave_notify_event' - mouse left eventlaneviewer
+		"""
 		if self.messageID:   #clear status bar if not already clear
 			self.mainview.ClearStatusBar(self.messageID)
 			self.messageID = None
@@ -194,6 +224,10 @@ class EventLaneViewer(gtk.EventBox):
 	#_____________________________________________________________________
 	
 	def CreateEventFromFile(self, evt):
+		"""
+			Called on selecting "Import Audio File..." from context menu.
+			Opens up a file chooser dialog.
+		"""
 		buttons = (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, gtk.STOCK_OPEN, gtk.RESPONSE_OK)
 
 		copyfile = gtk.CheckButton(_("Copy file to project"))
@@ -228,6 +262,10 @@ class EventLaneViewer(gtk.EventBox):
 	#_____________________________________________________________________
 	
 	def OnPaste(self, widget):
+		"""
+			Called when selecting "Paste" from context menu 
+			 - adds an event from the clipboard
+		"""
 		if not self.project.clipboardList:
 			return
 		
@@ -238,12 +276,24 @@ class EventLaneViewer(gtk.EventBox):
 	#_____________________________________________________________________
 	
 	def OnDelete(self, event):
+		"""
+			Called when selecting Delete from context menu
+			 - deletes instrument from project
+			NOTE: This is delete when right-clicking an EMPTY section
+			      of the event lane. For right-clicking over a selected 
+						event see OnDelete in EventViewer
+		"""
 		self.project.DeleteInstrument(self.instrument.id)
 		self.mainview.UpdateDisplay()
 	
 	#_____________________________________________________________________
 	
 	def OnStateChanged(self, obj, change=None):
+		"""
+			Called on a change of state in any of the objacts we are interested in.
+			If there's a project or instrument change then redraw everything,
+			otherwise just redraw the play head.
+		"""
 		if obj is self.project or obj is self.instrument:
 			self.Update()
 		else:
