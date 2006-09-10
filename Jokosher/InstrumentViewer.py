@@ -1,3 +1,12 @@
+#
+#	THIS FILE IS PART OF THE JOKOSHER PROJECT AND LICENSED UNDER THE GPL. SEE
+#	THE 'COPYING' FILE FOR DETAILS
+#
+#	InstrumentViewer.py
+#	
+#	Encapsulate the customised track viewing and editing control
+#
+#-------------------------------------------------------------------------------
 
 import gtk
 import pango
@@ -12,7 +21,9 @@ _ = gettext.gettext
 #=========================================================================	
 
 class InstrumentViewer(gtk.EventBox):
-	""" Class to encapsulate the customised track viewing and editing control. """
+	""" 
+		Class to encapsulate the customised track viewing and editing control.
+	"""
 
 	EDGE_DISTANCE = 5				# Size of event edge handle
 	EDGE_HOT_ZONE = 10				# Size of 'hot zone' used to trigger drawing of edge handle
@@ -30,7 +41,14 @@ class InstrumentViewer(gtk.EventBox):
 	
 	def __init__(self, project, instrument, projectview, mainview, small = False):
 		gtk.EventBox.__init__(self)
-		
+		"""
+			project - the current active project
+			instrument - the instrument that the event lane belongs
+			instrumentviewer - the instrumentviewer holding the event lane
+			projectview - the RecordingView instance that this belongs to
+			mainview - the main Jokosher window
+			small - set to True if we want small edit views (i.e. for mix view)
+		"""
 		self.instrument = instrument
 		self.project = project
 		self.small = small
@@ -144,24 +162,37 @@ class InstrumentViewer(gtk.EventBox):
 	#_____________________________________________________________________
 
 	def OnMute(self, widget):
+		"""
+			Callback for "toggle" signal on Mute button
+		"""
 		if not self.Updating:
 			self.instrument.ToggleMuted(wasSolo=False)
 	
 	#_____________________________________________________________________
 
 	def OnArm(self, widget):
+		"""
+			Callback for "toggle" signal on Record button
+		"""
 		if not self.Updating:
 			self.instrument.ToggleArmed()
 		
 	#_____________________________________________________________________
 	
 	def OnSolo(self, widget):
+		"""
+			Callback for "toggle" signal on Solo button
+		"""
 		if not self.Updating:
 			self.instrument.ToggleSolo(False)
 		
 	#_____________________________________________________________________
 
 	def OnSelect(self, widget, event):
+		"""
+			Callback for "button_press_event" anywhere within InstrumentViewer
+			Sets instrument to selected state
+		"""
 		if 'GDK_CONTROL_MASK' not in event.state.value_names:
 			self.project.ClearEventSelections()
 			self.project.ClearInstrumentSelections()
@@ -171,11 +202,15 @@ class InstrumentViewer(gtk.EventBox):
 	#_____________________________________________________________________
 
 	def OnEditLabel(self, widget, event):
+		"""
+			Callback for "button_press_event" in the instrument name label
+		"""
 		if not self.instrument.isSelected:
 			self.OnSelect(widget, event)
 			# Don't edit label unless the user clicks while we are already selected
 			return True
 			
+		# replace label with gtk.Entry in order to edit it
 		if event.type == gtk.gdk.BUTTON_PRESS:
 			self.labeleventbox.hide_all()
 			
@@ -194,6 +229,10 @@ class InstrumentViewer(gtk.EventBox):
 	#_____________________________________________________________________
 
 	def OnAcceptEditLabel(self, widget=None):
+		"""
+			Called when the instrument label has been edited
+		"""
+		# change instrument name then replace edit label with normak label
 		if self.editlabelPacked:	
 			name = self.editlabel.get_text()
 			if name != "":
@@ -212,6 +251,12 @@ class InstrumentViewer(gtk.EventBox):
 	#_____________________________________________________________________
 	
 	def Update(self):
+		"""
+			Called when requested by projectview.Update() to update
+			the display in response to a change in state in any object
+			it is listening to. In turn calls EventLaneViewer.Update()
+			for its EventLaneViewer.
+		"""
 		self.Updating = True
 
 		if not self.small:
@@ -252,6 +297,11 @@ class InstrumentViewer(gtk.EventBox):
 	#______________________________________________________________________
 
 	def OnMouseMove(self, widget, event):
+		"""
+			Callback for "enter_notify_event" and "leave_notify_event"
+			for the instrument name label. Changes cursor to show the 
+			text is edittable
+		"""
 		if not self.window: return
 		if (event.type == gtk.gdk.ENTER_NOTIFY):
 			self.window.set_cursor(gtk.gdk.Cursor(gtk.gdk.XTERM))
@@ -259,6 +309,11 @@ class InstrumentViewer(gtk.EventBox):
 			self.window.set_cursor(None)
 
 	def ResizeHeader(self, width):
+		"""
+			Changes the padding space of the header box in order to line
+			up correctly with the timeline display. 
+			NOTE: Not called here but from TimeLineBar.py
+		"""
 		padding = width - self.headerBox.size_request()[0]
 		self.headerAlign.set_padding(0, 0, 0, padding)
 
@@ -276,6 +331,10 @@ class InstrumentViewer(gtk.EventBox):
 	#______________________________________________________________________
 
 	def OnProcessingMenu(self, widget, mouse):
+		"""
+			Callback for "button_press_event" on the properties button.
+			Pops up a menu (currently only Instrument Effects).
+		"""
 		m = gtk.Menu() 
 		items = [(_("Instrument Effects..."), self.OnInstrumentEffects)] 
 		for i, cb in items:
