@@ -158,9 +158,9 @@ class ExtensionAPI:
 
 
 def LoadAllExtensions():
-  """
-     Walk through all the EXTENSION_DIRS and import every .py file we find.
-  """
+	"""
+		 Walk through all the EXTENSION_DIRS and import every .py file we find.
+	"""
 	for exten_dir in EXTENSION_DIRS:
 		if not os.path.isdir(exten_dir):
 			continue
