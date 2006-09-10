@@ -28,7 +28,8 @@ class WelcomeDialog:
 	#_____________________________________________________________________
 
 	def __init__(self, mainwindow):
-				
+		
+		# this points to JokosherApp		
 		self.mainwindow = mainwindow
 				
 		self.res = gtk.glade.XML(Globals.GLADE_PATH, "WelcomeDialog")
@@ -55,6 +56,8 @@ class WelcomeDialog:
 		self.openrecentbutton = self.res.get_widget("openrecentprojectbutton")
 		self.openrecentbutton.set_sensitive(False)
 
+		# set up recent projects treeview with a ListStore model. We also
+		# use CellRenderPixbug as we are using icons for each entry
 		self.model = gtk.ListStore(str, str, str)
 		self.PopulateRecentProjects()
 		self.tree.set_model(self.model)
@@ -80,6 +83,7 @@ class WelcomeDialog:
 	def OnNewProject(self, widget):
 		"""Start a new project."""
 		
+		# hide the welcome dislog and call OnNewProject() from JokosherApp
 		self.window.hide()
 		self.mainwindow.OnNewProject(self, self.OnDialogClose)
 	
@@ -87,7 +91,8 @@ class WelcomeDialog:
 			
 	def OnOpenProject(self, button=None):
 		"""Open a project."""
-		
+
+		# hide the welcome dislog and call OnOpenProject() from JokosherApp		
 		self.window.hide()
 		self.mainwindow.OnOpenProject(self, self.OnDialogClose)
 		
@@ -95,7 +100,8 @@ class WelcomeDialog:
 	
 	def OnPreferences(self, button):
 		"""Show the preferences window."""
-		
+
+		# hide the welcome dislog and call OnPreferences() from JokosherApp		
 		self.window.hide()
 		self.mainwindow.OnPreferences(self, self.OnDialogClose)
 		
