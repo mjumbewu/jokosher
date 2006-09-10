@@ -1,3 +1,13 @@
+#
+#	THIS FILE IS PART OF THE JOKOSHER PROJECT AND LICENSED UNDER THE GPL. SEE
+#	THE 'COPYING' FILE FOR DETAILS
+#
+#	CompactMixView.py
+#	
+#	A sub-class of gtk.Frame containing the mixing view of the project
+#
+#-------------------------------------------------------------------------------
+
 import gtk
 import gobject
 import Globals

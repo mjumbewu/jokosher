@@ -1,3 +1,12 @@
+#
+#	THIS FILE IS PART OF THE JOKOSHER PROJECT AND LICENSED UNDER THE GPL. SEE
+#	THE 'COPYING' FILE FOR DETAILS
+#
+#	EventLaneViewer.py
+#	
+#	This is a container for all the EventViewers belonging to a single instrument
+#
+#-------------------------------------------------------------------------------
 
 import gtk, Instrument
 from EventViewer import *
