@@ -1119,7 +1119,5 @@ def main():
 
 
 if __name__ == "__main__":
-	import profile
-	profile.run('main()', 'fooprof')
-	#main()
+	main()
 
