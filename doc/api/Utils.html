@@ -1,0 +1,49 @@
+
+<!doctype html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module Utils</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>Utils</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/mike/src/jokosher/trunk/Jokosher/Utils.py">/home/mike/src/jokosher/trunk/Jokosher/Utils.py</a></font></td></tr></table>
+    <p><tt>#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THIS&nbsp;FILE&nbsp;IS&nbsp;PART&nbsp;OF&nbsp;THE&nbsp;JOKOSHER&nbsp;PROJECT&nbsp;AND&nbsp;LICENSED&nbsp;UNDER&nbsp;THE&nbsp;GPL.&nbsp;SEE<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THE&nbsp;'COPYING'&nbsp;FILE&nbsp;FOR&nbsp;DETAILS<br>
+#<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Utils.py<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;module&nbsp;contains&nbsp;a&nbsp;bunch&nbsp;of&nbsp;useful&nbsp;helper&nbsp;methods&nbsp;used&nbsp;elsewhere&nbsp;in<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;code.<br>
+#<br>
+#-------------------------------------------------------------------------------</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#fffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="math.html">math</a><br>
+</td><td width="25%" valign=top><a href="xml.dom.minidom.html">xml.dom.minidom</a><br>
+</td><td width="25%" valign=top></td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-DbToFloat"><strong>DbToFloat</strong></a>(f)</dt><dd><tt>Converts&nbsp;f&nbsp;from&nbsp;the&nbsp;decibel&nbsp;scale&nbsp;to&nbsp;a&nbsp;0..1&nbsp;float</tt></dd></dl>
+ <dl><dt><a name="-LoadDictionaryFromXML"><strong>LoadDictionaryFromXML</strong></a>(parentElement)</dt><dd><tt>For&nbsp;those&nbsp;times&nbsp;when&nbsp;you&nbsp;don't&nbsp;want&nbsp;to&nbsp;fill&nbsp;module&nbsp;variables&nbsp;with<br>
+parameters&nbsp;from&nbsp;the&nbsp;XML&nbsp;but&nbsp;just&nbsp;want&nbsp;to&nbsp;fill&nbsp;a&nbsp;dictionary&nbsp;instead.</tt></dd></dl>
+ <dl><dt><a name="-LoadParametersFromXML"><strong>LoadParametersFromXML</strong></a>(self, parentElement)</dt><dd><tt>Loads&nbsp;parameters&nbsp;from&nbsp;the&nbsp;XML&nbsp;and&nbsp;fills&nbsp;variables&nbsp;of&nbsp;the&nbsp;same&nbsp;name<br>
+in&nbsp;that&nbsp;module.&nbsp;The&nbsp;parentElement&nbsp;is&nbsp;the&nbsp;block&nbsp;of&nbsp;XML&nbsp;with&nbsp;the<br>
+parameters.</tt></dd></dl>
+ <dl><dt><a name="-StoreDictionaryToXML"><strong>StoreDictionaryToXML</strong></a>(self, doc, parent, dict)</dt><dd><tt>Saves&nbsp;a&nbsp;dictionary&nbsp;of&nbsp;settings<br>
+in&nbsp;an&nbsp;XML&nbsp;document&nbsp;(doc)&nbsp;with&nbsp;the&nbsp;parent&nbsp;XML&nbsp;tag&nbsp;(parent)</tt></dd></dl>
+ <dl><dt><a name="-StoreParametersToXML"><strong>StoreParametersToXML</strong></a>(self, doc, parent, parameters)</dt><dd><tt>Saves&nbsp;a&nbsp;list&nbsp;of&nbsp;variable&nbsp;names&nbsp;(parameters)<br>
+in&nbsp;an&nbsp;XML&nbsp;document&nbsp;(doc)&nbsp;with&nbsp;the&nbsp;parent&nbsp;XML&nbsp;tag&nbsp;(parent)</tt></dd></dl>
+ <dl><dt><a name="-floatRange"><strong>floatRange</strong></a>(start, end<font color="#909090">=None</font>, inc<font color="#909090">=None</font>)</dt><dd><tt>A&nbsp;range&nbsp;function,&nbsp;that&nbsp;does&nbsp;accept&nbsp;float&nbsp;increments...</tt></dd></dl>
+</td></tr></table>
+</body></html>

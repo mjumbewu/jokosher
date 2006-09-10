@@ -1,0 +1,97 @@
+
+<!doctype html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module InstrumentEffectsDialog</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>InstrumentEffectsDialog</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/mike/src/jokosher/trunk/Jokosher/InstrumentEffectsDialog.py">/home/mike/src/jokosher/trunk/Jokosher/InstrumentEffectsDialog.py</a></font></td></tr></table>
+    <p><tt>#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THIS&nbsp;FILE&nbsp;IS&nbsp;PART&nbsp;OF&nbsp;THE&nbsp;JOKOSHER&nbsp;PROJECT&nbsp;AND&nbsp;LICENSED&nbsp;UNDER&nbsp;THE&nbsp;GPL.&nbsp;SEE<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THE&nbsp;'COPYING'&nbsp;FILE&nbsp;FOR&nbsp;DETAILS<br>
+#<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#InstrumentEffectsDialog">InstrumentEffectsDialog</a>.py<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;module&nbsp;us&nbsp;used&nbsp;to&nbsp;present&nbsp;the&nbsp;dialog&nbsp;for&nbsp;adding&nbsp;and&nbsp;managing&nbsp;instrument<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;effects.&nbsp;Note&nbsp;that&nbsp;this&nbsp;module&nbsp;deals&nbsp;with&nbsp;the&nbsp;main&nbsp;effects&nbsp;dialog&nbsp;*and*&nbsp;the<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;effect&nbsp;settings&nbsp;dialog.<br>
+#<br>
+#-------------------------------------------------------------------------------</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#fffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="EffectPresets.html">EffectPresets</a><br>
+<a href="Globals.html">Globals</a><br>
+</td><td width="25%" valign=top><a href="Project.html">Project</a><br>
+<a href="gobject.html">gobject</a><br>
+</td><td width="25%" valign=top><a href="gst.html">gst</a><br>
+<a href="gtk.html">gtk</a><br>
+</td><td width="25%" valign=top><a href="os.html">os</a><br>
+<a href="pygst.html">pygst</a><br>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="InstrumentEffectsDialog.html#InstrumentEffectsDialog">InstrumentEffectsDialog</a>
+</font></dt></dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="InstrumentEffectsDialog">class <strong>InstrumentEffectsDialog</strong></a></font></td></tr>
+    
+<tr><td bgcolor="#ffc8d8"><tt>&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="InstrumentEffectsDialog-OnAddEffect"><strong>OnAddEffect</strong></a>(self, combo)</dt><dd><tt>The&nbsp;effect&nbsp;element&nbsp;is&nbsp;created&nbsp;and&nbsp;added&nbsp;to&nbsp;the<br>
+self.<strong>instrument</strong>.effects&nbsp;list</tt></dd></dl>
+
+<dl><dt><a name="InstrumentEffectsDialog-OnCancel"><strong>OnCancel</strong></a>(self, button)</dt></dl>
+
+<dl><dt><a name="InstrumentEffectsDialog-OnChainPresetChanged"><strong>OnChainPresetChanged</strong></a>(self, combo)</dt><dd><tt>A&nbsp;preset&nbsp;is&nbsp;selected&nbsp;from&nbsp;the&nbsp;chain&nbsp;preset&nbsp;combo.&nbsp;Load&nbsp;it.</tt></dd></dl>
+
+<dl><dt><a name="InstrumentEffectsDialog-OnEffectPresetChanged"><strong>OnEffectPresetChanged</strong></a>(self, combo)</dt><dd><tt>A&nbsp;preset&nbsp;is&nbsp;selected&nbsp;from&nbsp;the&nbsp;single&nbsp;effect&nbsp;preset&nbsp;combo.&nbsp;Load&nbsp;it.</tt></dd></dl>
+
+<dl><dt><a name="InstrumentEffectsDialog-OnEffectSetting"><strong>OnEffectSetting</strong></a>(self, button)</dt><dd><tt>Show&nbsp;a&nbsp;dialog&nbsp;filled&nbsp;with&nbsp;settings&nbsp;sliders&nbsp;for&nbsp;a&nbsp;specific&nbsp;effect</tt></dd></dl>
+
+<dl><dt><a name="InstrumentEffectsDialog-OnEffectSettingCancel"><strong>OnEffectSettingCancel</strong></a>(self, button)</dt><dd><tt>Close&nbsp;the&nbsp;window</tt></dd></dl>
+
+<dl><dt><a name="InstrumentEffectsDialog-OnEffectSettingOK"><strong>OnEffectSettingOK</strong></a>(self, button)</dt><dd><tt>Close&nbsp;the&nbsp;window</tt></dd></dl>
+
+<dl><dt><a name="InstrumentEffectsDialog-OnOK"><strong>OnOK</strong></a>(self, button)</dt></dl>
+
+<dl><dt><a name="InstrumentEffectsDialog-OnRemoveEffect"><strong>OnRemoveEffect</strong></a>(self, widget, effectnum)</dt></dl>
+
+<dl><dt><a name="InstrumentEffectsDialog-OnSaveEffectChainPreset"><strong>OnSaveEffectChainPreset</strong></a>(self, widget)</dt><dd><tt>Grab&nbsp;the&nbsp;chain&nbsp;send&nbsp;it&nbsp;to&nbsp;the&nbsp;presets&nbsp;code&nbsp;to&nbsp;be&nbsp;saved</tt></dd></dl>
+
+<dl><dt><a name="InstrumentEffectsDialog-OnSaveSingleEffectPreset"><strong>OnSaveSingleEffectPreset</strong></a>(self, widget)</dt><dd><tt>Grab&nbsp;the&nbsp;effect&nbsp;properties&nbsp;and&nbsp;send&nbsp;it&nbsp;to&nbsp;the&nbsp;presets&nbsp;code&nbsp;to&nbsp;be&nbsp;saved</tt></dd></dl>
+
+<dl><dt><a name="InstrumentEffectsDialog-OnSelectEffect"><strong>OnSelectEffect</strong></a>(self, combo)</dt><dd><tt>Callback&nbsp;for&nbsp;when&nbsp;an&nbsp;effect&nbsp;is&nbsp;selected&nbsp;from&nbsp;the&nbsp;effects&nbsp;list.&nbsp;This<br>
+method&nbsp;looks&nbsp;up&nbsp;the&nbsp;name&nbsp;from&nbsp;the&nbsp;combo&nbsp;box&nbsp;in&nbsp;LADSPA_NAME_MAP&nbsp;and<br>
+returns&nbsp;the&nbsp;factory&nbsp;name&nbsp;(e.g.&nbsp;ladspa-foo-effect).&nbsp;This&nbsp;is&nbsp;then&nbsp;set&nbsp;to<br>
+self.<strong>currentplugin</strong>.</tt></dd></dl>
+
+<dl><dt><a name="InstrumentEffectsDialog-OnSettingEntryChanged"><strong>OnSettingEntryChanged</strong></a>(self, widget)</dt></dl>
+
+<dl><dt><a name="InstrumentEffectsDialog-OnTransport"><strong>OnTransport</strong></a>(self, button)</dt></dl>
+
+<dl><dt><a name="InstrumentEffectsDialog-PopulateEffects"><strong>PopulateEffects</strong></a>(self)</dt><dd><tt>Fill&nbsp;the&nbsp;effectsbox&nbsp;table&nbsp;with&nbsp;the&nbsp;effects,&nbsp;iterated&nbsp;from&nbsp;the<br>
+effects&nbsp;list</tt></dd></dl>
+
+<dl><dt><a name="InstrumentEffectsDialog-SetEffectSetting"><strong>SetEffectSetting</strong></a>(self, slider, name, property)</dt><dd><tt>Set&nbsp;the&nbsp;value&nbsp;of&nbsp;a&nbsp;gstreamer&nbsp;property&nbsp;from&nbsp;an&nbsp;effects&nbsp;slider</tt></dd></dl>
+
+<dl><dt><a name="InstrumentEffectsDialog-__init__"><strong>__init__</strong></a>(self, instrument)</dt><dd><tt>This&nbsp;constructor&nbsp;enables&nbsp;a&nbsp;bunch&nbsp;of&nbsp;variables,&nbsp;reads&nbsp;in&nbsp;the&nbsp;glade<br>
+file&nbsp;for&nbsp;the&nbsp;main&nbsp;dialog,&nbsp;and&nbsp;populates&nbsp;the&nbsp;effects&nbsp;and&nbsp;presets<br>
+combo&nbsp;boxes</tt></dd></dl>
+
+</td></tr></table></td></tr></table>
+</body></html>

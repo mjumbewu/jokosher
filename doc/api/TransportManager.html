@@ -1,0 +1,110 @@
+
+<!doctype html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module TransportManager</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>TransportManager</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/mike/src/jokosher/trunk/Jokosher/TransportManager.py">/home/mike/src/jokosher/trunk/Jokosher/TransportManager.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#fffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="gobject.html">gobject</a><br>
+</td><td width="25%" valign=top><a href="gst.html">gst</a><br>
+</td><td width="25%" valign=top><a href="pygst.html">pygst</a><br>
+</td><td width="25%" valign=top><a href="time.html">time</a><br>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="Monitored.html#Monitored">Monitored.Monitored</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="TransportManager.html#TransportManager">TransportManager</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="TransportManager">class <strong>TransportManager</strong></a>(<a href="Monitored.html#Monitored">Monitored.Monitored</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>This&nbsp;class&nbsp;handles&nbsp;the&nbsp;current&nbsp;play&nbsp;cursor&nbsp;position<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="TransportManager-Forward"><strong>Forward</strong></a>(self, turnOn)</dt></dl>
+
+<dl><dt><a name="TransportManager-GetPosition"><strong>GetPosition</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="TransportManager-GetPositionAsBarsAndBeats"><strong>GetPositionAsBarsAndBeats</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="TransportManager-GetPositionAsHoursMinutesSeconds"><strong>GetPositionAsHoursMinutesSeconds</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="TransportManager-OnUpdate"><strong>OnUpdate</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="TransportManager-Play"><strong>Play</strong></a>(self, movePlayhead)</dt></dl>
+
+<dl><dt><a name="TransportManager-Reverse"><strong>Reverse</strong></a>(self, turnOn)</dt></dl>
+
+<dl><dt><a name="TransportManager-SeekTo"><strong>SeekTo</strong></a>(self, pos)</dt></dl>
+
+<dl><dt><a name="TransportManager-SetBPM"><strong>SetBPM</strong></a>(self, bpm)</dt></dl>
+
+<dl><dt><a name="TransportManager-SetMeter"><strong>SetMeter</strong></a>(self, nom, denom)</dt></dl>
+
+<dl><dt><a name="TransportManager-SetMode"><strong>SetMode</strong></a>(self, mode)</dt><dd><tt>For&nbsp;undo&nbsp;compatibility&nbsp;please&nbsp;use&nbsp;Project.SetTransportMode().<br>
+That&nbsp;method&nbsp;should&nbsp;be&nbsp;used&nbsp;instead&nbsp;in&nbsp;most&nbsp;cases.</tt></dd></dl>
+
+<dl><dt><a name="TransportManager-SetPosition"><strong>SetPosition</strong></a>(self, pos)</dt></dl>
+
+<dl><dt><a name="TransportManager-StartUpdateTimeout"><strong>StartUpdateTimeout</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="TransportManager-Stop"><strong>Stop</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="TransportManager-__init__"><strong>__init__</strong></a>(self, initialMode, mainpipeline)</dt></dl>
+
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>FPS</strong> = 30.0</dl>
+
+<dl><dt><strong>MODE_BARS_BEATS</strong> = 2</dl>
+
+<dl><dt><strong>MODE_HOURS_MINS_SECS</strong> = 1</dl>
+
+<dl><dt><strong>SEEK_RATE</strong> = 5.0</dl>
+
+<dl><dt><strong>TICKS_PER_BEAT</strong> = 256</dl>
+
+<hr>
+Methods inherited from <a href="Monitored.html#Monitored">Monitored.Monitored</a>:<br>
+<dl><dt><a name="TransportManager-AddListener"><strong>AddListener</strong></a>(self, obj)</dt><dd><tt>Adds&nbsp;an&nbsp;object&nbsp;to&nbsp;report&nbsp;changes&nbsp;too.<br>
+&nbsp;<br>
+Keyword&nbsp;arguments:<br>
+obj&nbsp;--&nbsp;An&nbsp;object&nbsp;to&nbsp;inform&nbsp;when&nbsp;StateChanged&nbsp;is&nbsp;called.</tt></dd></dl>
+
+<dl><dt><a name="TransportManager-RemoveListener"><strong>RemoveListener</strong></a>(self, obj)</dt><dd><tt>Stop&nbsp;reporting&nbsp;changes&nbsp;to&nbsp;the&nbsp;specified&nbsp;object.<br>
+&nbsp;<br>
+Keyword&nbsp;arguments:<br>
+obj&nbsp;--&nbsp;The&nbsp;object&nbsp;which&nbsp;should&nbsp;no&nbsp;longer&nbsp;receive&nbsp;change&nbsp;updates.</tt></dd></dl>
+
+<dl><dt><a name="TransportManager-StateChanged"><strong>StateChanged</strong></a>(self, change<font color="#909090">=None</font>)</dt><dd><tt>This&nbsp;function&nbsp;should&nbsp;be&nbsp;called&nbsp;when&nbsp;we&nbsp;want&nbsp;a&nbsp;change&nbsp;to&nbsp;be&nbsp;reported&nbsp;to&nbsp;all&nbsp;objects&nbsp;previously&nbsp;added&nbsp;by&nbsp;AddListener.&nbsp;<br>
+&nbsp;<br>
+Keyword&nbsp;arguments:<br>
+change&nbsp;--&nbsp;The&nbsp;change&nbsp;which&nbsp;has&nbsp;occured&nbsp;(optional).</tt></dd></dl>
+
+</td></tr></table></td></tr></table>
+</body></html>

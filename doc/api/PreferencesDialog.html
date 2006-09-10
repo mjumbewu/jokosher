@@ -1,0 +1,89 @@
+
+<!doctype html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module PreferencesDialog</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>PreferencesDialog</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/mike/src/jokosher/trunk/Jokosher/PreferencesDialog.py">/home/mike/src/jokosher/trunk/Jokosher/PreferencesDialog.py</a></font></td></tr></table>
+    <p><tt>#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THIS&nbsp;FILE&nbsp;IS&nbsp;PART&nbsp;OF&nbsp;THE&nbsp;JOKOSHER&nbsp;PROJECT&nbsp;AND&nbsp;LICENSED&nbsp;UNDER&nbsp;THE&nbsp;GPL.&nbsp;SEE<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THE&nbsp;'COPYING'&nbsp;FILE&nbsp;FOR&nbsp;DETAILS<br>
+#<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#PreferencesDialog">PreferencesDialog</a>.py<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;dialog&nbsp;handles&nbsp;the&nbsp;setting&nbsp;of&nbsp;preferences<br>
+#<br>
+#-------------------------------------------------------------------------------</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#fffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="AlsaDevices.html">AlsaDevices</a><br>
+<a href="Globals.html">Globals</a><br>
+</td><td width="25%" valign=top><a href="Project.html">Project</a><br>
+<a href="gobject.html">gobject</a><br>
+</td><td width="25%" valign=top><a href="gst.html">gst</a><br>
+<a href="gtk.html">gtk</a><br>
+</td><td width="25%" valign=top><a href="os.html">os</a><br>
+<a href="pygst.html">pygst</a><br>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="PreferencesDialog.html#PreferencesDialog">PreferencesDialog</a>
+</font></dt></dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="PreferencesDialog">class <strong>PreferencesDialog</strong></a></font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>This&nbsp;class&nbsp;creates&nbsp;a&nbsp;dialog&nbsp;for&nbsp;selecting&nbsp;and&nbsp;saving&nbsp;global&nbsp;preferences.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="PreferencesDialog-LoadSetting"><strong>LoadSetting</strong></a>(self, widget, section, property)</dt><dd><tt>Sets&nbsp;the&nbsp;selected&nbsp;value&nbsp;in&nbsp;a&nbsp;combobox&nbsp;to&nbsp;that&nbsp;specified&nbsp;by&nbsp;a&nbsp;configuration&nbsp;object<br>
+&nbsp;<br>
+Keyword&nbsp;arguments:<br>
+widget&nbsp;--&nbsp;The&nbsp;combobox&nbsp;to&nbsp;select&nbsp;the&nbsp;value&nbsp;in.<br>
+section&nbsp;--&nbsp;The&nbsp;configuration&nbsp;section&nbsp;object&nbsp;to&nbsp;find&nbsp;the&nbsp;property&nbsp;in.<br>
+property&nbsp;--&nbsp;The&nbsp;property&nbsp;of&nbsp;the&nbsp;configuration&nbsp;section&nbsp;to&nbsp;use&nbsp;when&nbsp;selecting&nbsp;the&nbsp;combobox&nbsp;value.</tt></dd></dl>
+
+<dl><dt><a name="PreferencesDialog-OnCheckEncoders"><strong>OnCheckEncoders</strong></a>(self)</dt><dd><tt>List&nbsp;the&nbsp;available&nbsp;encoders&nbsp;installed&nbsp;on&nbsp;the&nbsp;computer</tt></dd></dl>
+
+<dl><dt><a name="PreferencesDialog-OnClose"><strong>OnClose</strong></a>(self, button<font color="#909090">=None</font>)</dt><dd><tt>Called&nbsp;when&nbsp;the&nbsp;user&nbsp;closes&nbsp;the&nbsp;preferences&nbsp;dialog.<br>
+&nbsp;<br>
+Keyword&nbsp;arguments:<br>
+button&nbsp;--&nbsp;The&nbsp;button&nbsp;widget&nbsp;that&nbsp;was&nbsp;clicked&nbsp;(unused,&nbsp;automatically&nbsp;specified&nbsp;by&nbsp;gtk).</tt></dd></dl>
+
+<dl><dt><a name="PreferencesDialog-OnSettingChanged"><strong>OnSettingChanged</strong></a>(self, combobox<font color="#909090">=None</font>)</dt><dd><tt>Called&nbsp;when&nbsp;a&nbsp;setting&nbsp;is&nbsp;changed&nbsp;to&nbsp;update&nbsp;the&nbsp;currently&nbsp;used&nbsp;settings&nbsp;and&nbsp;write&nbsp;an&nbsp;updated&nbsp;settings&nbsp;file<br>
+&nbsp;<br>
+Keyword&nbsp;arguments:<br>
+combobox&nbsp;--&nbsp;The&nbsp;combobox&nbsp;widget&nbsp;that&nbsp;has&nbsp;changed&nbsp;(unused,&nbsp;automatically&nbsp;specified&nbsp;by&nbsp;gtk).</tt></dd></dl>
+
+<dl><dt><a name="PreferencesDialog-__init__"><strong>__init__</strong></a>(self, project, mainwindow, icon<font color="#909090">=None</font>)</dt><dd><tt>Keyword&nbsp;arguments:<br>
+project&nbsp;--&nbsp;The&nbsp;jokosher&nbsp;project&nbsp;currently&nbsp;loaded.<br>
+mainwindow&nbsp;--&nbsp;A&nbsp;reference&nbsp;to&nbsp;the&nbsp;main&nbsp;Jokosher&nbsp;window<br>
+icon&nbsp;--&nbsp;The&nbsp;icon&nbsp;for&nbsp;the&nbsp;window&nbsp;manager&nbsp;to&nbsp;display&nbsp;for&nbsp;this&nbsp;window&nbsp;(optional).</tt></dd></dl>
+
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>STARTUP_LAST_PROJECT</strong> = 'lastproject'<br>
+<strong>STARTUP_NOTHING</strong> = 'nothing'<br>
+<strong>STARTUP_WELCOME_DIALOG</strong> = 'welcome'</td></tr></table>
+</body></html>
