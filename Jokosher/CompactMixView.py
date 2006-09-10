@@ -13,7 +13,8 @@ gobject.signal_new("minimise", MixerStrip, gobject.SIGNAL_RUN_FIRST, gobject.TYP
 #=========================================================================
 
 class CompactMixView(gtk.Frame):
-	""" This class implements the mix view
+	"""
+		This class implements the mix view
 	"""
 	
 	FPS = 10 # number of times a second the VUWidgets need updating
@@ -21,6 +22,10 @@ class CompactMixView(gtk.Frame):
 	#_____________________________________________________________________
 	
 	def __init__(self, project, mainview):
+		"""
+			project = the active project
+			mainview - the main Jokosher window
+		"""
 		gtk.Frame.__init__(self)
 		self.project = project
 		self.mainview = mainview
@@ -46,11 +51,16 @@ class CompactMixView(gtk.Frame):
 	#_____________________________________________________________________
 
 	def Update(self):
+		"""
+			Updates the mix view when requested by OnStateChanged or __init__
+		"""
 		if self.Updating:
 			return
 		
 		self.Updating = True
 		self.projectview.Update()
+		
+		# remove all the mixer strips and then add the visible ones
 		for i in self.hbox.get_children():
 			self.hbox.remove(i)
 		
@@ -85,6 +95,7 @@ class CompactMixView(gtk.Frame):
 		toollab.set_is_important(True)
 		self.instrbar.insert(toollab, 0)
 
+		# add the minimised instruments to the minimised bar
 		for instr in self.project.instruments:
 			if not instr.isVisible:
 				toolbutt = gtk.ToolButton()
@@ -108,20 +119,35 @@ class CompactMixView(gtk.Frame):
 	#_____________________________________________________________________
 
 	def OnMinimiseTrack(self, widget, instr):
+		"""
+			Callback for 'minimise' signal - minimises mixer strip
+		"""
 		instr.SetVisible(False)
 		
 	#_____________________________________________________________________
 
 	def OnMaximiseTrack(self, widget, instr):
+		"""
+			Callback for 'clicked' signal on minimise buttons
+			 - maximises mixer strip
+		"""
 		instr.SetVisible(True)
 	#_____________________________________________________________________
 	
 	def OnStateChanged(self, obj, change=None):
+		"""
+			Called when a change of state is signalled by any of the
+			instruments that this view is 'listening' to. 
+			NOTE: the actual AddListener call is in RecordingView.py
+			  as this is wher the InstrumentViewer objects are created when
+				instruments are added.
+		"""
 		self.Update()
 	#_____________________________________________________________________
 	
 	def OnUpdateTimeout(self):
-		""" Called at intervals (self.FPS) to update the VU meters
+		""" 
+			Called at intervals (self.FPS) to update the VU meters
 		"""
 		if self.mainview.isPlaying:
 			self.mastermixer.vu.queue_draw()
@@ -138,8 +164,9 @@ class CompactMixView(gtk.Frame):
 	#_____________________________________________________________________
 		
 	def StartUpdateTimeout(self):
-		""" Initiates the OnUpdateTimeout - called from MainApp.play()
-		when the play button is pressed
+		""" 
+			Initiates the OnUpdateTimeout - called from MainApp.play()
+			when the play button is pressed
 		"""
 		if not self.UpdateTimeout:
 			gobject.timeout_add(int(1000 / self.FPS), self.OnUpdateTimeout, priority = gobject.PRIORITY_LOW)
