@@ -24,15 +24,24 @@ import EffectPresets
 from EffectWidget import EffectWidget
 
 class InstrumentEffectsDialog:
+	"""
+		This class displays and implements the instrument effects dialog
+		box, which can be used to add, remove, and edit effects for an
+		instrument.
+	"""
 	
 	#_____________________________________________________________________	
 	
 	def __init__(self, instrument):
-		"""This constructor enables a bunch of variables, reads in the glade
-		file for the main dialog, and populates the effects and presets
-		combo boxes"""
+		"""
+			This constructor enables a bunch of variables, reads in the glade
+			file for the main dialog, and populates the effects and presets
+			combo boxes
+		"""
 		
+		# a reference to the instrument object
 		self.instrument = instrument
+		
 		self.res = gtk.glade.XML(Globals.GLADE_PATH, "InstrumentEffectsDialog")
 
 		# this refers to the current effects Plugin
@@ -108,57 +117,86 @@ class InstrumentEffectsDialog:
 	#_____________________________________________________________________	
 		
 	def OnOK(self, button):
-			self.window.destroy()
+		"""
+			If the OK button is pressed on the dialog box, the window is
+			destroyed.
+		"""
+		
+		self.window.destroy()
 		
 	#_____________________________________________________________________	
 				
 	def OnCancel(self, button):
+		"""
+			If the Cancel button is pressed, the dialog is destroyed.
+		"""
+		
 		self.window.destroy()
 
 	#_____________________________________________________________________	
 
 	def OnTransport(self, button):
+		"""
+			Pressing the Play/Stop button on the dialog box allows the user
+			to play back the project to test if the effect settings are
+			right for them. When user press the Play button, it switches to
+			a stop button, and vice versa.
+		"""
+		
+		# check self.isPlaying to see if the project is playing already
 		if self.isPlaying == False:
+			# things to do if the project is not already playing, and hence
+			# needs to start playing
 			self.instrument.project.play()
 			self.transportbutton.set_use_stock(True)
 			self.transportbutton.set_label(gtk.STOCK_MEDIA_STOP)
+			
+			# make the preset widgets insensitive so the user cannot select
+			# presets while the project is playing
 			self.chainsave.set_sensitive(False)
 			self.addeffect.set_sensitive(False)
 			self.chainpresetcombo.set_sensitive(False)
 			self.effectscombo.set_sensitive(False)
+			
+			# set this to True to show we are now playing
 			self.isPlaying = True
 		else:
+			# things to do when the stop button is pressed to stop playback
 			self.instrument.project.stop()
 			self.transportbutton.set_use_stock(True)
 			self.transportbutton.set_label(gtk.STOCK_MEDIA_PLAY)
+			
+			# make the preset widgets sensitive again
 			self.chainsave.set_sensitive(True)
 			self.addeffect.set_sensitive(True)
 			self.chainpresetcombo.set_sensitive(True)
 			self.effectscombo.set_sensitive(True)
+			
+			# set this to False to show we are no longer playing
 			self.isPlaying = False
 					
 
 	#_____________________________________________________________________	
 
 	def OnSelectEffect(self, combo):
-		"""Callback for when an effect is selected from the effects list. This
-		method looks up the name from the combo box in LADSPA_NAME_MAP and
-		returns the factory name (e.g. ladspa-foo-effect). This is then set to
-		self.currentplugin."""
+		"""
+			Callback for when an effect is selected from the effects list. This
+			method looks up the name from the combo box in LADSPA_NAME_MAP and
+			returns the factory name (e.g. ladspa-foo-effect). This is then set to
+			self.currentplugin.
+		"""
 		
 		self.effectindex = combo.get_active()
 		
 		self.currentplugin = Globals.LADSPA_NAME_MAP[self.effectindex][0]
 		
-		#for e in Globals.LADSPA_NAME_MAP:
-			#if Globals.LADSPA_NAME_MAP[e] == name:
-				#self.currentplugin = e
-
 	#_____________________________________________________________________	
 
 	def OnAddEffect(self, combo):
-		"""The effect element is created and added to the
-		self.instrument.effects list"""
+		"""
+			The effect element is created and added to the
+			self.instrument.effects list
+		"""
 				
 		# if self.instrument.effects is empty, this is the first effect being
 		# added, and we need to unlink the converter and volume elements as
@@ -167,12 +205,9 @@ class InstrumentEffectsDialog:
 			self.instrument.converterElement.unlink(self.instrument.volumeElement)
 
 		self.instrument.effects.append(gst.element_factory_make(self.currentplugin, self.currentplugin))
-		#self.instrument.effects.append(self.effect)
 
 		effectname = Globals.LADSPA_NAME_MAP[self.effectindex][1]
 		effectnum = len(self.instrument.effects) - 1
-		print "ADDED INSTRUMENT NUMBER:"
-		print effectnum
 		effwidg = EffectWidget(self, effectname, effectnum)
 		self.effectsbox.pack_start(effwidg, True)
 		
@@ -181,9 +216,11 @@ class InstrumentEffectsDialog:
 	#_____________________________________________________________________	
 		
 	def OnEffectSetting(self, button):
-		"""Show a dialog filled with settings sliders for a specific effect"""
+		"""
+			Show a dialog filled with settings sliders for a specific effect
+		"""
 		
-		"""TODO: Make this modal or as part of the effects window"""
+		# TODO: Make this modal or as part of the effects window"""
 
 		# grab references the effect position in the table and the
 		# effect element itself
@@ -230,7 +267,7 @@ class InstrumentEffectsDialog:
 		# iterate through the properties list and determine the value type
 		# of the property and show it where needed
 		for property in proplist:		            
-			#non readable params
+			# non readable params
 			if not(property.flags & gobject.PARAM_READABLE):
 				label = gtk.Label(property.name)
 				label.set_alignment(1,0.5)
@@ -250,7 +287,7 @@ class InstrumentEffectsDialog:
 					wlabel = gtk.Label(wvalue)
 					self.settingstable.attach(wlabel, 1, 2, count, count+1)
 
-			#TODO: tooltips using property.blurb
+			# TODO: tooltips using property.blurb
 
 			elif hasattr(property, "minimum") and hasattr(property, "maximum"):
 				label = gtk.Label(property.name)
@@ -264,9 +301,9 @@ class InstrumentEffectsDialog:
 				adj.connect("value_changed", self.SetEffectSetting, property.name, property)
 				self.sliderdict[property.name] = hscale = gtk.HScale(adj)
 				hscale.set_value_pos(gtk.POS_RIGHT)
-				#add step increment for mouse-wheel scrolling - proportional
-				#to range in view. Must be at least the smallest interval
-				#possible (determined by get_digits()) or scroll doesn't happen
+				# add step increment for mouse-wheel scrolling - proportional
+				# to range in view. Must be at least the smallest interval
+				# possible (determined by get_digits()) or scroll doesn't happen
 				adj.step_increment = (property.maximum - property.minimum) / 100
 				adj.step_increment = max(adj.step_increment, 1.0 / (10 ** hscale.get_digits()))
                 
@@ -301,20 +338,28 @@ class InstrumentEffectsDialog:
 	#_____________________________________________________________________	
 		
 	def OnEffectSettingOK(self, button):
-		"""Close the window"""
+		"""
+			Close the effect settings window.
+		"""
+		
 		self.settingswindow.destroy()
 
 	#_____________________________________________________________________	
 		
 	def OnEffectSettingCancel(self, button):
-		"""Close the window"""
+		"""
+			Close the effect settings window
+		"""
+		
 		self.settingswindow.destroy()
 		
 	#_____________________________________________________________________	
 		
 	def PopulateEffects(self):
-		"""Fill the effectsbox table with the effects, iterated from the
-		effects list"""
+		"""
+			Fill the effectsbox table with the effects, iterated from the
+			effects list.
+		"""
 		
 		# remove all effects from the effectsbox table
 		map(self.effectsbox.remove, self.effectsbox.get_children())
@@ -336,7 +381,9 @@ class InstrumentEffectsDialog:
 	#_____________________________________________________________________	
 		
 	def SetEffectSetting(self, slider, name, property):
-		"""Set the value of a gstreamer property from an effects slider"""
+		"""
+			Set the value of a gstreamer property from an effects slider.
+		"""
 		
 		# grab the slider setting
 		if not((property.value_type == gobject.TYPE_FLOAT) or
@@ -352,7 +399,10 @@ class InstrumentEffectsDialog:
 
 
 	def OnSaveSingleEffectPreset(self, widget):
-		"""Grab the effect properties and send it to the presets code to be saved"""
+		"""
+			Grab the effect properties and send it to the presets code
+			to be saved.
+		"""
 
 		# grab the label from the combo
 		label = self.presetcombo.get_active_text()
@@ -374,7 +424,9 @@ class InstrumentEffectsDialog:
 	#_____________________________________________________________________	
 	
 	def OnSaveEffectChainPreset(self, widget):
-		"""Grab the chain send it to the presets code to be saved"""
+		"""
+			Grab the chain send it to the presets code to be saved.
+		"""
 
 		label = self.chainpresetcombo.get_active_text()
 		
@@ -405,7 +457,10 @@ class InstrumentEffectsDialog:
 	#_____________________________________________________________________	
 	
 	def OnEffectPresetChanged(self, combo):
-		"""A preset is selected from the single effect preset combo. Load it."""
+		"""
+			A preset is selected from the single effect preset
+			combo. Load it.
+		"""
 		presetname = name = combo.get_active_text()
 		settings = self.presets.LoadSingleEffectSettings(self.effectelement, presetname)
 
@@ -423,7 +478,9 @@ class InstrumentEffectsDialog:
 	#_____________________________________________________________________	
 	
 	def OnChainPresetChanged(self, combo):
-		"""A preset is selected from the chain preset combo. Load it."""
+		"""
+			A preset is selected from the chain preset combo. Load it.
+		"""
 		presetname = name = combo.get_active_text()
 		settings = self.presets.LoadInstrumentEffectChain(presetname)
 		
@@ -445,7 +502,10 @@ class InstrumentEffectsDialog:
 	#_____________________________________________________________________	
 	
 	def OnRemoveEffect(self, widget, effectnum):
-
+		"""
+			Remove an effect. To do this we pop() the effect from the
+			self.instrument.effects list.
+		"""
 		try:
 			self.instrument.effectsbin.remove(self.instrument.effects[effectnum])
 		except:
@@ -453,5 +513,7 @@ class InstrumentEffectsDialog:
 		
 		self.instrument.effects.pop(effectnum)
 		
+		# after the effect is removed, run PopulateEffects() to re-built the
+		# GUI and as such, remove the effect widget
 		self.PopulateEffects()
 		
