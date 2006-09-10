@@ -14,11 +14,16 @@ if OVERRIDE_EXTENSION_DIRS:
 	EXTENSION_DIRS = OVERRIDE_EXTENSION_DIRS.split(':') + EXTENSION_DIRS
 PREFERRED_EXTENSION_DIR = EXTENSION_DIRS[0]
 
+# A couple of small constants; they get used as the default response from a
+# dialog, and they're nice and high so they don't conflict with anything else
 RESP_INSTALL = 9999
 RESP_REPLACE = 9998
 
 # Work out whether I'm being imported by a extension that's being run directly
-# or whether I'm being imported by a extension run by Jokosher
+# or whether I'm being imported by a extension run by Jokosher. If I'm being
+# run directly then that isn't right, and probably means that the user has
+# just clicked on an extension in the file manager. To be nice to them, we
+# offer to install the extension in their .jokosher folder.
 import inspect
 extension_that_imported_me = inspect.currentframe().f_back
 try:
@@ -70,7 +75,7 @@ if thing_that_imported_extension is None and \
 		sys.exit(0)
 
 ############################################################################
-############# The actual extension API ########################################
+############# The actual extension API #####################################
 ############################################################################
 
 class ExtensionAPI:
@@ -153,6 +158,9 @@ class ExtensionAPI:
 
 
 def LoadAllExtensions():
+  """
+     Walk through all the EXTENSION_DIRS and import every .py file we find.
+  """
 	for exten_dir in EXTENSION_DIRS:
 		if not os.path.isdir(exten_dir):
 			continue
@@ -172,6 +180,9 @@ def LoadAllExtensions():
 				if exten_file:
 					exten_file.close()
 				
+				# run the module's startup() function if it has one (it should do),
+				# and throw away errors. (FIXME: should throw away "it doesn't exist",
+				# but report any others so problems can be debugged.)
 				try:
 					module.startup(API)
 				except:
