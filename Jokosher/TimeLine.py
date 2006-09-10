@@ -7,30 +7,50 @@ import gst
 #=========================================================================
 
 class TimeLine(gtk.DrawingArea):
-
-	""" This class handles drawing the time line display.
+	"""
+		This class handles drawing the time line display. The time line is part of the
+		TimeLineBar. TimeLine displays the time in minutes/seconds (MODE_HOURS_MINS_SECS)
+		or bars and beats (MODE_BARS_BEATS). These modes are set in project.transport.
+		
+		To improve performance, the line isn't being constructed on each call of OnDraw. It
+		is saved into self.savedLine as a gtk.gdk.Image. A new savedLine is constructed when
+		- there is no savedLine
+		- or project.transport.RedrawTimeLine is True
+		- or project.RedrawTimeLine is True
+		
+		When the time line is constructed in MODE_HOURS_MINS_SECS, it dynamically adjusts
+		its scale to the project.viewScale. MODE_BARS_BEATS does not support this (yet).
 	"""
 
 	__gtype_name__ = 'TimeLine'
 	
-	_NUM_LINES = 5 # Number of 'short' lines + 1
+	# Number of 'short' lines + 1 (Used for the MODE_HOURS_MINS_SECS timeline)
+	# Line this: |              |           |
+	#            |  |1 |2 |3 |4 |  |  |  |  | etc
+	_NUM_LINES = 5
 
 	#_____________________________________________________________________
 
 	def __init__(self, project, timelinebar, mainview):
-		""" project - reference to the active project
 		"""
-		
+			project - reference to the active project
+			timelinebar - reference of TimeLineBar (TimeLineBar.py)
+			mainview - reference to JokosherApp (JokosherApp.py) - Not used atm.
+		"""
 		gtk.DrawingArea.__init__(self)
 	
 		self.project = project
 		self.timelinebar = timelinebar
 		self.mainview = mainview
+		
+		# Listen for changes in the project and the TransportManager
 		self.project.transport.AddListener(self)
 		self.project.AddListener(self)
+		
 		self.height = 44
 		self.buttonDown = False
 		self.dragging = False
+		self.savedLine = None
 	
 		self.set_events(gtk.gdk.POINTER_MOTION_MASK |
 								gtk.gdk.BUTTON_PRESS_MASK |
@@ -40,18 +60,26 @@ class TimeLine(gtk.DrawingArea):
 		self.connect("button_press_event", self.onMouseDown)
 		self.connect("motion_notify_event", self.onMouseMove)
 		self.connect("size_allocate", self.OnAllocate)
-		self.savedLine = None
 	#_____________________________________________________________________
 
 	def OnAllocate(self, widget, allocation):
+		"""
+			From:
+			http://www.moeraki.com/pygtkreference/pygtk2reference/class-gtkwidget.html#signal-gtkwidget--size-allocate
+			The "size-allocate" signal is emitted when widget is given a new space allocation.
+		"""
 		self.allocation = allocation
-		#Redraw timeline
+		# Reconstruce timeline because allocation changed
 		self.DrawLine(widget)
+		# Redraw the reconstructed timeline
+		self.queue_draw()
 		
 	#_____________________________________________________________________
 		
 	def OnDraw(self, widget, event):
-		""" Fires off the drawing operation. """
+		"""
+			Fires off the drawing operation.
+		"""
 		
 		if self.savedLine == None:
 			self.DrawLine(widget)
@@ -65,22 +93,25 @@ class TimeLine(gtk.DrawingArea):
 
 		gc = d.new_gc()
 		
-		# redraw area from saved image
-		d.draw_image(gc, self.savedLine, event.area.x,
-		event.area.y, event.area.x, event.area.y,
-		event.area.width, event.area.height)
+		# redraw area from saved gtk.gdk.Image
+		d.draw_image(gc, self.savedLine,
+					 event.area.x, event.area.y,
+					 event.area.x, event.area.y,
+					 event.area.width, event.area.height)
 
 		# Draw play cursor position
+		# Set the color:
 		col = gc.get_colormap().alloc_color("#FF0000")
 		gc.set_foreground(col)
-		 
+		# And draw:
 		x = int(round((self.project.transport.position - self.project.viewStart) * self.project.viewScale))
 		d.draw_line(gc, x, 0, x, self.get_allocation().height)	
 	
 	#_____________________________________________________________________
 		
 	def DrawLine(self, widget):
-		""" Draws the timeline and saves it to memory
+		""" 
+			Draws the timeline and saves it to memory
 		    - Must be called initially and to redraw the timeline
 				  after moving the project start
 		"""
@@ -90,20 +121,22 @@ class TimeLine(gtk.DrawingArea):
 		
 		y = 0
 		
+		# Draw the white background
 		col = gc.get_colormap().alloc_color("#FFFFFF")
 		gc.set_foreground(col)
 		gc.set_fill(gtk.gdk.SOLID)
 		
-		d.draw_rectangle(	gc, True, 
+		d.draw_rectangle(	gc, True, # True = filled
 							0, 
 							0, 
 							self.get_allocation().width, 
 							self.get_allocation().height)
-							
+		
+		# Draw a gray frame around the background
 		col = gc.get_colormap().alloc_color("#555555")
 		gc.set_foreground(col)
 							
-		d.draw_rectangle(	gc, False, 
+		d.draw_rectangle(	gc, False, # False = not filled
 							0, 
 							0, 
 							self.get_allocation().width, 
@@ -112,7 +145,6 @@ class TimeLine(gtk.DrawingArea):
 		transport = self.project.transport
 		x = 0
 		if transport.mode == transport.MODE_BARS_BEATS:
-		
 			# Calculate our scroll offset
 			pos = (self.project.viewStart / 60.) * transport.bpm
 			beat = int(pos)
@@ -186,6 +218,10 @@ class TimeLine(gtk.DrawingArea):
 	#_____________________________________________________________________
 		
 	def do_size_request(self, requisition):
+		# From:
+		# http://www.moeraki.com/pygtkreference/pygtk2reference/class-gtkwidget.html#signal-gtkwidget--size-request
+		# The "size-request" signal is emitted when a new size is
+		# requested for widget using the set_size_request() method.
 		requisition.width = self.get_allocation().width
 		requisition.height = self.height
 		
@@ -193,13 +229,13 @@ class TimeLine(gtk.DrawingArea):
 	
 	def OnStateChanged(self, obj, change=None):
 		""" 
-		Called when there is a change fo state in transport
-		manager.Could be one of
-		 *  Mode changed from bars/beats to minutes or vice versa
-		    (requires a complete redraw of timeline - flag set)
-		 *  Change in playing position -only needs partial redraw
-		 *  Project change e.g. acroll or zoom change
-		    (requires a complete redraw of timeline - flag set)
+			Called when there is a change of state in transport
+			manager or project. Could be one of
+			 *  Mode changed from bars/beats to minutes or vice versa
+			    (requires a complete redraw of timeline - flag set)
+			 *  Change in playing position -only needs partial redraw
+			 *  Project change e.g. a scroll or zoom change
+			    (requires a complete redraw of timeline - flag set)
 		"""
 		if self.project.transport.RedrawTimeLine or self.project.RedrawTimeLine:
 			self.queue_draw()
@@ -236,6 +272,9 @@ class TimeLine(gtk.DrawingArea):
 	#_____________________________________________________________________
 		
 	def moveHead(self, xpos):
+		"""
+			Changes the project position to the time matching xpos.
+		"""
 		pos = self.project.viewStart + xpos/ self.project.viewScale
 		self.project.transport.SeekTo(pos)
 		
@@ -252,7 +291,7 @@ class TimeLine(gtk.DrawingArea):
 			symbolizes 1000 milliseconds. The code will increase of decrease this factor to keep the
 			timeline readable. The factors can be set with the zoomLevels array. This array
 			contains zoom levels that support precision from 20 ms to 1 minute. More extreme zoom
-			levels could be added, but would never be reached because the viewScale is limited.
+			levels could be added, but will never be reached because the viewScale is limited.
 		"""
 		shortTextWidth = 28 # for '0:00' notation
 		longTextWidth = 56 # for '0:00:000' notation
