@@ -4,6 +4,10 @@ import gst
 #=========================================================================
 
 class AudioPreview(gtk.ToggleButton):
+	"""
+	   A simple button to be added to the load-a-clip-from-a-file open dialog,
+	   which previews the selected sound.
+	"""
 
 	def __init__(self):
 		gtk.ToggleButton.__init__(self, "gtk-media-play")
@@ -11,10 +15,11 @@ class AudioPreview(gtk.ToggleButton):
 		self.uri = None
 		self.connect("toggled", self.OnToggle)
 		self.connect("destroy", self.OnDestroy)
-		self.previewbin = gst.element_factory_make ("playbin", "preview");
-		
+		# playbin is a gst element which plays a sound and works out everything
+		self.previewbin = gst.element_factory_make ("playbin", "preview")
 		self.bus = self.previewbin.get_bus()
 		self.bus.add_signal_watch()
+		# deactivate thyself if the sound finishes or there's an error
 		self.bus.connect("message::eos", self.OnEOS)
 		self.bus.connect("message::error", self.OnEOS)
 		
@@ -27,6 +32,7 @@ class AudioPreview(gtk.ToggleButton):
 	#_____________________________________________________________________
 
 	def OnToggle(self, widget):
+		"Toggling the button plays or stops playing by setting ready state"
 		if self.get_active():
 			self.previewbin.set_property("uri", self.uri)
 			self.previewbin.set_state(gst.STATE_PLAYING)
