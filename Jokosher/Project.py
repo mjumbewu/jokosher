@@ -20,6 +20,16 @@ from AlsaDevices import *
 #_____________________________________________________________________
 
 def CreateNew(projecturi, name, author):
+	""" Creates a new project.
+
+		projecturi
+			The filesystem location for the new project. Currently,
+			only file:// URIs are considered valid.
+		name
+			The name of the project.
+		author
+			The name of the project's author.
+	"""
 	if name == "" or author == "" or projecturi == "":
 		raise CreateProjectError(4)
 
@@ -58,7 +68,13 @@ def CreateNew(projecturi, name, author):
 
 #_____________________________________________________________________
 
-def LoadFromFile(uri):	
+def LoadFromFile(uri):
+	""" Loads a project from a save file on disk.
+
+		uri
+			The filesystem location of the project file to load. 
+			Currently only file:// URIs are considered valid.
+	"""
 	p = Project()
 
 	(scheme, domain, projectfile, params, query, fragment) = urlparse.urlparse(uri, "file")
@@ -325,6 +341,8 @@ class Project(Monitored, CommandManaged):
 	#_____________________________________________________________________
 
 	def state_changed(self, bus, message, movePlayhead=True):
+		""" Handler for GStreamer statechange events. 
+		"""
 		gst.debug("STATE CHANGED")
 		old, new, pending = self.mainpipeline.get_state(0)
 		#Move forward to playing when we reach paused (check pending to make sure this is the final destination)
@@ -375,6 +393,8 @@ class Project(Monitored, CommandManaged):
 	#_____________________________________________________________________
 
 	def bus_message(self, bus, message):
+		""" Handler for GStreamer bus messages.
+		"""
 		st = message.structure
 		
 		if st and st.get_name() == "level" and not message.src is self.level:
@@ -392,6 +412,8 @@ class Project(Monitored, CommandManaged):
 
 
 	def bus_error(self, bus, message):
+		""" Handler for GStreamer error messages.
+		"""
 		st = message.structure
 		error, debug = message.parse_error()
 		
@@ -412,6 +434,11 @@ class Project(Monitored, CommandManaged):
 	#_____________________________________________________________________
 				
 	def newPad(self, element, pad, instrument):
+		""" Creates a new GStreamer pad on the specified instrument.
+
+			TODO - This looks like it should be refactored into the 
+					Instrument class. JasonF.
+		"""
 ##		print "before new pad"
 		gst.debug("NEW PAD")
 		convpad = instrument.converterElement.get_compatible_pad(pad, pad.get_caps())
@@ -420,6 +447,11 @@ class Project(Monitored, CommandManaged):
 	#_____________________________________________________________________
 
 	def removePad(self, element, pad, instrument):
+		""" Removes a new GStreamer pad from the specified instrument.
+
+			TODO - This looks like it should be refactored into the 
+					Instrument class. JasonF.
+		"""
 		print "pad removed"
 #		print pad
 #		convpad = instrument.converterElement.get_compatible_pad(pad, pad.get_caps())
@@ -493,8 +525,10 @@ class Project(Monitored, CommandManaged):
 	#_____________________________________________________________________
 	
 	def export_eos(self, bus=None, message=None):
-		#connected to eos on mainpipeline while export is taking place
-		
+		""" GStreamer End Of Stream handler. It is connected to eos on 
+			mainpipeline while export is taking place.
+		"""
+				
 		if self.Exporting == self.NOT_EXPORTING:
 			return
 		else:
@@ -532,7 +566,9 @@ class Project(Monitored, CommandManaged):
 	#_____________________________________________________________________
 	
 	def get_export_progress(self):
-		#Returns tuple with number of seconds done, and number of total seconds
+		""" Returns tuple with number of seconds done, and number of total 
+			seconds.
+		"""
 		if self.Exporting != self.NOT_EXPORTING:
 			try:
 				total = self.mainpipeline.query_duration(gst.FORMAT_TIME)[0]
@@ -577,7 +613,9 @@ class Project(Monitored, CommandManaged):
 	#_____________________________________________________________________
 
 	def terminate(self):
-		'''Terminate all instruments (used to disregard recording when an error occurs after instruments have started)'''
+		''' Terminate all instruments (used to disregard recording when an 
+			error occurs after instruments have started).
+		'''
 		for instr in self.instruments:
 			instr.terminate()
 
@@ -656,6 +694,8 @@ class Project(Monitored, CommandManaged):
 	#_____________________________________________________________________
 
 	def closeProject(self):
+		""" Closes down this project.
+		"""
 		global GlobalProjectObject
 		GlobalProjectObject = None
 		
@@ -675,6 +715,9 @@ class Project(Monitored, CommandManaged):
 	#_____________________________________________________________________
 	
 	def Undo(self):
+		""" Attempts to revert the last user action by popping an action
+			from the undo stack and executing it.
+		"""
 		self.performingUndo = True
 		
 		if len(self.undoStack):
@@ -692,6 +735,8 @@ class Project(Monitored, CommandManaged):
 	#_____________________________________________________________________
 	
 	def Redo(self):
+		""" Attempts to redo the last undone action.
+		"""
 		self.performingRedo = True
 		
 		if len(self.savedRedoStack):
@@ -709,6 +754,9 @@ class Project(Monitored, CommandManaged):
 	#_____________________________________________________________________
 	
 	def AppendToCurrentStack(self, object):
+		""" Appends the action specified by object onto the relevant
+			undo/redo stack.
+		"""
 		if self.savedUndo and self.performingUndo:
 			self.savedRedoStack.append(object)
 		elif self.savedUndo and self.performingRedo:
@@ -798,7 +846,11 @@ class Project(Monitored, CommandManaged):
 	#_____________________________________________________________________	
 		
 	def DeleteInstrument(self, id):
-		'''
+		''' Removes the instrument matching id from the project.
+
+			id
+				Unique ID of the instument to remove.
+
 			undo : ResurrectInstrument(%(temp)d)
 		'''
 		
@@ -817,7 +869,8 @@ class Project(Monitored, CommandManaged):
 	#_____________________________________________________________________
 	
 	def ResurrectInstrument(self, id):
-		'''
+		''' Brings a deleted Instrument back from the graveyard.
+
 			undo : DeleteInstrument(%(temp)d)
 		'''
 		instr = [x for x in self.graveyard if x.id == id][0]
@@ -835,8 +888,7 @@ class Project(Monitored, CommandManaged):
 	#_____________________________________________________________________
 	
 	def MoveInstrument(self, id, position):
-		'''
-			Move an instrument in the instrument list.
+		'''	Move an instrument in the instrument list.
 			Used for drag and drop ordering of instruments in
 			InstrumentViewer.py
 			
@@ -867,6 +919,11 @@ class Project(Monitored, CommandManaged):
 	#_____________________________________________________________________
 	
 	def SetViewStart(self, start):
+		""" Sets the time at which the project view should start.
+
+			start
+				Start time for the view in seconds.
+		"""
 		self.viewStart = start
 		self.RedrawTimeLine = True
 		self.StateChanged()
@@ -874,6 +931,8 @@ class Project(Monitored, CommandManaged):
 	#_____________________________________________________________________
 	
 	def SetViewScale(self, scale):
+		""" Sets the scale of the project view.
+		"""
 		self.viewScale = scale
 		self.RedrawTimeLine = True
 		self.StateChanged()
@@ -881,6 +940,8 @@ class Project(Monitored, CommandManaged):
 	#_____________________________________________________________________
 
 	def GetProjectLength(self):
+		""" Returns the length of the project in seconds.
+		"""
 		length = 0
 		for instr in self.instruments:
 			for ev in instr.events:
@@ -891,12 +952,17 @@ class Project(Monitored, CommandManaged):
 	#_____________________________________________________________________
 	
 	def OnAllInstrumentsMute(self):
+		""" Mutes all Instruments in this project.
+		"""
 		for instr in self.instruments:
 			instr.OnMute()
 			
 	#_____________________________________________________________________
 	
 	def GenerateUniqueID(self, id = None):
+		""" Creates a new unique ID which can be assigned to an new 
+			project object.
+		"""
 		if id != None:
 			if id in self.___id_list:
 				print "Error: id", id, "already taken"
@@ -929,6 +995,12 @@ class Project(Monitored, CommandManaged):
 	#_____________________________________________________________________
 
 	def ValidateProject(self):
+		""" Checks that the project is valid - i.e. that of the files and 
+			images that it references can be found.
+
+			Returns
+				True if the project is valid, False if not.
+		"""
 		unknownfiles=[]
 		unknownimages=[]
 
@@ -955,7 +1027,7 @@ class Project(Monitored, CommandManaged):
 #=========================================================================
 	
 class OpenProjectError(EnvironmentError):
-	def __init__(self, errno,info = None):
+	def __init__(self, errno, info = None):
 		""" Error Numbers:
 		   1) Invalid uri passed for the project file
 		   2) Unable to unzip the project
