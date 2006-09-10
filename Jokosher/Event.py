@@ -12,6 +12,9 @@ import os
 #=========================================================================
 
 class Event(Monitored, CommandManaged):
+	""" This class handles maintaing the information for a single audio 
+		event. This is normally a fragment of a recorded file.
+	"""
 	
 	#state changed types (to be sent through the Monitored class)
 	WAVEFORM, MOVE, LENGTH, CORRUPT = range(4)
@@ -37,18 +40,16 @@ class Event(Monitored, CommandManaged):
 
 		self.isSelected = False		# True if the event is currently selected
 		self.name = "New Event"		# Name of this event
-		self.isLHSHot = False
-		self.isRHSHot = False
 		self.levels = []			# Array of audio levels to be drawn for this event
 		
 		self.id = instrument.project.GenerateUniqueID(id)  #check is id is already taken, then set it.
 		self.instrument = instrument	# The parent instrument
-		self.filesrc = None
+		self.filesrc = None 			# The gstreamer gnlfilesource object.
 		
 		self.offset = 0.0			# Offset through the file in seconds
 		self.isLoading = False		# True if the event is currently loading level data
-		self.loadingLength = 0
-		self.lastEnd = 0
+		self.loadingLength = 0 		# The length of the file in seconds as its being rendered
+		self.lastEnd = 0 			# The last length of the loading file - used to minimise redraws
 		
 		self.CreateFilesource()
 
@@ -90,6 +91,18 @@ class Event(Monitored, CommandManaged):
 	#_____________________________________________________________________
 
 	def StoreToXML(self, doc, parent, graveyard=False):
+		""" Converts this Event into an XML representation suitable for 
+			saving to a file.
+
+			doc
+				The XML dcxument object we're saving to.
+			parent
+				The parent node that the serialised Event should be added
+				to.
+			graveyard
+				True if this Event is on the graveyard stack, and should
+				be serialised as a dead event.
+		"""
 		if graveyard:
 			ev = doc.createElement("DeadEvent")
 		else:
@@ -135,6 +148,11 @@ class Event(Monitored, CommandManaged):
 	#_____________________________________________________________________
 			
 	def LoadFromXML(self, node):
+		""" Restores an event from its serialised XML representation.
+
+			node
+				The XML node to retreive data from.
+		"""
 		params = node.getElementsByTagName("Parameters")[0]
 		
 		LoadParametersFromXML(self, params)
@@ -183,7 +201,13 @@ class Event(Monitored, CommandManaged):
 	#_____________________________________________________________________
 	
 	def Move(self, frm, to):
-		'''
+		'''	Moves this Event.
+
+			frm
+				The time we're moving from.
+			to
+				The time we're moving to.
+
 			undo : Move(%(start)f, %(temp)f)
 		'''
 		self.temp = frm
@@ -228,6 +252,9 @@ class Event(Monitored, CommandManaged):
 	
 	def Join(self, joinEventID):
 		''' Joins 2 events together. 
+
+			joinEventID
+				The ID of the Event to join to this one.
 
 			undo : Split(%(temp)f, %(temp2)d)
 		'''
@@ -303,11 +330,16 @@ class Event(Monitored, CommandManaged):
 	#_____________________________________________________________________
 	
 	def Trim(self, start_split, end_split):
-		"""Splits the event at points start_split and end_split
-		   and then deletes the first and last sections leaving only
-		   the middle section.
+		""" Splits the event at points start_split and end_split
+		    and then deletes the first and last sections leaving only
+		    the middle section.
+
+		    start_split
+		   		The time for the start of the trim
+			end_split
+				The time for the end of the trim
 		   
-		   undo : UndoTrim(%(temp)d, %(temp2)d)
+		    undo : UndoTrim(%(temp)d, %(temp2)d)
 		"""
 		# Split off the left section of the event, then put it in the graveyard for undo
 		leftSplit = self.split_event(start_split, False)
@@ -351,7 +383,9 @@ class Event(Monitored, CommandManaged):
 	#_____________________________________________________________________
 	
 	def Delete(self):
-		"""	
+		"""	Deletes this Event and sends it to the graveyard to reflect
+			on what it has done.
+
 			undo : Resurrect()
 		"""
 		self.instrument.graveyard.append(self)
@@ -361,7 +395,8 @@ class Event(Monitored, CommandManaged):
 	#_____________________________________________________________________
 	
 	def Resurrect(self):
-		"""
+		""" Brings this Event back from the graveyard.
+
 			undo : Delete()
 		"""
 		self.instrument.events.append(self)
@@ -371,8 +406,14 @@ class Event(Monitored, CommandManaged):
 	#______________________________________________________________________
 				
 	def bus_message(self, bus, message):
+		""" Handler for the GStreamer bus messages relevant to this Event. 
+			At the moment this is used to report on how the loading 
+			progress is going.
+		"""
+
 		if not self.isLoading:
 			return False
+
 		st = message.structure
 		if st:
 			if st.get_name() == "level":
@@ -389,6 +430,11 @@ class Event(Monitored, CommandManaged):
 	#_____________________________________________________________________
 		
 	def bus_eos(self, bus, message):	
+		""" Handler for the GStreamer End Of Stream message. Currently
+			used when the file is loading and is being rendered. This
+			function is called at the end of the file loading process and
+			finalises the rendering.
+		"""
 		if message.type == gst.MESSAGE_EOS:
 			
 			# Update levels for partial events
@@ -410,7 +456,9 @@ class Event(Monitored, CommandManaged):
 			
 	#_____________________________________________________________________
 
-	def bus_message_statechange(self, bus, message):	
+	def bus_message_statechange(self, bus, message):
+		""" Handler for the GStreamer statechange message.
+		"""
 		# state has changed
 		try:
 			q = self.bin.query_duration(gst.FORMAT_TIME)
@@ -428,13 +476,15 @@ class Event(Monitored, CommandManaged):
 	#_____________________________________________________________________
 
 	def bus_error(self, bus, message):
+		""" Handler for when things go completely wrong with GStreamer.
+		"""
 		print "bus error"
 		self.StateChanged(self.CORRUPT)
 	
 	#_____________________________________________________________________
 	
 	def GenerateWaveform(self):
-		""" Renders the level information for the GUI
+		""" Renders the level information for the GUI.
 		"""
 		pipe = """filesrc name=src location=%s ! decodebin ! audioconvert ! 
 		level interval=100000000 message=true ! fakesink""" % self.file.replace(" ", "\ ")
@@ -455,12 +505,25 @@ class Event(Monitored, CommandManaged):
 	#_____________________________________________________________________
 
 	def SetSelected(self, sel):
+		""" Enables or disables the selection state for this event.
+
+			sel
+				The new selection state (Should be True or False).
+		"""
 		self.isSelected = sel
 		self.StateChanged()
 	
 	#_____________________________________________________________________
 	
 	def MayPlace(self, xpos):
+		""" Checks if this event could be placed at xpos without 
+			overlapping another Event on the same Instrument.
+
+			xpos
+				The potential start position to check
+			Returns
+				True if it's OK to place the Event at xpos, false if not.
+		"""
 		for e in self.instrument.events:
 			if e is self:
 				continue
