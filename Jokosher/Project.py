@@ -358,17 +358,21 @@ class Project(Monitored, CommandManaged):
 		'''Set all instruments playing'''
 		
 		if len(self.instruments) > 0:
-			gst.debug("Play pressed, about to set state to PLAYING")
+			gst.debug("play() in project")
 
 			for ins in self.instruments:
 				if ins.effects:
-					if self.mainpipeline.get_state(0)[1] == gst.STATE_NULL or gst.STATE_READY:
-						ins.PrepareEffectsBin()
-						ins.converterElement.link(ins.effectsbin)
-						ins.effectsbin.link(ins.volumeElement)
+					gst.debug("there are effects")
+					gst.debug("pipeline is NULL or ready, gonna prepare effects bin")
+					ins.PrepareEffectsBin()
+					ins.converterElement.link(ins.effectsbin)
+					ins.effectsbin.link(ins.volumeElement)
 				else:
-					if self.mainpipeline.get_state(0)[1] == gst.STATE_NULL:
+					gst.debug("there are no effects")
+					try:
 						ins.converterElement.link(ins.volumeElement)
+					except:
+						pass
 
 			# And set it going
 			self.state_id = self.bus.connect("message::state-changed", self.state_changed, movePlayhead)
@@ -453,6 +457,7 @@ class Project(Monitored, CommandManaged):
 					Instrument class. JasonF.
 		"""
 		print "pad removed"
+		gst.debug("PAD REMOVED")
 #		print pad
 #		convpad = instrument.converterElement.get_compatible_pad(pad, pad.get_caps())
 #		pad.unlink(convpad)
