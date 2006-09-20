@@ -277,12 +277,11 @@ class MainApp:
 	def Record(self, widget=None):
 		'''Toggle recording'''
 		
-		# I don't quite get what the following two lines do, but by commenting
-		# them out it fixed the transport buttons bugs we had.
-		 
-		#if self.settingButtons or not widget.get_active():
-			#return
-		
+		# toggling the record button invokes this function so we use the settingButtons var to 
+		# indicate that we're just changing the GUI state and dont need to do anything code-wise
+		if self.settingButtons:
+			return
+
 		canRecord = False
 		for i in self.project.instruments:
 			if i.isArmed:
@@ -365,7 +364,9 @@ class MainApp:
 					self.isRecording = not self.isRecording
 					self.stop.set_sensitive(self.isRecording)
 					self.play.set_sensitive(not self.isRecording)
+					self.settingButtons = True
 					self.record.set_active(self.isRecording)
+					self.settingButtons = False
 			else:
 				print "else else can record"
 				self.project.stop()
@@ -390,6 +391,7 @@ class MainApp:
 		'''Stop recording/playing (whichever is happening)'''
 				
 		if self.isRecording: 
+			self.settingButtons = False
 			self.record.set_active(False)
 		if self.isPlaying: 
 			self.play.set_active(False)
