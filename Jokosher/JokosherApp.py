@@ -90,7 +90,6 @@ class MainApp:
 			"on_projectmenu_activate" : self.OnProjectMenu,
 			"on_prereleasenotes_activate" : self.OnPreReleaseNotes,
 			"on_contributing_activate" : self.OnContributingDialog
-
 		}
 		self.wTree.signal_autoconnect(signals)
 		
@@ -105,7 +104,6 @@ class MainApp:
 		self.reverse = self.wTree.get_widget("Rewind")
 		self.forward = self.wTree.get_widget("Forward")
 		self.addInstrumentButton = self.wTree.get_widget("AddInstrument")
-		self.forward = self.wTree.get_widget("Forward")
 		self.editmenu = self.wTree.get_widget("editmenu")
 		self.undo = self.wTree.get_widget("undo")
 		self.redo = self.wTree.get_widget("redo")
@@ -129,7 +127,6 @@ class MainApp:
 		self.headerhbox = None
 		self.timeview = None
 		self.tvtoolitem = None #wrapper for putting timeview in toolbar
-		self.recording = None
 		self.compactmix = None
 		self.instrNameEntry = None #the gtk.Entry when editing an instrument name
 		self.main_vbox = self.wTree.get_widget("main_vbox")
@@ -170,9 +167,9 @@ class MainApp:
 		self.OpenRecentProjects()
 		self.PopulateRecentProjects()
 		
-		#set window icon
+		# set window icon
 		self.window.set_icon_from_file(os.path.join(Globals.IMAGE_PATH, "jokosher-icon.png"))
-		#make icon available to others
+		# make icon available to others
 		self.icon = self.window.get_icon()
 		
 		# Make sure we can import for the instruments folder
