@@ -179,7 +179,7 @@ class TransportManager(Monitored):
 			except gst.QueryError:
 				pass
 			else:
-				pos = float(newpos) / gst.SECOND + self.startPosition
+				pos = float(newpos) / gst.SECOND
 				self.SetPosition(pos)
 		else:
 			self.UpdateTimeout = False
