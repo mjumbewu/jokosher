@@ -83,32 +83,34 @@ class TimeLineBar(gtk.Frame):
 	
 	def Update(self, width):
 		if not self.Updating:
+			instrumentviews=[]
+			if self.mainview.recording:
+				instrumentviews=self.mainview.recording.views
+			if self.mainview.compactmix:
+				instrumentviews+=self.mainview.compactmix.projectview.views
+
 			self.Updating = True
-			
-			#Make sure everything has finished realisation
-			if self.alignment.size_request()[0] != 0 and width > 1:
-				#Adjust padding on header to match instrument headers
-				#(so the timeline bar lines up regardless of themes/fonts etc.)
-				padding = self.alignment.get_padding()[3]
-				padding += (width - self.alignment.size_request()[0])
-				padding -= 2 #This adjustment seems constant between themes, but I'd like to know what causes the need for it
-				if padding >= 0:
-					self.alignment.set_padding(0, 0, 0, padding)
-				else:
-					#This means the instrument headers are smaller than the timeline bar header and must be resized
-					if self.mainview.recording:
-						for ident, iv in self.mainview.recording.views:
-							iv.ResizeHeader(width - padding)
-					if self.mainview.compactmix:
-						for ident, iv in self.mainview.compactmix.projectview.views:
-							iv.ResizeHeader(width - padding)
+			maxwidth=self.headerhbox.size_request()[0]
+	
+			for ident, iv in instrumentviews:  #self.mainview.recording.views:
+				if iv.instrument in iv.mainview.project.instruments:
+					if iv.headerBox.size_request()[0] > maxwidth:
+						maxwidth = iv.headerBox.size_request()[0]
+
+			for ident, iv in instrumentviews:  #self.mainview.recording.views:
+				if iv.headerAlign.size_request()[0] != (maxwidth+2):
+					iv.ResizeHeader(maxwidth+2)
+
+			self.alignment.set_padding(0, 0, 0, maxwidth - self.headerhbox.size_request()[0])
 
 			self.OnAcceptEditBPM()
 			self.OnAcceptEditSig()
 			self.timeline.queue_draw()
 			
 			self.Updating = False
-	
+
+		return
+
 	#_____________________________________________________________________
 	
 	def OnEditBPM(self, widget, event):
