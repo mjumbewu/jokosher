@@ -42,9 +42,12 @@ class EffectPresets:
 		# this is the main dictionary of presets
 		self.effectpresetregistry = {}
 		
-		# fill the different data structures with information. The LADSPA
+		# fill the different data structures with information if necessary. The LADSPA
 		# structures are part of Globals.py
-		self.FillLADSPARegistry()
+
+		if Globals.LADSPA_NAME_MAP==[] or Globals.LADSPA_FACTORY_REGISTRY == None:
+			self.FillLADSPARegistry()
+
 		self.FillEffectsPresetsRegistry()
 	
 	#_____________________________________________________________________    
@@ -251,10 +254,18 @@ class EffectPresets:
 	def FillLADSPARegistry(self):
 		"""Fill Globals.LADSPA_FACTORY_REGISTRY with effects on the system. This
 		is to ensure only presets with effects on the current system are listed."""
+
+
+		print "Filling LADSPA Registry"
 		
+		##make sure all the structures are empty before we append to them
+		Globals.LADSPA_NAME_MAP=[]
+		Globals.LADSPA_FACTORY_REGISTRY = None
+		effects = []
+
 		thelist = gst.registry_get_default().get_feature_list(gst.ElementFactory)
 		
-		effects = []
+
 		
 		for f in thelist:
 			if "Filter/Effect/Audio/LADSPA" in f.get_klass():
