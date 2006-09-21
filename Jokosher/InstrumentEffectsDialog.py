@@ -70,6 +70,8 @@ class InstrumentEffectsDialog:
 		self.chainsave = self.res.get_widget("chainpresetsave")
 		self.transportbutton = self.res.get_widget("transportbutton")
 
+		self.addeffect.set_sensitive(False)
+
 		# here we grab the headerimage reference and then set the image
 		self.headerimage = self.res.get_widget("headerimage")
 		self.headerimage.set_from_file(os.path.join(Globals.IMAGE_PATH, "effectsheader.png"))
@@ -187,8 +189,8 @@ class InstrumentEffectsDialog:
 		"""
 		
 		self.effectindex = combo.get_active()
-		
 		self.currentplugin = Globals.LADSPA_NAME_MAP[self.effectindex][0]
+		self.addeffect.set_sensitive(True)
 		
 	#_____________________________________________________________________	
 
