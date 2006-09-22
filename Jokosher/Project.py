@@ -596,6 +596,9 @@ class Project(Monitored, CommandManaged):
 
 		gst.debug("Stop pressed, about to set state to READY")
 
+		#read pipeline for current position - it will have been read
+		#periodically in TimeLine.py but could be out by 1/FPS
+		self.transport.QueryPosition()
 		self.mainpipeline.set_state(gst.STATE_READY)
 		self.IsPlaying = False
 			

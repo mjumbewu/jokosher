@@ -1,3 +1,12 @@
+#
+#	THIS FILE IS PART OF THE JOKOSHER PROJECT AND LICENSED UNDER THE GPL. SEE
+#	THE 'COPYING' FILE FOR DETAILS
+#
+#	TimeLine.py
+#	
+#	This class handles the drawing of of the time line display.
+#
+#-------------------------------------------------------------------------------
 
 import gtk
 import pango
@@ -237,8 +246,27 @@ class TimeLine(gtk.DrawingArea):
 			 *  Project change e.g. a scroll or zoom change
 			    (requires a complete redraw of timeline - flag set)
 		"""
+		#if the timeline is not currently on screen then quit
+		if not self.window:
+			return
 		if self.project.transport.RedrawTimeLine or self.project.RedrawTimeLine:
 			self.queue_draw()
+			return
+		#if playhead is now beyond the rightmost position then  force scroll & quit
+		rightPos = self.project.viewStart + self.timelinebar.projectview.scrollRange.page_size
+		if self.project.transport.position > rightPos:
+			while self.project.transport.position > rightPos:
+				self.project.SetViewStart(rightPos)
+				self.timelinebar.projectview.scrollRange.value = rightPos
+				rightPos += self.timelinebar.projectview.scrollRange.page_size
+			return
+		#if playhead is beyond leftmost position the force scroll and quit
+		if self.project.transport.position < self.project.viewStart:
+			pos = self.project.viewStart
+			while self.project.transport.position < pos:
+				pos = max(0, pos - self.timelinebar.projectview.scrollRange.page_size)
+				self.timelinebar.projectview.scrollRange.value = pos
+			self.project.SetViewStart(pos)
 			return
 		x1 = round((self.project.transport.PrevPosition - self.project.viewStart) * self.project.viewScale)
 		x2 = round((self.project.transport.position - self.project.viewStart) * self.project.viewScale)
@@ -261,6 +289,11 @@ class TimeLine(gtk.DrawingArea):
 			return
 		self.dragging = True
 		
+		# prevent playhead being dragged to the window edge - TODO make scrolling actually work!!
+		pos = event.x /self.project.viewScale
+		if (pos > 0.99 * self.timelinebar.projectview.scrollRange.page_size) or (pos < 0.01 * self.timelinebar.projectview.scrollRange.page_size):
+			self.buttonDown = False
+			return
 		self.moveHead(event.x)
 		
 	#_____________________________________________________________________

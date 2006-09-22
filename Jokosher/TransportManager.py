@@ -1,3 +1,13 @@
+#
+#	THIS FILE IS PART OF THE JOKOSHER PROJECT AND LICENSED UNDER THE GPL. SEE
+#	THE 'COPYING' FILE FOR DETAILS
+#
+#	TransportManager.py
+#	
+#	This class handles the current cursor position
+#	
+#
+#-------------------------------------------------------------------------------
 
 import pygst
 pygst.require("0.10")
@@ -23,6 +33,13 @@ class TransportManager(Monitored):
 	#_____________________________________________________________________
 
 	def __init__(self, initialMode, mainpipeline):
+		"""
+			initalMode - the initial mode for the timeline display
+			             will be one of:
+			                 MODE_HOURS_MINS_SECS or
+			                 MODE_BARS_BEATS
+			mainpipeline - reference to the main pipeline
+		"""
 		Monitored.__init__(self)
 		
 		self.pipeline = mainpipeline
@@ -45,28 +62,42 @@ class TransportManager(Monitored):
 	#_____________________________________________________________________
 	
 	def Play(self, movePlayhead):
+		"""
+			Called when play button has been pressed (or whilst exporting 
+			in which case movePlayhead will be set to True)
+		"""
 		#the state must be set to paused before playing
 		if self.pipeline.get_state(0)[1] != gst.STATE_PAUSED:
 			return
 			
 		self.isPlaying = True
+		
 		if self.startPosition > 0.01:
 			self.SeekTo(self.startPosition)
 			
 		self.pipeline.set_state(gst.STATE_PLAYING)
+		#for normal playback then we need to start the timeout that will 
+		#control the movement of the playhead
 		if movePlayhead:
 			self.StartUpdateTimeout()
 		
 	#_____________________________________________________________________
 		
 	def Stop(self):
+		"""
+			Called when stop button has been pressed
+		"""
 		self.isPlaying = False
-		self.startPosition = 0.
-		self.SetPosition(0.0)
+		self.startPosition = self.position
 		
 	#_____________________________________________________________________
 		
 	def Reverse(self, turnOn):
+		"""
+			Called when rewind button is
+			   a) pressed - turnOn = True
+			   b) released - turnOn = False
+		"""
 		if self.isReversing == turnOn:
 			#there is no change in reversing state
 			return
@@ -86,6 +117,11 @@ class TransportManager(Monitored):
 	#_____________________________________________________________________
 		
 	def Forward(self, turnOn):
+		"""
+			Called when fast forward button is
+			   a) pressed - turnOn = True
+			   b) released - turnOn = False
+		"""
 		if self.isForwarding == turnOn:
 			#there is no change in the forwarding state
 			return
@@ -105,11 +141,18 @@ class TransportManager(Monitored):
 	#_____________________________________________________________________
 	
 	def GetPosition(self):
+		"""
+			Gives current position
+		"""
 		return self.position
 	
 	#_____________________________________________________________________
 	
 	def SetPosition(self, pos):
+		"""
+			Change current position variable (calls StateChanged to
+			trigger response on all classes that listening to this)
+		"""
 		self.PrevPosition = self.position
 		self.position = pos
 		self.StateChanged()
@@ -128,6 +171,9 @@ class TransportManager(Monitored):
 	#_____________________________________________________________________
 	
 	def GetPositionAsBarsAndBeats(self):
+		"""
+			Returns a tuple of the current position as (bar, beats, ticks)
+		"""
 		mins = self.position / 60.
 		beats = int(mins * self.bpm)
 		ticks = ((mins - (beats / float(self.bpm))) * self.bpm) * self.TICKS_PER_BEAT
@@ -138,6 +184,9 @@ class TransportManager(Monitored):
 	#_____________________________________________________________________
 	
 	def GetPositionAsHoursMinutesSeconds(self):
+		"""
+			Returns a tuple of the current position as (hours, minutes, seconds)
+		"""
 		hours = int(self.position / 3600)
 		mins = int((self.position % 3600) / 60)
 		secs = int(self.position % 60)
@@ -148,12 +197,18 @@ class TransportManager(Monitored):
 	#_____________________________________________________________________
 
 	def SetBPM(self, bpm):
+		"""
+			Changes current beats per minute
+		"""
 		self.bpm = bpm
 		self.StateChanged()
 		
 	#_____________________________________________________________________
 
 	def SetMeter(self, nom, denom):
+		"""
+			Changes current meter
+		"""
 		self.meter_nom = nom
 		self.meter_denom = denom
 		self.StateChanged()
@@ -161,6 +216,10 @@ class TransportManager(Monitored):
 	#_____________________________________________________________________
 	
 	def StartUpdateTimeout(self):
+		"""
+			Starts the timeout that will control the
+			playhead display
+		"""
 		if not self.UpdateTimeout:
 			gobject.timeout_add(int(1000/self.FPS), self.OnUpdate)
 			self.UpdateTimeout = True
@@ -168,6 +227,10 @@ class TransportManager(Monitored):
 	#_____________________________________________________________________
 	
 	def OnUpdate(self):
+		"""
+			The timeout callback - called every 1/FPS to move the
+			playhead display on
+		"""
 		if self.isReversing:
 			newpos = self.position - self.SEEK_RATE/self.FPS
 			self.SetPosition(max(newpos, 0))
@@ -175,12 +238,13 @@ class TransportManager(Monitored):
 			self.SetPosition(self.position + self.SEEK_RATE/self.FPS)
 		elif self.isPlaying:
 			try:
-				newpos = self.pipeline.query_position(gst.FORMAT_TIME)[0]
+				#if pipeline should be playing and has not quite 
+				#yet started then ignore this time through
+				if self.pipeline.get_state(0)[1] == gst.STATE_PAUSED:
+					return True
+				self.QueryPosition()
 			except gst.QueryError:
 				pass
-			else:
-				pos = float(newpos) / gst.SECOND
-				self.SetPosition(pos)
 		else:
 			self.UpdateTimeout = False
 			#Prevent the timeout from calling us again
@@ -192,17 +256,27 @@ class TransportManager(Monitored):
 	#_____________________________________________________________________
 	
 	def SeekTo(self, pos):
+		"""
+			Performs pipeline seek to alter position of playback
+		"""
 		#make sure we cant seek to before the beginning
 		pos = max(0, pos)
-		
 		if self.isPlaying:
 			self.pipeline.seek( 1.0, gst.FORMAT_TIME, gst.SEEK_FLAG_FLUSH,
 					gst.SEEK_TYPE_SET, long(pos * gst.SECOND), 
 					gst.SEEK_TYPE_NONE, -1)
-		
 		self.startPosition = pos
 		self.SetPosition(pos)
+		
+	#_____________________________________________________________________
 	
+	def QueryPosition(self):
+		"""
+			Reads current position by querying pipeline
+		"""
+		pos = self.pipeline.query_position(gst.FORMAT_TIME)[0]
+		self.SetPosition(float(pos) / gst.SECOND)
+		
 	#_____________________________________________________________________
 	
 #=========================================================================
