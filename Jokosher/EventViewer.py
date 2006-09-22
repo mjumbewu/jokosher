@@ -68,11 +68,12 @@ class EventViewer(gtk.DrawingArea):
 		# Selections--marking part of the waveform. Don't confuse this with
 		# self.event.isSelected, which means the whole waveform is selected.
 		self.isSelecting = False		# True if a selection is currently being set
-		self.Selection = [0,0]			# Selection begin and end points
 		self.isDraggingFade = False		# True if the user is dragging a fade marker
 		self.lane = lane				# The parent lane for this object
 		self.currentScale = 0			# Tracks if the project viewScale has changed
 		self.redrawWaveform = False		# Force redraw the cached waveform on next expose event
+		self.drawerAlignToLeft = True		#boolean; if the drawer should be at the left of current selection
+									#otherwise it will be put on the right
 		
 		# source is an offscreen canvas to hold our waveform image
 		self.source = cairo.ImageSurface(cairo.FORMAT_ARGB32, 0, 0)
@@ -157,12 +158,11 @@ class EventViewer(gtk.DrawingArea):
 
 		# Overlay an extra rect if there is a selection
 		self.fadeMarkersContext = None
-		if self.Selection != [0,0]:
-			x1,x2 = self.Selection[:]
+		if self.event.selection != [0,0]:
+			x1,x2 = self.GetSelectionAsPixels()
 			if x2 < x1:
 				x2,x1 = x1,x2
-			context.rectangle(event.area.x + x1, event.area.y,
-							  event.area.x + x2 - x1, event.area.height)
+			context.rectangle(x1, 0, x2 - x1, event.area.height)
 			context.set_source_rgba(*self._SELECTION_RGBA)
 			context.fill()
 			
@@ -172,12 +172,12 @@ class EventViewer(gtk.DrawingArea):
 			# and overlay the fademarkers
 			context.set_source_rgba(*self._FADEMARKERS_RGBA)
 			
-			pixxFM_left = event.area.x + x1 + 1 - self._PIXX_FADEMARKER_WIDTH
+			pixxFM_left = x1 + 1 - self._PIXX_FADEMARKER_WIDTH
 			pixyFM_left = int(padded_height * (100-self.fadePoints[0]) / 100.0)
 			context.rectangle(pixxFM_left, pixyFM_left,
 			                  self._PIXX_FADEMARKER_WIDTH , self._PIXY_FADEMARKER_HEIGHT)
 			
-			pixxFM_right = event.area.x + x2
+			pixxFM_right = x2
 			pixyFM_right = int(padded_height * (100-self.fadePoints[1]) / 100.0)
 			context.rectangle(pixxFM_right, pixyFM_right,
 			                  self._PIXX_FADEMARKER_WIDTH, self._PIXY_FADEMARKER_HEIGHT)
@@ -258,10 +258,10 @@ class EventViewer(gtk.DrawingArea):
 		context.move_to(0,0) # FIXME: scale the Y!
 		pixy = 0
 		for sec,vol in self.event.audioFadePoints:
-			pixx = self.pixxFromSec(sec)
-			pixy = self.pixyFromVol(vol)
+			pixx = self.PixXFromSec(sec)
+			pixy = self.PixYFromVol(vol)
 			context.line_to(pixx,pixy)
-		pixxEnd = self.pixxFromSec(self.event.duration)
+		pixxEnd = self.PixXFromSec(self.event.duration)
 		context.line_to(pixxEnd,pixy)
 		
 		context.stroke()
@@ -272,7 +272,7 @@ class EventViewer(gtk.DrawingArea):
 		context.move_to(0,rect.height)
 				
 		# calculate the fade curve
-		fadecurve = self.getFadeCurve(self.event.duration, 
+		fadecurve = self.GetFadeCurve(self.event.duration, 
 		            self.event.audioFadePoints, 
 		            len(self.event.levels))
 		# apply the fade curve to the volume curve to get new volumes
@@ -386,7 +386,8 @@ class EventViewer(gtk.DrawingArea):
 				
 			self.highlightCursor = None
 		elif self.isSelecting:
-			self.Selection[1] = max(0,min(self.allocation.width,mouse.x))
+			x2 = max(0,min(self.allocation.width,mouse.x))
+			self.event.selection[1] = self.SecFromPixX(x2)
 		else:
 			self.highlightCursor = mouse.x
 		
@@ -423,7 +424,7 @@ class EventViewer(gtk.DrawingArea):
 				# LMB+shift: remove any existing selection in this event, begin 
 				#   selecting part of this event
 				self.isSelecting = True
-				self.Selection[0] = mouse.x
+				self.event.selection[0] = self.SecFromPixX(mouse.x)
 				self.fadePoints = [100,100]
 				if not self.selmessageID: 
 					self.selmessageID = self.mainview.SetStatusBar(_("<b>Click</b> the buttons below the selection to do something to that portion of audio."))
@@ -431,7 +432,7 @@ class EventViewer(gtk.DrawingArea):
 				if self.fadeMarkersContext and self.fadeMarkersContext.in_fill(mouse.x, mouse.y):
 					# LMB over a fadeMarker: drag that marker
 					self.isDraggingFade = True
-					if mouse.x > self.Selection[1]:
+					if mouse.x > self.PixXFromSec(self.event.selection[1]):
 						self.fadeBeingDragged = 1
 						return True
 					else:
@@ -444,7 +445,7 @@ class EventViewer(gtk.DrawingArea):
 					return True
 				
 				# remove any existing selection in this event
-				self.Selection = [0,0]
+				self.event.selection = [0,0]
 				if self.drawer.parent == self.lane.fixed:
 					self.lane.fixed.remove(self.drawer)
 					if self.volmessageID:   #clesr status bar if not already clear
@@ -513,28 +514,26 @@ class EventViewer(gtk.DrawingArea):
 			elif self.isDraggingFade:
 				self.isDraggingFade = False
 				# set the audioFadePoints appropriately
-				self.setAudioFadePointsFromCurrentSelection()
+				self.SetAudioFadePointsFromCurrentSelection()
 			elif self.isSelecting:
 				self.isSelecting = False
 				selection_direction = "ltor"
-				if self.Selection[0] > self.Selection[1]:
-					self.Selection = [self.Selection[1], self.Selection[0]]
+				selection = self.event.selection
+				if selection[0] > selection[1]:
+					self.event.selection = [selection[1], selection[0]]
 					selection_direction = "rtol"
-				eventx = int((self.event.start - self.project.viewStart) *
-				              self.project.viewScale)
-				if selection_direction == "ltor":
-					width = self.drawer.allocation.width
-					if width == 1: width = 40 # fudge it because it has no width initially
-					x = int(self.Selection[1] - width)
-					if self.drawer.parent == self.lane.fixed:
-						self.lane.fixed.remove(self.drawer)
-					self.lane.fixed.put(self.drawer,eventx + x,75)
-				else:
-					if self.drawer.parent == self.lane.fixed:
-						self.lane.fixed.remove(self.drawer)
-					self.lane.fixed.put(self.drawer,eventx + int(self.Selection[0]),75)
-				self.lane.Update()
+					
 				
+				if self.drawer.parent != self.lane.fixed:
+					#the drawer is not in the lane, we must add it
+					self.lane.fixed.put(self.drawer,1,75)
+					
+				#set the drawer align position
+				self.drawerAlignToLeft = (selection_direction == "rtol")
+				#move the drawer to its proper position
+				self.UpdateDrawerPosition()
+				#update the lane so the drawer is shown
+				self.lane.Update()
 				
 	#_____________________________________________________________________
 		
@@ -580,16 +579,15 @@ class EventViewer(gtk.DrawingArea):
 	def TrimToSelection(self, evt):
 		# Cut this event down so only the selected bit remains. This event
 		# is L-S-R, where S is the selected bit; we're removing L and R.
+		
 		if self.event.isLoading == True:
 			return
-		leftOfSel = self.Selection[0] / float(self.project.viewScale)
-		rightOfSel = self.Selection[1] / float(self.project.viewScale)
 		
 		# Hide the drawer
 		self.lane.fixed.remove(self.drawer)
 
-		self.event.Trim(leftOfSel, rightOfSel)
-		self.Selection = [0,0]
+		self.event.Trim(self.event.selection[0], self.event.selection[1])
+		self.event.selection = [0,0]
 
 	#_____________________________________________________________________
 	
@@ -606,7 +604,7 @@ class EventViewer(gtk.DrawingArea):
 			requisition.height = 77
 		else:
 			rect = self.get_allocation()
-			print "Working out height",rect.height
+			
 			if rect.height < 30:
 				requisition.height = 30
 			else:
@@ -642,17 +640,11 @@ class EventViewer(gtk.DrawingArea):
 			self.last_num_levels = len(self.event.levels)
 			self.currentScale = self.project.viewScale
 		
-		if type(obj) == Project.Project:
-			# remove any existing selection in this event
-			self.Selection = [0,0]
-			if self.drawer.parent == self.lane.fixed:
-				self.lane.fixed.remove(self.drawer)
-		
 		self.queue_draw()
 
 	#_____________________________________________________________________
 	
-	def getFadeCurve(self, duration, fades, totalLevels):
+	def GetFadeCurve(self, duration, fades, totalLevels):
 		"""The fade curve is a list of multipliers; the list is the
 		   length of the levels list, and to make the actual levels list,
 		   you take the ordinary levels list and multiply each level by
@@ -684,43 +676,71 @@ class EventViewer(gtk.DrawingArea):
 		
 	#_____________________________________________________________________
 
-	def pixxFromSec(self, sec):
+	def PixXFromSec(self, sec):
 		"""Converts seconds to an X pixel position in the waveform"""
-		return round(float(sec) / self.event.duration * self.allocation.width)
+		return round(float(sec) * self.project.viewScale)
 	
 	#_____________________________________________________________________
 	
-	def secFromPixx(self,pixx):
+	def SecFromPixX(self,pixx):
 		"""Converts an X pixel position in the waveform into seconds"""
-		return (float(pixx) / self.allocation.width) * self.event.duration
+		return float(pixx) / self.project.viewScale
 	
 	#_____________________________________________________________________
 	
-	def pixyFromVol(self, vol):
+	def PixYFromVol(self, vol):
 		"""Converts volume (0.0-1.0) to a Y pixel position in the waveform"""
 		return round((1.0 - vol) * self.allocation.height)
 	
 	#_____________________________________________________________________
 	
-	def volFromPixy(self,pixy):
+	def VolFromPixY(self,pixy):
 		"""Converts a Y pixel position in the waveform into a volume (0.0-1.0)"""
 		return 1.0 - (float(pixy) / self.allocation.height)
 
 	#_____________________________________________________________________
 	
-	def setAudioFadePointsFromCurrentSelection(self):
-		secLeft = self.secFromPixx(self.Selection[0])
-		secRight = self.secFromPixx(self.Selection[1])
-		
+	def SetAudioFadePointsFromCurrentSelection(self):		
 		# fadePoints values are a percentage
 		pixyLeft = ((100-self.fadePoints[0]) / 100.0) * self.allocation.height
 		pixyRight = ((100-self.fadePoints[1]) / 100.0) * self.allocation.height
 		
-		volLeft = self.volFromPixy(pixyLeft)
-		volRight = self.volFromPixy(pixyRight)
+		volLeft = self.VolFromPixY(pixyLeft)
+		volRight = self.VolFromPixY(pixyRight)
 		
-		self.event.addAudioFadePoints((secLeft,volLeft), (secRight,volRight))
+		selection = self.event.selection
+		self.event.addAudioFadePoints((selection[0], volLeft), (selection[1], volRight))
 		
+	#_____________________________________________________________________
+	
+	def GetSelectionAsPixels(self):
+		"""
+		   Returns the event selection as a list of two points
+		   measured in pixels instead of seconds like event.selection.
+		"""
+		x1 = self.PixXFromSec(self.event.selection[0])
+		x2 = self.PixXFromSec(self.event.selection[1])
+		return [x1, x2]
+	
+	#_____________________________________________________________________
+	
+	def UpdateDrawerPosition(self):
+		if self.drawer.parent != self.lane.fixed:
+			#drawer is not in lane
+			return
+	
+		eventx = int((self.event.start - self.project.viewStart) * self.project.viewScale)
+		if self.drawerAlignToLeft:
+			x = int(self.PixXFromSec(self.event.selection[0]))
+		else:
+			width = self.drawer.allocation.width
+			if width == 1:
+				width = 40 # fudge it because it has no width initially
+			x = int(self.PixXFromSec(self.event.selection[1]) - width)
+		
+		self.lane.fixed.move(self.drawer,eventx + x,75)
+		#don't update the lane because it calls us and that might cause infinite loop
+
 	#_____________________________________________________________________
 	
 #=========================================================================

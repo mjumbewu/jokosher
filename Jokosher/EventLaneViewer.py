@@ -134,6 +134,7 @@ class EventLaneViewer(gtk.EventBox):
 		if child and child in self.fixed.get_children():
 			x = int(round((child.event.start - self.project.viewStart) * self.project.viewScale))
 			self.fixed.move( child, x, 0 )
+			child.UpdateDrawerPosition()
 		else:			
 			# Move them to the correct positions
 			for w in self.fixed.get_children():
@@ -146,6 +147,7 @@ class EventLaneViewer(gtk.EventBox):
 					else:
 						x = int(round((w.event.start - self.project.viewStart) * self.project.viewScale))
 						self.fixed.move(w, x, 0)
+						w.UpdateDrawerPosition()
 
 			# Check if any events have been added
 			widget_events = [w.event for w in self.fixed.get_children()]
@@ -153,7 +155,7 @@ class EventLaneViewer(gtk.EventBox):
 				if ev not in widget_events:
 					x = int(round((ev.start - self.project.viewStart) * self.project.viewScale))
 					child = EventViewer(self, self.project, ev, self.allocation.height, self, self.mainview, self.small)
-					self.fixed.put(	child, x, 0)
+					self.fixed.put(child, x, 0)
 			self.fixed.show_all()
 		self.queue_draw()
 			

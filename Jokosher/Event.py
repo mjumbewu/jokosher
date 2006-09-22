@@ -40,6 +40,8 @@ class Event(Monitored, CommandManaged):
 
 		self.isSelected = False		# True if the event is currently selected
 		self.name = "New Event"		# Name of this event
+		
+		self.selection  = [0, 0]			# List start and end of selection (for fades, etc) measured in seconds 
 		self.levels = []			# Array of audio levels to be drawn for this event
 		
 		self.id = instrument.project.GenerateUniqueID(id)  #check is id is already taken, then set it.
