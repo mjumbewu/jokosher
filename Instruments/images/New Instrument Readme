@@ -1,0 +1,11 @@
+Please do not add new instrument images directly to this folder!
+
+Place the .instr file in:
+SVNcheckout/JonoEdit/trunk/Instruments/
+
+Place the .svg icon for the image in:
+SVNcheckout/jokosher-art/icons/scalable/instruments/
+
+Then run 'make' in that folder to render the PNG 
+and automatically move it to:
+SVNcheckout/JonoEdit/trunk/Instruments/images/
