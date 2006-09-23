@@ -1,3 +1,17 @@
+#
+#	THIS FILE IS PART OF THE JOKOSHER PROJECT AND LICENSED UNDER THE GPL. SEE
+#	THE 'COPYING' FILE FOR DETAILS
+#
+#	Event.py
+#	
+#	This module is the non-gui class the represents events. Events
+#	represent a piece of audio such as a file or something that was recorded.
+#	This module handles loading and saving events from xml, the gstreamer
+#	bits event properties as well as any event specific functionality like;
+#	audio fades, splits, joins, trims, waveform levels, etc.
+#
+#-------------------------------------------------------------------------------
+
 from CommandManager import *
 import Project
 import xml.dom.minidom as xml

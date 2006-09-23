@@ -1,3 +1,15 @@
+#
+#	THIS FILE IS PART OF THE JOKOSHER PROJECT AND LICENSED UNDER THE GPL. SEE
+#	THE 'COPYING' FILE FOR DETAILS
+#
+#	EventViewer.py
+#	
+#	This module is the gui class that represents an event.
+#	It handles the drawing of the waveform, audio fades, and
+#	anything else that happens when you click a rectangular 
+#	event on the gui.
+#
+#-------------------------------------------------------------------------------
 
 import sys
 import gtk

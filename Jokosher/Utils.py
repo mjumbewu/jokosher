@@ -5,7 +5,7 @@
 #	Utils.py
 #	
 #	This module contains a bunch of useful helper methods used elsewhere in
-#	the code.
+#	the code, that are not specific to any particular class.
 #
 #-------------------------------------------------------------------------------
 

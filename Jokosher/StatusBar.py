@@ -1,3 +1,14 @@
+#
+#	THIS FILE IS PART OF THE JOKOSHER PROJECT AND LICENSED UNDER THE GPL. SEE
+#	THE 'COPYING' FILE FOR DETAILS
+#
+#	StatusBar.py
+#	
+#	This module is a better status bar than the one included
+#	with gtk because it allows pango markup (bold, etc.).
+#
+#-------------------------------------------------------------------------------
+
 import gtk
 
 #=========================================================================

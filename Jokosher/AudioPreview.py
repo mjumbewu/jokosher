@@ -1,3 +1,15 @@
+#
+#	THIS FILE IS PART OF THE JOKOSHER PROJECT AND LICENSED UNDER THE GPL. SEE
+#	THE 'COPYING' FILE FOR DETAILS
+#
+#	AudioPreview.py
+#	
+#	This module is handles previewing audio files from within
+#	the gtk open file dialog, when you are browsing for an audio
+#	file to import.
+#
+#-------------------------------------------------------------------------------
+
 import gtk
 import gst
 

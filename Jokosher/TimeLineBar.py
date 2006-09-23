@@ -1,3 +1,14 @@
+#
+#	THIS FILE IS PART OF THE JOKOSHER PROJECT AND LICENSED UNDER THE GPL. SEE
+#	THE 'COPYING' FILE FOR DETAILS
+#
+#	TimeLineBar.py
+#	
+#	This module is the gtk.Frame which sits above the instruments and
+#	holds the TImeLine as well as the click track button and the bpm label.
+#
+#-------------------------------------------------------------------------------
+
 import gtk
 import TimeLine
 import RecordingView

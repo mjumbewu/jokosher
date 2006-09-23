@@ -1,12 +1,14 @@
 #
-#       THIS FILE IS PART OF THE JOKOSHER PROJECT AND LICENSED UNDER THE GPL. SEE
-#       THE 'COPYING' FILE FOR DETAILS
+#	THIS FILE IS PART OF THE JOKOSHER PROJECT AND LICENSED UNDER THE GPL. SEE
+#	THE 'COPYING' FILE FOR DETAILS
 #
-#       CommandManager.py
-#       
-#       Intercepts function calls to all Jokosher objects to manage the undo stack
+#	CommandManager.py
+#
+#	Intercepts function calls to Jokosher objects that required undo,
+#	and adds a record of the performed action to the undo stack.
 #
 #-------------------------------------------------------------------------------
+
 import types
 import Project
 

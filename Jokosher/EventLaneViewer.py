@@ -4,7 +4,10 @@
 #
 #	EventLaneViewer.py
 #	
-#	This is a container for all the EventViewers belonging to a single instrument
+#	This is a gui class that acts as the container for all the 
+#	EventViewers belonging to a single instrument. Graphically,
+#	this class makes up the timeline portion of the instrument,
+#	on which the events can be placed and moved.
 #
 #-------------------------------------------------------------------------------
 

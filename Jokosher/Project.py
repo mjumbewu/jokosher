@@ -1,3 +1,15 @@
+#
+#	THIS FILE IS PART OF THE JOKOSHER PROJECT AND LICENSED UNDER THE GPL. SEE
+#	THE 'COPYING' FILE FOR DETAILS
+#
+#	Project.py
+#	
+#	This module is the central non-gui class for Jokosher. It saves and loads
+#	project files, and handles any project wide functionality including;
+#	settings, instruments, recording, playing, exporint, zooming, scrolling, 
+#	undo, redo, volume, etc.
+#
+#-------------------------------------------------------------------------------
 
 import pygst
 pygst.require("0.10")

@@ -4,7 +4,8 @@
 #
 #	TransportManager.py
 #	
-#	This class handles the current cursor position
+#	This class handles the current cursor position and the gstreamer
+#	bits for rewinding, fast forwarding and seeking.
 #	
 #
 #-------------------------------------------------------------------------------

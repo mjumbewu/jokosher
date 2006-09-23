@@ -1,3 +1,17 @@
+#
+#	THIS FILE IS PART OF THE JOKOSHER PROJECT AND LICENSED UNDER THE GPL. SEE
+#	THE 'COPYING' FILE FOR DETAILS
+#
+#	Instrument.py
+#	
+#	This module is the non-gui class the represents instruments. instruments
+#	represent a track of audio that can contain many different sources in sequence.
+#	This module handles loading and saving instruments from xml, the gstreamer
+#	bits for playing and recording events, audio effects plugins, as well as any 
+#	instrument specific functionality like; solo, mute, volume, etc.
+#
+#-------------------------------------------------------------------------------
+
 from Event import *
 from CommandManager import *
 import Project

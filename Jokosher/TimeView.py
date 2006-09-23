@@ -1,3 +1,13 @@
+#
+#	THIS FILE IS PART OF THE JOKOSHER PROJECT AND LICENSED UNDER THE GPL. SEE
+#	THE 'COPYING' FILE FOR DETAILS
+#
+#	TimeView.py
+#	
+#	This module holds and updates the gtk.Label which displays
+#	the current time position.
+#
+#-------------------------------------------------------------------------------
 
 import gtk
 import pango

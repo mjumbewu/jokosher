@@ -1,3 +1,14 @@
+#
+#	THIS FILE IS PART OF THE JOKOSHER PROJECT AND LICENSED UNDER THE GPL. SEE
+#	THE 'COPYING' FILE FOR DETAILS
+#
+#	VUWidget.py
+#	
+#	This module draws the gradient volume levels and is used by
+#	MixerStrip.py to show the volume levels in Jokosher's mix view.
+#
+#-------------------------------------------------------------------------------
+
 import pygtk
 pygtk.require("2.0")
 import gtk

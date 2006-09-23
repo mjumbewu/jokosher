@@ -6,7 +6,9 @@
 #	
 #	This module us used to present the dialog for adding and managing instrument
 #	effects. Note that this module deals with the main effects dialog *and* the
-#	effect settings dialog.
+#	effect settings dialog, which we're both handed to Mr. Bacon in a spec by the
+#	Gods of Metal. They came to him in a dream to warn against a bleak future where
+#	massively distorted music could not be made using linux.
 #
 #-------------------------------------------------------------------------------
 
