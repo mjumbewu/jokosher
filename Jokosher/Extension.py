@@ -109,10 +109,10 @@ class ExtensionAPI:
 		"""
 		self.mainapp.Stop()
 		
-	def add_file_to_selected_instrument(self, uri):
+	def add_file_to_selected_instrument(self, uri, position=0):
 		"""
 		   Creates a new event from the file at the given URI and 
-		   adds it to the first selected instrument.
+		   adds it to the first selected instrument at position (in seconds).
 		   Return values:
 		   0: success
 		   1: bad URI or file could not be loaded
@@ -128,7 +128,7 @@ class ExtensionAPI:
 			#No instrument selected
 			return 2
 		
-		instr.addEventFromFile(0, uri)
+		instr.addEventFromFile(position, uri)
 		#TODO: find out if the add failed and return 1
 		return 0
 		
@@ -146,15 +146,23 @@ class ExtensionAPI:
 		   Adds an instrument with the type 'instr_type'
 		   from get_available_instruments() to the project.
 		   Return values:
-		   0: success
-		   1: that project type does not exist
+		   -1: that project type does not exist
+		   >0: success
+		   If the instrument is successfully added,
+		   the return value will be the ID of that instrument.
 		"""
 		from Jokosher import Globals
 		for i in Globals.getCachedInstruments():
 			if i[1] == instr_type:
-				self.mainapp.project.AddInstrument(i[0], i[1], i[2])
-				return 0
-		return 1
+				return self.mainapp.project.AddInstrument(i[0], i[1], i[2])
+		return -1
+		
+	def delete_instrument(self, instrumentID):
+		"""
+		   Removes the instrument with the ID
+		   that equals instrumentID.
+		"""
+		self.mainapp.project.DeleteInstrument(instrumentID)
 
 
 def LoadAllExtensions():

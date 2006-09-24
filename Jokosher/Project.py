@@ -851,7 +851,8 @@ class Project(Monitored, CommandManaged):
 	#_____________________________________________________________________
 	
 	def AddInstrument(self, name, type, pixbuf):
-		''' Adds a new instrument to the project
+		''' Adds a new instrument to the project,
+		   and return the ID for that instrument.
 		
 			undo : DeleteInstrument(%(temp)d)
 		'''
@@ -861,15 +862,15 @@ class Project(Monitored, CommandManaged):
 		instr.path = os.path.join(audio_dir)
 		
 		self.temp = instr.id
-		self.instruments.append(instr)	
+		self.instruments.append(instr)
+		
+		return instr.id
 		
 	#_____________________________________________________________________	
 		
 	def DeleteInstrument(self, id):
 		''' Removes the instrument matching id from the project.
-
-			id
-				Unique ID of the instument to remove.
+			id: Unique ID of the instument to remove.
 
 			undo : ResurrectInstrument(%(temp)d)
 		'''
