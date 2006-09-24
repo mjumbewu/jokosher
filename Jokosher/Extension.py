@@ -163,6 +163,39 @@ class ExtensionAPI:
 		   that equals instrumentID.
 		"""
 		self.mainapp.project.DeleteInstrument(instrumentID)
+		
+	def add_export_format(self, description, extension, encoderName, muxerName=None, requiresAudioconvert=False):
+		"""
+		   Adds a new format that the use can select from
+		   the filetype drop down box in the 'Mixdown Project' dialog.
+		   Description - string for the drop down box. ex: 'Ogg Vorbis (.ogg)'
+		   Extension - string of the file extension without a '.'. ex: 'ogg'
+		   encoderName - string used by element_factory_make for the encoder. ex: 'vorbisenc'
+		   muxerName - string used by element_factory_make for the muxer. ex: 'oggmux', None (if no muxer is used)
+		   requiresAudioconvert - True if an audioconvert is needed between the level element and the encoder.
+		   
+		   Return values:
+		   0: success
+		   1: invalid options
+		   2: cannot create encoder/muxer element
+		"""
+		import Globals
+		import gst
+		if not description or not extension and not encoderName:
+			return 1
+		try:
+			element = gst.element_factory_make(encoderName)
+			if muxerName:
+				element = gst.element_factory_make(muxerName)
+			del element
+		except gst.PluginNotFoundError:
+			return 2
+			
+		propslist = (description, extension, encoderName, muxerName, requiresAudioconvert)
+		propsdict = dict(zip(Globals._export_template, propslist))
+		Globals.EXPORT_FORMATS.append(propsdict)
+		
+		return 0
 
 
 def LoadAllExtensions():
