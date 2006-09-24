@@ -189,6 +189,19 @@ EFFECT_PRESETS_PATH = os.path.join(JOKOSHER_PATH, "..", "effectspresets")
 LADSPA_FACTORY_REGISTRY = None
 LADSPA_NAME_MAP = []
 
+_export_template = ("description", "extension", "encoder", "muxer", "requiresAudioconvert") 
+_export_formats = [	("Ogg Vorbis (.ogg)", "ogg", "vorbisenc", "oggmux", True),
+					("MP3 (.mp3)", "mp3", "lame", None, False),
+					("Flac (.flac)", "flac", "flacenc", None, False),
+					("WAV (.wav)", "wav", "wavenc", None, False),
+				]
+EXPORT_FORMATS = []
+for type in _export_formats:
+	#create a dictionary using _export_template as the keys
+	#and the current item from _export_formats as the values.
+	d = dict(zip(_export_template, type))
+	EXPORT_FORMATS.append(d)
+	
 #init Settings
 settings = Settings()
 #cache instruments

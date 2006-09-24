@@ -431,12 +431,10 @@ class MainApp:
 
 		saveLabel = gtk.Label(_("Save as file type:"))		
 		typeCombo = gtk.combo_box_new_text()
-		#tuples containing the display test, and the extension (without ".")
-		types = [("Ogg Vorbis (.ogg)","ogg"), ("MP3 (.mp3)","mp3"), 
-					("Flac (.flac)","flac"), ("WAV (.wav)","wav")]
-		for i in types:
-			typeCombo.append_text(i[0])
-		#Default file type is ogg
+		
+		for i in Globals.EXPORT_FORMATS:
+			typeCombo.append_text(i["description"])
+		#Make the first item the default
 		typeCombo.set_active(0)
 		
 		extraHBox = gtk.HBox()
@@ -451,7 +449,7 @@ class MainApp:
 			self.defaultlocation = os.path.dirname(filename)
 			#If they haven't already appended the extension for the 
 			#chosen file type, add it to the end of the file.
-			filetype = types[typeCombo.get_active()][1]
+			filetype = Globals.EXPORT_FORMATS[typeCombo.get_active()]["extension"]
 			if not filename.lower().endswith(filetype):
 				filename = filename + "." + filetype
 				

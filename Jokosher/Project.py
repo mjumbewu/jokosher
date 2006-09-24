@@ -174,9 +174,6 @@ class Project(Monitored, CommandManaged):
 	"""
 	
 	Globals.VERSION = "0.1"	# The project structure version. Will be useful for handling old save files
-	
-	#Export audio formats
-	NOT_EXPORTING, EXPORTING_VORBIS, EXPORTING_MP3, EXPORTING_WAV, EXPORTING_FLAC = range(5)
 
 	#_____________________________________________________________________
 
@@ -227,7 +224,8 @@ class Project(Monitored, CommandManaged):
 		self.savedUndo = False
 
 		self.IsPlaying = False
-		self.Exporting = self.NOT_EXPORTING
+		#wheather we are in the process of exporting or not
+		self.IsExporting = False
 		
 		self.RedrawTimeLine = False
 
@@ -478,19 +476,28 @@ class Project(Monitored, CommandManaged):
 	#_____________________________________________________________________
 
 	#Alias to self.play
-	def export(self, filename):
-		'''Export to ogg/mp3'''
+	def export(self, filename, format=None):
+		'''
+		   Export to location filename with format specified by format variable.
+		   Format is a string of the file extension as used in Globals.EXPORT_FORMATS.
+		   ie; "ogg", "mp3", "wav".
+		   If no format is given, the format will be guessed by the file extension.
+		'''
 		#NULL is required because some elements will be destroyed when we remove the references
 		self.mainpipeline.set_state(gst.STATE_NULL)
 		
-		formats = {"ogg":self.EXPORTING_VORBIS, "mp3":self.EXPORTING_MP3,
-					"wav":self.EXPORTING_WAV, "flac":self.EXPORTING_FLAC}
-		ext = filename[filename.rfind(".")+1:].lower()
-		if ext in formats:
-			self.Exporting = formats[ext]
-		else:
+		if not format:
+			format = filename[filename.rfind(".")+1:].lower()
+		
+		exportingFormatDict = None
+		for formatDict in Globals.EXPORT_FORMATS:
+			if format == formatDict["extension"]:
+				self.IsExporting = True
+				exportingFormatDict = formatDict
+				break
+		if not self.IsExporting:
 			print "Unknown filetype for export"
-			return
+			return -1
 		
 		#remove and unlink the alsasink
 		self.playbackbin.remove(self.out, self.level)
@@ -502,31 +509,31 @@ class Project(Monitored, CommandManaged):
 		self.outfile.set_property("location", filename)
 		self.playbackbin.add(self.outfile)
 		
-		if self.Exporting == self.EXPORTING_VORBIS:
-			self.encode = gst.element_factory_make("vorbisenc")
-			self.mux = gst.element_factory_make("oggmux")
-			
-			#audioconvert is required because level and vorbisenc have different caps
-			self.exportconvert = gst.element_factory_make("audioconvert", "export_convert")
+		#create encoder
+		self.encode = gst.element_factory_make(exportingFormatDict["encoder"])
+		self.mux = None
+		self.exportconvert = None
 		
-			self.playbackbin.add(self.exportconvert, self.encode, self.mux)
-			
+		self.playbackbin.add(self.encode)
+		
+		if exportingFormatDict["requiresAudioconvert"]:
+			#audioconvert may be required because level and vorbisenc have different caps
+			self.exportconvert = gst.element_factory_make("audioconvert", "export_convert")
+			self.playbackbin.add(self.exportconvert)
+			#link the new audioconvert
 			self.levelcaps.link(self.exportconvert)
 			self.exportconvert.link(self.encode)
+		else:
+			self.levelcaps.link(self.encode)
+		
+		#this is None is the format doesn't use a muxer
+		if exportingFormatDict["muxer"]:
+			self.mux = gst.element_factory_make(exportingFormatDict["muxer"])
+			self.playbackbin.add(self.mux)
+			#link the new muxer
 			self.encode.link(self.mux)
 			self.mux.link(self.outfile)
-		
-		elif self.Exporting == self.EXPORTING_MP3 or self.Exporting == self.EXPORTING_WAV \
-					or self.Exporting == self.EXPORTING_FLAC:
-			if self.Exporting == self.EXPORTING_MP3:
-				self.encode = gst.element_factory_make("lame")			
-			elif self.Exporting == self.EXPORTING_WAV:
-				self.encode = gst.element_factory_make("wavenc")				
-			elif self.Exporting == self.EXPORTING_FLAC:
-				self.encode = gst.element_factory_make("flacenc")
-			
-			self.playbackbin.add(self.encode)
-			self.levelcaps.link(self.encode)
+		else:
 			self.encode.link(self.outfile)
 			
 		#disconnect the bus_message() which will make the transport manager progress move
@@ -545,12 +552,11 @@ class Project(Monitored, CommandManaged):
 		""" GStreamer End Of Stream handler. It is connected to eos on 
 			mainpipeline while export is taking place.
 		"""
-				
-		if self.Exporting == self.NOT_EXPORTING:
+		print "eos"
+		if not self.IsExporting:
 			return
 		else:
-			exportType = self.Exporting
-			self.Exporting = self.NOT_EXPORTING
+			self.IsExporting = False
 	
 		self.stop()
 		#NULL is required because elements will be destroyed when we delete them
@@ -560,20 +566,20 @@ class Project(Monitored, CommandManaged):
 		self.Mhandler = self.bus.connect("message::element", self.bus_message)
 		self.EOShandler = self.bus.connect("message::eos", self.stop)
 		
-		#remove all the export elements
-		self.playbackbin.remove(self.outfile)
-		del self.outfile
+		#remove the filesink and encoder
+		self.playbackbin.remove(self.outfile, self.encode)		
 		
-		if exportType == self.EXPORTING_VORBIS:
-			self.playbackbin.remove(self.exportconvert, self.encode, self.mux)
-			self.levelcaps.unlink(self.exportconvert)			
-			del self.exportconvert, self.encode, self.mux
-		
-		elif exportType == self.EXPORTING_MP3 or exportType == self.EXPORTING_WAV \
-					or exportType == self.EXPORTING_FLAC:
-			self.playbackbin.remove(self.encode)
+		if self.exportconvert:
+			self.playbackbin.remove(self.exportconvert)
+			self.levelcaps.unlink(self.exportconvert)
+		else:
 			self.levelcaps.unlink(self.encode)
-			del self.encode
+			
+		if self.mux:
+			self.playbackbin.remove(self.mux)
+			
+		#dispose of the elements
+		del self.outfile, self.encode, self.mux, self.exportconvert
 		
 		#re-add all the alsa playback elements
 		self.playbackbin.add(self.out, self.level)
@@ -586,7 +592,7 @@ class Project(Monitored, CommandManaged):
 		""" Returns tuple with number of seconds done, and number of total 
 			seconds.
 		"""
-		if self.Exporting != self.NOT_EXPORTING:
+		if self.IsExporting:
 			try:
 				total = self.mainpipeline.query_duration(gst.FORMAT_TIME)[0]
 				cur = self.mainpipeline.query_position(gst.FORMAT_TIME)[0]
