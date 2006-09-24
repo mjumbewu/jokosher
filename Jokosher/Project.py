@@ -552,7 +552,7 @@ class Project(Monitored, CommandManaged):
 		""" GStreamer End Of Stream handler. It is connected to eos on 
 			mainpipeline while export is taking place.
 		"""
-		print "eos"
+		
 		if not self.IsExporting:
 			return
 		else:
