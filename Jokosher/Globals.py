@@ -89,6 +89,18 @@ class Settings:
 				except:
 					raise "Failed to create user config directory %s" % new_dir
 
+#a global debug function so we can easily redirect all that output
+def PrintDebug(message):
+	#HACK: we can't import gst at the top of Globals.py because
+	#if we do, gstreamer will get to the sys.args and print it's own
+	#message instead of ours. This will be fixed once we can use
+	#GOption when we depend on pygobject 2.12.
+	import gst
+	if DEBUG_STDOUT:
+		print message
+	if DEBUG_GST:
+		gst.debug(message)	
+
 #static list of all the instrument files (to prevent having to reimport files)
 instrumentPropertyList = []
 _alreadyCached = False
@@ -188,6 +200,7 @@ EFFECT_PRESETS_VERSION = None
 EFFECT_PRESETS_PATH = os.path.join(JOKOSHER_PATH, "..", "effectspresets")
 LADSPA_FACTORY_REGISTRY = None
 LADSPA_NAME_MAP = []
+DEBUG_STDOUT, DEBUG_GST = (False, False)
 
 _export_template = ("description", "extension", "encoder", "muxer", "requiresAudioconvert") 
 _export_formats = [	("Ogg Vorbis (.ogg)", "ogg", "vorbisenc", "oggmux", True),

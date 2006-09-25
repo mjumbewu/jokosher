@@ -45,17 +45,10 @@ class MainApp:
 
 	#_____________________________________________________________________
 
-	def __init__(self):
-
-		try:
-			locale.setlocale(locale.LC_ALL, '')
-			gettext.bindtextdomain(Globals.LOCALE_APP, Globals.LOCALE_DIR)
-			gettext.bind_textdomain_codeset(Globals.LOCALE_APP, "UTF-8");
-			gettext.textdomain(Globals.LOCALE_APP)
-			gtk.glade.bindtextdomain(Globals.LOCALE_APP, Globals.LOCALE_DIR)
-			gtk.glade.textdomain(Globals.LOCALE_APP)
-		except locale.Error:
-			print "Locale unsupported, defaulting to english for all Jokosher specific text"
+	def __init__(self, openproject=None, safeMode=False, forceWelcomeDialog=False):
+		
+		gtk.glade.bindtextdomain(Globals.LOCALE_APP, Globals.LOCALE_DIR)
+		gtk.glade.textdomain(Globals.LOCALE_APP)
 		
 		self.wTree = gtk.glade.XML(Globals.GLADE_PATH, "MainWindow")
 		
@@ -143,13 +136,6 @@ class MainApp:
 		self.isRecording = False
 		self.isPlaying = False
 
-		# parse command line
-		openproject = None
-		parser = optparse.OptionParser("usage: %prog [project]")
-		(options, args) = parser.parse_args()
-		if len(args) > 0:
-			openproject = args[0]
-
 		# set sensitivity
 		self.SetGUIProjectLoaded()
 
@@ -185,20 +171,26 @@ class MainApp:
 		# set up presets registry - this should probably be removed here	
 		EffectPresets().FillEffectsPresetsRegistry()
 		
-		# Load extensions -- this should probably go somewhere more appropriate
-		Extension.API = Extension.ExtensionAPI(self)
-		Extension.LoadAllExtensions()
+		if not safeMode:
+			# Load extensions -- this should probably go somewhere more appropriate
+			Extension.API = Extension.ExtensionAPI(self)
+			Extension.LoadAllExtensions()
 
 		# Show the main window
 		self.window.show_all()
-
+		
+		if forceWelcomeDialog:
+			welomeDialog = WelcomeDialog.WelcomeDialog(self)
+			return
 		# Setup is complete so load a project or not depending.
-		if openproject:
+		elif openproject:
 			self.OpenProjectFromPath(openproject)
-		elif Globals.settings.general["startupaction"] == PreferencesDialog.STARTUP_LAST_PROJECT:
-			if self.lastopenedproject:
+		#don't load the last project if safe mode it set
+		elif Globals.settings.general["startupaction"] == PreferencesDialog.STARTUP_LAST_PROJECT and not safeMode:
+			if self.lastopenedproject :
 				self.OpenProjectFromPath(self.lastopenedproject[0])
-		elif Globals.settings.general["startupaction"] == PreferencesDialog.STARTUP_NOTHING:
+		#return before loading the welcome dialog if safe mode is set
+		elif Globals.settings.general["startupaction"] == PreferencesDialog.STARTUP_NOTHING or safeMode:
 			return
 
 		#if everything else bombs out resort to the welcome dialog
@@ -1108,7 +1100,7 @@ class MainApp:
 
 #=========================================================================
 
-def main():
+def main():	
 	MainApp()
 	gtk.threads_init()
 	gtk.main()
@@ -1117,4 +1109,3 @@ def main():
 
 if __name__ == "__main__":
 	main()
-

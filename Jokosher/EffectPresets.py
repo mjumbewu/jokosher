@@ -256,7 +256,7 @@ class EffectPresets:
 		is to ensure only presets with effects on the current system are listed."""
 
 
-		print "Filling LADSPA Registry"
+		Globals.PrintDebug("Filling LADSPA Registry")
 		
 		##make sure all the structures are empty before we append to them
 		Globals.LADSPA_NAME_MAP=[]
