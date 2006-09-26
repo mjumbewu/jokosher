@@ -17,9 +17,7 @@
 #
 #-------------------------------------------------------------------------------
 
-import gtk
-import gtk.glade
-import gobject
+import gtk, gtk.glade, gobject
 import pygst
 pygst.require("0.10")
 import gst
@@ -122,7 +120,7 @@ class EffectPresets:
 			self.effectelement = eff["effectelement"]
 			self.effecttype = eff["effecttype"]
 		
-			print self.effectelement
+			Globals.debug(self.effectelement)
 
 			effectblock = doc.createElement("Effect")
 			head.appendChild(effectblock)
@@ -149,10 +147,10 @@ class EffectPresets:
 		"""Load effect settings from a preset file for a single effect"""
 
 		presetfile = Globals.EFFECT_PRESETS_PATH + "/" + presetname + ".jpreset"
-		print presetfile
+		Globals.debug(presetfile)
 			
 		if not os.path.exists(presetfile):
-			print "preset file does not exist"
+			Globals.debug("preset file does not exist")
 		else:	
 			xmlfile = open(presetfile, "r")
 			doc = xml.parse(presetfile)
@@ -179,7 +177,7 @@ class EffectPresets:
 		presetfile = Globals.EFFECT_PRESETS_PATH + "/" + presetname + ".jpreset"
 			
 		if not os.path.exists(presetfile):
-			print "preset file does not exist"
+			Globals.debug("preset file does not exist")
 		else:	
 			xmlfile = open(presetfile, "r")
 			doc = xml.parse(presetfile)
@@ -199,7 +197,7 @@ class EffectPresets:
 	def FillEffectsPresetsRegistry(self):
 		"""Read in all presets into the main presets registry"""
 		
-		print "Reading in presets..."
+		Globals.debug("Reading in presets...")
 		presetsfiles = glob.glob(Globals.EFFECT_PRESETS_PATH + "/*.jpreset")
 		
 		for f in presetsfiles:
@@ -208,7 +206,7 @@ class EffectPresets:
 			presetname = None
 			
 			if not os.path.exists(f):
-				print "preset file does not exist"
+				Globals.debug("preset file does not exist")
 			else:	
 				xmlfile = open(f, "r")
 				doc = xml.parse(f)
@@ -247,7 +245,7 @@ class EffectPresets:
 			
 			self.effectpresetregistry[presetname] = preset
 		
-		print "...done"
+		Globals.debug("...done")
 		
 	#_____________________________________________________________________
 	
@@ -256,7 +254,7 @@ class EffectPresets:
 		is to ensure only presets with effects on the current system are listed."""
 
 
-		Globals.PrintDebug("Filling LADSPA Registry")
+		Globals.debug("Filling LADSPA Registry")
 		
 		##make sure all the structures are empty before we append to them
 		Globals.LADSPA_NAME_MAP=[]
@@ -287,5 +285,5 @@ class EffectPresets:
 						effects.append(f.get_name())
 						Globals.LADSPA_NAME_MAP.append((f.get_name(), f.get_longname()))
 
-		print str(len(effects)) + " LADSPA effects loaded"
+		Globals.debug(str(len(effects)) + " LADSPA effects loaded")
 		Globals.LADSPA_FACTORY_REGISTRY = set(effects)

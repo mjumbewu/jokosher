@@ -17,11 +17,10 @@ import Project
 import xml.dom.minidom as xml
 import pygst
 pygst.require("0.10")
-import gst
-import gtk
+import gst, gtk
 from Monitored import *
 from Utils import *
-import os
+import os, Globals
 
 #=========================================================================
 
@@ -82,7 +81,7 @@ class Event(Monitored, CommandManaged):
 	#_____________________________________________________________________
 	
 	def CreateFilesource(self):	
-		print "create file source"
+		Globals.debug("create file source")
 		if not self.filesrc:
 			self.filesrc = gst.element_factory_make("gnlfilesource", "Event_%d"%self.id)
 		if not self.filesrc in list(self.instrument.composition.elements()):
@@ -94,15 +93,14 @@ class Event(Monitored, CommandManaged):
 		
 	def SetProperties(self):
 		if self.file:
-			print "start set properties"
-			gst.debug("setting event properties")
+			Globals.debug("setting event properties")
 			self.filesrc.set_property("location", self.file)
 			self.filesrc.set_property("start", long(self.start * gst.SECOND))
 			self.filesrc.set_property("duration", long(self.duration * gst.SECOND))
 			self.filesrc.set_property("media-start", long(self.offset * gst.SECOND))
 			self.filesrc.set_property("media-duration", long(self.duration * gst.SECOND))
 			
-			print "event properties set"
+			Globals.debug("event properties set")
 
 	#_____________________________________________________________________
 
@@ -180,7 +178,7 @@ class Event(Monitored, CommandManaged):
 		try:
 			xmlPoints = node.getElementsByTagName("FadePoints")[0]
 		except IndexError:
-			print "Missing FadePoints in Event XML"
+			Globals.debug("Missing FadePoints in Event XML")
 		else:
 			for n in xmlPoints.childNodes:
 				if n.nodeType == xml.Node.ELEMENT_NODE:
@@ -190,7 +188,7 @@ class Event(Monitored, CommandManaged):
 		try:	
 			levelsXML = node.getElementsByTagName("Levels")[0]
 		except IndexError:
-			print "No event levels in project file"
+			Globals.debug("No event levels in project file")
 			self.GenerateWaveform()
 		else: 
 			if levelsXML.nodeType == xml.Node.ELEMENT_NODE:
@@ -494,7 +492,7 @@ class Event(Monitored, CommandManaged):
 	def bus_error(self, bus, message):
 		""" Handler for when things go completely wrong with GStreamer.
 		"""
-		print "bus error"
+		Globals.debug("bus error")
 		self.StateChanged(self.CORRUPT)
 	
 	#_____________________________________________________________________

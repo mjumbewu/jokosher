@@ -66,7 +66,7 @@ class InstrumentConnectionsDialog:
 			mixer.set_state(gst.STATE_READY)
 
 			if not mixer.implements_interface(gst.interfaces.Mixer):
-				print 'Cannot get mixer tracks from the device. Check permissions on the mixer device.'
+				Globals.debug('Cannot get mixer tracks from the device. Check permissions on the mixer device.')
 			else:
 				self.mixers[device] = mixer.list_tracks()
 			
@@ -115,7 +115,7 @@ class InstrumentConnectionsDialog:
 		for track in mixertracks:
 			if track.label == widget.get_active_text():
 				inTrack = track.label
-		print inTrack
+		Globals.debug(inTrack)
 		if device != instr.input or inTrack != instr.inTrack:
 			instr.input = device
 			instr.inTrack = inTrack

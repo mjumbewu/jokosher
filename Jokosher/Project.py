@@ -57,7 +57,7 @@ def CreateNew(projecturi, name, author):
 	try:
 		project = Project()
 	except Exception, e:
-		print "Could not make project object:", e
+		Globals.debug("Could not make project object:", e)
 		raise CreateProjectError(1)
 
 	project.name = name
@@ -94,7 +94,7 @@ def LoadFromFile(uri):
 		# raise "The URI scheme used is invalid." message
 		raise OpenProjectError(1,scheme)
 
-	print projectfile
+	Globals.debug(projectfile)
 
 	if not os.path.exists(projectfile):
 		raise OpenProjectError(4,projectfile)
@@ -103,7 +103,7 @@ def LoadFromFile(uri):
 		gzipfile = gzip.GzipFile(projectfile, "r")
 		doc = xml.parse(gzipfile)
 	except Exception, e:
-		print e.__class__, e
+		Globals.debug(e.__class__, e)
 		# raise "This file doesn't unzip" message
 		raise OpenProjectError(2,projectfile)
 	
@@ -126,7 +126,7 @@ def LoadFromFile(uri):
 	try:
 		undo = doc.getElementsByTagName("Undo")[0]
 	except IndexError:
-		print "No saved undo in project file"
+		Globals.debug("No saved undo in project file")
 	else:
 		for n in undo.childNodes:
 			if n.nodeType == xml.Node.ELEMENT_NODE:
@@ -135,7 +135,7 @@ def LoadFromFile(uri):
 	try:
 		redo = doc.getElementsByTagName("Redo")[0]
 	except IndexError:
-		print "No saved redo in project file"
+		Globals.debug("No saved redo in project file")
 	else:
 		for n in redo.childNodes:
 			if n.nodeType == xml.Node.ELEMENT_NODE:
@@ -230,19 +230,19 @@ class Project(Monitored, CommandManaged):
 		self.RedrawTimeLine = False
 
 		self.mainpipeline = gst.Pipeline("timeline")
-		print "created pipeline (project)"
+		Globals.debug("created pipeline (project)")
 		
 		self.playbackbin = gst.Bin("playbackbin")
 		
 		self.adder = gst.element_factory_make("adder")
 		self.playbackbin.add(self.adder)
-		print "added adder (project)"
+		Globals.debug("added adder (project)")
 
 		self.mastervolume = 0.5
 		
 		self.volume = gst.element_factory_make("volume")
 		self.playbackbin.add(self.volume)
-		print "added volume (project)"
+		Globals.debug("added volume (project)")
 		
 		self.adder.link(self.volume)
 		
@@ -251,7 +251,7 @@ class Project(Monitored, CommandManaged):
 		self.level.set_property("interval", gst.SECOND / 50)
 		self.level.set_property("message", True)
 		self.playbackbin.add(self.level)
-		print "added master level (project)"
+		Globals.debug("added master level (project)")
 
 		#Restrict adder's output caps due to adder bug
 		self.levelcaps = gst.element_factory_make("capsfilter", "levelcaps")
@@ -274,7 +274,7 @@ class Project(Monitored, CommandManaged):
 
 
 		self.playbackbin.add(self.out)
-		print "added alsasink (project)"
+		Globals.debug("added alsasink (project)")
 
 		self.level.link(self.out)
 		self.bus = self.mainpipeline.get_bus()
@@ -294,7 +294,6 @@ class Project(Monitored, CommandManaged):
 
 		try:
 			if os.environ['JOKOSHER_DEBUG']:
-				print "Enabling Jokosher Debugging..."
 				import JokDebug
 				self.debug = JokDebug.JokDebug()
 		except:
@@ -323,11 +322,11 @@ class Project(Monitored, CommandManaged):
 		#This will fail if a sound card doesn't support multiple simultanious inputs and is being told to
 		#record multiple instruments at the same time.
 		if len(recMixers)==0:
-			print "No channels capable of recording found"
+			Globals.debug("No channels capable of recording found")
 			raise AudioInputsError(0)
 
 		if len(recMixers) < numInstruments:
-			print "%s %s"%(len(recMixers),numInstruments)
+			Globals.debug("%s %s"%(len(recMixers),numInstruments))
 			raise AudioInputsError(1)
 
 		
@@ -342,7 +341,7 @@ class Project(Monitored, CommandManaged):
 		# obviously suck. Please email us and tell us about how shit we are.
 		try:
 			if os.environ['JOKOSHER_DEBUG']:
-				print "Play Pipeline:"
+				Globals.debug("Play Pipeline:")
 				self.debug.ShowPipelineTree(self.mainpipeline)
 		except:
 			pass
@@ -353,7 +352,7 @@ class Project(Monitored, CommandManaged):
 	def state_changed(self, bus, message, movePlayhead=True):
 		""" Handler for GStreamer statechange events. 
 		"""
-		gst.debug("STATE CHANGED")
+		Globals.debug("STATE CHANGED")
 		old, new, pending = self.mainpipeline.get_state(0)
 		#Move forward to playing when we reach paused (check pending to make sure this is the final destination)
 		if new == gst.STATE_PAUSED and pending == gst.STATE_VOID_PENDING and not self.IsPlaying:
@@ -368,17 +367,17 @@ class Project(Monitored, CommandManaged):
 		'''Set all instruments playing'''
 		
 		if len(self.instruments) > 0:
-			gst.debug("play() in project")
+			Globals.debug("play() in Project.py")
 
 			for ins in self.instruments:
 				if ins.effects:
-					gst.debug("there are effects")
-					gst.debug("pipeline is NULL or ready, gonna prepare effects bin")
+					Globals.debug("there are effects")
+					Globals.debug("pipeline is NULL or ready, gonna prepare effects bin")
 					ins.PrepareEffectsBin()
 					ins.converterElement.link(ins.effectsbin)
 					ins.effectsbin.link(ins.volumeElement)
 				else:
-					gst.debug("there are no effects")
+					Globals.debug("there are no effects")
 					try:
 						ins.converterElement.link(ins.volumeElement)
 					except:
@@ -390,7 +389,7 @@ class Project(Monitored, CommandManaged):
 			#the pipeline will be set to PLAY by self.state_changed()
 			self.mainpipeline.set_state(gst.STATE_PAUSED)
 			
-			gst.debug("just set state to PLAYING")
+			Globals.debug("just set state to PLAYING")
 			
 
 			# [DEBUG]
@@ -398,7 +397,7 @@ class Project(Monitored, CommandManaged):
 			# obviously suck. Please email us and tell us about how shit we are.
 			try:
 				if os.environ['JOKOSHER_DEBUG']:
-					print "Play Pipeline:"
+					Globals.debug("Play Pipeline:")
 					self.debug.ShowPipelineTree(self.mainpipeline)
 			except:
 				pass
@@ -443,7 +442,7 @@ class Project(Monitored, CommandManaged):
 		dlg.connect('response', lambda dlg, response: dlg.destroy())
 		dlg.show()
 		
-		print outputtext
+		Globals.debug(outputtext)
 
 	#_____________________________________________________________________
 				
@@ -453,8 +452,7 @@ class Project(Monitored, CommandManaged):
 			TODO - This looks like it should be refactored into the 
 					Instrument class. JasonF.
 		"""
-##		print "before new pad"
-		gst.debug("NEW PAD")
+		Globals.debug("NEW PAD")
 		convpad = instrument.converterElement.get_compatible_pad(pad, pad.get_caps())
 		pad.link(convpad)
 
@@ -466,8 +464,7 @@ class Project(Monitored, CommandManaged):
 			TODO - This looks like it should be refactored into the 
 					Instrument class. JasonF.
 		"""
-		print "pad removed"
-		gst.debug("PAD REMOVED")
+		Globals.debug("pad removed")
 #		print pad
 #		convpad = instrument.converterElement.get_compatible_pad(pad, pad.get_caps())
 #		pad.unlink(convpad)
@@ -496,7 +493,7 @@ class Project(Monitored, CommandManaged):
 				exportingFormatDict = formatDict
 				break
 		if not self.IsExporting:
-			print "Unknown filetype for export"
+			Globals.debug("Unknown filetype for export")
 			return -1
 		
 		#remove and unlink the alsasink
@@ -612,7 +609,7 @@ class Project(Monitored, CommandManaged):
 		for instr in self.instruments:
 			instr.stop()
 
-		gst.debug("Stop pressed, about to set state to READY")
+		Globals.debug("Stop pressed, about to set state to READY")
 
 		#read pipeline for current position - it will have been read
 		#periodically in TimeLine.py but could be out by 1/FPS
@@ -620,15 +617,15 @@ class Project(Monitored, CommandManaged):
 		self.mainpipeline.set_state(gst.STATE_READY)
 		self.IsPlaying = False
 			
-		gst.debug("Stop pressed, state just set to READY")
+		Globals.debug("Stop pressed, state just set to READY")
 
-		print "PIPELINE AFTER STOP:"
+		
 		# [DEBUG]
 		# This debug block will be removed when we release. If you see this in a release version, we
 		# obviously suck. Please email us and tell us about how shit we are.
 		try:
 			if os.environ['JOKOSHER_DEBUG']:
-				print "Play Pipeline:"
+				Globals.debug("PIPELINE AFTER STOP:")
 				self.debug.ShowPipelineTree(self.mainpipeline)
 		except:
 			pass
@@ -645,7 +642,7 @@ class Project(Monitored, CommandManaged):
 		for instr in self.instruments:
 			instr.terminate()
 
-		gst.debug("Terminating recording.")
+		Globals.debug("Terminating recording.")
 
 		self.mainpipeline.set_state(gst.STATE_READY)
 		self.IsPlaying = False
@@ -727,7 +724,7 @@ class Project(Monitored, CommandManaged):
 		
 		for file in self.deleteOnCloseAudioFiles:
 			if os.path.exists(file):
-				print "Deleting copied audio file:", file
+				Globals.debug("Deleting copied audio file:", file)
 				os.remove(file)
 		self.deleteOnCloseAudioFiles = []
 		
@@ -992,7 +989,7 @@ class Project(Monitored, CommandManaged):
 		"""
 		if id != None:
 			if id in self.___id_list:
-				print "Error: id", id, "already taken"
+				Globals.debug("Error: id", id, "already taken")
 			else:
 				self.___id_list.append(id)
 				return id

@@ -322,7 +322,7 @@ class InstrumentViewer(gtk.EventBox):
 
 	def OnInstrumentEffects(self, widget):
 		""" Creates and shows the instrument effects dialog"""
-		print "props button pressed"
+		Globals.debug("props button pressed")
 		newdlg = InstrumentEffectsDialog.InstrumentEffectsDialog(self.instrument)
 		#if destroyCallback:
 		#	newdlg.dlg.connect("destroy", destroyCallback)

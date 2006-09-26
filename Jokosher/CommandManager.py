@@ -10,7 +10,7 @@
 #-------------------------------------------------------------------------------
 
 import types
-import Project
+import Project, Globals
 
 #=========================================================================
 
@@ -88,7 +88,7 @@ class CommandManaged(object):
 			obj = "I%d"%self.id
 		elif type(self) == Project.Event:
 			obj = "E%d"%self.id
-		print "LOG COMMAND: ",obj, cmd
+		Globals.debug("LOG COMMAND: ",obj, cmd)
 		Project.GlobalProjectObject.AppendToCurrentStack("%s %s" % (obj, cmd))
 		
 		return out

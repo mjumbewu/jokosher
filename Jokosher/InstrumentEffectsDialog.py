@@ -86,7 +86,7 @@ class InstrumentEffectsDialog:
 		self.effectscombo.set_model(self.model)
 
 		for item in Globals.LADSPA_NAME_MAP:
-			print item[1]
+			Globals.debug(item[1])
 			longname = item[1]
 			shortname = longname[:30]
 			

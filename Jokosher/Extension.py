@@ -1,7 +1,7 @@
 # The Jokosher Extension API
 # write proper docstrings so that we can autogenerate the docs
 
-import os, sys, gtk, imp
+import os, sys, gtk, imp, Globals
 import gettext
 _ = gettext.gettext
 
@@ -39,8 +39,8 @@ if thing_that_imported_extension is None and \
 	except:
 		# no Gtk either! Print a message and die
 		import sys
-		print _("This is a Jokosher extension; it is not meant to be run directly.")
-		print _("To install it, move it to the directory %s\nand run Jokosher.") % (EXTENSION_DIR_LOCAL)
+		Globals.debug(_("This is a Jokosher extension; it is not meant to be run directly."))
+		Globals.debug(_("To install it, move it to the directory %s\nand run Jokosher.") % (EXTENSION_DIR_LOCAL))
 		sys.exit(1)
 		
 	message = _("This is a Jokosher extension, which needs to be installed. Would you like to install it?")
@@ -208,15 +208,15 @@ def LoadAllExtensions():
 		for f in os.listdir(exten_dir):
 			fn, ext = os.path.splitext(f)
 			if ext == ".py":
-				print "importing extension", f,
+				Globals.debug("importing extension", f)
 				exten_file, filename, description = imp.find_module(fn, [exten_dir])
 				
 				try:
 					module = imp.load_module(fn, exten_file, filename, description)
-					print "done."
+					Globals.debug("done.")
 				except Exception, e:
-					print "failed."
-					print e
+					Globals.debug("failed.")
+					Globals.debug(e)
 					
 				if exten_file:
 					exten_file.close()

@@ -2,33 +2,21 @@
 
 import pygtk
 pygtk.require("2.0")
-import gtk
-import gtk.glade
-import sys, os
-import os.path
-import gobject
+import gtk, gtk.glade, gobject
+import sys, os, os.path
 import pygst
 pygst.require("0.10")
 import gst
 import optparse
 
 
-import locale
-import gettext
+import locale, gettext
 _ = gettext.gettext
 
-import AddInstrumentDialog
-import TimeView
-import CompactMixView
-import PreferencesDialog
-import RecordingView
-import NewProjectDialog
-import Project
-import Globals
-import WelcomeDialog
-import InstrumentConnectionsDialog
-import StatusBar
-import AlsaDevices
+import AddInstrumentDialog, TimeView, CompactMixView
+import PreferencesDialog, RecordingView, NewProjectDialog
+import Project, Globals, WelcomeDialog, AlsaDevices
+import InstrumentConnectionsDialog, StatusBar
 from EffectPresets import *
 import Extension
 
@@ -301,7 +289,7 @@ class MainApp:
 					usedChannels[instr.input] = {instr.inTrack : instr.name}
 				
 		if not canRecord:
-			print "not can record"
+			Globals.debug("not can record")
 			dlg = gtk.MessageDialog(self.window,
 				gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
 				gtk.MESSAGE_INFO,
@@ -313,7 +301,7 @@ class MainApp:
 			widget.set_active(False)
 			self.settingButtons = False
 		else:
-			print "can record"
+			Globals.debug("can record")
 			#Deselect all input channels (the required ones will be reselected by each instrument)
 			devices = AlsaDevices.GetAlsaList("capture").values()
 			for device in devices: 
@@ -357,7 +345,7 @@ class MainApp:
 					self.record.set_active(self.isRecording)
 					self.settingButtons = False
 			else:
-				print "else else can record"
+				Globals.debug("else else can record")
 				self.project.stop()
 
 	#_____________________________________________________________________
@@ -717,7 +705,7 @@ class MainApp:
 			for path, name in recentprojectitems:
 				#TODO - see ticket 80; should it check if the project is valid?
 				if not os.path.exists(path):
-					print "Error: Couldn't open recent project", path
+					Globals.debug("Error: Couldn't open recent project", path)
 				else:
 					self.recentprojectitems.append((path, name))
 			

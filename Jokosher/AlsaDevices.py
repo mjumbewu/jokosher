@@ -11,6 +11,7 @@
 
 import dbus
 import gst, gst.interfaces
+import Globals
 
 #=========================================================================
 
@@ -63,7 +64,7 @@ def GetRecordingMixers(device):
 				if (track.label != 'Capture'): #FIXME: Can't use the word "Capture" explicitly, this string gets translated in non-english locales
 					recmixers.append(track)
 	else:
-		print ('Could not get the mixer for ALSA device %s, check your permissions' % (device,)) #TODO: Raise an exception here and have a GUI dialog displayed
+		Globals.debug('Could not get the mixer for ALSA device %s, check your permissions' % device) #TODO: Raise an exception here and have a GUI dialog displayed
 		recmixers = []
 	
 	alsamixer.set_state(gst.STATE_NULL)

@@ -82,17 +82,17 @@ class Instrument(Monitored, CommandManaged):
 		self.playbackbin = gst.element_factory_make("bin", "Instrument_%d"%self.id)
 
 		self.playbackbin.add(self.volumeElement)
-		print "added volume (instrument)"
+		Globals.debug("added volume (instrument)")
 
 		self.playbackbin.add(self.levelElement)
-		print "added level (instrument)"
+		Globals.debug("added level (instrument)")
 
 		self.playbackbin.add(self.panElement)
-		print "added audiopanorama (instrument)"
+		Globals.debug("added audiopanorama (instrument)")
 
 
 		self.playbackbin.add(self.converterElement)
-		print "added audioconvert (instrument)"
+		Globals.debug("added audioconvert (instrument)")
 
 		self.effectsbin = gst.element_factory_make("bin", "InstrumentEffects_%d"%self.id)
 		self.playbackbin.add(self.effectsbin)
@@ -113,11 +113,11 @@ class Instrument(Monitored, CommandManaged):
 		self.composition.add(self.silencesource)
 
 		self.playbackbin.add(self.composition)
-		print "added composition (instrument)"
+		Globals.debug("added composition (instrument)")
 		
 		self.resample = gst.element_factory_make("audioresample")
 		self.playbackbin.add(self.resample)
-		print "added audioresample (instrument)"
+		Globals.debug("added audioresample (instrument)")
 		
 
 		# link elements
@@ -126,19 +126,19 @@ class Instrument(Monitored, CommandManaged):
 		#print "linked instrument audioconvert to instrument volume"
 
 		self.volumeElement.link(self.levelElement)
-		print "linked instrument volume to instrument level"
+		Globals.debug("linked instrument volume to instrument level")
 
 		self.levelElement.link(self.panElement)
 		self.panElement.set_property("panorama", 0)
-		print "linked instrument level to instrument pan"
+		Globals.debug("linked instrument level to instrument pan")
 
 
 		self.panElement.link(self.resample)
-		print "linked instrument pan to instrument resample"
+		Globals.debug("linked instrument pan to instrument resample")
 		
 		self.playghostpad = gst.GhostPad("src", self.resample.get_pad("src"))
 		self.playbackbin.add_pad(self.playghostpad)
-		print "created ghostpad for instrument playbackbin"
+		Globals.debug("created ghostpad for instrument playbackbin")
 	
 		self.AddAndLinkPlaybackbin()
 
@@ -207,7 +207,7 @@ class Instrument(Monitored, CommandManaged):
 		
 		for effect in globaleffect:
 			elementname = str(effect.getAttribute("element"))
-			print "Loading effect:", elementname
+			Globals.debug("Loading effect:", elementname)
 			instance = gst.element_factory_make(elementname, "effect")
 			
 			propsdict = LoadDictionaryFromXML(effect)
@@ -240,7 +240,7 @@ class Instrument(Monitored, CommandManaged):
 				self.pixbuf = i[2]
 				break
 		if not self.pixbuf:
-			print "Error, could not load image:", self.instrType
+			Globals.debug("Error, could not load image:", self.instrType)
 		
 		# load pan level
 		
@@ -260,7 +260,7 @@ class Instrument(Monitored, CommandManaged):
 	def record(self):
 		'''Record to this instrument's temporary file.'''
 
-		gst.debug("instrument recording")
+		Globals.debug("instrument recording")
 		if self.input == "value":
 			self.input = "default"
 
@@ -284,7 +284,7 @@ class Instrument(Monitored, CommandManaged):
 		self.tmpe.file = file
 
 		self.output = " ! audioconvert ! vorbisenc ! oggmux ! filesink location=%s"%file.replace(" ", "\ ")
-		print "Using pipeline: alsasrc device=%s%s"%(self.input, self.output)
+		Globals.debug("Using pipeline: alsasrc device=%s%s"%(self.input, self.output))
 
 		self.recordingbin = gst.parse_launch("bin.( alsasrc device=%s %s )"%(self.input, self.output))
 		#We remove this instrument's playbin from the project so it doesn't try to record and play from the same file
@@ -296,7 +296,7 @@ class Instrument(Monitored, CommandManaged):
 
 	def stop(self):
 		if self.recordingbin:
-			print "instrument stop"
+			Globals.debug("instrument stop")
 			self.terminate()
 			self.events.append(self.tmpe)
 			self.tmpe.GenerateWaveform()
@@ -551,10 +551,10 @@ class Instrument(Monitored, CommandManaged):
 	def AddAndLinkPlaybackbin(self):
 		if not self.playbackbin in list(self.project.playbackbin.elements()):
 			self.project.playbackbin.add(self.playbackbin)
-			print "added instrument playbackbin to adder playbackbin"
+			Globals.debug("added instrument playbackbin to adder playbackbin")
 		if not self.playghostpad.get_peer():
 			self.playbackbin.link(self.project.adder)
-			print "linked instrument playbackbin to adder (project)"
+			Globals.debug("linked instrument playbackbin to adder (project)")
 
 	#_____________________________________________________________________
 	
@@ -564,12 +564,12 @@ class Instrument(Monitored, CommandManaged):
 		
 		if self.playbackbin in list(self.project.playbackbin.elements()):
 			self.project.playbackbin.remove(self.playbackbin)
-			print "removed instrument playbackbin from project playbackbin"
+			Globals.debug("removed instrument playbackbin from project playbackbin")
 		
 		if pad:
 			self.playbackbin.unlink(self.project.adder)
 			self.project.adder.release_request_pad(pad)
-			print "unlinked instrument playbackbin from adder"
+			Globals.debug("unlinked instrument playbackbin from adder")
 	
 	#_____________________________________________________________________
 
@@ -615,7 +615,7 @@ class Instrument(Monitored, CommandManaged):
 
 		itertimes = (numeffects * 2) - 1
 		
-		gst.debug("link effects")
+		Globals.debug("link effects")
 		for i in range(itertimes):
 			if efflink == 1:
 				self.effects[effectnum].link(self.aclist[acnum])
