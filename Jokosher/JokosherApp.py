@@ -33,7 +33,7 @@ class MainApp:
 
 	#_____________________________________________________________________
 
-	def __init__(self, openproject=None, safeMode=False, forceWelcomeDialog=False):
+	def __init__(self, openproject = None, loadExtensions = True, startuptype = None):
 		
 		gtk.glade.bindtextdomain(Globals.LOCALE_APP, Globals.LOCALE_PATH)
 		gtk.glade.textdomain(Globals.LOCALE_APP)
@@ -163,27 +163,35 @@ class MainApp:
 
 		# set up presets registry - this should probably be removed here	
 		EffectPresets().FillEffectsPresetsRegistry()
-		
-		if not safeMode:
+
+
+		if loadExtensions:
 			# Load extensions -- this should probably go somewhere more appropriate
 			Extension.API = Extension.ExtensionAPI(self)
 			Extension.LoadAllExtensions()
 
+
+		## Setup is complete so start up the GUI and perhaps load a project
+		## any new setup code needs to go above here
+
 		# Show the main window
 		self.window.show_all()
-		
-		if forceWelcomeDialog:
+
+
+		# command line options override preferences so check for them first,
+		# then preferences, then default to the welcome dialog
+
+		if startuptype == 2: # welcomedialog cmdline switch
 			welomeDialog = WelcomeDialog.WelcomeDialog(self)
 			return
-		# Setup is complete so load a project or not depending.
-		elif openproject:
+		elif startuptype == 1: # no-project cmdline switch
+			return
+		elif openproject: # a project name on the cmdline
 			self.OpenProjectFromPath(openproject)
-		#don't load the last project if safe mode it set
-		elif Globals.settings.general["startupaction"] == PreferencesDialog.STARTUP_LAST_PROJECT and not safeMode:
-			if self.lastopenedproject :
+		elif Globals.settings.general["startupaction"] == PreferencesDialog.STARTUP_LAST_PROJECT:
+			if self.lastopenedproject:
 				self.OpenProjectFromPath(self.lastopenedproject[0])
-		#return before loading the welcome dialog if safe mode is set
-		elif Globals.settings.general["startupaction"] == PreferencesDialog.STARTUP_NOTHING or safeMode:
+		elif Globals.settings.general["startupaction"] == PreferencesDialog.STARTUP_NOTHING:
 			return
 
 		#if everything else bombs out resort to the welcome dialog
