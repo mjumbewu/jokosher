@@ -67,7 +67,6 @@ if options.noextensions:
 
 
 #Launching the program
-#JokosherApp.MainApp(openproject, options.safeMode, options.forceWelcome)
 JokosherApp.MainApp(openproject, loadExtensions, startupType)
 JokosherApp.gtk.threads_init()
 JokosherApp.gtk.main()
