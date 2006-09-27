@@ -118,33 +118,34 @@ def _cacheInstrumentsGenerator():
 	except:
 		lang = None
 	
-	files = os.walk(INSTR_PATH).next()[2]
-	instrFiles = [x for x in files if x.endswith(".instr")]
-	for f in instrFiles:
-		config = ConfigParser.SafeConfigParser()
-		config.read(os.path.join(INSTR_PATH, f))
+	for instr_path in INSTR_PATHS:
+		files = os.walk(instr_path).next()[2]
+		instrFiles = [x for x in files if x.endswith(".instr")]
+		for f in instrFiles:
+			config = ConfigParser.SafeConfigParser()
+			config.read(os.path.join(instr_path, f))
 		
-		if config.has_option('core', 'type') and config.has_option('core', 'icon'):
-			icon = config.get('core', 'icon')
-			type = config.get('core', 'type')
-		else:
-			continue
+			if config.has_option('core', 'type') and config.has_option('core', 'icon'):
+				icon = config.get('core', 'icon')
+				type = config.get('core', 'type')
+			else:
+				continue
 		
-		if lang and config.has_option('i18n', lang):
-			name = config.get('i18n', lang)
-		elif lang and config.has_option('i18n', lang.split("_")[0]):
-			#in case lang was 'de_DE', use only 'de'
-			name = config.get('i18n', lang.split("_")[0])
-		elif config.has_option('i18n', 'en'):
-			#fall back on english (or a PO translation, if there is any)
-			name = gettext.gettext(config.get( 'i18n', 'en'))
-		else:
-			continue
+			if lang and config.has_option('i18n', lang):
+				name = config.get('i18n', lang)
+			elif lang and config.has_option('i18n', lang.split("_")[0]):
+				#in case lang was 'de_DE', use only 'de'
+				name = config.get('i18n', lang.split("_")[0])
+			elif config.has_option('i18n', 'en'):
+				#fall back on english (or a PO translation, if there is any)
+				name = gettext.gettext(config.get( 'i18n', 'en'))
+			else:
+				continue
 		
-		pixbufPath = os.path.join(INSTR_PATH, "images", icon)
-		pixbuf = gtk.gdk.pixbuf_new_from_file(pixbufPath)
+			pixbufPath = os.path.join(instr_path, "images", icon)
+			pixbuf = gtk.gdk.pixbuf_new_from_file(pixbufPath)
 		
-		yield (name, type, pixbuf)
+			yield (name, type, pixbuf)
 	
 def getCachedInstruments():
 	"""
@@ -194,14 +195,14 @@ JOKOSHER_PATH = os.getenv("JOKOSHER_DATA_PATH")
 if JOKOSHER_PATH:
 	IMAGE_PATH = "/usr/share/pixmaps"
 	EFFECT_PRESETS_PATH = os.path.join(JOKOSHER_PATH, "effectspresets")
-	INSTR_PATH = os.path.join(JOKOSHER_PATH, "Instruments")
+	INSTR_PATHS = (os.path.join(JOKOSHER_PATH, "Instruments"), os.path.expanduser("~/.jokosher/instruments"))
 	GLADE_PATH = os.path.join(JOKOSHER_PATH, "Jokosher.glade")
 	LOCALE_PATH = os.path.join("/usr/share/locale")
 else:
 	JOKOSHER_PATH = os.path.dirname(os.path.abspath(__file__))
 	IMAGE_PATH = os.path.join(JOKOSHER_PATH, "..", "images")
 	EFFECT_PRESETS_PATH = os.path.join(JOKOSHER_PATH, "..", "effectspresets")
-	INSTR_PATH = os.path.join(JOKOSHER_PATH, "..", "Instruments")
+	INSTR_PATHS = (os.path.join(JOKOSHER_PATH, "..", "Instruments"), os.path.expanduser("~/.jokosher/instruments"))
 	GLADE_PATH = os.path.join(JOKOSHER_PATH, "Jokosher.glade")
 	LOCALE_PATH = os.path.join(JOKOSHER_PATH, "..", "locale")
 	
