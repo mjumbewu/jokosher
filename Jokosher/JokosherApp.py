@@ -35,7 +35,7 @@ class MainApp:
 
 	def __init__(self, openproject=None, safeMode=False, forceWelcomeDialog=False):
 		
-		gtk.glade.bindtextdomain(Globals.LOCALE_APP, Globals.LOCALE_DIR)
+		gtk.glade.bindtextdomain(Globals.LOCALE_APP, Globals.LOCALE_PATH)
 		gtk.glade.textdomain(Globals.LOCALE_APP)
 		
 		self.wTree = gtk.glade.XML(Globals.GLADE_PATH, "MainWindow")
@@ -142,7 +142,12 @@ class MainApp:
 		self.PopulateRecentProjects()
 		
 		# set window icon
-		self.window.set_icon_from_file(os.path.join(Globals.IMAGE_PATH, "jokosher-icon.png"))
+		icon_theme = gtk.icon_theme_get_default()
+		try:
+			pixbuf = icon_theme.load_icon("jokosher-icon", 48, 0)
+			self.window.set_icon(pixbuf)
+		except gobject.GError, exc:
+			self.window.set_icon_from_file(os.path.join(Globals.IMAGE_PATH, "jokosher-icon.png"))
 		# make icon available to others
 		self.icon = self.window.get_icon()
 		

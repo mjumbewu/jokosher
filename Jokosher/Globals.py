@@ -111,21 +111,18 @@ _alreadyCached = False
 _cacheGeneratorObject = None
 
 def _cacheInstrumentsGenerator():
-	"""The current list of instruments, cached"""
-		
-	instrpath = os.path.join(JOKOSHER_PATH, "..", "Instruments")
-	
+	"""The current list of instruments, cached"""	
 	try:
 		#getlocale() will usually return  a tuple like: ('en_GB', 'UTF-8')
 		lang = locale.getlocale()[0]
 	except:
 		lang = None
 	
-	files = os.walk(instrpath).next()[2]
+	files = os.walk(INSTR_PATH).next()[2]
 	instrFiles = [x for x in files if x.endswith(".instr")]
 	for f in instrFiles:
 		config = ConfigParser.SafeConfigParser()
-		config.read(os.path.join(instrpath, f))
+		config.read(os.path.join(INSTR_PATH, f))
 		
 		if config.has_option('core', 'type') and config.has_option('core', 'icon'):
 			icon = config.get('core', 'icon')
@@ -144,7 +141,7 @@ def _cacheInstrumentsGenerator():
 		else:
 			continue
 		
-		pixbufPath = os.path.join(instrpath, "images", icon)
+		pixbufPath = os.path.join(INSTR_PATH, "images", icon)
 		pixbuf = gtk.gdk.pixbuf_new_from_file(pixbufPath)
 		
 		yield (name, type, pixbuf)
@@ -192,11 +189,25 @@ def idleCacheInstruments():
 	#Stop idle_add from calling us again
 	return False
 
+#Global paths, so we can find everything
+JOKOSHER_PATH = os.getenv("JOKOSHER_DATA_PATH")
+if JOKOSHER_PATH:
+	IMAGE_PATH = "/usr/share/pixmaps"
+	EFFECT_PRESETS_PATH = os.path.join(JOKOSHER_PATH, "effectspresets")
+	INSTR_PATH = os.path.join(JOKOSHER_PATH, "Instruments")
+	GLADE_PATH = os.path.join(JOKOSHER_PATH, "Jokosher.glade")
+	LOCALE_PATH = os.path.join("/usr/share/locale")
+else:
+	JOKOSHER_PATH = os.path.dirname(os.path.abspath(__file__))
+	IMAGE_PATH = os.path.join(JOKOSHER_PATH, "..", "images")
+	EFFECT_PRESETS_PATH = os.path.join(JOKOSHER_PATH, "..", "effectspresets")
+	INSTR_PATH = os.path.join(JOKOSHER_PATH, "..", "Instruments")
+	GLADE_PATH = os.path.join(JOKOSHER_PATH, "Jokosher.glade")
+	LOCALE_PATH = os.path.join(JOKOSHER_PATH, "..", "locale")
+	
+	
 INSTRUMENT_HEADER_WIDTH = 0
-JOKOSHER_PATH = os.path.dirname(os.path.abspath(__file__))
-IMAGE_PATH = os.path.join(JOKOSHER_PATH, "..", "images")
-GLADE_PATH = os.path.join(JOKOSHER_PATH, "Jokosher.glade")
-LOCALE_DIR = os.path.join(JOKOSHER_PATH, "..", "locale")
+
 LOCALE_APP = "jokosher"
 #set in Project.py
 VERSION = None
