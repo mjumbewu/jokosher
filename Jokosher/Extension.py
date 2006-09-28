@@ -77,6 +77,9 @@ if thing_that_imported_extension is None and \
 ############################################################################
 ############# The actual extension API #####################################
 ############################################################################
+#required API imports
+import Globals
+import shutil
 
 class ExtensionAPI:
 	def __init__(self, mainapp):
@@ -138,7 +141,6 @@ class ExtensionAPI:
 		   The list will contain exactly one string for each
 		   available type of instrument.
 		"""
-		from Jokosher import Globals
 		return [x[1] for x in Globals.getCachedInstruments()]
 		
 	def add_instrument(self, instr_type):
@@ -151,7 +153,6 @@ class ExtensionAPI:
 		   If the instrument is successfully added,
 		   the return value will be the ID of that instrument.
 		"""
-		from Jokosher import Globals
 		for i in Globals.getCachedInstruments():
 			if i[1] == instr_type:
 				return self.mainapp.project.AddInstrument(i[0], i[1], i[2])
@@ -163,6 +164,56 @@ class ExtensionAPI:
 		   that equals instrumentID.
 		"""
 		self.mainapp.project.DeleteInstrument(instrumentID)
+
+	def create_new_instrument_type(self, defaultName, typeString, imagePath):
+		"""
+		   Creates and new instrument type in the user's 
+		   ~/.jokosher/instruments folder. It will then be automatically
+		   loaded on startup.
+		   
+		   defaultName - the en_GB name of the instrument
+		   typeString - a unique string to this particular instrument file
+		   imagePath - absolute path to the instruments image
+		   
+		   Return values:
+		   0: sucess
+		   1: file exists or typeString already used by a loaded instrument
+		"""
+		instrument_file = os.path.join(Globals.INSTR_PATHS[1], typeString+".instr")
+
+		if not os.path.exists(instrument_file):
+			Globals.debug("Instrument Type already exists!")
+			return 1
+		#check if the type string is being used by any other loaded instrument
+		if typeString in [x[1] for x in Globals.getCachedInstruments()]:
+			Globals.debug("Instrument already loaded with type", typeString)
+			return 1
+		
+		Globals.debug("Creating new instrument type")
+		instr = ConfigParser.ConfigParser()
+		
+		instr.add_section("core")
+		instr.add_section("i18n")
+		
+		shutil.copyfile(imagePath, Globals.INSTR_PATHS[1]+"/images/"+os.path.basename(imagePath))
+		
+		core = {"icon": None, "type": None}
+		core["icon"] = os.path.basename(imagePath)
+		core["type"] = typeString
+		
+		for key, value in core.iteritems():
+			instr.set("core", key, value)
+			
+		instr.set("i18n", "en", defaultName)
+
+		file = open(instrument_file, 'w')
+		instr.write(file)
+		file.close()
+		
+		#refresh the instrument list so our new instrument gets loaded.
+		Globals.getCachedInstruments(checkForNew=True)
+		
+		return 0
 		
 	def add_export_format(self, description, extension, encoderName, muxerName=None, requiresAudioconvert=False):
 		"""

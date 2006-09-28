@@ -110,8 +110,13 @@ instrumentPropertyList = []
 _alreadyCached = False
 _cacheGeneratorObject = None
 
-def _cacheInstrumentsGenerator():
-	"""The current list of instruments, cached"""	
+def _cacheInstrumentsGenerator(alreadyLoadedTypes=[]):
+	"""
+	   Yields a loaded instrument everytime this method is called
+	   so that the gui isn't blocked while loading many instrument.
+	   If an instrument's type is already in alreadyLoadedTypes,
+	   it is considered a duplicate and not loaded.
+	"""	
 	try:
 		#getlocale() will usually return  a tuple like: ('en_GB', 'UTF-8')
 		lang = locale.getlocale()[0]
@@ -130,6 +135,9 @@ def _cacheInstrumentsGenerator():
 				type = config.get('core', 'type')
 			else:
 				continue
+			#don't load duplicate instruments
+			if type in alreadyLoadedTypes:
+				continue
 		
 			if lang and config.has_option('i18n', lang):
 				name = config.get('i18n', lang)
@@ -147,19 +155,22 @@ def _cacheInstrumentsGenerator():
 		
 			yield (name, type, pixbuf)
 	
-def getCachedInstruments():
+def getCachedInstruments(checkForNew=False):
 	"""
 	   Create the instrument cache if it hasn't been 
 	   created already and return the list.
+	   The instrument folders will be scanned for new_dir
+	   instruments if checkForNew is True.
 	"""
 	global instrumentPropertyList, _alreadyCached
-	if _alreadyCached:
+	if _alreadyCached and not checkForNew:
 		return instrumentPropertyList
 	else:
 		_alreadyCached = True
 	
+	listOfTypes = [x[1] for x in instrumentPropertyList]
 	try:
-		instrumentPropertyList = list(_cacheInstrumentsGenerator())
+		instrumentPropertyList = list(_cacheInstrumentsGenerator(listOfTypes))
 	except StopIteration:
 		pass
 
