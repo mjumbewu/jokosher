@@ -13,9 +13,19 @@ except:
 	except:
 		print "Cannot find global Jokosher."
 		sys.exit()
+else:
+	#make sure Jokosher.Extension is in the python path, so extensions can import it.
+	#ourpath is something like .../jokosher/JonoEdit/trunk/Jokosher
+	ourpath = os.path.dirname(os.path.abspath(__file__))
+	#remove the last dir so ourpath is like .../jokosher/JonoEdit/trunk/
+	ourpath = os.path.split(ourpath)[0]
+	sys.path.append(ourpath)
 
 import locale, gettext, optparse
 _ = gettext.gettext
+
+
+
 
 try:
 	locale.setlocale(locale.LC_ALL, '')

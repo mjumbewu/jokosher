@@ -174,7 +174,9 @@ def getCachedInstruments(checkForNew=False):
 	
 	listOfTypes = [x[1] for x in instrumentPropertyList]
 	try:
-		instrumentPropertyList = list(_cacheInstrumentsGenerator(listOfTypes))
+		newlyCached = list(_cacheInstrumentsGenerator(listOfTypes))
+		#extend the list so we don't overwrite the already cached instruments
+		instrumentPropertyList.extend(newlyCached)
 	except StopIteration:
 		pass
 
