@@ -128,8 +128,12 @@ def _cacheInstrumentsGenerator(alreadyLoadedTypes=[]):
 		instrFiles = [x for x in files if x.endswith(".instr")]
 		for f in instrFiles:
 			config = ConfigParser.SafeConfigParser()
-			config.read(os.path.join(instr_path, f))
-		
+			try:
+				config.read(os.path.join(instr_path, f))
+			except ConfigParser.MissingSectionHeaderError,e:
+				debug("Instrument file %s in %s is corrupt or invalid, not loading"%(f,instr_path))
+				continue	
+
 			if config.has_option('core', 'type') and config.has_option('core', 'icon'):
 				icon = config.get('core', 'icon')
 				type = config.get('core', 'type')
