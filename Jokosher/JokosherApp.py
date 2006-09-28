@@ -7,10 +7,8 @@ import sys, os, os.path
 import pygst
 pygst.require("0.10")
 import gst
-import optparse
 
-
-import locale, gettext
+import gettext
 _ = gettext.gettext
 
 import AddInstrumentDialog, TimeView, CompactMixView
@@ -182,7 +180,7 @@ class MainApp:
 		# then preferences, then default to the welcome dialog
 
 		if startuptype == 2: # welcomedialog cmdline switch
-			welomeDialog = WelcomeDialog.WelcomeDialog(self)
+			WelcomeDialog.WelcomeDialog(self)
 			return
 		elif startuptype == 1: # no-project cmdline switch
 			return
@@ -468,16 +466,16 @@ class MainApp:
 	#_____________________________________________________________________
 	
 	def UpdateExportDialog(self):
-		tuple = self.project.get_export_progress()
-		if tuple[0] == -1 or tuple[1] == 0:
+		progress = self.project.get_export_progress()
+		if progress[0] == -1 or progress[1] == 0:
 			self.exportprogress.set_fraction(0.0)
 			self.exportprogress.set_text(_("Preparing to mixdown project"))
-		elif tuple[0] == tuple[1] == 100:
+		elif progress[0] == progress[1] == 100:
 			self.exportdlg.destroy()
 			return False
 		else:
-			self.exportprogress.set_fraction(tuple[0]/tuple[1])
-			self.exportprogress.set_text(_("%d of %d seconds completed") % (tuple[0], tuple[1]))
+			self.exportprogress.set_fraction(progress[0]/progress[1])
+			self.exportprogress.set_text(_("%d of %d seconds completed") % (progress[0], progress[1]))
 			
 		return True
 	
