@@ -180,7 +180,7 @@ class ExtensionAPI:
 		   0: sucess
 		   1: file exists or typeString already used by a loaded instrument
 		"""
-		instrument_file = os.path.join(Globals.INSTR_PATHS[1], typeString+".instr")
+		instrument_file = os.path.join(Globals.INSTR_PATHS[1], typeString + ".instr")
 		
 		if os.path.exists(instrument_file):
 			Globals.debug("Instrument Type already exists!")
@@ -196,15 +196,14 @@ class ExtensionAPI:
 		instr.add_section("core")
 		instr.add_section("i18n")
 		
-		
 		core = {"icon": None, "type": None}
 		
-		if imagePath != None:
+		if imagePath:
 			core["icon"] = os.path.basename(imagePath)
-			shutil.copyfile(imagePath, Globals.INSTR_PATHS[1]+"/images/"+os.path.basename(imagePath))
+			shutil.copyfile(imagePath, Globals.INSTR_PATHS[1] + "/images/" + os.path.basename(imagePath))
 		else:
-			shutil.copyfile(Globals.INSTR_PATHS[0]+"/images/other.png", Globals.INSTR_PATHS[1]+"/images/"+typeString+".png")
-			core["icon"] = typeString+".png"
+			shutil.copyfile(Globals.INSTR_PATHS[0] + "/images/other.png", Globals.INSTR_PATHS[1] + "/images/" + typeString + ".png")
+			core["icon"] = typeString + ".png"
 
 		core["type"] = typeString
 		
