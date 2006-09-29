@@ -74,15 +74,9 @@ class Settings:
 		file.close()
 				
 		# make some other directories that we're going to need later
-		for d in ['extensions', 'instruments', 'presets']:
+		for d in ['extensions', 'instruments', 'instruments/images', 
+				'presets', 'presets/effects', 'presets/mixdown']:
 			new_dir = os.path.join(new_jokosher_file_dir, d)
-			if not os.path.isdir(new_dir): 
-				try:
-					os.makedirs(new_dir)
-				except:
-					raise "Failed to create user config directory %s" % new_dir
-		for d in ['effects', 'mixdown']:
-			new_dir = os.path.join(new_jokosher_file_dir, 'presets', d)
 			if not os.path.isdir(new_dir): 
 				try:
 					os.makedirs(new_dir)

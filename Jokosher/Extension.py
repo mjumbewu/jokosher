@@ -262,31 +262,36 @@ def LoadAllExtensions():
 	for exten_dir in EXTENSION_DIRS:
 		if not os.path.isdir(exten_dir):
 			continue
-		for f in os.listdir(exten_dir):
-			fn, ext = os.path.splitext(f)
-			if ext == ".py":
-				Globals.debug("importing extension", f)
-				exten_file, filename, description = imp.find_module(fn, [exten_dir])
-				
-				try:
-					module = imp.load_module(fn, exten_file, filename, description)
-					Globals.debug("done.")
-				except Exception, e:
-					Globals.debug("failed.")
-					Globals.debug(e)
-					
+		#get a list of all the file that end in .py
+		fileList = [x for x in os.listdir(exten_dir) if os.path.splitext(x)[1] == ".py"]
+		for f in fileList:
+			module = None
+			fn = os.path.splitext(f)[0]
+			Globals.debug("importing extension", f)
+			exten_file, filename, description = imp.find_module(fn, [exten_dir])
+			
+			try:
+				module = imp.load_module(fn, exten_file, filename, description)
+				Globals.debug("done.")
+			except Exception, e:
+				Globals.debug("failed.")
+				Globals.debug(e)
 				if exten_file:
 					exten_file.close()
-				
-				# run the module's startup() function if it has one (it should do),
-				# and throw away errors. (FIXME: should throw away "it doesn't exist",
-				# but report any others so problems can be debugged.)
+				continue
+			if exten_file:
+				exten_file.close()
+			
+			# run the module's startup() function if it has one (it should do),
+			# and throw away errors. (FIXME: should throw away "it doesn't exist",
+			# but report any others so problems can be debugged.)
+			if module:
 				try:
 					module.startup(API)
 				except:
 					pass
-				#don't block the gui when loading many extensions
-				while gtk.events_pending():
-					gtk.main_iteration()
+			#don't block the gui when loading many extensions
+			while gtk.events_pending():
+				gtk.main_iteration()
 		
 API = None
