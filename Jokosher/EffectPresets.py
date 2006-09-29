@@ -80,7 +80,7 @@ class EffectPresets:
 		settingsblock = doc.createElement("Settings")
 		effectblock.appendChild(settingsblock)
 		
-		StoreDictionaryToXML(self, doc, settingsblock, effectdict)
+		StoreDictionaryToXML(doc, settingsblock, effectdict)
 		
 		f = open(Globals.EFFECT_PRESETS_PATH + "/" + label + ".jpreset", "w")
 		f.write(doc.toprettyxml())
@@ -111,7 +111,7 @@ class EffectPresets:
 		chaindict = {}
 		chaindict["instrument"] = instrumenttype
 
-		StoreDictionaryToXML(self, doc, chainblock, chaindict)
+		StoreDictionaryToXML(doc, chainblock, chaindict)
 
 		# the structure of each <Effect> tag is not different from the single
 		# effect presets, there is just an <Effect> block for each effect in
@@ -135,7 +135,7 @@ class EffectPresets:
 			settingsblock = doc.createElement("Settings")
 			effectblock.appendChild(settingsblock)
 			
-			StoreDictionaryToXML(self, doc, settingsblock, eff["settings"])
+			StoreDictionaryToXML(doc, settingsblock, eff["settings"])
 		
 		f = open(Globals.EFFECT_PRESETS_PATH + "/" + label + ".jpreset", "w")
 		f.write(doc.toprettyxml())

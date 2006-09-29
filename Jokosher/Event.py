@@ -222,7 +222,7 @@ class Event(Monitored, CommandManaged):
 			to
 				The time we're moving to.
 
-			undo : Move(%(start)f, %(temp)f)
+			undo : Move: start, temp
 		'''
 		self.temp = frm
 		self.start = to
@@ -237,7 +237,7 @@ class Event(Monitored, CommandManaged):
 			the graveyard (for undo/redo compatibility). Returns the
 			newly created event, which is the one on the right (after the splitpoint).
 		
-			undo : Join(%(temp)d)
+			undo : Join: temp
 		'''		
 		if id == -1:
 			e = self.split_event(split_point)
@@ -270,7 +270,7 @@ class Event(Monitored, CommandManaged):
 			joinEventID
 				The ID of the Event to join to this one.
 
-			undo : Split(%(temp)f, %(temp2)d)
+			undo : Split: temp, temp2
 		'''
 		event = [x for x in self.instrument.events if x.id == joinEventID][0]
 
@@ -353,7 +353,7 @@ class Event(Monitored, CommandManaged):
 			end_split
 				The time for the end of the trim
 		   
-		    undo : UndoTrim(%(temp)d, %(temp2)d)
+		    undo : UndoTrim: temp, temp2
 		"""
 		# Split off the left section of the event, then put it in the graveyard for undo
 		leftSplit = self.split_event(start_split, False)
@@ -377,7 +377,7 @@ class Event(Monitored, CommandManaged):
 		"""Resurrects two pieces from the graveyard and joins them to
 		   either side of this event.
 		   
-		   undo : Trim(%(temp)f, %(temp2)f)
+		   undo : Trim: temp, temp2
 		"""
 		leftEvent = [x for x in self.instrument.graveyard if x.id == leftID][0]
 		rightEvent = [x for x in self.instrument.graveyard if x.id == rightID][0]
@@ -400,7 +400,7 @@ class Event(Monitored, CommandManaged):
 		"""	Deletes this Event and sends it to the graveyard to reflect
 			on what it has done.
 
-			undo : Resurrect()
+			undo : Resurrect
 		"""
 		self.instrument.graveyard.append(self)
 		self.instrument.events.remove(self)
@@ -411,7 +411,7 @@ class Event(Monitored, CommandManaged):
 	def Resurrect(self):
 		""" Brings this Event back from the graveyard.
 
-			undo : Delete()
+			undo : Delete
 		"""
 		self.instrument.events.append(self)
 		self.instrument.graveyard.remove(self)

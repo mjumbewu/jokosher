@@ -130,7 +130,11 @@ def LoadFromFile(uri):
 	else:
 		for n in undo.childNodes:
 			if n.nodeType == xml.Node.ELEMENT_NODE:
-				p.savedUndoStack.append(str(n.getAttribute("value")))
+				cmdList = []
+				cmdList.append(str(n.getAttribute("object")))
+				cmdList.append(str(n.getAttribute("function")))
+				cmdList.extend(LoadListFromXML(n))
+				p.savedUndoStack.append(cmdList)
 	
 	try:
 		redo = doc.getElementsByTagName("Redo")[0]
@@ -139,7 +143,11 @@ def LoadFromFile(uri):
 	else:
 		for n in redo.childNodes:
 			if n.nodeType == xml.Node.ELEMENT_NODE:
-				p.redoStack.append(str(n.getAttribute("value")))
+				cmdList = []
+				cmdList.append(str(n.getAttribute("object")))
+				cmdList.append(str(n.getAttribute("function")))
+				cmdList.extend(LoadListFromXML(n))
+				p.savedUndoStack.append(cmdList)
 	
 	for instr in doc.getElementsByTagName("Instrument"):
 		try:
@@ -173,7 +181,7 @@ class Project(Monitored, CommandManaged):
 		project.
 	"""
 	
-	Globals.VERSION = "0.1"	# The project structure version. Will be useful for handling old save files
+	Globals.VERSION = "0.2"	# The project structure version. Will be useful for handling old save files
 
 	#_____________________________________________________________________
 
@@ -692,15 +700,20 @@ class Project(Monitored, CommandManaged):
 		head.appendChild(undo)
 		for cmd in self.savedUndoStack:
 			e = doc.createElement("Command")
-			e.setAttribute("value", str(cmd))
+			e.setAttribute("object", cmd[0])
+			e.setAttribute("function", cmd[1])
 			undo.appendChild(e)
+			StoreListToXML(doc, e, cmd[2:], "Parameter")
 		
 		redo = doc.createElement("Redo")
 		head.appendChild(redo)
 		for cmd in self.redoStack:
 			e = doc.createElement("Command")
-			e.setAttribute("value", str(cmd))
+			e.setAttribute("object", cmd[0])
+			e.setAttribute("function", cmd[1])
 			redo.appendChild(e)
+			StoreListToXML(doc, e, cmd[2:], "Parameter")
+		
 			
 		for i in self.instruments:
 			i.StoreToXML(doc, head)
@@ -811,7 +824,7 @@ class Project(Monitored, CommandManaged):
 	
 	#_____________________________________________________________________
 	
-	def ExecuteCommand(self, cmd):
+	def ExecuteCommand(self, cmdList):
 		""" This function executes the string cmd from the undo/redo stack.
 			Commands are made up of 2 parts - the object (and it's ID if
 			relevant), and the function to call.
@@ -821,23 +834,16 @@ class Project(Monitored, CommandManaged):
 				which means 'Call Delete()' on the Event with ID=2
 		"""
 		global GlobalProjectObject
-	
-		# Split the call into the object and function
-		obj = cmd.split()[0]
-		func = cmd[len(obj)+1:]
 		
+		obj = cmdList[0]
 		target_object = None
-		
 		if obj[0] == "P":		# Check if the object is a Project
 			target_object = self
-			
 		elif obj[0] == "I":		# Check if the object is an Instrument
 			id = int(obj[1:])
 			target_object = [x for x in self.instruments if x.id==id][0]
-			
 		elif obj[0] == "E":		# Check if the object is an Event
 			id = int(obj[1:])
-
 			for i in self.instruments:
 				# First of all see if it's alive on an instrument
 				n = [x for x in i.events if x.id==id]
@@ -847,9 +853,8 @@ class Project(Monitored, CommandManaged):
 				if n:
 					target_object = n[0]
 					break
-
-		exec("target_object.%s"%func)
-				
+		
+		getattr(target_object, cmdList[1])(*cmdList[2:])
 
 	#_____________________________________________________________________
 	
@@ -857,7 +862,7 @@ class Project(Monitored, CommandManaged):
 		''' Adds a new instrument to the project,
 		   and return the ID for that instrument.
 		
-			undo : DeleteInstrument(%(temp)d)
+			undo : DeleteInstrument: temp
 		'''
 			
 		instr = Instrument(self, name, type, pixbuf)
@@ -875,7 +880,7 @@ class Project(Monitored, CommandManaged):
 		''' Removes the instrument matching id from the project.
 			id: Unique ID of the instument to remove.
 
-			undo : ResurrectInstrument(%(temp)d)
+			undo : ResurrectInstrument: temp
 		'''
 		
 		instr = [x for x in self.instruments if x.id == id][0]
@@ -895,7 +900,7 @@ class Project(Monitored, CommandManaged):
 	def ResurrectInstrument(self, id):
 		''' Brings a deleted Instrument back from the graveyard.
 
-			undo : DeleteInstrument(%(temp)d)
+			undo : DeleteInstrument: temp
 		'''
 		instr = [x for x in self.graveyard if x.id == id][0]
 		
@@ -916,7 +921,7 @@ class Project(Monitored, CommandManaged):
 			Used for drag and drop ordering of instruments in
 			InstrumentViewer.py
 			
-			undo : MoveInstrument(%(temp)d, %(temp1)d)
+			undo : MoveInstrument: temp, temp1
 		'''
 		self.temp = id
 		instr = [x for x in self.instruments if x.id == id][0]
@@ -1043,7 +1048,7 @@ class Project(Monitored, CommandManaged):
 		"""
 			Sets the Mode in the Transportmanager. Used to enable Undo/Redo.
 			
-			undo : SetTransportMode(%(temp)d)
+			undo : SetTransportMode: temp
 		"""
 		self.temp = self.transport.mode
 		self.transport.SetMode(val)

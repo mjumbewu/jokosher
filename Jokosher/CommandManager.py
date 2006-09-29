@@ -46,15 +46,17 @@ class CommandManaged(object):
 			to
 				The time we're moving to.
 
-			undo : Move(%(start)f, %(temp)f)
+			undo : Move: start, temp
 		'''
 		self.temp = frm
 		self.start = to
 		self.SetProperties()	   
 		
-		The undo method for a Move is defined as Move(%(start)f, %(temp)f), and
-		the start and temp variables are defined in the function itself. These
-		variables are then substituted in before the command is put on the undo stack.
+		The undo method for a Move is defined as "Move: start, temp", where the ":" separates
+		the method name and the parameters to pass to the method. The start and temp 
+		variables are defined in the function itself and set to the class instance 
+		(using self.start for example) so that they can be accessed after the function has returned. 
+		These variables are then substituted in before the command is put on the undo stack.
 	   
 	   
 	"""
@@ -78,18 +80,31 @@ class CommandManaged(object):
 		out = func(*args,**kwargs)
 		d = func.__doc__
 		
-		undo = d[d.find("undo : ") + 7:].split("\n")[0]
-		cmd = undo % makeDict(func.im_self)
+		cmdList = []
 		
-		obj = ""
 		if type(self) == Project.Project:
-			obj = "P"
+			cmdList.append("P")
 		elif type(self) == Project.Instrument:
-			obj = "I%d"%self.id
+			cmdList.append("I%d"%self.id)
 		elif type(self) == Project.Event:
-			obj = "E%d"%self.id
-		Globals.debug("LOG COMMAND: ",obj, cmd)
-		Project.GlobalProjectObject.AppendToCurrentStack("%s %s" % (obj, cmd))
+			cmdList.append("E%d"%self.id)
+		
+		#separate the undo string from the docstring
+		undo = d[d.find("undo : ") + 7:].split("\n")[0]
+		#separte the params from the method name
+		methodName, paramsString = [x.strip() for x in undo.split(":")]
+		cmdList.append(methodName)
+		
+		for i in [x.strip() for x in paramsString.split(",")]:
+			try:
+				value = getattr(func.im_self, i)
+			except:
+				continue
+			else:
+				cmdList.append(value)
+		
+		Globals.debug("LOG COMMAND: ", cmdList)
+		Project.GlobalProjectObject.AppendToCurrentStack(cmdList)
 		
 		return out
 

@@ -185,7 +185,7 @@ class Instrument(Monitored, CommandManaged):
 				if prop.flags & gobject.PARAM_WRITABLE:
 					propsdict[prop.name] = effect.get_property(prop.name)
 			
-			StoreDictionaryToXML(self, doc, globaleffect, propsdict)
+			StoreDictionaryToXML(doc, globaleffect, propsdict)
 			
 		for e in self.events:
 			e.StoreToXML(doc, ins)
@@ -326,7 +326,7 @@ class Instrument(Monitored, CommandManaged):
 			file - file path
 			copyfile - if True copy file to project audio dir
 			
-			undo : DeleteEvent(%(temp)d)
+			undo : DeleteEvent: temp
 		'''
 		filelabel=file
 
@@ -367,7 +367,7 @@ class Instrument(Monitored, CommandManaged):
 		      start - The offset time in seconds
 		      event - The event to be recreated on this instrument
 		      
-		      undo : DeleteEvent(%(temp)d)
+		      undo : DeleteEvent: temp
 		"""
 		e = Event(self, event.file)
 		e.start = start
@@ -444,7 +444,7 @@ class Instrument(Monitored, CommandManaged):
 		"""Sets the instrument to the given name
 		   so it can be registered in the undo stack
 		
-		   undo : SetName("%(temp)s")
+		   undo : SetName: temp
 		"""
 		self.temp = self.name
 		self.name = name
@@ -455,7 +455,7 @@ class Instrument(Monitored, CommandManaged):
 	def ToggleArmed(self):
 		"""Toggles the instrument to be armed for recording
 		
-		   undo : ToggleArmed()
+		   undo : ToggleArmed
 		"""
 		self.isArmed = not self.isArmed
 		self.StateChanged()
@@ -465,7 +465,7 @@ class Instrument(Monitored, CommandManaged):
 	def ToggleMuted(self, wasSolo):
 		"""Toggles the instrument to be muted
 		
-		   undo : ToggleMuted(%(temp)d)
+		   undo : ToggleMuted: temp
 		"""
 		self.temp = self.isSolo
 		self.isMuted = not self.isMuted
@@ -487,7 +487,7 @@ class Instrument(Monitored, CommandManaged):
 	def ToggleSolo(self, wasMuted):
 		"""Toggles the all the other instruments muted
 		
-		   undo : ToggleSolo(%(temp)d)
+		   undo : ToggleSolo: temp
 		"""
 		self.temp = self.isMuted
 		self.isMuted = wasMuted
@@ -507,7 +507,7 @@ class Instrument(Monitored, CommandManaged):
 	def SetVisible(self, visible):
 		"""Sets wheather the instrument is minimized in CompactMixView
 		
-		   undo : SetVisible(%(temp)d)
+		   undo : SetVisible: temp
 		"""
 		self.temp = self.isVisible
 		self.isVisible = visible

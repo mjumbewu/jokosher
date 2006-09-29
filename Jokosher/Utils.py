@@ -84,7 +84,7 @@ def floatRange(start, end=None, inc=None):
 
 #_____________________________________________________________________
 
-def StoreDictionaryToXML(self, doc, parent, dict):
+def StoreDictionaryToXML(doc, parent, dict):
 	"""Saves a dictionary of settings
 	   in an XML document (doc) with the parent XML tag (parent)"""
 	   
@@ -124,5 +124,43 @@ def LoadDictionaryFromXML(parentElement):
 				dictionary[n.tagName] = n.getAttribute("value")
 				
 	return dictionary
+
+#_____________________________________________________________________
+
+def StoreListToXML(doc, parent, itemList, tagName):
+	   
+	for value in itemList:
+		node = doc.createElement(tagName)
+			
+		if type(value) == int:
+			node.setAttribute("type", "int")
+		elif type(value) == float:
+			node.setAttribute("type", "float")
+		elif type(value) == bool:
+			node.setAttribute("type", "bool")
+		else:
+			node.setAttribute("type", "str")
+		
+		node.setAttribute("value", str(value))
+		parent.appendChild(node)
+		
+#_____________________________________________________________________
+		
+def LoadListFromXML(parentElement):
+	itemList = []
+	
+	for n in parentElement.childNodes:
+		if n.nodeType == xml.Node.ELEMENT_NODE:
+			if n.getAttribute("type") == "int":
+				itemList.append(int(n.getAttribute("value")))
+			elif n.getAttribute("type") == "float":
+				itemList.append(float(n.getAttribute("value")))
+			elif n.getAttribute("type") == "bool":
+				value = (n.getAttribute("value") == "True")
+				itemList.append(value)
+			else:
+				itemList.append(n.getAttribute("value"))
+				
+	return itemList
 
 #_____________________________________________________________________
