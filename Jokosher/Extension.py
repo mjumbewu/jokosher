@@ -80,6 +80,7 @@ if thing_that_imported_extension is None and \
 #required API imports
 import Globals
 import shutil
+import ConfigParser
 
 class ExtensionAPI:
 	def __init__(self, mainapp):
@@ -180,8 +181,8 @@ class ExtensionAPI:
 		   1: file exists or typeString already used by a loaded instrument
 		"""
 		instrument_file = os.path.join(Globals.INSTR_PATHS[1], typeString+".instr")
-
-		if not os.path.exists(instrument_file):
+		
+		if os.path.exists(instrument_file):
 			Globals.debug("Instrument Type already exists!")
 			return 1
 		#check if the type string is being used by any other loaded instrument
@@ -195,10 +196,16 @@ class ExtensionAPI:
 		instr.add_section("core")
 		instr.add_section("i18n")
 		
-		shutil.copyfile(imagePath, Globals.INSTR_PATHS[1]+"/images/"+os.path.basename(imagePath))
 		
 		core = {"icon": None, "type": None}
-		core["icon"] = os.path.basename(imagePath)
+		
+		if imagePath != None:
+			core["icon"] = os.path.basename(imagePath)
+			shutil.copyfile(imagePath, Globals.INSTR_PATHS[1]+"/images/"+os.path.basename(imagePath))
+		else:
+			shutil.copyfile(Globals.INSTR_PATHS[0]+"/images/other.png", Globals.INSTR_PATHS[1]+"/images/"+typeString+".png")
+			core["icon"] = typeString+".png"
+
 		core["type"] = typeString
 		
 		for key, value in core.iteritems():
