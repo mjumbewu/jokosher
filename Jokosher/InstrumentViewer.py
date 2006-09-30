@@ -29,6 +29,7 @@ class InstrumentViewer(gtk.EventBox):
 	EDGE_HOT_ZONE = 10				# Size of 'hot zone' used to trigger drawing of edge handle
 	BAR_WIDTH = 15
 	MAX_PEAK = 30
+	LABEL_WIDTH_CHARS = 12
 	UNSELECTED_COLOUR = None
 	SELECTED_COLOUR = None
 	
@@ -77,7 +78,9 @@ class InstrumentViewer(gtk.EventBox):
 		# create track header bits
 		self.labelbox = gtk.HBox()
 		self.labeleventbox = gtk.EventBox()
-		self.instrlabel = gtk.Label(self.instrument.name)	
+		self.instrlabel = gtk.Label(self.instrument.name)
+		self.instrlabel.set_ellipsize(pango.ELLIPSIZE_END)
+		self.instrlabel.set_width_chars(self.LABEL_WIDTH_CHARS)
 		self.editlabel = gtk.Entry()
 		self.editlabel.set_text(self.instrument.name)
 		self.editlabelPacked = False
@@ -212,11 +215,14 @@ class InstrumentViewer(gtk.EventBox):
 			
 		# replace label with gtk.Entry in order to edit it
 		if event.type == gtk.gdk.BUTTON_PRESS:
+			#save width of label because when its hidden, width == 0
+			width = self.labeleventbox.size_request()[0]
 			self.labeleventbox.hide_all()
 			
 			self.editlabel = gtk.Entry()
 			self.editlabel.set_text(self.instrument.name)
-			self.editlabel.set_width_chars(len(self.instrument.name))
+			#set the entry to the same width as the label so that the header doesnt resize
+			self.editlabel.set_size_request(width, -1)
 			self.editlabel.connect("activate", self.OnAcceptEditLabel)
 			self.editlabel.show()
 			
@@ -307,6 +313,8 @@ class InstrumentViewer(gtk.EventBox):
 			self.window.set_cursor(gtk.gdk.Cursor(gtk.gdk.XTERM))
 		else:
 			self.window.set_cursor(None)
+			
+	#______________________________________________________________________
 
 	def ResizeHeader(self, width):
 		"""
