@@ -57,8 +57,6 @@ class CommandManaged(object):
 		variables are defined in the function itself and set to the class instance 
 		(using self.start for example) so that they can be accessed after the function has returned. 
 		These variables are then substituted in before the command is put on the undo stack.
-	   
-	   
 	"""
 	
 	#_____________________________________________________________________
@@ -111,22 +109,6 @@ class CommandManaged(object):
 		
 		return out
 
-	#_____________________________________________________________________
-
-#=========================================================================
-
-class makeDict(dict):
-	
-	#_____________________________________________________________________
-	
-	def __init__(self,obj):
-		self.obj = obj
-		
-	#_____________________________________________________________________
-		
-	def __getitem__(self,item):
-		return getattr(self.obj,item)
-	
 	#_____________________________________________________________________
 
 #=========================================================================
