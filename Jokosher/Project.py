@@ -826,15 +826,15 @@ class Project(Monitored, CommandManaged):
 	
 	def ExecuteCommand(self, cmdList):
 		""" This function executes the string cmd from the undo/redo stack.
-			Commands are made up of 2 parts - the object (and it's ID if
-			relevant), and the function to call.
+			Commands are made up of a list of which the first two items are
+			the object (and it's ID if relevant), and the function to call. 
+			The 3rd, 4th, etc. items in the list are the parameters to give to
+			the function when it is called.
 
 			i.e.
-				E2 Delete()
-				which means 'Call Delete()' on the Event with ID=2
-		"""
-		global GlobalProjectObject
-		
+				["E2", "Move", 1, 2]
+				which means 'Call Move(1, 2)' on the Event with ID=2
+		"""		
 		obj = cmdList[0]
 		target_object = None
 		if obj[0] == "P":		# Check if the object is a Project
