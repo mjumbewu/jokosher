@@ -400,7 +400,7 @@ class Event(Monitored, CommandManaged):
 		"""	Deletes this Event and sends it to the graveyard to reflect
 			on what it has done.
 
-			undo : Resurrect
+			undo : Resurrect: temp
 		"""
 		self.instrument.graveyard.append(self)
 		self.instrument.events.remove(self)
@@ -411,7 +411,7 @@ class Event(Monitored, CommandManaged):
 	def Resurrect(self):
 		""" Brings this Event back from the graveyard.
 
-			undo : Delete
+			undo : Delete: temp
 		"""
 		self.instrument.events.append(self)
 		self.instrument.graveyard.remove(self)
