@@ -116,10 +116,8 @@ def _cacheInstrumentsGenerator(alreadyLoadedTypes=[]):
 		lang = locale.getlocale()[0]
 	except:
 		lang = None
-	
 	for instr_path in INSTR_PATHS:
-		files = os.walk(instr_path).next()[2]
-		instrFiles = [x for x in files if x.endswith(".instr")]
+		instrFiles = [x for x in os.listdir(instr_path) if x.endswith(".instr")]
 		for f in instrFiles:
 			config = ConfigParser.SafeConfigParser()
 			try:
@@ -150,7 +148,7 @@ def _cacheInstrumentsGenerator(alreadyLoadedTypes=[]):
 		
 			pixbufPath = os.path.join(instr_path, "images", icon)
 			pixbuf = gtk.gdk.pixbuf_new_from_file(pixbufPath)
-		
+				
 			yield (name, type, pixbuf)
 	
 def getCachedInstruments(checkForNew=False):
@@ -246,6 +244,7 @@ for type in _export_formats:
 settings = Settings()
 #cache instruments
 gobject.idle_add(idleCacheInstruments)
+
 
 # I have decided that Globals.py is a boring source file. So, here is a little
 # joke. What does the tax office and a pelican have in common? They can both stick

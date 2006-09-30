@@ -78,9 +78,8 @@ if thing_that_imported_extension is None and \
 ############# The actual extension API #####################################
 ############################################################################
 #required API imports
-import Globals
-import shutil
 import ConfigParser
+import gst
 
 class ExtensionAPI:
 	def __init__(self, mainapp):
@@ -178,43 +177,52 @@ class ExtensionAPI:
 		   
 		   Return values:
 		   0: sucess
-		   1: file exists or typeString already used by a loaded instrument
+		   1: file exists or defaultName is already used by a loaded instrument
+		   2: cannot load image
+		   3: cannot write to ~/.jokosher/instruments or ~/.jokosher/instruments/images
 		"""
-		instrument_file = os.path.join(Globals.INSTR_PATHS[1], typeString + ".instr")
-		
-		if os.path.exists(instrument_file):
-			Globals.debug("Instrument Type already exists!")
-			return 1
+		typeList = [x[1] for x in Globals.getCachedInstruments()]
+		if typeString in typeList:
+			#if the typeString is already being used, just add a number to the end like "guitar2"
+			count = 1
+			path = os.path.join(Globals.INSTR_PATHS[1], "%s" + ".instr")
+			typeString = typeString + str(count)
+			while typeString in typeList and not os.path.exists(path% (typeString)):
+				count += 1
+				typeString  = typeString[:-1] + str(count)
+				
 		#check if the type string is being used by any other loaded instrument
-		if typeString in [x[1] for x in Globals.getCachedInstruments()]:
-			Globals.debug("Instrument already loaded with type", typeString)
+		if defaultName in [x[0] for x in Globals.getCachedInstruments()]:
+			Globals.debug("An instrument already loaded with name", defaultName)
 			return 1
+		
+		try:
+			pixbuf = gtk.gdk.pixbuf_new_from_file(imagePath)
+		except gobject.GError:
+			return 2
+		if pixbuf.get_width() != 48 or pixbuf.get_height() != 48:
+			pb = pixbuf.scale_simple(48, 48, gtk.gdk.INTERP_BILINEAR)
+			pixbuf = pb
+		try:
+			pixbuf.save(Globals.INSTR_PATHS[1] + "/images/" + typeString + ".png", "png")
+		except gobject.GError:
+			return 3
 		
 		Globals.debug("Creating new instrument type")
 		instr = ConfigParser.ConfigParser()
-		
 		instr.add_section("core")
 		instr.add_section("i18n")
-		
-		core = {"icon": None, "type": None}
-		
-		if imagePath:
-			core["icon"] = os.path.basename(imagePath)
-			shutil.copyfile(imagePath, Globals.INSTR_PATHS[1] + "/images/" + os.path.basename(imagePath))
-		else:
-			shutil.copyfile(Globals.INSTR_PATHS[0] + "/images/other.png", Globals.INSTR_PATHS[1] + "/images/" + typeString + ".png")
-			core["icon"] = typeString + ".png"
-
-		core["type"] = typeString
-		
-		for key, value in core.iteritems():
-			instr.set("core", key, value)
-			
+		instr.set("core", "icon", typeString + ".png")
+		instr.set("core", "type", typeString)
 		instr.set("i18n", "en", defaultName)
 
-		file = open(instrument_file, 'w')
-		instr.write(file)
-		file.close()
+		instrument_file = os.path.join(Globals.INSTR_PATHS[1], typeString + ".instr")
+		try:
+			file = open(instrument_file, 'w')
+			instr.write(file)
+			file.close()
+		except IOError:
+			return 3
 		
 		#refresh the instrument list so our new instrument gets loaded.
 		Globals.getCachedInstruments(checkForNew=True)
@@ -236,8 +244,7 @@ class ExtensionAPI:
 		   1: invalid options
 		   2: cannot create encoder/muxer element
 		"""
-		import Globals
-		import gst
+		
 		if not description or not extension and not encoderName:
 			return 1
 		try:
@@ -263,7 +270,7 @@ def LoadAllExtensions():
 		if not os.path.isdir(exten_dir):
 			continue
 		#get a list of all the file that end in .py
-		fileList = [x for x in os.listdir(exten_dir) if os.path.splitext(x)[1] == ".py"]
+		fileList = [x for x in os.listdir(exten_dir) if x.endswith(".py")]
 		for f in fileList:
 			module = None
 			fn = os.path.splitext(f)[0]

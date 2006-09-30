@@ -18,8 +18,6 @@ import InstrumentConnectionsDialog, StatusBar
 from EffectPresets import *
 import Extension
 
-gobject.threads_init()
-
 #=========================================================================
 
 class MainApp:
