@@ -455,7 +455,7 @@ class Instrument(Monitored, CommandManaged):
 	def ToggleArmed(self):
 		"""Toggles the instrument to be armed for recording
 		
-		   undo : ToggleArmed : temp
+		   undo : ToggleArmed
 		"""
 		self.isArmed = not self.isArmed
 		self.StateChanged()

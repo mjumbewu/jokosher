@@ -92,17 +92,20 @@ class CommandManaged(object):
 		#separate the undo string from the docstring
 		undo = d[d.find("undo : ") + 7:].split("\n")[0]
 		#separte the params from the method name
-		methodName, paramsString = [x.strip() for x in undo.split(":")]
+		splitString = [x.strip() for x in undo.split(":")]
+		methodName = splitString[0]
 		cmdList.append(methodName)
 		
-		for i in [x.strip() for x in paramsString.split(",")]:
-			try:
-				value = getattr(func.im_self, i)
-			except:
-				continue
-			else:
-				cmdList.append(value)
-		
+		if len(splitString) > 1:
+			paramsString = splitString[1]
+			for i in [x.strip() for x in paramsString.split(",")]:
+				try:
+					value = getattr(func.im_self, i)
+				except:
+					continue
+				else:
+					cmdList.append(value)
+			
 		Globals.debug("LOG COMMAND: ", cmdList)
 		Project.GlobalProjectObject.AppendToCurrentStack(cmdList)
 		
