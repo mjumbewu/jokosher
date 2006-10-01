@@ -79,7 +79,7 @@ if thing_that_imported_extension is None and \
 ############################################################################
 #required API imports
 import ConfigParser
-import gst
+import gst, gobject
 
 class ExtensionAPI:
 	def __init__(self, mainapp):
