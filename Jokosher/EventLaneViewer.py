@@ -250,7 +250,7 @@ class EventLaneViewer(gtk.EventBox):
 		copyfile.show()
 
 		dlg = gtk.FileChooserDialog(_("Import file..."), action=gtk.FILE_CHOOSER_ACTION_OPEN, buttons=buttons)
-		dlg.set_current_folder(self.mainview.defaultlocation)
+		dlg.set_current_folder(Globals.settings.general["projectfolder"])
 		dlg.set_extra_widget(copyfile)
 		
 		
@@ -269,7 +269,7 @@ class EventLaneViewer(gtk.EventBox):
 			dlg.hide()
 			start = (self.mouseDownPos[0]/self.project.viewScale) + self.project.viewStart
 			self.instrument.addEventFromFile(start, dlg.get_filename(),copyfile.get_active())
-			self.mainview.defaultlocation = os.path.dirname(dlg.get_filename())
+			Globals.settings.general["projectfolder"] = os.path.dirname(dlg.get_filename())
 		else:
 			dlg.hide()
 

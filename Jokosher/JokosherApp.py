@@ -116,7 +116,6 @@ class MainApp:
 		self.settingButtons = True
 		self.wTree.get_widget("Recording").set_active(True)
 		self.settingButtons = False
-		self.defaultlocation = os.path.realpath(".")
 		self.isRecording = False
 		self.isPlaying = False
 
@@ -416,7 +415,7 @@ class MainApp:
 		'''Display a save dialog allowing the user to export as ogg or mp3'''
 		buttons = (gtk.STOCK_CANCEL,gtk.RESPONSE_CANCEL,gtk.STOCK_SAVE,gtk.RESPONSE_OK)
 		chooser = gtk.FileChooserDialog(_("Mixdown Project"), self.window, gtk.FILE_CHOOSER_ACTION_SAVE, buttons)
-		chooser.set_current_folder(self.defaultlocation)
+		chooser.set_current_folder(Globals.settings.general["projectfolder"])
 
 		saveLabel = gtk.Label(_("Save as file type:"))		
 		typeCombo = gtk.combo_box_new_text()
@@ -435,7 +434,7 @@ class MainApp:
 		response = chooser.run()
 		if response == gtk.RESPONSE_OK:
 			filename = chooser.get_filename()
-			self.defaultlocation = os.path.dirname(filename)
+			Globals.settings.general["projectfolder"] = os.path.dirname(filename)
 			#If they haven't already appended the extension for the 
 			#chosen file type, add it to the end of the file.
 			filetype = Globals.EXPORT_FORMATS[typeCombo.get_active()]["extension"]
@@ -530,7 +529,7 @@ class MainApp:
 	def OnOpenProject(self, widget, destroyCallback=None):
 		
 		chooser = gtk.FileChooserDialog((_('Choose a Jokosher project file')), None, gtk.FILE_CHOOSER_ACTION_OPEN, (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, gtk.STOCK_OPEN, gtk.RESPONSE_OK))
-		chooser.set_current_folder(self.defaultlocation)
+		chooser.set_current_folder(Globals.settings.general["projectfolder"])
 
 		chooser.set_default_response(gtk.RESPONSE_OK)
 		chooser.set_transient_for(self.window)
@@ -554,7 +553,7 @@ class MainApp:
 			if response == gtk.RESPONSE_OK:
 				
 				filename = chooser.get_filename()
-				self.defaultlocation = os.path.dirname(filename)
+				Globals.settings.general["projectfolder"] = os.path.dirname(filename)
 				if self.OpenProjectFromPath(filename,chooser):
 					break
 				
@@ -576,12 +575,12 @@ class MainApp:
 	def OnSaveAsProject(self, widget=None):
 		buttons = (gtk.STOCK_CANCEL,gtk.RESPONSE_CANCEL,gtk.STOCK_SAVE,gtk.RESPONSE_OK)
 		chooser = gtk.FileChooserDialog(_("Choose a location to save the project"), self.window, gtk.FILE_CHOOSER_ACTION_SAVE, buttons)
-		chooser.set_current_folder(self.defaultlocation)
+		chooser.set_current_folder(Globals.settings.general["projectfolder"])
 
 		response = chooser.run()
 		if response == gtk.RESPONSE_OK:
 			filename = chooser.get_filename()
-			self.defaultlocation = os.path.dirname(filename)
+			Globals.settings.general["projectfolder"] = os.path.dirname(filename)
 			self.project.ClearInstrumentSelections()
 			self.project.ClearEventSelections()
 			self.project.saveProjectFile(filename)

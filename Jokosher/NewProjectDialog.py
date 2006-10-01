@@ -59,6 +59,9 @@ class NewProjectDialog:
 			self.author.set_text(pwd.getpwuid(os.getuid())[0])
 		
 		self.okbutton = self.res.get_widget("okButton")
+		
+		# Set the default folder of 'folder' (a FileChooserButton)
+		self.folder.set_current_folder(Globals.settings.general["projectfolder"])
 
 		self.dlg.resize(350, 300)
 		self.dlg.set_icon(self.parent.icon)
@@ -77,6 +80,8 @@ class NewProjectDialog:
 			author = _("Unknown Author")
 			
 		folder = self.folder.get_current_folder()
+		# Save the selected folder as the default folder
+		Globals.settings.general["projectfolder"] = folder
 		if not folder:
 			folder = "~"
 		
