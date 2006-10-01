@@ -2,30 +2,37 @@
 
 import os, sys
 
-try:
-	import JokosherApp, Globals
-except:
-	print "Cannot find local file JokosherApp.py."
-	os.environ["JOKOSHER_DATA_PATH"] = "/usr/share/jokosher/"
-	try:
-		import Jokosher.JokosherApp as JokosherApp
-		import Jokosher.Globals as Globals
-	except:
-		print "Cannot find global Jokosher."
-		sys.exit()
-else:
-	#make sure Jokosher.Extension is in the python path, so extensions can import it.
-	#ourpath is something like .../jokosher/JonoEdit/trunk/Jokosher
-	ourpath = os.path.dirname(os.path.abspath(__file__))
-	#remove the last dir so ourpath is like .../jokosher/JonoEdit/trunk/
-	ourpath = os.path.split(ourpath)[0]
-	sys.path.append(ourpath)
+ENV_PATHS = {"JOKOSHER_DATA_PATH" : "/usr/share/jokosher/",
+		"JOKOSHER_IMAGE_PATH" : "/usr/share/pixmaps/",
+		"JOKOSHER_LOCALE_PATH" : "/usr/share/locale/",
+		}
 
+def localFileOrGlobalFileImport(importName):
+	try:
+		globals()[importName] = __import__(importName)
+	except ImportError:
+		for var, path in ENV_PATHS.iteritems():
+			#if it is not already set, set the enviroment variable.
+			os.environ.setdefault(var, path)
+		try:
+			#the last arg must be True so that it returns Jokosher.Globals instead of just Jokosher
+			globals()[importName] = __import__("Jokosher." + importName, None, None, True)
+		except ImportError:
+			print "Cannot find local file %s.py." % importName
+			print "Cannot find system Jokosher installation."
+			sys.exit()
+	else:
+		#make sure Jokosher.Extension is in the python path, so extensions can import it.
+		#ourpath is something like .../jokosher/JonoEdit/trunk/Jokosher
+		ourpath = os.path.dirname(os.path.abspath(__file__))
+		#remove the last dir so ourpath is like .../jokosher/JonoEdit/trunk/
+		ourpath = os.path.split(ourpath)[0]
+		if not ourpath in sys.path:
+			sys.path.append(ourpath)
+
+localFileOrGlobalFileImport("Globals")
 import locale, gettext, optparse
 _ = gettext.gettext
-
-
-
 
 try:
 	locale.setlocale(locale.LC_ALL, '')
@@ -75,7 +82,9 @@ if options.safeMode:
 if options.noextensions:
 	loadExtensions = False
 
-
+#wait until after we parse the args to import JokosherApp
+#because it will import gst which replaces our "--help" message.
+localFileOrGlobalFileImport("JokosherApp")
 #Launching the program
 JokosherApp.MainApp(openproject, loadExtensions, startupType)
 JokosherApp.gtk.main()
