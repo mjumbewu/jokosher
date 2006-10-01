@@ -117,6 +117,8 @@ def _cacheInstrumentsGenerator(alreadyLoadedTypes=[]):
 	except:
 		lang = None
 	for instr_path in INSTR_PATHS:
+		if not os.path.exists(instr_path):
+			continue
 		instrFiles = [x for x in os.listdir(instr_path) if x.endswith(".instr")]
 		for f in instrFiles:
 			config = ConfigParser.SafeConfigParser()
@@ -200,20 +202,27 @@ def idleCacheInstruments():
 	return False
 
 #Global paths, so we can find everything
-JOKOSHER_PATH = os.getenv("JOKOSHER_DATA_PATH")
-if JOKOSHER_PATH:
-	IMAGE_PATH = "/usr/share/pixmaps"
-	EFFECT_PRESETS_PATH = os.path.join(JOKOSHER_PATH, "effectspresets")
-	INSTR_PATHS = (os.path.join(JOKOSHER_PATH, "Instruments"), os.path.expanduser("~/.jokosher/instruments"))
-	GLADE_PATH = os.path.join(JOKOSHER_PATH, "Jokosher.glade")
-	LOCALE_PATH = os.path.join("/usr/share/locale")
+data_path = os.getenv("JOKOSHER_DATA_PATH")
+if data_path:
+	EFFECT_PRESETS_PATH = os.path.join(data_path, "effectspresets")
+	INSTR_PATHS = (os.path.join(data_path, "Instruments"), os.path.expanduser("~/.jokosher/instruments"))
+	GLADE_PATH = os.path.join(data_path, "Jokosher.glade")
 else:
-	JOKOSHER_PATH = os.path.dirname(os.path.abspath(__file__))
-	IMAGE_PATH = os.path.join(JOKOSHER_PATH, "..", "images")
-	EFFECT_PRESETS_PATH = os.path.join(JOKOSHER_PATH, "..", "effectspresets")
-	INSTR_PATHS = (os.path.join(JOKOSHER_PATH, "..", "Instruments"), os.path.expanduser("~/.jokosher/instruments"))
-	GLADE_PATH = os.path.join(JOKOSHER_PATH, "Jokosher.glade")
-	LOCALE_PATH = os.path.join(JOKOSHER_PATH, "..", "locale")
+	data_path = os.path.dirname(os.path.abspath(__file__))
+	EFFECT_PRESETS_PATH = os.path.join(data_path, "..", "effectspresets")
+	INSTR_PATHS = (os.path.join(data_path, "..", "Instruments"), os.path.expanduser("~/.jokosher/instruments"))
+	GLADE_PATH = os.path.join(data_path, "Jokosher.glade")
+	LOCALE_PATH = os.path.join(data_path, "..", "locale")
+
+IMAGE_PATH = os.getenv("JOKOSHER_IMAGE_PATH")
+if not IMAGE_PATH:
+	IMAGE_PATH = os.path.join(data_path, "..", "images")
+LOCALE_PATH = os.getenv("JOKOSHER_LOCALE_PATH")
+if not LOCALE_PATH:
+	this_path = os.path.dirname(os.path.abspath(__file__))
+	LOCALE_PATH = os.path.join(this_path, "..", "locale")
+	
+
 	
 	
 INSTRUMENT_HEADER_WIDTH = 0
@@ -222,7 +231,6 @@ LOCALE_APP = "jokosher"
 #set in Project.py
 VERSION = None
 EFFECT_PRESETS_VERSION = None
-EFFECT_PRESETS_PATH = os.path.join(JOKOSHER_PATH, "..", "effectspresets")
 LADSPA_FACTORY_REGISTRY = None
 LADSPA_NAME_MAP = []
 DEBUG_STDOUT, DEBUG_GST = (False, False)
