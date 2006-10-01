@@ -220,9 +220,12 @@ class ExtensionAPI:
 		try:
 			file = open(instrument_file, 'w')
 			instr.write(file)
-			file.close()
 		except IOError:
+			if file:
+				file.close()
 			return 3
+		else:
+			file.close()
 		
 		#refresh the instrument list so our new instrument gets loaded.
 		Globals.getCachedInstruments(checkForNew=True)
