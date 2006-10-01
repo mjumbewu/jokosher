@@ -83,7 +83,6 @@ class AddInstrumentDialog:
 			self.project.AddInstrument(currentItem[0], currentItem[1], currentItem[2])
 	
 		self.parent.UpdateDisplay()
-		self.parent.undo.set_sensitive(True)
 		self.dlg.destroy()
 		
 	#_____________________________________________________________________

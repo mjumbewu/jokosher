@@ -155,7 +155,9 @@ class ExtensionAPI:
 		"""
 		for i in Globals.getCachedInstruments():
 			if i[1] == instr_type:
-				return self.mainapp.project.AddInstrument(i[0], i[1], i[2])
+				instr_index = self.mainapp.project.AddInstrument(i[0], i[1], i[2])
+				self.mainapp.UpdateDisplay()
+				return instr_index
 		return -1
 		
 	def delete_instrument(self, instrumentID):
