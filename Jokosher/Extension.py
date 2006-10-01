@@ -214,7 +214,7 @@ class ExtensionAPI:
 		
 		try:
 			pixbuf = gtk.gdk.pixbuf_new_from_file(imagePath)
-		except gobject.GError:
+		except (gobject.GError, TypeError):
 			return 2
 		if pixbuf.get_width() != 48 or pixbuf.get_height() != 48:
 			pb = pixbuf.scale_simple(48, 48, gtk.gdk.INTERP_BILINEAR)
