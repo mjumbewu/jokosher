@@ -166,6 +166,10 @@ class ExtensionAPI:
 		   that equals instrumentID.
 		"""
 		self.mainapp.project.DeleteInstrument(instrumentID)
+		self.mainapp.UpdateDisplay()
+		#time for a Newfie Joke: 
+		#How many Newfies does it take to go ice fishing?
+		#Four. One to cut a hole in the ice and three to push the boat through.
 
 	def create_new_instrument_type(self, defaultName, typeString, imagePath):
 		"""
