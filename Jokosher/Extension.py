@@ -135,13 +135,15 @@ class ExtensionAPI:
 		#TODO: find out if the add failed and return 1
 		return 0
 		
-	def get_available_instruments(self):
+	def list_available_instrument_types(self):
 		"""
-		   Returns a list of instrument 'type' strings.
-		   The list will contain exactly one string for each
-		   available type of instrument.
+		   Returns a list of tuples in the format:
+		   (instr_name, instr_type, instr_pixbuf)
+		   for each of the *.instr files that have been cached.
+		   These instruments are *not* the ones in the project,
+		   but only the ones available to be added to the project.
 		"""
-		return [x[1] for x in Globals.getCachedInstruments()]
+		return [(x[0], x[1], x[2].copy()) for x in Globals.getCachedInstruments()]
 		
 	def add_instrument(self, instr_type):
 		"""
@@ -159,6 +161,14 @@ class ExtensionAPI:
 				self.mainapp.UpdateDisplay()
 				return instr_index
 		return -1
+		
+	def list_project_instruments(self):
+		"""
+		   Returns a list of tuples in the format:
+		   (instr_id_number, instr_name, instr_type, instr_pixbuf)
+		   for each of the instruments currently shown in the project.
+		"""
+		return [(instr.id, instr.name, instr.instrType, instr.pixbuf.copy()) for instr in self.mainapp.project.instruments]
 		
 	def delete_instrument(self, instrumentID):
 		"""
