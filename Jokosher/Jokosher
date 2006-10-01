@@ -1,5 +1,17 @@
 #!/usr/bin/env python
-
+#
+#	THIS FILE IS PART OF THE JOKOSHER PROJECT AND LICENSED UNDER THE GPL. SEE
+#	THE 'COPYING' FILE FOR DETAILS
+#	
+#	This script tries to launch Jokosher from the current directory.
+#	Failing that, it will try to import Jokosher from somewhere in the 
+#	PYTHONPATH,	and use JOKOSHER_DATA_PATH, JOKOSHER_IMAGE_PATH, 
+#	and JOKOSHER_LOCALE_PATH environment variables to find the other files it needs.
+#	If those variables are not set, they will be set from their values in the ENV_PATHS
+#	dictionary, which is defined below.
+#	This script is also responsible for parsing comment line arguments.
+#
+#-------------------------------------------------------------------------------
 import os, sys
 
 ENV_PATHS = {"JOKOSHER_DATA_PATH" : "/usr/share/jokosher/",
@@ -9,12 +21,14 @@ ENV_PATHS = {"JOKOSHER_DATA_PATH" : "/usr/share/jokosher/",
 
 def localFileOrGlobalFileImport(importName):
 	try:
+		#this is equivalent to "import Globals", but with a variable in place of "Globals"
 		globals()[importName] = __import__(importName)
 	except ImportError:
 		for var, path in ENV_PATHS.iteritems():
 			#if it is not already set, set the enviroment variable.
 			os.environ.setdefault(var, path)
 		try:
+			#this is equivalent to "import Jokosher.Globals as Globals", but with a variable in place of "Globals"
 			#the last arg must be True so that it returns Jokosher.Globals instead of just Jokosher
 			globals()[importName] = __import__("Jokosher." + importName, None, None, True)
 		except ImportError:
@@ -30,8 +44,12 @@ def localFileOrGlobalFileImport(importName):
 		if not ourpath in sys.path:
 			sys.path.append(ourpath)
 
+#try a local "import Globals", and then try to find it in the python path
 localFileOrGlobalFileImport("Globals")
-import locale, gettext, optparse
+#for parsing out command line arguments
+import optparse
+#for i18n "--help" message
+import locale, gettext
 _ = gettext.gettext
 
 try:
