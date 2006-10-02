@@ -7,7 +7,7 @@ _ = gettext.gettext
 
 # Define some constants
 EXTENSION_DIR_USER = os.path.expanduser('~/.jokosher/extensions/')
-EXTENSION_DIRS = [EXTENSION_DIR_USER, '/usr/lib/jokosher/extensions/']
+EXTENSION_DIRS = [EXTENSION_DIR_USER, '/usr/lib/jokosher/extensions/', '/home/lukas/Projects/jokosher/extensions/trunk']
 # add your own extension dirs with envar JOKOSHER_EXTENSION_DIRS, colon-separated
 OVERRIDE_EXTENSION_DIRS = os.environ.get('JOKOSHER_EXTENSION_DIRS','')
 if OVERRIDE_EXTENSION_DIRS:
@@ -76,7 +76,7 @@ if thing_that_imported_extension is None and \
 
 ############################################################################
 ############# The actual extension API #####################################
-############################################################################
+###### ######################################################################
 #required API imports
 import ConfigParser
 import gst, gobject
@@ -145,10 +145,11 @@ class ExtensionAPI:
 		"""
 		return [(x[0], x[1], x[2].copy()) for x in Globals.getCachedInstruments()]
 		
-	def add_instrument(self, instr_type):
+	def add_instrument(self, instr_type, instr_name=None):
 		"""
-		   Adds an instrument with the type 'instr_type'
-		   from get_available_instruments() to the project.
+		   Adds an instrument with the type 'instr_type' and
+		   name 'instr_name' from get_available_instruments() 
+		   to the project.
 		   Return values:
 		   -1: that project type does not exist
 		   >0: success
@@ -157,7 +158,11 @@ class ExtensionAPI:
 		"""
 		for i in Globals.getCachedInstruments():
 			if i[1] == instr_type:
-				instr_index = self.mainapp.project.AddInstrument(i[0], i[1], i[2])
+				if instr_name:
+					instr_index = self.mainapp.project.AddInstrument(instr_name, i[1], i[2])
+				else:
+					instr_index = self.mainapp.project.AddInstrument(i[0], i[1], i[2])
+					#i[0] is the default instrument name, i[1] is the instrument type, i[2] is the instrument icon in the .instr file
 				self.mainapp.UpdateDisplay()
 				return instr_index
 		return -1
