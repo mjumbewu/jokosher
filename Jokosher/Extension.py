@@ -151,7 +151,7 @@ class ExtensionAPI:
 		   name 'instr_name' from get_available_instruments() 
 		   to the project.
 		   Return values:
-		   -1: that project type does not exist
+		   -1: that instrument type does not exist
 		   >0: success
 		   If the instrument is successfully added,
 		   the return value will be the ID of that instrument.
@@ -186,6 +186,55 @@ class ExtensionAPI:
 		#How many Newfies does it take to go ice fishing?
 		#Four. One to cut a hole in the ice and three to push the boat through.
 
+	def set_instrument_volume(self, instr_id, instr_volume):
+		"""
+		   Sets the volume of instrument with id 'instr_id'
+		   to volume 'instr_volume'
+		   
+		   Return Values:
+		   0: success
+		   1: instrument with id 'instr_id' doesn't exist
+		"""
+		for instr in self.mainapp.project.instruments:
+			if instr.id == instr_id:
+				if instr_volume <= 1:
+					instr.SetVolume(instr_volume)
+					return 0
+				else:
+					instr.SetVolume(1)
+					return 0
+		return 1
+
+	def get_instrument_volume(self, instr_id):
+		"""
+		   returns the lever of instrument with id 'instr_id'
+
+		   Return Values:
+		   On Success: volume of instrument with id 'instr_id'
+		   1: instrument with id 'instr_id' does not exist
+		"""
+		for instr in self.mainapp.project.instruments:
+			if instr.id == instr_id:
+				return instr.volume
+		return 1
+
+	def toggle_mute_instrument(self, instr_id):
+		"""
+		   mutes the instrument with id 'instr_id'
+
+		   Return Values:
+		   0: success
+		   1: instrument with id 'instr_id' doesn't exist
+		"""
+		for instr in self.mainapp.project.instruments:
+			if instr.id == instr_id:
+				instr.ToggleMuted(False)
+				return 0
+		return 1
+
+	#My Nan and Pop from Newfoundland aren't quite this bad, but they're close: 
+	#http://youtube.com/watch?v=It_0XzPVHaU
+
 	def create_new_instrument_type(self, defaultName, typeString, imagePath):
 		"""
 		   Creates and new instrument type in the user's 
@@ -197,7 +246,7 @@ class ExtensionAPI:
 		   imagePath - absolute path to the instruments image
 		   
 		   Return values:
-		   0: sucess
+		   0: success
 		   1: file exists or defaultName is already used by a loaded instrument
 		   2: cannot load image
 		   3: cannot write to ~/.jokosher/instruments or ~/.jokosher/instruments/images
