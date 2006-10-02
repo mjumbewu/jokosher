@@ -7,7 +7,7 @@ _ = gettext.gettext
 
 # Define some constants
 EXTENSION_DIR_USER = os.path.expanduser('~/.jokosher/extensions/')
-EXTENSION_DIRS = [EXTENSION_DIR_USER, '/usr/lib/jokosher/extensions/', '/home/lukas/Projects/jokosher/extensions/trunk']
+EXTENSION_DIRS = [EXTENSION_DIR_USER, '/usr/lib/jokosher/extensions/']
 # add your own extension dirs with envar JOKOSHER_EXTENSION_DIRS, colon-separated
 OVERRIDE_EXTENSION_DIRS = os.environ.get('JOKOSHER_EXTENSION_DIRS','')
 if OVERRIDE_EXTENSION_DIRS:
@@ -197,12 +197,8 @@ class ExtensionAPI:
 		"""
 		for instr in self.mainapp.project.instruments:
 			if instr.id == instr_id:
-				if instr_volume <= 1:
-					instr.SetVolume(instr_volume)
-					return 0
-				else:
-					instr.SetVolume(1)
-					return 0
+				instr.SetVolume(min(instr_volume, 1))
+				return 0
 		return 1
 
 	def get_instrument_volume(self, instr_id):
