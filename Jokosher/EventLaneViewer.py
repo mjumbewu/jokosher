@@ -19,6 +19,7 @@ import os.path
 import gettext
 import urlparse # To split up URI's
 import urllib # To decode URI's
+import Globals # To get projectfolder
 _ = gettext.gettext
 
 #=========================================================================
@@ -270,6 +271,7 @@ class EventLaneViewer(gtk.EventBox):
 			start = (self.mouseDownPos[0]/self.project.viewScale) + self.project.viewStart
 			self.instrument.addEventFromFile(start, dlg.get_filename(),copyfile.get_active())
 			Globals.settings.general["projectfolder"] = os.path.dirname(dlg.get_filename())
+			Globals.settings.write()
 		else:
 			dlg.hide()
 

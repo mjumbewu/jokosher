@@ -82,6 +82,7 @@ class NewProjectDialog:
 		folder = self.folder.get_current_folder()
 		# Save the selected folder as the default folder
 		Globals.settings.general["projectfolder"] = folder
+		Globals.settings.write()
 		if not folder:
 			folder = "~"
 		

@@ -435,6 +435,7 @@ class MainApp:
 		if response == gtk.RESPONSE_OK:
 			filename = chooser.get_filename()
 			Globals.settings.general["projectfolder"] = os.path.dirname(filename)
+			Globals.settings.write()
 			#If they haven't already appended the extension for the 
 			#chosen file type, add it to the end of the file.
 			filetype = Globals.EXPORT_FORMATS[typeCombo.get_active()]["extension"]
@@ -554,6 +555,7 @@ class MainApp:
 				
 				filename = chooser.get_filename()
 				Globals.settings.general["projectfolder"] = os.path.dirname(filename)
+				Globals.settings.write()
 				if self.OpenProjectFromPath(filename,chooser):
 					break
 				
@@ -581,6 +583,7 @@ class MainApp:
 		if response == gtk.RESPONSE_OK:
 			filename = chooser.get_filename()
 			Globals.settings.general["projectfolder"] = os.path.dirname(filename)
+			Globals.settings.write()
 			self.project.ClearInstrumentSelections()
 			self.project.ClearEventSelections()
 			self.project.saveProjectFile(filename)
