@@ -134,7 +134,24 @@ class ExtensionAPI:
 		instr.addEventFromFile(position, uri)
 		#TODO: find out if the add failed and return 1
 		return 0
-		
+
+	def add_file_instrument(self, instr_id, uri, position=0):
+		"""
+		   Creates a new event from the file at the given URI and 
+		   adds it to the instrument with id 'instr_id' at position (in seconds).
+		   Return values:
+		   0: success
+		   1: bad URI or file could not be loaded
+		   2: instrument with id 'instr_id' not found
+		"""
+		for instr in mainapp.projects.instruments:
+			if instr.id == instr_id:
+				instr.addEventFromFile(position, uri)
+				#TODO: find out if the add failed and return 1
+				return 0
+	
+		return 2
+
 	def list_available_instrument_types(self):
 		"""
 		   Returns a list of tuples in the format:
@@ -230,6 +247,78 @@ class ExtensionAPI:
 
 	#My Nan and Pop from Newfoundland aren't quite this bad, but they're close: 
 	#http://youtube.com/watch?v=It_0XzPVHaU
+
+	def get_instrument_effects(self, instr_id):
+		"""
+		   Gets the current effects applied to instrument
+		   with id 'instr_id'
+
+		   Return Values:
+		   success: returns the effects applied to instrument with id 'instr_id'
+		   1: instrument with id 'instr_id' not found
+		"""
+		for instr in self.mainapp.project.instruments:
+			if instr.id == instr_id:
+				return instr.effects
+
+		return 1
+
+	def list_available_effects(self):
+		"""
+		   returns the available LADSPA effects
+		"""
+		return Globals.LADSPA_NAME_MAP
+
+	def add_instrument_effect(self, instr_id, effect_name):
+		"""
+		   Adds the effect 'effect_name' to instrument
+		   with id 'instr_id'
+
+		   Return Values:
+		   0: success
+		   1: instrument with id 'instr_id' not found
+		   2: LADSPA plugin 'effect_name' not found
+		"""
+		for instr in self.mainapp.project.instruments:
+			if instr.id == instr_id:
+				if instr.effects == []:
+					instr.converterElement.unlink(instr.volumeElement)
+
+				for effect in Globals.LADSPA_NAME_MAP:
+					if effect[0] == effect_name:
+						instr.effects.append(gst.element_factory_make(effect_name, effect_name))
+						return 0
+				return 2
+		return 1
+
+	def remove_instrument_effect(self, instr_id, effect_num):
+		"""
+		   This function removes the effect of index 'effect_num' 
+		   (in the instrument effects array) from instrument with
+		   id 'instr_id'
+
+		   Return Values:
+		   0: success
+		   1: effect_num out of range
+		   2: isntrument with id 'instr_id' not found
+		"""
+		
+		for instr in self.mainapp.project.instruments:
+			if instr.id == instr_id:	
+				if effect_num <= len(instr.effects) - 1:
+					try:
+						#FIXME: throws a gstreamer warning sometimes...I don't know gstreamer well, so 
+						#I don't even know why this is here
+						instr.effectsbin.remove(instr.effects[effect_num])
+					except:
+						pass
+			
+					instr.effects.pop(effect_num)
+					return 0
+				return 1
+		return 2
+
+	#TODO: function for editing existing effects
 
 	def create_new_instrument_type(self, defaultName, typeString, imagePath):
 		"""
@@ -329,7 +418,6 @@ class ExtensionAPI:
 		Globals.EXPORT_FORMATS.append(propsdict)
 		
 		return 0
-
 
 def LoadAllExtensions():
 	"""
