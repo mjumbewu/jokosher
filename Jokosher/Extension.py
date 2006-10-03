@@ -135,7 +135,7 @@ class ExtensionAPI:
 		#TODO: find out if the add failed and return 1
 		return 0
 
-	def add_file_instrument(self, instr_id, uri, position=0):
+	def add_file_to_instrument(self, instr_id, uri, position=0):
 		"""
 		   Creates a new event from the file at the given URI and 
 		   adds it to the instrument with id 'instr_id' at position (in seconds).
@@ -259,7 +259,8 @@ class ExtensionAPI:
 		"""
 		for instr in self.mainapp.project.instruments:
 			if instr.id == instr_id:
-				return instr.effects
+				#return a copy so they can't append or remove items from our list
+				return instr.effects[:]
 
 		return 1
 
@@ -267,7 +268,8 @@ class ExtensionAPI:
 		"""
 		   returns the available LADSPA effects
 		"""
-		return Globals.LADSPA_NAME_MAP
+		#return a copy so they can't append or remove items from our list
+		return Globals.LADSPA_NAME_MAP[:]
 
 	def add_instrument_effect(self, instr_id, effect_name):
 		"""
