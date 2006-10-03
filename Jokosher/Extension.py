@@ -1,7 +1,7 @@
 # The Jokosher Extension API
 # write proper docstrings so that we can autogenerate the docs
 
-import os, sys, gtk, imp, Globals
+import os, sys, gtk, imp, pickle, Globals
 import gettext
 _ = gettext.gettext
 
@@ -202,6 +202,57 @@ class ExtensionAPI:
 		#time for a Newfie Joke: 
 		#How many Newfies does it take to go ice fishing?
 		#Four. One to cut a hole in the ice and three to push the boat through.
+
+	def __get_config_dict_fn(self):
+		"""
+			 Calculate the config dictionary filename for the calling
+			 extension.
+		"""
+		# First, see if there is a config directory at all
+		CONFIGPATH = os.path.join(EXTENSION_DIR_USER,'../extension-config')
+		if not os.path.exists(CONFIGPATH):
+			os.makedirs(CONFIGPATH)
+		# Next, check if this extension has a saved config dict
+		# we go back twice because our immediate caller is (get|set)_config_value
+		mycallerframe = inspect.currentframe().f_back.f_back
+		mycallerfn = os.path.split(mycallerframe.f_code.co_filename)[1]
+		mycaller = os.path.splitext(mycallerfn)[0]
+		config_dict_fn = os.path.join(CONFIGPATH,mycaller + ".config")
+		return os.path.normpath(config_dict_fn)
+
+	def get_config_value(self, key):
+		"""
+		   Returns the config value saved under this key,
+		   or None if there is no such value.
+		"""
+		try:
+			# Open the extension's config dict
+			# Return the value
+			config_dict_fn = self.__get_config_dict_fn()
+			fp = open(config_dict_fn)
+			config_dict = pickle.load(fp)
+			fp.close()
+			return config_dict[key]
+		except:
+			return None
+
+	def set_config_value(self, key, value):
+		"""
+		   Sets a new config value under key for later retrieval.
+		"""
+		config_dict_fn = self.__get_config_dict_fn()
+		if os.path.exists(config_dict_fn):
+			fp = open(config_dict_fn)
+			config_dict = pickle.load(fp)
+			fp.close()
+		else:
+			config_dict = {}
+		# Set the config value
+		config_dict[key] = value
+		# And save it again
+		fp = open(config_dict_fn,"wb")
+		pickle.dump(config_dict, fp)
+		fp.close()
 
 	def set_instrument_volume(self, instr_id, instr_volume):
 		"""
