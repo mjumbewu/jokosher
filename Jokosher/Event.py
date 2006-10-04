@@ -128,7 +128,7 @@ class Event(Monitored, CommandManaged):
 		ev.appendChild(params)
 		
 		items = ["start", "duration", "isSelected", 
-				  "name", "offset", "file"
+				  "name", "offset", "file", "isLoading"
 				]
 				
 		#Since we are saving the path to the project file, don't delete it on exit
@@ -194,7 +194,11 @@ class Event(Monitored, CommandManaged):
 			if levelsXML.nodeType == xml.Node.ELEMENT_NODE:
 				value = str(levelsXML.getAttribute("value"))
 				self.levels = map(float, value.split(","))
-		
+
+		if self.isLoading == True:
+			self.GenerateWaveform()
+
+
 		self.CreateFilesource()
 		
 	#_____________________________________________________________________
