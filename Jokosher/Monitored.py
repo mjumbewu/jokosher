@@ -51,7 +51,6 @@ class Monitored:
 		
 		Keyword arguments:
 		change -- The change which has occured (optional)."""
-
 		for obj in self.listeners:
 			obj.OnStateChanged(self,change)
 			

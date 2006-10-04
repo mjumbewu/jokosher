@@ -528,8 +528,10 @@ class Event(Monitored, CommandManaged):
 			sel
 				The new selection state (Should be True or False).
 		"""
-		self.isSelected = sel
-		self.StateChanged()
+		# No need to call StateChanged when there is no change in selection state
+		if self.isSelected is not sel:
+			self.isSelected = sel
+			self.StateChanged()
 	
 	#_____________________________________________________________________
 	

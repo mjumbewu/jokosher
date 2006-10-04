@@ -254,7 +254,7 @@ class RecordingView(gtk.Frame):
 		# If we're here then we're out of bounds of anything else
 		# So we should clear any selected events
 		self.project.ClearEventSelections()
-		self.project.ClearInstrumentSelections()
+		self.project.SelectInstrument(None)
 		self.Update()
 		
 	#_____________________________________________________________________

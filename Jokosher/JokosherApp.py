@@ -568,7 +568,7 @@ class MainApp:
 		
 	def OnSaveProject(self, widget=None):		
 		if self.project:
-			self.project.ClearInstrumentSelections()
+			self.project.SelectInstrument(None)
 			self.project.ClearEventSelections()
 			self.project.saveProjectFile()
 			
@@ -584,7 +584,7 @@ class MainApp:
 			filename = chooser.get_filename()
 			Globals.settings.general["projectfolder"] = os.path.dirname(filename)
 			Globals.settings.write()
-			self.project.ClearInstrumentSelections()
+			self.project.SelectInstrument()
 			self.project.ClearEventSelections()
 			self.project.saveProjectFile(filename)
 		chooser.destroy()
@@ -813,7 +813,7 @@ class MainApp:
 	def OnMouseDown(self, widget, mouse):
 		if self.project:
 			self.project.ClearEventSelections()
-			self.project.ClearInstrumentSelections()
+			self.project.SelectInstrument(None)
 		self.UpdateCurrentDisplay()
 		
 	#______________________________________________________________________

@@ -425,7 +425,7 @@ class EventViewer(gtk.DrawingArea):
 		# {L|R}MB+ctrl: select this event without deselecting other events
 		if 'GDK_CONTROL_MASK' not in mouse.state.value_names:
 			self.project.ClearEventSelections()
-			self.project.ClearInstrumentSelections()
+			self.project.SelectInstrument(None)
 		self.event.SetSelected(True)
 		
 		# RMB: context menu

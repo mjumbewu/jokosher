@@ -940,10 +940,13 @@ class Project(Monitored, CommandManaged):
 
 	#_____________________________________________________________________
 
-	def ClearInstrumentSelections(self):
-		''' Clears the selection of any instruments '''
+	def SelectInstrument(self, instrument=None):
+		''' Selects instrument and clears the selection of all other instruments. '''
 		for instr in self.instruments:
-			instr.SetSelected(False)
+			if instr is not instrument:
+				instr.SetSelected(False)
+			else:
+				instr.SetSelected(True)
 			
 	#_____________________________________________________________________
 	

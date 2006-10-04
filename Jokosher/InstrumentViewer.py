@@ -196,10 +196,10 @@ class InstrumentViewer(gtk.EventBox):
 			Callback for "button_press_event" anywhere within InstrumentViewer
 			Sets instrument to selected state
 		"""
+		
 		if 'GDK_CONTROL_MASK' not in event.state.value_names:
 			self.project.ClearEventSelections()
-			self.project.ClearInstrumentSelections()
-		self.instrument.SetSelected(True)
+			self.project.SelectInstrument(self.instrument)
 		return True
 
 	#_____________________________________________________________________

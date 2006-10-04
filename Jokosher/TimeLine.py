@@ -34,7 +34,7 @@ class TimeLine(gtk.DrawingArea):
 	__gtype_name__ = 'TimeLine'
 	
 	# Number of 'short' lines + 1 (Used for the MODE_HOURS_MINS_SECS timeline)
-	# Line this: |              |           |
+	# Like this: |              |           |
 	#            |  |1 |2 |3 |4 |  |  |  |  | etc
 	_NUM_LINES = 5
 
@@ -155,13 +155,21 @@ class TimeLine(gtk.DrawingArea):
 		x = 0
 		if transport.mode == transport.MODE_BARS_BEATS:
 			# Calculate our scroll offset
+			# viewStart is in seconds. Seconds/60 = minutes. Minutes * Beat/Minute = beats (not an integer here)
 			pos = (self.project.viewStart / 60.) * transport.bpm
+			# floor to an integer. beat = the last beat before viewStart
 			beat = int(pos)
+			# offset = part of a beat that has past since the last beat (offset < 1)
 			offset = pos - beat
 			
 			if offset > 0.:
+				# beats * ( pixels/minute ) / ( beats/minute ) = pixels
+				# Set x to the position in pixels of the last beat 
 				x -= offset * ((self.project.viewScale * 60.) / transport.bpm)
+				# (pixels/minute) / ( beats/minute) * 1 beat = pixels
+				# Add the length of one beat, in pixels
 				x += (self.project.viewScale * 60.) / transport.bpm
+				# x is now at the pixel-position of the first beat after the viewStart
 				beat += 1
 		
 			while x < self.get_allocation().width:
