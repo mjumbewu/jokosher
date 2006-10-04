@@ -446,9 +446,10 @@ class Instrument(Monitored, CommandManaged):
 		
 		   undo : SetName: temp
 		"""
-		self.temp = self.name
-		self.name = name
-		self.StateChanged()
+		if self.name == name:
+			self.temp = self.name
+			self.name = name
+			self.StateChanged()
 	
 	#_____________________________________________________________________
 	
@@ -509,9 +510,10 @@ class Instrument(Monitored, CommandManaged):
 		
 		   undo : SetVisible: temp
 		"""
-		self.temp = self.isVisible
-		self.isVisible = visible
-		self.StateChanged()
+		if self.isVisible != visible:
+			self.temp = self.isVisible
+			self.isVisible = visible
+			self.StateChanged()
 	
 	#_____________________________________________________________________
 	

@@ -956,9 +956,10 @@ class Project(Monitored, CommandManaged):
 			start
 				Start time for the view in seconds.
 		"""
-		self.viewStart = start
-		self.RedrawTimeLine = True
-		self.StateChanged()
+		if self.viewStart != start:
+			self.viewStart = start
+			self.RedrawTimeLine = True
+			self.StateChanged()
 		
 	#_____________________________________________________________________
 	

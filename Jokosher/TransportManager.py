@@ -154,9 +154,10 @@ class TransportManager(Monitored):
 			Change current position variable (calls StateChanged to
 			trigger response on all classes that listening to this)
 		"""
-		self.PrevPosition = self.position
-		self.position = pos
-		self.StateChanged()
+		if self.position != pos:
+			self.PrevPosition = self.position
+			self.position = pos
+			self.StateChanged()
 
 	#_____________________________________________________________________
 
@@ -165,9 +166,10 @@ class TransportManager(Monitored):
 		   For undo compatibility please use Project.SetTransportMode().
 		   That method should be used instead in most cases.
 		"""
-		self.mode = mode
-		self.RedrawTimeLine = True
-		self.StateChanged()
+		if self.mode != mode:
+			self.mode = mode
+			self.RedrawTimeLine = True
+			self.StateChanged()
 		
 	#_____________________________________________________________________
 	
@@ -201,8 +203,9 @@ class TransportManager(Monitored):
 		"""
 			Changes current beats per minute
 		"""
-		self.bpm = bpm
-		self.StateChanged()
+		if self.bpm != bpm:
+			self.bpm = bpm
+			self.StateChanged()
 		
 	#_____________________________________________________________________
 
@@ -210,9 +213,10 @@ class TransportManager(Monitored):
 		"""
 			Changes current meter
 		"""
-		self.meter_nom = nom
-		self.meter_denom = denom
-		self.StateChanged()
+		if self.meter_nom != nom and self.meter_denom != denom:
+			self.meter_nom = nom
+			self.meter_denom = denom
+			self.StateChanged()
 
 	#_____________________________________________________________________
 	
