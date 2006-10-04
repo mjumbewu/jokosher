@@ -453,7 +453,8 @@ class EventViewer(gtk.DrawingArea):
 				if mouse.type == gtk.gdk._2BUTTON_PRESS:
 					# LMB double-click: split here
 					self.mouseAnchor[0] = mouse.x
-					self.OnSplit(None)
+					if self.event.isLoading == False:
+						self.OnSplit(None)
 					return True
 				
 				# remove any existing selection in this event
