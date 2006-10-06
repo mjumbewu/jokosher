@@ -1,7 +1,7 @@
 # The Jokosher Extension API
 # write proper docstrings so that we can autogenerate the docs
 
-import os, sys, gtk, imp, pickle, Globals
+import os, sys, gtk, imp, pickle, Globals, pkg_resources
 import gettext
 _ = gettext.gettext
 
@@ -474,7 +474,7 @@ class ExtensionAPI:
 
 def LoadAllExtensions():
 	"""
-		 Walk through all the EXTENSION_DIRS and import every .py file we find.
+		 Walk through all the EXTENSION_DIRS and import every .py and .egg file we find.
 	"""
 	for exten_dir in EXTENSION_DIRS:
 		if not os.path.isdir(exten_dir):
@@ -510,5 +510,23 @@ def LoadAllExtensions():
 			#don't block the gui when loading many extensions
 			while gtk.events_pending():
 				gtk.main_iteration()
+				
+		# now check for egg files and add each to working set
+		for x in os.listdir(exten_dir):
+			 if x.endswith(".egg"):
+				pkg_resources.working_set.add_entry(exten_dir + x)
+		for entryPoint in pkg_resources.iter_entry_points("jokosher.extensions"):
+			# for each extension load a reference to the class,
+			# instantiate it and then call the startup (if exists)
+			extension_class = entryPoint.load()
+			extension = extension_class()
+			try:
+				extension.startup(API)
+			except:
+				pass
+			#again, don't block the gui when loading many extensions
+			while gtk.events_pending():
+				gtk.main_iteration()
+		
 		
 API = None
