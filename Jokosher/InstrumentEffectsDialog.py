@@ -12,15 +12,12 @@
 #
 #-------------------------------------------------------------------------------
 
-import gtk
 import gtk.glade
 import gobject
 import pygst
 pygst.require("0.10")
 import gst
 import os
-from ConfigParser import SafeConfigParser
-import Project
 import Globals
 import EffectPresets
 from EffectWidget import EffectWidget

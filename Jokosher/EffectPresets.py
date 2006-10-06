@@ -17,7 +17,7 @@
 #
 #-------------------------------------------------------------------------------
 
-import gtk, gtk.glade, gobject
+import gtk.glade
 import pygst
 pygst.require("0.10")
 import gst

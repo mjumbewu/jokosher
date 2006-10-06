@@ -8,16 +8,10 @@
 #
 #-------------------------------------------------------------------------------
 
-import gtk
 import gtk.glade
-import gobject
 import os
-import sys
-from ConfigParser import SafeConfigParser
 import Globals
-import Project
 import PreferencesDialog
-import xml.dom.minidom as xml
 
 #=========================================================================
 

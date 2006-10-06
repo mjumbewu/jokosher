@@ -11,12 +11,9 @@
 #
 #-------------------------------------------------------------------------------
 
-import sys
 import gtk
-import math
 import cairo
 import Project
-import Monitored
 import Utils
 import gettext
 _ = gettext.gettext

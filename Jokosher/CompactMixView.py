@@ -10,7 +10,6 @@
 
 import gtk
 import gobject
-import Globals
 import RecordingView
 from MixerStrip import *
 from MasterMixerStrip import *

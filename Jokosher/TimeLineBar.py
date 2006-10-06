@@ -11,7 +11,6 @@
 
 import gtk
 import TimeLine
-import RecordingView
 
 class TimeLineBar(gtk.Frame):
 	def __init__(self, project, projectview, mainview):

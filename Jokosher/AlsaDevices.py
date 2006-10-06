@@ -10,7 +10,7 @@
 
 
 import dbus
-import gst, gst.interfaces
+import gst
 import Globals
 
 #=========================================================================

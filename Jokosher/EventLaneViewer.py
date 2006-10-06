@@ -11,10 +11,9 @@
 #
 #-------------------------------------------------------------------------------
 
-import gtk, Instrument
+import gtk
 from EventViewer import *
 from AudioPreview import AudioPreview
-import Monitored
 import os.path
 import gettext
 import urlparse # To split up URI's

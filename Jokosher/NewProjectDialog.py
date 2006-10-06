@@ -9,13 +9,9 @@
 #
 #-------------------------------------------------------------------------------
 
-import gtk
 import gtk.glade
-import gobject
 import os
-from ConfigParser import SafeConfigParser
 import Project
-import AddInstrumentDialog
 import pwd
 import Globals
 import gettext

@@ -12,7 +12,6 @@
 import gtk
 import math
 import cairo
-import gobject
 import string
 
 

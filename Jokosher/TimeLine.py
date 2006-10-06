@@ -10,8 +10,6 @@
 
 import gtk
 import pango
-import gobject
-import gst
 
 #=========================================================================
 

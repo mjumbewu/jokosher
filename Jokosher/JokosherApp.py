@@ -2,8 +2,9 @@
 
 import pygtk
 pygtk.require("2.0")
-import gtk, gtk.glade, gobject
-import sys, os, os.path
+import gtk.glade, gobject
+import sys
+import os.path
 import pygst
 pygst.require("0.10")
 import gst

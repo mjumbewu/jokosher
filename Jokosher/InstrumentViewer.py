@@ -12,7 +12,6 @@ import gtk
 import pango
 from Project import *
 from EventLaneViewer import *
-import Waveform
 import Globals
 import InstrumentEffectsDialog
 import gettext

@@ -12,9 +12,7 @@
 import gtk
 import InstrumentViewer
 import TimeLineBar
-import gobject
 import Globals
-import Monitored
 
 #=========================================================================
 

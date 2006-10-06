@@ -14,8 +14,6 @@
 
 from Event import *
 from CommandManager import *
-import Project
-import xml.dom.minidom as xml
 import pygst
 pygst.require("0.10")
 import gst
@@ -26,7 +24,6 @@ from Utils import *
 import gobject
 import Globals
 import shutil
-import JokDebug
 
 #=========================================================================	
 
