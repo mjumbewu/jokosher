@@ -1,8 +1,9 @@
 # The Jokosher Extension API
 # write proper docstrings so that we can autogenerate the docs
 
-import os, sys, gtk, imp, pickle, Globals, pkg_resources
+import os, gtk, imp, pickle, Globals, pkg_resources
 import gettext
+
 _ = gettext.gettext
 
 # Define some constants
@@ -40,7 +41,7 @@ if thing_that_imported_extension is None and \
 		# no Gtk either! Print a message and die
 		import sys
 		Globals.debug(_("This is a Jokosher extension; it is not meant to be run directly."))
-		Globals.debug(_("To install it, move it to the directory %s\nand run Jokosher.") % (EXTENSION_DIR_LOCAL))
+		Globals.debug(_("To install it, move it to the directory %s\nand run Jokosher.") % (EXTENSION_DIR_USER))
 		sys.exit(1)
 		
 	message = _("This is a Jokosher extension, which needs to be installed. Would you like to install it?")
@@ -76,7 +77,7 @@ if thing_that_imported_extension is None and \
 
 ############################################################################
 ############# The actual extension API #####################################
-###### ######################################################################
+############################################################################
 #required API imports
 import ConfigParser
 import gst, gobject
@@ -144,7 +145,7 @@ class ExtensionAPI:
 		   1: bad URI or file could not be loaded
 		   2: instrument with id 'instr_id' not found
 		"""
-		for instr in mainapp.projects.instruments:
+		for instr in self.mainapp.projects.instruments:
 			if instr.id == instr_id:
 				instr.addEventFromFile(position, uri)
 				#TODO: find out if the add failed and return 1
