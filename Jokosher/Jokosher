@@ -12,7 +12,7 @@
 #	This script is also responsible for parsing comment line arguments.
 #
 #-------------------------------------------------------------------------------
-import os, sys
+import os, sys, os.path, imp
 
 ENV_PATHS = {"JOKOSHER_DATA_PATH" : "/usr/share/jokosher/",
 		"JOKOSHER_IMAGE_PATH" : "/usr/share/pixmaps/",
@@ -20,22 +20,17 @@ ENV_PATHS = {"JOKOSHER_DATA_PATH" : "/usr/share/jokosher/",
 		}
 
 def localFileOrGlobalFileImport(importName):
-	try:
-		#this is equivalent to "import Globals", but with a variable in place of "Globals"
+	"""
+		Tries to import the supplied module from first a file
+		in the current directory or then from PYTHONPATH
+	"""
+	# Import from current directory if file exists
+	# (replaces previous method of trapping import which used to
+	# leave confusing error messages if a module was missing)
+	if os.path.exists(importName + ".py"):
+		#this is equivalent to "import Globals", but with a variable in
+		#place of "Globals"
 		globals()[importName] = __import__(importName)
-	except ImportError:
-		for var, path in ENV_PATHS.iteritems():
-			#if it is not already set, set the enviroment variable.
-			os.environ.setdefault(var, path)
-		try:
-			#this is equivalent to "import Jokosher.Globals as Globals", but with a variable in place of "Globals"
-			#the last arg must be True so that it returns Jokosher.Globals instead of just Jokosher
-			globals()[importName] = __import__("Jokosher." + importName, None, None, True)
-		except ImportError:
-			print "Cannot find local file %s.py." % importName
-			print "Cannot find system Jokosher installation."
-			sys.exit()
-	else:
 		#make sure Jokosher.Extension is in the python path, so extensions can import it.
 		#ourpath is something like .../jokosher/JonoEdit/trunk/Jokosher
 		ourpath = os.path.dirname(os.path.abspath(__file__))
@@ -43,66 +38,88 @@ def localFileOrGlobalFileImport(importName):
 		ourpath = os.path.split(ourpath)[0]
 		if not ourpath in sys.path:
 			sys.path.append(ourpath)
+	else:
+		# now we are looking for module in PYTHONPATH
+		for var, path in ENV_PATHS.iteritems():
+			#if it is not already set, set the enviroment variable.
+			os.environ.setdefault(var, path)
+		# use imp functions to test if module exists before importing it
+		# then we can separate errors due to missing Jokosher from
+		# errors due to other missing modules
+		try:
+			moduleFile, filename, description = imp.find_module("Jokosher")
+			package = imp.load_module("Jokosher", moduleFile, filename, description)
+			moduleFile, filename, description = imp.find_module(importName, package.__path__)
+		except ImportError:
+			print "Cannot find local file %s.py." % importName
+			print "Cannot find system Jokosher installation."
+			sys.exit()
+		# now import and allow any other errors to display normally
+		# this is equivalent to "import Jokosher.Globals as Globals",
+		# but with a variable in place of "Globals"
+		globals()[importName] = __import__("Jokosher." + importName, None, None, True)
+		
 
-#try a local "import Globals", and then try to find it in the python path
-localFileOrGlobalFileImport("Globals")
-#for parsing out command line arguments
-import optparse
-#for i18n "--help" message
-import locale, gettext
-_ = gettext.gettext
-
-try:
-	locale.setlocale(locale.LC_ALL, '')
-	gettext.bindtextdomain(Globals.LOCALE_APP, Globals.LOCALE_PATH)
-	gettext.bind_textdomain_codeset(Globals.LOCALE_APP, "UTF-8");
-	gettext.textdomain(Globals.LOCALE_APP)
-except locale.Error:
-	print "Locale unsupported, defaulting to english for all Jokosher specific text"
+if __name__ == "__main__":
+	#try a local "import Globals", and then try to find it in the python path
+	localFileOrGlobalFileImport("Globals")
+	#for parsing out command line arguments
+	import optparse
+	#for i18n "--help" message
+	import locale, gettext
+	_ = gettext.gettext
 	
-# parse command line
-openproject = None
-loadExtensions = True
-
-parser = optparse.OptionParser(usage="%prog [options] [project-file]", version="0.2-SVN")
-#command line options
-parser.add_option("-d", "--debug", action="store_true", dest="debug", 
-				help=_("Print debug output to stdout"))
-parser.add_option("-g", "--gst-debug", action="store_true", dest="gstDebug", 
-				help=_("Sent debug output to Gstreamer's debug system"))
-parser.add_option("-s", "--safe-mode", action="store_true", dest="safeMode", 
-				help=_("Don't load extensions or last project on startup (same as -ne)"))
-parser.add_option("-w", "--welcome-dialog", action="store_true", dest="forceWelcome", 
-				help=_("Force the welcome dialog to show on startup"))
-parser.add_option("-n", "--no-project", action="store_true", dest="forceNoProject", 
-				help=_("Force Jokosher to load without a welcome dialog or project"))
-parser.add_option("-e", "--no-extensions", action="store_true", dest="noextensions", 
-				help=_("Do not load extensions on startup"))
-
-(options, args) = parser.parse_args()
-if len(args) > 0:
-	openproject = args[0]
+	try:
+		locale.setlocale(locale.LC_ALL, '')
+		gettext.bindtextdomain(Globals.LOCALE_APP, Globals.LOCALE_PATH)
+		gettext.bind_textdomain_codeset(Globals.LOCALE_APP, "UTF-8");
+		gettext.textdomain(Globals.LOCALE_APP)
+	except locale.Error:
+		print "Locale unsupported, defaulting to english for all Jokosher specific text"
+		
+	# parse command line
+	openproject = None
+	loadExtensions = True
 	
-Globals.DEBUG_STDOUT = options.debug
-Globals.DEBUG_GST = options.gstDebug
-
-if options.forceWelcome:
-	startupType = 2
-elif options.forceNoProject:
-	startupType = 1
-else:
-	startupType = None
-
-if options.safeMode:
-	loadExtensions = False
-	startupType = 1
-
-if options.noextensions:
-	loadExtensions = False
-
-#wait until after we parse the args to import JokosherApp
-#because it will import gst which replaces our "--help" message.
-localFileOrGlobalFileImport("JokosherApp")
-#Launching the program
-JokosherApp.MainApp(openproject, loadExtensions, startupType)
-JokosherApp.gtk.main()
+	parser = optparse.OptionParser(usage="%prog [options] [project-file]", version="0.2-SVN")
+	#command line options
+	parser.add_option("-d", "--debug", action="store_true", dest="debug", 
+					help=_("Print debug output to stdout"))
+	parser.add_option("-g", "--gst-debug", action="store_true", dest="gstDebug", 
+					help=_("Sent debug output to Gstreamer's debug system"))
+	parser.add_option("-s", "--safe-mode", action="store_true", dest="safeMode", 
+					help=_("Don't load extensions or last project on startup (same as -ne)"))
+	parser.add_option("-w", "--welcome-dialog", action="store_true", dest="forceWelcome", 
+					help=_("Force the welcome dialog to show on startup"))
+	parser.add_option("-n", "--no-project", action="store_true", dest="forceNoProject", 
+					help=_("Force Jokosher to load without a welcome dialog or project"))
+	parser.add_option("-e", "--no-extensions", action="store_true", dest="noextensions", 
+					help=_("Do not load extensions on startup"))
+	
+	(options, args) = parser.parse_args()
+	if len(args) > 0:
+		openproject = args[0]
+		
+	Globals.DEBUG_STDOUT = options.debug
+	Globals.DEBUG_GST = options.gstDebug
+	
+	if options.forceWelcome:
+		startupType = 2
+	elif options.forceNoProject:
+		startupType = 1
+	else:
+		startupType = None
+	
+	if options.safeMode:
+		loadExtensions = False
+		startupType = 1
+	
+	if options.noextensions:
+		loadExtensions = False
+	
+	#wait until after we parse the args to import JokosherApp
+	#because it will import gst which replaces our "--help" message.
+	localFileOrGlobalFileImport("JokosherApp")
+	#Launching the program
+	JokosherApp.MainApp(openproject, loadExtensions, startupType)
+	JokosherApp.gtk.main()
