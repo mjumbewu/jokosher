@@ -516,18 +516,20 @@ def LoadAllExtensions():
 		for x in os.listdir(exten_dir):
 			 if x.endswith(".egg"):
 				pkg_resources.working_set.add_entry(exten_dir + x)
-		for entryPoint in pkg_resources.iter_entry_points("jokosher.extensions"):
-			# for each extension load a reference to the class,
-			# instantiate it and then call the startup (if exists)
-			extension_class = entryPoint.load()
-			extension = extension_class()
-			try:
-				extension.startup(API)
-			except:
-				pass
-			#again, don't block the gui when loading many extensions
-			while gtk.events_pending():
-				gtk.main_iteration()
+	
+	# now scan working set for any extensions
+	for entryPoint in pkg_resources.iter_entry_points("jokosher.extensions"):
+		# for each extension load a reference to the class,
+		# instantiate it and then call the startup (if exists)
+		extension_class = entryPoint.load()
+		extension = extension_class()
+		try:
+			extension.startup(API)
+		except:
+			pass
+		#again, don't block the gui when loading many extensions
+		while gtk.events_pending():
+			gtk.main_iteration()
 		
 		
 API = None
