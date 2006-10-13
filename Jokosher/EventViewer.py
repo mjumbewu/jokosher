@@ -354,8 +354,8 @@ class EventViewer(gtk.DrawingArea):
 			cur_pos = (mouse.y - (self._PIXY_FADEMARKER_HEIGHT / 2))
 			height = self.allocation.height - self._PIXY_FADEMARKER_HEIGHT
 			percent = cur_pos / float(height)
-			percent = max(0, percent)
-			percent = min(1, percent)
+			#set percent between 0 and 1
+			percent = min(1, max(0, percent))
 			
 			self.fadePoints[self.fadeBeingDragged] = 100 - int(percent * 100)
 			self.queue_draw()
@@ -710,16 +710,12 @@ class EventViewer(gtk.DrawingArea):
 
 	#_____________________________________________________________________
 	
-	def SetAudioFadePointsFromCurrentSelection(self):		
-		# fadePoints values are a percentage
-		pixyLeft = ((100-self.fadePoints[0]) / 100.0) * self.allocation.height
-		pixyRight = ((100-self.fadePoints[1]) / 100.0) * self.allocation.height
-		
-		volLeft = self.VolFromPixY(pixyLeft)
-		volRight = self.VolFromPixY(pixyRight)
+	def SetAudioFadePointsFromCurrentSelection(self):				
+		volLeft = self.fadePoints[0] / 100.0
+		volRight = self.fadePoints[1] / 100.0
 		
 		selection = self.event.selection
-		self.event.addAudioFadePoints((selection[0], volLeft), (selection[1], volRight))
+		self.event.addAudioFadePoints(selection[0], selection[1], volLeft, volRight)
 		
 	#_____________________________________________________________________
 	

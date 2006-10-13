@@ -21,46 +21,6 @@ def DbToFloat(f):
 
 #_____________________________________________________________________
 
-def StoreParametersToXML(self, doc, parent, parameters):
-	"""Saves a list of variable names (parameters)
-	   in an XML document (doc) with the parent XML tag (parent)"""
-	   
-	for i in parameters:
-		node = doc.createElement(i)
-			
-		if type(getattr(self, i)) == int:
-			node.setAttribute("type", "int")
-		elif type(getattr(self, i)) == float:
-			node.setAttribute("type", "float")
-		elif type(getattr(self, i)) == bool:
-			node.setAttribute("type", "bool")
-		else:
-			node.setAttribute("type", "str")
-		
-		node.setAttribute("value", str(getattr(self, i)))
-		parent.appendChild(node)
-
-#_____________________________________________________________________
-
-def LoadParametersFromXML(self, parentElement):
-	"""Loads parameters from the XML and fills variables of the same name
-	in that module. The parentElement is the block of XML with the
-	parameters."""
-	
-	for n in parentElement.childNodes:
-		if n.nodeType == xml.Node.ELEMENT_NODE:
-			if n.getAttribute("type") == "int":
-				setattr(self, n.tagName, int(n.getAttribute("value")))
-			elif n.getAttribute("type") == "float":
-				setattr(self, n.tagName, float(n.getAttribute("value")))
-			elif n.getAttribute("type") == "bool":
-				value = (n.getAttribute("value") == "True")
-				setattr(self, n.tagName, value)
-			else:
-				setattr(self, n.tagName, n.getAttribute("value"))
-
-#_____________________________________________________________________
-
 def floatRange(start, end=None, inc=None):
 	"""A range function, that does accept float increments..."""
 
@@ -84,6 +44,50 @@ def floatRange(start, end=None, inc=None):
 
 #_____________________________________________________________________
 
+def StoreParametersToXML(self, doc, parent, parameters):
+	"""Saves a list of variable names (parameters)
+	   in an XML document (doc) with the parent XML tag (parent)"""
+	   
+	for i in parameters:
+		node = doc.createElement(i)
+			
+		if type(getattr(self, i)) == int:
+			node.setAttribute("type", "int")
+		elif type(getattr(self, i)) == float:
+			node.setAttribute("type", "float")
+		elif type(getattr(self, i)) == bool:
+			node.setAttribute("type", "bool")
+		elif getattr(self, i) == None:
+			node.setAttribute("type", "NoneType")
+		else:
+			node.setAttribute("type", "str")
+		
+		node.setAttribute("value", str(getattr(self, i)))
+		parent.appendChild(node)
+
+#_____________________________________________________________________
+
+def LoadParametersFromXML(self, parentElement):
+	"""Loads parameters from the XML and fills variables of the same name
+	in that module. The parentElement is the block of XML with the
+	parameters."""
+	
+	for n in parentElement.childNodes:
+		if n.nodeType == xml.Node.ELEMENT_NODE:
+			if n.getAttribute("type") == "int":
+				setattr(self, n.tagName, int(n.getAttribute("value")))
+			elif n.getAttribute("type") == "float":
+				setattr(self, n.tagName, float(n.getAttribute("value")))
+			elif n.getAttribute("type") == "bool":
+				value = (n.getAttribute("value") == "True")
+				setattr(self, n.tagName, value)
+			elif n.getAttribute("type") == "NoneType":
+				setattr(self, n.tagName, None)
+			else:
+				setattr(self, n.tagName, n.getAttribute("value"))
+
+#_____________________________________________________________________
+
 def StoreDictionaryToXML(doc, parent, dict):
 	"""Saves a dictionary of settings
 	   in an XML document (doc) with the parent XML tag (parent)"""
@@ -97,6 +101,8 @@ def StoreDictionaryToXML(doc, parent, dict):
 			node.setAttribute("type", "float")
 		elif type(value) == bool:
 			node.setAttribute("type", "bool")
+		elif value == None:
+			node.setAttribute("type", "NoneType")
 		else:
 			node.setAttribute("type", "str")
 		
@@ -120,6 +126,8 @@ def LoadDictionaryFromXML(parentElement):
 			elif n.getAttribute("type") == "bool":
 				value = (n.getAttribute("value") == "True")
 				dictionary[n.tagName] = value
+			elif n.getAttribute("type") == "NoneType":
+				dictionary[n.tagName] = None
 			else:
 				dictionary[n.tagName] = n.getAttribute("value")
 				
@@ -138,6 +146,8 @@ def StoreListToXML(doc, parent, itemList, tagName):
 			node.setAttribute("type", "float")
 		elif type(value) == bool:
 			node.setAttribute("type", "bool")
+		elif value == None:
+			node.setAttribute("type", "NoneType")
 		else:
 			node.setAttribute("type", "str")
 		
@@ -158,6 +168,8 @@ def LoadListFromXML(parentElement):
 			elif n.getAttribute("type") == "bool":
 				value = (n.getAttribute("value") == "True")
 				itemList.append(value)
+			elif n.getAttribute("type") == "NoneType":
+				itemList.append(None)
 			else:
 				itemList.append(n.getAttribute("value"))
 				

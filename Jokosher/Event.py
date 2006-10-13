@@ -67,14 +67,15 @@ class Event(Monitored, CommandManaged):
 		
 		self.CreateFilesource()
 
-		# A list of points where fading should happen
-		# List will look like [ (0, 0.8), (5.3, 0.8), (6.5, 0.0), (7.5, 1.0) ]
-		# where each tuple is (time in seconds, volume between 0 and 1)
-		# so the above list will make the sample start at 0.8 volume, 
-		# continue at 0.8 until 5.3s, then fade down to zero by 6.5s, and
-		# then fade back up to full volume at 7.5s. The list *must* be
-		# ordered by time-in-seconds, so if you fiddle with the list be 
-		# sure thatyou re-sort it afterwards.
+		# a private dictionary containing the audio fade point times as keys
+		# and the volume for that point between 0 and 1 as the values.
+		# this is private, so if someone else wants a list of audio fade points
+		# they must use the sorted list below.
+		self.__fadePointsDict = {}
+		# A list of control points for the audio fades
+		# where each tuple is (<time in seconds>, <volume between 0 and 1>)
+		# The list *must* be ordered by time-in-seconds, so when you update it from
+		# the dictionary using dict.items(), be sure to sort it again.
 		self.audioFadePoints = []
 
 	#_____________________________________________________________________
@@ -595,62 +596,73 @@ class Event(Monitored, CommandManaged):
 	
 	#_____________________________________________________________________
 
-	def addAudioFadePoints(self, p1, p2):
-		"""Add the two passed points to the audioFadePoints list.
+	def addAudioFadePoints(self, firstPoint, secondPoint, firstVolume, secondVolume):
+		"""
+		   Add the two passed points to the audioFadePoints list.
 		   If either point exists already, replace it, and resort
 		   the list by time.
-		
-		   undo : removeAudioFadePoints(%(temp)s, %(temp2)s, %(temp3)f, %(temp4)f)
+		   
+		   undo : removeAudioFadePoints: temp, temp2, temp3, temp4
 		"""
 		#for command manager to use with undo
-		self.temp = p1
-		self.temp2 = p2
-		self.temp3 = 0.0
-		self.temp4 = 0.0
+		self.temp = firstPoint
+		self.temp2 = secondPoint
+		self.temp3 = None
+		self.temp4 = None
 		
-		remp1 = [x for x in self.audioFadePoints if x[0]==p1[0]]
-		if remp1:
-			self.audioFadePoints.remove(remp1[0])
-			#save the old value for undo compatibility
-			self.temp3 = remp1[0][1]
+		if self.__fadePointsDict.has_key(firstPoint):
+			self.temp3 = self.__fadePointsDict[firstPoint]
+		if self.__fadePointsDict.has_key(secondPoint):
+			self.temp4 = self.__fadePointsDict[secondPoint]
 		
-		remp2 = [x for x in self.audioFadePoints if x[0]==p2[0]]
-		if remp2:
-			self.audioFadePoints.remove(remp2[0])
-			self.temp4 = remp2[0][1]
+		self.__fadePointsDict[firstPoint] = firstVolume
+		self.__fadePointsDict[secondPoint] = secondVolume
 		
-		self.audioFadePoints += [p1,p2]
-		self.audioFadePoints.sort(lambda x,y:cmp(x[0],y[0]))
+		#update the fade points list from the dictionary
+		self.audioFadePoints = self.__fadePointsDict.items()
+		#dicts dont have order, so sort after update
+		self.audioFadePoints.sort(key=lambda x: x[0])
 		
 		self.StateChanged(self.WAVEFORM)
 	
 	#_____________________________________________________________________
 	
-	def removeAudioFadePoints(self, new1, new2, oldLevel1, oldLevel2):
-		"""Removed a point with values from the fade list.
-		    The only use for this method is as an undo of addAudioFadePoints()
+	def removeAudioFadePoints(self, firstPoint, secondPoint, firstOldVolume, secondOldVolume):
+		"""
+		   Removed a point with values from the fade list.
+		   The only use for this method is as an undo method for addAudioFadePoints()
 		    
-		    undo : addAudioFadePoints(%(temp)s, %(temp2)s)
+		   undo : addAudioFadePoints: temp, temp2, temp3, temp4
 		"""
 		#undo values
-		self.temp = new1
-		self.temp2 = new2
+		self.temp = firstPoint
+		self.temp2 = secondPoint
+		self.temp3 = None
+		self.temp4 = None
 		
-		#if we have old levels, just replace those inline
-		if oldLevel1:
-			tupleList = [x for x in self.audioFadePoints if x[0]==new1[0]]
-			if tupleList:
-				tupleList[0][1] = oldLevel1
-		#else, remove the point entirely
+		if self.__fadePointsDict.has_key(firstPoint):
+			self.temp3 = self.__fadePointsDict[firstPoint]
+		if self.__fadePointsDict.has_key(secondPoint):
+			self.temp4 = self.__fadePointsDict[secondPoint]
+		
+		#if the point had a previous value (firstOldPoint) then put the value back
+		#we *must* compare to None here because audio points with volume 0 *are* allowed
+		if firstOldVolume != None:
+			self.__fadePointsDict[firstPoint] = firstOldVolume
+		#else, just remove the point because it didn't exist before
 		else:
-			self.audioFadePoints.remove(new1)
+			del self.__fadePointsDict[firstPoint]
+		
+		#same as above but for the second point
+		if secondOldVolume != None:
+			self.__fadePointsDict[secondPoint] = secondOldVolume
+		else:
+			del self.__fadePointsDict[secondPoint]
 			
-		if oldLevel2:
-			tupleList = [x for x in self.audioFadePoints if x[0]==new2[0]]
-			if tupleList:
-				tupleList[0][1] = oldLevel2
-		else:
-			self.audioFadePoints.remove(new2)
+		#update the fade points list from the dictionary
+		self.audioFadePoints = self.__fadePointsDict.items()
+		#dicts dont have order, so sort after update
+		self.audioFadePoints.sort(key=lambda x: x[0])
 			
 		self.StateChanged(self.WAVEFORM)
 	
