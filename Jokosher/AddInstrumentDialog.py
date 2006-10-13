@@ -12,6 +12,7 @@
 
 import gtk.glade
 import Globals
+import textwrap
 
 #=========================================================================
 
@@ -48,7 +49,8 @@ class AddInstrumentDialog:
 		self.model = gtk.ListStore(str, str, gtk.gdk.Pixbuf)
 			
 		for i in Globals.getCachedInstruments():
-			self.model.append(i)
+			j = "\n".join(textwrap.wrap(i[0],12))
+			self.model.append((j,i[1],i[2]))
 		
 		self.tree.set_model(self.model)
 			
