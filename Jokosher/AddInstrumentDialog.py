@@ -49,8 +49,9 @@ class AddInstrumentDialog:
 		self.model = gtk.ListStore(str, str, gtk.gdk.Pixbuf)
 			
 		for i in Globals.getCachedInstruments():
-			j = "\n".join(textwrap.wrap(i[0],12))
-			self.model.append((j,i[1],i[2]))
+			lineList = [x.center(12) for x in textwrap.wrap(i[0], 12)]
+			j = "\n".join(lineList)
+			self.model.append((j, i[1], i[2]))
 		
 		self.tree.set_model(self.model)
 			
@@ -79,8 +80,11 @@ class AddInstrumentDialog:
 		
 		sel = self.tree.get_selected_items()
 		for i in sel:
-			currentItem = self.model[i[0]]
-			self.project.AddInstrument(currentItem[0], currentItem[1], currentItem[2])
+			item = self.model[i[0]]
+			#find the actual instrument using index 1 (the instrument type)
+			#because the name has been wrapped in self.model and can't be used
+			instrItem = [x for x in Globals.getCachedInstruments() if x[1] == item[1]][0]
+			self.project.AddInstrument(*instrItem)
 	
 		self.parent.UpdateDisplay()
 		self.dlg.destroy()
