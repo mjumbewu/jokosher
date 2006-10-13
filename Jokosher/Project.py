@@ -720,10 +720,17 @@ class Project(Monitored, CommandManaged):
 			
 		for i in self.graveyard:
 			i.StoreToXML(doc, head, graveyard=True)
-			
-		f = gzip.GzipFile(path, "w")
-		f.write(doc.toprettyxml())
-		f.close()
+		
+		try:
+			#append "~" in case the saving fails
+			f = gzip.GzipFile(path +"~", "w")
+			f.write(doc.toprettyxml())
+			f.close()
+		except:
+			os.remove(path + "~")
+		else:
+			#if the saving doesn't fail, move it to the proper location
+			os.rename(path + "~", path)		
 		
 		self.StateChanged()
 	

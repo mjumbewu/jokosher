@@ -53,19 +53,7 @@ def StoreParametersToXML(self, doc, parent, parameters):
 	   
 	for i in parameters:
 		node = doc.createElement(i)
-			
-		if type(getattr(self, i)) == int:
-			node.setAttribute("type", "int")
-		elif type(getattr(self, i)) == float:
-			node.setAttribute("type", "float")
-		elif type(getattr(self, i)) == bool:
-			node.setAttribute("type", "bool")
-		elif getattr(self, i) == None:
-			node.setAttribute("type", "NoneType")
-		else:
-			node.setAttribute("type", "str")
-		
-		node.setAttribute("value", str(getattr(self, i)))
+		StoreVariableToNode(getattr(self, i), node)
 		parent.appendChild(node)
 
 #_____________________________________________________________________
@@ -77,18 +65,9 @@ def LoadParametersFromXML(self, parentElement):
 	
 	for n in parentElement.childNodes:
 		if n.nodeType == xml.Node.ELEMENT_NODE:
-			if n.getAttribute("type") == "int":
-				setattr(self, n.tagName, int(n.getAttribute("value")))
-			elif n.getAttribute("type") == "float":
-				setattr(self, n.tagName, float(n.getAttribute("value")))
-			elif n.getAttribute("type") == "bool":
-				value = (n.getAttribute("value") == "True")
-				setattr(self, n.tagName, value)
-			elif n.getAttribute("type") == "NoneType":
-				setattr(self, n.tagName, None)
-			else:
-				setattr(self, n.tagName, n.getAttribute("value"))
-
+			value = LoadVariableFromNode(n)
+			setattr(self, n.tagName, value)
+			
 #_____________________________________________________________________
 
 def StoreDictionaryToXML(doc, parent, dict):
@@ -96,24 +75,13 @@ def StoreDictionaryToXML(doc, parent, dict):
 	   in an XML document (doc) with the parent XML tag (parent)"""
 	   
 	for key, value in dict.iteritems():
-		node = doc.createElement(key)
-			
-		if type(value) == int:
-			node.setAttribute("type", "int")
-		elif type(value) == float:
-			node.setAttribute("type", "float")
-		elif type(value) == bool:
-			node.setAttribute("type", "bool")
-		elif value == None:
-			node.setAttribute("type", "NoneType")
-		else:
-			node.setAttribute("type", "str")
-		
-		node.setAttribute("value", str(value))
+		node = doc.createElement("Item")
+		StoreVariableToNode(key, node, "keytype", "keyvalue")
+		StoreVariableToNode(value, node, "type", "value")
 		parent.appendChild(node)
-		
+
 #_____________________________________________________________________
-		
+
 def LoadDictionaryFromXML(parentElement):
 	"""For those times when you don't want to fill module variables with
 	parameters from the XML but just want to fill a dictionary instead."""
@@ -122,60 +90,62 @@ def LoadDictionaryFromXML(parentElement):
 	
 	for n in parentElement.childNodes:
 		if n.nodeType == xml.Node.ELEMENT_NODE:
-			if n.getAttribute("type") == "int":
-				dictionary[n.tagName] = int(n.getAttribute("value"))
-			elif n.getAttribute("type") == "float":
-				dictionary[n.tagName] = float(n.getAttribute("value"))
-			elif n.getAttribute("type") == "bool":
-				value = (n.getAttribute("value") == "True")
-				dictionary[n.tagName] = value
-			elif n.getAttribute("type") == "NoneType":
-				dictionary[n.tagName] = None
-			else:
-				dictionary[n.tagName] = n.getAttribute("value")
-				
+			key = LoadVariableFromNode(n, "keytype", "keyvalue")
+			value = LoadVariableFromNode(n, "type", "value")
+			dictionary[key] = value
+	
 	return dictionary
 
 #_____________________________________________________________________
 
 def StoreListToXML(doc, parent, itemList, tagName):
-	   
 	for value in itemList:
 		node = doc.createElement(tagName)
-			
-		if type(value) == int:
-			node.setAttribute("type", "int")
-		elif type(value) == float:
-			node.setAttribute("type", "float")
-		elif type(value) == bool:
-			node.setAttribute("type", "bool")
-		elif value == None:
-			node.setAttribute("type", "NoneType")
-		else:
-			node.setAttribute("type", "str")
-		
-		node.setAttribute("value", str(value))
+		StoreVariableToNode(value, node)
 		parent.appendChild(node)
-		
+
 #_____________________________________________________________________
-		
+
 def LoadListFromXML(parentElement):
 	itemList = []
 	
 	for n in parentElement.childNodes:
 		if n.nodeType == xml.Node.ELEMENT_NODE:
-			if n.getAttribute("type") == "int":
-				itemList.append(int(n.getAttribute("value")))
-			elif n.getAttribute("type") == "float":
-				itemList.append(float(n.getAttribute("value")))
-			elif n.getAttribute("type") == "bool":
-				value = (n.getAttribute("value") == "True")
-				itemList.append(value)
-			elif n.getAttribute("type") == "NoneType":
-				itemList.append(None)
-			else:
-				itemList.append(n.getAttribute("value"))
-				
+			value = LoadVariableFromNode(n)
+			itemList.append(value)
+	
 	return itemList
+
+#_____________________________________________________________________
+
+def LoadVariableFromNode(node, typeAttr="type", valueAttr="value"):
+	if node.getAttribute(typeAttr) == "int":
+		variable = int(node.getAttribute(valueAttr))
+	elif node.getAttribute(typeAttr) == "float":
+		variable = float(node.getAttribute(valueAttr))
+	elif node.getAttribute(typeAttr) == "bool":
+		variable = (node.getAttribute(valueAttr) == "True")
+	elif node.getAttribute(typeAttr) == "NoneType":
+		variable = None
+	else:
+		variable = node.getAttribute(valueAttr)
+	
+	return variable
+
+#_____________________________________________________________________
+
+def StoreVariableToNode(value, node, typeAttr="type", valueAttr="value"):
+	if type(value) == int:
+		node.setAttribute(typeAttr, "int")
+	elif type(value) == float:
+		node.setAttribute(typeAttr, "float")
+	elif type(value) == bool:
+		node.setAttribute(typeAttr, "bool")
+	elif value == None:
+		node.setAttribute(typeAttr, "NoneType")
+	else:
+		node.setAttribute(typeAttr, "str")
+		
+	node.setAttribute(valueAttr, str(value))
 
 #_____________________________________________________________________
