@@ -514,7 +514,7 @@ def LoadAllExtensions():
 				
 		# now check for egg files and add each to working set
 		for x in os.listdir(exten_dir):
-			 if x.endswith(".egg"):
+			if x.endswith(".egg"):
 				pkg_resources.working_set.add_entry(exten_dir + x)
 	
 	# now scan working set for any extensions
