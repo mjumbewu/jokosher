@@ -77,6 +77,9 @@ class Event(Monitored, CommandManaged):
 		# The list *must* be ordered by time-in-seconds, so when you update it from
 		# the dictionary using dict.items(), be sure to sort it again.
 		self.audioFadePoints = []
+		#Just like self.levels except with all the levels scaled according to the
+		#points in self.audioFadePoints.
+		self.fadeLevels = []
 
 	#_____________________________________________________________________
 	
@@ -145,13 +148,10 @@ class Event(Monitored, CommandManaged):
 		# Put self.file back to its absolute path
 		self.file = self.temp
 		
+		
 		xmlPoints = doc.createElement("FadePoints")
 		ev.appendChild(xmlPoints)
-		for position, fade in self.audioFadePoints:
-			e = doc.createElement("FadePoint")
-			e.setAttribute("position", str(position))
-			e.setAttribute("fade", str(fade))
-			xmlPoints.appendChild(e)
+		StoreDictionaryToXML(doc, xmlPoints, self.__fadePointsDict)
 		
 		if self.levels:
 			levelsXML = doc.createElement("Levels")
@@ -180,10 +180,7 @@ class Event(Monitored, CommandManaged):
 		except IndexError:
 			Globals.debug("Missing FadePoints in Event XML")
 		else:
-			for n in xmlPoints.childNodes:
-				if n.nodeType == xml.Node.ELEMENT_NODE:
-					point = (float(n.getAttribute("position")), float(n.getAttribute("fade")))
-					self.audioFadePoints.append(point)
+			self.__fadePointsDict = LoadDictionaryFromXML(xmlPoints)
 		
 		try:	
 			levelsXML = node.getElementsByTagName("Levels")[0]
@@ -198,7 +195,7 @@ class Event(Monitored, CommandManaged):
 		if self.isLoading == True:
 			self.GenerateWaveform()
 
-
+		self.__UpdateAudioFadePoints()
 		self.CreateFilesource()
 		
 	#_____________________________________________________________________
@@ -595,14 +592,14 @@ class Event(Monitored, CommandManaged):
 		self.start = xpos
 	
 	#_____________________________________________________________________
-
-	def addAudioFadePoints(self, firstPoint, secondPoint, firstVolume, secondVolume):
+	
+	def AddAudioFadePoints(self, firstPoint, secondPoint, firstVolume, secondVolume):
 		"""
 		   Add the two passed points to the audioFadePoints list.
 		   If either point exists already, replace it, and resort
 		   the list by time.
 		   
-		   undo : removeAudioFadePoints: temp, temp2, temp3, temp4
+		   undo : RemoveAudioFadePoints: temp, temp2, temp3, temp4
 		"""
 		#for command manager to use with undo
 		self.temp = firstPoint
@@ -618,21 +615,17 @@ class Event(Monitored, CommandManaged):
 		self.__fadePointsDict[firstPoint] = firstVolume
 		self.__fadePointsDict[secondPoint] = secondVolume
 		
-		#update the fade points list from the dictionary
-		self.audioFadePoints = self.__fadePointsDict.items()
-		#dicts dont have order, so sort after update
-		self.audioFadePoints.sort(key=lambda x: x[0])
-		
+		self.__UpdateAudioFadePoints()
 		self.StateChanged(self.WAVEFORM)
 	
 	#_____________________________________________________________________
 	
-	def removeAudioFadePoints(self, firstPoint, secondPoint, firstOldVolume, secondOldVolume):
+	def RemoveAudioFadePoints(self, firstPoint, secondPoint, firstOldVolume, secondOldVolume):
 		"""
 		   Removed a point with values from the fade list.
-		   The only use for this method is as an undo method for addAudioFadePoints()
+		   The only use for this method is as an undo method for AddAudioFadePoints()
 		    
-		   undo : addAudioFadePoints: temp, temp2, temp3, temp4
+		   undo : AddAudioFadePoints: temp, temp2, temp3, temp4
 		"""
 		#undo values
 		self.temp = firstPoint
@@ -659,13 +652,93 @@ class Event(Monitored, CommandManaged):
 		else:
 			del self.__fadePointsDict[secondPoint]
 			
+		self.__UpdateAudioFadePoints()
+		self.StateChanged(self.WAVEFORM)
+	
+	#_____________________________________________________________________
+	
+	def __UpdateAudioFadePoints(self):
+		"""
+		   Private function that uses the private dictionary with 
+		   all the fade points to update the audioFadePoints list.
+		"""
+		
 		#update the fade points list from the dictionary
 		self.audioFadePoints = self.__fadePointsDict.items()
 		#dicts dont have order, so sort after update
 		self.audioFadePoints.sort(key=lambda x: x[0])
+		
+		#only add beginning and end points if there are some other points already in the list
+		if self.audioFadePoints:
+			#if there is no point at the beginning, make one with the
+			#same value as the first fade point. This makes the first fade
+			#extend back to the beginning.
+			if self.audioFadePoints[0][0] != 0.0:
+				first = (0.0, self.audioFadePoints[0][1])
+				self.audioFadePoints.insert(0, first)
+			#same as above but for the end of the event.
+			if self.audioFadePoints[-1][0] != self.duration:
+				last = (self.duration, self.audioFadePoints[-1][1])
+				self.audioFadePoints.append(last)
 			
-		self.StateChanged(self.WAVEFORM)
+		self.__UpdateFadeLevels()
 	
+	#_____________________________________________________________________
+	
+	def __UpdateFadeLevels(self):
+		if not self.audioFadePoints:
+			#there are no fade points for us to use
+			return
+			
+		fadePercents = []
+		oneSecondInLevels = len(self.levels) / self.duration
+		
+		previousFade = self.audioFadePoints[0]
+		for fade in self.audioFadePoints[1:]:
+			#calculate the number of levels that should be in the list between the two points
+			levelsInThisSection = int(round((fade[0] - previousFade[0]) * oneSecondInLevels))
+			if fade[1] == previousFade[1]:
+				# not actually a fade, just two points at the same volume
+				fadePercents.extend([ fade[1] ] * levelsInThisSection)
+			else:
+				step = (fade[1] - previousFade[1]) / levelsInThisSection
+				floatList = floatRange(previousFade[1], fade[1], step)
+				#make sure the list of levels does not exceed the calculated length
+				floatList = floatList[:levelsInThisSection]
+				fadePercents.extend(floatList)
+			previousFade = fade
+		
+		if len(fadePercents) != len(self.levels):
+			#make sure its not longer than the levels list
+			fadePercents = fadePercents[:len(self.levels)]
+			#make sure its not shorter than the levels list
+			#by copying the last level over again
+			lastLevel = fadePercents[-1]
+			while len(fadePercents) < len(self.levels):
+				fadePercents.append(lastLevel)
+				
+		self.fadeLevels = []
+		for i in range(len(self.levels)):
+			self.fadeLevels.append(fadePercents[i] * self.levels[i])
+		
+	#_____________________________________________________________________
+	
+	def GetFadeLevels(self):
+		"""
+		   Returns a list of levels, the same length as the levels list.
+		   The only difference between this list and the levels list is
+		   that the levels in this list are scaled according to and fade
+		   curves applied to the current event.
+		"""
+		# no fades registered
+		if not self.audioFadePoints:
+			return self.levels[:]
+			
+		if len(self.fadeLevels) != len(self.levels):
+			self.__UpdateFadeLevels()
+			
+		return self.fadeLevels
+		
 	#_____________________________________________________________________
 
 #=========================================================================	

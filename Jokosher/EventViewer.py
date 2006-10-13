@@ -83,6 +83,7 @@ class EventViewer(gtk.DrawingArea):
 		self.redrawWaveform = False		# Force redraw the cached waveform on next expose event
 		self.drawerAlignToLeft = True		#boolean; if the drawer should be at the left of current selection
 									#otherwise it will be put on the right
+		self.fadePoints = [100,100]		#the values of the right and left fade markers on the selection
 		
 		# source is an offscreen canvas to hold our waveform image
 		self.source = cairo.ImageSurface(cairo.FORMAT_ARGB32, 0, 0)
@@ -262,32 +263,29 @@ class EventViewer(gtk.DrawingArea):
 		context.set_source_rgb(*self._BACKGROUND_RGB)
 		context.fill()
 
-		# draw the fade line
-		context.set_source_rgb(*self._FADELINE_RGB)
-		context.move_to(0,0) # FIXME: scale the Y!
-		pixy = 0
-		for sec,vol in self.event.audioFadePoints:
-			pixx = self.PixXFromSec(sec)
-			pixy = self.PixYFromVol(vol)
-			context.line_to(pixx,pixy)
-		pixxEnd = self.PixXFromSec(self.event.duration)
-		context.line_to(pixxEnd,pixy)
-		
-		context.stroke()
+		if self.event.audioFadePoints:
+			# draw the fade line
+			context.set_source_rgb(*self._FADELINE_RGB)
+			 # FIXME: scale the Y!
+			firstPoint = self.event.audioFadePoints[0]
+			pixx = self.PixXFromSec(firstPoint[0])
+			pixy = self.PixYFromVol(firstPoint[1])
+			context.move_to(pixx, pixy)
+			for sec, vol in self.event.audioFadePoints[1:]:
+				pixx = self.PixXFromSec(sec)
+				pixy = self.PixYFromVol(vol)
+				context.line_to(pixx,pixy)		
+			context.stroke()
 
 		# Draw volume curve
 		x_pos = int(rect.x/scale)
 		x = 0
 		context.move_to(0,rect.height)
 				
-		# calculate the fade curve
-		fadecurve = self.GetFadeCurve(self.event.duration, 
-		            self.event.audioFadePoints, 
-		            len(self.event.levels))
-		# apply the fade curve to the volume curve to get new volumes
-		levelsToUse = [x[0]*x[1] for x in zip(self.event.levels,fadecurve)]
+		# get levels list
+		fadedLevels = self.event.GetFadeLevels()
 		
-		for peak in levelsToUse[x_pos:]:
+		for peak in fadedLevels[x_pos:]:
 			x = (x_pos*scale) - rect.x
 			peakOnScreen = int(peak * rect.height)
 			context.line_to(x, rect.height - peakOnScreen)
@@ -653,38 +651,6 @@ class EventViewer(gtk.DrawingArea):
 		self.queue_draw()
 
 	#_____________________________________________________________________
-	
-	def GetFadeCurve(self, duration, fades, totalLevels):
-		"""The fade curve is a list of multipliers; the list is the
-		   length of the levels list, and to make the actual levels list,
-		   you take the ordinary levels list and multiply each level by
-		   its corresponding entry in the fadecurve.
-		   Pass the duration of the sample, the list of audio fade points, 
-		   and the number of levels
-		"""
-		
-		# no fades registered
-		if not fades:
-			return [1.0] * totalLevels
-		
-		oneSecondInLevels = int(totalLevels / duration)
-		# get the first volume value; the whole clip must start at that
-		fadecurve = []
-		currentfade = (0.0,fades[0][1])
-		myfades = fades + [(duration,fades[-1][1])]
-		for thisfade in myfades:
-			levelsInThisSection = int((thisfade[0] - currentfade[0]) * oneSecondInLevels)
-			if thisfade[1] == currentfade[1]:
-				# not actually a fade, just two points at the same volume
-				fadecurve += [currentfade[1]] * levelsInThisSection
-			else:
-				step = (thisfade[1] - currentfade[1]) / levelsInThisSection
-				adder = list(Utils.floatRange(currentfade[1], thisfade[1], step))
-				fadecurve += adder
-			currentfade = thisfade
-		return fadecurve
-		
-	#_____________________________________________________________________
 
 	def PixXFromSec(self, sec):
 		"""Converts seconds to an X pixel position in the waveform"""
@@ -715,7 +681,7 @@ class EventViewer(gtk.DrawingArea):
 		volRight = self.fadePoints[1] / 100.0
 		
 		selection = self.event.selection
-		self.event.addAudioFadePoints(selection[0], selection[1], volLeft, volRight)
+		self.event.AddAudioFadePoints(selection[0], selection[1], volLeft, volRight)
 		
 	#_____________________________________________________________________
 	

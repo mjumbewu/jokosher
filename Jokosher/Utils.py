@@ -23,23 +23,26 @@ def DbToFloat(f):
 
 def floatRange(start, end=None, inc=None):
 	"""A range function, that does accept float increments..."""
-
+	
 	if end == None:
-		end = start + 0.0
+		end = float(start)
 		start = 0.0
 	else:
-		start += 0.0 # force it to be a float
-
-	if inc == None:
+		start = float(start)
+	if not inc:
 		inc = 1.0
+	#check if the increment has the wrong sign
+	#if it does, it may decrement instead of increment and we will get an infinite loop
+	elif (start > end and inc > 0) or (start <= end and inc < 0):
+		inc = -inc
+		
 	count = int(math.ceil((end - start) / inc))
-
-	L = [None,] * count
+	L = [None,] * max(count, 1)
 
 	L[0] = start
-	for i in xrange(1,count):
+	for i in xrange(1, count):
 		L[i] = L[i-1] + inc
-	
+		
 	return L
 
 #_____________________________________________________________________
