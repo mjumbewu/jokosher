@@ -447,7 +447,7 @@ class EventViewer(gtk.DrawingArea):
 				if self.fadeMarkersContext and self.fadeMarkersContext.in_fill(mouse.x, mouse.y):
 					# LMB over a fadeMarker: drag that marker
 					self.isDraggingFade = True
-					if mouse.x > self.PixXFromSec(self.event.selection[1]):
+					if mouse.x > self.PixXFromSec(self.event.selection[1]) - self._PIXX_FADEMARKER_WIDTH - 1:
 						self.fadeBeingDragged = 1
 						return True
 					else:

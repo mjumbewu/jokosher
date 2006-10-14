@@ -58,7 +58,7 @@ class AudioPreview(gtk.ToggleButton):
 		
 	#_____________________________________________________________________
 
-	def OnDestroy(self, widget):
+	def OnDestroy(self, widget=None):
 		self.previewbin.set_state(gst.STATE_NULL)
 	
 	#_____________________________________________________________________

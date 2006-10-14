@@ -266,13 +266,16 @@ class EventLaneViewer(gtk.EventBox):
 		response = dlg.run()
 
 		if response == gtk.RESPONSE_OK:
+			#stop the preview audio from playing without destorying the dialog
+			audiopreview.OnDestroy()
 			dlg.hide()
 			start = (self.mouseDownPos[0]/self.project.viewScale) + self.project.viewStart
 			self.instrument.addEventFromFile(start, dlg.get_filename(),copyfile.get_active())
 			Globals.settings.general["projectfolder"] = os.path.dirname(dlg.get_filename())
 			Globals.settings.write()
+			dlg.destroy()
 		else:
-			dlg.hide()
+			dlg.destroy()
 
 	#_____________________________________________________________________
 	
