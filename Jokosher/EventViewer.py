@@ -182,12 +182,20 @@ class EventViewer(gtk.DrawingArea):
 			# and overlay the fademarkers
 			context.set_source_rgba(*self._FADEMARKERS_RGBA)
 			
-			pixxFM_left = x1 + 1 - self._PIXX_FADEMARKER_WIDTH
+			pixxFM_left = x1 + 1
+			#if there is enough room on the left of the selection,
+			#place the fademarker outside the selection bounds.
+			if x1 + 1 >= self._PIXX_FADEMARKER_WIDTH:
+				pixxFM_left -= self._PIXX_FADEMARKER_WIDTH
 			pixyFM_left = int(padded_height * (100-self.fadePoints[0]) / 100.0)
 			context.rectangle(pixxFM_left, pixyFM_left,
 			                  self._PIXX_FADEMARKER_WIDTH , self._PIXY_FADEMARKER_HEIGHT)
 			
 			pixxFM_right = x2
+			#if there is enough room on the right of the selection,
+			#place the fademarker outside the selection bounds.
+			if x2 + self._PIXX_FADEMARKER_WIDTH > event.area.width:
+				pixxFM_right -= self._PIXX_FADEMARKER_WIDTH
 			pixyFM_right = int(padded_height * (100-self.fadePoints[1]) / 100.0)
 			context.rectangle(pixxFM_right, pixyFM_right,
 			                  self._PIXX_FADEMARKER_WIDTH, self._PIXY_FADEMARKER_HEIGHT)
@@ -266,13 +274,13 @@ class EventViewer(gtk.DrawingArea):
 		if self.event.audioFadePoints:
 			# draw the fade line
 			context.set_source_rgb(*self._FADELINE_RGB)
-			 # FIXME: scale the Y!
+			
 			firstPoint = self.event.audioFadePoints[0]
-			pixx = self.PixXFromSec(firstPoint[0])
+			pixx = self.PixXFromSec(firstPoint[0]) - rect.x
 			pixy = self.PixYFromVol(firstPoint[1])
 			context.move_to(pixx, pixy)
 			for sec, vol in self.event.audioFadePoints[1:]:
-				pixx = self.PixXFromSec(sec)
+				pixx = self.PixXFromSec(sec) - rect.x
 				pixy = self.PixYFromVol(vol)
 				context.line_to(pixx,pixy)		
 			context.stroke()
