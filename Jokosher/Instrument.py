@@ -24,6 +24,7 @@ from Utils import *
 import gobject
 import Globals
 import shutil
+import AlsaDevices
 
 #=========================================================================	
 
@@ -54,10 +55,13 @@ class Instrument(Monitored, CommandManaged):
 		self.effects = []				# List of GStreamer effect elements
 		self.pan = 0.0					# pan number (between -100 and 100)
 		
-		try:
-			self.input = Globals.settings.recording["devicecardnum"]
-		except:
-			self.input =  "default"
+		# Select first input device as default to avoid a GStreamer bug which causes
+		# large amounts of latency with the ALSA 'default' device.
+		try:    
+			self.input = AlsaDevices.GetAlsaList("capture").values()[1]
+		except: 
+			self.input = "default"
+
 		self.inTrack = None	# Mixer track to record from
 		self.output = ""
 		self.recordingbin = None
@@ -258,8 +262,6 @@ class Instrument(Monitored, CommandManaged):
 		'''Record to this instrument's temporary file.'''
 
 		Globals.debug("instrument recording")
-		if self.input == "value":
-			self.input = "default"
 
 		#Set input channel on device mixer
 		mixer = gst.element_factory_make('alsamixer')
@@ -282,6 +284,7 @@ class Instrument(Monitored, CommandManaged):
 
 		self.output = " ! audioconvert ! vorbisenc ! oggmux ! filesink location=%s"%file.replace(" ", "\ ")
 		Globals.debug("Using pipeline: alsasrc device=%s%s"%(self.input, self.output))
+		Globals.debug("Using input track: %s"%self.inTrack)
 
 		self.recordingbin = gst.parse_launch("bin.( alsasrc device=%s %s )"%(self.input, self.output))
 		#We remove this instrument's playbin from the project so it doesn't try to record and play from the same file

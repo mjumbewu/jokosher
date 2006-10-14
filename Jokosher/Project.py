@@ -272,12 +272,22 @@ class Project(Monitored, CommandManaged):
 		
 		self.out = gst.element_factory_make("alsasink")
 		
+		usedefault = False
 		try:
 			outdevice = Globals.settings.playback["devicecardnum"]
 		except:
-			outdevice =  "default"
+			usedefault = True
 		if outdevice == "value":
-			outdevice = "default"
+			usedefault = True
+
+		if usedefault:
+			try:
+				# Select first output device as default to avoid a GStreamer bug which causes
+		                # large amounts of latency with the ALSA 'default' device.
+				outdevice = GetAlsaList("playback").values()[1]
+			except:
+				outdevice = "default"
+		Globals.debug("Output device: %s"%outdevice)
 		self.out.set_property("device", outdevice)
 
 
@@ -398,7 +408,6 @@ class Project(Monitored, CommandManaged):
 			self.mainpipeline.set_state(gst.STATE_PAUSED)
 			
 			Globals.debug("just set state to PLAYING")
-			
 
 			# [DEBUG]
 			# This debug block will be removed when we release. If you see this in a release version, we
