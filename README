@@ -11,11 +11,8 @@ For a list of current requirements, see http://www.jokosher.org/download
 
 > Running Jokosher <
 
-To get started, simply make the main Jokosher script executable:
 
-foo@bar:~$ chmod a+x Jokosher.py
-
-Then run it:
+Then run it, move to the Jokosher/Jokosher directory and run:
 
 foo@bar:~$ ./Jokosher.py
 
