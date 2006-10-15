@@ -794,6 +794,7 @@ class EventViewer(gtk.DrawingArea):
 				rightChooses = rightOfRight
 		
 		self.event.selection = [leftChooses, rightChooses]
+		self.UpdateFadeMarkers()
 		self.queue_draw()
 		
 	#_____________________________________________________________________
