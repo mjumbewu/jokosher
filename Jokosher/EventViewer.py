@@ -17,6 +17,7 @@ import Project
 import Utils
 import gettext
 _ = gettext.gettext
+import Globals
 
 #=========================================================================
 
@@ -267,7 +268,8 @@ class EventViewer(gtk.DrawingArea):
 			return
 		
 		if len(self.event.levels) == 0:
-			raise "Trying to draw an event with no level data!"
+			Globals.debug("Trying to draw an event with no level data!")
+			return
 		
 		scale = (self.event.duration * self.project.viewScale) / float(len(self.event.levels))
 

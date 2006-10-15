@@ -342,8 +342,7 @@ class EventLaneViewer(gtk.EventBox):
 				start = event.start # Should improve performance with very large file-lists
 			elif scheme == 'http':
 				# download and import. This should probably be done in the background.
-				fn, hdrs = urllib.urlretrieve(uri)
-				event = self.instrument.addEventFromFile(start, fn, False)
+				event = self.instrument.addEventFromURL(start, uri)
 				event.MoveButDoNotOverlap(event.start)
 				start = event.start
 		context.finish(True, False, time)

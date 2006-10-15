@@ -22,6 +22,7 @@ import time
 from Monitored import *
 from Utils import *
 import gobject
+import gnomevfs
 import Globals
 import shutil
 import AlsaDevices
@@ -57,7 +58,6 @@ class Instrument(Monitored, CommandManaged):
 		self.instrType = type			# The type of instrument
 		self.effects = []				# List of GStreamer effect elements
 		self.pan = 0.0					# pan number (between -100 and 100)
-		self.effectsbin_obsolete = 0	# set this to 1 when effects bin needs unlinking
 		
 		# Select first input device as default to avoid a GStreamer bug which causes
 		# large amounts of latency with the ALSA 'default' device.
@@ -362,6 +362,63 @@ class Instrument(Monitored, CommandManaged):
 		self.StateChanged()
 		
 		return e
+		
+	#_____________________________________________________________________
+	
+	
+	def addEventFromURL(self, start, url):
+		''' Adds an event to this instrument, and downloads the specified
+			URL and saves it against this event.
+			
+			start - The offset time in seconds
+			file - file path
+			
+			NB: there is no copyfile option here, because it's mandatory.
+			
+			undo : DeleteEvent: temp
+		'''
+		
+		# no way of knowing whether there's a filename, so make one up
+		newfile = "%d_%d" % (self.id, int(time.time()))
+
+		audio_file = os.path.join(self.path, newfile)
+		self.project.deleteOnCloseAudioFiles.append(audio_file)
+		
+		# Create the event now so we can return it, and fill in the file later
+		e = Event(self, None, None)
+		e.start = start
+		self.events.append(e)
+		self.temp = e.id
+
+		PRIORITY_DEFAULT = 0 # not wrapped in gnomevfs module yet
+		gnomevfs.async.open(url, self.__got_url_handle, gnomevfs.OPEN_READ, 
+		  PRIORITY_DEFAULT, [audio_file, start, e])
+
+		return e
+		
+	def __got_url_handle(self, handle, param, callbackdata):
+		"""Called once gnomevfs has an object that we can read data from"""
+		audio_file, start, event = callbackdata
+		fp = open(audio_file, 'wb')
+		handle.read(1024, self.__async_read_callback, [fp, start, event])
+		
+	def __async_read_callback(self, handle, data, iserror, length, callbackdata):
+		fp, start, event = callbackdata
+		fp.write(data)
+		if iserror is None:
+			handle.read(1024, self.__async_read_callback, [fp, start, event])
+		else:
+			# all data now loaded
+			Globals.debug("Event data downloaded")
+			event.name = os.path.split(fp.name)[1]
+			event.file = fp.name
+			fp.close()
+			Globals.debug("Creating filesource")
+			event.CreateFilesource()
+			Globals.debug("Generating waveform")
+			event.GenerateWaveform()
+			self.StateChanged()
+		
 		
 	#_____________________________________________________________________
 	
