@@ -14,6 +14,7 @@ from Project import *
 from EventLaneViewer import *
 import Globals
 import InstrumentEffectsDialog
+import AddInstrumentDialog
 import gettext
 _ = gettext.gettext
 
@@ -54,6 +55,7 @@ class InstrumentViewer(gtk.EventBox):
 		self.small = small
 		self.projectview = projectview
 		self.mainview = mainview
+		self.instrument.AddListener(self)
 		
 		self.Updating = False
 		
@@ -108,7 +110,7 @@ class InstrumentViewer(gtk.EventBox):
 			self.image.set_from_pixbuf(pb)
 		
 		self.imageeventbox = gtk.EventBox()
-		self.imageeventbox.connect("button_press_event", self.OnChangeInstrumentType)
+		self.imageeventbox.connect("button_release_event", self.OnChangeInstrumentType)
 		self.imageeventbox.add(self.image)
 		
 		self.labelbox.pack_start(self.imageeventbox, False)
@@ -295,13 +297,7 @@ class InstrumentViewer(gtk.EventBox):
 			self.modify_bg(gtk.STATE_NORMAL, self.UNSELECTED_COLOUR)
 			self.headerEventBox.modify_bg(gtk.STATE_NORMAL, self.UNSELECTED_COLOUR)
 			self.labeleventbox.modify_bg(gtk.STATE_NORMAL, self.UNSELECTED_COLOUR)
-			self.eventLane.modify_bg(gtk.STATE_NORMAL, self.UNSELECTED_COLOUR)
-		
-		if self.instrument.pixbuf != self.image.get_pixbuf():
-			print "update %s %s"%(self.instrument.pixbuf,self.image.get_pixbuf())
-			self.image.clear()
-			self.image.set_from_pixbuf(self.instrument.pixbuf)
-			
+			self.eventLane.modify_bg(gtk.STATE_NORMAL, self.UNSELECTED_COLOUR)			
 
 		self.instrlabel.set_text(self.instrument.name)
 		if self.editlabelPacked:
@@ -430,6 +426,13 @@ class InstrumentViewer(gtk.EventBox):
 		else:
 			return self.projectview.timebox
 	
+	#_____________________________________________________________________
+	
+	def OnStateChanged(self, obj, change=None):
+		if change == self.instrument.IMAGE:
+			self.image.clear()
+			self.image.set_from_pixbuf(self.instrument.pixbuf)
+	
 	#______________________________________________________________________
 
 	def OnChangeInstrumentType(self, widget, event):
@@ -440,9 +443,10 @@ class InstrumentViewer(gtk.EventBox):
 			self.OnSelect(widget, event)
 			# Don't edit type unless the user clicks while we are already selected
 			return True
-			
-		import AddInstrumentDialog
+		
 		AddInstrumentDialog.AddInstrumentDialog(self.project, self.mainview, 
 		    self.instrument)
+		    
+	#______________________________________________________________________
 
 	#=========================================================================	

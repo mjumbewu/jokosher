@@ -30,6 +30,9 @@ import AlsaDevices
 
 class Instrument(Monitored, CommandManaged):
 	
+	#StateChanged constants
+	IMAGE = range(1)
+	
 	#_____________________________________________________________________
 	
 	def __init__(self, project, name, type, pixbuf, id=None):
@@ -659,7 +662,8 @@ class Instrument(Monitored, CommandManaged):
 		self.pixbuf = pixbuf
 		self.project.unsavedChanges = True
 
-		self.StateChanged()
+		self.StateChanged(self.IMAGE)
 
-		
+	#_____________________________________________________________________
+	
 #=========================================================================	
