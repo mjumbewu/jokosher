@@ -32,7 +32,9 @@ class EventLaneViewer(gtk.EventBox):
 	URI_DRAG_TYPE = 84			# Number only to be used inside Jokosher
 	DRAG_TARGETS = [ ( "text/uri-list", 	# Accept uri-lists
 					   0,					# From everywhere
-					   URI_DRAG_TYPE )]		# Use the custom number
+					   URI_DRAG_TYPE ),		# Use the custom number
+					   ('text/plain', 0, URI_DRAG_TYPE) # so drags from Firefox work
+					   ]
 	
 	#_____________________________________________________________________
 
@@ -338,6 +340,12 @@ class EventLaneViewer(gtk.EventBox):
 				event = self.instrument.addEventFromFile(start, file, True) # True: copy
 				event.MoveButDoNotOverlap(event.start)
 				start = event.start # Should improve performance with very large file-lists
+			elif scheme == 'http':
+				# download and import. This should probably be done in the background.
+				fn, hdrs = urllib.urlretrieve(uri)
+				event = self.instrument.addEventFromFile(start, fn, False)
+				event.MoveButDoNotOverlap(event.start)
+				start = event.start
 		context.finish(True, False, time)
 		return True
 	
