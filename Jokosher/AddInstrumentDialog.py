@@ -22,10 +22,11 @@ class AddInstrumentDialog:
 	"""	
 	#_____________________________________________________________________
 
-	def __init__(self, project, parent):
+	def __init__(self, project, parent,instr=False):
 		self.parent = parent
 		self.project = project
-		
+		self.instr = instr
+
 		self.res = gtk.glade.XML(Globals.GLADE_PATH, "AddInstrumentDialog")
 
 		self.signals = {
@@ -79,13 +80,18 @@ class AddInstrumentDialog:
 		"""OK pushed on the dialog"""
 		
 		sel = self.tree.get_selected_items()
-		for i in sel:
-			item = self.model[i[0]]
-			#find the actual instrument using index 1 (the instrument type)
-			#because the name has been wrapped in self.model and can't be used
-			instrItem = [x for x in Globals.getCachedInstruments() if x[1] == item[1]][0]
+		if self.instr ==  False:
+			for i in sel:
+				item = self.model[i[0]]
+				#find the actual instrument using index 1 (the instrument type)
+				#because the name has been wrapped in self.model and can't be used
+				instrItem = [x for x in Globals.getCachedInstruments() if x[1] == item[1]][0]
 			self.project.AddInstrument(*instrItem)
-	
+		else:
+			item = self.model[sel[0][0]]
+			instrItem = [x for x in Globals.getCachedInstruments() if x[1] == item[1]][0]
+			self.instr.ChangeType(*instrItem)
+
 		self.parent.UpdateDisplay()
 		self.dlg.destroy()
 		

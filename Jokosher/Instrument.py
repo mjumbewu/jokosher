@@ -643,5 +643,23 @@ class Instrument(Monitored, CommandManaged):
 		self.effectsbin.add_pad(self.effectsbinsink)
 		self.effectsbin.add_pad(self.effectsbinsrc)
 		
+
+	#_____________________________________________________________________
+
+	def ChangeType(self, name, type, pixbuf):
+		if type==self.instrType:
+			return
+
+		oldname = self.name.lower()
+
+		if oldname.replace(" ","") == self.instrType:
+			self.name = name
+
+		self.instrType = type
+		self.pixbuf = pixbuf
+		self.project.unsavedChanges = True
+
+		self.StateChanged()
+
 		
 #=========================================================================	

@@ -41,6 +41,7 @@ class MainApp:
 		signals = {
 			"on_MainWindow_destroy" : self.OnDestroy,
 			"on_AddInstrument_clicked" : self.OnShowAddInstrumentDialog,
+			"on_ChangeInstrumentType_clicked" : self.OnChangeInstrument,
 			"on_About_activate" : self.About,
 			"on_Record_toggled" : self.Record, 
 			"on_Play_toggled" : self.Play,
@@ -90,6 +91,7 @@ class MainApp:
 		self.paste = self.wTree.get_widget("paste")
 		self.delete = self.wTree.get_widget("delete")
 		self.projectmenu = self.wTree.get_widget("projectmenu")
+		self.changeinstrumenttype = self.wTree.get_widget("changeinstrumenttype")
 		self.export = self.wTree.get_widget("export")
 		self.recentprojects = self.wTree.get_widget("recentprojects")
 		self.menubar = self.wTree.get_widget("menubar")
@@ -247,6 +249,15 @@ class MainApp:
 	def OnShowAddInstrumentDialog(self, widget):
 		""" Creates and shows the 'Add Instrument' dialog box """
 		AddInstrumentDialog.AddInstrumentDialog(self.project, self)
+	
+	#_____________________________________________________________________
+
+	def OnChangeInstrument(self, widget=None):
+		# Change the type of a select instrument
+		for instr in self.project.instruments:
+			if (instr.isSelected):
+				AddInstrumentDialog.AddInstrumentDialog(self.project, self, instr)
+				return
 	
 	#_____________________________________________________________________
 	
@@ -949,7 +960,16 @@ class MainApp:
 		
 		a.set_active(transport.mode == transport.MODE_BARS_BEATS)
 		b.set_active(transport.mode == transport.MODE_HOURS_MINS_SECS)
+
+		instrSelected = False
+		if self.project:
+			for instr in self.project.instruments:
+				if instr.isSelected:
+					instrSelected = True
+					break
 		
+		self.changeinstrumenttype.set_sensitive(instrSelected)
+
 		self.settingButtons = False
 	
 	#_____________________________________________________________________

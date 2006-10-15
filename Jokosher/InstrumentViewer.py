@@ -100,14 +100,14 @@ class InstrumentViewer(gtk.EventBox):
 		if not self.instrument.pixbuf:
 			self.instrument.pixbuf = self.render_icon(gtk.STOCK_MISSING_IMAGE, gtk.ICON_SIZE_DIALOG)
 		
-		image = gtk.Image()
+		self.image = gtk.Image()
 		if not (self.small):
-			image.set_from_pixbuf(self.instrument.pixbuf)
+			self.image.set_from_pixbuf(self.instrument.pixbuf)
 		else:
 			pb = self.instrument.pixbuf.scale_simple(20, 20, gtk.gdk.INTERP_BILINEAR)
-			image.set_from_pixbuf(pb)
+			self.image.set_from_pixbuf(pb)
 		
-		self.labelbox.pack_start(image, False)
+		self.labelbox.pack_start(self.image, False)
 		self.labelbox.pack_end(self.labeleventbox)
 		self.headerBox.pack_start(self.labelbox)
 		self.controlsBox = gtk.HBox()
@@ -293,6 +293,11 @@ class InstrumentViewer(gtk.EventBox):
 			self.labeleventbox.modify_bg(gtk.STATE_NORMAL, self.UNSELECTED_COLOUR)
 			self.eventLane.modify_bg(gtk.STATE_NORMAL, self.UNSELECTED_COLOUR)
 		
+		if self.instrument.pixbuf != self.image:
+			self.image.clear()
+			self.image.set_from_pixbuf(self.instrument.pixbuf)
+			
+
 		self.instrlabel.set_text(self.instrument.name)
 		if self.editlabelPacked:
 			self.OnAcceptEditLabel()
