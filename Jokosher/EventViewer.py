@@ -109,6 +109,10 @@ class EventViewer(gtk.DrawingArea):
 		self.drawer.add(delFPButton)
 		delFPButton.connect("clicked", self.DeleteSelectedFadePoints)
 		
+		snapFPButton = gtk.Button(_("Snap To Fade Points"))
+		self.drawer.add(snapFPButton)
+		snapFPButton.connect("clicked", self.SnapSelectionToFadePoints)
+		
 		self.drawer.show()
 		
 		self.mainview = mainview
@@ -753,4 +757,41 @@ class EventViewer(gtk.DrawingArea):
 		
 	#_____________________________________________________________________
 	
+	def SnapSelectionToFadePoints(self, event):
+		if len(self.event.audioFadePoints) < 2:
+			#not enough levels
+			return
+			
+		points = [x[0] for x in self.event.audioFadePoints]
+		left, right = self.event.selection
+		
+		leftOfLeft = max([x for x in points if x <= left])
+		rightOfLeft = min([x for x in points if x >= left])
+		
+		leftOfRight = max([x for x in points if x <= right])
+		rightOfRight = min([x for x in points if x >= right])
+		
+		if abs(leftOfLeft - left) < abs(rightOfLeft - left):
+			leftChooses = leftOfLeft
+		else:
+			leftChooses = rightOfLeft
+
+		if abs(leftOfRight - right) > abs(rightOfLeft - left):
+			rightChooses = rightOfRight
+		else:
+			rightChooses = leftOfRight
+
+		if leftChooses == rightChooses:
+			#the both selected the same point
+			if abs(leftChooses - left) > abs(rightChooses - right):
+				#if right is closer to the point
+				leftChooses = leftOfLeft
+			else:
+				rightChooses = rightOfRight
+		
+		self.event.selection = [leftChooses, rightChooses]
+		self.queue_draw()
+		
+	#_____________________________________________________________________
+
 #=========================================================================
