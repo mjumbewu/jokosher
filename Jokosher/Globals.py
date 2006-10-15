@@ -242,11 +242,11 @@ LADSPA_FACTORY_REGISTRY = None
 LADSPA_NAME_MAP = []
 DEBUG_STDOUT, DEBUG_GST = (False, False)
 
-_export_template = ("description", "extension", "encoder", "muxer", "requiresAudioconvert") 
-_export_formats = [	("Ogg Vorbis (.ogg)", "ogg", "vorbisenc", "oggmux", True),
-					("MP3 (.mp3)", "mp3", "lame", None, False),
-					("Flac (.flac)", "flac", "flacenc", None, False),
-					("WAV (.wav)", "wav", "wavenc", None, False),
+_export_template = ("description", "extension", "pipeline") 
+_export_formats = [	("Ogg Vorbis (.ogg)", "ogg", "vorbisenc ! oggmux"),
+					("MP3 (.mp3)", "mp3", "lame"),
+					("Flac (.flac)", "flac", "flacenc"),
+					("WAV (.wav)", "wav", "wavenc"),
 				]
 EXPORT_FORMATS = []
 for type in _export_formats:

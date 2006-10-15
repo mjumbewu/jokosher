@@ -441,33 +441,30 @@ class ExtensionAPI:
 		
 		return 0
 		
-	def add_export_format(self, description, extension, encoderName, muxerName=None, requiresAudioconvert=False):
+	def add_export_format(self, description, extension, encodeBin):
 		"""
 		   Adds a new format that the use can select from
 		   the filetype drop down box in the 'Mixdown Project' dialog.
-		   Description - string for the drop down box. ex: 'Ogg Vorbis (.ogg)'
-		   Extension - string of the file extension without a '.'. ex: 'ogg'
-		   encoderName - string used by element_factory_make for the encoder. ex: 'vorbisenc'
-		   muxerName - string used by element_factory_make for the muxer. ex: 'oggmux', None (if no muxer is used)
-		   requiresAudioconvert - True if an audioconvert is needed between the level element and the encoder.
+		   description - string for the drop down box. ex: 'Ogg Vorbis (.ogg)'
+		   extension - string of the file extension without a '.'. ex: 'ogg'
+		   encodeBin - string used by gst_parse_bin_from_description to create
+		         a bin that can encode and mux the audio when added to a pipeline. ex: 'vorbisenc ! oggmux'
 		   
 		   Return values:
 		   0: success
 		   1: invalid options
-		   2: cannot create encoder/muxer element
+		   2: cannot parse or create encoder/muxer bin
 		"""
 		
-		if not description or not extension and not encoderName:
+		if not description or not extension and not pipelineString:
 			return 1
 		try:
-			element = gst.element_factory_make(encoderName)
-			if muxerName:
-				element = gst.element_factory_make(muxerName)
-			del element
-		except gst.PluginNotFoundError:
+			bin = gst.gst_parse_bin_from_description(encodeBin)
+			del bin
+		except gobject.GError:
 			return 2
 			
-		propslist = (description, extension, encoderName, muxerName, requiresAudioconvert)
+		propslist = (description, extension, encodeBin)
 		propsdict = dict(zip(Globals._export_template, propslist))
 		Globals.EXPORT_FORMATS.append(propsdict)
 		

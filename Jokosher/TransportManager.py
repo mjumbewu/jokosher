@@ -57,7 +57,6 @@ class TransportManager(Monitored):
 		self.UpdateTimeout = False
 		
 		self.mode = initialMode
-		self.startPosition = 0
 
 	#_____________________________________________________________________
 	
@@ -72,9 +71,9 @@ class TransportManager(Monitored):
 			
 		self.isPlaying = True
 		
-		if self.startPosition > 0.01:
-			self.SeekTo(self.startPosition)
-			
+		if self.position > 0:
+			self.SeekTo(self.position)
+
 		self.pipeline.set_state(gst.STATE_PLAYING)
 		#for normal playback then we need to start the timeout that will 
 		#control the movement of the playhead
@@ -88,7 +87,7 @@ class TransportManager(Monitored):
 			Called when stop button has been pressed
 		"""
 		self.isPlaying = False
-		self.startPosition = self.position
+		self.SetPosition(0.0)
 		
 	#_____________________________________________________________________
 		
@@ -269,7 +268,6 @@ class TransportManager(Monitored):
 			self.pipeline.seek( 1.0, gst.FORMAT_TIME, gst.SEEK_FLAG_FLUSH,
 					gst.SEEK_TYPE_SET, long(pos * gst.SECOND), 
 					gst.SEEK_TYPE_NONE, -1)
-		self.startPosition = pos
 		self.SetPosition(pos)
 		
 	#_____________________________________________________________________

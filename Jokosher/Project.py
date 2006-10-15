@@ -514,32 +514,11 @@ class Project(Monitored, CommandManaged):
 		self.outfile.set_property("location", filename)
 		self.playbackbin.add(self.outfile)
 		
-		#create encoder
-		self.encode = gst.element_factory_make(exportingFormatDict["encoder"])
-		self.mux = None
-		self.exportconvert = None
-		
-		self.playbackbin.add(self.encode)
-		
-		if exportingFormatDict["requiresAudioconvert"]:
-			#audioconvert may be required because level and vorbisenc have different caps
-			self.exportconvert = gst.element_factory_make("audioconvert", "export_convert")
-			self.playbackbin.add(self.exportconvert)
-			#link the new audioconvert
-			self.levelcaps.link(self.exportconvert)
-			self.exportconvert.link(self.encode)
-		else:
-			self.levelcaps.link(self.encode)
-		
-		#this is None is the format doesn't use a muxer
-		if exportingFormatDict["muxer"]:
-			self.mux = gst.element_factory_make(exportingFormatDict["muxer"])
-			self.playbackbin.add(self.mux)
-			#link the new muxer
-			self.encode.link(self.mux)
-			self.mux.link(self.outfile)
-		else:
-			self.encode.link(self.outfile)
+		#create encoder/muxer
+		self.encodebin = gst.gst_parse_bin_from_description("audioconvert ! %s" % exportingFormatDict["pipeline"], True)
+		self.playbackbin.add(self.encodebin)
+		self.levelcaps.link(self.encodebin)
+		self.encodebin.link(self.outfile)
 			
 		#disconnect the bus_message() which will make the transport manager progress move
 		self.bus.disconnect(self.Mhandler)
@@ -572,19 +551,11 @@ class Project(Monitored, CommandManaged):
 		self.EOShandler = self.bus.connect("message::eos", self.stop)
 		
 		#remove the filesink and encoder
-		self.playbackbin.remove(self.outfile, self.encode)		
-		
-		if self.exportconvert:
-			self.playbackbin.remove(self.exportconvert)
-			self.levelcaps.unlink(self.exportconvert)
-		else:
-			self.levelcaps.unlink(self.encode)
-			
-		if self.mux:
-			self.playbackbin.remove(self.mux)
+		self.playbackbin.remove(self.outfile, self.encodebin)		
+		self.levelcaps.unlink(self.encodebin)
 			
 		#dispose of the elements
-		del self.outfile, self.encode, self.mux, self.exportconvert
+		del self.outfile, self.encodebin
 		
 		#re-add all the alsa playback elements
 		self.playbackbin.add(self.out, self.level)
