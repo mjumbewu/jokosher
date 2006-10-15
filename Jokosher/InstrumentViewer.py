@@ -107,7 +107,11 @@ class InstrumentViewer(gtk.EventBox):
 			pb = self.instrument.pixbuf.scale_simple(20, 20, gtk.gdk.INTERP_BILINEAR)
 			self.image.set_from_pixbuf(pb)
 		
-		self.labelbox.pack_start(self.image, False)
+		self.imageeventbox = gtk.EventBox()
+		self.imageeventbox.connect("button_press_event", self.OnChangeInstrumentType)
+		self.imageeventbox.add(self.image)
+		
+		self.labelbox.pack_start(self.imageeventbox, False)
 		self.labelbox.pack_end(self.labeleventbox)
 		self.headerBox.pack_start(self.labelbox)
 		self.controlsBox = gtk.HBox()
@@ -425,4 +429,19 @@ class InstrumentViewer(gtk.EventBox):
 		else:
 			return self.projectview.timebox
 	
+	#______________________________________________________________________
+
+	def OnChangeInstrumentType(self, widget, event):
+		"""
+			Callback for "button_press_event" in the instrument header icon
+		"""
+		if not self.instrument.isSelected:
+			self.OnSelect(widget, event)
+			# Don't edit type unless the user clicks while we are already selected
+			return True
+			
+		import AddInstrumentDialog
+		AddInstrumentDialog.AddInstrumentDialog(self.project, self.mainview, 
+		    self.instrument)
+
 	#=========================================================================	
