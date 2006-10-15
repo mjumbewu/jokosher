@@ -67,9 +67,9 @@ class JokDebug:
 
         for element in pipeline.sorted():
             try:
-                indent = self.DEBUG_PREFIX,
+                indent = self.DEBUG_PREFIX
                 for i in range(recurseDepth):
-                    indent += "\t",
+                    indent += "\t"
                 Globals.debug(indent + element.get_factory().get_name() + ": " + element.get_name())
 
                 self.ShowPipelineTree(element, recurseDepth+1, maxDepth)
