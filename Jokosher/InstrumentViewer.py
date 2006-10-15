@@ -297,7 +297,8 @@ class InstrumentViewer(gtk.EventBox):
 			self.labeleventbox.modify_bg(gtk.STATE_NORMAL, self.UNSELECTED_COLOUR)
 			self.eventLane.modify_bg(gtk.STATE_NORMAL, self.UNSELECTED_COLOUR)
 		
-		if self.instrument.pixbuf != self.image:
+		if self.instrument.pixbuf != self.image.get_pixbuf():
+			print "update %s %s"%(self.instrument.pixbuf,self.image.get_pixbuf())
 			self.image.clear()
 			self.image.set_from_pixbuf(self.instrument.pixbuf)
 			
