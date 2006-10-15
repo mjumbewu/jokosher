@@ -482,6 +482,10 @@ class InstrumentEffectsDialog:
 		"""
 			A preset is selected from the chain preset combo. Load it.
 		"""
+		
+		if self.instrument.effects == []:
+			self.instrument.converterElement.unlink(self.instrument.volumeElement)
+			
 		presetname = name = combo.get_active_text()
 		settings = self.presets.LoadInstrumentEffectChain(presetname)
 		
