@@ -86,7 +86,7 @@ class AddInstrumentDialog:
 				#find the actual instrument using index 1 (the instrument type)
 				#because the name has been wrapped in self.model and can't be used
 				instrItem = [x for x in Globals.getCachedInstruments() if x[1] == item[1]][0]
-			self.project.AddInstrument(*instrItem)
+				self.project.AddInstrument(*instrItem)
 		else:
 			item = self.model[sel[0][0]]
 			instrItem = [x for x in Globals.getCachedInstruments() if x[1] == item[1]][0]
