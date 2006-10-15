@@ -105,6 +105,10 @@ class EventViewer(gtk.DrawingArea):
 		self.drawer.add(trimButton)
 		trimButton.connect("clicked", self.TrimToSelection)
 		
+		delFPButton = gtk.Button(_("Delete Fade Points"))
+		self.drawer.add(delFPButton)
+		delFPButton.connect("clicked", self.DeleteSelectedFadePoints)
+		
 		self.drawer.show()
 		
 		self.mainview = mainview
@@ -740,6 +744,13 @@ class EventViewer(gtk.DrawingArea):
 		self.lane.fixed.move(self.drawer,eventx + x,75)
 		#don't update the lane because it calls us and that might cause infinite loop
 
+	#_____________________________________________________________________
+	
+	def DeleteSelectedFadePoints(self, event):
+		if self.event.isLoading == True:
+			return
+		self.event.DeleteSelectedFadePoints()
+		
 	#_____________________________________________________________________
 	
 #=========================================================================

@@ -612,18 +612,22 @@ class Event(Monitored, CommandManaged):
 		if self.__fadePointsDict.has_key(secondPoint):
 			self.temp4 = self.__fadePointsDict[secondPoint]
 		
-		self.__fadePointsDict[firstPoint] = firstVolume
-		self.__fadePointsDict[secondPoint] = secondVolume
+		if firstPoint and firstVolume:
+			self.__fadePointsDict[firstPoint] = firstVolume
+		if secondPoint and secondVolume:
+			self.__fadePointsDict[secondPoint] = secondVolume
 		
 		self.__UpdateAudioFadePoints()
 		self.StateChanged(self.WAVEFORM)
 	
 	#_____________________________________________________________________
 	
-	def RemoveAudioFadePoints(self, firstPoint, secondPoint, firstOldVolume, secondOldVolume):
+	def RemoveAudioFadePoints(self, firstPoint, secondPoint, firstOldVolume=None, secondOldVolume=None):
 		"""
 		   Removed a point with values from the fade list.
-		   The only use for this method is as an undo method for AddAudioFadePoints()
+		   If firstOldVolume and secondOldVolume are given,
+		   the levels at the two points will be replaces with the
+		   old volumes instead of being removed.
 		    
 		   undo : AddAudioFadePoints: temp, temp2, temp3, temp4
 		"""
@@ -643,13 +647,13 @@ class Event(Monitored, CommandManaged):
 		if firstOldVolume != None:
 			self.__fadePointsDict[firstPoint] = firstOldVolume
 		#else, just remove the point because it didn't exist before
-		else:
+		elif self.__fadePointsDict.has_key(firstPoint):
 			del self.__fadePointsDict[firstPoint]
 		
 		#same as above but for the second point
 		if secondOldVolume != None:
 			self.__fadePointsDict[secondPoint] = secondOldVolume
-		else:
+		elif self.__fadePointsDict.has_key(secondPoint):
 			del self.__fadePointsDict[secondPoint]
 			
 		self.__UpdateAudioFadePoints()
@@ -740,5 +744,21 @@ class Event(Monitored, CommandManaged):
 		return self.fadeLevels
 		
 	#_____________________________________________________________________
-
+	
+	def DeleteSelectedFadePoints(self):
+		removeList = []
+		for key in self.__fadePointsDict.iterkeys():
+			if key > self.selection[0] and key < self.selection[1]:
+				removeList.append(key)
+		
+		if len(removeList) % 2 == 0:
+			#if we have an even number, use the fact that
+			#RemoveAudioFadePoints takes two points.
+			for i in range(len(removeList))[::2]:
+				self.RemoveAudioFadePoints(removeList[i], removeList[i+1])
+		else:
+			for i in removeList:
+				self.RemoveAudioFadePoints(i, None)
+	
+	#_____________________________________________________________________
 #=========================================================================	
