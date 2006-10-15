@@ -83,7 +83,7 @@ class EventViewer(gtk.DrawingArea):
 		self.redrawWaveform = False		# Force redraw the cached waveform on next expose event
 		self.drawerAlignToLeft = True		#boolean; if the drawer should be at the left of current selection
 									#otherwise it will be put on the right
-		self.fadePoints = [100,100]		#the values of the right and left fade markers on the selection
+		self.fadeMarkers = [100,100]		#the values of the right and left fade markers on the selection
 		
 		# source is an offscreen canvas to hold our waveform image
 		self.source = cairo.ImageSurface(cairo.FORMAT_ARGB32, 0, 0)
@@ -192,7 +192,7 @@ class EventViewer(gtk.DrawingArea):
 			#place the fademarker outside the selection bounds.
 			if x1 + 1 >= self._PIXX_FADEMARKER_WIDTH:
 				pixxFM_left -= self._PIXX_FADEMARKER_WIDTH
-			pixyFM_left = int(padded_height * (100-self.fadePoints[0]) / 100.0)
+			pixyFM_left = int(padded_height * (100-self.fadeMarkers[0]) / 100.0)
 			context.rectangle(pixxFM_left, pixyFM_left,
 			                  self._PIXX_FADEMARKER_WIDTH , self._PIXY_FADEMARKER_HEIGHT)
 			
@@ -201,7 +201,7 @@ class EventViewer(gtk.DrawingArea):
 			#place the fademarker outside the selection bounds.
 			if x2 + self._PIXX_FADEMARKER_WIDTH > event.area.width:
 				pixxFM_right -= self._PIXX_FADEMARKER_WIDTH
-			pixyFM_right = int(padded_height * (100-self.fadePoints[1]) / 100.0)
+			pixyFM_right = int(padded_height * (100-self.fadeMarkers[1]) / 100.0)
 			context.rectangle(pixxFM_right, pixyFM_right,
 			                  self._PIXX_FADEMARKER_WIDTH, self._PIXY_FADEMARKER_HEIGHT)
 			
@@ -209,9 +209,9 @@ class EventViewer(gtk.DrawingArea):
 			
 			context.set_source_rgba(1,1,1,1)
 			context.move_to(pixxFM_left + 1, pixyFM_left + self._PIXY_FADEMARKER_HEIGHT - 1)
-			context.show_text("%s%%" % int(self.fadePoints[0]))
+			context.show_text("%s%%" % int(self.fadeMarkers[0]))
 			context.move_to(pixxFM_right + 1, pixyFM_right + self._PIXY_FADEMARKER_HEIGHT - 1)
-			context.show_text("%s%%"% int(self.fadePoints[1]))
+			context.show_text("%s%%"% int(self.fadeMarkers[1]))
 			context.stroke()
 			
 			# redo the rectangles so they're the path and we can in_fill() check later
@@ -368,7 +368,7 @@ class EventViewer(gtk.DrawingArea):
 			#set percent between 0 and 1
 			percent = min(1, max(0, percent))
 			
-			self.fadePoints[self.fadeBeingDragged] = 100 - int(percent * 100)
+			self.fadeMarkers[self.fadeBeingDragged] = 100 - int(percent * 100)
 			self.queue_draw()
 			
 			if not self.volmessageID:
@@ -408,11 +408,13 @@ class EventViewer(gtk.DrawingArea):
 		elif self.isSelecting:
 			x2 = max(0,min(self.allocation.width,mouse.x))
 			self.event.selection[1] = self.SecFromPixX(x2)
+			self.UpdateFadeMarkers()
 			
 			selection_direction = "ltor"
 			selection = self.event.selection
 			if selection[0] > selection[1]:
 				selection_direction = "rtol"
+				self.fadeMarkers.reverse()
 			
 			if self.drawer.parent != self.lane.fixed:
 				#the drawer is not in the lane, we must add it
@@ -462,7 +464,7 @@ class EventViewer(gtk.DrawingArea):
 				#   selecting part of this event
 				self.isSelecting = True
 				self.event.selection[0] = self.SecFromPixX(mouse.x)
-				self.fadePoints = [100,100]
+				self.fadeMarkers = [100,100]
 				if not self.selmessageID: 
 					self.selmessageID = self.mainview.SetStatusBar(_("<b>Click</b> the buttons below the selection to do something to that portion of audio."))
 			else:
@@ -653,6 +655,7 @@ class EventViewer(gtk.DrawingArea):
 	def OnStateChanged(self, obj, change=None):
 		if change == self.event.WAVEFORM:
 			self.redrawWaveform = True
+			self.UpdateFadeMarkers()
 		
 		elif change == self.event.MOVE:
 			self.lane.Update(self)
@@ -660,6 +663,7 @@ class EventViewer(gtk.DrawingArea):
 		elif change == self.event.LENGTH:
 			self.redrawWaveform = True
 			self.queue_resize()
+		
 		elif change == self.event.CORRUPT and self.small==False:
 			message=_("%s\n\nFile is corrupt, not an audio file, or the associated plugin is not installed"%self.event.filelabel)
 
@@ -707,8 +711,8 @@ class EventViewer(gtk.DrawingArea):
 	#_____________________________________________________________________
 	
 	def SetAudioFadePointsFromCurrentSelection(self):				
-		volLeft = self.fadePoints[0] / 100.0
-		volRight = self.fadePoints[1] / 100.0
+		volLeft = self.fadeMarkers[0] / 100.0
+		volRight = self.fadeMarkers[1] / 100.0
 		
 		selection = self.event.selection
 		self.event.AddAudioFadePoints(selection[0], selection[1], volLeft, volRight)
@@ -792,6 +796,11 @@ class EventViewer(gtk.DrawingArea):
 		self.event.selection = [leftChooses, rightChooses]
 		self.queue_draw()
 		
+	#_____________________________________________________________________
+	
+	def UpdateFadeMarkers(self):
+		self.fadeMarkers = [self.event.GetFadeLevelAtPoint(x) * 100 for x in self.event.selection]
+	
 	#_____________________________________________________________________
 
 #=========================================================================

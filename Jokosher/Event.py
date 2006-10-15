@@ -618,7 +618,6 @@ class Event(Monitored, CommandManaged):
 			self.__fadePointsDict[secondPoint] = secondVolume
 		
 		self.__UpdateAudioFadePoints()
-		self.StateChanged(self.WAVEFORM)
 	
 	#_____________________________________________________________________
 	
@@ -657,7 +656,6 @@ class Event(Monitored, CommandManaged):
 			del self.__fadePointsDict[secondPoint]
 			
 		self.__UpdateAudioFadePoints()
-		self.StateChanged(self.WAVEFORM)
 	
 	#_____________________________________________________________________
 	
@@ -686,6 +684,7 @@ class Event(Monitored, CommandManaged):
 				self.audioFadePoints.append(last)
 			
 		self.__UpdateFadeLevels()
+		self.StateChanged(self.WAVEFORM)
 	
 	#_____________________________________________________________________
 	
@@ -742,6 +741,35 @@ class Event(Monitored, CommandManaged):
 			self.__UpdateFadeLevels()
 			
 		return self.fadeLevels
+		
+	#_____________________________________________________________________
+	
+	def GetFadeLevelAtPoint(self, time):
+		"""
+		   Returns the level of the audio in percent (0-1)
+		   at the point given my time (in seconds)
+		"""
+		
+		if not self.audioFadePoints:
+			return 1.0
+		
+		#we can assume that audioFadePoints is sorted and has at least 2 elements
+		points = self.audioFadePoints
+		for i in xrange(1, len(points)):
+			if points[i][0] >= time:
+				right = points[i]
+				left = points[i-1]
+				break
+		
+		if right[0] == left[0]:
+			return 1.0
+		elif right[1] == left[1]:
+			return left[1]
+		else:
+			ratio = (right[1] - left[1]) / (right[0] - left[0])
+			
+		relativeLevel = ratio * (time - left[0])
+		return left[1] + relativeLevel
 		
 	#_____________________________________________________________________
 	
