@@ -300,6 +300,18 @@ class Event(Monitored, CommandManaged):
 		e = Event(self.instrument, self.file)
 		e.name = self.name
 		
+		dictLeft = {}
+		dictRight = {}
+		for key, value in self.__fadePointsDict.iteritems():
+			if key < split_point:
+				dictLeft[key] = value
+			if key > split_point:
+				dictRight[key - split_point] = value
+		#in case there is a fade passing through the split point, recreate half of it on either side
+		splitFadeLevel = self.GetFadeLevelAtPoint(split_point)
+		dictLeft[split_point] = splitFadeLevel
+		dictRight[0.0] = splitFadeLevel
+		
 		if cutRightSide:
 			e.start = self.start + split_point
 			e.offset = self.offset + split_point
@@ -309,6 +321,11 @@ class Event(Monitored, CommandManaged):
 			nl = int(len(self.levels) * (split_point / dur))
 			e.levels = self.levels[nl:]
 			self.levels = self.levels[:nl]
+			
+			self.__fadePointsDict = dictLeft
+			e.__fadePointsDict = dictRight
+			self.__UpdateAudioFadePoints()
+			e.__UpdateAudioFadePoints()
 		else:
 			e.start = self.start
 			e.offset = self.offset
@@ -321,6 +338,11 @@ class Event(Monitored, CommandManaged):
 			nl = int(len(self.levels) * (split_point / dur))
 			e.levels = self.levels[:nl]
 			self.levels = self.levels[nl:]
+			
+			self.__fadePointsDict = dictRight
+			e.__fadePointsDict = dictLeft
+			self.__UpdateAudioFadePoints()
+			e.__UpdateAudioFadePoints()
 		
 		return e
 	
@@ -334,13 +356,30 @@ class Event(Monitored, CommandManaged):
 		   from the instrument lane. This must be done from the function that called this one.
 		"""
 		if joinToRight:
+			for key, value in joinEvent.__fadePointsDict.iteritems():
+				self.__fadePointsDict[key + self.duration] = value
+			#remove the point on either edge that was created when they were split
+			if self.__fadePointsDict.has_key(self.duration):
+				del self.__fadePointsDict[self.duration]
+			
 			self.duration += joinEvent.duration
 			self.levels.extend(joinEvent.levels)
+			#update the fade point list after the level, and duration because it depends on them
+			self.__UpdateAudioFadePoints()
 		else:
 			self.start = joinEvent.start
 			self.offset = joinEvent.offset
 			self.duration += joinEvent.duration
 			self.levels = joinEvent.levels + self.levels
+			
+			newDict = joinEvent.copy()
+			for key, value in self.__fadePointsDict.iteritems():
+				newDict[key + joinEvent.duration] = value
+			#remove the point on either edge that was created when they were split
+			if newDict.has_key(joinEvent.duration):
+				del newDict[joinEvent.duration]
+			self.__fadePointsDict = newDict
+			self.__UpdateAudioFadePoints()
 		
 	#_____________________________________________________________________
 	
@@ -612,9 +651,10 @@ class Event(Monitored, CommandManaged):
 		if self.__fadePointsDict.has_key(secondPoint):
 			self.temp4 = self.__fadePointsDict[secondPoint]
 		
-		if firstPoint and firstVolume:
+		#we *must* compare to None here because audio points with volume 0 *are* allowed
+		if firstPoint != None and firstVolume != None:
 			self.__fadePointsDict[firstPoint] = firstVolume
-		if secondPoint and secondVolume:
+		if secondPoint != None and secondVolume != None:
 			self.__fadePointsDict[secondPoint] = secondVolume
 		
 		self.__UpdateAudioFadePoints()
