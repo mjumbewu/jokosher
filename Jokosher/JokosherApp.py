@@ -156,7 +156,6 @@ class MainApp:
 
 		self.CheckGstreamerVersions()
 
-
 		# set up presets registry - this should probably be removed here	
 		EffectPresets().FillEffectsPresetsRegistry()
 
@@ -965,7 +964,6 @@ class MainApp:
 
 	#_____________________________________________________________________
 	
-	
 	def SetProject(self, project):
 		try:
 			project.ValidateProject()
@@ -995,6 +993,7 @@ class MainApp:
 			
 		self.project = project
 		self.project.AddListener(self)
+		self.project.BusErrorCallback = self.ShowPipelineErrorDialog
 		self.InsertRecentProject(project.projectfile, project.name)
 		
 		Project.GlobalProjectObject = project
@@ -1096,7 +1095,23 @@ class MainApp:
 		dlg.destroy()
 	
 	#_____________________________________________________________________
+	
+	def ShowPipelineErrorDialog(self, *messages):
+		introstring = "Argh! Something went wrong and a serious error occurred:"
+		outrostring = "It is recommended that you report this to the Jokosher developers or get help at http://www.jokosher.org/forums/"
+		
+		outputtext = "\n\n".join(messages)
+		outputtext = "\n\n".join((introstring, outputtext, outrostring))
+		
+		dlg = gtk.MessageDialog(self.window,
+			gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
+			gtk.MESSAGE_ERROR,
+			gtk.BUTTONS_CLOSE,
+			outputtext)
+		dlg.connect('response', lambda dlg, response: dlg.destroy())
+		dlg.show()
 
+	#_____________________________________________________________________
 
 #=========================================================================
 

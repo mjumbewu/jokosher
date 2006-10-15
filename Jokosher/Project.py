@@ -283,7 +283,7 @@ class Project(Monitored, CommandManaged):
 		if usedefault:
 			try:
 				# Select first output device as default to avoid a GStreamer bug which causes
-		                # large amounts of latency with the ALSA 'default' device.
+				# large amounts of latency with the ALSA 'default' device.
 				outdevice = GetAlsaList("playback").values()[1]
 			except:
 				outdevice = "default"
@@ -300,6 +300,7 @@ class Project(Monitored, CommandManaged):
 		self.Mhandler = self.bus.connect("message", self.bus_message)
 		self.EOShandler = self.bus.connect("message::eos", self.stop)
 		self.Errorhandler = self.bus.connect("message::error", self.bus_error)
+		self.BusErrorCallback = None
 		
 		self.mainpipeline.add(self.playbackbin)
 		
@@ -447,19 +448,9 @@ class Project(Monitored, CommandManaged):
 		st = message.structure
 		error, debug = message.parse_error()
 		
-		introstring = "Argh! Something went wrong and a serious error occurred:"
-		outrostring = "It is recommended that you report this to the Jokosher developers or get help at http://www.jokosher.org/forums/"
-		outputtext = introstring + "\n\n" + str(error) + "\n\n" + str(debug) + "\n\n" + outrostring
-		
-		dlg = gtk.MessageDialog(None,
-			0,
-			gtk.MESSAGE_ERROR,
-			gtk.BUTTONS_CANCEL,
-			outputtext)
-		dlg.connect('response', lambda dlg, response: dlg.destroy())
-		dlg.show()
-		
-		Globals.debug(outputtext)
+		Globals.debug("Gstreamer bus error:", str(error), str(debug))
+		if self.BusErrorCallback:
+			self.BusErrorCallback(str(error), str(debug))
 
 	#_____________________________________________________________________
 				

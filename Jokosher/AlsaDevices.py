@@ -43,7 +43,7 @@ def GetAlsaList(type):
 		
 	return found
 
- #_____________________________________________________________________
+#_____________________________________________________________________
 
 def GetRecordingMixers(device):
 	"""Returns a list containing all the channels which have recording switched on.
@@ -70,3 +70,31 @@ def GetRecordingMixers(device):
 	alsamixer.set_state(gst.STATE_NULL)
 	
 	return recmixers
+
+#_____________________________________________________________________
+
+def GetRecordingSampleRate(device):
+	element = gst.element_factory_make("alsasrc", "alsasrc")
+
+	# must set proper device to get precise caps
+	element.set_property("device", "hw:0")
+
+	# open device (so caps are probed)
+	element.set_state(gst.STATE_READY)
+	pad = element.get_pad("src")
+	caps = pad.get_caps()
+	del pad
+
+	val = None
+	try:
+		val = caps[0]["rate"]
+	except KeyError:
+		pass
+		
+	# clean up
+	element.set_state(gst.STATE_NULL)
+	del element
+	
+	return val
+	
+#_____________________________________________________________________

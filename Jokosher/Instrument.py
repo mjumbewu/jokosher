@@ -446,7 +446,7 @@ class Instrument(Monitored, CommandManaged):
 		
 		   undo : SetName: temp
 		"""
-		if self.name == name:
+		if self.name != name:
 			self.temp = self.name
 			self.name = name
 			self.StateChanged()
