@@ -37,6 +37,9 @@ class AddInstrumentDialog:
 		
 		self.res.signal_autoconnect(self.signals)
 		
+		if self.instr: self.res.get_widget("instructions").set_text(
+		  _("Choose the new instrument type for %s") % self.instr.name)
+		
 		self.dlg = self.res.get_widget("AddInstrumentDialog")
 		self.tree = self.res.get_widget("Instruments")
 		self.search_entry = self.res.get_widget("instrument_search")
