@@ -70,13 +70,25 @@ def LoadParametersFromXML(self, parentElement):
 			
 #_____________________________________________________________________
 
-def StoreDictionaryToXML(doc, parent, dict):
-	"""Saves a dictionary of settings
-	   in an XML document (doc) with the parent XML tag (parent)"""
+def StoreDictionaryToXML(doc, parent, dict, tagName=None):
+	"""
+	   Saves a dictionary of settings
+	   in an XML document (doc) with the parent XML tag (parent).
+	   If tagName is not given, the dictionary keys will be used for the tag names.
+	   This means the key must all be strings and must not have any invalid XML
+	   character in them.
+	   If tagName is given, it is used for all the tag names, and the key is store in the
+	   keyvalue attribute and its type in the keytype attribute.
+	"""
 	   
 	for key, value in dict.iteritems():
-		node = doc.createElement("Item")
-		StoreVariableToNode(key, node, "keytype", "keyvalue")
+		if tagName:
+			node = doc.createElement(tagName)
+			StoreVariableToNode(key, node, "keytype", "keyvalue")
+		#if no tag name was provided, use the key
+		else:
+			node = doc.createElement(key)
+		
 		StoreVariableToNode(value, node, "type", "value")
 		parent.appendChild(node)
 
@@ -90,7 +102,10 @@ def LoadDictionaryFromXML(parentElement):
 	
 	for n in parentElement.childNodes:
 		if n.nodeType == xml.Node.ELEMENT_NODE:
-			key = LoadVariableFromNode(n, "keytype", "keyvalue")
+			if n.hasAttribute("keytype") and n.hasAttribute("keyvalue"):
+				key = LoadVariableFromNode(n, "keytype", "keyvalue")
+			else:
+				key = n.tagName
 			value = LoadVariableFromNode(n, "type", "value")
 			dictionary[key] = value
 	

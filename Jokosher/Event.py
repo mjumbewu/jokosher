@@ -151,7 +151,7 @@ class Event(Monitored, CommandManaged):
 		
 		xmlPoints = doc.createElement("FadePoints")
 		ev.appendChild(xmlPoints)
-		StoreDictionaryToXML(doc, xmlPoints, self.__fadePointsDict)
+		StoreDictionaryToXML(doc, xmlPoints, self.__fadePointsDict, "FadePoint")
 		
 		if self.levels:
 			levelsXML = doc.createElement("Levels")
