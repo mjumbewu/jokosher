@@ -103,11 +103,8 @@ class EventViewer(gtk.DrawingArea):
 		self.drawer = gtk.HBox()
 		trimButton = gtk.Button(_("Trim"))
 		self.drawer.add(trimButton)
-		
-		#TODO: bring back effects button when it actually does something
-		#effectButton = gtk.Button("E")
-		#self.drawer.add(effectButton)
 		trimButton.connect("clicked", self.TrimToSelection)
+		
 		self.drawer.show()
 		
 		self.mainview = mainview
@@ -403,6 +400,23 @@ class EventViewer(gtk.DrawingArea):
 		elif self.isSelecting:
 			x2 = max(0,min(self.allocation.width,mouse.x))
 			self.event.selection[1] = self.SecFromPixX(x2)
+			
+			selection_direction = "ltor"
+			selection = self.event.selection
+			if selection[0] > selection[1]:
+				selection_direction = "rtol"
+			
+			if self.drawer.parent != self.lane.fixed:
+				#the drawer is not in the lane, we must add it
+				self.lane.fixed.put(self.drawer,1,75)
+				#update the lane so the drawer is shown
+				self.lane.Update()
+			
+			#set the drawer align position
+			self.drawerAlignToLeft = (selection_direction == "rtol")
+			#move the drawer to its proper position
+			self.UpdateDrawerPosition(selection_direction == "rtol")
+			
 		else:
 			self.highlightCursor = mouse.x
 		
@@ -704,19 +718,24 @@ class EventViewer(gtk.DrawingArea):
 	
 	#_____________________________________________________________________
 	
-	def UpdateDrawerPosition(self):
+	def UpdateDrawerPosition(self, reverseSelectionPoints=False):
 		if self.drawer.parent != self.lane.fixed:
 			#drawer is not in lane
 			return
+		
+		if reverseSelectionPoints:
+			selection = [self.event.selection[1], self.event.selection[0]]
+		else:
+			selection = self.event.selection[:]
 	
 		eventx = int((self.event.start - self.project.viewStart) * self.project.viewScale)
 		if self.drawerAlignToLeft:
-			x = int(self.PixXFromSec(self.event.selection[0]))
+			x = int(self.PixXFromSec(selection[0]))
 		else:
 			width = self.drawer.allocation.width
 			if width == 1:
 				width = 40 # fudge it because it has no width initially
-			x = int(self.PixXFromSec(self.event.selection[1]) - width)
+			x = int(self.PixXFromSec(selection[1]) - width)
 		
 		self.lane.fixed.move(self.drawer,eventx + x,75)
 		#don't update the lane because it calls us and that might cause infinite loop
