@@ -13,7 +13,7 @@ import gettext
 _ = gettext.gettext
 
 import AddInstrumentDialog, TimeView, CompactMixView
-import PreferencesDialog, RecordingView, NewProjectDialog
+import PreferencesDialog, ExtensionManagerDialog, RecordingView, NewProjectDialog
 import Project, Globals, WelcomeDialog, AlsaDevices
 import InstrumentConnectionsDialog, StatusBar
 from EffectPresets import *
@@ -68,7 +68,8 @@ class MainApp:
 			"on_editmenu_activate" : self.OnEditMenu,
 			"on_projectmenu_activate" : self.OnProjectMenu,
 			"on_prereleasenotes_activate" : self.OnPreReleaseNotes,
-			"on_contributing_activate" : self.OnContributingDialog
+			"on_contributing_activate" : self.OnContributingDialog,
+			"on_ExtensionManager_activate" : self.OnExtensionManagerDialog
 		}
 		self.wTree.signal_autoconnect(signals)
 		
@@ -1132,6 +1133,9 @@ class MainApp:
 		dlg.show()
 
 	#_____________________________________________________________________
+
+	def OnExtensionManagerDialog(self, widget):
+		ExtensionManagerDialog.ExtensionManagerDialog(self)
 
 #=========================================================================
 

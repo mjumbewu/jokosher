@@ -488,6 +488,10 @@ def LoadAllExtensions():
 			try:
 				module = imp.load_module(fn, exten_file, filename, description)
 				Globals.debug("done.")
+				try:
+					Globals.AVAILABLE_EXTENSIONS.append((1, module.EXTENSION_NAME, module.EXTENSION_DESCRIPTION, module.EXTENSION_VERSION))
+				except:
+					pass
 			except Exception, e:
 				Globals.debug("failed.")
 				Globals.debug(e)
@@ -520,6 +524,10 @@ def LoadAllExtensions():
 		# instantiate it and then call the startup (if exists)
 		extension_class = entryPoint.load()
 		extension = extension_class()
+		try:
+			Globals.AVAILABLE_EXTENSIONS.append((1, extension.EXTENSION_NAME, extension.EXTENSION_DESCRIPTION, extension.EXTENSION_VERSION))
+		except:
+			pass
 		try:
 			extension.startup(API)
 		except:

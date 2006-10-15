@@ -230,7 +230,8 @@ if not LOCALE_PATH:
 	LOCALE_PATH = os.path.join(this_path, "..", "locale")
 	
 
-	
+#ExtensionManager Stuff
+AVAILABLE_EXTENSIONS = []
 	
 INSTRUMENT_HEADER_WIDTH = 0
 
