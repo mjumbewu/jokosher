@@ -512,11 +512,16 @@ class InstrumentEffectsDialog:
 			self.instrument.effects list.
 		"""
 		try:
+			self.mainpipeline.set_state(gst.STATE_NULL)
 			self.instrument.effectsbin.remove(self.instrument.effects[effectnum])
 		except:
 			pass
-		
+					
 		self.instrument.effects.pop(effectnum)
+		
+		if self.instrument.effects == []:
+			self.instrument.effectsbin_obsolete = 1
+			#self.instrument.converterElement.unlink(self.instrument.volumeElement)
 		
 		# after the effect is removed, run PopulateEffects() to re-built the
 		# GUI and as such, remove the effect widget

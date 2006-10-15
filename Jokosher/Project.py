@@ -389,6 +389,20 @@ class Project(Monitored, CommandManaged):
 			Globals.debug("play() in Project.py")
 
 			for ins in self.instruments:
+				if ins.effectsbin_obsolete == 1:
+					self.mainpipeline.set_state(gst.STATE_NULL)
+					Globals.debug("Unlinking obsolete effects bin")
+					ins.converterElement.unlink(ins.effectsbin)
+					ins.effectsbin.unlink(ins.volumeElement)
+					
+					effpads = list(ins.effectsbin.pads())
+					for p in effpads:
+						ins.effectsbin.remove_pad(p)
+					
+					elements = list(ins.effectsbin)
+					ins.effectsbin.remove_many(*elements)						
+					ins.effectsbin_obsolete = 0
+					
 				if ins.effects:
 					Globals.debug("there are effects")
 					Globals.debug("pipeline is NULL or ready, gonna prepare effects bin")
