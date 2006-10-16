@@ -707,18 +707,31 @@ class Instrument(Monitored, CommandManaged):
 
 	#_____________________________________________________________________
 
-	def ChangeType(self, name, type, pixbuf):
-		if type==self.instrType:
+	def ChangeType(self, type, name):
+		"""
+		   Changes the intruments type to the type specified.
+		   The given type must be loaded in the instrument list
+		   in Globals or the image will not be found.
+		   
+		   undo : ChangeType: temp, temp2
+		"""
+		
+		self.temp = self.instrType
+		self.temp2 = self.name
+		
+		pixbufList = [x[2] for x in Globals.getCachedInstruments() if x[1] == type]
+		if type != self.instrType and pixbufList:
+			pixbuf = pixbufList[0]
+		else:
 			return
 
-		oldname = self.name.lower()
-
-		if oldname.replace(" ","") == self.instrType:
+		oldname = self.name.lower().replace(" ","")
+		#if the instrument name has not been modified by the user, we can replace it.
+		if oldname == self.instrType:
 			self.name = name
 
 		self.instrType = type
 		self.pixbuf = pixbuf
-		self.project.unsavedChanges = True
 
 		self.StateChanged(self.IMAGE)
 

@@ -25,7 +25,7 @@ class AddInstrumentDialog:
 	"""	
 	#_____________________________________________________________________
 
-	def __init__(self, project, parent,instr=False):
+	def __init__(self, project, parent, instr=None):
 		self.parent = parent
 		self.project = project
 		self.instr = instr
@@ -88,7 +88,7 @@ class AddInstrumentDialog:
 		"""OK pushed on the dialog"""
 		
 		sel = self.tree.get_selected_items()
-		if self.instr ==  False:
+		if not self.instr:
 			for i in sel:
 				item = self.model[i[0]]
 				#find the actual instrument using index 1 (the instrument type)
@@ -98,7 +98,7 @@ class AddInstrumentDialog:
 		else:
 			item = self.model[sel[0][0]]
 			instrItem = [x for x in Globals.getCachedInstruments() if x[1] == item[1]][0]
-			self.instr.ChangeType(*instrItem)
+			self.instr.ChangeType(instrItem[1], instrItem[0])
 
 		self.parent.UpdateDisplay()
 		self.dlg.destroy()
