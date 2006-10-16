@@ -51,7 +51,7 @@ class EventViewer(gtk.DrawingArea):
 	_FADEMARKERS_RGBA = (1, 0, 0, 0.8)
 	_PLAY_POSITION_RGB = (1, 0, 0)
 	_HIGHLIGHT_POSITION_RGB = (0, 0, 1)
-	_FADELINE_RGB = (1, 0.7, 0.7)
+	_FADELINE_RGB = (1, 0.6, 0.6)
 	
 	#_____________________________________________________________________
 
@@ -277,21 +277,7 @@ class EventViewer(gtk.DrawingArea):
 		context.rectangle(0, 0, rect.width, rect.height)
 		context.set_source_rgb(*self._BACKGROUND_RGB)
 		context.fill()
-
-		if self.event.audioFadePoints:
-			# draw the fade line
-			context.set_source_rgb(*self._FADELINE_RGB)
-			
-			firstPoint = self.event.audioFadePoints[0]
-			pixx = self.PixXFromSec(firstPoint[0]) - rect.x
-			pixy = self.PixYFromVol(firstPoint[1])
-			context.move_to(pixx, pixy)
-			for sec, vol in self.event.audioFadePoints[1:]:
-				pixx = self.PixXFromSec(sec) - rect.x
-				pixy = self.PixYFromVol(vol)
-				context.line_to(pixx,pixy)		
-			context.stroke()
-
+		
 		# Draw volume curve
 		x_pos = int(rect.x/scale)
 		x = 0
@@ -326,6 +312,28 @@ class EventViewer(gtk.DrawingArea):
 		else:
 			context.set_line_width(self._MAX_LINE_WIDTH)
 		context.stroke()
+		
+		if self.event.audioFadePoints:
+			pixelPoints = []
+			# draw the fade line
+			context.set_source_rgb(*self._FADELINE_RGB)
+			
+			firstPoint = self.event.audioFadePoints[0]
+			pixx = self.PixXFromSec(firstPoint[0]) - rect.x
+			pixy = self.PixYFromVol(firstPoint[1])
+			context.move_to(pixx, pixy)
+			for sec, vol in self.event.audioFadePoints[1:]:
+				pixx = self.PixXFromSec(sec) - rect.x
+				pixy = self.PixYFromVol(vol)
+				pixelPoints.append((pixx, pixy))
+				context.line_to(pixx,pixy)		
+			context.stroke()
+			
+			#draw the fade points
+			for pixx, pixy in pixelPoints:
+				context.arc(pixx, pixy, 3.5, 0, 7)
+				context.fill()
+		
 		
 		# Reset the drawing scale
 		context.identity_matrix()
@@ -771,10 +779,10 @@ class EventViewer(gtk.DrawingArea):
 		points = [x[0] for x in self.event.audioFadePoints]
 		left, right = self.event.selection
 		
-		leftOfLeft = max([x for x in points if x <= left])
+		leftOfLeft = max([x for x in points if x < left])
 		rightOfLeft = min([x for x in points if x >= left])
 		
-		leftOfRight = max([x for x in points if x <= right])
+		leftOfRight = max([x for x in points if x < right])
 		rightOfRight = min([x for x in points if x >= right])
 		
 		if abs(leftOfLeft - left) < abs(rightOfLeft - left):
@@ -782,7 +790,7 @@ class EventViewer(gtk.DrawingArea):
 		else:
 			leftChooses = rightOfLeft
 
-		if abs(leftOfRight - right) > abs(rightOfLeft - left):
+		if abs(leftOfRight - right) > abs(rightOfRight - right):
 			rightChooses = rightOfRight
 		else:
 			rightChooses = leftOfRight
