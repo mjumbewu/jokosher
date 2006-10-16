@@ -459,7 +459,7 @@ class ExtensionAPI:
 		if not description or not extension and not pipelineString:
 			return 1
 		try:
-			bin = gst.gst_parse_bin_from_description(encodeBin)
+			bin = gst.gst_parse_bin_from_description("audioconvert ! %s" % encodeBin, True)
 			del bin
 		except gobject.GError:
 			return 2
