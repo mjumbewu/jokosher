@@ -3,6 +3,7 @@
 
 import os, gtk, imp, pickle, Globals, pkg_resources
 import gettext
+import traceback
 
 _ = gettext.gettext
 
@@ -82,10 +83,29 @@ if thing_that_imported_extension is None and \
 import ConfigParser
 import gst, gobject
 
+def exported_function(f):
+	"""
+		Wraps any exported functions so that exceptions do not cross the exported API.
+		Any exceptions caught by this should be a return error code from exported function.
+	"""
+	def wrapped(*args, **kwargs):
+		try:
+			result = f(*args, **kwargs)
+			return result
+		except:
+			Globals.debug("EXTENSION API BUG:\nUnhandled exception thrown in exported function: %s\n%s" %
+				(f.func_name, traceback.format_exc()))
+			return -2
+	wrapped.__doc__ = f.__doc__
+	wrapped.__name__ = f.func_name
+	return wrapped
+
 class ExtensionAPI:
+
 	def __init__(self, mainapp):
 		self.mainapp = mainapp
-		
+	
+	@exported_function	
 	def add_menu_item(self, menu_item_name, callback_function):
 		"""
 		   Adds a menu item to a Jokosher extension menu.
@@ -95,6 +115,7 @@ class ExtensionAPI:
 		new_menu_item.connect("activate", callback_function)
 		extensions_menu.prepend(new_menu_item)
 	
+	@exported_function
 	def play(self, play_state=True):
 		"""
 		   If play_state is True, it will play the project from the beginning.
@@ -105,14 +126,16 @@ class ExtensionAPI:
 		if play_state:
 			#Commence playing
 			self.mainapp.Play()
-		
+
+	@exported_function	
 	def stop(self):
 		"""
 		   Stops the project if it is currently playing.
 		   Same as play(play_state=False)
 		"""
 		self.mainapp.Stop()
-		
+	
+	@exported_function
 	def add_file_to_selected_instrument(self, uri, position=0):
 		"""
 		   Creates a new event from the file at the given URI and 
@@ -136,6 +159,7 @@ class ExtensionAPI:
 		#TODO: find out if the add failed and return 1
 		return 0
 
+	@exported_function
 	def add_file_to_instrument(self, instr_id, uri, position=0):
 		"""
 		   Creates a new event from the file at the given URI and 
@@ -153,6 +177,7 @@ class ExtensionAPI:
 	
 		return 2
 
+	@exported_function
 	def list_available_instrument_types(self):
 		"""
 		   Returns a list of tuples in the format:
@@ -163,6 +188,7 @@ class ExtensionAPI:
 		"""
 		return [(x[0], x[1], x[2].copy()) for x in Globals.getCachedInstruments()]
 		
+	@exported_function
 	def add_instrument(self, instr_type, instr_name=None):
 		"""
 		   Adds an instrument with the type 'instr_type' and
@@ -185,6 +211,7 @@ class ExtensionAPI:
 				return instr_index
 		return -1
 		
+	@exported_function
 	def list_project_instruments(self):
 		"""
 		   Returns a list of tuples in the format:
@@ -193,6 +220,7 @@ class ExtensionAPI:
 		"""
 		return [(instr.id, instr.name, instr.instrType, instr.pixbuf.copy()) for instr in self.mainapp.project.instruments]
 		
+	@exported_function
 	def delete_instrument(self, instrumentID):
 		"""
 		   Removes the instrument with the ID
@@ -221,6 +249,7 @@ class ExtensionAPI:
 		config_dict_fn = os.path.join(CONFIGPATH,mycaller + ".config")
 		return os.path.normpath(config_dict_fn)
 
+	@exported_function
 	def get_config_value(self, key):
 		"""
 		   Returns the config value saved under this key,
@@ -237,6 +266,7 @@ class ExtensionAPI:
 		except:
 			return None
 
+	@exported_function
 	def set_config_value(self, key, value):
 		"""
 		   Sets a new config value under key for later retrieval.
@@ -255,6 +285,7 @@ class ExtensionAPI:
 		pickle.dump(config_dict, fp)
 		fp.close()
 
+	@exported_function
 	def set_instrument_volume(self, instr_id, instr_volume):
 		"""
 		   Sets the volume of instrument with id 'instr_id'
@@ -270,6 +301,7 @@ class ExtensionAPI:
 				return 0
 		return 1
 
+	@exported_function
 	def get_instrument_volume(self, instr_id):
 		"""
 		   returns the lever of instrument with id 'instr_id'
@@ -283,6 +315,7 @@ class ExtensionAPI:
 				return instr.volume
 		return 1
 
+	@exported_function
 	def toggle_mute_instrument(self, instr_id):
 		"""
 		   mutes the instrument with id 'instr_id'
@@ -300,6 +333,7 @@ class ExtensionAPI:
 	#My Nan and Pop from Newfoundland aren't quite this bad, but they're close: 
 	#http://youtube.com/watch?v=It_0XzPVHaU
 
+	@exported_function
 	def get_instrument_effects(self, instr_id):
 		"""
 		   Gets the current effects applied to instrument
@@ -316,6 +350,7 @@ class ExtensionAPI:
 
 		return 1
 
+	@exported_function
 	def list_available_effects(self):
 		"""
 		   returns the available LADSPA effects
@@ -323,6 +358,7 @@ class ExtensionAPI:
 		#return a copy so they can't append or remove items from our list
 		return Globals.LADSPA_NAME_MAP[:]
 
+	@exported_function
 	def add_instrument_effect(self, instr_id, effect_name):
 		"""
 		   Adds the effect 'effect_name' to instrument
@@ -345,6 +381,7 @@ class ExtensionAPI:
 				return 2
 		return 1
 
+	@exported_function
 	def remove_instrument_effect(self, instr_id, effect_num):
 		"""
 		   This function removes the effect of index 'effect_num' 
@@ -374,6 +411,7 @@ class ExtensionAPI:
 
 	#TODO: function for editing existing effects
 
+	@exported_function
 	def create_new_instrument_type(self, defaultName, typeString, imagePath):
 		"""
 		   Creates and new instrument type in the user's 
@@ -441,6 +479,7 @@ class ExtensionAPI:
 		
 		return 0
 		
+	@exported_function
 	def add_export_format(self, description, extension, encodeBin):
 		"""
 		   Adds a new format that the use can select from
@@ -491,7 +530,8 @@ def LoadAllExtensions():
 				try:
 					Globals.AVAILABLE_EXTENSIONS.append((1, module.EXTENSION_NAME, module.EXTENSION_DESCRIPTION, module.EXTENSION_VERSION))
 				except:
-					pass
+					Globals.debug("Extension %s: Missing name, description, and/or version" % (exten_dir + f))
+					continue
 			except Exception, e:
 				Globals.debug("failed.")
 				Globals.debug(e)
@@ -527,7 +567,8 @@ def LoadAllExtensions():
 		try:
 			Globals.AVAILABLE_EXTENSIONS.append((1, extension.EXTENSION_NAME, extension.EXTENSION_DESCRIPTION, extension.EXTENSION_VERSION))
 		except:
-			pass
+			Globals.debug("Extension %s: Missing name, description, and/or version" % entryPoint)
+			continue
 		try:
 			extension.startup(API)
 		except:
