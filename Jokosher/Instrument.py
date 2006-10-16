@@ -58,6 +58,7 @@ class Instrument(Monitored, CommandManaged):
 		self.instrType = type			# The type of instrument
 		self.effects = []				# List of GStreamer effect elements
 		self.pan = 0.0					# pan number (between -100 and 100)
+		self.effectsbin_obsolete = 0    # set this to 1 when effects bin needs unlinking
 		
 		# Select first input device as default to avoid a GStreamer bug which causes
 		# large amounts of latency with the ALSA 'default' device.
