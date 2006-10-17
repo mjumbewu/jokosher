@@ -236,8 +236,8 @@ class RecordingView(gtk.Frame):
 			Callback for "clicked" signal from zoom in button
 		"""
 		tmp = self.project.viewScale * 1.5
-		# Warning: change this value with caution increases
-		# beyond 4000 are likely to cause crashes!
+		# beyond 4000 is likely to make the levels disappear
+		# increase or remove the limit if event level density is increased.
 		if tmp < 4000:
 			self.project.viewScale = tmp
 		self.project.SetViewScale(self.project.viewScale)
@@ -262,7 +262,10 @@ class RecordingView(gtk.Frame):
 			Called on a change of state in any objects that this object
 			is listening to.
 		"""
-		self.Update()
+		#HACK because we don't have an instance of instrument we can easily access.
+		#in case there are no instruments, we update (hence the "not")
+		if not self.project.instruments or change != self.project.instruments[0].VOLUME:
+			self.Update()
 		
 	#_____________________________________________________________________	
 #=========================================================================

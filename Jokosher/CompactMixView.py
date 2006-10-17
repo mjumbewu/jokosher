@@ -154,7 +154,11 @@ class CompactMixView(gtk.Frame):
 			  as this is wher the InstrumentViewer objects are created when
 				instruments are added.
 		"""
-		self.Update()
+		#HACK because we don't have an instance of instrument we can easily access.
+		#in case there are no instruments, we update (hence the "not")
+		if not self.project.instruments or change != self.project.instruments[0].VOLUME:
+			self.Update()
+		
 	#_____________________________________________________________________
 	
 	def OnUpdateTimeout(self):

@@ -32,7 +32,7 @@ import AlsaDevices
 class Instrument(Monitored, CommandManaged):
 	
 	#StateChanged constants
-	IMAGE = range(1)
+	IMAGE, VOLUME = range(2)
 	
 	#_____________________________________________________________________
 	
@@ -497,8 +497,10 @@ class Instrument(Monitored, CommandManaged):
 	def SetVolume(self, volume):
 		"""Sets the volume of the instrument in the range 0..1
 		"""
-		self.volume = volume
-		self.volumeElement.set_property("volume", volume)
+		if self.volume != volume:
+			self.volume = volume
+			self.volumeElement.set_property("volume", volume)
+			self.StateChanged(self.VOLUME)
 
 	#_____________________________________________________________________
 	
