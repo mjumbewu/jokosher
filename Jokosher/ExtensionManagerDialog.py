@@ -10,7 +10,7 @@ class ExtensionManagerDialog:
 		
 		signals = {
 			"on_Close_clicked" : self.OnClose,
-			#"on_Add_clicked" : self.OnAdd,
+			"on_Add_clicked" : self.OnAdd,
 			#"on_Remove_clicked": self.OnRemove
 		}
 		self.wTree.signal_autoconnect(signals)
@@ -50,35 +50,39 @@ class ExtensionManagerDialog:
 		self.model[path][0] = not self.model[path][0]
 		self.restart_label.set_property('visible', self.restart_label.get_property('visible'))
 	
-	#def OnAdd(self, button):
-	#	print "Add button Clicked"
-	#	chooser = gtk.FileChooserDialog((_('Choose a Jokosher Extension file')), None, gtk.FILE_CHOOSER_ACTION_OPEN, (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, gtk.STOCK_OPEN, gtk.RESPONSE_OK))
-	#
-	#	chooser.set_default_response(gtk.RESPONSE_OK)
-	#	chooser.set_transient_for(self.parent.window)
-	#	filter = gtk.FileFilter()
-	#	filter.set_name(_("Jokosher Extension Files (*.py *.egg)"))
-	#	filter.add_pattern("*.py")
-	#	filter.add_pattern("*.egg")
-	#
-	#	chooser.add_filter(filter)
-	#
-	#	while True:
-	#		response = chooser.run()
-	#		
-	#		if response == gtk.RESPONSE_OK:
-	#			filename = chooser.get_filename()
-	#			install_dlg = gtk.MessageDialog(None, gtk.DIALOG_MODAL, gtk.MESSAGE_QUESTION, 
-	#						gtk.BUTTONS_YES_NO, "Install extension to local jokosher extension directory?")
-	#			install_dlg.run()
-	#			print install_dlg.response()
-	#			install_dlg.destroy()	
-	#							
-	#		elif response == gtk.RESPONSE_CANCEL or response == gtk.RESPONSE_DELETE_EVENT:
-	#			break
-	#
-	#	chooser.destroy()
-	#
+	def OnAdd(self, button):
+		chooser = gtk.FileChooserDialog((_('Choose a Jokosher Extension file')), None, gtk.FILE_CHOOSER_ACTION_OPEN, (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, gtk.STOCK_OPEN, gtk.RESPONSE_OK))
+		chooser.set_default_response(gtk.RESPONSE_OK)
+		chooser.set_transient_for(self.dlg)
+
+		filter = gtk.FileFilter()
+		filter.set_name(_("Jokosher Extension Files (*.py *.egg)"))
+		filter.add_pattern("*.py")
+		filter.add_pattern("*.egg")
+
+		chooser.add_filter(filter)
+
+		while True:
+			response = chooser.run()
+			
+			if response == gtk.RESPONSE_OK:
+				install_dlg = gtk.MessageDialog(None, gtk.DIALOG_MODAL, gtk.MESSAGE_QUESTION, 
+							gtk.BUTTONS_YES_NO, "Install extension to local jokosher extension directory?")
+				install_response = install_dlg.run()
+				
+				if install_response == gtk.RESPONSE_YES:
+					filename = chooser.get_filename()
+					shutil.copy(filename, os.path.expanduser("~/.jokosher/extensions/")+os.path.basename(filename))
+					chooser.destroy()
+				else:
+					install_dlg.destroy()
+				install_dlg.destroy()	
+								
+			elif response == gtk.RESPONSE_CANCEL or response == gtk.RESPONSE_DELETE_EVENT:
+				break
+
+		chooser.destroy()
+
 	
 	#def OnRemove(self, button):
 		#indented for interpreter		
