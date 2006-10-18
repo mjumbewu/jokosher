@@ -292,12 +292,14 @@ class InstrumentViewer(gtk.EventBox):
 			self.headerEventBox.modify_bg(gtk.STATE_NORMAL, self.SELECTED_COLOUR)
 			self.labeleventbox.modify_bg(gtk.STATE_NORMAL, self.SELECTED_COLOUR)
 			self.eventLane.modify_bg(gtk.STATE_NORMAL, self.SELECTED_COLOUR)
+			self.imageeventbox.modify_bg(gtk.STATE_NORMAL, self.SELECTED_COLOUR)
 			
 		else:
 			self.modify_bg(gtk.STATE_NORMAL, self.UNSELECTED_COLOUR)
 			self.headerEventBox.modify_bg(gtk.STATE_NORMAL, self.UNSELECTED_COLOUR)
 			self.labeleventbox.modify_bg(gtk.STATE_NORMAL, self.UNSELECTED_COLOUR)
-			self.eventLane.modify_bg(gtk.STATE_NORMAL, self.UNSELECTED_COLOUR)			
+			self.eventLane.modify_bg(gtk.STATE_NORMAL, self.UNSELECTED_COLOUR)
+			self.imageeventbox.modify_bg(gtk.STATE_NORMAL, self.UNSELECTED_COLOUR)
 
 		self.instrlabel.set_text(self.instrument.name)
 		if self.editlabelPacked:
