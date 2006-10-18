@@ -1,6 +1,8 @@
 import gtk.glade
 import Globals
 import os,shutil
+import gettext
+_ = gettext.gettext
 
 class ExtensionManagerDialog:
 	def __init__(self, parent):
@@ -27,8 +29,8 @@ class ExtensionManagerDialog:
 		self.model = gtk.ListStore(bool, str, str, str)
 		self.tree.set_model(self.model)
 
-		for extension in Globals.AVAILABLE_EXTENSIONS:
-			self.model.append(extension[0:4])
+		for extension in parent.extensionManager.GetExtensions():
+			self.model.append((extension["enabled"], extension["name"], extension["description"], extension["version"]))
 
 		self.dlg.set_transient_for(self.parent.window)
 		self.dlg.show()

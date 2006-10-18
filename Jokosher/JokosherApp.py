@@ -18,6 +18,7 @@ import Project, Globals, WelcomeDialog, AlsaDevices
 import InstrumentConnectionsDialog, StatusBar
 from EffectPresets import *
 import Extension
+import ExtensionManager
 
 #=========================================================================
 
@@ -166,7 +167,8 @@ class MainApp:
 		if loadExtensions:
 			# Load extensions -- this should probably go somewhere more appropriate
 			Extension.API = Extension.ExtensionAPI(self)
-			Extension.LoadAllExtensions()
+			self.extensionManager = ExtensionManager.ExtensionManager()
+			Extension.LoadAllExtensions(self.extensionManager)
 
 
 		## Setup is complete so start up the GUI and perhaps load a project

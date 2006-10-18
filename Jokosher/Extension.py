@@ -509,73 +509,19 @@ class ExtensionAPI:
 		
 		return 0
 
-def LoadAllExtensions():
+def LoadAllExtensions(extensionManager):
 	"""
 		 Walk through all the EXTENSION_DIRS and import every .py and .egg file we find.
 	"""
 	for exten_dir in EXTENSION_DIRS:
 		if not os.path.isdir(exten_dir):
 			continue
-		#get a list of all the file that end in .py
-		fileList = [x for x in os.listdir(exten_dir) if x.endswith(".py")]
-		for f in fileList:
-			module = None
-			fn = os.path.splitext(f)[0]
-			Globals.debug("importing extension", f)
-			exten_file, filename, description = imp.find_module(fn, [exten_dir])
-			
-			try:
-				module = imp.load_module(fn, exten_file, filename, description)
-				Globals.debug("done.")
-				try:
-					Globals.AVAILABLE_EXTENSIONS.append((1, module.EXTENSION_NAME, module.EXTENSION_DESCRIPTION, module.EXTENSION_VERSION))
-				except:
-					Globals.debug("Extension %s: Missing name, description, and/or version" % (exten_dir + f))
-					continue
-			except Exception, e:
-				Globals.debug("failed.")
-				Globals.debug(e)
-				if exten_file:
-					exten_file.close()
-				continue
-			if exten_file:
-				exten_file.close()
-			
-			# run the module's startup() function if it has one (it should do),
-			# and throw away errors. (FIXME: should throw away "it doesn't exist",
-			# but report any others so problems can be debugged.)
-			if module:
-				try:
-					module.startup(API)
-				except:
-					pass
-			#don't block the gui when loading many extensions
-			while gtk.events_pending():
-				gtk.main_iteration()
-				
-		# now check for egg files and add each to working set
-		for x in os.listdir(exten_dir):
-			if x.endswith(".egg"):
-				pkg_resources.working_set.add_entry(exten_dir + x)
-	
-	# now scan working set for any extensions
-	for entryPoint in pkg_resources.iter_entry_points("jokosher.extensions"):
-		# for each extension load a reference to the class,
-		# instantiate it and then call the startup (if exists)
-		extension_class = entryPoint.load()
-		extension = extension_class()
-		try:
-			Globals.AVAILABLE_EXTENSIONS.append((1, extension.EXTENSION_NAME, extension.EXTENSION_DESCRIPTION, extension.EXTENSION_VERSION))
-		except:
-			Globals.debug("Extension %s: Missing name, description, and/or version" % entryPoint)
-			continue
-		try:
-			extension.startup(API)
-		except:
-			pass
-		#again, don't block the gui when loading many extensions
-		while gtk.events_pending():
-			gtk.main_iteration()
+		for filename in os.listdir(exten_dir):
+			if filename.endswith(".egg") or filename.endswith(".py"):
+				extensionManager.LoadExtensionFromFile(filename, exten_dir)
+				# don't block the gui when loading many extensions
+				while gtk.events_pending():
+					gtk.main_iteration()
 		
 		
 API = None
