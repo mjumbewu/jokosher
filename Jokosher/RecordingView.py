@@ -27,6 +27,7 @@ class RecordingView(gtk.Frame):
 
 	__gtype_name__ = 'RecordingView'
 	INSTRUMENT_HEADER_WIDTH = 150
+	EXTRA_SCROLL_TIME = 10
 
 	#_____________________________________________________________________
 
@@ -99,7 +100,8 @@ class RecordingView(gtk.Frame):
 		# calculate scrollable width - allow 4 pixels for borders
 		self.scrollRange.page_size = (self.allocation.width - Globals.INSTRUMENT_HEADER_WIDTH - 4) / self.project.viewScale
 		self.scrollRange.page_increment = self.scrollRange.page_size
-		length = self.project.GetProjectLength()
+		# add EXTRA_SCROLL_TIME extra seconds
+		length = self.project.GetProjectLength() + self.EXTRA_SCROLL_TIME
 		self.scrollRange.upper = length
 		# Need to adjust project view start if we are zooming out
 		# and the end of the project is now before the end of the page.
@@ -108,7 +110,7 @@ class RecordingView(gtk.Frame):
 		if self.project.viewStart + self.scrollRange.page_size > length:
 			start = max(0, length - self.scrollRange.page_size)
 			self.scrollRange.value = start
-			if start != self.project.SetViewStart:
+			if start != self.project.viewStart:
 				self.project.SetViewStart(start)
 			
 		
