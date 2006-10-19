@@ -18,17 +18,17 @@
 	msgmerge -UN $@ $<
 
 #Generic rule for POT files
-%.pot: ../../Jokosher.glade ../../*.py ../../Instruments/*.instr
+%.pot: ../../Jokosher/Jokosher.glade ../../Jokosher/*.py ../../Instruments/*.instr
 	############
 	#CREATING $@
 	############
-	intltool-extract --type=gettext/glade ../../Jokosher.glade
+	intltool-extract --type=gettext/glade ../../Jokosher/Jokosher.glade
 	python i18nReadInstr.py ../../Instruments/*.instr > i18n.instr.h
-	xgettext -k_ -kN_ -o $@ ../../Jokosher.glade.h ../../*.py i18n.instr.h
+	xgettext -k_ -kN_ -o $@ ../../Jokosher/Jokosher.glade.h ../../Jokosher/*.py i18n.instr.h
 
 update: $(shell ls *.po)
 
 all: $(subst .po,.mo,$(shell ls *.po))
 
 clean:
-	rm *.mo i18n.instr.h ../../Jokosher.glade.h
+	rm *.mo i18n.instr.h ../../Jokosher/Jokosher.glade.h

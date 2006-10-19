@@ -8,15 +8,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: jokosher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-23 17:30-0400\n"
-"PO-Revision-Date: 2006-08-16 06:00+0000\n"
+"POT-Creation-Date: 2006-10-18 20:59-0400\n"
+"PO-Revision-Date: 2006-09-18 14:51+0000\n"
 "Last-Translator: Jerome S. Gotangco <jgotangco@ubuntu.com>\n"
 "Language-Team: Tagalog <tl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../../Jokosher.glade.h:1
+#: ../../Jokosher/Jokosher.glade.h:1
 msgid ""
 "16 bit\n"
 "24 bit\n"
@@ -26,7 +26,7 @@ msgstr ""
 "24 bit\n"
 "32 bit"
 
-#: ../../Jokosher.glade.h:4
+#: ../../Jokosher/Jokosher.glade.h:4
 msgid ""
 "96000\n"
 "48000\n"
@@ -47,31 +47,31 @@ msgstr ""
 "16000\n"
 "8000"
 
-#: ../../Jokosher.glade.h:13
+#: ../../Jokosher/Jokosher.glade.h:13
 msgid "<b>Application Start-up</b>"
-msgstr ""
+msgstr "<b>Application Start-up</b>"
 
-#: ../../Jokosher.glade.h:14
+#: ../../Jokosher/Jokosher.glade.h:14
 msgid "<b>Art</b>"
 msgstr "<b>Sining</b>"
 
-#: ../../Jokosher.glade.h:15
+#: ../../Jokosher/Jokosher.glade.h:15
 msgid "<b>Audio Mixdown</b>"
 msgstr "<b>Audio Mixdown</b>"
 
-#: ../../Jokosher.glade.h:16
+#: ../../Jokosher/Jokosher.glade.h:16
 msgid "<b>Audio Quality</b>"
 msgstr "<b>Kalidad ng Audio</b>"
 
-#: ../../Jokosher.glade.h:17
+#: ../../Jokosher/Jokosher.glade.h:17
 msgid "<b>Coding</b>"
 msgstr "<b>Coding</b>"
 
-#: ../../Jokosher.glade.h:18
+#: ../../Jokosher/Jokosher.glade.h:18
 msgid "<b>Documentation</b>"
 msgstr "<b>Dokumentasyon</b>"
 
-#: ../../Jokosher.glade.h:19
+#: ../../Jokosher/Jokosher.glade.h:19
 msgid ""
 "<b>Jokosher is an Open Source project that is driven by a community of "
 "contributors. To make Jokosher rock, we need your help!</b>"
@@ -80,19 +80,19 @@ msgstr ""
 "nag-aambag ng tulong. Kailangan namin ang tulong niyo para lalong gumanda "
 "ang Jokosher!</b>"
 
-#: ../../Jokosher.glade.h:20
+#: ../../Jokosher/Jokosher.glade.h:20
 msgid "<b>Quality</b>"
 msgstr "<b>Kalidad</b>"
 
-#: ../../Jokosher.glade.h:21
+#: ../../Jokosher/Jokosher.glade.h:21
 msgid "<b>Recent Projects</b>"
 msgstr "<b>Mga Proyektong kailan lamang ginamit</b>"
 
-#: ../../Jokosher.glade.h:22
+#: ../../Jokosher/Jokosher.glade.h:22
 msgid "<b>Testing</b>"
 msgstr "<b>Subukin</b>"
 
-#: ../../Jokosher.glade.h:23
+#: ../../Jokosher/Jokosher.glade.h:23
 msgid ""
 "<b>To find out more, visit:</b>\n"
 "http://www.jokosher.org/contribute"
@@ -100,206 +100,224 @@ msgstr ""
 "<b>Alamin ang iba pa tungkol sa Jokosher, bumisita sa:</b>\n"
 "http://www.jokosher.org/contribute"
 
-#: ../../Jokosher.glade.h:25
+#: ../../Jokosher/Jokosher.glade.h:25
 msgid "Add Instrument"
 msgstr "Magdagdag ng instrumento"
 
-#: ../../Jokosher.glade.h:26
+#: ../../Jokosher/Jokosher.glade.h:26
+msgid "Add an extension"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:27
 msgid "Add an instrument"
 msgstr "Magdagdag ng instrumento"
 
-#: ../../Jokosher.glade.h:27
+#: ../../Jokosher/Jokosher.glade.h:28
 msgid "Audio production made simple."
 msgstr ""
 
-#: ../../Jokosher.glade.h:28
+#: ../../Jokosher/Jokosher.glade.h:29
 msgid "Author"
 msgstr "May-katha"
 
-#: ../../Jokosher.glade.h:29
+#: ../../Jokosher/Jokosher.glade.h:30
 msgid "Browse for an Existing Project"
 msgstr ""
 
-#: ../../Jokosher.glade.h:30
+#: ../../Jokosher/Jokosher.glade.h:31
+msgid "Change Instrument Type"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:32
 msgid "Choose one or more instruments to add to your project."
 msgstr ""
 "Pumili ng isa o higit pang mga instrumento para idagdag sa iyong proyekto"
 
-#: ../../Jokosher.glade.h:31
+#: ../../Jokosher/Jokosher.glade.h:33
 msgid "Configure Instrument Effects"
 msgstr ""
 
-#: ../../Jokosher.glade.h:32
+#: ../../Jokosher/Jokosher.glade.h:34
 msgid "Contributing to Jokosher"
 msgstr "Mag-ambag sa Jokosher"
 
-#: ../../Jokosher.glade.h:33
+#: ../../Jokosher/Jokosher.glade.h:35
 msgid "Create a New Project"
 msgstr "Gumawa ng Bagong Proyekto"
 
-#: ../../Jokosher.glade.h:34
+#: ../../Jokosher/Jokosher.glade.h:36
 msgid "Device"
 msgstr "Kagamitan"
 
-#: ../../Jokosher.glade.h:35
+#: ../../Jokosher/Jokosher.glade.h:37
 msgid "Don't open anything"
 msgstr "Huwag magbukas ng kahit na ano"
 
-#: ../../Jokosher.glade.h:36
+#: ../../Jokosher/Jokosher.glade.h:38
 msgid "Don't show this on start-up"
 msgstr "Huwag nang ipakita ito sa pag-simula"
 
-#: ../../Jokosher.glade.h:37
+#: ../../Jokosher/Jokosher.glade.h:39
 msgid "Drawing icons, images and other art."
 msgstr "Gumuhit ng mga icons, larawan at iba pang sining."
 
-#: ../../Jokosher.glade.h:38
+#: ../../Jokosher/Jokosher.glade.h:40
 msgid ""
 "Enter a name for your project and select a folder to store the project in:"
 msgstr ""
 "Maglagay ng pangalan para sa inyong proyekto at pumili ng polder kung saan "
 "iluluklok ang proyekto:"
 
-#: ../../Jokosher.glade.h:39
+#: ../../Jokosher/Jokosher.glade.h:41
 msgid "Folder"
 msgstr "Polder"
 
-#: ../../Jokosher.glade.h:40
+#: ../../Jokosher/Jokosher.glade.h:42
 msgid "General"
 msgstr "Pangkalahatan"
 
-#: ../../Jokosher.glade.h:41
+#: ../../Jokosher/Jokosher.glade.h:43
 msgid "Instrument Connections"
+msgstr "Mga Koneksiyon ng mga Instrumento"
+
+#: ../../Jokosher/Jokosher.glade.h:44
+msgid ""
+"Jokosher must be restarted in\n"
+"order for changes to take effect."
 msgstr ""
 
-#: ../../Jokosher.glade.h:42
+#: ../../Jokosher/Jokosher.glade.h:46
 msgid "Mixing"
 msgstr ""
 
-#: ../../Jokosher.glade.h:43
+#: ../../Jokosher/Jokosher.glade.h:47
 msgid "Mixing Project"
 msgstr ""
 
-#: ../../Jokosher.glade.h:44 ../../NewProjectDialog.py:73
+#: ../../Jokosher/Jokosher.glade.h:48 ../../Jokosher/NewProjectDialog.py:72
 msgid "New Project"
 msgstr "Bagong Proyekto"
 
-#: ../../Jokosher.glade.h:45
+#: ../../Jokosher/Jokosher.glade.h:49
 msgid "Open Selected Project"
 msgstr "Buksan ang napiling Proyekto"
 
-#: ../../Jokosher.glade.h:46
+#: ../../Jokosher/Jokosher.glade.h:50
 msgid "Open most recent project"
 msgstr "Buksan ang huling proyekto na ginamit"
 
-#: ../../Jokosher.glade.h:47
+#: ../../Jokosher/Jokosher.glade.h:51
 msgid "Output Format"
 msgstr "Porma ng Output"
 
-#: ../../Jokosher.glade.h:48
+#: ../../Jokosher/Jokosher.glade.h:52
 msgid "Playback"
-msgstr ""
+msgstr "Playback"
 
-#: ../../Jokosher.glade.h:49
+#: ../../Jokosher/Jokosher.glade.h:53
 msgid "Pre-release Notes"
 msgstr ""
 
-#: ../../Jokosher.glade.h:50
+#: ../../Jokosher/Jokosher.glade.h:54
 msgid "Preferences"
 msgstr "Mga Kagustuhan"
 
-#: ../../Jokosher.glade.h:51
+#: ../../Jokosher/Jokosher.glade.h:55
 msgid "Presets"
-msgstr ""
+msgstr "Presets"
 
-#: ../../Jokosher.glade.h:52
+#: ../../Jokosher/Jokosher.glade.h:56
 msgid "Preview"
 msgstr ""
 
-#: ../../Jokosher.glade.h:53
+#: ../../Jokosher/Jokosher.glade.h:57
 msgid "Project Name"
 msgstr "Pangalan ng Proyekto"
 
-#: ../../Jokosher.glade.h:54
+#: ../../Jokosher/Jokosher.glade.h:58
 msgid "Recent Projects"
 msgstr "Mga Proyektong kailan lamang ginamit"
 
-#: ../../Jokosher.glade.h:55
+#: ../../Jokosher/Jokosher.glade.h:59
 msgid "Recording"
 msgstr "Nagre-rekord"
 
-#: ../../Jokosher.glade.h:56
+#: ../../Jokosher/Jokosher.glade.h:60
 msgid "Redo"
 msgstr "Gawin muli"
 
-#: ../../Jokosher.glade.h:57
+#: ../../Jokosher/Jokosher.glade.h:61
+msgid "Remove curently selected extension"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:62
 msgid "Sample Format"
 msgstr "Sample Format"
 
-#: ../../Jokosher.glade.h:58
+#: ../../Jokosher/Jokosher.glade.h:63
 msgid "Sample Rate (Hz)"
 msgstr "Sample Rate (Hz)"
 
-#: ../../Jokosher.glade.h:59
+#: ../../Jokosher/Jokosher.glade.h:64
 msgid "Save Files As"
-msgstr ""
+msgstr "Iluklok ang mga File bilang"
 
-#: ../../Jokosher.glade.h:60
+#: ../../Jokosher/Jokosher.glade.h:65
 msgid "Search:"
 msgstr "Hanapin:"
 
-#: ../../Jokosher.glade.h:61
+#: ../../Jokosher/Jokosher.glade.h:66
 msgid "Select A Folder"
 msgstr "Pumili ng Polder"
 
-#: ../../Jokosher.glade.h:62
+#: ../../Jokosher/Jokosher.glade.h:67
 msgid "Select an effect"
 msgstr "Pumili ng epekto"
 
-#: ../../Jokosher.glade.h:63
+#: ../../Jokosher/Jokosher.glade.h:68
 msgid "Select an effect to add to the instrument"
 msgstr "Pumili ng epekto na idadagdag sa instrumento"
 
-#: ../../Jokosher.glade.h:64
+#: ../../Jokosher/Jokosher.glade.h:69
 msgid "Select an instrument, then click here to begin recording"
 msgstr "Pumili ng instrumento, at pindutin ito para simulan ang pag rekord"
 
-#: ../../Jokosher.glade.h:65
+#: ../../Jokosher/Jokosher.glade.h:70
 msgid "Settings"
-msgstr ""
+msgstr "Settings"
 
-#: ../../Jokosher.glade.h:66
+#: ../../Jokosher/Jokosher.glade.h:71
 msgid "Show as Bars, Beats, Ticks"
 msgstr "Ipakita bilang Bars, Beats at Ticks"
 
-#: ../../Jokosher.glade.h:67
+#: ../../Jokosher/Jokosher.glade.h:72
 msgid "Show as Hours, Minutes, Seconds"
 msgstr "Ipakita bilang Oras, Minuto, Segundo"
 
-#: ../../Jokosher.glade.h:68
+#: ../../Jokosher/Jokosher.glade.h:73
 msgid "Show welcome dialog"
 msgstr "Ipakita ang diyalogo ng pagbati."
 
-#: ../../Jokosher.glade.h:69
+#: ../../Jokosher/Jokosher.glade.h:74
 msgid "Testing Jokosher, and submitting bugs."
 msgstr "Pagsusuri sa Jokosher at pag-sumite ng mga pagkakamali"
 
-#: ../../Jokosher.glade.h:70
+#: ../../Jokosher/Jokosher.glade.h:75
 msgid "Time Format"
 msgstr "Porma ng Oras"
 
-#: ../../Jokosher.glade.h:71
+#: ../../Jokosher/Jokosher.glade.h:76
 msgid "Undo"
 msgstr "Ibalik"
 
-#: ../../Jokosher.glade.h:72
+#: ../../Jokosher/Jokosher.glade.h:77
 msgid ""
 "Use the combo boxes below to select which input is used with which instrument"
 msgstr ""
 "Gamitin ang mga combo boxes sa ibaba para piliin ang input na gagamitin sa "
 "alin mang instrumento"
 
-#: ../../Jokosher.glade.h:73
+#: ../../Jokosher/Jokosher.glade.h:78
 msgid ""
 "Wave\n"
 "FLAC\n"
@@ -309,99 +327,116 @@ msgstr ""
 "FLAC\n"
 "Ogg Vorbis"
 
-#: ../../Jokosher.glade.h:76
+#: ../../Jokosher/Jokosher.glade.h:81
 msgid "Welcome to Jokosher!"
 msgstr "Mabuhay ito ang Jokosher!"
 
-#: ../../Jokosher.glade.h:77
+#: ../../Jokosher/Jokosher.glade.h:82
 #, fuzzy
 msgid "Workspaces"
 msgstr "Workspaces"
 
-#: ../../Jokosher.glade.h:78
+#: ../../Jokosher/Jokosher.glade.h:83
 msgid "Writing code and features in Python."
 msgstr "Magsulat ng code at mga dagdag na mga katangian sa Python"
 
-#: ../../Jokosher.glade.h:79
+#: ../../Jokosher/Jokosher.glade.h:84
 msgid "Writing simple to read documentation."
 msgstr "Magsulat ng dokumentasyon na madaling basahin at maintindihan"
 
-#: ../../Jokosher.glade.h:80
+#: ../../Jokosher/Jokosher.glade.h:85
 msgid "_Edit"
-msgstr ""
+msgstr "I-_Edit"
 
-#: ../../Jokosher.glade.h:81
+#: ../../Jokosher/Jokosher.glade.h:86
 msgid "_Extensions"
-msgstr ""
+msgstr "_Extensions"
 
-#: ../../Jokosher.glade.h:82
+#: ../../Jokosher/Jokosher.glade.h:87
 msgid "_File"
-msgstr ""
+msgstr "_Talaksan"
 
-#: ../../Jokosher.glade.h:83
+#: ../../Jokosher/Jokosher.glade.h:88
 #, fuzzy
 msgid "_Help"
 msgstr "_Tulong"
 
-#: ../../Jokosher.glade.h:84
+#: ../../Jokosher/Jokosher.glade.h:89
 msgid "_Manage Extensions"
 msgstr ""
 
-#: ../../Jokosher.glade.h:85
+#: ../../Jokosher/Jokosher.glade.h:90
 msgid "_Mixdown Project"
 msgstr ""
 
-#: ../../Jokosher.glade.h:86
+#: ../../Jokosher/Jokosher.glade.h:91
 #, fuzzy
 msgid "_Project"
 msgstr "_Proyekto"
 
-#: ../../Jokosher.glade.h:87
+#: ../../Jokosher/Jokosher.glade.h:92
 msgid "foo"
+msgstr "foo"
+
+#: ../../Jokosher/Jokosher.glade.h:93
+msgid "gtk-clear"
 msgstr ""
 
-#: ../../Jokosher.glade.h:89
-msgid "translator-credits"
-msgstr "Jerome Gotangco <jgotangco@ubuntu.com>, 2006"
+#: ../../Jokosher/AddInstrumentDialog.py:48
+msgid "Change Instrument type"
+msgstr ""
 
-#: ../../CompactMixView.py:83
+#: ../../Jokosher/AddInstrumentDialog.py:50
+#, python-format
+msgid "Choose the new instrument type for %s"
+msgstr ""
+
+#: ../../Jokosher/CompactMixView.py:105
 msgid "<b>Instruments Not Shown:</b>"
 msgstr "<b>Mga Instrumentong hindi pinakita:</b>"
 
-#: ../../EventLaneViewer.py:145
+#: ../../Jokosher/EventLaneViewer.py:182
 msgid "Import Audio File..."
 msgstr "Angkatin ang Talaksang Audio..."
 
-#: ../../EventLaneViewer.py:147
+#: ../../Jokosher/EventLaneViewer.py:184
 msgid "Paste"
 msgstr "Idikit"
 
-#: ../../EventLaneViewer.py:148 ../../EventViewer.py:472
+#: ../../Jokosher/EventLaneViewer.py:185 ../../Jokosher/EventViewer.py:523
 msgid "Delete"
 msgstr "Alisin"
 
-#: ../../EventLaneViewer.py:179
+#: ../../Jokosher/EventLaneViewer.py:222
 msgid "<b>Right-click</b> for more options."
 msgstr "<b>Right-click</b> para sa iba pang mga opsiyon."
 
-#: ../../EventLaneViewer.py:199
+#: ../../Jokosher/EventLaneViewer.py:249
 msgid "Copy file to project"
 msgstr "Kopyahin ang file sa proyekto"
 
-#: ../../EventLaneViewer.py:204
+#: ../../Jokosher/EventLaneViewer.py:254
 msgid "Import file..."
 msgstr "Angkatin ang talaksan..."
 
-#: ../../EventViewer.py:93
+#: ../../Jokosher/EventViewer.py:105
 msgid "Trim"
 msgstr "Bawasan"
 
-#: ../../EventViewer.py:241
+#: ../../Jokosher/EventViewer.py:109
+msgid "Delete Fade Points"
+msgstr ""
+
+#: ../../Jokosher/EventViewer.py:113
+msgid "Snap To Fade Points"
+msgstr ""
+
+#: ../../Jokosher/EventViewer.py:265
 #, python-format
 msgid "Loading (%d%%)..."
 msgstr "Kinakarga (%d%%)..."
 
-#: ../../EventViewer.py:341
+#: ../../Jokosher/EventViewer.py:371
 msgid ""
 "To <b>Split, Double-Click</b> the wave - To <b>Select, Shift-Click</b> and "
 "drag the mouse"
@@ -409,71 +444,121 @@ msgstr ""
 "Para <b>hatiin, mag Double-Click</b> sa wave - Para <b>Piliin, Shift-Click</"
 "b> at hilahin ang mouse."
 
-#: ../../EventViewer.py:355
+#: ../../Jokosher/EventViewer.py:385
 msgid ""
 "<b>NOTE</b>: The volume sliders in this pre-release version of Jokosher do "
 "not affect the audio."
 msgstr ""
+"<b>ABISO</b>: Ang mga volume sliders sa pre-release version na ito ng "
+"Jokosher ay walang bisa sa tunog."
 
-#: ../../EventViewer.py:429
+#: ../../Jokosher/EventViewer.py:479
 msgid ""
 "<b>Click</b> the buttons below the selection to do something to that portion "
 "of audio."
 msgstr ""
 
-#: ../../EventViewer.py:468
+#: ../../Jokosher/EventViewer.py:519
 msgid "Split"
 msgstr "Hatiin"
 
-#: ../../EventViewer.py:470
+#: ../../Jokosher/EventViewer.py:521
 msgid "Cut"
 msgstr "Putulin"
 
-#: ../../EventViewer.py:471
+#: ../../Jokosher/EventViewer.py:522
 msgid "Copy"
 msgstr "Kopyahin"
 
-#: ../../EventViewer.py:624
+#: ../../Jokosher/EventViewer.py:678
 #, python-format
 msgid ""
 "%s\n"
 "\n"
 "File is corrupt, not an audio file, or the associated plugin is not installed"
 msgstr ""
+"%s\n"
+"\n"
+"Ang talaksan ay sira, hindi isang talaksang pang-audio, o ang akma na plugin "
+"ay hindi nakaluklok"
 
-#: ../../InstrumentConnectionsDialog.py:42
+#: ../../Jokosher/ExtensionManagerDialog.py:56
+msgid "Choose a Jokosher Extension file"
+msgstr ""
+
+#: ../../Jokosher/ExtensionManagerDialog.py:61
+msgid "Jokosher Extension Files (*.py *.egg)"
+msgstr ""
+
+#: ../../Jokosher/Extension.py:44
+msgid "This is a Jokosher extension; it is not meant to be run directly."
+msgstr ""
+
+#: ../../Jokosher/Extension.py:45
+#, python-format
+msgid ""
+"To install it, move it to the directory %s\n"
+"and run Jokosher."
+msgstr ""
+
+#: ../../Jokosher/Extension.py:48
+msgid ""
+"This is a Jokosher extension, which needs to be installed. Would you like to "
+"install it?"
+msgstr ""
+
+#: ../../Jokosher/Extension.py:50
+msgid "Install"
+msgstr ""
+
+#: ../../Jokosher/Extension.py:59
+#, python-format
+msgid ""
+"You already have a extension with the name %s installed; would you like to "
+"replace it?"
+msgstr ""
+
+#: ../../Jokosher/Extension.py:62
+msgid "Replace"
+msgstr ""
+
+#: ../../Jokosher/Extension.py:75
+msgid "Your new extension is now available in Jokosher!"
+msgstr ""
+
+#: ../../Jokosher/InstrumentConnectionsDialog.py:41
 msgid "There are no instruments to connect"
-msgstr ""
+msgstr "Walang mga instrumento na ma-konekta"
 
-#: ../../InstrumentViewer.py:97 ../../MixerStrip.py:53
+#: ../../Jokosher/InstrumentViewer.py:127 ../../Jokosher/MixerStrip.py:72
 msgid "Enable this instrument for recording"
-msgstr ""
+msgstr "Paganahin ang intrumentong ito para sa recording"
 
-#: ../../InstrumentViewer.py:103
+#: ../../Jokosher/InstrumentViewer.py:133
 msgid "Mute - silence this instrument"
-msgstr ""
+msgstr "Mute - patahimikin itong instrumento na ito"
 
-#: ../../InstrumentViewer.py:110 ../../MixerStrip.py:65
+#: ../../Jokosher/InstrumentViewer.py:140 ../../Jokosher/MixerStrip.py:84
 msgid "Solo - silence all other instruments"
-msgstr ""
+msgstr "Solo - patahimikin ang iba pang mga instrumento"
 
-#: ../../InstrumentViewer.py:117
+#: ../../Jokosher/InstrumentViewer.py:147
 msgid "Instrument Effects"
-msgstr ""
+msgstr "Mga Epekto ng mga Instrumento"
 
-#: ../../InstrumentViewer.py:222 ../../MixerStrip.py:127
+#: ../../Jokosher/InstrumentViewer.py:282 ../../Jokosher/MixerStrip.py:146
 msgid "Muted"
-msgstr ""
+msgstr "Muted"
 
-#: ../../InstrumentViewer.py:225 ../../MixerStrip.py:130
+#: ../../Jokosher/InstrumentViewer.py:285 ../../Jokosher/MixerStrip.py:149
 msgid "Unmuted"
-msgstr ""
+msgstr "Unmuted"
 
-#: ../../InstrumentViewer.py:276
+#: ../../Jokosher/InstrumentViewer.py:354
 msgid "Instrument Effects..."
 msgstr "Mga Epekto ng Instrumento..."
 
-#: ../../JokosherApp.py:298
+#: ../../Jokosher/JokosherApp.py:295
 #, python-format
 msgid ""
 "The instruments '%s' and '%s' both have the same input selected (%s). Please "
@@ -481,63 +566,67 @@ msgid ""
 "Instrument Connections'"
 msgstr ""
 
-#: ../../JokosherApp.py:321
+#: ../../Jokosher/JokosherApp.py:319
 msgid ""
 "No instruments are armed for recording. You need to arm an instrument before "
 "you can begin recording."
 msgstr ""
+"Walang instrumento ang naka arma para sa recording. Kinakailangan mong mag "
+"arma ng intrumento bago ka makapagsimula sa recording."
 
-#: ../../JokosherApp.py:352
+#: ../../Jokosher/JokosherApp.py:351
 msgid ""
 "No channels capable of recording have been found, please attach a device and "
 "try again."
 msgstr ""
+"Walang mga channel na may kapabilidad sa pag record ang nakita, mag kabit ng "
+"device at subukan muli."
 
-#: ../../JokosherApp.py:354
+#: ../../Jokosher/JokosherApp.py:353
 msgid ""
 "Your sound card isn't capable of recording from multiple sources at the same "
 "time. Please disarm all but one instrument."
 msgstr ""
 
-#: ../../JokosherApp.py:427
+#: ../../Jokosher/JokosherApp.py:431
 msgid "Mixdown Project"
 msgstr "I-Mixdown ang Proyekto"
 
-#: ../../JokosherApp.py:430
+#: ../../Jokosher/JokosherApp.py:434
 msgid "Save as file type:"
 msgstr "Ilagak ang talaksan bilang:"
 
-#: ../../JokosherApp.py:466
+#: ../../Jokosher/JokosherApp.py:469
 #, python-format
 msgid "Mixing project to file: %s"
 msgstr ""
 
-#: ../../JokosherApp.py:481
+#: ../../Jokosher/JokosherApp.py:484
 msgid "Preparing to mixdown project"
 msgstr ""
 
-#: ../../JokosherApp.py:487
+#: ../../Jokosher/JokosherApp.py:490
 #, python-format
 msgid "%d of %d seconds completed"
 msgstr "%d ng %d na segundo ang nakumpleto na"
 
-#: ../../JokosherApp.py:543
+#: ../../Jokosher/JokosherApp.py:546
 msgid "Choose a Jokosher project file"
 msgstr "Pumili ng talaksang proyekto ng Jokosher"
 
-#: ../../JokosherApp.py:549
+#: ../../Jokosher/JokosherApp.py:552
 msgid "All Files"
 msgstr "Lahat ng talaksan"
 
-#: ../../JokosherApp.py:553
+#: ../../Jokosher/JokosherApp.py:556
 msgid "Jokosher Project File (*.jokosher)"
 msgstr "Talaksang Proyekto ng Jokosher (*.jokosher)"
 
-#: ../../JokosherApp.py:589
+#: ../../Jokosher/JokosherApp.py:593
 msgid "Choose a location to save the project"
 msgstr "Pumili ng lokasyon kung saan ilalagak ang proyekto"
 
-#: ../../JokosherApp.py:624
+#: ../../Jokosher/JokosherApp.py:629
 #, python-format
 msgid ""
 "<span size='large' weight='bold'>Save changes to project \"%s\" before "
@@ -545,55 +634,61 @@ msgid ""
 "\n"
 "Your changes will be lost if you don't save them."
 msgstr ""
+"<span size='large' weight='bold'>Iluklok ang mga pagbabago sa proyektong \"%s"
+"\" bago isarado?</span>\n"
+"\n"
+"Ang iyong mga pagbabago ay mawawala kapag ito ay hindi mo na-iluklok."
 
-#: ../../JokosherApp.py:633
+#: ../../Jokosher/JokosherApp.py:638
 msgid "Close _Without Saving"
-msgstr ""
+msgstr "Isarado _Nang Hindi Niluluklok"
 
-#: ../../JokosherApp.py:678
+#: ../../Jokosher/JokosherApp.py:683
 #, python-format
 msgid "*%s - Jokosher"
 msgstr "*%s - Jokosher"
 
-#: ../../JokosherApp.py:680
+#: ../../Jokosher/JokosherApp.py:685
 #, python-format
 msgid "%s - Jokosher"
 msgstr "%s - Jokosher"
 
-#: ../../JokosherApp.py:886
+#: ../../Jokosher/JokosherApp.py:891
 msgid "Jokosher"
 msgstr "Jokosher"
 
-#: ../../JokosherApp.py:982
+#: ../../Jokosher/JokosherApp.py:996
 msgid "The project references non-existant files:\n"
 msgstr ""
 
-#: ../../JokosherApp.py:986
+#: ../../Jokosher/JokosherApp.py:1000
 msgid ""
 "\n"
 "The project references non-existant images:\n"
 msgstr ""
 
-#: ../../JokosherApp.py:994
+#: ../../Jokosher/JokosherApp.py:1008
 #, python-format
 msgid ""
 "%s\n"
 " Invalid or corrupt project file, will not open."
 msgstr ""
+"%s\n"
+" Inbalido o sirang talaksan ng proyekto, ito ay hindi bubuksan."
 
-#: ../../JokosherApp.py:1019
+#: ../../Jokosher/JokosherApp.py:1034
 msgid "You must have Gstreamer version 0.10.9 or higher.\n"
 msgstr "Kailangan mo ng Gstreamer bersiyon 0.10.9 pataas.\n"
 
-#: ../../JokosherApp.py:1027
+#: ../../Jokosher/JokosherApp.py:1042
 msgid "You must have Gstreamer plugin gnonlin version 0.10.4.2 or later.\n"
 msgstr "Kailangan mo ang Gstreamer plugin gnolin bersiyon 0.10.4.2 pataas.\n"
 
-#: ../../JokosherApp.py:1029
+#: ../../Jokosher/JokosherApp.py:1044
 msgid "Gstreamer plugin gnonlin is not installed."
 msgstr "Ang Gstreamer plugin gnolin ay hindi naka luklok."
 
-#: ../../JokosherApp.py:1030
+#: ../../Jokosher/JokosherApp.py:1045
 msgid ""
 "\n"
 "See http://jokosher.org/trac/wiki/GettingJokosher for more details.\n"
@@ -602,13 +697,15 @@ msgstr ""
 "Pumunta sa http://jokosher.org/trac/wiki/GettingJokosher para sa mga "
 "detalye.\n"
 
-#: ../../JokosherApp.py:1033
+#: ../../Jokosher/JokosherApp.py:1048
 msgid ""
 "You must have the Gstreamer plugin packs gst-plugins-base and gst-plugins-"
 "good installed.\n"
 msgstr ""
+"Ang Gstreamer plugin packs gst-plugins-base at gst-plugins-good ay dapat "
+"nakaluklok.\n"
 
-#: ../../JokosherApp.py:1039
+#: ../../Jokosher/JokosherApp.py:1054
 #, fuzzy, python-format
 msgid ""
 "<big>Some functionality will not work correctly or at all.</big>\n"
@@ -619,7 +716,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../../JokosherApp.py:1060
+#: ../../Jokosher/JokosherApp.py:1075
 msgid ""
 "<big>Notes about this release</big>\n"
 "\n"
@@ -628,29 +725,29 @@ msgid ""
 "that is not present."
 msgstr ""
 
-#: ../../JokosherApp.py:1084
+#: ../../Jokosher/JokosherApp.py:1099
 #, python-format
 msgid "The URI scheme '%s' is either invalid or not supported."
-msgstr ""
+msgstr "Ang URI scheme '%s' ay inbalido o kaya ay hindi suportado."
 
-#: ../../JokosherApp.py:1086
+#: ../../Jokosher/JokosherApp.py:1101
 #, python-format
 msgid "Unable to unzip the project file %s"
 msgstr ""
 
-#: ../../JokosherApp.py:1088
+#: ../../Jokosher/JokosherApp.py:1103
 #, python-format
 msgid "The project file was created with version \"%s\" of Jokosher.\n"
 msgstr "Ang talaksang proyekto ay binuo sa bersiyon \"%s\" ng Jokosher.\n"
 
-#: ../../JokosherApp.py:1089
+#: ../../Jokosher/JokosherApp.py:1104
 #, python-format
 msgid "Projects from version \"%s\" are incompatible with this release.\n"
 msgstr ""
 "Ang mga proyektong mula sa bersiyon \"%s\" ay hindi akma para sa labas na "
 "ito.\n"
 
-#: ../../JokosherApp.py:1091
+#: ../../Jokosher/JokosherApp.py:1106
 #, fuzzy, python-format
 msgid ""
 "The project:\n"
@@ -663,27 +760,35 @@ msgstr ""
 "\n"
 "ay hindi umiiral.\n"
 
-#: ../../JokosherApp.py:1093
+#: ../../Jokosher/JokosherApp.py:1108
 msgid "The project file could not be opened.\n"
 msgstr "Ang talaksang proyekto ay hindi mabuksan.\n"
 
-#: ../../MasterMixerStrip.py:28
+#: ../../Jokosher/MasterMixerStrip.py:28
 msgid "Master Volume"
 msgstr "Master Volume"
 
-#: ../../MixerStrip.py:36
+#: ../../Jokosher/MixerStrip.py:36
 msgid "Minimize instrument"
 msgstr ""
 
-#: ../../NewProjectDialog.py:77
+#: ../../Jokosher/MixerStrip.py:43
+msgid "L"
+msgstr ""
+
+#: ../../Jokosher/MixerStrip.py:44
+msgid "R"
+msgstr ""
+
+#: ../../Jokosher/NewProjectDialog.py:76
 msgid "Unknown Author"
 msgstr "Hindi kilala ang May-Katha"
 
-#: ../../NewProjectDialog.py:87
+#: ../../Jokosher/NewProjectDialog.py:89
 msgid "Could not initialize project."
 msgstr "Hindi masimulan ang proyekto."
 
-#: ../../NewProjectDialog.py:89
+#: ../../Jokosher/NewProjectDialog.py:91
 msgid ""
 "A file or folder with this name already exists. Please choose a different "
 "project name and try again."
@@ -691,19 +796,19 @@ msgstr ""
 "Mayroon nang talaksan o polder na may kaparehong pangalan. Pumili ng ibang "
 "pangalan ng proyekto ang subukan muli."
 
-#: ../../NewProjectDialog.py:91
+#: ../../Jokosher/NewProjectDialog.py:93
 msgid "The file or folder location is write-protected."
 msgstr "Ang kinalalagyan ng talaksan o polder ay hindi maaring sulatan."
 
-#: ../../NewProjectDialog.py:93
+#: ../../Jokosher/NewProjectDialog.py:95
 msgid "Invalid name or author."
 msgstr "Hindi akma na pangalan o may-katha."
 
-#: ../../NewProjectDialog.py:95
+#: ../../Jokosher/NewProjectDialog.py:97
 msgid "The URI scheme given is either invalid or not supported"
-msgstr ""
+msgstr "Ang URI scheme na binigay ay inbalido o kaya ay hindi suportado"
 
-#: ../../NewProjectDialog.py:102
+#: ../../Jokosher/NewProjectDialog.py:104
 #, python-format
 msgid ""
 "Unable to create project.\n"
@@ -714,78 +819,89 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../../VUWidget.py:55
+#: ../../Jokosher/VUWidget.py:66
 msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"
 msgstr "<b>Hilahin<b> ang <b>slider</b> para baguhin ang lebel ng tunog."
 
-#: ../../VUWidget.py:163
+#: ../../Jokosher/VUWidget.py:174
 #, python-format
 msgid "Volume: %.2f"
 msgstr "Tunog: %.2f"
 
 #: i18n.instr.h:1
+msgid "Acoustic Guitar"
+msgstr ""
+
+#: i18n.instr.h:2
 msgid "Audio File"
 msgstr "Talaksang Audio"
 
-#: i18n.instr.h:2
+#: i18n.instr.h:3
 msgid "Bass Drum"
 msgstr "Bass Drum"
 
-#: i18n.instr.h:3
+#: i18n.instr.h:4
 msgid "Bass Guitar"
 msgstr "Bass na Gitara"
 
-#: i18n.instr.h:4
+#: i18n.instr.h:5
 msgid "Cello"
 msgstr "Cello"
 
-#: i18n.instr.h:5
+#: i18n.instr.h:6
 msgid "Cymbal"
 msgstr "Cymbal"
 
-#: i18n.instr.h:6
+#: i18n.instr.h:7
 msgid "Drum Kit"
 msgstr "Drum Kit"
 
-#: i18n.instr.h:7
+#: i18n.instr.h:8
 msgid "Effect"
 msgstr "Effect"
 
-#: i18n.instr.h:8
+#: i18n.instr.h:9
 msgid "Electric Guitar"
 msgstr "Gitarang Di-kuryente"
 
-#: i18n.instr.h:9
-msgid "Harmonica"
-msgstr ""
-
 #: i18n.instr.h:10
+msgid "Harmonica"
+msgstr "Silindro"
+
+#: i18n.instr.h:11
 msgid "Keyboard"
 msgstr "Teklado"
 
-#: i18n.instr.h:11
+#: i18n.instr.h:12
 msgid "Other"
 msgstr "Iba pa"
 
-#: i18n.instr.h:12
+#: i18n.instr.h:13
+msgid "Saxophone"
+msgstr ""
+
+#: i18n.instr.h:14
 msgid "Snare"
 msgstr "Snare"
 
-#: i18n.instr.h:13
+#: i18n.instr.h:15
 msgid "Tom Tom"
 msgstr "Tom Tom"
 
-#: i18n.instr.h:14
-msgid "Trumpet"
-msgstr ""
-
-#: i18n.instr.h:15
-msgid "Violin"
-msgstr ""
-
 #: i18n.instr.h:16
+msgid "Trumpet"
+msgstr "Trumpeta"
+
+#: i18n.instr.h:17
+msgid "Violin"
+msgstr "Biyolin"
+
+#: i18n.instr.h:18
 msgid "Vocal"
 msgstr "Boses"
+
+#~ msgid "translator-credits"
+#~ msgstr "Jerome Gotangco <jgotangco@ubuntu.com>, 2006"
 
 #~ msgid "Files Saves As"
 #~ msgstr "Ang mga talaksan ay ilalagak bilang"
