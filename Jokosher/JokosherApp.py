@@ -166,9 +166,7 @@ class MainApp:
 
 		if loadExtensions:
 			# Load extensions -- this should probably go somewhere more appropriate
-			Extension.API = Extension.ExtensionAPI(self)
-			self.extensionManager = ExtensionManager.ExtensionManager()
-			Extension.LoadAllExtensions(self.extensionManager)
+			self.extensionManager = ExtensionManager.ExtensionManager(self)
 
 
 		## Setup is complete so start up the GUI and perhaps load a project
@@ -197,7 +195,6 @@ class MainApp:
 		#if everything else bombs out resort to the welcome dialog
 		if self.project == None:
 			WelcomeDialog.WelcomeDialog(self)
-
 
 	#_____________________________________________________________________	
 

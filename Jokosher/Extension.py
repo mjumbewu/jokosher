@@ -114,6 +114,7 @@ class ExtensionAPI:
 		new_menu_item = gtk.MenuItem(menu_item_name)
 		new_menu_item.connect("activate", callback_function)
 		extensions_menu.prepend(new_menu_item)
+		new_menu_item.show()
 	
 	@exported_function
 	def play(self, play_state=True):
@@ -509,19 +510,6 @@ class ExtensionAPI:
 		
 		return 0
 
-def LoadAllExtensions(extensionManager):
-	"""
-		 Walk through all the EXTENSION_DIRS and import every .py and .egg file we find.
-	"""
-	for exten_dir in EXTENSION_DIRS:
-		if not os.path.isdir(exten_dir):
-			continue
-		for filename in os.listdir(exten_dir):
-			if filename.endswith(".egg") or filename.endswith(".py"):
-				extensionManager.LoadExtensionFromFile(filename, exten_dir)
-				# don't block the gui when loading many extensions
-				while gtk.events_pending():
-					gtk.main_iteration()
 		
 		
 API = None

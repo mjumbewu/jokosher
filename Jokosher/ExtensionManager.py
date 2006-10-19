@@ -9,11 +9,11 @@
 #
 #-------------------------------------------------------------------------------
 import Globals
-from types import *
 import Extension
 import pkg_resources
 import os.path
 import imp
+import gtk
 
 #=========================================================================
 
@@ -24,9 +24,11 @@ class ExtensionManager:
 	"""
 	#_____________________________________________________________________
 	
-	def __init__(self):
+	def __init__(self, mainapp):
+		self.mainapp = mainapp
 		self.loadedExtensions = []
-		
+		self.API = Extension.ExtensionAPI(mainapp)
+		self.LoadAllExtensions()
 	#_____________________________________________________________________
 	
 	def register(self, extension, filename, directory):
@@ -148,7 +150,7 @@ class ExtensionManager:
 			return messages
 		# if we're still here then start the extension
 		try:
-			extension.startup(Extension.API)
+			extension.startup(self.API)
 		except Exception, e :
 			Globals.debug(filename + " extension failed to start")
 			messages.append(filename + " extension failed to start")
@@ -156,7 +158,22 @@ class ExtensionManager:
 		
 		return messages
 		
+	#_____________________________________________________________________
 			
+	def LoadAllExtensions(self):
+		"""
+			Walk through all the EXTENSION_DIRS and import every .py and .egg file we find.
+		"""
+		for exten_dir in Extension.EXTENSION_DIRS:
+			if not os.path.isdir(exten_dir):
+				continue
+			for filename in os.listdir(exten_dir):
+				if filename.endswith(".egg") or filename.endswith(".py"):
+					self.LoadExtensionFromFile(filename, exten_dir)
+					# don't block the gui when loading many extensions
+					while gtk.events_pending():
+						gtk.main_iteration()
+		
 	#_____________________________________________________________________
 		
 #=========================================================================
