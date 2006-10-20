@@ -115,6 +115,7 @@ class ExtensionAPI:
 		new_menu_item.connect("activate", callback_function)
 		extensions_menu.prepend(new_menu_item)
 		new_menu_item.show()
+		return new_menu_item
 	
 	@exported_function
 	def play(self, play_state=True):

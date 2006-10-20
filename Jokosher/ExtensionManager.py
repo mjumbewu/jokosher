@@ -159,6 +159,22 @@ class ExtensionManager:
 		return messages
 		
 	#_____________________________________________________________________
+	
+	def UnloadExtension(self, filename):
+		"""
+			This function "unloads" the extension with file name
+			"filename". It just executes the shutdown() function 
+			of the extension and then removes it from loadedExtensions
+		"""
+		index = -1
+		for extension in self.GetExtensions():
+			index += 1
+			if extension['filename'] == filename:
+				extension['extension'].shutdown()
+				self.loadedExtensions.pop(index)
+
+
+	#_____________________________________________________________________
 			
 	def LoadAllExtensions(self):
 		"""
