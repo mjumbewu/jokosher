@@ -3,45 +3,27 @@
 #	THIS FILE IS PART OF THE JOKOSHER PROJECT AND LICENSED UNDER THE GPL. SEE
 #	THE 'COPYING' FILE FOR DETAILS
 #	
-#	This script tries to launch Jokosher from the current directory,
-#	and is also responsible for parsing comment line arguments.
+#	This script will try to import Jokosher from somewhere in the 
+#	PYTHONPATH,	and use JOKOSHER_DATA_PATH, JOKOSHER_IMAGE_PATH, 
+#	and JOKOSHER_LOCALE_PATH environment variables to find the other files it needs.
+#	If those variables are not set, they will be set from their values in the ENV_PATHS
+#	dictionary, which is defined below.
+#	This script is also responsible for parsing comment line arguments.
 #
 #-------------------------------------------------------------------------------
 import os, sys
 
-def localFileImport(importName):
-	"""
-		Checks to see if the file exists before importing it
-		to avoid weird errors which come up that have nothing
-		to do with importing. importName should be a string of
-		the file name without the ".py" on the end.
-	"""
-	# Import from current directory if file exists
-	# (replaces previous method of trapping import which used to
-	# leave confusing error messages if a module was missing)
-	ourpath = os.path.dirname(os.path.abspath(__file__))
-	if os.path.exists(os.path.join(ourpath, importName + ".py")):
-		try:
-			#this is equivalent to "import Globals", but with a variable in
-			#place of "Globals"
-			globals()[importName] = __import__(importName)
-		
-		except Exception, e:
-			print "Error loading Jokosher: %s" % e
-			sys.exit()
-		else:
-			#remove the last dir so ourpath is like .../jokosher/JonoEdit/trunk/
-			ourpath = os.path.split(ourpath)[0]
-			if not ourpath in sys.path:
-				#make sure Jokosher.Extension is in the python path, so extensions can import it.
-				#ourpath is something like .../jokosher/JonoEdit/trunk/Jokosher
-				sys.path.append(ourpath)
-	else:
-		print "Cannot find local file %s.py." % importName
-		sys.exit()
+ENV_PATHS = {"JOKOSHER_DATA_PATH" : "/usr/share/jokosher/",
+		"JOKOSHER_IMAGE_PATH" : "/usr/share/pixmaps/",
+		"JOKOSHER_LOCALE_PATH" : "/usr/share/locale/",
+		}
+#must set variables before importing Globals because it requires them
+for var, path in ENV_PATHS.iteritems():
+	#if it is not already set, set the enviroment variable.
+	os.environ.setdefault(var, path)
 
-#try a local "import Globals", and then try to find it in the python path
-localFileImport("Globals")
+import Jokosher.Globals as Globals
+
 #for parsing out command line arguments
 import optparse
 #for i18n "--help" message
@@ -98,7 +80,7 @@ if options.noextensions:
 
 #wait until after we parse the args to import JokosherApp
 #because it will import gst which replaces our "--help" message.
-localFileImport("JokosherApp")
+import Jokosher.JokosherApp as JokosherApp
 #Launching the program
 JokosherApp.MainApp(openproject, loadExtensions, startupType)
 JokosherApp.gtk.main()

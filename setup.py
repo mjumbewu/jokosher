@@ -13,7 +13,7 @@ for filepath in glob.glob("locale/src/mo/*/LC_MESSAGES/*.mo"):
 
 setup(name='jokosher',
 	version='0.2',
-	scripts=['Jokosher/Jokosher'],
+	scripts=['jokosher'],
 	packages=['Jokosher'],
 	data_files=[('share/jokosher/',
 		glob.glob("Jokosher/*.glade")
@@ -23,9 +23,6 @@ setup(name='jokosher',
 		),
 		('share/jokosher/Instruments/images',
 		glob.glob('Instruments/images/*')
-		),
-		('share/applications',
-		glob.glob("*/jokosher.desktop")
 		),
 		('share/icons/hicolor/48x48/apps',
 		['Jokosher/jokosher-logo.png']
