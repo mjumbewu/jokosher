@@ -116,14 +116,13 @@ class ExtensionManagerDialog:
 				if response == gtk.RESPONSE_YES:
 					os.remove(filename)
 					dlg.destroy()
-				
 					self.parent.extensionManager.UnloadExtension(filename)
-
 					self.UpdateModel()
+				
 				dlg.destroy()
 
 			else:
-				dlg = gkt.MessageDialog(None, gtk.DIALOG_MODAL, gtk.MESSAGE_ERROR,
+				dlg = gtk.MessageDialog(None, gtk.DIALOG_MODAL, gtk.MESSAGE_ERROR,
 						gtk.BUTTONS_OK, "This extension was installed by your system. You cannot remove it.")
 				dlg.run()
 				dlg.destroy()

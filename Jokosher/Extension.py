@@ -494,7 +494,8 @@ class ExtensionAPI:
 		   Return values:
 		   0: success
 		   1: invalid options
-		   2: cannot parse or create encoder/muxer bin
+		   2: a format with the same three values already exists
+		   3: cannot parse or create encoder/muxer bin
 		"""
 		
 		if not description or not extension and not pipelineString:
@@ -503,14 +504,34 @@ class ExtensionAPI:
 			bin = gst.gst_parse_bin_from_description("audioconvert ! %s" % encodeBin, True)
 			del bin
 		except gobject.GError:
-			return 2
-			
+			return 3
+		
 		propslist = (description, extension, encodeBin)
 		propsdict = dict(zip(Globals._export_template, propslist))
-		Globals.EXPORT_FORMATS.append(propsdict)
+		if propsdict in Globals.EXPORT_FORMATS:
+			return 2
+		else:
+			Globals.EXPORT_FORMATS.append(propsdict)
+			return 0
 		
-		return 0
-
+	@exported_function
+	def remove_export_format(self, description, extension, encodeBin):
+		"""
+		   Removes an export format that was previously added using
+		   add_export_format. The parameters are the same as the ones
+		   that were passed to the add_export_format function.
+		   
+		   Return values:
+		   0: successfully removed the export format
+		   1: no export format exists with those parameters
+		"""
+		propslist = (description, extension, encodeBin)
+		propsdict = dict(zip(Globals._export_template, propslist))
+		if propsdict in Globals.EXPORT_FORMATS:
+			Globals.EXPORT_FORMATS.remove(propsdict)
+			return 0
+		else:
+			return 1
 		
 		
 API = None

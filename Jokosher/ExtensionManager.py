@@ -91,9 +91,8 @@ class ExtensionManager:
 		"""
 			Returns a generator for iterating the list of loadedExtensions
 		"""
-		for extension in self.loadedExtensions:
-			yield extension
-			
+		return iter(self.loadedExtensions)
+
 	#_____________________________________________________________________
 	
 	def LoadExtensionFromFile(self, filename, directory):

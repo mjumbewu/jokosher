@@ -432,7 +432,7 @@ class MainApp:
 		typeCombo = gtk.combo_box_new_text()
 		
 		for i in Globals.EXPORT_FORMATS:
-			typeCombo.append_text(i["description"])
+			typeCombo.append_text("%s (.%s)" % (i["description"], i["extension"]))
 		#Make the first item the default
 		typeCombo.set_active(0)
 		
