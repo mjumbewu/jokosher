@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!-- Generated with glade3
+<!--Generated with glade3 3.0.2 on Fri Oct 20 04:43:45 2006 by laszlo@sescento
 	Version: 3.0.1
 	Date: Wed Oct 18 20:19:54 2006
 	User: laszlo
@@ -399,7 +399,7 @@
                 <child>
                   <widget class="GtkToolButton" id="AddInstrument">
                     <property name="visible">True</property>
-                    <property name="label" translatable="yes">Add Instrument</property>
+                    <property name="label">Add Instrument</property>
                     <property name="use_underline">True</property>
                     <property name="stock_id">gtk-add</property>
                     <accessibility>
@@ -1092,7 +1092,7 @@ Gregory Sheeran &lt;greg@grogoreo.co.uk&gt;</property>
                 <child>
                   <widget class="GtkFrame" id="frame5">
                     <property name="visible">True</property>
-                    <property name="label_xalign">0.000000</property>
+                    <property name="label_xalign">0</property>
                     <property name="shadow_type">GTK_SHADOW_NONE</property>
                     <child>
                       <widget class="GtkAlignment" id="alignment8">
@@ -1168,7 +1168,7 @@ Gregory Sheeran &lt;greg@grogoreo.co.uk&gt;</property>
                 <child>
                   <widget class="GtkFrame" id="frame4">
                     <property name="visible">True</property>
-                    <property name="label_xalign">0.000000</property>
+                    <property name="label_xalign">0</property>
                     <property name="shadow_type">GTK_SHADOW_NONE</property>
                     <child>
                       <widget class="GtkAlignment" id="alignment4">
@@ -1184,7 +1184,7 @@ Gregory Sheeran &lt;greg@grogoreo.co.uk&gt;</property>
                             <child>
                               <widget class="GtkLabel" id="label14">
                                 <property name="visible">True</property>
-                                <property name="xalign">0.000000</property>
+                                <property name="xalign">0</property>
                                 <property name="label" translatable="yes">Sample Rate (Hz)</property>
                               </widget>
                               <packing>
@@ -1195,7 +1195,7 @@ Gregory Sheeran &lt;greg@grogoreo.co.uk&gt;</property>
                             <child>
                               <widget class="GtkLabel" id="label15">
                                 <property name="visible">True</property>
-                                <property name="xalign">0.000000</property>
+                                <property name="xalign">0</property>
                                 <property name="label" translatable="yes">Sample Format</property>
                               </widget>
                               <packing>
@@ -1268,7 +1268,7 @@ Gregory Sheeran &lt;greg@grogoreo.co.uk&gt;</property>
                 <child>
                   <widget class="GtkFrame" id="frame1">
                     <property name="visible">True</property>
-                    <property name="label_xalign">0.000000</property>
+                    <property name="label_xalign">0</property>
                     <property name="shadow_type">GTK_SHADOW_NONE</property>
                     <child>
                       <widget class="GtkAlignment" id="alignment1">
@@ -1284,7 +1284,6 @@ Gregory Sheeran &lt;greg@grogoreo.co.uk&gt;</property>
                             <child>
                               <widget class="GtkComboBox" id="mixdownFormat">
                                 <property name="visible">True</property>
-                                <property name="items" translatable="yes"></property>
                                 <signal name="changed" handler="on_Setting_changed"/>
                               </widget>
                               <packing>
@@ -1295,7 +1294,7 @@ Gregory Sheeran &lt;greg@grogoreo.co.uk&gt;</property>
                             <child>
                               <widget class="GtkLabel" id="label19">
                                 <property name="visible">True</property>
-                                <property name="xalign">0.000000</property>
+                                <property name="xalign">0</property>
                                 <property name="label" translatable="yes">Output Format</property>
                               </widget>
                               <packing>
@@ -1348,7 +1347,7 @@ Gregory Sheeran &lt;greg@grogoreo.co.uk&gt;</property>
                 <child>
                   <widget class="GtkFrame" id="frame2">
                     <property name="visible">True</property>
-                    <property name="label_xalign">0.000000</property>
+                    <property name="label_xalign">0</property>
                     <property name="shadow_type">GTK_SHADOW_NONE</property>
                     <child>
                       <widget class="GtkAlignment" id="alignment2">
@@ -1364,7 +1363,7 @@ Gregory Sheeran &lt;greg@grogoreo.co.uk&gt;</property>
                             <child>
                               <widget class="GtkLabel" id="label18">
                                 <property name="visible">True</property>
-                                <property name="xalign">0.000000</property>
+                                <property name="xalign">0</property>
                                 <property name="label" translatable="yes">Save Files As</property>
                               </widget>
                               <packing>
@@ -1428,7 +1427,7 @@ Ogg Vorbis</property>
                 <child>
                   <widget class="GtkFrame" id="frame3">
                     <property name="visible">True</property>
-                    <property name="label_xalign">0.000000</property>
+                    <property name="label_xalign">0</property>
                     <property name="shadow_type">GTK_SHADOW_NONE</property>
                     <child>
                       <widget class="GtkAlignment" id="alignment3">
@@ -1444,7 +1443,7 @@ Ogg Vorbis</property>
                             <child>
                               <widget class="GtkLabel" id="Device">
                                 <property name="visible">True</property>
-                                <property name="xalign">0.000000</property>
+                                <property name="xalign">0</property>
                                 <property name="label" translatable="yes">Device</property>
                               </widget>
                               <packing>
@@ -1573,7 +1572,7 @@ Ogg Vorbis</property>
                     <child>
                       <widget class="GtkLabel" id="label21">
                         <property name="visible">True</property>
-                        <property name="xalign">0.000000</property>
+                        <property name="xalign">0</property>
                         <property name="label" translatable="yes">Project Name</property>
                       </widget>
                       <packing>
@@ -1596,7 +1595,7 @@ Ogg Vorbis</property>
                     <child>
                       <widget class="GtkLabel" id="label22">
                         <property name="visible">True</property>
-                        <property name="xalign">0.000000</property>
+                        <property name="xalign">0</property>
                         <property name="label" translatable="yes">Folder</property>
                       </widget>
                       <packing>
@@ -1624,7 +1623,7 @@ Ogg Vorbis</property>
                     <child>
                       <widget class="GtkLabel" id="label23">
                         <property name="visible">True</property>
-                        <property name="xalign">0.000000</property>
+                        <property name="xalign">0</property>
                         <property name="label" translatable="yes">Author</property>
                       </widget>
                       <packing>
@@ -1710,8 +1709,9 @@ Ogg Vorbis</property>
         <child>
           <widget class="GtkImage" id="headerimage">
             <property name="visible">True</property>
-            <property name="xalign">0.470000</property>
-            <property name="yalign">0.000000</property>
+            <property name="xalign">0.4699999988079071</property>
+            <property name="yalign">0</property>
+            <property name="stock">gtk-missing-image</property>
           </widget>
           <packing>
             <property name="expand">False</property>
@@ -1764,8 +1764,8 @@ Ogg Vorbis</property>
                     <child>
                       <widget class="GtkAlignment" id="alignment9">
                         <property name="visible">True</property>
-                        <property name="xscale">0.000000</property>
-                        <property name="yscale">0.000000</property>
+                        <property name="xscale">0</property>
+                        <property name="yscale">0</property>
                         <child>
                           <widget class="GtkHBox" id="hbox9">
                             <property name="visible">True</property>
@@ -1816,8 +1816,8 @@ Ogg Vorbis</property>
                     <child>
                       <widget class="GtkAlignment" id="alignment5">
                         <property name="visible">True</property>
-                        <property name="xscale">0.000000</property>
-                        <property name="yscale">0.000000</property>
+                        <property name="xscale">0</property>
+                        <property name="yscale">0</property>
                         <child>
                           <widget class="GtkHBox" id="hbox6">
                             <property name="visible">True</property>
@@ -1862,8 +1862,8 @@ Ogg Vorbis</property>
                     <child>
                       <widget class="GtkAlignment" id="alignment6">
                         <property name="visible">True</property>
-                        <property name="xscale">0.000000</property>
-                        <property name="yscale">0.000000</property>
+                        <property name="xscale">0</property>
+                        <property name="yscale">0</property>
                         <child>
                           <widget class="GtkHBox" id="hbox7">
                             <property name="visible">True</property>
@@ -1909,8 +1909,8 @@ Ogg Vorbis</property>
                     <child>
                       <widget class="GtkAlignment" id="alignment7">
                         <property name="visible">True</property>
-                        <property name="xscale">0.000000</property>
-                        <property name="yscale">0.000000</property>
+                        <property name="xscale">0</property>
+                        <property name="yscale">0</property>
                         <child>
                           <widget class="GtkHBox" id="hbox8">
                             <property name="visible">True</property>
@@ -2070,7 +2070,7 @@ Ogg Vorbis</property>
             <child>
               <widget class="GtkProgressBar" id="progressBar">
                 <property name="visible">True</property>
-                <property name="pulse_step">0.1</property>
+                <property name="pulse_step">0.10000000149011612</property>
               </widget>
               <packing>
                 <property name="x_options"></property>
@@ -2081,7 +2081,7 @@ Ogg Vorbis</property>
             <child>
               <widget class="GtkLabel" id="progressLabel">
                 <property name="visible">True</property>
-                <property name="xalign">0.130000</property>
+                <property name="xalign">0.12999999523162842</property>
               </widget>
               <packing>
                 <property name="top_attach">1</property>
@@ -2134,6 +2134,7 @@ Ogg Vorbis</property>
               <widget class="GtkImage" id="topimage">
                 <property name="visible">True</property>
                 <property name="ypad">5</property>
+                <property name="stock">gtk-missing-image</property>
               </widget>
             </child>
             <child>
@@ -2171,6 +2172,7 @@ Ogg Vorbis</property>
                 <child>
                   <widget class="GtkImage" id="image112">
                     <property name="visible">True</property>
+                    <property name="stock">gtk-missing-image</property>
                   </widget>
                   <packing>
                     <property name="top_attach">2</property>
@@ -2192,7 +2194,7 @@ Ogg Vorbis</property>
                 <child>
                   <widget class="GtkLabel" id="label48">
                     <property name="visible">True</property>
-                    <property name="xalign">0.000000</property>
+                    <property name="xalign">0</property>
                     <property name="xpad">5</property>
                     <property name="label" translatable="yes">&lt;b&gt;Documentation&lt;/b&gt;</property>
                     <property name="use_markup">True</property>
@@ -2209,7 +2211,7 @@ Ogg Vorbis</property>
                 <child>
                   <widget class="GtkLabel" id="label49">
                     <property name="visible">True</property>
-                    <property name="xalign">0.000000</property>
+                    <property name="xalign">0</property>
                     <property name="xpad">5</property>
                     <property name="label" translatable="yes">&lt;b&gt;Art&lt;/b&gt;</property>
                     <property name="use_markup">True</property>
@@ -2226,7 +2228,7 @@ Ogg Vorbis</property>
                 <child>
                   <widget class="GtkLabel" id="label50">
                     <property name="visible">True</property>
-                    <property name="xalign">0.000000</property>
+                    <property name="xalign">0</property>
                     <property name="xpad">4</property>
                     <property name="label" translatable="yes">&lt;b&gt;Testing&lt;/b&gt;</property>
                     <property name="use_markup">True</property>
@@ -2252,7 +2254,7 @@ Ogg Vorbis</property>
                 <child>
                   <widget class="GtkLabel" id="label51">
                     <property name="visible">True</property>
-                    <property name="xalign">0.000000</property>
+                    <property name="xalign">0</property>
                     <property name="label" translatable="yes">&lt;b&gt;Coding&lt;/b&gt;</property>
                     <property name="use_markup">True</property>
                   </widget>
@@ -2267,7 +2269,7 @@ Ogg Vorbis</property>
                 <child>
                   <widget class="GtkLabel" id="label52">
                     <property name="visible">True</property>
-                    <property name="xalign">0.000000</property>
+                    <property name="xalign">0</property>
                     <property name="label" translatable="yes">Writing code and features in Python.</property>
                     <property name="wrap">True</property>
                   </widget>
@@ -2281,7 +2283,7 @@ Ogg Vorbis</property>
                 <child>
                   <widget class="GtkLabel" id="label53">
                     <property name="visible">True</property>
-                    <property name="xalign">0.000000</property>
+                    <property name="xalign">0</property>
                     <property name="label" translatable="yes">Writing simple to read documentation.</property>
                   </widget>
                   <packing>
@@ -2296,7 +2298,7 @@ Ogg Vorbis</property>
                 <child>
                   <widget class="GtkLabel" id="label54">
                     <property name="visible">True</property>
-                    <property name="xalign">0.000000</property>
+                    <property name="xalign">0</property>
                     <property name="label" translatable="yes">Drawing icons, images and other art.</property>
                   </widget>
                   <packing>
@@ -2311,7 +2313,7 @@ Ogg Vorbis</property>
                 <child>
                   <widget class="GtkLabel" id="label55">
                     <property name="visible">True</property>
-                    <property name="xalign">0.000000</property>
+                    <property name="xalign">0</property>
                     <property name="label" translatable="yes">Testing Jokosher, and submitting bugs.</property>
                   </widget>
                   <packing>
@@ -2354,12 +2356,101 @@ http://www.jokosher.org/contribute</property>
     <property name="visible">True</property>
     <property name="title" translatable="yes">Configure Instrument Effects</property>
     <child>
-      <widget class="GtkVBox" id="vbox16">
+      <widget class="GtkVBox" id="InstrumentEffectsDialogVBox">
         <property name="visible">True</property>
         <child>
-          <widget class="GtkImage" id="headerimage">
+          <widget class="GtkHButtonBox" id="buttonbox">
             <property name="visible">True</property>
+            <property name="spacing">5</property>
+            <property name="layout_style">GTK_BUTTONBOX_END</property>
+            <child>
+              <widget class="GtkButton" id="transportbutton">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="can_default">True</property>
+                <property name="label">gtk-media-play</property>
+                <property name="use_stock">True</property>
+                <signal name="clicked" handler="on_transportbutton_clicked"/>
+              </widget>
+            </child>
+            <child>
+              <widget class="GtkButton" id="cancelbutton">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="can_default">True</property>
+                <property name="label">gtk-cancel</property>
+                <property name="use_stock">True</property>
+                <signal name="clicked" handler="on_cancelbutton_clicked"/>
+              </widget>
+              <packing>
+                <property name="position">1</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="GtkButton" id="okbutton">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="can_default">True</property>
+                <property name="label">gtk-ok</property>
+                <property name="use_stock">True</property>
+                <signal name="clicked" handler="on_okbutton_clicked"/>
+              </widget>
+              <packing>
+                <property name="position">2</property>
+              </packing>
+            </child>
           </widget>
+          <packing>
+            <property name="expand">False</property>
+            <property name="padding">5</property>
+            <property name="pack_type">GTK_PACK_END</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="GtkHBox" id="hbox11">
+            <property name="visible">True</property>
+            <property name="border_width">10</property>
+            <child>
+              <widget class="GtkImage" id="instrumentimage">
+                <property name="visible">True</property>
+                <property name="stock">gtk-missing-image</property>
+              </widget>
+              <packing>
+                <property name="expand">False</property>
+                <property name="padding">5</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="GtkHBox" id="effectsbox">
+                <property name="visible">True</property>
+                <child>
+                  <placeholder/>
+                </child>
+              </widget>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="GtkImage" id="outputimage">
+                <property name="visible">True</property>
+                <property name="stock">gtk-missing-image</property>
+              </widget>
+              <packing>
+                <property name="expand">False</property>
+                <property name="padding">5</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
+          </widget>
+          <packing>
+            <property name="padding">10</property>
+            <property name="pack_type">GTK_PACK_END</property>
+            <property name="position">1</property>
+          </packing>
         </child>
         <child>
           <widget class="GtkHBox" id="hbox12">
@@ -2498,97 +2589,7 @@ http://www.jokosher.org/contribute</property>
           </widget>
           <packing>
             <property name="expand">False</property>
-            <property name="position">1</property>
-          </packing>
-        </child>
-        <child>
-          <widget class="GtkHBox" id="hbox11">
-            <property name="visible">True</property>
-            <property name="border_width">10</property>
-            <child>
-              <widget class="GtkImage" id="instrumentimage">
-                <property name="visible">True</property>
-              </widget>
-              <packing>
-                <property name="expand">False</property>
-                <property name="padding">5</property>
-              </packing>
-            </child>
-            <child>
-              <widget class="GtkHBox" id="effectsbox">
-                <property name="visible">True</property>
-                <child>
-                  <placeholder/>
-                </child>
-              </widget>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">False</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-            <child>
-              <widget class="GtkImage" id="outputimage">
-                <property name="visible">True</property>
-              </widget>
-              <packing>
-                <property name="expand">False</property>
-                <property name="padding">5</property>
-                <property name="position">2</property>
-              </packing>
-            </child>
-          </widget>
-          <packing>
-            <property name="padding">10</property>
-            <property name="position">2</property>
-          </packing>
-        </child>
-        <child>
-          <widget class="GtkHButtonBox" id="buttonbox">
-            <property name="visible">True</property>
-            <property name="spacing">5</property>
-            <property name="layout_style">GTK_BUTTONBOX_END</property>
-            <child>
-              <widget class="GtkButton" id="transportbutton">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="can_default">True</property>
-                <property name="label">gtk-media-play</property>
-                <property name="use_stock">True</property>
-                <signal name="clicked" handler="on_transportbutton_clicked"/>
-              </widget>
-            </child>
-            <child>
-              <widget class="GtkButton" id="cancelbutton">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="can_default">True</property>
-                <property name="label">gtk-cancel</property>
-                <property name="use_stock">True</property>
-                <signal name="clicked" handler="on_cancelbutton_clicked"/>
-              </widget>
-              <packing>
-                <property name="position">1</property>
-              </packing>
-            </child>
-            <child>
-              <widget class="GtkButton" id="okbutton">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="can_default">True</property>
-                <property name="label">gtk-ok</property>
-                <property name="use_stock">True</property>
-                <signal name="clicked" handler="on_okbutton_clicked"/>
-              </widget>
-              <packing>
-                <property name="position">2</property>
-              </packing>
-            </child>
-          </widget>
-          <packing>
-            <property name="expand">False</property>
-            <property name="padding">5</property>
-            <property name="position">3</property>
+            <property name="pack_type">GTK_PACK_END</property>
           </packing>
         </child>
       </widget>
@@ -2598,90 +2599,10 @@ http://www.jokosher.org/contribute</property>
     <property name="visible">True</property>
     <property name="title" translatable="yes">Settings</property>
     <child>
-      <widget class="GtkVBox" id="vbox19">
+      <widget class="GtkVBox" id="EffectSettingsVBox">
         <property name="visible">True</property>
         <child>
-          <widget class="GtkImage" id="headerimage">
-            <property name="visible">True</property>
-          </widget>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
-          </packing>
-        </child>
-        <child>
-          <widget class="GtkLabel" id="effectlabel">
-            <property name="visible">True</property>
-          </widget>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">1</property>
-          </packing>
-        </child>
-        <child>
-          <widget class="GtkHBox" id="hbox18">
-            <property name="visible">True</property>
-            <child>
-              <widget class="GtkImage" id="image123">
-                <property name="visible">True</property>
-                <property name="stock">gtk-copy</property>
-              </widget>
-              <packing>
-                <property name="expand">False</property>
-                <property name="padding">5</property>
-              </packing>
-            </child>
-            <child>
-              <widget class="GtkComboBoxEntry" id="presetcombo">
-                <property name="visible">True</property>
-                <property name="items" translatable="yes">foo</property>
-                <signal name="changed" handler="on_presetcombo_changed"/>
-                <child internal-child="entry">
-                  <widget class="GtkEntry" id="comboboxentry-entry2">
-                    <property name="visible">True</property>
-                  </widget>
-                </child>
-              </widget>
-              <packing>
-                <property name="position">1</property>
-              </packing>
-            </child>
-            <child>
-              <widget class="GtkButton" id="savepresetbutton">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="label">gtk-save</property>
-                <property name="use_stock">True</property>
-                <signal name="clicked" handler="on_savepresetbutton_clicked"/>
-              </widget>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">False</property>
-                <property name="position">2</property>
-              </packing>
-            </child>
-          </widget>
-          <packing>
-            <property name="expand">False</property>
-            <property name="position">2</property>
-          </packing>
-        </child>
-        <child>
-          <widget class="GtkTable" id="settingstable">
-            <property name="visible">True</property>
-            <property name="n_rows">1</property>
-            <property name="n_columns">2</property>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-          </widget>
-          <packing>
-            <property name="position">3</property>
-          </packing>
+          <placeholder/>
         </child>
         <child>
           <widget class="GtkHButtonBox" id="hbuttonbox6">
@@ -2697,8 +2618,8 @@ http://www.jokosher.org/contribute</property>
                 <child>
                   <widget class="GtkAlignment" id="alignment11">
                     <property name="visible">True</property>
-                    <property name="xscale">0.000000</property>
-                    <property name="yscale">0.000000</property>
+                    <property name="xscale">0</property>
+                    <property name="yscale">0</property>
                     <child>
                       <widget class="GtkHBox" id="hbox17">
                         <property name="visible">True</property>
@@ -2706,6 +2627,7 @@ http://www.jokosher.org/contribute</property>
                         <child>
                           <widget class="GtkImage" id="image121">
                             <property name="visible">True</property>
+                            <property name="stock">gtk-missing-image</property>
                           </widget>
                           <packing>
                             <property name="expand">False</property>
@@ -2758,7 +2680,87 @@ http://www.jokosher.org/contribute</property>
             </child>
           </widget>
           <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="pack_type">GTK_PACK_END</property>
             <property name="position">4</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="GtkTable" id="settingstable">
+            <property name="visible">True</property>
+            <property name="n_rows">1</property>
+            <property name="n_columns">2</property>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+          </widget>
+          <packing>
+            <property name="pack_type">GTK_PACK_END</property>
+            <property name="position">3</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="GtkHBox" id="hbox18">
+            <property name="visible">True</property>
+            <child>
+              <widget class="GtkImage" id="image123">
+                <property name="visible">True</property>
+                <property name="stock">gtk-copy</property>
+              </widget>
+              <packing>
+                <property name="expand">False</property>
+                <property name="padding">5</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="GtkComboBoxEntry" id="presetcombo">
+                <property name="visible">True</property>
+                <property name="items" translatable="yes">foo</property>
+                <signal name="changed" handler="on_presetcombo_changed"/>
+                <child internal-child="entry">
+                  <widget class="GtkEntry" id="comboboxentry-entry2">
+                    <property name="visible">True</property>
+                  </widget>
+                </child>
+              </widget>
+              <packing>
+                <property name="position">1</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="GtkButton" id="savepresetbutton">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="label">gtk-save</property>
+                <property name="use_stock">True</property>
+                <signal name="clicked" handler="on_savepresetbutton_clicked"/>
+              </widget>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
+          </widget>
+          <packing>
+            <property name="expand">False</property>
+            <property name="pack_type">GTK_PACK_END</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="GtkLabel" id="effectlabel">
+            <property name="visible">True</property>
+          </widget>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="pack_type">GTK_PACK_END</property>
+            <property name="position">1</property>
           </packing>
         </child>
       </widget>

@@ -14,6 +14,7 @@
 
 import gtk.glade
 import gobject
+import cairo
 import pygst
 pygst.require("0.10")
 import gst
@@ -21,6 +22,8 @@ import os
 import Globals
 import EffectPresets
 from EffectWidget import EffectWidget
+
+#=========================================================================
 
 class InstrumentEffectsDialog:
 	"""
@@ -61,6 +64,7 @@ class InstrumentEffectsDialog:
 
 		# grab some references to Glade items
 		self.window = self.res.get_widget("InstrumentEffectsDialog")
+		self.mainvbox = self.res.get_widget("InstrumentEffectsDialogVBox")
 		self.effectscombo = self.res.get_widget("effectscombo")
 		self.effectsbox = self.res.get_widget("effectsbox")
 		self.addeffect = self.res.get_widget("addbutton")
@@ -71,9 +75,10 @@ class InstrumentEffectsDialog:
 
 		self.addeffect.set_sensitive(False)
 
-		# here we grab the headerimage reference and then set the image
-		self.headerimage = self.res.get_widget("headerimage")
-		self.headerimage.set_from_file(os.path.join(Globals.IMAGE_PATH, "effectsheader.png"))
+		self.headerCairoImage = CairoDialogHeaderImage("Instrument Effects")
+		self.headerCairoImage.set_size_request(750, 60)
+		self.mainvbox.pack_start(self.headerCairoImage, False, False)
+		self.headerCairoImage.show()
 		
 		# set the instrumentimage to the self.instrument icon
 		self.instrumentimage.set_from_pixbuf(self.instrument.pixbuf)
@@ -113,7 +118,7 @@ class InstrumentEffectsDialog:
 			
 		# this says if the project is playing, so we know to toggle the
 		# transport button in the dialog	
-		self.isPlaying = False	
+		self.isPlaying = False
 			
 	#_____________________________________________________________________	
 		
@@ -247,14 +252,16 @@ class InstrumentEffectsDialog:
 
 		# create references to glade items
 		self.settingswindow = self.settWin.get_widget("EffectSettingsDialog")
+		self.settingsvbox = self.settWin.get_widget("EffectSettingsVBox")
 		self.effectlabel = self.settWin.get_widget("effectlabel")
 		self.effectlabel.set_text(self.currentplugin)
 		self.settingstable = self.settWin.get_widget("settingstable")
 		self.presetcombo = self.settWin.get_widget("presetcombo")
-
-		# set the dialog image
-		self.headerimage = self.settWin.get_widget("headerimage")
-		self.headerimage.set_from_file(os.path.join(Globals.IMAGE_PATH, "effectsettingsheader.png"))
+		
+		self.settingsHeaderCairoImage = CairoDialogHeaderImage("Effect Settings")
+		self.settingsHeaderCairoImage.set_size_request(450, 60)
+		self.settingsvbox.pack_start(self.settingsHeaderCairoImage, False, False)
+		self.settingsHeaderCairoImage.show()
 		
 		# grab a list of properties from the effect
 		proplist = gobject.list_properties(self.instrument.effects[self.effectpos])
@@ -307,14 +314,14 @@ class InstrumentEffectsDialog:
 				# possible (determined by get_digits()) or scroll doesn't happen
 				adj.step_increment = (property.maximum - property.minimum) / 100
 				adj.step_increment = max(adj.step_increment, 1.0 / (10 ** hscale.get_digits()))
-                
+				
 				#check for ints and change digits
 				if not((property.value_type == gobject.TYPE_FLOAT) or
 					   (property.value_type == gobject.TYPE_DOUBLE)):
 					hscale.set_digits(0)
 	
 				self.settingstable.attach(self.sliderdict[property.name], 1, 2, count, count+1)
-                
+			
 			count += 1
 
 		# set up presets
@@ -397,7 +404,6 @@ class InstrumentEffectsDialog:
 		self.instrument.effects[self.effectpos].set_property(name, value)
 		
 	#_____________________________________________________________________	
-
 
 	def OnSaveSingleEffectPreset(self, widget):
 		"""
@@ -527,3 +533,95 @@ class InstrumentEffectsDialog:
 		# GUI and as such, remove the effect widget
 		self.PopulateEffects()
 		
+#=========================================================================
+
+class CairoDialogHeaderImage(gtk.DrawingArea):
+	"""
+	   Renders a nice banner for the top of the effects
+	   dialog using Cairo.
+	"""
+	
+	_LEFT_GRADIENT_STOP_RGBA = (0, 0.99, 0.87, 0.38, 1)
+	_RIGHT_GRADIENT_STOP_RGBA = (1, 0.93, 0.55, 0.16, 1)
+	_TEXT_RGBA = (0.93, 0.55, 0.16, 1)
+	_FONT_SIZE = 40
+	_LEFT_LOGO_INDENT = 7
+	_LEFT_TEXT_INDENT = 56
+	
+	#_____________________________________________________________________
+	
+	def __init__(self, headerText):
+		gtk.DrawingArea.__init__(self)
+		self.headerText = headerText
+		
+		self.connect("configure_event", self.OnSizeChanged)
+		self.connect("expose-event", self.OnDraw)
+		
+		self.logo = cairo.ImageSurface.create_from_png(os.path.join(Globals.IMAGE_PATH, "jokosher-icon.png"))
+		self.source = cairo.ImageSurface(cairo.FORMAT_ARGB32, self.allocation.width, self.allocation.height)
+		self.GenerateCachedImage()
+		
+	#_____________________________________________________________________
+		
+	def OnSizeChanged(self, obj, evt):
+		"""
+		   Called when the widget's size changes
+		"""
+		if self.allocation.width != self.source.get_width() or self.allocation.height != self.source.get_height():
+			self.source = cairo.ImageSurface(cairo.FORMAT_ARGB32, self.allocation.width, self.allocation.height)
+			self.GenerateCachedImage()
+
+	#_____________________________________________________________________
+
+	def GenerateCachedImage(self):
+		"""
+		   Renders the image so that we don't have to re-render it every
+		   time there is an expose event from a mouse move or something.
+		"""
+		
+		rect = self.get_allocation()
+
+		ctx = cairo.Context(self.source)
+		ctx.set_antialias(cairo.ANTIALIAS_SUBPIXEL)
+		
+		# Create our gradient
+		pat = cairo.LinearGradient(0.0, 0.0, rect.width, 0)
+		pat.add_color_stop_rgba(*self._RIGHT_GRADIENT_STOP_RGBA)
+		pat.add_color_stop_rgba(*self._LEFT_GRADIENT_STOP_RGBA)
+
+		# Fill the widget
+		ctx.rectangle(0, 0, rect.width, rect.height)
+		ctx.set_source(pat)
+		ctx.fill()
+		
+		#Paint the Jokosher logo on top (x=7, y=8 centres the logo)
+		logoPos = (rect.height - self.logo.get_height()) / 2
+		ctx.set_source_surface(self.logo, self._LEFT_LOGO_INDENT, int(logoPos))
+		ctx.paint()
+		
+		ctx.set_source_rgba(*self._TEXT_RGBA)
+		textPos = rect.height - ((rect.height - self._FONT_SIZE) / 2) - 5
+		ctx.move_to(self._LEFT_TEXT_INDENT, int(textPos))
+		ctx.set_font_size(self._FONT_SIZE)
+		ctx.show_text(self.headerText)
+		ctx.stroke()
+	
+	#_____________________________________________________________________
+
+	def OnDraw(self, widget, event):
+		"""
+		   Handles the GTK expose event.
+		"""
+		
+		ctx = widget.window.cairo_create()
+		#Don't repaint the whole area unless necessary
+		ctx.rectangle(event.area.x, event.area.y, event.area.width, event.area.height)
+		ctx.clip()
+		# Paint the cached image across the widget
+		ctx.set_source_surface(self.source, 0, 0)	
+		ctx.paint()
+
+		return False
+		
+	#_____________________________________________________________________
+#=========================================================================

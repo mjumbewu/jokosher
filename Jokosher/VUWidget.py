@@ -97,7 +97,6 @@ class VUWidget(gtk.DrawingArea):
 		""" Called when the widget's size changes
 		"""
 		if self.allocation.width != self.source.get_width() or self.allocation.height != self.source.get_height():
-			#print self.allocation.width, self.allocation.height
 			self.source = cairo.ImageSurface(cairo.FORMAT_ARGB32, self.allocation.width, self.allocation.height)
 			self.GenerateBackground()
 
