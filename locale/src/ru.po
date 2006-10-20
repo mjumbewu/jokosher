@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jokosher HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-18 20:59-0400\n"
+"POT-Creation-Date: 2006-10-20 15:30-0400\n"
 "PO-Revision-Date: 2006-08-26 02:25+0000\n"
 "Last-Translator: Артём Попов <artfwo@gmail.com>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -526,6 +526,15 @@ msgstr ""
 msgid "There are no instruments to connect"
 msgstr "Нет инструментов для присоединения"
 
+#: ../../Jokosher/InstrumentEffectsDialog.py:81
+#: ../../Jokosher/InstrumentViewer.py:147
+msgid "Instrument Effects"
+msgstr "Эффекты инструмента"
+
+#: ../../Jokosher/InstrumentEffectsDialog.py:264
+msgid "Effect Settings"
+msgstr ""
+
 #: ../../Jokosher/InstrumentViewer.py:127 ../../Jokosher/MixerStrip.py:72
 msgid "Enable this instrument for recording"
 msgstr "Подготовить этот инструмент для записи"
@@ -537,10 +546,6 @@ msgstr "Заглушить - выключить этот инструмент"
 #: ../../Jokosher/InstrumentViewer.py:140 ../../Jokosher/MixerStrip.py:84
 msgid "Solo - silence all other instruments"
 msgstr "Соло - выключить все остальные инструменты"
-
-#: ../../Jokosher/InstrumentViewer.py:147
-msgid "Instrument Effects"
-msgstr "Эффекты инструмента"
 
 #: ../../Jokosher/InstrumentViewer.py:282 ../../Jokosher/MixerStrip.py:146
 msgid "Muted"
@@ -554,7 +559,7 @@ msgstr "Включен"
 msgid "Instrument Effects..."
 msgstr "Эффекты инструмента..."
 
-#: ../../Jokosher/JokosherApp.py:295
+#: ../../Jokosher/JokosherApp.py:292
 #, python-format
 msgid ""
 "The instruments '%s' and '%s' both have the same input selected (%s). Please "
@@ -565,7 +570,7 @@ msgstr ""
 "оключить один из них, или присоединить его к другому входу в диалоге 'Проект "
 "-> Связи инструментов'"
 
-#: ../../Jokosher/JokosherApp.py:319
+#: ../../Jokosher/JokosherApp.py:316
 msgid ""
 "No instruments are armed for recording. You need to arm an instrument before "
 "you can begin recording."
@@ -573,7 +578,7 @@ msgstr ""
 "Ни один инструмент не готов для записи. Прежде чем можно будет начать "
 "запись, необходимо привести инструмент в состояние готовности."
 
-#: ../../Jokosher/JokosherApp.py:351
+#: ../../Jokosher/JokosherApp.py:348
 msgid ""
 "No channels capable of recording have been found, please attach a device and "
 "try again."
@@ -581,7 +586,7 @@ msgstr ""
 "Каналы, пригодные для записи, не найдены. Подключите устройство и попробуйте "
 "заново."
 
-#: ../../Jokosher/JokosherApp.py:353
+#: ../../Jokosher/JokosherApp.py:350
 msgid ""
 "Your sound card isn't capable of recording from multiple sources at the same "
 "time. Please disarm all but one instrument."
@@ -589,45 +594,45 @@ msgstr ""
 "Ваша звуковая плата не поддерживает одновременную запись с нескольких "
 "входов. Попробуйте отключить все инструменты, кроме одного."
 
-#: ../../Jokosher/JokosherApp.py:431
+#: ../../Jokosher/JokosherApp.py:428
 msgid "Mixdown Project"
 msgstr "Свести проект"
 
-#: ../../Jokosher/JokosherApp.py:434
+#: ../../Jokosher/JokosherApp.py:431
 msgid "Save as file type:"
 msgstr "Сохранить в формате:"
 
-#: ../../Jokosher/JokosherApp.py:469
+#: ../../Jokosher/JokosherApp.py:466
 #, python-format
 msgid "Mixing project to file: %s"
 msgstr "Сведение проекта в файл: %s"
 
-#: ../../Jokosher/JokosherApp.py:484
+#: ../../Jokosher/JokosherApp.py:481
 msgid "Preparing to mixdown project"
 msgstr "Подготовка к сведению проекта"
 
-#: ../../Jokosher/JokosherApp.py:490
+#: ../../Jokosher/JokosherApp.py:487
 #, python-format
 msgid "%d of %d seconds completed"
 msgstr "%d из %d секунд выполнено"
 
-#: ../../Jokosher/JokosherApp.py:546
+#: ../../Jokosher/JokosherApp.py:543
 msgid "Choose a Jokosher project file"
 msgstr "Выберите файл проекта Jokosher"
 
-#: ../../Jokosher/JokosherApp.py:552
+#: ../../Jokosher/JokosherApp.py:549
 msgid "All Files"
 msgstr "Все файлы"
 
-#: ../../Jokosher/JokosherApp.py:556
+#: ../../Jokosher/JokosherApp.py:553
 msgid "Jokosher Project File (*.jokosher)"
 msgstr "Файлы проектов Jokosher (*.jokosher)"
 
-#: ../../Jokosher/JokosherApp.py:593
+#: ../../Jokosher/JokosherApp.py:590
 msgid "Choose a location to save the project"
 msgstr "Выберите местоположение для сохранения проекта"
 
-#: ../../Jokosher/JokosherApp.py:629
+#: ../../Jokosher/JokosherApp.py:626
 #, python-format
 msgid ""
 "<span size='large' weight='bold'>Save changes to project \"%s\" before "
@@ -640,29 +645,29 @@ msgstr ""
 "\n"
 "Несохранённые изменения будут утеряны."
 
-#: ../../Jokosher/JokosherApp.py:638
+#: ../../Jokosher/JokosherApp.py:635
 msgid "Close _Without Saving"
 msgstr "Закрыть _без сохранения"
 
-#: ../../Jokosher/JokosherApp.py:683
+#: ../../Jokosher/JokosherApp.py:680
 #, python-format
 msgid "*%s - Jokosher"
 msgstr "*%s - Jokosher"
 
-#: ../../Jokosher/JokosherApp.py:685
+#: ../../Jokosher/JokosherApp.py:682
 #, python-format
 msgid "%s - Jokosher"
 msgstr "%s - Jokosher"
 
-#: ../../Jokosher/JokosherApp.py:891
+#: ../../Jokosher/JokosherApp.py:888
 msgid "Jokosher"
 msgstr "Jokosher"
 
-#: ../../Jokosher/JokosherApp.py:996
+#: ../../Jokosher/JokosherApp.py:993
 msgid "The project references non-existant files:\n"
 msgstr "Проект ссылается на несуществующие файлы:\n"
 
-#: ../../Jokosher/JokosherApp.py:1000
+#: ../../Jokosher/JokosherApp.py:997
 msgid ""
 "\n"
 "The project references non-existant images:\n"
@@ -670,7 +675,7 @@ msgstr ""
 "\n"
 "Проект ссылается на несуществующие изображения:\n"
 
-#: ../../Jokosher/JokosherApp.py:1008
+#: ../../Jokosher/JokosherApp.py:1005
 #, python-format
 msgid ""
 "%s\n"
@@ -679,19 +684,19 @@ msgstr ""
 "%s\n"
 " Неверный или повреждённый файл проекта, невозможно открыть."
 
-#: ../../Jokosher/JokosherApp.py:1034
+#: ../../Jokosher/JokosherApp.py:1031
 msgid "You must have Gstreamer version 0.10.9 or higher.\n"
 msgstr "Вам требуется Gstreamer версии 0.10.9 или выше.\n"
 
-#: ../../Jokosher/JokosherApp.py:1042
+#: ../../Jokosher/JokosherApp.py:1039
 msgid "You must have Gstreamer plugin gnonlin version 0.10.4.2 or later.\n"
 msgstr "Вам требуется модуль Gstreamer gnonlin версии 0.10.4.2 или выше.\n"
 
-#: ../../Jokosher/JokosherApp.py:1044
+#: ../../Jokosher/JokosherApp.py:1041
 msgid "Gstreamer plugin gnonlin is not installed."
 msgstr "Модуль Gstreamer gnonlin не установлен."
 
-#: ../../Jokosher/JokosherApp.py:1045
+#: ../../Jokosher/JokosherApp.py:1042
 msgid ""
 "\n"
 "See http://jokosher.org/trac/wiki/GettingJokosher for more details.\n"
@@ -700,13 +705,13 @@ msgstr ""
 "См. http://jokosher.org/trac/wiki/GettingJokosher для дополнительной "
 "информации.\n"
 
-#: ../../Jokosher/JokosherApp.py:1048
+#: ../../Jokosher/JokosherApp.py:1045
 msgid ""
 "You must have the Gstreamer plugin packs gst-plugins-base and gst-plugins-"
 "good installed.\n"
 msgstr "Вам необходимы пакеты Gstreamer gst-plugins-base и gst-plugins-good.\n"
 
-#: ../../Jokosher/JokosherApp.py:1054
+#: ../../Jokosher/JokosherApp.py:1051
 #, python-format
 msgid ""
 "<big>Some functionality will not work correctly or at all.</big>\n"
@@ -718,7 +723,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../../Jokosher/JokosherApp.py:1075
+#: ../../Jokosher/JokosherApp.py:1072
 msgid ""
 "<big>Notes about this release</big>\n"
 "\n"
@@ -732,27 +737,27 @@ msgstr ""
 "наш первый релиз. Как следствие, вы можете столкнуться с ошибками и "
 "отстуствующими возможностями."
 
-#: ../../Jokosher/JokosherApp.py:1099
+#: ../../Jokosher/JokosherApp.py:1096
 #, python-format
 msgid "The URI scheme '%s' is either invalid or not supported."
 msgstr "Схема обращения к ресурсу '%s' не верна или не поддерживается."
 
-#: ../../Jokosher/JokosherApp.py:1101
+#: ../../Jokosher/JokosherApp.py:1098
 #, python-format
 msgid "Unable to unzip the project file %s"
 msgstr "Невозможно распаковать файл проекта %s"
 
-#: ../../Jokosher/JokosherApp.py:1103
+#: ../../Jokosher/JokosherApp.py:1100
 #, python-format
 msgid "The project file was created with version \"%s\" of Jokosher.\n"
 msgstr "Файл проекта был создан в Jokosher версии \\\"%s\\\".\n"
 
-#: ../../Jokosher/JokosherApp.py:1104
+#: ../../Jokosher/JokosherApp.py:1101
 #, python-format
 msgid "Projects from version \"%s\" are incompatible with this release.\n"
 msgstr "Проекты версии \\\"%s\\\" несовместимы с данным релизом.\n"
 
-#: ../../Jokosher/JokosherApp.py:1106
+#: ../../Jokosher/JokosherApp.py:1103
 #, python-format
 msgid ""
 "The project:\n"
@@ -765,7 +770,7 @@ msgstr ""
 "\n"
 "не существует.\n"
 
-#: ../../Jokosher/JokosherApp.py:1108
+#: ../../Jokosher/JokosherApp.py:1105
 msgid "The project file could not be opened.\n"
 msgstr "Файл проекта не может быть открыт.\n"
 
@@ -828,7 +833,7 @@ msgstr ""
 msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"
 msgstr "<b>Перетащите ползунок</b>, чтобы изменить уровень громкости"
 
-#: ../../Jokosher/VUWidget.py:174
+#: ../../Jokosher/VUWidget.py:173
 #, python-format
 msgid "Volume: %.2f"
 msgstr "Уровень: %.2f"

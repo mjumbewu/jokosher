@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: jokosher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-18 20:59-0400\n"
+"POT-Creation-Date: 2006-10-20 15:30-0400\n"
 "PO-Revision-Date: 2006-08-26 19:52+0000\n"
 "Last-Translator: Iestyn Pryce <dylunio@gmail.com>\n"
 "Language-Team: Welsh <cy@li.org>\n"
@@ -527,6 +527,15 @@ msgstr ""
 msgid "There are no instruments to connect"
 msgstr "Does dim offerynnau i'w gysylltu"
 
+#: ../../Jokosher/InstrumentEffectsDialog.py:81
+#: ../../Jokosher/InstrumentViewer.py:147
+msgid "Instrument Effects"
+msgstr "Effeithiau Offerynnau"
+
+#: ../../Jokosher/InstrumentEffectsDialog.py:264
+msgid "Effect Settings"
+msgstr ""
+
 #: ../../Jokosher/InstrumentViewer.py:127 ../../Jokosher/MixerStrip.py:72
 msgid "Enable this instrument for recording"
 msgstr "Galleuogi'r offeryn ar gyfer recordio"
@@ -538,10 +547,6 @@ msgstr "Mudo - distewi yn offenyn hon"
 #: ../../Jokosher/InstrumentViewer.py:140 ../../Jokosher/MixerStrip.py:84
 msgid "Solo - silence all other instruments"
 msgstr "Solo - distewi pob offeryn arall"
-
-#: ../../Jokosher/InstrumentViewer.py:147
-msgid "Instrument Effects"
-msgstr "Effeithiau Offerynnau"
 
 #: ../../Jokosher/InstrumentViewer.py:282 ../../Jokosher/MixerStrip.py:146
 msgid "Muted"
@@ -555,7 +560,7 @@ msgstr "Dadfudo"
 msgid "Instrument Effects..."
 msgstr "Effeithiau Offerynnau"
 
-#: ../../Jokosher/JokosherApp.py:295
+#: ../../Jokosher/JokosherApp.py:292
 #, python-format
 msgid ""
 "The instruments '%s' and '%s' both have the same input selected (%s). Please "
@@ -566,7 +571,7 @@ msgstr ""
 "diarfogwch un, neu cysylltwch ef i fewnbwn gwahanol trwy 'Prosiect -> "
 "Cysylltiadau Offerynau' os gwelwch yn dda."
 
-#: ../../Jokosher/JokosherApp.py:319
+#: ../../Jokosher/JokosherApp.py:316
 msgid ""
 "No instruments are armed for recording. You need to arm an instrument before "
 "you can begin recording."
@@ -574,7 +579,7 @@ msgstr ""
 "Does ddim offerynau wedi eu harfogi i recordio. Mae'r rhaid i chi arfogi "
 "offeryn cyn allwch derchrau recordio."
 
-#: ../../Jokosher/JokosherApp.py:351
+#: ../../Jokosher/JokosherApp.py:348
 msgid ""
 "No channels capable of recording have been found, please attach a device and "
 "try again."
@@ -582,7 +587,7 @@ msgstr ""
 "Does dim sianeli sy'n gallu recordio wedi eu darganfod, ail-gysylltwch "
 "dyfais a cheisiwch eto os gwelwch yn dda."
 
-#: ../../Jokosher/JokosherApp.py:353
+#: ../../Jokosher/JokosherApp.py:350
 msgid ""
 "Your sound card isn't capable of recording from multiple sources at the same "
 "time. Please disarm all but one instrument."
@@ -590,45 +595,45 @@ msgstr ""
 "Dydy eich cerdyn sain ddim yn gallu recordio o nifer o tarddiadau ar yr un "
 "amser. Diarfogwch pob offeryn heblaw un."
 
-#: ../../Jokosher/JokosherApp.py:431
+#: ../../Jokosher/JokosherApp.py:428
 msgid "Mixdown Project"
 msgstr "Lawrgymysgu Prosiect"
 
-#: ../../Jokosher/JokosherApp.py:434
+#: ../../Jokosher/JokosherApp.py:431
 msgid "Save as file type:"
 msgstr "Arbed ffeil fel fath:"
 
-#: ../../Jokosher/JokosherApp.py:469
+#: ../../Jokosher/JokosherApp.py:466
 #, python-format
 msgid "Mixing project to file: %s"
 msgstr "Cymysgu prosiect i ffeil: %s"
 
-#: ../../Jokosher/JokosherApp.py:484
+#: ../../Jokosher/JokosherApp.py:481
 msgid "Preparing to mixdown project"
 msgstr "Paratoi i lawrgymysgu'r prosiect"
 
-#: ../../Jokosher/JokosherApp.py:490
+#: ../../Jokosher/JokosherApp.py:487
 #, python-format
 msgid "%d of %d seconds completed"
 msgstr "%d o %d eiliad wedi ei gwblhau"
 
-#: ../../Jokosher/JokosherApp.py:546
+#: ../../Jokosher/JokosherApp.py:543
 msgid "Choose a Jokosher project file"
 msgstr "Dewis ffeil prosiect Jokosher"
 
-#: ../../Jokosher/JokosherApp.py:552
+#: ../../Jokosher/JokosherApp.py:549
 msgid "All Files"
 msgstr "Pob Ffeil"
 
-#: ../../Jokosher/JokosherApp.py:556
+#: ../../Jokosher/JokosherApp.py:553
 msgid "Jokosher Project File (*.jokosher)"
 msgstr "Ffeil Prosiect Jokosher (*.jokosher)"
 
-#: ../../Jokosher/JokosherApp.py:593
+#: ../../Jokosher/JokosherApp.py:590
 msgid "Choose a location to save the project"
 msgstr "Dewis lleoliad i arbed y prosiect"
 
-#: ../../Jokosher/JokosherApp.py:629
+#: ../../Jokosher/JokosherApp.py:626
 #, python-format
 msgid ""
 "<span size='large' weight='bold'>Save changes to project \"%s\" before "
@@ -641,29 +646,29 @@ msgstr ""
 "\n"
 "Mi fydd eich newidiadau yn cael eu colli os nad ydych yn eu harbed."
 
-#: ../../Jokosher/JokosherApp.py:638
+#: ../../Jokosher/JokosherApp.py:635
 msgid "Close _Without Saving"
 msgstr "Cau _Heb Arbed"
 
-#: ../../Jokosher/JokosherApp.py:683
+#: ../../Jokosher/JokosherApp.py:680
 #, python-format
 msgid "*%s - Jokosher"
 msgstr "*%s - Jokosher"
 
-#: ../../Jokosher/JokosherApp.py:685
+#: ../../Jokosher/JokosherApp.py:682
 #, python-format
 msgid "%s - Jokosher"
 msgstr "%s - Jokosher"
 
-#: ../../Jokosher/JokosherApp.py:891
+#: ../../Jokosher/JokosherApp.py:888
 msgid "Jokosher"
 msgstr "Jokosher"
 
-#: ../../Jokosher/JokosherApp.py:996
+#: ../../Jokosher/JokosherApp.py:993
 msgid "The project references non-existant files:\n"
 msgstr "Mae'r brosiect yn cyfeirio at ffeiliau sydd ddim yn bodoli:\n"
 
-#: ../../Jokosher/JokosherApp.py:1000
+#: ../../Jokosher/JokosherApp.py:997
 msgid ""
 "\n"
 "The project references non-existant images:\n"
@@ -671,7 +676,7 @@ msgstr ""
 "\n"
 "Mae'r prosiect yn cyfeirio at delweddau sydd ddim yn bodoli:\n"
 
-#: ../../Jokosher/JokosherApp.py:1008
+#: ../../Jokosher/JokosherApp.py:1005
 #, python-format
 msgid ""
 "%s\n"
@@ -680,19 +685,19 @@ msgstr ""
 "%s\n"
 " Ffeil annilys neu llygredig, methu agor."
 
-#: ../../Jokosher/JokosherApp.py:1034
+#: ../../Jokosher/JokosherApp.py:1031
 msgid "You must have Gstreamer version 0.10.9 or higher.\n"
 msgstr "Rhaid i chi gael Gstreamer fersiwn 0.10.9 neu uwch.\n"
 
-#: ../../Jokosher/JokosherApp.py:1042
+#: ../../Jokosher/JokosherApp.py:1039
 msgid "You must have Gstreamer plugin gnonlin version 0.10.4.2 or later.\n"
 msgstr "Rhaid cael ategyn Gstreamer gnonlin fersiwn 0.10.4.2 neu hwyrach.\n"
 
-#: ../../Jokosher/JokosherApp.py:1044
+#: ../../Jokosher/JokosherApp.py:1041
 msgid "Gstreamer plugin gnonlin is not installed."
 msgstr "Dydy'r ategyn Gstreamer gnonlin heb ei sefydlu."
 
-#: ../../Jokosher/JokosherApp.py:1045
+#: ../../Jokosher/JokosherApp.py:1042
 msgid ""
 "\n"
 "See http://jokosher.org/trac/wiki/GettingJokosher for more details.\n"
@@ -700,7 +705,7 @@ msgstr ""
 "\n"
 "Gwelwch http://jokosher.org/trac/wiki/GettingJokosher am fwy o fanylion\n"
 
-#: ../../Jokosher/JokosherApp.py:1048
+#: ../../Jokosher/JokosherApp.py:1045
 msgid ""
 "You must have the Gstreamer plugin packs gst-plugins-base and gst-plugins-"
 "good installed.\n"
@@ -708,7 +713,7 @@ msgstr ""
 "Mae'n rhaid i chi cael y atodion Gstreamer gst-plugins-base a gst-plugins-"
 "good wedi eu sefydlu.\n"
 
-#: ../../Jokosher/JokosherApp.py:1054
+#: ../../Jokosher/JokosherApp.py:1051
 #, python-format
 msgid ""
 "<big>Some functionality will not work correctly or at all.</big>\n"
@@ -719,7 +724,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../../Jokosher/JokosherApp.py:1075
+#: ../../Jokosher/JokosherApp.py:1072
 msgid ""
 "<big>Notes about this release</big>\n"
 "\n"
@@ -733,27 +738,27 @@ msgstr ""
 "rhyddhâd cyntaf. Felly, mae'n bosib i chi dod ar draws namau a swyddogaethau "
 "sydd ddim yn bresennol."
 
-#: ../../Jokosher/JokosherApp.py:1099
+#: ../../Jokosher/JokosherApp.py:1096
 #, python-format
 msgid "The URI scheme '%s' is either invalid or not supported."
 msgstr "Mae'r cynllun URI '%s' unai'n annilys neu neu ddim yn cael ei gynnal."
 
-#: ../../Jokosher/JokosherApp.py:1101
+#: ../../Jokosher/JokosherApp.py:1098
 #, python-format
 msgid "Unable to unzip the project file %s"
 msgstr "Methu dadgywasgu ffeil prosiect %s"
 
-#: ../../Jokosher/JokosherApp.py:1103
+#: ../../Jokosher/JokosherApp.py:1100
 #, python-format
 msgid "The project file was created with version \"%s\" of Jokosher.\n"
 msgstr "Gafodd y ffeil prosiect ei greu gyda fersiwn \"%s\" o Jokosher.\n"
 
-#: ../../Jokosher/JokosherApp.py:1104
+#: ../../Jokosher/JokosherApp.py:1101
 #, python-format
 msgid "Projects from version \"%s\" are incompatible with this release.\n"
 msgstr "Mae prosiectau o fersiwn \"%s\" yn anghydnaws gyda'r rhyddhâd yma.\n"
 
-#: ../../Jokosher/JokosherApp.py:1106
+#: ../../Jokosher/JokosherApp.py:1103
 #, python-format
 msgid ""
 "The project:\n"
@@ -766,7 +771,7 @@ msgstr ""
 "\n"
 "ddim yn bodoli\n"
 
-#: ../../Jokosher/JokosherApp.py:1108
+#: ../../Jokosher/JokosherApp.py:1105
 msgid "The project file could not be opened.\n"
 msgstr "Ni oedd yn bosib agor y ffeil prosiect.\n"
 
@@ -830,7 +835,7 @@ msgstr ""
 msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"
 msgstr "<b>Llusgwch</b> y <b>llithrydd</b> i newid lefelau sain"
 
-#: ../../Jokosher/VUWidget.py:174
+#: ../../Jokosher/VUWidget.py:173
 #, python-format
 msgid "Volume: %.2f"
 msgstr "Lefel Sain: %.2f"

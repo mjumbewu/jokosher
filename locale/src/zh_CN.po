@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: jokosher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-18 20:59-0400\n"
+"POT-Creation-Date: 2006-10-20 15:30-0400\n"
 "PO-Revision-Date: 2006-08-16 00:37+0000\n"
 "Last-Translator: daave <fan.d.liu@gmail.com>\n"
 "Language-Team: Chinese (China) <zh_CN@li.org>\n"
@@ -592,6 +592,15 @@ msgstr ""
 msgid "There are no instruments to connect"
 msgstr "没有连接的乐器"
 
+#: ../../Jokosher/InstrumentEffectsDialog.py:81
+#: ../../Jokosher/InstrumentViewer.py:147
+msgid "Instrument Effects"
+msgstr ""
+
+#: ../../Jokosher/InstrumentEffectsDialog.py:264
+msgid "Effect Settings"
+msgstr ""
+
 #: ../../Jokosher/InstrumentViewer.py:127 ../../Jokosher/MixerStrip.py:72
 msgid "Enable this instrument for recording"
 msgstr ""
@@ -602,10 +611,6 @@ msgstr ""
 
 #: ../../Jokosher/InstrumentViewer.py:140 ../../Jokosher/MixerStrip.py:84
 msgid "Solo - silence all other instruments"
-msgstr ""
-
-#: ../../Jokosher/InstrumentViewer.py:147
-msgid "Instrument Effects"
 msgstr ""
 
 #: ../../Jokosher/InstrumentViewer.py:282 ../../Jokosher/MixerStrip.py:146
@@ -621,7 +626,7 @@ msgstr ""
 msgid "Instrument Effects..."
 msgstr "乐器效果..."
 
-#: ../../Jokosher/JokosherApp.py:295
+#: ../../Jokosher/JokosherApp.py:292
 #, fuzzy, python-format
 msgid ""
 "The instruments '%s' and '%s' both have the same input selected (%s). Please "
@@ -631,72 +636,72 @@ msgstr ""
 "乐器'%s'和'%s'有选择了相同的输入(%s)。请或者除去一个，或者用‘项目->乐器连"
 "接’来将其连接到一个不同的输入。"
 
-#: ../../Jokosher/JokosherApp.py:319
+#: ../../Jokosher/JokosherApp.py:316
 #, fuzzy
 msgid ""
 "No instruments are armed for recording. You need to arm an instrument before "
 "you can begin recording."
 msgstr "没有连接乐器来录音。你需要在录音前连接一件乐器。"
 
-#: ../../Jokosher/JokosherApp.py:351
+#: ../../Jokosher/JokosherApp.py:348
 msgid ""
 "No channels capable of recording have been found, please attach a device and "
 "try again."
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:353
+#: ../../Jokosher/JokosherApp.py:350
 #, fuzzy
 msgid ""
 "Your sound card isn't capable of recording from multiple sources at the same "
 "time. Please disarm all but one instrument."
 msgstr "你的声卡不能同时录制多个源。请只连接一件乐器。"
 
-#: ../../Jokosher/JokosherApp.py:431
+#: ../../Jokosher/JokosherApp.py:428
 #, fuzzy
 msgid "Mixdown Project"
 msgstr "混音项目"
 
-#: ../../Jokosher/JokosherApp.py:434
+#: ../../Jokosher/JokosherApp.py:431
 #, fuzzy
 msgid "Save as file type:"
 msgstr "另存为文件类型："
 
-#: ../../Jokosher/JokosherApp.py:469
+#: ../../Jokosher/JokosherApp.py:466
 #, fuzzy, python-format
 msgid "Mixing project to file: %s"
 msgstr "混音项目到文件：%s"
 
-#: ../../Jokosher/JokosherApp.py:484
+#: ../../Jokosher/JokosherApp.py:481
 #, fuzzy
 msgid "Preparing to mixdown project"
 msgstr "正在准备混音项目"
 
-#: ../../Jokosher/JokosherApp.py:490
+#: ../../Jokosher/JokosherApp.py:487
 #, fuzzy, python-format
 msgid "%d of %d seconds completed"
 msgstr "%d/%d秒已完成"
 
-#: ../../Jokosher/JokosherApp.py:546
+#: ../../Jokosher/JokosherApp.py:543
 #, fuzzy
 msgid "Choose a Jokosher project file"
 msgstr "选择一个Jokosher项目文件"
 
-#: ../../Jokosher/JokosherApp.py:552
+#: ../../Jokosher/JokosherApp.py:549
 #, fuzzy
 msgid "All Files"
 msgstr "所以文件"
 
-#: ../../Jokosher/JokosherApp.py:556
+#: ../../Jokosher/JokosherApp.py:553
 #, fuzzy
 msgid "Jokosher Project File (*.jokosher)"
 msgstr "Jokosher项目文件(*.jokosher)"
 
-#: ../../Jokosher/JokosherApp.py:593
+#: ../../Jokosher/JokosherApp.py:590
 #, fuzzy
 msgid "Choose a location to save the project"
 msgstr "选择位置来保存项目"
 
-#: ../../Jokosher/JokosherApp.py:629
+#: ../../Jokosher/JokosherApp.py:626
 #, fuzzy, python-format
 msgid ""
 "<span size='large' weight='bold'>Save changes to project \"%s\" before "
@@ -708,32 +713,32 @@ msgstr ""
 "\n"
 "如不保存，更改会丢失。"
 
-#: ../../Jokosher/JokosherApp.py:638
+#: ../../Jokosher/JokosherApp.py:635
 #, fuzzy
 msgid "Close _Without Saving"
 msgstr "_W关闭不保存"
 
-#: ../../Jokosher/JokosherApp.py:683
+#: ../../Jokosher/JokosherApp.py:680
 #, fuzzy, python-format
 msgid "*%s - Jokosher"
 msgstr "*%s - Jokosher"
 
-#: ../../Jokosher/JokosherApp.py:685
+#: ../../Jokosher/JokosherApp.py:682
 #, fuzzy, python-format
 msgid "%s - Jokosher"
 msgstr "%s - Jokosher"
 
-#: ../../Jokosher/JokosherApp.py:891
+#: ../../Jokosher/JokosherApp.py:888
 #, fuzzy
 msgid "Jokosher"
 msgstr "Jokosher"
 
-#: ../../Jokosher/JokosherApp.py:996
+#: ../../Jokosher/JokosherApp.py:993
 #, fuzzy
 msgid "The project references non-existant files:\n"
 msgstr "项目参考不存在的文件：\n"
 
-#: ../../Jokosher/JokosherApp.py:1000
+#: ../../Jokosher/JokosherApp.py:997
 #, fuzzy
 msgid ""
 "\n"
@@ -742,7 +747,7 @@ msgstr ""
 "\n"
 "项目参考不存在的图片：\n"
 
-#: ../../Jokosher/JokosherApp.py:1008
+#: ../../Jokosher/JokosherApp.py:1005
 #, fuzzy, python-format
 msgid ""
 "%s\n"
@@ -751,22 +756,22 @@ msgstr ""
 "%s\n"
 " 非法或已破坏的项目文件，不能打开。"
 
-#: ../../Jokosher/JokosherApp.py:1034
+#: ../../Jokosher/JokosherApp.py:1031
 #, fuzzy
 msgid "You must have Gstreamer version 0.10.9 or higher.\n"
 msgstr "必需Gstreamer 0.10.9或更高版本。\n"
 
-#: ../../Jokosher/JokosherApp.py:1042
+#: ../../Jokosher/JokosherApp.py:1039
 #, fuzzy
 msgid "You must have Gstreamer plugin gnonlin version 0.10.4.2 or later.\n"
 msgstr "必需Gstreamer插件gnonlin 0.10.4.2或更高版本。\n"
 
-#: ../../Jokosher/JokosherApp.py:1044
+#: ../../Jokosher/JokosherApp.py:1041
 #, fuzzy
 msgid "Gstreamer plugin gnonlin is not installed."
 msgstr "Gstreamer插件gnonlin没有安装。"
 
-#: ../../Jokosher/JokosherApp.py:1045
+#: ../../Jokosher/JokosherApp.py:1042
 #, fuzzy
 msgid ""
 "\n"
@@ -775,13 +780,13 @@ msgstr ""
 "\n"
 "查看详情： http://jokosher.org/trac/wiki/GettingJokosher\n"
 
-#: ../../Jokosher/JokosherApp.py:1048
+#: ../../Jokosher/JokosherApp.py:1045
 msgid ""
 "You must have the Gstreamer plugin packs gst-plugins-base and gst-plugins-"
 "good installed.\n"
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:1054
+#: ../../Jokosher/JokosherApp.py:1051
 #, fuzzy, python-format
 msgid ""
 "<big>Some functionality will not work correctly or at all.</big>\n"
@@ -792,7 +797,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../../Jokosher/JokosherApp.py:1075
+#: ../../Jokosher/JokosherApp.py:1072
 #, fuzzy
 msgid ""
 "<big>Notes about this release</big>\n"
@@ -806,27 +811,27 @@ msgstr ""
 "本版Jokosher（0.1）为预发行版，并且是事实上我们的第一个发行版。因此，你可能会"
 "遭遇到一些错误或者尚不存在的功能。"
 
-#: ../../Jokosher/JokosherApp.py:1099
+#: ../../Jokosher/JokosherApp.py:1096
 #, python-format
 msgid "The URI scheme '%s' is either invalid or not supported."
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:1101
+#: ../../Jokosher/JokosherApp.py:1098
 #, fuzzy, python-format
 msgid "Unable to unzip the project file %s"
 msgstr "不能unzip项目文件 %s"
 
-#: ../../Jokosher/JokosherApp.py:1103
+#: ../../Jokosher/JokosherApp.py:1100
 #, fuzzy, python-format
 msgid "The project file was created with version \"%s\" of Jokosher.\n"
 msgstr "这个项目文件是由Jokosher \"%s\"版创建。\n"
 
-#: ../../Jokosher/JokosherApp.py:1104
+#: ../../Jokosher/JokosherApp.py:1101
 #, fuzzy, python-format
 msgid "Projects from version \"%s\" are incompatible with this release.\n"
 msgstr "\"%s\"版创建的项目和本发行版不兼容。\n"
 
-#: ../../Jokosher/JokosherApp.py:1106
+#: ../../Jokosher/JokosherApp.py:1103
 #, fuzzy, python-format
 msgid ""
 "The project:\n"
@@ -839,7 +844,7 @@ msgstr ""
 "\n"
 "不存在。\n"
 
-#: ../../Jokosher/JokosherApp.py:1108
+#: ../../Jokosher/JokosherApp.py:1105
 #, fuzzy
 msgid "The project file could not be opened.\n"
 msgstr "项目文件打不开。\n"
@@ -908,7 +913,7 @@ msgstr ""
 msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"
 msgstr "<b>拖动滑杆</b>来改变音量水平。"
 
-#: ../../Jokosher/VUWidget.py:174
+#: ../../Jokosher/VUWidget.py:173
 #, fuzzy, python-format
 msgid "Volume: %.2f"
 msgstr "音量：%.2f"

@@ -23,6 +23,9 @@ import Globals
 import EffectPresets
 from EffectWidget import EffectWidget
 
+import gettext
+_ = gettext.gettext
+
 #=========================================================================
 
 class InstrumentEffectsDialog:
@@ -75,7 +78,7 @@ class InstrumentEffectsDialog:
 
 		self.addeffect.set_sensitive(False)
 
-		self.headerCairoImage = CairoDialogHeaderImage("Instrument Effects")
+		self.headerCairoImage = CairoDialogHeaderImage(_("Instrument Effects"))
 		self.headerCairoImage.set_size_request(750, 60)
 		self.mainvbox.pack_start(self.headerCairoImage, False, False)
 		self.headerCairoImage.show()
@@ -258,7 +261,7 @@ class InstrumentEffectsDialog:
 		self.settingstable = self.settWin.get_widget("settingstable")
 		self.presetcombo = self.settWin.get_widget("presetcombo")
 		
-		self.settingsHeaderCairoImage = CairoDialogHeaderImage("Effect Settings")
+		self.settingsHeaderCairoImage = CairoDialogHeaderImage(_("Effect Settings"))
 		self.settingsHeaderCairoImage.set_size_request(450, 60)
 		self.settingsvbox.pack_start(self.settingsHeaderCairoImage, False, False)
 		self.settingsHeaderCairoImage.show()
