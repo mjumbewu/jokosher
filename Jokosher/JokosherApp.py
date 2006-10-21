@@ -96,13 +96,11 @@ class MainApp:
 		self.changeinstrumenttype = self.wTree.get_widget("changeinstrumenttype")
 		self.export = self.wTree.get_widget("export")
 		self.recentprojects = self.wTree.get_widget("recentprojects")
+		self.recentprojectsmenu = self.wTree.get_widget("recentprojects_menu")
 		self.menubar = self.wTree.get_widget("menubar")
 		
 		self.recentprojectitems = []
 		self.lastopenedproject = None
-
-		self.recentprojectsmenu = gtk.Menu()
-		self.recentprojects.set_submenu(self.recentprojectsmenu)
 		
 		self.project = None
 		self.recording = None

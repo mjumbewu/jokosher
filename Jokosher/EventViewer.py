@@ -106,11 +106,11 @@ class EventViewer(gtk.DrawingArea):
 		self.drawer.add(trimButton)
 		trimButton.connect("clicked", self.TrimToSelection)
 		
-		delFPButton = gtk.Button(_("Delete Fade Points"))
+		delFPButton = gtk.Button("Delete Fade Points")
 		self.drawer.add(delFPButton)
 		delFPButton.connect("clicked", self.DeleteSelectedFadePoints)
 		
-		snapFPButton = gtk.Button(_("Snap To Fade Points"))
+		snapFPButton = gtk.Button("Snap To Fade Points")
 		self.drawer.add(snapFPButton)
 		snapFPButton.connect("clicked", self.SnapSelectionToFadePoints)
 		

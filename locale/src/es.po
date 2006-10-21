@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: jokosher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-20 15:30-0400\n"
+"POT-Creation-Date: 2006-10-20 21:10-0400\n"
 "PO-Revision-Date: 2006-08-30 13:45+0000\n"
 "Last-Translator: Manuel Duran Moyano <mduran@ubiobio.cl>\n"
 "Language-Team: Spanish <es@li.org>\n"
@@ -131,7 +131,7 @@ msgstr "Autor"
 msgid "Browse for an Existing Project"
 msgstr "Buscar Proyectos Existentes"
 
-#: ../../Jokosher/Jokosher.glade.h:31
+#: ../../Jokosher/Jokosher.glade.h:31 ../../Jokosher/AddInstrumentDialog.py:48
 msgid "Change Instrument Type"
 msgstr ""
 
@@ -390,14 +390,6 @@ msgstr "_Proyecto"
 msgid "foo"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:93
-msgid "gtk-clear"
-msgstr ""
-
-#: ../../Jokosher/AddInstrumentDialog.py:48
-msgid "Change Instrument type"
-msgstr ""
-
 #: ../../Jokosher/AddInstrumentDialog.py:50
 #, python-format
 msgid "Choose the new instrument type for %s"
@@ -434,14 +426,6 @@ msgstr "Importar archivo..."
 #: ../../Jokosher/EventViewer.py:105
 msgid "Trim"
 msgstr "Cortar"
-
-#: ../../Jokosher/EventViewer.py:109
-msgid "Delete Fade Points"
-msgstr ""
-
-#: ../../Jokosher/EventViewer.py:113
-msgid "Snap To Fade Points"
-msgstr ""
 
 #: ../../Jokosher/EventViewer.py:265
 #, python-format
@@ -499,11 +483,11 @@ msgstr ""
 "Archivo dañado, no es un archivo de audio, o el plugin asociado no está "
 "instalado"
 
-#: ../../Jokosher/ExtensionManagerDialog.py:56
+#: ../../Jokosher/ExtensionManagerDialog.py:69
 msgid "Choose a Jokosher Extension file"
 msgstr ""
 
-#: ../../Jokosher/ExtensionManagerDialog.py:61
+#: ../../Jokosher/ExtensionManagerDialog.py:75
 msgid "Jokosher Extension Files (*.py *.egg)"
 msgstr ""
 
@@ -584,7 +568,7 @@ msgstr "No silenciado"
 msgid "Instrument Effects..."
 msgstr "Efectos del instrumento"
 
-#: ../../Jokosher/JokosherApp.py:292
+#: ../../Jokosher/JokosherApp.py:290
 #, fuzzy, python-format
 msgid ""
 "The instruments '%s' and '%s' both have the same input selected (%s). Please "
@@ -595,7 +579,7 @@ msgstr ""
 "favor desarma alguno, o conecta este a una diferente entrada a través de "
 "'Proyecto -> Conexiones de Intrumento'"
 
-#: ../../Jokosher/JokosherApp.py:316
+#: ../../Jokosher/JokosherApp.py:314
 #, fuzzy
 msgid ""
 "No instruments are armed for recording. You need to arm an instrument before "
@@ -604,7 +588,7 @@ msgstr ""
 "Ningún instrumento esta encendido para grabación. Necesita encender un "
 "instrumento antes de poder grabar."
 
-#: ../../Jokosher/JokosherApp.py:348
+#: ../../Jokosher/JokosherApp.py:346
 #, fuzzy
 msgid ""
 "No channels capable of recording have been found, please attach a device and "
@@ -613,7 +597,7 @@ msgstr ""
 "No se encontrarón canales capaces de grabar, por favor agregue un "
 "dispositivo e intente de nuevo."
 
-#: ../../Jokosher/JokosherApp.py:350
+#: ../../Jokosher/JokosherApp.py:348
 #, fuzzy
 msgid ""
 "Your sound card isn't capable of recording from multiple sources at the same "
@@ -622,50 +606,50 @@ msgstr ""
 "Su tarjeta de sonido no es capaz de grabar desde multiples fuentes al mismo "
 "tiempo. Por favor apague todos a excepción de un instrumento."
 
-#: ../../Jokosher/JokosherApp.py:428
+#: ../../Jokosher/JokosherApp.py:426
 #, fuzzy
 msgid "Mixdown Project"
 msgstr "Projecto Mezcla Abajo"
 
-#: ../../Jokosher/JokosherApp.py:431
+#: ../../Jokosher/JokosherApp.py:429
 #, fuzzy
 msgid "Save as file type:"
 msgstr "Guardar como tipo archivo:"
 
-#: ../../Jokosher/JokosherApp.py:466
+#: ../../Jokosher/JokosherApp.py:464
 #, fuzzy, python-format
 msgid "Mixing project to file: %s"
 msgstr "Mezclar proyecto al archivo: %s"
 
-#: ../../Jokosher/JokosherApp.py:481
+#: ../../Jokosher/JokosherApp.py:479
 #, fuzzy
 msgid "Preparing to mixdown project"
 msgstr "Preparando para mezlcar el proyecto"
 
-#: ../../Jokosher/JokosherApp.py:487
+#: ../../Jokosher/JokosherApp.py:485
 #, fuzzy, python-format
 msgid "%d of %d seconds completed"
 msgstr "%d de %d segundos completados"
 
-#: ../../Jokosher/JokosherApp.py:543
+#: ../../Jokosher/JokosherApp.py:541
 #, fuzzy
 msgid "Choose a Jokosher project file"
 msgstr "Elija un archivo de proyecto Jokosher"
 
-#: ../../Jokosher/JokosherApp.py:549
+#: ../../Jokosher/JokosherApp.py:547
 msgid "All Files"
 msgstr "Todos los archivos"
 
-#: ../../Jokosher/JokosherApp.py:553
+#: ../../Jokosher/JokosherApp.py:551
 #, fuzzy
 msgid "Jokosher Project File (*.jokosher)"
 msgstr "Proyecto Jokosher (*.jokosher)"
 
-#: ../../Jokosher/JokosherApp.py:590
+#: ../../Jokosher/JokosherApp.py:588
 msgid "Choose a location to save the project"
 msgstr "Elija un lugar para guardar el proyecto"
 
-#: ../../Jokosher/JokosherApp.py:626
+#: ../../Jokosher/JokosherApp.py:624
 #, fuzzy, python-format
 msgid ""
 "<span size='large' weight='bold'>Save changes to project \"%s\" before "
@@ -676,29 +660,29 @@ msgstr ""
 "<span size='large' weight='bold'>Guardar los cambios al proyecto \"%s\" "
 "antes de cerrar?</span>"
 
-#: ../../Jokosher/JokosherApp.py:635
+#: ../../Jokosher/JokosherApp.py:633
 msgid "Close _Without Saving"
 msgstr "Cerrar _sin guardar"
 
-#: ../../Jokosher/JokosherApp.py:680
+#: ../../Jokosher/JokosherApp.py:678
 #, python-format
 msgid "*%s - Jokosher"
 msgstr "*%s - Jokosher"
 
-#: ../../Jokosher/JokosherApp.py:682
+#: ../../Jokosher/JokosherApp.py:680
 #, python-format
 msgid "%s - Jokosher"
 msgstr "%s - Jokosher"
 
-#: ../../Jokosher/JokosherApp.py:888
+#: ../../Jokosher/JokosherApp.py:886
 msgid "Jokosher"
 msgstr "Jokosher"
 
-#: ../../Jokosher/JokosherApp.py:993
+#: ../../Jokosher/JokosherApp.py:991
 msgid "The project references non-existant files:\n"
 msgstr "El proyecto referencia a un archivo no existente:\n"
 
-#: ../../Jokosher/JokosherApp.py:997
+#: ../../Jokosher/JokosherApp.py:995
 msgid ""
 "\n"
 "The project references non-existant images:\n"
@@ -706,7 +690,7 @@ msgstr ""
 "\n"
 "El proyecto referencia imagenes no existentes:\n"
 
-#: ../../Jokosher/JokosherApp.py:1005
+#: ../../Jokosher/JokosherApp.py:1003
 #, fuzzy, python-format
 msgid ""
 "%s\n"
@@ -715,22 +699,22 @@ msgstr ""
 "%s↵\n"
 " projecto inválido o corrupto, no será abierto."
 
-#: ../../Jokosher/JokosherApp.py:1031
+#: ../../Jokosher/JokosherApp.py:1029
 #, fuzzy
 msgid "You must have Gstreamer version 0.10.9 or higher.\n"
 msgstr "Debes tener GStreamer versión 0.10.9 o mayor.\n"
 
-#: ../../Jokosher/JokosherApp.py:1039
+#: ../../Jokosher/JokosherApp.py:1037
 #, fuzzy
 msgid "You must have Gstreamer plugin gnonlin version 0.10.4.2 or later.\n"
 msgstr ""
 "Debes tener el  plugin de Gstreamer gnonlin versión 0.10.4.2 o posterior.↵\n"
 
-#: ../../Jokosher/JokosherApp.py:1041
+#: ../../Jokosher/JokosherApp.py:1039
 msgid "Gstreamer plugin gnonlin is not installed."
 msgstr "El plugin Gstreamer gnonlin no esta instalado."
 
-#: ../../Jokosher/JokosherApp.py:1042
+#: ../../Jokosher/JokosherApp.py:1040
 msgid ""
 "\n"
 "See http://jokosher.org/trac/wiki/GettingJokosher for more details.\n"
@@ -738,7 +722,7 @@ msgstr ""
 "\n"
 "Vea http://jokosher.org/trac/wiki/GettingJokosher para más información.↵\n"
 
-#: ../../Jokosher/JokosherApp.py:1045
+#: ../../Jokosher/JokosherApp.py:1043
 #, fuzzy
 msgid ""
 "You must have the Gstreamer plugin packs gst-plugins-base and gst-plugins-"
@@ -747,7 +731,7 @@ msgstr ""
 "Debe tener instalado el  paquete de plugins de Gstreamer, gst-plugins-base y "
 "gst-plugins-good.\n"
 
-#: ../../Jokosher/JokosherApp.py:1051
+#: ../../Jokosher/JokosherApp.py:1049
 #, fuzzy, python-format
 msgid ""
 "<big>Some functionality will not work correctly or at all.</big>\n"
@@ -757,7 +741,7 @@ msgstr ""
 "<big>Alguna funcionalidad o toda no trabajara correctamente.</big>\n"
 "%s"
 
-#: ../../Jokosher/JokosherApp.py:1072
+#: ../../Jokosher/JokosherApp.py:1070
 #, fuzzy
 msgid ""
 "<big>Notes about this release</big>\n"
@@ -772,27 +756,27 @@ msgstr ""
 "realidad, nuestra primer liberación.  Por lo que puedes encontrar algunos "
 "errores y funcionalidad no presente."
 
-#: ../../Jokosher/JokosherApp.py:1096
+#: ../../Jokosher/JokosherApp.py:1094
 #, fuzzy, python-format
 msgid "The URI scheme '%s' is either invalid or not supported."
 msgstr "El esquema URI  '%s' es inválido o no soportado."
 
-#: ../../Jokosher/JokosherApp.py:1098
+#: ../../Jokosher/JokosherApp.py:1096
 #, fuzzy, python-format
 msgid "Unable to unzip the project file %s"
 msgstr "Imposible descomprimir el proyecto %s"
 
-#: ../../Jokosher/JokosherApp.py:1100
+#: ../../Jokosher/JokosherApp.py:1098
 #, fuzzy, python-format
 msgid "The project file was created with version \"%s\" of Jokosher.\n"
 msgstr "El proyecto fue creado con Jokosher versión \"%s\" .↵\n"
 
-#: ../../Jokosher/JokosherApp.py:1101
+#: ../../Jokosher/JokosherApp.py:1099
 #, python-format
 msgid "Projects from version \"%s\" are incompatible with this release.\n"
 msgstr "Proyectos de la versión \"%s\" son incompatibles con esta versión.↵\n"
 
-#: ../../Jokosher/JokosherApp.py:1103
+#: ../../Jokosher/JokosherApp.py:1101
 #, python-format
 msgid ""
 "The project:\n"
@@ -804,7 +788,7 @@ msgstr ""
 "%s\n"
 "no existe.\n"
 
-#: ../../Jokosher/JokosherApp.py:1105
+#: ../../Jokosher/JokosherApp.py:1103
 msgid "The project file could not be opened.\n"
 msgstr "No se puede abrir el proyecto.\n"
 

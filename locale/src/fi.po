@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: jokosher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-20 15:30-0400\n"
+"POT-Creation-Date: 2006-10-20 21:10-0400\n"
 "PO-Revision-Date: 2006-08-14 20:41+0000\n"
 "Last-Translator: Mikko Virkkilä <mvirkkil@cc.hut.fi>\n"
 "Language-Team: Finnish <fi@li.org>\n"
@@ -128,7 +128,7 @@ msgstr "Tekijä"
 msgid "Browse for an Existing Project"
 msgstr "Hae olemassaoleva projekti"
 
-#: ../../Jokosher/Jokosher.glade.h:31
+#: ../../Jokosher/Jokosher.glade.h:31 ../../Jokosher/AddInstrumentDialog.py:48
 msgid "Change Instrument Type"
 msgstr ""
 
@@ -383,14 +383,6 @@ msgstr "_Projekti"
 msgid "foo"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:93
-msgid "gtk-clear"
-msgstr ""
-
-#: ../../Jokosher/AddInstrumentDialog.py:48
-msgid "Change Instrument type"
-msgstr ""
-
 #: ../../Jokosher/AddInstrumentDialog.py:50
 #, python-format
 msgid "Choose the new instrument type for %s"
@@ -430,14 +422,6 @@ msgstr "Tuo tiedosto..."
 #: ../../Jokosher/EventViewer.py:105
 msgid "Trim"
 msgstr "Ota kaistale"
-
-#: ../../Jokosher/EventViewer.py:109
-msgid "Delete Fade Points"
-msgstr ""
-
-#: ../../Jokosher/EventViewer.py:113
-msgid "Snap To Fade Points"
-msgstr ""
 
 #: ../../Jokosher/EventViewer.py:265
 #, python-format
@@ -488,11 +472,11 @@ msgid ""
 "File is corrupt, not an audio file, or the associated plugin is not installed"
 msgstr ""
 
-#: ../../Jokosher/ExtensionManagerDialog.py:56
+#: ../../Jokosher/ExtensionManagerDialog.py:69
 msgid "Choose a Jokosher Extension file"
 msgstr ""
 
-#: ../../Jokosher/ExtensionManagerDialog.py:61
+#: ../../Jokosher/ExtensionManagerDialog.py:75
 msgid "Jokosher Extension Files (*.py *.egg)"
 msgstr ""
 
@@ -569,7 +553,7 @@ msgstr ""
 msgid "Instrument Effects..."
 msgstr "Soitintehosteet..."
 
-#: ../../Jokosher/JokosherApp.py:292
+#: ../../Jokosher/JokosherApp.py:290
 #, fuzzy, python-format
 msgid ""
 "The instruments '%s' and '%s' both have the same input selected (%s). Please "
@@ -580,7 +564,7 @@ msgstr ""
 "soittimelta äänittäminen, tai liitä se toiseen sisääntuloon valikosta "
 "\"Projekti -> Soitinliitännät\""
 
-#: ../../Jokosher/JokosherApp.py:316
+#: ../../Jokosher/JokosherApp.py:314
 msgid ""
 "No instruments are armed for recording. You need to arm an instrument before "
 "you can begin recording."
@@ -588,13 +572,13 @@ msgstr ""
 "Yhtään soitinta ei ole määrätty äänittämään. Vähintään yksi soitin on "
 "määrättävä äänittämään jotta äänitys voi alkaa."
 
-#: ../../Jokosher/JokosherApp.py:348
+#: ../../Jokosher/JokosherApp.py:346
 msgid ""
 "No channels capable of recording have been found, please attach a device and "
 "try again."
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:350
+#: ../../Jokosher/JokosherApp.py:348
 msgid ""
 "Your sound card isn't capable of recording from multiple sources at the same "
 "time. Please disarm all but one instrument."
@@ -602,48 +586,48 @@ msgstr ""
 "Äänikortti ei tue samanaikaista äänittämistä useammasta äänilähteestä. "
 "Määritä vain yksi soitin äänittämään."
 
-#: ../../Jokosher/JokosherApp.py:428
+#: ../../Jokosher/JokosherApp.py:426
 #, fuzzy
 msgid "Mixdown Project"
 msgstr "Alasmiksausprojekti"
 
-#: ../../Jokosher/JokosherApp.py:431
+#: ../../Jokosher/JokosherApp.py:429
 #, fuzzy
 msgid "Save as file type:"
 msgstr "Tallenna tyyppinä:"
 
-#: ../../Jokosher/JokosherApp.py:466
+#: ../../Jokosher/JokosherApp.py:464
 #, python-format
 msgid "Mixing project to file: %s"
 msgstr "Miksataan projekti tiedostoon: %s"
 
-#: ../../Jokosher/JokosherApp.py:481
+#: ../../Jokosher/JokosherApp.py:479
 msgid "Preparing to mixdown project"
 msgstr "Valmistellaan projektin alasmiksausta"
 
-#: ../../Jokosher/JokosherApp.py:487
+#: ../../Jokosher/JokosherApp.py:485
 #, fuzzy, python-format
 msgid "%d of %d seconds completed"
 msgstr "%d/%d sekuntia käsitelty"
 
-#: ../../Jokosher/JokosherApp.py:543
+#: ../../Jokosher/JokosherApp.py:541
 msgid "Choose a Jokosher project file"
 msgstr "Valitse Jokosher-projektitiedosto"
 
-#: ../../Jokosher/JokosherApp.py:549
+#: ../../Jokosher/JokosherApp.py:547
 msgid "All Files"
 msgstr "Kaikki tiedostot"
 
-#: ../../Jokosher/JokosherApp.py:553
+#: ../../Jokosher/JokosherApp.py:551
 msgid "Jokosher Project File (*.jokosher)"
 msgstr "Jokosher-projektitiedosto (*.jokosher)"
 
-#: ../../Jokosher/JokosherApp.py:590
+#: ../../Jokosher/JokosherApp.py:588
 #, fuzzy
 msgid "Choose a location to save the project"
 msgstr "Valitse minne projekti tallennetaan"
 
-#: ../../Jokosher/JokosherApp.py:626
+#: ../../Jokosher/JokosherApp.py:624
 #, python-format
 msgid ""
 "<span size='large' weight='bold'>Save changes to project \"%s\" before "
@@ -656,29 +640,29 @@ msgstr ""
 "\n"
 "Muutoksesi katoavat ellei niitä tallenneta."
 
-#: ../../Jokosher/JokosherApp.py:635
+#: ../../Jokosher/JokosherApp.py:633
 msgid "Close _Without Saving"
 msgstr "Sulje _tallentamatta"
 
-#: ../../Jokosher/JokosherApp.py:680
+#: ../../Jokosher/JokosherApp.py:678
 #, python-format
 msgid "*%s - Jokosher"
 msgstr "*%s - Jokosher"
 
-#: ../../Jokosher/JokosherApp.py:682
+#: ../../Jokosher/JokosherApp.py:680
 #, python-format
 msgid "%s - Jokosher"
 msgstr "%s - Jokosher"
 
-#: ../../Jokosher/JokosherApp.py:888
+#: ../../Jokosher/JokosherApp.py:886
 msgid "Jokosher"
 msgstr "Jokosher"
 
-#: ../../Jokosher/JokosherApp.py:993
+#: ../../Jokosher/JokosherApp.py:991
 msgid "The project references non-existant files:\n"
 msgstr "Projektissa on viittauksia tiedostoihin joita ei löydy:\n"
 
-#: ../../Jokosher/JokosherApp.py:997
+#: ../../Jokosher/JokosherApp.py:995
 msgid ""
 "\n"
 "The project references non-existant images:\n"
@@ -686,7 +670,7 @@ msgstr ""
 "\n"
 "Projektissa on viittauksia kuviin joita ei löydy:\n"
 
-#: ../../Jokosher/JokosherApp.py:1005
+#: ../../Jokosher/JokosherApp.py:1003
 #, python-format
 msgid ""
 "%s\n"
@@ -695,19 +679,19 @@ msgstr ""
 "%s\n"
 " Virheellinen tai viallinen projektitiedosto jota ei voida avata."
 
-#: ../../Jokosher/JokosherApp.py:1031
+#: ../../Jokosher/JokosherApp.py:1029
 msgid "You must have Gstreamer version 0.10.9 or higher.\n"
 msgstr "Vaaditaan Gstreamer 0.10.9 tai uudempi.\n"
 
-#: ../../Jokosher/JokosherApp.py:1039
+#: ../../Jokosher/JokosherApp.py:1037
 msgid "You must have Gstreamer plugin gnonlin version 0.10.4.2 or later.\n"
 msgstr "Vaaditaan Gstreamer-lisäosa gnonlin 0.10.4.2 tai uudempi.\n"
 
-#: ../../Jokosher/JokosherApp.py:1041
+#: ../../Jokosher/JokosherApp.py:1039
 msgid "Gstreamer plugin gnonlin is not installed."
 msgstr "Gstreamer-lisäosaa gnonlin ei ole asennettu."
 
-#: ../../Jokosher/JokosherApp.py:1042
+#: ../../Jokosher/JokosherApp.py:1040
 msgid ""
 "\n"
 "See http://jokosher.org/trac/wiki/GettingJokosher for more details.\n"
@@ -715,13 +699,13 @@ msgstr ""
 "\n"
 "Katso lisätietoja osoitteesta http://jokosher.org/trac/wiki/GettingJokosher\n"
 
-#: ../../Jokosher/JokosherApp.py:1045
+#: ../../Jokosher/JokosherApp.py:1043
 msgid ""
 "You must have the Gstreamer plugin packs gst-plugins-base and gst-plugins-"
 "good installed.\n"
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:1051
+#: ../../Jokosher/JokosherApp.py:1049
 #, python-format
 msgid ""
 "<big>Some functionality will not work correctly or at all.</big>\n"
@@ -733,7 +717,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../../Jokosher/JokosherApp.py:1072
+#: ../../Jokosher/JokosherApp.py:1070
 msgid ""
 "<big>Notes about this release</big>\n"
 "\n"
@@ -747,28 +731,28 @@ msgstr ""
 "ensimmäinen julkaisu koskaan. Tästä johtuen ohjelman toiminnallisuudessa "
 "saattaa esiintyä virheitä tai puutteita."
 
-#: ../../Jokosher/JokosherApp.py:1096
+#: ../../Jokosher/JokosherApp.py:1094
 #, python-format
 msgid "The URI scheme '%s' is either invalid or not supported."
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:1098
+#: ../../Jokosher/JokosherApp.py:1096
 #, python-format
 msgid "Unable to unzip the project file %s"
 msgstr "Projektitiedostoa %s ei voida purkaa"
 
-#: ../../Jokosher/JokosherApp.py:1100
+#: ../../Jokosher/JokosherApp.py:1098
 #, python-format
 msgid "The project file was created with version \"%s\" of Jokosher.\n"
 msgstr "Projektitiedosto luotu Jokosher versiolla \"%s\"\n"
 
-#: ../../Jokosher/JokosherApp.py:1101
+#: ../../Jokosher/JokosherApp.py:1099
 #, python-format
 msgid "Projects from version \"%s\" are incompatible with this release.\n"
 msgstr ""
 "Version \"%s\" projektit eivät ole yhteensopivia tämän version kanssa.\n"
 
-#: ../../Jokosher/JokosherApp.py:1103
+#: ../../Jokosher/JokosherApp.py:1101
 #, python-format
 msgid ""
 "The project:\n"
@@ -781,7 +765,7 @@ msgstr ""
 "\n"
 "ei ole olemassa.\n"
 
-#: ../../Jokosher/JokosherApp.py:1105
+#: ../../Jokosher/JokosherApp.py:1103
 msgid "The project file could not be opened.\n"
 msgstr "Projektitiedostoa ei voitu avata:\n"
 

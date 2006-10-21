@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: jokosher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-20 15:30-0400\n"
+"POT-Creation-Date: 2006-10-20 21:10-0400\n"
 "PO-Revision-Date: 2006-09-18 14:51+0000\n"
 "Last-Translator: Jerome S. Gotangco <jgotangco@ubuntu.com>\n"
 "Language-Team: Tagalog <tl@li.org>\n"
@@ -124,7 +124,7 @@ msgstr "May-katha"
 msgid "Browse for an Existing Project"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:31
+#: ../../Jokosher/Jokosher.glade.h:31 ../../Jokosher/AddInstrumentDialog.py:48
 msgid "Change Instrument Type"
 msgstr ""
 
@@ -378,14 +378,6 @@ msgstr "_Proyekto"
 msgid "foo"
 msgstr "foo"
 
-#: ../../Jokosher/Jokosher.glade.h:93
-msgid "gtk-clear"
-msgstr ""
-
-#: ../../Jokosher/AddInstrumentDialog.py:48
-msgid "Change Instrument type"
-msgstr ""
-
 #: ../../Jokosher/AddInstrumentDialog.py:50
 #, python-format
 msgid "Choose the new instrument type for %s"
@@ -422,14 +414,6 @@ msgstr "Angkatin ang talaksan..."
 #: ../../Jokosher/EventViewer.py:105
 msgid "Trim"
 msgstr "Bawasan"
-
-#: ../../Jokosher/EventViewer.py:109
-msgid "Delete Fade Points"
-msgstr ""
-
-#: ../../Jokosher/EventViewer.py:113
-msgid "Snap To Fade Points"
-msgstr ""
 
 #: ../../Jokosher/EventViewer.py:265
 #, python-format
@@ -482,11 +466,11 @@ msgstr ""
 "Ang talaksan ay sira, hindi isang talaksang pang-audio, o ang akma na plugin "
 "ay hindi nakaluklok"
 
-#: ../../Jokosher/ExtensionManagerDialog.py:56
+#: ../../Jokosher/ExtensionManagerDialog.py:69
 msgid "Choose a Jokosher Extension file"
 msgstr ""
 
-#: ../../Jokosher/ExtensionManagerDialog.py:61
+#: ../../Jokosher/ExtensionManagerDialog.py:75
 msgid "Jokosher Extension Files (*.py *.egg)"
 msgstr ""
 
@@ -563,7 +547,7 @@ msgstr "Unmuted"
 msgid "Instrument Effects..."
 msgstr "Mga Epekto ng Instrumento..."
 
-#: ../../Jokosher/JokosherApp.py:292
+#: ../../Jokosher/JokosherApp.py:290
 #, python-format
 msgid ""
 "The instruments '%s' and '%s' both have the same input selected (%s). Please "
@@ -571,7 +555,7 @@ msgid ""
 "Instrument Connections'"
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:316
+#: ../../Jokosher/JokosherApp.py:314
 msgid ""
 "No instruments are armed for recording. You need to arm an instrument before "
 "you can begin recording."
@@ -579,7 +563,7 @@ msgstr ""
 "Walang instrumento ang naka arma para sa recording. Kinakailangan mong mag "
 "arma ng intrumento bago ka makapagsimula sa recording."
 
-#: ../../Jokosher/JokosherApp.py:348
+#: ../../Jokosher/JokosherApp.py:346
 msgid ""
 "No channels capable of recording have been found, please attach a device and "
 "try again."
@@ -587,51 +571,51 @@ msgstr ""
 "Walang mga channel na may kapabilidad sa pag record ang nakita, mag kabit ng "
 "device at subukan muli."
 
-#: ../../Jokosher/JokosherApp.py:350
+#: ../../Jokosher/JokosherApp.py:348
 msgid ""
 "Your sound card isn't capable of recording from multiple sources at the same "
 "time. Please disarm all but one instrument."
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:428
+#: ../../Jokosher/JokosherApp.py:426
 msgid "Mixdown Project"
 msgstr "I-Mixdown ang Proyekto"
 
-#: ../../Jokosher/JokosherApp.py:431
+#: ../../Jokosher/JokosherApp.py:429
 msgid "Save as file type:"
 msgstr "Ilagak ang talaksan bilang:"
 
-#: ../../Jokosher/JokosherApp.py:466
+#: ../../Jokosher/JokosherApp.py:464
 #, python-format
 msgid "Mixing project to file: %s"
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:481
+#: ../../Jokosher/JokosherApp.py:479
 msgid "Preparing to mixdown project"
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:487
+#: ../../Jokosher/JokosherApp.py:485
 #, python-format
 msgid "%d of %d seconds completed"
 msgstr "%d ng %d na segundo ang nakumpleto na"
 
-#: ../../Jokosher/JokosherApp.py:543
+#: ../../Jokosher/JokosherApp.py:541
 msgid "Choose a Jokosher project file"
 msgstr "Pumili ng talaksang proyekto ng Jokosher"
 
-#: ../../Jokosher/JokosherApp.py:549
+#: ../../Jokosher/JokosherApp.py:547
 msgid "All Files"
 msgstr "Lahat ng talaksan"
 
-#: ../../Jokosher/JokosherApp.py:553
+#: ../../Jokosher/JokosherApp.py:551
 msgid "Jokosher Project File (*.jokosher)"
 msgstr "Talaksang Proyekto ng Jokosher (*.jokosher)"
 
-#: ../../Jokosher/JokosherApp.py:590
+#: ../../Jokosher/JokosherApp.py:588
 msgid "Choose a location to save the project"
 msgstr "Pumili ng lokasyon kung saan ilalagak ang proyekto"
 
-#: ../../Jokosher/JokosherApp.py:626
+#: ../../Jokosher/JokosherApp.py:624
 #, python-format
 msgid ""
 "<span size='large' weight='bold'>Save changes to project \"%s\" before "
@@ -644,35 +628,35 @@ msgstr ""
 "\n"
 "Ang iyong mga pagbabago ay mawawala kapag ito ay hindi mo na-iluklok."
 
-#: ../../Jokosher/JokosherApp.py:635
+#: ../../Jokosher/JokosherApp.py:633
 msgid "Close _Without Saving"
 msgstr "Isarado _Nang Hindi Niluluklok"
 
-#: ../../Jokosher/JokosherApp.py:680
+#: ../../Jokosher/JokosherApp.py:678
 #, python-format
 msgid "*%s - Jokosher"
 msgstr "*%s - Jokosher"
 
-#: ../../Jokosher/JokosherApp.py:682
+#: ../../Jokosher/JokosherApp.py:680
 #, python-format
 msgid "%s - Jokosher"
 msgstr "%s - Jokosher"
 
-#: ../../Jokosher/JokosherApp.py:888
+#: ../../Jokosher/JokosherApp.py:886
 msgid "Jokosher"
 msgstr "Jokosher"
 
-#: ../../Jokosher/JokosherApp.py:993
+#: ../../Jokosher/JokosherApp.py:991
 msgid "The project references non-existant files:\n"
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:997
+#: ../../Jokosher/JokosherApp.py:995
 msgid ""
 "\n"
 "The project references non-existant images:\n"
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:1005
+#: ../../Jokosher/JokosherApp.py:1003
 #, python-format
 msgid ""
 "%s\n"
@@ -681,19 +665,19 @@ msgstr ""
 "%s\n"
 " Inbalido o sirang talaksan ng proyekto, ito ay hindi bubuksan."
 
-#: ../../Jokosher/JokosherApp.py:1031
+#: ../../Jokosher/JokosherApp.py:1029
 msgid "You must have Gstreamer version 0.10.9 or higher.\n"
 msgstr "Kailangan mo ng Gstreamer bersiyon 0.10.9 pataas.\n"
 
-#: ../../Jokosher/JokosherApp.py:1039
+#: ../../Jokosher/JokosherApp.py:1037
 msgid "You must have Gstreamer plugin gnonlin version 0.10.4.2 or later.\n"
 msgstr "Kailangan mo ang Gstreamer plugin gnolin bersiyon 0.10.4.2 pataas.\n"
 
-#: ../../Jokosher/JokosherApp.py:1041
+#: ../../Jokosher/JokosherApp.py:1039
 msgid "Gstreamer plugin gnonlin is not installed."
 msgstr "Ang Gstreamer plugin gnolin ay hindi naka luklok."
 
-#: ../../Jokosher/JokosherApp.py:1042
+#: ../../Jokosher/JokosherApp.py:1040
 msgid ""
 "\n"
 "See http://jokosher.org/trac/wiki/GettingJokosher for more details.\n"
@@ -702,7 +686,7 @@ msgstr ""
 "Pumunta sa http://jokosher.org/trac/wiki/GettingJokosher para sa mga "
 "detalye.\n"
 
-#: ../../Jokosher/JokosherApp.py:1045
+#: ../../Jokosher/JokosherApp.py:1043
 msgid ""
 "You must have the Gstreamer plugin packs gst-plugins-base and gst-plugins-"
 "good installed.\n"
@@ -710,7 +694,7 @@ msgstr ""
 "Ang Gstreamer plugin packs gst-plugins-base at gst-plugins-good ay dapat "
 "nakaluklok.\n"
 
-#: ../../Jokosher/JokosherApp.py:1051
+#: ../../Jokosher/JokosherApp.py:1049
 #, fuzzy, python-format
 msgid ""
 "<big>Some functionality will not work correctly or at all.</big>\n"
@@ -721,7 +705,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../../Jokosher/JokosherApp.py:1072
+#: ../../Jokosher/JokosherApp.py:1070
 msgid ""
 "<big>Notes about this release</big>\n"
 "\n"
@@ -730,29 +714,29 @@ msgid ""
 "that is not present."
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:1096
+#: ../../Jokosher/JokosherApp.py:1094
 #, python-format
 msgid "The URI scheme '%s' is either invalid or not supported."
 msgstr "Ang URI scheme '%s' ay inbalido o kaya ay hindi suportado."
 
-#: ../../Jokosher/JokosherApp.py:1098
+#: ../../Jokosher/JokosherApp.py:1096
 #, python-format
 msgid "Unable to unzip the project file %s"
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:1100
+#: ../../Jokosher/JokosherApp.py:1098
 #, python-format
 msgid "The project file was created with version \"%s\" of Jokosher.\n"
 msgstr "Ang talaksang proyekto ay binuo sa bersiyon \"%s\" ng Jokosher.\n"
 
-#: ../../Jokosher/JokosherApp.py:1101
+#: ../../Jokosher/JokosherApp.py:1099
 #, python-format
 msgid "Projects from version \"%s\" are incompatible with this release.\n"
 msgstr ""
 "Ang mga proyektong mula sa bersiyon \"%s\" ay hindi akma para sa labas na "
 "ito.\n"
 
-#: ../../Jokosher/JokosherApp.py:1103
+#: ../../Jokosher/JokosherApp.py:1101
 #, fuzzy, python-format
 msgid ""
 "The project:\n"
@@ -765,7 +749,7 @@ msgstr ""
 "\n"
 "ay hindi umiiral.\n"
 
-#: ../../Jokosher/JokosherApp.py:1105
+#: ../../Jokosher/JokosherApp.py:1103
 msgid "The project file could not be opened.\n"
 msgstr "Ang talaksang proyekto ay hindi mabuksan.\n"
 
