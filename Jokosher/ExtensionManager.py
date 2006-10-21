@@ -43,6 +43,7 @@ class ExtensionManager:
 		"""
 		messages = []
 		passed = True
+		name = None
 		# check if the necessary attributes EXTENSION_NAME, EXTENSION_VERSION
 		#	and EXTENSION_DESCRIPTION are present and
 		#	refuse to start the extension if they are missing. 
@@ -69,6 +70,18 @@ class ExtensionManager:
 			Globals.debug(filename + " missing startup() function")
 			messages.append(filename + " missing startup() function")
 			passed = False
+		# check for shutdown attribute
+		if not hasattr(extension,"shutdown"):
+			Globals.debug(filename + " missing shutdown() function")
+			messages.append(filename + " missing shutdown() function")
+			passed = False
+		# check extension is not already loaded
+		for testExtension in self.loadedExtensions:
+			if testExtension["name"] == name:
+				Globals.debug(filename + " extension '" + name + "' already present")
+				messages.append(filename + " extension '" + name + "' already present")
+				passed = False
+		
 		# quit if invalid in any way
 		if not passed:
 			return messages
