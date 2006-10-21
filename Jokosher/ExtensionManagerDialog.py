@@ -23,9 +23,9 @@ class ExtensionManagerDialog:
 		self.restart_label = self.wTree.get_widget("label1")
 		
 		self.AddColumn("Enabled", 0, 'toggle')
-		self.AddColumn("Name", 1)
-		self.AddColumn("Description", 2)
-		self.AddColumn("Version", 3)
+		self.AddColumn("Name", 1, 'text', 25)
+		self.AddColumn("Description", 2, 'text', 25)
+		self.AddColumn("Version", 3, 'text', 7)
 
 		self.model = gtk.ListStore(bool, str, str, str, str)
 		self.tree.set_model(self.model)
@@ -43,7 +43,7 @@ class ExtensionManagerDialog:
 
 	#_____________________________________________________________________
 
-	def AddColumn(self, title, modelId, cell_renderer='text'):
+	def AddColumn(self, title, modelId, cell_renderer='text', cell_width=20):
 		if cell_renderer == 'toggle':
 			renderer = gtk.CellRendererToggle()
 			renderer.set_property('activatable', True)
@@ -54,7 +54,10 @@ class ExtensionManagerDialog:
 			renderer = gtk.CellRendererText()
 			renderer.set_property('ellipsize', pango.ELLIPSIZE_END)
 			renderer.set_property('ellipsize-set', True)
-			column = gtk.TreeViewColumn(title, gtk.CellRendererText(), text=modelId)
+			renderer.set_property('width-chars', cell_width)
+			column = gtk.TreeViewColumn(title, renderer, text=modelId)
+			column.set_property('resizable', True)
+			
 		self.tree.append_column(column)
 	
 	#_____________________________________________________________________
