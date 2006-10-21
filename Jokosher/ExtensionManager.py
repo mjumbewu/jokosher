@@ -14,6 +14,7 @@ import pkg_resources
 import os.path
 import imp
 import gtk
+import shutil
 
 #=========================================================================
 
@@ -31,7 +32,7 @@ class ExtensionManager:
 		self.LoadAllExtensions()
 	#_____________________________________________________________________
 	
-	def register(self, extension, filename, directory):
+	def register(self, extension, filename, directory, local):
 		"""
 			Called from Extension.LoadAllExtensions afer the extensions
 			module has been imported (and the class instantiated in the case
@@ -40,6 +41,10 @@ class ExtensionManager:
 			extension = a reference to the extension (either a module 
 				or in the case of an extension imported 
 				from an egg, an instance object.
+			filename = the name of the file containing the extension
+			directory = the directory containing the filename
+			local = set to True if the extension is to be copied to the
+				local extension directory after checking
 		"""
 		messages = []
 		passed = True
@@ -81,6 +86,25 @@ class ExtensionManager:
 				Globals.debug(filename + " extension '" + name + "' already present")
 				messages.append(filename + " extension '" + name + "' already present")
 				passed = False
+		# find full file name of extension
+		extensionFile = os.path.join(directory, filename)
+		# if we are installing locally first check the file doesn't exist and
+		# then try and copy it 
+		if local:
+			extensionFile = os.path.expanduser(os.path.join("~/.jokosher/extensions/", filename))
+			if os.path.exists(extensionFile):
+				messages.append("Filename " + extensionFile + " already exists")
+				Globals.debug("Filename " + extensionFile + " already exists")
+				passed = False
+			else:
+				# don't copy if there was a previous error
+				if passed:
+					try:
+						shutil.copy(os.path.join(directory, filename), extensionFile)
+					except Exception, e:
+						messages.append(filename + "Failed copying file: " + str(e))
+						Globals.debug(filename + "Failed copying file: " + str(e))
+						passed = False
 		
 		# quit if invalid in any way
 		if not passed:
@@ -93,7 +117,7 @@ class ExtensionManager:
 			 "version":version,
 			 "extension":extension,
 			 "enabled":True,
-			 "filename":os.path.join(directory, filename) })
+			 "filename":extensionFile })
 			 
 		
 		return messages
@@ -108,12 +132,14 @@ class ExtensionManager:
 
 	#_____________________________________________________________________
 	
-	def LoadExtensionFromFile(self, filename, directory):
+	def LoadExtensionFromFile(self, filename, directory, local = False):
 		"""
 			Tries to load an extension fron a file
 			
 			filename = name of file containing extension
 			directory = full path to directory containing filename
+			local = set to True if the extension is to be copied
+			        to the local extension directory after checking
 		"""
 		Globals.debug("importing extension...", filename)
 		extension = None
@@ -157,7 +183,7 @@ class ExtensionManager:
 			messages.append("Invalid extension file suffix for", filename)
 			return messages
 		# try and register the extension - quit if failed
-		messages = self.register(extension, filename, directory)
+		messages = self.register(extension, filename, directory, local)
 		if len(messages):
 			return messages
 		# if we're still here then start the extension
@@ -182,8 +208,14 @@ class ExtensionManager:
 		for extension in self.GetExtensions():
 			index += 1
 			if extension['filename'] == filename:
-				extension['extension'].shutdown()
-				self.loadedExtensions.pop(index)
+				try:
+					os.remove(filename)
+					extension['extension'].shutdown()
+					self.loadedExtensions.pop(index)
+				except Exception, e:
+					Globals.debug("Failed to remove " + filename)
+					Globals.debug(e)
+					
 
 
 	#_____________________________________________________________________

@@ -1,7 +1,7 @@
 import gtk.glade, pango
 import Globals, Extension
 import gettext
-import os, shutil
+import os
 import gettext
 _ = gettext.gettext
 
@@ -87,18 +87,7 @@ class ExtensionManagerDialog:
 			
 			if install_response == gtk.RESPONSE_YES:
 				filename = chooser.get_filename()
-				dest = os.path.expanduser("~/.jokosher/extensions/")+os.path.basename(filename)
-				# don't overwite if already there
-				if os.path.exists(dest):
-					messages = ["Filename " + dest + " already exists"]
-					Globals.debug(messages[0])
-				else:
-					# copy the extension and try to load it
-					shutil.copy(filename, dest)
-					messages = self.parent.extensionManager.LoadExtensionFromFile(os.path.basename(dest), os.path.dirname(dest))
-					# if somthing went wrong with the load then revert the copy
-					if len(messages) > 0:
-						os.remove(dest)
+				messages = self.parent.extensionManager.LoadExtensionFromFile(os.path.basename(filename), os.path.dirname(filename), local=True)
 				# TODO: somehow display the failing messages back to the user
 				self.UpdateModel()
 				chooser.destroy()
@@ -122,7 +111,6 @@ class ExtensionManagerDialog:
 						gtk.BUTTONS_YES_NO, "Remove the selected extension?")
 				response = dlg.run()
 				if response == gtk.RESPONSE_YES:
-					os.remove(filename)
 					dlg.destroy()
 					self.parent.extensionManager.UnloadExtension(filename)
 					self.UpdateModel()
