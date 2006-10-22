@@ -66,17 +66,26 @@ class RecordingView(gtk.Frame):
 		self.al.add(sb)
 		self.al.set_padding(0, 0, 0, 0)
 		self.hb.pack_start(self.al)
+		
+		self.lastzoom = 0
+		
 		#recording view contains zoom buttons
 		if not self.mixView:
-			zoom_out = gtk.ToolButton(gtk.STOCK_ZOOM_OUT)
-			zoom = gtk.ToolButton(gtk.STOCK_ZOOM_100)
-			zoom_in = gtk.ToolButton(gtk.STOCK_ZOOM_IN)
-			self.hb.pack_start( zoom_out, False, False)
+			zoom = gtk.HScale()
+			zoom.set_size_request(70, -1)
+			zoom.set_range(-5.0, 5.0)
+			zoom.set_increments(1, 1)
+			zoom.set_draw_value(False)
+			zoom.set_value(0)
+			
+			zoom.connect("value-changed", self.OnZoom)
+
+			inimg = gtk.image_new_from_stock(gtk.STOCK_ZOOM_IN, gtk.ICON_SIZE_BUTTON)
+			outimg = gtk.image_new_from_stock(gtk.STOCK_ZOOM_OUT, gtk.ICON_SIZE_BUTTON)
+
+			self.hb.pack_start( outimg, False, False)
 			self.hb.pack_start( zoom, False, False)
-			self.hb.pack_start( zoom_in, False, False)
-			zoom_out.connect("clicked", self.OnZoomOut)
-			zoom.connect("clicked", self.OnZoom100)
-			zoom_in.connect("clicked", self.OnZoomIn)
+			self.hb.pack_start( inimg, False, False)
 		
 		self.scrollRange.lower = 0
 		self.scrollRange.upper = 100
@@ -213,10 +222,29 @@ class RecordingView(gtk.Frame):
 		self.project.SetViewStart(pos)
 
 	#_____________________________________________________________________
-		
-	def OnZoomOut(self, widget):
+
+	def OnZoom(self, widget):
 		"""
-			Callback for "clicked" signal from zoom out button
+			Callback for the zoom slider being moved.
+		"""
+		
+		print self.lastzoom
+		
+		if self.lastzoom < widget.get_value():
+			self.lastzoom = widget.get_value()
+			self.OnZoomIn()
+			
+		if self.lastzoom > widget.get_value():
+			self.lastzoom = widget.get_value()
+			self.OnZoomOut()
+
+
+	#_____________________________________________________________________
+
+		
+	def OnZoomOut(self):
+		"""
+			Zooms the view.
 		"""
 		tmp = self.project.viewScale * 2. / 3
 		if tmp > 0.5:
@@ -227,15 +255,16 @@ class RecordingView(gtk.Frame):
 		
 	def OnZoom100(self, widget):
 		"""
-			Callback for "clicked" signal from 1:1 Zoom button
+			This method is not currently used (it was used when we had zoom buttons) but is
+			left here in case we use it in future.
 		"""
 		self.project.SetViewScale(25.0)
 		
 	#_____________________________________________________________________
 		
-	def OnZoomIn(self, widget):
+	def OnZoomIn(self):
 		"""
-			Callback for "clicked" signal from zoom in button
+			Zooms the view.
 		"""
 		tmp = self.project.viewScale * 1.5
 		# beyond 4000 is likely to make the levels disappear
