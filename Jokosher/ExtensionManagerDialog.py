@@ -90,8 +90,14 @@ class ExtensionManagerDialog:
 			
 			if install_response == gtk.RESPONSE_YES:
 				filename = chooser.get_filename()
-				messages = self.parent.extensionManager.LoadExtensionFromFile(os.path.basename(filename), os.path.dirname(filename), local=True)
-				# TODO: somehow display the failing messages back to the user
+				if not self.parent.extensionManager.LoadExtensionFromFile(os.path.basename(filename), os.path.dirname(filename), local=True):
+					dlg = gtk.MessageDialog(self.dlg,
+						gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
+						gtk.MESSAGE_ERROR,
+						gtk.BUTTONS_CLOSE,
+						_("There was a problem loading the extension"))
+					dlg.run()
+					dlg.destroy()
 				self.UpdateModel()
 				chooser.destroy()
 			
@@ -115,7 +121,15 @@ class ExtensionManagerDialog:
 				response = dlg.run()
 				if response == gtk.RESPONSE_YES:
 					dlg.destroy()
-					self.parent.extensionManager.UnloadExtension(filename)
+					if not self.parent.extensionManager.UnloadExtension(filename):
+						dlg2 = gtk.MessageDialog(self.dlg,
+							gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
+							gtk.MESSAGE_ERROR,
+							gtk.BUTTONS_CLOSE,
+							_("There was a problem removing the extension"))
+						dlg2.run()
+						dlg2.destroy()
+						
 					self.UpdateModel()
 				
 				dlg.destroy()

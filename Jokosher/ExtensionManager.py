@@ -46,7 +46,6 @@ class ExtensionManager:
 			local = set to True if the extension is to be copied to the
 				local extension directory after checking
 		"""
-		messages = []
 		passed = True
 		name = None
 		# check if the necessary attributes EXTENSION_NAME, EXTENSION_VERSION
@@ -56,35 +55,29 @@ class ExtensionManager:
 			name = extension.EXTENSION_NAME
 		else:
 			Globals.debug(filename + " missing EXTENSION NAME")
-			messages.append(filename + " missing EXTENSION NAME")
 			passed = False
 		if hasattr(extension,"EXTENSION_VERSION"):
 			version = extension.EXTENSION_VERSION
 		else:
 			Globals.debug(filename + " missing EXTENSION_VERSION")
-			messages.append(filename + " missing EXTENSION_VERSION")
 			passed = False
 		if hasattr(extension,"EXTENSION_DESCRIPTION"):
 			description = extension.EXTENSION_DESCRIPTION
 		else:
 			Globals.debug(filename + " missing EXTENSION_DESCRIPTION")
-			messages.append(filename + " missing EXTENSION_DESCRIPTION")
 			passed = False
 		# check for startup attribute
 		if not hasattr(extension,"startup"):
 			Globals.debug(filename + " missing startup() function")
-			messages.append(filename + " missing startup() function")
 			passed = False
 		# check for shutdown attribute
 		if not hasattr(extension,"shutdown"):
 			Globals.debug(filename + " missing shutdown() function")
-			messages.append(filename + " missing shutdown() function")
 			passed = False
 		# check extension is not already loaded
 		for testExtension in self.loadedExtensions:
 			if testExtension["name"] == name:
 				Globals.debug(filename + " extension '" + name + "' already present")
-				messages.append(filename + " extension '" + name + "' already present")
 				passed = False
 		# find full file name of extension
 		extensionFile = os.path.join(directory, filename)
@@ -93,7 +86,6 @@ class ExtensionManager:
 		if local:
 			extensionFile = os.path.expanduser(os.path.join("~/.jokosher/extensions/", filename))
 			if os.path.exists(extensionFile):
-				messages.append("Filename " + extensionFile + " already exists")
 				Globals.debug("Filename " + extensionFile + " already exists")
 				passed = False
 			else:
@@ -102,13 +94,12 @@ class ExtensionManager:
 					try:
 						shutil.copy(os.path.join(directory, filename), extensionFile)
 					except Exception, e:
-						messages.append(filename + "Failed copying file: " + str(e))
 						Globals.debug(filename + "Failed copying file: " + str(e))
 						passed = False
 		
 		# quit if invalid in any way
 		if not passed:
-			return messages
+			return False
 		
 		# add details to loadedExtensions list
 		self.loadedExtensions.append(
@@ -120,7 +111,7 @@ class ExtensionManager:
 			 "filename":extensionFile })
 			 
 		
-		return messages
+		return True
 		
 	#_____________________________________________________________________
 	
@@ -143,7 +134,6 @@ class ExtensionManager:
 		"""
 		Globals.debug("importing extension...", filename)
 		extension = None
-		messages = []
 		if filename.endswith(".py"):
 			# for a python module try and import it
 			extension = None
@@ -158,7 +148,7 @@ class ExtensionManager:
 				Globals.debug(e)
 				if exten_file:
 					exten_file.close()
-				return ([filename + " failed to import"])
+				return False
 			if exten_file:
 				exten_file.close()
 		elif filename.endswith(".egg"):
@@ -176,25 +166,24 @@ class ExtensionManager:
 				except Exception, e :
 					Globals.debug("...failed.")
 					Globals.debug(e)
-					return ([filename + " failed to import"])
+					return False
 		else:
 			# any other file extension is wrong
 			Globals.debug("Invalid extension file suffix for", filename)
-			messages.append("Invalid extension file suffix for", filename)
-			return messages
+			return False
 		# try and register the extension - quit if failed
-		messages = self.register(extension, filename, directory, local)
-		if len(messages):
-			return messages
+		if not self.register(extension, filename, directory, local):
+			return False
+		
 		# if we're still here then start the extension
 		try:
 			extension.startup(self.API)
 		except Exception, e :
 			Globals.debug(filename + " extension failed to start")
-			messages.append(filename + " extension failed to start")
 			Globals.debug(e)
+			return False
 		
-		return messages
+		return True
 		
 	#_____________________________________________________________________
 	
@@ -215,6 +204,8 @@ class ExtensionManager:
 				except Exception, e:
 					Globals.debug("Failed to remove " + filename)
 					Globals.debug(e)
+					return False
+		return True
 					
 
 
