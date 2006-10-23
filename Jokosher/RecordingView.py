@@ -73,10 +73,10 @@ class RecordingView(gtk.Frame):
 		if not self.mixView:
 			zoom = gtk.HScale()
 			zoom.set_size_request(70, -1)
-			zoom.set_range(-5.0, 5.0)
-			zoom.set_increments(1, 1)
+			zoom.set_range(5, 75.0)
+			zoom.set_increments(0.2, 0.2)
 			zoom.set_draw_value(False)
-			zoom.set_value(0)
+			zoom.set_value(40.0)
 			
 			zoom.connect("value-changed", self.OnZoom)
 
@@ -228,16 +228,7 @@ class RecordingView(gtk.Frame):
 			Callback for the zoom slider being moved.
 		"""
 		
-		print self.lastzoom
-		
-		if self.lastzoom < widget.get_value():
-			self.lastzoom = widget.get_value()
-			self.OnZoomIn()
-			
-		if self.lastzoom > widget.get_value():
-			self.lastzoom = widget.get_value()
-			self.OnZoomOut()
-
+		self.project.SetViewScale(widget.get_value())
 
 	#_____________________________________________________________________
 
