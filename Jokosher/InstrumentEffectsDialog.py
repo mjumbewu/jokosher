@@ -282,7 +282,7 @@ class InstrumentEffectsDialog:
 			if not(property.flags & gobject.PARAM_READABLE):
 				label = gtk.Label(property.name)
 				label.set_alignment(1,0.5)
-				self.settingstable.attach(label, 0, 1, count, count+1)
+				self.settingstable.attach(label, 0, 1, count, count+1, gtk.SHRINK)
 
 				rlabel = gtk.Label("-parameter not readable-")
 				self.settingstable.attach(rlabel, 1, 2, count, count+1)
@@ -296,14 +296,14 @@ class InstrumentEffectsDialog:
 				wvalue = self.effectelement.get_property(property.name)
 				if wvalue:
 					wlabel = gtk.Label(wvalue)
-					self.settingstable.attach(wlabel, 1, 2, count, count+1)
+					self.settingstable.attach(wlabel, 1, 2, count, count+1, gtk.SHRINK)
 
 			# TODO: tooltips using property.blurb
 
 			elif hasattr(property, "minimum") and hasattr(property, "maximum"):
 				label = gtk.Label(property.name)
 				label.set_alignment(1,0.5)
-				self.settingstable.attach(label, 0, 1, count, count+1)
+				self.settingstable.attach(label, 0, 1, count, count+1, gtk.SHRINK)
 
 				#guess that it's numeric - we can use an HScale
 				value = self.effectelement.get_property(property.name)
@@ -323,7 +323,7 @@ class InstrumentEffectsDialog:
 					   (property.value_type == gobject.TYPE_DOUBLE)):
 					hscale.set_digits(0)
 	
-				self.settingstable.attach(self.sliderdict[property.name], 1, 2, count, count+1)
+				self.settingstable.attach(self.sliderdict[property.name], 1, 2, count, count+1, gtk.FILL|gtk.EXPAND)
 			
 			count += 1
 
