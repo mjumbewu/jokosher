@@ -110,7 +110,7 @@ class Instrument(Monitored, CommandManaged):
 		self.silenceaudio.set_property("wave", 4)	#4 is silence
 		
 		self.silencesource = gst.element_factory_make("gnlsource")
-		self.silencesource.set_property("priority", 1000)
+		self.silencesource.set_property("priority", 2 ** 32 - 1)
 		self.silencesource.set_property("start", 0)
 		self.silencesource.set_property("duration", 1000 * gst.SECOND)
 		self.silencesource.set_property("media-start", 0)
@@ -124,7 +124,47 @@ class Instrument(Monitored, CommandManaged):
 		self.resample = gst.element_factory_make("audioresample")
 		self.playbackbin.add(self.resample)
 		Globals.debug("added audioresample (instrument)")
+
+		# create operation
+
+		self.volbin = gst.element_factory_make("bin", "volbin")
+
+		self.opvol = gst.element_factory_make("volume", "opvol")
+		self.volbin.add(self.opvol)
+
+		self.vollac = gst.element_factory_make("audioconvert", "vollac")
+		self.volbin.add(self.vollac)
 		
+		self.volrac = gst.element_factory_make("audioconvert", "volrac")
+		self.volbin.add(self.volrac)
+
+		self.vollac.link(self.opvol)
+		self.opvol.link(self.volrac)
+
+		for pad in self.vollac.pads():
+			if pad.get_direction() == gst.PAD_SINK:
+				volbinsink = gst.GhostPad("sink", pad)
+
+		for pad in self.volrac.pads():
+			if pad.get_direction() == gst.PAD_SRC:
+				volbinsrc = gst.GhostPad("src", pad)
+
+		self.volbin.add_pad(volbinsink)
+		self.volbin.add_pad(volbinsrc)
+
+		self.op = gst.element_factory_make("gnloperation", "gnloperation")
+		self.op.set_property("start", long(0) * gst.SECOND)
+		self.op.set_property("duration", long(20) * gst.SECOND)
+		self.op.set_property("priority", 1)
+
+		self.op.add(self.volbin)
+
+		self.composition.add(self.op)
+		
+		# set controller
+
+		self.control = gst.Controller(self.opvol, "volume")
+		self.control.set_interpolation_mode("volume", gst.INTERPOLATE_LINEAR)
 
 		# link elements
 		
@@ -739,5 +779,18 @@ class Instrument(Monitored, CommandManaged):
 		self.StateChanged(self.IMAGE)
 
 	#_____________________________________________________________________
+
+	#_____________________________________________________________________
+
+	def PrepareController(self):
+		"""Fills the gst.Controller for the instrument with its list of fade times."""
+		
+		Globals.debug("Preparing the controller")
+		
+		for ev in self.events:
+			for point in ev.audioFadePoints:
+				Globals.debug("FADE POINT: time(" + str(point[0]) + ") vol(" + str(point[1]) + ")" )
+				self.control.set("volume", point[0] * gst.SECOND, point[1])
+
 	
 #=========================================================================	

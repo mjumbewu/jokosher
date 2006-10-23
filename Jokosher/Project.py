@@ -389,6 +389,7 @@ class Project(Monitored, CommandManaged):
 			Globals.debug("play() in Project.py")
 
 			for ins in self.instruments:
+				ins.PrepareController()
 				if ins.effectsbin_obsolete == 1:
 					self.mainpipeline.set_state(gst.STATE_NULL)
 					Globals.debug("Unlinking obsolete effects bin")
