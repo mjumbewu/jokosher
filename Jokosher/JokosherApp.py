@@ -1067,7 +1067,7 @@ class MainApp:
 			gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
 			gtk.MESSAGE_WARNING,
 			gtk.BUTTONS_CLOSE)
-		dlg.set_markup(_("<big>Notes about this release</big>\n\nThis version of Jokosher (0.2) is a pre-release version, and is infact, our very first release. As such, you may encounter some bugs and functionality that is not present."))
+		dlg.set_markup(_("<big>Notes about this release</big>\n\nThis version of Jokosher (0.2) is a pre-release version. As such, you may encounter some bugs and functionality that is not present."))
 		dlg.run()
 		dlg.destroy()
 
