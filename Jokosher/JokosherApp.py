@@ -703,23 +703,40 @@ class MainApp:
 		self.PopulateRecentProjects()
 
 	#_____________________________________________________________________
-
+	
+	def OnClearRecentProjects(self, widget):
+		self.recentprojectitems = []
+		self.SaveRecentProjects()
+		self.PopulateRecentProjects()
+		
+	#_____________________________________________________________________
+	
 	def PopulateRecentProjects(self):
 		'''Populate the Recent Projects menu with items from self.recentprojectitems'''
 		
 		menuitems = self.recentprojectsmenu.get_children()
-
 		for c in menuitems:
 			self.recentprojectsmenu.remove(c)
+			
+		if self.recentprojectitems:
+			for item in self.recentprojectitems:
+				mitem = gtk.MenuItem(item[1])
+				self.recentprojectsmenu.append(mitem)
+				mitem.connect("activate", self.OnRecentProjectsItem, item[0], item[1])
+			
+			mitem = gtk.SeparatorMenuItem()
+			self.recentprojectsmenu.append(mitem)
+			
+			mitem = gtk.ImageMenuItem(gtk.STOCK_CLEAR)
+			self.recentprojectsmenu.append(mitem)
+			mitem.connect("activate", self.OnClearRecentProjects)
+			
+			self.recentprojects.set_sensitive(True)
+			self.recentprojectsmenu.show_all()
+		else:
+			#there are no items, so just make it insensitive
+			self.recentprojects.set_sensitive(False)
 		
-		for item in self.recentprojectitems:
-			self.mitem = gtk.MenuItem(item[1])
-			self.recentprojectsmenu.append(self.mitem)
-			self.mitem.connect("activate", self.OnRecentProjectsItem, item[0], item[1])
-				
-			self.mitem.show()
-
-		self.recentprojectsmenu.show()
 	#_____________________________________________________________________
 	
 	def OpenRecentProjects(self):
@@ -906,7 +923,7 @@ class MainApp:
 			if self.tvtoolitem:
 				self.tvtoolitem.destroy()
 				self.tvtoolitem = None
-	
+
 	#_____________________________________________________________________
 	
 	def OnKeyPress(self, widget, event):
