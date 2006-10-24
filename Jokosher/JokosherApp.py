@@ -693,6 +693,17 @@ class MainApp:
 
 	#_____________________________________________________________________
 
+	def RemoveRecentProject(self, path, name):
+		for item in self.recentprojectitems:
+			if path == item[0]:
+				self.recentprojectitems.remove(item)
+				break
+		
+		self.SaveRecentProjects()
+		self.PopulateRecentProjects()
+
+	#_____________________________________________________________________
+
 	def PopulateRecentProjects(self):
 		'''Populate the Recent Projects menu with items from self.recentprojectitems'''
 		
@@ -738,7 +749,7 @@ class MainApp:
 	#_____________________________________________________________________
 	
 	def OnRecentProjectsItem(self, widget, path, name):
-		self.OpenProjectFromPath(path)
+		return self.OpenProjectFromPath(path)
 
 	#_____________________________________________________________________
 

@@ -51,8 +51,8 @@ class WelcomeDialog:
 		self.openrecentbutton.set_sensitive(False)
 
 		# set up recent projects treeview with a ListStore model. We also
-		# use CellRenderPixbug as we are using icons for each entry
-		self.model = gtk.ListStore(str, str, str)
+		# use CellRenderPixbuf as we are using icons for each entry
+		self.model = gtk.ListStore(str, str, str, str)
 		self.PopulateRecentProjects()
 		self.tree.set_model(self.model)
 		self.tvcolumn = gtk.TreeViewColumn('Recent Projects')
@@ -64,11 +64,21 @@ class WelcomeDialog:
 		
 		self.tvcolumn.set_attributes(self.cellpb, stock_id=0)
 		self.tvcolumn.set_attributes(self.cell, text=1)
-		
+		#make this column expand so the remove icon is at the left
+		self.tvcolumn.set_expand(True)
 		self.tree.append_column(self.tvcolumn)
+		
+		self.removecolumn = gtk.TreeViewColumn("Remove")
+		#set this to not expand so it is at the far right
+		self.removecolumn.set_expand(False)
+		self.cellremove = gtk.CellRendererPixbuf()
+		self.removecolumn.pack_end(self.cellremove, False)
+		self.removecolumn.set_attributes(self.cellremove, stock_id=3)
+		self.tree.append_column(self.removecolumn)
 
 		self.tree.connect("row-activated", self.OnRecentProjectSelected)
 		self.tree.connect("cursor-changed", self.OnEnableRecentProjectButton)
+		self.tree.connect("button-press-event", self.OnMouseClick)
 		
 		self.window.show_all()
 
@@ -120,8 +130,9 @@ class WelcomeDialog:
 
 	def PopulateRecentProjects(self):
 		'''Populate the Recent Projects menu with items from global settings'''		
+		self.model.clear()
 		for path, name in self.mainwindow.recentprojectitems:	
-			self.model.append([gtk.STOCK_NEW, name, path])
+			self.model.append([gtk.STOCK_NEW, name, path, gtk.STOCK_DELETE])
 	
 	#_____________________________________________________________________
 
@@ -130,8 +141,10 @@ class WelcomeDialog:
 		list is selected."""
 		
 		item = self.model[path]
-		self.mainwindow.OnRecentProjectsItem(self, item[2], item[1])
-		self.window.destroy()
+		reponse = self.mainwindow.OnRecentProjectsItem(self, item[2], item[1])
+		if reponse:
+			#it opened without error, so close our window
+			self.window.destroy()
 		
 	#_____________________________________________________________________
 
@@ -150,6 +163,17 @@ class WelcomeDialog:
 		self.window.destroy()
 	
 	#_____________________________________________________________________
+	
+	def OnMouseClick(self, treeview, event):
+		if event.button == 1: #If the click is a left-click
+			row, column = self.tree.get_path_at_pos(int(event.x), int(event.y))[:2]
+			if row >= 0 and column == self.removecolumn:
+				item = self.model[row]
+				
+				self.mainwindow.RemoveRecentProject(item[2], item[1])
+				self.PopulateRecentProjects()
+		
+	#_____________________________________________________________________
 
 	def OnStartupToggled(self, widget):
 		"""When the startup toggle box is toggled, this method is run to update
@@ -161,3 +185,6 @@ class WelcomeDialog:
 			Globals.settings.general["startupaction"] = PreferencesDialog.STARTUP_WELCOME_DIALOG
 		
 		Globals.settings.write()
+	
+	#_____________________________________________________________________
+#=========================================================================
