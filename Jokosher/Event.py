@@ -478,7 +478,7 @@ class Event(Monitored, CommandManaged):
 		st = message.structure
 		if st:
 			if st.get_name() == "level":
-				end = st["endtime"] / 1000000000.
+				end = st["endtime"] / float(gst.SECOND)
 				self.levels.append(DbToFloat(st["peak"][0]))
 				self.loadingLength = int(end)
 											
@@ -500,7 +500,7 @@ class Event(Monitored, CommandManaged):
 			
 			# Update levels for partial events
 			q = self.bin.query_duration(gst.FORMAT_TIME)
-			length = q[0] / 1000000000
+			length = q[0] / float(gst.SECOND)
 			
 			if self.offset > 0 or self.duration != length:
 				dt = int(self.duration * len(self.levels) / length)
@@ -524,7 +524,7 @@ class Event(Monitored, CommandManaged):
 		try:
 			q = self.bin.query_duration(gst.FORMAT_TIME)
 			if self.duration == 0:
-				self.duration = float(q[0] / 1000000000)
+				self.duration = float(q[0] / float(gst.SECOND))
 				self.SetProperties()
 				#update position with proper duration
 				self.MoveButDoNotOverlap(self.start)
