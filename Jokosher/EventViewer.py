@@ -749,7 +749,13 @@ class EventViewer(gtk.DrawingArea):
 			selection = [self.event.selection[1], self.event.selection[0]]
 		else:
 			selection = self.event.selection[:]
-	
+
+		x0 = self.project.viewScale * self.event.selection[0]	
+		x1 = (self.project.viewScale * self.event.selection[1]) - x0
+
+		if x0 < self.drawer.size_request()[0] and x1< self.drawer.size_request()[0]:
+			self.drawerAlignToLeft = True
+
 		eventx = int((self.event.start - self.project.viewStart) * self.project.viewScale)
 		if self.drawerAlignToLeft:
 			x = int(self.PixXFromSec(selection[0]))
