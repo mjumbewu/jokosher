@@ -11,6 +11,8 @@
 
 import gtk
 import TimeLine
+import gettext
+_=gettext.gettext
 
 class TimeLineBar(gtk.Frame):
 	def __init__(self, project, projectview, mainview):
@@ -24,11 +26,15 @@ class TimeLineBar(gtk.Frame):
 		
 		# add click / bpm / signature box
 		self.clickbutton = gtk.ToggleButton("C")
+		self.clicktip = gtk.Tooltips()
+		self.clicktip.set_tip(self.clickbutton,_("Turn click track on"),None)
 		self.clickbutton.connect("toggled", self.OnClick)
 					
 		self.bpmeventbox = gtk.EventBox()
 		self.bpmeventbox.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse("#87d987"))
 		self.bpmframe = gtk.Frame()
+		self.bpmframetip = gtk.Tooltips()
+		self.bpmframetip.set_tip(self.bpmframe, _("Beats per minute"), None)
 		self.bpmframe.set_shadow_type(gtk.SHADOW_ETCHED_OUT)
 		self.bpmframe.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse("#87d987"))
 		
@@ -211,6 +217,7 @@ class TimeLineBar(gtk.Frame):
 	#_____________________________________________________________________
 
 	def OnClick(self, widget):
+		self.clicktip.set_tip(self.clickbutton, _("Turn click track off"),None)
 		dlg = gtk.MessageDialog(None,
 			gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
 			gtk.MESSAGE_WARNING,

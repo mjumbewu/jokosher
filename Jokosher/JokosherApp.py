@@ -37,7 +37,9 @@ class MainApp:
 		gtk.glade.textdomain(Globals.LOCALE_APP)
 		
 		self.wTree = gtk.glade.XML(Globals.GLADE_PATH, "MainWindow")
-		
+		def printTree():
+			for widget in wTree:
+				print widget
 		#Connect event handlers
 		signals = {
 			"on_MainWindow_destroy" : self.OnDestroy,
