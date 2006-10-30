@@ -235,6 +235,10 @@ class Project(Monitored, CommandManaged):
 		#wheather we are in the process of exporting or not
 		self.IsExporting = False
 		
+		# click track details
+		self.clickbpm = 120
+		self.clickEnabled = False
+		
 		self.RedrawTimeLine = False
 
 		self.mainpipeline = gst.Pipeline("timeline")
@@ -295,6 +299,38 @@ class Project(Monitored, CommandManaged):
 		Globals.debug("added alsasink (project)")
 
 		self.level.link(self.out)
+
+		# click track bin
+		
+		self.clickbin = gst.element_factory_make("bin", "clickbin")
+
+		self.click = gst.element_factory_make("audiotestsrc", "click")
+		self.click.set_property("wave", 1)
+		self.clickbin.add(self.click)
+
+		self.clickvol = gst.element_factory_make("volume", "clickvol")
+		self.clickvol.set_property("mute", True)
+		self.clickbin.add(self.clickvol)
+
+		self.click.link(self.clickvol)
+		
+		self.clickrac = gst.element_factory_make("audioconvert", "click_ac")
+		self.clickbin.add(self.clickrac)
+
+		self.clickvol.link(self.clickrac)
+
+		for pad in self.clickrac.pads():
+			if pad.get_direction() == gst.PAD_SRC:
+				clickbinsrc = gst.GhostPad("src", pad)
+
+		self.clickbin.add_pad(clickbinsrc)
+		
+		self.playbackbin.add(self.clickbin)
+
+		self.clickbin.link(self.adder)
+		
+		self.clickcontrol = gst.Controller(self.click, "volume")
+				
 		self.bus = self.mainpipeline.get_bus()
 		self.bus.add_signal_watch()
 		self.Mhandler = self.bus.connect("message", self.bus_message)
@@ -306,6 +342,8 @@ class Project(Monitored, CommandManaged):
 		
 		self.transportMode = TransportManager.TransportManager.MODE_BARS_BEATS
 		self.transport = TransportManager.TransportManager(self.transportMode, self.mainpipeline)
+
+		self.PrepareClick()
 
 		# [DEBUG]
 		# This debug block will be removed when we release. If you see this in a release version, we
@@ -1050,6 +1088,60 @@ class Project(Monitored, CommandManaged):
 		self.temp = self.transport.mode
 		self.transport.SetMode(val)
 
+	#_____________________________________________________________________
+
+	def PrepareClick(self):
+		'''Prepare the click track'''
+
+		self.ClearClickTimes()
+
+		second = 1000000000
+		
+		# FIXME: currently hard coded to 600 seconds
+		length = (600 * second)
+		interval = second / (self.transport.bpm/60)
+		
+		self.clickcontrol.set("volume", 0 * gst.SECOND, 0.0)
+
+		current = 0 + interval
+
+		while current < length:
+			self.clickcontrol.set("volume", current-(second / 10), 0.0)
+			Globals.debug("time: " + str(current-1000000) + " vol: " + str(0.0))
+
+			self.clickcontrol.set("volume", current, 1.0)
+			Globals.debug("time: " + str(current) + " vol: " + str(1.0))
+
+			self.clickcontrol.set("volume", current+(second / 10), 0.0)
+			Globals.debug("time: " + str(current+1000000) + " vol: " + str(0.0))
+
+			current = current + interval
+			#print current
+
+	#_____________________________________________________________________
+
+	def EnableClick(self):
+		'''Enable the click track'''
+		
+		self.clickvol.set_property("mute", False)
+		self.clickEnabled == True
+
+	#_____________________________________________________________________
+
+	def DisableClick(self):
+		'''Disable the click track'''
+		
+		self.clickvol.set_property("mute", True)
+		self.clickEnabled == False
+
+	#_____________________________________________________________________
+
+	def ClearClickTimes(self):
+		'''Clear the click track controller times'''
+
+		self.clickcontrol.unset_all("volume")
+
+
 #=========================================================================
 	
 class OpenProjectError(EnvironmentError):
@@ -1100,5 +1192,6 @@ class InvalidProjectError(Exception):
 		self.images=missingimages
 
 #=========================================================================
+
 
 GlobalProjectObject = None

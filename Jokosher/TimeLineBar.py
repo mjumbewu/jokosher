@@ -62,15 +62,15 @@ class TimeLineBar(gtk.Frame):
 
 		# set events
 		# ##### BPM boxes disabled in 0.1 - re-enable for 0.2 #######
-		#self.bpmeventbox.set_events(gtk.gdk.BUTTON_PRESS_MASK)
-		#self.bpmeventbox.connect("button_press_event", self.OnEditBPM)
-		#self.bpmeventbox.connect("enter_notify_event", self.OnMouseMoveBPM)
-		#self.bpmeventbox.connect("leave_notify_event", self.OnMouseMoveBPM)
+		self.bpmeventbox.set_events(gtk.gdk.BUTTON_PRESS_MASK)
+		self.bpmeventbox.connect("button_press_event", self.OnEditBPM)
+		self.bpmeventbox.connect("enter_notify_event", self.OnMouseMoveBPM)
+		self.bpmeventbox.connect("leave_notify_event", self.OnMouseMoveBPM)
 		
-		#self.sigeventbox.set_events(gtk.gdk.BUTTON_PRESS_MASK)
-		#self.sigeventbox.connect("button_press_event", self.OnEditSig)
-		#self.sigeventbox.connect("enter_notify_event", self.OnMouseMoveSig)
-		#self.sigeventbox.connect("leave_notify_event", self.OnMouseMoveSig)
+		self.sigeventbox.set_events(gtk.gdk.BUTTON_PRESS_MASK)
+		self.sigeventbox.connect("button_press_event", self.OnEditSig)
+		self.sigeventbox.connect("enter_notify_event", self.OnMouseMoveSig)
+		self.sigeventbox.connect("leave_notify_event", self.OnMouseMoveSig)
 		
 		# ###########################################################
 		
@@ -130,7 +130,7 @@ class TimeLineBar(gtk.Frame):
 	#_____________________________________________________________________
 	
 	def OnEditBPM(self, widget, event):
-		self.parentUpdateMethod()
+		#self.parentUpdateMethod()
 		if event.type == gtk.gdk.BUTTON_PRESS:
 			self.bpmframe.remove(self.bpmeventbox)
 						
@@ -176,6 +176,8 @@ class TimeLineBar(gtk.Frame):
 			self.bpmedit.destroy()
 			self.bpmframe.show_all()
 			self.bpmeditPacked = False
+			
+			self.project.PrepareClick()
 
 	#_____________________________________________________________________
 
@@ -218,12 +220,12 @@ class TimeLineBar(gtk.Frame):
 
 	def OnClick(self, widget):
 		self.clicktip.set_tip(self.clickbutton, _("Turn click track off"), None)
-		dlg = gtk.MessageDialog(None,
-			gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
-			gtk.MESSAGE_WARNING,
-			gtk.BUTTONS_CLOSE)
-		dlg.set_markup("<big>Click Track</big>\n\nThis button enables and disables the Click Track in Jokosher.\n\nThe current version of Jokosher does not have the click track available. It will be ready in version 0.2.")
-		dlg.run()
-		dlg.destroy()
+
+		if widget.get_active() == True:
+			self.project.EnableClick()
+			
+		if widget.get_active() == False:
+			self.project.DisableClick()
+
 		
 #=========================================================================
