@@ -27,7 +27,7 @@ class TimeLineBar(gtk.Frame):
 		# add click / bpm / signature box
 		self.clickbutton = gtk.ToggleButton("C")
 		self.clicktip = gtk.Tooltips()
-		self.clicktip.set_tip(self.clickbutton,_("Turn click track on"),None)
+		self.clicktip.set_tip(self.clickbutton, _("Turn click track on"), None)
 		self.clickbutton.connect("toggled", self.OnClick)
 					
 		self.bpmeventbox = gtk.EventBox()
@@ -217,7 +217,7 @@ class TimeLineBar(gtk.Frame):
 	#_____________________________________________________________________
 
 	def OnClick(self, widget):
-		self.clicktip.set_tip(self.clickbutton, _("Turn click track off"),None)
+		self.clicktip.set_tip(self.clickbutton, _("Turn click track off"), None)
 		dlg = gtk.MessageDialog(None,
 			gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
 			gtk.MESSAGE_WARNING,
