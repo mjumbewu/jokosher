@@ -265,6 +265,8 @@ class MainApp:
 		dlg = aboutTree.get_widget("AboutDialog")
 		dlg.set_transient_for(self.window)
 		dlg.set_icon(self.icon)
+		dlg.run()
+		dlg.destroy()
 		
 	#_____________________________________________________________________
 
@@ -717,10 +719,12 @@ class MainApp:
 		menuitems = self.recentprojectsmenu.get_children()
 		for c in menuitems:
 			self.recentprojectsmenu.remove(c)
-			
+		
 		if self.recentprojectitems:
+			tooltips = gtk.Tooltips()
 			for item in self.recentprojectitems:
 				mitem = gtk.MenuItem(item[1])
+				tooltips.set_tip(mitem, item[0], None)
 				self.recentprojectsmenu.append(mitem)
 				mitem.connect("activate", self.OnRecentProjectsItem, item[0], item[1])
 			
@@ -728,6 +732,8 @@ class MainApp:
 			self.recentprojectsmenu.append(mitem)
 			
 			mitem = gtk.ImageMenuItem(gtk.STOCK_CLEAR)
+			tooltips.set_tip(mitem, _("Clear the list of recent projects"), None)
+			tooltips.force_window()
 			self.recentprojectsmenu.append(mitem)
 			mitem.connect("activate", self.OnClearRecentProjects)
 			
