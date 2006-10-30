@@ -44,7 +44,7 @@ class PreferencesDialog:
 		self.res.signal_autoconnect(self.signals)
 		self.dlg = self.res.get_widget("PreferencesDialog")
 		self.dlg.set_icon(icon)
-		self.mixdownFormat = self.res.get_widget("mixdownFormat")
+##		self.mixdownFormat = self.res.get_widget("mixdownFormat")
 		self.sampleRate = self.res.get_widget("sampleRate")
 		self.sampleFormat = self.res.get_widget("sampleFormat")
 		self.recordingFileFormat = self.res.get_widget("recordingFileFormat")
@@ -58,11 +58,9 @@ class PreferencesDialog:
 		for playback in self.playbacks:
 			self.playingDevice.append_text(playback)
 
-		self.OnCheckEncoders()
-
 		#Load settings - set to True to make sure data isn't saved to file until everything is loaded
 		self.loading = True
-		self.LoadSetting(self.mixdownFormat, Globals.settings.general, "mixdownformat")
+##		self.LoadSetting(self.mixdownFormat, Globals.settings.general, "mixdownformat")
 		self.LoadSetting(self.sampleRate, Globals.settings.general, "samplerate")
 		self.LoadSetting(self.sampleFormat, Globals.settings.general, "sampleformat")
 		self.LoadSetting(self.recordingFileFormat, Globals.settings.recording, "fileformat")
@@ -90,6 +88,8 @@ class PreferencesDialog:
 
 		if section.has_key(property):
 			model = widget.get_model()
+			if not model:
+				return
 			
 			iter = model.get_iter_first()
 			while iter:
@@ -101,6 +101,8 @@ class PreferencesDialog:
 					#Default to having the first item in the combobox selected
 					widget.set_active(0)
 				iter = model.iter_next(iter)
+				
+	#_____________________________________________________________________
 
 	def OnClose(self, button=None): 
 		"""Called when the user closes the preferences dialog.
@@ -121,7 +123,7 @@ class PreferencesDialog:
 		if self.loading:
 			return
 		
-		Globals.settings.general["mixdownformat"] = self.mixdownFormat.get_active_text()
+##		Globals.settings.general["mixdownformat"] = self.mixdownFormat.get_active_text()
 		Globals.settings.general["samplerate"] = self.sampleRate.get_active_text()
 		Globals.settings.general["sampleformat"] = self.sampleFormat.get_active_text()
 		Globals.settings.recording["fileformat"] = self.recordingFileFormat.get_active_text()
@@ -143,7 +145,10 @@ class PreferencesDialog:
 	#_____________________________________________________________________
 
 	def OnCheckEncoders(self):
-		"""List the available encoders installed on the computer"""
+		"""List the available encoders installed on the computer
+		   This code is not currently used, but is still here as it may
+		   be useful in the future.
+		"""
 
 		thelist = gst.registry_get_default().get_feature_list(gst.ElementFactory)
 		encoders = []

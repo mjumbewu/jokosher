@@ -42,6 +42,8 @@ class InstrumentConnectionsDialog:
 
 		self.parent = parent
 		self.window.set_icon(self.parent.icon)
+		## centre the InstrumentConnectionsDialog on the main jokosher window
+		self.window.set_transient_for(self.parent.window)
 		self.window.show_all()
 
 	#_____________________________________________________________________

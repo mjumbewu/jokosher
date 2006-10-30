@@ -1104,13 +1104,15 @@ class MainApp:
 	def OnContributingDialog(self, widget):
 		
 		self.contribTree = gtk.glade.XML(Globals.GLADE_PATH, "ContributingDialog")
+		
+		# grab reference to the ContributingDialog window
+		self.contribdialog = self.contribTree.get_widget("ContributingDialog")
 
 		self.topimage = self.contribTree.get_widget("topimage")
 		self.topimage.set_from_file(os.path.join(Globals.IMAGE_PATH, "jokosher-logo.png"))
 		
-		# grab some references to bits of the GUI
-		self.contribdialog = self.wTree.get_widget("ContributingDialog")
-		#self.contribdialog.show_all()
+		# centre the ContributingDialog window on MainWindow
+		self.contribdialog.set_transient_for(self.window)
 		
 	#_____________________________________________________________________
 	
