@@ -1168,10 +1168,7 @@ class MainApp:
 
 def main():	
 	MainApp()
-	gtk.threads_init()
 	gtk.main()
-
-
 
 if __name__ == "__main__":
 	main()
