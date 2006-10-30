@@ -132,7 +132,7 @@ class WelcomeDialog:
 		'''Populate the Recent Projects menu with items from global settings'''		
 		self.model.clear()
 		for path, name in self.mainwindow.recentprojectitems:	
-			self.model.append([gtk.STOCK_NEW, name, path, gtk.STOCK_DELETE])
+			self.model.append([gtk.STOCK_NEW, name, path, gtk.STOCK_REMOVE])
 	
 	#_____________________________________________________________________
 
