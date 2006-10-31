@@ -40,7 +40,7 @@ class ExtensionManagerDialog:
 
 	def OnClose(self, button):
 		self.dlg.destroy()
-
+		Globals.settings.write()
 	#_____________________________________________________________________
 
 	def AddColumn(self, title, modelId, cell_renderer='text', cell_width=20):
@@ -57,14 +57,35 @@ class ExtensionManagerDialog:
 			renderer.set_property('width-chars', cell_width)
 			column = gtk.TreeViewColumn(title, renderer, text=modelId)
 			column.set_property('resizable', True)
-			
+
 		self.tree.append_column(column)
 	
 	#_____________________________________________________________________
 
 	def ToggleEnabled(self, cell, path):
 		self.model[path][0] = not self.model[path][0]
-		self.restart_label.set_property('visible', self.restart_label.get_property('visible'))
+		
+		iter = self.model.get_iter(path)
+		name = self.model.get_value(iter, 1)
+		filename = self.model.get_value(iter, 4)
+		
+		if self.model[path][0]:
+			if name in Globals.settings.extensions['extensions_blacklist']:
+				Globals.settings.extensions['extensions_blacklist'] = Globals.settings.extensions['extensions_blacklist'].replace(name, "")
+				print Globals.settings.extensions['extensions_blacklist']
+				for extension in self.parent.extensionManager.GetExtensions():
+					if filename == extension['filename']:
+						extension['enabled'] = True
+
+				self.parent.extensionManager.StartExtension(filename)
+		else:
+			if name not in Globals.settings.extensions['extensions_blacklist']:
+				Globals.settings.extensions['extensions_blacklist'] += name+" "
+				self.parent.extensionManager.StopExtension(filename)
+				
+				for extension in self.parent.extensionManager.GetExtensions():
+					if filename == extension['filename']:
+						extension['enabled'] = False
 
 	#_____________________________________________________________________
 	
@@ -90,6 +111,8 @@ class ExtensionManagerDialog:
 			
 			if install_response == gtk.RESPONSE_YES:
 				filename = chooser.get_filename()
+				#TODO: redo the enable/disable stuff here
+				
 				if not self.parent.extensionManager.LoadExtensionFromFile(os.path.basename(filename), os.path.dirname(filename), local=True):
 					dlg = gtk.MessageDialog(self.dlg,
 						gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
@@ -121,7 +144,7 @@ class ExtensionManagerDialog:
 				response = dlg.run()
 				if response == gtk.RESPONSE_YES:
 					dlg.destroy()
-					if not self.parent.extensionManager.UnloadExtension(filename):
+					if not self.parent.extensionManager.RemoveExtension(filename): #don't forget to change to RemoveExtenion() in ExtensionManager
 						dlg2 = gtk.MessageDialog(self.dlg,
 							gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
 							gtk.MESSAGE_ERROR,

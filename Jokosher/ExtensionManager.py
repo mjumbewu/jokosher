@@ -101,13 +101,17 @@ class ExtensionManager:
 		if not passed:
 			return False
 		
+		enabled = True
+		if name in Globals.settings.extensions['extensions_blacklist']:
+			enabled = False
+
 		# add details to loadedExtensions list
 		self.loadedExtensions.append(
 			{"name":name, 
 			 "description":description,
 			 "version":version,
 			 "extension":extension,
-			 "enabled":True,
+			 "enabled":enabled,
 			 "filename":extensionFile })
 			 
 		
@@ -175,31 +179,67 @@ class ExtensionManager:
 		if not self.register(extension, filename, directory, local):
 			return False
 		
-		# if we're still here then start the extension
-		try:
-			extension.startup(self.API)
-		except Exception, e :
-			Globals.debug(filename + " extension failed to start")
-			Globals.debug(e)
-			return False
+		# if we're still here then start the extension, if its not in the extensions_blacklist
+		if extension.EXTENSION_NAME not in Globals.settings.extensions['extensions_blacklist']:
+			dir
+			if not self.StartExtension(self.loadedExtensions[len(self.loadedExtensions)-1]["filename"]):
+				return False
 		
 		return True
 		
 	#_____________________________________________________________________
+
+	def StopExtension(self, filename):
+		"""
+			This function stops the extension with file name
+			"filename". It just executes the shutdown() function 
+			of the extension. this is mainly for disabling extensions
+			on the fly, but is also used for removing extensions
+			on the fly
+		"""
+		for extension in self.GetExtensions():
+			if extension['filename'] == filename:
+				try:
+					extension['extension'].shutdown()
+				except Exception, e:
+					Globals.debug(filename + " extension failed to shut down")
+					Globals.debug(e)
+					return False
+		return True
+
+	#_____________________________________________________________________
+
+	def StartExtension(self, filename):
+		"""
+			Executes the startup function of the extension with filename
+			"filname". Mostly for enabling an extension on the fly without
+			loading another instance
+		"""
+		for extension in self.GetExtensions():
+			if extension['filename'] == filename:
+				try:
+					extension['extension'].startup(self.API)
+				except Exception, e:
+					Globals.debug(filename + " extension failed to start")
+					Globals.debug(e)
+					return False
+		return True
+
+	#_____________________________________________________________________
 	
-	def UnloadExtension(self, filename):
+	def RemoveExtension(self, filename):
 		"""
 			This function "unloads" the extension with file name
 			"filename". It just executes the shutdown() function 
 			of the extension and then removes it from loadedExtensions
 		"""
+		self.StopExtension(filename)
 		index = -1
 		for extension in self.GetExtensions():
 			index += 1
 			if extension['filename'] == filename:
 				try:
 					os.remove(filename)
-					extension['extension'].shutdown()
 					self.loadedExtensions.pop(index)
 				except Exception, e:
 					Globals.debug("Failed to remove " + filename)

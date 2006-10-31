@@ -28,6 +28,7 @@ class Settings:
 			   "projectfolder" : "" }
 	recording = {"device": "value", "fileformat": "value", "devicecardnum": "value"}
 	playback = {"device": "value", "devicecardnum": "value"}
+	extensions = {"extensions_blacklist": ""}
 	
 	def __init__(self, filename = None):
 		if not filename:
@@ -49,6 +50,8 @@ class Settings:
 			self.config.add_section("Recording")
 		if not self.config.has_section("Playback"):
 			self.config.add_section("Playback")
+		if not self.config.has_section("Extensions"):
+			self.config.add_section("Extensions")
 	
 		for key, value in self.config.items("General"):
 			self.general[key] = value
@@ -56,6 +59,8 @@ class Settings:
 			self.recording[key] = value
 		for key, value in self.config.items("Playback"):
 			self.playback[key] = value
+		for key, value in self.config.items("Extensions"):
+			self.extensions[key] = value
 		
 	def write(self):
 		"""Write config settings to the config file"""
@@ -66,6 +71,8 @@ class Settings:
 			self.config.set("Recording", key, self.recording[key])
 		for key in self.playback:
 			self.config.set("Playback", key, self.playback[key])
+		for key in self.extensions:
+			self.config.set("Extensions", key, self.extensions[key])
 			
 		# delete a .jokosher file if it exists, because that's old-fashioned
 		old_jokosher_file = os.path.expanduser("~/.jokosher")
