@@ -44,9 +44,6 @@ class PreferencesDialog:
 		self.res.signal_autoconnect(self.signals)
 		self.dlg = self.res.get_widget("PreferencesDialog")
 		self.dlg.set_icon(icon)
-##		self.mixdownFormat = self.res.get_widget("mixdownFormat")
-		self.sampleRate = self.res.get_widget("sampleRate")
-		self.sampleFormat = self.res.get_widget("sampleFormat")
 		self.recordingFileFormat = self.res.get_widget("recordingFileFormat")
 		self.playingDevice = self.res.get_widget("playbackDevice")
 		self.radioWelcome = self.res.get_widget("startupWelcomeDialog")
@@ -57,13 +54,18 @@ class PreferencesDialog:
 		self.playbacks = AlsaDevices.GetAlsaList("playback")
 		for playback in self.playbacks:
 			self.playingDevice.append_text(playback)
+		
+		fileFormatSetting = Globals.settings.recording["fileformat"]
+		fileFormatSettingIndex = 0
+		#get all the encoders from Globals
+		for i in Globals.EXPORT_FORMATS:
+			self.recordingFileFormat.append_text("%s (.%s)" % (i["description"], i["extension"]))
+			if fileFormatSetting == i["pipeline"]:
+				fileFormatSettingIndex = Globals.EXPORT_FORMATS.index(i)
 
 		#Load settings - set to True to make sure data isn't saved to file until everything is loaded
 		self.loading = True
-##		self.LoadSetting(self.mixdownFormat, Globals.settings.general, "mixdownformat")
-		self.LoadSetting(self.sampleRate, Globals.settings.general, "samplerate")
-		self.LoadSetting(self.sampleFormat, Globals.settings.general, "sampleformat")
-		self.LoadSetting(self.recordingFileFormat, Globals.settings.recording, "fileformat")
+		self.recordingFileFormat.set_active(fileFormatSettingIndex)
 		self.LoadSetting(self.playingDevice, Globals.settings.playback, "device")
 		self.loading = False
 
@@ -123,11 +125,8 @@ class PreferencesDialog:
 		if self.loading:
 			return
 		
-##		Globals.settings.general["mixdownformat"] = self.mixdownFormat.get_active_text()
-		Globals.settings.general["samplerate"] = self.sampleRate.get_active_text()
-		Globals.settings.general["sampleformat"] = self.sampleFormat.get_active_text()
-		Globals.settings.recording["fileformat"] = self.recordingFileFormat.get_active_text()
-		
+		exportDict = Globals.EXPORT_FORMATS[self.recordingFileFormat.get_active()]
+		Globals.settings.recording["fileformat"] = exportDict["pipeline"]
 		Globals.settings.playback["device"] = self.playingDevice.get_active_text()
 		Globals.settings.playback["devicecardnum"] = self.playbacks[self.playingDevice.get_active_text()]		
 		

@@ -326,12 +326,13 @@ class Instrument(Monitored, CommandManaged):
 		self.tmpe.start = 0
 		self.tmpe.name = "Recorded audio"
 		self.tmpe.file = file
+		
+		encodePipeline = Globals.settings.recording["fileformat"]
+		self.output = " ! audioconvert ! %s ! filesink location=%s" % (encodePipeline, file.replace(" ", "\ "))
+		Globals.debug("Using pipeline: alsasrc device=%s%s" % (self.input, self.output))
+		Globals.debug("Using input track: %s" % self.inTrack)
 
-		self.output = " ! audioconvert ! vorbisenc ! oggmux ! filesink location=%s"%file.replace(" ", "\ ")
-		Globals.debug("Using pipeline: alsasrc device=%s%s"%(self.input, self.output))
-		Globals.debug("Using input track: %s"%self.inTrack)
-
-		self.recordingbin = gst.parse_launch("bin.( alsasrc device=%s %s )"%(self.input, self.output))
+		self.recordingbin = gst.parse_launch("bin.( alsasrc device=%s %s )" % (self.input, self.output))
 		#We remove this instrument's playbin from the project so it doesn't try to record and play from the same file
 		self.RemoveAndUnlinkPlaybackbin()
 		self.project.mainpipeline.add(self.recordingbin)

@@ -22,8 +22,6 @@ class Settings:
 	# the different settings in each config block
 	general = {"mixdownformat": "value", 
 			   "recentprojects": "value", 
-			   "samplerate": "value", 
-			   "sampleformat": "value", 
 			   "startupaction" : "value",
 			   "projectfolder" : "" }
 	recording = {"device": "value", "fileformat": "value", "devicecardnum": "value"}
