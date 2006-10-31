@@ -178,6 +178,7 @@ class TimeLineBar(gtk.Frame):
 			self.bpmeditPacked = False
 			
 			self.project.PrepareClick()
+			self.projectview.Update()
 
 	#_____________________________________________________________________
 
