@@ -199,7 +199,7 @@ def LoadFromZPOFile(project, doc):
 		try:
 			xmlPoints = node.getElementsByTagName("FadePoints")[0]
 		except IndexError:
-			print "Missing FadePoints in Event XML"
+			Globals.debug("Missing FadePoints in Event XML")
 		else:
 			for n in xmlPoints.childNodes:
 				if n.nodeType == xml.Node.ELEMENT_NODE:
@@ -210,7 +210,7 @@ def LoadFromZPOFile(project, doc):
 		try:	
 			levelsXML = node.getElementsByTagName("Levels")[0]
 		except IndexError:
-			print "No event levels in project file"
+			Globals.debug("No event levels in project file")
 			self.GenerateWaveform()
 		else: 
 			if levelsXML.nodeType == xml.Node.ELEMENT_NODE:
@@ -1289,7 +1289,6 @@ class Project(Monitored, CommandManaged):
 			self.clickcontrol.set("volume", current+(second / 10), 0.0)
 
 			current = current + interval
-			#print current
 
 	#_____________________________________________________________________
 

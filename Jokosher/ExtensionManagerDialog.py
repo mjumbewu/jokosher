@@ -75,7 +75,7 @@ class ExtensionManagerDialog:
 		if self.model[path][0]:
 			if name in Globals.settings.extensions['extensions_blacklist']:
 				Globals.settings.extensions['extensions_blacklist'] = Globals.settings.extensions['extensions_blacklist'].replace(name, "")
-				print Globals.settings.extensions['extensions_blacklist']
+				Globals.debug("extension-blacklist:", Globals.settings.extensions['extensions_blacklist'])
 				for extension in self.parent.extensionManager.GetExtensions():
 					if filename == extension['filename']:
 						extension['enabled'] = True

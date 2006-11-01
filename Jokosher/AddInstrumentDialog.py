@@ -43,14 +43,16 @@ class AddInstrumentDialog:
 		self.dlg = self.res.get_widget("AddInstrumentDialog")
 		self.tree = self.res.get_widget("Instruments")
 		self.search_entry = self.res.get_widget("instrument_search")
+		self.okbutton = self.res.get_widget("okButton")
+		self.okbutton.set_sensitive(False)
 		
 		if self.instr: 
 			self.dlg.set_title(_("Change Instrument Type"))
 			self.res.get_widget("instructions").set_text(
 					  _("Choose the new instrument type for %s") % self.instr.name)
+			self.okbutton.set_label("gtk-ok")
 
-		self.okbutton = self.res.get_widget("okButton")
-		self.okbutton.set_sensitive(False)
+		
 
 		self.tree.connect("item-activated", self.OnSelected)
 		self.tree.connect("selection-changed", self.OnSelectionChanged)
