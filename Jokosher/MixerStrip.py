@@ -45,7 +45,8 @@ class MixerStrip(gtk.Frame):
 		self.pan = gtk.HScale()
 		self.pan.set_range(-1.0, 1.0)
 		self.pan.set_draw_value(False)
-		
+		self.pantip = gtk.Tooltips()
+		self.pantip.set_tip(self.pan,_("Adjust instrument balance"),None)		
 		if self.instrument.pan is not None:
 			self.pan.set_value(self.instrument.pan)
 		

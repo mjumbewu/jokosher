@@ -220,13 +220,11 @@ class TimeLineBar(gtk.Frame):
 	#_____________________________________________________________________
 
 	def OnClick(self, widget):
-		self.clicktip.set_tip(self.clickbutton, _("Turn click track off"), None)
-
 		if widget.get_active() == True:
 			self.project.EnableClick()
-			
+			self.clicktip.set_tip(self.clickbutton, _("Turn click track off"), None)
 		if widget.get_active() == False:
 			self.project.DisableClick()
-
+			self.clicktip.set_tip(self.clickbutton, _("Turn click track on"), None)
 		
 #=========================================================================

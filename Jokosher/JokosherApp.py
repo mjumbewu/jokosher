@@ -35,6 +35,9 @@ class MainApp:
 		
 		gtk.glade.bindtextdomain(Globals.LOCALE_APP, Globals.LOCALE_PATH)
 		gtk.glade.textdomain(Globals.LOCALE_APP)
+
+		# create tooltips object
+		self.contextTooltips = gtk.Tooltips()
 		
 		self.wTree = gtk.glade.XML(Globals.GLADE_PATH, "MainWindow")
 		
@@ -85,6 +88,8 @@ class MainApp:
 		self.reverse = self.wTree.get_widget("Rewind")
 		self.forward = self.wTree.get_widget("Forward")
 		self.addInstrumentButton = self.wTree.get_widget("AddInstrument")
+		self.recordingButton = self.wTree.get_widget("Recording")
+		self.compactMixButton = self.wTree.get_widget("CompactMix")
 		self.editmenu = self.wTree.get_widget("editmenu")
 		self.undo = self.wTree.get_widget("undo")
 		self.redo = self.wTree.get_widget("redo")
@@ -117,11 +122,15 @@ class MainApp:
 		# Initialise some useful vars
 		self.mode = None
 		self.settingButtons = True
-		self.wTree.get_widget("Recording").set_active(True)
+		self.recordingButton.set_active(True)
 		self.settingButtons = False
 		self.isRecording = False
 		self.isPlaying = False
 
+		# Intialise context sensitive tooltips for workspaces buttons
+		self.contextTooltips.set_tip(self.recordingButton,_("Currently working in the recording workspace"),None)
+		self.contextTooltips.set_tip(self.compactMixButton,_("Switch to the Mixing workspace"),None)
+		
 		# set sensitivity
 		self.SetGUIProjectLoaded()
 
@@ -199,8 +208,8 @@ class MainApp:
 	def OnChangeView(self, view, mode):
 		if not self.settingButtons:
 			self.settingButtons = True
-			self.wTree.get_widget("Recording").set_active(mode == self.MODE_RECORDING)
-			self.wTree.get_widget("CompactMix").set_active(mode == self.MODE_COMPACT_MIX)
+			self.recordingButton.set_active(mode == self.MODE_RECORDING)
+			self.compactMixButton.set_active(mode == self.MODE_COMPACT_MIX)
 			self.settingButtons = False
 			
 			if view:
@@ -227,13 +236,16 @@ class MainApp:
 	def OnRecordingView(self, window=None):
 		if hasattr(self, "recording"):
 			self.OnChangeView(self.recording, self.MODE_RECORDING)
-			
+			self.contextTooltips.set_tip(self.recordingButton,_("Currently working in the Recording workspace"),None)
+			self.contextTooltips.set_tip(self.compactMixButton,_("Switch to the Mixing workspace"),None)
+
 	#_____________________________________________________________________
 	
 	def OnCompactMixView(self, window=None):
 		if hasattr(self, "compactmix"):
 			self.OnChangeView(self.compactmix, self.MODE_COMPACT_MIX)
-		
+			self.contextTooltips.set_tip(self.recordingButton,_("Switch to the Recording workspace"),None)
+			self.contextTooltips.set_tip(self.compactMixButton,_("Currently working in the Mixing workspace"),None)			
 	#_____________________________________________________________________
 	
 	def OnDestroy(self, widget=None, event=None):
@@ -873,14 +885,11 @@ class MainApp:
 		if self.tvtoolitem in self.wTree.get_widget("MainToolbar").get_children():
 			self.wTree.get_widget("MainToolbar").remove(self.tvtoolitem)
 		
-		RecordingToggle = self.wTree.get_widget("Recording")
-		CompactToggle = self.wTree.get_widget("CompactMix")
-		
 		ctrls = (self.save, self.save_as, self.close, self.addInstrumentButton,
 			self.reverse, self.forward, self.play, self.stop, self.record,
 			self.projectmenu, self.export, self.cut, self.copy, self.paste,
 			self.undo, self.redo, self.delete,
-			RecordingToggle, CompactToggle, 
+			self.recordingButton,self.compactMixButton,
 			self.wTree.get_widget("WorkspacesLabel"))
 		
 		if self.project:
@@ -912,7 +921,7 @@ class MainApp:
 			
 			#untoggle all toggle buttons when the project is unloaded
 			self.settingButtons = True
-			for t in (RecordingToggle, CompactToggle):
+			for t in (self.recordingButton, self.compactMixButton):
 				t.set_active(False)
 			self.settingButtons = False
 				

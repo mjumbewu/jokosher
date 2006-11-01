@@ -13,6 +13,7 @@ import gtk
 import InstrumentViewer
 import TimeLineBar
 import Globals
+import gettext
 
 #=========================================================================
 
@@ -77,6 +78,8 @@ class RecordingView(gtk.Frame):
 			zoom.set_increments(0.2, 0.2)
 			zoom.set_draw_value(False)
 			zoom.set_value(40.0)
+			self.zoomtip = gtk.Tooltips()
+			self.zoomtip.set_tip(zoom,gettext.gettext("Zoom the timeline"),None)
 			
 			zoom.connect("value-changed", self.OnZoom)
 
