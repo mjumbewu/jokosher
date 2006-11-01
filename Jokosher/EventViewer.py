@@ -15,6 +15,7 @@ import gtk
 import cairo
 import Project
 import Utils
+import os
 import gettext
 _ = gettext.gettext
 import Globals
@@ -58,6 +59,9 @@ class EventViewer(gtk.DrawingArea):
 	def __init__(self, lane, project, event, height, eventlaneviewer, mainview,  small = False):
 
 		self.small = small
+		
+		self.selectiontip = gtk.Tooltips()
+		
 		gtk.DrawingArea.__init__(self)
 		
 		self.set_events(	gtk.gdk.POINTER_MOTION_MASK |
@@ -102,17 +106,24 @@ class EventViewer(gtk.DrawingArea):
 		
 		# drawer: this will probably be its own object in time
 		self.drawer = gtk.HBox()
-		trimButton = gtk.Button(_("Trim"))
+		trimButton = gtk.Button()
+		trimimg = gtk.Image()
+		trimimg.set_from_file(os.path.join(Globals.IMAGE_PATH, "icon_trim.png"))
+		trimButton.set_image(trimimg)
+		self.selectiontip.set_tip(trimButton,_("Trim"),None)
+
 		self.drawer.add(trimButton)
 		trimButton.connect("clicked", self.TrimToSelection)
 		
 		delFPButton = gtk.Button("Delete Fade Points")
 		self.drawer.add(delFPButton)
 		delFPButton.connect("clicked", self.DeleteSelectedFadePoints)
+		self.selectiontip.set_tip(delFPButton,_("Delete Fade Points"),None)
 		
 		snapFPButton = gtk.Button("Snap To Fade Points")
 		self.drawer.add(snapFPButton)
 		snapFPButton.connect("clicked", self.SnapSelectionToFadePoints)
+		self.selectiontip.set_tip(snapFPButton,_("Snap To Fade Points"),None)
 		
 		self.drawer.show()
 		

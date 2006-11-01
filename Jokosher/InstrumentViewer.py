@@ -141,7 +141,11 @@ class InstrumentViewer(gtk.EventBox):
 			#self.recButton.set_property("image", soloimg)
 			self.soloButton.connect("toggled", self.OnSolo)
 			
-			self.propsButton = gtk.Button("In")
+			self.propsButton = gtk.Button()
+			procimg = gtk.Image()
+			procimg.set_from_file(os.path.join(Globals.IMAGE_PATH, "icon_effectsapply.png"))
+			self.propsButton.set_image(procimg)
+
 			self.propsButton.connect("button_press_event", self.OnProcessingMenu)
 			self.propsTip = gtk.Tooltips()
 			self.propsTip.set_tip(self.propsButton, _("Instrument Effects"), None)

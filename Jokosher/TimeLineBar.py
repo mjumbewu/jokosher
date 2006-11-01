@@ -12,6 +12,9 @@
 import gtk
 import TimeLine
 import gettext
+import os
+import Globals
+
 _=gettext.gettext
 
 class TimeLineBar(gtk.Frame):
@@ -25,8 +28,12 @@ class TimeLineBar(gtk.Frame):
 		self.Updating = False
 		
 		# add click / bpm / signature box
-		self.clickbutton = gtk.ToggleButton("C")
+		self.clickbutton = gtk.ToggleButton()
 		self.clicktip = gtk.Tooltips()
+		clickimg = gtk.Image()
+		clickimg.set_from_file(os.path.join(Globals.IMAGE_PATH, "icon_click.png"))
+		self.clickbutton.set_image(clickimg)
+
 		self.clicktip.set_tip(self.clickbutton, _("Turn click track on"), None)
 		self.clickbutton.connect("toggled", self.OnClick)
 					
