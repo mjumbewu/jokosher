@@ -1107,13 +1107,8 @@ class Project(Monitored, CommandManaged):
 
 		while current < length:
 			self.clickcontrol.set("volume", current-(second / 10), 0.0)
-			Globals.debug("time: " + str(current-1000000) + " vol: " + str(0.0))
-
 			self.clickcontrol.set("volume", current, 1.0)
-			Globals.debug("time: " + str(current) + " vol: " + str(1.0))
-
 			self.clickcontrol.set("volume", current+(second / 10), 0.0)
-			Globals.debug("time: " + str(current+1000000) + " vol: " + str(0.0))
 
 			current = current + interval
 			#print current
