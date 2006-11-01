@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: jokosher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-31 23:08-0500\n"
+"POT-Creation-Date: 2006-11-01 18:22-0500\n"
 "PO-Revision-Date: 2006-09-15 09:58+0000\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -104,7 +104,7 @@ msgstr "Upphovsman"
 msgid "Browse for an Existing Project"
 msgstr "Bläddra efter ett existerande projekt"
 
-#: ../../Jokosher/Jokosher.glade.h:22 ../../Jokosher/AddInstrumentDialog.py:48
+#: ../../Jokosher/Jokosher.glade.h:22 ../../Jokosher/AddInstrumentDialog.py:50
 msgid "Change Instrument Type"
 msgstr ""
 
@@ -242,283 +242,279 @@ msgid "Folder"
 msgstr "Mapp"
 
 #: ../../Jokosher/Jokosher.glade.h:56
-msgid "I'm sorry, do I annoy you?"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:57
 msgid "Instrument Connections"
 msgstr "Instrumentkopplingar"
 
-#: ../../Jokosher/Jokosher.glade.h:58 ../../Jokosher/JokosherApp.py:931
+#: ../../Jokosher/Jokosher.glade.h:57 ../../Jokosher/JokosherApp.py:931
 msgid "Jokosher"
 msgstr "Jokosher"
 
-#: ../../Jokosher/Jokosher.glade.h:59
+#: ../../Jokosher/Jokosher.glade.h:58
 msgid "Listen to these effects"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:60
+#: ../../Jokosher/Jokosher.glade.h:59
 msgid "Manage instrument recording inputs"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:61
+#: ../../Jokosher/Jokosher.glade.h:60
 msgid "Mixing"
 msgstr "Mixning"
 
-#: ../../Jokosher/Jokosher.glade.h:62
+#: ../../Jokosher/Jokosher.glade.h:61
 msgid "Mixing Project"
 msgstr "Mixnings Projekt"
 
-#: ../../Jokosher/Jokosher.glade.h:63 ../../Jokosher/NewProjectDialog.py:72
+#: ../../Jokosher/Jokosher.glade.h:62 ../../Jokosher/NewProjectDialog.py:72
 msgid "New Project"
 msgstr "Nytt projekt"
 
-#: ../../Jokosher/Jokosher.glade.h:64
+#: ../../Jokosher/Jokosher.glade.h:63
 msgid "Notes about this release"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:65
+#: ../../Jokosher/Jokosher.glade.h:64
 msgid "Open Selected Project"
 msgstr "Öppna valt projekt"
 
-#: ../../Jokosher/Jokosher.glade.h:66
+#: ../../Jokosher/Jokosher.glade.h:65
 msgid "Open a recent project"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:67
+#: ../../Jokosher/Jokosher.glade.h:66
 msgid "Open an existing project"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:68
+#: ../../Jokosher/Jokosher.glade.h:67
 msgid "Open most recent project"
 msgstr "Öppna senaste projekt"
 
-#: ../../Jokosher/Jokosher.glade.h:69
+#: ../../Jokosher/Jokosher.glade.h:68
 msgid "Open the extension manager"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:70
+#: ../../Jokosher/Jokosher.glade.h:69
 msgid "Paste the contents of the clipboard"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:71
+#: ../../Jokosher/Jokosher.glade.h:70
 msgid "Pre-release Notes"
 msgstr "Försläppsanteckningar"
 
-#: ../../Jokosher/Jokosher.glade.h:72
+#: ../../Jokosher/Jokosher.glade.h:71
 msgid "Preferences"
 msgstr "Inställningar"
 
-#: ../../Jokosher/Jokosher.glade.h:73
+#: ../../Jokosher/Jokosher.glade.h:72
 msgid "Presets"
 msgstr "Förinställningar"
 
-#: ../../Jokosher/Jokosher.glade.h:74
+#: ../../Jokosher/Jokosher.glade.h:73
 msgid "Project Name"
 msgstr "Projektnamn"
 
-#: ../../Jokosher/Jokosher.glade.h:75
+#: ../../Jokosher/Jokosher.glade.h:74
 msgid "Quit Jokosher"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:76
+#: ../../Jokosher/Jokosher.glade.h:75
 msgid "Recent Projects"
 msgstr "Nya Projekt"
 
-#: ../../Jokosher/Jokosher.glade.h:77
+#: ../../Jokosher/Jokosher.glade.h:76
 msgid "Recording"
 msgstr "Inspelning"
 
-#: ../../Jokosher/Jokosher.glade.h:78
+#: ../../Jokosher/Jokosher.glade.h:77
 msgid "Redo"
 msgstr "Upprepa"
 
-#: ../../Jokosher/Jokosher.glade.h:79
+#: ../../Jokosher/Jokosher.glade.h:78
 msgid "Redo the previous edit"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:80
+#: ../../Jokosher/Jokosher.glade.h:79
 msgid "Remove curently selected extension"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:81
+#: ../../Jokosher/Jokosher.glade.h:80
 msgid "Save a copy of the current project"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:82
+#: ../../Jokosher/Jokosher.glade.h:81
 msgid "Save preferences and close"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:83
+#: ../../Jokosher/Jokosher.glade.h:82
 msgid "Save the current effects configuration"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:84
+#: ../../Jokosher/Jokosher.glade.h:83
 msgid "Save the current project"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:85
+#: ../../Jokosher/Jokosher.glade.h:84
 msgid "Save your connections and close this widow"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:86
+#: ../../Jokosher/Jokosher.glade.h:85
 msgid "Search:"
 msgstr "Sök:"
 
-#: ../../Jokosher/Jokosher.glade.h:87
+#: ../../Jokosher/Jokosher.glade.h:86
 msgid "Select A Folder"
 msgstr "Välj en mapp"
 
-#: ../../Jokosher/Jokosher.glade.h:88
+#: ../../Jokosher/Jokosher.glade.h:87
 msgid "Select a project to open from the list"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:89
+#: ../../Jokosher/Jokosher.glade.h:88
 msgid "Select an effect"
 msgstr "Välj en effekt"
 
-#: ../../Jokosher/Jokosher.glade.h:90
+#: ../../Jokosher/Jokosher.glade.h:89
 msgid "Select an effect to add to the instrument"
 msgstr "Välj en effekt att lägga till instrumentet"
 
-#: ../../Jokosher/Jokosher.glade.h:91
+#: ../../Jokosher/Jokosher.glade.h:90
 msgid "Select an instrument, then click here to begin recording"
 msgstr "Välj ett instrument, Klicka sedan här för att påbörja inspelning"
 
-#: ../../Jokosher/Jokosher.glade.h:92
+#: ../../Jokosher/Jokosher.glade.h:91
 msgid "Settings"
 msgstr "Inställningar"
 
-#: ../../Jokosher/Jokosher.glade.h:93
+#: ../../Jokosher/Jokosher.glade.h:92
 msgid "Show as Bars, Beats, Ticks"
 msgstr "Visa som Staplar, slag, tick"
 
-#: ../../Jokosher/Jokosher.glade.h:94
+#: ../../Jokosher/Jokosher.glade.h:93
 msgid "Show as Hours, Minutes, Seconds"
 msgstr "Visa som timmar, minuter och sekunder"
 
-#: ../../Jokosher/Jokosher.glade.h:95
+#: ../../Jokosher/Jokosher.glade.h:94
 msgid "Show welcome dialog"
 msgstr "Visa välkomnings meddelande"
 
-#: ../../Jokosher/Jokosher.glade.h:96
+#: ../../Jokosher/Jokosher.glade.h:95
 msgid "Start Jokosher with an empty project"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:97
+#: ../../Jokosher/Jokosher.glade.h:96
 msgid "Start playback"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:98
+#: ../../Jokosher/Jokosher.glade.h:97
 msgid "Stop mixing the project"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:99
+#: ../../Jokosher/Jokosher.glade.h:98
 msgid "Stop playback"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:100
+#: ../../Jokosher/Jokosher.glade.h:99
 msgid "Switch to Mixing workspace"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:101
+#: ../../Jokosher/Jokosher.glade.h:100
 msgid "Switch to Recording workspace"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:102
+#: ../../Jokosher/Jokosher.glade.h:101
 msgid "Testing Jokosher, and submitting bugs."
 msgstr "Testa Jokosher och skicka bugrapporter."
 
-#: ../../Jokosher/Jokosher.glade.h:103
+#: ../../Jokosher/Jokosher.glade.h:102
 msgid "Time Format"
 msgstr "Tidsformat"
 
-#: ../../Jokosher/Jokosher.glade.h:104
+#: ../../Jokosher/Jokosher.glade.h:103
 msgid "Type here to search for an instrument"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:105
+#: ../../Jokosher/Jokosher.glade.h:104
 msgid "Type the presets name"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:106
+#: ../../Jokosher/Jokosher.glade.h:105
 msgid "Undo"
 msgstr "Ångra"
 
-#: ../../Jokosher/Jokosher.glade.h:107
+#: ../../Jokosher/Jokosher.glade.h:106
 msgid "Undo the last edit"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:108
+#: ../../Jokosher/Jokosher.glade.h:107
 msgid ""
 "Use the combo boxes below to select which input is used with which instrument"
 msgstr ""
 "Använd komborutan nedan för att välja vilken indata som används till vilket "
 "instrument"
 
-#: ../../Jokosher/Jokosher.glade.h:109
+#: ../../Jokosher/Jokosher.glade.h:108
 msgid "Use these effects"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:110
+#: ../../Jokosher/Jokosher.glade.h:109
 msgid "Version information, credits and licence"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:111
+#: ../../Jokosher/Jokosher.glade.h:110
 msgid "Welcome to Jokosher!"
 msgstr "Välkommen till Jokosher!"
 
-#: ../../Jokosher/Jokosher.glade.h:112
+#: ../../Jokosher/Jokosher.glade.h:111
 msgid "Workspaces"
 msgstr "Arbetsytor"
 
-#: ../../Jokosher/Jokosher.glade.h:113
+#: ../../Jokosher/Jokosher.glade.h:112
 msgid "Writing code and features in Python."
 msgstr "Skriva kod och funktioner i Python."
 
-#: ../../Jokosher/Jokosher.glade.h:114
+#: ../../Jokosher/Jokosher.glade.h:113
 msgid "Writing simple to read documentation."
 msgstr "Skiva lättläslig dokumentation"
 
-#: ../../Jokosher/Jokosher.glade.h:115
+#: ../../Jokosher/Jokosher.glade.h:114
 msgid "_Edit"
 msgstr "_Redigera"
 
-#: ../../Jokosher/Jokosher.glade.h:116
+#: ../../Jokosher/Jokosher.glade.h:115
 msgid "_Extensions"
 msgstr "_Utökningar"
 
-#: ../../Jokosher/Jokosher.glade.h:117
+#: ../../Jokosher/Jokosher.glade.h:116
 msgid "_File"
 msgstr "_Arkiv"
 
-#: ../../Jokosher/Jokosher.glade.h:118
+#: ../../Jokosher/Jokosher.glade.h:117
 msgid "_Help"
 msgstr "_Hjälp"
 
-#: ../../Jokosher/Jokosher.glade.h:119
+#: ../../Jokosher/Jokosher.glade.h:118
 msgid "_Manage Extensions"
 msgstr "_Hantera Utökningar"
 
-#: ../../Jokosher/Jokosher.glade.h:120
+#: ../../Jokosher/Jokosher.glade.h:119
 msgid "_Mixdown Project"
 msgstr "_Nermixningsprojekt"
 
-#: ../../Jokosher/Jokosher.glade.h:121
+#: ../../Jokosher/Jokosher.glade.h:120
 msgid "_Project"
 msgstr "_Projekt"
 
-#: ../../Jokosher/Jokosher.glade.h:122
+#: ../../Jokosher/Jokosher.glade.h:121
 msgid "foo"
 msgstr "foo"
 
-#: ../../Jokosher/Jokosher.glade.h:124
+#: ../../Jokosher/Jokosher.glade.h:123
 msgid "translator-credits"
 msgstr ""
 "Robert Renling Berencreuz Laszlo Pandy Tor B. Skicka synpunkter på "
 "översättningen till tp-sv@listor.tp-sv.se"
 
-#: ../../Jokosher/AddInstrumentDialog.py:50
+#: ../../Jokosher/AddInstrumentDialog.py:52
 #, python-format
 msgid "Choose the new instrument type for %s"
 msgstr ""

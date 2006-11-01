@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: jokosher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-31 23:08-0500\n"
+"POT-Creation-Date: 2006-11-01 18:22-0500\n"
 "PO-Revision-Date: 2006-09-03 12:00+0000\n"
 "Last-Translator: Pecisk <pecisk@gmail.com>\n"
 "Language-Team: Latvian <lv@li.org>\n"
@@ -104,7 +104,7 @@ msgstr "Autors"
 msgid "Browse for an Existing Project"
 msgstr "Lūkoties pēc esoša projekta"
 
-#: ../../Jokosher/Jokosher.glade.h:22 ../../Jokosher/AddInstrumentDialog.py:48
+#: ../../Jokosher/Jokosher.glade.h:22 ../../Jokosher/AddInstrumentDialog.py:50
 msgid "Change Instrument Type"
 msgstr ""
 
@@ -244,281 +244,277 @@ msgid "Folder"
 msgstr "Mape"
 
 #: ../../Jokosher/Jokosher.glade.h:56
-msgid "I'm sorry, do I annoy you?"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:57
 msgid "Instrument Connections"
 msgstr "Instrumentu konekcijas"
 
-#: ../../Jokosher/Jokosher.glade.h:58 ../../Jokosher/JokosherApp.py:931
+#: ../../Jokosher/Jokosher.glade.h:57 ../../Jokosher/JokosherApp.py:931
 msgid "Jokosher"
 msgstr "Jokosher"
 
-#: ../../Jokosher/Jokosher.glade.h:59
+#: ../../Jokosher/Jokosher.glade.h:58
 msgid "Listen to these effects"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:60
+#: ../../Jokosher/Jokosher.glade.h:59
 msgid "Manage instrument recording inputs"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:61
+#: ../../Jokosher/Jokosher.glade.h:60
 msgid "Mixing"
 msgstr "Miksēšana"
 
-#: ../../Jokosher/Jokosher.glade.h:62
+#: ../../Jokosher/Jokosher.glade.h:61
 msgid "Mixing Project"
 msgstr "Miksēt projektu"
 
-#: ../../Jokosher/Jokosher.glade.h:63 ../../Jokosher/NewProjectDialog.py:72
+#: ../../Jokosher/Jokosher.glade.h:62 ../../Jokosher/NewProjectDialog.py:72
 msgid "New Project"
 msgstr "Jauns projekts"
 
-#: ../../Jokosher/Jokosher.glade.h:64
+#: ../../Jokosher/Jokosher.glade.h:63
 msgid "Notes about this release"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:65
+#: ../../Jokosher/Jokosher.glade.h:64
 msgid "Open Selected Project"
 msgstr "Atvērt izvēlēto projektu"
 
-#: ../../Jokosher/Jokosher.glade.h:66
+#: ../../Jokosher/Jokosher.glade.h:65
 msgid "Open a recent project"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:67
+#: ../../Jokosher/Jokosher.glade.h:66
 msgid "Open an existing project"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:68
+#: ../../Jokosher/Jokosher.glade.h:67
 msgid "Open most recent project"
 msgstr "Atvērt visjaunāko projektu"
 
-#: ../../Jokosher/Jokosher.glade.h:69
+#: ../../Jokosher/Jokosher.glade.h:68
 msgid "Open the extension manager"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:70
+#: ../../Jokosher/Jokosher.glade.h:69
 msgid "Paste the contents of the clipboard"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:71
+#: ../../Jokosher/Jokosher.glade.h:70
 msgid "Pre-release Notes"
 msgstr "Pirmsizlaiduma piezīmes"
 
-#: ../../Jokosher/Jokosher.glade.h:72
+#: ../../Jokosher/Jokosher.glade.h:71
 msgid "Preferences"
 msgstr "Preferences"
 
-#: ../../Jokosher/Jokosher.glade.h:73
+#: ../../Jokosher/Jokosher.glade.h:72
 msgid "Presets"
 msgstr "Gatavie regulējumi"
 
-#: ../../Jokosher/Jokosher.glade.h:74
+#: ../../Jokosher/Jokosher.glade.h:73
 msgid "Project Name"
 msgstr "Projekta nosaukums"
 
-#: ../../Jokosher/Jokosher.glade.h:75
+#: ../../Jokosher/Jokosher.glade.h:74
 msgid "Quit Jokosher"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:76
+#: ../../Jokosher/Jokosher.glade.h:75
 msgid "Recent Projects"
 msgstr "Nesenie projekti"
 
-#: ../../Jokosher/Jokosher.glade.h:77
+#: ../../Jokosher/Jokosher.glade.h:76
 msgid "Recording"
 msgstr "Ieraksts"
 
-#: ../../Jokosher/Jokosher.glade.h:78
+#: ../../Jokosher/Jokosher.glade.h:77
 msgid "Redo"
 msgstr "Atsaukt"
 
-#: ../../Jokosher/Jokosher.glade.h:79
+#: ../../Jokosher/Jokosher.glade.h:78
 msgid "Redo the previous edit"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:80
+#: ../../Jokosher/Jokosher.glade.h:79
 msgid "Remove curently selected extension"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:81
+#: ../../Jokosher/Jokosher.glade.h:80
 msgid "Save a copy of the current project"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:82
+#: ../../Jokosher/Jokosher.glade.h:81
 msgid "Save preferences and close"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:83
+#: ../../Jokosher/Jokosher.glade.h:82
 msgid "Save the current effects configuration"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:84
+#: ../../Jokosher/Jokosher.glade.h:83
 msgid "Save the current project"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:85
+#: ../../Jokosher/Jokosher.glade.h:84
 msgid "Save your connections and close this widow"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:86
+#: ../../Jokosher/Jokosher.glade.h:85
 msgid "Search:"
 msgstr "Meklēt:"
 
-#: ../../Jokosher/Jokosher.glade.h:87
+#: ../../Jokosher/Jokosher.glade.h:86
 msgid "Select A Folder"
 msgstr "Izvēlieties mapi"
 
-#: ../../Jokosher/Jokosher.glade.h:88
+#: ../../Jokosher/Jokosher.glade.h:87
 msgid "Select a project to open from the list"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:89
+#: ../../Jokosher/Jokosher.glade.h:88
 msgid "Select an effect"
 msgstr "Izvēlieties efektu"
 
-#: ../../Jokosher/Jokosher.glade.h:90
+#: ../../Jokosher/Jokosher.glade.h:89
 msgid "Select an effect to add to the instrument"
 msgstr "Izvēlieties efektu, ko pievienot instrumentam"
 
-#: ../../Jokosher/Jokosher.glade.h:91
+#: ../../Jokosher/Jokosher.glade.h:90
 msgid "Select an instrument, then click here to begin recording"
 msgstr "Izvēlieties instrumentu, tad kliksķiniet šeit, lai sāktu ierakstu"
 
-#: ../../Jokosher/Jokosher.glade.h:92
+#: ../../Jokosher/Jokosher.glade.h:91
 msgid "Settings"
 msgstr "Uzstādījumi"
 
-#: ../../Jokosher/Jokosher.glade.h:93
+#: ../../Jokosher/Jokosher.glade.h:92
 msgid "Show as Bars, Beats, Ticks"
 msgstr "Parādīt kā taktis, sitienus, tikšķus"
 
-#: ../../Jokosher/Jokosher.glade.h:94
+#: ../../Jokosher/Jokosher.glade.h:93
 msgid "Show as Hours, Minutes, Seconds"
 msgstr "Parādīt kā stundas, minūtes, sekundes"
 
-#: ../../Jokosher/Jokosher.glade.h:95
+#: ../../Jokosher/Jokosher.glade.h:94
 msgid "Show welcome dialog"
 msgstr "Parādīt ievaddialogu"
 
-#: ../../Jokosher/Jokosher.glade.h:96
+#: ../../Jokosher/Jokosher.glade.h:95
 msgid "Start Jokosher with an empty project"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:97
+#: ../../Jokosher/Jokosher.glade.h:96
 msgid "Start playback"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:98
+#: ../../Jokosher/Jokosher.glade.h:97
 msgid "Stop mixing the project"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:99
+#: ../../Jokosher/Jokosher.glade.h:98
 msgid "Stop playback"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:100
+#: ../../Jokosher/Jokosher.glade.h:99
 msgid "Switch to Mixing workspace"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:101
+#: ../../Jokosher/Jokosher.glade.h:100
 msgid "Switch to Recording workspace"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:102
+#: ../../Jokosher/Jokosher.glade.h:101
 msgid "Testing Jokosher, and submitting bugs."
 msgstr "Jokosher testēšana un kļūdu ziņošana."
 
-#: ../../Jokosher/Jokosher.glade.h:103
+#: ../../Jokosher/Jokosher.glade.h:102
 msgid "Time Format"
 msgstr "Laika formāts"
 
-#: ../../Jokosher/Jokosher.glade.h:104
+#: ../../Jokosher/Jokosher.glade.h:103
 msgid "Type here to search for an instrument"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:105
+#: ../../Jokosher/Jokosher.glade.h:104
 msgid "Type the presets name"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:106
+#: ../../Jokosher/Jokosher.glade.h:105
 msgid "Undo"
 msgstr "Atsaukt"
 
-#: ../../Jokosher/Jokosher.glade.h:107
+#: ../../Jokosher/Jokosher.glade.h:106
 msgid "Undo the last edit"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:108
+#: ../../Jokosher/Jokosher.glade.h:107
 msgid ""
 "Use the combo boxes below to select which input is used with which instrument"
 msgstr ""
 "Izmantojiet kombo izvēlnes zemāk, lai izvēlētos, kurš ievads tiks izmantots "
 "kuram instrumentam"
 
-#: ../../Jokosher/Jokosher.glade.h:109
+#: ../../Jokosher/Jokosher.glade.h:108
 msgid "Use these effects"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:110
+#: ../../Jokosher/Jokosher.glade.h:109
 msgid "Version information, credits and licence"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:111
+#: ../../Jokosher/Jokosher.glade.h:110
 msgid "Welcome to Jokosher!"
 msgstr "Esiet aicināti Jokosher!"
 
-#: ../../Jokosher/Jokosher.glade.h:112
+#: ../../Jokosher/Jokosher.glade.h:111
 msgid "Workspaces"
 msgstr "Darbavietas"
 
-#: ../../Jokosher/Jokosher.glade.h:113
+#: ../../Jokosher/Jokosher.glade.h:112
 msgid "Writing code and features in Python."
 msgstr "Programējot kodu un iespējas Python."
 
-#: ../../Jokosher/Jokosher.glade.h:114
+#: ../../Jokosher/Jokosher.glade.h:113
 msgid "Writing simple to read documentation."
 msgstr "Rakstot vienkārši lasāmu un saprotamu dokumentāciju."
 
-#: ../../Jokosher/Jokosher.glade.h:115
+#: ../../Jokosher/Jokosher.glade.h:114
 msgid "_Edit"
 msgstr "_Rediģēt"
 
-#: ../../Jokosher/Jokosher.glade.h:116
+#: ../../Jokosher/Jokosher.glade.h:115
 msgid "_Extensions"
 msgstr "_Paplašinājumi"
 
-#: ../../Jokosher/Jokosher.glade.h:117
+#: ../../Jokosher/Jokosher.glade.h:116
 msgid "_File"
 msgstr "_Faili"
 
-#: ../../Jokosher/Jokosher.glade.h:118
+#: ../../Jokosher/Jokosher.glade.h:117
 msgid "_Help"
 msgstr "_Palīdzība"
 
-#: ../../Jokosher/Jokosher.glade.h:119
+#: ../../Jokosher/Jokosher.glade.h:118
 msgid "_Manage Extensions"
 msgstr "_Pārvaldīt paplašinājumus"
 
-#: ../../Jokosher/Jokosher.glade.h:120
+#: ../../Jokosher/Jokosher.glade.h:119
 msgid "_Mixdown Project"
 msgstr "_Projekta miksēšana"
 
-#: ../../Jokosher/Jokosher.glade.h:121
+#: ../../Jokosher/Jokosher.glade.h:120
 msgid "_Project"
 msgstr "_Projekts"
 
-#: ../../Jokosher/Jokosher.glade.h:122
+#: ../../Jokosher/Jokosher.glade.h:121
 msgid "foo"
 msgstr "foo"
 
-#: ../../Jokosher/Jokosher.glade.h:124
+#: ../../Jokosher/Jokosher.glade.h:123
 msgid "translator-credits"
 msgstr "Pēteris Krišjānis <pecisk@gmail.com>"
 
-#: ../../Jokosher/AddInstrumentDialog.py:50
+#: ../../Jokosher/AddInstrumentDialog.py:52
 #, python-format
 msgid "Choose the new instrument type for %s"
 msgstr ""

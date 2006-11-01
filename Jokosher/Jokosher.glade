@@ -2456,7 +2456,6 @@ Gregory Sheeran &lt;greg@grogoreo.co.uk&gt;</property>
       <child>
 	<widget class="GtkCheckButton" id="startupcb">
 	  <property name="visible">True</property>
-	  <property name="tooltip" translatable="yes">I'm sorry, do I annoy you?</property>
 	  <property name="can_focus">True</property>
 	  <property name="label" translatable="yes">Don't show this on start-up</property>
 	  <property name="use_underline">True</property>
