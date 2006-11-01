@@ -1075,6 +1075,9 @@ class Project(Monitored, CommandManaged):
 		'''
 			
 		instr = Instrument(self, name, type, pixbuf)
+		if len(self.instruments) == 0:
+			#If this is the first instrument, arm it by default
+			instr.ToggleArmed()
 		audio_dir = os.path.join(os.path.split(self.projectfile)[0], "audio")
 		instr.path = os.path.join(audio_dir)
 		
