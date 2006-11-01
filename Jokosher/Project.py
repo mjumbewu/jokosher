@@ -17,6 +17,7 @@ import gst
 import os
 import gzip
 import urlparse
+import shutil
 import re
 
 import TransportManager
@@ -113,9 +114,17 @@ def LoadFromFile(uri):
 	#only open projects with the proper version number
 	version = doc.firstChild.getAttribute("version")
 	if version != Globals.VERSION:
-		# raise a "this project was created in a different version of Jokosher" message
-		if not version: version = "0.1" # 0.1 projects had version as element, not attr
-		raise OpenProjectError(3,version)
+		if version == "0.1":
+			LoadFromZPOFile(p, doc)
+			#copy the project so that the 0.1 is not overwritten when the user clicks save
+			withoutExt = os.path.splitext(projectfile)[0]
+			shutil.copy(projectfile, "%s.0.1.jokosher" % withoutExt)
+			return p
+		else:
+			if not version:
+				version = "0.1" # 0.1 projects had version as element, not attr
+			# raise a "this project was created in a different version of Jokosher" message
+			raise OpenProjectError(3,version)
 	
 	params = doc.getElementsByTagName("Parameters")[0]
 	
@@ -171,6 +180,117 @@ def LoadFromFile(uri):
 		p.graveyard.append(i)
 
 	return p
+
+#_____________________________________________________________________
+
+def LoadFromZPOFile(project, doc):
+	"""
+	   Loads a project from a Jokosher 0.1 (ZPO) project file into
+	   the given project object using the XML document doc.
+	"""
+	def LoadEventFromZPO(self, node):
+		"""
+		   Loads event properties from a Jokosher 0.1 XML node
+		   and saves then to the given self object.
+		"""
+		params = node.getElementsByTagName("Parameters")[0]
+		LoadParametersFromXML(self, params)
+		
+		try:
+			xmlPoints = node.getElementsByTagName("FadePoints")[0]
+		except IndexError:
+			print "Missing FadePoints in Event XML"
+		else:
+			for n in xmlPoints.childNodes:
+				if n.nodeType == xml.Node.ELEMENT_NODE:
+					pos = float(n.getAttribute("position"))
+					value = float(n.getAttribute("fade"))
+					self._Event__fadePointsDict[pos] = value
+		
+		try:	
+			levelsXML = node.getElementsByTagName("Levels")[0]
+		except IndexError:
+			print "No event levels in project file"
+			self.GenerateWaveform()
+		else: 
+			if levelsXML.nodeType == xml.Node.ELEMENT_NODE:
+				value = str(levelsXML.getAttribute("value"))
+				self.levels = map(float, value.split(","))
+		
+		if self.isLoading == True:
+			self.GenerateWaveform()
+
+		self._Event__UpdateAudioFadePoints()
+		self.CreateFilesource()
+	#_____________________________________________________________________
+	
+	def LoadInstrFromZPO(self, node):
+		"""
+		   Loads instrument properties from a Jokosher 0.1 XML node
+		   and saves then to the given self object.
+		"""
+		params = node.getElementsByTagName("Parameters")[0]
+		LoadParametersFromXML(self, params)
+		#work around because in 0.2 self.effects is a list not a string.
+		self.effects = []
+		
+		for ev in node.getElementsByTagName("Event"):
+			try:
+				id = int(ev.getAttribute("id"))
+			except ValueError:
+				id = None
+			e = Event(self, None, id)
+			LoadEventFromZPO(e, ev)
+			self.events.append(e)
+	
+		for ev in node.getElementsByTagName("DeadEvent"):
+			try:
+				id = int(ev.getAttribute("id"))
+			except ValueError:
+				id = None
+			e = Event(self, None, id)
+			LoadEventFromZPO(e, ev)
+			self.graveyard.append(e)
+		
+		pixbufFilename = os.path.basename(self.pixbufPath)
+		self.instrType = os.path.splitext(pixbufFilename)[0]
+			
+		for i in Globals.getCachedInstruments():
+			if self.instrType == i[1]:
+				self.pixbuf = i[2]
+				break
+		if not self.pixbuf:
+			Globals.debug("Error, could not load image:", self.instrType)
+			
+		#initialize the actuallyIsMuted variable
+		self.checkActuallyIsMuted()
+	#_____________________________________________________________________
+	
+	params = doc.getElementsByTagName("Parameters")[0]
+	
+	LoadParametersFromXML(project, params)
+	
+	for instr in doc.getElementsByTagName("Instrument"):
+		try:
+			id = int(instr.getAttribute("id"))
+		except ValueError:
+			id = None
+		i = Instrument(project, None, None, None, id)
+		LoadInstrFromZPO(i, instr)
+		project.instruments.append(i)
+		if i.isSolo:
+			project.soloInstrCount += 1
+	
+	for instr in doc.getElementsByTagName("DeadInstrument"):
+		try:
+			id = int(instr.getAttribute("id"))
+		except ValueError:
+			id = None
+		i = Instrument(project, None, None, None, id)
+		LoadInstrFromZPO(i, instr)
+		project.graveyard.append(i)
+
+	return project
 
 #_____________________________________________________________________	
 
