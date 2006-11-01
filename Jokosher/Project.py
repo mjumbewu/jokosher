@@ -17,6 +17,7 @@ import gst
 import os
 import gzip
 import urlparse
+import re
 
 import TransportManager
 from CommandManager import *
@@ -270,6 +271,8 @@ class Project(Monitored, CommandManaged):
 		caps = gst.caps_from_string("audio/x-raw-int,rate=44100,channels=2,width=16,depth=16,signed=(boolean)true")
 		self.levelcaps.set_property("caps", caps)
 		self.playbackbin.add(self.levelcaps)
+
+		self.recordingEvents = {} #Tracks which instruments are recording which events in which bins
 		
 		self.volume.link(self.levelcaps)
 		self.levelcaps.link(self.level)
@@ -357,36 +360,80 @@ class Project(Monitored, CommandManaged):
 			pass
 		# [/DEBUG]
 
+        #_____________________________________________________________________
+
+	def split_pad(self, elem, pad, recInstruments, bin):
+		match = re.search("(\d+)$", pad.get_name())
+		if not match:
+			return
+		index = int(match.groups()[0])
+		for instr in recInstruments:
+			if instr.inTrack == index:
+				event = instr.getNewEvent()
+				#TODO: Use encodePipeline here
+				conv = gst.element_factory_make("audioconvert")
+				mux = gst.element_factory_make("oggmux")
+				enc = gst.element_factory_make("vorbisenc")
+				sink = gst.element_factory_make("filesink")
+				sink.set_property("location", event.file.replace(" ", "\ "))
+				bin.add(conv)
+				bin.add(mux)
+				bin.add(enc)											     
+				bin.add(sink)
+				pad.link(conv.get_pad("sink"))
+				conv.link(enc)
+				enc.link(mux)
+				mux.link(sink)
+
 	#_____________________________________________________________________
 		
 	def record(self):
 		'''Start all selected instruments recording'''
 
 		#Add all instruments to the pipeline
-		numInstruments = 0
-		for instr in self.instruments:
-			if instr.isArmed:
-				instr.record()
-				numInstruments += 1
+		self.recordingEvents = {}
+		devices = {}
+		for device in GetAlsaList("capture").values():
+			devices[device] = []
+			for instr in self.instruments:
+				if instr.isArmed and instr.input == device:
+					instr.RemoveAndUnlinkPlaybackbin()
+					devices[device].append(instr)
 
-		#Check mixer states for all devices
-		recMixers = []
-		for device in GetAlsaList('capture').values():
-			if device != 'default':
-				recMixers += GetRecordingMixers(device)
+		for device, recInstruments in devices.items():
+			if len(recInstruments) == 0:
+				#Nothing to record on this device
+				continue
 
-		#Make sure the number of recording mixers corresponds to the number of recording instruments
-		#This will fail if a sound card doesn't support multiple simultanious inputs and is being told to
-		#record multiple instruments at the same time.
-		if len(recMixers)==0:
-			Globals.debug("No channels capable of recording found")
-			raise AudioInputsError(0)
+			channelsNeeded = AlsaDevices.GetChannelsOffered(device)
 
-		if len(recMixers) < numInstruments:
-			Globals.debug("%s %s"%(len(recMixers),numInstruments))
-			raise AudioInputsError(1)
+			if channelsNeeded > 1 and not gst.registry_get_default().find_plugin("chansplit"):
+				Globals.debug("Channel splitting element not found when trying to record from multi-input device.")
+				raise AudioInputsError(2)
 
-		
+			if channelsNeeded > 1: #We're recording from a multi-input device
+				recordingbin = gst.element_factory_make("bin")
+				src = gst.element_factory_make("alsasrc")
+				src.set_property("device", device)
+				split = gst.element_factory_make("chansplit")
+				recordingbin.add(src)
+				recordingbin.add(split)
+				src.link(split)
+				split.connect("pad-added", self.split_pad, recInstruments, recordingbin)
+				Globals.debug("Recording in multi-input mode")
+			else:
+				instr = recInstruments[0]
+				event = instr.getNewEvent()
+				encodePipeline = Globals.settings.recording["fileformat"]
+				output = " ! audioconvert ! %s ! filesink location=%s"%(encodePipeline, event.file.replace(" ", "\ "))
+				Globals.debug("Using pipeline: alsasrc device=%s%s"%(device, output))
+				Globals.debug("Using input track: %s"%instr.inTrack)
+				recordingbin = gst.parse_launch("bin.( alsasrc device=%s %s )"%(device, output))
+				self.recordingEvents[instr] = (event, recordingbin)
+				Globals.debug("Recording in single-input mode")
+
+		self.mainpipeline.add(recordingbin)
+
 		#Make sure we start playing from the beginning
 		self.transport.Stop()
 		
@@ -638,16 +685,18 @@ class Project(Monitored, CommandManaged):
 	
 	def stop(self, bus=None, message=None):
 		'''Stop playing or recording'''
-		for instr in self.instruments:
-			instr.stop()
 
 		Globals.debug("Stop pressed, about to set state to READY")
 
 		#read pipeline for current position - it will have been read
 		#periodically in TimeLine.py but could be out by 1/FPS
 		self.transport.QueryPosition()
-		self.mainpipeline.set_state(gst.STATE_READY)
-		self.IsPlaying = False
+
+		#If we've been recording then add new events to instruments
+		for instr, (event, bin) in self.recordingEvents.items():
+			instr.addEvent(event)
+
+		self.terminate()
 			
 		Globals.debug("Stop pressed, state just set to READY")
 
@@ -671,12 +720,21 @@ class Project(Monitored, CommandManaged):
 		''' Terminate all instruments (used to disregard recording when an 
 			error occurs after instruments have started).
 		'''
-		for instr in self.instruments:
-			instr.terminate()
-
 		Globals.debug("Terminating recording.")
 
 		self.mainpipeline.set_state(gst.STATE_READY)
+	
+		#Relink instruments and stop their recording bins
+		for instr, (event, bin) in self.recordingEvents.items():
+			try:
+				self.mainpipeline.remove(bin)
+			except:
+				pass #Already removed from another instrument
+			bin.set_state(gst.STATE_NULL)
+			instr.AddAndLinkPlaybackbin()
+
+		self.recordingEvents = {}
+
 		self.IsPlaying = False
 
 		self.transport.Stop()
@@ -1174,6 +1232,7 @@ class AudioInputsError(Exception):
 		"""Error numbers:
 		   1) No recording channels found
 		   2) Sound card is not capable of multiple simultanious inputs
+		   3) Channel splitting element not found
 		"""
 		Exception.__init__(self)
 		self.errno = errno

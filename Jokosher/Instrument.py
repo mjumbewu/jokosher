@@ -67,7 +67,7 @@ class Instrument(Monitored, CommandManaged):
 		except: 
 			self.input = "default"
 
-		self.inTrack = None	# Mixer track to record from
+		self.inTrack = 0	# Input track to record from
 		self.output = ""
 		self.recordingbin = None
 		self.id = project.GenerateUniqueID(id) #check is id is already being used before setting
@@ -303,67 +303,23 @@ class Instrument(Monitored, CommandManaged):
 	
 	#_____________________________________________________________________
 	
-	def record(self):
-		'''Record to this instrument's temporary file.'''
+	def getNewEvent(self):
+		event = Event(self)
+		event.start = 0
+		event.name = "Recorded audio"
+		event.file = "%s_%d_%d.ogg"%(os.path.join(self.path, self.name.replace(" ", "_")), self.id, int(time.time()))
+		return event
 
-		Globals.debug("instrument recording")
-
-		#Set input channel on device mixer
-		mixer = gst.element_factory_make('alsamixer')
-		mixer.set_property("device", self.input)
-		mixer.set_state(gst.STATE_READY)
-
-		for track in mixer.list_tracks():
-			if track.label == self.inTrack:
-				mixer.set_record(track, True)
-				break
-
-		mixer.set_state(gst.STATE_NULL)
-		
-		#Create event file based on timestamp
-		file = "%s_%d_%d.ogg"%(os.path.join(self.path, self.name.replace(" ", "_")), self.id, int(time.time()))
-		self.tmpe = Event(self)
-		self.tmpe.start = 0
-		self.tmpe.name = "Recorded audio"
-		self.tmpe.file = file
-		
-		encodePipeline = Globals.settings.recording["fileformat"]
-		self.output = " ! audioconvert ! %s ! filesink location=%s" % (encodePipeline, file.replace(" ", "\ "))
-		Globals.debug("Using pipeline: alsasrc device=%s%s" % (self.input, self.output))
-		Globals.debug("Using input track: %s" % self.inTrack)
-
-		self.recordingbin = gst.parse_launch("bin.( alsasrc device=%s %s )" % (self.input, self.output))
-		#We remove this instrument's playbin from the project so it doesn't try to record and play from the same file
-		self.RemoveAndUnlinkPlaybackbin()
-		self.project.mainpipeline.add(self.recordingbin)
-		
 	#_____________________________________________________________________
 
-
-	def stop(self):
-		if self.recordingbin:
-			Globals.debug("instrument stop")
-			self.terminate()
-			self.events.append(self.tmpe)
-			self.tmpe.GenerateWaveform()
-			self.temp = self.tmpe.id
-			self.StateChanged()
+	def addEvent(self, event):
+		self.events.append(event)
+		event.GenerateWaveform()
+		self.temp = event.id
+		self.StateChanged()
 			
 	#_____________________________________________________________________
 
-	def terminate(self):
-		#Separated from stop so that instruments can be stopped without their events being kept (for terminating after errors)
-		if self.recordingbin:
-			self.project.mainpipeline.remove(self.recordingbin)
-			self.recordingbin.set_state(gst.STATE_NULL)
-			self.recordingbin = None
-			#Relink playbackbin
-			self.AddAndLinkPlaybackbin()
-			self.StateChanged()
-
-	#_____________________________________________________________________
-	
-	
 	def addEventFromFile(self, start, file, copyfile=False):
 		''' Adds an event to this instrument, and attaches the specified
 			file to it. 

@@ -98,3 +98,27 @@ def GetRecordingSampleRate(device):
 	return val
 	
 #_____________________________________________________________________
+
+def GetChannelsOffered(device):
+	src = gst.element_factory_make('alsasrc')
+	src.set_property("device", device)
+	src.set_state(gst.STATE_READY)
+	
+	try:
+		#Assume the card only offers one src (we can't handle more anyway)
+		for pad in src.src_pads():
+			caps = pad.get_caps()
+	except:
+		Globals.debug("Couldn't get source pad for %s"%device)
+		src.set_state(gst.STATE_NULL)
+		return 0
+	
+	numChannels = caps[0]["channels"]
+	if not isinstance(numChannels, int):
+		numChannels = 0
+	if numChannels == 2:
+		#Assume one stereo input
+		numChannels = 1
+
+	src.set_state(gst.STATE_NULL)
+	return numChannels

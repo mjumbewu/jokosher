@@ -54,24 +54,16 @@ class InstrumentConnectionsDialog:
 	#_____________________________________________________________________
 
 	def Populate(self):
-		self.mixers = {}
+		self.inputs = {}
 	
-		for device in AlsaDevices.GetAlsaList("capture").values():
+		#Find out how many channels a device offers
+		for deviceName, device in AlsaDevices.GetAlsaList("capture").items():
 
 			#Don't want the default device twice (once as 'default' and once as its actual hw ref)
 			if device == "default":
 				continue
 
-			mixer = gst.element_factory_make('alsamixer')
-			mixer.set_property("device", device)
-			mixer.set_state(gst.STATE_READY)
-
-			if not mixer.implements_interface(gst.interfaces.Mixer):
-				Globals.debug('Cannot get mixer tracks from the device. Check permissions on the mixer device.')
-			else:
-				self.mixers[device] = mixer.list_tracks()
-			
-			mixer.set_state(gst.STATE_NULL)
+			self.inputs[deviceName] = (device, AlsaDevices.GetChannelsOffered(device))
 		
 		for instr in self.project.instruments:			
 			instrument = instr
@@ -90,15 +82,13 @@ class InstrumentConnectionsDialog:
 			self.AlsaID = []
 
 			currentItem = 0
-			for device in self.mixers:
-				mixertracks = self.mixers[device]
-				for t in mixertracks:
-					if t.flags & gst.interfaces.MIXER_TRACK_INPUT:
-						combobox.append_text(t.label)
-						if instr.inTrack and instr.input == device and t.label == instr.inTrack:
-							combobox.set_active(currentItem)
-						self.AlsaID.append(device)
-						currentItem += 1
+			for deviceName, (device, numInputs) in self.inputs.items():
+				for input in range(0, numInputs):
+					combobox.append_text("%s input %d"%(deviceName, input))
+					if instr.input == device and input == instr.inTrack:
+						combobox.set_active(currentItem)
+					self.AlsaID.append((device, input))
+					currentItem += 1
 			
 			combobox.connect("changed", self.OnSelected, instr)
 			row.pack_start(combobox, False, False)
@@ -111,12 +101,7 @@ class InstrumentConnectionsDialog:
 			
 	def OnSelected(self, widget, instr):
 		'''Set the instrument's input'''
-		device = self.AlsaID[widget.get_active()]
-		mixertracks = self.mixers[device]
-		for track in mixertracks:
-			if track.label == widget.get_active_text():
-				inTrack = track.label
-		Globals.debug(inTrack)
+		device, inTrack = self.AlsaID[widget.get_active()]
 		if device != instr.input or inTrack != instr.inTrack:
 			instr.input = device
 			instr.inTrack = inTrack
