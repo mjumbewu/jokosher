@@ -48,6 +48,7 @@ class ExtensionManager:
 		"""
 		passed = True
 		name = None
+		preferences = False
 		# check if the necessary attributes EXTENSION_NAME, EXTENSION_VERSION
 		#	and EXTENSION_DESCRIPTION are present and
 		#	refuse to start the extension if they are missing. 
@@ -66,6 +67,9 @@ class ExtensionManager:
 		else:
 			Globals.debug(filename + " missing EXTENSION_DESCRIPTION")
 			passed = False
+		# check for preferences attribute
+		if hasattr(extension, "preferences"):
+			preferences = True
 		# check for startup attribute
 		if not hasattr(extension,"startup"):
 			Globals.debug(filename + " missing startup() function")
@@ -112,6 +116,7 @@ class ExtensionManager:
 			 "version":version,
 			 "extension":extension,
 			 "enabled":enabled,
+			 "preferences":preferences,
 			 "filename":extensionFile })
 			 
 		
@@ -246,8 +251,22 @@ class ExtensionManager:
 					Globals.debug(e)
 					return False
 		return True
-					
-
+	
+	#_____________________________________________________________________
+	
+	def ExtensionPreferences(self, filename):
+		"""
+			This function loads the preferences() function
+			of an extension
+		"""
+		for extension in self.GetExtensions():
+			if extension['filename'] == filename:
+				try:
+					extension['extension'].preferences()
+				except:
+					Globals.debug("Some screwed up their preferences function")
+		return True
+				
 
 	#_____________________________________________________________________
 			

@@ -14,24 +14,27 @@ class ExtensionManagerDialog:
 		signals = {
 			"on_Close_clicked" : self.OnClose,
 			"on_Add_clicked" : self.OnAdd,
-			"on_Remove_clicked": self.OnRemove
+			"on_Remove_clicked": self.OnRemove,
+			"on_Treeview_selected": self.OnSelect,
+			"on_Preferences_clicked": self.OnPreferences
 		}
 		self.wTree.signal_autoconnect(signals)
 		
 		self.dlg = self.wTree.get_widget("ExtensionManagerDialog")
 		self.tree = self.wTree.get_widget("treeview1")
 		self.restart_label = self.wTree.get_widget("label1")
+		self.prefs_button = self.wTree.get_widget("button5")
 		
 		self.AddColumn("Enabled", 0, 'toggle')
 		self.AddColumn("Name", 1, 'text', 25)
 		self.AddColumn("Description", 2, 'text', 25)
 		self.AddColumn("Version", 3, 'text', 7)
 
-		self.model = gtk.ListStore(bool, str, str, str, str)
+		self.model = gtk.ListStore(bool, str, str, str, str, bool)
 		self.tree.set_model(self.model)
 
 		for extension in self.parent.extensionManager.GetExtensions():
-			self.model.append((extension["enabled"], extension["name"], extension["description"], extension["version"], extension["filename"]))
+			self.model.append((extension["enabled"], extension["name"], extension["description"], extension["version"], extension["filename"], extension["preferences"]))
 
 		self.dlg.set_transient_for(self.parent.window)
 		self.dlg.show()
@@ -86,6 +89,16 @@ class ExtensionManagerDialog:
 				for extension in self.parent.extensionManager.GetExtensions():
 					if filename == extension['filename']:
 						extension['enabled'] = False
+	#_____________________________________________________________________
+
+	def OnSelect(self, tree):
+		selection = self.tree.get_selection().get_selected()[1]
+		preferences = self.model.get_value(selection, 5)
+		if preferences:
+			self.prefs_button.set_sensitive(True)
+		else:
+			self.prefs_button.set_sensitive(False)
+		
 
 	#_____________________________________________________________________
 	
@@ -170,6 +183,21 @@ class ExtensionManagerDialog:
 
 	#_____________________________________________________________________
 
+	def OnPreferences(self, button):
+		selection = self.tree.get_selection().get_selected()[1]
+		filename = self.model.get_value(selection, 4)
+
+		if not self.parent.extensionManager.ExtensionPreferences(filename):
+			dlg = gtk.MessageDialog(self.dlg,
+							gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
+							gtk.MESSAGE_ERROR,
+							gtk.BUTTONS_CLOSE,
+							_("Someone screwed up their preferences() function"))
+			dlg.run()
+			dlg.destroy()
+
+	#_____________________________________________________________________
+
 	def UpdateModel(self):
 		selection = self.tree.get_selection()
 		row_selected = selection.get_selected()[1]
@@ -179,7 +207,7 @@ class ExtensionManagerDialog:
 		
 		if num_model < num_extensions:
 			extension = self.parent.extensionManager.loadedExtensions[num_extensions-1]
-			self.model.append((extension["enabled"], extension["name"], extension["description"], extension["version"], extension["filename"]))
+			self.model.append((extension["enabled"], extension["name"], extension["description"], extension["version"], extension["filename"], extension["preferences"]))
 		
 		elif num_model > num_extensions:
 			self.model.remove(row_selected)
