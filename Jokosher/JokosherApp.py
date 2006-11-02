@@ -128,7 +128,7 @@ class MainApp:
 		self.isPlaying = False
 
 		# Intialise context sensitive tooltips for workspaces buttons
-		self.contextTooltips.set_tip(self.recordingButton,_("Currently working in the recording workspace"),None)
+		self.contextTooltips.set_tip(self.recordingButton,_("Currently working in the Recording workspace"),None)
 		self.contextTooltips.set_tip(self.compactMixButton,_("Switch to the Mixing workspace"),None)
 		
 		# set sensitivity

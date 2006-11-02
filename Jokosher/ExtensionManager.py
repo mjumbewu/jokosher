@@ -265,6 +265,7 @@ class ExtensionManager:
 					extension['extension'].preferences()
 				except:
 					Globals.debug("Some screwed up their preferences function")
+					return False
 		return True
 				
 

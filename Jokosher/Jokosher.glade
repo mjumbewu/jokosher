@@ -1769,7 +1769,7 @@ Gregory Sheeran &lt;greg@grogoreo.co.uk&gt;</property>
 		  <child>
 		    <widget class="GtkEntry" id="author">
 		      <property name="visible">True</property>
-		      <property name="tooltip" translatable="yes">Enter the authors name</property>
+		      <property name="tooltip" translatable="yes">Enter the author's name</property>
 		      <property name="can_focus">True</property>
 		      <property name="editable">True</property>
 		      <property name="visibility">True</property>
@@ -1848,7 +1848,7 @@ Gregory Sheeran &lt;greg@grogoreo.co.uk&gt;</property>
 		  <child>
 		    <widget class="GtkEntry" id="name">
 		      <property name="visible">True</property>
-		      <property name="tooltip" translatable="yes">Enter the projects name</property>
+		      <property name="tooltip" translatable="yes">Enter the project's name</property>
 		      <property name="can_focus">True</property>
 		      <property name="editable">True</property>
 		      <property name="visibility">True</property>
@@ -3407,7 +3407,7 @@ http://www.jokosher.org/contribute</property>
 		  <child>
 		    <widget class="GtkComboBoxEntry" id="chainpresetcombo">
 		      <property name="visible">True</property>
-		      <property name="items" translatable="yes">foo</property>
+		      <property name="items"></property>
 		      <property name="add_tearoffs">False</property>
 		      <property name="has_frame">True</property>
 		      <property name="focus_on_click">True</property>
@@ -3416,7 +3416,7 @@ http://www.jokosher.org/contribute</property>
 		      <child internal-child="entry">
 			<widget class="GtkEntry" id="comboboxentry-entry1">
 			  <property name="visible">True</property>
-			  <property name="tooltip" translatable="yes">Type the presets name</property>
+			  <property name="tooltip" translatable="yes">Type the preset's name</property>
 			  <property name="editable">True</property>
 			  <property name="visibility">True</property>
 			  <property name="max_length">0</property>
