@@ -100,6 +100,7 @@ def GetRecordingSampleRate(device):
 #_____________________________________________________________________
 
 def GetChannelsOffered(device):
+	#TODO: Quite a few assumptions here...
 	src = gst.element_factory_make('alsasrc')
 	src.set_property("device", device)
 	src.set_state(gst.STATE_READY)
@@ -112,10 +113,16 @@ def GetChannelsOffered(device):
 		Globals.debug("Couldn't get source pad for %s"%device)
 		src.set_state(gst.STATE_NULL)
 		return 0
-	
+
 	numChannels = caps[0]["channels"]
-	if not isinstance(numChannels, int):
-		numChannels = 0
+	if isinstance(numChannels, gst.IntRange):
+		if numChannels.high > 20000:
+			#Assume we're being given the max number of channels for gstreamer, so take low number
+			numChannels = numChannels.low
+		else:
+			#Otherwise take the high number
+			numChannels = numChannels.high
+
 	if numChannels == 2:
 		#Assume one stereo input
 		numChannels = 1
