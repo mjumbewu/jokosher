@@ -56,6 +56,7 @@ class InstrumentViewer(gtk.EventBox):
 		self.projectview = projectview
 		self.mainview = mainview
 		self.instrument.AddListener(self)
+		self.effectsDialog = None		#the instrument effects dialog (to make sure more than one is never opened)
 		
 		self.Updating = False
 		
@@ -146,7 +147,7 @@ class InstrumentViewer(gtk.EventBox):
 			procimg.set_from_file(os.path.join(Globals.IMAGE_PATH, "icon_effectsapply.png"))
 			self.propsButton.set_image(procimg)
 
-			self.propsButton.connect("button_press_event", self.OnProcessingMenu)
+			self.propsButton.connect("button_press_event", self.OnInstrumentEffects)
 			self.propsTip = gtk.Tooltips()
 			self.propsTip.set_tip(self.propsButton, _("Instrument Effects"), None)
 			
@@ -339,32 +340,19 @@ class InstrumentViewer(gtk.EventBox):
 
 	#______________________________________________________________________
 
-	def OnInstrumentEffects(self, widget):
+	def OnInstrumentEffects(self, widget, mouse):
 		""" Creates and shows the instrument effects dialog"""
 		Globals.debug("props button pressed")
-		newdlg = InstrumentEffectsDialog.InstrumentEffectsDialog(self.instrument)
-		#if destroyCallback:
-		#	newdlg.dlg.connect("destroy", destroyCallback)
-
+		if not self.effectsDialog:
+			self.effectsDialog = InstrumentEffectsDialog.InstrumentEffectsDialog(self.instrument, self.OnInstrumentEffectsDestroyed)
+		else:
+			self.effectsDialog.BringWindowToFront()
 
 	#______________________________________________________________________
-
-	def OnProcessingMenu(self, widget, mouse):
-		"""
-			Callback for "button_press_event" on the properties button.
-			Pops up a menu (currently only Instrument Effects).
-		"""
-		m = gtk.Menu() 
-		items = [(_("Instrument Effects..."), self.OnInstrumentEffects)] 
-		for i, cb in items:
-			a = gtk.MenuItem(label=i)
-			a.show() 
-			m.append(a)
-			if cb:
-				a.connect("activate", cb)
-
-		m.popup(None, None, None, mouse.button, mouse.time)
 	
+	def OnInstrumentEffectsDestroyed(self, window):
+		self.effectsDialog = None
+		
 	#______________________________________________________________________
 	
 	def OnDragMotion(self, widget, context, x, y, time):

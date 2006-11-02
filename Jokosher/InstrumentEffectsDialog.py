@@ -37,7 +37,7 @@ class InstrumentEffectsDialog:
 	
 	#_____________________________________________________________________	
 	
-	def __init__(self, instrument):
+	def __init__(self, instrument, destroyCallback):
 		"""
 			This constructor enables a bunch of variables, reads in the glade
 			file for the main dialog, and populates the effects and presets
@@ -76,6 +76,7 @@ class InstrumentEffectsDialog:
 		self.chainsave = self.res.get_widget("chainpresetsave")
 		self.transportbutton = self.res.get_widget("transportbutton")
 
+		self.window.connect("destroy", destroyCallback)
 		self.addeffect.set_sensitive(False)
 
 		self.headerCairoImage = CairoDialogHeaderImage(_("Instrument Effects"))
@@ -536,6 +537,12 @@ class InstrumentEffectsDialog:
 		# GUI and as such, remove the effect widget
 		self.PopulateEffects()
 		
+	#_____________________________________________________________________
+	
+	def BringWindowToFront(self):
+		self.window.present()
+		
+	#_____________________________________________________________________
 #=========================================================================
 
 class CairoDialogHeaderImage(gtk.DrawingArea):
