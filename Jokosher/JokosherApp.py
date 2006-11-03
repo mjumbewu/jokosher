@@ -333,21 +333,6 @@ class MainApp:
 			self.settingButtons = False
 		else:
 			Globals.debug("can record")
-			#Deselect all input channels (the required ones will be reselected by each instrument)
-			devices = AlsaDevices.GetAlsaList("capture").values()
-			for device in devices: 
-				mixer = gst.element_factory_make('alsamixer')
-				mixer.set_property("device", device)
-				mixer.set_state(gst.STATE_READY)
-
-				for track in mixer.list_tracks():
-					if track.flags & gst.interfaces.MIXER_TRACK_INPUT:
-						mixer.set_record(track, False)
-					#Most cards incapable of multiple simultanious input have a channel called 'Capture' which must be enabled along with the actual input channel
-					if track.label == 'Capture':
-						mixer.set_record(track, True)
-
-				mixer.set_state(gst.STATE_NULL)
 
 			self.isRecording = not self.isRecording
 			self.stop.set_sensitive(self.isRecording)
