@@ -154,12 +154,12 @@ class TimeLineBar(gtk.Frame):
 	#_____________________________________________________________________
 
 	def OnEditSig(self, widget, event):
-		self.parentUpdateMethod()
+		#self.parentUpdateMethod()
 		if event.type == gtk.gdk.BUTTON_PRESS:
 			self.sigframe.remove(self.sigeventbox)
 			
 			self.sigedit = gtk.Entry()
-			self.sigedit.set_text("%d/%d"%(self.project.transport.meter_nom, self.project.transport.meter_nom))
+			self.sigedit.set_text("%d/%d"%(self.project.transport.meter_nom, self.project.transport.meter_denom))
 			self.sigedit.set_width_chars(5)
 			self.sigedit.connect("activate", self.OnAcceptEditSig)
 
@@ -193,9 +193,20 @@ class TimeLineBar(gtk.Frame):
 		if self.sigeditPacked:
 			self.sigframe.remove(self.sigedit)
 			
-			nom, denom = self.sigedit.get_text().split("/")
-			self.project.transport.SetMeter(int(nom), int(denom))
-			
+			sig = self.sigedit.get_text().split("/")
+
+			try:
+				nom=int(sig[0])
+			except (ValueError,IndexError):
+				nom=self.project.transport.meter_nom
+
+			try:
+				denom=int(sig[1])
+			except (ValueError,IndexError):
+				denom=self.project.transport.meter_denom
+
+			self.project.transport.SetMeter(nom, denom)
+
 			self.siglabel.set_use_markup(True)
 			self.siglabel.set_markup("<span foreground='#0b410b'><b>%d/%d</b></span>"%(self.project.transport.meter_nom, self.project.transport.meter_denom))
 			

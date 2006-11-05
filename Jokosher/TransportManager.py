@@ -211,7 +211,7 @@ class TransportManager(Monitored):
 		"""
 			Changes current meter
 		"""
-		if self.meter_nom != nom and self.meter_denom != denom:
+		if self.meter_nom != nom or self.meter_denom != denom:
 			self.meter_nom = nom
 			self.meter_denom = denom
 			self.StateChanged()
