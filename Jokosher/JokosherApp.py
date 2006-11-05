@@ -370,11 +370,11 @@ class MainApp:
 	
 	def Play(self, widget = None):
 		'''Toggle playing'''
-		self.isPlaying = not self.isPlaying
-		self.stop.set_sensitive(self.isPlaying)
-		self.record.set_sensitive(not self.isPlaying)
-		self.compactmix.StartUpdateTimeout()
-		if self.isPlaying:
+
+		if self.settingButtons == True:
+			return 
+
+		if not self.isPlaying:
 			self.project.play()
 		else:
 			self.project.stop()
@@ -384,12 +384,16 @@ class MainApp:
 	#The stop button is really just an alias for toggling play/record to off
 	def Stop(self, widget = None):
 		'''Stop recording/playing (whichever is happening)'''
-				
+
 		if self.isRecording: 
 			self.settingButtons = False
 			self.record.set_active(False)
-		if self.isPlaying: 
-			self.play.set_active(False)
+		if self.isPlaying:
+			if self.play.get_active():
+				self.play.set_active(False)
+			else:
+				self.play.set_active(False)
+				self.Play()
 
 	#_____________________________________________________________________
 
@@ -670,6 +674,17 @@ class MainApp:
 	
 	def OnStateChanged(self, obj=None, change=None):
 		#for when undo and redo history change
+
+		if change=="play" or change == "stop":
+			self.isPlaying = not self.isPlaying
+			self.stop.set_sensitive(self.isPlaying)
+			self.record.set_sensitive(not self.isPlaying)
+			self.compactmix.StartUpdateTimeout()
+			self.settingButtons = True
+			self.play.set_active(self.isPlaying)
+			self.settingButtons = False
+			return
+
 		undo = len(self.project.undoStack) or len(self.project.savedUndoStack)
 		self.undo.set_sensitive(undo)
 		redo = len(self.project.redoStack) or len(self.project.savedRedoStack)

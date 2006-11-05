@@ -630,6 +630,8 @@ class Project(Monitored, CommandManaged):
 			
 			Globals.debug("just set state to PLAYING")
 
+			self.StateChanged("play")
+
 			# [DEBUG]
 			# This debug block will be removed when we release. If you see this in a release version, we
 			# obviously suck. Please email us and tell us about how shit we are.
@@ -820,7 +822,7 @@ class Project(Monitored, CommandManaged):
 			
 		Globals.debug("Stop pressed, state just set to READY")
 
-		
+		self.StateChanged("stop")
 		# [DEBUG]
 		# This debug block will be removed when we release. If you see this in a release version, we
 		# obviously suck. Please email us and tell us about how shit we are.

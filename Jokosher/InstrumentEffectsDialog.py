@@ -122,7 +122,16 @@ class InstrumentEffectsDialog:
 			
 		# this says if the project is playing, so we know to toggle the
 		# transport button in the dialog	
-		self.isPlaying = False
+
+		self.isPlaying = self.instrument.project.IsPlaying
+
+		if self.isPlaying:
+			self.transportbutton.set_use_stock(True)
+			self.transportbutton.set_label(gtk.STOCK_MEDIA_STOP)
+
+
+		self.instrument.project.AddListener(self)
+
 			
 	#_____________________________________________________________________	
 		
@@ -131,7 +140,8 @@ class InstrumentEffectsDialog:
 			If the OK button is pressed on the dialog box, the window is
 			destroyed.
 		"""
-		
+
+		self.instrument.project.RemoveListener(self)		
 		self.window.destroy()
 		
 	#_____________________________________________________________________	
@@ -140,7 +150,7 @@ class InstrumentEffectsDialog:
 		"""
 			If the Cancel button is pressed, the dialog is destroyed.
 		"""
-		
+		self.instrument.project.RemoveListener(self)
 		self.window.destroy()
 
 	#_____________________________________________________________________	
@@ -152,12 +162,25 @@ class InstrumentEffectsDialog:
 			right for them. When user press the Play button, it switches to
 			a stop button, and vice versa.
 		"""
-		
-		# check self.isPlaying to see if the project is playing already
 		if self.isPlaying == False:
 			# things to do if the project is not already playing, and hence
 			# needs to start playing
 			self.instrument.project.play()
+			self.isPlaying = True
+		else:
+			self.instrument.project.stop()
+			self.isPlaying = False
+
+
+
+	#_____________________________________________________________________
+
+	def OnStateChanged(self,obj,change=None):
+
+		# check self.isPlaying to see if the project is playing already
+		if change== "play":
+			# things to do if the project is not already playing, and hence
+			# needs to start playing
 			self.transportbutton.set_use_stock(True)
 			self.transportbutton.set_label(gtk.STOCK_MEDIA_STOP)
 			
@@ -170,9 +193,9 @@ class InstrumentEffectsDialog:
 			
 			# set this to True to show we are now playing
 			self.isPlaying = True
-		else:
+
+		elif change=="stop":
 			# things to do when the stop button is pressed to stop playback
-			self.instrument.project.stop()
 			self.transportbutton.set_use_stock(True)
 			self.transportbutton.set_label(gtk.STOCK_MEDIA_PLAY)
 			
