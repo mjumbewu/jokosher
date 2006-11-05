@@ -192,7 +192,7 @@ class ExtensionManagerDialog:
 							gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
 							gtk.MESSAGE_ERROR,
 							gtk.BUTTONS_CLOSE,
-							_("An error occured when trying to launch the preferences for the extension"))
+							_("An error occurred when trying to launch the preferences for the extension"))
 			dlg.run()
 			dlg.destroy()
 

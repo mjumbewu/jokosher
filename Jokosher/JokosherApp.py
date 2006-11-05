@@ -1109,7 +1109,8 @@ class MainApp:
 		
 		# grab reference to the ContributingDialog window
 		self.contribdialog = self.contribTree.get_widget("ContributingDialog")
-
+		self.contribdialog.set_icon(self.icon)
+		
 		self.topimage = self.contribTree.get_widget("topimage")
 		self.topimage.set_from_file(os.path.join(Globals.IMAGE_PATH, "jokosher-logo.png"))
 		
