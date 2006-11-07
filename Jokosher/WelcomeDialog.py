@@ -166,12 +166,13 @@ class WelcomeDialog:
 	
 	def OnMouseClick(self, treeview, event):
 		if event.button == 1: #If the click is a left-click
-			row, column = self.tree.get_path_at_pos(int(event.x), int(event.y))[:2]
-			if row >= 0 and column == self.removecolumn:
-				item = self.model[row]
+			if self.tree.get_path_at_pos(int(event.x), int(event.y)):
+				row, column = self.tree.get_path_at_pos(int(event.x), int(event.y))[:2]
+				if row >= 0 and column == self.removecolumn:
+					item = self.model[row]
 				
-				self.mainwindow.RemoveRecentProject(item[2], item[1])
-				self.PopulateRecentProjects()
+					self.mainwindow.RemoveRecentProject(item[2], item[1])
+					self.PopulateRecentProjects()
 		
 	#_____________________________________________________________________
 
