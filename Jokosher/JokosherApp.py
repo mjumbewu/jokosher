@@ -384,8 +384,10 @@ class MainApp:
 			return 
 
 		if not self.isPlaying:
+			self.addInstrumentButton.set_sensitive(False)
 			self.project.play()
 		else:
+			self.addInstrumentButton.set_sensitive(True)
 			self.project.stop()
 
 	#_____________________________________________________________________
@@ -393,6 +395,8 @@ class MainApp:
 	#The stop button is really just an alias for toggling play/record to off
 	def Stop(self, widget = None):
 		'''Stop recording/playing (whichever is happening)'''
+
+		self.addInstrumentButton.set_sensitive(True)
 
 		if self.isRecording: 
 			self.settingButtons = False
