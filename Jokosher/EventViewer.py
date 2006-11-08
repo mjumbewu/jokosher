@@ -709,13 +709,13 @@ class EventViewer(gtk.DrawingArea):
 
 	def PixXFromSec(self, sec):
 		"""Converts seconds to an X pixel position in the waveform"""
-		return round(float(sec + self.event.start) * self.project.viewScale)
+		return round(float(sec) * self.project.viewScale)
 	
 	#_____________________________________________________________________
 	
 	def SecFromPixX(self,pixx):
 		"""Converts an X pixel position in the waveform into seconds"""
-		return float(pixx) / self.project.viewScale - self.event.start
+		return float(pixx) / self.project.viewScale
 	
 	#_____________________________________________________________________
 	

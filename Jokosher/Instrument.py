@@ -743,7 +743,7 @@ class Instrument(Monitored, CommandManaged):
 		"""Fills the gst.Controller for the instrument with its list of fade times."""
 		
 		Globals.debug("Preparing the controller")
-		
+		self.control.unset_all("volume")
 		for ev in self.events:
 			for point in ev.audioFadePoints:
 				Globals.debug("FADE POINT: time(%.2f) vol(%.2f)" % (ev.start + point[0], point[1]))
