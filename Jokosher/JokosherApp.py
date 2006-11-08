@@ -144,6 +144,15 @@ class MainApp:
 		innerbtn.connect("pressed", self.OnForwardPressed)
 		innerbtn.connect("released", self.OnForwardReleased)
 		
+		miximg = gtk.Image()
+		miximg.set_from_file(os.path.join(Globals.IMAGE_PATH, "icon_mix.png"))	
+		self.compactMixButton.set_image(miximg)
+
+		recimg = gtk.Image()
+		recimg.set_from_file(os.path.join(Globals.IMAGE_PATH, "icon_record.png"))	
+		self.recordingButton.set_image(recimg)
+		
+		
 		# populate the Recent Projects menu
 		self.OpenRecentProjects()
 		self.PopulateRecentProjects()
