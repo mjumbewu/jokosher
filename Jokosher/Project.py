@@ -428,7 +428,7 @@ class Project(Monitored, CommandManaged):
 		self.clickbin = gst.element_factory_make("bin", "clickbin")
 
 		self.click = gst.element_factory_make("audiotestsrc", "click")
-		self.click.set_property("wave", 1)
+		self.click.set_property("wave", 3)
 		self.clickbin.add(self.click)
 
 		self.clickvol = gst.element_factory_make("volume", "clickvol")
