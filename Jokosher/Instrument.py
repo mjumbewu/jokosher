@@ -144,10 +144,12 @@ class Instrument(Monitored, CommandManaged):
 		for pad in self.vollac.pads():
 			if pad.get_direction() == gst.PAD_SINK:
 				volbinsink = gst.GhostPad("sink", pad)
+				break
 
 		for pad in self.volrac.pads():
 			if pad.get_direction() == gst.PAD_SRC:
 				volbinsrc = gst.GhostPad("src", pad)
+				break
 
 		self.volbin.add_pad(volbinsink)
 		self.volbin.add_pad(volbinsrc)
@@ -737,8 +739,6 @@ class Instrument(Monitored, CommandManaged):
 
 	#_____________________________________________________________________
 
-	#_____________________________________________________________________
-
 	def PrepareController(self):
 		"""Fills the gst.Controller for the instrument with its list of fade times."""
 		
@@ -746,8 +746,9 @@ class Instrument(Monitored, CommandManaged):
 		
 		for ev in self.events:
 			for point in ev.audioFadePoints:
-				Globals.debug("FADE POINT: time(" + str(point[0]) + ") vol(" + str(point[1]) + ")" )
-				self.control.set("volume", point[0] * gst.SECOND, point[1])
+				Globals.debug("FADE POINT: time(%.2f) vol(%.2f)" % (ev.start + point[0], point[1]))
+				self.control.set("volume", (ev.start + point[0]) * gst.SECOND, point[1])
 
+	#_____________________________________________________________________
 	
 #=========================================================================	

@@ -1315,8 +1315,7 @@ class Project(Monitored, CommandManaged):
 
 	def ClearClickTimes(self):
 		'''Clear the click track controller times'''
-		pass
-##		self.clickcontrol.unset_all("volume")
+		self.clickcontrol.unset_all("volume")
 
 
 #=========================================================================

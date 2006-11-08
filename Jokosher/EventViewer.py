@@ -709,13 +709,13 @@ class EventViewer(gtk.DrawingArea):
 
 	def PixXFromSec(self, sec):
 		"""Converts seconds to an X pixel position in the waveform"""
-		return round(float(sec) * self.project.viewScale)
+		return round(float(sec + self.event.start) * self.project.viewScale)
 	
 	#_____________________________________________________________________
 	
 	def SecFromPixX(self,pixx):
 		"""Converts an X pixel position in the waveform into seconds"""
-		return float(pixx) / self.project.viewScale
+		return float(pixx) / self.project.viewScale - self.event.start
 	
 	#_____________________________________________________________________
 	
@@ -737,7 +737,7 @@ class EventViewer(gtk.DrawingArea):
 		
 		selection = self.event.selection
 		self.event.AddAudioFadePoints(selection[0], selection[1], volLeft, volRight)
-		
+	
 	#_____________________________________________________________________
 	
 	def GetSelectionAsPixels(self):
