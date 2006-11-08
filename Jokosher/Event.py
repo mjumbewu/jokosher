@@ -379,7 +379,7 @@ class Event(Monitored, CommandManaged):
 			self.duration += joinEvent.duration
 			self.levels = joinEvent.levels + self.levels
 			
-			newDict = joinEvent.copy()
+			newDict = joinEvent.__fadePointsDict.copy()
 			for key, value in self.__fadePointsDict.iteritems():
 				newDict[key + joinEvent.duration] = value
 			#remove the point on either edge that was created when they were split
@@ -798,6 +798,9 @@ class Event(Monitored, CommandManaged):
 		"""
 		
 		if not self.audioFadePoints:
+			return 1.0
+		if self.audioFadePoints[-1][0] < time or self.audioFadePoints[0][0] > time:
+			#for some reason the time given is outside the event, so ignore it
 			return 1.0
 		
 		#we can assume that audioFadePoints is sorted and has at least 2 elements
