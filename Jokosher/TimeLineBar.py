@@ -217,6 +217,7 @@ class TimeLineBar(gtk.Frame):
 			self.sigedit.destroy()
 			self.sigframe.show_all()
 			self.sigeditPacked = False
+			self.projectview.UpdateSize()
 			
 	#_____________________________________________________________________
 	
