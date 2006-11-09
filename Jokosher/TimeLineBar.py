@@ -173,8 +173,11 @@ class TimeLineBar(gtk.Frame):
 	def OnAcceptEditBPM(self, widget=None):
 		if self.bpmeditPacked:
 			self.bpmframe.remove(self.bpmedit)
-			
-			self.project.transport.SetBPM(float(self.bpmedit.get_text()))
+			#FIXME: find a better way to do project.PrepareClick() it doesn't take a really long time with large bpm
+			newbpm = float(self.bpmedit.get_text())
+			if newbpm > 400:
+				newbpm = 400.0
+			self.project.transport.SetBPM(newbpm)
 			
 			self.bpmlabel.set_use_markup(True)
 			self.bpmlabel.set_markup("<span foreground='#0b410b'><b>%d</b></span>"%self.project.transport.bpm)
