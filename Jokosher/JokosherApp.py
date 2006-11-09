@@ -346,6 +346,7 @@ class MainApp:
 			self.isRecording = not self.isRecording
 			self.stop.set_sensitive(self.isRecording)
 			self.play.set_sensitive(not self.isRecording)
+			self.addInstrumentButton.set_sensitive(not self.isRecording)
 			if self.isRecording:
 				try:
 					self.project.record()
@@ -688,7 +689,9 @@ class MainApp:
 	def OnStateChanged(self, obj=None, change=None):
 		#for when undo and redo history change
 
-		if change=="play" or change == "stop":
+		#only change toggle states for stop if we're in play mode
+		#(record looks after itself OK)
+		if change=="play" or (change == "stop" and self.isPlaying):
 			self.isPlaying = not self.isPlaying
 			self.stop.set_sensitive(self.isPlaying)
 			self.record.set_sensitive(not self.isPlaying)
