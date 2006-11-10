@@ -792,13 +792,15 @@ class Project(Monitored, CommandManaged):
 		"""
 		if self.IsExporting:
 			try:
-				total = self.mainpipeline.query_duration(gst.FORMAT_TIME)[0]
+				#total = self.mainpipeline.query_duration(gst.FORMAT_TIME)[0]
+				total = self.GetProjectLength() * gst.SECOND
 				cur = self.mainpipeline.query_position(gst.FORMAT_TIME)[0]
 			except gst.QueryError:
 				return (-1, -1)
 			else:
 				if cur > total:
 					total = cur
+					self.export_eos()
 				return (float(cur)/gst.SECOND, float(total)/gst.SECOND)
 		else:
 			return (100, 100)
