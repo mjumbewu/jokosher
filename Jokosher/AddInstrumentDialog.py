@@ -76,6 +76,9 @@ class AddInstrumentDialog:
 		
 		self.dlg.set_icon(self.parent.icon)
 		self.dlg.set_transient_for(self.parent.window)
+		x, y = self.dlg.get_position()
+		self.dlg.move(x, y + 25)
+		self.dlg.show()
 		
 	#_____________________________________________________________________
 	
