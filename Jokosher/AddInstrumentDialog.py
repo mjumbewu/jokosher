@@ -76,10 +76,13 @@ class AddInstrumentDialog:
 		
 		self.dlg.set_icon(self.parent.icon)
 		self.dlg.set_transient_for(self.parent.window)
+		#FIXME: the following lines are a workaround for bug 70799
+		#Also glade file changed to make dialog initially invisible
+		#otherwise it appears in the original place, then moves
 		x, y = self.dlg.get_position()
 		self.dlg.move(x, y + 25)
 		self.dlg.show()
-		
+		#end FIXME:
 	#_____________________________________________________________________
 	
 	def OnSelected(self, iconview, path):
