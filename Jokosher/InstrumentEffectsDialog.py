@@ -132,6 +132,9 @@ class InstrumentEffectsDialog:
 
 		self.instrument.project.AddListener(self)
 
+		if self.instrument.currentchainpreset is not None:
+			self.chainpresetcombo.set_active(self.instrument.currentchainpreset)
+			self.OnChainPresetChanged()
 			
 	#_____________________________________________________________________	
 		
@@ -280,8 +283,8 @@ class InstrumentEffectsDialog:
 		# create references to glade items
 		self.settingswindow = self.settWin.get_widget("EffectSettingsDialog")
 		self.settingsvbox = self.settWin.get_widget("EffectSettingsVBox")
-		self.effectlabel = self.settWin.get_widget("effectlabel")
-		self.effectlabel.set_text(self.currentplugin)
+		#self.effectlabel = self.settWin.get_widget("effectlabel")
+		#self.effectlabel.set_text(self.currentplugin)
 		self.settingstable = self.settWin.get_widget("settingstable")
 		self.presetcombo = self.settWin.get_widget("presetcombo")
 		
@@ -520,6 +523,7 @@ class InstrumentEffectsDialog:
 			self.instrument.converterElement.unlink(self.instrument.volumeElement)
 			
 		presetname = name = combo.get_active_text()
+		self.instrument.currentchainpreset = combo.get_active()
 		settings = self.presets.LoadInstrumentEffectChain(presetname)
 		
 		self.instrument.effects = []
