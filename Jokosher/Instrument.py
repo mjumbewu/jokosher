@@ -746,8 +746,14 @@ class Instrument(Monitored, CommandManaged):
 		self.control.unset_all("volume")
 		for ev in self.events:
 			for point in ev.audioFadePoints:
-				Globals.debug("FADE POINT: time(%.2f) vol(%.2f)" % (ev.start + point[0], point[1]))
-				self.control.set("volume", (ev.start + point[0]) * gst.SECOND, point[1])
+				if point[1] == 1.0:
+						vol = 0.99
+						Globals.debug("FADE POINT: time(%.2f) vol(%.2f)" % (ev.start + point[0], vol))
+						self.control.set("volume", (ev.start + point[0]) * gst.SECOND, vol)
+				else:
+					vol = point[1]
+					Globals.debug("FADE POINT: time(%.2f) vol(%.2f)" % (ev.start + point[0], point[1]))
+					self.control.set("volume", (ev.start + point[0]) * gst.SECOND, point[1])
 
 	#_____________________________________________________________________
 	
