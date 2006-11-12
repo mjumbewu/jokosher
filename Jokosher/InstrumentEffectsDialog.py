@@ -134,7 +134,6 @@ class InstrumentEffectsDialog:
 
 		if self.instrument.currentchainpreset is not None:
 			self.chainpresetcombo.set_active(self.instrument.currentchainpreset)
-			self.OnChainPresetChanged()
 			
 	#_____________________________________________________________________	
 		
