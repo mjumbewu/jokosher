@@ -724,17 +724,6 @@ class MainApp:
 		self.PopulateRecentProjects()
 
 	#_____________________________________________________________________
-
-	def RemoveRecentProject(self, path, name):
-		for item in self.recentprojectitems:
-			if path == item[0]:
-				self.recentprojectitems.remove(item)
-				break
-		
-		self.SaveRecentProjects()
-		self.PopulateRecentProjects()
-
-	#_____________________________________________________________________
 	
 	def OnClearRecentProjects(self, widget):
 		self.recentprojectitems = []
