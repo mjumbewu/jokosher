@@ -72,23 +72,32 @@ class RecordingView(gtk.Frame):
 		
 		#recording view contains zoom buttons
 		if not self.mixView:
-			zoom = gtk.HScale()
-			zoom.set_size_request(70, -1)
-			zoom.set_range(5, 75.0)
-			zoom.set_increments(0.2, 0.2)
-			zoom.set_draw_value(False)
-			zoom.set_value(40.0)
+			self.zoomSlider = gtk.HScale()
+			self.zoomSlider.set_size_request(70, -1)
+			# if you plan on changing the zoom range remember
+			# beyond 4000 is likely to make the levels disappear
+			self.zoomSlider.set_range(5, 100.0)
+			self.zoomSlider.set_increments(0.2, 0.2)
+			self.zoomSlider.set_draw_value(False)
+			self.zoomSlider.set_value(self.project.viewScale)
 			self.zoomtip = gtk.Tooltips()
-			self.zoomtip.set_tip(zoom,gettext.gettext("Zoom the timeline"),None)
+			self.zoomtip.set_tip(self.zoomSlider, gettext.gettext("Zoom the timeline"),None)
 			
-			zoom.connect("value-changed", self.OnZoom)
-
+			self.zoomSlider.connect("value-changed", self.OnZoom)
+			
+			inbutton = gtk.Button()
 			inimg = gtk.image_new_from_stock(gtk.STOCK_ZOOM_IN, gtk.ICON_SIZE_BUTTON)
+			inbutton.set_image(inimg)
+			inbutton.connect("clicked", self.OnZoomIn)
+			
+			outbutton = gtk.Button()
 			outimg = gtk.image_new_from_stock(gtk.STOCK_ZOOM_OUT, gtk.ICON_SIZE_BUTTON)
+			outbutton.set_image(outimg)
+			outbutton.connect("clicked", self.OnZoomOut)
 
-			self.hb.pack_start( outimg, False, False)
-			self.hb.pack_start( zoom, False, False)
-			self.hb.pack_start( inimg, False, False)
+			self.hb.pack_start( outbutton, False, False)
+			self.hb.pack_start( self.zoomSlider, False, False)
+			self.hb.pack_start( inbutton, False, False)
 		
 		self.scrollRange.lower = 0
 		self.scrollRange.upper = 100
@@ -236,14 +245,13 @@ class RecordingView(gtk.Frame):
 	#_____________________________________________________________________
 
 		
-	def OnZoomOut(self):
+	def OnZoomOut(self, widget):
 		"""
 			Zooms the view.
 		"""
-		tmp = self.project.viewScale * 2. / 3
-		if tmp > 0.5:
-			self.project.viewScale = tmp
-		self.project.SetViewScale(self.project.viewScale)
+		tmp = self.project.viewScale * 4. / 5.
+		#setting the value will trigger the gtk event and call OnZoom for us.
+		self.zoomSlider.set_value(tmp)
 		
 	#_____________________________________________________________________
 		
@@ -256,17 +264,14 @@ class RecordingView(gtk.Frame):
 		
 	#_____________________________________________________________________
 		
-	def OnZoomIn(self):
+	def OnZoomIn(self, widget):
 		"""
 			Zooms the view.
 		"""
-		tmp = self.project.viewScale * 1.5
-		# beyond 4000 is likely to make the levels disappear
-		# increase or remove the limit if event level density is increased.
-		if tmp < 4000:
-			self.project.viewScale = tmp
-		self.project.SetViewScale(self.project.viewScale)
-				
+		tmp = self.project.viewScale * 1.25
+		#setting the value will trigger the gtk event and call OnZoom for us.
+		self.zoomSlider.set_value(tmp)
+		
 	#_____________________________________________________________________
 
 	def OnMouseDown(self, widget, mouse):
