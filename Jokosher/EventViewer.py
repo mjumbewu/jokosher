@@ -633,6 +633,9 @@ class EventViewer(gtk.DrawingArea):
 		# delete event
 		self.lane.childActive = False
 		self.event.Delete()
+		# Hide the drawer
+		if self.drawer.parent == self.lane.fixed:
+			self.lane.fixed.remove(self.drawer)
 		self.lane.Update()
 	
 	#_____________________________________________________________________

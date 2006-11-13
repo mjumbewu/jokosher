@@ -148,6 +148,9 @@ class EventLaneViewer(gtk.EventBox):
 					if w.event not in self.instrument.events:
 						# Check if any events have been deleted
 						self.fixed.remove(w)
+						# remove the event's drawer if it's showing
+						if w.drawer.parent == self.fixed:
+							self.fixed.remove(w.drawer)
 						self.childActive = False
 					else:
 						x = int(round((w.event.start - self.project.viewStart) * self.project.viewScale))
