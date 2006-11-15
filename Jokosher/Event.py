@@ -525,9 +525,9 @@ class Event(Monitored, CommandManaged):
 			q = self.bin.query_duration(gst.FORMAT_TIME)
 			if self.duration == 0:
 				self.duration = float(q[0] / float(gst.SECOND))
-				self.SetProperties()
 				#update position with proper duration
 				self.MoveButDoNotOverlap(self.start)
+				self.SetProperties()
 				self.StateChanged(self.MOVE)
 				self.StateChanged(self.LENGTH)
 		except:
