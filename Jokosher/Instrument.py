@@ -747,8 +747,11 @@ class Instrument(Monitored, CommandManaged):
 		# set the length of the operation to be the full length of the project
 		self.op.set_property("duration", self.project.GetProjectLength() * gst.SECOND)
 		self.control.unset_all("volume")
+		firstpoint = False
 		for ev in self.events:
 			for point in ev.audioFadePoints:
+				if ev.start + point[0] == 0.0:
+					firstpoint = True
 				#FIXME: remove vol=0.99 when gst.Controller is fixed to accept many consecutive 1.0 values.
 				if point[1] == 1.0:
 					vol = 0.99
@@ -756,7 +759,9 @@ class Instrument(Monitored, CommandManaged):
 					vol = point[1]
 				Globals.debug("FADE POINT: time(%.2f) vol(%.2f)" % (ev.start + point[0], vol))
 				self.control.set("volume", (ev.start + point[0]) * gst.SECOND, vol)
-				
+		if not firstpoint:
+			Globals.debug("Set extra zero fade point")
+			self.control.set("volume", 0, 0.99)
 	#_____________________________________________________________________
 	
 #=========================================================================	
