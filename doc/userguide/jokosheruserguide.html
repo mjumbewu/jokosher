@@ -1,0 +1,531 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+        <head>
+        <title>Jokosher User Guide</title>
+        <style>
+      	dl {font-weight: bold;}
+	</style>
+                <meta http-equiv=Content-Type content="text/html; charset=utf-8">
+        </head>
+        <body>
+        <h1>Jokosher User Guide</h1>
+    <dl>
+      <dt>Written by:</dt>
+      <dd>Jono Bacon jono@jonobacon.org</dd>
+      <dd>Jeff Ratliff jefrat@gmail.com</dd>
+      <dd>Dennis Lichtenthäler dennis.lichtenthaeler@episode-iv.de</dd>
+    </dl>
+        <p>Version 0.2 for Jokosher v0.2 </p>
+	<p>This guide is licensed under the GNU General Public License, version
+	2. Feel free to redistribute, copy and modify this guide within the
+	remit of the license. In fact, if something looks wrong or could be
+	better explained please let us know. See the Jokosher <a
+		href="http://doc.jokosher.org">Documentation site</a> for help
+	and the latest version of this manual. You can go directly to the
+	Jokosher <a href="http://userdocs.jokosher.org">User Documentation
+		site</a> to comment on this manual, help with documentation, or
+	even write HOW-TOs and tutorials of your own!</p>
+        <h3>CONTENTS</h3>
+  <ol>
+    <li><a href="#Welcome">Welcome!</a></li>
+    <li><a href="#Getting_Started">Getting Started</a>
+    <ul>
+      <li><a href="#Creating_a_New_Jokosher_Project"> Creating a New Jokosher Project</a></li>
+      <li><a href="#Opening_Jokosher_Projects">Opening Jokosher Projects</a></li>
+    </ul></li>
+    <li><a href="#The_Main_Jokosher_Window">The Main Jokosher Window</a>
+    <ul>
+      <li><a href="#The_Menus">The Menus</a></li>
+      <li><a href="#The_Toolbar">The Toolbar</a></li>
+      <li><a href="#Configuring_Jokosher_Preferences">Configuring Jokosher Preferences</a></li>
+    </ul></li>
+    <li><a href="#The_Workspaces">The Workspaces</a>
+    <ul>
+      <li><a href="#Recording_View">Recording View</a></li>
+      <li><a href="#Mixing_View">Mixing View</a></li>
+    </ul></li>
+    <li><a href="#Extensions">Jokosher Extensions</a>
+    <ul>
+     <li><a href="#Finding_New_Extensions">Finding New Extensions</a></li>
+    </ul></li>
+    <li><a href="#Instrument_Effects">Instrument Effects</a></li>
+  </ol>
+        <h2><a name="Welcome">Welcome</a></h2>
+        <p>Welcome to the start of an exciting journey! </p>
+	<p>Jokosher is a simple to use, yet devilishly powerful Open Source
+	audio workstation. With it you can create and record music, audio and
+	other projects.  Jokosher has been specifically designed around ease of
+	use and helping you to ignore the software and concentrate on your
+	projects. We have taken every step to make it as intuitive as possible,
+	but naturally a user guide is always helpful in explaining the
+	specifics. This is that user guide. </p>
+	<p>Jokosher is an organic piece of software and grows and improves
+	gradually.  Due to its Open Source foundation, different people from
+	all over the world work on it to make it the best tool for creating
+	audio and music easily.  Likewise, this guide reflects that organic
+	nature and also grows naturally.  This guide presents you with a
+	complete guide to the features and facilities available in Jokosher. As
+	each new release pops its head over the horizon, this guide will
+	explain the awesome new features you can use. </p> 
+	<p>Like any Open Source project, Jokosher and this guide needs your
+	help.  Invariably in most Open Source projects, the documentation
+	always falls behind and does not track the progress of the application
+	it is documenting. We really, really don't want this to happen with
+	Jokosher. Our lovingly crafted Jokosher is made for musicians, and we
+	want it to be simple and easy to use, and this guide plays an essential
+	role. If something is incorrect, outdated or just plain broken, roll up
+	your sleeves and fix it. It will be a great contribution to this
+	important project. </p>
+        <h2><a name="Getting_Started">Getting Started</a></h2>
+        <p>Fire up Jokosher by selecting <b>Applications-&gt;Sound &amp; Video-&gt;Jokosher</b>.</p>
+        <p>When Jokosher starts, you see the Welcome dialog shown in Figure 2-1: </p>
+        <img alt="Jokosher Welcome Dialog"
+src="images/welcomedialog.png">
+        <p><b>Figure 2-1</b><BR><i>The Welcome dialog box</i> </p>
+        <p>The welcome dialog has a number of different facilities: </p>
+        <ul>
+                <li><b>Recent Projects</b> - the list of recent projects
+                provide a simple means of accessing your most recent projects,
+                with the most recent ones at the top. To load a project just
+                double-click it.</li>
+                <li><b>Create a New Project</b> - click this button to create a
+                new Jokosher project. See Creating a New Jokosher Project
+                below.</li>
+                <li><b>Browse for an Existing Project</b> - this button pops up
+                a file dialog box to allow you to find an existing project file
+                on your computer. See Opening Jokosher Projects below. </li>
+                <li><b>Preferences</b> - clicking this button displays the main
+                Jokosher preferences window.</li>
+                <li><b>Quit</b> - click this to exit out of Jokosher.</li>
+        </ul>
+        <p>You know, some people really hate welcome dialogs like this, so we
+        plonked a nice fat <b>Don't show this on start-up</b> tickbox. Tick it
+        to never be pestered by the welcome dialog again. There are a few cool
+        things you can configure for Jokosher start-up, see <a
+                href="#Configuring_Jokosher_Preferences">Configuring Jokosher
+                Preferences</a> for the juicy bits. </p>
+        <p>So, which option did you pick? Well, lets run through them... </p>
+        <h3><a name="Creating_a_New_Jokosher_Project">Creating a New Jokosher Project</a></h3>
+        <p>You can create project by either selecting the Create a New Project
+        button from the welcome dialog or by clicking <b>File-&gt;New
+                Project</b> in the main window. </p>
+        <p>A dialog box then appears and you are asked for some details: </p>
+        <ul>
+                <li><b>Project Name</b> - enter a name for the project here.
+                This is most likely going to be the song title or podcast
+                title.</li>
+                <li><b>Folder</b> - select a folder where your project is held.
+                Please note that the folder you select will have a new
+                directory created for it. So, as an example, if you select
+                /home/bob/projects for this option and your Project Name is
+                Booya, a directory called booya inside /home/bob/projects will
+                be created.</li>
+                <li><b>Author</b> - enter your name or the name of your band in
+                this box. This is the author of the project.</li>
+        </ul>
+        <p>When you have added these details, click the <b>OK</b> button to
+        continue. </p>
+        <p><i>If this is your first time using Jokosher, jump to
+        <a href="#The_Main_Jokosher_Window">The Main Jokosher Window</a>.</i></p>
+        <h3><a name="Opening_Jokosher_Projects">Opening Jokosher Projects</a></h3>
+        <p>You can open existing projects by either selecting <b>Browse for an
+                Existing Project</b> from the welcome dialog or clicking
+        <b>File-&gt;Open</b> in the main window. </p>
+<p>When you select this option, the GNOME file picker pops up. Jokosher
+projects are stored in a directory with the same name as the project. Inside
+that directory is a <code>.jokosher</code> file. Double click it to load it.
+</p>
+        <p><i>If this is your first time using Jokosher, jump to
+        <a href="#The_Main_Jokosher_Window">The Main Jokosher Window</a>.</i>
+        </p>
+        <h2><a name="The_Main_Jokosher_Window">The Main Jokosher Window</a></h2>
+        <p>The main Jokosher window is where the action happens (Figure 3-1): </p>
+        <img alt="The Main Jokosher Window"
+src="images/mainwindow.png">
+        <p><b>Figure 3-1</b><br><i>The main Jokosher window</i></p>
+        <p>Unlike other less fun and fabulous multi-trackers, Jokosher does not
+        inflict lots of itty-bitty windows on you. Here everything happens
+        inside a single window, making it simple to see what is going on at any
+        one time. </p>
+        <h3><a name="The_Menus">The Menus</a></h3>
+        <p>Along the top side of the screen you can see a bunch of menus. You
+        can find virtually everything in those menus, and if you are stuck
+        figuring out how to do something, flick through the menus. </p>
+        <H4>File</H4>
+        <ul>
+                <li><b>New</b> - opens a new project in the existing window. If
+                there are changes in the current project, you will be offered a
+                chance to save it. To add an instrument to the open project,
+                see <a href="#Adding_Instruments">Adding Instruments</a>.</li>
+                <li><b>Open</b> - opens an existing project. If there are
+                changes in the current project, you will be offered a chance to
+                save it. </li>
+                <li><b>Save</b> - saves the current project. This option
+                quickly saves all information in the project including Undo and
+                Redo history. </li>
+                <li><b>Save As</b> - same as Save above, but this option allows
+                you to save the project under a different name. </li>
+                <li><b>Close</b> - closes the current project without closing
+                Jokosher. Again, you'll get a chance to save the project if
+                there are changes. </li>
+                <li><b>Recent Projects</b> - this submenu lists up to the last
+                8 projects opened in Jokosher. This is a convenient way to move
+                quickly from one project to another. </li>
+                <li><b><a name="Mixdown_Project">Mixdown Project</a></b> -
+                brings up a dialog that begins the final stage of your project
+                - the mixdown. Choose a name for the output file, a location
+                where you want it saved, and an output format. Jokosher will
+                then mix the project and save it as a single audio file in your
+                chosen format.</li>
+                <li><b>Quit</b> - quits Jokosher completely. You will get a
+                chance to save any unsaved work. </li>
+        </ul>
+        <h4>Edit</h4>
+        <ul>
+                <li><b>Undo</b> - Undoes the last change that you made to the
+                project.</li>
+                <li><b>Redo</b> - Redoes the last thing that was undone with
+                <b>Undo</b>.</li>
+                <li><b>Cut</b> - Removes the selected object from the project
+                and place it on the clipboard, replacing what was there
+                previously. </li>
+                <li><b>Copy</b> - Puts a copy of the currently selected object
+                on to the clipboard, replacing what was there previously. </li>
+                <li><b>Paste</b> - Places the contents of the clipboard into
+                the project. See <a href="#Editing_Functions">Editing
+                        Functions</a> below for details on selecting pieces of
+                audio to cut, copy and paste</li>
+                <li><b>Delete</b> - Removes the selected object from the
+                project and discards it.</li>
+                <li><b>Preferences</b> - Opens the <a href="#Configuring_Jokosher_Preferences">Jokosher Preferences</a> window.</li>
+        </ul>
+        <h4>Project</h4>
+        <ul>
+                <li><b>Add Instrument</b> - see <a href="#Adding_Instruments">Adding Instruments</a> below</li>
+                <li><b>Change Instrument Type</b> - Allows you to change the
+                        type of an instrument. For example if you've added a Bass Drum and would later like to change it to a Drum Kit, you can do it with this function. Note that you can also change instrument type by clicking directly on the instrument icon within the Instrument lane.</li>
+                <li><a name="Instrument_Connections"><b>Instrument
+                                Connections</b></a> - This dialog lists each
+                instrument in the project and shows which input from your sound
+                card is connected to that instrument. For each instrument you
+                can change the connection by clicking the drop-down box and
+                choosing an input to connect. </li>
+                <li><b>Time Format</b> - Selects how time is displayed on the
+                <b>Time Line</b>. The options are <b>Show as Bars, Beats,
+                        Ticks</b> or <b>Show as Hours, Minutes, Seconds</b>. </li>
+        </ul>
+        <h4>Extensions</h4>
+        <ul>
+                <li><b>Manage Extensions</b> - brings up the Extensions Manager
+                        which allows you to add, remove or configure extensions.
+                        See <a href="#Extensions">Jokosher Extensions</a> below
+                        for more information.</li>
+        </ul>
+        <h4>Help</h4>
+        <ul>
+                <li><b>Pre-release Notes</b> - Tells you the latest information
+                you'll need to know about this release fo Jokosher.</li>
+                <li><b>Contributing to Jokosher</b> - Lists details on all the
+                different ways you can contribute to Jokosher. Jokosher is still
+                in development and can always use your help. </li>
+                <li><b>About</b>
+                <ul>
+                        <li><b>Credits</b> - Opens a dialog box that lists the
+                        many people who have worked to bring you Jokosher.</li>
+                        <li><b>License</b> - The complete license for
+                        Jokosher.</li>
+                </ul></li>
+        </ul>
+        <h3><a name="The_Toolbar">The Toolbar</a></h3>
+        <p>Below the menus are the main toolbar buttons. These buttons are nice
+        and big to help you when perched over your desk holding your guitar.
+        They do a bunch of interesting things: </p>
+        <ul>
+                <li><b>Add Instrument</b> - click this button to add an
+                instrument to the project. See <a
+                        href="#Adding_Instruments">Adding Instruments</a>.</li>
+                <li><b>Rewind, Play, Forward, Record</b> - these buttons
+                control playback and recording. </li>
+                <li><b>Time display</b> - this shows the current elapsed time
+                in the project.  Time will be displayed in hours, minutes and
+                seconds or bars, beats and ticks, depending on the time format
+                you've chosen in the Project menu.</li> <li><b>Workspace
+                        Selector</b> - these buttons allow you to switch
+                between the two workspace views in Jokosher. </li>
+                <li><b>Click Track</b> - this feature generates a click that
+                you can play along with. You can set speed (in beats per minute)
+                and time signature. To activate the click track, simply click the
+metronome icon. You will then hear the beep during recording and playback.</li>
+                <li><b>Time Line</b> - this ruler gives you a visual
+                representation of your project in time. The line will be marked
+                off in measures or in seconds, depending on you current time
+                format. </li>
+                <li><b>Project Zoom</b> - this area at the bottom of the main
+                window will help you zoom in and out and scroll the project
+                quickly. The minus icon zooms the timeline out and the plus icon zooms
+                in. While the plus and minus icons zoom a step at a time, the slider between the two will zoom the timeline quickly by dragging the slider. You can also drag the scroll bar (to the left of the icons) to move the visible area of
+                your project if it doesn't all fit on the screen. </li>
+        </ul>
+        <h3><a name="Configuring_Jokosher_Preferences">Configuring Jokosher Preferences</a></h3>
+        <p>The Jokosher preferences menu can be found by clicking
+        <b>Edit-&gt;Preferences</b>. Here you can change settings that
+        determine how Jokosher works. Note that these settings will be saved
+        for Jokosher globally, not on a per-project basis. </p>
+        <ul>
+                <li><b>Application Start-up</b> - Chooses how Jokosher
+                        will act when it first starts. The three options are:
+                        <ul>
+                                <li><b>Show welcome dialog</b> - the default.
+                                Choose this option if you'd like to pick a
+                                project every time Jokosher starts.</li>
+                                <li><b>Open most recent project</b> - Choose
+                                this option if you'd like to skip the welcome
+                                dialog and jump to the project you had open the
+                                last time you used Jokosher.</li>
+                                <li><b>Don't open anything</b> - Choose this
+                                option if you want total control. You can open
+                                a project later from the <b>File</b> menu.
+                                </li>
+                        </ul></li>
+                <li><b>Recorded Audio Format</b> - Changes the format in which
+                        Jokosher saves recorded instruments while working on a
+                        project. </li>
+                <li><b>Audio Playback Device</b> - Changes the audio hardware used for
+                        playback.  Again this depends on the hardware installed
+                        on your system. You may only have one option. </li>
+        </ul>
+        <h2><a name="The_Workspaces">The Workspaces</a></h2>
+        <h3><a name="Recording_View">Recording View</a></h3>
+        <p>Inside the recording view, only the instruments are displayed. This
+        is where you will spend most of your time recording, editing and
+        re-recording. </p>
+        <p>Recording is the first step in the process of creating a project.
+        You will add Instruments, usually one at a time, record audio into that
+        Instrument, then add the next instrument. Working in the recording view
+        usually follows the steps listed here: </p>
+        <h4><a name="Recording">Recording</a></h4>
+        <ol>
+                <li><b>Add Instruments</b> - See <a
+                        href="#Adding_Instruments">Adding Instruments</a> below
+                for details on this process. After an Instrument is added, you
+                will see that it has the following features (See Figure
+                4-1):
+                <p><img alt="Instrument Features"
+src="images/instrument.png">
+<br>
+                <b>Figure 4-1</b><br><i>Instrument Features</i></p>
+                <ul>
+                        <li><b>Instrument Icon</b> - the same icon you saw when
+                        you chose the Instrument.</li>
+                        <li><b>Instrument Label</b> - this can be changed at
+                        will simpy by clicking on it. It is just a label to
+                        identify the Instruments in case you have several with
+                        the same icon.</li>
+                        <li><b>Record Button</b> - this button will be clicked
+                        to "arm" the Instrument during recording.</li>
+                        <li><b>Mute Button</b> - this button will silence the
+                        Instrument uring playback.</li>
+                        <li><b>Solo Button</b> - the opposite of the mute
+                        button. When ressed, you will hear this Instrument as
+                        "solo" during playback, with all other Instruments
+                        muted.</li>
+                        <li><b>Effects Button</b> - allows you to configure
+                        effects for this instrument. See <a href="#Instrument_Effects">Instrument
+                        Effects</a> for details.</li>
+                        <li><b>Recording Lane</b> - to the right of the buttons
+                        is an area here recorded audio will be displayed for
+                        this instrument. </li>
+                </ul></li>
+                <li><b>Set Connections</b> - as explained in <a
+                        href="#Instrument_Connections">Instrument
+                        Connections</a> above, the different sound card inputs
+                can be routed to different Instruments at will. In this way,
+                even if there is only one input, by connecting it to each
+                Instrument in turn multiple Instruments can be recorded.</li>
+                <li><b>Record</b> - at this point you are ready to record this
+                Instrument. If it's a live instrument, plug it in, press the
+                "arm" button, then hit the <b>Record</b> button on the main
+                Toolbar. When done recording, click <b>Stop</b>. To record an
+                existing audio file, right-click on the Instrument recording
+                lane then click <b>Import Audio File</b>. Find the file you'd
+                like to import, then click <b>Open</b>. Notice that the audio
+                is now in the recording lane for that Instrument. The waveform
+                shows you the volume level at any point in the recording.</li>
+                <li><b>Repeat</b> - unarm this Instrument and begin the process
+                again by adding the next Instrument until all Instruments are
+                recorded.</li>
+        </ol>
+        <h4><a name="Editing">Editing</a></h4>
+        <p>Once all Instruments are recorded, editing begins. Think of the
+        Instruments as raw materials that you will shape into a final project.
+        Jokosher offers several tools to help with editing. </p>
+        <ul>
+                <li><b>Move</b> - this function shifts a piece of audio in
+                time. To <b>Move</b> a piece of audio, click it and drag it
+                left or right until it is in the desired position. When
+                recording Instruments separately, this function can be used to
+                get Instruments in synch with each other.</li>
+        </ul>
+        <ul>
+                <li><p>In order to edit audio, a recording often needs to be
+                broken up into pieces.  Jokosher offers two main tools to do
+                this: </p>
+                <ul>
+                        <li><b>Split</b> - this function divides the audio in
+                        an Instrument into two sections. Use <b>Split</b> when
+                        you want to keep the entire recording, but need to
+                        break it into pieces. To split, double-click in the
+                        Instrument lane at the point where the audio should be
+                        divided.</li>
+                        <li><b>Trim</b> - this function deletes everything but
+                        a selected piece piece of audio. To <b>Trim</b>, hold
+                        down the <b>Shift</b> key, click with the mouse at the
+                        beginning of the section you'd like to <b>Trim</b>,
+                        drag the mouse to the right to the end of the desired
+                        section, and release both the <b>Shift</b> key and the
+                        mouse button. A <b>Trim</b> tab will appear below the
+                        selected section. Click this tab to <b>Trim</b>. </li>
+                </ul></li>
+        </ul>
+        <ul>
+                <li><b>Volume fades</b> - volume levels can be edited for pieces of audio. Select a section of an 
+        instrument by pressing <b>Shift</b>, then clicking and dragging. You see a selection as in figure 4-2 below.
+        Notice the red fade points, which will initially be labelled "100%". Simply grab the fade point and drag
+        up and down to adjust volume at that point. 
+        <br><img alt="Selection features"
+        src="images/selection.png"><br>
+                <b>Figure 4-2</b><br><i>Selection features</i></p></li>
+                <li><b>Cut and Paste</b> - this function moves pieces of audio
+                from one place to another. If you don't want to <b>Cut</b> a
+                complete recording, <b>Split</b> it into pieces or <b>Trim</b>
+                as above to separate the piece you'd like to work with. Next
+                click on the peice you'de like to <b>Cut</b>, click
+                <b>Edit-&gt;Cut</b> (or press <b>Ctrl-X</b>). Click in the spot
+                where this piece should go.  Click <b>Edit-&gt;Paste</b> (or
+                press <b>Ctrl-V</b>).</li>
+                <li><b>Copy and Paste</b> - this function is used to make
+                copies of the same audio in more than one place. It is similar
+                to <b>Cut and Paste</b> above. First select a piece of audio,
+                then click <b>Edit-&gt;Copy</b> (or press <b>Ctrl-C</b>). Click
+                in the spot where this piece should go. Click
+                <b>Edit-&gt;Paste</b> (or press <b>Ctrl-V</b>).</li>
+                <li><b>Delete</b> - this removes a piece of audio completely
+                from a Project. Select the section you want to delete then
+                click <b>Edit- &gt;Delete</b> or press the <b>Delete</b> key on
+                the keyboard.</li>
+                <li><b>Undo</b> - in case you accidentally deleted a piece of
+                audio or pasted it into the wrong spot, you can easily revert
+                that mistake. Simply select <b>Edit-&gt;Undo</b> (or press
+                <b>Ctrl+U</b>) and the last change you performed will be reverted.
+                You can undo more steps by repeating the process.</li>
+                <li><b>Redo</b> - if you wish to bring back a change you reverted
+                with the <b>Undo</b> function, you can use <b>Redo</b>. Just click
+                <b>Edit-&gt;Redo</b> (or press <b>Ctrl+R</b>) and the last change
+                you reverted with undo will be restored.</li>
+        </ul>
+        <h3><a name="Mixing_View">Mixing View</a></h3>
+        <p>This is the main mixing view. This view displays smaller versions of
+        your Instrument tracks as well as mixing sliders for adjusting
+        instrument volume levels. This is where you mix your final project.
+        </p>
+        <p>Much of the functionality of the <b>Recording View</b> is still
+        available. The emphasis, though, is on getting the balance right
+        between the Instruments. </p>
+        <p><b>Volume Slider</b> - each Instrument has a corresponding slider.
+        These sliders control the overall volume in the mix of that Instrument.
+        Volume is displayed on the slider as a range from 0 to 1.00. Notice
+        that as the slider is moved, the volume level changes audibly and
+        visually. </p>
+        <p><b>Instrument Hide</b> - at the top of each slider is an icon that
+        can be clicked to hide that Instrument. It's still there, just out of
+        the way.  At the bottom of the screen just above the status bar is an
+        <b>Instruments Not Shown:</b> list. Click on an Instrument in the list
+        to bring it back.  Hiding Instruments is useful when you havve many
+        Instruments and only want to work on a few at a time. For example if
+        you have 3 vocalists, you could mute and hide all other Instruments,
+        while you mix the vocals. </p>
+        <p><b>Master volume</b> - at the far right of the screen is the
+        <b>Master Volume</b> slider. This slider changes the overall volume of
+        the project. </p>
+        <h4><a name="Adding_Instruments">Adding Instruments</a></h4>
+        <p>Instruments are a key concept in Jokosher. Think in Instruments
+        instead of Tracks. Instrument allow you to tell a lot about your
+        project at a glance.  Tracks are just tracks! </p>
+        <p>Currently, instruments are very simple - they just contain the name
+        and icon of the instrument. In the future we plan on storing audio
+        settings for each type of instrument. As an example when you use a
+        Snare drum, the EQ will be optimised for a Snare drum. </p>
+        <img alt="The Add Instrument Dialog"
+src="images/add_instrument.png">
+        <p><b>Figure 4-3</b><br><i>Adding instruments is simple</i></p>
+        <p>To add and instrument, click on the Add Instrument button to bring
+        up the dialog. Simply pick the instrument that is closest to what
+        you'll be recording.  Click <b>OK</b> and you're done. </p>
+        <p>Notice that once an instrument is added, you can click on its name
+        and change it to anything you want. </p>
+        <h2><a name="Extensions">Jokosher Extensions</a></h2>
+        <p>Jokosher now has a new feature called Extensions. This allows for
+        third party developers to add features to Jokosher, make it support new
+        file types or even do something amazing that none of us has anticipated.</p>
+        <p>You can configure Extensions in the <b>Extensions</b> menu which contains
+        at least the <b>Manage Extensions</b> item which brings up the Extensions Manager
+        (Figure 5-1). Depending on what extensions you have installed, other entries
+        may appear in this menu.</p>
+        <p><img alt="Jokosher Extension Manager"
+src="images/ext_manager.png"><br>
+                <b>Figure 5-1</b><br><i>Extension Manager</i></p>
+        <p>The extension manager allows you to see a list of installed extensions. You
+        can also:
+        <ul>
+                <li><b>Add an extension</b> - installs an extension into
+                Jokosher. This opens up a file selection dialog that allows
+                you to chose an <code>.py</code> or <code>.egg</code> file. After
+                confirming that you really want to install the extension, you should
+                see it in the Installed Extensions list.
+                See <a href="#Finding_New_Extensions">Finding New Extensions</a>
+                below for more information on getting new extensions.</li>
+                <li><b>Remove an extension</b> - removes the currently selected
+                extension from your system.</li>
+                <li><b>Preferences</b> - allows you to configure the currently
+                selected extension. What you can configure here, depends entirely
+                on the extension. Please see its documentation for more information.</li>
+                <li><b>Close</b> - closes the Extension Manager and brings you back
+                to the Jokosher Main Window.</li>
+        </ul>
+        <h3><a name="Finding_New_Extensions">Finding New Extensions</a></h3>
+        <p>Extensions are a new feature for Jokosher version 0.2. To find extensions that are currently available,
+        check the <a href="http://svn.jokosher.python-hosting.com/extensions/">Development site</a>.</p>
+        <p>Join in the <a href="http://www.jokosher.org/forums">Jokosher Forums</a> to hear news on new extensions,
+        discuss ideas, and contribute information on extensions you're working on. </p>
+        <p>If you'd like to write an extension, full documentaion on the extension system is available
+        on the Jokosher <a href="http://jokosher.python-hosting.com/wiki/ExtensionSystem">Development Website</a></p>
+        <h2><a name="Instrument_Effects">Instrument Effects</a></h2>
+        <p>Jokosher allows audio effects to be applied to each individual instrument. Just click the <b>Effects Button</b>
+        on a particular instrument and you will be presented with the <b>Effects Window</b> for that instrument (Figure 6-1).</p>
+        <p><img alt="Jokosher Effects Window"
+        src="images/effectswindow.png"><br>
+                <b>Figure 6-1</b><br><i>the Effects Window</i></p>
+	<p><b>Add effects</b> - the dropdown box on the left will list all the
+	effects you have installed on your system. From this list select the
+	effect you would like to use. Click on the <b>Add</b> button and that
+	effect will be added to the Instrument. In the same way you can add as
+	many effects as needed.</p>
+	<p><b>Adjust effect settings</b> - once and effect is added, double
+	click the orange box for an effect to pull up the effect settings
+	dialog.          Settings available will depend on the specific effect.
+	In this dialog you can tweak all the settings for         a particular
+	effect. Click <b>OK</b> when done</p>
+	<p><b>Preview effects</b> - Click the <b>Play</b> button at the bottom of the Effects Window and the Instrument will be played back with the effects
+	so you can hear the changes.</p>         
+	<p><b>Effects Presets</b> - when you've configured a group of effects
+	that you'd like to keep, they can be saved together as a preset. In the
+	text box labelled <b>Presets</b> type the name for this preset
+	(whatever you'd like to call it), then click <b>Save</b>. The next time
+	you add effects to an Instrument, this preset will be available in the
+	drop down list for you to use again.</p>
+	<p><b>Delete effects</b> - to remove an unwanted effect, click the red
+	circle on the upper right corner of the orange box for that
+	effect. The effect will be removed. No confirmation is requested, so be
+	careful when deleting effects.</p>  
+       </body> 
+</html>
