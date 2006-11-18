@@ -9,7 +9,7 @@ _ = gettext.gettext
 
 # Define some constants
 EXTENSION_DIR_USER = os.path.expanduser('~/.jokosher/extensions/')
-EXTENSION_DIRS = [EXTENSION_DIR_USER, '/usr/lib/jokosher/extensions/']
+EXTENSION_DIRS = [EXTENSION_DIR_USER, '/usr/share/jokosher/extensions/']
 # add your own extension dirs with envar JOKOSHER_EXTENSION_DIRS, colon-separated
 OVERRIDE_EXTENSION_DIRS = os.environ.get('JOKOSHER_EXTENSION_DIRS','')
 if OVERRIDE_EXTENSION_DIRS:

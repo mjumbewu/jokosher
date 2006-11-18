@@ -14,7 +14,7 @@
 import os, sys
 
 ENV_PATHS = {"JOKOSHER_DATA_PATH" : "/usr/share/jokosher/",
-		"JOKOSHER_IMAGE_PATH" : "/usr/share/pixmaps/",
+		"JOKOSHER_IMAGE_PATH" : "/usr/share/jokosher/pixmaps/",
 		"JOKOSHER_LOCALE_PATH" : "/usr/share/locale/",
 		}
 #must set variables before importing Globals because it requires them

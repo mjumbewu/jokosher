@@ -222,12 +222,7 @@ def PopulateEncoders():
 	#message instead of ours. This will be fixed once we can use
 	#GOption when we depend on pygobject 2.12.
 	import gst
-	_export_template = ("description", "extension", "pipeline") 
-	_export_formats = [	("Ogg Vorbis", "ogg", "vorbisenc ! oggmux"),
-						("MP3", "mp3", "lame"),
-						("Flac", "flac", "flacenc"),
-						("WAV", "wav", "wavenc"),
-					]
+	
 	for type in _export_formats:
 		try:
 			bin = gst.gst_parse_bin_from_description("audioconvert ! %s" % type[2], True)
@@ -275,6 +270,12 @@ LADSPA_FACTORY_REGISTRY = None
 LADSPA_NAME_MAP = []
 DEBUG_STDOUT, DEBUG_GST = (False, False)
 
+_export_template = ("description", "extension", "pipeline") 
+_export_formats = [	("Ogg Vorbis", "ogg", "vorbisenc ! oggmux"),
+					("MP3", "mp3", "lame"),
+					("Flac", "flac", "flacenc"),
+					("WAV", "wav", "wavenc"),
+				]
 EXPORT_FORMATS = []
 	
 #init Settings

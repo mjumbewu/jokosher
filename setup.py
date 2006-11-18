@@ -5,9 +5,8 @@ import os
 import glob
 
 I18NFILES = []
-for filepath in glob.glob("locale/src/mo/*/LC_MESSAGES/*.mo"):
-	lang = filepath[len("locale/src/mo/"):]
-	targetpath = os.path.dirname(os.path.join("share/locale",lang))
+for filepath in glob.glob("locale/*/LC_MESSAGES/*.mo"):
+	targetpath = os.path.dirname(os.path.join("share/", filepath))
 	I18NFILES.append((targetpath, [filepath]))
 
 
@@ -25,14 +24,26 @@ setup(name='jokosher',
 		glob.glob('Instruments/images/*')
 		),
 		('share/icons/hicolor/48x48/apps',
-		['Jokosher/jokosher-logo.png']
+		['images/jokosher-icon.png']
 		),
 		('share/pixmaps',
+		['images/jokosher-icon.png']
+		),
+		('share/jokosher/pixmaps',
 		glob.glob("images/*.png")
 		),
 		('share/applications',
 		['jokosher.desktop'],
+		),
+		('share/jokosher/extensions',
+		glob.glob("extensions/*")
 		)
 		]+I18NFILES
 )
 
+## To uninstall manually delete these files/folders:
+## /usr/share/jokosher/
+## /usr/icons/hicolor/48x48/apps/jokosher-icon.png
+## /usr/share/locale/*/LC_MESSAGES/jokosher.mo
+## /usr/share/pixmaps/jokosher-icon.png
+## /usr/share/applications/jokosher.desktop
