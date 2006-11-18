@@ -557,20 +557,9 @@ class Project(Monitored, CommandManaged):
 		#Make sure we start playing from the beginning
 		self.transport.Stop()
 		
-		self.state_id = self.bus.connect("message::state-changed", self.state_changed)
-		self.mainpipeline.set_state(gst.STATE_PAUSED)
-
-		# [DEBUG]
-		# This debug block will be removed when we release. If you see this in a release version, we
-		# obviously suck. Please email us and tell us about how shit we are.
-		try:
-			if os.environ['JOKOSHER_DEBUG']:
-				Globals.debug("Play Pipeline:")
-				self.debug.ShowPipelineTree(self.mainpipeline)
-		except:
-			pass
-		# [/DEBUG]
-				
+		#start the pipeline!
+		self.play()
+		
 	#_____________________________________________________________________
 
 	def state_changed(self, bus, message, movePlayhead=True):
