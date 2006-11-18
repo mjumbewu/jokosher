@@ -299,7 +299,12 @@ class MainApp:
 		# indicate that we're just changing the GUI state and dont need to do anything code-wise
 		if self.settingButtons:
 			return
-
+		
+		if self.isRecording:
+			self.project.stop()
+			self.addInstrumentButton.set_sensitive(True)
+			return
+		
 		canRecord = False
 		for i in self.project.instruments:
 			if i.isArmed:
@@ -343,39 +348,26 @@ class MainApp:
 			self.settingButtons = False
 		else:
 			Globals.debug("can record")
+			
+			self.addInstrumentButton.set_sensitive(False)
+			try:
+				self.project.record()
+			except Project.AudioInputsError, e:
+				if e.errno==0:
+					message=_("No channels capable of recording have been found, please attach a device and try again.")
+				elif e.errno==1:
+					message=_("Your sound card isn't capable of recording from multiple sources at the same time. Please disarm all but one instrument.")
+				elif e.errno==2:
+					message=_("You require the GStreamer channel splitting element to be able to record from multiple input devices. This can be downloaded from http://www.jokosher.org/download.")
 
-			self.isRecording = not self.isRecording
-			self.stop.set_sensitive(self.isRecording)
-			self.play.set_sensitive(not self.isRecording)
-			self.addInstrumentButton.set_sensitive(not self.isRecording)
-			if self.isRecording:
-				try:
-					self.project.record()
-				except Project.AudioInputsError, e:
-					if e.errno==0:
-						message=_("No channels capable of recording have been found, please attach a device and try again.")
-					elif e.errno==1:
-						message=_("Your sound card isn't capable of recording from multiple sources at the same time. Please disarm all but one instrument.")
-					elif e.errno==2:
-						message=_("You require the GStreamer channel splitting element to be able to record from multiple input devices. This can be downloaded from http://www.jokosher.org/download.")
-
-					dlg = gtk.MessageDialog(self.window,
-						gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
-						gtk.MESSAGE_INFO,
-						gtk.BUTTONS_CLOSE,
-						message)
-					dlg.connect('response', lambda dlg, response: dlg.destroy())
-					dlg.run()
-					self.project.terminate()
-					self.isRecording = not self.isRecording
-					self.stop.set_sensitive(self.isRecording)
-					self.play.set_sensitive(not self.isRecording)
-					self.settingButtons = True
-					self.record.set_active(self.isRecording)
-					self.settingButtons = False
-			else:
-				Globals.debug("else else can record")
-				self.project.stop()
+				dlg = gtk.MessageDialog(self.window,
+					gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
+					gtk.MESSAGE_INFO,
+					gtk.BUTTONS_CLOSE,
+					message)
+				dlg.connect('response', lambda dlg, response: dlg.destroy())
+				dlg.run()
+				self.project.terminate()
 
 	#_____________________________________________________________________
 	
@@ -699,6 +691,15 @@ class MainApp:
 			self.compactmix.StartUpdateTimeout()
 			self.settingButtons = True
 			self.play.set_active(self.isPlaying)
+			self.settingButtons = False
+			return
+		elif change == "record" or (change == "stop" and self.isRecording):
+			self.isRecording = not self.isRecording
+			self.stop.set_sensitive(self.isRecording)
+			self.play.set_sensitive(not self.isRecording)
+			self.compactmix.StartUpdateTimeout()
+			self.settingButtons = True
+			self.record.set_active(self.isRecording)
 			self.settingButtons = False
 			return
 

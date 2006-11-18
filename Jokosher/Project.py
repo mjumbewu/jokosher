@@ -558,7 +558,7 @@ class Project(Monitored, CommandManaged):
 		self.transport.Stop()
 		
 		#start the pipeline!
-		self.play()
+		self.play(recording=True)
 		
 	#_____________________________________________________________________
 
@@ -576,7 +576,7 @@ class Project(Monitored, CommandManaged):
 
 	#_____________________________________________________________________
 				
-	def play(self, movePlayhead = True):
+	def play(self, movePlayhead = True, recording=False):
 		'''Set all instruments playing'''
 		
 		if len(self.instruments) > 0:
@@ -618,8 +618,11 @@ class Project(Monitored, CommandManaged):
 			self.mainpipeline.set_state(gst.STATE_PAUSED)
 			
 			Globals.debug("just set state to PLAYING")
-
-			self.StateChanged("play")
+			
+			if recording:
+				self.StateChanged("record")
+			else:
+				self.StateChanged("play")
 
 			# [DEBUG]
 			# This debug block will be removed when we release. If you see this in a release version, we
