@@ -212,6 +212,33 @@ def idleCacheInstruments():
 	instrumentPropertyList.sort(key=lambda x: x[0].lower())
 	#Stop idle_add from calling us again
 	return False
+	
+def PopulateEncoders():
+	"""
+	   Check if our hard coded list of encoders is available on the system.
+	"""
+	#HACK: we can't import gst at the top of Globals.py because
+	#if we do, gstreamer will get to the sys.args and print it's own
+	#message instead of ours. This will be fixed once we can use
+	#GOption when we depend on pygobject 2.12.
+	import gst
+	_export_template = ("description", "extension", "pipeline") 
+	_export_formats = [	("Ogg Vorbis", "ogg", "vorbisenc ! oggmux"),
+						("MP3", "mp3", "lame"),
+						("Flac", "flac", "flacenc"),
+						("WAV", "wav", "wavenc"),
+					]
+	for type in _export_formats:
+		try:
+			bin = gst.gst_parse_bin_from_description("audioconvert ! %s" % type[2], True)
+			del bin
+		except gobject.GError:
+			continue
+		else:
+			#create a dictionary using _export_template as the keys
+			#and the current item from _export_formats as the values.
+			d = dict(zip(_export_template, type))
+			EXPORT_FORMATS.append(d)
 
 #Global paths, so we can find everything
 data_path = os.getenv("JOKOSHER_DATA_PATH")
@@ -248,18 +275,7 @@ LADSPA_FACTORY_REGISTRY = None
 LADSPA_NAME_MAP = []
 DEBUG_STDOUT, DEBUG_GST = (False, False)
 
-_export_template = ("description", "extension", "pipeline") 
-_export_formats = [	("Ogg Vorbis", "ogg", "vorbisenc ! oggmux"),
-					("MP3", "mp3", "lame"),
-					("Flac", "flac", "flacenc"),
-					("WAV", "wav", "wavenc"),
-				]
 EXPORT_FORMATS = []
-for type in _export_formats:
-	#create a dictionary using _export_template as the keys
-	#and the current item from _export_formats as the values.
-	d = dict(zip(_export_template, type))
-	EXPORT_FORMATS.append(d)
 	
 #init Settings
 settings = Settings()

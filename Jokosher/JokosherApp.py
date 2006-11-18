@@ -178,6 +178,7 @@ class MainApp:
 
 		# set up presets registry - this should probably be removed here	
 		EffectPresets().FillEffectsPresetsRegistry()
+		Globals.PopulateEncoders()
 
 
 		if loadExtensions:
