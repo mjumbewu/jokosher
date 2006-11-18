@@ -826,7 +826,7 @@ class Event(Monitored, CommandManaged):
 	def DeleteSelectedFadePoints(self):
 		removeList = []
 		for key in self.__fadePointsDict.iterkeys():
-			if self.selection[0] < key < self.selection[1]:
+			if self.selection[0] <= key <= self.selection[1]:
 				removeList.append(key)
 		
 		if len(removeList) % 2 == 0:

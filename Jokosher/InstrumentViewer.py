@@ -134,7 +134,7 @@ class InstrumentViewer(gtk.EventBox):
 			self.muteTip.set_tip(self.muteButton, _("Mute - silence this instrument"), None)
 			
 			soloimg = gtk.Image()
-			soloimg.set_from_file(os.path.join(Globals.IMAGE_PATH, "solo.png"))
+			soloimg.set_from_file(os.path.join(Globals.IMAGE_PATH, "icon_solo.png"))
 			self.soloButton = gtk.ToggleButton("")
 			self.soloButton.set_image(soloimg)
 			self.soloTip = gtk.Tooltips()
