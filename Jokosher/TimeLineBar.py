@@ -108,7 +108,7 @@ class TimeLineBar(gtk.Frame):
 		if not self.Updating:
 			instrumentviews=[]
 			if self.mainview.recording:
-				instrumentviews=self.mainview.recording.views
+				instrumentviews+=self.mainview.recording.views
 			if self.mainview.compactmix:
 				instrumentviews+=self.mainview.compactmix.projectview.views
 
@@ -126,6 +126,7 @@ class TimeLineBar(gtk.Frame):
 
 			self.alignment.set_padding(0, 0, 0, maxwidth - self.headerhbox.size_request()[0])
 
+			self.clickbutton.set_active(self.project.clickEnabled)
 			self.OnAcceptEditBPM()
 			self.OnAcceptEditSig()
 			self.timeline.queue_draw()
@@ -178,17 +179,18 @@ class TimeLineBar(gtk.Frame):
 			if newbpm > 400:
 				newbpm = 400.0
 			self.project.transport.SetBPM(newbpm)
-			
-			self.bpmlabel.set_use_markup(True)
-			self.bpmlabel.set_markup("<span foreground='#0b410b'><b>%d</b></span>"%self.project.transport.bpm)
+			self.project.PrepareClick()
 			
 			self.bpmframe.add(self.bpmeventbox)
 			self.bpmedit.destroy()
 			self.bpmframe.show_all()
 			self.bpmeditPacked = False
+		
+		#Do this outside the if statement so that it gets updated if someone else changes the bpm
+		self.bpmlabel.set_use_markup(True)
+		self.bpmlabel.set_markup("<span foreground='#0b410b'><b>%d</b></span>"%self.project.transport.bpm)
 			
-			self.project.PrepareClick()
-			self.projectview.UpdateSize()
+		self.projectview.UpdateSize()
 
 	#_____________________________________________________________________
 
@@ -209,15 +211,16 @@ class TimeLineBar(gtk.Frame):
 				denom=self.project.transport.meter_denom
 
 			self.project.transport.SetMeter(nom, denom)
-
-			self.siglabel.set_use_markup(True)
-			self.siglabel.set_markup("<span foreground='#0b410b'><b>%d/%d</b></span>"%(self.project.transport.meter_nom, self.project.transport.meter_denom))
 			
 			self.sigframe.add(self.sigeventbox)
 			self.sigedit.destroy()
 			self.sigframe.show_all()
 			self.sigeditPacked = False
-			self.projectview.UpdateSize()
+		
+		#Do this outside the if statement so that it gets updated if someone else changes the sig
+		self.siglabel.set_use_markup(True)
+		self.siglabel.set_markup("<span foreground='#0b410b'><b>%d/%d</b></span>"%(self.project.transport.meter_nom, self.project.transport.meter_denom))
+		self.projectview.UpdateSize()
 			
 	#_____________________________________________________________________
 	

@@ -1293,17 +1293,17 @@ class Project(Monitored, CommandManaged):
 
 	def EnableClick(self):
 		'''Enable the click track'''
-		
+	
 		self.clickvol.set_property("mute", False)
-		self.clickEnabled == True
+		self.clickEnabled = True
 
 	#_____________________________________________________________________
 
 	def DisableClick(self):
 		'''Disable the click track'''
-		
+	
 		self.clickvol.set_property("mute", True)
-		self.clickEnabled == False
+		self.clickEnabled = False
 
 	#_____________________________________________________________________
 

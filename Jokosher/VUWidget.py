@@ -170,7 +170,14 @@ class VUWidget(gtk.DrawingArea):
 		# Draw the volume level in the bar
 		ctx.set_source_rgba(0., 0., 0., 1.)
 		ctx.move_to(18, vpos + 3)
-		ctx.show_text(_("Volume: %.2f") % self.mixerstrip.GetVolume())
+		#HACK: workaround because strings are frozen
+		#make sure the string does not exceed 12 characters
+		vol_string = _("Volume: %.2f")
+		vol_word = vol_string[:-5]
+		if len(vol_word) > 7:
+			#we can cut at 5 here because "..." takes less than other characters
+			vol_word = vol_word[:5] + "..."
+		ctx.show_text("%s %.2f" % (vol_word, self.mixerstrip.GetVolume()))
 
 		return False
 		

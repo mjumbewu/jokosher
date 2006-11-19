@@ -17,6 +17,9 @@ setup(name='jokosher',
 	data_files=[('share/jokosher/',
 		glob.glob("Jokosher/*.glade")
 		),
+		('share/jokosher/',
+		["Jokosher/jokosher-logo.png"]
+		),
 		('share/jokosher/Instruments',
 		glob.glob("Instruments/*.instr")
 		),
