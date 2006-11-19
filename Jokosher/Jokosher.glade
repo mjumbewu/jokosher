@@ -510,8 +510,8 @@
 		  <property name="visible_vertical">True</property>
 		  <property name="is_important">False</property>
 		  <accessibility>
-		    <atkrelation target="Record" type="flows-to"/>
 		    <atkrelation target="Rewind" type="flows-to"/>
+		    <atkrelation target="Record" type="flows-to"/>
 		  </accessibility>
 		  <signal name="clicked" handler="on_AddInstrument_clicked"/>
 		</widget>
@@ -543,8 +543,8 @@
 		  <property name="visible_vertical">True</property>
 		  <property name="is_important">False</property>
 		  <accessibility>
-		    <atkrelation target="Stop" type="flows-to"/>
 		    <atkrelation target="AddInstrument" type="flows-from"/>
+		    <atkrelation target="Stop" type="flows-to"/>
 		  </accessibility>
 		  <signal name="clicked" handler="on_Rewind_clicked"/>
 		</widget>
@@ -564,8 +564,8 @@
 		  <property name="visible_vertical">True</property>
 		  <property name="is_important">False</property>
 		  <accessibility>
-		    <atkrelation target="Play" type="flows-to"/>
 		    <atkrelation target="Rewind" type="flows-from"/>
+		    <atkrelation target="Play" type="flows-to"/>
 		  </accessibility>
 		  <signal name="clicked" handler="on_Stop_clicked"/>
 		</widget>
@@ -585,8 +585,8 @@
 		  <property name="is_important">False</property>
 		  <property name="active">False</property>
 		  <accessibility>
-		    <atkrelation target="Forward" type="flows-to"/>
 		    <atkrelation target="Stop" type="flows-from"/>
+		    <atkrelation target="Forward" type="flows-to"/>
 		  </accessibility>
 		  <signal name="toggled" handler="on_Play_toggled"/>
 		</widget>
@@ -605,8 +605,8 @@
 		  <property name="visible_vertical">True</property>
 		  <property name="is_important">False</property>
 		  <accessibility>
-		    <atkrelation target="Record" type="flows-to"/>
 		    <atkrelation target="Play" type="flows-from"/>
+		    <atkrelation target="Record" type="flows-to"/>
 		  </accessibility>
 		  <signal name="clicked" handler="on_Forward_clicked"/>
 		</widget>
@@ -795,7 +795,7 @@
 <widget class="GtkAboutDialog" id="AboutDialog">
   <property name="visible">True</property>
   <property name="destroy_with_parent">True</property>
-  <property name="name" translatable="yes">Jokosher</property>
+  <property name="name" translatable="yes">version 0.2</property>
   <property name="comments" translatable="yes">Audio production made simple.</property>
   <property name="license">    GNU GENERAL PUBLIC LICENSE
 		       Version 2, June 1991
@@ -1160,7 +1160,8 @@ Chris Procter &lt;chris-procter@talk21.com&gt;
 Michael Sheldon &lt;mike@mikeasoft.com&gt;
 Fabrice Silva &lt;silva@crans.org&gt;
 Ben Thorp &lt;mrben@jedimoose.org&gt;
-Luke Tilley &lt;sinisterguy@gmail.com&gt;</property>
+Luke Tilley &lt;sinisterguy@gmail.com&gt;
+John Green &lt;john@thegreens.co.uk&gt;</property>
   <property name="documenters">Jono Bacon &lt;jono@jonobacon.org&gt;
 Dennis Lichtenthäler &lt;dennis.lichtenthaeler@episode-iv.de&gt;
 Alasdair MacLeod &lt;alasdair.macleod@gmail.com&gt;
@@ -1172,7 +1173,66 @@ Adriaan Leijnse &lt;lordmyth@gmail.com&gt;
 Dan Nawara &lt;dan@itsawisechild.com&gt;
 Andreas Nilsson &lt;nisses.mail@home.se&gt;
 Gregory Sheeran &lt;greg@grogoreo.co.uk&gt;</property>
-  <property name="translator_credits" translatable="yes" comments="TRANSLATORS: Replace this string with your names, one name per line.">translator-credits</property>
+  <property name="translator_credits" translatable="yes" comments="TRANSLATORS: Replace this string with your names, one name per line.">Iestyn Pryce &lt;dylunio@gmail.com&gt;
+Jerome S. Gotangco &lt;jgotangco@ubuntu.com&gt;
+torb &lt;torrb@musiker.nu&gt;
+Robert Renling Berencreuz &lt;berencreuz@gmail.com&gt;
+Ola Jeppsson &lt;ola.jeppsson@gmail.com&gt;
+Daniel Nylander &lt;po@danielnylander.se&gt;
+aruiz &lt;aruiz@synaptia.net&gt;
+Manuel Duran Moyano &lt;mduran@ubiobio.cl&gt;
+Laszlo Pandy &lt;laszlok2@gmail.com&gt;
+Iván Edgardo Vázquez Santos 
+David Corrales &lt;davidger@racsa.co.cr&gt;
+Benjamin A'Lee &lt;bma@bmalee.eu&gt;
+Peter Baričič &lt;pbaricic@gmail.com&gt;
+Артём Попов &lt;artfwo@gmail.com&gt;
+deepred &lt;psalmos@swissinfo.org&gt;
+KeepYourMind &lt;keepyourmind@gmail.com&gt;
+Georgy Faradzhev &lt;georgy.faradzhev@gmail.com&gt;
+Gendolf &lt;pr-baukalo@rambler.ru&gt;
+Rodrigo NSH &lt;rodrigo.nsh@gmail.com&gt;
+Christian Reis &lt;kiko@async.com.br&gt;
+Lourabe Multimédia 
+Tomasz Dominikowski &lt;dominikowski@gmail.com&gt;
+Konrad Adamczyk &lt;konrad@svx.pl&gt;
+Hender &lt;simsalabimladen@gmail.com&gt;
+sklp
+Bård Aase &lt;base@kvarteret.no&gt;
+Pecisk &lt;pecisk@gmail.com&gt;
+Luca Ferretti &lt;elle.uca@libero.it&gt;
+Daniele Medri &lt;daniele@medri.org&gt;
+Igor Khanin 
+Tobias Frederick &lt;me@tbfr.org&gt;
+Tim Fuchs &lt;tim.fuchs@gmail.com&gt;
+Ramona Barte 
+Marcus Hochstadt
+Lebowski
+Julian Turner
+Dennis Lichtenthäler &lt;dennis.lichtenthaeler@episode-iv.de&gt;
+dyphil &lt;dyphil@wanadoo.fr&gt;
+XioNoX 
+Stemp &lt;StempUbuntu@gmail.com&gt;
+Signez
+Pierre Slamich &lt;pierre.slamich@gmail.com&gt;
+Nicolas Velin &lt;nsv@fr.st&gt;
+Jean-Francois Arseneau &lt;jf.arseneau@gmail.com&gt;
+Guillaume Hoffmann 
+Gabriel de Perthuis &lt;gabriel.de-perthuis@laposte.net&gt;
+Bruno Bord &lt;bruno@jehaisleprintemps.net&gt;
+Mikko Virkkilä &lt;mvirkkil@cc.hut.fi&gt;
+Boyd Timothy
+William Anderson&lt;neuro@well.com&gt;
+Sridhar Dhanapalan &lt;sridhar@dhanapalan.com&gt;
+Roger Light &lt;roger@atchoo.org&gt;
+Malcolm Parsons
+Peturrr &lt;peterdekraker@planet.nl&gt;
+jerven Bolleman &lt;ik@jerven.eu&gt;
+Mathias-K &lt;mathias@computergeil.dk&gt;
+Niels Kjøller Hansen &lt;niels.k.h@gmail.com&gt;
+David Nielsen &lt;david@lovesunix.net&gt;
+daave &lt;fan.d.liu@gmail.com&gt;
+</property>
   <property name="logo">jokosher-logo.png</property>
 
   <child internal-child="vbox">
@@ -1450,7 +1510,7 @@ Gregory Sheeran &lt;greg@grogoreo.co.uk&gt;</property>
 		    <widget class="GtkRadioButton" id="startupLastProject">
 		      <property name="visible">True</property>
 		      <property name="can_focus">True</property>
-		      <property name="label" translatable="yes">Open most recent project</property>
+		      <property name="label" translatable="yes">&lt;span size=&quot;xx-large&quot; weight=&quot;bold&quot;&gt;version 0.2 1.0&lt;/span&gt;</property>
 		      <property name="use_underline">True</property>
 		      <property name="relief">GTK_RELIEF_NORMAL</property>
 		      <property name="focus_on_click">True</property>
