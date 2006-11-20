@@ -7,9 +7,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: jokosher\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-11-01 18:22-0500\n"
-"PO-Revision-Date: 2006-08-26 19:52+0000\n"
+"Report-Msgid-Bugs-To:\n"
+"POT-Creation-Date: 2006-11-02 07:43-0500\n"
+"PO-Revision-Date: 2006-11-02 19:13+0000\n"
 "Last-Translator: Iestyn Pryce <dylunio@gmail.com>\n"
 "Language-Team: Welsh <cy@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -26,7 +26,7 @@ msgstr "<b>Celf</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:3
 msgid "<b>Audio Playback Device</b>"
-msgstr ""
+msgstr "<b>Dyfais Ailchwarae Awdio</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:4
 msgid "<b>Coding</b>"
@@ -50,7 +50,7 @@ msgstr "<b>Prosiectau Diweddar</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:8
 msgid "<b>Recorded Audio Format</b>"
-msgstr ""
+msgstr "<b>Fformat Awdio Wedi'i Recordio</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:9
 msgid "<b>Testing</b>"
@@ -70,11 +70,11 @@ msgstr "Ychwanegu Offeryn"
 
 #: ../../Jokosher/Jokosher.glade.h:13
 msgid "Add a new instrument"
-msgstr ""
+msgstr "Ychwanegu offenyn newydd"
 
 #: ../../Jokosher/Jokosher.glade.h:14
 msgid "Add an extension"
-msgstr ""
+msgstr "Ychwanegu estyniad"
 
 #: ../../Jokosher/Jokosher.glade.h:15
 msgid "Add an instrument"
@@ -82,15 +82,15 @@ msgstr "Ychwanegu offeryn"
 
 #: ../../Jokosher/Jokosher.glade.h:16
 msgid "Add an instrument to the project"
-msgstr ""
+msgstr "Ychwanegu offeryn i'r project"
 
 #: ../../Jokosher/Jokosher.glade.h:17
 msgid "Add the selected effect"
-msgstr ""
+msgstr "Ychwanegu'r effaith benodol"
 
 #: ../../Jokosher/Jokosher.glade.h:18
 msgid "Add the selected instrument"
-msgstr ""
+msgstr "Ychwanegu'r offeryn benodol"
 
 #: ../../Jokosher/Jokosher.glade.h:19
 msgid "Audio production made simple."
@@ -106,27 +106,27 @@ msgstr "Pori am Brosiect Presennol"
 
 #: ../../Jokosher/Jokosher.glade.h:22 ../../Jokosher/AddInstrumentDialog.py:50
 msgid "Change Instrument Type"
-msgstr ""
+msgstr "Newid Math o Offeryn"
 
 #: ../../Jokosher/Jokosher.glade.h:23
 msgid "Change Jokosher preferences"
-msgstr ""
+msgstr "Newid gosodiadau Jokosher"
 
 #: ../../Jokosher/Jokosher.glade.h:24
 msgid "Change the selected instrument type"
-msgstr ""
+msgstr "Newid fath y offeryn dewiswyd"
 
 #: ../../Jokosher/Jokosher.glade.h:25
 msgid "Change the timeline"
-msgstr ""
+msgstr "Newid y llinell amser"
 
 #: ../../Jokosher/Jokosher.glade.h:26
 msgid "Change the timeline to show bars, beats and ticks"
-msgstr ""
+msgstr "Newid y llinell amsor i ddangos bariau, curiadau a ticiau"
 
 #: ../../Jokosher/Jokosher.glade.h:27
 msgid "Change the timeline to show hours, minutes and seconds"
-msgstr ""
+msgstr "Newid y llinell amser i ddangos oriau, munudau ac eiliadau"
 
 #: ../../Jokosher/Jokosher.glade.h:28
 msgid "Choose one or more instruments to add to your project."
@@ -134,19 +134,19 @@ msgstr "Dewis un neu fwy o offerynnau i ychwanegu i'ch prosiect."
 
 #: ../../Jokosher/Jokosher.glade.h:29
 msgid "Click and hold to fast forward"
-msgstr ""
+msgstr "Cliciwch a dal i brysio ymlaen"
 
 #: ../../Jokosher/Jokosher.glade.h:30
 msgid "Click and hold to rewind"
-msgstr ""
+msgstr "Cliciwch a dal i brysio yn ol"
 
 #: ../../Jokosher/Jokosher.glade.h:31
 msgid "Close the current project"
-msgstr ""
+msgstr "Cau'r project presennol"
 
 #: ../../Jokosher/Jokosher.glade.h:32
 msgid "Close the extension manager"
-msgstr ""
+msgstr "Cau'r rheolwr estyniadau"
 
 #: ../../Jokosher/Jokosher.glade.h:33
 msgid "Configure Instrument Effects"
@@ -158,7 +158,7 @@ msgstr "Cyfrannu i Jokosher"
 
 #: ../../Jokosher/Jokosher.glade.h:35
 msgid "Copy the current selection"
-msgstr ""
+msgstr "Copio'r dewis presennol"
 
 #: ../../Jokosher/Jokosher.glade.h:36
 msgid "Create a New Project"
@@ -166,27 +166,27 @@ msgstr "Creu Prosiect Newydd"
 
 #: ../../Jokosher/Jokosher.glade.h:37
 msgid "Create a new project"
-msgstr ""
+msgstr "Creu project newydd"
 
 #: ../../Jokosher/Jokosher.glade.h:38
 msgid "Create the project"
-msgstr ""
+msgstr "Creu'r project"
 
 #: ../../Jokosher/Jokosher.glade.h:39
 msgid "Cut the current selection"
-msgstr ""
+msgstr "Torri'r dewis presennol"
 
 #: ../../Jokosher/Jokosher.glade.h:40
 msgid "Delete the current selection"
-msgstr ""
+msgstr "Dileu'r dewis presennol"
 
 #: ../../Jokosher/Jokosher.glade.h:41
 msgid "Don't add an instrument"
-msgstr ""
+msgstr "Peidio ychwanegu offeryn"
 
 #: ../../Jokosher/Jokosher.glade.h:42
 msgid "Don't create the project"
-msgstr ""
+msgstr "Peidio creu'r project"
 
 #: ../../Jokosher/Jokosher.glade.h:43
 msgid "Don't open anything"
@@ -198,11 +198,11 @@ msgstr "Peidio a dangos hyn wrth gychwyn"
 
 #: ../../Jokosher/Jokosher.glade.h:45
 msgid "Don't use these effects"
-msgstr ""
+msgstr "Peidio defnyddio'r effeithiau hyn"
 
 #: ../../Jokosher/Jokosher.glade.h:46
 msgid "Double-click on a recent project to open"
-msgstr ""
+msgstr "Cliciwch yn ddwbl ar project diweddar i'w agor"
 
 #: ../../Jokosher/Jokosher.glade.h:47
 msgid "Drawing icons, images and other art."
@@ -210,7 +210,7 @@ msgstr "Llunio eiconau, delweddau a chelf arall."
 
 #: ../../Jokosher/Jokosher.glade.h:48
 msgid "Edit Jokosher preferences"
-msgstr ""
+msgstr "Golygu gosodiadau Jokosher"
 
 #: ../../Jokosher/Jokosher.glade.h:49
 msgid ""
@@ -219,24 +219,24 @@ msgstr ""
 "Rhowch enw i'ch prosiect a dewiswch plygell i arbed eich prosiect ynddo:"
 
 #: ../../Jokosher/Jokosher.glade.h:50
-msgid "Enter the authors name"
-msgstr ""
+msgid "Enter the author's name"
+msgstr "Rhowch enw'r awdur"
 
 #: ../../Jokosher/Jokosher.glade.h:51
-msgid "Enter the projects name"
-msgstr ""
+msgid "Enter the project's name"
+msgstr "Rhowch enw'r project"
 
 #: ../../Jokosher/Jokosher.glade.h:52
 msgid "Export current project to an audio file"
-msgstr ""
+msgstr "Allforiwch y project presennol i ffeil awdio"
 
 #: ../../Jokosher/Jokosher.glade.h:53
 msgid "Find and open an existing project"
-msgstr ""
+msgstr "Darganfod ac agor hen project"
 
 #: ../../Jokosher/Jokosher.glade.h:54
 msgid "Find out how you can help"
-msgstr ""
+msgstr "Darganfyddwch sut allwch chi helpu"
 
 #: ../../Jokosher/Jokosher.glade.h:55
 msgid "Folder"
@@ -252,11 +252,11 @@ msgstr "Jokosher"
 
 #: ../../Jokosher/Jokosher.glade.h:58
 msgid "Listen to these effects"
-msgstr ""
+msgstr "Gwradau ar yr effeithiau yma"
 
 #: ../../Jokosher/Jokosher.glade.h:59
 msgid "Manage instrument recording inputs"
-msgstr ""
+msgstr "Rhoeli'r mewnbynnau recordio offerynnau"
 
 #: ../../Jokosher/Jokosher.glade.h:60
 msgid "Mixing"
@@ -272,7 +272,7 @@ msgstr "Prosiect Newydd"
 
 #: ../../Jokosher/Jokosher.glade.h:63
 msgid "Notes about this release"
-msgstr ""
+msgstr "Nodiadau ar y rhyddhâd hyn"
 
 #: ../../Jokosher/Jokosher.glade.h:64
 msgid "Open Selected Project"
@@ -280,11 +280,11 @@ msgstr "Agor Prosiect Benodol"
 
 #: ../../Jokosher/Jokosher.glade.h:65
 msgid "Open a recent project"
-msgstr ""
+msgstr "Agor project diweddar"
 
 #: ../../Jokosher/Jokosher.glade.h:66
 msgid "Open an existing project"
-msgstr ""
+msgstr "Agor hen project"
 
 #: ../../Jokosher/Jokosher.glade.h:67
 msgid "Open most recent project"
@@ -292,11 +292,11 @@ msgstr "Agor prosiect mwyaf diweddar"
 
 #: ../../Jokosher/Jokosher.glade.h:68
 msgid "Open the extension manager"
-msgstr ""
+msgstr "Agor rheolwr estynidau"
 
 #: ../../Jokosher/Jokosher.glade.h:69
 msgid "Paste the contents of the clipboard"
-msgstr ""
+msgstr "Gludo'r cynwys o'r clipfwrdd"
 
 #: ../../Jokosher/Jokosher.glade.h:70
 msgid "Pre-release Notes"
@@ -316,7 +316,7 @@ msgstr "Enw Prosiect"
 
 #: ../../Jokosher/Jokosher.glade.h:74
 msgid "Quit Jokosher"
-msgstr ""
+msgstr "Gadael Jokosher"
 
 #: ../../Jokosher/Jokosher.glade.h:75
 msgid "Recent Projects"
@@ -332,31 +332,31 @@ msgstr "Ailwneud"
 
 #: ../../Jokosher/Jokosher.glade.h:78
 msgid "Redo the previous edit"
-msgstr ""
+msgstr "Ailwneud y golygiad diwethaf"
 
 #: ../../Jokosher/Jokosher.glade.h:79
 msgid "Remove curently selected extension"
-msgstr ""
+msgstr "Gwaredu'r estyniad sydd wedi ei ddewis"
 
 #: ../../Jokosher/Jokosher.glade.h:80
 msgid "Save a copy of the current project"
-msgstr ""
+msgstr "Arbed copi o'r project presennol"
 
 #: ../../Jokosher/Jokosher.glade.h:81
 msgid "Save preferences and close"
-msgstr ""
+msgstr "Arbed gosodiadau a chau"
 
 #: ../../Jokosher/Jokosher.glade.h:82
 msgid "Save the current effects configuration"
-msgstr ""
+msgstr "Arbed ffurfweddiad yr effeithiau presennol"
 
 #: ../../Jokosher/Jokosher.glade.h:83
 msgid "Save the current project"
-msgstr ""
+msgstr "Arbed y project presennol"
 
 #: ../../Jokosher/Jokosher.glade.h:84
-msgid "Save your connections and close this widow"
-msgstr ""
+msgid "Save your connections and close this window"
+msgstr "Arbed eich cysylltiadau a chau'r ffenest hon"
 
 #: ../../Jokosher/Jokosher.glade.h:85
 msgid "Search:"
@@ -368,7 +368,7 @@ msgstr "Dewiswch Blygell"
 
 #: ../../Jokosher/Jokosher.glade.h:87
 msgid "Select a project to open from the list"
-msgstr ""
+msgstr "Dewis project i'w agor o'r rhestr"
 
 #: ../../Jokosher/Jokosher.glade.h:88
 msgid "Select an effect"
@@ -400,27 +400,27 @@ msgstr "Dangos ymgom croeso"
 
 #: ../../Jokosher/Jokosher.glade.h:95
 msgid "Start Jokosher with an empty project"
-msgstr ""
+msgstr "Dechrau Jokosher gyda project gwag"
 
 #: ../../Jokosher/Jokosher.glade.h:96
 msgid "Start playback"
-msgstr ""
+msgstr "Dechrau ailchwarae"
 
 #: ../../Jokosher/Jokosher.glade.h:97
 msgid "Stop mixing the project"
-msgstr ""
+msgstr "Stopio cymysgu'r project"
 
 #: ../../Jokosher/Jokosher.glade.h:98
 msgid "Stop playback"
-msgstr ""
+msgstr "Gorffen chwarae"
 
 #: ../../Jokosher/Jokosher.glade.h:99
 msgid "Switch to Mixing workspace"
-msgstr ""
+msgstr "Newid i'r man Cymysgu"
 
 #: ../../Jokosher/Jokosher.glade.h:100
 msgid "Switch to Recording workspace"
-msgstr ""
+msgstr "Newid i'r man Recordio"
 
 #: ../../Jokosher/Jokosher.glade.h:101
 msgid "Testing Jokosher, and submitting bugs."
@@ -432,11 +432,11 @@ msgstr "Fformat Amser"
 
 #: ../../Jokosher/Jokosher.glade.h:103
 msgid "Type here to search for an instrument"
-msgstr ""
+msgstr "Teipiwch yma i chwylio am offeryn"
 
 #: ../../Jokosher/Jokosher.glade.h:104
-msgid "Type the presets name"
-msgstr ""
+msgid "Type the preset's name"
+msgstr "Teipiwch enw'r rhagosodiad"
 
 #: ../../Jokosher/Jokosher.glade.h:105
 msgid "Undo"
@@ -444,7 +444,7 @@ msgstr "Dadwneud"
 
 #: ../../Jokosher/Jokosher.glade.h:106
 msgid "Undo the last edit"
-msgstr ""
+msgstr "Dadwneud y golygiad diwethaf"
 
 #: ../../Jokosher/Jokosher.glade.h:107
 msgid ""
@@ -455,11 +455,11 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:108
 msgid "Use these effects"
-msgstr ""
+msgstr "Defnyddio'r effeithiau hyn"
 
 #: ../../Jokosher/Jokosher.glade.h:109
 msgid "Version information, credits and licence"
-msgstr ""
+msgstr "Gwybodaeth fersiwn, clodau a trwydded"
 
 #: ../../Jokosher/Jokosher.glade.h:110
 msgid "Welcome to Jokosher!"
@@ -505,18 +505,14 @@ msgstr "_Lawrgymysgu Prosiect"
 msgid "_Project"
 msgstr "_Prosiect"
 
-#: ../../Jokosher/Jokosher.glade.h:121
-msgid "foo"
-msgstr "foo"
-
-#: ../../Jokosher/Jokosher.glade.h:123
+#: ../../Jokosher/Jokosher.glade.h:122
 msgid "translator-credits"
 msgstr "clodau-cyfieithwyr"
 
 #: ../../Jokosher/AddInstrumentDialog.py:52
 #, python-format
 msgid "Choose the new instrument type for %s"
-msgstr ""
+msgstr "Dewis y fath newydd o offeryn ar gyfer %s"
 
 #: ../../Jokosher/CompactMixView.py:105
 msgid "<b>Instruments Not Shown:</b>"
@@ -552,11 +548,11 @@ msgstr "Trimio"
 
 #: ../../Jokosher/EventViewer.py:121
 msgid "Delete Fade Points"
-msgstr ""
+msgstr "Dileu Pwyntiau Pylu"
 
 #: ../../Jokosher/EventViewer.py:126
 msgid "Snap To Fade Points"
-msgstr ""
+msgstr "Snapio I'r Pwyntiau Pylu"
 
 #: ../../Jokosher/EventViewer.py:276
 #, python-format
@@ -613,27 +609,29 @@ msgstr ""
 
 #: ../../Jokosher/ExtensionManagerDialog.py:106
 msgid "Choose a Jokosher Extension file"
-msgstr ""
+msgstr "Dewis ffeil Estyniad Jokosher"
 
 #: ../../Jokosher/ExtensionManagerDialog.py:112
 msgid "Jokosher Extension Files (*.py *.egg)"
-msgstr ""
+msgstr "Ffeiliau Estyniad Jokosher (*.py *.egg)"
 
 #: ../../Jokosher/ExtensionManagerDialog.py:134
 msgid "There was a problem loading the extension"
-msgstr ""
+msgstr "Mi oedd yna broblem yn llwytho'r estyniad"
 
 #: ../../Jokosher/ExtensionManagerDialog.py:165
 msgid "There was a problem removing the extension"
-msgstr ""
+msgstr "Mi oedd yna bloblem yn gwaredu'r estyniad"
 
 #: ../../Jokosher/ExtensionManagerDialog.py:195
-msgid "Someone screwed up their preferences() function"
+msgid ""
+"An error occurred when trying to launch the preferences for the extension"
 msgstr ""
+"Mi fuodd gwall ddigwydd pan yn ceisio lawnsio gosodiadau i'r estyniad"
 
 #: ../../Jokosher/Extension.py:44
 msgid "This is a Jokosher extension; it is not meant to be run directly."
-msgstr ""
+msgstr "Mae hyn yn estyniad i Jokosher; ni ddylir rhedeg yn uniongyrchol."
 
 #: ../../Jokosher/Extension.py:45
 #, python-format
@@ -641,16 +639,20 @@ msgid ""
 "To install it, move it to the directory %s\n"
 "and run Jokosher."
 msgstr ""
+"I'w gosod, symudwch i'r plygell %s\n"
+"ac yna rhedeg Jokosher."
 
 #: ../../Jokosher/Extension.py:48
 msgid ""
 "This is a Jokosher extension, which needs to be installed. Would you like to "
 "install it?"
 msgstr ""
+"Mae hyn yn estyniad i Jokosher, sydd angen ei osod. Byddwch chi'n hoffi i'w "
+"osod?"
 
 #: ../../Jokosher/Extension.py:50
 msgid "Install"
-msgstr ""
+msgstr "Gosod"
 
 #: ../../Jokosher/Extension.py:59
 #, python-format
@@ -658,71 +660,65 @@ msgid ""
 "You already have a extension with the name %s installed; would you like to "
 "replace it?"
 msgstr ""
+"Mae gennych estyniad o'r enw %s wedi ei osod yn barod; byddwch yn hoffi ei "
+"amnewid?"
 
 #: ../../Jokosher/Extension.py:62
 msgid "Replace"
-msgstr ""
+msgstr "Amnewid"
 
 #: ../../Jokosher/Extension.py:75
 msgid "Your new extension is now available in Jokosher!"
-msgstr ""
+msgstr "Mae eich estyniad newydd nawr ar gael yn Jokosher!"
 
 #: ../../Jokosher/InstrumentConnectionsDialog.py:41
 msgid "There are no instruments to connect"
 msgstr "Does dim offerynnau i'w gysylltu"
 
-#: ../../Jokosher/InstrumentEffectsDialog.py:81
-#: ../../Jokosher/InstrumentViewer.py:151
+#: ../../Jokosher/InstrumentEffectsDialog.py:82
+#: ../../Jokosher/InstrumentViewer.py:152
 msgid "Instrument Effects"
 msgstr "Effeithiau Offerynnau"
 
-#: ../../Jokosher/InstrumentEffectsDialog.py:264
+#: ../../Jokosher/InstrumentEffectsDialog.py:265
 msgid "Effect Settings"
-msgstr ""
+msgstr "Gosodiadau Effeithiau"
 
-#: ../../Jokosher/InstrumentViewer.py:127 ../../Jokosher/MixerStrip.py:73
+#: ../../Jokosher/InstrumentViewer.py:128 ../../Jokosher/MixerStrip.py:73
 msgid "Enable this instrument for recording"
 msgstr "Galleuogi'r offeryn ar gyfer recordio"
 
-#: ../../Jokosher/InstrumentViewer.py:133
+#: ../../Jokosher/InstrumentViewer.py:134
 msgid "Mute - silence this instrument"
 msgstr "Mudo - distewi yn offenyn hon"
 
-#: ../../Jokosher/InstrumentViewer.py:140 ../../Jokosher/MixerStrip.py:85
+#: ../../Jokosher/InstrumentViewer.py:141 ../../Jokosher/MixerStrip.py:85
 msgid "Solo - silence all other instruments"
 msgstr "Solo - distewi pob offeryn arall"
 
-#: ../../Jokosher/InstrumentViewer.py:286 ../../Jokosher/MixerStrip.py:147
+#: ../../Jokosher/InstrumentViewer.py:287 ../../Jokosher/MixerStrip.py:147
 msgid "Muted"
 msgstr "Mudo"
 
-#: ../../Jokosher/InstrumentViewer.py:289 ../../Jokosher/MixerStrip.py:150
+#: ../../Jokosher/InstrumentViewer.py:290 ../../Jokosher/MixerStrip.py:150
 msgid "Unmuted"
 msgstr "Dadfudo"
 
-#: ../../Jokosher/InstrumentViewer.py:358
-msgid "Instrument Effects..."
-msgstr "Effeithiau Offerynnau"
-
-#: ../../Jokosher/JokosherApp.py:131
-msgid "Currently working in the recording workspace"
-msgstr ""
+#: ../../Jokosher/JokosherApp.py:131 ../../Jokosher/JokosherApp.py:239
+msgid "Currently working in the Recording workspace"
+msgstr "Gweithio'n bresennol yn y man Recordio"
 
 #: ../../Jokosher/JokosherApp.py:132 ../../Jokosher/JokosherApp.py:240
 msgid "Switch to the Mixing workspace"
-msgstr ""
-
-#: ../../Jokosher/JokosherApp.py:239
-msgid "Currently working in the Recording workspace"
-msgstr ""
+msgstr "Newid i'r man Cymysgu"
 
 #: ../../Jokosher/JokosherApp.py:247
 msgid "Switch to the Recording workspace"
-msgstr ""
+msgstr "Newid i'r man Recordio"
 
 #: ../../Jokosher/JokosherApp.py:248
 msgid "Currently working in the Mixing workspace"
-msgstr ""
+msgstr "Gweithio'n bresennol yn y man Cymysgu"
 
 #: ../../Jokosher/JokosherApp.py:304
 #, python-format
@@ -762,9 +758,12 @@ msgstr ""
 #: ../../Jokosher/JokosherApp.py:364
 msgid ""
 "You require the GStreamer channel splitting element to be able to record "
-"from multiple input devices. This can be downloaded from http://www.jokosher."
-"org/download."
+"from multiple input devices. This can be downloaded from "
+"http://www.jokosher.org/download."
 msgstr ""
+"Mae angen yr elfen hollti sianeli GStreamer i allu recordio o nifer o "
+"ddefeisiau mewnbwn. Mae'n bosib lawrlwytho hyn o\n"
+"http://www.jokosher.org/download."
 
 #: ../../Jokosher/JokosherApp.py:442
 msgid "Mixdown Project"
@@ -812,8 +811,8 @@ msgid ""
 "\n"
 "Your changes will be lost if you don't save them."
 msgstr ""
-"<span size='large' weight='bold'>Arbed newidiadau i prosiect \"%s\" cyn cau?"
-"</span>\n"
+"<span size='large' weight='bold'>Arbed newidiadau i prosiect \"%s\" cyn "
+"cau?</span>\n"
 "\n"
 "Mi fydd eich newidiadau yn cael eu colli os nad ydych yn eu harbed."
 
@@ -833,7 +832,7 @@ msgstr "%s - Jokosher"
 
 #: ../../Jokosher/JokosherApp.py:749
 msgid "Clear the list of recent projects"
-msgstr ""
+msgstr "Clirio'r rhestr o projectau diweddar"
 
 #: ../../Jokosher/JokosherApp.py:1036
 msgid "The project references non-existant files:\n"
@@ -902,11 +901,16 @@ msgid ""
 "This version of Jokosher (0.2) is a pre-release version. As such, you may "
 "encounter some bugs and functionality that is not present."
 msgstr ""
+"<big>Nodiadau ar y rhyddhâd hyn</big>\n"
+"\n"
+"Mae'r fersiwn hyn o Jokosher (0.2) yn fersiwn gyn-ryddhâd. Felly mae'n bosib "
+"i chi ddod ar draws rhai namau ac swyddogaethau sydd ddim yn bresennol."
 
 #: ../../Jokosher/JokosherApp.py:1141
 #, python-format
 msgid "The URI scheme '%s' is either invalid or not supported."
-msgstr "Mae'r cynllun URI '%s' unai'n annilys neu neu ddim yn cael ei gynnal."
+msgstr ""
+"Mae'r cynllun URI '%s' unai'n annilys neu neu ddim yn cael ei gynnal."
 
 #: ../../Jokosher/JokosherApp.py:1143
 #, python-format
@@ -950,15 +954,15 @@ msgstr "Lleihau Offeryn"
 
 #: ../../Jokosher/MixerStrip.py:43
 msgid "L"
-msgstr ""
+msgstr "L"
 
 #: ../../Jokosher/MixerStrip.py:44
 msgid "R"
-msgstr ""
+msgstr "R"
 
 #: ../../Jokosher/MixerStrip.py:49
 msgid "Adjust instrument balance"
-msgstr ""
+msgstr "Newid cydbwysedd yr offeryn"
 
 #: ../../Jokosher/NewProjectDialog.py:76
 msgid "Unknown Author"
@@ -978,7 +982,8 @@ msgstr ""
 
 #: ../../Jokosher/NewProjectDialog.py:93
 msgid "The file or folder location is write-protected."
-msgstr "Mae lleoliad y ffeil neu'r plygell wedi ei amddiffyn rhag ysgrifennu."
+msgstr ""
+"Mae lleoliad y ffeil neu'r plygell wedi ei amddiffyn rhag ysgrifennu."
 
 #: ../../Jokosher/NewProjectDialog.py:95
 msgid "Invalid name or author."
@@ -1002,19 +1007,19 @@ msgstr ""
 
 #: ../../Jokosher/RecordingView.py:82
 msgid "Zoom the timeline"
-msgstr ""
+msgstr "Chwyddo llinell amser"
 
 #: ../../Jokosher/TimeLineBar.py:37 ../../Jokosher/TimeLineBar.py:235
 msgid "Turn click track on"
-msgstr ""
+msgstr "Troi'r trac clicio ymlaen"
 
 #: ../../Jokosher/TimeLineBar.py:44
 msgid "Beats per minute"
-msgstr ""
+msgstr "Curiadau pob munud"
 
 #: ../../Jokosher/TimeLineBar.py:232
 msgid "Turn click track off"
-msgstr ""
+msgstr "Troi'r trac clicio bant"
 
 #: ../../Jokosher/VUWidget.py:66
 msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"
@@ -1027,7 +1032,7 @@ msgstr "Lefel Sain: %.2f"
 
 #: i18n.instr.h:1
 msgid "Acoustic Guitar"
-msgstr ""
+msgstr "Gitar Acwstig"
 
 #: i18n.instr.h:2
 msgid "Audio File"
@@ -1075,7 +1080,7 @@ msgstr "Eraill"
 
 #: i18n.instr.h:13
 msgid "Saxophone"
-msgstr ""
+msgstr "Saxaffon"
 
 #: i18n.instr.h:14
 msgid "Snare"
@@ -1142,6 +1147,13 @@ msgstr "Llaisiol"
 #~ msgid "General"
 #~ msgstr "Cyffredinol"
 
+#~ msgid ""
+#~ "Jokosher must be restarted in\n"
+#~ "order for changes to take effect."
+#~ msgstr ""
+#~ "Mae angen i Jokosher cael ei aliddechrau\n"
+#~ "er mwyn i'r newidiadau cael effaith."
+
 #~ msgid "Output Format"
 #~ msgstr "Fformat Allbwn"
 
@@ -1169,15 +1181,21 @@ msgstr "Llaisiol"
 #~ "FLAC\n"
 #~ "Ogg Vorbis"
 
+#~ msgid "foo"
+#~ msgstr "foo"
+
+#~ msgid "Instrument Effects..."
+#~ msgstr "Effeithiau Offerynnau"
+
 #~ msgid ""
 #~ "<big>Notes about this release</big>\n"
 #~ "\n"
-#~ "This version of Jokosher (0.1) is a pre-release version, and is infact, "
-#~ "our very first release. As such, you may encounter some bugs and "
-#~ "functionality that is not present."
+#~ "This version of Jokosher (0.1) is a pre-release version, and is infact, our "
+#~ "very first release. As such, you may encounter some bugs and functionality "
+#~ "that is not present."
 #~ msgstr ""
 #~ "<big>Nodiadau ynglyn ar rhyddhâd hwn</big>\n"
 #~ "\n"
-#~ "Mae'r fersiwn hyn o Jokosher (0.1) yn fersiwn cyn-rhyddhâd, ac yn wir, "
-#~ "ein rhyddhâd cyntaf. Felly, mae'n bosib i chi dod ar draws namau a "
-#~ "swyddogaethau sydd ddim yn bresennol."
+#~ "Mae'r fersiwn hyn o Jokosher (0.1) yn fersiwn cyn-rhyddhâd, ac yn wir, ein "
+#~ "rhyddhâd cyntaf. Felly, mae'n bosib i chi dod ar draws namau a swyddogaethau "
+#~ "sydd ddim yn bresennol."

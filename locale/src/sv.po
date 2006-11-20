@@ -7,10 +7,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: jokosher\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-11-01 18:22-0500\n"
-"PO-Revision-Date: 2006-09-15 09:58+0000\n"
-"Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
+"Report-Msgid-Bugs-To:\n"
+"POT-Creation-Date: 2006-11-02 07:43-0500\n"
+"PO-Revision-Date: 2006-11-01 18:11+0000\n"
+"Last-Translator: Ola Jeppsson <ola.jeppsson@gmail.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -50,7 +50,7 @@ msgstr "<b>Tidigare projekt</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:8
 msgid "<b>Recorded Audio Format</b>"
-msgstr ""
+msgstr "Inspelat Ljud-format"
 
 #: ../../Jokosher/Jokosher.glade.h:9
 msgid "<b>Testing</b>"
@@ -70,7 +70,7 @@ msgstr "Lägg till instrument"
 
 #: ../../Jokosher/Jokosher.glade.h:13
 msgid "Add a new instrument"
-msgstr ""
+msgstr "Lägg till ett nytt instrument"
 
 #: ../../Jokosher/Jokosher.glade.h:14
 msgid "Add an extension"
@@ -86,11 +86,11 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:17
 msgid "Add the selected effect"
-msgstr ""
+msgstr "Lägg till den valda effekten"
 
 #: ../../Jokosher/Jokosher.glade.h:18
 msgid "Add the selected instrument"
-msgstr ""
+msgstr "Lägg till det valda instrumentet"
 
 #: ../../Jokosher/Jokosher.glade.h:19
 msgid "Audio production made simple."
@@ -106,15 +106,15 @@ msgstr "Bläddra efter ett existerande projekt"
 
 #: ../../Jokosher/Jokosher.glade.h:22 ../../Jokosher/AddInstrumentDialog.py:50
 msgid "Change Instrument Type"
-msgstr ""
+msgstr "Byt Instrument-typ"
 
 #: ../../Jokosher/Jokosher.glade.h:23
 msgid "Change Jokosher preferences"
-msgstr ""
+msgstr "Ändra Jokoshers inställningar"
 
 #: ../../Jokosher/Jokosher.glade.h:24
 msgid "Change the selected instrument type"
-msgstr ""
+msgstr "Ändra den valda instrument-typen"
 
 #: ../../Jokosher/Jokosher.glade.h:25
 msgid "Change the timeline"
@@ -166,11 +166,11 @@ msgstr "Skapa ett nytt projekt"
 
 #: ../../Jokosher/Jokosher.glade.h:37
 msgid "Create a new project"
-msgstr ""
+msgstr "Skapa ett nytt projekt"
 
 #: ../../Jokosher/Jokosher.glade.h:38
 msgid "Create the project"
-msgstr ""
+msgstr "Skapa projektet"
 
 #: ../../Jokosher/Jokosher.glade.h:39
 msgid "Cut the current selection"
@@ -182,11 +182,11 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:41
 msgid "Don't add an instrument"
-msgstr ""
+msgstr "Lägg inte till ett instrument"
 
 #: ../../Jokosher/Jokosher.glade.h:42
 msgid "Don't create the project"
-msgstr ""
+msgstr "Skapa inte projektet"
 
 #: ../../Jokosher/Jokosher.glade.h:43
 msgid "Don't open anything"
@@ -198,11 +198,11 @@ msgstr "Visa inte detta vid uppstart"
 
 #: ../../Jokosher/Jokosher.glade.h:45
 msgid "Don't use these effects"
-msgstr ""
+msgstr "Använd inte dessa effekter"
 
 #: ../../Jokosher/Jokosher.glade.h:46
 msgid "Double-click on a recent project to open"
-msgstr ""
+msgstr "Dubbel-klicka på ett tidigare projekt för att öppna det"
 
 #: ../../Jokosher/Jokosher.glade.h:47
 msgid "Drawing icons, images and other art."
@@ -215,14 +215,15 @@ msgstr ""
 #: ../../Jokosher/Jokosher.glade.h:49
 msgid ""
 "Enter a name for your project and select a folder to store the project in:"
-msgstr "Skriv ett namn för ert projekt och välj en mapp att spara projektet i:"
+msgstr ""
+"Skriv ett namn för ert projekt och välj en mapp att spara projektet i:"
 
 #: ../../Jokosher/Jokosher.glade.h:50
-msgid "Enter the authors name"
+msgid "Enter the author's name"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:51
-msgid "Enter the projects name"
+msgid "Enter the project's name"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:52
@@ -279,11 +280,11 @@ msgstr "Öppna valt projekt"
 
 #: ../../Jokosher/Jokosher.glade.h:65
 msgid "Open a recent project"
-msgstr ""
+msgstr "Öppna ett tidigare projekt"
 
 #: ../../Jokosher/Jokosher.glade.h:66
 msgid "Open an existing project"
-msgstr ""
+msgstr "Öppna ett existerande projekt"
 
 #: ../../Jokosher/Jokosher.glade.h:67
 msgid "Open most recent project"
@@ -315,7 +316,7 @@ msgstr "Projektnamn"
 
 #: ../../Jokosher/Jokosher.glade.h:74
 msgid "Quit Jokosher"
-msgstr ""
+msgstr "Avsluta Jokosher"
 
 #: ../../Jokosher/Jokosher.glade.h:75
 msgid "Recent Projects"
@@ -331,7 +332,7 @@ msgstr "Upprepa"
 
 #: ../../Jokosher/Jokosher.glade.h:78
 msgid "Redo the previous edit"
-msgstr ""
+msgstr "Gör om tidigare ändring"
 
 #: ../../Jokosher/Jokosher.glade.h:79
 msgid "Remove curently selected extension"
@@ -354,7 +355,7 @@ msgid "Save the current project"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:84
-msgid "Save your connections and close this widow"
+msgid "Save your connections and close this window"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:85
@@ -367,7 +368,7 @@ msgstr "Välj en mapp"
 
 #: ../../Jokosher/Jokosher.glade.h:87
 msgid "Select a project to open from the list"
-msgstr ""
+msgstr "Välj ett projekt att öppna från listan"
 
 #: ../../Jokosher/Jokosher.glade.h:88
 msgid "Select an effect"
@@ -399,7 +400,7 @@ msgstr "Visa välkomnings meddelande"
 
 #: ../../Jokosher/Jokosher.glade.h:95
 msgid "Start Jokosher with an empty project"
-msgstr ""
+msgstr "Starta Jokosher med ett tomt projekt"
 
 #: ../../Jokosher/Jokosher.glade.h:96
 msgid "Start playback"
@@ -434,7 +435,7 @@ msgid "Type here to search for an instrument"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:104
-msgid "Type the presets name"
+msgid "Type the preset's name"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:105
@@ -504,11 +505,7 @@ msgstr "_Nermixningsprojekt"
 msgid "_Project"
 msgstr "_Projekt"
 
-#: ../../Jokosher/Jokosher.glade.h:121
-msgid "foo"
-msgstr "foo"
-
-#: ../../Jokosher/Jokosher.glade.h:123
+#: ../../Jokosher/Jokosher.glade.h:122
 msgid "translator-credits"
 msgstr ""
 "Robert Renling Berencreuz Laszlo Pandy Tor B. Skicka synpunkter på "
@@ -517,7 +514,7 @@ msgstr ""
 #: ../../Jokosher/AddInstrumentDialog.py:52
 #, python-format
 msgid "Choose the new instrument type for %s"
-msgstr ""
+msgstr "Välj ny instrument-typ för %s"
 
 #: ../../Jokosher/CompactMixView.py:105
 msgid "<b>Instruments Not Shown:</b>"
@@ -629,7 +626,8 @@ msgid "There was a problem removing the extension"
 msgstr ""
 
 #: ../../Jokosher/ExtensionManagerDialog.py:195
-msgid "Someone screwed up their preferences() function"
+msgid ""
+"An error occurred when trying to launch the preferences for the extension"
 msgstr ""
 
 #: ../../Jokosher/Extension.py:44
@@ -651,7 +649,7 @@ msgstr ""
 
 #: ../../Jokosher/Extension.py:50
 msgid "Install"
-msgstr ""
+msgstr "Installera"
 
 #: ../../Jokosher/Extension.py:59
 #, python-format
@@ -662,7 +660,7 @@ msgstr ""
 
 #: ../../Jokosher/Extension.py:62
 msgid "Replace"
-msgstr ""
+msgstr "Ersätt"
 
 #: ../../Jokosher/Extension.py:75
 msgid "Your new extension is now available in Jokosher!"
@@ -672,49 +670,41 @@ msgstr ""
 msgid "There are no instruments to connect"
 msgstr "Det finns inga instrument att ansluta"
 
-#: ../../Jokosher/InstrumentEffectsDialog.py:81
-#: ../../Jokosher/InstrumentViewer.py:151
+#: ../../Jokosher/InstrumentEffectsDialog.py:82
+#: ../../Jokosher/InstrumentViewer.py:152
 msgid "Instrument Effects"
 msgstr "Instrument Effekter"
 
-#: ../../Jokosher/InstrumentEffectsDialog.py:264
+#: ../../Jokosher/InstrumentEffectsDialog.py:265
 msgid "Effect Settings"
-msgstr ""
+msgstr "Effekt-inställningar"
 
-#: ../../Jokosher/InstrumentViewer.py:127 ../../Jokosher/MixerStrip.py:73
+#: ../../Jokosher/InstrumentViewer.py:128 ../../Jokosher/MixerStrip.py:73
 msgid "Enable this instrument for recording"
 msgstr "Möjliggör inspelning för det här instrumentet"
 
-#: ../../Jokosher/InstrumentViewer.py:133
+#: ../../Jokosher/InstrumentViewer.py:134
 msgid "Mute - silence this instrument"
 msgstr "Dämpa - tysta ner det här instrumentet"
 
-#: ../../Jokosher/InstrumentViewer.py:140 ../../Jokosher/MixerStrip.py:85
+#: ../../Jokosher/InstrumentViewer.py:141 ../../Jokosher/MixerStrip.py:85
 msgid "Solo - silence all other instruments"
 msgstr "Solo - tysta ner alla andra instrument"
 
-#: ../../Jokosher/InstrumentViewer.py:286 ../../Jokosher/MixerStrip.py:147
+#: ../../Jokosher/InstrumentViewer.py:287 ../../Jokosher/MixerStrip.py:147
 msgid "Muted"
 msgstr "Dämpat"
 
-#: ../../Jokosher/InstrumentViewer.py:289 ../../Jokosher/MixerStrip.py:150
+#: ../../Jokosher/InstrumentViewer.py:290 ../../Jokosher/MixerStrip.py:150
 msgid "Unmuted"
 msgstr "Normal"
 
-#: ../../Jokosher/InstrumentViewer.py:358
-msgid "Instrument Effects..."
-msgstr "Instrument Effekter..."
-
-#: ../../Jokosher/JokosherApp.py:131
-msgid "Currently working in the recording workspace"
+#: ../../Jokosher/JokosherApp.py:131 ../../Jokosher/JokosherApp.py:239
+msgid "Currently working in the Recording workspace"
 msgstr ""
 
 #: ../../Jokosher/JokosherApp.py:132 ../../Jokosher/JokosherApp.py:240
 msgid "Switch to the Mixing workspace"
-msgstr ""
-
-#: ../../Jokosher/JokosherApp.py:239
-msgid "Currently working in the Recording workspace"
 msgstr ""
 
 #: ../../Jokosher/JokosherApp.py:247
@@ -763,8 +753,8 @@ msgstr ""
 #: ../../Jokosher/JokosherApp.py:364
 msgid ""
 "You require the GStreamer channel splitting element to be able to record "
-"from multiple input devices. This can be downloaded from http://www.jokosher."
-"org/download."
+"from multiple input devices. This can be downloaded from "
+"http://www.jokosher.org/download."
 msgstr ""
 
 #: ../../Jokosher/JokosherApp.py:442
@@ -893,8 +883,8 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"<big>En del funktionalitet kommer inte att fungera korrekt, om ens alls.</"
-"big>↵\n"
+"<big>En del funktionalitet kommer inte att fungera korrekt, om ens "
+"alls.</big>↵\n"
 "↵\n"
 "%s"
 
@@ -1029,7 +1019,7 @@ msgstr "Volym: %.2f"
 
 #: i18n.instr.h:1
 msgid "Acoustic Guitar"
-msgstr ""
+msgstr "Akustisk gitarr"
 
 #: i18n.instr.h:2
 msgid "Audio File"
@@ -1077,7 +1067,7 @@ msgstr "Annat"
 
 #: i18n.instr.h:13
 msgid "Saxophone"
-msgstr ""
+msgstr "Saxofon"
 
 #: i18n.instr.h:14
 msgid "Snare"
@@ -1171,15 +1161,21 @@ msgstr "Vokal"
 #~ "Flac\n"
 #~ "Ogg Vorbis"
 
+#~ msgid "foo"
+#~ msgstr "foo"
+
+#~ msgid "Instrument Effects..."
+#~ msgstr "Instrument Effekter..."
+
 #~ msgid ""
 #~ "<big>Notes about this release</big>\n"
 #~ "\n"
-#~ "This version of Jokosher (0.1) is a pre-release version, and is infact, "
-#~ "our very first release. As such, you may encounter some bugs and "
-#~ "functionality that is not present."
+#~ "This version of Jokosher (0.1) is a pre-release version, and is infact, our "
+#~ "very first release. As such, you may encounter some bugs and functionality "
+#~ "that is not present."
 #~ msgstr ""
 #~ "<big>Anteckningar om den här versionen</big>↵\n"
 #~ "↵\n"
-#~ "Den här versionen av Jokosher (0.1) är ett försläpp, och är faktiskt "
-#~ "våran  första lansering. Som sådant, så kan ni stöta på buggar och "
-#~ "funktionalitet som inte är närvarande."
+#~ "Den här versionen av Jokosher (0.1) är ett försläpp, och är faktiskt våran  "
+#~ "första lansering. Som sådant, så kan ni stöta på buggar och funktionalitet "
+#~ "som inte är närvarande."

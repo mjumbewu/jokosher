@@ -7,9 +7,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: jokosher\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-11-01 18:22-0500\n"
-"PO-Revision-Date: 2006-10-10 19:07+0000\n"
+"Report-Msgid-Bugs-To:\n"
+"POT-Creation-Date: 2006-11-02 07:43-0500\n"
+"PO-Revision-Date: 2006-09-14 10:30+0000\n"
 "Last-Translator: Lourabe Multimédia <lourenco.abecasis@gmail.com>\n"
 "Language-Team: Portuguese <pt@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -42,8 +42,8 @@ msgid ""
 "contributors. To make Jokosher rock, we need your help!</b>"
 msgstr ""
 "<b>Jokosher é um projecto Open Source que é sustentado por uma comunidade de "
-"colaboradores. Para que o Jokosher tenha sucesso, precisamos que nos ajude!</"
-"b>"
+"colaboradores. Para que o Jokosher tenha sucesso, precisamos que nos "
+"ajude!</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:7
 msgid "<b>Recent Projects</b>"
@@ -220,11 +220,11 @@ msgstr ""
 "Insira um nome para o seu projecto e seleccione uma pasta para gravá-lo:"
 
 #: ../../Jokosher/Jokosher.glade.h:50
-msgid "Enter the authors name"
+msgid "Enter the author's name"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:51
-msgid "Enter the projects name"
+msgid "Enter the project's name"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:52
@@ -356,7 +356,7 @@ msgid "Save the current project"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:84
-msgid "Save your connections and close this widow"
+msgid "Save your connections and close this window"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:85
@@ -436,7 +436,7 @@ msgid "Type here to search for an instrument"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:104
-msgid "Type the presets name"
+msgid "Type the preset's name"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:105
@@ -504,11 +504,7 @@ msgstr "_Projecto pronto"
 msgid "_Project"
 msgstr "_Projecto"
 
-#: ../../Jokosher/Jokosher.glade.h:121
-msgid "foo"
-msgstr "foo"
-
-#: ../../Jokosher/Jokosher.glade.h:123
+#: ../../Jokosher/Jokosher.glade.h:122
 msgid "translator-credits"
 msgstr "Lourabe Multimédia <lourabe.multimedia@gmail.com>"
 
@@ -627,7 +623,8 @@ msgid "There was a problem removing the extension"
 msgstr ""
 
 #: ../../Jokosher/ExtensionManagerDialog.py:195
-msgid "Someone screwed up their preferences() function"
+msgid ""
+"An error occurred when trying to launch the preferences for the extension"
 msgstr ""
 
 #: ../../Jokosher/Extension.py:44
@@ -670,49 +667,41 @@ msgstr ""
 msgid "There are no instruments to connect"
 msgstr "Não há instrumentos para ligar"
 
-#: ../../Jokosher/InstrumentEffectsDialog.py:81
-#: ../../Jokosher/InstrumentViewer.py:151
+#: ../../Jokosher/InstrumentEffectsDialog.py:82
+#: ../../Jokosher/InstrumentViewer.py:152
 msgid "Instrument Effects"
 msgstr "Efeitos dos Instrumentos"
 
-#: ../../Jokosher/InstrumentEffectsDialog.py:264
+#: ../../Jokosher/InstrumentEffectsDialog.py:265
 msgid "Effect Settings"
 msgstr ""
 
-#: ../../Jokosher/InstrumentViewer.py:127 ../../Jokosher/MixerStrip.py:73
+#: ../../Jokosher/InstrumentViewer.py:128 ../../Jokosher/MixerStrip.py:73
 msgid "Enable this instrument for recording"
 msgstr "Activar este instrumento na gravação"
 
-#: ../../Jokosher/InstrumentViewer.py:133
+#: ../../Jokosher/InstrumentViewer.py:134
 msgid "Mute - silence this instrument"
 msgstr "Mudo - silenciar este instrumento"
 
-#: ../../Jokosher/InstrumentViewer.py:140 ../../Jokosher/MixerStrip.py:85
+#: ../../Jokosher/InstrumentViewer.py:141 ../../Jokosher/MixerStrip.py:85
 msgid "Solo - silence all other instruments"
 msgstr "Solo - silenciar todos os outros instrumentos"
 
-#: ../../Jokosher/InstrumentViewer.py:286 ../../Jokosher/MixerStrip.py:147
+#: ../../Jokosher/InstrumentViewer.py:287 ../../Jokosher/MixerStrip.py:147
 msgid "Muted"
 msgstr "Mudo"
 
-#: ../../Jokosher/InstrumentViewer.py:289 ../../Jokosher/MixerStrip.py:150
+#: ../../Jokosher/InstrumentViewer.py:290 ../../Jokosher/MixerStrip.py:150
 msgid "Unmuted"
 msgstr "Não-Mudo"
 
-#: ../../Jokosher/InstrumentViewer.py:358
-msgid "Instrument Effects..."
-msgstr "Efeitos dos Instrumentos..."
-
-#: ../../Jokosher/JokosherApp.py:131
-msgid "Currently working in the recording workspace"
+#: ../../Jokosher/JokosherApp.py:131 ../../Jokosher/JokosherApp.py:239
+msgid "Currently working in the Recording workspace"
 msgstr ""
 
 #: ../../Jokosher/JokosherApp.py:132 ../../Jokosher/JokosherApp.py:240
 msgid "Switch to the Mixing workspace"
-msgstr ""
-
-#: ../../Jokosher/JokosherApp.py:239
-msgid "Currently working in the Recording workspace"
 msgstr ""
 
 #: ../../Jokosher/JokosherApp.py:247
@@ -747,8 +736,8 @@ msgid ""
 "No channels capable of recording have been found, please attach a device and "
 "try again."
 msgstr ""
-"Não encontrámos nenhum canal capaz de gravar, por favor ligue um aparelho/"
-"dispositivo e tente de novo."
+"Não encontrámos nenhum canal capaz de gravar, por favor ligue um "
+"aparelho/dispositivo e tente de novo."
 
 #: ../../Jokosher/JokosherApp.py:362
 msgid ""
@@ -761,8 +750,8 @@ msgstr ""
 #: ../../Jokosher/JokosherApp.py:364
 msgid ""
 "You require the GStreamer channel splitting element to be able to record "
-"from multiple input devices. This can be downloaded from http://www.jokosher."
-"org/download."
+"from multiple input devices. This can be downloaded from "
+"http://www.jokosher.org/download."
 msgstr ""
 
 #: ../../Jokosher/JokosherApp.py:442
@@ -920,7 +909,8 @@ msgstr "O projecto foi criado com a versão \"%s\" do Jokosher.\n"
 #: ../../Jokosher/JokosherApp.py:1146
 #, python-format
 msgid "Projects from version \"%s\" are incompatible with this release.\n"
-msgstr "Projectos da versão \"%s\" são incompatíveis com a versão instalda.\n"
+msgstr ""
+"Projectos da versão \"%s\" são incompatíveis com a versão instalda.\n"
 
 #: ../../Jokosher/JokosherApp.py:1148
 #, python-format
@@ -1167,16 +1157,22 @@ msgstr "Vocal"
 #~ "FLAC\n"
 #~ "Ogg Vorbis"
 
+#~ msgid "foo"
+#~ msgstr "foo"
+
+#~ msgid "Instrument Effects..."
+#~ msgstr "Efeitos dos Instrumentos..."
+
 #~ msgid ""
 #~ "<big>Notes about this release</big>\n"
 #~ "\n"
-#~ "This version of Jokosher (0.1) is a pre-release version, and is infact, "
-#~ "our very first release. As such, you may encounter some bugs and "
-#~ "functionality that is not present."
+#~ "This version of Jokosher (0.1) is a pre-release version, and is infact, our "
+#~ "very first release. As such, you may encounter some bugs and functionality "
+#~ "that is not present."
 #~ msgstr ""
 #~ "<big>Notas acerca desta versão</big>\n"
 #~ "\n"
 #~ "Esta versão do Jokosher (0.1) é uma versão pré-lançamento, e é de facto o "
-#~ "nosso primeiro lançamento. Como tal, é provável que encontre alguns erros "
-#~ "e funcionalidades que não existem. N.T.: Este é também o primeiro "
-#~ "programa traduzido pela Lourabe Multimédias."
+#~ "nosso primeiro lançamento. Como tal, é provável que encontre alguns erros e "
+#~ "funcionalidades que não existem. N.T.: Este é também o primeiro programa "
+#~ "traduzido pela Lourabe Multimédias."

@@ -7,9 +7,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: jokosher\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-11-01 18:22-0500\n"
-"PO-Revision-Date: 2006-09-05 11:46+0000\n"
+"Report-Msgid-Bugs-To:\n"
+"POT-Creation-Date: 2006-11-02 07:43-0500\n"
+"PO-Revision-Date: 2006-08-24 20:30+0000\n"
 "Last-Translator: Peter Baričič <pbaricic@gmail.com>\n"
 "Language-Team: Slovak <sk@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -220,11 +220,11 @@ msgid ""
 msgstr "Vlož názov pre tvoj projekt a vyber priečinok kam sa projekt uloží"
 
 #: ../../Jokosher/Jokosher.glade.h:50
-msgid "Enter the authors name"
+msgid "Enter the author's name"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:51
-msgid "Enter the projects name"
+msgid "Enter the project's name"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:52
@@ -356,7 +356,7 @@ msgid "Save the current project"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:84
-msgid "Save your connections and close this widow"
+msgid "Save your connections and close this window"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:85
@@ -437,7 +437,7 @@ msgid "Type here to search for an instrument"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:104
-msgid "Type the presets name"
+msgid "Type the preset's name"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:105
@@ -507,11 +507,7 @@ msgstr "_Zmixuj projekt"
 msgid "_Project"
 msgstr "_Projekt"
 
-#: ../../Jokosher/Jokosher.glade.h:121
-msgid "foo"
-msgstr "foo"
-
-#: ../../Jokosher/Jokosher.glade.h:123
+#: ../../Jokosher/Jokosher.glade.h:122
 msgid "translator-credits"
 msgstr "Slovenský prekladateľský tím Ubuntu"
 
@@ -628,7 +624,8 @@ msgid "There was a problem removing the extension"
 msgstr ""
 
 #: ../../Jokosher/ExtensionManagerDialog.py:195
-msgid "Someone screwed up their preferences() function"
+msgid ""
+"An error occurred when trying to launch the preferences for the extension"
 msgstr ""
 
 #: ../../Jokosher/Extension.py:44
@@ -672,49 +669,41 @@ msgstr ""
 msgid "There are no instruments to connect"
 msgstr "Nie sú žiadne nástroje na pripojenie"
 
-#: ../../Jokosher/InstrumentEffectsDialog.py:81
-#: ../../Jokosher/InstrumentViewer.py:151
+#: ../../Jokosher/InstrumentEffectsDialog.py:82
+#: ../../Jokosher/InstrumentViewer.py:152
 msgid "Instrument Effects"
 msgstr "Efekty nástrojov"
 
-#: ../../Jokosher/InstrumentEffectsDialog.py:264
+#: ../../Jokosher/InstrumentEffectsDialog.py:265
 msgid "Effect Settings"
 msgstr ""
 
-#: ../../Jokosher/InstrumentViewer.py:127 ../../Jokosher/MixerStrip.py:73
+#: ../../Jokosher/InstrumentViewer.py:128 ../../Jokosher/MixerStrip.py:73
 msgid "Enable this instrument for recording"
 msgstr "Povoliť tento nástroj na nahrávanie"
 
-#: ../../Jokosher/InstrumentViewer.py:133
+#: ../../Jokosher/InstrumentViewer.py:134
 msgid "Mute - silence this instrument"
 msgstr "Stlmiť - umlčať tento nástroj"
 
-#: ../../Jokosher/InstrumentViewer.py:140 ../../Jokosher/MixerStrip.py:85
+#: ../../Jokosher/InstrumentViewer.py:141 ../../Jokosher/MixerStrip.py:85
 msgid "Solo - silence all other instruments"
 msgstr "Sólo - umlčať všetky ostatné nástroje"
 
-#: ../../Jokosher/InstrumentViewer.py:286 ../../Jokosher/MixerStrip.py:147
+#: ../../Jokosher/InstrumentViewer.py:287 ../../Jokosher/MixerStrip.py:147
 msgid "Muted"
 msgstr "Bez zvuku"
 
-#: ../../Jokosher/InstrumentViewer.py:289 ../../Jokosher/MixerStrip.py:150
+#: ../../Jokosher/InstrumentViewer.py:290 ../../Jokosher/MixerStrip.py:150
 msgid "Unmuted"
 msgstr "So zvukom"
 
-#: ../../Jokosher/InstrumentViewer.py:358
-msgid "Instrument Effects..."
-msgstr "Efekty nástrojov..."
-
-#: ../../Jokosher/JokosherApp.py:131
-msgid "Currently working in the recording workspace"
+#: ../../Jokosher/JokosherApp.py:131 ../../Jokosher/JokosherApp.py:239
+msgid "Currently working in the Recording workspace"
 msgstr ""
 
 #: ../../Jokosher/JokosherApp.py:132 ../../Jokosher/JokosherApp.py:240
 msgid "Switch to the Mixing workspace"
-msgstr ""
-
-#: ../../Jokosher/JokosherApp.py:239
-msgid "Currently working in the Recording workspace"
 msgstr ""
 
 #: ../../Jokosher/JokosherApp.py:247
@@ -761,8 +750,8 @@ msgstr ""
 #: ../../Jokosher/JokosherApp.py:364
 msgid ""
 "You require the GStreamer channel splitting element to be able to record "
-"from multiple input devices. This can be downloaded from http://www.jokosher."
-"org/download."
+"from multiple input devices. This can be downloaded from "
+"http://www.jokosher.org/download."
 msgstr ""
 
 #: ../../Jokosher/JokosherApp.py:442
@@ -1168,15 +1157,21 @@ msgstr "Spev"
 #~ "FLAC\n"
 #~ "Ogg Vorbis"
 
+#~ msgid "foo"
+#~ msgstr "foo"
+
+#~ msgid "Instrument Effects..."
+#~ msgstr "Efekty nástrojov..."
+
 #~ msgid ""
 #~ "<big>Notes about this release</big>\n"
 #~ "\n"
-#~ "This version of Jokosher (0.1) is a pre-release version, and is infact, "
-#~ "our very first release. As such, you may encounter some bugs and "
-#~ "functionality that is not present."
+#~ "This version of Jokosher (0.1) is a pre-release version, and is infact, our "
+#~ "very first release. As such, you may encounter some bugs and functionality "
+#~ "that is not present."
 #~ msgstr ""
 #~ "<big>Poznámky k tomuto vydaniu</big>\n"
 #~ "\n"
 #~ "Táto verzia Jokosher (0.1) je testovacie vydanie a v skutočnosti aj naše "
-#~ "prvé vydanie. Z tohoto dôvodu môžete naraziť na chyby alebo funkčnosť, "
-#~ "ktorá nie je prítomná."
+#~ "prvé vydanie. Z tohoto dôvodu môžete naraziť na chyby alebo funkčnosť, ktorá "
+#~ "nie je prítomná."

@@ -7,10 +7,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: jokosher\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-11-01 18:22-0500\n"
-"PO-Revision-Date: 2006-08-23 15:33+0000\n"
-"Last-Translator: Hender <simsalabimladen@gmail.com>\n"
+"Report-Msgid-Bugs-To:\n"
+"POT-Creation-Date: 2006-11-02 07:43-0500\n"
+"PO-Revision-Date: 2006-11-07 16:26+0000\n"
+"Last-Translator: Bård Aase <base@kvarteret.no>\n"
 "Language-Team: Norwegian Bokmål <nb@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -73,28 +73,33 @@ msgid "Add Instrument"
 msgstr "Legg til instrument"
 
 #: ../../Jokosher/Jokosher.glade.h:13
+#, fuzzy
 msgid "Add a new instrument"
-msgstr ""
+msgstr "Legg til et nytt instrument"
 
 #: ../../Jokosher/Jokosher.glade.h:14
+#, fuzzy
 msgid "Add an extension"
-msgstr ""
+msgstr "Legg til en utvidelse"
 
 #: ../../Jokosher/Jokosher.glade.h:15
 msgid "Add an instrument"
 msgstr "Legg til et instrument"
 
 #: ../../Jokosher/Jokosher.glade.h:16
+#, fuzzy
 msgid "Add an instrument to the project"
-msgstr ""
+msgstr "Legg et instrument til prosjektet"
 
 #: ../../Jokosher/Jokosher.glade.h:17
+#, fuzzy
 msgid "Add the selected effect"
-msgstr ""
+msgstr "Legg til den valgte effekten"
 
 #: ../../Jokosher/Jokosher.glade.h:18
+#, fuzzy
 msgid "Add the selected instrument"
-msgstr ""
+msgstr "Legg til det valgte instrumentet"
 
 #: ../../Jokosher/Jokosher.glade.h:19
 #, fuzzy
@@ -112,28 +117,33 @@ msgid "Browse for an Existing Project"
 msgstr "Bla etter et eksisterende prosjekt"
 
 #: ../../Jokosher/Jokosher.glade.h:22 ../../Jokosher/AddInstrumentDialog.py:50
+#, fuzzy
 msgid "Change Instrument Type"
-msgstr ""
+msgstr "Bytt instrumenttype"
 
 #: ../../Jokosher/Jokosher.glade.h:23
+#, fuzzy
 msgid "Change Jokosher preferences"
-msgstr ""
+msgstr "Endre Jokosher innstillinger"
 
 #: ../../Jokosher/Jokosher.glade.h:24
+#, fuzzy
 msgid "Change the selected instrument type"
-msgstr ""
+msgstr "Endre den valgte instrumenttypen"
 
 #: ../../Jokosher/Jokosher.glade.h:25
+#, fuzzy
 msgid "Change the timeline"
-msgstr ""
+msgstr "Endre tidslinjen"
 
 #: ../../Jokosher/Jokosher.glade.h:26
 msgid "Change the timeline to show bars, beats and ticks"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:27
+#, fuzzy
 msgid "Change the timeline to show hours, minutes and seconds"
-msgstr ""
+msgstr "Endre tidslinjen, så den viser timer, minutter og sekunder"
 
 #: ../../Jokosher/Jokosher.glade.h:28
 #, fuzzy
@@ -149,12 +159,14 @@ msgid "Click and hold to rewind"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:31
+#, fuzzy
 msgid "Close the current project"
-msgstr ""
+msgstr "Lukk nåværende prosjekt"
 
 #: ../../Jokosher/Jokosher.glade.h:32
+#, fuzzy
 msgid "Close the extension manager"
-msgstr ""
+msgstr "Lukk utvidelsesbehandleren"
 
 #: ../../Jokosher/Jokosher.glade.h:33
 msgid "Configure Instrument Effects"
@@ -174,12 +186,14 @@ msgid "Create a New Project"
 msgstr "Lag ett nytt prosjekt"
 
 #: ../../Jokosher/Jokosher.glade.h:37
+#, fuzzy
 msgid "Create a new project"
-msgstr ""
+msgstr "Lag et nytt prosjekt"
 
 #: ../../Jokosher/Jokosher.glade.h:38
+#, fuzzy
 msgid "Create the project"
-msgstr ""
+msgstr "Lag prosjektet"
 
 #: ../../Jokosher/Jokosher.glade.h:39
 msgid "Cut the current selection"
@@ -190,8 +204,9 @@ msgid "Delete the current selection"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:41
+#, fuzzy
 msgid "Don't add an instrument"
-msgstr ""
+msgstr "Ikke legg til et instrument"
 
 #: ../../Jokosher/Jokosher.glade.h:42
 msgid "Don't create the project"
@@ -230,11 +245,11 @@ msgstr ""
 "Skriv inn et navn til ditt prosjekt og velg en mappe å lagre prosjektet i:"
 
 #: ../../Jokosher/Jokosher.glade.h:50
-msgid "Enter the authors name"
+msgid "Enter the author's name"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:51
-msgid "Enter the projects name"
+msgid "Enter the project's name"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:52
@@ -372,7 +387,7 @@ msgid "Save the current project"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:84
-msgid "Save your connections and close this widow"
+msgid "Save your connections and close this window"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:85
@@ -454,7 +469,7 @@ msgid "Type here to search for an instrument"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:104
-msgid "Type the presets name"
+msgid "Type the preset's name"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:105
@@ -526,11 +541,7 @@ msgstr "_Miks ned prosjekt"
 msgid "_Project"
 msgstr "_Prosjekt"
 
-#: ../../Jokosher/Jokosher.glade.h:121
-msgid "foo"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:123
+#: ../../Jokosher/Jokosher.glade.h:122
 msgid "translator-credits"
 msgstr ""
 
@@ -643,7 +654,8 @@ msgid "There was a problem removing the extension"
 msgstr ""
 
 #: ../../Jokosher/ExtensionManagerDialog.py:195
-msgid "Someone screwed up their preferences() function"
+msgid ""
+"An error occurred when trying to launch the preferences for the extension"
 msgstr ""
 
 #: ../../Jokosher/Extension.py:44
@@ -686,49 +698,41 @@ msgstr ""
 msgid "There are no instruments to connect"
 msgstr ""
 
-#: ../../Jokosher/InstrumentEffectsDialog.py:81
-#: ../../Jokosher/InstrumentViewer.py:151
+#: ../../Jokosher/InstrumentEffectsDialog.py:82
+#: ../../Jokosher/InstrumentViewer.py:152
 msgid "Instrument Effects"
 msgstr ""
 
-#: ../../Jokosher/InstrumentEffectsDialog.py:264
+#: ../../Jokosher/InstrumentEffectsDialog.py:265
 msgid "Effect Settings"
 msgstr ""
 
-#: ../../Jokosher/InstrumentViewer.py:127 ../../Jokosher/MixerStrip.py:73
+#: ../../Jokosher/InstrumentViewer.py:128 ../../Jokosher/MixerStrip.py:73
 msgid "Enable this instrument for recording"
 msgstr ""
 
-#: ../../Jokosher/InstrumentViewer.py:133
+#: ../../Jokosher/InstrumentViewer.py:134
 msgid "Mute - silence this instrument"
 msgstr ""
 
-#: ../../Jokosher/InstrumentViewer.py:140 ../../Jokosher/MixerStrip.py:85
+#: ../../Jokosher/InstrumentViewer.py:141 ../../Jokosher/MixerStrip.py:85
 msgid "Solo - silence all other instruments"
 msgstr ""
 
-#: ../../Jokosher/InstrumentViewer.py:286 ../../Jokosher/MixerStrip.py:147
+#: ../../Jokosher/InstrumentViewer.py:287 ../../Jokosher/MixerStrip.py:147
 msgid "Muted"
 msgstr ""
 
-#: ../../Jokosher/InstrumentViewer.py:289 ../../Jokosher/MixerStrip.py:150
+#: ../../Jokosher/InstrumentViewer.py:290 ../../Jokosher/MixerStrip.py:150
 msgid "Unmuted"
 msgstr ""
 
-#: ../../Jokosher/InstrumentViewer.py:358
-msgid "Instrument Effects..."
-msgstr ""
-
-#: ../../Jokosher/JokosherApp.py:131
-msgid "Currently working in the recording workspace"
+#: ../../Jokosher/JokosherApp.py:131 ../../Jokosher/JokosherApp.py:239
+msgid "Currently working in the Recording workspace"
 msgstr ""
 
 #: ../../Jokosher/JokosherApp.py:132 ../../Jokosher/JokosherApp.py:240
 msgid "Switch to the Mixing workspace"
-msgstr ""
-
-#: ../../Jokosher/JokosherApp.py:239
-msgid "Currently working in the Recording workspace"
 msgstr ""
 
 #: ../../Jokosher/JokosherApp.py:247
@@ -768,8 +772,8 @@ msgstr ""
 #: ../../Jokosher/JokosherApp.py:364
 msgid ""
 "You require the GStreamer channel splitting element to be able to record "
-"from multiple input devices. This can be downloaded from http://www.jokosher."
-"org/download."
+"from multiple input devices. This can be downloaded from "
+"http://www.jokosher.org/download."
 msgstr ""
 
 #: ../../Jokosher/JokosherApp.py:442
@@ -1142,3 +1146,7 @@ msgstr ""
 #~ "Wave\n"
 #~ "FLAC\n"
 #~ "Ogg Vorbis"
+
+#, fuzzy
+#~ msgid "Files Saves As"
+#~ msgstr "Lagre filer som"

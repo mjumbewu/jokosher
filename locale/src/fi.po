@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: jokosher\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-11-01 18:22-0500\n"
+"Report-Msgid-Bugs-To:\n"
+"POT-Creation-Date: 2006-11-02 07:43-0500\n"
 "PO-Revision-Date: 2006-08-14 20:41+0000\n"
 "Last-Translator: Mikko Virkkilä <mvirkkil@cc.hut.fi>\n"
 "Language-Team: Finnish <fi@li.org>\n"
@@ -222,11 +222,11 @@ msgid ""
 msgstr "Anna projektisi nimi ja valitse kansio jonne se tallennetaan:"
 
 #: ../../Jokosher/Jokosher.glade.h:50
-msgid "Enter the authors name"
+msgid "Enter the author's name"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:51
-msgid "Enter the projects name"
+msgid "Enter the project's name"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:52
@@ -359,7 +359,7 @@ msgid "Save the current project"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:84
-msgid "Save your connections and close this widow"
+msgid "Save your connections and close this window"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:85
@@ -442,7 +442,7 @@ msgid "Type here to search for an instrument"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:104
-msgid "Type the presets name"
+msgid "Type the preset's name"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:105
@@ -512,11 +512,7 @@ msgstr "Alas_mixausprojekti"
 msgid "_Project"
 msgstr "_Projekti"
 
-#: ../../Jokosher/Jokosher.glade.h:121
-msgid "foo"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:123
+#: ../../Jokosher/Jokosher.glade.h:122
 msgid "translator-credits"
 msgstr "kääntäjät"
 
@@ -634,7 +630,8 @@ msgid "There was a problem removing the extension"
 msgstr ""
 
 #: ../../Jokosher/ExtensionManagerDialog.py:195
-msgid "Someone screwed up their preferences() function"
+msgid ""
+"An error occurred when trying to launch the preferences for the extension"
 msgstr ""
 
 #: ../../Jokosher/Extension.py:44
@@ -677,49 +674,41 @@ msgstr ""
 msgid "There are no instruments to connect"
 msgstr "Ei liitettäviä soittimia"
 
-#: ../../Jokosher/InstrumentEffectsDialog.py:81
-#: ../../Jokosher/InstrumentViewer.py:151
+#: ../../Jokosher/InstrumentEffectsDialog.py:82
+#: ../../Jokosher/InstrumentViewer.py:152
 msgid "Instrument Effects"
 msgstr ""
 
-#: ../../Jokosher/InstrumentEffectsDialog.py:264
+#: ../../Jokosher/InstrumentEffectsDialog.py:265
 msgid "Effect Settings"
 msgstr ""
 
-#: ../../Jokosher/InstrumentViewer.py:127 ../../Jokosher/MixerStrip.py:73
+#: ../../Jokosher/InstrumentViewer.py:128 ../../Jokosher/MixerStrip.py:73
 msgid "Enable this instrument for recording"
 msgstr ""
 
-#: ../../Jokosher/InstrumentViewer.py:133
+#: ../../Jokosher/InstrumentViewer.py:134
 msgid "Mute - silence this instrument"
 msgstr ""
 
-#: ../../Jokosher/InstrumentViewer.py:140 ../../Jokosher/MixerStrip.py:85
+#: ../../Jokosher/InstrumentViewer.py:141 ../../Jokosher/MixerStrip.py:85
 msgid "Solo - silence all other instruments"
 msgstr ""
 
-#: ../../Jokosher/InstrumentViewer.py:286 ../../Jokosher/MixerStrip.py:147
+#: ../../Jokosher/InstrumentViewer.py:287 ../../Jokosher/MixerStrip.py:147
 msgid "Muted"
 msgstr ""
 
-#: ../../Jokosher/InstrumentViewer.py:289 ../../Jokosher/MixerStrip.py:150
+#: ../../Jokosher/InstrumentViewer.py:290 ../../Jokosher/MixerStrip.py:150
 msgid "Unmuted"
 msgstr ""
 
-#: ../../Jokosher/InstrumentViewer.py:358
-msgid "Instrument Effects..."
-msgstr "Soitintehosteet..."
-
-#: ../../Jokosher/JokosherApp.py:131
-msgid "Currently working in the recording workspace"
+#: ../../Jokosher/JokosherApp.py:131 ../../Jokosher/JokosherApp.py:239
+msgid "Currently working in the Recording workspace"
 msgstr ""
 
 #: ../../Jokosher/JokosherApp.py:132 ../../Jokosher/JokosherApp.py:240
 msgid "Switch to the Mixing workspace"
-msgstr ""
-
-#: ../../Jokosher/JokosherApp.py:239
-msgid "Currently working in the Recording workspace"
 msgstr ""
 
 #: ../../Jokosher/JokosherApp.py:247
@@ -731,7 +720,7 @@ msgid "Currently working in the Mixing workspace"
 msgstr ""
 
 #: ../../Jokosher/JokosherApp.py:304
-#, fuzzy, python-format
+#, fuzzy
 msgid ""
 "The instruments '%s' and '%s' both have the same input selected (%s). Please "
 "either disarm one, or connect it to a different input through 'Project -> "
@@ -766,8 +755,8 @@ msgstr ""
 #: ../../Jokosher/JokosherApp.py:364
 msgid ""
 "You require the GStreamer channel splitting element to be able to record "
-"from multiple input devices. This can be downloaded from http://www.jokosher."
-"org/download."
+"from multiple input devices. This can be downloaded from "
+"http://www.jokosher.org/download."
 msgstr ""
 
 #: ../../Jokosher/JokosherApp.py:442
@@ -790,7 +779,7 @@ msgid "Preparing to mixdown project"
 msgstr "Valmistellaan projektin alasmiksausta"
 
 #: ../../Jokosher/JokosherApp.py:501
-#, fuzzy, python-format
+#, fuzzy
 msgid "%d of %d seconds completed"
 msgstr "%d/%d sekuntia käsitelty"
 
@@ -896,8 +885,8 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"<big>Kaikki ominaisuudet eivät välttämättä toimi odotetusti tai lainkaan.</"
-"big>\n"
+"<big>Kaikki ominaisuudet eivät välttämättä toimi odotetusti tai "
+"lainkaan.</big>\n"
 "\n"
 "%s"
 
@@ -1177,15 +1166,34 @@ msgstr "Laulu"
 #~ "FLAC\n"
 #~ "Ogg Vorbis"
 
+#~ msgid "Instrument Effects..."
+#~ msgstr "Soitintehosteet..."
+
 #~ msgid ""
 #~ "<big>Notes about this release</big>\n"
 #~ "\n"
-#~ "This version of Jokosher (0.1) is a pre-release version, and is infact, "
-#~ "our very first release. As such, you may encounter some bugs and "
-#~ "functionality that is not present."
+#~ "This version of Jokosher (0.1) is a pre-release version, and is infact, our "
+#~ "very first release. As such, you may encounter some bugs and functionality "
+#~ "that is not present."
 #~ msgstr ""
 #~ "<big>Tietoja tästä juklaisusta</big>\n"
 #~ "\n"
 #~ "Tämä versio Jokosherista (0.1) on esi-julkaisuversio ja itseasiassa "
 #~ "ensimmäinen julkaisu koskaan. Tästä johtuen ohjelman toiminnallisuudessa "
 #~ "saattaa esiintyä virheitä tai puutteita."
+
+#, fuzzy
+#~ msgid "Files Saves As"
+#~ msgstr "Tiedosto Tallentaan"
+
+#~ msgid ""
+#~ "No channels capable of recording have found, please attach a device and try "
+#~ "again."
+#~ msgstr "Yhtään äänityskanavaa ei löytynyt. Liitä laite ja yritä uudestaan."
+
+#, python-format
+#~ msgid "The uri scheme '%s' is either invalid or not supported."
+#~ msgstr "URI:n tyyppiä '%s' ei tueta tai se on virheellinen."
+
+#~ msgid "The uri scheme given is either invalid or not supported"
+#~ msgstr "URI:n tyyppiä ei ole määritelty tai sitä ei tueta"
