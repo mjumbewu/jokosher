@@ -20,6 +20,8 @@ import gst
 from Monitored import *
 from Utils import *
 import os, Globals
+import gettext
+_ = gettext.gettext
 
 #=========================================================================
 
@@ -537,6 +539,25 @@ class Event(Monitored):
 	
 	#_____________________________________________________________________
 	
+	def bus_message_tags(self, bus, message):
+		""" Handler for catching audio file tags that Gstreamer throws at us. """
+		Globals.debug("recieved group of tags")
+		st = message.structure
+		
+		title, artist = None, None
+		if st.has_key("title"):
+			title = st["title"]
+		if st.has_key("artist"):
+			artist = st["artist"]
+		
+		#check which tags actually contain something
+		if title and artist:
+			self.name = _("%s by %s") % (title, artist)
+		elif title:
+			self.name = title
+	
+	#_____________________________________________________________________
+	
 	def GenerateWaveform(self):
 		""" Renders the level information for the GUI.
 		"""
@@ -547,6 +568,7 @@ class Event(Monitored):
 		self.bus = self.bin.get_bus()
 		self.bus.add_signal_watch()
 		self.bus.connect("message::element", self.bus_message)
+		self.bus.connect("message::tag", self.bus_message_tags)
 		self.bus.connect("message::state-changed", self.bus_message_statechange)
 		self.bus.connect("message::eos", self.bus_eos)
 		self.bus.connect("message::error", self.bus_error)
