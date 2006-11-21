@@ -12,7 +12,7 @@
 #
 #-------------------------------------------------------------------------------
 
-from CommandManager import *
+from UndoSystem import *
 import xml.dom.minidom as xml
 import pygst
 pygst.require("0.10")
@@ -23,7 +23,7 @@ import os, Globals
 
 #=========================================================================
 
-class Event(Monitored, CommandManaged):
+class Event(Monitored):
 	""" This class handles maintaing the information for a single audio 
 		event. This is normally a fragment of a recorded file.
 	"""
@@ -222,6 +222,7 @@ class Event(Monitored, CommandManaged):
 	
 	#_____________________________________________________________________
 	
+	@UndoCommand("Move", "start", "temp")
 	def Move(self, frm, to):
 		'''	Moves this Event.
 
@@ -229,8 +230,6 @@ class Event(Monitored, CommandManaged):
 				The time we're moving from.
 			to
 				The time we're moving to.
-
-			undo : Move: start, temp
 		'''
 		self.temp = frm
 		self.start = to
@@ -238,14 +237,13 @@ class Event(Monitored, CommandManaged):
 	
 	#_____________________________________________________________________
 	
+	@UndoCommand("Join", "temp")
 	def Split(self, split_point, id=-1):
 		'''
 			Splits this event at time offset split_point in seconds. If
 			id is specified, then the created event will be pulled from
 			the graveyard (for undo/redo compatibility). Returns the
 			newly created event, which is the one on the right (after the splitpoint).
-		
-			undo : Join: temp
 		'''		
 		if id == -1:
 			e = self.split_event(split_point)
@@ -272,13 +270,12 @@ class Event(Monitored, CommandManaged):
 		
 	#_____________________________________________________________________
 	
+	@UndoCommand("Split", "temp", "temp2")
 	def Join(self, joinEventID):
 		''' Joins 2 events together. 
 
 			joinEventID
 				The ID of the Event to join to this one.
-
-			undo : Split: temp, temp2
 		'''
 		event = [x for x in self.instrument.events if x.id == joinEventID][0]
 
@@ -390,17 +387,16 @@ class Event(Monitored, CommandManaged):
 		
 	#_____________________________________________________________________
 	
+	@UndoCommand("UndoTrim", "temp", "temp2")
 	def Trim(self, start_split, end_split):
-		""" Splits the event at points start_split and end_split
-		    and then deletes the first and last sections leaving only
-		    the middle section.
-
-		    start_split
-		   		The time for the start of the trim
+		""" 	Splits the event at points start_split and end_split
+			and then deletes the first and last sections leaving only
+			the middle section.
+			
+			start_split
+				The time for the start of the trim
 			end_split
 				The time for the end of the trim
-		   
-		    undo : UndoTrim: temp, temp2
 		"""
 		# Split off the left section of the event, then put it in the graveyard for undo
 		leftSplit = self.split_event(start_split, False)
@@ -420,11 +416,10 @@ class Event(Monitored, CommandManaged):
 		
 	#_____________________________________________________________________
 	
+	@UndoCommand("Trim", "temp", "temp2")
 	def UndoTrim(self, leftID, rightID):
 		"""Resurrects two pieces from the graveyard and joins them to
 		   either side of this event.
-		   
-		   undo : Trim: temp, temp2
 		"""
 		leftEvent = [x for x in self.instrument.graveyard if x.id == leftID][0]
 		rightEvent = [x for x in self.instrument.graveyard if x.id == rightID][0]
@@ -443,11 +438,10 @@ class Event(Monitored, CommandManaged):
 		
 	#_____________________________________________________________________
 	
+	@UndoCommand("Resurrect")
 	def Delete(self):
 		"""	Deletes this Event and sends it to the graveyard to reflect
 			on what it has done.
-
-			undo : Resurrect
 		"""
 		self.instrument.graveyard.append(self)
 		self.instrument.events.remove(self)
@@ -455,10 +449,9 @@ class Event(Monitored, CommandManaged):
 
 	#_____________________________________________________________________
 	
+	@UndoCommand("Delete")
 	def Resurrect(self):
 		""" Brings this Event back from the graveyard.
-
-			undo : Delete
 		"""
 		self.instrument.events.append(self)
 		self.instrument.graveyard.remove(self)
@@ -639,13 +632,12 @@ class Event(Monitored, CommandManaged):
 	
 	#_____________________________________________________________________
 	
+	@UndoCommand("RemoveAudioFadePoints", "temp", "temp2", "temp3", "temp4")
 	def AddAudioFadePoints(self, firstPoint, secondPoint, firstVolume, secondVolume):
 		"""
 		   Add the two passed points to the audioFadePoints list.
 		   If either point exists already, replace it, and resort
 		   the list by time.
-		   
-		   undo : RemoveAudioFadePoints: temp, temp2, temp3, temp4
 		"""
 		#for command manager to use with undo
 		self.temp = firstPoint
@@ -668,14 +660,13 @@ class Event(Monitored, CommandManaged):
 	
 	#_____________________________________________________________________
 	
+	@UndoCommand("AddAudioFadePoints", "temp", "temp2", "temp3", "temp4")
 	def RemoveAudioFadePoints(self, firstPoint, secondPoint, firstOldVolume=None, secondOldVolume=None):
 		"""
 		   Removed a point with values from the fade list.
 		   If firstOldVolume and secondOldVolume are given,
 		   the levels at the two points will be replaces with the
 		   old volumes instead of being removed.
-		    
-		   undo : AddAudioFadePoints: temp, temp2, temp3, temp4
 		"""
 		#undo values
 		self.temp = firstPoint

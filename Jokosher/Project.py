@@ -21,7 +21,7 @@ import shutil
 import re
 
 import TransportManager
-from CommandManager import *
+from UndoSystem import *
 import Globals
 import xml.dom.minidom as xml
 from Instrument import *
@@ -296,7 +296,7 @@ def LoadFromZPOFile(project, doc):
 
 #=========================================================================
 
-class Project(Monitored, CommandManaged):
+class Project(Monitored):
 	
 	""" This class maintains all of the information required about single
 		project.
@@ -1063,11 +1063,10 @@ class Project(Monitored, CommandManaged):
 
 	#_____________________________________________________________________
 	
+	@UndoCommand("DeleteInstrument", "temp")
 	def AddInstrument(self, name, type, pixbuf):
 		''' Adds a new instrument to the project,
 		   and return the ID for that instrument.
-		
-			undo : DeleteInstrument: temp
 		'''
 			
 		instr = Instrument(self, name, type, pixbuf)
@@ -1083,12 +1082,11 @@ class Project(Monitored, CommandManaged):
 		return instr.id
 		
 	#_____________________________________________________________________	
-		
+	
+	@UndoCommand("ResurrectInstrument", "temp")
 	def DeleteInstrument(self, id):
 		''' Removes the instrument matching id from the project.
 			id: Unique ID of the instument to remove.
-
-			undo : ResurrectInstrument: temp
 		'''
 		
 		instr = [x for x in self.instruments if x.id == id][0]
@@ -1105,10 +1103,9 @@ class Project(Monitored, CommandManaged):
 	
 	#_____________________________________________________________________
 	
+	@UndoCommand("DeleteInstrument", "temp")
 	def ResurrectInstrument(self, id):
 		''' Brings a deleted Instrument back from the graveyard.
-
-			undo : DeleteInstrument: temp
 		'''
 		instr = [x for x in self.graveyard if x.id == id][0]
 		
@@ -1124,12 +1121,11 @@ class Project(Monitored, CommandManaged):
 		
 	#_____________________________________________________________________
 	
+	@UndoCommand("MoveInstrument", "temp", "temp1")
 	def MoveInstrument(self, id, position):
 		'''	Move an instrument in the instrument list.
 			Used for drag and drop ordering of instruments in
 			InstrumentViewer.py
-			
-			undo : MoveInstrument: temp, temp1
 		'''
 		self.temp = id
 		instr = [x for x in self.instruments if x.id == id][0]
@@ -1256,11 +1252,10 @@ class Project(Monitored, CommandManaged):
 	
 	#_____________________________________________________________________
 	
+	@UndoCommand("SetTransportMode", "temp")
 	def SetTransportMode(self, val):
 		"""
-			Sets the Mode in the Transportmanager. Used to enable Undo/Redo.
-			
-			undo : SetTransportMode: temp
+		   Sets the Mode in the Transportmanager. Used to enable Undo/Redo.
 		"""
 		self.temp = self.transport.mode
 		self.transport.SetMode(val)

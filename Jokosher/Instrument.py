@@ -13,7 +13,7 @@
 #-------------------------------------------------------------------------------
 
 from Event import *
-from CommandManager import *
+from UndoSystem import *
 import pygst
 pygst.require("0.10")
 import gst
@@ -29,7 +29,7 @@ import AlsaDevices
 
 #=========================================================================	
 
-class Instrument(Monitored, CommandManaged):
+class Instrument(Monitored):
 	
 	#StateChanged constants
 	IMAGE, VOLUME = range(2)
@@ -323,6 +323,7 @@ class Instrument(Monitored, CommandManaged):
 			
 	#_____________________________________________________________________
 
+	@UndoCommand("DeleteEvent", "temp")
 	def addEventFromFile(self, start, file, copyfile=False):
 		''' Adds an event to this instrument, and attaches the specified
 			file to it. 
@@ -330,8 +331,6 @@ class Instrument(Monitored, CommandManaged):
 			start - The offset time in seconds
 			file - file path
 			copyfile - if True copy file to project audio dir
-			
-			undo : DeleteEvent: temp
 		'''
 		filelabel=file
 
@@ -366,7 +365,7 @@ class Instrument(Monitored, CommandManaged):
 		
 	#_____________________________________________________________________
 	
-	
+	@UndoCommand("DeleteEvent", "temp")
 	def addEventFromURL(self, start, url):
 		''' Adds an event to this instrument, and downloads the specified
 			URL and saves it against this event.
@@ -375,8 +374,6 @@ class Instrument(Monitored, CommandManaged):
 			file - file path
 			
 			NB: there is no copyfile option here, because it's mandatory.
-			
-			undo : DeleteEvent: temp
 		'''
 		
 		# no way of knowing whether there's a filename, so make one up
@@ -396,13 +393,17 @@ class Instrument(Monitored, CommandManaged):
 		  PRIORITY_DEFAULT, [audio_file, start, e])
 
 		return e
-		
+	
+	#_____________________________________________________________________
+	
 	def __got_url_handle(self, handle, param, callbackdata):
 		"""Called once gnomevfs has an object that we can read data from"""
 		audio_file, start, event = callbackdata
 		fp = open(audio_file, 'wb')
 		handle.read(1024, self.__async_read_callback, [fp, start, event])
-		
+	
+	#_____________________________________________________________________
+	
 	def __async_read_callback(self, handle, data, iserror, length, callbackdata):
 		fp, start, event = callbackdata
 		fp.write(data)
@@ -420,16 +421,14 @@ class Instrument(Monitored, CommandManaged):
 			event.GenerateWaveform()
 			self.StateChanged()
 		
-		
 	#_____________________________________________________________________
 	
+	@UndoCommand("DeleteEvent", "temp")
 	def addEventFromEvent(self, start, event):
 		"""Creates a new event instance identical to the event parameter 
 		   and adds it to this instrument (for paste functionality).
 		      start - The offset time in seconds
 		      event - The event to be recreated on this instrument
-		      
-		      undo : DeleteEvent: temp
 		"""
 		e = Event(self, event.file)
 		e.start = start
@@ -504,11 +503,11 @@ class Instrument(Monitored, CommandManaged):
 
 	#_____________________________________________________________________
 	
+	@UndoCommand("SetName", "temp")
 	def SetName(self, name):
-		"""Sets the instrument to the given name
+		"""
+		   Sets the instrument to the given name
 		   so it can be registered in the undo stack
-		
-		   undo : SetName: temp
 		"""
 		if self.name != name:
 			self.temp = self.name
@@ -517,20 +516,20 @@ class Instrument(Monitored, CommandManaged):
 	
 	#_____________________________________________________________________
 	
+	@UndoCommand("ToggleArmed")
 	def ToggleArmed(self):
-		"""Toggles the instrument to be armed for recording
-		
-		   undo : ToggleArmed
+		"""
+		   Toggles the instrument to be armed for recording
 		"""
 		self.isArmed = not self.isArmed
 		self.StateChanged()
 		
 	#_____________________________________________________________________
 	
+	@UndoCommand("ToggleMuted", "temp")
 	def ToggleMuted(self, wasSolo):
-		"""Toggles the instrument to be muted
-		
-		   undo : ToggleMuted: temp
+		"""
+		   Toggles the instrument to be muted
 		"""
 		self.temp = self.isSolo
 		self.isMuted = not self.isMuted
@@ -549,10 +548,10 @@ class Instrument(Monitored, CommandManaged):
 	
 	#_____________________________________________________________________
 	
+	@UndoCommand("ToggleSolo", "temp")
 	def ToggleSolo(self, wasMuted):
-		"""Toggles the all the other instruments muted
-		
-		   undo : ToggleSolo: temp
+		"""
+		   Toggles the all the other instruments muted
 		"""
 		self.temp = self.isMuted
 		self.isMuted = wasMuted
@@ -569,10 +568,10 @@ class Instrument(Monitored, CommandManaged):
 	
 	#_____________________________________________________________________
 	
+	@UndoCommand("SetVisible", "temp")
 	def SetVisible(self, visible):
-		"""Sets wheather the instrument is minimized in CompactMixView
-		
-		   undo : SetVisible: temp
+		"""
+		   Sets wheather the instrument is minimized in CompactMixView
 		"""
 		if self.isVisible != visible:
 			self.temp = self.isVisible
@@ -582,7 +581,8 @@ class Instrument(Monitored, CommandManaged):
 	#_____________________________________________________________________
 	
 	def SetSelected(self, sel):
-		"""Sets the instrument to be highlighted 
+		"""
+		   Sets the instrument to be highlighted 
 		   and receive keyboard actions
 		"""
 		# No need to call StateChanged when there is no change in selection state
@@ -710,13 +710,12 @@ class Instrument(Monitored, CommandManaged):
 
 	#_____________________________________________________________________
 
+	@UndoCommand("ChangeType", "temp", "temp2")
 	def ChangeType(self, type, name):
 		"""
 		   Changes the intruments type to the type specified.
 		   The given type must be loaded in the instrument list
 		   in Globals or the image will not be found.
-		   
-		   undo : ChangeType: temp, temp2
 		"""
 		
 		self.temp = self.instrType
