@@ -725,6 +725,19 @@ class MainApp:
 				outputtext)
 			dlg.connect('response', lambda dlg, response: dlg.destroy())
 			dlg.show()
+			
+		elif change == "transport-mode":
+			if self.settingButtons:
+				return
+			self.settingButtons = True
+			a = self.wTree.get_widget("show_as_bars_beats_ticks")
+			b = self.wTree.get_widget("show_as_hours_minutes_seconds")
+			t = self.project.transport
+			
+			a.set_active(t.mode == t.MODE_BARS_BEATS)
+			b.set_active(t.mode == t.MODE_HOURS_MINS_SECS)
+			
+			self.settingButtons = False
 		
 	#_____________________________________________________________________
 
@@ -1012,18 +1025,12 @@ class MainApp:
 	#_____________________________________________________________________
 	
 	def OnProjectMenu(self, widget):
-		#HACK: when project menu opens, put the time format to the right
-		#one so that we don't have to monitor transportmanager
+		#HACK: when project menu opens, set sensitivity so we don't
+		#have to monitor all the selection changes
 		if self.settingButtons:
-			return
+				return
 		self.settingButtons = True
-		a = self.wTree.get_widget("show_as_bars_beats_ticks")
-		b = self.wTree.get_widget("show_as_hours_minutes_seconds")
-		transport = self.project.transport
 		
-		a.set_active(transport.mode == transport.MODE_BARS_BEATS)
-		b.set_active(transport.mode == transport.MODE_HOURS_MINS_SECS)
-
 		instrSelected = False
 		if self.project:
 			for instr in self.project.instruments:
@@ -1076,6 +1083,8 @@ class MainApp:
 			
 		self.project = project
 		self.project.AddListener(self)
+		self.project.transport.AddListener(self)
+		self.OnStateChanged(change="transport-mode")
 		self.InsertRecentProject(project.projectfile, project.name)
 		
 		Project.GlobalProjectObject = project

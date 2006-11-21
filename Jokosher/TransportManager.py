@@ -167,7 +167,7 @@ class TransportManager(Monitored):
 		if self.mode != mode:
 			self.mode = mode
 			self.RedrawTimeLine = True
-			self.StateChanged()
+			self.StateChanged("transport-mode", mode)
 		
 	#_____________________________________________________________________
 	
@@ -203,7 +203,7 @@ class TransportManager(Monitored):
 		"""
 		if self.bpm != bpm:
 			self.bpm = bpm
-			self.StateChanged()
+			self.StateChanged("transport-bpm")
 		
 	#_____________________________________________________________________
 
@@ -214,7 +214,7 @@ class TransportManager(Monitored):
 		if self.meter_nom != nom or self.meter_denom != denom:
 			self.meter_nom = nom
 			self.meter_denom = denom
-			self.StateChanged()
+			self.StateChanged("transport-time-sig")
 
 	#_____________________________________________________________________
 	
