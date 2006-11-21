@@ -177,7 +177,7 @@ class InstrumentEffectsDialog:
 
 	#_____________________________________________________________________
 
-	def OnStateChanged(self,obj,change=None):
+	def OnStateChanged(self,obj,change=None, *extra):
 
 		# check self.isPlaying to see if the project is playing already
 		if change== "play":

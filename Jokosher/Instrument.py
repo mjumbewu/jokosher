@@ -31,9 +31,6 @@ import AlsaDevices
 
 class Instrument(Monitored):
 	
-	#StateChanged constants
-	IMAGE, VOLUME = range(2)
-	
 	#_____________________________________________________________________
 	
 	def __init__(self, project, name, type, pixbuf, id=None):
@@ -499,7 +496,7 @@ class Instrument(Monitored):
 		if self.volume != volume:
 			self.volume = volume
 			self.volumeElement.set_property("volume", volume)
-			self.StateChanged(self.VOLUME)
+			self.StateChanged("volume")
 
 	#_____________________________________________________________________
 	
@@ -735,7 +732,7 @@ class Instrument(Monitored):
 		self.instrType = type
 		self.pixbuf = pixbuf
 
-		self.StateChanged(self.IMAGE)
+		self.StateChanged("image")
 
 	#_____________________________________________________________________
 

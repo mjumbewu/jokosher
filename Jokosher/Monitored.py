@@ -46,13 +46,15 @@ class Monitored:
 			
 	#_____________________________________________________________________
 			
-	def StateChanged(self,change=None):
+	def StateChanged(self, change=None, *extra):
 		"""This function should be called when we want a change to be reported to all objects previously added by AddListener. 
 		
 		Keyword arguments:
-		change -- The change which has occured (optional)."""
+		change -- The change which has occured (optional).
+		extra -- Any extra parameters that should be passed (optional).
+		"""
 		for obj in self.listeners:
-			obj.OnStateChanged(self,change)
+			obj.OnStateChanged(self, change, *extra)
 			
 	#_____________________________________________________________________
 	

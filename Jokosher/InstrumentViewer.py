@@ -422,8 +422,8 @@ class InstrumentViewer(gtk.EventBox):
 	
 	#_____________________________________________________________________
 	
-	def OnStateChanged(self, obj, change=None):
-		if change == self.instrument.IMAGE:
+	def OnStateChanged(self, obj, change=None, *extra):
+		if change == "image":
 			self.image.clear()
 			self.image.set_from_pixbuf(self.instrument.pixbuf)
 	

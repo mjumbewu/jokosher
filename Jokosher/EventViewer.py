@@ -683,7 +683,7 @@ class EventViewer(gtk.DrawingArea):
 
 	#_____________________________________________________________________
 	
-	def OnStateChanged(self, obj, change=None):
+	def OnStateChanged(self, obj, change=None, *extra):
 		if change == self.event.WAVEFORM:
 			self.redrawWaveform = True
 			self.UpdateFadeMarkers()

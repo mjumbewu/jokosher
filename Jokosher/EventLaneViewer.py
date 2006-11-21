@@ -311,7 +311,7 @@ class EventLaneViewer(gtk.EventBox):
 	
 	#_____________________________________________________________________
 	
-	def OnStateChanged(self, obj, change=None):
+	def OnStateChanged(self, obj, change=None, *extra):
 		"""
 			Called on a change of state in any of the objacts we are interested in.
 			If there's a project or instrument change then redraw everything,

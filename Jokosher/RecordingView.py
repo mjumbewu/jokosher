@@ -287,14 +287,13 @@ class RecordingView(gtk.Frame):
 		
 	#_____________________________________________________________________
 	
-	def OnStateChanged(self, obj, change=None):
+	def OnStateChanged(self, obj, change=None, *extra):
 		"""
 			Called on a change of state in any objects that this object
 			is listening to.
 		"""
-		#HACK because we don't have an instance of instrument we can easily access.
-		#in case there are no instruments, we update (hence the "not")
-		if not self.project.instruments or change != self.project.instruments[0].VOLUME:
+		#don't update on volume change because it happens very often
+		if change != "volume":
 			self.Update()
 		
 	#_____________________________________________________________________	

@@ -44,7 +44,7 @@ class TimeView(gtk.EventBox):
 			
 	#_____________________________________________________________________
 	
-	def OnStateChanged(self, obj, change=None):
+	def OnStateChanged(self, obj, change=None, *extra):
 		self.UpdateTime()
 	
 	#_____________________________________________________________________

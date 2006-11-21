@@ -679,11 +679,9 @@ class MainApp:
 
 	#_____________________________________________________________________
 	
-	def OnStateChanged(self, obj=None, change=None):
+	def OnStateChanged(self, obj=None, change=None, *extra):
 		#for when undo and redo history change
 
-		#only change toggle states for stop if we're in play mode
-		#(record looks after itself OK)
 		if change=="play" or (change == "stop" and self.isPlaying):
 			self.isPlaying = not self.isPlaying
 			self.stop.set_sensitive(self.isPlaying)
@@ -692,7 +690,7 @@ class MainApp:
 			self.settingButtons = True
 			self.play.set_active(self.isPlaying)
 			self.settingButtons = False
-			return
+		
 		elif change == "record" or (change == "stop" and self.isRecording):
 			self.isRecording = not self.isRecording
 			self.stop.set_sensitive(self.isRecording)
@@ -701,17 +699,32 @@ class MainApp:
 			self.settingButtons = True
 			self.record.set_active(self.isRecording)
 			self.settingButtons = False
-			return
-
-		undo = len(self.project.undoStack) or len(self.project.savedUndoStack)
-		self.undo.set_sensitive(undo)
-		redo = len(self.project.redoStack) or len(self.project.savedRedoStack)
-		self.redo.set_sensitive(redo)
 		
-		if self.project.CheckUnsavedChanges():
-			self.window.set_title(_('*%s - Jokosher') % self.project.name)
-		else:
-			self.window.set_title(_('%s - Jokosher') % self.project.name)
+		elif change == "undo":
+			undo = len(self.project.undoStack) or len(self.project.savedUndoStack)
+			self.undo.set_sensitive(undo)
+			redo = len(self.project.redoStack) or len(self.project.savedRedoStack)
+			self.redo.set_sensitive(redo)
+		
+			if self.project.CheckUnsavedChanges():
+				self.window.set_title(_('*%s - Jokosher') % self.project.name)
+			else:
+				self.window.set_title(_('%s - Jokosher') % self.project.name)
+				
+		elif change == "gst-bus-error":
+			introstring = _("Argh! Something went wrong and a serious error occurred:")
+			outrostring = _("It is recommended that you report this to the Jokosher developers or get help at http://www.jokosher.org/forums/")
+		
+			outputtext = "\n\n".join(extra)
+			outputtext = "\n\n".join((introstring, outputtext, outrostring))
+			
+			dlg = gtk.MessageDialog(self.window,
+				gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
+				gtk.MESSAGE_ERROR,
+				gtk.BUTTONS_CLOSE,
+				outputtext)
+			dlg.connect('response', lambda dlg, response: dlg.destroy())
+			dlg.show()
 		
 	#_____________________________________________________________________
 
@@ -907,7 +920,7 @@ class MainApp:
 				c.set_sensitive(True)
 			
 			#set undo/redo if there is saved undo history
-			self.OnStateChanged()
+			self.OnStateChanged(change="undo")
 				
 			# Create our custom widgets
 			self.timeview = TimeView.TimeView(self.project)
@@ -1063,7 +1076,6 @@ class MainApp:
 			
 		self.project = project
 		self.project.AddListener(self)
-		self.project.BusErrorCallback = self.ShowPipelineErrorDialog
 		self.InsertRecentProject(project.projectfile, project.name)
 		
 		Project.GlobalProjectObject = project
@@ -1167,23 +1179,6 @@ class MainApp:
 		dlg.run()
 		dlg.destroy()
 	
-	#_____________________________________________________________________
-	
-	def ShowPipelineErrorDialog(self, *messages):
-		introstring = "Argh! Something went wrong and a serious error occurred:"
-		outrostring = "It is recommended that you report this to the Jokosher developers or get help at http://www.jokosher.org/forums/"
-		
-		outputtext = "\n\n".join(messages)
-		outputtext = "\n\n".join((introstring, outputtext, outrostring))
-		
-		dlg = gtk.MessageDialog(self.window,
-			gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
-			gtk.MESSAGE_ERROR,
-			gtk.BUTTONS_CLOSE,
-			outputtext)
-		dlg.connect('response', lambda dlg, response: dlg.destroy())
-		dlg.show()
-
 	#_____________________________________________________________________
 
 	def OnExtensionManagerDialog(self, widget):

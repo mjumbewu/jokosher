@@ -459,7 +459,6 @@ class Project(Monitored):
 		self.Mhandler = self.bus.connect("message", self.bus_message)
 		self.EOShandler = self.bus.connect("message::eos", self.stop)
 		self.Errorhandler = self.bus.connect("message::error", self.bus_error)
-		self.BusErrorCallback = None
 		
 		self.mainpipeline.add(self.playbackbin)
 		
@@ -663,8 +662,7 @@ class Project(Monitored):
 		error, debug = message.parse_error()
 		
 		Globals.debug("Gstreamer bus error:", str(error), str(debug))
-		if self.BusErrorCallback:
-			self.BusErrorCallback(str(error), str(debug))
+		self.StateChanged("gst-bus-error", str(error), str(debug))
 
 	#_____________________________________________________________________
 				
@@ -930,7 +928,7 @@ class Project(Monitored):
 			#if the saving doesn't fail, move it to the proper location
 			os.rename(path + "~", path)		
 		
-		self.StateChanged()
+		self.StateChanged("undo")
 	
 	#_____________________________________________________________________
 
@@ -1015,7 +1013,7 @@ class Project(Monitored):
 				#since there is no other record that something has 
 				#changed after savedRedoStack is purged
 				self.unsavedChanges = True
-		self.StateChanged()
+		self.StateChanged("undo")
 	
 	#_____________________________________________________________________
 	
