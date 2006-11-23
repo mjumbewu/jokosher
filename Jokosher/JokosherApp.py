@@ -309,6 +309,9 @@ class MainApp:
 		for i in self.project.instruments:
 			if i.isArmed:
 				canRecord = True
+				
+		if not self.project.instruments:
+			print self.project.instruments
 
 		#Check to see if any instruments are trying to use the same input channel
 		usedChannels = {}
@@ -335,12 +338,16 @@ class MainApp:
 					usedChannels[instr.input] = {instr.inTrack : instr.name}
 				
 		if not canRecord:
-			Globals.debug("not can record")
+			Globals.debug("can not record")
+			if self.project.instruments:
+				errmsg = "No instruments are armed for recording. You need to arm an instrument before you can begin recording."
+			else:
+				errmsg = "No instruments have been added. You must add an instrument before recording"
 			dlg = gtk.MessageDialog(self.window,
 				gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
 				gtk.MESSAGE_INFO,
 				gtk.BUTTONS_CLOSE,
-				_("No instruments are armed for recording. You need to arm an instrument before you can begin recording."))
+				_(errmsg))
 			dlg.connect('response', lambda dlg, response: dlg.destroy())
 			dlg.run()
 			self.settingButtons = True
