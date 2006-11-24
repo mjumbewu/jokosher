@@ -309,9 +309,6 @@ class MainApp:
 		for i in self.project.instruments:
 			if i.isArmed:
 				canRecord = True
-				
-		if not self.project.instruments:
-			print self.project.instruments
 
 		#Check to see if any instruments are trying to use the same input channel
 		usedChannels = {}
