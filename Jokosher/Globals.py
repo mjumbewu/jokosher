@@ -24,7 +24,7 @@ class Settings:
 			   "recentprojects": "value", 
 			   "startupaction" : "value",
 			   "projectfolder" : "" }
-	recording = {"fileformat": "vorbisenc ! oggmux", "samplerate": "44100 Hz"}
+	recording = {"fileformat": "vorbisenc ! oggmux", "samplerate": "44100"}
 	playback = {"device": "value", "devicecardnum": "value"}
 	extensions = {"extensions_blacklist": ""}
 	

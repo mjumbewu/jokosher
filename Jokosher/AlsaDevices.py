@@ -73,11 +73,17 @@ def GetRecordingMixers(device):
 
 #_____________________________________________________________________
 
-def GetRecordingSampleRate():
+def GetRecordingSampleRate(device="default"):
+	""" 
+	   May return any of the following depending on the sound card:
+	   1) an int representing the only supported sample rate
+	   2) an IntRange class with IntRange.low and IntRange.high being the min and max sample rates
+	   3) a list of ints representing all the supported sample rates
+	"""
 	element = gst.element_factory_make("alsasrc", "alsasrc")
 
 	# must set proper device to get precise caps
-	element.set_property("device", "hw:0")
+	element.set_property("device", device)
 
 	# open device (so caps are probed)
 	element.set_state(gst.STATE_READY)
@@ -87,8 +93,7 @@ def GetRecordingSampleRate():
 
 	val = None
 	try:
-		minrate = caps[0]["rate"].low
-		maxrate = caps[0]["rate"].high
+		val = caps[0]["rate"]
 	except KeyError:
 		pass
 		
@@ -96,8 +101,8 @@ def GetRecordingSampleRate():
 	element.set_state(gst.STATE_NULL)
 	del element
 	
-	return minrate, maxrate
-		
+	return val
+	
 #_____________________________________________________________________
 
 def GetChannelsOffered(device):

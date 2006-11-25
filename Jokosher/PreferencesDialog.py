@@ -14,6 +14,8 @@ import AlsaDevices
 import pygst
 pygst.require("0.10")
 import gst
+import gettext
+_ = gettext.gettext
 
 STARTUP_WELCOME_DIALOG = "welcome"
 STARTUP_LAST_PROJECT = "lastproject"
@@ -54,14 +56,40 @@ class PreferencesDialog:
 		#Find all ALSA devices 
 		self.playbacks = AlsaDevices.GetAlsaList("playback")
 		for playback in self.playbacks:
-			print playback
 			self.playingDevice.append_text(playback)
 			
 		#Get available sample rates from ALSA
-		min_sample_rate, max_sample_rate = AlsaDevices.GetRecordingSampleRate()
-		for rate in Globals.SAMPLE_RATES:
-			if rate >= min_sample_rate and rate <= max_sample_rate:
-				self.samplingRate.append_text(str(rate)+" Hz")
+		sample_values = AlsaDevices.GetRecordingSampleRate()
+		sampleRateSetting = Globals.settings.recording["samplerate"]
+		sampleRateSettingIndex = 0
+		if type(sample_values) == int:
+			self.samplingRate.append_text("%d %s" % (sample_values, _("Hz")))
+			sampleRateSettingIndex = 0
+		elif type(sample_values) == list:
+			for rate in sample_values:
+				self.samplingRate.append_text("%d %s" % (rate, _("Hz")))
+				if str(rate) == sampleRateSetting:
+					sampleRateSettingIndex = sample_values.index(rate)
+				
+		elif hasattr(sample_values, "low") and hasattr(sample_values, "high"):
+			try:
+				#try to convert the setting string to an int
+				rate = int(sampleRateSetting)
+			except:
+				pass
+			else:
+				#since the card supports a range of samples rates, the saved preference
+				#might not be in Globals.SAMPLE_RATES
+				if rate not in Globals.SAMPLE_RATES:
+					if sample_values.low <= rate <= sample_values.high:
+						self.samplingRate.append_text("%d %s" % (rate, _("Hz")))
+						sampleRateSettingIndex = 0
+			#add the rest of the default sample rates if they are within the supported range
+			for rate in Globals.SAMPLE_RATES:
+				if sample_values.low <= rate <= sample_values.high:
+					self.samplingRate.append_text("%d %s" % (rate, _("Hz")))
+					if str(rate) == sampleRateSetting:
+						sampleRateSettingIndex = Globals.SAMPLE_RATES.index(rate)
 		
 		fileFormatSetting = Globals.settings.recording["fileformat"]
 		fileFormatSettingIndex = 0
@@ -74,8 +102,8 @@ class PreferencesDialog:
 		#Load settings - set to True to make sure data isn't saved to file until everything is loaded
 		self.loading = True
 		self.recordingFileFormat.set_active(fileFormatSettingIndex)
+		self.samplingRate.set_active(sampleRateSettingIndex)
 		self.LoadSetting(self.playingDevice, Globals.settings.playback, "device")
-		self.LoadSetting(self.samplingRate, Globals.settings.recording, "samplerate")
 		self.loading = False
 
 		# configure the application startup radio buttons
@@ -136,7 +164,8 @@ class PreferencesDialog:
 		
 		exportDict = Globals.EXPORT_FORMATS[self.recordingFileFormat.get_active()]
 		Globals.settings.recording["fileformat"] = exportDict["pipeline"]
-		Globals.settings.recording["samplerate"] = self.samplingRate.get_active_text()
+		#only get the number from "44100 Hz", not the whole string
+		Globals.settings.recording["samplerate"] = self.samplingRate.get_active_text().split(" ")[0]
 		Globals.settings.playback["device"] = self.playingDevice.get_active_text()
 		Globals.settings.playback["devicecardnum"] = self.playbacks[self.playingDevice.get_active_text()]		
 		
