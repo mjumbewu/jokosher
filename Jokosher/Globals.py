@@ -24,7 +24,7 @@ class Settings:
 			   "recentprojects": "value", 
 			   "startupaction" : "value",
 			   "projectfolder" : "" }
-	recording = {"device": "value", "fileformat": "vorbisenc ! oggmux", "devicecardnum": "value"}
+	recording = {"fileformat": "vorbisenc ! oggmux", "samplerate": "44100 Hz"}
 	playback = {"device": "value", "devicecardnum": "value"}
 	extensions = {"extensions_blacklist": ""}
 	
@@ -277,6 +277,8 @@ _export_formats = [	("Ogg Vorbis", "ogg", "vorbisenc ! oggmux"),
 					("WAV", "wav", "wavenc"),
 				]
 EXPORT_FORMATS = []
+
+SAMPLE_RATES = [8000, 11025, 22050, 32000, 44100, 48000, 96000, 192000]
 	
 #init Settings
 settings = Settings()

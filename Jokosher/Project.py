@@ -534,20 +534,41 @@ class Project(Monitored):
 				recordingbin = gst.element_factory_make("bin")
 				src = gst.element_factory_make("alsasrc")
 				src.set_property("device", device)
+				capsfilter = gst.element_factory_make("capsfilter")
+				caps = gst.caps_from_string("audio/x-raw-int,rate=%s,channels=2"%(Globals.settings.recording["samplerate"].replace(" Hz", "")))
+				capsfilter.set_property("caps", caps)
 				split = gst.element_factory_make("chansplit")
 				recordingbin.add(src)
+				recordingbin.add(capsfilter)
 				recordingbin.add(split)
-				src.link(split)
+				src.link(capsfilter)
+				capsfilter.link(split)
 				split.connect("pad-added", self.split_pad, recInstruments, recordingbin)
 				Globals.debug("Recording in multi-input mode")
 			else:
 				instr = recInstruments[0]
 				event = instr.getNewEvent()
 				encodePipeline = Globals.settings.recording["fileformat"]
-				output = " ! audioconvert ! %s ! filesink location=%s"%(encodePipeline, event.file.replace(" ", "\ "))
-				Globals.debug("Using pipeline: alsasrc device=%s%s"%(device, output))
+				output = "audioconvert ! %s ! filesink location=%s"%(encodePipeline, event.file.replace(" ", "\ "))
+				out = gst.gst_parse_bin_from_description(output, True)
+				Globals.debug("Using pipeline: alsasrc device=%s%s ! "%(device, output))
 				Globals.debug("Using input track: %s"%instr.inTrack)
-				recordingbin = gst.parse_launch("bin.( alsasrc device=%s %s )"%(device, output))
+				
+				recordingbin = gst.element_factory_make("bin")
+				src = gst.element_factory_make("alsasrc")
+				src.set_property("device", device)
+				recordingbin.add(src)
+				
+				#recordingbin = gst.parse_launch("bin.( alsasrc device=%s %s )s"%(device, output))
+				
+				capsfilter = gst.element_factory_make("capsfilter", "recordingcaps")
+				caps = gst.caps_from_string("audio/x-raw-int,rate=%s,channels=2"%(Globals.settings.recording["samplerate"].replace(" Hz", "")))
+				capsfilter.set_property("caps", caps)
+				recordingbin.add(capsfilter)
+				recordingbin.add(out)
+				src.link(capsfilter)
+				capsfilter.link(out)
+				
 				self.recordingEvents[instr] = (event, recordingbin)
 				Globals.debug("Recording in single-input mode")
 

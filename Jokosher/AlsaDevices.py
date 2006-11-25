@@ -73,7 +73,7 @@ def GetRecordingMixers(device):
 
 #_____________________________________________________________________
 
-def GetRecordingSampleRate(device):
+def GetRecordingSampleRate():
 	element = gst.element_factory_make("alsasrc", "alsasrc")
 
 	# must set proper device to get precise caps
@@ -87,7 +87,8 @@ def GetRecordingSampleRate(device):
 
 	val = None
 	try:
-		val = caps[0]["rate"]
+		minrate = caps[0]["rate"].low
+		maxrate = caps[0]["rate"].high
 	except KeyError:
 		pass
 		
@@ -95,8 +96,8 @@ def GetRecordingSampleRate(device):
 	element.set_state(gst.STATE_NULL)
 	del element
 	
-	return val
-	
+	return minrate, maxrate
+		
 #_____________________________________________________________________
 
 def GetChannelsOffered(device):
@@ -129,3 +130,6 @@ def GetChannelsOffered(device):
 
 	src.set_state(gst.STATE_NULL)
 	return numChannels
+
+if __name__ == "__main__":
+	print GetRecordingSampleRate()

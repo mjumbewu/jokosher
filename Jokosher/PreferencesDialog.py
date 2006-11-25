@@ -45,6 +45,7 @@ class PreferencesDialog:
 		self.dlg = self.res.get_widget("PreferencesDialog")
 		self.dlg.set_icon(icon)
 		self.recordingFileFormat = self.res.get_widget("recordingFileFormat")
+		self.samplingRate = self.res.get_widget("samplingRate")
 		self.playingDevice = self.res.get_widget("playbackDevice")
 		self.radioWelcome = self.res.get_widget("startupWelcomeDialog")
 		self.radioLastProject = self.res.get_widget("startupLastProject")
@@ -53,7 +54,14 @@ class PreferencesDialog:
 		#Find all ALSA devices 
 		self.playbacks = AlsaDevices.GetAlsaList("playback")
 		for playback in self.playbacks:
+			print playback
 			self.playingDevice.append_text(playback)
+			
+		#Get available sample rates from ALSA
+		min_sample_rate, max_sample_rate = AlsaDevices.GetRecordingSampleRate()
+		for rate in Globals.SAMPLE_RATES:
+			if rate >= min_sample_rate and rate <= max_sample_rate:
+				self.samplingRate.append_text(str(rate)+" Hz")
 		
 		fileFormatSetting = Globals.settings.recording["fileformat"]
 		fileFormatSettingIndex = 0
@@ -67,6 +75,7 @@ class PreferencesDialog:
 		self.loading = True
 		self.recordingFileFormat.set_active(fileFormatSettingIndex)
 		self.LoadSetting(self.playingDevice, Globals.settings.playback, "device")
+		self.LoadSetting(self.samplingRate, Globals.settings.recording, "samplerate")
 		self.loading = False
 
 		# configure the application startup radio buttons
@@ -127,6 +136,7 @@ class PreferencesDialog:
 		
 		exportDict = Globals.EXPORT_FORMATS[self.recordingFileFormat.get_active()]
 		Globals.settings.recording["fileformat"] = exportDict["pipeline"]
+		Globals.settings.recording["samplerate"] = self.samplingRate.get_active_text()
 		Globals.settings.playback["device"] = self.playingDevice.get_active_text()
 		Globals.settings.playback["devicecardnum"] = self.playbacks[self.playingDevice.get_active_text()]		
 		
