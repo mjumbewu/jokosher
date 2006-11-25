@@ -171,7 +171,7 @@ class ExtensionAPI:
 		   1: bad URI or file could not be loaded
 		   2: instrument with id 'instr_id' not found
 		"""
-		for instr in self.mainapp.projects.instruments:
+		for instr in self.mainapp.project.instruments:
 			if instr.id == instr_id:
 				instr.addEventFromFile(position, uri)
 				#TODO: find out if the add failed and return 1

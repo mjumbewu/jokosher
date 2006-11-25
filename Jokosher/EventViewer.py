@@ -707,7 +707,7 @@ class EventViewer(gtk.DrawingArea):
 			dlg.show()
 			self.OnDelete()
 	
-		elif type(obj) == Project.Project and self.currentScale != self.project.viewScale:
+		elif obj.__class__ == Project.Project and self.currentScale != self.project.viewScale:
 			self.redrawWaveform = True
 			self.queue_resize()
 			self.last_num_levels = len(self.event.levels)
