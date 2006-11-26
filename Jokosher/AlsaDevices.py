@@ -80,29 +80,43 @@ def GetRecordingSampleRate(device="hw:0"):
 	   2) an IntRange class with IntRange.low and IntRange.high being the min and max sample rates
 	   3) a list of ints representing all the supported sample rates
 	"""
-	element = gst.element_factory_make("alsasrc", "alsasrc")
+	
+	return GetGstElementSampleRate("alsasrc", "src", device=device)
+	
+#_____________________________________________________________________
 
-	# must set proper device to get precise caps
-	element.set_property("device", device)
+def GetGstElementSampleRate(elementName, padName, **properties):
+	""" 
+	   elementName - the name of the gstreamer element (ie "alsasrc")
+	   padName - the name of the pad to query ("src" or "sink")
+	   properties - and properties to set on the element
+	
+	   This function may return any of the following depending on the gstreamer element:
+	   1) an int representing the only supported sample rate
+	   2) an IntRange class with IntRange.low and IntRange.high being the min and max sample rates
+	   3) a list of ints representing all the supported sample rates
+	"""
+	
+	element = gst.element_factory_make(elementName)
+
+	for key, value in properties.iteritems():
+		element.set_property(key, value)
 
 	# open device (so caps are probed)
 	element.set_state(gst.STATE_READY)
-	pad = element.get_pad("src")
-	caps = pad.get_caps()
-	del pad
 
-	val = None
 	try:
+		caps = element.get_pad(padName).get_caps()
 		val = caps[0]["rate"]
-	except KeyError:
-		pass
+	except:
+		val = None
 		
 	# clean up
 	element.set_state(gst.STATE_NULL)
 	del element
 	
 	return val
-	
+
 #_____________________________________________________________________
 
 def GetChannelsOffered(device):
