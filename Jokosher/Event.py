@@ -475,12 +475,26 @@ class Event(Monitored):
 			if st.get_name() == "level":
 				end = st["endtime"] / float(gst.SECOND)
 				
-				peaktotal = reduce(lambda x,y: x+y, st["peak"])
-				peaktotal /= len(st["peak"])
+				negInf = float("-inf")
+				peaktotal = 0
+				peakcount = 0
+				for peak in st["peak"]:
+					#don't add -inf values cause 500 + -inf is still -inf
+					if peak != negInf:
+						peaktotal += peak
+						peakcount += 1
+				#avoid a divide by zero here
+				if peakcount > 0:
+					peaktotal /= peakcount
+				#it must be put back to -inf if nothing has been added to it, so that the DbToFloat conversion will work
+				if peaktotal == 0:
+					peaktotal = negInf
+				
+				#convert to 0...1 float
 				self.levels.append(DbToFloat(peaktotal))
 				
 				self.loadingLength = int(end)
-											
+				
 				# Only send events every second processed to reduce GUI load
 				if self.loadingLength != self.lastEnd:
 					self.lastEnd = self.loadingLength 
