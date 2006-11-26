@@ -1101,8 +1101,8 @@ class MainApp:
 	def CheckGstreamerVersions(self):
 		#Check for CVS versions of Gstreamer and gnonlin
 		message = ""
-		v = gst.version()
-		if (v[1] < 10) or (v[2] < 9):
+		gstVersion = gst.version()
+		if ((gstVersion[1] <= 10 and gstVersion[2] < 9) or gstVersion[1] < 10):
 			message += _("You must have Gstreamer version 0.10.9 or higher.\n")
 		gnl = gst.registry_get_default().find_plugin("gnonlin")
 		if gnl:
