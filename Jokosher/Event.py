@@ -474,7 +474,11 @@ class Event(Monitored):
 		if st:
 			if st.get_name() == "level":
 				end = st["endtime"] / float(gst.SECOND)
-				self.levels.append(DbToFloat(st["peak"][0]))
+				
+				peaktotal = reduce(lambda x,y: x+y, st["peak"])
+				peaktotal /= len(st["peak"])
+				self.levels.append(DbToFloat(peaktotal))
+				
 				self.loadingLength = int(end)
 											
 				# Only send events every second processed to reduce GUI load

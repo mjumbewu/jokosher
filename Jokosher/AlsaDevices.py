@@ -73,7 +73,7 @@ def GetRecordingMixers(device):
 
 #_____________________________________________________________________
 
-def GetRecordingSampleRate(device="default"):
+def GetRecordingSampleRate(device="hw:0"):
 	""" 
 	   May return any of the following depending on the sound card:
 	   1) an int representing the only supported sample rate

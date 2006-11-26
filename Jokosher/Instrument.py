@@ -278,6 +278,8 @@ class Instrument(Monitored):
 			e = Event(self, None, id)
 			e.LoadFromXML(ev)
 			self.graveyard.append(e)
+			#remove it from the composition so it doesnt play
+			self.composition.remove(e.filesrc)
 		
 		#load image from file based on unique type
 		#TODO replace this with proper cache manager
