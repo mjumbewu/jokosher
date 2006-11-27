@@ -32,6 +32,8 @@ class Event(Monitored):
 	
 	#state changed types (to be sent through the Monitored class)
 	WAVEFORM, MOVE, LENGTH, CORRUPT = range(4)
+	#the level sample interval (in seconds)
+	LEVEL_INTERVAL = 0.1
 	
 	#_____________________________________________________________________
 	
@@ -579,8 +581,8 @@ class Event(Monitored):
 	def GenerateWaveform(self):
 		""" Renders the level information for the GUI.
 		"""
-		pipe = """filesrc name=src location=%s ! decodebin ! audioconvert ! 
-		level interval=100000000 message=true ! fakesink""" % self.file.replace(" ", "\ ")
+		pipe = """filesrc name=src location=%s ! decodebin ! audioconvert ! level interval=%d message=true ! fakesink""" 
+		pipe = pipe % (self.file.replace(" ", "\ "), self.LEVEL_INTERVAL * gst.SECOND)
 		self.bin = gst.parse_launch(pipe)
 
 		self.bus = self.bin.get_bus()

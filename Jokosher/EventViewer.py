@@ -262,73 +262,52 @@ class EventViewer(gtk.DrawingArea):
 		context = cairo.Context(self.source)
 		context.set_line_width(2)
 		context.set_antialias(cairo.ANTIALIAS_SUBPIXEL)
-		
-		if self.event.isLoading:
-			# Draw a white background
-			context.rectangle(0, 0, rect.width, rect.height)
-			context.set_source_rgb(*self._BACKGROUND_RGB)
-			context.fill()
-			# and a border
-			context.set_line_width(2)
-			context.rectangle(0, 0, rect.width, rect.height)
-			context.set_source_rgb(*self._TEXT_RGB)
-			context.stroke()
-			# Write "Loading..."
-			context.move_to(5, 12)
-			if self.event.duration == 0:
-				displayLength = 0
-			else:
-				displayLength = int(100 * self.event.loadingLength / self.event.duration)
-			context.show_text(_("Loading (%d%%)...") % displayLength)
-			context.stroke()
-			# And exit here
-			return
-		
-		if len(self.event.levels) == 0:
-			Globals.debug("Trying to draw an event with no level data!")
-			return
-		
-		scale = (self.event.duration * self.project.viewScale) / float(len(self.event.levels))
 
 		# Draw white background
 		context.rectangle(0, 0, rect.width, rect.height)
 		context.set_source_rgb(*self._BACKGROUND_RGB)
 		context.fill()
 		
-		# Draw volume curve
-		x_pos = int(rect.x/scale)
-		x = 0
-		context.move_to(0,rect.height)
-				
-		# get levels list
-		fadedLevels = self.event.GetFadeLevels()
+		if self.event.levels:
+			if self.event.isLoading:
+				scale = (self.event.loadingLength * self.project.viewScale) / float(len(self.event.levels))
+			else:
+				scale = (self.event.duration * self.project.viewScale) / float(len(self.event.levels))
 		
-		for peak in fadedLevels[x_pos:]:
-			x = (x_pos*scale) - rect.x
-			peakOnScreen = int(peak * rect.height)
-			context.line_to(x, rect.height - peakOnScreen)
+			# Draw waveform
+			x_pos = int(rect.x/scale)
+			x = 0
+			context.move_to(0,rect.height)
+					
+			# get levels list
+			fadedLevels = self.event.GetFadeLevels()
 			
-			if x > rect.width:
-				break
-			x_pos += 1
-		
-		context.line_to(x, rect.height)
-		
-		#levels gradient fill
-		gradient = cairo.LinearGradient(0.0, 0.0, 0, rect.height)
-		gradient.add_color_stop_rgba(*self._OPAQUE_GRADIENT_STOP_ORGBA)
-		gradient.add_color_stop_rgba(*self._TRANSPARENT_GRADIENT_STOP_ORGBA)
-		context.set_source(gradient)
-		context.fill_preserve()
-		
-		#levels path (on top of the fill)
-		context.set_source_rgb(*self._BORDER_RGB)
-		context.set_line_join(cairo.LINE_JOIN_ROUND)
-		if scale < self._MAX_LINE_WIDTH:
-			context.set_line_width(scale)
-		else:
-			context.set_line_width(self._MAX_LINE_WIDTH)
-		context.stroke()
+			for peak in fadedLevels[x_pos:]:
+				x = (x_pos * scale) - rect.x
+				peakOnScreen = int(peak * rect.height)
+				context.line_to(x, rect.height - peakOnScreen)
+				
+				if x > rect.width:
+					break
+				x_pos += 1
+			
+			context.line_to(x, rect.height)
+			
+			#levels gradient fill
+			gradient = cairo.LinearGradient(0.0, 0.0, 0, rect.height)
+			gradient.add_color_stop_rgba(*self._OPAQUE_GRADIENT_STOP_ORGBA)
+			gradient.add_color_stop_rgba(*self._TRANSPARENT_GRADIENT_STOP_ORGBA)
+			context.set_source(gradient)
+			context.fill_preserve()
+			
+			#levels path (on top of the fill)
+			context.set_source_rgb(*self._BORDER_RGB)
+			context.set_line_join(cairo.LINE_JOIN_ROUND)
+			if scale < self._MAX_LINE_WIDTH:
+				context.set_line_width(scale)
+			else:
+				context.set_line_width(self._MAX_LINE_WIDTH)
+			context.stroke()
 		
 		if self.event.audioFadePoints:
 			pixelPoints = []
@@ -356,7 +335,7 @@ class EventViewer(gtk.DrawingArea):
 		context.identity_matrix()
 		context.scale(1.0, 1.0)
 		
-		# Draw black border
+		# Draw border
 		if (self.event.isSelected):
 			context.set_line_width(4)
 		else:
@@ -368,10 +347,20 @@ class EventViewer(gtk.DrawingArea):
 		
 		#check if we are at the beginning
 		if rect.x == 0:
-			#Draw event name
 			context.set_source_rgb(*self._TEXT_RGB)
 			context.move_to(5, 12)
-			context.show_text(self.event.name)
+			
+			if self.event.isLoading:
+				# Write "Loading..."
+				context.move_to(5, 12)
+				if self.event.duration == 0:
+					displayLength = 0
+				else:
+					displayLength = int(100 * self.event.loadingLength / self.event.duration)
+				context.show_text(_("Loading (%d%%)...") % displayLength)
+			else:
+				#Draw event name
+				context.show_text(self.event.name)
 		
 		#set area to record where the cached surface goes
 		self.cachedDrawArea = rect
