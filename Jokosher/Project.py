@@ -1200,7 +1200,7 @@ class Project(Monitored):
 		length = 0
 		for instr in self.instruments:
 			for ev in instr.events:
-				size = ev.start + ev.duration
+				size = ev.start + max(ev.duration, ev.loadingLength)
 				length = max(length, size)
 		return length
 
