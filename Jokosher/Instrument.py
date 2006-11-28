@@ -26,6 +26,8 @@ import gnomevfs
 import Globals
 import shutil
 import AlsaDevices
+import gettext
+_ = gettext.gettext
 
 #=========================================================================	
 
@@ -37,8 +39,6 @@ class Instrument(Monitored):
 		Monitored.__init__(self)
 		
 		self.project = project
-		
-		self.recordingbin = None
 		
 		self.path = ""					# The 'audio' directory for this instrument
 		self.events = []				# List of events attached to this instrument
@@ -305,21 +305,24 @@ class Instrument(Monitored):
 	
 	#_____________________________________________________________________
 	
-	def getNewEvent(self):
+	def getRecordingEvent(self):
 		event = Event(self)
 		event.start = 0
-		event.name = "Recorded audio"
+		event.isRecording = True
+		event.name = _("Recorded audio")
 		event.file = "%s_%d_%d.ogg"%(os.path.join(self.path, self.name.replace(" ", "_")), self.id, int(time.time()))
+		self.events.append(event)
 		return event
 
 	#_____________________________________________________________________
 
-	def addEvent(self, event):
-		self.events.append(event)
+	@UndoCommand("DeleteEvent", "temp")
+	def finishRecordingEvent(self, event):
+		event.isRecording = False
 		event.GenerateWaveform()
 		self.temp = event.id
 		self.StateChanged()
-			
+	
 	#_____________________________________________________________________
 
 	@UndoCommand("DeleteEvent", "temp")

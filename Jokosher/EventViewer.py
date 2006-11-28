@@ -178,6 +178,10 @@ class EventViewer(gtk.DrawingArea):
 		context.set_source_rgb(*self._PLAY_POSITION_RGB)
 		context.stroke()
 		
+		#Don't draw any cut markers, cause we cant cut while recording!
+		if self.event.isRecording:
+			return
+		
 		# Draw the highlight cursor if it's over us and we're not dragging a fadeMarker
 		if self.highlightCursor and not self.isDraggingFade:
 			context.move_to(self.highlightCursor, 0)
@@ -268,12 +272,12 @@ class EventViewer(gtk.DrawingArea):
 		context.set_source_rgb(*self._BACKGROUND_RGB)
 		context.fill()
 		
-		if self.event.levels:
-			if self.event.isLoading:
+		if self.event.levels and (self.event.duration or self.event.loadingLength):
+			if self.event.loadingLength:
 				scale = (self.event.loadingLength * self.project.viewScale) / float(len(self.event.levels))
 			else:
 				scale = (self.event.duration * self.project.viewScale) / float(len(self.event.levels))
-		
+			
 			# Draw waveform
 			x_pos = int(rect.x/scale)
 			x = 0
@@ -352,12 +356,13 @@ class EventViewer(gtk.DrawingArea):
 			
 			if self.event.isLoading:
 				# Write "Loading..."
-				context.move_to(5, 12)
 				if self.event.duration == 0:
 					displayLength = 0
 				else:
 					displayLength = int(100 * self.event.loadingLength / self.event.duration)
 				context.show_text(_("Loading (%d%%)...") % displayLength)
+			elif self.event.isRecording:
+				context.show_text(_("Recording..."))
 			else:
 				#Draw event name
 				context.show_text(self.event.name)
@@ -464,6 +469,10 @@ class EventViewer(gtk.DrawingArea):
 		   LMB double-click: split here
 		   LMB over a fadeMarker: drag that marker
 		"""
+		
+		#Don't allow moving, etc while recording!
+		if self.event.isRecording:
+			return
 		
 		# {L|R}MB: deselect all events, select this event, begin moving the event
 		# {L|R}MB+ctrl: select this event without deselecting other events
@@ -657,8 +666,10 @@ class EventViewer(gtk.DrawingArea):
 		"""
 		if self.event.duration > 0:
 			requisition.width = self.event.duration * self.project.viewScale
+		elif self.event.loadingLength > 0:
+			requisition.width = self.event.loadingLength * self.project.viewScale
 		else:
-			requisition.width = 10 * self.project.viewScale
+			requisition.width = 1 * self.project.viewScale
 			
 		if not (self.small):
 			requisition.height = 77

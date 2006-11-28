@@ -66,6 +66,7 @@ class Event(Monitored):
 		
 		self.offset = 0.0			# Offset through the file in seconds
 		self.isLoading = False		# True if the event is currently loading level data
+		self.isRecording = False		# True if the event is currently loading level data from a live recording
 		self.loadingLength = 0 		# The length of the file in seconds as its being rendered
 		self.lastEnd = 0 			# The last length of the loading file - used to minimise redraws
 		
@@ -203,7 +204,7 @@ class Event(Monitored):
 				value = str(levelsXML.getAttribute("value"))
 				self.levels = map(float, value.split(","))
 
-		if self.isLoading == True:
+		if self.isLoading or self.isRecording:
 			self.GenerateWaveform()
 
 		self.__UpdateAudioFadePoints()
@@ -462,7 +463,7 @@ class Event(Monitored):
 		self.CreateFilesource()
 		
 	#______________________________________________________________________
-				
+	
 	def bus_message(self, bus, message):
 		""" Handler for the GStreamer bus messages relevant to this Event. 
 			At the moment this is used to report on how the loading 
@@ -600,6 +601,47 @@ class Event(Monitored):
 
 	#_____________________________________________________________________
 
+	def recording_bus_level(self, bus, message):
+		""" Handler for the GStreamer bus messages relevant to this Event. 
+			At the moment this is used to report on how the loading 
+			progress is going.
+		"""
+		
+		if not self.isRecording:
+			return False
+		
+		st = message.structure
+		if st and message.src.get_name() == "recordlevel":
+			negInf = float("-inf")
+			peaktotal = 0
+			peakcount = 0
+			for peak in st["peak"]:
+				#don't add -inf values cause 500 + -inf is still -inf
+				if peak != negInf:
+					peaktotal += peak
+					peakcount += 1
+			#avoid a divide by zero here
+			if peakcount > 0:
+				peaktotal /= peakcount
+			#it must be put back to -inf if nothing has been added to it, so that the DbToFloat conversion will work
+			if peaktotal == 0:
+				peaktotal = negInf
+			
+			#convert to 0...1 float
+			self.levels.append(DbToFloat(peaktotal))
+			
+			end = st["endtime"] / float(gst.SECOND)
+			#Round to one decimal place so it updates 10 times per second
+			self.loadingLength = round(end, 1)
+			
+			# Only send events every second processed to reduce GUI load
+			if self.loadingLength != self.lastEnd:
+				self.lastEnd = self.loadingLength 
+				self.StateChanged(self.LENGTH) # tell the GUI
+		return True
+		
+	#_____________________________________________________________________
+	
 	def SetSelected(self, sel):
 		""" Enables or disables the selection state for this event.
 

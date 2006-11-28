@@ -217,7 +217,7 @@ def LoadFromZPOFile(project, doc):
 				value = str(levelsXML.getAttribute("value"))
 				self.levels = map(float, value.split(","))
 		
-		if self.isLoading == True:
+		if self.isLoading:
 			self.GenerateWaveform()
 
 		self._Event__UpdateAudioFadePoints()
@@ -488,21 +488,20 @@ class Project(Monitored):
 		index = int(match.groups()[0])
 		for instr in recInstruments:
 			if instr.inTrack == index:
-				event = instr.getNewEvent()
-				#TODO: Use encodePipeline here
-				conv = gst.element_factory_make("audioconvert")
-				mux = gst.element_factory_make("oggmux")
-				enc = gst.element_factory_make("vorbisenc")
-				sink = gst.element_factory_make("filesink")
-				sink.set_property("location", event.file.replace(" ", "\ "))
-				bin.add(conv)
-				bin.add(mux)
-				bin.add(enc)											     
-				bin.add(sink)
-				pad.link(conv.get_pad("sink"))
-				conv.link(enc)
-				enc.link(mux)
-				mux.link(sink)
+				event = instr.getRecordingEvent()
+				
+				encodeString = Globals.settings.recording["fileformat"]
+				pipe = "audioconvert ! level name=eventlevel interval=%d message=true !" +\
+							"audioconvert ! %s ! filesink location=%s"
+				pipe %= (event.LEVEL_INTERVAL, encodeString, event.file.replace(" ", "\ "))
+				
+				encodeBin = gst.gst_parse_bin_from_description(pipe, True)
+				bin.add(encodeBin)
+				pad.link(encodeBin.get_pad("sink"))
+				
+				handle = self.bus.connect("message::element", event.recording_bus_level)
+				
+				self.recordingEvents[instr] = (event, bin, handle)
 
 	#_____________________________________________________________________
 		
@@ -531,7 +530,7 @@ class Project(Monitored):
 				raise AudioInputsError(2)
 
 			if channelsNeeded > 1: #We're recording from a multi-input device
-				recordingbin = gst.element_factory_make("bin")
+				recordingbin = gst.Bin()
 				src = gst.element_factory_make("alsasrc")
 				src.set_property("device", device)
 				
@@ -552,20 +551,24 @@ class Project(Monitored):
 				Globals.debug("Recording in multi-input mode")
 			else:
 				instr = recInstruments[0]
-				event = instr.getNewEvent()
-				encodePipeline = Globals.settings.recording["fileformat"]
+				event = instr.getRecordingEvent()
 				
+				encodeString = Globals.settings.recording["fileformat"]
 				capsString = "audio/x-raw-int,rate=%s" % Globals.settings.recording["samplerate"]
-				outputString = " ! %s ! audioconvert ! %s ! filesink location=%s"
-				output = outputString % (capsString, encodePipeline, event.file.replace(" ", "\ "))
+				pipe = "alsasrc device=%s ! %s ! audioconvert ! level name=recordlevel interval=%d" +\
+							" ! audioconvert ! %s ! filesink location=%s"
+				pipe %= (device, capsString, event.LEVEL_INTERVAL * gst.SECOND, encodeString, event.file.replace(" ", "\ "))
 				
-				Globals.debug("Using pipeline: alsasrc device=%s%s ! " % (device, output))
-				Globals.debug("Using input track: %s" % instr.inTrack)
+				Globals.debug("Using pipeline: %s" % pipe)
 				
-				recordingbin = gst.parse_launch("bin.( alsasrc device=%s %s )" % (device, output))
+				recordingbin = gst.parse_launch("bin.( %s )" % pipe)
+				#update the levels in real time
+				handle = self.bus.connect("message::element", event.recording_bus_level)
 				
-				self.recordingEvents[instr] = (event, recordingbin)
+				self.recordingEvents[instr] = (event, recordingbin, handle)
+				
 				Globals.debug("Recording in single-input mode")
+				Globals.debug("Using input track: %s" % instr.inTrack)
 
 		self.mainpipeline.add(recordingbin)
 
@@ -823,8 +826,9 @@ class Project(Monitored):
 		self.transport.QueryPosition()
 
 		#If we've been recording then add new events to instruments
-		for instr, (event, bin) in self.recordingEvents.items():
-			instr.addEvent(event)
+		for instr, (event, bin, handle) in self.recordingEvents.items():
+			instr.finishRecordingEvent(event)
+			self.bus.disconnect(handle)
 
 		self.terminate()
 			
@@ -855,7 +859,7 @@ class Project(Monitored):
 		self.mainpipeline.set_state(gst.STATE_READY)
 	
 		#Relink instruments and stop their recording bins
-		for instr, (event, bin) in self.recordingEvents.items():
+		for instr, (event, bin, handle) in self.recordingEvents.items():
 			try:
 				self.mainpipeline.remove(bin)
 			except:
