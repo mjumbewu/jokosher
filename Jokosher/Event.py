@@ -476,26 +476,10 @@ class Event(Monitored):
 		st = message.structure
 		if st:
 			if st.get_name() == "level":
+				newLevel = self.__CalculateAudioLevel(st["peak"])
+				self.levels.append(newLevel)
+				
 				end = st["endtime"] / float(gst.SECOND)
-				
-				negInf = float("-inf")
-				peaktotal = 0
-				peakcount = 0
-				for peak in st["peak"]:
-					#don't add -inf values cause 500 + -inf is still -inf
-					if peak != negInf:
-						peaktotal += peak
-						peakcount += 1
-				#avoid a divide by zero here
-				if peakcount > 0:
-					peaktotal /= peakcount
-				#it must be put back to -inf if nothing has been added to it, so that the DbToFloat conversion will work
-				if peaktotal == 0:
-					peaktotal = negInf
-				
-				#convert to 0...1 float
-				self.levels.append(DbToFloat(peaktotal))
-				
 				self.loadingLength = int(end)
 				
 				# Only send events every second processed to reduce GUI load
@@ -612,23 +596,8 @@ class Event(Monitored):
 		
 		st = message.structure
 		if st and message.src.get_name() == "recordlevel":
-			negInf = float("-inf")
-			peaktotal = 0
-			peakcount = 0
-			for peak in st["peak"]:
-				#don't add -inf values cause 500 + -inf is still -inf
-				if peak != negInf:
-					peaktotal += peak
-					peakcount += 1
-			#avoid a divide by zero here
-			if peakcount > 0:
-				peaktotal /= peakcount
-			#it must be put back to -inf if nothing has been added to it, so that the DbToFloat conversion will work
-			if peaktotal == 0:
-				peaktotal = negInf
-			
-			#convert to 0...1 float
-			self.levels.append(DbToFloat(peaktotal))
+			newLevel = self.__CalculateAudioLevel(st["peak"])
+			self.levels.append(newLevel)
 			
 			end = st["endtime"] / float(gst.SECOND)
 			#Round to one decimal place so it updates 10 times per second
@@ -639,6 +608,32 @@ class Event(Monitored):
 				self.lastEnd = self.loadingLength 
 				self.StateChanged(self.LENGTH) # tell the GUI
 		return True
+		
+	#_____________________________________________________________________
+	
+	def __CalculateAudioLevel(self, channelLevels):
+		"""
+		Takes in a list of levels from each channel and returns an average
+		level, also taking into account negative infinity numbers, which will
+		be discarded in the average.
+		"""
+		negInf = float("-inf")
+		peaktotal = 0
+		peakcount = 0
+		for peak in channelLevels:
+			#don't add -inf values cause 500 + -inf is still -inf
+			if peak != negInf:
+				peaktotal += peak
+				peakcount += 1
+		#avoid a divide by zero here
+		if peakcount > 0:
+			peaktotal /= peakcount
+		#it must be put back to -inf if nothing has been added to it, so that the DbToFloat conversion will work
+		elif peakcount == 0:
+			peaktotal = negInf
+		
+		#convert to 0...1 float, and return
+		return DbToFloat(peaktotal)
 		
 	#_____________________________________________________________________
 	
