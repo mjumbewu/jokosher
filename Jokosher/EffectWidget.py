@@ -7,13 +7,15 @@
 #    This module us used to create the custom Cairo widget that is used to
 #    represent an effect.
 #
-#-------------------------------------------------------------------------------
+#=========================================================================
 
 import gtk
+import gobject
 import math
 import cairo
-import string
+import textwrap
 
+#=========================================================================
 
 class EffectWidget(gtk.DrawingArea):
 	"""
@@ -24,22 +26,19 @@ class EffectWidget(gtk.DrawingArea):
 	   double click - show effect settings
 	   single click small red circle - remove the effect
 	"""
-
-	def __init__(self, effectsdialog, effectname, effectnum):
+	
+	#_____________________________________________________________________
+	
+	def __init__(self, effect, effectname):
 		"""Constructor for the class"""
 		
 		gtk.DrawingArea.__init__(self)
 		self.BACKGROUND_RGB = (1, 1, 1)
 		self.TEXT_RGB = (0, 0, 0)
 		
+		self.effect = effect
 		# the full name of the effect (such as 'Simple Delay 5s')
 		self.effectname = effectname
-		
-		# a reference to the effects dialog
-		self.effectsdialog = effectsdialog
-		
-		# the number of the effect in the chain. first is 0, second is 1 etc
-		self.effectnum = effectnum
 	
 		# the size of the widget. hard coded right now
 		# FIXME - make this not hard coded
@@ -47,13 +46,18 @@ class EffectWidget(gtk.DrawingArea):
 	
 		# these are the events that the widget listens out for. used for
 		# expose and click events
-		self.set_events(gtk.gdk.POINTER_MOTION_MASK | gtk.gdk.BUTTON_RELEASE_MASK | gtk.gdk.BUTTON_PRESS_MASK | gtk.gdk.LEAVE_NOTIFY_MASK)
+		self.set_events(gtk.gdk.POINTER_MOTION_MASK | 
+				gtk.gdk.BUTTON_RELEASE_MASK | 
+				gtk.gdk.BUTTON_PRESS_MASK | 
+				gtk.gdk.LEAVE_NOTIFY_MASK)
 		
 		# make signal connections. expose_event is important - whenever the
 		# window exposes, the widget is re-drawn
 		self.connect("expose_event", self.expose)
 		self.connect("button_press_event", self.OnMouseDown)
 
+	#_____________________________________________________________________
+		
 	def expose(self, widget, event):
 		"""
 		   When the widget exposes, this method is called. It then triggers
@@ -73,6 +77,8 @@ class EffectWidget(gtk.DrawingArea):
 		self.draw(self.context)
 		
 		return False
+	
+	#_____________________________________________________________________
 
 	def draw(self, context):
 		"""Redraws the widget"""
@@ -153,9 +159,9 @@ class EffectWidget(gtk.DrawingArea):
 		# draw it
 		self.context.stroke()
 		
-		# call formatEffectText() to split the text into different lines to
-		# fit inside the widget
-		effecttext = self.formatEffectText(self.effectname)
+		# call textwrap to split the text into a list of width=20 strings
+		# so the text can fit inside the widget
+		effecttext = textwrap.wrap(self.effectname, 20)
 		
 		# grab the length of the effecttext list (this returns the number of
 		# rows of text)
@@ -191,6 +197,8 @@ class EffectWidget(gtk.DrawingArea):
 		self.context.set_source_rgb(0, 0, 0)
 		self.context.stroke_preserve()
 	
+	#_____________________________________________________________________
+
 	def OnMouseDown(self, widget, mouse):
 		"""
 		   If the mouse is clicked, detect where it is clicked and whether
@@ -198,41 +206,20 @@ class EffectWidget(gtk.DrawingArea):
 		"""
 	
 		if self.context.in_fill(mouse.x, mouse.y):
-			self.effectsdialog.OnRemoveEffect(self, self.effectnum)
+			self.emit("remove")
 		else:
 			if mouse.type == gtk.gdk._2BUTTON_PRESS:
-				self.effectsdialog.OnEffectSetting(self)
+				self.emit("clicked")
 			else:
 				# effect moving happens here, but its not in yet
 				pass
+	
+	#_____________________________________________________________________
+	
+#=========================================================================
 
-	def formatEffectText(self, text):
-		"""
-		   This method takes 'text' and splits it into a bunch of different
-		   lines, each one being in a list element. We can then iterate
-		   through the list to add the text in the widget.
-		"""
-	
-		words = string.split(text)
-	
-		finallist = []
-		linetext = ""
-	
-		# the maximum length of a line
-		linelength = 20
-		remainder = linelength
-	
-		for w in words:
-			wordlength = len(w)
-	
-			if wordlength <= remainder:
-				remainder -= wordlength + 1
-				linetext = linetext + w + " "
-			else:
-				finallist.append(linetext)
-				linetext = ""
-				linetext = linetext + w + " "
-				remainder = 20 - len(linetext)
+#signals to be emitted by the EffectWidget. Must be defined after EffectWidget, so they must be at the bottom.
+gobject.signal_new("clicked", EffectWidget, gobject.SIGNAL_RUN_FIRST, gobject.TYPE_NONE, ())
+gobject.signal_new("remove", EffectWidget, gobject.SIGNAL_RUN_FIRST, gobject.TYPE_NONE, ())
 
-		finallist.append(linetext)
-		return finallist
+#=========================================================================

@@ -382,10 +382,8 @@ class MainApp:
 			return 
 
 		if not self.isPlaying:
-			self.addInstrumentButton.set_sensitive(False)
 			self.project.play()
 		else:
-			self.addInstrumentButton.set_sensitive(True)
 			self.project.stop()
 
 	#_____________________________________________________________________

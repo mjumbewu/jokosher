@@ -299,9 +299,31 @@ class Instrument(Monitored):
 
 	#_____________________________________________________________________
 
-	def addEffect(self, effect):
-		'''Add instrument specific gstreamer elements'''
-		self.effects += effect + " ! "
+	def AddEffect(self, effectName):
+		"""
+		Add an effect with the Gstreamer element name effectName
+		"""
+		# if self.effects is empty, this is the first effect being
+		# added, and we need to unlink the converter and volume elements as
+		# they had no effectsbin between them
+		if not self.effects:
+			self.converterElement.unlink(self.volumeElement)
+		effectElement = gst.element_factory_make(effectName)
+		self.effects.append(effectElement)
+		self.StateChanged("effects")
+	
+	#_____________________________________________________________________
+	
+	def RemoveEffect(self, effect):
+		"""
+		Remove the given Gstreamer element from the effects bin.
+		"""
+		self.effectsbin.remove(effect)
+		self.effects.remove(effect)
+		if self.effects == []:
+			self.effectsbin_obsolete = 1
+		
+		self.StateChanged("effects")
 	
 	#_____________________________________________________________________
 	

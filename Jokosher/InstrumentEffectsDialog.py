@@ -49,8 +49,8 @@ class InstrumentEffectsDialog:
 		
 		self.res = gtk.glade.XML(Globals.GLADE_PATH, "InstrumentEffectsDialog")
 
-		# this refers to the current effects Plugin
-		self.currentplugin = None
+		self.Updating = False
+		self.effectWidgets = []
 		
 		self.signals = {
 			"on_okbutton_clicked" : self.OnOK,
@@ -101,9 +101,6 @@ class InstrumentEffectsDialog:
 			
 			self.effectscombo.append_text(shortname)
 
-		if not self.instrument.effects == []:
-			self.PopulateEffects()
-
 		self.presets = EffectPresets.EffectPresets()
 
 		# set up presets
@@ -131,10 +128,43 @@ class InstrumentEffectsDialog:
 
 
 		self.instrument.project.AddListener(self)
+		self.instrument.AddListener(self)
 
 		if self.instrument.currentchainpreset is not None:
 			self.chainpresetcombo.set_active(self.instrument.currentchainpreset)
 			
+		self.Update()
+			
+	#_____________________________________________________________________	
+	
+	def Update(self):
+		if self.Updating:
+			return
+		self.Updating = True
+		
+		for i in self.effectsbox.get_children():
+			self.effectsbox.remove(i)
+		
+		for effect in self.instrument.effects:
+			effwidget = None
+			for i in self.effectWidgets:
+				if i.effect is effect:
+					effwidget = i
+					break
+			
+			if not effwidget:
+				effectname =  effect.get_factory().get_longname()
+				effwidget = EffectWidget(effect, effectname)
+				effwidget.connect("remove", self.OnRemoveEffect, effect)
+				effwidget.connect("clicked", self.OnEffectSetting, effect)
+				self.effectWidgets.append(effwidget)
+			
+			self.effectsbox.pack_start(effwidget, True)
+		
+		self.effectsbox.show_all()
+		
+		self.Updating = False
+		
 	#_____________________________________________________________________	
 		
 	def OnOK(self, button):
@@ -143,16 +173,18 @@ class InstrumentEffectsDialog:
 			destroyed.
 		"""
 
-		self.instrument.project.RemoveListener(self)		
+		self.instrument.project.RemoveListener(self)
+		self.instrument.RemoveListener(self)
 		self.window.destroy()
 		
 	#_____________________________________________________________________	
-				
+	
 	def OnCancel(self, button):
 		"""
 			If the Cancel button is pressed, the dialog is destroyed.
 		"""
 		self.instrument.project.RemoveListener(self)
+		self.instrument.RemoveListener(self)	
 		self.window.destroy()
 
 	#_____________________________________________________________________	
@@ -173,14 +205,15 @@ class InstrumentEffectsDialog:
 			self.instrument.project.stop()
 			self.isPlaying = False
 
-
-
 	#_____________________________________________________________________
 
 	def OnStateChanged(self,obj,change=None, *extra):
-
+		
+		if obj is self.instrument and change == "effects":
+			self.Update()
+		
 		# check self.isPlaying to see if the project is playing already
-		if change== "play":
+		elif change == "play":
 			# things to do if the project is not already playing, and hence
 			# needs to start playing
 			self.transportbutton.set_use_stock(True)
@@ -196,7 +229,7 @@ class InstrumentEffectsDialog:
 			# set this to True to show we are now playing
 			self.isPlaying = True
 
-		elif change=="stop":
+		elif change =="stop":
 			# things to do when the stop button is pressed to stop playback
 			self.transportbutton.set_use_stock(True)
 			self.transportbutton.set_label(gtk.STOCK_MEDIA_PLAY)
@@ -215,42 +248,33 @@ class InstrumentEffectsDialog:
 
 	def OnSelectEffect(self, combo):
 		"""
-			Callback for when an effect is selected from the effects list. This
-			method looks up the name from the combo box in LADSPA_NAME_MAP and
-			returns the factory name (e.g. ladspa-foo-effect). This is then set to
-			self.currentplugin.
+			Callback for when an effect is selected from the effects list.
 		"""
-		
-		self.effectindex = combo.get_active()
-		self.currentplugin = Globals.LADSPA_NAME_MAP[self.effectindex][0]
 		self.addeffect.set_sensitive(True)
 		
 	#_____________________________________________________________________	
 
-	def OnAddEffect(self, combo):
+	def OnAddEffect(self, widget):
 		"""
-			The effect element is created and added to the
-			self.instrument.effects list
+			Get the name of the currently selected effect
+			and add it to the instrument.
 		"""
-				
-		# if self.instrument.effects is empty, this is the first effect being
-		# added, and we need to unlink the converter and volume elements as
-		# they had no effectsbin between them
-		if self.instrument.effects == []:
-			self.instrument.converterElement.unlink(self.instrument.volumeElement)
-
-		self.instrument.effects.append(gst.element_factory_make(self.currentplugin, self.currentplugin))
-
-		effectname = Globals.LADSPA_NAME_MAP[self.effectindex][1]
-		effectnum = len(self.instrument.effects) - 1
-		effwidg = EffectWidget(self, effectname, effectnum)
-		self.effectsbox.pack_start(effwidg, True)
+		effectindex = self.effectscombo.get_active()	
 		
-		self.effectsbox.show_all()
-
-	#_____________________________________________________________________	
+		name = Globals.LADSPA_NAME_MAP[effectindex][0]
+		self.instrument.AddEffect(name)
 		
-	def OnEffectSetting(self, button):
+	#_____________________________________________________________________
+	
+	def OnRemoveEffect(self, widget, effect):
+		"""
+			Remove an effect from the instrument.
+		"""
+		self.instrument.RemoveEffect(effect)
+		
+	#_____________________________________________________________________
+		
+	def OnEffectSetting(self, button, effect):
 		"""
 			Show a dialog filled with settings sliders for a specific effect
 		"""
@@ -392,31 +416,6 @@ class InstrumentEffectsDialog:
 		
 	#_____________________________________________________________________	
 		
-	def PopulateEffects(self):
-		"""
-			Fill the effectsbox table with the effects, iterated from the
-			effects list.
-		"""
-		
-		# remove all effects from the effectsbox table
-		map(self.effectsbox.remove, self.effectsbox.get_children())
-		
-		# for each effect in self.instrument.effects, add a button to the
-		# table and connect a callback
-		for effect in self.instrument.effects:
-			self.currentplugin =  effect.get_factory().get_name()
-			effectname =  effect.get_factory().get_longname()
-			effectnum = len(self.instrument.effects) - 1
-				
-			effwidg = EffectWidget(self, effectname, effectnum)
-			self.effectsbox.pack_start(effwidg, True)
-			
-			self.effectsbox.pack_start(effwidg)
-		
-			self.effectsbox.show_all()
-				
-	#_____________________________________________________________________	
-		
 	def SetEffectSetting(self, slider, name, property):
 		"""
 			Set the value of a gstreamer property from an effects slider.
@@ -538,32 +537,9 @@ class InstrumentEffectsDialog:
 					pass
 		
 			self.instrument.effects.append(effect)
-		self.PopulateEffects()
+		self.Update()
 
 	#_____________________________________________________________________	
-	
-	def OnRemoveEffect(self, widget, effectnum):
-		"""
-			Remove an effect. To do this we pop() the effect from the
-			self.instrument.effects list.
-		"""
-		try:
-			self.mainpipeline.set_state(gst.STATE_NULL)
-			self.instrument.effectsbin.remove(self.instrument.effects[effectnum])
-		except:
-			pass
-					
-		self.instrument.effects.pop(effectnum)
-		
-		if self.instrument.effects == []:
-			self.instrument.effectsbin_obsolete = 1
-			#self.instrument.converterElement.unlink(self.instrument.volumeElement)
-		
-		# after the effect is removed, run PopulateEffects() to re-built the
-		# GUI and as such, remove the effect widget
-		self.PopulateEffects()
-		
-	#_____________________________________________________________________
 	
 	def BringWindowToFront(self):
 		self.window.present()

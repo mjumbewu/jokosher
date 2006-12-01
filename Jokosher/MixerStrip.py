@@ -2,6 +2,7 @@
 import pygtk
 pygtk.require("2.0")
 import gtk
+import gobject
 import os
 import Globals
 
@@ -178,6 +179,12 @@ class MixerStrip(gtk.Frame):
 
 		self.instrument.pan = value
 		self.instrument.panElement.set_property("panorama", value)
+		
+	#_____________________________________________________________________
 	
 #=========================================================================
 
+#create signal to be emitted by MixerStrip
+gobject.signal_new("minimise", MixerStrip, gobject.SIGNAL_RUN_FIRST, gobject.TYPE_NONE, ())
+
+#=========================================================================
