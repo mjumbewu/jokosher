@@ -147,9 +147,10 @@ class EffectPresets:
 
 		presetfile = Globals.EFFECT_PRESETS_PATH + "/" + presetname + ".jpreset"
 		Globals.debug(presetfile)
-			
+
 		if not os.path.exists(presetfile):
 			Globals.debug("preset file does not exist")
+			return False
 		else:	
 			xmlfile = open(presetfile, "r")
 			doc = xml.parse(presetfile)

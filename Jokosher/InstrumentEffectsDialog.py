@@ -388,9 +388,9 @@ class InstrumentEffectsDialog:
 		# if (a) it is on the system (in LADSPA_FACTORY_REGISTRY) and (b) if the preset is
 		# only for that plugin. Witness the m/\d skillz. The values returned
 		# are shown in the presets combo box for this effect
-		availpresets = [x for x in self.presets.effectpresetregistry if self.presets.effectpresetregistry[x]['dependencies']==set([elementfactory]) and elementfactory in Globals.LADSPA_FACTORY_REGISTRY]
+		self.availpresets = [x for x in self.presets.effectpresetregistry if self.presets.effectpresetregistry[x]['dependencies']==set([elementfactory]) and elementfactory in Globals.LADSPA_FACTORY_REGISTRY]
 
-		for pres in availpresets:
+		for pres in self.availpresets:
 			self.presetcombo.append_text(pres)
 		
 		self.settingstable.show()
@@ -497,7 +497,12 @@ class InstrumentEffectsDialog:
 			combo. Load it.
 		"""
 		presetname = name = combo.get_active_text()
+		if presetname not in self.availpresets:
+			return
+
 		settings = self.presets.LoadSingleEffectSettings(self.effectelement, presetname)
+		if not settings:
+			return
 
 		for item in settings:
 			#self.sliderdict[str(item)]
