@@ -710,14 +710,19 @@ class Instrument(Monitored):
 	
 	def AddAndLinkPlaybackbin(self):
 		#make sure our playbackbin is in the same state so the pipeline can continue what it was doing
-		self.playbackbin.set_state(self.project.playbackbin.get_state(0)[1])
-		
+		status, state, pending = self.project.playbackbin.get_state(0)
+		if pending != gst.STATE_VOID_PENDING:
+			self.playbackbin.set_state(pending)
+		else:
+			self.playbackbin.set_state(state)
+			
 		if not self.playbackbin in list(self.project.playbackbin.elements()):
 			self.project.playbackbin.add(self.playbackbin)
 			Globals.debug("added instrument playbackbin to adder playbackbin", self.id)
 		if not self.playghostpad.get_peer():
 			self.playbackbin.link(self.project.adder)
-			self.playghostpad.set_blocked(False)
+			#give it a lambda for a callback that does nothing, so we don't have to wait
+			self.playghostpad.set_blocked_async(False, lambda x,y: False)
 			Globals.debug("linked instrument playbackbin to adder (project)")
 
 	#_____________________________________________________________________
@@ -725,9 +730,12 @@ class Instrument(Monitored):
 	def RemoveAndUnlinkPlaybackbin(self):
 		#get reference to pad before removing self.playbackbin from project.playbackbin!
 		pad = self.playghostpad.get_peer()
-		self.playghostpad.set_blocked(True)
 		
 		if pad:
+			status, state, pending = self.playbackbin.get_state(0)
+			if state == gst.STATE_PAUSED or state == gst.STATE_PLAYING or \
+					pending == gst.STATE_PAUSED or pending == gst.STATE_PLAYING:
+				self.playghostpad.set_blocked(True)
 			self.playbackbin.unlink(self.project.adder)
 			self.project.adder.release_request_pad(pad)
 			Globals.debug("unlinked instrument playbackbin from adder")
