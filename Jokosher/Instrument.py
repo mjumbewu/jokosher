@@ -717,6 +717,7 @@ class Instrument(Monitored):
 			Globals.debug("added instrument playbackbin to adder playbackbin", self.id)
 		if not self.playghostpad.get_peer():
 			self.playbackbin.link(self.project.adder)
+			self.playghostpad.set_blocked(False)
 			Globals.debug("linked instrument playbackbin to adder (project)")
 
 	#_____________________________________________________________________
@@ -724,6 +725,7 @@ class Instrument(Monitored):
 	def RemoveAndUnlinkPlaybackbin(self):
 		#get reference to pad before removing self.playbackbin from project.playbackbin!
 		pad = self.playghostpad.get_peer()
+		self.playghostpad.set_blocked(True)
 		
 		if pad:
 			self.playbackbin.unlink(self.project.adder)
