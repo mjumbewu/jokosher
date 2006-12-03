@@ -402,7 +402,7 @@ class ExtensionAPI:
 					try:
 						#FIXME: throws a gstreamer warning sometimes...I don't know gstreamer well, so 
 						#I don't even know why this is here
-						instr.effectsbin.remove(instr.effects[effect_num])
+						instr.effectsBin.remove(instr.effects[effect_num])
 					except:
 						pass
 			

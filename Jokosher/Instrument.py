@@ -55,7 +55,6 @@ class Instrument(Monitored):
 		self.instrType = type			# The type of instrument
 		self.effects = []				# List of GStreamer effect elements
 		self.pan = 0.0					# pan number (between -100 and 100)
-		self.effectsbin_obsolete = 0    # set this to 1 when effects bin needs unlinking
 		self.currentchainpreset = None	# current instrument wide chain preset
 		
 		# Select first input device as default to avoid a GStreamer bug which causes
@@ -73,8 +72,6 @@ class Instrument(Monitored):
 		
 		# GStreamer pipeline elements for this instrument		
 		self.volumeElement = gst.element_factory_make("volume", "Instrument_Volume_%d"%self.id)
-		self.converterElement = gst.element_factory_make("audioconvert", "Instrument_Converter_%d"%self.id)
-		#self.endConverterElement = gst.element_factory_make("audioconvert", "End_Instrument_Converter_%d"%self.id)
 		self.levelElement = gst.element_factory_make("level", "Instrument_Level_%d"%self.id)
 		self.levelElement.set_property("interval", gst.SECOND / 50)
 		self.levelElement.set_property("message", True)
@@ -94,12 +91,20 @@ class Instrument(Monitored):
 		self.playbackbin.add(self.panElement)
 		Globals.debug("added audiopanorama (instrument)")
 
-
-		self.playbackbin.add(self.converterElement)
-		Globals.debug("added audioconvert (instrument)")
-
-		self.effectsbin = gst.element_factory_make("bin", "InstrumentEffects_%d"%self.id)
-		self.playbackbin.add(self.effectsbin)
+		# Create Effects Bin
+		self.effectsBin = gst.element_factory_make("bin", "InstrumentEffects_%d"%self.id)
+		self.playbackbin.add(self.effectsBin)
+		# Create convert for start of effects bin
+		self.effectsBinConvert = gst.element_factory_make("audioconvert", "Start_Effects_Converter_%d"%self.id)
+		self.effectsBin.add(self.effectsBinConvert)
+		# Create ghostpads for the bin from the audioconvert
+		self.effectsBinSink = gst.GhostPad("sink", self.effectsBinConvert.get_pad("sink"))
+		self.effectsBin.add_pad(self.effectsBinSink)
+		self.effectsBinSrc = gst.GhostPad("src", self.effectsBinConvert.get_pad("src"))
+		self.effectsBin.add_pad(self.effectsBinSrc)
+		# Link the end of the effects bin to the level element
+		self.effectsBin.link(self.volumeElement)
+		
 		
 		self.composition = gst.element_factory_make("gnlcomposition")
 
@@ -139,17 +144,9 @@ class Instrument(Monitored):
 		self.vollac.link(self.opvol)
 		self.opvol.link(self.volrac)
 
-		for pad in self.vollac.pads():
-			if pad.get_direction() == gst.PAD_SINK:
-				volbinsink = gst.GhostPad("sink", pad)
-				break
-
-		for pad in self.volrac.pads():
-			if pad.get_direction() == gst.PAD_SRC:
-				volbinsrc = gst.GhostPad("src", pad)
-				break
-
+		volbinsink = gst.GhostPad("sink", self.vollac.get_pad("sink"))
 		self.volbin.add_pad(volbinsink)
+		volbinsrc = gst.GhostPad("src", self.volrac.get_pad("src"))
 		self.volbin.add_pad(volbinsrc)
 
 		self.op = gst.element_factory_make("gnloperation", "gnloperation")
@@ -185,7 +182,7 @@ class Instrument(Monitored):
 		self.playghostpad = gst.GhostPad("src", self.resample.get_pad("src"))
 		self.playbackbin.add_pad(self.playghostpad)
 		Globals.debug("created ghostpad for instrument playbackbin")
-	
+		
 		self.AddAndLinkPlaybackbin()
 
 		self.composition.connect("pad-added", self.project.newPad, self)
@@ -193,9 +190,6 @@ class Instrument(Monitored):
 		
 		#mute this instrument if another one is solo
 		self.OnMute()
-
-		self.effectbinsrc = None
-		self.effectbinsink = None
 		
 	#_____________________________________________________________________
 	
@@ -302,14 +296,36 @@ class Instrument(Monitored):
 	def AddEffect(self, effectName):
 		"""
 		Add an effect with the Gstreamer element name effectName
+		to the pipeline for this instrument. The effect is always placed
+		in the pipeline after any other effects that were previously added.
 		"""
-		# if self.effects is empty, this is the first effect being
-		# added, and we need to unlink the converter and volume elements as
-		# they had no effectsbin between them
-		if not self.effects:
-			self.converterElement.unlink(self.volumeElement)
+		#make the new effect and an audioconvert to go with it
+		convert = gst.element_factory_make("audioconvert")
 		effectElement = gst.element_factory_make(effectName)
 		self.effects.append(effectElement)
+		#add both elements to effects bin
+		self.effectsBin.add(convert)
+		self.effectsBin.add(effectElement)
+		
+		# The sink pad on the first element to the right of the bin
+		externalSinkPad = self.effectsBinSrc.get_peer()
+		# The src pad on the last element in the bin
+		endSrcPad = self.effectsBinSrc.get_target()
+		# Unlink the bin from the external element so we can put in a new ghostpad
+		self.effectsBinSrc.unlink(externalSinkPad)
+		# Remove the old ghostpad
+		self.effectsBin.remove_pad(self.effectsBinSrc)
+		
+		newEffectPad = effectElement.sink_pads().next()
+		# Link the last element in the bin with the new effect
+		endSrcPad.link(newEffectPad)
+		# Link the new element to the new convert
+		effectElement.link(convert)
+		# Make the audioconvert the new ghostpad
+		self.effectsBinSrc = gst.GhostPad("src", convert.get_pad("src"))
+		self.effectsBin.add_pad(self.effectsBinSrc)
+		self.effectsBinSrc.link(externalSinkPad)
+		
 		self.StateChanged("effects")
 	
 	#_____________________________________________________________________
@@ -318,12 +334,64 @@ class Instrument(Monitored):
 		"""
 		Remove the given Gstreamer element from the effects bin.
 		"""
-		self.effectsbin.remove(effect)
+		if effect not in self.effects:
+			Globals.debug("Error: trying to remove an element that is not in the list")
+			return
+		
+		previousConvert = None
+		for pad in effect.sink_pads():
+			if pad.is_linked():
+				previousConvert = pad.get_peer().get_parent()
+				break
+					
+		nextConvert = None
+		for pad in effect.src_pads():
+			if pad.is_linked():
+				nextConvert = pad.get_peer().get_parent()
+				break
+		
+		# If we have to remove from the end
+		if self.effects[-1] == effect:
+			# The sink pad on the first element to the right of the bin
+			externalSinkPad = self.effectsBinSrc.get_peer()
+			# Unlink the bin from the external element so we can put in a new ghostpad
+			self.effectsBinSrc.unlink(externalSinkPad)
+			# Remove the old ghostpad
+			self.effectsBin.remove_pad(self.effectsBinSrc)
+			
+			previousConvert.unlink(effect)
+			# Make the audioconvert the new ghostpad
+			self.effectsBinSrc = gst.GhostPad("src", previousConvert.get_pad("src"))
+			self.effectsBin.add_pad(self.effectsBinSrc)
+			self.effectsBinSrc.link(externalSinkPad)
+			
+		# Else we are removing from the middle or beginning of the list
+		else: 
+			nextEffect = nextConvert.get_pad("src").get_peer().get_parent()
+			nextConvert.unlink(nextEffect)
+			
+			previousConvert.unlink(effect)
+			previousConvert.link(nextEffect)
+			
+		# Remove and dispose of the two elements
+		effect.unlink(nextConvert)
+		self.effectsBin.remove(effect)
+		self.effectsBin.remove(nextConvert)
+		effect.set_state(gst.STATE_NULL)
+		nextConvert.set_state(gst.STATE_NULL)
+		#remove the effect from our own list
 		self.effects.remove(effect)
-		if self.effects == []:
-			self.effectsbin_obsolete = 1
 		
 		self.StateChanged("effects")
+	
+	#_____________________________________________________________________
+	
+	def ChangeEffectOrder(self, effect, newPosition):
+		"""
+		Move the given Gstreamer element from its current position
+		in the effects bin, to the index newPosition.
+		"""
+		pass
 	
 	#_____________________________________________________________________
 	
@@ -641,9 +709,12 @@ class Instrument(Monitored):
 	#_____________________________________________________________________
 	
 	def AddAndLinkPlaybackbin(self):
+		#make sure our playbackbin is in the same state so the pipeline can continue what it was doing
+		self.playbackbin.set_state(self.project.playbackbin.get_state(0)[1])
+		
 		if not self.playbackbin in list(self.project.playbackbin.elements()):
 			self.project.playbackbin.add(self.playbackbin)
-			Globals.debug("added instrument playbackbin to adder playbackbin")
+			Globals.debug("added instrument playbackbin to adder playbackbin", self.id)
 		if not self.playghostpad.get_peer():
 			self.playbackbin.link(self.project.adder)
 			Globals.debug("linked instrument playbackbin to adder (project)")
@@ -654,84 +725,15 @@ class Instrument(Monitored):
 		#get reference to pad before removing self.playbackbin from project.playbackbin!
 		pad = self.playghostpad.get_peer()
 		
-		if self.playbackbin in list(self.project.playbackbin.elements()):
-			self.project.playbackbin.remove(self.playbackbin)
-			Globals.debug("removed instrument playbackbin from project playbackbin")
-		
 		if pad:
 			self.playbackbin.unlink(self.project.adder)
 			self.project.adder.release_request_pad(pad)
 			Globals.debug("unlinked instrument playbackbin from adder")
+		
+		if self.playbackbin in list(self.project.playbackbin.elements()):
+			self.project.playbackbin.remove(self.playbackbin)
+			Globals.debug("removed instrument playbackbin from project playbackbin")
 	
-	#_____________________________________________________________________
-
-	def PrepareEffectsBin(self):
-		self.project.mainpipeline.set_state(gst.STATE_NULL)
-		
-		effBinHasKids = False
-		
-		try:
-			self.effectsbin.elements().next()
-			effBinHasKids = True
-		except:
-			effBinHasKids = False
-		
-		if effBinHasKids:
-			for eff in list(self.effectsbin.elements()):
-				self.effectsbin.remove(eff)
-			
-			self.effectsbin.remove_pad(self.effectsbinsink)
-			self.effectsbin.remove_pad(self.effectsbinsrc)
-	
-			self.effectsbinsink = None
-			self.effectsbinsrc = None		
-		
-		aclistnum = 1
-
-		self.aclist = []
-
-		numeffects = len(self.effects)
-
-		for i in range(numeffects):
-			aconvert = gst.element_factory_make("audioconvert", "EffectConverter_%d"%aclistnum)
-			self.aclist.append(aconvert)
-			self.effectsbin.add(aconvert)
-			aclistnum += 1
-			
-		for effect in self.effects:	
-			self.effectsbin.add(effect)
-
-		efflink = 1
-		acnum = 0
-		effectnum = 0
-
-		itertimes = (numeffects * 2) - 1
-		
-		Globals.debug("link effects")
-		for i in range(itertimes):
-			if efflink == 1:
-				self.effects[effectnum].link(self.aclist[acnum])
-				effectnum += 1
-				efflink = 0
-			else:
-				self.aclist[acnum].link(self.effects[effectnum])
-				acnum += 1 
-				efflink = 1
-	
-		for pad in self.effects[0].pads():
-			if pad.get_direction() == gst.PAD_SINK:
-				self.effectsbinsink = gst.GhostPad("sink", pad)
-				break
-
-		for pad in self.aclist[-1].pads():
-			if pad.get_direction() == gst.PAD_SRC:
-				self.effectsbinsrc = gst.GhostPad("src", pad)
-				break
-
-		self.effectsbin.add_pad(self.effectsbinsink)
-		self.effectsbin.add_pad(self.effectsbinsrc)
-		
-
 	#_____________________________________________________________________
 
 	@UndoCommand("ChangeType", "temp", "temp2")
