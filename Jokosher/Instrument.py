@@ -311,6 +311,10 @@ class Instrument(Monitored):
 		externalSinkPad = self.effectsBinSrc.get_peer()
 		# The src pad on the last element in the bin
 		endSrcPad = self.effectsBinSrc.get_target()
+		
+		state = self.playbackbin.get_state(0)[1]
+		if state == gst.STATE_PAUSED or state == gst.STATE_PLAYING:
+			endSrcPad.set_blocked(True)
 		# Unlink the bin from the external element so we can put in a new ghostpad
 		self.effectsBinSrc.unlink(externalSinkPad)
 		# Remove the old ghostpad
@@ -325,6 +329,12 @@ class Instrument(Monitored):
 		self.effectsBinSrc = gst.GhostPad("src", convert.get_pad("src"))
 		self.effectsBin.add_pad(self.effectsBinSrc)
 		self.effectsBinSrc.link(externalSinkPad)
+		
+		# make the elements' state match the bin's state
+		convert.set_state(state)
+		effectElement.set_state(state)
+		#give it a lambda for a callback that does nothing, so we don't have to wait
+		endSrcPad.set_blocked_async(False, lambda x,y: False)
 		
 		self.StateChanged("effects")
 	
@@ -350,16 +360,23 @@ class Instrument(Monitored):
 				nextConvert = pad.get_peer().get_parent()
 				break
 		
+		state = self.playbackbin.get_state(0)[1]
+		if state == gst.STATE_PAUSED or state == gst.STATE_PLAYING:
+			previousConvert.get_pad("src").set_blocked(True)
+##			nextConvert.get_pad("src").get_peer().set_blocked(True)
+		
 		# If we have to remove from the end
 		if self.effects[-1] == effect:
 			# The sink pad on the first element to the right of the bin
 			externalSinkPad = self.effectsBinSrc.get_peer()
+			
 			# Unlink the bin from the external element so we can put in a new ghostpad
 			self.effectsBinSrc.unlink(externalSinkPad)
 			# Remove the old ghostpad
 			self.effectsBin.remove_pad(self.effectsBinSrc)
 			
 			previousConvert.unlink(effect)
+			
 			# Make the audioconvert the new ghostpad
 			self.effectsBinSrc = gst.GhostPad("src", previousConvert.get_pad("src"))
 			self.effectsBin.add_pad(self.effectsBinSrc)
@@ -381,6 +398,9 @@ class Instrument(Monitored):
 		nextConvert.set_state(gst.STATE_NULL)
 		#remove the effect from our own list
 		self.effects.remove(effect)
+		
+		#give it a lambda for a callback that does nothing, so we don't have to wait
+		previousConvert.get_pad("src").set_blocked_async(False, lambda x,y: False)
 		
 		self.StateChanged("effects")
 	

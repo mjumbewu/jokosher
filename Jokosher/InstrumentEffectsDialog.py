@@ -219,13 +219,6 @@ class InstrumentEffectsDialog:
 			self.transportbutton.set_use_stock(True)
 			self.transportbutton.set_label(gtk.STOCK_MEDIA_STOP)
 			
-			# make the preset widgets insensitive so the user cannot select
-			# presets while the project is playing
-			self.chainsave.set_sensitive(False)
-			self.addeffect.set_sensitive(False)
-			self.chainpresetcombo.set_sensitive(False)
-			self.effectscombo.set_sensitive(False)
-			
 			# set this to True to show we are now playing
 			self.isPlaying = True
 
@@ -233,12 +226,6 @@ class InstrumentEffectsDialog:
 			# things to do when the stop button is pressed to stop playback
 			self.transportbutton.set_use_stock(True)
 			self.transportbutton.set_label(gtk.STOCK_MEDIA_PLAY)
-			
-			# make the preset widgets sensitive again
-			self.chainsave.set_sensitive(True)
-			self.addeffect.set_sensitive(True)
-			self.chainpresetcombo.set_sensitive(True)
-			self.effectscombo.set_sensitive(True)
 			
 			# set this to False to show we are no longer playing
 			self.isPlaying = False
