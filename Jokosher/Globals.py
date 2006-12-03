@@ -248,6 +248,9 @@ else:
 	GLADE_PATH = os.path.join(data_path, "Jokosher.glade")
 	LOCALE_PATH = os.path.join(data_path, "..", "locale")
 
+	if not os.path.exists(EFFECT_PRESETS_PATH):
+		os.mkdir(EFFECT_PRESETS_PATH)
+
 IMAGE_PATH = os.getenv("JOKOSHER_IMAGE_PATH")
 if not IMAGE_PATH:
 	IMAGE_PATH = os.path.join(data_path, "..", "images")
