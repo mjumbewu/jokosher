@@ -508,7 +508,7 @@ class Project(Monitored):
 	def record(self):
 		'''Start all selected instruments recording'''
 
-		Globals.debug("pre-record state: " + str(self.mainpipeline.get_state()))
+		Globals.debug("pre-record state:", self.mainpipeline.get_state()[1].value_name)
 
 		#Add all instruments to the pipeline
 		self.recordingEvents = {}
@@ -588,10 +588,10 @@ class Project(Monitored):
 		""" Handler for GStreamer statechange events. 
 		"""
 		Globals.debug("STATE CHANGED")
-		old, new, pending = self.mainpipeline.get_state(0)
-		Globals.debug("-- old:" + str(old))
-		Globals.debug("-- pending:" + str(pending))
-		Globals.debug("-- new:" + str(new))
+		change_status, new, pending = self.mainpipeline.get_state(0)
+		Globals.debug("-- status:", change_status.value_name)
+		Globals.debug("-- pending:", pending.value_name)
+		Globals.debug("-- new:", new.value_name)
 
 		#Move forward to playing when we reach paused (check pending to make sure this is the final destination)
 		if new == gst.STATE_PAUSED and pending == gst.STATE_VOID_PENDING and not self.IsPlaying:
@@ -607,7 +607,7 @@ class Project(Monitored):
 		
 		if len(self.instruments) > 0:
 			Globals.debug("play() in Project.py")
-			Globals.debug("current state: " + str(self.mainpipeline.get_state()))
+			Globals.debug("current state:", self.mainpipeline.get_state()[1].value_name)
 
 			for ins in self.instruments:
 				ins.PrepareController()
@@ -800,7 +800,7 @@ class Project(Monitored):
 		'''Stop playing or recording'''
 
 		Globals.debug("Stop pressed, about to set state to READY")
-		Globals.debug("current state: " + str(self.mainpipeline.get_state()))
+		Globals.debug("current state:", self.mainpipeline.get_state()[1].value_name)
 
 		#read pipeline for current position - it will have been read
 		#periodically in TimeLine.py but could be out by 1/FPS

@@ -109,11 +109,11 @@ class Event(Monitored):
 			self.filesrc.set_property("media-duration", long(self.duration * gst.SECOND))
 			self.filesrc.set_property("priority", 2)
 			
-			Globals.debug("location = " + self.file)
-			Globals.debug("start = " + str(long(self.start * gst.SECOND)))
-			Globals.debug("duration = " + str(long(self.duration * gst.SECOND)))
-			Globals.debug("media-start = " + str(long(self.offset * gst.SECOND)))
-			Globals.debug("media-duration = " + str(long(self.duration * gst.SECOND)))
+			Globals.debug("location =", self.file)
+			Globals.debug("start =", long(self.start * gst.SECOND))
+			Globals.debug("duration =", long(self.duration * gst.SECOND))
+			Globals.debug("media-start =", long(self.offset * gst.SECOND))
+			Globals.debug("media-duration =", long(self.duration * gst.SECOND))
 			
 			Globals.debug("event properties set")
 
