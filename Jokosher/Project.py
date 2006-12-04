@@ -508,6 +508,8 @@ class Project(Monitored):
 	def record(self):
 		'''Start all selected instruments recording'''
 
+		Globals.debug("pre-record state: " + str(self.mainpipeline.get_state()))
+
 		#Add all instruments to the pipeline
 		self.recordingEvents = {}
 		devices = {}
@@ -570,9 +572,11 @@ class Project(Monitored):
 				Globals.debug("Recording in single-input mode")
 				Globals.debug("Using input track: %s" % instr.inTrack)
 
+		Globals.debug("adding recordingbin")
 		self.mainpipeline.add(recordingbin)
 
 		#Make sure we start playing from the beginning
+		Globals.debug("recordingbin added, setting transport to Stop")
 		self.transport.Stop()
 		
 		#start the pipeline!
@@ -585,6 +589,10 @@ class Project(Monitored):
 		"""
 		Globals.debug("STATE CHANGED")
 		old, new, pending = self.mainpipeline.get_state(0)
+		Globals.debug("-- old:" + str(old))
+		Globals.debug("-- pending:" + str(pending))
+		Globals.debug("-- new:" + str(new))
+
 		#Move forward to playing when we reach paused (check pending to make sure this is the final destination)
 		if new == gst.STATE_PAUSED and pending == gst.STATE_VOID_PENDING and not self.IsPlaying:
 			bus.disconnect(self.state_id)
@@ -599,17 +607,18 @@ class Project(Monitored):
 		
 		if len(self.instruments) > 0:
 			Globals.debug("play() in Project.py")
+			Globals.debug("current state: " + str(self.mainpipeline.get_state()))
 
 			for ins in self.instruments:
 				ins.PrepareController()
-
+					
 			# And set it going
 			self.state_id = self.bus.connect("message::state-changed", self.state_changed, movePlayhead)
 			#set to PAUSED so the transport manager can seek first (if needed)
 			#the pipeline will be set to PLAY by self.state_changed()
 			self.mainpipeline.set_state(gst.STATE_PAUSED)
 			
-			Globals.debug("just set state to PLAYING")
+			Globals.debug("just set state to PAUSED")
 			
 			if recording:
 				self.StateChanged("record")
@@ -791,6 +800,7 @@ class Project(Monitored):
 		'''Stop playing or recording'''
 
 		Globals.debug("Stop pressed, about to set state to READY")
+		Globals.debug("current state: " + str(self.mainpipeline.get_state()))
 
 		#read pipeline for current position - it will have been read
 		#periodically in TimeLine.py but could be out by 1/FPS
@@ -832,9 +842,11 @@ class Project(Monitored):
 		#Relink instruments and stop their recording bins
 		for instr, (event, bin, handle) in self.recordingEvents.items():
 			try:
+				Globals.debug("Removing recordingEvents bin")
 				self.mainpipeline.remove(bin)
 			except:
 				pass #Already removed from another instrument
+			Globals.debug("set state to NULL")
 			bin.set_state(gst.STATE_NULL)
 			instr.AddAndLinkPlaybackbin()
 

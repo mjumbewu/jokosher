@@ -337,6 +337,8 @@ class Instrument(Monitored):
 		endSrcPad.set_blocked_async(False, lambda x,y: False)
 		
 		self.StateChanged("effects")
+		
+		return effectElement
 	
 	#_____________________________________________________________________
 	

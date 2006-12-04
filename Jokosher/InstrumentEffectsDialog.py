@@ -508,10 +508,7 @@ class InstrumentEffectsDialog:
 		"""
 			A preset is selected from the chain preset combo. Load it.
 		"""
-		
-		if self.instrument.effects == []:
-			self.instrument.converterElement.unlink(self.instrument.volumeElement)
-			
+					
 		presetname = name = combo.get_active_text()
 		self.instrument.currentchainpreset = combo.get_active()
 		settings = self.presets.LoadInstrumentEffectChain(presetname)
@@ -519,7 +516,7 @@ class InstrumentEffectsDialog:
 		self.instrument.effects = []
 		
 		for item in settings:
-			effect = gst.element_factory_make(item, item)
+			effect = self.instrument.AddEffect(item)
 			
 			for sett in settings[item]:
 				try:
@@ -528,7 +525,6 @@ class InstrumentEffectsDialog:
 				except:
 					pass
 		
-			self.instrument.effects.append(effect)
 		self.Update()
 
 	#_____________________________________________________________________	
