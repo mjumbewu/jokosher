@@ -531,20 +531,6 @@ class MainApp:
 	
 	#_____________________________________________________________________
 	
-	def InstrumentSelected(self, widget=None, event=None):
-		"""
-		Enables the record button if an instrument has been selected.
-		
-		Parameters:
-			widget -- reserved for GTK callbacks, don't use it explicitly.
-			event -- reserved for GTK callbacks, don't use it explicitly.
-		"""
-		for instr in self.project.instruments:
-			if instr.isSelected:
-				self.record.set_sensitive(True)
-
-	#_____________________________________________________________________
-	
 	def OnExport(self, widget=None):
 		"""
 		Creates and shows a save file dialog which allows the user to export
