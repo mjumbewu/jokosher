@@ -23,16 +23,32 @@ import ExtensionManager
 #=========================================================================
 
 class MainApp:
-	
+	"""
+	Jokosher's main class. It creates the majority of the main window GUI and gets 
+	gets everything up and running.
+	"""
 	
 	# Class Constants
+	""" Constant value used to indicate Jokosher's recording mode  """
 	MODE_RECORDING = 1
+	
+	""" Constant value used to indicate Jokosher's mixing mode  """
 	MODE_COMPACT_MIX = 2
 
 	#_____________________________________________________________________
 
-	def __init__(self, openproject = None, loadExtensions = True, startuptype = None):
+	def __init__(self, openproject=None, loadExtensions=True, startuptype=None):
+		"""
+		Creates a new instance of MainApp.
 		
+		Parameters:
+			openproject -- filename of the project to open at startup.
+			loadExtensions -- whether the extensions should be loaded.
+			startuptype -- determines the startup state of Jokosher:
+							0 = Open the project referred by the openproject parameter.
+							1 = Do not display the welcome dialog or open a the previous project.
+							2 = Display the welcome dialog.
+		"""
 		gtk.glade.bindtextdomain(Globals.LOCALE_APP, Globals.LOCALE_PATH)
 		gtk.glade.textdomain(Globals.LOCALE_APP)
 
@@ -68,7 +84,7 @@ class MainApp:
 			"on_paste_activate" : self.OnPaste,
 			"on_delete_activate" : self.OnDelete,
 			"on_MouseDown" : self.OnMouseDown,
-			"on_instrumentconnections_activate" : self.OnInstrumentConnectonsDialog,
+			"on_instrumentconnections_activate" : self.OnInstrumentConnectionsDialog,
 			"on_editmenu_activate" : self.OnEditMenu,
 			"on_projectmenu_activate" : self.OnProjectMenu,
 			"on_prereleasenotes_activate" : self.OnPreReleaseNotes,
@@ -216,6 +232,17 @@ class MainApp:
 	#_____________________________________________________________________	
 
 	def OnChangeView(self, view, mode):
+		"""
+		Updates the state of the recording and the compact mix buttons. It also might 
+		need to force a redraw of the timeline when changing views as it may have been
+		zoomed or scrolled while hidden.
+		
+		Parameters:
+			view -- reference to the view the main window has changed to.
+			mode -- mode corresponding to the view the main window has changed to:
+					MainApp.MODE_RECORDING = recording view
+					MainApp.MODE_COMPACT_MIX = mixing view
+		"""
 		if not self.settingButtons:
 			self.settingButtons = True
 			self.recordingButton.set_active(mode == self.MODE_RECORDING)
@@ -244,6 +271,12 @@ class MainApp:
 	#_____________________________________________________________________
 	
 	def OnRecordingView(self, window=None):
+		"""
+		Updates the main window after switching to the recording mode.
+		
+		Parameters:
+			window -- Window object calling this method.
+		"""
 		if hasattr(self, "recording"):
 			self.OnChangeView(self.recording, self.MODE_RECORDING)
 			self.contextTooltips.set_tip(self.recordingButton,_("Currently working in the Recording workspace"),None)
@@ -252,6 +285,12 @@ class MainApp:
 	#_____________________________________________________________________
 	
 	def OnCompactMixView(self, window=None):
+		"""
+		Updates the main window after switching to the compact view mixing mode.
+		
+		Parameters:
+			window -- Window object calling this method.
+		"""
 		if hasattr(self, "compactmix"):
 			self.OnChangeView(self.compactmix, self.MODE_COMPACT_MIX)
 			self.contextTooltips.set_tip(self.recordingButton,_("Switch to the Recording workspace"),None)
@@ -259,6 +298,16 @@ class MainApp:
 	#_____________________________________________________________________
 	
 	def OnDestroy(self, widget=None, event=None):
+		"""
+		Called when the main window is destroyed.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+			event -- reserved for GTK callbacks, don't use it explicitly.
+			
+			return -- if the current project can't be properly closed, 
+						returns True to stop signal propagation.
+		"""
 		if self.CloseProject() == 0:
 			gtk.main_quit()
 		else:
@@ -267,12 +316,23 @@ class MainApp:
 	#_____________________________________________________________________
 	
 	def OnShowAddInstrumentDialog(self, widget):
-		""" Creates and shows the 'Add Instrument' dialog box """
+		"""
+		Creates and shows the "Add Instrument" dialog box.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		AddInstrumentDialog.AddInstrumentDialog(self.project, self)
 	
 	#_____________________________________________________________________
 
 	def OnChangeInstrument(self, widget=None):
+		"""
+		Changes the type of the selected Instrument.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.	
+		"""
 		# Change the type of a select instrument
 		for instr in self.project.instruments:
 			if (instr.isSelected):
@@ -281,8 +341,13 @@ class MainApp:
 	
 	#_____________________________________________________________________
 	
-	def About(self, widget = None):
-		'''Display about dialog'''
+	def About(self, widget=None):
+		"""
+		Creates and shows the "About" dialog box.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		aboutTree = gtk.glade.XML(Globals.GLADE_PATH, "AboutDialog")
 		dlg = aboutTree.get_widget("AboutDialog")
 		dlg.set_transient_for(self.window)
@@ -293,7 +358,13 @@ class MainApp:
 	#_____________________________________________________________________
 
 	def Record(self, widget=None):
-		'''Toggle recording'''
+		"""
+		Toggles recording. If there's an error, a warning/error message is 
+		issued to the user.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		
 		# toggling the record button invokes this function so we use the settingButtons var to 
 		# indicate that we're just changing the GUI state and dont need to do anything code-wise
@@ -375,8 +446,13 @@ class MainApp:
 
 	#_____________________________________________________________________
 	
-	def Play(self, widget = None):
-		'''Toggle playing'''
+	def Play(self, widget=None):
+		"""
+		Toggles playback.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 
 		if self.settingButtons == True:
 			return 
@@ -389,8 +465,13 @@ class MainApp:
 	#_____________________________________________________________________
 
 	#The stop button is really just an alias for toggling play/record to off
-	def Stop(self, widget = None):
-		'''Stop recording/playing (whichever is happening)'''
+	def Stop(self, widget=None):
+		"""
+		Stops the current record/playback (whichever is happening) operation.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 
 		self.addInstrumentButton.set_sensitive(True)
 
@@ -406,36 +487,72 @@ class MainApp:
 
 	#_____________________________________________________________________
 
-	def OnRewindPressed(self, widget = None):
+	def OnRewindPressed(self, widget=None):
+		"""
+		Starts moving backward within the project's timeline.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		self.project.transport.Reverse(True)
 		
 	#_____________________________________________________________________
 		
-	def OnRewindReleased(self, widget = None):
+	def OnRewindReleased(self, widget=None):
+		"""
+		Stops the current rewind operation.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		self.project.transport.Reverse(False)
 		
 	#_____________________________________________________________________
 		
-	def OnForwardPressed(self, widget = None):
+	def OnForwardPressed(self, widget=None):
+		"""
+		Starts moving forward within the project's timeline.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		self.project.transport.Forward(True)
 		
 	#_____________________________________________________________________
 		
-	def OnForwardReleased(self, widget = None):
+	def OnForwardReleased(self, widget=None):
+		"""
+		Stops the current forward operation.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		self.project.transport.Forward(False)
 	
 	#_____________________________________________________________________
 	
-	def InstrumentSelected(self, widget = None, event = None):
-		'''If an instrument has been selected, enable the record button'''
+	def InstrumentSelected(self, widget=None, event=None):
+		"""
+		Enables the record button if an instrument has been selected.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+			event -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		for instr in self.project.instruments:
 			if instr.isSelected:
 				self.record.set_sensitive(True)
 
 	#_____________________________________________________________________
 	
-	def OnExport(self, widget = None):
-		'''Display a save dialog allowing the user to export as ogg or mp3'''
+	def OnExport(self, widget=None):
+		"""
+		Creates and shows a save file dialog which allows the user to export
+		the project as ogg or mp3.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		buttons = (gtk.STOCK_CANCEL,gtk.RESPONSE_CANCEL,gtk.STOCK_SAVE,gtk.RESPONSE_OK)
 		chooser = gtk.FileChooserDialog(_("Mixdown Project"), self.window, gtk.FILE_CHOOSER_ACTION_SAVE, buttons)
 		chooser.set_current_folder(Globals.settings.general["projectfolder"])
@@ -487,6 +604,9 @@ class MainApp:
 	#_____________________________________________________________________
 	
 	def UpdateExportDialog(self):
+		"""
+		Updates the progress bar corresponding to the current export operation.
+		"""
 		progress = self.project.get_export_progress()
 		if progress[0] == -1 or progress[1] == 0:
 			self.exportprogress.set_fraction(0.0)
@@ -503,12 +623,26 @@ class MainApp:
 	#_____________________________________________________________________
 	
 	def OnExportCancel(self, widget=None):
+		"""
+		Cancels a running export operation and destroys the export progress dialog.
+		
+		Parameters:
+			widget: reserved for GTK callbacks, don't use it explicitly.
+		"""
 		self.exportdlg.destroy()
 		self.project.export_eos()
 	
 	#_____________________________________________________________________
 	
 	def OnPreferences(self, widget, destroyCallback=None):
+		"""
+		Creates and shows the "Jokosher Preferences" dialog.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+			destroyCallback -- function that'll get called when the preferences 
+								dialog gets destroyed.
+		"""
 		prefsdlg = PreferencesDialog.PreferencesDialog(self.project, self, self.icon)
 			
 		if destroyCallback:
@@ -517,6 +651,12 @@ class MainApp:
 	#_____________________________________________________________________
 	
 	def OnShowBarsBeats(self, widget):
+		"""
+		Sets and updates the current timeline view to Bars, Beats and Ticks.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		if self.settingButtons:
 			return
 		if widget.get_active() and self.project and self.project.transport:
@@ -525,6 +665,12 @@ class MainApp:
 	#_____________________________________________________________________
 	
 	def OnShowHoursMins(self, widget):
+		"""
+		Sets and updates the current timeline view to Hours, Minutes and Seconds.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		if self.settingButtons:
 			return
 		if widget.get_active() and self.project and self.project.transport:
@@ -533,6 +679,10 @@ class MainApp:
 	#_____________________________________________________________________
 	
 	def UpdateCurrentDisplay(self):
+		"""
+		Updates the current display, Recording or Mixing, depending on which one
+		is active.
+		"""
 		if self.mode == self.MODE_RECORDING:
 			self.recording.Update()
 		elif self.mode == self.MODE_COMPACT_MIX:
@@ -541,6 +691,11 @@ class MainApp:
 	#_____________________________________________________________________
 	
 	def UpdateDisplay(self):
+		"""
+		Updates the current display, Recording or Mixing, depending on which one
+		is active. Additionally, when idle, it'll update the view hidden in the
+		background.
+		"""
 		if self.mode == self.MODE_RECORDING:
 			self.recording.Update()
 			gobject.idle_add(self.compactmix.Update)
@@ -551,7 +706,15 @@ class MainApp:
 	#_____________________________________________________________________
 
 	def OnOpenProject(self, widget, destroyCallback=None):
+		"""
+		Creates and shows a open file dialog which allows the user to open
+		an existing Jokosher project.
 		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+			destroyCallback -- function that'll get called when the open file
+								dialog gets destroyed.
+		"""
 		chooser = gtk.FileChooserDialog((_('Choose a Jokosher project file')), None, gtk.FILE_CHOOSER_ACTION_OPEN, (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, gtk.STOCK_OPEN, gtk.RESPONSE_OK))
 		chooser.set_current_folder(Globals.settings.general["projectfolder"])
 
@@ -589,7 +752,13 @@ class MainApp:
 		
 	#_____________________________________________________________________
 		
-	def OnSaveProject(self, widget=None):		
+	def OnSaveProject(self, widget=None):
+		"""
+		Saves the current project file.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+		"""	
 		if self.project:
 			self.project.SelectInstrument(None)
 			self.project.ClearEventSelections()
@@ -598,6 +767,13 @@ class MainApp:
 	#_____________________________________________________________________
 	
 	def OnSaveAsProject(self, widget=None):
+		"""
+		Creates and shows a save as file dialog which allows the user to save
+		the current project to an specific file name.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		buttons = (gtk.STOCK_CANCEL,gtk.RESPONSE_CANCEL,gtk.STOCK_SAVE,gtk.RESPONSE_OK)
 		chooser = gtk.FileChooserDialog(_("Choose a location to save the project"), self.window, gtk.FILE_CHOOSER_ACTION_SAVE, buttons)
 		chooser.set_current_folder(Globals.settings.general["projectfolder"])
@@ -615,7 +791,14 @@ class MainApp:
 	#_____________________________________________________________________
 
 	def OnNewProject(self, widget, destroyCallback=None):
-		""" Creates and shows the 'New Project' dialog box """
+		"""
+		Creates and shows the "New Project" dialog.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+			destroyCallback -- function that'll get called when the new project
+								dialog gets destroyed.
+		"""
 		newdlg = NewProjectDialog.NewProjectDialog(self)
 		if destroyCallback:
 			newdlg.dlg.connect("destroy", destroyCallback)
@@ -623,13 +806,24 @@ class MainApp:
 	#_____________________________________________________________________
 		
 	def OnCloseProject(self, widget):
-		""" Closes a project """
+		"""
+		Closes the current project by calling CloseProject(). 
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		if self.CloseProject() == 0:
 			self.SetGUIProjectLoaded()
 	#_____________________________________________________________________
 	
 	def CloseProject(self):
-		#return values: 0 == okay, 1 == cancel and return to program
+		"""
+		Closes the current project. If there's changes pending, it'll ask the user for confirmation.
+		
+		Parameters:
+			return -- 	0 = there was no project open or it was closed succesfully.
+						1 = cancel the operation and return to the normal program flow.
+		"""
 		if not self.project:
 			return 0
 		
@@ -670,19 +864,45 @@ class MainApp:
 	#_____________________________________________________________________
 	
 	def OnUndo(self, widget):
+		"""
+		Undoes the last change made to the project and updates the displays.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		self.project.Undo()
 		self.UpdateDisplay()
 		
 	#_____________________________________________________________________
 	
 	def OnRedo(self, widget):
+		"""
+		Redoes the last undo operation and updates the displays.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		self.project.Redo()
 		self.UpdateDisplay()
 
 	#_____________________________________________________________________
 	
 	def OnStateChanged(self, obj=None, change=None, *extra):
-		#for when undo and redo history change
+		"""
+		Updates internal flags, views and the user interface to reflect a given
+		change in the project.
+		
+		Parameters:
+			obj -- object calling the method.
+			change -- string indicating the change which fired this function:
+					gst-bus-error = a serious core engine error occurred.
+					play = playback started.
+					record = recording started.
+					stop = playback or recording was stopped.
+					transport-mode = the transport mode display was changed.
+					undo = an undo operation was performed.
+			*extra -- parameters of additional information depending on the change parameter.
+		"""
 
 		if change=="play" or (change == "stop" and self.isPlaying):
 			self.isPlaying = not self.isPlaying
@@ -732,18 +952,25 @@ class MainApp:
 			if self.settingButtons:
 				return
 			self.settingButtons = True
-			a = self.wTree.get_widget("show_as_bars_beats_ticks")
-			b = self.wTree.get_widget("show_as_hours_minutes_seconds")
-			t = self.project.transport
+			modeBars = self.wTree.get_widget("show_as_bars_beats_ticks")
+			modeHours = self.wTree.get_widget("show_as_hours_minutes_seconds")
+			transport = self.project.transport
 			
-			a.set_active(t.mode == t.MODE_BARS_BEATS)
-			b.set_active(t.mode == t.MODE_HOURS_MINS_SECS)
+			modeBars.set_active(transport.mode == transport.MODE_BARS_BEATS)
+			modeHours.set_active(transport.mode == transport.MODE_HOURS_MINS_SECS)
 			
 			self.settingButtons = False
 		
 	#_____________________________________________________________________
 
 	def InsertRecentProject(self, path, name):
+		"""
+		Inserts a new project with it's corresponding path to the recent project list.
+		
+		Parameters:
+			path -- path to the project file.
+			name -- name of the project being added.
+		"""
 		for item in self.recentprojectitems:
 			if path == item[0]:
 				self.recentprojectitems.remove(item)
@@ -756,6 +983,13 @@ class MainApp:
 	#_____________________________________________________________________
 	
 	def OnClearRecentProjects(self, widget):
+		"""
+		Clears the recent projects list. It then updates the user interface to reflect
+		the changes.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		self.recentprojectitems = []
 		self.SaveRecentProjects()
 		self.PopulateRecentProjects()
@@ -763,8 +997,9 @@ class MainApp:
 	#_____________________________________________________________________
 	
 	def PopulateRecentProjects(self):
-		'''Populate the Recent Projects menu with items from self.recentprojectitems'''
-		
+		"""
+		Populates the Recent Projects menu with items from self.recentprojectitems.
+		"""	
 		menuitems = self.recentprojectsmenu.get_children()
 		for c in menuitems:
 			self.recentprojectsmenu.remove(c)
@@ -795,7 +1030,9 @@ class MainApp:
 	#_____________________________________________________________________
 	
 	def OpenRecentProjects(self):
-		'''Populate the self.recentprojectpaths with items from global settings'''
+		"""
+		Populate the self.recentprojectpaths with items from global settings.
+		"""
 		self.recentprojectitems = []
 		if Globals.settings.general.has_key("recentprojects"):
 			filestring = Globals.settings.general["recentprojects"]
@@ -821,11 +1058,22 @@ class MainApp:
 	#_____________________________________________________________________
 	
 	def OnRecentProjectsItem(self, widget, path, name):
+		"""
+		Opens the project selected from the "Recent Projects" drop-down menu.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+			path -- path to the project file.
+			name -- name of the project being opened.
+		"""
 		return self.OpenProjectFromPath(path)
 
 	#_____________________________________________________________________
 
 	def SaveRecentProjects(self):
+		"""
+		Saves the list of the last 8 recent projects to the Jokosher config file.
+		"""
 		string = ""
 
 		# Cut list to 8 items
@@ -841,6 +1089,15 @@ class MainApp:
 	#______________________________________________________________________
 	
 	def OnCut(self, widget=None, cut=True):
+		"""
+		Cuts the portion of selected audio and puts it in the clipboard.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+			cut --  Determines whether the operation should perform a cut or copy operation:
+					True = perform a cut operation.
+					False = perform a copy operation.
+		"""
 		if self.instrNameEntry:
 			#if an instrument name is currently being edited
 			if cut:
@@ -865,11 +1122,24 @@ class MainApp:
 	#______________________________________________________________________
 	
 	def OnCopy(self, widget=None):
+		"""
+		Copies the portion of selected audio to the clipboard.	
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		self.OnCut(widget, False)
 	
 	#______________________________________________________________________
 	
 	def OnPaste(self, widget=None):
+		"""
+		Pastes the portion of audio in the clipboard to the selected instrument,
+		at the selected position in time.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		if self.instrNameEntry:
 			#if an instrument name is currently being edited
 			self.instrNameEntry.paste_clipboard()
@@ -886,6 +1156,12 @@ class MainApp:
 	#______________________________________________________________________
 	
 	def OnDelete(self, widget=None):
+		"""
+		Deletes the currently selected instrument or event.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		# Delete any select instruments
 		for instr in self.project.instruments:
 			if (instr.isSelected):
@@ -903,6 +1179,14 @@ class MainApp:
 	#______________________________________________________________________
 
 	def OnMouseDown(self, widget, mouse):
+		"""
+		If there's a project open, clears event and instrument selections. It also
+		updates the current display.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+			mouse -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		if self.project:
 			self.project.ClearEventSelections()
 			self.project.SelectInstrument(None)
@@ -911,6 +1195,10 @@ class MainApp:
 	#______________________________________________________________________
 	
 	def SetGUIProjectLoaded(self):
+		"""
+		Refreshes the main window and it's components when a project is opened or closed.
+		For example, buttons are enabled/disabled whether there's a project currently open or not. 
+		"""
 		children = self.main_vbox.get_children()
 		if self.recording in children:
 			self.main_vbox.remove(self.recording)
@@ -979,7 +1267,13 @@ class MainApp:
 	#_____________________________________________________________________
 	
 	def OnKeyPress(self, widget, event):
+		"""
+		Handles the hotkeys, calling whichever function they are assigned to.
 		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+			event -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		if 'GDK_CONTROL_MASK' in event.state.value_names:
 			keysdict = {
 				120:self.OnCut, # Ctrl-X
@@ -999,14 +1293,25 @@ class MainApp:
 		
 	#_____________________________________________________________________
 	
-	def OnInstrumentConnectonsDialog(self, widget):
+	def OnInstrumentConnectionsDialog(self, widget):
+		"""
+		Creates and shows the "Instrument Connections Dialog".
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		InstrumentConnectionsDialog.InstrumentConnectionsDialog(self.project, self)
 		
 	#_____________________________________________________________________
 	
 	def OnEditMenu(self, widget):
-		#HACK: when the edit menu opens, check if any events or
-		#instruments are selected and set the cut, copy, paste and delete accordingly
+		"""
+		HACK: When the edit menu opens, checks if any events or instruments are selected 
+		and sets the cut, copy, paste and delete menu items' sensitivity accordingly.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		instrSelected = False
 		eventSelected = False
 		if self.project:
@@ -1027,8 +1332,13 @@ class MainApp:
 	#_____________________________________________________________________
 	
 	def OnProjectMenu(self, widget):
-		#HACK: when project menu opens, set sensitivity so we don't
-		#have to monitor all the selection changes
+		"""
+		HACK: When the project menu opens, set sensitivity depending on
+		whether there's an open project or not.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		if self.settingButtons:
 				return
 		self.settingButtons = True
@@ -1047,6 +1357,18 @@ class MainApp:
 	#_____________________________________________________________________
 
 	def OpenProjectFromPath(self,path, parent=None):
+		"""
+		Opens the project file referred by the path parameter.
+		
+		Parameters:
+			path -- Path to the project to be opened.
+			parent -- Parent window of the error message dialog.
+			
+			return -- True = the project could be successfully opened and 
+					  		set as the current project.
+					  False = loading the project failed. A dialog will be
+					  		displayed to user detailing the error.
+		"""
 		try:
 			self.SetProject(Project.LoadFromFile(path))
 			return True
@@ -1057,6 +1379,13 @@ class MainApp:
 	#_____________________________________________________________________
 	
 	def SetProject(self, project):
+		"""
+		Tries to establish the Project parameter as the current project.
+		If there are errors, an error message is issued to the user.
+		
+		Parameters:
+			project -- the Project object to set as the main project.
+		"""
 		try:
 			project.ValidateProject()
 		except Project.InvalidProjectError, e:
@@ -1097,6 +1426,10 @@ class MainApp:
 	#_____________________________________________________________________
 	
 	def CheckGstreamerVersions(self):
+		"""
+		Check for CVS versions of Gstreamer and gnonlin. If requirements are not met,
+		a warning message is issued to the user.
+		"""
 		#Check for CVS versions of Gstreamer and gnonlin
 		message = ""
 		gstVersion = gst.version()
@@ -1128,16 +1461,34 @@ class MainApp:
 	#_____________________________________________________________________
 
 	def SetStatusBar(self, message):
+		"""
+		Appends the message parameter to the status bar text.
+		
+		Parameters:
+			message -- string to append to the status bar text.
+		"""
 		return self.statusbar.Push(message)
 	
 	#_____________________________________________________________________
 
 	def ClearStatusBar(self, messageID):
+		"""
+		Clears the status bar text in the position pointed by messageID.
+		
+		Parameters:
+			messageID -- the message identifier of the text to be cleared.
+		"""
 		self.statusbar.Remove(messageID)
 	
 	#_____________________________________________________________________
 
 	def OnPreReleaseNotes(self, widget):
+		"""
+		Creates and shows the "Pre Release Notes" dialog.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		dlg = gtk.MessageDialog(self.window,
 			gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
 			gtk.MESSAGE_WARNING,
@@ -1149,7 +1500,12 @@ class MainApp:
 	#_____________________________________________________________________
 
 	def OnContributingDialog(self, widget):
+		"""
+		Creates and shows the "Contributing to Jokosher" dialog.
 		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		self.contribTree = gtk.glade.XML(Globals.GLADE_PATH, "ContributingDialog")
 		
 		# grab reference to the ContributingDialog window
@@ -1165,6 +1521,13 @@ class MainApp:
 	#_____________________________________________________________________
 	
 	def ShowOpenProjectErrorDialog(self, error, parent=None):
+		"""
+		Creates and shows a dialog to inform the user about an error that has ocurred.
+		
+		Parameters:
+			error -- string with the error(s) description.
+			parent -- parent window of the error message dialog.
+		"""
 		if not parent:
 			parent = self.window
 
@@ -1193,11 +1556,20 @@ class MainApp:
 	#_____________________________________________________________________
 
 	def OnExtensionManagerDialog(self, widget):
+		"""
+		Creates and shows the "Extension Manager" dialog.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		ExtensionManagerDialog.ExtensionManagerDialog(self)
 
 #=========================================================================
 
-def main():	
+def main():
+	"""
+	Main entry point for Jokosher.
+	"""	
 	MainApp()
 	gtk.main()
 
