@@ -84,6 +84,16 @@ class InstrumentEffectsDialog:
 		self.mainvbox.pack_start(self.headerCairoImage, False, False)
 		self.headerCairoImage.show()
 		
+		# pick the gtk.Entry out of the effectscombo and
+		# add a gtk.EntryCompletion to it
+		self.effectsEntry = self.effectscombo.child
+		self.effectsEntryCompletion = gtk.EntryCompletion()
+		self.effectsEntryCompletion.set_match_func(self.matchEffect)
+		self.effectsEntry.set_completion(self.effectsEntryCompletion)
+		self.effectsEntryCompletion.set_text_column(0)
+		self.effectsEntryCompletion.connect("match-selected", self.OnEntrySelected)
+		
+		
 		# set the instrumentimage to the self.instrument icon
 		self.instrumentimage.set_from_pixbuf(self.instrument.pixbuf)
 		
@@ -94,13 +104,15 @@ class InstrumentEffectsDialog:
 		for item in Globals.LADSPA_NAME_MAP:
 			Globals.debug(item[1])
 			longname = item[1]
-			shortname = longname[:30]
+			shortname = longname[:45]
 			
-			if len(longname) > 30:
+			if len(longname) > 45:
 				shortname = shortname + "..."
 			
 			self.effectscombo.append_text(shortname)
 
+		# make the EntryCompletion use the same list for its model
+		self.effectsEntryCompletion.set_model(self.model)
 		self.presets = EffectPresets.EffectPresets()
 
 		# set up presets
@@ -247,6 +259,15 @@ class InstrumentEffectsDialog:
 			and add it to the instrument.
 		"""
 		effectindex = self.effectscombo.get_active()	
+		# quit if there is no active selection
+		if effectindex == -1:
+			return
+		
+		# check the actively selected name  matches the 
+		# value in the gtk.Entry if it doesn't then a search was
+		# probably abandoned without selecting so ignore this
+		if Globals.LADSPA_NAME_MAP[effectindex][1] != self.effectsEntry.get_text():
+			return
 		
 		name = Globals.LADSPA_NAME_MAP[effectindex][0]
 		self.instrument.AddEffect(name)
@@ -532,6 +553,32 @@ class InstrumentEffectsDialog:
 	def BringWindowToFront(self):
 		self.window.present()
 		
+	#_____________________________________________________________________
+
+	def matchEffect(self, completion, entrystr, iter):
+		"""
+		   Callback for matching on effect entry box
+		   if the effect contains the current string
+		   then returns True
+		"""
+		modelString = completion.get_model()[iter][0]
+		return entrystr.lower() in modelString.lower()
+		
+	#_____________________________________________________________________
+
+	def OnEntrySelected(self, completion, model, modelIter):
+		"""
+		   Callback for selection made in the entry completion for effects combo
+		"""
+		# read the effect description and scan the effectscombo
+		# until it's found and set it active as this is what the add
+		# button uses
+		value = model.get_value(modelIter, 0)
+		effectsModel = self.effectscombo.get_model()
+		effectsIter = effectsModel.get_iter_first()
+		while effectsModel.get_value(effectsIter, 0) != value:
+			effectsIter = effectsModel.iter_next(effectsIter)
+		self.effectscombo.set_active_iter(effectsIter)
 	#_____________________________________________________________________
 #=========================================================================
 
