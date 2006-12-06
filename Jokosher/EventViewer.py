@@ -541,18 +541,21 @@ class EventViewer(gtk.DrawingArea):
 		
 	def ContextMenu(self,mouse):
 		m = gtk.Menu()
-		items = [	(_("Split"), self.OnSplit, True),
-					("---", None, None),
-					(_("Cut"), self.OnCut, True),
-					(_("Copy"), self.OnCopy, True),
-					(_("Delete"), self.OnDelete, False)
-				] 
+		items = [	(_("_Split"), self.OnSplit, True, None),
+					("---", None, None, None),
+					(_("Cu_t"), self.OnCut, True, gtk.image_new_from_stock(gtk.STOCK_CUT, gtk.ICON_SIZE_MENU)),
+					(_("_Copy"), self.OnCopy, True, gtk.image_new_from_stock(gtk.STOCK_COPY, gtk.ICON_SIZE_MENU)),
+					(_("_Delete"), self.OnDelete, False, gtk.image_new_from_stock(gtk.STOCK_DELETE, gtk.ICON_SIZE_MENU))
+					] 
 
-		for i, cb, sometimes in items: 
+		for i, cb, sometimes, image in items: 
 			if i == "---":
 				a = gtk.SeparatorMenuItem()
+			elif image:
+				a = gtk.ImageMenuItem(i, True)
+				a.set_image(image)
 			else:
-				a = gtk.MenuItem(i)
+				a = gtk.MenuItem(label=i)
 			
 			if self.event.isLoading and sometimes:
 				a.set_sensitive(False)

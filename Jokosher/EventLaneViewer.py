@@ -95,6 +95,14 @@ class EventLaneViewer(gtk.EventBox):
 		self.fixed.connect("drag_leave", self.OnDragLeave)
 		self.fixed.connect("expose-event", self.OnDraw)
 		
+		self.audioFilePixbuf = None
+		#get the audiofile image from Globals
+		for name, type, pixbuf in Globals.getCachedInstruments():
+			if type == "audiofile":
+				size = gtk.icon_size_lookup(gtk.ICON_SIZE_MENU)
+				self.audioFilePixbuf = pixbuf.scale_simple(size[0], size[1], gtk.gdk.INTERP_BILINEAR)
+				break
+		
 		self.messageID = None
 		
 		self.Update()
@@ -197,16 +205,26 @@ class EventLaneViewer(gtk.EventBox):
 		
 		# Create context menu on RMB 
 		if mouse.button == 3: 
-			m = gtk.Menu() 
-			items = [	(_("Import Audio File..."), self.CreateEventFromFile, True),
-					("---", None, None),
-					(_("Paste"), self.OnPaste, self.project.clipboardList),
-					(_("Delete"), self.OnDelete, True)
+			m = gtk.Menu()
+			
+			
+			audioimg = None
+			if self.audioFilePixbuf:
+				audioimg = gtk.Image()
+				audioimg.set_from_pixbuf(self.audioFilePixbuf)
+			
+			items = [	(_("_Import Audio File..."), self.CreateEventFromFile, True, audioimg),
+					("---", None, None, None),
+					(_("_Paste"), self.OnPaste, self.project.clipboardList, gtk.image_new_from_stock(gtk.STOCK_PASTE, gtk.ICON_SIZE_MENU)),
+					(_("_Delete"), self.OnDelete, True, gtk.image_new_from_stock(gtk.STOCK_DELETE, gtk.ICON_SIZE_MENU))
 					 ] 
 
-			for i, cb, sensitive in items: 
+			for i, cb, sensitive, image in items: 
 				if i == "---":
 					a = gtk.SeparatorMenuItem()
+				elif image:
+					a = gtk.ImageMenuItem(i, True)
+					a.set_image(image)
 				else:
 					a = gtk.MenuItem(label=i)
 					
