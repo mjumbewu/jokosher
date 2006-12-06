@@ -159,7 +159,7 @@ def _cacheInstrumentsGenerator(alreadyLoadedTypes=[]):
 				name = gettext.gettext(config.get( 'i18n', 'en'))
 			else:
 				continue
-		
+			name = unicode(name, "UTF-8")
 			pixbufPath = os.path.join(instr_path, "images", icon)
 			pixbuf = gtk.gdk.pixbuf_new_from_file(pixbufPath)
 				

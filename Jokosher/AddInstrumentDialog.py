@@ -60,7 +60,7 @@ class AddInstrumentDialog:
 		self.model = gtk.ListStore(str, str, gtk.gdk.Pixbuf)
 			
 		for i in Globals.getCachedInstruments():
-			lineList = [x.center(12) for x in textwrap.wrap(i[0], 12)]
+			lineList = [x.center(12) for x in textwrap.wrap(i[0], 11)]
 			j = "\n".join(lineList)
 			self.model.append((j, i[1], i[2]))
 		
