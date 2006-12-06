@@ -952,7 +952,8 @@ class Project(Monitored):
 		self.projectfile = ""
 		self.projectdir = ""
 		self.name = ""
-		self.listeners = []
+		self.ClearListeners()
+		self.transport.ClearListeners()
 		
 	#_____________________________________________________________________
 	

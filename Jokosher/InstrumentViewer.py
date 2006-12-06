@@ -266,6 +266,13 @@ class InstrumentViewer(gtk.EventBox):
 		
 	#_____________________________________________________________________
 	
+	def Destroy(self):
+		self.instrument.RemoveListener(self)
+		self.eventLane.Destroy()
+		self.destroy()
+	
+	#_____________________________________________________________________
+	
 	def Update(self):
 		"""
 			Called when requested by projectview.Update() to update

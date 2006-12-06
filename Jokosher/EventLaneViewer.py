@@ -152,6 +152,8 @@ class EventLaneViewer(gtk.EventBox):
 						if w.drawer.parent == self.fixed:
 							self.fixed.remove(w.drawer)
 						self.childActive = False
+						#destroy the object
+						w.Destroy()
 					else:
 						x = int(round((w.event.start - self.project.viewStart) * self.project.viewScale))
 						self.fixed.move(w, x, 0)
@@ -167,6 +169,20 @@ class EventLaneViewer(gtk.EventBox):
 			self.fixed.show_all()
 		self.queue_draw()
 			
+	#_____________________________________________________________________
+	
+	def Destroy(self):
+		self.project.transport.RemoveListener(self)
+		self.project.RemoveListener(self)
+		self.instrument.RemoveListener(self)
+		
+		for w in self.fixed.get_children():
+			#Check that it is EventViewer (could be a button drawer)
+			if type(w) == EventViewer:
+				w.Destroy()
+		
+		self.destroy()
+	
 	#_____________________________________________________________________
 
 	def OnMouseDown(self, widget, mouse):

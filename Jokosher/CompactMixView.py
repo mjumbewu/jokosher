@@ -85,7 +85,16 @@ class CompactMixView(gtk.Frame):
 					self.channels.append(strip)
 					
 				self.hbox.pack_start(strip, False, False)
-			
+		
+		removeList = []
+		for strip in self.channels:
+			if not strip.instrument in self.project.instruments:
+				strip.Destroy()
+				removeList.append(strip)
+		for item in removeList:
+			self.channels.remove(item)
+		del removeList
+		
 		#Pack the master vuwidget  
 		self.hbox.pack_end(self.mastermixer, False, False)  			
 			

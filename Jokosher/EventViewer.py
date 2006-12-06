@@ -372,6 +372,15 @@ class EventViewer(gtk.DrawingArea):
 		self.redrawWaveform = False
 
 	#_____________________________________________________________________
+	
+	def Destroy(self):
+		self.project.RemoveListener(self)
+		self.event.RemoveListener(self)
+		#delete the cached image
+		del self.source
+		self.destroy()
+	
+	#_____________________________________________________________________
 
 	def OnMouseMove(self,widget,mouse):
 	

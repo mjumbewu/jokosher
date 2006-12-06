@@ -45,7 +45,13 @@ class Monitored:
 			self.listeners.remove(obj)
 			
 	#_____________________________________________________________________
-			
+	
+	def ClearListeners(self):
+		"""Remove all listeners to allow them to be destroyed."""
+		self.listeners = []
+	
+	#_____________________________________________________________________
+	
 	def StateChanged(self, change=None, *extra):
 		"""This function should be called when we want a change to be reported to all objects previously added by AddListener. 
 		
@@ -53,6 +59,7 @@ class Monitored:
 		change -- The change which has occured (optional).
 		extra -- Any extra parameters that should be passed (optional).
 		"""
+		
 		for obj in self.listeners:
 			obj.OnStateChanged(self, change, *extra)
 			

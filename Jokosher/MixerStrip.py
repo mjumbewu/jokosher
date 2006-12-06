@@ -157,6 +157,12 @@ class MixerStrip(gtk.Frame):
 		self.Updating = False
 	
 	#_____________________________________________________________________
+	
+	def Destroy(self):
+		self.vu.Destroy()
+		self.destroy()
+	
+	#_____________________________________________________________________
 
 	def GetLevel(self):
 		return self.instrument.level

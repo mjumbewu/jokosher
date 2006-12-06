@@ -190,15 +190,23 @@ class RecordingView(gtk.Frame):
 			iv.show()
 			
 			orderCounter += 1
-			
+		
+		removeList = []
 		#self.views is up to date now
 		for ident, iv in self.views:
 			#check if instrument has been deleted
-			if not iv.instrument in self.project.instruments and iv in children:
-				self.instrumentBox.remove(iv)
+			if not iv.instrument in self.project.instruments:
+				if iv in children:
+					self.instrumentBox.remove(iv)
+				iv.Destroy()
+				removeList.append((ident, iv))
 			else:
 				iv.Update() #Update non-deleted instruments
 		
+		#remove all the unused ones so the garbage collector can clean then up
+		for tuple_ in removeList:
+			self.views.remove(tuple_)
+		del removeList
 		
 		if len(self.views) > 0:
 			self.UpdateSize(None, self.views[0][1].headerAlign.get_allocation())
