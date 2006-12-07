@@ -123,10 +123,10 @@ class InstrumentEffectsDialog:
 		# mighty list comprehension that returns presets for this instrument
 		# if it is on the system (in LADSPA_FACTORY_REGISTRY). It then adds the
 		# presets to the chain presets combo box.
-
-		availpresets = [x[0] for x in self.presets.effectpresetregistry.items() if x[1].get('instrument')== self.instrument.instrType and x[1]['dependencies'].issubset(Globals.LADSPA_FACTORY_REGISTRY)]
+		self.availpresets=[]
+		self.availpresets = [x[0] for x in self.presets.effectpresetregistry.items() if x[1].get('instrument')== self.instrument.instrType and x[1]['dependencies'].issubset(Globals.LADSPA_FACTORY_REGISTRY)]
 		
-		for pres in availpresets:
+		for pres in self.availpresets:
 			self.chainpresetcombo.append_text(pres)
 			
 		# this says if the project is playing, so we know to toggle the
@@ -396,6 +396,7 @@ class InstrumentEffectsDialog:
 		# if (a) it is on the system (in LADSPA_FACTORY_REGISTRY) and (b) if the preset is
 		# only for that plugin. Witness the m/\d skillz. The values returned
 		# are shown in the presets combo box for this effect
+		self.availpresets = []
 		self.availpresets = [x for x in self.presets.effectpresetregistry if self.presets.effectpresetregistry[x]['dependencies']==set([elementfactory]) and elementfactory in Globals.LADSPA_FACTORY_REGISTRY]
 
 		for pres in self.availpresets:
@@ -531,6 +532,9 @@ class InstrumentEffectsDialog:
 		"""
 					
 		presetname = name = combo.get_active_text()
+		if presetname not in self.availpresets:
+			return
+
 		self.instrument.currentchainpreset = combo.get_active()
 		settings = self.presets.LoadInstrumentEffectChain(presetname)
 		
