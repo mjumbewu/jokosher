@@ -185,11 +185,14 @@ class EffectPresets:
 		settdict = {}
 		
 		for eff in doc.getElementsByTagName('Effect'):
+			preftags = eff.getElementsByTagName('Parameters')[0]
+			prefs = LoadDictionaryFromXML(preftags)
+
 			settingstags = eff.getElementsByTagName('Settings')[0]
 			setts = LoadDictionaryFromXML(settingstags)
 			elementname = setts["name"]
-			settdict[str(elementname)] = setts
-		
+			settdict[str(elementname)] = {'preferences': prefs, 'settings': setts}
+
 		return settdict
 		
 	#_____________________________________________________________________

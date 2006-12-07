@@ -541,15 +541,21 @@ class InstrumentEffectsDialog:
 		self.instrument.effects = []
 		
 		for item in settings:
-			effect = self.instrument.AddEffect(item)
-			
-			for sett in settings[item]:
+			effect = settings[item]
+			prefs = effect['preferences']
+			setts = effect['settings']
+
+			effect = self.instrument.AddEffect(prefs['effectelement'])
+
+			for sett in setts:
 				try:
-					settings[item][sett]
-					effect.set_property(sett, settings[item][sett])
+					setts[sett]
+					effect.set_property(sett, setts[sett])
+
 				except:
+					Globals.debug("problem loading preset property %s= %s"%(sett,setts[sett]))
 					pass
-		
+
 		self.Update()
 
 	#_____________________________________________________________________	
