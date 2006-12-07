@@ -120,11 +120,14 @@ class InstrumentEffectsDialog:
 		self.model = gtk.ListStore(str)
 		self.chainpresetcombo.set_model(self.model)
 
-		# mighty list comprehension that returns presets for this instrument
+		# appends presets for this instrument
 		# if it is on the system (in LADSPA_FACTORY_REGISTRY). It then adds the
 		# presets to the chain presets combo box.
-		self.availpresets=[]
-		self.availpresets = [x[0] for x in self.presets.effectpresetregistry.items() if x[1].get('instrument')== self.instrument.instrType and x[1]['dependencies'].issubset(Globals.LADSPA_FACTORY_REGISTRY)]
+		self.availpresets = []
+		for key, value in self.presets.effectpresetregistry.iteritems():
+			if value['instrument'] == self.instrument.instrType and \
+					value['dependencies'].issubset(Globals.LADSPA_FACTORY_REGISTRY):
+				self.availpresets.append(key)
 		
 		for pres in self.availpresets:
 			self.chainpresetcombo.append_text(pres)
@@ -392,12 +395,16 @@ class InstrumentEffectsDialog:
 		self.model = gtk.ListStore(str)
 		self.presetcombo.set_model(self.model)
 
-		# mighty list comprehension that returns presets for this effects plugin
+		# append preset for this effects plugin
 		# if (a) it is on the system (in LADSPA_FACTORY_REGISTRY) and (b) if the preset is
-		# only for that plugin. Witness the m/\d skillz. The values returned
-		# are shown in the presets combo box for this effect
+		# only for that plugin. The list is shown in the presets combo box for this effect
 		self.availpresets = []
-		self.availpresets = [x for x in self.presets.effectpresetregistry if self.presets.effectpresetregistry[x]['dependencies']==set([elementfactory]) and elementfactory in Globals.LADSPA_FACTORY_REGISTRY]
+		if elementfactory in Globals.LADSPA_FACTORY_REGISTRY:
+			for key, value in self.presets.effectpresetregistry.iteritems():
+				deps = value['dependencies']
+				if len(deps) == 1 and elementfactory in deps:
+					self.availpresets.append(key)
+				
 
 		for pres in self.availpresets:
 			self.presetcombo.append_text(pres)
