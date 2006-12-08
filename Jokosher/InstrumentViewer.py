@@ -445,8 +445,7 @@ class InstrumentViewer(gtk.EventBox):
 			# Don't edit type unless the user clicks while we are already selected
 			return True
 		
-		AddInstrumentDialog.AddInstrumentDialog(self.project, self.mainview, 
-		    self.instrument)
+		AddInstrumentDialog.AddInstrumentDialog(self.project, self.mainview, self.instrument)
 		    
 	#______________________________________________________________________
 

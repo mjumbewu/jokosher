@@ -94,7 +94,7 @@ class EffectPresets:
 		self.effecttype = None
 		
 		if not Globals.EFFECT_PRESETS_PATH:
-			raise "No save path specified!"    
+			raise "No save path specified!"
 		
 		doc = xml.Document()
 		head = doc.createElement("JokosherPreset")

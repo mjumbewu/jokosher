@@ -372,7 +372,7 @@ class MainApp:
 			return
 		
 		if self.isRecording:
-			self.project.stop()
+			self.project.Stop()
 			self.addInstrumentButton.set_sensitive(True)
 			return
 		
@@ -426,7 +426,7 @@ class MainApp:
 			
 			self.addInstrumentButton.set_sensitive(False)
 			try:
-				self.project.record()
+				self.project.Record()
 			except Project.AudioInputsError, e:
 				if e.errno==0:
 					message=_("No channels capable of recording have been found, please attach a device and try again.")
@@ -442,7 +442,7 @@ class MainApp:
 					message)
 				dlg.connect('response', lambda dlg, response: dlg.destroy())
 				dlg.run()
-				self.project.terminate()
+				self.project.TerminateRecording()
 
 	#_____________________________________________________________________
 	
@@ -458,9 +458,9 @@ class MainApp:
 			return 
 
 		if not self.isPlaying:
-			self.project.play()
+			self.project.Play()
 		else:
-			self.project.stop()
+			self.project.Stop()
 
 	#_____________________________________________________________________
 
@@ -583,7 +583,7 @@ class MainApp:
 			self.exportprogress = export.get_widget("progressBar")
 			
 			gobject.timeout_add(100, self.UpdateExportDialog)
-			self.project.export(filename)
+			self.project.Export(filename)
 		else:
 			chooser.destroy()
 		
@@ -593,7 +593,7 @@ class MainApp:
 		"""
 		Updates the progress bar corresponding to the current export operation.
 		"""
-		progress = self.project.get_export_progress()
+		progress = self.project.GetExportProgress()
 		if progress[0] == -1 or progress[1] == 0:
 			self.exportprogress.set_fraction(0.0)
 			self.exportprogress.set_text(_("Preparing to mixdown project"))
@@ -616,7 +616,7 @@ class MainApp:
 			widget: reserved for GTK callbacks, don't use it explicitly.
 		"""
 		self.exportdlg.destroy()
-		self.project.export_eos()
+		self.project.TerminateExport()
 	
 	#_____________________________________________________________________
 	
@@ -748,7 +748,7 @@ class MainApp:
 		if self.project:
 			self.project.SelectInstrument(None)
 			self.project.ClearEventSelections()
-			self.project.saveProjectFile()
+			self.project.SaveProjectFile()
 			
 	#_____________________________________________________________________
 	
@@ -771,7 +771,7 @@ class MainApp:
 			Globals.settings.write()
 			self.project.SelectInstrument()
 			self.project.ClearEventSelections()
-			self.project.saveProjectFile(filename)
+			self.project.SaveProjectFile(filename)
 		chooser.destroy()
 		
 	#_____________________________________________________________________
@@ -841,7 +841,7 @@ class MainApp:
 			elif response == gtk.RESPONSE_CANCEL or response == gtk.RESPONSE_DELETE_EVENT:
 				return 1
 				
-		self.project.closeProject()
+		self.project.CloseProject()
 		
 		self.project = None
 		self.mode = None
@@ -909,10 +909,8 @@ class MainApp:
 			self.settingButtons = False
 		
 		elif change == "undo":
-			undo = len(self.project.undoStack) or len(self.project.savedUndoStack)
-			self.undo.set_sensitive(undo)
-			redo = len(self.project.redoStack) or len(self.project.savedRedoStack)
-			self.redo.set_sensitive(redo)
+			self.undo.set_sensitive(self.project.CanPerformUndo())
+			self.redo.set_sensitive(self.project.CanPerformRedo())
 		
 			if self.project.CheckUnsavedChanges():
 				self.window.set_title(_('*%s - Jokosher') % self.project.name)

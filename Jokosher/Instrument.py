@@ -59,7 +59,7 @@ class Instrument(Monitored):
 		
 		# Select first input device as default to avoid a GStreamer bug which causes
 		# large amounts of latency with the ALSA 'default' device.
-		try:    
+		try:
 			self.input = AlsaDevices.GetAlsaList("capture").values()[1]
 		except: 
 			self.input = "default"
@@ -185,12 +185,29 @@ class Instrument(Monitored):
 		
 		self.AddAndLinkPlaybackbin()
 
-		self.composition.connect("pad-added", self.project.newPad, self)
-		self.composition.connect("pad-removed", self.project.removePad, self)
+		self.composition.connect("pad-added", self.__PadAddedCb)
+		self.composition.connect("pad-removed", self.__PadRemovedCb)
 		
 		#mute this instrument if another one is solo
 		self.OnMute()
 		
+	#_____________________________________________________________________
+	
+	def __PadAddedCb(self, element, pad):
+		""" Links a new pad to the rest of the playbackbin when one is created by the composition.
+		"""
+		Globals.debug("NEW PAD on instrument %s" % self.name)
+		convpad = self.effectsBin.get_compatible_pad(pad, pad.get_caps())
+		pad.link(convpad)
+
+	#_____________________________________________________________________
+
+	def __PadRemovedCb(self, element, pad):
+		""" Removes a new GStreamer pad from the specified instrument.
+		"""
+		Globals.debug("pad removed on instrument %s" % self.name)
+		self.composition.set_state(gst.STATE_READY)
+
 	#_____________________________________________________________________
 	
 	def __repr__(self):

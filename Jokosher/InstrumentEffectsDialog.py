@@ -214,10 +214,10 @@ class InstrumentEffectsDialog:
 		if self.isPlaying == False:
 			# things to do if the project is not already playing, and hence
 			# needs to start playing
-			self.instrument.project.play()
+			self.instrument.project.Play()
 			self.isPlaying = True
 		else:
-			self.instrument.project.stop()
+			self.instrument.project.Stop()
 			self.isPlaying = False
 
 	#_____________________________________________________________________
@@ -338,7 +338,7 @@ class InstrumentEffectsDialog:
 		
 		# iterate through the properties list and determine the value type
 		# of the property and show it where needed
-		for property in proplist:		            
+		for property in proplist:
 			# non readable params
 			if not(property.flags & gobject.PARAM_READABLE):
 				label = gtk.Label(property.name)

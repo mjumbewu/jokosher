@@ -44,12 +44,12 @@ class MasterMixerStrip(gtk.Frame):
 	#_____________________________________________________________________
 
 	def GetLevel(self):
-		return self.project.masterlevel
+		return self.project.level
 
 	#_____________________________________________________________________
 
 	def GetVolume(self):
-		return self.project.mastervolume
+		return self.project.volume
 		
 	#_____________________________________________________________________
 

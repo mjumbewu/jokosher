@@ -76,7 +76,7 @@ def CreateNew(projecturi, name, author):
 		except:
 			raise CreateProjectError(3)
 
-	project.saveProjectFile(project.projectfile)
+	project.SaveProjectFile(project.projectfile)
 
 	return project
 
@@ -144,7 +144,7 @@ def LoadFromFile(uri):
 				cmdList.append(str(n.getAttribute("object")))
 				cmdList.append(str(n.getAttribute("function")))
 				cmdList.extend(LoadListFromXML(n))
-				p.savedUndoStack.append(cmdList)
+				p._Project__savedUndoStack.append(cmdList)
 	
 	try:
 		redo = doc.getElementsByTagName("Redo")[0]
@@ -157,7 +157,7 @@ def LoadFromFile(uri):
 				cmdList.append(str(n.getAttribute("object")))
 				cmdList.append(str(n.getAttribute("function")))
 				cmdList.extend(LoadListFromXML(n))
-				p.savedUndoStack.append(cmdList)
+				p._Project__savedUndoStack.append(cmdList)
 	
 	for instr in doc.getElementsByTagName("Instrument"):
 		try:
@@ -307,161 +307,111 @@ class Project(Monitored):
 	#_____________________________________________________________________
 
 	def __init__(self):
-		global GlobalProjectObject
-		
 		Monitored.__init__(self)
 		
-		# set up some important lists and dictionaries:
-		self.___id_list = []
-		self.instruments = []
-		
-		self.author = "<none>"
-		self.name = "<no project loaded>"
-		
-		# the name of the project file, complete with path
-		self.projectfile = ""
-		
-		# View scale as pixels per second
-		self.viewScale = 25.
-		
-		# View offset in seconds
-		self.viewStart= 0.
-		
-		#number of solo instruments (to know if others must be muted)
-		self.soloInstrCount = 0
-		
-		# The place where deleted instruments go
-		self.graveyard = []
-		
-		# WARNING: any paths in this list will be deleted on exit!
-		self.deleteOnCloseAudioFiles = []
-		
-		#The list containing the events to cut/copy
-		self.clipboardList = None
-		
-		#This is to indicate that something which is not 
-		#on the undo/redo stack needs to be saved
-		self.unsavedChanges = False
-		
-		# Storage for the undo/redo states
-		self.undoStack = []
-		self.redoStack = []
-		self.savedUndoStack = []
-		self.savedRedoStack = []
-		self.performingUndo = False
-		self.performingRedo = False
-		self.savedUndo = False
+		self.author = ""			#the author of this project
+		self.name = ""				#the name of this project
+		self.projectfile = ""			# the name of the project file, complete with path
+		self.___id_list = []			#the list of IDs that have already been used, to avoid collisions
+		self.instruments = []		#the list of instruments held by this project
+		self.graveyard = []			# The place where deleted instruments are kept, to later be retrieved by undo functions
+		#used to delete copied audio files if the event that uses them is not saved in the project file
+		self.deleteOnCloseAudioFiles = []	# WARNING: any paths in this list will be deleted on exit!
+		self.clipboardList = []		#The list containing the events to cut/copy
+		self.viewScale = 25.0		# View scale as pixels per second
+		self.viewStart= 0.0			# View offset in seconds
+		self.soloInstrCount = 0		#number of solo instruments (to know if others must be muted)
+		self.IsPlaying = False		#True if we are currently playing
+		self.IsExporting = False		#True if we are currently exporting to a file
+		self.clickbpm = 120			#the number of beats per minute that the click track will play
+		self.clickEnabled = False		#True is the click track is currently enabled
+		self.RedrawTimeLine = False	#True if the timeline's background should be fully redrawn on the next update
+		#Keys are instruments which are recording; values are 3-tuples of the event being recorded, the recording bin and bus handler id
+		self.recordingEvents = {}	#Dict containing recording information for each recording instrument
+		self.volume = 0.5			#The volume setting for the entire project
+		self.level = 0.0				#The level of the entire project as reported by the gstreamer element
 
-		self.IsPlaying = False
-		#wheather we are in the process of exporting or not
-		self.IsExporting = False
+		# Variables for the undo/redo command system
+		self.unsavedChanges = False	#This boolean is to indicate if something which is not on the undo/redo stack needs to be saved
+		self.__undoStack = []		#not yet saved undo commands
+		self.__redoStack = []		#not yet saved actions that we're undone
+		self.__savedUndoStack = []	#undo commands that have already been saved in the project file
+		self.__savedRedoStack = []	#redo commands that have already been saved in the project file
+		self.__performingUndo = False	#True if we are currently in the process of performing an undo command
+		self.__performingRedo = False	#True if we are currently in the process of performing a redo command
+		self.__savedUndo = False		#True if we are performing an undo/redo command that was previously saved
 		
-		# click track details
-		self.clickbpm = 120
-		self.clickEnabled = False
 		
-		self.RedrawTimeLine = False
-
+		# CREATE GSTREAMER ELEMENTS AND SET PROPERTIES#
 		self.mainpipeline = gst.Pipeline("timeline")
-		Globals.debug("created pipeline (project)")
-		
 		self.playbackbin = gst.Bin("playbackbin")
-		
 		self.adder = gst.element_factory_make("adder")
-		self.playbackbin.add(self.adder)
-		Globals.debug("added adder (project)")
-
-		self.mastervolume = 0.5
+		self.volumeElement = gst.element_factory_make("volume")
+		self.masterSink = gst.element_factory_make("alsasink")
 		
-		self.volume = gst.element_factory_make("volume")
-		self.playbackbin.add(self.volume)
-		Globals.debug("added volume (project)")
+		self.levelElement = gst.element_factory_make("level", "MasterLevel")
+		self.levelElement.set_property("interval", gst.SECOND / 50)
+		self.levelElement.set_property("message", True)
 		
-		self.adder.link(self.volume)
-		
-		self.masterlevel = 0.0
-		self.level = gst.element_factory_make("level", "MasterLevel")
-		self.level.set_property("interval", gst.SECOND / 50)
-		self.level.set_property("message", True)
-		self.playbackbin.add(self.level)
-		Globals.debug("added master level (project)")
-
 		#Restrict adder's output caps due to adder bug
-		self.levelcaps = gst.element_factory_make("capsfilter", "levelcaps")
+		self.levelElementCaps = gst.element_factory_make("capsfilter", "levelcaps")
 		caps = gst.caps_from_string("audio/x-raw-int,rate=44100,channels=2,width=16,depth=16,signed=(boolean)true")
-		self.levelcaps.set_property("caps", caps)
-		self.playbackbin.add(self.levelcaps)
-
-		self.recordingEvents = {} #Tracks which instruments are recording which events in which bins
+		self.levelElementCaps.set_property("caps", caps)
 		
-		self.volume.link(self.levelcaps)
-		self.levelcaps.link(self.level)
-		
-		self.out = gst.element_factory_make("alsasink")
-		
-		usedefault = False
-		try:
-			outdevice = Globals.settings.playback["devicecardnum"]
-		except:
-			usedefault = True
+		#Set the alsa device for audio output
+		outdevice = Globals.settings.playback["devicecardnum"]
 		if outdevice == "value":
-			usedefault = True
-
-		if usedefault:
 			try:
 				# Select first output device as default to avoid a GStreamer bug which causes
 				# large amounts of latency with the ALSA 'default' device.
 				outdevice = GetAlsaList("playback").values()[1]
 			except:
 				outdevice = "default"
-		Globals.debug("Output device: %s"%outdevice)
-		self.out.set_property("device", outdevice)
-
-
-		self.playbackbin.add(self.out)
-		Globals.debug("added alsasink (project)")
-
-		self.level.link(self.out)
-
-		# click track bin
+		Globals.debug("Output device: %s" % outdevice)
+		self.masterSink.set_property("device", outdevice)
 		
-		self.clickbin = gst.element_factory_make("bin", "clickbin")
+		# ADD ELEMENTS TO THE PIPELINE AND/OR THEIR BINS #
+		self.mainpipeline.add(self.playbackbin)
+		Globals.debug("added project playback bin to the pipeline")
+		for element in [self.adder, self.volumeElement, self.levelElementCaps, self.levelElement, self.masterSink]:
+			self.playbackbin.add(element)
+			Globals.debug("added %s to project playbackbin" % element.get_name())
 
-		self.click = gst.element_factory_make("audiotestsrc", "click")
-		self.click.set_property("wave", 3)
-		self.clickbin.add(self.click)
-
-		self.clickvol = gst.element_factory_make("volume", "clickvol")
-		self.clickvol.set_property("mute", True)
-		self.clickbin.add(self.clickvol)
-
-		self.click.link(self.clickvol)
+		# LINK GSTREAMER ELEMENTS #
+		self.adder.link(self.volumeElement)
+		self.volumeElement.link(self.levelElementCaps)
+		self.levelElementCaps.link(self.levelElement)
+		self.levelElement.link(self.masterSink)
 		
-		self.clickrac = gst.element_factory_make("audioconvert", "click_ac")
-		self.clickbin.add(self.clickrac)
-
-		self.clickvol.link(self.clickrac)
-
-		for pad in self.clickrac.pads():
-			if pad.get_direction() == gst.PAD_SRC:
-				clickbinsrc = gst.GhostPad("src", pad)
-
-		self.clickbin.add_pad(clickbinsrc)
+		# CONSTRUCT CLICK TRACK BIN #
+		self.clickTrackBin = gst.Bin("Click_Track_Bin")
+		self.clickTrackAudioSrc = gst.element_factory_make("audiotestsrc", "Click_Track_AudioSource")
+		self.clickTrackAudioSrc.set_property("wave", 3)
+		self.clickTrackVolume = gst.element_factory_make("volume", "Click_Track_Volume")
+		self.clickTrackVolume.set_property("mute", True)
+		self.clickTrackConvert = gst.element_factory_make("audioconvert", "Click_Track_Audioconvert")
 		
-		self.playbackbin.add(self.clickbin)
-
-		self.clickbin.link(self.adder)
+		self.playbackbin.add(self.clickTrackBin)
+		for element in [self.clickTrackAudioSrc, self.clickTrackVolume, self.clickTrackConvert]:
+			self.clickTrackBin.add(element)
 		
-		self.clickcontrol = gst.Controller(self.click, "volume")
-				
+		clickTrackSrc = gst.GhostPad("src", self.clickTrackConvert.get_pad("src"))
+		self.clickTrackBin.add_pad(clickTrackSrc)
+		self.clickTrackController = gst.Controller(self.clickTrackAudioSrc, "volume")
+		
+		self.clickTrackAudioSrc.link(self.clickTrackVolume)
+		self.clickTrackVolume.link(self.clickTrackConvert)
+		self.clickTrackBin.link(self.adder)
+		# /END OF GSTREAMER BITS #
+		
+		# set up the bus message callbacks
 		self.bus = self.mainpipeline.get_bus()
 		self.bus.add_signal_watch()
-		self.Mhandler = self.bus.connect("message", self.bus_message)
-		self.EOShandler = self.bus.connect("message::eos", self.stop)
-		self.Errorhandler = self.bus.connect("message::error", self.bus_error)
+		self.Mhandler = self.bus.connect("message::element", self.__PipelineBusLevelCb)
+		self.EOShandler = self.bus.connect("message::eos", self.Stop)
+		self.Errorhandler = self.bus.connect("message::error", self.__PipelineBusErrorCb)
 		
-		self.mainpipeline.add(self.playbackbin)
-		
+		#initialize the transport mode
 		self.transportMode = TransportManager.TransportManager.MODE_BARS_BEATS
 		self.transport = TransportManager.TransportManager(self.transportMode, self.mainpipeline)
 
@@ -479,33 +429,107 @@ class Project(Monitored):
 			pass
 		# [/DEBUG]
 
-        #_____________________________________________________________________
+	#_____________________________________________________________________
+	
+	def Play(self, movePlayhead = True, recording=False):
+		'''Set all instruments playing'''
+		
+		if len(self.instruments) > 0:
+			Globals.debug("play() in Project.py")
+			Globals.debug("current state:", self.mainpipeline.get_state()[1].value_name)
 
-	def split_pad(self, elem, pad, recInstruments, bin):
-		match = re.search("(\d+)$", pad.get_name())
-		if not match:
-			return
-		index = int(match.groups()[0])
-		for instr in recInstruments:
-			if instr.inTrack == index:
-				event = instr.getRecordingEvent()
-				
-				encodeString = Globals.settings.recording["fileformat"]
-				pipe = "audioconvert ! level name=eventlevel interval=%d message=true !" +\
-							"audioconvert ! %s ! filesink location=%s"
-				pipe %= (event.LEVEL_INTERVAL, encodeString, event.file.replace(" ", "\ "))
-				
-				encodeBin = gst.gst_parse_bin_from_description(pipe, True)
-				bin.add(encodeBin)
-				pad.link(encodeBin.get_pad("sink"))
-				
-				handle = self.bus.connect("message::element", event.recording_bus_level)
-				
-				self.recordingEvents[instr] = (event, bin, handle)
+			for ins in self.instruments:
+				ins.PrepareController()
+					
+			# And set it going
+			self.state_id = self.bus.connect("message::state-changed", self.__PlaybackStateChangedCb, movePlayhead)
+			#set to PAUSED so the transport manager can seek first (if needed)
+			#the pipeline will be set to PLAY by self.state_changed()
+			self.mainpipeline.set_state(gst.STATE_PAUSED)
+			
+			Globals.debug("just set state to PAUSED")
+			
+			if recording:
+				self.StateChanged("record")
+			else:
+				self.StateChanged("play")
+
+			# [DEBUG]
+			# This debug block will be removed when we release. If you see this in a release version, we
+			# obviously suck. Please email us and tell us about how shit we are.
+			try:
+				if os.environ['JOKOSHER_DEBUG']:
+					Globals.debug("Play Pipeline:")
+					self.debug.ShowPipelineTree(self.mainpipeline)
+			except:
+				pass
+			# [/DEBUG]
 
 	#_____________________________________________________________________
-		
-	def record(self):
+
+	def Stop(self, bus=None, message=None):
+		'''Stop playing or recording'''
+
+		Globals.debug("Stop pressed, about to set state to READY")
+		Globals.debug("current state:", self.mainpipeline.get_state()[1].value_name)
+
+		#read pipeline for current position - it will have been read
+		#periodically in TimeLine.py but could be out by 1/FPS
+		self.transport.QueryPosition()
+
+		#If we've been recording then add new events to instruments
+		for instr, (event, bin, handle) in self.recordingEvents.items():
+			instr.finishRecordingEvent(event)
+			self.bus.disconnect(handle)
+
+		self.TerminateRecording()
+			
+		Globals.debug("Stop pressed, state just set to READY")
+
+		self.StateChanged("stop")
+		# [DEBUG]
+		# This debug block will be removed when we release. If you see this in a release version, we
+		# obviously suck. Please email us and tell us about how shit we are.
+		try:
+			if os.environ['JOKOSHER_DEBUG']:
+				Globals.debug("PIPELINE AFTER STOP:")
+				self.debug.ShowPipelineTree(self.mainpipeline)
+		except:
+			pass
+		# [/DEBUG]
+			
+		self.transport.Stop()
+			
+	#_____________________________________________________________________
+
+	def TerminateRecording(self):
+		''' Terminate all instruments (used to disregard recording when an 
+			error occurs after instruments have started).
+		'''
+		Globals.debug("Terminating recording.")
+
+		self.mainpipeline.set_state(gst.STATE_READY)
+	
+		#Relink instruments and stop their recording bins
+		for instr, (event, bin, handle) in self.recordingEvents.items():
+			try:
+				Globals.debug("Removing recordingEvents bin")
+				self.mainpipeline.remove(bin)
+			except:
+				pass #Already removed from another instrument
+			Globals.debug("set state to NULL")
+			bin.set_state(gst.STATE_NULL)
+			instr.AddAndLinkPlaybackbin()
+
+		self.recordingEvents = {}
+
+		self.IsPlaying = False
+
+		self.transport.Stop()
+
+	#_____________________________________________________________________
+	
+	def Record(self):
 		'''Start all selected instruments recording'''
 
 		Globals.debug("pre-record state:", self.mainpipeline.get_state()[1].value_name)
@@ -549,7 +573,7 @@ class Project(Monitored):
 				src.link(capsfilter)
 				capsfilter.link(split)
 				
-				split.connect("pad-added", self.split_pad, recInstruments, recordingbin)
+				split.connect("pad-added", self.__RecordingPadAddedCb, recInstruments, recordingbin)
 				Globals.debug("Recording in multi-input mode")
 			else:
 				instr = recInstruments[0]
@@ -580,119 +604,11 @@ class Project(Monitored):
 		self.transport.Stop()
 		
 		#start the pipeline!
-		self.play(recording=True)
+		self.Play(recording=True)
 		
 	#_____________________________________________________________________
 
-	def state_changed(self, bus, message, movePlayhead=True):
-		""" Handler for GStreamer statechange events. 
-		"""
-		Globals.debug("STATE CHANGED")
-		change_status, new, pending = self.mainpipeline.get_state(0)
-		Globals.debug("-- status:", change_status.value_name)
-		Globals.debug("-- pending:", pending.value_name)
-		Globals.debug("-- new:", new.value_name)
-
-		#Move forward to playing when we reach paused (check pending to make sure this is the final destination)
-		if new == gst.STATE_PAUSED and pending == gst.STATE_VOID_PENDING and not self.IsPlaying:
-			bus.disconnect(self.state_id)
-			#The transport manager will seek if necessary, and then set the pipeline to STATE_PLAYING
-			self.transport.Play(movePlayhead)
-			self.IsPlaying = True
-
-	#_____________________________________________________________________
-				
-	def play(self, movePlayhead = True, recording=False):
-		'''Set all instruments playing'''
-		
-		if len(self.instruments) > 0:
-			Globals.debug("play() in Project.py")
-			Globals.debug("current state:", self.mainpipeline.get_state()[1].value_name)
-
-			for ins in self.instruments:
-				ins.PrepareController()
-					
-			# And set it going
-			self.state_id = self.bus.connect("message::state-changed", self.state_changed, movePlayhead)
-			#set to PAUSED so the transport manager can seek first (if needed)
-			#the pipeline will be set to PLAY by self.state_changed()
-			self.mainpipeline.set_state(gst.STATE_PAUSED)
-			
-			Globals.debug("just set state to PAUSED")
-			
-			if recording:
-				self.StateChanged("record")
-			else:
-				self.StateChanged("play")
-
-			# [DEBUG]
-			# This debug block will be removed when we release. If you see this in a release version, we
-			# obviously suck. Please email us and tell us about how shit we are.
-			try:
-				if os.environ['JOKOSHER_DEBUG']:
-					Globals.debug("Play Pipeline:")
-					self.debug.ShowPipelineTree(self.mainpipeline)
-			except:
-				pass
-			# [/DEBUG]
-
-	#_____________________________________________________________________
-
-	def bus_message(self, bus, message):
-		""" Handler for GStreamer bus messages.
-		"""
-		st = message.structure
-		
-		if st and st.get_name() == "level" and not message.src is self.level:
-			for instr in self.instruments:
-				if message.src is instr.levelElement:
-					instr.SetLevel(DbToFloat(st["decay"][0]))
-					break
-				
-		if st and st.get_name() == "level" and message.src is self.level:
-			self.SetLevel(DbToFloat(st["decay"][0]))
-			
-		return True
-
-	#_____________________________________________________________________
-
-
-	def bus_error(self, bus, message):
-		""" Handler for GStreamer error messages.
-		"""
-		st = message.structure
-		error, debug = message.parse_error()
-		
-		Globals.debug("Gstreamer bus error:", str(error), str(debug))
-		self.StateChanged("gst-bus-error", str(error), str(debug))
-
-	#_____________________________________________________________________
-				
-	def newPad(self, element, pad, instrument):
-		""" Creates a new GStreamer pad on the specified instrument.
-
-			TODO - This looks like it should be refactored into the 
-					Instrument class. JasonF.
-		"""
-		Globals.debug("NEW PAD")
-		convpad = instrument.effectsBin.get_compatible_pad(pad, pad.get_caps())
-		pad.link(convpad)
-
-	#_____________________________________________________________________
-
-	def removePad(self, element, pad, instrument):
-		""" Removes a new GStreamer pad from the specified instrument.
-
-			TODO - This looks like it should be refactored into the 
-					Instrument class. JasonF.
-		"""
-		Globals.debug("pad removed")
-		instrument.composition.set_state(gst.STATE_READY)
-
-	#_____________________________________________________________________
-
-	#Alias to self.play
-	def export(self, filename, format=None):
+	def Export(self, filename, format=None):
 		'''
 		   Export to location filename with format specified by format variable.
 		   Format is a string of the file extension as used in Globals.EXPORT_FORMATS.
@@ -716,9 +632,9 @@ class Project(Monitored):
 			return -1
 		
 		#remove and unlink the alsasink
-		self.playbackbin.remove(self.out, self.level)
-		self.levelcaps.unlink(self.level)
-		self.level.unlink(self.out)
+		self.playbackbin.remove(self.masterSink, self.levelElement)
+		self.levelElementCaps.unlink(self.levelElement)
+		self.levelElement.unlink(self.masterSink)
 		
 		#create filesink
 		self.outfile = gst.element_factory_make("filesink", "export_file")
@@ -728,22 +644,22 @@ class Project(Monitored):
 		#create encoder/muxer
 		self.encodebin = gst.gst_parse_bin_from_description("audioconvert ! %s" % exportingFormatDict["pipeline"], True)
 		self.playbackbin.add(self.encodebin)
-		self.levelcaps.link(self.encodebin)
+		self.levelElementCaps.link(self.encodebin)
 		self.encodebin.link(self.outfile)
 			
-		#disconnect the bus_message() which will make the transport manager progress move
+		#disconnect the bus message handler so the levels don't change
 		self.bus.disconnect(self.Mhandler)
 		self.bus.disconnect(self.EOShandler)
-		self.EOShandler = self.bus.connect("message::eos", self.export_eos)
+		self.EOShandler = self.bus.connect("message::eos", self.TerminateExport)
 		
 		#Make sure we start playing from the beginning
 		self.transport.Stop()
 		#start the pipeline!
-		self.play(movePlayhead=False)
+		self.Play(movePlayhead=False)
 
 	#_____________________________________________________________________
 	
-	def export_eos(self, bus=None, message=None):
+	def TerminateExport(self, bus=None, message=None):
 		""" GStreamer End Of Stream handler. It is connected to eos on 
 			mainpipeline while export is taking place.
 		"""
@@ -753,29 +669,29 @@ class Project(Monitored):
 		else:
 			self.IsExporting = False
 	
-		self.stop()
+		self.Stop()
 		#NULL is required because elements will be destroyed when we delete them
 		self.mainpipeline.set_state(gst.STATE_NULL)
 	
 		self.bus.disconnect(self.EOShandler)
-		self.Mhandler = self.bus.connect("message::element", self.bus_message)
-		self.EOShandler = self.bus.connect("message::eos", self.stop)
+		self.Mhandler = self.bus.connect("message::element", self.__PipelineBusLevelCb)
+		self.EOShandler = self.bus.connect("message::eos", self.Stop)
 		
 		#remove the filesink and encoder
 		self.playbackbin.remove(self.outfile, self.encodebin)		
-		self.levelcaps.unlink(self.encodebin)
+		self.levelElementCaps.unlink(self.encodebin)
 			
 		#dispose of the elements
 		del self.outfile, self.encodebin
 		
 		#re-add all the alsa playback elements
-		self.playbackbin.add(self.out, self.level)
-		self.levelcaps.link(self.level)
-		self.level.link(self.out)
+		self.playbackbin.add(self.masterSink, self.levelElement)
+		self.levelElementCaps.link(self.levelElement)
+		self.levelElement.link(self.masterSink)
 	
 	#_____________________________________________________________________
 	
-	def get_export_progress(self):
+	def GetExportProgress(self):
 		""" Returns tuple with number of seconds done, and number of total 
 			seconds.
 		"""
@@ -789,76 +705,67 @@ class Project(Monitored):
 			else:
 				if cur > total:
 					total = cur
-					self.export_eos()
+					self.TerminateExport()
 				return (float(cur)/gst.SECOND, float(total)/gst.SECOND)
 		else:
 			return (100, 100)
 		
 	#_____________________________________________________________________
 	
-	def stop(self, bus=None, message=None):
-		'''Stop playing or recording'''
+	def __PlaybackStateChangedCb(self, bus, message, movePlayhead=True):
+		"""
+		Handler for GStreamer statechange events when the pipline is changing from
+		STATE_READY to STATE_PAUSED. Once STATE_PAUSED has been reached, this
+		function will tell the transport manager to start playing.
+		"""
+		Globals.debug("STATE CHANGED")
+		change_status, new, pending = self.mainpipeline.get_state(0)
+		Globals.debug("-- status:", change_status.value_name)
+		Globals.debug("-- pending:", pending.value_name)
+		Globals.debug("-- new:", new.value_name)
 
-		Globals.debug("Stop pressed, about to set state to READY")
-		Globals.debug("current state:", self.mainpipeline.get_state()[1].value_name)
-
-		#read pipeline for current position - it will have been read
-		#periodically in TimeLine.py but could be out by 1/FPS
-		self.transport.QueryPosition()
-
-		#If we've been recording then add new events to instruments
-		for instr, (event, bin, handle) in self.recordingEvents.items():
-			instr.finishRecordingEvent(event)
-			self.bus.disconnect(handle)
-
-		self.terminate()
-			
-		Globals.debug("Stop pressed, state just set to READY")
-
-		self.StateChanged("stop")
-		# [DEBUG]
-		# This debug block will be removed when we release. If you see this in a release version, we
-		# obviously suck. Please email us and tell us about how shit we are.
-		try:
-			if os.environ['JOKOSHER_DEBUG']:
-				Globals.debug("PIPELINE AFTER STOP:")
-				self.debug.ShowPipelineTree(self.mainpipeline)
-		except:
-			pass
-		# [/DEBUG]
-			
-		self.transport.Stop()
-			
-	#_____________________________________________________________________
-
-	def terminate(self):
-		''' Terminate all instruments (used to disregard recording when an 
-			error occurs after instruments have started).
-		'''
-		Globals.debug("Terminating recording.")
-
-		self.mainpipeline.set_state(gst.STATE_READY)
-	
-		#Relink instruments and stop their recording bins
-		for instr, (event, bin, handle) in self.recordingEvents.items():
-			try:
-				Globals.debug("Removing recordingEvents bin")
-				self.mainpipeline.remove(bin)
-			except:
-				pass #Already removed from another instrument
-			Globals.debug("set state to NULL")
-			bin.set_state(gst.STATE_NULL)
-			instr.AddAndLinkPlaybackbin()
-
-		self.recordingEvents = {}
-
-		self.IsPlaying = False
-
-		self.transport.Stop()
+		#Move forward to playing when we reach paused (check pending to make sure this is the final destination)
+		if new == gst.STATE_PAUSED and pending == gst.STATE_VOID_PENDING and not self.IsPlaying:
+			bus.disconnect(self.state_id)
+			#The transport manager will seek if necessary, and then set the pipeline to STATE_PLAYING
+			self.transport.Play(movePlayhead)
+			self.IsPlaying = True
 
 	#_____________________________________________________________________
 	
-	def saveProjectFile(self, path=None):
+	def __PipelineBusLevelCb(self, bus, message):
+		"""
+		Handler for GStreamer bus messages about the currently reported level
+		for the project or any of the instruments.
+		"""
+		st = message.structure
+		
+		if st and st.get_name() == "level":
+			if not message.src is self.levelElement:
+				for instr in self.instruments:
+					if message.src is instr.levelElement:
+						instr.SetLevel(DbToFloat(st["decay"][0]))
+						break
+			else:
+				self.SetLevel(DbToFloat(st["decay"][0]))
+			
+		return True
+
+	#_____________________________________________________________________
+
+
+	def __PipelineBusErrorCb(self, bus, message):
+		""" Handler for GStreamer error messages.
+		"""
+		st = message.structure
+		error, debug = message.parse_error()
+		
+		Globals.debug("Gstreamer bus error:", str(error), str(debug))
+		self.StateChanged("gst-bus-error", str(error), str(debug))
+
+	#_____________________________________________________________________
+	
+	def SaveProjectFile(self, path=None):
 		""" Saves the project and its children as an XML file 
 			to the path specified by file.
 		"""
@@ -876,11 +783,11 @@ class Project(Monitored):
 		
 		self.unsavedChanges = False
 		#purge main undo stack so that it will not prompt to save on exit
-		self.savedUndoStack.extend(self.undoStack)
-		self.undoStack = []
+		self.__savedUndoStack.extend(self.__undoStack)
+		self.__undoStack = []
 		#purge savedRedoStack so that it will not prompt to save on exit
-		self.redoStack.extend(self.savedRedoStack)
-		self.savedRedoStack = []
+		self.__redoStack.extend(self.__savedRedoStack)
+		self.__savedRedoStack = []
 		
 		doc = xml.Document()
 		head = doc.createElement("JokosherProject")
@@ -897,7 +804,7 @@ class Project(Monitored):
 			
 		undo = doc.createElement("Undo")
 		head.appendChild(undo)
-		for cmd in self.savedUndoStack:
+		for cmd in self.__savedUndoStack:
 			e = doc.createElement("Command")
 			e.setAttribute("object", cmd[0])
 			e.setAttribute("function", cmd[1])
@@ -906,7 +813,7 @@ class Project(Monitored):
 		
 		redo = doc.createElement("Redo")
 		head.appendChild(redo)
-		for cmd in self.redoStack:
+		for cmd in self.__redoStack:
 			e = doc.createElement("Command")
 			e.setAttribute("object", cmd[0])
 			e.setAttribute("function", cmd[1])
@@ -935,7 +842,7 @@ class Project(Monitored):
 	
 	#_____________________________________________________________________
 
-	def closeProject(self):
+	def CloseProject(self):
 		""" Closes down this project.
 		"""
 		global GlobalProjectObject
@@ -961,38 +868,38 @@ class Project(Monitored):
 		""" Attempts to revert the last user action by popping an action
 			from the undo stack and executing it.
 		"""
-		self.performingUndo = True
+		self.__performingUndo = True
 		
-		if len(self.undoStack):
-			cmd = self.undoStack.pop()
+		if len(self.__undoStack):
+			cmd = self.__undoStack.pop()
 			self.ExecuteCommand(cmd)
 			
-		elif len(self.savedUndoStack):
-			self.savedUndo = True
-			cmd = self.savedUndoStack.pop()
+		elif len(self.__savedUndoStack):
+			self.__savedUndo = True
+			cmd = self.__savedUndoStack.pop()
 			self.ExecuteCommand(cmd)
-			self.savedUndo = False
+			self.__savedUndo = False
 			
-		self.performingUndo = False
+		self.__performingUndo = False
 	
 	#_____________________________________________________________________
 	
 	def Redo(self):
 		""" Attempts to redo the last undone action.
 		"""
-		self.performingRedo = True
+		self.__performingRedo = True
 		
-		if len(self.savedRedoStack):
-			self.savedUndo = True
-			cmd = self.savedRedoStack.pop()
+		if len(self.__savedRedoStack):
+			self.__savedUndo = True
+			cmd = self.__savedRedoStack.pop()
 			self.ExecuteCommand(cmd)
-			self.savedUndo = False
+			self.__savedUndo = False
 			
-		elif len(self.redoStack):
-			cmd = self.redoStack.pop()
+		elif len(self.__redoStack):
+			cmd = self.__redoStack.pop()
 			self.ExecuteCommand(cmd)
 			
-		self.performingRedo = False
+		self.__performingRedo = False
 
 	#_____________________________________________________________________
 	
@@ -1000,20 +907,20 @@ class Project(Monitored):
 		""" Appends the action specified by object onto the relevant
 			undo/redo stack.
 		"""
-		if self.savedUndo and self.performingUndo:
-			self.savedRedoStack.append(object)
-		elif self.savedUndo and self.performingRedo:
-			self.savedUndoStack.append(object)
-		elif self.performingUndo:
-			self.redoStack.append(object)
-		elif self.performingRedo:
-			self.undoStack.append(object)
+		if self.__savedUndo and self.__performingUndo:
+			self.__savedRedoStack.append(object)
+		elif self.__savedUndo and self.__performingRedo:
+			self.__savedUndoStack.append(object)
+		elif self.__performingUndo:
+			self.__redoStack.append(object)
+		elif self.__performingRedo:
+			self.__undoStack.append(object)
 		else:
-			self.undoStack.append(object)
-			self.redoStack = []
+			self.__undoStack.append(object)
+			self.__redoStack = []
 			#if we have undone anything that was previously saved
-			if len(self.savedRedoStack):
-				self.savedRedoStack = []
+			if len(self.__savedRedoStack):
+				self.__savedRedoStack = []
 				#since there is no other record that something has 
 				#changed after savedRedoStack is purged
 				self.unsavedChanges = True
@@ -1026,8 +933,24 @@ class Project(Monitored):
 		   determine if the program needs to save anything on exit
 		"""
 		return self.unsavedChanges or \
-			len(self.undoStack) > 0 or \
-			len(self.savedRedoStack) > 0
+			len(self.__undoStack) > 0 or \
+			len(self.__savedRedoStack) > 0
+	
+	#_____________________________________________________________________
+	
+	def CanPerformUndo(self):
+		"""
+		Returns True if there is another undo command in the stack that can be performed, False otherwise.
+		"""
+		return bool(len(self.__undoStack) or len(self.__savedUndoStack))
+	
+	#_____________________________________________________________________
+	
+	def CanPerformRedo(self):
+		"""
+		Returns True if there is another redo command in the stack that can be performed, False otherwise.
+		"""
+		return bool(len(self.__redoStack) or len(self.__savedRedoStack))
 	
 	#_____________________________________________________________________
 	
@@ -1221,15 +1144,15 @@ class Project(Monitored):
 	def SetVolume(self, volume):
 		"""Sets the volume of the instrument in the range 0..1
 		"""
-		self.mastervolume = volume
-		self.volume.set_property("volume", volume)
+		self.volume = volume
+		self.volumeElement.set_property("volume", volume)
 
 	#_____________________________________________________________________
 
 	def SetLevel(self, level):
 		""" Note that this sets the current REPORTED level, NOT THE VOLUME!
 		"""
-		self.masterlevel = level
+		self.level = level
 
 	#_____________________________________________________________________
 
@@ -1275,14 +1198,14 @@ class Project(Monitored):
 		length = (600 * second)
 		interval = second / (self.transport.bpm/60)
 		
-		self.clickcontrol.set("volume", 0 * gst.SECOND, 0.0)
+		self.clickTrackController.set("volume", 0 * gst.SECOND, 0.0)
 
 		current = 0 + interval
 
 		while current < length:
-			self.clickcontrol.set("volume", current-(second / 10), 0.0)
-			self.clickcontrol.set("volume", current, 1.0)
-			self.clickcontrol.set("volume", current+(second / 10), 0.0)
+			self.clickTrackController.set("volume", current-(second / 10), 0.0)
+			self.clickTrackController.set("volume", current, 1.0)
+			self.clickTrackController.set("volume", current+(second / 10), 0.0)
 
 			current = current + interval
 
@@ -1291,7 +1214,7 @@ class Project(Monitored):
 	def EnableClick(self):
 		'''Enable the click track'''
 	
-		self.clickvol.set_property("mute", False)
+		self.clickTrackVolume.set_property("mute", False)
 		self.clickEnabled = True
 
 	#_____________________________________________________________________
@@ -1299,14 +1222,14 @@ class Project(Monitored):
 	def DisableClick(self):
 		'''Disable the click track'''
 	
-		self.clickvol.set_property("mute", True)
+		self.clickTrackVolume.set_property("mute", True)
 		self.clickEnabled = False
 
 	#_____________________________________________________________________
 
 	def ClearClickTimes(self):
 		'''Clear the click track controller times'''
-		self.clickcontrol.unset_all("volume")
+		self.clickTrackController.unset_all("volume")
 
 
 #=========================================================================
