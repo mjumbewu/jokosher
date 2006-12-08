@@ -64,18 +64,17 @@ class PreferencesDialog:
 		sampleRateSettingIndex = 0
 		if type(sample_values) == int:
 			self.samplingRate.append_text("%d %s" % (sample_values, _("Hz")))
-			sampleRateSettingIndex = 0
 		elif type(sample_values) == list:
-			for rate in sample_values:
+			for i, rate in enumerate (sample_values):
 				self.samplingRate.append_text("%d %s" % (rate, _("Hz")))
 				if str(rate) == sampleRateSetting:
-					sampleRateSettingIndex = sample_values.index(rate)
+					sampleRateSettingIndex = i
 				
 		elif hasattr(sample_values, "low") and hasattr(sample_values, "high"):
 			try:
 				#try to convert the setting string to an int
 				rate = int(sampleRateSetting)
-			except:
+			except ValueError:
 				pass
 			else:
 				#since the card supports a range of samples rates, the saved preference
@@ -83,14 +82,16 @@ class PreferencesDialog:
 				if rate not in Globals.SAMPLE_RATES:
 					if sample_values.low <= rate <= sample_values.high:
 						self.samplingRate.append_text("%d %s" % (rate, _("Hz")))
-						sampleRateSettingIndex = 0
+
 			#add the rest of the default sample rates if they are within the supported range
+			index = 0
 			for rate in Globals.SAMPLE_RATES:
 				if sample_values.low <= rate <= sample_values.high:
 					self.samplingRate.append_text("%d %s" % (rate, _("Hz")))
 					if str(rate) == sampleRateSetting:
-						sampleRateSettingIndex = Globals.SAMPLE_RATES.index(rate)
-		
+						sampleRateSettingIndex = index
+					index += 1
+
 		fileFormatSetting = Globals.settings.recording["fileformat"]
 		fileFormatSettingIndex = 0
 		#get all the encoders from Globals

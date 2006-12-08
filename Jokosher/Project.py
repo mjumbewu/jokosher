@@ -436,7 +436,7 @@ class Project(Monitored):
 		
 		if len(self.instruments) > 0:
 			Globals.debug("play() in Project.py")
-			Globals.debug("current state:", self.mainpipeline.get_state()[1].value_name)
+			Globals.debug("current state:", self.mainpipeline.get_state(0)[1].value_name)
 
 			for ins in self.instruments:
 				ins.PrepareController()
@@ -471,7 +471,7 @@ class Project(Monitored):
 		'''Stop playing or recording'''
 
 		Globals.debug("Stop pressed, about to set state to READY")
-		Globals.debug("current state:", self.mainpipeline.get_state()[1].value_name)
+		Globals.debug("current state:", self.mainpipeline.get_state(0)[1].value_name)
 
 		#read pipeline for current position - it will have been read
 		#periodically in TimeLine.py but could be out by 1/FPS
@@ -532,7 +532,7 @@ class Project(Monitored):
 	def Record(self):
 		'''Start all selected instruments recording'''
 
-		Globals.debug("pre-record state:", self.mainpipeline.get_state()[1].value_name)
+		Globals.debug("pre-record state:", self.mainpipeline.get_state(0)[1].value_name)
 
 		#Add all instruments to the pipeline
 		self.recordingEvents = {}
