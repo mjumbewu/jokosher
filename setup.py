@@ -11,7 +11,17 @@ for filepath in glob.glob("locale/*/LC_MESSAGES/*.mo"):
 
 
 setup(name='jokosher',
-	version='0.2',
+	version='0.3',
+	author='Jokosher Project',
+	author_email='email@jokosher.org',
+	maintainer='David Corrales',
+	maintainer_email='corrales.david@gmail.com',
+	description='Multi-track non-linear audio editing.',
+	long_description='Jokosher is a simple yet powerful multi-track studio. With it you can create and record music, podcasts and more, all from an integrated simple environment.',
+	url='http://www.jokosher.org/',
+	download_url='http://www.jokosher.org/download',
+	license='GNU GPL',
+	platforms='linux-x86',
 	scripts=['jokosher'],
 	packages=['Jokosher'],
 	data_files=[('share/jokosher/',

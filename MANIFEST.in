@@ -1,0 +1,6 @@
+include AUTHORS COPYING jokosher.desktop
+recursive-include Jokosher *.png *.glade *.gladep Jokosher
+recursive-include images *.png
+recursive-include Instruments *.instr *.png
+recursive-include locale *
+prune locale/src
