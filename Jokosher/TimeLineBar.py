@@ -14,6 +14,7 @@ import TimeLine
 import gettext
 import os
 import Globals
+import gobject
 
 _=gettext.gettext
 
@@ -40,8 +41,8 @@ class TimeLineBar(gtk.Frame):
 		self.bpmeventbox = gtk.EventBox()
 		self.bpmeventbox.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse("#87d987"))
 		self.bpmframe = gtk.Frame()
-		self.bpmframetip = gtk.Tooltips()
-		self.bpmframetip.set_tip(self.bpmframe, _("Beats per minute"), None)
+		self.bpmeventtip = gtk.Tooltips()
+		self.bpmeventtip.set_tip(self.bpmeventbox, _("Beats per minute"), None)
 		self.bpmframe.set_shadow_type(gtk.SHADOW_ETCHED_OUT)
 		self.bpmframe.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse("#87d987"))
 		
@@ -55,6 +56,8 @@ class TimeLineBar(gtk.Frame):
 
 		self.sigeventbox = gtk.EventBox()
 		self.sigeventbox.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse("#87d987"))
+		self.sigeventtip = gtk.Tooltips()
+		self.sigeventtip.set_tip(self.sigeventbox, _("Time signature"), None)
 		self.sigframe = gtk.Frame()
 		self.sigframe.set_shadow_type(gtk.SHADOW_ETCHED_OUT)
 		self.sigframe.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse("#87d987"))
@@ -95,7 +98,7 @@ class TimeLineBar(gtk.Frame):
 		self.add(self.hbox)
 		self.headerhbox.connect("check-resize", self.projectview.Update)
 		self.connect("size-allocate", self.OnAllocate)
-		self.hbox.pack_start(self.timeline)
+		self.hbox.pack_start(self.timeline)		
 	
 	#_____________________________________________________________________
 
@@ -142,8 +145,9 @@ class TimeLineBar(gtk.Frame):
 		if event.type == gtk.gdk.BUTTON_PRESS:
 			self.bpmframe.remove(self.bpmeventbox)
 						
-			self.bpmedit = gtk.Entry()
-			self.bpmedit.set_width_chars(3)
+			self.bpmedit = gtk.SpinButton()
+			self.bpmedit.set_range(1, 400)
+			self.bpmedit.set_increments(1, 5)
 			self.bpmedit.set_text(str(self.project.transport.bpm))
 			self.bpmedit.connect("activate", self.OnAcceptEditBPM)
 
@@ -175,10 +179,9 @@ class TimeLineBar(gtk.Frame):
 		if self.bpmeditPacked:
 			self.bpmframe.remove(self.bpmedit)
 			#FIXME: find a better way to do project.PrepareClick() it doesn't take a really long time with large bpm
-			newbpm = float(self.bpmedit.get_text())
-			if newbpm > 400:
-				newbpm = 400.0
-			self.project.transport.SetBPM(newbpm)
+			newbpm = self.bpmedit.get_text()
+			
+			self.project.transport.SetBPM(float(newbpm))
 			self.project.PrepareClick()
 			
 			self.bpmframe.add(self.bpmeventbox)
@@ -197,9 +200,9 @@ class TimeLineBar(gtk.Frame):
 	def OnAcceptEditSig(self, widget=None):
 		if self.sigeditPacked:
 			self.sigframe.remove(self.sigedit)
-			
+			sigstring = _("Please enter a correct time signature")
 			sig = self.sigedit.get_text().split("/")
-
+			
 			try:
 				nom=int(sig[0])
 			except (ValueError,IndexError):
@@ -209,7 +212,15 @@ class TimeLineBar(gtk.Frame):
 				denom=int(sig[1])
 			except (ValueError,IndexError):
 				denom=self.project.transport.meter_denom
-
+			
+			if not self.sigedit.get_text() or nom == 0:
+				nom = 4
+				denom = 4
+				sigid = self.mainview.SetStatusBar(sigstring)
+				gobject.timeout_add(1500, self.mainview.ClearStatusBar, sigid)
+				self.sigframe.show_all()
+				self.sigeditPacked = False
+								 
 			self.project.transport.SetMeter(nom, denom)
 			
 			self.sigframe.add(self.sigeventbox)
