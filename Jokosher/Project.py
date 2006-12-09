@@ -157,7 +157,7 @@ def LoadFromFile(uri):
 				cmdList.append(str(n.getAttribute("object")))
 				cmdList.append(str(n.getAttribute("function")))
 				cmdList.extend(LoadListFromXML(n))
-				p._Project__savedUndoStack.append(cmdList)
+				p._Project__redoStack.append(cmdList)
 	
 	for instr in doc.getElementsByTagName("Instrument"):
 		try:
