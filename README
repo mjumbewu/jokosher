@@ -1,47 +1,65 @@
-Welcome to Jokosher!
+Welcome to Jokosher 0.3!
 
-Jokosher is a simple and easy to use audio multi-tracker for the Linux desktop. The aim
-of this project is create a simple yet comprehensive tool for all your audio needs. This
-is the very first release after five months of feverish development. It will therefore
-have a few quirks and bugs around.
+Jokosher is a simple and easy to use audio multi-tracker
+for the Linux desktop. The aim of the project is to 
+create a simple yet comprehensive multi-track studio 
+that is focussed around the needs of musicians and podcasters.
 
->-- Requirements --<
+This is our third release of Jokosher and enables you 
+to create music and podcasts. It also includes a range of 
+features for recording, playing, editing, mixing, 
+post-producing and exporting your compositions.
 
-For a list of current requirements, see http://www.jokosher.org/download
 
->-- Installing Jokosher - System wide --<
-If your distribution packages Jokosher, it's recommended you use its
-respective package manager and install Jokosher with it.
+> Requirements <
 
-Alternatively, if you're installing from the downloaded Jokosher tarball,
-untar it and then, as root, run:
-foo@bar:jokosher-X.Y# python setup.py install
+* Python 2.4
+* GStreamer from CVS
+* Python GStreamer from CVS
+* Gnonlin (plugin for Gstreamer)
+* PyGTK 2.8
+* Python Glade2
+* Python Cairo
+* Python Dbus
+* Python XMLPlus
+* Python Setuptools 
 
->-- Running Jokosher - System wide installation --<
 
-To run it, run:
+> Running Jokosher <
 
-foo@bar:~$ jokosher
+Complete instructions for running Jokosher can be found at 
+http://www.jokosher.org/download. Due to the reliance on a 
+very release of GStreamer that may not yet be distributions, 
+we have created a script that automates the process of 
+downloading the development snapshot of GStreamer, compiling 
+it and running Jokosher.
 
->-- Installing Jokosher - Local installation --<
-In case you want to install Jokosher locally, that is, under your home
-folder, simply untar the dowloaded tarball into the folder of your choice.
+However, if you already have Gstreamer from CVS installed
+just open a terminal and run:
 
->-- Running Jokosher - Local installation --<
-Then be sure to run the file /jokosher-X.Y/Jokosher/Jokosher directly, instead
-of the startup script located at the installation root folder.
+./Jokosher/Jokosher
 
-For example, if you put Jokosher under your home folder:
-/home/foo/jokosher
 
-you need to run /home/foo/jokosher/Jokosher/Jokosher and -not-
-/home/foo/jokosher/jokosher.
+> Finding Help <
 
->-- Getting Involved --<
+We have a number of resources for help:
 
-Jokosher is a project driven by community, and we need you! Head over to http://www.jokosher.org/contribute
-to get involved!
+ * http://doc.jokosher.org/ - our primary documentation site 
+   includes a number of guides and resources that shows you how 
+   to drive Jokosher.
 
->-- Thanks --<
+ * http://userdocs.jokosher.org/ - a community driven site 
+   where HOWTOs and guides are developed to show specific uses 
+   of Jokosher in specific situations and contexts.
 
-* J5 for gracing Jokosher in the New Project dialog.
+ * http://www.jokosher.org/forums/ - our popular and bustling 
+   community of Jokosher users often congregates on our 
+   discussion forums. Here you can ask questions, share your 
+   experience and also post links to your compositions and 
+   podcasts for other Jokosher users to comment on. This is 
+   a great way to get valuable feedback from the community.
+
+Have fun with Jokosher, and do keep in touch!
+
+The Jokosher team
+www.jokosher.org
