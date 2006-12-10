@@ -5,22 +5,43 @@ of this project is create a simple yet comprehensive tool for all your audio nee
 is the very first release after five months of feverish development. It will therefore
 have a few quirks and bugs around.
 
-> Requirements <
+>-- Requirements --<
 
 For a list of current requirements, see http://www.jokosher.org/download
 
-> Running Jokosher <
+>-- Installing Jokosher - System wide --<
+If your distribution packages Jokosher, it's recommended you use its
+respective package manager and install Jokosher with it.
 
+Alternatively, if you're installing from the downloaded Jokosher tarball,
+untar it and then, as root, run:
+foo@bar:jokosher-X.Y# python setup.py install
 
-Then run it, move to the Jokosher/Jokosher directory and run:
+>-- Running Jokosher - System wide installation --<
 
-foo@bar:~$ ./Jokosher.py
+To run it, run:
 
-> Getting Involved <
+foo@bar:~$ jokosher
+
+>-- Installing Jokosher - Local installation --<
+In case you want to install Jokosher locally, that is, under your home
+folder, simply untar the dowloaded tarball into the folder of your choice.
+
+>-- Running Jokosher - Local installation --<
+Then be sure to run the file /jokosher-X.Y/Jokosher/Jokosher directly, instead
+of the startup script located at the installation root folder.
+
+For example, if you put Jokosher under your home folder:
+/home/foo/jokosher
+
+you need to run /home/foo/jokosher/Jokosher/Jokosher and -not-
+/home/foo/jokosher/jokosher.
+
+>-- Getting Involved --<
 
 Jokosher is a project driven by community, and we need you! Head over to http://www.jokosher.org/contribute
 to get involved!
 
-> Thanks <
+>-- Thanks --<
 
 * J5 for gracing Jokosher in the New Project dialog.
