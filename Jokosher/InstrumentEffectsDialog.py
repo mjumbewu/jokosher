@@ -145,8 +145,10 @@ class InstrumentEffectsDialog:
 		self.instrument.project.AddListener(self)
 		self.instrument.AddListener(self)
 
+		self.updatinggui = True
 		if self.instrument.currentchainpreset is not None:
 			self.chainpresetcombo.set_active(self.instrument.currentchainpreset)
+		self.updatinggui = False
 			
 		self.Update()
 			
@@ -537,7 +539,12 @@ class InstrumentEffectsDialog:
 		"""
 			A preset is selected from the chain preset combo. Load it.
 		"""
-					
+
+		# If we're still setting up the gui then we dont want to *do* anything when 
+		# we set the combobox so check the flag and quit if necessary
+		if self.updatinggui == True:
+			return
+		
 		presetname = name = combo.get_active_text()
 		if presetname not in self.availpresets:
 			return
