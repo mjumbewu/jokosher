@@ -80,7 +80,7 @@ class InstrumentEffectsDialog:
 		self.addeffect.set_sensitive(False)
 
 		self.headerCairoImage = CairoDialogHeaderImage(_("Instrument Effects"))
-		self.headerCairoImage.set_size_request(750, 60)
+		self.headerCairoImage.set_size_request(self.window.allocation.width, 60)
 		self.mainvbox.pack_start(self.headerCairoImage, False, False)
 		self.headerCairoImage.show()
 		
@@ -104,9 +104,9 @@ class InstrumentEffectsDialog:
 		for item in Globals.LADSPA_NAME_MAP:
 			Globals.debug(item[1])
 			longname = item[1]
-			shortname = longname[:45]
+			shortname = longname[:30]
 			
-			if len(longname) > 45:
+			if len(longname) > 30:
 				shortname = shortname + "..."
 			
 			self.effectscombo.append_text(shortname)
@@ -271,7 +271,7 @@ class InstrumentEffectsDialog:
 		# check the actively selected name  matches the 
 		# value in the gtk.Entry if it doesn't then a search was
 		# probably abandoned without selecting so ignore this
-		if Globals.LADSPA_NAME_MAP[effectindex][1] != self.effectsEntry.get_text():
+		if self.effectscombo.get_model()[effectindex][0] != self.effectsEntry.get_text():
 			return
 		
 		name = Globals.LADSPA_NAME_MAP[effectindex][0]
