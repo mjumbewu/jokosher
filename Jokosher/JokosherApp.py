@@ -1500,35 +1500,23 @@ class MainApp:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		url = "http://www.jokosher.org/forums"
-		try:
-			call(args=["xdg-open", url])	#works for all, but not available by default
-			return
-		except OSError:
-			pass
 		
-		try:
-			call(args=["gnome-open", url])			#gnome
-			return
-		except OSError:
-			pass
-		
-		try:
-			call(args=["kfmclient", "exec", url]) 	#kde
-			return
-		except OSError:
-			pass
-		
-		try:
-			call(args=["exo-open", url])			#xfce
-		except OSError:
-			dlg = gtk.MessageDialog(self.window,
+		for command in ("xdg-open", "gnome-open", "kfmclient exec", "exo-open"):
+			try:
+				#the next line will send the args as a list like: ["kfmclient", "exec", "http://www.jokosher.org/forums"]
+				call(command.split() + [url])
+				return
+			except OSError:
+				pass
+	
+		dlg = gtk.MessageDialog(self.window,
 				gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
 				gtk.MESSAGE_ERROR,
 				gtk.BUTTONS_CLOSE)
-			dlg.set_markup(_("<big>Couldn't launch the forums website automatically.</big>\n\nPlease visit "+url+" to access them."))
-	
-			dlg.run()
-			dlg.destroy()
+		dlg.set_markup(_("<big>Couldn't launch the forums website automatically.</big>\n\nPlease visit %s to access them.") % url)
+
+		dlg.run()
+		dlg.destroy()
 		
 	#_____________________________________________________________________
 
