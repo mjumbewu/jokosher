@@ -8,6 +8,7 @@ import os.path
 import pygst
 pygst.require("0.10")
 import gst
+from subprocess import call
 
 import gettext
 _ = gettext.gettext
@@ -87,7 +88,8 @@ class MainApp:
 			"on_instrumentconnections_activate" : self.OnInstrumentConnectionsDialog,
 			"on_editmenu_activate" : self.OnEditMenu,
 			"on_projectmenu_activate" : self.OnProjectMenu,
-			"on_prereleasenotes_activate" : self.OnPreReleaseNotes,
+			"on_help_contents_activate" : self.OnHelpContentsMenu,
+			"on_forums_activate" : self.OnForumsMenu,
 			"on_contributing_activate" : self.OnContributingDialog,
 			"on_ExtensionManager_activate" : self.OnExtensionManagerDialog
 		}
@@ -1266,6 +1268,7 @@ class MainApp:
 			}
 		else:
 			keysdict = {
+				65470:self.OnHelpContentsMenu, # F1 - Help Contents
 				65471:self.OnRecordingView, # F2 - Recording View
 				65472:self.OnCompactMixView, # F3 - Compact Mix View
 				65535:self.OnDelete, # delete key - remove selected item
@@ -1466,21 +1469,67 @@ class MainApp:
 	
 	#_____________________________________________________________________
 
-	def OnPreReleaseNotes(self, widget):
+	def OnHelpContentsMenu(self, widget=None):
 		"""
-		Creates and shows the "Pre Release Notes" dialog.
+		Calls the appropiate help tool with the user manual in the correct
+		locale.
 		
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		dlg = gtk.MessageDialog(self.window,
 			gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
-			gtk.MESSAGE_WARNING,
+			gtk.MESSAGE_INFO,
 			gtk.BUTTONS_CLOSE)
-		dlg.set_markup(_("<big>Notes about this release</big>\n\nThis version of Jokosher (0.2) is a pre-release version. As such, you may encounter some bugs and functionality that is not present."))
+		dlg.set_markup(_("<big>Coming soon!</big>"))
 		dlg.run()
 		dlg.destroy()
 
+	#_____________________________________________________________________
+
+	def OnForumsMenu(self, widget):
+		"""
+		Opens the Jokosher forum in the user's default web browser.
+		It'll try launchers in the following order:
+			xdg-open
+			gnome-open
+			kfmclient exec
+			exo-open
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+		"""
+		url = "http://www.jokosher.org/forums"
+		try:
+			call(args=["xdg-open", url])	#works for all, but not available by default
+			return
+		except OSError:
+			pass
+		
+		try:
+			call(args=["gnome-open", url])			#gnome
+			return
+		except OSError:
+			pass
+		
+		try:
+			call(args=["kfmclient", "exec", url]) 	#kde
+			return
+		except OSError:
+			pass
+		
+		try:
+			call(args=["exo-open", url])			#xfce
+		except OSError:
+			dlg = gtk.MessageDialog(self.window,
+				gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
+				gtk.MESSAGE_ERROR,
+				gtk.BUTTONS_CLOSE)
+			dlg.set_markup(_("<big>Couldn't launch the forums website automatically.</big>\n\nPlease visit "+url+" to access them."))
+	
+			dlg.run()
+			dlg.destroy()
+		
 	#_____________________________________________________________________
 
 	def OnContributingDialog(self, widget):
