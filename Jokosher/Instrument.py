@@ -304,9 +304,9 @@ class Instrument(Monitored):
 		# load pan level
 		
 		self.panElement.set_property("panorama", self.pan)
-			
-		#initialize the actuallyIsMuted variable
-		self.checkActuallyIsMuted()
+		
+		#check if instrument is muted and setup accordingly
+		self.OnMute()
 
 	#_____________________________________________________________________
 
