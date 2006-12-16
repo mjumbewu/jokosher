@@ -148,7 +148,7 @@ class TimeLineBar(gtk.Frame):
 			self.bpmedit = gtk.SpinButton()
 			self.bpmedit.set_range(1, 400)
 			self.bpmedit.set_increments(1, 5)
-			self.bpmedit.set_text(str(self.project.transport.bpm))
+			self.bpmedit.set_value(self.project.transport.bpm)
 			self.bpmedit.connect("activate", self.OnAcceptEditBPM)
 
 			self.bpmframe.add(self.bpmedit)
