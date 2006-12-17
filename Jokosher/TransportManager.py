@@ -45,7 +45,7 @@ class TransportManager(Monitored):
 		self.pipeline = mainpipeline
 		self.position = 0
 		self.PrevPosition = 0
-		self.bpm = 120.			# Tempo in BPM
+		self.bpm = 120			# Tempo in BPM
 		self.meter_nom = 4		# Meter nominator
 		self.meter_denom = 4	# Meter denominator
 		

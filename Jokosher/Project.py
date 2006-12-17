@@ -132,6 +132,7 @@ def LoadFromFile(uri):
 	
 	# Hack to set the transport mode
 	p.transport.SetMode(p.transportMode)
+	p.transport.SetBPM(p.transportbpm)
 	
 	try:
 		undo = doc.getElementsByTagName("Undo")[0]
@@ -341,6 +342,8 @@ class Project(Monitored):
 		self.__performingRedo = False	#True if we are currently in the process of performing a redo command
 		self.__savedUndo = False		#True if we are performing an undo/redo command that was previously saved
 		
+
+		
 		
 		# CREATE GSTREAMER ELEMENTS AND SET PROPERTIES#
 		self.mainpipeline = gst.Pipeline("timeline")
@@ -414,6 +417,8 @@ class Project(Monitored):
 		#initialize the transport mode
 		self.transportMode = TransportManager.TransportManager.MODE_BARS_BEATS
 		self.transport = TransportManager.TransportManager(self.transportMode, self.mainpipeline)
+		
+		self.transportbpm = self.transport.bpm
 
 		self.PrepareClick()
 
@@ -780,6 +785,8 @@ class Project(Monitored):
 			
 		#sync the transport's mode with the one which will be saved
 		self.transportMode = self.transport.mode
+		self.transportbpm = self.transport.bpm
+		
 		
 		self.unsavedChanges = False
 		#purge main undo stack so that it will not prompt to save on exit
@@ -798,7 +805,7 @@ class Project(Monitored):
 		params = doc.createElement("Parameters")
 		head.appendChild(params)
 		
-		items = ["viewScale", "viewStart", "name", "author", "transportMode"]
+		items = ["viewScale", "viewStart", "name", "author", "transportMode", "transportbpm"]
 		
 		StoreParametersToXML(self, doc, params, items)
 			

@@ -48,7 +48,7 @@ class TimeLineBar(gtk.Frame):
 		
 		self.bpmlabel = gtk.Label()
 		self.bpmlabel.set_use_markup(True)
-		self.bpmlabel.set_markup("<span foreground='#0b410b'><b>%s</b></span>"%self.project.transport.bpm)
+		self.bpmlabel.set_markup("<span foreground='#0b410b'><b>%s</b></span>"%self.project.transportbpm)
 		self.bpmlabel.set_padding(5, 5)
 		self.bpmeventbox.add(self.bpmlabel)
 		self.bpmframe.add(self.bpmeventbox)
@@ -98,7 +98,8 @@ class TimeLineBar(gtk.Frame):
 		self.add(self.hbox)
 		self.headerhbox.connect("check-resize", self.projectview.Update)
 		self.connect("size-allocate", self.OnAllocate)
-		self.hbox.pack_start(self.timeline)		
+		self.hbox.pack_start(self.timeline)	
+
 	
 	#_____________________________________________________________________
 
@@ -137,7 +138,6 @@ class TimeLineBar(gtk.Frame):
 			self.Updating = False
 
 		return
-
 	#_____________________________________________________________________
 	
 	def OnEditBPM(self, widget, event):
@@ -179,7 +179,7 @@ class TimeLineBar(gtk.Frame):
 		if self.bpmeditPacked:
 			self.bpmframe.remove(self.bpmedit)
 			#FIXME: find a better way to do project.PrepareClick() it doesn't take a really long time with large bpm
-			newbpm = self.bpmedit.get_text()
+			newbpm = self.bpmedit.get_value_as_int()
 			
 			self.project.transport.SetBPM(float(newbpm))
 			self.project.PrepareClick()
