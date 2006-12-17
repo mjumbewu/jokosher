@@ -179,6 +179,7 @@ def LoadFromFile(uri):
 		i = Instrument(p, None, None, None, id)
 		i.LoadFromXML(instr)
 		p.graveyard.append(i)
+		i.RemoveAndUnlinkPlaybackbin()
 
 	return p
 
