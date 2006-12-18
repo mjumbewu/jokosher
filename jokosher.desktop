@@ -1,12 +1,12 @@
 [Desktop Entry]
-Version=0.1
+Version=0.9
 Encoding=UTF-8
 Name=Jokosher
-GenericName=Jokosher audio editing
-Comment=Multi-track non-linear audio editing
+GenericName=Jokosher audio editor
+Comment=Multi-track non-linear audio editor
 Exec=jokosher
 Icon=jokosher-icon.png
 Terminal=false
 Type=Application
 Categories=Application;AudioVideo;
-GenericName[en_CA]=Jokosher audio editing
+GenericName[en_CA]=Jokosher audio editor
