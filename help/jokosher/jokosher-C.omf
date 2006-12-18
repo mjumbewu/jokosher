@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding= "UTF-8"?>
+<!DOCTYPE omf PUBLIC "-//OMF//DTD Scrollkeeper OMF Variant V1.0//EN" "http://scrollkeeper.sourceforge.net/dtds/scrollkeeper-omf-1.0/scrollkeeper-omf.dtd">
+<omf>
+  <resource>
+    <creator>(Jokosher Documentation Team)</creator>
+    <creator>Jono Bacon (jono@jonobacon.org)</creator>
+    <creator>Jeff Ratliff (jefrat@gmail.com)</creator>
+    <creator>Dennis Lichtenthäler (dennis.lichtenthaeler@episode-iv.de)</creator>
+    <creator>David Corrales (corrales.david@gmail.com)</creator>
+    <maintainer>David Corrales (corrales.david@gmail.com)</maintainer>
+    <title>Jokosher User Manual</title>
+    <date>2007-03-14</date>
+    <version identifier="3.0" date="2007-03-14" description="Updated for Jokosher v0.9"/>
+    <subject category="Applications|Multimedia|Sound"/>
+    <description>User manual for the Jokosher multi-track audio editor.</description>
+    <type>user's guide</type>
+    <format mime="text/xml" dtd="-//OASIS//DTD DocBook XML V4.1.2//EN"/>
+    <identifier url="file://PATH_PLACEHOLDER"/>
+    <language code="C"/>
+    <relation seriesid="aba9e4e4-7f6b-11db-890b-f503d8beae45"/>
+    <rights type="GNU GPL" license.version="2" holder="(Jokosher Documentation Team)"/>
+  </resource>
+</omf>

@@ -1,0 +1,1442 @@
+<?xml version="1.0"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+"http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+
+  <!-- Document constants definition -->
+  <!ENTITY appversion "0.9">
+  <!ENTITY manrevision "3.0">
+  <!ENTITY date "December 2006">
+  <!ENTITY app "<application>Jokosher</application>">
+  <!ENTITY appname "Jokosher">
+
+  <!-- Imports -->
+  <!ENTITY legal SYSTEM "legal.xml">
+]>
+
+<article id="index" lang="en">
+<!-- please do not change the id; for translations, change lang to -->
+<!-- the appropriate code -->
+	<articleinfo>
+		<title>&app; User Manual</title>
+		<subtitle>Revision v&manrevision;</subtitle>
+		
+		<copyright>
+			<year>2006</year>
+			<holder>Jono Bacon</holder>
+		</copyright>
+		
+		<copyright>
+			<year>2006</year>
+			<holder>Jeff Ratliff</holder>
+		</copyright>
+		
+		<copyright>
+			<year>2006</year>
+			<holder>David Corrales</holder>
+		</copyright>
+		
+		<publisher>
+			<publishername>&app; Project</publishername>
+		</publisher>
+
+		&legal;
+		<!-- This file  contains link to the license for the documentation (GNU GPL 
+		v2), and other legal stuff such as "NO WARRANTY" statement. Please do 
+		not change any of this. -->
+
+		<authorgroup>
+			<author>
+				<firstname>Jono</firstname>
+				<surname>Bacon</surname>
+				<affiliation>
+					<orgname>&app; Project</orgname>
+					<address> <email>jono@jonobacon.org</email> </address>
+				</affiliation>
+			</author>
+			
+			<author>
+				<firstname>Jeff</firstname>
+				<surname>Ratliff</surname>
+				<affiliation>
+					<orgname>&app; Documentation Team</orgname>
+					<address> <email>jefrat@gmail.com</email> </address>
+				</affiliation>
+			</author>
+			
+			<author>
+				<firstname>David</firstname>
+				<surname>Corrales</surname>
+				<affiliation>
+					<orgname>&app; Project</orgname>
+					<address> <email>corrales.david@gmail.com</email> </address>
+				</affiliation>
+			</author>
+			<!-- This is appropriate place for other contributors: translators,
+			maintainers,  etc. Commented out by default.
+			<othercredit role="translator">
+				<firstname>Latin</firstname> 
+				<surname>Translator 1</surname> 
+				<affiliation> 
+					<orgname>Jokosher Translation Team</orgname> 
+					<address> <email>translator@isp.com</email> </address> 
+				</affiliation>
+				<contrib>Latin translation</contrib>
+			</othercredit>
+			-->
+			<!-- TRANS:ROLES_OF_TRANSLATORS -->
+		</authorgroup>
+
+		<revhistory>
+			<revision>
+				<revnumber>&app; User Guide v3.0</revnumber>
+				<date>March 2007</date>
+				<revdescription>
+					<para role="author">David Corrales
+					<email>corrales.david@gmail.com</email>
+					</para>
+					<para role="publisher">&app; Project</para>
+				</revdescription> 
+			</revision> 
+		
+			<revision> 
+				<revnumber>&app; User Guide v2.0</revnumber>
+				<date>July 2006</date>
+				<revdescription>
+					<para role="author">Jono Bacon
+					<email>jono@jonobacon.org</email>
+					</para>
+					<para role="publisher">&app; Project</para>
+				</revdescription>
+			</revision>
+		</revhistory> 
+
+		<releaseinfo>This manual describes version &appversion; of &app;.</releaseinfo>
+		<legalnotice>
+			<title>Feedback</title>
+			<para>
+				To report a bug or make a suggestion regarding &app; or
+				this manual, follow the directions on the 
+				<ulink url="http://www.jokosher.org/contribute" type="http">&app; Contribute Page</ulink>.
+			</para>
+			<!-- Translators may also add here feedback address for translations -->
+		</legalnotice>
+	</articleinfo>
+
+<!-- =========================== Document Body ============================= -->
+
+	<!-- =========================== Introduction =========================== -->
+	<!-- Use the Introduction section to give a brief overview of what the application is and what it does. -->
+	<sect1 id="jokosher-introduction">
+		<title>Introduction</title>
+		<para>
+			Welcome to the start of an exciting journey!
+		</para>
+		
+		<para>
+			&app; is a simple to use, yet very powerful Open Source
+			audio workstation. With it you can create and record music, audio and
+			other projects. &app; has been specifically designed around ease of
+			use and helping you to ignore the software and concentrate on your
+			projects. This user guide is meant to be helpful in explaining the
+			specific details when working with &app;.
+		</para>
+		
+		<para>
+			&app; is an organic piece of software and grows and improves
+			gradually.  Due to its Open Source foundation, different people from
+			all over the world work on it to make it the best tool for creating
+			audio and music easily.  Likewise, this guide reflects that organic
+			nature and also grows naturally.  This document presents you with a
+			complete guide to the features and facilities available in &app;.
+			With each new release, this guide will explain the new features available
+			for you to use.
+		</para>
+		
+		<para>
+			Like any Open Source project, &app; and this guide needs your
+			help. Invariably in most Open Source projects, the documentation
+			always falls behind and does not track the progress of the application
+			it is documenting. Since &app; is made for musicians and designed
+			to be simple and easy to use, this guide plays an essential role.
+			If something is incorrect, outdated or just plain wrong, please fix it
+			or report it to the &app; Project. It will be a great contribution
+			to this important project.
+		</para>
+	</sect1>
+
+	<!-- =========================== Features =========================== -->
+	<!-- This section lists the most relevant features Jokosher has to offer. -->
+	<sect1 id="jokosher-features">
+		<title>Features</title>
+		<para>
+			&app; offers you the following features, ensuring that your
+			audio producing experience is smooth and versatile:
+		</para>
+		<itemizedlist>
+			<listitem>
+			<para>
+				Easy to use interface, designed from the ground up. &app; uses concepts
+				and language familiar to musicians, and is a breeze to use.
+			</para>
+			</listitem>
+			<listitem>
+			<para>
+				Simple editing with splitting, trimming and moving tools.
+			</para>
+			</listitem>
+			<listitem>
+			<para>
+				Multi-track volume mixing with VU sliders.
+			</para>
+			</listitem>
+			<listitem>
+			<para>
+				Import audio (Ogg Vorbis, MP3, FLAC, WAV and anything else supported by
+				GStreamer) into your projects.
+			</para>
+			</listitem>
+			<listitem>
+			<para>
+				A range of instruments can be added to a project, and instruments can be renamed.
+				Instruments can also be muted and soloed easily.
+			</para>
+			</listitem>
+			<listitem>
+			<para>
+				Export to MP3, Ogg Vorbis, FLAC, WAV and anything else GStreamer supports.
+			</para>
+			</listitem>
+			<listitem>
+			<para>
+				Mixdown profiles allow you to quickly automate post-mixing processes like podcasts,
+				uploading files to a server, creating playlists and so on.
+			</para>
+			</listitem>
+			<listitem>
+			<para>
+				Documentation (User Guide, FAQ, Tutorial) and User Community (Forums, IRC).
+			</para>
+			</listitem>
+		</itemizedlist>
+	</sect1>
+
+	<!-- =========================== Getting Started =========================== -->
+	<!-- This section details the first steps users should follow to get started with Jokosher quickly.  -->
+	<sect1 id="jokosher-get-started">
+		<title>Getting Started</title>
+		<sect2 id="jokosher-get-start">
+			<title>Starting &app;</title>
+			<para>You can start <application>&app;</application> in the following ways:</para>
+			<variablelist>
+				<varlistentry>
+					<term><guimenu>Applications</guimenu> menu</term>
+					<listitem>
+					<para>
+						Choose
+						<menuchoice>
+							<guisubmenu>Sound &amp; Video </guisubmenu>
+							<guimenuitem>&app;</guimenuitem>
+						</menuchoice>
+					</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>Command line</term>
+					<listitem>
+					<para>
+						To start <application>&app;</application> from a command line, type the
+						following command, then press <keycap>Return</keycap>:
+					</para>
+					<para>
+						<command>jokosher</command>
+						<replaceable>filename.jokosher</replaceable>
+					</para>
+					<para>
+						where <replaceable>filename.jokosher</replaceable> is the name of the file
+						you want to open.
+					</para>
+					</listitem>
+				</varlistentry>
+			</variablelist>
+		</sect2>
+		
+		<!-- === Getting Started: Welcome Dialog === -->
+		<sect2 id="jokosher-get-welcome-dialog">
+			<title>The &app; Welcome Dialog</title>
+			<para>When <application>&app;</application> starts, you see the following window:</para>
+		
+			<!-- *** Welcome Dialog Figure *** -->
+			<figure id="jokosher-FIG-welcomedialog">
+				<title>&app; Welcome Dialog</title>
+				<screenshot>
+				<mediaobject>
+					<imageobject>
+						<imagedata fileref="figures/welcome_dialog.png" format="PNG"/>
+					</imageobject>
+					<textobject>
+					<phrase>
+						Shows &app; Welcome dialog. Contains Recent Projects
+						dialog, Create a New Project, Browse for an Existing
+						Project, Preferences and Quit.
+					</phrase>
+					</textobject>
+				</mediaobject>
+				</screenshot>
+			</figure>
+			
+			<para>The welcome dialog has a number of different facilities: </para>
+			<itemizedlist>
+				<listitem>
+				<para>
+					<guilabel>Recent Projects</guilabel> - this
+					list provides a simple means of accessing your most
+					recent projects, with the most recent ones at the top.
+					To load a project just double-click it.
+				</para>
+				</listitem>
+				<listitem>
+				<para>
+					<guibutton>Create a New Project</guibutton>
+					&dash; click this button to create a new &app;
+					project. See <xref linkend="jokosher-get-create"/> for
+					more information.
+				</para>
+				</listitem>
+				<listitem>
+				<para>
+					<guibutton>Browse for an Existing Project</guibutton> &dash;
+					this button pops up a file dialog box to allow you to find an
+					existing project file on your computer.
+					See <xref linkend="jokosher-get-open"/> for more information.
+				</para>
+				</listitem>
+				<listitem>
+				<para>
+					<guibutton>Preferences</guibutton> &dash; clicking this
+					button displays the main &app; preferences window.
+				</para>
+				</listitem>
+				<listitem>
+				<para>
+					<guibutton>Quit</guibutton> &dash; click this to
+					exit out of &app;.
+				</para>
+				</listitem>
+			</itemizedlist>
+			
+			<para>
+				To disable the welcome dialog, check the <guilabel>Don't show this on start-up</guilabel>
+				checkbox. You can reenable it in the 
+				<menuchoice>
+					<guimenu>Edit</guimenu>
+					<guimenuitem>Preferences</guimenuitem>
+				</menuchoice>
+				window.
+				There are other options you can configure for &app; start-up, 
+				see <xref linkend="jokosher-main-configure"/> for more information.
+			</para>
+		</sect2>
+		
+		<!-- === Getting Started: Creating a New Jokosher Project === -->
+		<sect2 id="jokosher-get-create">
+			<title>Creating a New &app; Project</title>
+			<para>
+				You can create project by either selecting the <guibutton>Create a New 
+				Project</guibutton> button from the welcome dialog or by clicking 
+				<menuchoice>
+					<guimenu>File</guimenu>
+					<guimenuitem>New Project</guimenuitem>
+				</menuchoice>
+				in the main window.
+			</para>
+			
+			<para>A dialog box then appears and you are asked for some details: </para> 
+			<itemizedlist>
+				<listitem>
+				<para>
+					<guilabel>Project Name</guilabel> &mdash; enter a name for the 
+					project here. This is most likely going to be the song title or podcast
+					title.
+				</para>
+				</listitem>
+				<listitem>
+				<para>
+					<guilabel>Folder</guilabel> &mdash; select a folder where your
+					project will be stored. Please note that the folder you select will have a
+					new directory created for it. So, as an example, if you select 
+					/home/user/projects for this option and your Project Name is Song, a 
+					directory called Song inside /home/user/projects will be created.
+				</para>
+				</listitem>
+				<listitem>
+				<para>
+					<guilabel>Author</guilabel> &mdash; enter your name or the name 
+					of your band in this box. This is the author of the project.
+				</para>
+				</listitem>
+			</itemizedlist>
+			
+			<para>
+				When you have added these details, click the <guilabel>OK</guilabel>
+				button to continue.
+			</para>
+			
+			<note>
+			<para>
+				If this is your first time using &app;, jump to 
+				<xref linkend="jokosher-main-window"/>.
+			</para>
+			</note>
+		</sect2>
+		
+		<!-- === Getting Started: Opening Projects === -->
+		<sect2 id="jokosher-get-open"> 
+			<title>Opening &app; Projects</title>
+			<para>
+				You can open existing projects by either selecting <guilabel>Browse 
+				for an Existing Project</guilabel> from the Welcome Dialog or clicking
+				<menuchoice>
+					<guisubmenu>File</guisubmenu>
+					<guimenuitem>Open</guimenuitem>
+				</menuchoice>
+				in the main window.
+			</para>
+			
+			<para>
+				When you select this option, the GNOME file picker will appear. &app; 
+				projects are stored in a directory with the same name as the project.
+				Inside that directory is a <filename>.jokosher</filename> file. Double click
+				on it to load it.
+			</para>
+			
+			<note>
+			<para>
+				If this is your first time using &app;, jump to 
+				<xref linkend="jokosher-main-window"/>.
+			</para>
+			</note>
+		</sect2>
+	</sect1>
+	
+	<!-- ================ The Main Jokosher Window =========================== -->
+	<!-- Here, the main window and its components are described in general. -->
+	<sect1 id="jokosher-main-window">
+		<title>The Main &app; Window</title>
+		<!--
+		<itemizedlist>
+			<listitem>
+				<para><xref linkend="jokosher-main-toolbar"/></para>
+			</listitem>
+			<listitem>
+				<para><xref linkend="jokosher-main-menus"/></para>
+			</listitem>
+			<listitem>
+				<para><xref linkend="jokosher-main-configure"/></para>
+			</listitem>
+		</itemizedlist>
+		!-->
+	
+		<para>
+			The main &app; window is where the action happens:
+		</para>
+		<!-- ==== Main Window Figure ==== -->
+		<figure id="jokosher-FIG-mainwindow">
+			<title>&app; Main Window</title>
+			<screenshot>
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="figures/main_window.png" format="PNG"/> 
+				</imageobject>
+				<textobject>
+				<phrase>
+					Shows &app; Main Window. Contains the Menus, the Toolbar,
+					Click Track, Time Line, Time Display, Workspace Selector and
+					Project Zoom area.
+				</phrase>
+				</textobject>
+			</mediaobject>
+			</screenshot>
+		</figure>
+		
+		<para>
+			On &app;, everything happens inside a single window, making it simple to see 
+			what is going on at any time.
+		</para>
+	
+		<sect2 id="jokosher-main-menus"> 
+			<title>The Menus</title>
+			<para>
+				Along the top side of the screen you can see the menus. Virtually every
+				possible action in &app; is available through them, so if you are can't
+				figure out how to do something, be sure to browse them first.
+			</para>
+			<sect3 id="jokosher-main-menu-file">
+				<title>File</title> 
+				<itemizedlist> 
+					<listitem>
+					<para>
+						<guimenuitem>New</guimenuitem> &mdash; opens a
+						new project in the existing window. If there are
+						changes in the current project, you will be offered a
+						chance to save them.
+					</para> 
+					</listitem> 
+					<listitem>
+					<para>
+						<guimenuitem>Open</guimenuitem> &mdash; opens an
+						existing project. If there are changes in the current
+						project, you will be offered a chance to save them.
+					</para>
+					</listitem>
+					<listitem>
+					<para>
+						<guimenuitem>Save</guimenuitem> &mdash; saves the
+						current project. This option quickly saves all
+						information in the project including Undo and Redo
+						history.
+					</para>
+					</listitem>
+					<listitem>
+					<para>
+						<guimenuitem>Save As</guimenuitem> &mdash; analogous
+						to the <emphasis>Save</emphasis> functionality, but this
+						option allows you to save the project under a different name.
+					</para>
+					</listitem>
+					<listitem>
+					<para>
+						<guimenuitem>Close</guimenuitem> &mdash; closes
+						the current project without closing &app;.  Again,
+						you'll get a chance to save the project if there are
+						changes.
+					</para>
+					</listitem>
+					<listitem>
+					<para>
+						<guimenuitem>Recent Projects</guimenuitem>
+						&mdash; this submenu lists up to the last 8 projects
+						opened in &app;. This is a convenient way to move
+						quickly from one project to another.
+					</para>
+					</listitem>
+					<listitem>
+					<para>
+						<guimenuitem>Mixdown Project</guimenuitem>
+						&mdash; brings up a dialog that begins the final stage
+						of your project - the mixdown. Choose a name for the
+						output file, a location where you want it saved, and an
+						output format. &app; will then mix the project and
+						save it as a single audio file in your chosen format.
+					</para>
+					</listitem>
+					<listitem>
+					<para>
+						<guimenuitem>Quit</guimenuitem> &mdash; quits
+						&app; completely. You will get a chance to save any
+						unsaved work.
+					</para>
+					</listitem>
+				</itemizedlist> 
+			</sect3>
+			
+			<sect3 id="jokosher-main-menu-edit">
+				<title>Edit</title>
+				<itemizedlist> 
+					<listitem>
+					<para>
+						<guimenuitem>Undo</guimenuitem> &mdash; Reverts
+						the last change made to the project.
+					</para>
+					</listitem>
+					<listitem>
+					<para>
+						<guimenuitem>Redo</guimenuitem> &mdash; Redoes the
+						last thing that was reverted with
+						<guimenuitem>Undo</guimenuitem>.
+					</para>
+					</listitem>
+					<listitem>
+					<para>
+						<guimenuitem>Cut</guimenuitem> &mdash; Removes the
+						selected object from the project and places it on the clipboard,
+						replacing what was there previously.
+					</para>
+					</listitem>
+					<listitem>
+					<para>
+						<guimenuitem>Copy</guimenuitem> &mdash; Puts a copy
+						of the currently selected object on to the clipboard, replacing
+						what was there previously.
+					</para>
+					</listitem>
+					<listitem>
+					<para>
+						<guimenuitem>Paste</guimenuitem> &mdash; Places the
+						contents of the clipboard into the project. See
+						<xref linkend="jokosher-views-recording-editing"/> for details on
+						selecting pieces of audio to cut, copy and paste.
+					</para>
+					</listitem>
+					<listitem>
+					<para>
+						<guimenuitem>Delete</guimenuitem> &mdash; Removes the
+						selected object from the project and discards it.
+					</para>
+					</listitem>
+					<listitem>
+					<para>
+						<guimenuitem>Preferences</guimenuitem> &mdash; Opens
+						the <link linkend="jokosher-main-configure">&app;
+						Preferences</link> window.
+					</para>
+					</listitem>
+				</itemizedlist>
+			</sect3>
+			
+			<sect3 id="jokosher-main-menu-project">
+				<title>Project</title>
+				<itemizedlist>
+					<listitem>
+					<para>
+						<guimenuitem>Add Instrument</guimenuitem>
+						&mdash; see <xref linkend="jokosher-views-recording-addinstrument"/>
+						for more information.
+					</para>
+					</listitem>
+					<listitem>
+					<para>
+						<guimenuitem>Instrument Connections</guimenuitem>
+						&mdash; This dialog lists each instrument in the project
+						and shows which input from your sound card is connected
+						to it. For each instrument, you can change
+						its connection by clicking the drop-down box and
+						choosing an input to connect.
+					</para>
+					</listitem>
+					<listitem>
+					<para>
+						<guimenuitem>Time Format</guimenuitem> &mdash;
+						Selects how time is displayed on the <guilabel>Time
+						Line</guilabel>. The options are <guilabel>Show as
+						Bars, Beats, Ticks</guilabel> or <guilabel>Show as
+						Hours, Minutes, Seconds</guilabel>.
+					</para>
+					</listitem>
+				</itemizedlist>
+			</sect3>
+			
+			<sect3 id="jokoser-main-menu-help">
+				<title>Help</title>
+				<itemizedlist>
+					<listitem>
+					<para>
+						<guimenuitem>Help</guimenuitem> &mdash;
+						Opens the &app; user manual you are currently reading.
+					</para>
+					</listitem>
+					<listitem>
+					<para>
+						<guimenuitem>Online Forums</guimenuitem> &mdash;
+						Opens the &app; online forums website on your preferred web browser.
+					</para>
+					</listitem>
+					<listitem>
+					<para>
+						<guimenuitem>Contributing to &app;</guimenuitem>
+						&mdash; Lists the different ways you can
+						contribute to &app;. &app; is still in development and
+						can always use your help.
+					</para>
+					</listitem>
+					<listitem>
+					<para>
+						<guimenuitem>About</guimenuitem>
+						<itemizedlist> 
+							<listitem>
+							<para>
+								<guimenuitem>Credits</guimenuitem>
+								&mdash; Opens a dialog box that lists
+								the many people who have worked to
+								bring you &app;.
+							</para>
+							</listitem> 
+							<listitem>
+							<para>
+								<guimenuitem>License</guimenuitem>
+								&mdash; The complete license for
+								&app;.
+							</para>
+							</listitem> 
+						</itemizedlist>
+					</para>
+					</listitem>
+				</itemizedlist>
+			</sect3>
+		</sect2>
+
+		<sect2 id="jokosher-main-toolbar">
+			<title>The Toolbar</title>
+			<para>
+				Below the menus are the main toolbar buttons. These
+				buttons are ideal when you're perched over the
+				desk, holding your guitar. They can be used to perform
+				the following actions:
+			</para>
+			<itemizedlist>
+				<listitem>
+					<para>
+						<guibutton>Add Instrument</guibutton> &mdash;
+						click this button to add an instrument to the project.
+						See <xref linkend="jokosher-views-recording-addinstrument"/>
+						for more information.
+					</para>
+				</listitem>
+				<listitem>
+					<para>
+						<guibutton>Rewind, Play, Forward,
+						Record</guibutton> &mdash; these
+						buttons control playback and recording.
+					</para>
+				</listitem>
+				<listitem>
+					<para>
+						<guilabel>Time display</guilabel> &mdash;
+						shows the current elapsed time in the project.  Time
+						will be displayed in <emphasis>hours, minutes and seconds</emphasis>
+						or <emphasis>bars, beats and ticks</emphasis>, depending
+						on the time format you've chosen in the <guimenu>Project</guimenu> menu.
+					</para>
+				</listitem>
+				<listitem>
+					<para>
+						<guibutton>Workspace Selector</guibutton> &mdash;
+						these buttons allow you to switch between the two
+						workspace views in &app;.
+					</para>
+				</listitem>
+				<listitem>
+					<para>
+						<guibutton>Click Track</guibutton> &mdash; this
+						feature generates a click that you can play along with.
+						You can set its speed in beats per minute and change 
+						its time signature. *TODO* (This feature is not currently
+						implemented.)
+					</para>
+				</listitem>
+				<listitem>
+					<para>
+						<guilabel>Time Line</guilabel> &mdash; this ruler
+						gives you a visual representation of your project in
+						time. The line will be marked off in measures or in
+						seconds, depending on your current time format.
+					</para>
+				</listitem>
+				<listitem>
+					<para>
+						<guilabel>Project Zoom</guilabel> &mdash; this
+						area at the bottom of the main window will help you
+						zoom in and out and scroll the project quickly. The
+						minus and plus icons will zoom the time line out and in,
+						respectively. The center icon will return you to a
+						medium zoom.
+						If the area of your project doesn't fit entirely on the
+						screen, you can drag the scroll bar to adjust the zoom
+						level dynamically.
+					</para>
+				</listitem>
+			</itemizedlist>
+		</sect2>
+		
+		<sect2 id="jokosher-main-configure">
+			<title>Configuring &app; Preferences</title>
+			<para>
+				The &app; preferences menu can be accessed by clicking
+				<menuchoice>
+					<guimenu>Edit</guimenu>
+					<guisubmenu>Preferences</guisubmenu>
+				</menuchoice>.
+				Here you can change many settings that
+				determine how &app; works. Note that these settings will be saved
+				for &app; globally, not on a per-project basis.
+			</para>
+			<itemizedlist>
+				<listitem>
+				<para>
+					<guilabel>Application Start-up</guilabel>
+					&mdash; Chooses how &app; will act when it
+					first starts. The available options are:
+					<itemizedlist>
+						<listitem>
+						<para>
+							<guimenuitem>Show
+							welcome dialog</guimenuitem>
+							&mdash; the default.  Choose this
+							option if you'd like to pick a project
+							everytime &app; starts.
+						</para>
+						</listitem>
+						<listitem>
+						<para>
+							<guimenuitem>Open most
+							recent project</guimenuitem>
+							&mdash; Choose this option if you'd
+							like to skip the welcome dialog and
+							jump to the project you had open the
+							last time you used
+							&app;.
+						</para>
+						</listitem> 
+						<listitem>
+						<para>
+							<guimenuitem>Don't open
+							anything</guimenuitem> &mdash; Choose
+							this option if you want total control.
+							You can open a project later from the
+							<guimenu>File</guimenu> menu.
+						</para>
+						</listitem>
+					</itemizedlist>
+				</para>
+				</listitem>
+				<listitem>
+				<para>
+					<guilabel>Recorded Audio Format</guilabel> &mdash;
+					Choose the format in which &app;
+					will save the audio during recordings.
+				</para>
+				</listitem>
+				<listitem>
+				<para>
+					<guilabel>Recording Sample Rate</guilabel> &mdash;
+					Choose the sample rate used for recording audio in &app;.
+				</para>
+				</listitem>
+				<listitem>
+				<para>
+					<guilabel>Audio Playback Device</guilabel> &mdash;
+					Choose the audio hardware used for playback.
+				</para>
+				</listitem>
+			</itemizedlist>
+			<note>
+				Available recording formats, sample rates and playback devices
+				will depend on the hardware and plugins installed on your system.
+			</note>
+		</sect2>
+	</sect1>
+
+	<!-- =========================== Workspace - Recording =========================== -->
+	<!-- This section explains the detailed use and capabilities of the recording workspace. -->
+	<sect1 id="jokosher-workspaces-recording">
+		<title>The Recording Workspace</title>
+		<sect2 id="jokosher-views-recording">
+			<title>Recording View</title>
+			<para>
+				Inside the recording view, only the instruments are
+				displayed. This is where you will spend most of your time
+				recording, editing and re-recording.
+			</para>
+			<para>
+				Recording is the first step in the process of creating a
+				project.  You will add instruments, usually one at a time,
+				record audio into that instrument, then add the next
+				instrument. Working in the recording view usually follows the
+				steps listed here.
+			</para>
+			
+			<sect3 id="jokosher-views-recording-addinstrument">
+				<title>Adding Instruments</title>
+				<para>
+					Instruments are a key concept in &app;. Think in terms of instruments, 
+					instead of tracks. Instruments allow you to infer a lot about your project
+					at a glance.
+				</para>
+				<para>
+					Currently, instruments are very simple - they just contain the name and icon of the
+					instrument.
+				</para>
+				
+				<!-- ==== Add Instruments Figure ==== -->
+				<figure id="jokosher-FIG-addinstrument"> 
+					<title>Adding Instruments</title>
+					<screenshot> 
+						<mediaobject> 
+							<imageobject>
+								<imagedata fileref="figures/add_instrument.png" format="PNG"/> 
+							</imageobject> 
+							<textobject> 
+								<phrase>
+									Dialog for adding new instruments to the current
+									project.
+								</phrase> 
+							</textobject>
+						</mediaobject>
+					</screenshot>
+				</figure>
+				
+				<para>
+					To add an instrument, click on the <guibutton>Add Instrument</guibutton> button to bring up
+					the dialog, then pick the instrument that best resembles what you'll be recording. Click
+					<guibutton>OK</guibutton> to finish.
+				</para>
+				<para>
+					Notice that once an instrument is added, you can click on its name and change it to anything
+					you want.
+				</para>
+			</sect3>
+			
+			<sect3 id="jokosher-views-recording-recording">
+				<title>Recording</title>
+				<orderedlist>
+					<listitem>
+					<para>
+						<emphasis>Add Instruments</emphasis> &mdash;
+						After adding an instrument,
+						you will see that it has the following features:
+						
+						<para>
+							<!-- ==== Instrument Features Figure ==== -->
+							<figure id="jokosher-FIG-instrumentfeatures"> 
+								<title>Instrument Features</title>
+								<screenshot> 
+								<mediaobject> 
+									<imageobject>
+										<imagedata
+										fileref="figures/instrument_features.png" 
+										format="PNG"/> 
+									</imageobject> 
+									<textobject> 
+									<phrase>
+										Shows Instrument lane features.
+										Contains Instrument Icon, Instrument label,
+										Record, Mute and Solo buttons and Recording Lane.
+									</phrase> 
+									</textobject>
+								</mediaobject>
+								</screenshot>
+							</figure>
+						</para>
+						
+						<itemizedlist>
+							<listitem>
+							<para>
+								<guiicon>Instrument Icon</guiicon> &mdash;
+								the selected icon for the instrument.
+							</para>
+							</listitem> 
+							<listitem>
+							<para>
+								<guilabel>Instrument Label</guilabel> &mdash;
+								this can be changed at will simpy by clicking on it.
+								It is just a label to identify the instruments in case you
+								have several with the same icon.
+							</para>
+							</listitem> 
+							<listitem>
+							<para>
+								<guibutton>Record Button</guibutton> &mdash;
+								this button will be clicked to <quote>arm</quote> the
+								instrument prior to recording.
+							</para>
+							</listitem> 
+							<listitem>
+							<para>
+								<guibutton>Mute Button</guibutton> &mdash;
+								his button will	silence the instrument during playback.
+							</para>
+							</listitem> 
+							<listitem>
+							<para>
+								<guibutton>Solo Button</guibutton> &mdash;
+								the opposite of the <guibutton>Mute</guibutton>
+								button. When pressed, you will hear this instrument as
+								<quote>solo</quote> during playback, with all other instruments
+								muted.
+							</para>
+							</listitem> 
+							<listitem>
+							<para>
+								<guilabel>Recording Lane</guilabel> &mdash;
+								to the right of the buttons is an area where recorded audio will
+								be displayed for this instrument.
+							</para>
+							</listitem>
+						</itemizedlist>
+					</para>
+					</listitem>
+					<listitem>
+					<para>
+						<emphasis>Set Connections</emphasis> &mdash;
+						as explained in <xref linkend="jokosher-main-menu-project"/>, 
+						the different sound card
+						inputs can be routed to different instruments
+						at will. In this way, even if there is only one
+						input, by connecting it to each instrument -one at
+						a time-, multiple instruments can be sequencially
+						recorded.
+					</para>
+					</listitem>
+					<listitem>
+					<para>
+						<emphasis>Record</emphasis> &mdash;
+						at this	point you are ready to record this instrument.
+						If it's a live instrument, plug it in, press
+						the <guibutton>Record</guibutton> button on the
+						instrument to arm it, then hit the
+						<guibutton>Record</guibutton> button on the
+						main Toolbar. When done recording, click
+						<guibutton>Stop</guibutton>.
+					</para>
+					
+					<para>
+						To import an
+						existing audio file, right-click on the
+						instrument <guilabel>Recording Lane</guilabel> then click
+						<guimenuitem>Import Audio File</guimenuitem>.
+						Select the file you'd like to import, then click
+						<guibutton>Open</guibutton>. Notice that the
+						audio is now in the recording lane for that
+						instrument. The waveform shows you the volume
+						level at any point in the recording.
+					</para>
+					</listitem>
+					<listitem>
+					<para>
+						<emphasis>Repeat</emphasis> &mdash; unarm this
+						instrument and begin the process again by
+						adding the next instrument until all desired
+						instruments are recorded.
+					</para>
+					</listitem>
+				</orderedlist>
+			</sect3>
+			
+			<sect3 id="jokosher-views-recording-editing">
+				<title>Editing</title> 
+				<para>
+					Once all instruments are recorded, editing begins. Think
+					of the instruments as raw materials that you will shape
+					into a final project. &app; offers several tools to
+					help with editing:
+				</para>
+				
+				<itemizedlist>
+					<listitem>
+					<para>
+						<emphasis>Move</emphasis> &mdash; this function
+						shifts a piece of audio in time. To
+						<emphasis>Move</emphasis> a piece of audio,
+						click it and drag it left or right until it is
+						in the desired position. When recording
+						Instruments separately, this function can be
+						used to get Instruments in <abbrev>sync</abbrev> with each
+						other.
+					</para>
+					</listitem>
+					<listitem>
+					<para>
+						In order to edit audio, a recording often needs
+						to be divided into pieces. &app; offers two
+						main tools to do this:
+						
+						<itemizedlist>
+							<listitem>
+							<para>
+								<emphasis>Split</emphasis> &mdash; this
+								function divides the audio in an
+								instrument into two sections. Use
+								<emphasis>Split</emphasis> when you
+								want to keep the entire recording, but
+								need to separate it into pieces. To split,
+								double-click in the instrument lane at
+								the point where the audio should be
+								divided.
+							</para>
+							</listitem>
+							<listitem>
+							<para>
+								<emphasis>Trim</emphasis> &mdash; this
+								function deletes the non-selected portion
+								of the instrument audio. To
+								<guibutton>Trim</guibutton>, hold down
+								the <keycap>Shift</keycap> key, click
+								with the mouse at the beginning of the
+								section you'd like to
+								<guibutton>Trim</guibutton>, drag the
+								mouse to the right to the end of the
+								desired section, and release both the
+								<keycap>Shift</keycap> key and the
+								mouse button. A	<guibutton>Trim</guibutton>
+								tab will appear below the selected section.
+								Click this tab to <guibutton>Trim</guibutton>
+								the non-selected portion of audio.
+							</para>
+							</listitem>
+						</itemizedlist>
+					</para>
+					</listitem> 
+					<listitem>
+					<para>
+						<emphasis>Volume fades</emphasis> &mdash; volume levels can be edited
+						for sections of audio. Select a section of an instrument by pressing
+						<keycap>Shift</keycap>, then clicking and dragging. You see a selection
+						as in the figure below. Notice the red fade points, which will
+						initially be labeled <quote>100%</quote>. Grab the corresponding
+						fade point and drag it up or down to adjust volume at that point.
+						
+						<para>
+							<!-- ==== Volume Fades Figure ==== -->
+							<figure id="jokosher-FIG-volumefades"> 
+								<title>Volume Fades</title>
+								<screenshot> 
+									<mediaobject> 
+										<imageobject>
+											<imagedata
+											fileref="figures/volume_fades.png"
+											format="PNG"/> 
+										</imageobject> 
+										<textobject> 
+										<phrase>
+											Image describing the use of fade
+											points for volume levels.
+										</phrase> 
+										</textobject>
+									</mediaobject>
+								</screenshot>
+							</figure>
+						</para>
+					</para>
+					</listitem>
+					<listitem>
+					<para>
+						<emphasis>Cut and Paste</emphasis> &mdash; this
+						process moves sections of audio from one place to another. If
+						you don't want to <guilabel>Cut</guilabel> a complete
+						recording, <guilabel>Split</guilabel> it into pieces or
+						<guibutton>Trim</guibutton> as above, to separate the piece
+						you'd like to work with.  Next, click on the piece you'd like
+						to <guilabel>Cut</guilabel> and select 
+						<menuchoice> 
+							<shortcut>
+								<keycombo>
+									<keycap>Ctrl</keycap><keycap>X</keycap>
+								</keycombo> 
+							</shortcut>
+							<guisubmenu>Edit</guisubmenu><guimenuitem>Cut</guimenuitem>
+						</menuchoice>
+						. Finally, click
+						<menuchoice>
+							<shortcut>
+								<keycombo>
+									<keycap>Ctrl</keycap><keycap>V</keycap>
+								</keycombo> 
+							</shortcut>
+							<guisubmenu>Edit</guisubmenu><guimenuitem>Paste</guimenuitem>
+						</menuchoice>
+						in the spot where the section should go.
+					</para>
+					</listitem>
+					<listitem>
+					<para>
+						<emphasis>Copy and Paste</emphasis> &mdash; this process is used to make
+						copies of the same audio in more than one place. It is similar
+						to <emphasis>Cut and Paste</emphasis> above. First select a piece of audio
+						and click 
+						<menuchoice>
+							<shortcut>
+								<keycombo>
+									<keycap>Ctrl</keycap><keycap>C</keycap>
+								</keycombo> 
+							</shortcut>
+							<guisubmenu>Edit</guisubmenu><guimenuitem>Copy</guimenuitem>
+						</menuchoice>
+						. Then click in the spot where this piece should go and select
+						<menuchoice>
+							<shortcut>
+								<keycombo>
+									<keycap>Ctrl</keycap><keycap>V</keycap>
+								</keycombo> 
+							</shortcut>
+							<guisubmenu>Edit</guisubmenu><guimenuitem>Paste</guimenuitem>
+						</menuchoice>
+						to complete the operation.
+					</para>
+					</listitem>
+					<listitem>
+					<para>
+						<emphasis>Delete</emphasis> &mdash; this removes a piece of audio completely
+						from the current project. Select the section you want to delete and then
+						click
+						<menuchoice> 
+							<guisubmenu>Edit</guisubmenu><guimenuitem>Delete</guimenuitem>
+						</menuchoice>
+						or hit the <keycap>Delete</keycap> key on the keyboard.
+					</para>
+					</listitem>
+					<listitem>
+						<para>
+							<emphasis>Undo</emphasis> &mdash; in case you accidentally deleted a piece
+							of audio or pasted it into the wrong spot, select
+							<menuchoice>
+								<shortcut>
+									<keycombo>
+										<keycap>Ctrl</keycap><keycap>Z</keycap>
+									</keycombo> 
+								</shortcut>
+								<guisubmenu>Edit</guisubmenu><guimenuitem>Undo</guimenuitem>
+							</menuchoice>
+							to revert the last change you performed. To undo more steps,
+							repeat this process.
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							<emphasis>Redo</emphasis> &mdash; if you wish to bring back a change you
+							reverted with the <emphasis>Undo</emphasis> function, you can use 
+							<emphasis>Redo</emphasis>.
+							Click
+							<menuchoice>
+								<shortcut>
+									<keycombo>
+										<keycap>Ctrl</keycap><keycap>R</keycap>
+									</keycombo> 
+								</shortcut>
+								<guisubmenu>Edit</guisubmenu><guimenuitem>Redo</guimenuitem>
+							</menuchoice>
+							and the last change you reverted with <emphasis>Undo</emphasis> will be
+							restored.
+						</para>
+					</listitem>
+				</itemizedlist>
+			</sect3>
+		</sect2>
+	</sect1>
+	
+	<!-- =========================== Workspace - Mixing =========================== -->
+	<!-- This section explains the detailed use and capabilities of the mixing workspace. -->
+	<sect1 id="jokosher-workspaces-mixing">
+		<title>The Mixing Workspace</title>
+		<sect2 id="jokosher-views-mixing">
+			<title>Mixing View</title>
+			<para>
+				This is the main mixing view. This view displays smaller versions of your instrument tracks
+				as well as mixing sliders for adjusting instrument volume levels. This is where you mix your
+				final project.
+			</para>
+			
+			<para>
+				Much of the functionality of the <xref linkend="jokosher-workspaces-recording"/>
+				is still available. The emphasis, though, is on getting the balance right between the
+				instruments.
+			</para>
+			
+			<itemizedlist>
+				<listitem>
+				<para>
+					<guibutton>Volume Slider</guibutton> &mdash; each Instrument has a corresponding
+					slider. These sliders control the overall volume in the mix of that Instrument.
+					Volume is displayed on the slider as a range from 0 to 1.00. Notice that
+					as the slider is moved, the volume level changes audibly and visually.
+				</para>
+				</listitem>
+				<listitem>
+				<para>
+					<guibutton>Instrument Hide</guibutton> &mdash; at the top of each slider is
+					an icon that can be clicked to hide that instrument. It's still there, 
+					just out of the way. At the bottom of the screen just above the status bar
+					is an <emphasis>Instruments Not Shown</emphasis> list. Click on an instrument
+					in the list to display it normally.
+				</para>
+				<para>
+					Hiding Instruments is useful when you have many instruments and only want to
+					work on a few at a time. For example if you have 3 vocalists, you
+					could mute and hide all other instruments, while you mix the vocals.
+				</para>
+				</listitem>
+				<listitem>
+				<para>
+					<guibutton>Master volume</guibutton> &mdash; at the far right of the screen is the
+					<guibutton>Master Volume</guibutton> slider. This slider changes the overall
+					volume of the project.
+				</para>
+				</listitem>
+			</itemizedlist>
+		</sect2>
+		
+		<sect2 id="jokosher-views-mixing-profiles">
+			<title>Mixdown Profiles</title>
+			<para>
+				Once your project is ready to be mixed down, the <emphasis>Mixdown Profiles</emphasis>
+				allow you to automate post-mixing processes like podcasts, uploading files to a server,
+				creating playlists and so on.
+			</para>
+		</sect2>
+	</sect1>
+	
+	<!-- =========================== Jokosher Extensions =========================== -->
+	<!-- This section talks about jokosher extensions, how to import them and their capabilites. -->
+	<sect1 id="jokosher-extensions">
+		<title>&app; Extensions</title>
+		<para>
+			&app; now has a new feature called <emphasis>Extensions</emphasis>. This allows for third party developers
+			to add features to &app;, make it support new file types or even do something amazing that none of us has
+			anticipated.
+		</para>
+		<sect2 id="jokosher-extensions-manager">
+			<title>Extension Manager</title>
+			<para>
+				You can configure Extensions in the <guimenuitem>Extensions</guimenuitem> menu which contains at
+				least the <guimenuitem>Manage Extensions</guimenuitem> item which brings up the <emphasis>Extension
+				Manager</emphasis> shown in the following figure. Depending on which extensions you have installed,
+				other entries may appear in this menu.
+			</para>
+			
+			<!-- ==== Extension Manager Figure ==== -->
+			<figure id="jokosher-FIG-extensionmanager"> 
+				<title>Extension Manager</title>
+				<screenshot> 
+					<mediaobject> 
+						<imageobject>
+							<imagedata fileref="figures/extension_manager.png"
+									format="PNG"/> 
+						</imageobject> 
+						<textobject> 
+							<phrase>
+								Shows the extension manager dialog used to add
+								or remove available extensions.
+							</phrase> 
+						</textobject>
+					</mediaobject>
+				</screenshot>
+			</figure>
+			
+			<para>
+				The extension manager allows you to see a list of installed extensions. You can also:
+				<itemizedlist>
+					<listitem>
+					<para>
+						<guibutton>Add an extension</guibutton> &mdash; installs an extension into &app;.
+						This opens up a file selection dialog that allows you to chose a .py or .egg file.
+						After confirming that you really want to install the extension, you should see it in
+						the Installed Extensions list. See <xref linkend="jokosher-extensions-finding"/> below
+						for more information on getting new extensions.
+					</para>
+					</listitem>
+					<listitem>
+					<para>
+						<guibutton>Remove an extension</guibutton> &mdash; removes the currently selected
+						extension from your system.
+					</para>
+					</listitem>
+					<listitem>
+					<para>
+						<guibutton>Preferences</guibutton> &mdash; allows you to configure the currently
+						selected extension. What you can configure here depends entirely on the extension.
+						Please see its documentation for more information.
+					</para>
+					</listitem>
+					<listitem>
+					<para>
+						<guibutton>Close</guibutton> &mdash; closes the Extension Manager and brings you back
+						to the <emphasis>&app; Main Window</emphasis>.
+					</para>
+					</listitem>
+				</itemizedlist>
+			</para>
+		</sect2>
+		
+		<sect2 id="jokosher-extensions-finding">
+			<title>Finding new extensions</title>
+			<para>
+				To find extensions that are currently available, check the
+				<ulink url="http://svn.jokosher.python-hosting.com/extensions/">Development site</ulink> .
+			</para>
+			<para>
+				Join in the <ulink url="http://www.jokosher.org/forums/">&app; Forums</ulink> to hear news on new
+				extensions, discuss ideas, and contribute information on extensions you're working on.
+			</para>
+			<para>
+				If you'd like to write an extension, full documentation on the extension system is available on the
+				<ulink url="http://jokosher.python-hosting.com/wiki/ExtensionSystem">&app; Development Website
+				</ulink>
+			</para>
+		</sect2>
+	</sect1>
+	
+	<sect1 id="jokosher-instrumenteffects">
+		<title>Instrument Effects</title>
+		<para>
+			&app; allows LADSPA audio effects to be applied to each individual instrument. With them, you can build
+			complex effect chains to achieve the sound you're looking for.
+		</para>
+		<sect2>
+			<title>The Effects Window</title>
+			<para>
+				Just click the <guibutton>Effects Button</guibutton> on a particular instrument and you will be
+				presented with the <emphasis>Effects Window</emphasis> for that instrument:
+			</para>
+			
+			<!-- ==== Instrument Effects Figure ==== -->
+			<figure id="jokosher-FIG-intrumenteffects"> 
+				<title>Instrument Effects</title>
+				<screenshot> 
+					<mediaobject> 
+						<imageobject>
+							<imagedata fileref="figures/instrument_effects.png"
+								   format="PNG"/> 
+						</imageobject> 
+						<textobject> 
+							<phrase>
+								Shows the instrument effects dialog. It can be used to add,
+								remove and configure the effects for individual instruments.
+							</phrase> 
+						</textobject>
+					</mediaobject>
+				</screenshot>
+			</figure>
+			
+			<itemizedlist>
+				<listitem>
+				<para>
+					<guibutton>Add effects</guibutton> &mdash; the dropdown box on the left will list all the
+					effects you have installed on your system. From this list select the effect you would like to
+					use. Click on the <guibutton>Add</guibutton> button and that effect will be added to the
+					Instrument. In the same way you can add as many effects as needed.
+				</para>
+				</listitem>
+				<listitem>
+				<para>
+					<guibutton>Adjust effect settings</guibutton> &mdash; once an effect is added, double click the
+					orange box for an effect to pull up the effect settings dialog. Settings available will depend
+					on the specific effect. In this dialog you can tweak all the settings for a particular effect.
+					Click <guibutton>OK</guibutton> when done.
+				</para>
+				</listitem>
+				<listitem>
+				<para>
+					<guibutton>Preview effects</guibutton> &mdash; Click the <guibutton>Play</guibutton> button at
+					the bottom of the <emphasis>Effects Window</emphasis> and the Instrument will be played back
+					with the effects so you can hear the changes.
+				</para>
+				</listitem>
+				<listitem>
+				<para>
+					<guibutton>Effects Presets</guibutton> &mdash; when you've configured a group of effects that
+					you'd like to keep, they can be saved together as a preset. In the text box labeled
+					<guilabel>Presets</guilabel> type the name for this preset (whatever you'd like to call it),
+					then click <guibutton>Save</guibutton>. The next time you add effects to an Instrument, this
+					preset will be available in the drop down list for you to use again.
+				</para>
+				</listitem>
+				<listitem>
+				<para>
+					<guibutton>Delete effects</guibutton> &mdash; to remove an unwanted effect, click the red
+					circle on the upper right corner of the orange box for that effect. The effect will be removed.
+					No confirmation is requested, so be careful when deleting effects.
+				</para>
+				</listitem>
+			</itemizedlist>
+		</sect2>
+	</sect1>
+</article>
+<!-- TRANS:CREDITS_OF_TRANSLATORS -->
