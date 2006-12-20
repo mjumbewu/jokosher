@@ -19,19 +19,24 @@ import textwrap
 
 class EffectWidget(gtk.DrawingArea):
 	"""
-	   This class creates a custom Cairo widget that is displayed in the
-	   effects dialog box. This widget has the following actions:
+	This class creates a custom Cairo widget that is displayed in the
+	effects dialog box. This widget has the following actions:
 	
-	   single click - move the widget order (not implemented yet)
-	   double click - show effect settings
-	   single click small red circle - remove the effect
+		single click -- move the widget order (not implemented yet).
+		double click -- show effect settings.
+		single click over the small red circle -- remove the effect.
 	"""
 	
 	#_____________________________________________________________________
 	
 	def __init__(self, effect, effectname):
-		"""Constructor for the class"""
+		"""
+		Creates a new instance of EffectWidget.
 		
+		Parameters:
+			effect -- the effect to be drawn.
+			effectname -- name of the effect to be drawn.
+		"""
 		gtk.DrawingArea.__init__(self)
 		self.BACKGROUND_RGB = (1, 1, 1)
 		self.TEXT_RGB = (0, 0, 0)
@@ -60,10 +65,16 @@ class EffectWidget(gtk.DrawingArea):
 		
 	def expose(self, widget, event):
 		"""
-		   When the widget exposes, this method is called. It then triggers
-		   a redraw
+		When the widget exposes, this method is called.
+		It then triggers a redraw.
+		    
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+			event -- reserved for GTK callbacks, don't use it explicitly.
+			
+		Returns:
+			False -- TODO
 		"""
-	
 		# this is the context (the area to be drawn on) where we draw the
 		# widget
 		self.context = widget.window.cairo_create()
@@ -81,8 +92,12 @@ class EffectWidget(gtk.DrawingArea):
 	#_____________________________________________________________________
 
 	def draw(self, context):
-		"""Redraws the widget"""
-	
+		"""
+		This method will draw the EffectWidget.
+		
+		Parameters:
+			context -- a cairo drawing area to draw the EffectWidget onto.
+		"""
 		# grab a reference to the drawing area
 		alloc = self.get_allocation()
 		
@@ -201,10 +216,13 @@ class EffectWidget(gtk.DrawingArea):
 
 	def OnMouseDown(self, widget, mouse):
 		"""
-		   If the mouse is clicked, detect where it is clicked and whether
-		   it is a double click or not.
+		If the mouse is clicked, detect where it is clicked and whether
+		it is a double click or not.
+		   
+		Parameters:
+		   	widget -- reserved for GTK callbacks, don't use it explicitly.
+		   	mouse -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-	
 		if self.context.in_fill(mouse.x, mouse.y):
 			self.emit("remove")
 		else:
