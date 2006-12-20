@@ -306,9 +306,10 @@ class MainApp:
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 			event -- reserved for GTK callbacks, don't use it explicitly.
-			
-			return -- if the current project can't be properly closed, 
-						returns True to stop signal propagation.
+		
+		Returns:
+			True -- the current project can't be properly closed.
+					This stops signal propagation.
 		"""
 		if self.CloseProject() == 0:
 			gtk.main_quit()
@@ -808,9 +809,10 @@ class MainApp:
 		"""
 		Closes the current project. If there's changes pending, it'll ask the user for confirmation.
 		
-		Parameters:
-			return -- 	0 = there was no project open or it was closed succesfully.
-						1 = cancel the operation and return to the normal program flow.
+		Returns:
+			the status of the close operation:
+			0 = there was no project open or it was closed succesfully.
+			1 = cancel the operation and return to the normal program flow.
 		"""
 		if not self.project:
 			return 0
@@ -951,7 +953,7 @@ class MainApp:
 
 	def InsertRecentProject(self, path, name):
 		"""
-		Inserts a new project with it's corresponding path to the recent project list.
+		Inserts a new project with its corresponding path to the recent project list.
 		
 		Parameters:
 			path -- path to the project file.
@@ -1080,7 +1082,7 @@ class MainApp:
 		
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
-			cut --  Determines whether the operation should perform a cut or copy operation:
+			cut --  determines whether the operation should perform a cut or copy operation:
 					True = perform a cut operation.
 					False = perform a copy operation.
 		"""
@@ -1350,11 +1352,13 @@ class MainApp:
 		Parameters:
 			path -- Path to the project to be opened.
 			parent -- Parent window of the error message dialog.
-			
-			return -- True = the project could be successfully opened and 
-					  		set as the current project.
-					  False = loading the project failed. A dialog will be
-					  		displayed to user detailing the error.
+		
+		Returns:
+			the status of the loading operation:
+			True = the project could be successfully opened and 
+			  		set as the current project.
+			False = loading the project failed. A dialog will be
+					displayed to user detailing the error.
 		"""
 		try:
 			self.SetProject(Project.LoadFromFile(path))
