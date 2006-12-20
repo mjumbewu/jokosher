@@ -87,8 +87,6 @@ dist = setup(name='jokosher',
 #Update the real URL attribute inside the OMF files and then
 #register the docs with scrollkeeper
 if omfdir != None and os.geteuid() == 0 and dist != None:
-	temp = "/tmp/jokosherTemp"
-	
 	#Non-documented way of getting the final directory prefix
 	installdir = dist.get_command_obj(command="install_data").install_dir
 	
@@ -99,25 +97,18 @@ if omfdir != None and os.geteuid() == 0 and dist != None:
 		HELPURI.append(targeturi)
 	
 	#Replace the URL placeholder inside the OMF files using sed
+	#We assume that the locale order between omf/docbook will stay the same
 	i = 0
 	for filepath in glob.glob(omfdir+"/*.omf"):
-		arguments = "sed 's|PATH_PLACEHOLDER|URI|' <INPUT >"+temp
-		arguments = arguments.replace("INPUT", filepath)
-		#We assume that the locale order between omf/docbook will stay the same
-		arguments = arguments.replace("URI", HELPURI[i])
-		
-		#Needs to go through a shell to redirect input/output
-		Popen(args=arguments, shell=True)
-
-		#Overwrite the old file with the updated one
-		call(["mv", temp, filepath])
-		
+		expression = "s|PATH_PLACEHOLDER|%s|" % HELPURI[i]
+		call(["sed", "-e", expression, filepath, "-i"])
 		i += 1
 		
 	#Update the scrollkeeper catalog
-	print "\nUpdating the scrollkeeper index..."
+	print "Updating the scrollkeeper index..."
 	call(["scrollkeeper-update", "-o", omfdir])
-	print "Installation finished! You can now run Jokosher by typing 'jokosher' or through your applications menu icon."
+
+print "\nInstallation finished! You can now run Jokosher by typing 'jokosher' or through your applications menu icon."
 	
 ## To uninstall manually delete these files/folders:
 ## /usr/bin/jokosher
