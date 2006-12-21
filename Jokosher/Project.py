@@ -34,15 +34,17 @@ from AlsaDevices import *
 #_____________________________________________________________________
 
 def CreateNew(projecturi, name, author):
-	""" Creates a new project.
+	"""
+	Creates a new project.
 
-		projecturi
-			The filesystem location for the new project. Currently,
-			only file:// URIs are considered valid.
-		name
-			The name of the project.
-		author
-			The name of the project's author.
+	Parameters:
+		projecturi -- the filesystem location for the new project.
+						Currently, only file:// URIs are considered valid.
+		name --	the name of the project.
+		author - the name of the project's author.
+		
+	Returns:
+		the newly created Project object.
 	"""
 	if name == "" or author == "" or projecturi == "":
 		raise CreateProjectError(4)
@@ -83,23 +85,27 @@ def CreateNew(projecturi, name, author):
 #_____________________________________________________________________
 
 def LoadFromFile(uri):
-	""" Loads a project from a save file on disk.
-
-		uri
-			The filesystem location of the project file to load. 
-			Currently only file:// URIs are considered valid.
 	"""
-	p = Project()
+	Loads a project from a saved file on disk.
+
+	Parameters:
+		uri -- the filesystem location of the project file to load. 
+				Currently only file:// URIs are considered valid.
+				
+	Returns:
+		the loaded Project object.
+	"""
+	project = Project()
 
 	(scheme, domain, projectfile, params, query, fragment) = urlparse.urlparse(uri, "file")
 	if scheme != "file":
 		# raise "The URI scheme used is invalid." message
-		raise OpenProjectError(1,scheme)
+		raise OpenProjectError(1, scheme)
 
 	Globals.debug(projectfile)
 
 	if not os.path.exists(projectfile):
-		raise OpenProjectError(4,projectfile)
+		raise OpenProjectError(4, projectfile)
 
 	try:
 		gzipfile = gzip.GzipFile(projectfile, "r")
@@ -107,93 +113,103 @@ def LoadFromFile(uri):
 	except Exception, e:
 		Globals.debug(e.__class__, e)
 		# raise "This file doesn't unzip" message
-		raise OpenProjectError(2,projectfile)
+		raise OpenProjectError(2, projectfile)
 	
-	p.projectfile = projectfile
+	project.projectfile = projectfile
 	
 	#only open projects with the proper version number
 	version = doc.firstChild.getAttribute("version")
 	if version != Globals.VERSION:
 		if version == "0.1":
-			LoadFromZPOFile(p, doc)
+			LoadFromZPOFile(project, doc)
 			#copy the project so that the 0.1 is not overwritten when the user clicks save
 			withoutExt = os.path.splitext(projectfile)[0]
 			shutil.copy(projectfile, "%s.0.1.jokosher" % withoutExt)
-			return p
+			return project
 		else:
 			if not version:
 				version = "0.1" # 0.1 projects had version as element, not attr
 			# raise a "this project was created in a different version of Jokosher" message
-			raise OpenProjectError(3,version)
+			raise OpenProjectError(3, version)
 	
 	params = doc.getElementsByTagName("Parameters")[0]
 	
-	LoadParametersFromXML(p, params)
+	LoadParametersFromXML(project, params)
 	
 	# Hack to set the transport mode
-	p.transport.SetMode(p.transportMode)
-	p.transport.SetBPM(p.transportbpm)
+	project.transport.SetMode(project.transportMode)
+	project.transport.SetBPM(project.transportbpm)
 	
 	try:
 		undo = doc.getElementsByTagName("Undo")[0]
 	except IndexError:
 		Globals.debug("No saved undo in project file")
 	else:
-		for n in undo.childNodes:
-			if n.nodeType == xml.Node.ELEMENT_NODE:
+		for node in undo.childNodes:
+			if node.nodeType == xml.Node.ELEMENT_NODE:
 				cmdList = []
-				cmdList.append(str(n.getAttribute("object")))
-				cmdList.append(str(n.getAttribute("function")))
-				cmdList.extend(LoadListFromXML(n))
-				p._Project__savedUndoStack.append(cmdList)
+				cmdList.append(str(node.getAttribute("object")))
+				cmdList.append(str(node.getAttribute("function")))
+				cmdList.extend(LoadListFromXML(node))
+				project._Project__savedUndoStack.append(cmdList)
 	
 	try:
 		redo = doc.getElementsByTagName("Redo")[0]
 	except IndexError:
 		Globals.debug("No saved redo in project file")
 	else:
-		for n in redo.childNodes:
-			if n.nodeType == xml.Node.ELEMENT_NODE:
+		for node in redo.childNodes:
+			if node.nodeType == xml.Node.ELEMENT_NODE:
 				cmdList = []
-				cmdList.append(str(n.getAttribute("object")))
-				cmdList.append(str(n.getAttribute("function")))
-				cmdList.extend(LoadListFromXML(n))
-				p._Project__redoStack.append(cmdList)
+				cmdList.append(str(node.getAttribute("object")))
+				cmdList.append(str(node.getAttribute("function")))
+				cmdList.extend(LoadListFromXML(node))
+				project._Project__redoStack.append(cmdList)
 	
-	for instr in doc.getElementsByTagName("Instrument"):
+	for instrElement in doc.getElementsByTagName("Instrument"):
 		try:
-			id = int(instr.getAttribute("id"))
+			id = int(instrElement.getAttribute("id"))
 		except ValueError:
 			id = None
-		i = Instrument(p, None, None, None, id)
-		i.LoadFromXML(instr)
-		p.instruments.append(i)
-		if i.isSolo:
-			p.soloInstrCount += 1
+		instr = Instrument(project, None, None, None, id)
+		instr.LoadFromXML(instrElement)
+		project.instruments.append(instr)
+		if instr.isSolo:
+			project.soloInstrCount += 1
 	
-	for instr in doc.getElementsByTagName("DeadInstrument"):
+	for instrElement in doc.getElementsByTagName("DeadInstrument"):
 		try:
-			id = int(instr.getAttribute("id"))
+			id = int(instrElement.getAttribute("id"))
 		except ValueError:
 			id = None
-		i = Instrument(p, None, None, None, id)
-		i.LoadFromXML(instr)
-		p.graveyard.append(i)
-		i.RemoveAndUnlinkPlaybackbin()
+		instr = Instrument(project, None, None, None, id)
+		instr.LoadFromXML(instrElement)
+		project.graveyard.append(instr)
+		instr.RemoveAndUnlinkPlaybackbin()
 
-	return p
+	return project
 
 #_____________________________________________________________________
 
 def LoadFromZPOFile(project, doc):
 	"""
-	   Loads a project from a Jokosher 0.1 (ZPO) project file into
-	   the given project object using the XML document doc.
+	Loads a project from a Jokosher 0.1 (ZPO) project file into
+	the given project object using the XML document doc.
+	
+	Parameters:
+		project -- Jokosher 0.1 (ZPO) project file.
+		doc -- XML document doc used to load the 0.1 Project into the given 0.2+ Project object.
+		
+	Returns:
+		the loaded Project object.
 	"""
 	def LoadEventFromZPO(self, node):
 		"""
-		   Loads event properties from a Jokosher 0.1 XML node
-		   and saves then to the given self object.
+		Loads event properties from a Jokosher 0.1 XML node
+		and saves then to the given self object.
+		
+		Parameters:
+			node -- XML node object from which to extract event properties.
 		"""
 		params = node.getElementsByTagName("Parameters")[0]
 		LoadParametersFromXML(self, params)
@@ -228,8 +244,11 @@ def LoadFromZPOFile(project, doc):
 	
 	def LoadInstrFromZPO(self, node):
 		"""
-		   Loads instrument properties from a Jokosher 0.1 XML node
-		   and saves then to the given self object.
+		Loads instrument properties from a Jokosher 0.1 XML node
+		and saves then to the given self object.
+		
+		Parameters:
+			node -- XML node object from which to extract instrument properties.
 		"""
 		params = node.getElementsByTagName("Parameters")[0]
 		LoadParametersFromXML(self, params)
@@ -299,54 +318,56 @@ def LoadFromZPOFile(project, doc):
 #=========================================================================
 
 class Project(Monitored):
-	
-	""" This class maintains all of the information required about single
-		project.
+	"""
+	This class maintains all of the information required about single project. It also
+	saves and loads Project files.
 	"""
 	
-	Globals.VERSION = "0.2"	# The project structure version. Will be useful for handling old save files
+	""" The project structure version. Will be useful for handling old save files. """
+	Globals.VERSION = "0.2"
 
 	#_____________________________________________________________________
 
 	def __init__(self):
+		"""
+		Creates a new instance of Project with default values.
+		"""
 		Monitored.__init__(self)
 		
 		self.author = ""			#the author of this project
 		self.name = ""				#the name of this project
-		self.projectfile = ""			# the name of the project file, complete with path
-		self.___id_list = []			#the list of IDs that have already been used, to avoid collisions
+		self.projectfile = ""		#the name of the project file, complete with path
+		self.___id_list = []		#the list of IDs that have already been used, to avoid collisions
 		self.instruments = []		#the list of instruments held by this project
 		self.graveyard = []			# The place where deleted instruments are kept, to later be retrieved by undo functions
 		#used to delete copied audio files if the event that uses them is not saved in the project file
 		self.deleteOnCloseAudioFiles = []	# WARNING: any paths in this list will be deleted on exit!
 		self.clipboardList = []		#The list containing the events to cut/copy
-		self.viewScale = 25.0		# View scale as pixels per second
-		self.viewStart= 0.0			# View offset in seconds
+		self.viewScale = 25.0		#View scale as pixels per second
+		self.viewStart= 0.0			#View offset in seconds
 		self.soloInstrCount = 0		#number of solo instruments (to know if others must be muted)
 		self.IsPlaying = False		#True if we are currently playing
-		self.IsExporting = False		#True if we are currently exporting to a file
+		self.IsExporting = False	#True if we are currently exporting to a file
 		self.clickbpm = 120			#the number of beats per minute that the click track will play
-		self.clickEnabled = False		#True is the click track is currently enabled
+		self.clickEnabled = False	#True is the click track is currently enabled
 		self.RedrawTimeLine = False	#True if the timeline's background should be fully redrawn on the next update
 		#Keys are instruments which are recording; values are 3-tuples of the event being recorded, the recording bin and bus handler id
 		self.recordingEvents = {}	#Dict containing recording information for each recording instrument
 		self.volume = 0.5			#The volume setting for the entire project
-		self.level = 0.0				#The level of the entire project as reported by the gstreamer element
+		self.level = 0.0			#The level of the entire project as reported by the gstreamer element
 
 		# Variables for the undo/redo command system
-		self.unsavedChanges = False	#This boolean is to indicate if something which is not on the undo/redo stack needs to be saved
-		self.__undoStack = []		#not yet saved undo commands
-		self.__redoStack = []		#not yet saved actions that we're undone
-		self.__savedUndoStack = []	#undo commands that have already been saved in the project file
-		self.__savedRedoStack = []	#redo commands that have already been saved in the project file
+		self.unsavedChanges = False		#This boolean is to indicate if something which is not on the undo/redo stack needs to be saved
+		self.__undoStack = []			#not yet saved undo commands
+		self.__redoStack = []			#not yet saved actions that we're undone
+		self.__savedUndoStack = []		#undo commands that have already been saved in the project file
+		self.__savedRedoStack = []		#redo commands that have already been saved in the project file
 		self.__performingUndo = False	#True if we are currently in the process of performing an undo command
 		self.__performingRedo = False	#True if we are currently in the process of performing a redo command
 		self.__savedUndo = False		#True if we are performing an undo/redo command that was previously saved
+	
 		
-
-		
-		
-		# CREATE GSTREAMER ELEMENTS AND SET PROPERTIES#
+		# CREATE GSTREAMER ELEMENTS AND SET PROPERTIES #
 		self.mainpipeline = gst.Pipeline("timeline")
 		self.playbackbin = gst.Bin("playbackbin")
 		self.adder = gst.element_factory_make("adder")
@@ -424,9 +445,8 @@ class Project(Monitored):
 		self.PrepareClick()
 
 		# [DEBUG]
-		# This debug block will be removed when we release. If you see this in a release version, we
-		# obviously suck. Please email us and tell us about how shit we are.
-
+		# This debug block will be removed in stable releases. If you see this in a release version,
+		# please email the Jokosher Team and report it. Thanks.
 		try:
 			if os.environ['JOKOSHER_DEBUG']:
 				import JokDebug
@@ -438,14 +458,24 @@ class Project(Monitored):
 	#_____________________________________________________________________
 	
 	def Play(self, movePlayhead = True, recording=False):
-		'''Set all instruments playing'''
+		"""
+		Start playback or recording.
+		
+		Parameters:
+			movePlayhead -- determines if the red graphical bar indicator should move along with playback:
+							True = move the graphical indicator along playback.
+							False = perform playback without moving the graphical bar.
+			recording -- determines if the Project should only playback or playback and record:
+						True = playback and record.
+						False = playback only.
+		"""
 		
 		if len(self.instruments) > 0:
 			Globals.debug("play() in Project.py")
 			Globals.debug("current state:", self.mainpipeline.get_state(0)[1].value_name)
 
-			for ins in self.instruments:
-				ins.PrepareController()
+			for instr in self.instruments:
+				instr.PrepareController()
 					
 			# And set it going
 			self.state_id = self.bus.connect("message::state-changed", self.__PlaybackStateChangedCb, movePlayhead)
@@ -461,8 +491,8 @@ class Project(Monitored):
 				self.StateChanged("play")
 
 			# [DEBUG]
-			# This debug block will be removed when we release. If you see this in a release version, we
-			# obviously suck. Please email us and tell us about how shit we are.
+			# This debug block will be removed in stable releases. If you see this in a release version,
+			# please email the Jokosher Team and report it. Thanks.
 			try:
 				if os.environ['JOKOSHER_DEBUG']:
 					Globals.debug("Play Pipeline:")
@@ -474,7 +504,13 @@ class Project(Monitored):
 	#_____________________________________________________________________
 
 	def Stop(self, bus=None, message=None):
-		'''Stop playing or recording'''
+		"""
+		Stop playback or recording
+		
+		Parameters:
+			bus -- reserved for GStreamer callbacks, don't use it explicitly.
+			message -- reserved for GStreamer callbacks, don't use it explicitly.
+		"""
 
 		Globals.debug("Stop pressed, about to set state to READY")
 		Globals.debug("current state:", self.mainpipeline.get_state(0)[1].value_name)
@@ -493,9 +529,10 @@ class Project(Monitored):
 		Globals.debug("Stop pressed, state just set to READY")
 
 		self.StateChanged("stop")
+		
 		# [DEBUG]
-		# This debug block will be removed when we release. If you see this in a release version, we
-		# obviously suck. Please email us and tell us about how shit we are.
+		# This debug block will be removed in stable releases. If you see this in a release version,
+		# please email the Jokosher Team and report it. Thanks.
 		try:
 			if os.environ['JOKOSHER_DEBUG']:
 				Globals.debug("PIPELINE AFTER STOP:")
@@ -509,9 +546,10 @@ class Project(Monitored):
 	#_____________________________________________________________________
 
 	def TerminateRecording(self):
-		''' Terminate all instruments (used to disregard recording when an 
-			error occurs after instruments have started).
-		'''
+		"""
+		Terminate all instruments. Disregards recording when an 
+		error occurs after instruments have started.
+		"""
 		Globals.debug("Terminating recording.")
 
 		self.mainpipeline.set_state(gst.STATE_READY)
@@ -536,10 +574,12 @@ class Project(Monitored):
 	#_____________________________________________________________________
 	
 	def Record(self):
-		'''Start all selected instruments recording'''
+		"""
+		Start recording all selected instruments.
+		"""
 
 		Globals.debug("pre-record state:", self.mainpipeline.get_state(0)[1].value_name)
-
+		
 		#Add all instruments to the pipeline
 		self.recordingEvents = {}
 		devices = {}
@@ -615,12 +655,17 @@ class Project(Monitored):
 	#_____________________________________________________________________
 
 	def Export(self, filename, format=None):
-		'''
-		   Export to location filename with format specified by format variable.
-		   Format is a string of the file extension as used in Globals.EXPORT_FORMATS.
-		   ie; "ogg", "mp3", "wav".
-		   If no format is given, the format will be guessed by the file extension.
-		'''
+		"""
+		Export to location filename with format specified by format variable.
+		
+		Parameters:
+			filename -- filename where the exported audio will be saved.
+			format -- string of the file extension as used in Globals.EXPORT_FORMATS:
+					"ogg"
+					"mp3"
+					"wav"
+					*if no format is given, it'll be guessed by the file extension*
+		"""
 		#NULL is required because some elements will be destroyed when we remove the references
 		self.mainpipeline.set_state(gst.STATE_NULL)
 		
@@ -666,8 +711,13 @@ class Project(Monitored):
 	#_____________________________________________________________________
 	
 	def TerminateExport(self, bus=None, message=None):
-		""" GStreamer End Of Stream handler. It is connected to eos on 
-			mainpipeline while export is taking place.
+		"""
+		GStreamer End Of Stream handler. It is connected to eos on 
+		mainpipeline while export is taking place.
+		
+		Parameters:
+			bus -- reserved for GStreamer callbacks, don't use it explicitly.
+			message -- reserved for GStreamer callbacks, don't use it explicitly.
 		"""
 		
 		if not self.IsExporting:
@@ -698,21 +748,22 @@ class Project(Monitored):
 	#_____________________________________________________________________
 	
 	def GetExportProgress(self):
-		""" Returns tuple with number of seconds done, and number of total 
-			seconds.
+		"""
+		Returns a tuple with the number of seconds exported
+		and the number of total seconds.
 		"""
 		if self.IsExporting:
 			try:
 				#total = self.mainpipeline.query_duration(gst.FORMAT_TIME)[0]
 				total = self.GetProjectLength() * gst.SECOND
-				cur = self.mainpipeline.query_position(gst.FORMAT_TIME)[0]
+				current = self.mainpipeline.query_position(gst.FORMAT_TIME)[0]
 			except gst.QueryError:
 				return (-1, -1)
 			else:
-				if cur > total:
-					total = cur
+				if current > total:
+					total = current
 					self.TerminateExport()
-				return (float(cur)/gst.SECOND, float(total)/gst.SECOND)
+				return (float(current)/gst.SECOND, float(total)/gst.SECOND)
 		else:
 			return (100, 100)
 		
@@ -720,9 +771,16 @@ class Project(Monitored):
 	
 	def __PlaybackStateChangedCb(self, bus, message, movePlayhead=True):
 		"""
-		Handler for GStreamer statechange events when the pipline is changing from
+		Handles GStreamer statechange events when the pipline is changing from
 		STATE_READY to STATE_PAUSED. Once STATE_PAUSED has been reached, this
 		function will tell the transport manager to start playing.
+		
+		Parameters:
+			bus -- reserved for GStreamer callbacks, don't use it explicitly.
+			message -- reserved for GStreamer callbacks, don't use it explicitly.
+			movePlayhead -- determines if the red graphical bar indicator should move along with playback:
+							True = move the graphical indicator along playback.
+							False = perform playback without moving the graphical bar.
 		"""
 		Globals.debug("STATE CHANGED")
 		change_status, new, pending = self.mainpipeline.get_state(0)
@@ -741,19 +799,23 @@ class Project(Monitored):
 	
 	def __PipelineBusLevelCb(self, bus, message):
 		"""
-		Handler for GStreamer bus messages about the currently reported level
+		Handles GStreamer bus messages about the currently reported level
 		for the project or any of the instruments.
-		"""
-		st = message.structure
 		
-		if st and st.get_name() == "level":
+		Parameters:
+			bus -- reserved for GStreamer callbacks, don't use it explicitly.
+			message -- reserved for GStreamer callbacks, don't use it explicitly.
+		"""
+		struct = message.structure
+		
+		if struct and struct.get_name() == "level":
 			if not message.src is self.levelElement:
 				for instr in self.instruments:
 					if message.src is instr.levelElement:
-						instr.SetLevel(DbToFloat(st["decay"][0]))
+						instr.SetLevel(DbToFloat(struct["decay"][0]))
 						break
 			else:
-				self.SetLevel(DbToFloat(st["decay"][0]))
+				self.SetLevel(DbToFloat(struct["decay"][0]))
 			
 		return True
 
@@ -761,9 +823,13 @@ class Project(Monitored):
 
 
 	def __PipelineBusErrorCb(self, bus, message):
-		""" Handler for GStreamer error messages.
 		"""
-		st = message.structure
+		Handler for GStreamer error messages.
+		
+		Parameters:
+			bus -- reserved for GStreamer callbacks, don't use it explicitly.
+			message -- reserved for GStreamer callbacks, don't use it explicitly.
+		"""
 		error, debug = message.parse_error()
 		
 		Globals.debug("Gstreamer bus error:", str(error), str(debug))
@@ -772,8 +838,12 @@ class Project(Monitored):
 	#_____________________________________________________________________
 	
 	def SaveProjectFile(self, path=None):
-		""" Saves the project and its children as an XML file 
-			to the path specified by file.
+		"""
+		Saves the project and its children as an XML file 
+		to the path specified by file.
+		
+		Parameters:
+			path -- path to the project file.
 		"""
 		
 		if not path:
@@ -813,33 +883,33 @@ class Project(Monitored):
 		undo = doc.createElement("Undo")
 		head.appendChild(undo)
 		for cmd in self.__savedUndoStack:
-			e = doc.createElement("Command")
-			e.setAttribute("object", cmd[0])
-			e.setAttribute("function", cmd[1])
-			undo.appendChild(e)
-			StoreListToXML(doc, e, cmd[2:], "Parameter")
+			element = doc.createElement("Command")
+			element.setAttribute("object", cmd[0])
+			element.setAttribute("function", cmd[1])
+			undo.appendChild(element)
+			StoreListToXML(doc, element, cmd[2:], "Parameter")
 		
 		redo = doc.createElement("Redo")
 		head.appendChild(redo)
 		for cmd in self.__redoStack:
-			e = doc.createElement("Command")
-			e.setAttribute("object", cmd[0])
-			e.setAttribute("function", cmd[1])
-			redo.appendChild(e)
-			StoreListToXML(doc, e, cmd[2:], "Parameter")
+			element = doc.createElement("Command")
+			element.setAttribute("object", cmd[0])
+			element.setAttribute("function", cmd[1])
+			redo.appendChild(element)
+			StoreListToXML(doc, element, cmd[2:], "Parameter")
 		
 			
-		for i in self.instruments:
-			i.StoreToXML(doc, head)
+		for instr in self.instruments:
+			instr.StoreToXML(doc, head)
 			
-		for i in self.graveyard:
-			i.StoreToXML(doc, head, graveyard=True)
+		for instr in self.graveyard:
+			instr.StoreToXML(doc, head, graveyard=True)
 		
 		try:
 			#append "~" in case the saving fails
-			f = gzip.GzipFile(path +"~", "w")
-			f.write(doc.toprettyxml())
-			f.close()
+			gzipfile = gzip.GzipFile(path +"~", "w")
+			gzipfile.write(doc.toprettyxml())
+			gzipfile.close()
 		except:
 			os.remove(path + "~")
 		else:
@@ -851,7 +921,8 @@ class Project(Monitored):
 	#_____________________________________________________________________
 
 	def CloseProject(self):
-		""" Closes down this project.
+		"""
+		Closes down this project.
 		"""
 		global GlobalProjectObject
 		GlobalProjectObject = None
@@ -873,8 +944,9 @@ class Project(Monitored):
 	#_____________________________________________________________________
 	
 	def Undo(self):
-		""" Attempts to revert the last user action by popping an action
-			from the undo stack and executing it.
+		"""
+		Attempts to revert the last user action by popping an action
+		from the undo stack and executing it.
 		"""
 		self.__performingUndo = True
 		
@@ -893,7 +965,8 @@ class Project(Monitored):
 	#_____________________________________________________________________
 	
 	def Redo(self):
-		""" Attempts to redo the last undone action.
+		"""
+		Attempts to redo the last undone action.
 		"""
 		self.__performingRedo = True
 		
@@ -912,8 +985,12 @@ class Project(Monitored):
 	#_____________________________________________________________________
 	
 	def AppendToCurrentStack(self, object):
-		""" Appends the action specified by object onto the relevant
-			undo/redo stack.
+		"""
+		Appends the action specified by object onto the relevant
+		undo/redo stack.
+		
+		Parameters:
+			object -- action to be added to the undo/redo stack
 		"""
 		if self.__savedUndo and self.__performingUndo:
 			self.__savedRedoStack.append(object)
@@ -937,8 +1014,13 @@ class Project(Monitored):
 	#_____________________________________________________________________
 	
 	def CheckUnsavedChanges(self):
-		"""Uses boolean self.unsavedChanges and Undo/Redo to 
-		   determine if the program needs to save anything on exit
+		"""
+		Uses boolean self.unsavedChanges and Undo/Redo to 
+		determine if the program needs to save anything on exit.
+		
+		Return:
+			True -- there's unsaved changes, undoes or redoes
+			False -- the Project can be safely closed.
 		"""
 		return self.unsavedChanges or \
 			len(self.__undoStack) > 0 or \
@@ -948,7 +1030,11 @@ class Project(Monitored):
 	
 	def CanPerformUndo(self):
 		"""
-		Returns True if there is another undo command in the stack that can be performed, False otherwise.
+		Whether it's possible to perform an undo operation.
+		
+		Returns:
+			True -- there is another undo command in the stack that can be performed.
+			False -- there are no available undo commands.
 		"""
 		return bool(len(self.__undoStack) or len(self.__savedUndoStack))
 	
@@ -956,23 +1042,31 @@ class Project(Monitored):
 	
 	def CanPerformRedo(self):
 		"""
-		Returns True if there is another redo command in the stack that can be performed, False otherwise.
+		Whether it's possible to perform an redo operation.
+		
+		Returns:
+			True -- there is another redo command in the stack that can be performed.
+			False -- there are no available redo commands.
 		"""
 		return bool(len(self.__redoStack) or len(self.__savedRedoStack))
 	
 	#_____________________________________________________________________
 	
 	def ExecuteCommand(self, cmdList):
-		""" This function executes the string cmd from the undo/redo stack.
-			Commands are made up of a list of which the first two items are
-			the object (and it's ID if relevant), and the function to call. 
-			The 3rd, 4th, etc. items in the list are the parameters to give to
-			the function when it is called.
+		"""
+		Executes the string cmd from the undo/redo stack.
+		Commands are made up of a list of which the first two items are
+		the object (and it's ID if relevant), and the function to call. 
+		The 3rd, 4th, etc. items in the list are the parameters to give to
+		the function when it is called.
 
-			i.e.
-				["E2", "Move", 1, 2]
-				which means 'Call Move(1, 2)' on the Event with ID=2
-		"""		
+		Example:
+			cmdList = ["E2", "Move", 1, 2]
+			means 'Call Move(1, 2)' on the Event with ID=2
+			
+		Parameters:
+			cmdList -- undo/redo command list to be executed.
+		"""
 		obj = cmdList[0]
 		target_object = None
 		if obj[0] == "P":		# Check if the object is a Project
@@ -982,25 +1076,33 @@ class Project(Monitored):
 			target_object = [x for x in self.instruments if x.id==id][0]
 		elif obj[0] == "E":		# Check if the object is an Event
 			id = int(obj[1:])
-			for i in self.instruments:
+			for instr in self.instruments:
 				# First of all see if it's alive on an instrument
-				n = [x for x in i.events if x.id==id]
+				n = [x for x in instr.events if x.id==id]
 				if not n:
 					# If not, check the graveyard on each instrument
-					n = [x for x in i.graveyard if x.id==id]
+					n = [x for x in instr.graveyard if x.id==id]
 				if n:
 					target_object = n[0]
 					break
-		
+		#TODO: ask more about the x,n variables
 		getattr(target_object, cmdList[1])(*cmdList[2:])
 
 	#_____________________________________________________________________
 	
 	@UndoCommand("DeleteInstrument", "temp")
 	def AddInstrument(self, name, type, pixbuf):
-		''' Adds a new instrument to the project,
-		   and return the ID for that instrument.
-		'''
+		"""
+		Adds a new instrument to the project and returns the ID for that instrument.
+		
+		Parameters:
+			name -- name of the instrument.
+			type -- type of the instrument.
+			pixbuf -- image object corresponding to the instrument.
+			
+		Returns:
+			ID of the added Instrument.
+		"""
 			
 		instr = Instrument(self, name, type, pixbuf)
 		if len(self.instruments) == 0:
@@ -1018,9 +1120,12 @@ class Project(Monitored):
 	
 	@UndoCommand("ResurrectInstrument", "temp")
 	def DeleteInstrument(self, id):
-		''' Removes the instrument matching id from the project.
-			id: Unique ID of the instument to remove.
-		'''
+		"""
+		Removes the instrument matching id from the project.
+		
+		Parameters:
+			id -- unique ID of the instument to remove.
+		"""
 		
 		instr = [x for x in self.instruments if x.id == id][0]
 		
@@ -1038,8 +1143,12 @@ class Project(Monitored):
 	
 	@UndoCommand("DeleteInstrument", "temp")
 	def ResurrectInstrument(self, id):
-		''' Brings a deleted Instrument back from the graveyard.
-		'''
+		"""
+		Brings a deleted Instrument back from the graveyard.
+		
+		Parameters:
+			id -- unique ID of the instument to restore.
+		"""
 		instr = [x for x in self.graveyard if x.id == id][0]
 		
 		instr.AddAndLinkPlaybackbin()
@@ -1056,10 +1165,15 @@ class Project(Monitored):
 	
 	@UndoCommand("MoveInstrument", "temp", "temp1")
 	def MoveInstrument(self, id, position):
-		'''	Move an instrument in the instrument list.
-			Used for drag and drop ordering of instruments in
-			InstrumentViewer.py
-		'''
+		"""
+		Move an instrument in the instrument list.
+		Used for drag and drop ordering of instruments in InstrumentViewer.py
+		
+		Parameters:
+			id -- unique ID of the instument to restore.
+			position -- new position of the instrument inside the instrument 
+						pane to the left of the screen.
+		"""
 		self.temp = id
 		instr = [x for x in self.instruments if x.id == id][0]
 		self.temp1 = self.instruments.index(instr)
@@ -1070,15 +1184,22 @@ class Project(Monitored):
 	#_____________________________________________________________________
 	
 	def ClearEventSelections(self):
-		''' Clears the selection of any events '''
+		"""
+		Clears the selection of any events.
+		"""
 		for instr in self.instruments:
-			for ev in instr.events:
-				ev.SetSelected(False)
+			for event in instr.events:
+				event.SetSelected(False)
 
 	#_____________________________________________________________________
 
 	def SelectInstrument(self, instrument=None):
-		''' Selects instrument and clears the selection of all other instruments. '''
+		"""
+		Selects an instrument and clears the selection of all other instruments.
+		
+		Parameters:
+			instrument -- Instrument object corresponding to the selected instrument.
+		"""
 		for instr in self.instruments:
 			if instr is not instrument:
 				instr.SetSelected(False)
@@ -1088,10 +1209,11 @@ class Project(Monitored):
 	#_____________________________________________________________________
 	
 	def SetViewStart(self, start):
-		""" Sets the time at which the project view should start.
+		"""
+		Sets the time at which the project view should start.
 
-			start
-				Start time for the view in seconds.
+		Parameters:
+			start -- start time for the view in seconds.
 		"""
 		if self.viewStart != start:
 			self.viewStart = start
@@ -1101,7 +1223,11 @@ class Project(Monitored):
 	#_____________________________________________________________________
 	
 	def SetViewScale(self, scale):
-		""" Sets the scale of the project view.
+		"""
+		Sets the scale of the project view.
+		
+		Parameters:
+			scale -- view scale in pixels per second.
 		"""
 		self.viewScale = scale
 		self.RedrawTimeLine = True
@@ -1110,19 +1236,24 @@ class Project(Monitored):
 	#_____________________________________________________________________
 
 	def GetProjectLength(self):
-		""" Returns the length of the project in seconds.
+		"""
+		Returns the length of the project.
+		
+		Returns:
+			lenght of the project in seconds.
 		"""
 		length = 0
 		for instr in self.instruments:
-			for ev in instr.events:
-				size = ev.start + max(ev.duration, ev.loadingLength)
+			for event in instr.events:
+				size = event.start + max(event.duration, event.loadingLength)
 				length = max(length, size)
 		return length
 
 	#_____________________________________________________________________
 	
 	def OnAllInstrumentsMute(self):
-		""" Mutes all Instruments in this project.
+		"""
+		Mutes all Instruments in this project.
 		"""
 		for instr in self.instruments:
 			instr.OnMute()
@@ -1130,8 +1261,14 @@ class Project(Monitored):
 	#_____________________________________________________________________
 	
 	def GenerateUniqueID(self, id = None):
-		""" Creates a new unique ID which can be assigned to an new 
-			project object.
+		"""
+		Creates a new unique ID which can be assigned to an new Project object.
+		
+		Parameters:
+			id -- an unique ID proposal. If it's already taken, a new one is generated.
+			
+		Returns:
+			an unique ID suitable for a new Project.
 		"""
 		if id != None:
 			if id in self.___id_list:
@@ -1150,7 +1287,11 @@ class Project(Monitored):
 	#_____________________________________________________________________
 
 	def SetVolume(self, volume):
-		"""Sets the volume of the instrument in the range 0..1
+		"""
+		Sets the volume of an instrument.
+		
+		Parameters:
+			volume - a value in the range [0,1]
 		"""
 		self.volume = volume
 		self.volumeElement.set_property("volume", volume)
@@ -1158,27 +1299,33 @@ class Project(Monitored):
 	#_____________________________________________________________________
 
 	def SetLevel(self, level):
-		""" Note that this sets the current REPORTED level, NOT THE VOLUME!
+		"""
+		Sets the current REPORTED level, NOT THE VOLUME!
+		
+		Parameters:
+			level -- a value in the range [0,1]
 		"""
 		self.level = level
 
 	#_____________________________________________________________________
 
 	def ValidateProject(self):
-		""" Checks that the project is valid - i.e. that of the files and 
-			images that it references can be found.
+		"""
+		Checks that the project is valid - i.e. that the files and 
+		images it references can be found.
 
-			Returns
-				True if the project is valid, False if not.
+		Returns:
+			True -- the project is valid.
+			False -- the project contains non-existant files and/or images.
 		"""
 		unknownfiles=[]
 		unknownimages=[]
 
 		for instr in self.instruments:
-			for ev in instr.events:
-				if (ev.file!=None) and (not os.path.exists(ev.file)) and (not ev.file in unknownfiles):
-					unknownfiles.append(ev.file)
-		if len(unknownfiles)>0 or len(unknownimages)>0:
+			for event in instr.events:
+				if (event.file!=None) and (not os.path.exists(event.file)) and (not event.file in unknownfiles):
+					unknownfiles.append(event.file)
+		if len(unknownfiles) > 0 or len(unknownimages) > 0:
 			raise InvalidProjectError(unknownfiles,unknownimages)
 
 		return True
@@ -1188,7 +1335,12 @@ class Project(Monitored):
 	@UndoCommand("SetTransportMode", "temp")
 	def SetTransportMode(self, val):
 		"""
-		   Sets the Mode in the Transportmanager. Used to enable Undo/Redo.
+		Sets the Mode in the Transportmanager. Used to enable Undo/Redo.
+		
+		Parameters:
+			val -- the mode to display the timeline bar:
+					TransportManager.MODE_HOURS_MINS_SECS
+					TransportManager.MODE_BARS_BEATS
 		"""
 		self.temp = self.transport.mode
 		self.transport.SetMode(val)
@@ -1196,7 +1348,9 @@ class Project(Monitored):
 	#_____________________________________________________________________
 
 	def PrepareClick(self):
-		'''Prepare the click track'''
+		"""
+		Prepare the click track.
+		"""
 
 		self.ClearClickTimes()
 
@@ -1220,7 +1374,9 @@ class Project(Monitored):
 	#_____________________________________________________________________
 
 	def EnableClick(self):
-		'''Enable the click track'''
+		"""
+		Unmute and enable the click track.
+		"""
 	
 		self.clickTrackVolume.set_property("mute", False)
 		self.clickEnabled = True
@@ -1228,7 +1384,9 @@ class Project(Monitored):
 	#_____________________________________________________________________
 
 	def DisableClick(self):
-		'''Disable the click track'''
+		"""
+		Mute and disable the click track.
+		"""
 	
 		self.clickTrackVolume.set_property("mute", True)
 		self.clickEnabled = False
@@ -1236,21 +1394,31 @@ class Project(Monitored):
 	#_____________________________________________________________________
 
 	def ClearClickTimes(self):
-		'''Clear the click track controller times'''
+		"""
+		Clear the click track controller times.
+		"""
 		self.clickTrackController.unset_all("volume")
 
 
 #=========================================================================
 	
 class OpenProjectError(EnvironmentError):
+	"""
+	This class will get created when a opening a Project fails.
+	It's used for handling errors.
+	"""
 	def __init__(self, errno, info = None):
-		""" Error Numbers:
-		   1) Invalid uri passed for the project file
-		   2) Unable to unzip the project
-		   3) Project created by a different version of Jokosher 
-		If a version string is given, it means the project file was created by
-		another version of Jokosher. That version is specified in the string.
-		   4) Project file doesn't exist
+		"""
+		Creates a new instance of OpenProjectError.
+		
+		Parameters:
+			errno -- number indicating the type of error:
+					1 = invalid uri passed for the project file.
+					2 = unable to unzip the project.
+					3 = Project created by a different version of Jokosher.
+					4 = Project file doesn't exist.
+			info -- version of Jokosher that created the Project.
+					Will be present only along with error #3.
 		"""
 		EnvironmentError.__init__(self)
 		self.info = info
@@ -1259,13 +1427,21 @@ class OpenProjectError(EnvironmentError):
 #=========================================================================
 
 class CreateProjectError(Exception):
+	"""
+	This class will get created when creating a Project fails.
+	It's used for handling errors.
+	"""
 	def __init__(self, errno):
-		"""Error numbers:
-		   1) Unable to create a project object
-		   2) Path for project file already exists
-		   3) Unable to create file. (Invalid permissions, read-only, or the disk is full)
-		   4) Invalid path, name or author
-		   5) Invalid uri passed for the project file
+		"""
+		Creates a new instance of CreateProjectError.
+		
+		Parameters:
+			errno -- number indicating the type of error:
+					1 = unable to create a project object.
+					2 = path for project file already exists.
+					3 = unable to create file. (Invalid permissions, read-only, or the disk is full).
+					4 = invalid path, name or author.
+					5 = invalid uri passed for the project file.
 		"""
 		Exception.__init__(self)
 		self.errno=errno
@@ -1273,11 +1449,19 @@ class CreateProjectError(Exception):
 #=========================================================================
 
 class AudioInputsError(Exception):
+	"""
+	This class will get created when there are problems with the soundcard inputs.
+	It's used for handling errors.
+	"""
 	def __init__(self, errno):
-		"""Error numbers:
-		   1) No recording channels found
-		   2) Sound card is not capable of multiple simultanious inputs
-		   3) Channel splitting element not found
+		"""
+		Creates a new instance of AudioInputsError.
+		
+		Parameters:
+			errno -- number indicating the type of error:
+					1 = no recording channels found.
+					2 = sound card is not capable of multiple simultaneous inputs.
+					3 = channel splitting element not found.
 		"""
 		Exception.__init__(self)
 		self.errno = errno
@@ -1285,12 +1469,23 @@ class AudioInputsError(Exception):
 #=========================================================================
 
 class InvalidProjectError(Exception):
-	def __init__(self, missingfiles,missingimages):
+	"""
+	This class will get created when there's an invalid Project.
+	It's used for handling errors.
+	"""
+	def __init__(self, missingfiles, missingimages):
+		"""
+		Creates a new instance of InvalidProjectError.
+		
+		Parameters:
+			missingfiles -- filenames of the missing files.
+			missingimages -- filenames of the missing images.
+		"""
 		Exception.__init__(self)
 		self.files=missingfiles
 		self.images=missingimages
 
 #=========================================================================
 
-
+""" (Singleton) Unique reference to the currently active Project object. """
 GlobalProjectObject = None
