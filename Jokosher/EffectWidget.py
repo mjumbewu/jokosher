@@ -67,7 +67,7 @@ class EffectWidget(gtk.DrawingArea):
 		"""
 		When the widget exposes, this method is called.
 		It then triggers a redraw.
-		    
+
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 			event -- reserved for GTK callbacks, don't use it explicitly.
@@ -218,10 +218,10 @@ class EffectWidget(gtk.DrawingArea):
 		"""
 		If the mouse is clicked, detect where it is clicked and whether
 		it is a double click or not.
-		   
+
 		Parameters:
-		   	widget -- reserved for GTK callbacks, don't use it explicitly.
-		   	mouse -- reserved for GTK callbacks, don't use it explicitly.
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+			mouse -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		if self.context.in_fill(mouse.x, mouse.y):
 			self.emit("remove")
