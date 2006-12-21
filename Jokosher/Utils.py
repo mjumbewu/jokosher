@@ -15,15 +15,34 @@ import math
 #_____________________________________________________________________
 
 def DbToFloat(f):
-	"""Converts f from the decibel scale to a 0..1 float"""
+	"""
+	Converts f from the decibel scale to a float.
 	
+	Parameters:
+		f -- number in decimal format.
+	
+	Returns:
+		a float in the [0,1] range.
+	"""
 	return pow(10., f / 20.)
 
 #_____________________________________________________________________
 
 def floatRange(start, end=None, inc=None):
-	"""A range function, that does accept float increments..."""
+	"""
+	A range function capable of performing float increments.
 	
+	Parameters:
+		start -- minimum value of the range list.
+		end -- maximum value of the range list.
+		inc -- delta between values in the range list.
+	
+	Considerations:
+		If start is the only parameter given, the range goes from [0.0, start].
+	
+	Returns:
+		A list with the range [start, end] in inc increments.
+	"""
 	if end == None:
 		end = float(start)
 		start = 0.0
@@ -48,39 +67,53 @@ def floatRange(start, end=None, inc=None):
 #_____________________________________________________________________
 
 def StoreParametersToXML(self, doc, parent, parameters):
-	"""Saves a list of variable names (parameters)
-	   in an XML document (doc) with the parent XML tag (parent)"""
-	   
-	for i in parameters:
-		node = doc.createElement(i)
-		StoreVariableToNode(getattr(self, i), node)
+	"""
+	Saves the variables indicated by the parameters in an XML document.
+	
+	Parameters:
+		doc -- name of the XML document to save the settings into.
+		parent -- XML parent tag to use in doc.
+		parameters -- list of variable names whose value, save in doc.
+	"""	   
+	for param in parameters:
+		node = doc.createElement(param)
+		StoreVariableToNode(getattr(self, param), node)
 		parent.appendChild(node)
 
 #_____________________________________________________________________
 
 def LoadParametersFromXML(self, parentElement):
-	"""Loads parameters from the XML and fills variables of the same name
-	in that module. The parentElement is the block of XML with the
-	parameters."""
+	"""
+	Loads parameters from an XML and fills variables of the same name
+	in that module.
 	
-	for n in parentElement.childNodes:
-		if n.nodeType == xml.Node.ELEMENT_NODE:
-			value = LoadVariableFromNode(n)
-			setattr(self, n.tagName, value)
+	Parameters:
+		parentElement -- block of XML with the parameters.
+	"""
+	for node in parentElement.childNodes:
+		if node.nodeType == xml.Node.ELEMENT_NODE:
+			value = LoadVariableFromNode(node)
+			setattr(self, node.tagName, value)
 			
 #_____________________________________________________________________
 
 def StoreDictionaryToXML(doc, parent, dict, tagName=None):
 	"""
-	   Saves a dictionary of settings
-	   in an XML document (doc) with the parent XML tag (parent).
-	   If tagName is not given, the dictionary keys will be used for the tag names.
-	   This means the key must all be strings and must not have any invalid XML
-	   character in them.
-	   If tagName is given, it is used for all the tag names, and the key is store in the
-	   keyvalue attribute and its type in the keytype attribute.
+	Saves a dictionary of settings in an XML document.
+	
+	Parameters:
+		doc -- name of the XML document to save the settings into.
+		parent -- XML parent tag to use in doc.
+		dict -- dictionary to be saved in doc.
+		tagName -- name used for all tag names.
+		
+	Considerations:
+		If tagName is not given, the dictionary keys will be used for the tag names.
+		This means that the keys must all be strings and can't have any invalid XML
+		characters in them.
+		If tagName is given, it is used for all the tag names, and the key is stored
+		in the keyvalue attribute and its type in the keytype attribute.
 	"""
-	   
 	for key, value in dict.iteritems():
 		if tagName:
 			node = doc.createElement(tagName)
@@ -95,18 +128,25 @@ def StoreDictionaryToXML(doc, parent, dict, tagName=None):
 #_____________________________________________________________________
 
 def LoadDictionaryFromXML(parentElement):
-	"""For those times when you don't want to fill module variables with
-	parameters from the XML but just want to fill a dictionary instead."""
+	"""
+	For those times when you don't want to fill module variables with
+	parameters from the XML but just want to fill a dictionary instead.
 	
+	Parameters:
+		parentElement -- XML element from which the dictionary is loaded.
+	
+	Returns:
+		a dictionary with the loaded values in (type, value) format.
+	"""
 	dictionary = {}
 	
-	for n in parentElement.childNodes:
-		if n.nodeType == xml.Node.ELEMENT_NODE:
-			if n.hasAttribute("keytype") and n.hasAttribute("keyvalue"):
-				key = LoadVariableFromNode(n, "keytype", "keyvalue")
+	for node in parentElement.childNodes:
+		if node.nodeType == xml.Node.ELEMENT_NODE:
+			if node.hasAttribute("keytype") and node.hasAttribute("keyvalue"):
+				key = LoadVariableFromNode(node, "keytype", "keyvalue")
 			else:
-				key = n.tagName
-			value = LoadVariableFromNode(n, "type", "value")
+				key = node.tagName
+			value = LoadVariableFromNode(node, "type", "value")
 			dictionary[key] = value
 	
 	return dictionary
@@ -114,6 +154,15 @@ def LoadDictionaryFromXML(parentElement):
 #_____________________________________________________________________
 
 def StoreListToXML(doc, parent, itemList, tagName):
+	"""
+	Saves a list of items in an XML document.
+	
+	Parameters:
+		doc -- name of the XML document to save the items into.
+		parent -- XML parent tag to use in doc.
+		itemList -- list of items to be saved in doc.
+		tagName -- name used for all tag names.
+	"""
 	for value in itemList:
 		node = doc.createElement(tagName)
 		StoreVariableToNode(value, node)
@@ -122,11 +171,20 @@ def StoreListToXML(doc, parent, itemList, tagName):
 #_____________________________________________________________________
 
 def LoadListFromXML(parentElement):
+	"""
+	Loads a list from an XML file.
+	
+	Parameters:
+		parentElement -- block of XML with the list nodes.
+		
+	Returns:
+		a list with the loaded values.
+	"""
 	itemList = []
 	
-	for n in parentElement.childNodes:
-		if n.nodeType == xml.Node.ELEMENT_NODE:
-			value = LoadVariableFromNode(n)
+	for node in parentElement.childNodes:
+		if node.nodeType == xml.Node.ELEMENT_NODE:
+			value = LoadVariableFromNode(node)
 			itemList.append(value)
 	
 	return itemList
@@ -134,6 +192,24 @@ def LoadListFromXML(parentElement):
 #_____________________________________________________________________
 
 def LoadVariableFromNode(node, typeAttr="type", valueAttr="value"):
+	"""
+	Loads a variable from an specific XML node.
+	
+	Example:
+		Please refer to the StoreVariableToNode example
+		for the explanation of the typeAttr and valueAttr
+		parameters.
+	
+	Parameters:
+		node -- node from which the variable is loaded.
+		typeAttr -- string of the attribute name that the
+					variable's type will be saved under.
+		valueAttr -- string of the attribute name that the
+					variable's value will be saved under.
+	
+	Returns:
+		the loaded variable.
+	"""
 	if node.getAttribute(typeAttr) == "int":
 		variable = int(node.getAttribute(valueAttr))
 	elif node.getAttribute(typeAttr) == "float":
@@ -150,6 +226,23 @@ def LoadVariableFromNode(node, typeAttr="type", valueAttr="value"):
 #_____________________________________________________________________
 
 def StoreVariableToNode(value, node, typeAttr="type", valueAttr="value"):
+	"""
+	Saves a variable to an specific XML node.
+	
+	Example:
+		typeAttr = "foo"
+		valueAttr = "bar"
+		value = "mystring"
+		
+		would result in the following XML code:
+			<foo="str" bar="mystring" />
+	
+	Parameters:
+		value -- the value of the variable.
+		node -- node to save the variable value to.
+		typeAttr -- type of the variable to be saved.
+		valueAttr -- value of the variable to be loaded. TODO
+	"""
 	if type(value) == int:
 		node.setAttribute(typeAttr, "int")
 	elif type(value) == float:
