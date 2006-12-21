@@ -18,11 +18,17 @@ import gettext
 _ = gettext.gettext
 
 class NewProjectDialog:
-	
+	"""
+	This module shows the New Project which is used to create a new Jokosher project.
+	"""
 	#_____________________________________________________________________	
 	
 	def __init__(self, parent):
-
+		"""
+		Creates a new instance of NewProjectDialog.
+		
+		The dialog is used to create a new Project based on the user's input.
+		"""
 		self.parent = parent
 		
 		self.res = gtk.glade.XML(Globals.GLADE_PATH, "NewProjectDialog")
@@ -70,7 +76,14 @@ class NewProjectDialog:
 	#_____________________________________________________________________	
 		
 	def OnOK(self, button):
-		"""OK button has been pressed."""
+		"""
+		Tries to create and set a new Project with the user input name, author
+		and location.
+		If the process fails, a message is issued to the user stating the error.
+		
+		Parameters:
+			button -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		name = self.name.get_text()
 		if not name:
 			name = _("New Project")
@@ -115,7 +128,12 @@ class NewProjectDialog:
 	#_____________________________________________________________________	
 	
 	def OnCancel(self, button):
-		"""Cancel button is pressed."""
+		"""
+		Destroys the dialog when the cancel button is pressed.
+		
+		Parameters:
+			button -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		self.dlg.destroy()
 
 	#_____________________________________________________________________	
