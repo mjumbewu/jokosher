@@ -20,14 +20,27 @@ _ = gettext.gettext
 #=========================================================================
 
 class VUWidget(gtk.DrawingArea):
+	"""
+	Draws the gradient volume levels and is used by MixerStrip.py
+	to show the volume levels in Jokosher's mix view.
+	"""
 	
+	""" GTK widget name """
 	__gtype_name__ = 'VUWidget'
 	
+	""" Width, in pixels, for the TODO """
 	BAR_WIDTH = 20
 	
 	#_____________________________________________________________________
 	
 	def __init__(self, mixerstrip, mainview):
+		"""
+		Creates a new instance of VUWidget.
+		
+		Parameters:
+			mixerstrip -- TODO
+			mainview -- the main Jokosher window (JokosherApp).
+		"""
 		gtk.DrawingArea.__init__(self)
 		self.mixerstrip = mixerstrip
 		self.mainview = mainview
@@ -54,6 +67,13 @@ class VUWidget(gtk.DrawingArea):
 	#_____________________________________________________________________
 		
 	def OnMouseDown(self, widget, mouse):
+		"""
+		If the fader widget is clicked, activates it.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+			mouse -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		rect = self.get_allocation()
 		pos = (rect.height-self.BAR_WIDTH) * (1. - self.mixerstrip.GetVolume()) + (self.BAR_WIDTH/2)
 		if mouse.y > pos - (self.BAR_WIDTH / 2) and mouse.y < pos + (self.BAR_WIDTH / 2):
@@ -62,6 +82,14 @@ class VUWidget(gtk.DrawingArea):
 	#_____________________________________________________________________
 	
 	def OnMouseMove(self, widget, mouse):
+		"""
+		Displays a helper message in the StatusBar and sets the volume
+		according to the position of the fader widget.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+			mouse -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		if not self.message_id:
 			self.message_id = self.mainview.SetStatusBar(_("<b>Drag</b> the <b>slider</b> to alter volume levels"))
 		rect = self.get_allocation()
@@ -72,21 +100,35 @@ class VUWidget(gtk.DrawingArea):
 			self.fader_hover = False
 			
 		if self.fader_active:
-			v = 1. - ((mouse.y - self.BAR_WIDTH/2)
+			volume = 1. - ((mouse.y - self.BAR_WIDTH/2)
 						   /  (rect.height-self.BAR_WIDTH))
-			v  = max(v, 0.)
-			v  = min(v, 1.)
-			self.mixerstrip.SetVolume(v)
+			volume  = max(volume, 0.)
+			volume  = min(volume, 1.)
+			self.mixerstrip.SetVolume(volume)
 			self.queue_draw()
 	
 	#_____________________________________________________________________
 	
 	def OnMouseUp(self, widget, mouse):
+		"""
+		Deactivates the fader widget.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+			mouse -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		self.fader_active = False
 		
 	#_____________________________________________________________________
 	
 	def OnMouseLeave(self, widget, mouse):
+		"""
+		Clears the StatusBar helper message.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+			mouse -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		if self.message_id:
 			self.mainview.ClearStatusBar(self.message_id)
 			self.message_id = None
@@ -94,7 +136,12 @@ class VUWidget(gtk.DrawingArea):
 	#_____________________________________________________________________
 
 	def OnSizeChanged(self, obj, evt):
-		""" Called when the widget's size changes
+		"""
+		Toggles a redraw of the VUWidget if needed.
+		
+		Parameters:
+			obj -- reserved for Cairo callbacks, don't use it explicitly. *CHECK*
+			evt --reserved for Cairo callbacks, don't use it explicitly. *CHECK*
 		"""
 		if self.allocation.width != self.source.get_width() or self.allocation.height != self.source.get_height():
 			self.source = cairo.ImageSurface(cairo.FORMAT_ARGB32, self.allocation.width, self.allocation.height)
@@ -103,8 +150,8 @@ class VUWidget(gtk.DrawingArea):
 	#_____________________________________________________________________
 
 	def GenerateBackground(self):
-		""" Renders the gradient strip for the VU meter background to speed up
-			drawing.
+		"""
+		Renders the gradient strip for the VU meter background to speed up drawing.
 		"""
 		
 		rect = self.get_allocation()
@@ -125,7 +172,15 @@ class VUWidget(gtk.DrawingArea):
 	#_____________________________________________________________________
 
 	def OnDraw(self, widget, event):
-		""" Handles the GTK paint event.
+		"""
+		Handles the GTK paint event.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+			event -- reserved for GTK callbacks, don't use it explicitly.
+			
+		Returns:
+			False -- TODO
 		"""
 		
 		ctx = widget.window.cairo_create()
@@ -184,17 +239,24 @@ class VUWidget(gtk.DrawingArea):
 	#_____________________________________________________________________
 	
 	def do_size_request(self, requisition):
+		"""
+		TODO
+		
+		Parameters:
+			requisition -- TODO
+		"""
 		requisition.width = 100
 		requisition.height = -1
 		
 	#_____________________________________________________________________
 	
 	def Destroy(self):
+		"""
+		Deletes the cairo.ImageSurface and then calls the class destructor.
+		"""
 		del self.source
 		self.destroy()
 	
 	#_____________________________________________________________________
 	
 #=========================================================================
-
-	
