@@ -40,8 +40,10 @@ class NewProjectDialog:
 		self.sideimage.set_from_file(os.path.join(Globals.IMAGE_PATH, "newproject.png"))
 		
 		self.name = self.res.get_widget("name")
+		self.name.set_activates_default(True)
 		self.folder = self.res.get_widget("folder")
 		self.author = self.res.get_widget("author")
+		self.author.set_activates_default(True)
 		
 		# Default author to name of currently logged in user
 		try:
@@ -55,6 +57,8 @@ class NewProjectDialog:
 			self.author.set_text(pwd.getpwuid(os.getuid())[0])
 		
 		self.okbutton = self.res.get_widget("okButton")
+		self.okbutton.set_flags(gtk.CAN_DEFAULT)
+		self.okbutton.grab_default()
 		
 		# Set the default folder of 'folder' (a FileChooserButton)
 		self.folder.set_current_folder(Globals.settings.general["projectfolder"])
