@@ -157,9 +157,9 @@ class EffectPresets:
 			
 			StoreDictionaryToXML(doc, settingsblock, effect["settings"])
 		
-		file = open(Globals.EFFECT_PRESETS_PATH + "/" + label + ".jpreset", "w")
-		file.write(doc.toprettyxml())
-		file.close()
+		presetfile = open(Globals.EFFECT_PRESETS_PATH + "/" + label + ".jpreset", "w")
+		presetfile.write(doc.toprettyxml())
+		presetfile.close()
 		
 	#_____________________________________________________________________
 	
@@ -247,16 +247,16 @@ class EffectPresets:
 		Globals.debug("Reading in presets...")
 		presetsfiles = glob.glob(Globals.EFFECT_PRESETS_PATH + "/*.jpreset")
 		
-		for file in presetsfiles:
+		for file_ in presetsfiles:
 			preset = {}
 			depslist = []
 			presetname = None
 			
-			if not os.path.exists(file):
+			if not os.path.exists(file_):
 				Globals.debug("preset file does not exist")
 			else:	
-				xmlfile = open(file, "r")
-				doc = xml.parse(file)
+				xmlfile = open(file_, "r")
+				doc = xml.parse(file_)
 
 			ischain = None
 			
@@ -280,7 +280,7 @@ class EffectPresets:
 							if node.tagName == "effectelement":
 								depslist.append(str(node.getAttribute("value")))
 			
-			presetname = file.replace(str(Globals.EFFECT_PRESETS_PATH + "/"), "")
+			presetname = file_.replace(str(Globals.EFFECT_PRESETS_PATH + "/"), "")
 			presetfile = presetname
 			presetname = presetname.replace(".jpreset", "")
 			
