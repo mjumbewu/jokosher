@@ -4,7 +4,7 @@
 #
 #	WelcomeDialog.py
 #	
-#	This dialog popus up the welcome dialog when the application starts.
+#	This class displays the welcome dialog when the application starts.
 #
 #-------------------------------------------------------------------------------
 
@@ -16,13 +16,20 @@ import PreferencesDialog
 #=========================================================================
 
 class WelcomeDialog:
-	""" This class handles all of the processing associated with the
-		Welcome Dialog (which comes up on start).
+	"""
+	This class handles all of the processing associated with the
+	Welcome Dialog (which comes up on start).
 	"""	
 	#_____________________________________________________________________
 
 	def __init__(self, mainwindow):
+		"""
+		Creates a new instance of MainApp.
 		
+		Parameters:
+			mainwindow -- instance of JokosherApp. Used for parent/child relationship.
+		"""
+
 		# this points to JokosherApp		
 		self.mainwindow = mainwindow
 				
@@ -75,16 +82,26 @@ class WelcomeDialog:
 	#_____________________________________________________________________
 	
 	def OnNewProject(self, widget):
-		"""Start a new project."""
+		"""
+		Starts a new project.
 		
-		# hide the welcome dislog and call OnNewProject() from JokosherApp
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+		"""
+		
+		# hide the welcome dialog and call OnNewProject() from JokosherApp
 		self.window.hide()
 		self.mainwindow.OnNewProject(self, self.OnDialogClose)
 	
 	#_____________________________________________________________________
 			
 	def OnOpenProject(self, button=None):
-		"""Open a project."""
+		"""
+		Opens an existing project.
+		
+		Parameters:
+			button -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 
 		# hide the welcome dislog and call OnOpenProject() from JokosherApp		
 		self.window.hide()
@@ -93,7 +110,12 @@ class WelcomeDialog:
 	#_____________________________________________________________________
 	
 	def OnPreferences(self, button):
-		"""Show the preferences window."""
+		"""
+		Shows the preferences window.
+		
+		Parameters:
+			button -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 
 		# hide the welcome dislog and call OnPreferences() from JokosherApp		
 		self.window.hide()
@@ -102,7 +124,12 @@ class WelcomeDialog:
 	#_____________________________________________________________________
 
 	def OnDialogClose(self, dialog=None):
-		"""The dialog was closed."""
+		"""
+		The dialog was closed.
+		
+		Parameters:
+			dialog -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		
 		if self.mainwindow.project:
 			self.window.destroy()
@@ -112,14 +139,21 @@ class WelcomeDialog:
 	#_____________________________________________________________________
 
 	def OnQuit(self, button):
-		"""Quit Jokosher."""
+		"""
+		Quits Jokosher.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		
 		gtk.main_quit()
 
 	#_____________________________________________________________________
 
 	def PopulateRecentProjects(self):
-		'''Populate the Recent Projects menu with items from global settings'''		
+		"""
+		Populate the Recent Projects menu with items from global settings.
+		"""
 		self.model.clear()
 		for path, name in self.mainwindow.recentprojectitems:	
 			self.model.append([gtk.STOCK_NEW, name, path])
@@ -127,27 +161,43 @@ class WelcomeDialog:
 	#_____________________________________________________________________
 
 	def OnRecentProjectSelected(self, treeview, path, view_column):
-		"""This method is called when one of the entries in the recent projects
-		list is selected."""
+		"""
+		This method is called when one of the entries in the recent projects
+		list is selected.
+		
+		Parameters:
+			treeview -- reserved for GTK callbacks, don't use it explicitly.
+			path -- path to the project file.
+			view_column -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		
 		item = self.model[path]
-		reponse = self.mainwindow.OnRecentProjectsItem(self, item[2], item[1])
-		if reponse:
+		response = self.mainwindow.OnRecentProjectsItem(self, item[2], item[1])
+		if response:
 			#it opened without error, so close our window
 			self.window.destroy()
 		
 	#_____________________________________________________________________
 
 	def OnEnableRecentProjectButton(self, treeview):
-		"""When a recent project is selected, make the button to load it
-		able to be clicked."""
+		"""
+		When a recent project is selected, enable the button to load it.
+		
+		Parameters:
+			treeview -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		
 		self.openrecentbutton.set_sensitive(True)
 		
 	#_____________________________________________________________________
 
 	def OnOpenRecentProjectButton(self, widget):
-		"""Load the selected recent project."""
+		"""
+		Loads the selected recent project.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		item = self.model[self.tree.get_cursor()[0]]
 		self.mainwindow.OnRecentProjectsItem(self, item[2], item[1])
 		self.window.destroy()
@@ -155,8 +205,13 @@ class WelcomeDialog:
 	#_____________________________________________________________________
 
 	def OnStartupToggled(self, widget):
-		"""When the startup toggle box is toggled, this method is run to update
-		the setting in Globals."""
+		"""
+		When the startup toggle box is toggled, this method is run to update
+		the setting in Globals.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		
 		if widget.get_active():
 			Globals.settings.general["startupaction"] = PreferencesDialog.STARTUP_NOTHING
