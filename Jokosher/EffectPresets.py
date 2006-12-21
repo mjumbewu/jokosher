@@ -30,10 +30,18 @@ import string
 #=========================================================================
 
 class EffectPresets:
-
-	#_____________________________________________________________________    
+	"""
+	This class implements support for effects presets. These presets are used
+	to store settings for single effects and multiple effects strung together
+	(called a 'chain').
+	"""
+	#_____________________________________________________________________	
 	
 	def __init__(self):
+		"""
+		Creates a new instance of EffectsPresets. If needed, it populates the
+		LADSPA and effect presets registries.
+		"""
 		Globals.EFFECT_PRESETS_VERSION = "0.2"
 		
 		# this is the main dictionary of presets
@@ -47,16 +55,23 @@ class EffectPresets:
 
 		self.FillEffectsPresetsRegistry()
 	
-	#_____________________________________________________________________    
+	#_____________________________________________________________________
 
 	def SaveSingleEffect(self, label, effectdict, effectelement, effecttype):
-		"""Write a single effect preset to a preset file"""
-	
+		"""
+		This method will write a single effect preset to a preset file.
+		
+		Parameters:
+			label --the name of the effect.
+			effectdict -- the effect dictionary.
+			effectelement -- the effect that the user selected.
+			effecttype -- the type of the effect the user selected.
+		"""
 		self.effectelement = effectelement
 		self.effecttype = effecttype
 	
 		if not Globals.EFFECT_PRESETS_PATH:
-			raise "No save path specified!"    
+			raise "No save path specified!"
 		
 		doc = xml.Document()
 		head = doc.createElement("JokosherPreset")
@@ -81,15 +96,21 @@ class EffectPresets:
 		
 		StoreDictionaryToXML(doc, settingsblock, effectdict)
 		
-		f = open(Globals.EFFECT_PRESETS_PATH + "/" + label + ".jpreset", "w")
-		f.write(doc.toprettyxml())
-		f.close()
+		file = open(Globals.EFFECT_PRESETS_PATH + "/" + label + ".jpreset", "w")
+		file.write(doc.toprettyxml())
+		file.close()
 		
-	#_____________________________________________________________________    
+	#_____________________________________________________________________
 
 	def SaveEffectChain(self, label, effectlist, instrumenttype):
-		"""Write an effect chain to a preset file"""        
+		"""
+		Write an effect chain to a preset file.
 		
+		Parameters:
+			label -- the name of the effect.
+			effectlist -- the list of effects.
+			instrumenttype -- the type of instrument currently being used.
+		"""		
 		self.effectelement = None
 		self.effecttype = None
 		
@@ -115,9 +136,9 @@ class EffectPresets:
 		# the structure of each <Effect> tag is not different from the single
 		# effect presets, there is just an <Effect> block for each effect in
 		# the chain
-		for eff in effectlist:
-			self.effectelement = eff["effectelement"]
-			self.effecttype = eff["effecttype"]
+		for effect in effectlist:
+			self.effectelement = effect["effectelement"]
+			self.effecttype = effect["effecttype"]
 		
 			Globals.debug(self.effectelement)
 
@@ -134,17 +155,25 @@ class EffectPresets:
 			settingsblock = doc.createElement("Settings")
 			effectblock.appendChild(settingsblock)
 			
-			StoreDictionaryToXML(doc, settingsblock, eff["settings"])
+			StoreDictionaryToXML(doc, settingsblock, effect["settings"])
 		
-		f = open(Globals.EFFECT_PRESETS_PATH + "/" + label + ".jpreset", "w")
-		f.write(doc.toprettyxml())
-		f.close()
+		file = open(Globals.EFFECT_PRESETS_PATH + "/" + label + ".jpreset", "w")
+		file.write(doc.toprettyxml())
+		file.close()
 		
 	#_____________________________________________________________________
 	
 	def LoadSingleEffectSettings(self, effectelement, presetname):
-		"""Load effect settings from a preset file for a single effect"""
-
+		"""
+		Load effect settings from a preset file for a single effect.
+		
+		Parameters:
+			effectelement -- the effect element to be loaded.
+			presetname -- the name of the preset to be loaded.
+			
+		Returns:
+			a settings dictionary with the loaded settings for the effect.
+		"""
 		presetfile = Globals.EFFECT_PRESETS_PATH + "/" + presetname + ".jpreset"
 		Globals.debug(presetfile)
 
@@ -159,21 +188,34 @@ class EffectPresets:
 		settdict = LoadDictionaryFromXML(settingstags)
 		
 		return settdict
-	#_____________________________________________________________________    
+	#_____________________________________________________________________
 	
 	def LoadSingleEffectList(self):
+		"""
+		TODO -- This method is not yet implemented.
+		"""
 		pass
 		
-	#_____________________________________________________________________    
+	#_____________________________________________________________________
 	
 	def LoadInstrumentEffectList(self):
+		"""
+		TODO -- This method is not yet implemented.
+		"""
 		pass
 		
-	#_____________________________________________________________________    
+	#_____________________________________________________________________
 	
 	def LoadInstrumentEffectChain(self, presetname):
-		"""Load settings from the preset file for an effects chain"""
+		"""
+		Load settings from the preset file for an effects chain.
 		
+		Parameters:
+			presetname -- name of the preset to be loaded.
+			
+		Returns:
+			a settings dictionary with the loaded settings for the effects.
+		"""
 		presetfile = Globals.EFFECT_PRESETS_PATH + "/" + presetname + ".jpreset"
 			
 		if not os.path.exists(presetfile):
@@ -184,11 +226,11 @@ class EffectPresets:
 
 		settdict = {}
 		
-		for eff in doc.getElementsByTagName('Effect'):
-			preftags = eff.getElementsByTagName('Parameters')[0]
+		for effect in doc.getElementsByTagName('Effect'):
+			preftags = effect.getElementsByTagName('Parameters')[0]
 			prefs = LoadDictionaryFromXML(preftags)
 
-			settingstags = eff.getElementsByTagName('Settings')[0]
+			settingstags = effect.getElementsByTagName('Settings')[0]
 			setts = LoadDictionaryFromXML(settingstags)
 			elementname = setts["name"]
 			settdict[str(elementname)] = {'preferences': prefs, 'settings': setts}
@@ -198,21 +240,23 @@ class EffectPresets:
 	#_____________________________________________________________________
 	
 	def FillEffectsPresetsRegistry(self):
-		"""Read in all presets into the main presets registry"""
+		"""
+		Load all presets into the main presets registry.
+		"""
 		
 		Globals.debug("Reading in presets...")
 		presetsfiles = glob.glob(Globals.EFFECT_PRESETS_PATH + "/*.jpreset")
 		
-		for f in presetsfiles:
+		for file in presetsfiles:
 			preset = {}
 			depslist = []
 			presetname = None
 			
-			if not os.path.exists(f):
+			if not os.path.exists(file):
 				Globals.debug("preset file does not exist")
 			else:	
-				xmlfile = open(f, "r")
-				doc = xml.parse(f)
+				xmlfile = open(file, "r")
+				doc = xml.parse(file)
 
 			ischain = None
 			
@@ -223,20 +267,20 @@ class EffectPresets:
 				instrument = None
 			
 			
-			for eff in doc.getElementsByTagName("Effect"):
-				paramtags = eff.getElementsByTagName("Parameters")[0]
+			for effect in doc.getElementsByTagName("Effect"):
+				paramtags = effect.getElementsByTagName("Parameters")[0]
 
-				for n in paramtags.childNodes:
-					if n.nodeType == xml.Node.ELEMENT_NODE:
-						if n.getAttribute("type") == "int":
+				for node in paramtags.childNodes:
+					if node.nodeType == xml.Node.ELEMENT_NODE:
+						if node.getAttribute("type") == "int":
 							pass
-						elif n.getAttribute("type") == "float":
+						elif node.getAttribute("type") == "float":
 							pass
 						else:
-							if n.tagName == "effectelement":
-								depslist.append(str(n.getAttribute("value")))
+							if node.tagName == "effectelement":
+								depslist.append(str(node.getAttribute("value")))
 			
-			presetname = f.replace(str(Globals.EFFECT_PRESETS_PATH + "/"), "")
+			presetname = file.replace(str(Globals.EFFECT_PRESETS_PATH + "/"), "")
 			presetfile = presetname
 			presetname = presetname.replace(".jpreset", "")
 			
@@ -253,10 +297,11 @@ class EffectPresets:
 	#_____________________________________________________________________
 	
 	def FillLADSPARegistry(self):
-		"""Fill Globals.LADSPA_FACTORY_REGISTRY with effects on the system. This
-		is to ensure only presets with effects on the current system are listed."""
-
-
+		"""
+		Fill Globals.LADSPA_FACTORY_REGISTRY with effects on the system. This
+		is to ensure that only presets with effects on the current system are listed.
+		"""
+		
 		Globals.debug("Filling LADSPA Registry")
 		
 		##make sure all the structures are empty before we append to them
@@ -264,29 +309,29 @@ class EffectPresets:
 		Globals.LADSPA_FACTORY_REGISTRY = None
 		effects = []
 
-		thelist = gst.registry_get_default().get_feature_list(gst.ElementFactory)
+		gstFeatures = gst.registry_get_default().get_feature_list(gst.ElementFactory)
 		
 
 		
-		for f in thelist:
-			if "Filter/Effect/Audio/LADSPA" in f.get_klass():
+		for feature in gstFeatures:
+			if "Filter/Effect/Audio/LADSPA" in feature.get_klass():
 				# from the list of LADSPA effects we check which ones only
 				# have a single sink and a single src so we know they work
-				if f.get_num_pad_templates() == 2:
+				if feature.get_num_pad_templates() == 2:
 					sinkpads = 0
 					srcpads = 0
-					pads = f.get_static_pad_templates()
+					pads = feature.get_static_pad_templates()
 				
-					for p in pads:
-						if p.direction == gst.PAD_SINK:
+					for pad in pads:
+						if pad.direction == gst.PAD_SINK:
 							sinkpads += 1
 
-						if p.direction == gst.PAD_SRC:
+						if pad.direction == gst.PAD_SRC:
 							srcpads += 1
 					
 					if srcpads == 1 and sinkpads == 1:
-						effects.append(f.get_name())
-						Globals.LADSPA_NAME_MAP.append((f.get_name(), f.get_longname()))
+						effects.append(feature.get_name())
+						Globals.LADSPA_NAME_MAP.append((feature.get_name(), feature.get_longname()))
 
 		Globals.debug(str(len(effects)) + " LADSPA effects loaded")
 		Globals.LADSPA_FACTORY_REGISTRY = set(effects)
