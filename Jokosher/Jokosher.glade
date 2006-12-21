@@ -520,8 +520,8 @@
 		  <property name="visible_vertical">True</property>
 		  <property name="is_important">False</property>
 		  <accessibility>
-		    <atkrelation target="Record" type="flows-to"/>
 		    <atkrelation target="Rewind" type="flows-to"/>
+		    <atkrelation target="Record" type="flows-to"/>
 		  </accessibility>
 		  <signal name="clicked" handler="on_AddInstrument_clicked"/>
 		</widget>
@@ -553,8 +553,8 @@
 		  <property name="visible_vertical">True</property>
 		  <property name="is_important">False</property>
 		  <accessibility>
-		    <atkrelation target="Stop" type="flows-to"/>
 		    <atkrelation target="AddInstrument" type="flows-from"/>
+		    <atkrelation target="Stop" type="flows-to"/>
 		  </accessibility>
 		  <signal name="clicked" handler="on_Rewind_clicked"/>
 		</widget>
@@ -574,8 +574,8 @@
 		  <property name="visible_vertical">True</property>
 		  <property name="is_important">False</property>
 		  <accessibility>
-		    <atkrelation target="Play" type="flows-to"/>
 		    <atkrelation target="Rewind" type="flows-from"/>
+		    <atkrelation target="Play" type="flows-to"/>
 		  </accessibility>
 		  <signal name="clicked" handler="on_Stop_clicked"/>
 		</widget>
@@ -595,8 +595,8 @@
 		  <property name="is_important">False</property>
 		  <property name="active">False</property>
 		  <accessibility>
-		    <atkrelation target="Forward" type="flows-to"/>
 		    <atkrelation target="Stop" type="flows-from"/>
+		    <atkrelation target="Forward" type="flows-to"/>
 		  </accessibility>
 		  <signal name="toggled" handler="on_Play_toggled"/>
 		</widget>
@@ -615,8 +615,8 @@
 		  <property name="visible_vertical">True</property>
 		  <property name="is_important">False</property>
 		  <accessibility>
-		    <atkrelation target="Record" type="flows-to"/>
 		    <atkrelation target="Play" type="flows-from"/>
+		    <atkrelation target="Record" type="flows-to"/>
 		  </accessibility>
 		  <signal name="clicked" handler="on_Forward_clicked"/>
 		</widget>
@@ -1172,7 +1172,8 @@ Fabrice Silva &lt;silva@crans.org&gt;
 Ben Thorp &lt;mrben@jedimoose.org&gt;
 Luke Tilley &lt;sinisterguy@gmail.com&gt;
 John Green &lt;john@thegreens.co.uk&gt;
-David Corrales &lt;corrales.david@gmail.com&gt;</property>
+David Corrales &lt;corrales.david@gmail.com&gt;
+John Kelly &lt;kelly_worth2003@yahoo.co.uk&gt;</property>
   <property name="documenters">Jono Bacon &lt;jono@jonobacon.org&gt;
 Dennis Lichtenthäler &lt;dennis.lichtenthaeler@episode-iv.de&gt;
 Alasdair MacLeod &lt;alasdair.macleod@gmail.com&gt;
