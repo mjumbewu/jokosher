@@ -20,17 +20,21 @@ _ = gettext.gettext
 
 class CompactMixView(gtk.Frame):
 	"""
-		This class implements the mix view
+	This class implements the mixing workspace view.
 	"""
 	
-	FPS = 10 # number of times a second the VUWidgets need updating
+	""" Number of times a second the VUWidgets need updating. """
+	FPS = 10
 	
 	#_____________________________________________________________________
 	
 	def __init__(self, project, mainview):
 		"""
-			project = the active project
-			mainview - the main Jokosher window
+		Creates a new instance of CompactMixView.
+		
+		Parameters:
+			project -- the active Project.
+			mainview -- the main Jokosher window (JokosherApp).
 		"""
 		gtk.Frame.__init__(self)
 		self.project = project
@@ -58,7 +62,12 @@ class CompactMixView(gtk.Frame):
 
 	def Update(self):
 		"""
-			Updates the mix view when requested by OnStateChanged or __init__
+		Updates the mix view when requested by OnStateChanged or __init__
+		
+		Returns:
+			False -- indicates the GTK signal to:
+					1) continue propagating the regular signal.
+					2) stop calling the callback on a timeout_add.
 		"""
 		if self.Updating:
 			return
@@ -67,15 +76,15 @@ class CompactMixView(gtk.Frame):
 		self.projectview.Update()
 		
 		# remove all the mixer strips and then add the visible ones
-		for i in self.hbox.get_children():
-			self.hbox.remove(i)
+		for strip in self.hbox.get_children():
+			self.hbox.remove(strip)
 		
 		for instr in self.project.instruments:
 			if instr.isVisible:
 				strip = None
-				for i in self.channels:
-					if i.instrument is instr:
-						strip = i
+				for channel in self.channels:
+					if channel.instrument is instr:
+						strip = channel
 						strip.Update()
 						break
 				
@@ -138,7 +147,11 @@ class CompactMixView(gtk.Frame):
 
 	def OnMinimiseTrack(self, widget, instr):
 		"""
-			Callback for 'minimise' signal - minimises mixer strip
+		Minimizes a mixer strip (instrument).
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+			instr -- the Instrument to be hidden.
 		"""
 		instr.SetVisible(False)
 		
@@ -146,19 +159,29 @@ class CompactMixView(gtk.Frame):
 
 	def OnMaximiseTrack(self, widget, instr):
 		"""
-			Callback for 'clicked' signal on minimise buttons
-			 - maximises mixer strip
+		Maximizes a mixer strip (instrument).
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+			instr -- the Instrument to be shown.
 		"""
 		instr.SetVisible(True)
 	#_____________________________________________________________________
 	
 	def OnStateChanged(self, obj, change=None, *extra):
 		"""
-			Called when a change of state is signalled by any of the
-			instruments that this view is 'listening' to. 
-			NOTE: the actual AddListener call is in RecordingView.py
-			as this is wher the InstrumentViewer objects are created when
-			instruments are added.
+		Called when a change of state is signalled by any of the
+		instruments that this view is 'listening' to.
+		
+		Parameters:
+			obj -- object changing state. *CHECK*
+			change -- the change which has occured.
+			extra -- extra parameters to passed by the caller.
+			
+		Considerations:
+			The actual AddListener call is in RecordingView.py,
+			as this is where the InstrumentViewer objects are created
+			when instruments are added.
 		"""
 		#don't update on volume change because it happens very often
 		if change != "volume":
@@ -167,8 +190,12 @@ class CompactMixView(gtk.Frame):
 	#_____________________________________________________________________
 	
 	def OnUpdateTimeout(self):
-		""" 
-			Called at intervals (self.FPS) to update the VU meters
+		"""
+		Called at intervals (self.FPS) to update the VU meters.
+		
+		Returns:
+			True -- keeps the timeout going during playback.
+			False -- stops the timeout when playback stops.
 		"""
 		if self.mainview.isPlaying:
 			self.mastermixer.vu.queue_draw()
@@ -179,15 +206,15 @@ class CompactMixView(gtk.Frame):
 			
 			return True
 		else:
-			# kill timeout when play has stopped
+			# kill timeout when playback has stopped
 			self.UpdateTimeout = False
 			return False
 	#_____________________________________________________________________
 		
 	def StartUpdateTimeout(self):
 		""" 
-			Initiates the OnUpdateTimeout - called from MainApp.play()
-			when the play button is pressed
+		Initiates the OnUpdateTimeout - called from MainApp.play()
+		when the play button is pressed.
 		"""
 		if not self.UpdateTimeout:
 			gobject.timeout_add(int(1000 / self.FPS), self.OnUpdateTimeout, priority = gobject.PRIORITY_LOW)
