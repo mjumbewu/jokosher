@@ -30,18 +30,22 @@ _ = gettext.gettext
 
 class InstrumentEffectsDialog:
 	"""
-		This class displays and implements the instrument effects dialog
-		box, which can be used to add, remove, and edit effects for an
-		instrument.
+	This class displays and implements the instrument effects dialog
+	box, which can be used to add, remove, and edit effects for an
+	instrument.
 	"""
 	
 	#_____________________________________________________________________	
 	
 	def __init__(self, instrument, destroyCallback):
 		"""
-			This constructor enables a bunch of variables, reads in the glade
-			file for the main dialog, and populates the effects and presets
-			combo boxes
+		This constructor enables a lot of variables, reads in the glade
+		file for the main dialog, and populates the effects and presets
+		combo boxes.
+		
+		Parameters:
+			instrument -- instrument whose effects are being modified.
+			destroyCallback -- GTK callback. Called when this dialog gets destroyed.
 		"""
 		
 		# a reference to the instrument object
@@ -155,18 +159,22 @@ class InstrumentEffectsDialog:
 	#_____________________________________________________________________	
 	
 	def Update(self):
+		"""
+		Refreshes the EffectWidgets inside the InstrumentEffectsDialog
+		when they're added or removed.
+		"""
 		if self.Updating:
 			return
 		self.Updating = True
 		
-		for i in self.effectsbox.get_children():
-			self.effectsbox.remove(i)
+		for effect in self.effectsbox.get_children():
+			self.effectsbox.remove(effect)
 		
 		for effect in self.instrument.effects:
 			effwidget = None
-			for i in self.effectWidgets:
-				if i.effect is effect:
-					effwidget = i
+			for widget in self.effectWidgets:
+				if widget.effect is effect:
+					effwidget = widget
 					break
 			
 			if not effwidget:
@@ -186,10 +194,11 @@ class InstrumentEffectsDialog:
 		
 	def OnOK(self, button):
 		"""
-			If the OK button is pressed on the dialog box, the window is
-			destroyed.
+		If the OK button is pressed on the dialog box, the window is destroyed.
+		
+		Parameters:
+			button -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-
 		self.instrument.project.RemoveListener(self)
 		self.instrument.RemoveListener(self)
 		self.window.destroy()
@@ -198,7 +207,10 @@ class InstrumentEffectsDialog:
 	
 	def OnCancel(self, button):
 		"""
-			If the Cancel button is pressed, the dialog is destroyed.
+		If the Cancel button is pressed, the dialog is destroyed.
+		
+		Parameters:
+			button -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		self.instrument.project.RemoveListener(self)
 		self.instrument.RemoveListener(self)	
@@ -208,10 +220,13 @@ class InstrumentEffectsDialog:
 
 	def OnTransport(self, button):
 		"""
-			Pressing the Play/Stop button on the dialog box allows the user
-			to play back the project to test if the effect settings are
-			right for them. When user press the Play button, it switches to
-			a stop button, and vice versa.
+		Pressing the Play/Stop button on the dialog box allows the user
+		to play back the project to test if the effect settings are
+		right for them. When user press the Play button, it switches to
+		a stop button, and vice versa.
+		
+		Parameters:
+			button -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		if self.isPlaying == False:
 			# things to do if the project is not already playing, and hence
@@ -224,7 +239,16 @@ class InstrumentEffectsDialog:
 
 	#_____________________________________________________________________
 
-	def OnStateChanged(self,obj,change=None, *extra):
+	def OnStateChanged(self, obj, change=None, *extra):
+		"""
+		Called when a change of state is signalled by any of the
+		objects this view is 'listening' to.
+		
+		Parameters:
+			obj -- object changing state. *CHECK*
+			change -- the change which has occured.
+			extra -- extra parameters passed by the caller.
+		"""
 		
 		if obj is self.instrument and change == "effects":
 			self.Update()
@@ -252,7 +276,10 @@ class InstrumentEffectsDialog:
 
 	def OnSelectEffect(self, combo):
 		"""
-			Callback for when an effect is selected from the effects list.
+		Callback for when an effect is selected from the effects list.
+		
+		Parameters:
+			combo -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		self.addeffect.set_sensitive(True)
 		
@@ -260,8 +287,11 @@ class InstrumentEffectsDialog:
 
 	def OnAddEffect(self, widget):
 		"""
-			Get the name of the currently selected effect
-			and add it to the instrument.
+		Get the name of the currently selected effect
+		and add it to the instrument.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		effectindex = self.effectscombo.get_active()	
 		# quit if there is no active selection
@@ -281,7 +311,11 @@ class InstrumentEffectsDialog:
 	
 	def OnRemoveEffect(self, widget, effect):
 		"""
-			Remove an effect from the instrument.
+		Remove an effect from the instrument.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+			effect -- effect instance to be removed from the instrument.
 		"""
 		self.instrument.RemoveEffect(effect)
 		
@@ -289,7 +323,11 @@ class InstrumentEffectsDialog:
 		
 	def OnEffectSetting(self, button, effect):
 		"""
-			Show a dialog filled with settings sliders for a specific effect
+		Show a dialog filled with settings sliders for a specific effect
+		
+		Parameters:
+			button -- reserved for GTK callbacks, don't use it explicitly.
+			effect -- effect to be configured.
 		"""
 		
 		# TODO: Make this modal or as part of the effects window"""
@@ -418,27 +456,35 @@ class InstrumentEffectsDialog:
 		
 	def OnEffectSettingOK(self, button):
 		"""
-			Close the effect settings window.
-		"""
+		Close the effect settings window.
 		
+		Parameters:
+			button -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		self.settingswindow.destroy()
 
 	#_____________________________________________________________________	
 		
 	def OnEffectSettingCancel(self, button):
 		"""
-			Close the effect settings window
-		"""
+		Close the effect settings window, after a user cancelation.
 		
+		Parameters:
+			button -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		self.settingswindow.destroy()
 		
 	#_____________________________________________________________________	
 		
 	def SetEffectSetting(self, slider, name, property):
 		"""
-			Set the value of a gstreamer property from an effects slider.
-		"""
+		Set the value of a gstreamer property from an effects slider.
 		
+		Parameters:
+			slider -- slider control which indicates the value to assign to property.
+			name -- name of the property being set.
+			property -- property being set.
+		"""
 		# grab the slider setting
 		if not((property.value_type == gobject.TYPE_FLOAT) or
 			   (property.value_type == gobject.TYPE_DOUBLE)):
@@ -453,10 +499,12 @@ class InstrumentEffectsDialog:
 
 	def OnSaveSingleEffectPreset(self, widget):
 		"""
-			Grab the effect properties and send it to the presets code
-			to be saved.
+		Grab the effect properties and send it to the presets code
+		to be saved.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-
 		# grab the label from the combo
 		label = self.presetcombo.get_active_text()
 		
@@ -478,9 +526,11 @@ class InstrumentEffectsDialog:
 	
 	def OnSaveEffectChainPreset(self, widget):
 		"""
-			Grab the chain send it to the presets code to be saved.
+		Grab the effects chain and send it to the presets code to be saved.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-
 		label = self.chainpresetcombo.get_active_text()
 		
 		self.effectlist = []
@@ -505,14 +555,19 @@ class InstrumentEffectsDialog:
 	#_____________________________________________________________________	
 	
 	def OnSettingEntryChanged(self, widget):
+		"""
+		TODO -- This method is not yet implemented.
+		"""
 		pass
 
 	#_____________________________________________________________________	
 	
 	def OnEffectPresetChanged(self, combo):
 		"""
-			A preset is selected from the single effect preset
-			combo. Load it.
+		Loads a preset when it's selected from the single effect preset combo.
+		
+		Parameters:
+			combo -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		presetname = name = combo.get_active_text()
 		if presetname not in self.availpresets:
@@ -537,9 +592,11 @@ class InstrumentEffectsDialog:
 	
 	def OnChainPresetChanged(self, combo):
 		"""
-			A preset is selected from the chain preset combo. Load it.
+		Loads a preset when it's selected from the chain preset combo.
+		
+		Parameters:
+			combo -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-
 		# If we're still setting up the gui then we dont want to *do* anything when 
 		# we set the combobox so check the flag and quit if necessary
 		if self.updatinggui == True:
@@ -575,15 +632,25 @@ class InstrumentEffectsDialog:
 	#_____________________________________________________________________	
 	
 	def BringWindowToFront(self):
+		"""
+		Puts the InstrumentsEffectDialog on top of other windows.
+		"""
 		self.window.present()
 		
 	#_____________________________________________________________________
 
 	def matchEffect(self, completion, entrystr, iter):
 		"""
-		   Callback for matching on effect entry box
-		   if the effect contains the current string
-		   then returns True
+		Callback for matching an effect on the effect entry box.
+		
+		Parameters:
+			completion -- TODO
+			entrystr -- string to be matched against the effects list.
+			iter -- number of the current iteration through the complete effects list.
+			
+		Returns:
+			True -- the effect contains the entrystr string.
+			False -- the effect doesn't contain the entrystr stirng.
 		"""
 		modelString = completion.get_model()[iter][0]
 		return entrystr.lower() in modelString.lower()
@@ -592,7 +659,12 @@ class InstrumentEffectsDialog:
 
 	def OnEntrySelected(self, completion, model, modelIter):
 		"""
-		   Callback for selection made in the entry completion for effects combo
+		Callback for the selection made in the entry completion for effects combo.
+		
+		Parameters:
+			completion -- TODO
+			model -- TODO
+			modelIter -- TODO
 		"""
 		# read the effect description and scan the effectscombo
 		# until it's found and set it active as this is what the add
@@ -608,8 +680,7 @@ class InstrumentEffectsDialog:
 
 class CairoDialogHeaderImage(gtk.DrawingArea):
 	"""
-	   Renders a nice banner for the top of the effects
-	   dialog using Cairo.
+	Renders a banner for the top of the effects dialog using Cairo.
 	"""
 	
 	_LEFT_GRADIENT_STOP_RGBA = (0, 0.99, 0.87, 0.38, 1)
@@ -622,6 +693,12 @@ class CairoDialogHeaderImage(gtk.DrawingArea):
 	#_____________________________________________________________________
 	
 	def __init__(self, headerText):
+		"""
+		Creates a new instance of CairoDialogHeaderImage.
+		
+		Parameters:
+			headerText -- text to be displayed at the header.
+		"""
 		gtk.DrawingArea.__init__(self)
 		self.headerText = headerText
 		
@@ -636,7 +713,11 @@ class CairoDialogHeaderImage(gtk.DrawingArea):
 		
 	def OnSizeChanged(self, obj, evt):
 		"""
-		   Called when the widget's size changes
+		Called when the widget's size changes.
+		
+		Parameters:
+			obj -- reserved for Cairo callbacks, don't use it explicitly. *CHECK*
+			evt -- reserved for Cairo callbacks, don't use it explicitly. *CHECK*
 		"""
 		if self.allocation.width != self.source.get_width() or self.allocation.height != self.source.get_height():
 			self.source = cairo.ImageSurface(cairo.FORMAT_ARGB32, self.allocation.width, self.allocation.height)
@@ -646,8 +727,8 @@ class CairoDialogHeaderImage(gtk.DrawingArea):
 
 	def GenerateCachedImage(self):
 		"""
-		   Renders the image so that we don't have to re-render it every
-		   time there is an expose event from a mouse move or something.
+		Renders the image so that we don't have to re-render it every
+		time there is an expose event from a mouse move or something.
 		"""
 		
 		rect = self.get_allocation()
@@ -681,7 +762,16 @@ class CairoDialogHeaderImage(gtk.DrawingArea):
 
 	def OnDraw(self, widget, event):
 		"""
-		   Handles the GTK expose event.
+		Handles the GTK expose event.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+			event -- reserved for GTK callbacks, don't use it explicitly.
+			
+		Returns:
+			False -- indicates the GTK signal to:
+					1) continue propagating the regular signal.
+					2) stop calling the callback on a timeout_add.
 		"""
 		
 		ctx = widget.window.cairo_create()
