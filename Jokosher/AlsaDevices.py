@@ -1,10 +1,10 @@
 #
-#       THIS FILE IS PART OF THE JOKOSHER PROJECT AND LICENSED UNDER THE GPL. SEE
-#       THE 'COPYING' FILE FOR DETAILS
+#		THIS FILE IS PART OF THE JOKOSHER PROJECT AND LICENSED UNDER THE GPL. SEE
+#		THE 'COPYING' FILE FOR DETAILS
 #
-#       AlsaDevices.py
-#       
-#       This file offers ALSA specific helper functions.
+#		AlsaDevices.py
+#
+#		This file offers ALSA specific helper functions.
 #
 #-------------------------------------------------------------------------------
 
@@ -16,11 +16,18 @@ import Globals
 #=========================================================================
 
 def GetAlsaList(type):
-	"""Returns a dictionary containing ALSA device names and their correspoding ALSA ids (e.g. hw:0).
+	"""
+	Returns a dictionary containing ALSA device names and their 
+	correspoding ALSA id's (i.e. hw:0).
 
-	Keyword arguments:
-	type -- specifies the type of ALSA device we are looking for, playback or capture."""
+	Parameters:
+		type -- string specifying the type of ALSA device needed:
+				"playback"
+				"capture"
 
+	Returns:
+		a list containing all the matching devices found.
+	"""
 	#Get HAL Manager
 	bus = dbus.SystemBus()
 	object = bus.get_object("org.freedesktop.Hal", "/org/freedesktop/Hal/Manager")
@@ -46,11 +53,15 @@ def GetAlsaList(type):
 #_____________________________________________________________________
 
 def GetRecordingMixers(device):
-	"""Returns a list containing all the channels which have recording switched on.
+	"""
+	Looks for channels enabled for recording.
 
-	Keyword arguments:
-	device -- specifies which ALSA device (e.g. hw:0) to return values for."""
-
+	Parameters:
+		device -- ALSA device (i.e. hw:0) to poll for values.
+		
+	Returns:
+		a list containing all the channels which have recording enabled.
+	"""
 	recmixers = []
 	alsamixer = gst.element_factory_make('alsamixer')
 	alsamixer.set_property('device', device)
@@ -75,28 +86,36 @@ def GetRecordingMixers(device):
 
 def GetRecordingSampleRate(device="hw:0"):
 	""" 
-	   May return any of the following depending on the sound card:
-	   1) an int representing the only supported sample rate
-	   2) an IntRange class with IntRange.low and IntRange.high being the min and max sample rates
-	   3) a list of ints representing all the supported sample rates
-	"""
+	Checks for available recording sample rates.
 	
+	Parameters:
+		device -- ALSA device to poll for values. "hw:0" by default.
+	
+	Returns:
+		any of the following depending on the sound card:
+		1) an int representing the only supported sample rate.
+		2) an IntRange class with IntRange.low and IntRange.high being the min and max sample rates.
+		3) a list of ints representing all the supported sample rates.
+	"""
 	return GetGstElementSampleRate("alsasrc", "src", device=device)
 	
 #_____________________________________________________________________
 
 def GetGstElementSampleRate(elementName, padName, **properties):
-	""" 
-	   elementName - the name of the gstreamer element (ie "alsasrc")
-	   padName - the name of the pad to query ("src" or "sink")
-	   properties - and properties to set on the element
-	
-	   This function may return any of the following depending on the gstreamer element:
-	   1) an int representing the only supported sample rate
-	   2) an IntRange class with IntRange.low and IntRange.high being the min and max sample rates
-	   3) a list of ints representing all the supported sample rates
 	"""
+	Checks for available sample rates for the given GStreamer element.
 	
+	Parameters:
+		elementName -- the name of the gstreamer element (ie "alsasrc").
+		padName -- the name of the pad to query ("src" or "sink").
+		properties -- and properties to set on the element.
+		
+	Returns:
+		any of the following depending on the gstreamer element:
+		1) an int representing the only supported sample rate.
+		2) an IntRange class with IntRange.low and IntRange.high being the min and max sample rates.
+		3) a list of ints representing all the supported sample rates.
+	"""
 	element = gst.element_factory_make(elementName)
 
 	for key, value in properties.iteritems():
@@ -120,6 +139,15 @@ def GetGstElementSampleRate(elementName, padName, **properties):
 #_____________________________________________________________________
 
 def GetChannelsOffered(device):
+	"""
+	Checks for the number of available channels on a device.
+	
+	Parameters:
+		device -- ALSA device (e.g. hw:0) to poll for available channels.
+		
+	Returns:
+		the number of channels available on a device.
+	"""
 	#TODO: Quite a few assumptions here...
 	src = gst.element_factory_make('alsasrc')
 	src.set_property("device", device)
@@ -150,5 +178,8 @@ def GetChannelsOffered(device):
 	src.set_state(gst.STATE_NULL)
 	return numChannels
 
+"""
+The following function, is meant for testing this file independantly from the rest.
+"""
 if __name__ == "__main__":
 	print GetRecordingSampleRate()
