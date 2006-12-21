@@ -539,8 +539,10 @@ class Event(Monitored):
 	def bus_error(self, bus, message):
 		""" Handler for when things go completely wrong with GStreamer.
 		"""
-		Globals.debug("bus error")
-		self.StateChanged(self.CORRUPT)
+		error, debug = message.parse_error()
+		
+		Globals.debug("Event bus error:", str(error), str(debug))
+		self.StateChanged(self.CORRUPT, str(error), str(debug))
 	
 	#_____________________________________________________________________
 	

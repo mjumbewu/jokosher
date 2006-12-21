@@ -108,7 +108,17 @@ def debug(*listToPrint):
 	if DEBUG_STDOUT:
 		print message
 	if DEBUG_GST:
-		gst.debug(message)	
+		gst.debug(message)
+		
+def PrintPipelineDebug(message, pipeline):
+	try:
+		if os.environ['JOKOSHER_DEBUG']:
+			import JokDebug
+			jokDebug = JokDebug.JokDebug()
+			debug(message)
+			jokDebug.ShowPipelineTree(pipeline)
+	except:
+		pass
 
 
 #static list of all the instrument files (to prevent having to reimport files)

@@ -443,18 +443,6 @@ class Project(Monitored):
 		self.transportbpm = self.transport.bpm
 
 		self.PrepareClick()
-
-		# [DEBUG]
-		# This debug block will be removed in stable releases. If you see this in a release version,
-		# please email the Jokosher Team and report it. Thanks.
-		try:
-			if os.environ['JOKOSHER_DEBUG']:
-				import JokDebug
-				self.debug = JokDebug.JokDebug()
-		except:
-			pass
-		# [/DEBUG]
-
 	#_____________________________________________________________________
 	
 	def Play(self, movePlayhead = True, recording=False):
@@ -470,39 +458,34 @@ class Project(Monitored):
 						False = playback only.
 		"""
 		
-		if len(self.instruments) > 0:
-			Globals.debug("play() in Project.py")
-			Globals.debug("current state:", self.mainpipeline.get_state(0)[1].value_name)
+		Globals.debug("play() in Project.py")
+		Globals.debug("current state:", self.mainpipeline.get_state(0)[1].value_name)
 
-			for instr in self.instruments:
-				instr.PrepareController()
-					
-			# And set it going
-			self.state_id = self.bus.connect("message::state-changed", self.__PlaybackStateChangedCb, movePlayhead)
-			#set to PAUSED so the transport manager can seek first (if needed)
-			#the pipeline will be set to PLAY by self.state_changed()
-			self.mainpipeline.set_state(gst.STATE_PAUSED)
-			
-			Globals.debug("just set state to PAUSED")
-			
-			if recording:
-				self.StateChanged("record")
-			else:
-				self.StateChanged("play")
+		for ins in self.instruments:
+			ins.PrepareController()
+				
+		# And set it going
+		self.state_id = self.bus.connect("message::state-changed", self.__PlaybackStateChangedCb, movePlayhead)
+		#set to PAUSED so the transport manager can seek first (if needed)
+		#the pipeline will be set to PLAY by self.state_changed()
+		self.mainpipeline.set_state(gst.STATE_PAUSED)
+		
+		Globals.debug("just set state to PAUSED")
+		
+		if recording:
+			self.StateChanged("record")
+		else:
+			self.StateChanged("play")
 
-			# [DEBUG]
-			# This debug block will be removed in stable releases. If you see this in a release version,
-			# please email the Jokosher Team and report it. Thanks.
-			try:
-				if os.environ['JOKOSHER_DEBUG']:
-					Globals.debug("Play Pipeline:")
-					self.debug.ShowPipelineTree(self.mainpipeline)
-			except:
-				pass
-			# [/DEBUG]
-
+		Globals.PrintPipelineDebug("Play Pipeline:", self.mainpipeline)
+		
 	#_____________________________________________________________________
 
+	def Pause(self):
+		self.transport.Pause()
+	
+	#_____________________________________________________________________
+	
 	def Stop(self, bus=None, message=None):
 		"""
 		Stop playback or recording
@@ -525,24 +508,11 @@ class Project(Monitored):
 			self.bus.disconnect(handle)
 
 		self.TerminateRecording()
-			
-		Globals.debug("Stop pressed, state just set to READY")
-
 		self.StateChanged("stop")
-		
-		# [DEBUG]
-		# This debug block will be removed in stable releases. If you see this in a release version,
-		# please email the Jokosher Team and report it. Thanks.
-		try:
-			if os.environ['JOKOSHER_DEBUG']:
-				Globals.debug("PIPELINE AFTER STOP:")
-				self.debug.ShowPipelineTree(self.mainpipeline)
-		except:
-			pass
-		# [/DEBUG]
-			
 		self.transport.Stop()
-			
+		
+		Globals.PrintPipelineDebug("PIPELINE AFTER STOP:", self.mainpipeline)
+		
 	#_____________________________________________________________________
 
 	def TerminateRecording(self):
@@ -553,7 +523,8 @@ class Project(Monitored):
 		Globals.debug("Terminating recording.")
 
 		self.mainpipeline.set_state(gst.STATE_READY)
-	
+		Globals.debug("Stop pressed, state just set to READY")
+		
 		#Relink instruments and stop their recording bins
 		for instr, (event, bin, handle) in self.recordingEvents.items():
 			try:
