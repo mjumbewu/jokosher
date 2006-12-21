@@ -4,7 +4,7 @@
 #
 #	AudioPreview.py
 #	
-#	This module is handles previewing audio files from within
+#	This module handles previewing audio files from within
 #	the gtk open file dialog, when you are browsing for an audio
 #	file to import.
 #
@@ -17,11 +17,14 @@ import gst
 
 class AudioPreview(gtk.ToggleButton):
 	"""
-	   A simple button to be added to the load-a-clip-from-a-file open dialog,
-	   which previews the selected sound.
+	A button, added to the load-a-clip-from-a-file open dialog,
+	which previews the selected sound.
 	"""
 
 	def __init__(self):
+		"""
+		Creates a new instance of AudioPreview.
+		"""
 		gtk.ToggleButton.__init__(self, "gtk-media-play")
 		self.set_use_stock(True)
 		self.uri = None
@@ -38,13 +41,28 @@ class AudioPreview(gtk.ToggleButton):
 	#_____________________________________________________________________
 
 	def OnSelection(self, widget):
+		"""
+		This method is called when a user selects a new file in the import audio file dialog. 
+		The preview widget then retrieves the location of the file that has been selected
+		and sets the variable self.uri to be the location of the file it retrieves.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		self.uri = widget.get_preview_uri()
 		self.set_active(False)
 		
 	#_____________________________________________________________________
 
 	def OnToggle(self, widget):
-		"Toggling the button plays or stops playing by setting ready state"
+		"""
+		This method is called when a user toggles the preview button between a stop
+		or playing state. It will then set the button to appear pressed in when playing
+		or normal when stopped.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, dont't use it explicitly.
+		"""
 		if self.get_active():
 			self.previewbin.set_property("uri", self.uri)
 			self.previewbin.set_state(gst.STATE_PLAYING)
@@ -54,11 +72,24 @@ class AudioPreview(gtk.ToggleButton):
 	#_____________________________________________________________________
 			
 	def OnEOS(self, bus, message):
+		"""
+		Called when the preview stream ends. It deactives the AudioPreview.
+		
+		Parameters:
+			bus -- reserved for GStreamer callbacks, dont't use it explicitly.
+			message -- reserved for GStreamer callbacks, dont't use it explicitly.
+		"""
 		self.set_active(False)
 		
 	#_____________________________________________________________________
 
 	def OnDestroy(self, widget=None):
+		"""
+		This method sets the preview pipeline to gst.STATE_NULL.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		self.previewbin.set_state(gst.STATE_NULL)
 	
 	#_____________________________________________________________________
