@@ -28,6 +28,9 @@ class NewProjectDialog:
 		Creates a new instance of NewProjectDialog.
 		
 		The dialog is used to create a new Project based on the user's input.
+		
+		Parameters:
+			parent -- reference to the MainApp Jokosher window.
 		"""
 		self.parent = parent
 		

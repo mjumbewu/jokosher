@@ -1350,8 +1350,8 @@ class MainApp:
 		Opens the project file referred by the path parameter.
 		
 		Parameters:
-			path -- Path to the project to be opened.
-			parent -- Parent window of the error message dialog.
+			path -- path to the project to be opened.
+			parent -- parent window of the error message dialog.
 		
 		Returns:
 			the status of the loading operation:

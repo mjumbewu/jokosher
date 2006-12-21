@@ -34,7 +34,7 @@ class CompactMixView(gtk.Frame):
 		
 		Parameters:
 			project -- the active Project.
-			mainview -- the main Jokosher window (JokosherApp).
+			mainview -- reference to the MainApp Jokosher window.
 		"""
 		gtk.Frame.__init__(self)
 		self.project = project
@@ -171,12 +171,12 @@ class CompactMixView(gtk.Frame):
 	def OnStateChanged(self, obj, change=None, *extra):
 		"""
 		Called when a change of state is signalled by any of the
-		instruments that this view is 'listening' to.
+		objects this view is 'listening' to.
 		
 		Parameters:
 			obj -- object changing state. *CHECK*
 			change -- the change which has occured.
-			extra -- extra parameters to passed by the caller.
+			extra -- extra parameters passed by the caller.
 			
 		Considerations:
 			The actual AddListener call is in RecordingView.py,
