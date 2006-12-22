@@ -40,7 +40,10 @@ class TimeLine(gtk.DrawingArea):
 
 	def __init__(self, project, timelinebar, mainview):
 		"""
-			project - reference to the active project
+		Creates a new instance of TimeLine
+		
+		Parameters:
+			project - reference to Project (Project.py)
 			timelinebar - reference of TimeLineBar (TimeLineBar.py)
 			mainview - reference to JokosherApp (JokosherApp.py) - Not used atm.
 		"""
@@ -71,9 +74,13 @@ class TimeLine(gtk.DrawingArea):
 
 	def OnAllocate(self, widget, allocation):
 		"""
-			From:
-			http://www.moeraki.com/pygtkreference/pygtk2reference/class-gtkwidget.html#signal-gtkwidget--size-allocate
-			The "size-allocate" signal is emitted when widget is given a new space allocation.
+		From:
+		http://www.moeraki.com/pygtkreference/pygtk2reference/class-gtkwidget.html#signal-gtkwidget--size-allocate
+		The "size-allocate" signal is emitted when widget is given a new space allocation.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+			allocation -- the position and size to be allocated to the widget
 		"""
 		self.allocation = allocation
 		# Reconstruce timeline because allocation changed
@@ -85,9 +92,12 @@ class TimeLine(gtk.DrawingArea):
 		
 	def OnDraw(self, widget, event):
 		"""
-			Fires off the drawing operation.
-		"""
+		This method fires off the drawing operation.
 		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+			event -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		if self.savedLine == None:
 			self.DrawLine(widget)
 		if self.project.transport.RedrawTimeLine:
@@ -118,9 +128,12 @@ class TimeLine(gtk.DrawingArea):
 		
 	def DrawLine(self, widget):
 		""" 
-			Draws the timeline and saves it to memory
-		    - Must be called initially and to redraw the timeline
-				  after moving the project start
+		This method draws the timeline and saves it to memory
+		Must be called initially and to redraw the timeline
+		after moving the project start.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		d = widget.window
 
@@ -233,10 +246,15 @@ class TimeLine(gtk.DrawingArea):
 	#_____________________________________________________________________
 		
 	def do_size_request(self, requisition):
-		# From:
-		# http://www.moeraki.com/pygtkreference/pygtk2reference/class-gtkwidget.html#signal-gtkwidget--size-request
-		# The "size-request" signal is emitted when a new size is
-		# requested for widget using the set_size_request() method.
+		"""
+		From:
+		http://www.moeraki.com/pygtkreference/pygtk2reference/class-gtkwidget.html#signal-gtkwidget--size-request
+		The "size-request" signal is emitted when a new size is
+		requested for widget using the set_size_request() method.
+		
+		Parameters:
+			requisition -- the widget's requested size as a gtk.Requisition 
+		"""
 		requisition.width = self.get_allocation().width
 		requisition.height = self.height
 		
@@ -244,13 +262,19 @@ class TimeLine(gtk.DrawingArea):
 	
 	def OnStateChanged(self, obj, change=None, *extra):
 		""" 
-			Called when there is a change of state in transport
-			manager or project. Could be one of
-			 *  Mode changed from bars/beats to minutes or vice versa
-			    (requires a complete redraw of timeline - flag set)
-			 *  Change in playing position -only needs partial redraw
-			 *  Project change e.g. a scroll or zoom change
-			    (requires a complete redraw of timeline - flag set)
+		This method is called when there is a change of state in transport
+		manager or project. 
+		Could be one of
+			*  Mode changed from bars/beats to minutes or vice versa
+			(requires a complete redraw of timeline - flag set)
+			*  Change in playing position -only needs partial redraw
+			*  Project change e.g. a scroll or zoom change
+			(requires a complete redraw of timeline - flag set)
+				
+		Parameters:
+			obj -- an object to inform when this method is called.
+			change -- the change which has occured.
+			extra -- the extra parameters to be passed.
 		"""
 		#if the timeline is not currently on screen then quit
 		if not self.window:
@@ -286,6 +310,13 @@ class TimeLine(gtk.DrawingArea):
 	#_____________________________________________________________________
 		
 	def onMouseDown(self, widget, event):
+		"""
+		This method is called when a mouse button is clicked.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+			event -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		self.buttonDown = True
 		self.dragging = False
 		self.moveHead(event.x)
@@ -294,6 +325,13 @@ class TimeLine(gtk.DrawingArea):
 	#_____________________________________________________________________
 
 	def onMouseMove(self, widget, event):
+		"""
+		This method is called when the mouse pointer has moved.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+			event -- reserved for GTK callbacks, don't use it explicitly. 
+		"""			
 		if not self.buttonDown:
 			return
 		self.dragging = True
@@ -308,6 +346,13 @@ class TimeLine(gtk.DrawingArea):
 	#_____________________________________________________________________
 		
 	def onMouseUp(self, widget, event):
+		"""
+		This method is called when a mouse button is released.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+			event -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		self.dragging = False
 		self.buttonDown = False
 		
@@ -315,7 +360,10 @@ class TimeLine(gtk.DrawingArea):
 		
 	def moveHead(self, xpos):
 		"""
-			Changes the project position to the time matching xpos.
+		This method changes the project position to the time matching xpos.
+		
+		Parameters:
+			xpos -- the time of the new project position.
 		"""
 		pos = self.project.viewStart + xpos/ self.project.viewScale
 		self.project.transport.SeekTo(pos)
@@ -324,11 +372,13 @@ class TimeLine(gtk.DrawingArea):
 	
 	def GetZoomFactor(self, viewScale):
 		"""
-			To be used for drawing the MODE_HOURS_MINS_SECS timeline
-			
-			Returns:
-				- an integer factor to be multiplied with the viewScale to zoom the timeline in/out
-				- a boolean indicating if milliseconds should be displayed
+		To be used for drawing the MODE_HOURS_MINS_SECS timeline.
+		
+		Parameters:
+			viewScale -- the view scale in pixels per second.
+		Returns:
+			- an integer factor to be multiplied with the viewScale to zoom the timeline in/out
+			- a boolean indicating if milliseconds should be displayed
 			The default factor is 1000, meaning that the distance between the short lines of the timeline
 			symbolizes 1000 milliseconds. The code will increase of decrease this factor to keep the
 			timeline readable. The factors can be set with the zoomLevels array. This array
