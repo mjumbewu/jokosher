@@ -349,6 +349,7 @@ class Project(Monitored):
 		self.viewStart= 0.0			#View offset in seconds
 		self.soloInstrCount = 0		#number of solo instruments (to know if others must be muted)
 		self.audioState = self.AUDIO_STOPPED	#which audio state we are currently in
+		self.exportPending = False	# True if we are waiting to start an export
 		self.clickbpm = 120			#the number of beats per minute that the click track will play
 		self.clickEnabled = False	#True is the click track is currently enabled
 		self.RedrawTimeLine = False	#True if the timeline's background should be fully redrawn on the next update
@@ -668,6 +669,7 @@ class Project(Monitored):
 		self.bus.disconnect(self.EOShandler)
 		self.EOShandler = self.bus.connect("message::eos", self.TerminateExport)
 		
+		self.exportPending = True
 		#start the pipeline!
 		self.Play(newAudioState=self.AUDIO_EXPORTING)
 
@@ -683,7 +685,7 @@ class Project(Monitored):
 			message -- reserved for GStreamer callbacks, don't use it explicitly.
 		"""
 		
-		if not self.audioState == self.AUDIO_EXPORTING:
+		if not self.GetIsExporting():
 			return
 	
 		#stop playback because some elements will be removed from the pipeline
@@ -698,6 +700,8 @@ class Project(Monitored):
 		self.levelElementCaps.unlink(self.encodebin)
 			
 		#dispose of the elements
+		self.outfile.set_state(gst.STATE_NULL)
+		self.encodebin.set_state(gst.STATE_NULL)
 		del self.outfile, self.encodebin
 		
 		#re-add all the alsa playback elements
@@ -712,7 +716,7 @@ class Project(Monitored):
 		Returns a tuple with the number of seconds exported
 		and the number of total seconds.
 		"""
-		if self.IsExporting:
+		if self.exportPending or self.GetIsExporting():
 			try:
 				#total = self.mainpipeline.query_duration(gst.FORMAT_TIME)[0]
 				total = self.GetProjectLength() * gst.SECOND
@@ -763,6 +767,8 @@ class Project(Monitored):
 			self.StateChanged("stop")
 		elif newState == self.AUDIO_RECORDING:
 			self.StateChanged("record")
+		elif newState == self.AUDIO_EXPORTING:
+			self.exportPending = False
 			
 	#_____________________________________________________________________
 	
