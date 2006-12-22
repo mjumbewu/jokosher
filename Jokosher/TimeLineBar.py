@@ -132,7 +132,7 @@ class TimeLineBar(gtk.Frame):
 	
 	def Update(self, width):
 		""" 
-		This method updates the contents TimeLineBar, updating the values in the beats per minute box and time signature box,
+		Updates the contents TimeLineBar, updating the values in the beats per minute box and time signature box,
 		as well as updating the click button sensitivity and instrument header width.
 		
 		Parameters:
@@ -171,7 +171,7 @@ class TimeLineBar(gtk.Frame):
 	
 	def OnEditBPM(self, widget, event):
 		"""
-		This method is called when the user clicks the beats per minute box.
+		Called when the user clicks the beats per minute box.
 		This method will show a spin button widget with a value inside which the user can change.
 		
 		Parameters:
@@ -197,7 +197,7 @@ class TimeLineBar(gtk.Frame):
 
 	def OnEditSig(self, widget, event):
 		"""
-		This method is called when the user clicks the time signature box.
+		Called when the user clicks the time signature box.
 		This method will show a text entry widget with a value inside it which the user can change.
 		
 		Parameters:
@@ -222,7 +222,7 @@ class TimeLineBar(gtk.Frame):
 	
 	def OnAcceptEditBPM(self, widget=None):
 		"""
-		This method is called when the user finishes editing the beats per minute box.
+		Called when the user finishes editing the beats per minute box.
 		This method then updates the beats per minute value to the value the user 
 		enters and then writes that change to disk if the user saves the project. 
 		If anything but OnEditBPM calls this method, it will update the contents of the beats per minute box.
@@ -253,7 +253,7 @@ class TimeLineBar(gtk.Frame):
 
 	def OnAcceptEditSig(self, widget=None):
 		"""
-		This method is called when the user finishes editing the time signature box.
+		Called when the user finishes editing the time signature box.
 		This method then updates the time signature value to be the value the user 
 		enters and then writes that value to disk if the user saves the project.
 		If anything but OnEditSig calls this method, it will update the contents of the time signature box.
@@ -300,7 +300,7 @@ class TimeLineBar(gtk.Frame):
 	
 	def OnMouseMoveBPM(self, widget, event):
 		"""
-		This method is called when the mouse pointer enters or leaves the beats per minute box.
+		Called when the mouse pointer enters or leaves the beats per minute box.
 		This method changes the type of cursor if the mouse pointer is hovered over the beats per minute box.
 				
 		Parameters:
@@ -318,7 +318,7 @@ class TimeLineBar(gtk.Frame):
 	
 	def OnMouseMoveSig(self, widget, event):
 		"""
-		This method is called when the mouse pointer enters or leaves the time signature box.
+		Called when the mouse pointer enters or leaves the time signature box.
 		This method also changes the type of cursor if the mouse pointer is hovered over the time signature box.
 		
 		Parameters:
@@ -336,7 +336,7 @@ class TimeLineBar(gtk.Frame):
 
 	def OnClick(self, widget):
 		"""
-		This method is called when the click button is clicked.
+		Called when the click button is clicked.
 		This method will also set the clicked button to appear pressed in if clicked.
 		If the click button is clicked while in a 'pressed in' state. It will appear as it did originally.
 		""" 

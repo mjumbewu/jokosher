@@ -4,7 +4,7 @@
 #
 #	TimeLine.py
 #	
-#	This class handles the drawing of of the time line display.
+#	This class handles the drawing of the timeline display.
 #
 #-------------------------------------------------------------------------------
 
@@ -15,25 +15,27 @@ import pango
 
 class TimeLine(gtk.DrawingArea):
 	"""
-		This class handles drawing the time line display. The time line is part of the
-		TimeLineBar. TimeLine displays the time in minutes/seconds (MODE_HOURS_MINS_SECS)
-		or bars and beats (MODE_BARS_BEATS). These modes are set in project.transport.
+	This class handles drawing the time line display. The time line is part of the
+	TimeLineBar. TimeLine displays the time in minutes/seconds (MODE_HOURS_MINS_SECS)
+	or bars and beats (MODE_BARS_BEATS). These modes are set in project.transport.
 		
-		To improve performance, the line isn't being constructed on each call of OnDraw. It
-		is saved into self.savedLine as a gtk.gdk.Image. A new savedLine is constructed when
+	To improve performance, the line isn't being constructed on each call of OnDraw. It
+	is saved into self.savedLine as a gtk.gdk.Image. A new savedLine is constructed when
 		- there is no savedLine
 		- or project.transport.RedrawTimeLine is True
 		- or project.RedrawTimeLine is True
 		
-		When the time line is constructed in MODE_HOURS_MINS_SECS, it dynamically adjusts
-		its scale to the project.viewScale. MODE_BARS_BEATS does not support this (yet).
+	When the time line is constructed in MODE_HOURS_MINS_SECS, it dynamically adjusts
+	its scale to the project.viewScale. MODE_BARS_BEATS does not support this (yet).
 	"""
 
+	""" GTK widget name """
 	__gtype_name__ = 'TimeLine'
 	
-	# Number of 'short' lines + 1 (Used for the MODE_HOURS_MINS_SECS timeline)
-	# Like this: |              |           |
-	#            |  |1 |2 |3 |4 |  |  |  |  | etc
+	""" Number of 'short' lines + 1 (Used for the MODE_HOURS_MINS_SECS timeline)
+	Like this:	|				|		   	|
+				|  |1 |2 |3 |4 	|  |  |  |  | etc
+	"""
 	_NUM_LINES = 5
 
 	#_____________________________________________________________________
@@ -92,7 +94,7 @@ class TimeLine(gtk.DrawingArea):
 		
 	def OnDraw(self, widget, event):
 		"""
-		This method fires off the drawing operation.
+		Fires off the drawing operation.
 		
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
@@ -128,7 +130,7 @@ class TimeLine(gtk.DrawingArea):
 		
 	def DrawLine(self, widget):
 		""" 
-		This method draws the timeline and saves it to memory
+		Draws the timeline and saves it to memory
 		Must be called initially and to redraw the timeline
 		after moving the project start.
 		
@@ -262,8 +264,7 @@ class TimeLine(gtk.DrawingArea):
 	
 	def OnStateChanged(self, obj, change=None, *extra):
 		""" 
-		This method is called when there is a change of state in transport
-		manager or project. 
+		Called when there is a change of state in transport	manager or project. 
 		Could be one of
 			*  Mode changed from bars/beats to minutes or vice versa
 			(requires a complete redraw of timeline - flag set)
@@ -311,7 +312,7 @@ class TimeLine(gtk.DrawingArea):
 		
 	def onMouseDown(self, widget, event):
 		"""
-		This method is called when a mouse button is clicked.
+		Called when a mouse button is clicked.
 		
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
@@ -326,7 +327,7 @@ class TimeLine(gtk.DrawingArea):
 
 	def onMouseMove(self, widget, event):
 		"""
-		This method is called when the mouse pointer has moved.
+		Called when the mouse pointer has moved.
 		
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
@@ -347,7 +348,7 @@ class TimeLine(gtk.DrawingArea):
 		
 	def onMouseUp(self, widget, event):
 		"""
-		This method is called when a mouse button is released.
+		Called when a mouse button is released.
 		
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
@@ -360,7 +361,7 @@ class TimeLine(gtk.DrawingArea):
 		
 	def moveHead(self, xpos):
 		"""
-		This method changes the project position to the time matching xpos.
+		Changes the project position to the time matching xpos.
 		
 		Parameters:
 			xpos -- the time of the new project position.
@@ -376,6 +377,7 @@ class TimeLine(gtk.DrawingArea):
 		
 		Parameters:
 			viewScale -- the view scale in pixels per second.
+		
 		Returns:
 			- an integer factor to be multiplied with the viewScale to zoom the timeline in/out
 			- a boolean indicating if milliseconds should be displayed

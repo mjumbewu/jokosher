@@ -42,7 +42,7 @@ class TimeView(gtk.EventBox):
 		
 	def UpdateTime(self):
 		"""
-		This method will update the time label
+		Updates the time label.
 		"""		
 		transport = self.project.transport
 		formatString = "<span font_desc='Sans Bold 15'>%s</span>"
@@ -58,12 +58,14 @@ class TimeView(gtk.EventBox):
 	
 	def OnStateChanged(self, obj, change=None, *extra):
 		"""
-		This method is called when there is a change to be made
+		Called when a change of state is signalled by any of the
+		objects this view is 'listening' to.
+		Udates the time label.
 		
 		Parameters:
-			obj -- an object to inform when this method is called.
+			obj -- object changing state. *CHECK*
 			change -- the change which has occured.
-			extra -- the extra parameters to be passed.
+			extra -- extra parameters passed by the caller.
 		"""
 		self.UpdateTime()
 	
@@ -71,7 +73,7 @@ class TimeView(gtk.EventBox):
 
 	def OnClick(self, widget, event):
 		"""
-		This method is called when the label is double clicked
+		Called when the label is double clicked.
 		It will then change the time label to represent either MODE_HOURS_MINS_SECS or MODE_BARS_BEATS.
 		MODE_HOURS_MINS_SECS - time in seconds, minutes and hours.
 		MODE_BARS_BEATS - time in how many beats are in each bar.
