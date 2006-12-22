@@ -463,7 +463,7 @@ class MainApp:
 		if not self.isPlaying:
 			self.project.Play()
 		else:
-			self.project.Stop()
+			self.project.Pause()
 
 	#_____________________________________________________________________
 
@@ -901,6 +901,12 @@ class MainApp:
 			self.compactmix.StartUpdateTimeout()
 			self.settingButtons = True
 			self.play.set_active(self.isPlaying)
+			self.settingButtons = False
+			
+		elif change == "pause":
+			self.isPlaying = not self.isPlaying
+			self.settingButtons = True
+			self.play.set_active(False)
 			self.settingButtons = False
 		
 		elif change == "record" or (change == "stop" and self.isRecording):

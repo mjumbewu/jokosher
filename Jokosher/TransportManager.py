@@ -32,17 +32,18 @@ class TransportManager(Monitored):
 
 	#_____________________________________________________________________
 
-	def __init__(self, initialMode, mainpipeline):
+	def __init__(self, initialMode, project):
 		"""
 			initalMode - the initial mode for the timeline display
 			             will be one of:
 			                 MODE_HOURS_MINS_SECS or
 			                 MODE_BARS_BEATS
-			mainpipeline - reference to the main pipeline
+			project - reference to the main project
 		"""
 		Monitored.__init__(self)
 		
-		self.pipeline = mainpipeline
+		self.project = project
+		self.pipeline = self.project.mainpipeline
 		self.position = 0
 		self.PrevPosition = 0
 		self.bpm = 120			# Tempo in BPM
@@ -50,6 +51,7 @@ class TransportManager(Monitored):
 		self.meter_denom = 4	# Meter denominator
 		
 		self.isPlaying = False
+		self.isPaused = False
 		self.isReversing = False
 		self.isForwarding = False
 		self.RedrawTimeLine = False # set by SetMode to force redraw
@@ -60,26 +62,38 @@ class TransportManager(Monitored):
 
 	#_____________________________________________________________________
 	
-	def Play(self, movePlayhead):
+	def Play(self, newAudioState):
 		"""
 			Called when play button has been pressed (or whilst exporting 
-			in which case movePlayhead will be set to True)
+			in which case newAudioState will be set to AUDIO_EXPORTING)
 		"""
 		#the state must be set to paused before playing
 		if self.pipeline.get_state(0)[1] != gst.STATE_PAUSED:
 			return
 			
 		self.isPlaying = True
+		self.project.SetAudioState(newAudioState)
 		
 		if self.position > 0:
 			self.SeekTo(self.position)
-
+		
 		self.pipeline.set_state(gst.STATE_PLAYING)
 		#for normal playback then we need to start the timeout that will 
 		#control the movement of the playhead
-		if movePlayhead:
+		if not self.project.GetIsExporting():
 			self.StartUpdateTimeout()
 		
+	#_____________________________________________________________________
+		
+	def Pause(self):
+		"""
+		Pause the pipeline
+		"""
+		self.isPlaying = False
+		self.isPaused = True
+		self.project.SetAudioState(self.project.AUDIO_PAUSED)
+		self.pipeline.set_state(gst.STATE_PAUSED)
+	
 	#_____________________________________________________________________
 		
 	def Stop(self):
@@ -87,7 +101,9 @@ class TransportManager(Monitored):
 			Called when stop button has been pressed
 		"""
 		self.isPlaying = False
+		self.project.SetAudioState(self.project.AUDIO_STOPPED)
 		self.SetPosition(0.0)
+		self.pipeline.set_state(gst.STATE_READY)
 		
 	#_____________________________________________________________________
 		
@@ -264,7 +280,7 @@ class TransportManager(Monitored):
 		"""
 		#make sure we cant seek to before the beginning
 		pos = max(0, pos)
-		if self.isPlaying:
+		if self.isPlaying or self.isPaused:
 			self.pipeline.seek( 1.0, gst.FORMAT_TIME, gst.SEEK_FLAG_FLUSH,
 					gst.SEEK_TYPE_SET, long(pos * gst.SECOND), 
 					gst.SEEK_TYPE_NONE, -1)

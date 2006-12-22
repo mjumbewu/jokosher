@@ -139,7 +139,7 @@ class InstrumentEffectsDialog:
 		# this says if the project is playing, so we know to toggle the
 		# transport button in the dialog	
 
-		self.isPlaying = self.instrument.project.IsPlaying
+		self.isPlaying = self.instrument.project.GetIsPlaying()
 
 		if self.isPlaying:
 			self.transportbutton.set_use_stock(True)

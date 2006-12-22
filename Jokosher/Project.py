@@ -325,6 +325,8 @@ class Project(Monitored):
 	
 	""" The project structure version. Will be useful for handling old save files. """
 	Globals.VERSION = "0.2"
+	""" The audio playback state enum values """
+	AUDIO_STOPPED, AUDIO_RECORDING, AUDIO_PLAYING, AUDIO_PAUSED, AUDIO_EXPORTING = range(5)
 
 	#_____________________________________________________________________
 
@@ -346,8 +348,7 @@ class Project(Monitored):
 		self.viewScale = 25.0		#View scale as pixels per second
 		self.viewStart= 0.0			#View offset in seconds
 		self.soloInstrCount = 0		#number of solo instruments (to know if others must be muted)
-		self.IsPlaying = False		#True if we are currently playing
-		self.IsExporting = False	#True if we are currently exporting to a file
+		self.audioState = self.AUDIO_STOPPED	#which audio state we are currently in
 		self.clickbpm = 120			#the number of beats per minute that the click track will play
 		self.clickEnabled = False	#True is the click track is currently enabled
 		self.RedrawTimeLine = False	#True if the timeline's background should be fully redrawn on the next update
@@ -438,44 +439,45 @@ class Project(Monitored):
 		
 		#initialize the transport mode
 		self.transportMode = TransportManager.TransportManager.MODE_BARS_BEATS
-		self.transport = TransportManager.TransportManager(self.transportMode, self.mainpipeline)
+		self.transport = TransportManager.TransportManager(self.transportMode, self)
 		
 		self.transportbpm = self.transport.bpm
 
 		self.PrepareClick()
 	#_____________________________________________________________________
 	
-	def Play(self, movePlayhead = True, recording=False):
+	def Play(self, newAudioState=None, recording=False):
 		"""
 		Start playback or recording.
 		
 		Parameters:
-			movePlayhead -- determines if the red graphical bar indicator should move along with playback:
-							True = move the graphical indicator along playback.
-							False = perform playback without moving the graphical bar.
+			newAudioState -- determines the project audio state to set when playback commences:
+							AUDIO_PAUSED or AUDIO_PLAYING = move the graphical indicator along playback.
+							AUDIO_EXPORTING = perform playback without moving the graphical bar.
 			recording -- determines if the Project should only playback or playback and record:
 						True = playback and record.
 						False = playback only.
 		"""
+		if not newAudioState:
+			newAudioState = self.AUDIO_PLAYING
 		
 		Globals.debug("play() in Project.py")
 		Globals.debug("current state:", self.mainpipeline.get_state(0)[1].value_name)
 
 		for ins in self.instruments:
 			ins.PrepareController()
-				
-		# And set it going
-		self.state_id = self.bus.connect("message::state-changed", self.__PlaybackStateChangedCb, movePlayhead)
-		#set to PAUSED so the transport manager can seek first (if needed)
-		#the pipeline will be set to PLAY by self.state_changed()
-		self.mainpipeline.set_state(gst.STATE_PAUSED)
+		
+		if not self.GetIsPlaying():
+			# Connect the state changed handler
+			self.state_id = self.bus.connect("message::state-changed", self.__PlaybackStateChangedCb, newAudioState)
+			#set to PAUSED so the transport manager can seek first (if needed)
+			#the pipeline will be set to PLAY by self.state_changed()
+			self.mainpipeline.set_state(gst.STATE_PAUSED)
+		else:
+			# we are already paused or playing, so just start the transport manager
+			self.transport.Play(newAudioState)
 		
 		Globals.debug("just set state to PAUSED")
-		
-		if recording:
-			self.StateChanged("record")
-		else:
-			self.StateChanged("play")
 
 		Globals.PrintPipelineDebug("Play Pipeline:", self.mainpipeline)
 		
@@ -508,8 +510,6 @@ class Project(Monitored):
 			self.bus.disconnect(handle)
 
 		self.TerminateRecording()
-		self.StateChanged("stop")
-		self.transport.Stop()
 		
 		Globals.PrintPipelineDebug("PIPELINE AFTER STOP:", self.mainpipeline)
 		
@@ -521,9 +521,8 @@ class Project(Monitored):
 		error occurs after instruments have started.
 		"""
 		Globals.debug("Terminating recording.")
-
-		self.mainpipeline.set_state(gst.STATE_READY)
-		Globals.debug("Stop pressed, state just set to READY")
+		self.transport.Stop()
+		Globals.debug("State just set to READY")
 		
 		#Relink instruments and stop their recording bins
 		for instr, (event, bin, handle) in self.recordingEvents.items():
@@ -537,10 +536,6 @@ class Project(Monitored):
 			instr.AddAndLinkPlaybackbin()
 
 		self.recordingEvents = {}
-
-		self.IsPlaying = False
-
-		self.transport.Stop()
 
 	#_____________________________________________________________________
 	
@@ -637,8 +632,8 @@ class Project(Monitored):
 					"wav"
 					*if no format is given, it'll be guessed by the file extension*
 		"""
-		#NULL is required because some elements will be destroyed when we remove the references
-		self.mainpipeline.set_state(gst.STATE_NULL)
+		#stop playback because some elements will be removed from the pipeline
+		self.Stop()
 		
 		if not format:
 			format = filename[filename.rfind(".")+1:].lower()
@@ -646,10 +641,9 @@ class Project(Monitored):
 		exportingFormatDict = None
 		for formatDict in Globals.EXPORT_FORMATS:
 			if format == formatDict["extension"]:
-				self.IsExporting = True
 				exportingFormatDict = formatDict
 				break
-		if not self.IsExporting:
+		if not exportingFormatDict:
 			Globals.debug("Unknown filetype for export")
 			return -1
 		
@@ -674,10 +668,8 @@ class Project(Monitored):
 		self.bus.disconnect(self.EOShandler)
 		self.EOShandler = self.bus.connect("message::eos", self.TerminateExport)
 		
-		#Make sure we start playing from the beginning
-		self.transport.Stop()
 		#start the pipeline!
-		self.Play(movePlayhead=False)
+		self.Play(newAudioState=self.AUDIO_EXPORTING)
 
 	#_____________________________________________________________________
 	
@@ -691,14 +683,11 @@ class Project(Monitored):
 			message -- reserved for GStreamer callbacks, don't use it explicitly.
 		"""
 		
-		if not self.IsExporting:
+		if not self.audioState == self.AUDIO_EXPORTING:
 			return
-		else:
-			self.IsExporting = False
 	
+		#stop playback because some elements will be removed from the pipeline
 		self.Stop()
-		#NULL is required because elements will be destroyed when we delete them
-		self.mainpipeline.set_state(gst.STATE_NULL)
 	
 		self.bus.disconnect(self.EOShandler)
 		self.Mhandler = self.bus.connect("message::element", self.__PipelineBusLevelCb)
@@ -740,7 +729,44 @@ class Project(Monitored):
 		
 	#_____________________________________________________________________
 	
-	def __PlaybackStateChangedCb(self, bus, message, movePlayhead=True):
+	def GetIsPlaying(self):
+		"""
+		Returns true if the project is not in the stopped state,
+		because paused, playing and recording are all forms of playing.
+		"""
+		return self.audioState != self.AUDIO_STOPPED
+	
+	#_____________________________________________________________________
+	
+	def GetIsExporting(self):
+		"""
+		Returns true if the project is not in the stopped state,
+		because paused, playing and recording are all forms of playing.
+		"""
+		return self.audioState == self.AUDIO_EXPORTING
+	
+	#_____________________________________________________________________
+	
+	def SetAudioState(self, newState):
+		"""
+		Set the project's audio state to the new state enum value.
+		
+		Parameters:
+			newState -- the new state to set the project to.
+		"""
+		self.audioState = newState
+		if newState == self.AUDIO_PAUSED:
+			self.StateChanged("pause")
+		elif newState == self.AUDIO_PLAYING:
+			self.StateChanged("play")
+		elif newState == self.AUDIO_STOPPED:
+			self.StateChanged("stop")
+		elif newState == self.AUDIO_RECORDING:
+			self.StateChanged("record")
+			
+	#_____________________________________________________________________
+	
+	def __PlaybackStateChangedCb(self, bus, message, newAudioState):
 		"""
 		Handles GStreamer statechange events when the pipline is changing from
 		STATE_READY to STATE_PAUSED. Once STATE_PAUSED has been reached, this
@@ -749,9 +775,7 @@ class Project(Monitored):
 		Parameters:
 			bus -- reserved for GStreamer callbacks, don't use it explicitly.
 			message -- reserved for GStreamer callbacks, don't use it explicitly.
-			movePlayhead -- determines if the red graphical bar indicator should move along with playback:
-							True = move the graphical indicator along playback.
-							False = perform playback without moving the graphical bar.
+			newAudioState -- the new project audio state the transport manager should set when playback starts.
 		"""
 		Globals.debug("STATE CHANGED")
 		change_status, new, pending = self.mainpipeline.get_state(0)
@@ -760,11 +784,10 @@ class Project(Monitored):
 		Globals.debug("-- new:", new.value_name)
 
 		#Move forward to playing when we reach paused (check pending to make sure this is the final destination)
-		if new == gst.STATE_PAUSED and pending == gst.STATE_VOID_PENDING and not self.IsPlaying:
+		if new == gst.STATE_PAUSED and pending == gst.STATE_VOID_PENDING and not self.GetIsPlaying():
 			bus.disconnect(self.state_id)
 			#The transport manager will seek if necessary, and then set the pipeline to STATE_PLAYING
-			self.transport.Play(movePlayhead)
-			self.IsPlaying = True
+			self.transport.Play(newAudioState)
 
 	#_____________________________________________________________________
 	

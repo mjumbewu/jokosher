@@ -260,7 +260,7 @@ class TimeLine(gtk.DrawingArea):
 			return
 		# The next section is the autoscroll during playback
 		# so ignore if where not in playback
-		if self.project.IsPlaying:
+		if self.project.GetIsPlaying() and not self.project.GetIsExporting():
 			#if playhead is now beyond the rightmost position then  force scroll & quit
 			rightPos = self.project.viewStart + self.timelinebar.projectview.scrollRange.page_size
 			if self.project.transport.position > rightPos:
