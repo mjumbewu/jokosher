@@ -80,7 +80,7 @@ class TimeLine(gtk.DrawingArea):
 		
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
-			allocation -- the position and size to be allocated to the widget
+			allocation -- the position and size to be allocated to the widget.
 		"""
 		self.allocation = allocation
 		# Reconstruce timeline because allocation changed
@@ -253,7 +253,7 @@ class TimeLine(gtk.DrawingArea):
 		requested for widget using the set_size_request() method.
 		
 		Parameters:
-			requisition -- the widget's requested size as a gtk.Requisition 
+			requisition -- the widget's requested size as a gtk.Requisition.
 		"""
 		requisition.width = self.get_allocation().width
 		requisition.height = self.height

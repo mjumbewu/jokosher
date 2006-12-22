@@ -14,12 +14,21 @@ import gtk
 #=========================================================================
 
 class TimeView(gtk.EventBox):
+	"""
+	This class updates the time label which displays the time position of a loaded project.
+	"""
 
 	__gtype_name__ = 'TimeView'
 
 	#_____________________________________________________________________
 
 	def __init__(self, project):
+		"""
+		Creates a new instance of TimeView
+		
+		Parameters:
+			project -- reference to Project (Project.py)
+		"""
 		gtk.EventBox.__init__(self)
 		self.set_events(gtk.gdk.BUTTON_PRESS_MASK)
 		self.connect("button_press_event", self.OnClick)
@@ -31,7 +40,10 @@ class TimeView(gtk.EventBox):
 		
 	#_____________________________________________________________________
 		
-	def UpdateTime(self):		
+	def UpdateTime(self):
+		"""
+		This method will update the time label
+		"""		
 		transport = self.project.transport
 		formatString = "<span font_desc='Sans Bold 15'>%s</span>"
 		if transport.mode == transport.MODE_BARS_BEATS:
@@ -45,11 +57,29 @@ class TimeView(gtk.EventBox):
 	#_____________________________________________________________________
 	
 	def OnStateChanged(self, obj, change=None, *extra):
+		"""
+		This method is called when there is a change to be made
+		
+		Parameters:
+			obj -- an object to inform when this method is called.
+			change -- the change which has occured.
+			extra -- the extra parameters to be passed.
+		"""
 		self.UpdateTime()
 	
 	#_____________________________________________________________________
 
 	def OnClick(self, widget, event):
+		"""
+		This method is called when the label is double clicked
+		It will then change the time label to represent either MODE_HOURS_MINS_SECS or MODE_BARS_BEATS.
+		MODE_HOURS_MINS_SECS - time in seconds, minutes and hours.
+		MODE_BARS_BEATS - time in how many beats are in each bar.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+			event -- reserved for GTK callbacks, don't use it explicitly.	
+		"""
 		if event.type == gtk.gdk._2BUTTON_PRESS:
 			transport = self.project.transport
 			if transport.mode == transport.MODE_BARS_BEATS:

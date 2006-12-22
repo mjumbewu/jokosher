@@ -19,7 +19,20 @@ import gobject
 _=gettext.gettext
 
 class TimeLineBar(gtk.Frame):
+	"""
+	This class contains the TimeLine widget as well as the click track button and the bpm label in a gtk.Frame widget.
+	"""
+	#_____________________________________________________________________
+	
 	def __init__(self, project, projectview, mainview):
+		"""
+		Creates a new instance of TimeLineBar
+		
+		Parameters:
+			project -- reference to Project (Project.py).
+			projectview -- reference to RecordingView (RecordingView.py).
+			mainview -- reference to MainApp (JokosherApp.py).
+		"""
 		gtk.Frame.__init__(self)
 		
 		self.project = project
@@ -104,11 +117,27 @@ class TimeLineBar(gtk.Frame):
 	#_____________________________________________________________________
 
 	def OnAllocate(self, widget, allocation):
+		"""
+		From:
+		http://www.moeraki.com/pygtkreference/pygtk2reference/class-gtkwidget.html#signal-gtkwidget--size-allocate
+		The "size-allocate" signal is emitted when widget is given a new space allocation.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly. 
+			allocation -- the position and size to be allocated to the widget.
+		"""
 		self.allocation = allocation
 
 	#_____________________________________________________________________
 	
 	def Update(self, width):
+		""" 
+		This method updates the contents TimeLineBar, updating the values in the beats per minute box and time signature box,
+		as well as updating the click button sensitivity and instrument header width.
+		
+		Parameters:
+			width -- the instrument header width.
+		"""
 		if not self.Updating:
 			instrumentviews=[]
 			if self.mainview.recording:
@@ -141,6 +170,14 @@ class TimeLineBar(gtk.Frame):
 	#_____________________________________________________________________
 	
 	def OnEditBPM(self, widget, event):
+		"""
+		This method is called when the user clicks the beats per minute box.
+		This method will show a spin button widget with a value inside which the user can change.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+			event -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		#self.parentUpdateMethod()
 		if event.type == gtk.gdk.BUTTON_PRESS:
 			self.bpmframe.remove(self.bpmeventbox)
@@ -159,6 +196,14 @@ class TimeLineBar(gtk.Frame):
 	#_____________________________________________________________________
 
 	def OnEditSig(self, widget, event):
+		"""
+		This method is called when the user clicks the time signature box.
+		This method will show a text entry widget with a value inside it which the user can change.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+			event -- reserved for GTK callbacks, don't use it explicitly.
+		""" 
 		#self.parentUpdateMethod()
 		if event.type == gtk.gdk.BUTTON_PRESS:
 			self.sigframe.remove(self.sigeventbox)
@@ -176,6 +221,15 @@ class TimeLineBar(gtk.Frame):
 	#_____________________________________________________________________
 	
 	def OnAcceptEditBPM(self, widget=None):
+		"""
+		This method is called when the user finishes editing the beats per minute box.
+		This method then updates the beats per minute value to the value the user 
+		enters and then writes that change to disk if the user saves the project. 
+		If anything but OnEditBPM calls this method, it will update the contents of the beats per minute box.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		if self.bpmeditPacked:
 			self.bpmframe.remove(self.bpmedit)
 			#FIXME: find a better way to do project.PrepareClick() it doesn't take a really long time with large bpm
@@ -198,6 +252,15 @@ class TimeLineBar(gtk.Frame):
 	#_____________________________________________________________________
 
 	def OnAcceptEditSig(self, widget=None):
+		"""
+		This method is called when the user finishes editing the time signature box.
+		This method then updates the time signature value to be the value the user 
+		enters and then writes that value to disk if the user saves the project.
+		If anything but OnEditSig calls this method, it will update the contents of the time signature box.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		if self.sigeditPacked:
 			self.sigframe.remove(self.sigedit)
 			sigstring = _("Please enter a correct time signature")
@@ -236,6 +299,14 @@ class TimeLineBar(gtk.Frame):
 	#_____________________________________________________________________
 	
 	def OnMouseMoveBPM(self, widget, event):
+		"""
+		This method is called when the mouse pointer enters or leaves the beats per minute box.
+		This method changes the type of cursor if the mouse pointer is hovered over the beats per minute box.
+				
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+			event -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		if not widget.window: 
 			return
 		if (event.type == gtk.gdk.ENTER_NOTIFY):
@@ -246,6 +317,14 @@ class TimeLineBar(gtk.Frame):
 	#_____________________________________________________________________
 	
 	def OnMouseMoveSig(self, widget, event):
+		"""
+		This method is called when the mouse pointer enters or leaves the time signature box.
+		This method also changes the type of cursor if the mouse pointer is hovered over the time signature box.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+			event -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		if not widget.window: 
 			return
 		if (event.type == gtk.gdk.ENTER_NOTIFY):
@@ -256,6 +335,11 @@ class TimeLineBar(gtk.Frame):
 	#_____________________________________________________________________
 
 	def OnClick(self, widget):
+		"""
+		This method is called when the click button is clicked.
+		This method will also set the clicked button to appear pressed in if clicked.
+		If the click button is clicked while in a 'pressed in' state. It will appear as it did originally.
+		""" 
 		if widget.get_active() == True:
 			self.project.EnableClick()
 			self.clicktip.set_tip(self.clickbutton, _("Turn click track off"), None)
