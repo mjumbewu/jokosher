@@ -55,10 +55,11 @@ def UndoCommand(*command):
 			Parameters:
 				funcSelf -- reference to the decorated function's class.
 				*args -- parameters meant for the decorated function.
-				**kwargs -- additional parameters passed to the decorated function.
+				**kwargs -- dictionary of keyword:value parameters meant
+							for the decorated function.
 			
 			Returns:
-				the wrapped command function.
+				the wrapped function resulting value.
 			"""
 			try:
 				result = func(funcSelf, *args, **kwargs)
@@ -109,7 +110,8 @@ class CancelUndoCommand(Exception):
 		Creates a new instance of CancelUndoCommand.
 		
 		Parameters:
-			result -- result of the failed undo command.
+			result -- value the wrapped function intended to return,
+						but failed and called this exception.
 		"""
 		Exception.__init__(self)
 		self.result = result
