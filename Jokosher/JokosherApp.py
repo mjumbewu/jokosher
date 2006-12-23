@@ -538,6 +538,9 @@ class MainApp:
 		buttons = (gtk.STOCK_CANCEL,gtk.RESPONSE_CANCEL,gtk.STOCK_SAVE,gtk.RESPONSE_OK)
 		chooser = gtk.FileChooserDialog(_("Mixdown Project"), self.window, gtk.FILE_CHOOSER_ACTION_SAVE, buttons)
 		chooser.set_current_folder(Globals.settings.general["projectfolder"])
+		chooser.set_do_overwrite_confirmation(True)
+		chooser.set_default_response(gtk.RESPONSE_OK)
+		chooser.set_current_name(self.project.name)
 
 		saveLabel = gtk.Label(_("Save as file type:"))		
 		typeCombo = gtk.combo_box_new_text()
@@ -563,7 +566,7 @@ class MainApp:
 			filetype = Globals.EXPORT_FORMATS[typeCombo.get_active()]["extension"]
 			if not self.exportFilename.lower().endswith(filetype):
 				self.exportFilename += "." + filetype
-				
+		
 			chooser.destroy()
 			self.project.Export(self.exportFilename)
 		else:
@@ -744,6 +747,9 @@ class MainApp:
 		"""
 		buttons = (gtk.STOCK_CANCEL,gtk.RESPONSE_CANCEL,gtk.STOCK_SAVE,gtk.RESPONSE_OK)
 		chooser = gtk.FileChooserDialog(_("Choose a location to save the project"), self.window, gtk.FILE_CHOOSER_ACTION_SAVE, buttons)
+		chooser.set_do_overwrite_confirmation(True)
+		chooser.set_current_name(self.project.name)
+		chooser.set_default_response(gtk.RESPONSE_OK)
 		chooser.set_current_folder(Globals.settings.general["projectfolder"])
 
 		response = chooser.run()
