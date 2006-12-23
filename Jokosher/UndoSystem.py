@@ -13,17 +13,14 @@ import Project, Globals
 
 def UndoCommand(*command):
 	"""
-	Method to take in the undo command, and return a decorator 
-	for functions that need to be logged in the undo stack.
+	Decorates functions, enabling them to be logged in the undo stack.
+	The decorating process is transparent to the clients.
 	
 	Parameters:
 		command -- the undo command list of strings.
 		
 	Returns:
-		the wrapped undo function, depending on its type:
-			Project
-			Instrument
-			Event
+		an UndoFunction which decorates the original function.
 	"""
 	def UndoFunction(func):
 		"""

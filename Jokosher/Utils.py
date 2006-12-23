@@ -19,7 +19,7 @@ def DbToFloat(f):
 	Converts f from the decibel scale to a float.
 	
 	Parameters:
-		f -- number in decimal format.
+		f -- number in decibel format.
 	
 	Returns:
 		a float in the [0,1] range.

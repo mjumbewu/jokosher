@@ -73,7 +73,9 @@ class EffectWidget(gtk.DrawingArea):
 			event -- reserved for GTK callbacks, don't use it explicitly.
 			
 		Returns:
-			False -- TODO
+			False -- indicates the GTK signal to:
+					1) continue propagating the regular signal.
+					2) stop calling the callback on a timeout_add.
 		"""
 		# this is the context (the area to be drawn on) where we draw the
 		# widget
