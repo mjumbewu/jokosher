@@ -144,6 +144,8 @@ class MainApp:
 		self.settingButtons = False
 		self.isRecording = False
 		self.isPlaying = False
+		self.isPaused = False
+		self.exportFilename = None
 
 		# Intialise context sensitive tooltips for workspaces buttons
 		self.contextTooltips.set_tip(self.recordingButton,_("Currently working in the Recording workspace"),None)
@@ -477,16 +479,7 @@ class MainApp:
 		"""
 
 		self.addInstrumentButton.set_sensitive(True)
-
-		if self.isRecording: 
-			self.settingButtons = False
-			self.record.set_active(False)
-		if self.isPlaying:
-			if self.play.get_active():
-				self.play.set_active(False)
-			else:
-				self.play.set_active(False)
-				self.Play()
+		self.project.Stop()
 
 	#_____________________________________________________________________
 
@@ -562,31 +555,17 @@ class MainApp:
 		
 		response = chooser.run()
 		if response == gtk.RESPONSE_OK:
-			filename = chooser.get_filename()
-			Globals.settings.general["projectfolder"] = os.path.dirname(filename)
+			self.exportFilename = chooser.get_filename()
+			Globals.settings.general["projectfolder"] = os.path.dirname(self.exportFilename)
 			Globals.settings.write()
 			#If they haven't already appended the extension for the 
 			#chosen file type, add it to the end of the file.
 			filetype = Globals.EXPORT_FORMATS[typeCombo.get_active()]["extension"]
-			if not filename.lower().endswith(filetype):
-				filename = filename + "." + filetype
+			if not self.exportFilename.lower().endswith(filetype):
+				self.exportFilename += "." + filetype
 				
 			chooser.destroy()
-		
-			export = gtk.glade.XML (Globals.GLADE_PATH, "ProgressDialog")
-			export.signal_connect("on_cancel_clicked", self.OnExportCancel)
-			
-			self.exportdlg = export.get_widget("ProgressDialog")
-			self.exportdlg.set_icon(self.icon)
-			self.exportdlg.set_transient_for(self.window)
-			
-			label = export.get_widget("progressLabel")
-			label.set_text(_("Mixing project to file: %s") %filename)
-			
-			self.exportprogress = export.get_widget("progressBar")
-			
-			gobject.timeout_add(100, self.UpdateExportDialog)
-			self.project.Export(filename)
+			self.project.Export(self.exportFilename)
 		else:
 			chooser.destroy()
 		
@@ -887,6 +866,7 @@ class MainApp:
 			change -- string indicating the change which fired this function:
 					gst-bus-error = a serious core engine error occurred.
 					play = playback started.
+					pause = playback paused.
 					record = recording started.
 					stop = playback or recording was stopped.
 					transport-mode = the transport mode display was changed.
@@ -894,29 +874,38 @@ class MainApp:
 			*extra -- parameters of additional information depending on the change parameter.
 		"""
 
-		if change=="play" or (change == "stop" and self.isPlaying):
-			self.isPlaying = not self.isPlaying
-			self.stop.set_sensitive(self.isPlaying)
+		if change == "play" or change == "pause" or change == "record" or change == "stop":
+			self.isPlaying = (self.project.audioState == self.project.AUDIO_PLAYING)
+			self.isPaused = (self.project.audioState == self.project.AUDIO_PAUSED)
+			self.isRecording = (self.project.audioState == self.project.AUDIO_RECORDING)
+			self.stop.set_sensitive(True)	#stop should always be clickable
 			self.record.set_sensitive(not self.isPlaying)
-			self.compactmix.StartUpdateTimeout()
+			self.play.set_sensitive(not self.isRecording)
+			
 			self.settingButtons = True
+			self.record.set_active(self.isRecording)
 			self.play.set_active(self.isPlaying)
 			self.settingButtons = False
 			
-		elif change == "pause":
-			self.isPlaying = not self.isPlaying
-			self.settingButtons = True
-			self.play.set_active(False)
-			self.settingButtons = False
-		
-		elif change == "record" or (change == "stop" and self.isRecording):
-			self.isRecording = not self.isRecording
-			self.stop.set_sensitive(self.isRecording)
-			self.play.set_sensitive(not self.isRecording)
 			self.compactmix.StartUpdateTimeout()
-			self.settingButtons = True
-			self.record.set_active(self.isRecording)
-			self.settingButtons = False
+			
+		elif change == "export-start":
+			export = gtk.glade.XML (Globals.GLADE_PATH, "ProgressDialog")
+			export.signal_connect("on_cancel_clicked", self.OnExportCancel)
+			
+			self.exportdlg = export.get_widget("ProgressDialog")
+			self.exportdlg.set_icon(self.icon)
+			self.exportdlg.set_transient_for(self.window)
+			
+			label = export.get_widget("progressLabel")
+			label.set_text(_("Mixing project to file: %s") %self.exportFilename)
+			
+			self.exportprogress = export.get_widget("progressBar")
+			
+			gobject.timeout_add(100, self.UpdateExportDialog)
+			
+		elif change == "export-stop":
+			self.exportdlg.destroy()
 		
 		elif change == "undo":
 			self.undo.set_sensitive(self.project.CanPerformUndo())

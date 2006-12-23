@@ -672,6 +672,7 @@ class Project(Monitored):
 		self.exportPending = True
 		#start the pipeline!
 		self.Play(newAudioState=self.AUDIO_EXPORTING)
+		self.StateChanged("export-start")
 
 	#_____________________________________________________________________
 	
@@ -708,6 +709,8 @@ class Project(Monitored):
 		self.playbackbin.add(self.masterSink, self.levelElement)
 		self.levelElementCaps.link(self.levelElement)
 		self.levelElement.link(self.masterSink)
+		
+		self.StateChanged("export-stop")
 	
 	#_____________________________________________________________________
 	
