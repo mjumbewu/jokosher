@@ -40,6 +40,7 @@ class PreferencesDialog:
 
 		self.signals = {
 			"on_Setting_changed" : self.OnSettingChanged,
+			"on_playbackSink_changed" : self.OnPlaybackSinkChanged,
 			"on_Close_clicked" : self.OnClose,
 		}
 
@@ -48,15 +49,36 @@ class PreferencesDialog:
 		self.dlg.set_icon(icon)
 		self.recordingFileFormat = self.res.get_widget("recordingFileFormat")
 		self.samplingRate = self.res.get_widget("samplingRate")
-		self.playingDevice = self.res.get_widget("playbackDevice")
+		self.playbackDevice = self.res.get_widget("playbackDevice")
+		self.playbackSink = self.res.get_widget("playbackSink")
+		self.customSink = self.res.get_widget("customSink")
 		self.radioWelcome = self.res.get_widget("startupWelcomeDialog")
 		self.radioLastProject = self.res.get_widget("startupLastProject")
 		self.radioNothing = self.res.get_widget("startupNothing")
-
+		
+		#Load settings - set to True to make sure data isn't saved to file until everything is loaded
+		self.loadingSettings = True
+		
+		audioSinkSetting = Globals.settings.playback["audiosink"]
+		if audioSinkSetting == "autoaudiosink":
+			self.playbackSink.set_active(0)
+			self.customSink.set_sensitive(False)
+			self.playbackDevice.set_sensitive(False)
+		elif audioSinkSetting == "alsasink":
+			self.playbackSink.set_active(1)
+			self.customSink.set_sensitive(False)
+			self.playbackDevice.set_sensitive(True)
+		else:
+			self.playbackSink.set_active(2)
+			self.customSink.set_sensitive(True)
+			self.customSink.set_text(audioSinkSetting)
+			self.playbackDevice.set_sensitive(False)
+		
 		#Find all ALSA devices 
 		self.playbacks = AlsaDevices.GetAlsaList("playback")
 		for playback in self.playbacks:
-			self.playingDevice.append_text(playback)
+			self.playbackDevice.append_text(playback)
+		self.LoadSetting(self.playbackDevice, Globals.settings.playback, "device")
 			
 		#Get available sample rates from ALSA
 		sample_values = AlsaDevices.GetRecordingSampleRate()
@@ -91,6 +113,8 @@ class PreferencesDialog:
 					if str(rate) == sampleRateSetting:
 						sampleRateSettingIndex = index
 					index += 1
+					
+		self.samplingRate.set_active(sampleRateSettingIndex)
 
 		fileFormatSetting = Globals.settings.recording["fileformat"]
 		fileFormatSettingIndex = 0
@@ -99,14 +123,9 @@ class PreferencesDialog:
 			self.recordingFileFormat.append_text("%s (.%s)" % (i["description"], i["extension"]))
 			if fileFormatSetting == i["pipeline"]:
 				fileFormatSettingIndex = Globals.EXPORT_FORMATS.index(i)
-
-		#Load settings - set to True to make sure data isn't saved to file until everything is loaded
-		self.loading = True
+		
 		self.recordingFileFormat.set_active(fileFormatSettingIndex)
-		self.samplingRate.set_active(sampleRateSettingIndex)
-		self.LoadSetting(self.playingDevice, Globals.settings.playback, "device")
-		self.loading = False
-
+		
 		# configure the application startup radio buttons
 		startupValue = Globals.settings.general["startupaction"]
 		if startupValue == STARTUP_LAST_PROJECT:
@@ -115,6 +134,8 @@ class PreferencesDialog:
 			self.radioNothing.set_active(True)
 		else: #default in case no preference is saved
 			self.radioWelcome.set_active(True)
+			
+		self.loadingSettings = False
 		
 	#_____________________________________________________________________
 		
@@ -160,15 +181,15 @@ class PreferencesDialog:
 		Keyword arguments:
 		combobox -- The combobox widget that has changed (unused, automatically specified by gtk)."""
 
-		if self.loading:
+		if self.loadingSettings:
 			return
 		
 		exportDict = Globals.EXPORT_FORMATS[self.recordingFileFormat.get_active()]
 		Globals.settings.recording["fileformat"] = exportDict["pipeline"]
 		#only get the number from "44100 Hz", not the whole string
 		Globals.settings.recording["samplerate"] = self.samplingRate.get_active_text().split(" ")[0]
-		Globals.settings.playback["device"] = self.playingDevice.get_active_text()
-		Globals.settings.playback["devicecardnum"] = self.playbacks[self.playingDevice.get_active_text()]		
+		Globals.settings.playback["device"] = self.playbackDevice.get_active_text()
+		Globals.settings.playback["devicecardnum"] = self.playbacks[self.playbackDevice.get_active_text()]		
 		
 		if self.radioWelcome.get_active():
 			Globals.settings.general["startupaction"] = STARTUP_WELCOME_DIALOG
@@ -183,6 +204,30 @@ class PreferencesDialog:
 
 	#_____________________________________________________________________
 
+	def OnPlaybackSinkChanged(self, comboBox=None):
+		if self.loadingSettings:
+			return
+	
+		# First in the list is Autodetect
+		if self.playbackSink.get_active() == 0:
+			self.customSink.set_sensitive(False)
+			self.playbackDevice.set_sensitive(False)
+			Globals.settings.playback["audiosink"] = "autoaudiosink"
+		# Second is ALSA
+		elif self.playbackSink.get_active() == 1:
+			self.customSink.set_sensitive(False)
+			self.playbackDevice.set_sensitive(True)
+			Globals.settings.playback["audiosink"] = "alsasink"
+		# Third is Custom
+		elif self.playbackSink.get_active() == 2:
+			self.customSink.set_sensitive(True)
+			self.playbackDevice.set_sensitive(False)
+			Globals.settings.playback["audiosink"] = self.customSink.get_text()
+			
+		Globals.settings.write()
+	
+	#_____________________________________________________________________
+	
 	def OnCheckEncoders(self):
 		"""List the available encoders installed on the computer
 		   This code is not currently used, but is still here as it may
@@ -202,4 +247,5 @@ class PreferencesDialog:
 		
 		for enc in encoders:
 			self.mixdownFormat.append_text(enc.get_longname())
-		
+	
+	#_____________________________________________________________________

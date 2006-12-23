@@ -25,7 +25,7 @@ class Settings:
 			   "startupaction" : "value",
 			   "projectfolder" : "" }
 	recording = {"fileformat": "vorbisenc ! oggmux", "samplerate": "44100"}
-	playback = {"device": "value", "devicecardnum": "value"}
+	playback = {"device": "default", "devicecardnum": "value", "audiosink":"autoaudiosink"}
 	extensions = {"extensions_blacklist": ""}
 	
 	def __init__(self, filename = None):

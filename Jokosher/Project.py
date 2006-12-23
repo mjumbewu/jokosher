@@ -374,7 +374,8 @@ class Project(Monitored):
 		self.playbackbin = gst.Bin("playbackbin")
 		self.adder = gst.element_factory_make("adder")
 		self.volumeElement = gst.element_factory_make("volume")
-		self.masterSink = gst.element_factory_make("alsasink")
+		Globals.debug("Using audio output: %s" % Globals.settings.playback["audiosink"])
+		self.masterSink = gst.element_factory_make(Globals.settings.playback["audiosink"])
 		
 		self.levelElement = gst.element_factory_make("level", "MasterLevel")
 		self.levelElement.set_property("interval", gst.SECOND / 50)
@@ -385,17 +386,18 @@ class Project(Monitored):
 		caps = gst.caps_from_string("audio/x-raw-int,rate=44100,channels=2,width=16,depth=16,signed=(boolean)true")
 		self.levelElementCaps.set_property("caps", caps)
 		
-		#Set the alsa device for audio output
-		outdevice = Globals.settings.playback["devicecardnum"]
-		if outdevice == "value":
-			try:
-				# Select first output device as default to avoid a GStreamer bug which causes
-				# large amounts of latency with the ALSA 'default' device.
-				outdevice = GetAlsaList("playback").values()[1]
-			except:
-				outdevice = "default"
-		Globals.debug("Output device: %s" % outdevice)
-		self.masterSink.set_property("device", outdevice)
+		if Globals.settings.playback["audiosink"] == "alsasink":
+			#Set the alsa device for audio output
+			outdevice = Globals.settings.playback["devicecardnum"]
+			if outdevice == "default":
+				try:
+					# Select first output device as default to avoid a GStreamer bug which causes
+					# large amounts of latency with the ALSA 'default' device.
+					outdevice = GetAlsaList("playback").values()[1]
+				except:
+					pass
+			Globals.debug("Output device: %s" % outdevice)
+			self.masterSink.set_property("device", outdevice)
 		
 		# ADD ELEMENTS TO THE PIPELINE AND/OR THEIR BINS #
 		self.mainpipeline.add(self.playbackbin)
