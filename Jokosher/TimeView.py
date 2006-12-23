@@ -37,6 +37,8 @@ class TimeView(gtk.EventBox):
 		self.project = project
 		self.project.transport.AddListener(self)
 		self.UpdateTime()
+		self.tmtip = gtk.Tooltips()
+		self.tmtip.set_tip(self, _("Double click to change the time format"), None)
 		
 	#_____________________________________________________________________
 		
