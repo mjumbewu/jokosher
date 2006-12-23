@@ -19,26 +19,38 @@ from Monitored import *
 #=========================================================================
 
 class TransportManager(Monitored):
-
-	""" This class handles the current play cursor position
+	"""
+	This class handles the current cursor position and the gstreamer
+	bits for rewinding, fast forwarding and seeking.
 	"""
 
-	FPS = 30. 				# Position update rate in Frames Per Second
-	TICKS_PER_BEAT = 256 	# Timing resolution - number of ticks ber beat
-	SEEK_RATE = 5.			# How many times normal speed the position moves when seeking
+	""" Position update rate in Frames Per Second. """
+	FPS = 30.
 	
+	""" Timing resolution - number of ticks ber beat. """
+	TICKS_PER_BEAT = 256
+	
+	""" How many times normal speed the position moves when seeking. """
+	SEEK_RATE = 5.
+	
+	""" Display mode in hours, minutes and seconds. """
 	MODE_HOURS_MINS_SECS = 1
+	
+	""" Display mode in bars, beats and ticks. """
 	MODE_BARS_BEATS = 2
 
 	#_____________________________________________________________________
 
 	def __init__(self, initialMode, project):
 		"""
-			initalMode - the initial mode for the timeline display
-			             will be one of:
-			                 MODE_HOURS_MINS_SECS or
-			                 MODE_BARS_BEATS
-			project - reference to the main project
+		Creates a new instance of TransportManager.
+		
+		Parameters:
+			initialMode --the initial mode for the timeline display.
+						Possible values:
+						MODE_HOURS_MINS_SECS
+						MODE_BARS_BEATS
+			project -- reference to the current Project.
 		"""
 		Monitored.__init__(self)
 		
@@ -55,7 +67,7 @@ class TransportManager(Monitored):
 		self.isReversing = False
 		self.isForwarding = False
 		self.RedrawTimeLine = False # set by SetMode to force redraw
-		                            # in TimeLine
+									# in TimeLine
 		self.UpdateTimeout = False
 		
 		self.mode = initialMode
@@ -64,8 +76,11 @@ class TransportManager(Monitored):
 	
 	def Play(self, newAudioState):
 		"""
-			Called when play button has been pressed (or whilst exporting 
-			in which case newAudioState will be set to AUDIO_EXPORTING)
+		Called when play button has been pressed (or whilst exporting
+		in which case, newAudioState will be set to AUDIO_EXPORTING).
+		
+		Parameters:
+			newAudioState -- new audio state to set the Project to.
 		"""
 		#the state must be set to paused before playing
 		if self.pipeline.get_state(0)[1] != gst.STATE_PAUSED:
@@ -87,7 +102,7 @@ class TransportManager(Monitored):
 		
 	def Pause(self):
 		"""
-		Pause the pipeline
+		Pause the playback.
 		"""
 		self.isPlaying = False
 		self.isPaused = True
@@ -98,7 +113,7 @@ class TransportManager(Monitored):
 		
 	def Stop(self):
 		"""
-			Called when stop button has been pressed
+		Stops the playback.
 		"""
 		self.isPlaying = False
 		self.project.SetAudioState(self.project.AUDIO_STOPPED)
@@ -109,9 +124,12 @@ class TransportManager(Monitored):
 		
 	def Reverse(self, turnOn):
 		"""
-			Called when rewind button is
-			   a) pressed - turnOn = True
-			   b) released - turnOn = False
+		Called when rewind button is
+			a) pressed - turnOn = True
+			b) released - turnOn = False
+			
+		Parameters:
+			turnOn -- state of the rewind button.
 		"""
 		if self.isReversing == turnOn:
 			#there is no change in reversing state
@@ -133,9 +151,12 @@ class TransportManager(Monitored):
 		
 	def Forward(self, turnOn):
 		"""
-			Called when fast forward button is
-			   a) pressed - turnOn = True
-			   b) released - turnOn = False
+		Called when fast forward button is
+			a) pressed - turnOn = True
+			b) released - turnOn = False
+			
+		Parameters:
+			turnOn -- state of the fast forward button.
 		"""
 		if self.isForwarding == turnOn:
 			#there is no change in the forwarding state
@@ -157,7 +178,10 @@ class TransportManager(Monitored):
 	
 	def GetPosition(self):
 		"""
-			Gives current position
+		Obtain the current playhead position.
+		
+		Returns:
+			the current playhead cursor position.
 		"""
 		return self.position
 	
@@ -165,8 +189,14 @@ class TransportManager(Monitored):
 	
 	def SetPosition(self, pos):
 		"""
-			Change current position variable (calls StateChanged to
-			trigger response on all classes that listening to this)
+		Change the current position variable.
+		
+		Considerations:
+			Calls StateChanged to trigger response on all classes
+			that are listening to this object.
+		
+		Parameters:
+			pos -- new playhead cursor position.
 		"""
 		if self.position != pos:
 			self.PrevPosition = self.position
@@ -177,8 +207,10 @@ class TransportManager(Monitored):
 
 	def SetMode(self, mode):
 		"""
-		   For undo compatibility please use Project.SetTransportMode().
-		   That method should be used instead in most cases.
+		In most cases, for undo compatibility, use Project.SetTransportMode().
+		
+		Parameters:
+			mode -- new transport mode to be set.
 		"""
 		if self.mode != mode:
 			self.mode = mode
@@ -189,7 +221,10 @@ class TransportManager(Monitored):
 	
 	def GetPositionAsBarsAndBeats(self):
 		"""
-			Returns a tuple of the current position as (bar, beats, ticks)
+		Obtain the current position in bars, beats and ticks.
+		
+		Returns:
+			tuple of the current position as (bar, beats, ticks).
 		"""
 		mins = self.position / 60.
 		beats = int(mins * self.bpm)
@@ -202,7 +237,10 @@ class TransportManager(Monitored):
 	
 	def GetPositionAsHoursMinutesSeconds(self):
 		"""
-			Returns a tuple of the current position as (hours, minutes, seconds)
+		Obtain the current position in hours, minutes and seconds.
+		
+		Returns:
+			tuple of the current position as (hours, minutes, seconds, milliseconds).
 		"""
 		hours = int(self.position / 3600)
 		mins = int((self.position % 3600) / 60)
@@ -215,7 +253,10 @@ class TransportManager(Monitored):
 
 	def SetBPM(self, bpm):
 		"""
-			Changes current beats per minute
+		Changes the current beats per minute.
+		
+		Parameters:
+			bpm -- value of the new beats per minute.
 		"""
 		if self.bpm != bpm:
 			self.bpm = bpm
@@ -225,7 +266,18 @@ class TransportManager(Monitored):
 
 	def SetMeter(self, nom, denom):
 		"""
-			Changes current meter
+		Changes the current time signature.
+		
+		Example:
+			nom = 3
+			denom = 4
+			
+			would result in the following signature:
+				3/4
+		
+		Parameters:
+			nom -- new time signature nominator.
+			denom --new time signature denominator.
 		"""
 		if self.meter_nom != nom or self.meter_denom != denom:
 			self.meter_nom = nom
@@ -236,8 +288,7 @@ class TransportManager(Monitored):
 	
 	def StartUpdateTimeout(self):
 		"""
-			Starts the timeout that will control the
-			playhead display
+		Starts the timeout that will control the playhead display.
 		"""
 		if not self.UpdateTimeout:
 			gobject.timeout_add(int(1000/self.FPS), self.OnUpdate)
@@ -247,8 +298,12 @@ class TransportManager(Monitored):
 	
 	def OnUpdate(self):
 		"""
-			The timeout callback - called every 1/FPS to move the
-			playhead display on
+		The timeout callback - called every 1/FPS to move the 
+		playhead display on.
+		
+		Returns:
+			True -- pipeline is playing, keep calling this method.
+			False -- pipeline is paused or stopped, stop calling this method.
 		"""
 		if self.isReversing:
 			newpos = self.position - self.SEEK_RATE/self.FPS
@@ -276,7 +331,10 @@ class TransportManager(Monitored):
 	
 	def SeekTo(self, pos):
 		"""
-			Performs pipeline seek to alter position of playback
+		Performs a pipeline seek to alter position of the playhead cursor.
+		
+		Parameters:
+			pos -- position to place the playhead cursor.
 		"""
 		#make sure we cant seek to before the beginning
 		pos = max(0, pos)
@@ -290,7 +348,7 @@ class TransportManager(Monitored):
 	
 	def QueryPosition(self):
 		"""
-			Reads current position by querying pipeline
+		Reads the current playhead cursor position by querying pipeline.
 		"""
 		pos = self.pipeline.query_position(gst.FORMAT_TIME)[0]
 		self.SetPosition(float(pos) / gst.SECOND)
@@ -298,4 +356,3 @@ class TransportManager(Monitored):
 	#_____________________________________________________________________
 	
 #=========================================================================
-
