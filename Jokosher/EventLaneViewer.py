@@ -214,6 +214,7 @@ class EventLaneViewer(gtk.EventBox):
 				audioimg.set_from_pixbuf(self.audioFilePixbuf)
 			
 			items = [	(_("_Import Audio File..."), self.CreateEventFromFile, True, audioimg),
+					(_("I_nstrument Connections"), self.mainview.OnInstrumentConnectionsDialog, True, gtk.image_new_from_stock(gtk.STOCK_PREFERENCES, gtk.ICON_SIZE_MENU)),
 					("---", None, None, None),
 					(_("_Paste"), self.OnPaste, self.project.clipboardList, gtk.image_new_from_stock(gtk.STOCK_PASTE, gtk.ICON_SIZE_MENU)),
 					(_("_Delete"), self.OnDelete, True, gtk.image_new_from_stock(gtk.STOCK_DELETE, gtk.ICON_SIZE_MENU))
