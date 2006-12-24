@@ -1597,34 +1597,39 @@ class MainApp:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		ExtensionManagerDialog.ExtensionManagerDialog(self)
+	#_____________________________________________________________________
 		
 	def OnInstrumentMenuItem(self, widget):
+		"""
+		Creates and shows the "Instrument" menu.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		audioimg = gtk.Image()
 		audioimg.set_from_pixbuf(self.audioFilePixbuf)
 		items = self.instrumentmenu.get_children()
 		for i in items:
 			self.instrumentmenu.remove(i)
 			
-		items = [	(_("Import Audio File"), audioimg, self.importaudio),
-				(_("Change Instrument Type"), None, self.OnChangeInstrument),
-				(_("Remove Selected Instrument"), gtk.image_new_from_stock(gtk.STOCK_REMOVE, gtk.ICON_SIZE_MENU), self.removeinstr)
+		items = [	(_("_Import Audio File"), audioimg, self.importaudio),
+				(_("_Change Instrument Type"), None, self.OnChangeInstrument),
+				(_("_Remove Selected Instrument"), gtk.image_new_from_stock(gtk.STOCK_REMOVE, gtk.ICON_SIZE_MENU), self.removeinstr)
 			]
-		for label, img, cb in items:
-			if label == "---":
+		for i, img, cb in items:
+			if i == "---":
 				a = gtk.SeparatorMenuItem()
 			elif img:
-				a = gtk.ImageMenuItem(label, True)
+				a = gtk.ImageMenuItem(i, True)
 				a.set_image(img)
 			else:
-				a = gtk.MenuItem(label)
+				a = gtk.MenuItem(label=i)
 			if cb:
 				a.connect("activate", cb)
 			a.show()
 			self.instrumentmenu.add(a)
-
-		
+			
 		self.instrumentmenu.show_all()
-		
 
 #=========================================================================
 
