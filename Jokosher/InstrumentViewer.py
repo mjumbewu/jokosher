@@ -43,11 +43,14 @@ class InstrumentViewer(gtk.EventBox):
 	def __init__(self, project, instrument, projectview, mainview, small = False):
 		gtk.EventBox.__init__(self)
 		"""
-			project - the current active project
-			instrument - the instrument that the event lane belongs
-			instrumentviewer - the instrumentviewer holding the event lane
+		Creates a new instance of InstrumentViewer.
+		
+		Parameters:
+			project - the current active Project
+			instrument - the Instrument that the event lane belongs
+			instrumentviewer - the InstrumentViewer holding the event lane
 			projectview - the RecordingView instance that this belongs to
-			mainview - the main Jokosher window
+			mainview - reference to the mainwindow in JokosherApp
 			small - set to True if we want small edit views (i.e. for mix view)
 		"""
 		self.instrument = instrument
@@ -173,7 +176,12 @@ class InstrumentViewer(gtk.EventBox):
 
 	def OnMute(self, widget):
 		"""
-			Callback for "toggle" signal on Mute button
+		Called when the mute button is clicked.
+		This method will also set the mute button to appear pressed in if clicked.
+		If the mute button is clicked while in a 'pressed in' state. It will appear as it did originally.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		if not self.Updating:
 			self.instrument.ToggleMuted(wasSolo=False)
@@ -182,7 +190,12 @@ class InstrumentViewer(gtk.EventBox):
 
 	def OnArm(self, widget):
 		"""
-			Callback for "toggle" signal on Record button
+		Called when the record button is clicked.
+		This method will also set the record button to appear pressed in if clicked.
+		If the record button is clicked while in a 'pressed in' state. It will appear as it did originally.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		if not self.Updating:
 			self.instrument.ToggleArmed()
@@ -191,7 +204,9 @@ class InstrumentViewer(gtk.EventBox):
 	
 	def OnSolo(self, widget):
 		"""
-			Callback for "toggle" signal on Solo button
+		Called when the solo button is clicked.
+		This method will also set the solo button to appear pressed in if clicked.
+		If the solo button is clicked while in a 'pressed in' state. It will appear as it did originally.
 		"""
 		if not self.Updating:
 			self.instrument.ToggleSolo(False)
@@ -200,10 +215,13 @@ class InstrumentViewer(gtk.EventBox):
 
 	def OnSelect(self, widget, event):
 		"""
-			Callback for "button_press_event" anywhere within InstrumentViewer
-			Sets instrument to selected state
-		"""
+		Called when a button has been pressed anywhere within InstrumentViewer.
+		This method sets the instrument to a selected state
 		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+			event -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		if 'GDK_CONTROL_MASK' in event.state.value_names:
 			self.instrument.SetSelected(True)
 		else:
@@ -216,7 +234,12 @@ class InstrumentViewer(gtk.EventBox):
 
 	def OnEditLabel(self, widget, event):
 		"""
-			Callback for "button_press_event" in the instrument name label
+		Called when a button has been pressed within the instrument name label.
+		This method shows a text entry that allows the user to change the name of an instrument
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+			event -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		if not self.instrument.isSelected:
 			self.OnSelect(widget, event)
@@ -246,7 +269,11 @@ class InstrumentViewer(gtk.EventBox):
 
 	def OnAcceptEditLabel(self, widget=None):
 		"""
-			Called when the instrument label has been edited
+		Called after the instrument label has been edited.
+		This method updates the instrument label with the label the user entered.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		# change instrument name then replace edit label with normak label
 		if self.editlabelPacked:	
@@ -267,6 +294,10 @@ class InstrumentViewer(gtk.EventBox):
 	#_____________________________________________________________________
 	
 	def Destroy(self):
+		"""
+		Called when the InstrumentViewer is closed
+		This method destroys the InstrumentViewer.
+		"""
 		self.instrument.RemoveListener(self)
 		self.eventLane.Destroy()
 		self.destroy()
@@ -275,10 +306,12 @@ class InstrumentViewer(gtk.EventBox):
 	
 	def Update(self):
 		"""
-			Called when requested by projectview.Update() to update
-			the display in response to a change in state in any object
-			it is listening to. In turn calls EventLaneViewer.Update()
-			for its EventLaneViewer.
+		Called when requested by projectview.Update() to update
+		the display.
+		This method updates the display in response to a change in state in any object
+		is it listening to.
+		This method then calls EventLaneViewer.Update()
+		to update its EventLaneViewer.
 		"""
 		self.Updating = True
 
@@ -321,9 +354,13 @@ class InstrumentViewer(gtk.EventBox):
 
 	def OnMouseMove(self, widget, event):
 		"""
-			Callback for "enter_notify_event" and "leave_notify_event"
-			for the instrument name label. Changes cursor to show the 
-			text is edittable
+		Called when the mouse cursor enters or leaves the instrument name label area.
+		This method changes the cursor to show text is edittable 
+		when hovered over the instrument label area.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+			event -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		if not self.window: return
 		if (event.type == gtk.gdk.ENTER_NOTIFY):
@@ -335,9 +372,13 @@ class InstrumentViewer(gtk.EventBox):
 
 	def ResizeHeader(self, width):
 		"""
-			Changes the padding space of the header box in order to line
-			up correctly with the timeline display. 
-			NOTE: Not called here but from TimeLineBar.py
+		Called when a request is made to resize the instrument area.
+		This method updates the padding space of the header box in order to line
+		up correctly with the timeline display. 
+		NOTE: Not called here but from TimeLineBar.py
+		
+		Parameters:
+			width -- the width of the instrument header box
 		"""
 		padding = width - self.headerBox.size_request()[0]
 		self.headerAlign.set_padding(0, 0, 0, padding)
@@ -346,7 +387,13 @@ class InstrumentViewer(gtk.EventBox):
 	#______________________________________________________________________
 
 	def OnInstrumentEffects(self, widget, mouse):
-		""" Creates and shows the instrument effects dialog"""
+		"""
+		Creates and shows the instrument effects dialog
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+			mouse -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		Globals.debug("props button pressed")
 		if not self.effectsDialog:
 			self.effectsDialog = InstrumentEffectsDialog.InstrumentEffectsDialog(self.instrument, self.OnInstrumentEffectsDestroyed)
@@ -356,18 +403,33 @@ class InstrumentViewer(gtk.EventBox):
 	#______________________________________________________________________
 	
 	def OnInstrumentEffectsDestroyed(self, window):
+		"""
+		Called when a request is made to destroy the InstrumentEffectsDialog.
+		This method destroys the InstrumentEffectsDialog.
+		
+		Parameters:
+			window -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		self.effectsDialog = None
 		
 	#______________________________________________________________________
 	
 	def OnDragMotion(self, widget, context, x, y, time):
-		'''
-			Called each time the user moves his/her mouse while dragging.
-			'if' clause checks if mouse is on an instrument that isn't the
-			source instrument. If so, it swaps that instrument and the
-			source instrument in the GUI. Swapping of the Instrument objects
-			in self.project.instruments happens in OnDragDrop().
-		'''
+		"""
+		Called each time the user moves his/her mouse while dragging.
+		'if' clause checks if mouse is on an instrument that isn't the
+		source instrument. 
+		If so, this method then swaps that instrument and the
+		source instrument in the GUI. Swapping of the Instrument objects
+		in self.project.instruments happens in OnDragDrop().
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+			context -- a cairo context widget.
+			x -- reserved for GTK callbacks, don't use it explicitly.
+			y -- reserved for GTK callbacks, don't use it explicitly.
+			time -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		source = context.get_source_widget() 	# Will return an EventBox (self.headerEventBox)
 		if widget != source:					# Dont swap with self
 			box = self.GetInstrumentViewVBox()
@@ -385,23 +447,33 @@ class InstrumentViewer(gtk.EventBox):
 	#______________________________________________________________________
 	
 	def OnDragBegin(self, widget, context):
-		'''
-			Called at the start of the drag and drop.
-			Displays the instrument icon when dragging.
-		'''
+		"""
+		Called when the drag and drop procedure begins.
+		This method will display the instrument icon when dragging.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+			context -- a cairo context widget.
+		"""
 		widget.drag_source_set_icon_pixbuf(self.instrument.pixbuf)
 		return True
 	
 	#______________________________________________________________________
 	
 	def OnDragDrop(self, widget, context, x, y, time):
-		'''
-			Called when the user releases MOUSE1.
-			Calls MoveInstrument, which moves the dragged
-			instrument to the end position in the
-			self.project.instruments array.
-			MoveInstrument is undo-able.
-		'''
+		"""
+		Called when the user releases MOUSE1.
+		This method calls MoveInstrument, which moves the dragged
+		instrument to the end position in the
+		self.project.instruments array.
+		MoveInstrument is undo-able.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+			context -- a cairo context widget.
+			x -- reserved for GTK callbacks, don't use it explicitly.
+			y -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		id = self.instrument.id
 		box = self.GetInstrumentViewVBox()
 		position = box.get_children().index(self)
@@ -416,10 +488,11 @@ class InstrumentViewer(gtk.EventBox):
 	#______________________________________________________________________
 
 	def GetInstrumentViewVBox(self):
-		'''
-			Returns the instrumentBox if the current view is a RecordingView.
-			Returns the timebox if the current view is a CompactMixView.
-		'''
+		"""
+		Returns:
+			self.projectview.instrumentbox -- returns the instrumentBox if the current view is a RecordingView.
+			self.projectview.time -- returns the timebox if the current view is a CompactMixView.
+		"""
 		if hasattr(self.projectview, "instrumentBox"):
 			return self.projectview.instrumentBox
 		else:
@@ -428,9 +501,38 @@ class InstrumentViewer(gtk.EventBox):
 	#_____________________________________________________________________
 	
 	def OnStateChanged(self, obj, change=None, *extra):
+		"""
+		Called when a change of state is signalled by any of the
+		objects this view is 'listening' to.
+		
+		Parameters:
+			obj -- object changing state. *CHECK*
+			change -- the change which has occured.
+			extra -- extra parameters passed by the caller.
+		"""
 		if change == "image":
 			self.image.clear()
 			self.image.set_from_pixbuf(self.instrument.pixbuf)
 	
 	#______________________________________________________________________
+
+	def OnChangeInstrumentType(self, widget, event):
+		"""
+		Called when a button has been pressed in the instrument header icon.
+		This method displays the change instrument dialog, allowing the user to change a selected instrument.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+			event -- reserved for GTK callbacks, don't use it explicitly.
+		"""
+		if not self.instrument.isSelected:
+			self.OnSelect(widget, event)
+			# Don't edit type unless the user clicks while we are already selected
+			return True
+		
+		AddInstrumentDialog.AddInstrumentDialog(self.project, self.mainview, self.instrument)
+		    
+	#______________________________________________________________________
+
+
 	#=========================================================================	
