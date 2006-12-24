@@ -122,7 +122,7 @@
 		      <signal name="activate" handler="on_export_activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image232">
+			<widget class="GtkImage" id="image298">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-jump-to</property>
 			  <property name="icon_size">1</property>
@@ -175,7 +175,7 @@
 		      <accelerator key="Z" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image233">
+			<widget class="GtkImage" id="image299">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-undo</property>
 			  <property name="icon_size">1</property>
@@ -198,7 +198,7 @@
 		      <accelerator key="Z" modifiers="GDK_CONTROL_MASK | GDK_SHIFT_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image234">
+			<widget class="GtkImage" id="image300">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-redo</property>
 			  <property name="icon_size">1</property>
@@ -296,7 +296,7 @@
 		      <signal name="activate" handler="on_AddInstrument_clicked"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image235">
+			<widget class="GtkImage" id="image301">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-add</property>
 			  <property name="icon_size">1</property>
@@ -310,16 +310,6 @@
 		  </child>
 
 		  <child>
-		    <widget class="GtkMenuItem" id="changeinstrumenttype">
-		      <property name="visible">True</property>
-		      <property name="tooltip" translatable="yes">Change the selected instrument type</property>
-		      <property name="label" translatable="yes">_Change Instrument Type</property>
-		      <property name="use_underline">True</property>
-		      <signal name="activate" handler="on_ChangeInstrumentType_clicked"/>
-		    </widget>
-		  </child>
-
-		  <child>
 		    <widget class="GtkImageMenuItem" id="instrument_connections1">
 		      <property name="visible">True</property>
 		      <property name="tooltip" translatable="yes">Manage instrument recording inputs</property>
@@ -328,7 +318,7 @@
 		      <signal name="activate" handler="on_instrumentconnections_activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image236">
+			<widget class="GtkImage" id="image302">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-preferences</property>
 			  <property name="icon_size">1</property>
@@ -377,6 +367,21 @@
 		      </child>
 		    </widget>
 		  </child>
+		</widget>
+	      </child>
+	    </widget>
+	  </child>
+
+	  <child>
+	    <widget class="GtkMenuItem" id="instrument_menuitem">
+	      <property name="visible">True</property>
+	      <property name="sensitive">False</property>
+	      <property name="label" translatable="yes">_Instrument</property>
+	      <property name="use_underline">True</property>
+	      <signal name="activate" handler="on_instrument_menu_item_activate" last_modification_time="Sun, 24 Dec 2006 00:54:35 GMT"/>
+
+	      <child>
+		<widget class="GtkMenu" id="instrument_menu">
 		</widget>
 	      </child>
 	    </widget>
@@ -439,7 +444,7 @@
 		      <signal name="activate" handler="on_forums_activate" last_modification_time="Sat, 16 Dec 2006 07:53:08 GMT"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image237">
+			<widget class="GtkImage" id="image303">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-info</property>
 			  <property name="icon_size">1</property>
@@ -461,7 +466,7 @@
 		      <signal name="activate" handler="on_contributing_activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image238">
+			<widget class="GtkImage" id="image304">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-index</property>
 			  <property name="icon_size">1</property>
@@ -3970,16 +3975,27 @@ http://www.jokosher.org/contribute</property>
       <property name="spacing">10</property>
 
       <child>
-	<widget class="GtkTreeView" id="treeview1">
+	<widget class="GtkScrolledWindow" id="scrolledwindow4">
 	  <property name="visible">True</property>
-	  <property name="headers_visible">True</property>
-	  <property name="rules_hint">False</property>
-	  <property name="reorderable">False</property>
-	  <property name="enable_search">True</property>
-	  <property name="fixed_height_mode">False</property>
-	  <property name="hover_selection">False</property>
-	  <property name="hover_expand">False</property>
-	  <signal name="cursor_changed" handler="on_Treeview_selected" last_modification_time="Tue, 31 Oct 2006 22:38:54 GMT"/>
+	  <property name="can_focus">True</property>
+	  <property name="hscrollbar_policy">GTK_POLICY_NEVER</property>
+	  <property name="vscrollbar_policy">GTK_POLICY_ALWAYS</property>
+	  <property name="shadow_type">GTK_SHADOW_IN</property>
+	  <property name="window_placement">GTK_CORNER_TOP_LEFT</property>
+
+	  <child>
+	    <widget class="GtkTreeView" id="treeview1">
+	      <property name="visible">True</property>
+	      <property name="headers_visible">True</property>
+	      <property name="rules_hint">False</property>
+	      <property name="reorderable">False</property>
+	      <property name="enable_search">True</property>
+	      <property name="fixed_height_mode">False</property>
+	      <property name="hover_selection">False</property>
+	      <property name="hover_expand">False</property>
+	      <signal name="cursor_changed" handler="on_Treeview_selected" last_modification_time="Tue, 31 Oct 2006 22:38:54 GMT"/>
+	    </widget>
+	  </child>
 	</widget>
 	<packing>
 	  <property name="padding">0</property>

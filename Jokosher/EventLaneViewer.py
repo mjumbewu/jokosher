@@ -95,15 +95,11 @@ class EventLaneViewer(gtk.EventBox):
 		self.fixed.connect("drag_leave", self.OnDragLeave)
 		self.fixed.connect("expose-event", self.OnDraw)
 		
-		self.audioFilePixbuf = None
-		#get the audiofile image from Globals
-		for name, type, pixbuf in Globals.getCachedInstruments():
-			if type == "audiofile":
-				size = gtk.icon_size_lookup(gtk.ICON_SIZE_MENU)
-				self.audioFilePixbuf = pixbuf.scale_simple(size[0], size[1], gtk.gdk.INTERP_BILINEAR)
-				break
-		
 		self.messageID = None
+		
+		## these variables are associated with the Instrument menu item in JokosherApp
+		self.mainview.importaudio = self.CreateEventFromFile
+		self.mainview.removeinstr = self.OnDelete
 		
 		self.Update()
 		
@@ -201,6 +197,9 @@ class EventLaneViewer(gtk.EventBox):
 		if self.childActive:
 			return
 		
+		# set the instrument menu item in the jokosher window to be active if the user selects an instrument
+		self.mainview.instrumentmenuitem.set_sensitive(True)
+		
 		self.mouseDownPos = [mouse.x, mouse.y]
 		
 		# Create context menu on RMB 
@@ -209,12 +208,11 @@ class EventLaneViewer(gtk.EventBox):
 			
 			
 			audioimg = None
-			if self.audioFilePixbuf:
+			if self.mainview.audioFilePixbuf:
 				audioimg = gtk.Image()
-				audioimg.set_from_pixbuf(self.audioFilePixbuf)
+				audioimg.set_from_pixbuf(self.mainview.audioFilePixbuf)
 			
 			items = [	(_("_Import Audio File..."), self.CreateEventFromFile, True, audioimg),
-					(_("I_nstrument Connections"), self.mainview.OnInstrumentConnectionsDialog, True, gtk.image_new_from_stock(gtk.STOCK_PREFERENCES, gtk.ICON_SIZE_MENU)),
 					("---", None, None, None),
 					(_("_Paste"), self.OnPaste, self.project.clipboardList, gtk.image_new_from_stock(gtk.STOCK_PASTE, gtk.ICON_SIZE_MENU)),
 					(_("_Delete"), self.OnDelete, True, gtk.image_new_from_stock(gtk.STOCK_DELETE, gtk.ICON_SIZE_MENU))
@@ -343,6 +341,9 @@ class EventLaneViewer(gtk.EventBox):
 		"""
 		self.project.DeleteInstrument(self.instrument.id)
 		self.mainview.UpdateDisplay()
+		
+		## set the instrument menu item to be inactive if an instrument is deleted
+		self.mainview.instrumentmenuitem.set_sensitive(False)
 	
 	#_____________________________________________________________________
 	

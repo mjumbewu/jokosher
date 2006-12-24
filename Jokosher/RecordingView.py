@@ -59,6 +59,7 @@ class RecordingView(gtk.Frame):
 		self.views = []	
 		
 		self.hb = gtk.HBox()
+		self.hb.set_spacing(6)
 		self.vbox.pack_end(self.hb, False, False)
 		self.al = gtk.Alignment(0, 0, 1, 1)
 		self.scrollRange = gtk.Adjustment()
@@ -294,6 +295,8 @@ class RecordingView(gtk.Frame):
 		self.project.ClearEventSelections()
 		self.project.SelectInstrument(None)
 		self.Update()
+		# set the instrument menu item in the jokosher window to be inactive if the user clicks in the recording view
+		self.mainview.instrumentmenuitem.set_sensitive(False)
 		
 	#_____________________________________________________________________
 	

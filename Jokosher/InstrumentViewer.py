@@ -79,6 +79,7 @@ class InstrumentViewer(gtk.EventBox):
 
 		# create track header bits
 		self.labelbox = gtk.HBox()
+		self.labelbox.set_spacing(6)
 		self.labeleventbox = gtk.EventBox()
 		self.instrlabel = gtk.Label(self.instrument.name)
 		self.instrlabel.set_ellipsize(pango.ELLIPSIZE_END)

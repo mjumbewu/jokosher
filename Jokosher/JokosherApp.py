@@ -62,7 +62,6 @@ class MainApp:
 		signals = {
 			"on_MainWindow_destroy" : self.OnDestroy,
 			"on_AddInstrument_clicked" : self.OnShowAddInstrumentDialog,
-			"on_ChangeInstrumentType_clicked" : self.OnChangeInstrument,
 			"on_About_activate" : self.About,
 			"on_Record_toggled" : self.Record, 
 			"on_Play_toggled" : self.Play,
@@ -91,7 +90,8 @@ class MainApp:
 			"on_help_contents_activate" : self.OnHelpContentsMenu,
 			"on_forums_activate" : self.OnForumsMenu,
 			"on_contributing_activate" : self.OnContributingDialog,
-			"on_ExtensionManager_activate" : self.OnExtensionManagerDialog
+			"on_ExtensionManager_activate" : self.OnExtensionManagerDialog,
+			"on_instrument_menu_item_activate" : self.OnInstrumentMenuItem
 		}
 		self.wTree.signal_autoconnect(signals)
 		
@@ -116,11 +116,12 @@ class MainApp:
 		self.paste = self.wTree.get_widget("paste")
 		self.delete = self.wTree.get_widget("delete")
 		self.projectmenu = self.wTree.get_widget("projectmenu")
-		self.changeinstrumenttype = self.wTree.get_widget("changeinstrumenttype")
 		self.export = self.wTree.get_widget("export")
 		self.recentprojects = self.wTree.get_widget("recentprojects")
 		self.recentprojectsmenu = self.wTree.get_widget("recentprojects_menu")
 		self.menubar = self.wTree.get_widget("menubar")
+		self.instrumentmenuitem = self.wTree.get_widget("instrument_menuitem")
+		self.instrumentmenu = self.wTree.get_widget("instrument_menu")
 		
 		self.recentprojectitems = []
 		self.lastopenedproject = None
@@ -146,6 +147,8 @@ class MainApp:
 		self.isPlaying = False
 		self.isPaused = False
 		self.exportFilename = None
+		self.importaudio = None
+		self.removeinstr = None
 
 		# Intialise context sensitive tooltips for workspaces buttons
 		self.contextTooltips.set_tip(self.recordingButton,_("Currently working in the Recording workspace"),None)
@@ -172,6 +175,13 @@ class MainApp:
 		recimg.set_from_file(os.path.join(Globals.IMAGE_PATH, "icon_record.png"))	
 		self.recordingButton.set_image(recimg)
 		
+		#get the audiofile image from Globals
+		self.audioFilePixbuf = None
+		for name, type, pixbuf in Globals.getCachedInstruments():
+			if type == "audiofile":
+				size = gtk.icon_size_lookup(gtk.ICON_SIZE_MENU)
+				self.audioFilePixbuf = pixbuf.scale_simple(size[0], size[1], gtk.gdk.INTERP_BILINEAR)
+				break
 		
 		# populate the Recent Projects menu
 		self.OpenRecentProjects()
@@ -1340,8 +1350,6 @@ class MainApp:
 					instrSelected = True
 					break
 		
-		self.changeinstrumenttype.set_sensitive(instrSelected)
-
 		self.settingButtons = False
 	
 	#_____________________________________________________________________
@@ -1589,6 +1597,34 @@ class MainApp:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		ExtensionManagerDialog.ExtensionManagerDialog(self)
+		
+	def OnInstrumentMenuItem(self, widget):
+		audioimg = gtk.Image()
+		audioimg.set_from_pixbuf(self.audioFilePixbuf)
+		items = self.instrumentmenu.get_children()
+		for i in items:
+			self.instrumentmenu.remove(i)
+			
+		items = [	(_("Import Audio File"), audioimg, self.importaudio),
+				(_("Change Instrument Type"), None, self.OnChangeInstrument),
+				(_("Remove Selected Instrument"), gtk.image_new_from_stock(gtk.STOCK_REMOVE, gtk.ICON_SIZE_MENU), self.removeinstr)
+			]
+		for label, img, cb in items:
+			if label == "---":
+				a = gtk.SeparatorMenuItem()
+			elif img:
+				a = gtk.ImageMenuItem(label, True)
+				a.set_image(img)
+			else:
+				a = gtk.MenuItem(label)
+			if cb:
+				a.connect("activate", cb)
+			a.show()
+			self.instrumentmenu.add(a)
+
+		
+		self.instrumentmenu.show_all()
+		
 
 #=========================================================================
 

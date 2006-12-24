@@ -51,8 +51,11 @@ class AddInstrumentDialog:
 		self.dlg = self.res.get_widget("AddInstrumentDialog")
 		self.tree = self.res.get_widget("Instruments")
 		self.search_entry = self.res.get_widget("instrument_search")
+		self.search_entry.set_activates_default(True)
 		self.okbutton = self.res.get_widget("okButton")
 		self.okbutton.set_sensitive(False)
+		self.okbutton.set_flags(gtk.CAN_DEFAULT)
+		self.okbutton.grab_default()
 		
 		if self.instr: 
 			self.dlg.set_title(_("Change Instrument Type"))
@@ -122,7 +125,7 @@ class AddInstrumentDialog:
 				instrItem = [x for x in Globals.getCachedInstruments() if x[1] == item[1]][0]
 				self.project.AddInstrument(*instrItem)
 		else:
-			item = self.model[sel[0][0]]
+			item = self.model[selectedItems[0][0]]
 			instrItem = [x for x in Globals.getCachedInstruments() if x[1] == item[1]][0]
 			self.instr.ChangeType(instrItem[1], instrItem[0])
 
