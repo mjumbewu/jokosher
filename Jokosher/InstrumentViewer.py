@@ -111,11 +111,7 @@ class InstrumentViewer(gtk.EventBox):
 			pb = self.instrument.pixbuf.scale_simple(20, 20, gtk.gdk.INTERP_BILINEAR)
 			self.image.set_from_pixbuf(pb)
 		
-		self.imageeventbox = gtk.EventBox()
-		self.imageeventbox.connect("button_release_event", self.OnChangeInstrumentType)
-		self.imageeventbox.add(self.image)
-		
-		self.labelbox.pack_start(self.imageeventbox, False)
+		self.labelbox.pack_start(self.image, False)
 		self.labelbox.pack_end(self.labeleventbox)
 		self.headerBox.pack_start(self.labelbox)
 		self.controlsBox = gtk.HBox()
@@ -208,9 +204,12 @@ class InstrumentViewer(gtk.EventBox):
 			Sets instrument to selected state
 		"""
 		
-		if 'GDK_CONTROL_MASK' not in event.state.value_names:
+		if 'GDK_CONTROL_MASK' in event.state.value_names:
+			self.instrument.SetSelected(True)
+		else:
 			self.project.ClearEventSelections()
 			self.project.SelectInstrument(self.instrument)
+		
 		return True
 
 	#_____________________________________________________________________
@@ -305,14 +304,12 @@ class InstrumentViewer(gtk.EventBox):
 			self.headerEventBox.modify_bg(gtk.STATE_NORMAL, self.SELECTED_COLOUR)
 			self.labeleventbox.modify_bg(gtk.STATE_NORMAL, self.SELECTED_COLOUR)
 			self.eventLane.modify_bg(gtk.STATE_NORMAL, self.SELECTED_COLOUR)
-			self.imageeventbox.modify_bg(gtk.STATE_NORMAL, self.SELECTED_COLOUR)
 			
 		else:
 			self.modify_bg(gtk.STATE_NORMAL, self.UNSELECTED_COLOUR)
 			self.headerEventBox.modify_bg(gtk.STATE_NORMAL, self.UNSELECTED_COLOUR)
 			self.labeleventbox.modify_bg(gtk.STATE_NORMAL, self.UNSELECTED_COLOUR)
 			self.eventLane.modify_bg(gtk.STATE_NORMAL, self.UNSELECTED_COLOUR)
-			self.imageeventbox.modify_bg(gtk.STATE_NORMAL, self.UNSELECTED_COLOUR)
 
 		self.instrlabel.set_text(self.instrument.name)
 		if self.editlabelPacked:
@@ -436,18 +433,4 @@ class InstrumentViewer(gtk.EventBox):
 			self.image.set_from_pixbuf(self.instrument.pixbuf)
 	
 	#______________________________________________________________________
-
-	def OnChangeInstrumentType(self, widget, event):
-		"""
-			Callback for "button_press_event" in the instrument header icon
-		"""
-		if not self.instrument.isSelected:
-			self.OnSelect(widget, event)
-			# Don't edit type unless the user clicks while we are already selected
-			return True
-		
-		AddInstrumentDialog.AddInstrumentDialog(self.project, self.mainview, self.instrument)
-		    
-	#______________________________________________________________________
-
 	#=========================================================================	
