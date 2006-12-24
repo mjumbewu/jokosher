@@ -26,18 +26,30 @@ _ = gettext.gettext
 #=========================================================================
 
 class Event(Monitored):
-	""" This class handles maintaing the information for a single audio 
-		event. This is normally a fragment of a recorded file.
+	"""
+	This class handles maintaing the information for a single audio 
+	event, normally, a fragment of a recorded file.
 	"""
 	
-	#state changed types (to be sent through the Monitored class)
+	""" State changed types (to be sent through the Monitored class) """
 	WAVEFORM, MOVE, LENGTH, CORRUPT = range(4)
-	#the level sample interval (in seconds)
+	
+	""" The level sample interval in seconds """
 	LEVEL_INTERVAL = 0.1
 	
 	#_____________________________________________________________________
 	
 	def __init__(self, instrument, file=None, id=None, filelabel=None):
+		"""
+		Creates a new instance of Event.
+		
+		Parameters:
+			instrument -- Instrument associated with this Event.
+			file -- the file this Event should play.
+			id -- unique ID for this Event. If it's taken, a new one will be generated.
+			filelabel -- label to print in error messages.
+						It can be different	from the file parameter.
+		"""
 		Monitored.__init__(self)
 		
 		self.start = 0.0			# Time in seconds at which the event begins
@@ -49,7 +61,7 @@ class Event(Monitored):
 
 		# the label is the filename to print in error messages
 		# if it differs from the real filename (i.e its been copied into the project)
-		if filelabel!=None:
+		if filelabel != None:
 			self.filelabel = filelabel
 		else:
 			self.filelabel = file
@@ -57,7 +69,7 @@ class Event(Monitored):
 		self.isSelected = False		# True if the event is currently selected
 		self.name = "New Event"		# Name of this event
 		
-		self.selection  = [0, 0]			# List start and end of selection (for fades, etc) measured in seconds 
+		self.selection  = [0, 0]	# List start and end of selection (for fades, etc) measured in seconds 
 		self.levels = []			# Array of audio levels to be drawn for this event
 		
 		self.id = instrument.project.GenerateUniqueID(id)  #check is id is already taken, then set it.
@@ -89,6 +101,11 @@ class Event(Monitored):
 	#_____________________________________________________________________
 	
 	def CreateFilesource(self):	
+		"""
+		Creates a new GStreamer file source with an unique id.
+		It then calls SetProperties() to populate the new object's
+		properties.
+		"""
 		Globals.debug("create file source")
 		if not self.filesrc:
 			self.filesrc = gst.element_factory_make("gnlfilesource", "Event_%d"%self.id)
@@ -100,6 +117,9 @@ class Event(Monitored):
 	#_____________________________________________________________________
 		
 	def SetProperties(self):
+		"""
+		Sets basic Event properties like location, start, duration, etc.
+		"""
 		if self.file:
 			Globals.debug("setting event properties")
 			self.filesrc.set_property("location", self.file)
@@ -120,17 +140,15 @@ class Event(Monitored):
 	#_____________________________________________________________________
 
 	def StoreToXML(self, doc, parent, graveyard=False):
-		""" Converts this Event into an XML representation suitable for 
-			saving to a file.
+		"""
+		Converts this Event into an XML representation suitable for saving to a file.
 
-			doc
-				The XML dcxument object we're saving to.
-			parent
-				The parent node that the serialised Event should be added
-				to.
-			graveyard
-				True if this Event is on the graveyard stack, and should
-				be serialised as a dead event.
+		Parameters:
+			doc -- the XML dcxument object the Event will be saved to.
+			parent -- the parent node that the serialized Event should
+						be added to.
+			graveyard -- True if this Event is on the graveyard stack,
+						and should be serialized as a dead event.
 		"""
 		if graveyard:
 			ev = doc.createElement("DeadEvent")
@@ -174,10 +192,11 @@ class Event(Monitored):
 	#_____________________________________________________________________
 			
 	def LoadFromXML(self, node):
-		""" Restores an event from its serialised XML representation.
-
-			node
-				The XML node to retreive data from.
+		"""
+		Restores an Event from its serialized XML representation.
+		
+		Parameters:
+			node -- the XML node to retreive data from.
 		"""
 		params = node.getElementsByTagName("Parameters")[0]
 		
@@ -213,11 +232,25 @@ class Event(Monitored):
 	#_____________________________________________________________________
 		
 	def __repr__(self):
+		"""
+		Creates a representation string of the Event.
+
+		Returns:
+			a string representing the name, id, start and duration
+			for this Event.
+		"""
 		return "Event: '%s' (%d) : %d -> %d" % (self.name, self.id, self.start, self.duration)
 		
 	#_____________________________________________________________________
 	
 	def __cmp__(self, object):
+		"""
+		Compares two Events for equality.
+		
+		Returns:
+			True -- the Events are equal.
+			False -- the Events are different.
+		"""
 		if type(object) != type(self):
 			return -1
 		else:
@@ -229,13 +262,13 @@ class Event(Monitored):
 	
 	@UndoCommand("Move", "start", "temp")
 	def Move(self, frm, to):
-		'''	Moves this Event.
+		"""
+		Moves this Event in time.
 
-			frm
-				The time we're moving from.
-			to
-				The time we're moving to.
-		'''
+		Parameters:
+			frm -- the time the Event's moving from.
+			to -- the time the Event's moving to.
+		"""
 		self.temp = frm
 		self.start = to
 		self.SetProperties()
@@ -244,12 +277,18 @@ class Event(Monitored):
 	
 	@UndoCommand("Join", "temp")
 	def Split(self, split_point, id=-1):
-		'''
-			Splits this event at time offset split_point in seconds. If
-			id is specified, then the created event will be pulled from
-			the graveyard (for undo/redo compatibility). Returns the
-			newly created event, which is the one on the right (after the splitpoint).
-		'''		
+		"""
+		Splits this Event.
+		
+		Parameters:
+			split_point -- time offset split_point in seconds to start the split.
+			id -- if specified, then the created event will be pulled from the
+					graveyard (for undo/redo compatibility).
+					
+		Returns:
+			the newly created event, which is the one on the right
+			(after the splitpoint).
+		"""
 		if id == -1:
 			e = self.split_event(split_point)
 			e.SetProperties()
@@ -277,11 +316,12 @@ class Event(Monitored):
 	
 	@UndoCommand("Split", "temp", "temp2")
 	def Join(self, joinEventID):
-		''' Joins 2 events together. 
-
-			joinEventID
-				The ID of the Event to join to this one.
-		'''
+		"""
+		Joins two Events together.
+		
+		Parameters:
+			joinEventID -- the ID of the Event to join to this one.
+		"""
 		event = [x for x in self.instrument.events if x.id == joinEventID][0]
 
 		self.temp = self.duration
@@ -297,12 +337,22 @@ class Event(Monitored):
 	#_____________________________________________________________________
 	
 	def split_event(self, split_point, cutRightSide=True):
-		"""helper function for Split() and Trim(). All other methods and classes
-		   should not invoke this function directly since there is no undo for it.
-		   
-		   If cutRightSide is True, a new event will be created to represent 
-		   the piece on the right which was split. This instance will be the one on the left.
-		   If cutRightSide is False, this instance is the one on the right.
+		"""
+		Helper function for Split() and Trim(). 
+		
+		Considerations:
+			All other methods and classes should not invoke this function 
+			directly since there is no undo for it.
+		
+		Parameters:
+			split_point --
+			cutRightSide -- if True, a new event will be created to represent
+							the piece on the right which was split. This instance
+							will be the one on the left.
+							if False, this instance is the one on the right.
+							
+		Returns:
+			the newly created Event.
 		"""
 		dur = self.duration
 		
@@ -358,11 +408,20 @@ class Event(Monitored):
 	#_____________________________________________________________________
 	
 	def join_event(self, joinEvent, joinToRight=True):
-		"""helper function for Join() and Trim(). All other methods and classes
-		   should not invoke this function directly since there is no undo for it.
-		   
-		   After joining the events on either side, this method will not remove the event
-		   from the instrument lane. This must be done from the function that called this one.
+		"""
+		Helper function for Join() and Trim(). After joining the events on
+		either side, this method will not remove the Event from the instrument lane.
+		This must be done from the calling function.
+		
+		Considerations:
+			All other methods and classes should not invoke this function 
+			directly since there is no undo for it.
+		
+		Parameters:
+			joinEvent -- Event to join with elf.
+			joinToRight --	if True, the joinEvent will be merged to the right
+							side of self.
+							if False, the joinEvent will be to the left of self.
 		"""
 		if joinToRight:
 			for key, value in joinEvent.__fadePointsDict.iteritems():
@@ -394,14 +453,13 @@ class Event(Monitored):
 	
 	@UndoCommand("UndoTrim", "temp", "temp2")
 	def Trim(self, start_split, end_split):
-		""" 	Splits the event at points start_split and end_split
-			and then deletes the first and last sections leaving only
-			the middle section.
-			
-			start_split
-				The time for the start of the trim
-			end_split
-				The time for the end of the trim
+		"""
+		Splits the Event and then deletes the first and last sections,
+		leaving only the middle section.
+		
+		Parameters:
+			start_split -- the time for the start of the trim.
+			end_split -- the time for the end of the trim.
 		"""
 		# Split off the left section of the event, then put it in the graveyard for undo
 		leftSplit = self.split_event(start_split, False)
@@ -423,8 +481,13 @@ class Event(Monitored):
 	
 	@UndoCommand("Trim", "temp", "temp2")
 	def UndoTrim(self, leftID, rightID):
-		"""Resurrects two pieces from the graveyard and joins them to
-		   either side of this event.
+		"""
+		Resurrects two pieces from the graveyard and joins them to
+		either side of this Event.
+		
+		Parameters:
+			leftID -- id of the left Event to be resurrected.
+			rightID -- id of the right Event to be resurrected.
 		"""
 		leftEvent = [x for x in self.instrument.graveyard if x.id == leftID][0]
 		rightEvent = [x for x in self.instrument.graveyard if x.id == rightID][0]
@@ -445,8 +508,8 @@ class Event(Monitored):
 	
 	@UndoCommand("Resurrect")
 	def Delete(self):
-		"""	Deletes this Event and sends it to the graveyard to reflect
-			on what it has done.
+		"""
+		Deletes this Event and sends it to the graveyard.
 		"""
 		self.instrument.graveyard.append(self)
 		self.instrument.events.remove(self)
@@ -456,7 +519,8 @@ class Event(Monitored):
 	
 	@UndoCommand("Delete")
 	def Resurrect(self):
-		""" Brings this Event back from the graveyard.
+		"""
+		Brings this Event back from the graveyard.
 		"""
 		self.instrument.events.append(self)
 		self.instrument.graveyard.remove(self)
@@ -465,11 +529,19 @@ class Event(Monitored):
 	#______________________________________________________________________
 	
 	def bus_message(self, bus, message):
-		""" Handler for the GStreamer bus messages relevant to this Event. 
-			At the moment this is used to report on how the loading 
-			progress is going.
 		"""
-
+		Handler for the GStreamer bus messages relevant to this Event.
+		At the moment, this is used to report on how the loading progress
+		is going.
+		
+		Parameters:
+			bus -- GStreamer bus sending the message.
+			message -- GStreamer message.
+			
+		Returns:
+			True -- the Event is loading.
+			False -- the Event isn't loading.
+		"""
 		if not self.isLoading:
 			return False
 
@@ -491,10 +563,18 @@ class Event(Monitored):
 	#_____________________________________________________________________
 		
 	def bus_eos(self, bus, message):	
-		""" Handler for the GStreamer End Of Stream message. Currently
-			used when the file is loading and is being rendered. This
-			function is called at the end of the file loading process and
-			finalises the rendering.
+		"""
+		Handler for the GStreamer End Of Stream message. Currently
+		used when the file is loading and is being rendered. This
+		function is called at the end of the file loading process and
+		finalises the rendering.
+		
+		Parameters:
+			bus -- GStreamer bus sending the message.
+			message -- GStreamer message.
+			
+		Returns:
+			False -- stops the signal propagation. *CHECK*
 		"""
 		if message.type == gst.MESSAGE_EOS:
 			
@@ -518,13 +598,18 @@ class Event(Monitored):
 	#_____________________________________________________________________
 
 	def bus_message_statechange(self, bus, message):
-		""" Handler for the GStreamer statechange message.
+		"""
+		Handler for the GStreamer statechange message.
+		
+		Parameters:
+			bus -- GStreamer bus sending the message.
+			message -- GStreamer message.
 		"""
 		# state has changed
 		try:
-			q = self.bin.query_duration(gst.FORMAT_TIME)
+			time = self.bin.query_duration(gst.FORMAT_TIME)
 			if self.duration == 0:
-				self.duration = float(q[0] / float(gst.SECOND))
+				self.duration = float(time[0] / float(gst.SECOND))
 				#update position with proper duration
 				self.MoveButDoNotOverlap(self.start)
 				self.SetProperties()
@@ -537,7 +622,12 @@ class Event(Monitored):
 	#_____________________________________________________________________
 
 	def bus_error(self, bus, message):
-		""" Handler for when things go completely wrong with GStreamer.
+		"""
+		Handler for when things go completely wrong with GStreamer.
+		
+		Parameters:
+			bus -- GStreamer bus sending the message.
+			message -- GStreamer message.
 		"""
 		error, debug = message.parse_error()
 		
@@ -547,7 +637,13 @@ class Event(Monitored):
 	#_____________________________________________________________________
 	
 	def bus_message_tags(self, bus, message):
-		""" Handler for catching audio file tags that Gstreamer throws at us. """
+		"""
+		Handler for catching audio file tags that Gstreamer throws.
+		
+		Parameters:
+			bus -- GStreamer bus sending the message.
+			message -- GStreamer message.
+		"""
 		Globals.debug("recieved group of tags")
 		st = message.structure
 		
@@ -566,7 +662,8 @@ class Event(Monitored):
 	#_____________________________________________________________________
 	
 	def GenerateWaveform(self):
-		""" Renders the level information for the GUI.
+		"""
+		Renders the level information for the GUI.
 		"""
 		pipe = """filesrc name=src location=%s ! decodebin ! audioconvert ! level interval=%d message=true ! fakesink""" 
 		pipe = pipe % (self.file.replace(" ", "\ "), self.LEVEL_INTERVAL * gst.SECOND)
@@ -588,11 +685,19 @@ class Event(Monitored):
 	#_____________________________________________________________________
 
 	def recording_bus_level(self, bus, message):
-		""" Handler for the GStreamer bus messages relevant to this Event. 
-			At the moment this is used to report on how the loading 
-			progress is going.
 		"""
+		Handler for the GStreamer bus messages relevant to this Event.
+		At the moment this is used to report on how the recording
+		progress is going. *CHECK*
 		
+		Parameters:
+			bus -- GStreamer bus sending the message.
+			message -- GStreamer message.
+			
+		Returns:
+			True -- the Event is recording.
+			False -- the Event isn't recording.
+		"""
 		if not self.isRecording:
 			return False
 		
@@ -615,9 +720,14 @@ class Event(Monitored):
 	
 	def __CalculateAudioLevel(self, channelLevels):
 		"""
-		Takes in a list of levels from each channel and returns an average
-		level, also taking into account negative infinity numbers, which will
-		be discarded in the average.
+		Calculates an average for all channel levels.
+		
+		Parameters:
+			channelLevels -- list of levels from each channel.
+			
+		Returns:
+			an average level, also taking into account negative infinity numbers,
+			which will be discarded in the average.
 		"""
 		negInf = float("-inf")
 		peaktotal = 0
@@ -640,10 +750,13 @@ class Event(Monitored):
 	#_____________________________________________________________________
 	
 	def SetSelected(self, sel):
-		""" Enables or disables the selection state for this event.
+		"""
+		Enables or disables the selection state for this Event.
 
-			sel
-				The new selection state (Should be True or False).
+		Parameters:
+			sel -- the new selection state:
+					True = the Event has been selected.
+					False = the Event has been deselected.
 		"""
 		# No need to call StateChanged when there is no change in selection state
 		if self.isSelected is not sel:
@@ -653,13 +766,15 @@ class Event(Monitored):
 	#_____________________________________________________________________
 	
 	def MayPlace(self, xpos):
-		""" Checks if this event could be placed at xpos without 
-			overlapping another Event on the same Instrument.
+		"""
+		Checks if this event could be placed at xpos without 
+		overlapping another Event on the same Instrument.
 
-			xpos
-				The potential start position to check
-			Returns
-				True if it's OK to place the Event at xpos, false if not.
+		Parameters:
+			xpos -- the potential start position to check.
+		
+		Returns:
+			True if it's OK to place the Event at xpos, False if not.
 		"""
 		for e in self.instrument.events:
 			if e is self:
@@ -671,9 +786,13 @@ class Event(Monitored):
 	#_____________________________________________________________________
 	
 	def MoveButDoNotOverlap(self, xpos):
-		"""This method will attempt to move this event to the given position (xpos)
-		   If the position requires overlapping, this event will be put flush
-		   against the closest side of the event which is in the way.
+		"""
+		This method will attempt to move this Event to the given position.
+		If the position requires overlapping, this Event will be put flush
+		against the closest side of the Event which is in the way.
+
+		Parameters:
+			xpos -- the potential position to move the Event to.
 		"""
 		alreadyTriedRemovingOverlap = False
 		self.instrument.events.sort()
@@ -716,9 +835,14 @@ class Event(Monitored):
 	@UndoCommand("RemoveAudioFadePoints", "temp", "temp2", "temp3", "temp4")
 	def AddAudioFadePoints(self, firstPoint, secondPoint, firstVolume, secondVolume):
 		"""
-		   Add the two passed points to the audioFadePoints list.
-		   If either point exists already, replace it, and resort
-		   the list by time.
+		Adds two fade points to the audioFadePoints list.
+		If either point exists already, replaces it, and resorts the list by time.
+		
+		Parameters:
+			firstPoint -- point in time, where the fade starts.
+			secondPoint -- point in time, where the fade ends.
+			firstVolume -- value of the initial fade volume.
+			secondVolume -- value of the final fade volume.
 		"""
 		#for command manager to use with undo
 		self.temp = firstPoint
@@ -744,10 +868,17 @@ class Event(Monitored):
 	@UndoCommand("AddAudioFadePoints", "temp", "temp2", "temp3", "temp4")
 	def RemoveAudioFadePoints(self, firstPoint, secondPoint, firstOldVolume=None, secondOldVolume=None):
 		"""
-		   Removed a point with values from the fade list.
-		   If firstOldVolume and secondOldVolume are given,
-		   the levels at the two points will be replaces with the
-		   old volumes instead of being removed.
+		Removes a fade point (along with its values) from the audioFadePoints list.
+		If firstOldVolume and secondOldVolume are given, the levels at the two points
+		will be replaced with those old values, instead of being removed.
+		
+		Parameters:
+			firstPoint -- point in time, where the fade starts.
+			secondPoint -- point in time, where the fade ends.
+			firstOldVolume -- old value of the initial fade volume,
+								used to replace the current one.
+			secondOldVolume -- old value of the final fade volume,
+								used to replace the current one.
 		"""
 		#undo values
 		self.temp = firstPoint
@@ -780,8 +911,8 @@ class Event(Monitored):
 	
 	def __UpdateAudioFadePoints(self):
 		"""
-		   Private function that uses the private dictionary with 
-		   all the fade points to update the audioFadePoints list.
+		Private function that uses the private dictionary with
+		all the fade points to update the audioFadePoints list.
 		"""
 		
 		#update the fade points list from the dictionary
@@ -808,6 +939,10 @@ class Event(Monitored):
 	#_____________________________________________________________________
 	
 	def __UpdateFadeLevels(self):
+		"""
+		Private function that uses the private dictionary with
+		all the fade leves to update the fadeLevels list. *CHECK*
+		"""
 		if not self.audioFadePoints:
 			#there are no fade points for us to use
 			return
@@ -847,10 +982,13 @@ class Event(Monitored):
 	
 	def GetFadeLevels(self):
 		"""
-		   Returns a list of levels, the same length as the levels list.
-		   The only difference between this list and the levels list is
-		   that the levels in this list are scaled according to and fade
-		   curves applied to the current event.
+		Obtain the fade levels list.
+		The only difference between this list and the levels list is
+		that the levels in this list are scaled according to the fade
+		curves applied to the current Event.
+		
+		Returns:
+			a list of fade levels, the same length as the levels list.
 		"""
 		# no fades registered
 		if not self.audioFadePoints:
@@ -865,10 +1003,14 @@ class Event(Monitored):
 	
 	def GetFadeLevelAtPoint(self, time):
 		"""
-		   Returns the level of the audio in percent (0-1)
-		   at the point given my time (in seconds)
-		"""
+		Obtain the level of audio at any point in time.
 		
+		Parameters:
+			time -- point in time to extract the audio level from.
+		
+		Returns:
+			the level of the audio in percentage format [0,1]
+		"""
 		if not self.audioFadePoints:
 			return 1.0
 		if self.audioFadePoints[-1][0] < time or self.audioFadePoints[0][0] > time:
@@ -896,6 +1038,9 @@ class Event(Monitored):
 	#_____________________________________________________________________
 	
 	def DeleteSelectedFadePoints(self):
+		"""
+		Removes all the fade points for this Event.
+		"""
 		removeList = []
 		for key in self.__fadePointsDict.iterkeys():
 			if self.selection[0] <= key <= self.selection[1]:
