@@ -4,7 +4,7 @@
 #
 #	InstrumentViewer.py
 #	
-#	Encapsulate the customised track viewing and editing control
+#	Encapsulate the customised track viewing and editing control.
 #
 #-------------------------------------------------------------------------------
 
@@ -22,18 +22,34 @@ _ = gettext.gettext
 
 class InstrumentViewer(gtk.EventBox):
 	""" 
-		Class to encapsulate the customised track viewing and editing control.
+	Encapsulates the customized track viewing and editing control.
 	"""
 
-	EDGE_DISTANCE = 5				# Size of event edge handle
-	EDGE_HOT_ZONE = 10				# Size of 'hot zone' used to trigger drawing of edge handle
+	""" Size of the event edge handle """
+	EDGE_DISTANCE = 5
+	
+	""" Size of 'hot zone' used to trigger drawing of edge handle """
+	EDGE_HOT_ZONE = 10
+	
+	""" Width of the instrument audio bar """
 	BAR_WIDTH = 15
+	
+	""" Max value a peak can have when displayed """
 	MAX_PEAK = 30
+	
+	""" Size of the instrument name label """
 	LABEL_WIDTH_CHARS = 12
+	
+	""" Widget color when unselected """
 	UNSELECTED_COLOUR = None
+	
+	""" Widget color when selected """
 	SELECTED_COLOUR = None
 	
-	INSTR_DRAG_TYPE = 83			# Number only to be used inside Jokosher
+	""" Number only to be used inside Jokosher """
+	INSTR_DRAG_TYPE = 83
+	
+	""" Custom numbers for use while dragging audio in Jokosher """
 	DRAG_TARGETS = [ ( "jokosher_instr_move", 	# A custom name for the instruments
 					   gtk.TARGET_SAME_APP,		# Only move inside Jo
 					   INSTR_DRAG_TYPE )]		# Use the custom number
@@ -46,12 +62,12 @@ class InstrumentViewer(gtk.EventBox):
 		Creates a new instance of InstrumentViewer.
 		
 		Parameters:
-			project - the current active Project
-			instrument - the Instrument that the event lane belongs
-			instrumentviewer - the InstrumentViewer holding the event lane
-			projectview - the RecordingView instance that this belongs to
-			mainview - reference to the mainwindow in JokosherApp
-			small - set to True if we want small edit views (i.e. for mix view)
+			project -- the currently active Project.
+			instrument -- the instrument that the event lane belongs.
+			instrumentviewer - the InstrumentViewer holding the event lane.
+			projectview - the RecordingView instance that this belongs to.
+			mainview - the MainApp Jokosher window.
+			small - set to True if we want small edit views (i.e. for mix view).
 		"""
 		self.instrument = instrument
 		self.project = project
@@ -176,9 +192,8 @@ class InstrumentViewer(gtk.EventBox):
 
 	def OnMute(self, widget):
 		"""
-		Called when the mute button is clicked.
-		This method will also set the mute button to appear pressed in if clicked.
-		If the mute button is clicked while in a 'pressed in' state. It will appear as it did originally.
+		Toggles muting the instrument on/off.
+		It will also update the pressed in/out look of the button.
 		
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
@@ -190,9 +205,8 @@ class InstrumentViewer(gtk.EventBox):
 
 	def OnArm(self, widget):
 		"""
-		Called when the record button is clicked.
-		This method will also set the record button to appear pressed in if clicked.
-		If the record button is clicked while in a 'pressed in' state. It will appear as it did originally.
+		Toggles arming the instrument on/off.
+		It will also update the pressed in/out look of the button.
 		
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
@@ -204,9 +218,8 @@ class InstrumentViewer(gtk.EventBox):
 	
 	def OnSolo(self, widget):
 		"""
-		Called when the solo button is clicked.
-		This method will also set the solo button to appear pressed in if clicked.
-		If the solo button is clicked while in a 'pressed in' state. It will appear as it did originally.
+		Toggles soloing the instrument on/off.
+		It will also update the pressed in/out look of the button.
 		"""
 		if not self.Updating:
 			self.instrument.ToggleSolo(False)
@@ -216,11 +229,14 @@ class InstrumentViewer(gtk.EventBox):
 	def OnSelect(self, widget, event):
 		"""
 		Called when a button has been pressed anywhere within InstrumentViewer.
-		This method sets the instrument to a selected state
+		This method sets the instrument to a selected state.
 		
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 			event -- reserved for GTK callbacks, don't use it explicitly.
+		
+		Returns:
+			True -- continue GTK signal propagation. *CHECK*
 		"""
 		if 'GDK_CONTROL_MASK' in event.state.value_names:
 			self.instrument.SetSelected(True)
@@ -235,11 +251,15 @@ class InstrumentViewer(gtk.EventBox):
 	def OnEditLabel(self, widget, event):
 		"""
 		Called when a button has been pressed within the instrument name label.
-		This method shows a text entry that allows the user to change the name of an instrument
+		This method shows a text entry that allows the user to change the name
+		of the correspondent Instrument
 		
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 			event -- reserved for GTK callbacks, don't use it explicitly.
+			
+		Returns:
+			True -- continue GTK signal propagation. *CHECK*
 		"""
 		if not self.instrument.isSelected:
 			self.OnSelect(widget, event)
@@ -296,7 +316,7 @@ class InstrumentViewer(gtk.EventBox):
 	def Destroy(self):
 		"""
 		Called when the InstrumentViewer is closed
-		This method destroys the InstrumentViewer.
+		This method also destroys the corresponding EventLaneViewer.
 		"""
 		self.instrument.RemoveListener(self)
 		self.eventLane.Destroy()
@@ -306,12 +326,9 @@ class InstrumentViewer(gtk.EventBox):
 	
 	def Update(self):
 		"""
-		Called when requested by projectview.Update() to update
-		the display.
-		This method updates the display in response to a change in state in any object
-		is it listening to.
-		This method then calls EventLaneViewer.Update()
-		to update its EventLaneViewer.
+		Called when requested by projectview.Update() to update	the display,
+		in response to a change in state in any object is it listening to.
+		In turn calls EventLaneViewer.Update() for its EventLaneViewer.
 		"""
 		self.Updating = True
 
@@ -355,7 +372,7 @@ class InstrumentViewer(gtk.EventBox):
 	def OnMouseMove(self, widget, event):
 		"""
 		Called when the mouse cursor enters or leaves the instrument name label area.
-		This method changes the cursor to show text is edittable 
+		This method changes the cursor to show text is editable 
 		when hovered over the instrument label area.
 		
 		Parameters:
@@ -372,13 +389,14 @@ class InstrumentViewer(gtk.EventBox):
 
 	def ResizeHeader(self, width):
 		"""
-		Called when a request is made to resize the instrument area.
-		This method updates the padding space of the header box in order to line
-		up correctly with the timeline display. 
-		NOTE: Not called here but from TimeLineBar.py
+		Changes the padding space of the header box in order to line
+		up correctly with the timeline display.
 		
+		Considerations:
+			This method should be called from TimeLineBar.
+			
 		Parameters:
-			width -- the width of the instrument header box
+			width -- new size of the header box.
 		"""
 		padding = width - self.headerBox.size_request()[0]
 		self.headerAlign.set_padding(0, 0, 0, padding)
@@ -404,8 +422,7 @@ class InstrumentViewer(gtk.EventBox):
 	
 	def OnInstrumentEffectsDestroyed(self, window):
 		"""
-		Called when a request is made to destroy the InstrumentEffectsDialog.
-		This method destroys the InstrumentEffectsDialog.
+		Called when the InstrumentEffectsDialog is destroyed.
 		
 		Parameters:
 			window -- reserved for GTK callbacks, don't use it explicitly.
@@ -416,19 +433,21 @@ class InstrumentViewer(gtk.EventBox):
 	
 	def OnDragMotion(self, widget, context, x, y, time):
 		"""
-		Called each time the user moves his/her mouse while dragging.
-		'if' clause checks if mouse is on an instrument that isn't the
-		source instrument. 
-		If so, this method then swaps that instrument and the
-		source instrument in the GUI. Swapping of the Instrument objects
-		in self.project.instruments happens in OnDragDrop().
+		Called each time the user moves the mouse while dragging.
+		If the mouse is on an instrument that isn't the source
+		instrument, it swaps that instrument and the source instrument
+		in the GUI. Swapping of the Instrument objects in self.project.instruments
+		happens in OnDragDrop().
 		
 		Parameters:
-			widget -- reserved for GTK callbacks, don't use it explicitly.
-			context -- a cairo context widget.
+			widget -- InstrumentViewer the mouse is hovering over.
+			context -- cairo widget context. Used to extract the source instrument.
 			x -- reserved for GTK callbacks, don't use it explicitly.
 			y -- reserved for GTK callbacks, don't use it explicitly.
 			time -- reserved for GTK callbacks, don't use it explicitly.
+		
+		Returns:
+			True -- continue GTK signal propagation. *CHECK*
 		"""
 		source = context.get_source_widget() 	# Will return an EventBox (self.headerEventBox)
 		if widget != source:					# Dont swap with self
@@ -462,17 +481,20 @@ class InstrumentViewer(gtk.EventBox):
 	
 	def OnDragDrop(self, widget, context, x, y, time):
 		"""
-		Called when the user releases MOUSE1.
-		This method calls MoveInstrument, which moves the dragged
-		instrument to the end position in the
-		self.project.instruments array.
-		MoveInstrument is undo-able.
+		Called when the user releases MOUSE1, finishing a drag and drop
+		procedure.
+		Calls MoveInstrument, which moves the dragged instrument to
+		the end position in the self.project.instruments array.
 		
+		Considerations:
+			the MoveInstrument action is undo-able.
+			
 		Parameters:
-			widget -- reserved for GTK callbacks, don't use it explicitly.
-			context -- a cairo context widget.
+			widget -- InstrumentViewer being dragged.
+			context -- reserved for GTK callbacks, don't use it explicitly.
 			x -- reserved for GTK callbacks, don't use it explicitly.
 			y -- reserved for GTK callbacks, don't use it explicitly.
+			time -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		id = self.instrument.id
 		box = self.GetInstrumentViewVBox()
@@ -489,9 +511,11 @@ class InstrumentViewer(gtk.EventBox):
 
 	def GetInstrumentViewVBox(self):
 		"""
+		Obtain the current Instrument view box.
+		
 		Returns:
-			self.projectview.instrumentbox -- returns the instrumentBox if the current view is a RecordingView.
-			self.projectview.time -- returns the timebox if the current view is a CompactMixView.
+			the instrumentBox if the current view is a RecordingView.
+			the timebox if the current view is a CompactMixView.
 		"""
 		if hasattr(self.projectview, "instrumentBox"):
 			return self.projectview.instrumentBox
@@ -519,11 +543,16 @@ class InstrumentViewer(gtk.EventBox):
 	def OnChangeInstrumentType(self, widget, event):
 		"""
 		Called when a button has been pressed in the instrument header icon.
-		This method displays the change instrument dialog, allowing the user to change a selected instrument.
+		This method displays the AddInstrumentDialog, allowing the user
+		to change the selected instrument.
 		
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 			event -- reserved for GTK callbacks, don't use it explicitly.
+			
+		Returns:
+			True -- if there's no instrument selected, select one and then
+					continue GTK signal propagation. *CHECK*
 		"""
 		if not self.instrument.isSelected:
 			self.OnSelect(widget, event)
