@@ -3,6 +3,11 @@
 #	THIS FILE IS PART OF THE JOKOSHER PROJECT AND LICENSED UNDER THE GPL. SEE
 #	THE 'COPYING' FILE FOR DETAILS
 #
+#	Jokosher's main class. It creates the majority of the main window GUI
+#	and gets everything up and running.
+#
+#-------------------------------------------------------------------------------
+
 import pygtk
 pygtk.require("2.0")
 import gtk.glade, gobject
@@ -28,7 +33,7 @@ import ExtensionManager
 
 class MainApp:
 	"""
-	Jokosher's main class. It creates the majority of the main window GUI and gets 
+	Jokosher's main class. It creates the majority of the main window GUI and 
 	gets everything up and running.
 	"""
 	

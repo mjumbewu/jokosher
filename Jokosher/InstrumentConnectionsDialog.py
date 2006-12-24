@@ -2,6 +2,11 @@
 #	THIS FILE IS PART OF THE JOKOSHER PROJECT AND LICENSED UNDER THE GPL. SEE
 #	THE 'COPYING' FILE FOR DETAILS
 #
+#	This class handles all of the processing associated with the
+#	Instrument Connections dialog.
+#
+#-------------------------------------------------------------------------------
+
 import gtk.glade
 import gobject
 import pygst
@@ -15,13 +20,20 @@ _ = gettext.gettext
 #=========================================================================
 
 class InstrumentConnectionsDialog:
-	""" This class handles all of the processing associated with the
-		Instrument Connections dialog.
-	"""	
+	"""
+	Handles all of the processing associated with the Instrument Connections dialog.
+	"""
+	
 	#_____________________________________________________________________
 
 	def __init__(self, project, parent):
-				
+		"""
+		Creates a new instance of InstrumentConnectionsDialog.
+		
+		Parameters:
+			project -- the currently active Project.
+			parent -- reference to the MainApp Jokosher window.
+		"""
 		if project:
 			self.project = project
 		else:
@@ -52,11 +64,21 @@ class InstrumentConnectionsDialog:
 	#_____________________________________________________________________
 
 	def OnClose(self, button):
+		"""
+		Called when the dialog gets closed.
+		
+		Parameters:
+			button -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		self.window.destroy()
 	
 	#_____________________________________________________________________
 
 	def Populate(self):
+		"""
+		Creates all the widgets for intruments and devices that compose the
+		InstrumentConnectionsDialog and then adds them to the dialog.
+		"""
 		self.inputs = {}
 	
 		#Find out how many channels a device offers
@@ -103,7 +125,13 @@ class InstrumentConnectionsDialog:
 	#_____________________________________________________________________
 			
 	def OnSelected(self, widget, instr):
-		'''Set the instrument's input'''
+		"""
+		Sets the instrument's input device.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+			instr -- Instrument to change the input device to.
+		"""
 		device, inTrack = self.AlsaID[widget.get_active()]
 		if device != instr.input or inTrack != instr.inTrack:
 			instr.input = device
