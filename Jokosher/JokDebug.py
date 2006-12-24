@@ -1,81 +1,109 @@
 #
-#    THIS FILE IS PART OF THE JOKOSHER PROJECT AND LICENSED UNDER THE GPL. SEE
-#    THE 'COPYING' FILE FOR DETAILS
+#	THIS FILE IS PART OF THE JOKOSHER PROJECT AND LICENSED UNDER THE GPL. SEE
+#	THE 'COPYING' FILE FOR DETAILS
 #
-#    NewDialog.py
+#	JokDebug.py
 #
-#    This class provides a bunch of debugging methods that are mainly intended
-#    for cracking open pipelines and looking at the goo inside. This most likely
-#    won't be shipped with the final release and is mainly useful for hackers
-#    who are involved in the project.
+#	This class provides a bunch of debugging methods that are mainly intended
+#	for cracking open pipelines and looking at the goo inside. This most likely
+#	won't be shipped with the final release and is mainly useful for hackers
+#	who are involved in the project.
 #
-#    To enable debugging mode, set an environmental variable:
+#	To enable debugging mode, set an environmental variable:
 #
-#       foo@bar~$ export JOKOSHER_DEBUG=1
+#	   foo@bar~$ export JOKOSHER_DEBUG=1
 #
 #-------------------------------------------------------------------------------
+
 import Globals
 class JokDebug:
-    def __init__(self):
-        # remember the trailing space
-        self.DEBUG_PREFIX = "[debug] "
+	"""
+	This class provides debugging methods that are mainly intended
+	for cracking open pipelines and looking at the goo inside. This most likely
+	won't be shipped with the final release and is mainly useful for hackers
+	who are involved in the project.
 
-    def ShowPipelineDetails(self, pipeline):
-        '''Display the pipeline details, including pads'''
+	To enable debugging mode, set an environmental variable:
+	
+		foo@bar~$ export JOKOSHER_DEBUG=1
+	"""
+	def __init__(self):
+		# remember the trailing space
+		self.DEBUG_PREFIX = "[debug] "
 
-        pipechildren = []
+	def ShowPipelineDetails(self, pipeline):
+		"""
+		Display the pipeline details, including pads.
+		
+		Parameters:
+			pipeline -- pipeline object to inspect.
+		"""
 
-        pipe = pipeline.sorted()
+		pipechildren = []
 
-        pipelinechildren = []
-        finalpipe = ""
+		pipe = pipeline.sorted()
 
-        for element in pipeline.sorted():
-            pipelinechildren[:0] = element
+		pipelinechildren = []
+		finalpipe = ""
 
-        for child in pipe:
-            Globals.debug(self.DEBUG_PREFIX + ">>> Element '" + str(child.get_name()) + "' (" + child.get_factory().get_name() + ")")
-            for pad in child.pads():
-                if pad.is_linked() == True:
-                    Globals.debug(self.DEBUG_PREFIX + "\tPAD LINK: pad: '" + str(pad.get_name()) + "' connects to " + str(pad.get_peer()))
-                else:
-                    Globals.debug(self.DEBUG_PREFIX + "\tNO LINK: " + str(pad.get_name()))
+		for element in pipeline.sorted():
+			pipelinechildren[:0] = element
 
-            Globals.debug(self.DEBUG_PREFIX + "<<< END ELEMENT <<<")
+		for child in pipe:
+			Globals.debug(self.DEBUG_PREFIX + ">>> Element '" + str(child.get_name()) + "' (" + child.get_factory().get_name() + ")")
+			for pad in child.pads():
+				if pad.is_linked() == True:
+					Globals.debug(self.DEBUG_PREFIX + "\tPAD LINK: pad: '" + str(pad.get_name()) + "' connects to " + str(pad.get_peer()))
+				else:
+					Globals.debug(self.DEBUG_PREFIX + "\tNO LINK: " + str(pad.get_name()))
 
-    def ShowPipeline(self, pipeline):
-        '''Display the construction of the pipeline in a gst-launch type format'''
+			Globals.debug(self.DEBUG_PREFIX + "<<< END ELEMENT <<<")
 
-        pipelinechildren = []
-        finalpipe = ""
+	def ShowPipeline(self, pipeline):
+		"""
+		Display the construction of the pipeline in a gst-launch type format.
+		
+		Parameters:
+			pipeline -- pipeline object to inspect.
+		"""
 
-        for element in pipeline.sorted():
-            pipelinechildren[:0] = [element.get_factory().get_name()]
+		pipelinechildren = []
+		finalpipe = ""
 
-        for elem in pipelinechildren:
-            finalpipe += elem  + " ! "
+		for element in pipeline.sorted():
+			pipelinechildren[:0] = [element.get_factory().get_name()]
 
-        Globals.debug(self.DEBUG_PREFIX + finalpipe)
+		for elem in pipelinechildren:
+			finalpipe += elem  + " ! "
 
-    def ShowPipelineTree(self, pipeline, recurseDepth = 0, maxDepth = 3):
-        '''Display a tree of pipeline elements and their children'''
-        if recurseDepth > maxDepth:
-            return
+		Globals.debug(self.DEBUG_PREFIX + finalpipe)
 
-        if recurseDepth == 0:
-            Globals.debug(self.DEBUG_PREFIX + "PIPELINE END")
+	def ShowPipelineTree(self, pipeline, recurseDepth = 0, maxDepth = 3):
+		"""
+		Display a tree of pipeline elements and their children.
+		
+		Parameters:
+			pipeline -- pipeline object to inspect.
+			recurseDepth -- recursion tree depth.
+			maxDepth -- maximum recursion depth.
+		"""
+		if recurseDepth > maxDepth:
+			return
 
-        for element in pipeline.sorted():
-            try:
-                indent = self.DEBUG_PREFIX
-                for i in range(recurseDepth):
-                    indent += "\t"
-                Globals.debug(indent + element.get_factory().get_name() + ": " + element.get_name())
+		if recurseDepth == 0:
+			Globals.debug(self.DEBUG_PREFIX + "PIPELINE END")
 
-                self.ShowPipelineTree(element, recurseDepth+1, maxDepth)
-            except:
-                pass
+		for element in pipeline.sorted():
+			try:
+				indent = self.DEBUG_PREFIX
+				for i in range(recurseDepth):
+					indent += "\t"
+				Globals.debug(indent + element.get_factory().get_name() + ": " + element.get_name())
 
-        if recurseDepth == 0:
-            Globals.debug(self.DEBUG_PREFIX + "PIPELINE START")
-                
+				self.ShowPipelineTree(element, recurseDepth+1, maxDepth)
+			except:
+				pass
+
+		if recurseDepth == 0:
+			Globals.debug(self.DEBUG_PREFIX + "PIPELINE START")
+				
