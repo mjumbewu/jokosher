@@ -18,6 +18,7 @@ class TimeView(gtk.EventBox):
 	This class updates the time label which displays the time position of a loaded project.
 	"""
 
+	""" GTK widget name """
 	__gtype_name__ = 'TimeView'
 
 	#_____________________________________________________________________
