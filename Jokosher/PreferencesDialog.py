@@ -24,13 +24,19 @@ STARTUP_NOTHING = "nothing"
 #=========================================================================
 
 class PreferencesDialog:	
-	"""This class creates a dialog for selecting and saving global preferences."""
+	"""
+	Creates a dialog for selecting and saving global preferences.
+	"""
 
 	def __init__(self, project, mainwindow, icon=None):
-		"""Keyword arguments:
-		project -- The jokosher project currently loaded.
-		mainwindow -- A reference to the main Jokosher window
-		icon -- The icon for the window manager to display for this window (optional)."""
+		"""
+		Creates a new instance of PreferencesDialog.
+		
+		Parameters:
+			project -- the currently active Project.
+			mainwindow -- the main Jokosher window (MainApp).
+			icon -- the icon for the window manager to display for this window (optional).
+		"""
 
 		self.project = project
 		self.mainwindow = mainwindow
@@ -119,10 +125,10 @@ class PreferencesDialog:
 		fileFormatSetting = Globals.settings.recording["fileformat"]
 		fileFormatSettingIndex = 0
 		#get all the encoders from Globals
-		for i in Globals.EXPORT_FORMATS:
-			self.recordingFileFormat.append_text("%s (.%s)" % (i["description"], i["extension"]))
-			if fileFormatSetting == i["pipeline"]:
-				fileFormatSettingIndex = Globals.EXPORT_FORMATS.index(i)
+		for format in Globals.EXPORT_FORMATS:
+			self.recordingFileFormat.append_text("%s (.%s)" % (format["description"], format["extension"]))
+			if fileFormatSetting == format["pipeline"]:
+				fileFormatSettingIndex = Globals.EXPORT_FORMATS.index(format)
 		
 		self.recordingFileFormat.set_active(fileFormatSettingIndex)
 		
@@ -140,13 +146,15 @@ class PreferencesDialog:
 	#_____________________________________________________________________
 		
 	def LoadSetting(self, widget, section, property):
-		"""Sets the selected value in a combobox to that specified by a configuration object
+		"""
+		Sets the selected value in a combobox, to that specified by a configuration object.
 		
-		Keyword arguments:
-		widget -- The combobox to select the value in.
-		section -- The configuration section object to find the property in.
-		property -- The property of the configuration section to use when selecting the combobox value."""
-
+		Parameters:
+			widget -- the combobox to select the value in.
+			section -- the configuration section object to find the property in.
+			property -- the property of the configuration section to use when 
+						selecting the combobox value.
+		"""
 		if section.has_key(property):
 			model = widget.get_model()
 			if not model:
@@ -166,21 +174,24 @@ class PreferencesDialog:
 	#_____________________________________________________________________
 
 	def OnClose(self, button=None): 
-		"""Called when the user closes the preferences dialog.
+		"""
+		Called when the user closes the preferences dialog.
 		
-		Keyword arguments:
-		button -- The button widget that was clicked (unused, automatically specified by gtk)."""
-
+		Parameters:
+			button -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		self.dlg.destroy()
 
 	#_____________________________________________________________________
 
 	def OnSettingChanged(self, combobox=None):
-		"""Called when a setting is changed to update the currently used settings and write an updated settings file
+		"""
+		Called when a setting is changed, to update the currently used settings.
+		It then writes an updated settings file.
 		
-		Keyword arguments:
-		combobox -- The combobox widget that has changed (unused, automatically specified by gtk)."""
-
+		Parameters:
+			combobox -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		if self.loadingSettings:
 			return
 		
@@ -205,6 +216,13 @@ class PreferencesDialog:
 	#_____________________________________________________________________
 
 	def OnPlaybackSinkChanged(self, comboBox=None):
+		"""
+		Updates the selected playback audio device from the comboBox selection.
+		It then writes an updated settings file.
+		
+		Parameters:
+			comboBox -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		if self.loadingSettings:
 			return
 	
@@ -229,16 +247,17 @@ class PreferencesDialog:
 	#_____________________________________________________________________
 	
 	def OnCheckEncoders(self):
-		"""List the available encoders installed on the computer
-		   This code is not currently used, but is still here as it may
-		   be useful in the future.
+		"""
+		List the available encoders installed on the computer.
+		This code is not currently used, but is still here as it may 
+		be useful in the future.
 		"""
 
-		thelist = gst.registry_get_default().get_feature_list(gst.ElementFactory)
+		gstfeatures = gst.registry_get_default().get_feature_list(gst.ElementFactory)
 		encoders = []
-		for f in thelist:
-			if "Codec/Encoder/Audio" in f.get_klass():
-				encoders.append(f)
+		for feature in gstfeatures:
+			if "Codec/Encoder/Audio" in feature.get_klass():
+				encoders.append(feature)
 		gst.log(str(encoders))
 
 		# these encoders are not actually hooked up yet - we will most likely

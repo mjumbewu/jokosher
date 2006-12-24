@@ -19,25 +19,34 @@ import gettext
 
 class RecordingView(gtk.Frame):
 	"""
-		This class encapsulates a visual layout of a project comprising
-		instrument tracks, timeline, and horizontal scrollbars.
-		Despite it's name it also appears under the mixing view contained
-		in a CompactMixView object, where it represents the same 
-		information with shorter instrument tracks.
+	This class encapsulates a visual layout of a project comprising
+	instrument tracks, timeline, and horizontal scrollbars.
+	Despite its name, it also appears under the mixing view contained
+	in a CompactMixView object, where it represents the same
+	information with shorter instrument tracks.
 	"""
-
+	
+	""" GTK widget name """
 	__gtype_name__ = 'RecordingView'
+	
+	""" Width, in pixel, for the instrument headers """
 	INSTRUMENT_HEADER_WIDTH = 150
 
 	#_____________________________________________________________________
 
 	def __init__(self, project, mainview, mixView=None, small=False):
 		"""
-			project - the current active project
-			mainview - the main Jokosher window
-			mixView - the CompactMixView object that holds this if we are in
-			          mixing view. If we are in recording view then None
-			small - set to True if we want small edit views (i.e. for mix view)
+		Creates a new instance of RecordingView.
+		
+		Parameters:
+			project -- the currently active Project.
+			mainview -- the main Jokosher window (MainApp).
+			mixView -- the CompactMixView object that holds this instance of
+						RecordingView, if the mixing view is the currently 
+						active one.
+						If the recording view is the active one, then this
+						should be set to None.
+			small -- set to True if we want small edit views (i.e. for the mixing view).
 		"""
 		gtk.Frame.__init__(self)
 
@@ -118,7 +127,12 @@ class RecordingView(gtk.Frame):
 
 	def OnExpose(self, widget, event):
 		"""
-			Sets scrollbar properties once space has been allocated 
+		Sets scrollbar properties (i.e. size, scroll increments, etc),
+		once space for the object has been allocated.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+			event -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		
 		# calculate scrollable width - allow 4 pixels for borders
@@ -142,7 +156,11 @@ class RecordingView(gtk.Frame):
 
 	def OnAllocate(self, widget, allocation):
 		"""
-			Callback for "size-allocate" signal
+		Callback for "size-allocate" signal.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+			allocation -- new allocation value to be set.
 		"""
 		self.allocation = allocation
 		
@@ -151,13 +169,17 @@ class RecordingView(gtk.Frame):
 
 	def Update(self):
 		"""
-			Called either directly from OnStateChanged() or via the owning
-			CompactMixView.update() (depending on which view we are in) when
-			there is a change of state of an instrument being listened to.
+		Updates the GUI to reflect changes on the instruments, timeline and
+		scrollbars.
+		Called either directly from OnStateChanged(), or via the owning
+		CompactMixView.update()(depending on which view we are in) when
+		there is a change of state in an instrument being listened to.
+		
+		Considerations:
+			InstrumentViews MUST have the order that the instruments have in
+			Project.instruments, to keep the drag and drop of InstrumentViews
+			consistent.
 		"""
-		# Note: InstrumentViews MUST have the order that the instruments have in
-		#       Project.instruments to keep the drag and drop of InstrumentViews
-		#       consistent!
 		children = self.instrumentBox.get_children()
 		orderCounter = 0
 		for instr in self.project.instruments:
@@ -219,8 +241,9 @@ class RecordingView(gtk.Frame):
 		
 	def UpdateSize(self, widget=None, size=None):
 		"""
-			Called during update() to re-align the timeline and scrollbars
-			with the start of the event lane (instrument width may have altered)
+		Called during update() to re-align the timeline and scrollbars
+		with the start of the event lane since the instrument width may
+		have been altered.
 		"""
 		#find the width of the instrument headers (they should all be the same size)
 		if size:
@@ -239,7 +262,11 @@ class RecordingView(gtk.Frame):
 	
 	def OnScroll(self, widget):
 		"""
-			Callback for "value-changed" signal from scrillbar
+		Callback for "value-changed" signal from scrollbar.
+		Updates the Project playhead position.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		pos = widget.get_value()
 		self.project.SetViewStart(pos)
@@ -248,7 +275,11 @@ class RecordingView(gtk.Frame):
 
 	def OnZoom(self, widget):
 		"""
-			Callback for the zoom slider being moved.
+		Updates the viewing scale for the Project when the user
+		zooms in or out.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		
 		self.project.SetViewScale(widget.get_value())
@@ -258,7 +289,10 @@ class RecordingView(gtk.Frame):
 		
 	def OnZoomOut(self, widget):
 		"""
-			Zooms the view.
+		Calls OnZoom when the user zooms out.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		tmp = self.project.viewScale * 4. / 5.
 		#setting the value will trigger the gtk event and call OnZoom for us.
@@ -268,8 +302,11 @@ class RecordingView(gtk.Frame):
 		
 	def OnZoom100(self, widget):
 		"""
-			This method is not currently used (it was used when we had zoom buttons) but is
-			left here in case we use it in future.
+		This method is not currently used (it was used when the zoom buttons existed).
+		It's left here for future use.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		self.project.SetViewScale(25.0)
 		
@@ -277,7 +314,10 @@ class RecordingView(gtk.Frame):
 		
 	def OnZoomIn(self, widget):
 		"""
-			Zooms the view.
+		Calls OnZoom when the user zooms in.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		tmp = self.project.viewScale * 1.25
 		#setting the value will trigger the gtk event and call OnZoom for us.
@@ -287,8 +327,12 @@ class RecordingView(gtk.Frame):
 
 	def OnMouseDown(self, widget, mouse):
 		"""
-			Callback for "button_press_event" (not catered for by any
-			button presses or other mouse handlers)
+		Callback for "button_press_event" (not catered for, by any
+		button presses or other mouse handlers).
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+			mouse -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		# If we're here then we're out of bounds of anything else
 		# So we should clear any selected events
@@ -302,8 +346,13 @@ class RecordingView(gtk.Frame):
 	
 	def OnStateChanged(self, obj, change=None, *extra):
 		"""
-			Called on a change of state in any objects that this object
-			is listening to.
+		Called when a change of state is signalled by any of the
+		objects this view is 'listening' to.
+		
+		Parameters:
+			obj -- object changing state. *CHECK*
+			change -- the change which has occured.
+			extra -- extra parameters passed by the caller.
 		"""
 		#don't update on volume change because it happens very often
 		if change != "volume":

@@ -1,7 +1,14 @@
 #
-#	THIS FILE IS PART OF THE JOKOSHER PROJECT AND LICENSED UNDER THE GPL. SEE
-#	THE 'COPYING' FILE FOR DETAILS
+#       THIS FILE IS PART OF THE JOKOSHER PROJECT AND LICENSED UNDER THE GPL. SEE
+#       THE 'COPYING' FILE FOR DETAILS
 #
+#       MixerStrip.py
+#       
+#		Contains the VU widget, the buttons below it and levels,
+#		for an Instrument in the mixing view.
+#
+#-------------------------------------------------------------------------------
+
 import pygtk
 pygtk.require("2.0")
 import gtk
@@ -17,12 +24,26 @@ from VUWidget import *
 #=========================================================================
 
 class MixerStrip(gtk.Frame):
+	"""
+	Contains the VU widget and the buttons below it,
+	for an Instrument in the mixing view.
+	"""
 	
+	""" GTK widget name """
 	__gtype_name__ = 'MixerStrip'
 	
 	#_____________________________________________________________________
 	
 	def __init__(self, project, instrument, mixview, mainview):
+		"""
+		Creates a new instance of MixerStrip.
+		
+		Parameters:
+			project -- the currently active Project.
+			instrument -- the instrument associated with this MixerStrip.
+			mixview -- the mixing view object (CompactMixView).
+			mainview -- the main Jokosher window (MainApp).
+		"""
 		gtk.Container.__init__(self)
 		self.project = project
 		self.instrument = instrument
@@ -115,29 +136,57 @@ class MixerStrip(gtk.Frame):
 	#_____________________________________________________________________
 
 	def OnMute(self, widget):
+		"""
+		Toggles muting the instrument on/off.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		if not self.Updating:
 			self.instrument.ToggleMuted(False)
 	
 	#_____________________________________________________________________
 
 	def OnArm(self, widget):
+		"""
+		Toggles arming the instrument on/off.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		if not self.Updating:
 			self.instrument.ToggleArmed()
 		
 	#_____________________________________________________________________
 	
 	def OnSolo(self, widget):
+		"""
+		Toggles soloing the instrument on/off.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		if not self.Updating:
 			self.instrument.ToggleSolo(False)
 		
 	#_____________________________________________________________________
 	
 	def EmitMinimise(self, widget):
+		"""
+		Minimizes the Instrument to the StatusBar.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		self.emit("minimise")
 	
 	#_____________________________________________________________________
 	
 	def Update(self):
+		"""
+		Updates the MixerStrip interface elements according to the actual
+		instrument state (i.e. muted/not muted).
+		"""
 		self.Updating = True
 		
 		self.mintip.enable()
@@ -162,28 +211,56 @@ class MixerStrip(gtk.Frame):
 	#_____________________________________________________________________
 	
 	def Destroy(self):
+		"""
+		Called when the MixerStrip is destroyed. It also emits the
+		destroy signal to the VUMixer widget.
+		"""
 		self.vu.Destroy()
 		self.destroy()
 	
 	#_____________________________________________________________________
 
 	def GetLevel(self):
+		"""
+		Obtain the instrument level.
+		
+		Returns:
+			the level of the instrument.
+		"""
 		return self.instrument.level
 		
 	#_____________________________________________________________________
 
 	def GetVolume(self):
+		"""
+		Obtain the instrument volume.
+		
+		Returns:
+			the volume of the instrument.
+		"""
 		return self.instrument.volume
 		
 	#_____________________________________________________________________
 
 	def SetVolume(self, vol):
+		"""
+		Sets the instrument's volume.
+		
+		Parameters:
+			vol -- volume value to set this Instrument's volume to.
+		"""
 		self.instrument.SetVolume(vol)
 		
 	#_____________________________________________________________________
 	
 	def OnPanChanged(self, slider):
-		"""change the instrument's audiopanorama value"""
+		"""
+		Change the instrument's audiopanorama value to the
+		one indicated by the slider control.
+		
+		Parameters:
+			slider -- panning slider control.
+		"""
 		value = slider.get_value()
 
 		self.instrument.pan = value

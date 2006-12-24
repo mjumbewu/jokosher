@@ -1,6 +1,13 @@
 #!/usr/bin/python
-"""This module is for testing and profiling the code only.
-   This file should not be included in any release."""
+
+#
+#    THIS FILE IS PART OF THE JOKOSHER PROJECT AND LICENSED UNDER THE GPL. SEE
+#    THE 'COPYING' FILE FOR DETAILS
+#
+#    This module is meant for testing and profiling the code only.
+#    This file should not be included in any release.
+#
+#-------------------------------------------------------------------------------
 
 import hotshot
 from hotshot import stats
