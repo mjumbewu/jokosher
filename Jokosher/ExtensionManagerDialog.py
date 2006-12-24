@@ -1,3 +1,8 @@
+#
+#	THIS FILE IS PART OF THE JOKOSHER PROJECT AND LICENSED UNDER THE GPL. SEE
+#	THE 'COPYING' FILE FOR DETAILS
+#
+#
 import gtk.glade, pango
 import Globals, Extension
 import gettext

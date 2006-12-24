@@ -1,4 +1,7 @@
-
+#
+#	THIS FILE IS PART OF THE JOKOSHER PROJECT AND LICENSED UNDER THE GPL. SEE
+#	THE 'COPYING' FILE FOR DETAILS
+#
 import pygtk
 pygtk.require("2.0")
 import gtk

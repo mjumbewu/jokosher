@@ -1,3 +1,8 @@
+#
+#	THIS FILE IS PART OF THE JOKOSHER PROJECT AND LICENSED UNDER THE GPL. SEE
+#	THE 'COPYING' FILE FOR DETAILS
+#
+
 # The Jokosher Extension API
 # write proper docstrings so that we can autogenerate the docs
 
