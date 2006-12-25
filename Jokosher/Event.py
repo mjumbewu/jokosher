@@ -144,11 +144,11 @@ class Event(Monitored):
 		Converts this Event into an XML representation suitable for saving to a file.
 
 		Parameters:
-			doc -- the XML dcxument object the Event will be saved to.
+			doc -- the XML document object the Event will be saved to.
 			parent -- the parent node that the serialized Event should
 						be added to.
 			graveyard -- True if this Event is on the graveyard stack,
-						and should be serialized as a dead event.
+						and should be serialized as a dead Event.
 		"""
 		if graveyard:
 			ev = doc.createElement("DeadEvent")

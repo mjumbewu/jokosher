@@ -32,10 +32,27 @@ _ = gettext.gettext
 #=========================================================================	
 
 class Instrument(Monitored):
+	"""
+	This module is the non-gui class the represents Instruments. Instruments
+	represent a track of audio that can contain many different sources in sequence.
+	It also handles loading and saving Instruments from xml, the gstreamer
+	bits for playing and recording events, audio effects plugins, as well as any 
+	Instrument specific functionality like; solo, mute, volume, etc.
+	"""
 	
 	#_____________________________________________________________________
 	
 	def __init__(self, project, name, type, pixbuf, id=None):
+		"""
+		Creates a new instance of Instrument.
+		
+		Parameters:
+			project -- the currently active Project.
+			name -- name of the Instrument.
+			type -- type of the Instrument.
+			pixbuf -- image of the Instrument resource object.
+			id -- unique ID value for the Instrument.
+		"""
 		Monitored.__init__(self)
 		
 		self.project = project
@@ -194,7 +211,13 @@ class Instrument(Monitored):
 	#_____________________________________________________________________
 	
 	def __PadAddedCb(self, element, pad):
-		""" Links a new pad to the rest of the playbackbin when one is created by the composition.
+		"""
+		Links a new pad to the rest of the playbackbin when one is created
+		by the composition.
+		
+		Parameters:
+			element -- GStreamer element calling this function.
+			pad -- newly added pad object.
 		"""
 		Globals.debug("NEW PAD on instrument %s" % self.name)
 		convpad = self.effectsBin.get_compatible_pad(pad, pad.get_caps())
@@ -203,7 +226,12 @@ class Instrument(Monitored):
 	#_____________________________________________________________________
 
 	def __PadRemovedCb(self, element, pad):
-		""" Removes a new GStreamer pad from the specified instrument.
+		"""
+		Removes a GStreamer pad from the specified instrument.
+		
+		Parameters:
+			element -- GStreamer element calling this function.
+			pad -- pad to be removed from the Instrument.
 		"""
 		Globals.debug("pad removed on instrument %s" % self.name)
 		self.composition.set_state(gst.STATE_READY)
@@ -211,11 +239,27 @@ class Instrument(Monitored):
 	#_____________________________________________________________________
 	
 	def __repr__(self):
+		"""
+		Creates a representation string of the Instrument.
+
+		Returns:
+			a string representing the id and name for this Instrument.
+		"""
 		return "Instrument [%d] %s"%(self.id, self.name)
 		
 	#_____________________________________________________________________
 		
 	def StoreToXML(self, doc, parent, graveyard=False):
+		"""
+		Converts this Instrument into an XML representation suitable for saving to a file.
+
+		Parameters:
+			doc -- the XML document object the Instrument will be saved to.
+			parent -- the parent node that the serialized Instrument should
+						be added to.
+			graveyard -- True if this Instrument is on the graveyard stack,
+						and should be serialized as a dead Instrument.
+		"""
 		if graveyard:
 			ins = doc.createElement("DeadInstrument")
 		else:
@@ -224,8 +268,8 @@ class Instrument(Monitored):
 		ins.setAttribute("id", str(self.id))
 		
 		items = ["name", "isArmed", 
-				  "isMuted", "isSolo", "input", "output",
-				  "isSelected", "isVisible", "inTrack", "instrType", "pan"]
+				"isMuted", "isSolo", "input", "output",
+				"isSelected", "isVisible", "inTrack", "instrType", "pan"]
 		
 		params = doc.createElement("Parameters")
 		ins.appendChild(params)
@@ -244,15 +288,20 @@ class Instrument(Monitored):
 			
 			StoreDictionaryToXML(doc, globaleffect, propsdict)
 			
-		for e in self.events:
-			e.StoreToXML(doc, ins)
-		for e in self.graveyard:
-			e.StoreToXML(doc, ins, graveyard=True)
+		for ev in self.events:
+			ev.StoreToXML(doc, ins)
+		for ev in self.graveyard:
+			ev.StoreToXML(doc, ins, graveyard=True)
 			
 	#_____________________________________________________________________	
 			
 	def LoadFromXML(self, node):
+		"""
+		Restores an Instrument from its serialized XML representation.
 		
+		Parameters:
+			node -- the XML node to retreive data from.
+		"""
 		params = node.getElementsByTagName("Parameters")[0]
 		
 		LoadParametersFromXML(self, params)
@@ -277,26 +326,26 @@ class Instrument(Monitored):
 				id = int(ev.getAttribute("id"))
 			except ValueError:
 				id = None
-			e = Event(self, None, id)
-			e.LoadFromXML(ev)
-			self.events.append(e)
+			event = Event(self, None, id)
+			event.LoadFromXML(ev)
+			self.events.append(event)
 	
 		for ev in node.getElementsByTagName("DeadEvent"):
 			try:
 				id = int(ev.getAttribute("id"))
 			except ValueError:
 				id = None
-			e = Event(self, None, id)
-			e.LoadFromXML(ev)
-			self.graveyard.append(e)
+			event = Event(self, None, id)
+			event.LoadFromXML(ev)
+			self.graveyard.append(event)
 			#remove it from the composition so it doesnt play
-			self.composition.remove(e.filesrc)
+			self.composition.remove(event.filesrc)
 		
 		#load image from file based on unique type
 		#TODO replace this with proper cache manager
-		for i in Globals.getCachedInstruments():
-			if self.instrType == i[1]:
-				self.pixbuf = i[2]
+		for instr in Globals.getCachedInstruments():
+			if self.instrType == instr[1]:
+				self.pixbuf = instr[2]
 				break
 		if not self.pixbuf:
 			Globals.debug("Error, could not load image:", self.instrType)
@@ -312,9 +361,17 @@ class Instrument(Monitored):
 
 	def AddEffect(self, effectName):
 		"""
-		Add an effect with the Gstreamer element name effectName
-		to the pipeline for this instrument. The effect is always placed
-		in the pipeline after any other effects that were previously added.
+		Adds an effect to the pipeline for this Instrument.
+		
+		Considerations:
+			The effect is always placed in the pipeline after any other
+			effects that were previously added.
+			
+		Parameters:
+			effectName -- GStreamer element name of the effect to add.
+			
+		Returns:
+			the added effect element.
 		"""
 		#make the new effect and an audioconvert to go with it
 		convert = gst.element_factory_make("audioconvert")
@@ -361,7 +418,10 @@ class Instrument(Monitored):
 	
 	def RemoveEffect(self, effect):
 		"""
-		Remove the given Gstreamer element from the effects bin.
+		Remove the given GStreamer element from the effects bin.
+		
+		Parameters:
+			effect -- GStreamer effect to be removed from this Instrument.
 		"""
 		if effect not in self.effects:
 			Globals.debug("Error: trying to remove an element that is not in the list")
@@ -427,14 +487,25 @@ class Instrument(Monitored):
 	
 	def ChangeEffectOrder(self, effect, newPosition):
 		"""
-		Move the given Gstreamer element from its current position
-		in the effects bin, to the index newPosition.
+		TODO: this function has yet to be implemented.
+		
+		Move a given GStreamer element inside the effects bin.
+		
+		Parameters:
+			effect -- GStreamer effect to be moved.
+			newPosition -- value of the new position inside the effects bin
+							the effect will have.
 		"""
 		pass
 	
 	#_____________________________________________________________________
 	
 	def getRecordingEvent(self):
+		"""
+		Obtain an Event suitable for recording. *CHECK*
+		Returns:
+			an Event suitable for recording.
+		"""
 		event = Event(self)
 		event.start = 0
 		event.isRecording = True
@@ -447,6 +518,12 @@ class Instrument(Monitored):
 
 	@UndoCommand("DeleteEvent", "temp")
 	def finishRecordingEvent(self, event):
+		"""
+		Called when the recording of an Event has finished.
+		
+		Parameters:
+			event -- Event object that has finished being recorded.
+		"""
 		event.isRecording = False
 		event.GenerateWaveform()
 		self.temp = event.id
@@ -456,13 +533,18 @@ class Instrument(Monitored):
 
 	@UndoCommand("DeleteEvent", "temp")
 	def addEventFromFile(self, start, file, copyfile=False):
-		''' Adds an event to this instrument, and attaches the specified
-			file to it. 
-			
-			start - The offset time in seconds
-			file - file path
-			copyfile - if True copy file to project audio dir
-		'''
+		"""
+		Adds an Event from a file to this Instrument.
+		
+		Parameters:
+			start -- the offset time in seconds for the Event.
+			file -- path to the Event file.
+			copyfile --	True = copy the file to Project's audio directory.
+						False = don't copy the file to the Project's audio directory.
+						
+		Returns:
+			the added Event.
+		"""
 		filelabel=file
 
 		if copyfile:
@@ -482,31 +564,36 @@ class Instrument(Monitored):
 		else:
 			name = file.split(os.sep)[-1]
 
-		e = Event(self, file,None,filelabel)
-		e.start = start
-		e.name = name
-		self.events.append(e)
-		e.GenerateWaveform()
+		ev = Event(self, file,None,filelabel)
+		ev.start = start
+		ev.name = name
+		self.events.append(ev)
+		ev.GenerateWaveform()
 
-		self.temp = e.id
+		self.temp = ev.id
 		
 		self.StateChanged()
 		
-		return e
+		return ev
 		
 	#_____________________________________________________________________
 	
 	@UndoCommand("DeleteEvent", "temp")
 	def addEventFromURL(self, start, url):
-		''' Adds an event to this instrument, and downloads the specified
-			URL and saves it against this event.
-			
-			start - The offset time in seconds
-			file - file path
-			
-			NB: there is no copyfile option here, because it's mandatory.
-		'''
+		"""
+		Adds an Event from a URL to this Instrument.
 		
+		Considerations:
+			Unlike addEventFromFile, there is no copyfile option here,
+			because it's mandatory.
+		
+		Parameters:
+			start -- The offset time in seconds for the Event.
+			url -- url of the Event to be added.
+			
+		Returns:
+			the added Event.
+		"""
 		# no way of knowing whether there's a filename, so make one up
 		newfile = "%d_%d" % (self.id, int(time.time()))
 
@@ -514,21 +601,28 @@ class Instrument(Monitored):
 		self.project.deleteOnCloseAudioFiles.append(audio_file)
 		
 		# Create the event now so we can return it, and fill in the file later
-		e = Event(self, None, None)
-		e.start = start
-		self.events.append(e)
-		self.temp = e.id
+		ev = Event(self, None, None)
+		ev.start = start
+		self.events.append(ev)
+		self.temp = ev.id
 
 		PRIORITY_DEFAULT = 0 # not wrapped in gnomevfs module yet
 		gnomevfs.async.open(url, self.__got_url_handle, gnomevfs.OPEN_READ, 
-		  PRIORITY_DEFAULT, [audio_file, start, e])
+		  PRIORITY_DEFAULT, [audio_file, start, ev])
 
-		return e
+		return ev
 	
 	#_____________________________________________________________________
 	
 	def __got_url_handle(self, handle, param, callbackdata):
-		"""Called once gnomevfs has an object that we can read data from"""
+		"""
+		Called once gnomevfs has an object that can be read from.
+		
+		Parameters:
+			handle -- reference to the URL handle.
+			param -- reserved for gnomefvs callbacks, don't use it explicitly.
+			callbackdata -- the callback data from gnomevfs.
+		"""
 		audio_file, start, event = callbackdata
 		fp = open(audio_file, 'wb')
 		handle.read(1024, self.__async_read_callback, [fp, start, event])
@@ -536,6 +630,17 @@ class Instrument(Monitored):
 	#_____________________________________________________________________
 	
 	def __async_read_callback(self, handle, data, iserror, length, callbackdata):
+		"""
+		Reads the data from the gnomevfs URL callback and creates an Event for it.
+		
+		Parameters:
+			handle -- reference to the URL handle.
+			data -- the data available from the URL.
+			iserror --	!None = there's still data to fetch from the URL.
+						None = all the data has been fetched from the URL.
+			length -- length of the URL data.
+			callbackdata -- the callback data from gnomevfs.
+		"""
 		fp, start, event = callbackdata
 		fp.write(data)
 		if iserror is None:
@@ -556,38 +661,53 @@ class Instrument(Monitored):
 	
 	@UndoCommand("DeleteEvent", "temp")
 	def addEventFromEvent(self, start, event):
-		"""Creates a new event instance identical to the event parameter 
-		   and adds it to this instrument (for paste functionality).
-		      start - The offset time in seconds
-		      event - The event to be recreated on this instrument
 		"""
-		e = Event(self, event.file)
-		e.start = start
+		Creates a new Event instance identical to the given Event object
+		and adds it to this instrument (for paste functionality).
+		
+		Parameters:
+			start - the offset time in seconds for the new Event.
+			event - the Event to be cloned on this instrument.
+		"""
+		ev = Event(self, event.file)
+		ev.start = start
 		for i in ["duration", "name", "offset"]:
-			setattr(e, i, getattr(event, i))
-		e.levels = event.levels[:]
+			setattr(ev, i, getattr(event, i))
+		ev.levels = event.levels[:]
 		
-		self.events.append(e)
-		e.SetProperties()
-		e.MoveButDoNotOverlap(e.start)
+		self.events.append(ev)
+		ev.SetProperties()
+		ev.MoveButDoNotOverlap(ev.start)
 		
-		self.temp = e.id
+		self.temp = ev.id
 		self.StateChanged()
 	
 	#_____________________________________________________________________
 	
 	def DeleteEvent(self, eventid):
-		'''Removes an event from this instrument. 
-		   It does not register with undo or append it to the graveyard,
-		   because both are done by event.Delete()
-		'''
+		"""
+		Removes an Event from this Instrument.
+		
+		Considerations:
+			This operation does not register with undo or append it to the
+			graveyard, because both are done by event.Delete()
+			
+		Parameters:
+			eventid -- ID of the Event to be removed.
+		"""
 		event = [x for x in self.events if x.id == eventid][0]
 		event.Delete()
 	
 	#_____________________________________________________________________
 
 	def MultipleEventsSelected(self):
-		''' Confirms whether or not multiple events are selected '''
+		"""
+		Confirms whether or not multiple events are selected.
+		
+		Returns:
+			True = multiple Instruments have been selected.
+			False = none or just one Instrument has been seleced.
+		"""
 		multiple = 0
 		for ev in self.events:
 			if (ev.isSelected):
@@ -597,7 +717,9 @@ class Instrument(Monitored):
 	#_____________________________________________________________________
 
 	def JoinEvents(self):
-		''' Joins together all the selected events into a single event '''
+		"""
+		Joins together all the selected Events into a single Event.
+		"""
 
 		eventsToJoin = []
 		for ev in self.events:
@@ -618,14 +740,25 @@ class Instrument(Monitored):
 	#_____________________________________________________________________
 
 	def SetLevel(self, level):
-		""" Note that this sets the current REPORTED level, NOT THE VOLUME!
+		"""
+		Sets the level of this Instrument.
+		
+		Considerations:
+			This sets the current REPORTED level, NOT THE VOLUME!
+		
+		Parameters:
+			level -- new level value in a [0,1] range.
 		"""
 		self.level = level
 	
 	#_____________________________________________________________________
 
 	def SetVolume(self, volume):
-		"""Sets the volume of the instrument in the range 0..1
+		"""
+		Sets the volume of this Instrument.
+		
+		Parameters:
+			volume -- new volume value in a [0,1] range.
 		"""
 		if self.volume != volume:
 			self.volume = volume
@@ -637,8 +770,10 @@ class Instrument(Monitored):
 	@UndoCommand("SetName", "temp")
 	def SetName(self, name):
 		"""
-		   Sets the instrument to the given name
-		   so it can be registered in the undo stack
+		Sets the Instrument's name so it can be registered in the undo stack.
+		
+		Parameters:
+			name -- string with the name for the Instrument.
 		"""
 		if self.name != name:
 			self.temp = self.name
@@ -650,7 +785,7 @@ class Instrument(Monitored):
 	@UndoCommand("ToggleArmed")
 	def ToggleArmed(self):
 		"""
-		   Toggles the instrument to be armed for recording
+		Arms/Disarms the Instrument for recording.
 		"""
 		self.isArmed = not self.isArmed
 		self.StateChanged()
@@ -660,7 +795,11 @@ class Instrument(Monitored):
 	@UndoCommand("ToggleMuted", "temp")
 	def ToggleMuted(self, wasSolo):
 		"""
-		   Toggles the instrument to be muted
+		Mutes/Unmutes the Instrument.
+		
+		Parameters:
+			wasSolo --	True = the Instrument had solo mode enabled.
+						False = the Instrument was not in solo mode.
 		"""
 		self.temp = self.isSolo
 		self.isMuted = not self.isMuted
@@ -682,7 +821,11 @@ class Instrument(Monitored):
 	@UndoCommand("ToggleSolo", "temp")
 	def ToggleSolo(self, wasMuted):
 		"""
-		   Toggles the all the other instruments muted
+		Mutes/Unmutes the other Instruments in the Project.
+		
+		Parameters:
+			wasMuted --	True = the Instrument was muted.
+						False = the Instrument was not muted.
 		"""
 		self.temp = self.isMuted
 		self.isMuted = wasMuted
@@ -702,7 +845,12 @@ class Instrument(Monitored):
 	@UndoCommand("SetVisible", "temp")
 	def SetVisible(self, visible):
 		"""
-		   Sets wheather the instrument is minimized in CompactMixView
+		Sets whether the Instrument is minimized in the CompactMixView.
+		
+		Parameters:
+			visible --	True = the Instrument should be hidden in the mixing view.
+						False = the Instrument should be shown normally in 
+								the mixing view.
 		"""
 		if self.isVisible != visible:
 			self.temp = self.isVisible
@@ -713,8 +861,11 @@ class Instrument(Monitored):
 	
 	def SetSelected(self, sel):
 		"""
-		   Sets the instrument to be highlighted 
-		   and receive keyboard actions
+		Sets the Instrument to be highlighted and receive keyboard actions.
+		
+		Parameters:
+			sel -- 	True = the Instrument is currently selected.
+					False = the Instrument is not currently selected.
 		"""
 		# No need to call StateChanged when there is no change in selection state
 		if self.isSelected is not sel:
@@ -724,6 +875,9 @@ class Instrument(Monitored):
 	#_____________________________________________________________________
 	
 	def OnMute(self):
+		"""
+		Updates the GStreamer volume element to reflect the mute status.
+		"""
 		self.checkActuallyIsMuted()
 		if self.actuallyIsMuted:
 			self.volumeElement.set_property("mute", True)
@@ -733,8 +887,9 @@ class Instrument(Monitored):
 	#_____________________________________________________________________
 	
 	def checkActuallyIsMuted(self):
-		"""Determines if this intrument should be muted
-		   by taking into account if any other intruments are muted
+		"""
+		Determines if this Intrument should be muted, by taking into account
+		if any other Intruments are muted.
 		"""
 		if self.isMuted:
 			self.actuallyIsMuted = True
@@ -748,6 +903,10 @@ class Instrument(Monitored):
 	#_____________________________________________________________________
 	
 	def AddAndLinkPlaybackbin(self):
+		"""
+		Creates a playback bin for this Instrument and adds it to the main
+		playback pipeline. *CHECK*
+		"""
 		#make sure our playbackbin is in the same state so the pipeline can continue what it was doing
 		status, state, pending = self.project.playbackbin.get_state(0)
 		if pending != gst.STATE_VOID_PENDING:
@@ -767,6 +926,9 @@ class Instrument(Monitored):
 	#_____________________________________________________________________
 	
 	def RemoveAndUnlinkPlaybackbin(self):
+		"""
+		Removes this Instrumen's playback bin from the main playback pipeline. *CHECK*
+		"""
 		#get reference to pad before removing self.playbackbin from project.playbackbin!
 		pad = self.playghostpad.get_peer()
 		
@@ -788,9 +950,15 @@ class Instrument(Monitored):
 	@UndoCommand("ChangeType", "temp", "temp2")
 	def ChangeType(self, type, name):
 		"""
-		   Changes the intruments type to the type specified.
-		   The given type must be loaded in the instrument list
-		   in Globals or the image will not be found.
+		Changes the Intrument's type and name.
+		
+		Considerations:
+			The given type must be loaded in the Instrument list
+			in Globals or the image will not be found.
+			
+		Parameters:
+			type -- new type for this Instrument.
+			name -- new name for this Instrument.
 		"""
 		
 		self.temp = self.instrType
@@ -815,7 +983,9 @@ class Instrument(Monitored):
 	#_____________________________________________________________________
 
 	def PrepareController(self):
-		"""Fills the gst.Controller for the instrument with its list of fade times."""
+		"""
+		Fills the gst.Controller for this Instrument with its list of fade times.
+		"""
 		
 		Globals.debug("Preparing the controller")
 		# set the length of the operation to be the full length of the project
