@@ -2,9 +2,9 @@
 #	THIS FILE IS PART OF THE JOKOSHER PROJECT AND LICENSED UNDER THE GPL. SEE
 #	THE 'COPYING' FILE FOR DETAILS
 #
-
-# The Jokosher Extension API
-# write proper docstrings so that we can autogenerate the docs
+#	Jokosher Extension API.
+#
+#-------------------------------------------------------------------------------
 
 import os, gtk, imp, pickle, Globals, pkg_resources
 import gettext
@@ -13,8 +13,12 @@ import traceback
 _ = gettext.gettext
 
 # Define some constants
+""" Jokosher user extension directory """
 EXTENSION_DIR_USER = os.path.expanduser('~/.jokosher/extensions/')
+
+""" Append the default directory to the directory list """
 EXTENSION_DIRS = [EXTENSION_DIR_USER, '/usr/share/jokosher/extensions/']
+
 # add your own extension dirs with envar JOKOSHER_EXTENSION_DIRS, colon-separated
 OVERRIDE_EXTENSION_DIRS = os.environ.get('JOKOSHER_EXTENSION_DIRS','')
 if OVERRIDE_EXTENSION_DIRS:
@@ -26,11 +30,13 @@ PREFERRED_EXTENSION_DIR = EXTENSION_DIRS[0]
 RESP_INSTALL = 9999
 RESP_REPLACE = 9998
 
-# Work out whether I'm being imported by a extension that's being run directly
-# or whether I'm being imported by a extension run by Jokosher. If I'm being
-# run directly then that isn't right, and probably means that the user has
-# just clicked on an extension in the file manager. To be nice to them, we
-# offer to install the extension in their .jokosher folder.
+"""
+Work out whether this Extension is being imported by an file that's being
+run directly, or whether it's being imported by a Jokosher session.
+If this Extension is being run directly, which isn't right and probably means
+that the user has just clicked on an extension in the file manager, offer the
+user the possibility to install the extension in their .jokosher folder.
+"""
 import inspect
 extension_that_imported_me = inspect.currentframe().f_back
 try:
@@ -51,11 +57,12 @@ if thing_that_imported_extension is None and \
 		sys.exit(1)
 		
 	message = _("This is a Jokosher extension, which needs to be installed. Would you like to install it?")
-	d = gtk.MessageDialog(message_format=message, type=gtk.MESSAGE_ERROR)
-	d.add_buttons(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, _('Install'), RESP_INSTALL)
-	d.set_default_response(RESP_INSTALL)
-	ret = d.run()
-	d.destroy()
+	dlg = gtk.MessageDialog(message_format=message, type=gtk.MESSAGE_ERROR)
+	dlg.add_buttons(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, _('Install'), RESP_INSTALL)
+	dlg.set_default_response(RESP_INSTALL)
+	ret = dlg.run()
+	dlg.destroy()
+	
 	if ret == RESP_INSTALL:
 		extension_path_and_file = extension_that_imported_me.f_globals['__file__']
 		extension_file_name = os.path.split(extension_path_and_file)[1]
@@ -63,11 +70,11 @@ if thing_that_imported_extension is None and \
 		if os.path.exists(new_extension_path_and_file):
 			message_template = _("You already have a extension with the name %s installed; would you like to replace it?")
 			message = message_template % os.path.splitext(extension_file_name)[0]
-			d = gtk.MessageDialog(message_format=message, type=gtk.MESSAGE_QUESTION)
-			d.add_buttons(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, _('Replace'), RESP_REPLACE)
-			d.set_default_response(RESP_REPLACE)
-			ret = d.run()
-			d.destroy()
+			dlg = gtk.MessageDialog(message_format=message, type=gtk.MESSAGE_QUESTION)
+			dlg.add_buttons(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, _('Replace'), RESP_REPLACE)
+			dlg.set_default_response(RESP_REPLACE)
+			ret = dlg.run()
+			dlg.destroy()
 			if ret != RESP_REPLACE:
 				sys.exit(0)
 		# confirm that the new path exists!
@@ -77,8 +84,8 @@ if thing_that_imported_extension is None and \
 			pass # already exists
 		# and move the extension
 		os.rename(extension_path_and_file, new_extension_path_and_file)
-		d = gtk.MessageDialog(message_format=_("Your new extension is now available in Jokosher!"), buttons=gtk.BUTTONS_OK)
-		d.destroy()
+		dlg = gtk.MessageDialog(message_format=_("Your new extension is now available in Jokosher!"), buttons=gtk.BUTTONS_OK)
+		dlg.destroy()
 		sys.exit(0)
 
 ############################################################################
@@ -88,12 +95,30 @@ if thing_that_imported_extension is None and \
 import ConfigParser
 import gst, gobject
 
+#_____________________________________________________________________
+
 def exported_function(f):
 	"""
-		Wraps any exported functions so that exceptions do not cross the exported API.
-		Any exceptions caught by this should be a return error code from exported function.
+	Wraps any exported functions so that exceptions do not cross the exported API.
+	Any exceptions caught by this function, should be a return error code from 
+	exported function.
+	
+	Parameters:
+		f -- function to wrap.
+		
+	Returns:
+		the wrapped function.
 	"""
 	def wrapped(*args, **kwargs):
+		"""
+		Parameters:
+				*args -- parameters meant for the wrapped function.
+				**kwargs -- dictionary of keyword:value parameters meant
+							for the wrapped function.
+							
+		Returns:
+			the wrapped function's return value.
+		"""
 		try:
 			result = f(*args, **kwargs)
 			return result
@@ -101,19 +126,41 @@ def exported_function(f):
 			Globals.debug("EXTENSION API BUG:\nUnhandled exception thrown in exported function: %s\n%s" %
 				(f.func_name, traceback.format_exc()))
 			return -2
+	#_____________________________________________________________________
+	
 	wrapped.__doc__ = f.__doc__
 	wrapped.__name__ = f.func_name
 	return wrapped
 
-class ExtensionAPI:
+#_____________________________________________________________________
 
+class ExtensionAPI:
+	"""
+	Defines the API for implementing external extensions for Jokosher.
+	"""
+	
 	def __init__(self, mainapp):
+		"""
+		Creates a new instance of ExtensionAPI.
+		
+		Parameters:
+			mainapp -- reference the MainApp Jokosher window.
+		"""
 		self.mainapp = mainapp
+	
+	#_____________________________________________________________________
 	
 	@exported_function	
 	def add_menu_item(self, menu_item_name, callback_function):
 		"""
-		   Adds a menu item to a Jokosher extension menu.
+		Adds a menu item to a Jokosher extension menu.
+		
+		Parameters:
+			menu_item_name -- name of the new menu.
+			callback_function -- function to be called when the menu is invoked.
+								
+		Returns:
+			reference to the new menu item.
 		"""
 		extensions_menu = self.mainapp.wTree.get_widget("extensionsmenu").get_submenu()
 		new_menu_item = gtk.MenuItem(menu_item_name)
@@ -122,59 +169,81 @@ class ExtensionAPI:
 		new_menu_item.show()
 		return new_menu_item
 	
+	#_____________________________________________________________________
+	
 	@exported_function
 	def play(self, play_state=True):
 		"""
-		   If play_state is True, it will play the project from the beginning.
-		   Otherwise, it will stop all playing.
+		Manipulates the project's playback status in Jokosher.
+		
+		Parameters:
+			play_state -- 	True = play the project from the beginning.
+							False = stop all playback.
 		"""
 		#Stop current playing (if any) and set to playhead to the beginning
 		self.mainapp.Stop()
 		if play_state:
 			#Commence playing
 			self.mainapp.Play()
+			
+	#_____________________________________________________________________
 
 	@exported_function	
 	def stop(self):
 		"""
-		   Stops the project if it is currently playing.
-		   Same as play(play_state=False)
+		Stops the project if it's currently playing.
+		Same as play(play_state=False).
 		"""
 		self.mainapp.Stop()
+		
+	#_____________________________________________________________________
 	
 	@exported_function
 	def add_file_to_selected_instrument(self, uri, position=0):
 		"""
-		   Creates a new event from the file at the given URI and 
-		   adds it to the first selected instrument at position (in seconds).
-		   Return values:
-		   0: success
-		   1: bad URI or file could not be loaded
-		   2: no instrument selected
+		Creates a new Event from a given file and adds it to the first
+		selected Instrument, at the given position.
+		
+		Parameters:
+			uri -- file with the Event to load.
+			position -- position in seconds to insert the new Event at.
+		
+		Returns:
+			0 = the Event was loaded successfully.
+			1 = bad URI or file could not be loaded.
+			2 = no Instrument selected.
 		"""
-		instr = None
-		for i in self.mainapp.project.instruments:
-			if i.isSelected:
-				instr = i
+		selInstr = None
+		for instr in self.mainapp.project.instruments:
+			if instr.isSelected:
+				selInstr = instr
 				break
 		
-		if not instr:
+		if not selInstr:
 			#No instrument selected
 			return 2
 		
-		instr.addEventFromFile(position, uri)
+		selInstr.addEventFromFile(position, uri)
 		#TODO: find out if the add failed and return 1
 		return 0
+	
+	#_____________________________________________________________________
 
 	@exported_function
 	def add_file_to_instrument(self, instr_id, uri, position=0):
 		"""
-		   Creates a new event from the file at the given URI and 
-		   adds it to the instrument with id 'instr_id' at position (in seconds).
-		   Return values:
-		   0: success
-		   1: bad URI or file could not be loaded
-		   2: instrument with id 'instr_id' not found
+		Creates a new Event from a given file and adds it to the Instrument 
+		with the correspondent id, at the given position.
+		
+		Parameters:
+			instr_id -- unique id of the Instrument.
+			uri -- file with the Event to load.
+			position -- position in seconds to insert the new Event at.
+		
+		Returns:
+			0 = the Event was loaded successfully.
+			1 = bad URI or file could not be loaded.
+			2 = the Instrument with id 'instr_id' was not found.
 		"""
 		for instr in self.mainapp.project.instruments:
 			if instr.id == instr_id:
@@ -183,66 +252,94 @@ class ExtensionAPI:
 				return 0
 	
 		return 2
+	
+	#_____________________________________________________________________
 
 	@exported_function
 	def list_available_instrument_types(self):
 		"""
-		   Returns a list of tuples in the format:
-		   (instr_name, instr_type, instr_pixbuf)
-		   for each of the *.instr files that have been cached.
-		   These instruments are *not* the ones in the project,
-		   but only the ones available to be added to the project.
+		Obtain a list of tuples in the format:
+			(instr_name, instr_type, instr_pixbuf)
+		for each of the *.instr files that have been cached.
+		
+		Considerations:
+			These Instruments are *not* the ones in the current Project,
+			but those available for any Jokosher Project.
+			
+		Returns:
+			a list with tuples describing each available Instrument in Jokosher.
 		"""
 		return [(x[0], x[1], x[2].copy()) for x in Globals.getCachedInstruments()]
+	
+	#_____________________________________________________________________
 		
 	@exported_function
 	def add_instrument(self, instr_type, instr_name=None):
 		"""
-		   Adds an instrument with the type 'instr_type' and
-		   name 'instr_name' from get_available_instruments() 
-		   to the project.
-		   Return values:
-		   -1: that instrument type does not exist
-		   >0: success
-		   If the instrument is successfully added,
-		   the return value will be the ID of that instrument.
+		Adds an instrument to the current Project.
+		
+		Parameters:
+			instr_type -- type of the Instrument to be added.
+			instr_name -- name of the Instrument to be added. This value can be
+							obtained via get_available_instruments().
+		
+		Returns:
+			-1 = that Instrument type does not exist.
+			>0 = if the Instrument is successfully added,
+				the return value will be the ID of that Instrument.
 		"""
-		for i in Globals.getCachedInstruments():
-			if i[1] == instr_type:
+		for instr in Globals.getCachedInstruments():
+			if instr[1] == instr_type:
 				if instr_name:
-					instr_index = self.mainapp.project.AddInstrument(instr_name, i[1], i[2])
+					instr_index = self.mainapp.project.AddInstrument(instr_name, instr[1], instr[2])
 				else:
-					instr_index = self.mainapp.project.AddInstrument(i[0], i[1], i[2])
-					#i[0] is the default instrument name, i[1] is the instrument type, i[2] is the instrument icon in the .instr file
+					instr_index = self.mainapp.project.AddInstrument(instr[0], instr[1], instr[2])
+					#instr[0] is the default Instrument name
+					#instr[1] is the Instrument type
+					#instr[2] is the Instrument icon in the .instr file
 				self.mainapp.UpdateDisplay()
 				return instr_index
 		return -1
+	
+	#_____________________________________________________________________
 		
 	@exported_function
 	def list_project_instruments(self):
 		"""
-		   Returns a list of tuples in the format:
-		   (instr_id_number, instr_name, instr_type, instr_pixbuf)
-		   for each of the instruments currently shown in the project.
+		Obtain a list of tuples in the format:
+			(instr_id_number, instr_name, instr_type, instr_pixbuf)
+		for each of the Instruments currently shown in the Project.
+		
+		Returns:
+			a list with tuples describing each Instrument in the Project.
 		"""
 		return [(instr.id, instr.name, instr.instrType, instr.pixbuf.copy()) for instr in self.mainapp.project.instruments]
+	
+	#_____________________________________________________________________
 		
 	@exported_function
 	def delete_instrument(self, instrumentID):
 		"""
-		   Removes the instrument with the ID
-		   that equals instrumentID.
+		Removes an Instrument from the Project.
+		
+		Parameters:
+			instrumentID -- ID of the Instrument to be removed.
 		"""
 		self.mainapp.project.DeleteInstrument(instrumentID)
 		self.mainapp.UpdateDisplay()
+		
 		#time for a Newfie Joke: 
 		#How many Newfies does it take to go ice fishing?
 		#Four. One to cut a hole in the ice and three to push the boat through.
+		
+	#_____________________________________________________________________
 
 	def __get_config_dict_fn(self):
 		"""
-			 Calculate the config dictionary filename for the calling
-			 extension.
+		Calculate the config dictionary filename for the calling extension.
+		
+		Returns:
+			the config dictionary filename for the calling extension.
 		"""
 		# First, see if there is a config directory at all
 		CONFIGPATH = os.path.join(EXTENSION_DIR_USER,'../extension-config')
@@ -256,11 +353,18 @@ class ExtensionAPI:
 		config_dict_fn = os.path.join(CONFIGPATH,mycaller + ".config")
 		return os.path.normpath(config_dict_fn)
 
+	#_____________________________________________________________________
+
 	@exported_function
 	def get_config_value(self, key):
 		"""
-		   Returns the config value saved under this key,
-		   or None if there is no such value.
+		Obtain the config value saved under this key.
+		
+		Parameters:
+			key -- config key to obtain the value of.
+			
+		Returns:
+			the value of the config key, or None if the value doesn't exist.
 		"""
 		try:
 			# Open the extension's config dict
@@ -272,11 +376,17 @@ class ExtensionAPI:
 			return config_dict[key]
 		except:
 			return None
+		
+	#_____________________________________________________________________
 
 	@exported_function
 	def set_config_value(self, key, value):
 		"""
-		   Sets a new config value under key for later retrieval.
+		Sets a new config value under a given key for later retrieval.
+		
+		Parameters:
+			key -- name of the key to save the value under.
+			value -- value to save.
 		"""
 		config_dict_fn = self.__get_config_dict_fn()
 		if os.path.exists(config_dict_fn):
@@ -291,64 +401,80 @@ class ExtensionAPI:
 		fp = open(config_dict_fn,"wb")
 		pickle.dump(config_dict, fp)
 		fp.close()
+		
+	#_____________________________________________________________________
 
 	@exported_function
 	def set_instrument_volume(self, instr_id, instr_volume):
 		"""
-		   Sets the volume of instrument with id 'instr_id'
-		   to volume 'instr_volume'
-		   
-		   Return Values:
-		   0: success
-		   1: instrument with id 'instr_id' doesn't exist
+		Sets the volume of an Instrument.
+		
+		Parameters:
+			instr_id -- ID of the Intrument to change the value to.
+			instr_volume -- value the volume of the Instrument should be set to.
+			
+		Returns:
+			0 = the volume was successfully changed.
+			1 = the Instrument with id 'instr_id' was not found.
 		"""
 		for instr in self.mainapp.project.instruments:
 			if instr.id == instr_id:
 				instr.SetVolume(min(instr_volume, 1))
 				return 0
 		return 1
+	
+	#_____________________________________________________________________
 
 	@exported_function
 	def get_instrument_volume(self, instr_id):
 		"""
-		   returns the lever of instrument with id 'instr_id'
-
-		   Return Values:
-		   On Success: volume of instrument with id 'instr_id'
-		   1: instrument with id 'instr_id' does not exist
+		Obtains the volume of an Instrument.
+		
+		Parameters:
+			instr_id -- ID of the Intrument to obtain the volume from.
+			
+		Returns:
+			volume = volume of the Instrument.
+			1 = the Instrument with id 'instr_id' was not found.
 		"""
 		for instr in self.mainapp.project.instruments:
 			if instr.id == instr_id:
 				return instr.volume
 		return 1
+	
+	#_____________________________________________________________________
 
 	@exported_function
 	def toggle_mute_instrument(self, instr_id):
 		"""
-		   mutes the instrument with id 'instr_id'
-
-		   Return Values:
-		   0: success
-		   1: instrument with id 'instr_id' doesn't exist
+		Mutes an Instrument.
+		
+		Parameters:
+			instr_id -- ID of the Instrument to mute.
+			
+		Returns:
+			0 = the Instrument was successfully muted.
+			1 = the Instrument with id 'instr_id' was not found.
 		"""
 		for instr in self.mainapp.project.instruments:
 			if instr.id == instr_id:
 				instr.ToggleMuted(False)
 				return 0
 		return 1
-
-	#My Nan and Pop from Newfoundland aren't quite this bad, but they're close: 
-	#http://youtube.com/watch?v=It_0XzPVHaU
+	
+	#_____________________________________________________________________
 
 	@exported_function
 	def get_instrument_effects(self, instr_id):
 		"""
-		   Gets the current effects applied to instrument
-		   with id 'instr_id'
-
-		   Return Values:
-		   success: returns the effects applied to instrument with id 'instr_id'
-		   1: instrument with id 'instr_id' not found
+		Obtains the current effects applied to an Instrument.
+		
+		Parameters:
+			instr_id -- ID of the Instrument to obtain the effects from.
+		
+		Returns:
+			list = list of effects applied to the Instrument.
+			1 = the Instrument with id 'instr_id' was not found.
 		"""
 		for instr in self.mainapp.project.instruments:
 			if instr.id == instr_id:
@@ -356,25 +482,35 @@ class ExtensionAPI:
 				return instr.effects[:]
 
 		return 1
+	
+	#_____________________________________________________________________
 
 	@exported_function
 	def list_available_effects(self):
 		"""
-		   returns the available LADSPA effects
+		Obtain the available LADSPA effects.
+		
+		Returns:
+			a list with all available LADSPA effects.
 		"""
 		#return a copy so they can't append or remove items from our list
 		return Globals.LADSPA_NAME_MAP[:]
+	
+	#_____________________________________________________________________
 
 	@exported_function
 	def add_instrument_effect(self, instr_id, effect_name):
 		"""
-		   Adds the effect 'effect_name' to instrument
-		   with id 'instr_id'
-
-		   Return Values:
-		   0: success
-		   1: instrument with id 'instr_id' not found
-		   2: LADSPA plugin 'effect_name' not found
+		Adds an effect to an Instrument.
+		
+		Parameters:
+			instr_id -- ID of the Intrument to add the effect to.
+			effect_name -- name of the effect to be added to Instrument.
+			
+		Returns:
+			0 = the effect was successfully added to the Instrument.
+			1 = the Instrument with id 'instr_id' was not found.
+			2 = the LADSPA plugin named 'effect_name' was not found.
 		"""
 		for instr in self.mainapp.project.instruments:
 			if instr.id == instr_id:
@@ -387,20 +523,23 @@ class ExtensionAPI:
 						return 0
 				return 2
 		return 1
+	
+	#_____________________________________________________________________
 
 	@exported_function
 	def remove_instrument_effect(self, instr_id, effect_num):
 		"""
-		   This function removes the effect of index 'effect_num' 
-		   (in the instrument effects array) from instrument with
-		   id 'instr_id'
-
-		   Return Values:
-		   0: success
-		   1: effect_num out of range
-		   2: isntrument with id 'instr_id' not found
-		"""
+		Removes an effect from an Instrument.
 		
+		Parameters:
+			instr_id -- ID of the Instrument to remove the effect from.
+			effect_num -- index of the effect inside the Instrument's effects array.
+		
+		Returns:
+			0 = the effect was successfully removed.
+			1 = effect_num out of range.
+			2 = the Instrument with id 'instr_id' was not found.
+		"""		
 		for instr in self.mainapp.project.instruments:
 			if instr.id == instr_id:	
 				if effect_num <= len(instr.effects) - 1:
@@ -415,25 +554,27 @@ class ExtensionAPI:
 					return 0
 				return 1
 		return 2
+	
+	#_____________________________________________________________________
 
 	#TODO: function for editing existing effects
 
 	@exported_function
 	def create_new_instrument_type(self, defaultName, typeString, imagePath):
 		"""
-		   Creates and new instrument type in the user's 
-		   ~/.jokosher/instruments folder. It will then be automatically
-		   loaded on startup.
-		   
-		   defaultName - the en_GB name of the instrument
-		   typeString - a unique string to this particular instrument file
-		   imagePath - absolute path to the instruments image
-		   
-		   Return values:
-		   0: success
-		   1: file exists or defaultName is already used by a loaded instrument
-		   2: cannot load image
-		   3: cannot write to ~/.jokosher/instruments or ~/.jokosher/instruments/images
+		Creates a new Instrument type in the user's ~/.jokosher/instruments folder.
+		It will then be automatically loaded on startup.
+		
+		Parameters:
+			defaultName -- the en_GB name of the Instrument.
+			typeString -- a unique type string to this particular Instrument file.
+			imagePath -- absolute path to the Instrument's image (png).
+		
+		Returns:
+			0 = the new Instrument type was successfully created.
+			1 = file already exists or defaultName is already used by a loaded Instrument.
+			2 = cannot load image file.
+			3 = cannot write to ~/.jokosher/instruments or ~/.jokosher/instruments/images.
 		"""
 		typeList = [x[1] for x in Globals.getCachedInstruments()]
 		if typeString in typeList:
@@ -485,24 +626,27 @@ class ExtensionAPI:
 		Globals.getCachedInstruments(checkForNew=True)
 		
 		return 0
+	
+	#_____________________________________________________________________
 		
 	@exported_function
 	def add_export_format(self, description, extension, encodeBin):
 		"""
-		   Adds a new format that the use can select from
-		   the filetype drop down box in the 'Mixdown Project' dialog.
-		   description - string for the drop down box. ex: 'Ogg Vorbis (.ogg)'
-		   extension - string of the file extension without a '.'. ex: 'ogg'
-		   encodeBin - string used by gst_parse_bin_from_description to create
-		         a bin that can encode and mux the audio when added to a pipeline. ex: 'vorbisenc ! oggmux'
-		   
-		   Return values:
-		   0: success
-		   1: invalid options
-		   2: a format with the same three values already exists
-		   3: cannot parse or create encoder/muxer bin
-		"""
+		Adds a new format that the use can select from the filetype drop down box
+		in the 'Mixdown Project' dialog.
 		
+		Parameters:
+			description -- string for the drop down box. i.e: 'Ogg Vorbis (.ogg)'.
+			extension -- string of the file extension without a '.'. i.e: 'ogg'.
+			encodeBin -- string used by gst_parse_bin_from_description to create
+						a bin that can encode and mux the audio when added to a
+						pipeline. i.e: 'vorbisenc ! oggmux'.
+		Returns:
+			0 = the new export format was successfully added to Jokosher.
+			1 = invalid options.
+			2 = a format with the same three values already exists.
+			3 = cannot parse or create encoder/muxer bin.
+		"""
 		if not description or not extension and not pipelineString:
 			return 1
 		try:
@@ -519,16 +663,22 @@ class ExtensionAPI:
 			Globals.EXPORT_FORMATS.append(propsdict)
 			return 0
 		
+	#_____________________________________________________________________
+		
 	@exported_function
 	def remove_export_format(self, description, extension, encodeBin):
 		"""
-		   Removes an export format that was previously added using
-		   add_export_format. The parameters are the same as the ones
-		   that were passed to the add_export_format function.
-		   
-		   Return values:
-		   0: successfully removed the export format
-		   1: no export format exists with those parameters
+		Removes an export format that was previously added using add_export_format.
+		
+		Parameters:
+			description -- string for the drop down box. i.e: 'Ogg Vorbis (.ogg)'.
+			extension -- string of the file extension without a '.'. i.e: 'ogg'.
+			encodeBin -- string used by gst_parse_bin_from_description to create
+						a bin that can encode and mux the audio when added to a
+						pipeline. i.e: 'vorbisenc ! oggmux'.
+		Returns:
+			0 = successfully removed the export format.
+			1 = no export format exists with those parameters.
 		"""
 		propslist = (description, extension, encodeBin)
 		propsdict = dict(zip(Globals._export_template, propslist))
@@ -538,5 +688,6 @@ class ExtensionAPI:
 		else:
 			return 1
 		
-		
+	#_____________________________________________________________________
+	
 API = None
