@@ -20,31 +20,45 @@ import shutil
 
 class ExtensionManager:
 	"""
-		The ExtensionManager class handles installation and running of
-		extensions. It also controls their disabling and removal.
+	The ExtensionManager class handles the installation and running of
+	Extensions. It also controls their disabling and removal.
 	"""
 	#_____________________________________________________________________
 	
 	def __init__(self, mainapp):
+		"""
+		Creates a new Instance of ExtensionManager.
+		
+		Parameters:
+			parent -- the parent MainApp Jokosher window.
+		"""
 		self.mainapp = mainapp
 		self.loadedExtensions = []
 		self.API = Extension.ExtensionAPI(mainapp)
 		self.LoadAllExtensions()
+		
 	#_____________________________________________________________________
 	
 	def register(self, extension, filename, directory, local):
 		"""
-			Called from Extension.LoadAllExtensions afer the extensions
-			module has been imported (and the class instantiated in the case
-			of extensions that are oggs). 
-			
-			extension = a reference to the extension (either a module 
-				or in the case of an extension imported 
-				from an egg, an instance object.
-			filename = the name of the file containing the extension
-			directory = the directory containing the filename
-			local = set to True if the extension is to be copied to the
-				local extension directory after checking
+		Called from Extension.LoadAllExtensions afer the Extensions
+		module has been imported (and the class instantiated in the case
+		of extensions that are oggs). 
+		
+		Parameters:	
+			extension -- a reference to the Extension (either a module 
+						or in the case of an Extension imported from an
+						egg, an instance object.
+			filename -- the name of the file containing the Extension.
+			directory -- full path to the directory containing the file.
+			local --	True = the extension is to be copied to the
+								local extension directory after checking
+						False = don't copy the Extension.
+		
+		Returns:
+			True -- the Extension was successfully registered.
+			False -- an error ocurred while trying to register the Extension,
+					or the Extension has been disabled via the ExtensionManagerDialog.
 		"""
 		passed = True
 		name = None
@@ -119,27 +133,36 @@ class ExtensionManager:
 			 "preferences":preferences,
 			 "filename":extensionFile })
 			 
-		
 		return True
 		
 	#_____________________________________________________________________
 	
 	def GetExtensions(self):
 		"""
-			Returns a generator for iterating the list of loadedExtensions
+		Obtain a generator for iterating the list of loadedExtensions.
+		
+		Returns:
+			a generator with the list of loadedExtensions.
 		"""
 		return iter(self.loadedExtensions)
 
 	#_____________________________________________________________________
 	
-	def LoadExtensionFromFile(self, filename, directory, local = False):
+	def LoadExtensionFromFile(self, filename, directory, local=False):
 		"""
-			Tries to load an extension fron a file
-			
-			filename = name of file containing extension
-			directory = full path to directory containing filename
-			local = set to True if the extension is to be copied
-			        to the local extension directory after checking
+		Tries to load an Extension fron a given file.
+		
+		Parameters:
+			filename -- the name of the file containing the Extension.
+			directory -- full path to the directory containing the file.
+			local --	True = the extension is to be copied to the
+								local extension directory after checking
+						False = don't copy the Extension.
+		
+		Returns:
+			True -- the Extension was successfully loaded.
+			False -- an error ocurred while trying to load the Extension,
+					or the Extension has been disabled via the ExtensionManagerDialog.
 		"""
 		Globals.debug("importing extension...", filename)
 		extension = None
@@ -196,11 +219,19 @@ class ExtensionManager:
 
 	def StopExtension(self, filename):
 		"""
-			This function stops the extension with file name
-			"filename". It just executes the shutdown() function 
-			of the extension. this is mainly for disabling extensions
-			on the fly, but is also used for removing extensions
-			on the fly
+		Stops the given Extension.
+		
+		Considerations:
+			This method executes the shutdown() function of the Extension.
+			This is mainly for disabling Extensions	on the fly, but is also
+			used for removing them.
+			
+		Parameters:
+			filename -- the name of the file containing the Extension.
+			
+		Returns:
+			True -- the Extension was successfully stopped.
+			False -- an error ocurred while trying to stop the Extension.
 		"""
 		for extension in self.GetExtensions():
 			if extension['filename'] == filename:
@@ -216,9 +247,19 @@ class ExtensionManager:
 
 	def StartExtension(self, filename):
 		"""
-			Executes the startup function of the extension with filename
-			"filname". Mostly for enabling an extension on the fly without
-			loading another instance
+		Starts the given Extension.
+		
+		Considerations:
+			This method executes the startup() function of the Extension
+			This is mainly for enabling an Extension on the fly without
+			loading another instance.
+			
+		Parameters:
+			filename -- the name of the file containing the Extension.
+			
+		Returns:
+			True -- the Extension was successfully started.
+			False -- an error ocurred while trying to start the Extension.
 		"""
 		for extension in self.GetExtensions():
 			if extension['filename'] == filename:
@@ -234,9 +275,18 @@ class ExtensionManager:
 	
 	def RemoveExtension(self, filename):
 		"""
-			This function "unloads" the extension with file name
-			"filename". It just executes the shutdown() function 
-			of the extension and then removes it from loadedExtensions
+		Removes the given Extension.
+		
+		Considerations:
+			This function "unloads" the Extension. It executes the shutdown()
+			function of the Extension and then removes it from loadedExtensions.
+			
+		Parameters:
+			filename -- the name of the file containing the Extension.
+			
+		Returns:
+			True -- the Extension was successfully removed.
+			False -- an error ocurred while trying to remove the Extension.
 		"""
 		self.StopExtension(filename)
 		index = -1
@@ -256,8 +306,15 @@ class ExtensionManager:
 	
 	def ExtensionPreferences(self, filename):
 		"""
-			This function loads the preferences() function
-			of an extension
+		Loads the preferences() function of an Extension.
+		
+		Parameters:
+			filename -- the name of the file containing the Extension.
+			
+		Returns:
+			True -- the Extension's preferences were successfully loaded.
+			False -- an error ocurred while trying to load the Extension's
+					preferences.
 		"""
 		for extension in self.GetExtensions():
 			if extension['filename'] == filename:
@@ -268,12 +325,12 @@ class ExtensionManager:
 					return False
 		return True
 				
-
 	#_____________________________________________________________________
 			
 	def LoadAllExtensions(self):
 		"""
-			Walk through all the EXTENSION_DIRS and import every .py and .egg file we find.
+		Load all the Extensions found in EXTENSION_DIRS and import every .py
+		and .egg file found.
 		"""
 		for exten_dir in Extension.EXTENSION_DIRS:
 			if not os.path.isdir(exten_dir):

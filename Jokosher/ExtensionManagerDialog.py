@@ -2,7 +2,11 @@
 #	THIS FILE IS PART OF THE JOKOSHER PROJECT AND LICENSED UNDER THE GPL. SEE
 #	THE 'COPYING' FILE FOR DETAILS
 #
+#	This module shows the Extensions Manager dialog which is used to add, remove
+#	and configure Jokosher's Extensions.
 #
+#-------------------------------------------------------------------------------
+
 import gtk.glade, pango
 import Globals, Extension
 import gettext
@@ -11,7 +15,17 @@ import gettext
 _ = gettext.gettext
 
 class ExtensionManagerDialog:
+	"""
+	This module shows the Extensions Manager dialog which is used to add, remove
+	and configure Jokosher's Extensions.
+	"""
 	def __init__(self, parent):
+		"""
+		Creates a new instance of ExtensionManagerDialog.
+		
+		Parameters:
+			parent -- the parent MainApp Jokosher window.
+		"""
 		self.parent = parent
 		
 		self.wTree = gtk.glade.XML(Globals.GLADE_PATH, "ExtensionManagerDialog")
@@ -47,11 +61,29 @@ class ExtensionManagerDialog:
 	#_____________________________________________________________________
 
 	def OnClose(self, button):
+		"""
+		Destroys the dialog when the close button is pressed.
+		It also saves the Extensions's settings.
+		
+		Parameters:
+			button -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		self.dlg.destroy()
 		Globals.settings.write()
 	#_____________________________________________________________________
 
 	def AddColumn(self, title, modelId, cell_renderer='text', cell_width=20):
+		"""
+		Adds a display column to the ExtensionManager dialog.
+		
+		Parameters:
+			title -- title of the column.
+			modelId -- index of the column within the TreeView model.
+			cell_renderer -- type of render to use:
+							'text' = renders text into the TreeView.
+							'toggle' = renders toggle buttons into the TreeView.
+			cell_width -- width in pixels of the column.
+		"""
 		if cell_renderer == 'toggle':
 			renderer = gtk.CellRendererToggle()
 			renderer.set_property('activatable', True)
@@ -71,6 +103,13 @@ class ExtensionManagerDialog:
 	#_____________________________________________________________________
 
 	def ToggleEnabled(self, cell, path):
+		"""
+		Enables/disables an Extension.
+		
+		Parameters:
+			cell -- reserved for GTK callbacks, don't use it explicitly.
+			path -- path to the Extension.
+		"""
 		self.model[path][0] = not self.model[path][0]
 		
 		iter = self.model.get_iter(path)
@@ -97,6 +136,13 @@ class ExtensionManagerDialog:
 	#_____________________________________________________________________
 
 	def OnSelect(self, tree):
+		"""
+		When an Extension is selected, enables/disables the preferences button
+		according to the reported Extension capabilities.
+		
+		Parameters:
+			tree -- GTKTreeView holding the Extensions's representation.
+		"""
 		selection = self.tree.get_selection().get_selected()[1]
 		preferences = self.model.get_value(selection, 5)
 		if preferences:
@@ -104,10 +150,16 @@ class ExtensionManagerDialog:
 		else:
 			self.prefs_button.set_sensitive(False)
 		
-
 	#_____________________________________________________________________
 	
 	def OnAdd(self, button):
+		"""
+		Displays a dialog which allows the user to add an external Extension.
+		If an error occurs, an error dialog is displayed.
+		
+		Parameters:
+			button -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		chooser = gtk.FileChooserDialog((_('Choose a Jokosher Extension file')), None, 
 				gtk.FILE_CHOOSER_ACTION_OPEN, (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, gtk.STOCK_OPEN, gtk.RESPONSE_OK))
 		chooser.set_default_response(gtk.RESPONSE_OK)
@@ -151,6 +203,13 @@ class ExtensionManagerDialog:
 	#_____________________________________________________________________
 
 	def OnRemove(self, button):
+		"""
+		Removes an Extension from the Extensions list.
+		If an error occurs, an error dialog is displayed.
+		
+		Parameters:
+			button -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		selection = self.tree.get_selection()
 		row_selected = selection.get_selected()[1]
 		filename = self.model.get_value(row_selected, 4)
@@ -189,6 +248,13 @@ class ExtensionManagerDialog:
 	#_____________________________________________________________________
 
 	def OnPreferences(self, button):
+		"""
+		Displays the Extension's preferences dialog.
+		If an error occurs, an error dialog is displayed.
+		
+		Parameters:
+			button -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		selection = self.tree.get_selection().get_selected()[1]
 		filename = self.model.get_value(selection, 4)
 
@@ -204,6 +270,10 @@ class ExtensionManagerDialog:
 	#_____________________________________________________________________
 
 	def UpdateModel(self):
+		"""
+		Updates the ExtensionManagerDialog Extension list, to reflect changes
+		in the currently available Extensions.
+		"""
 		selection = self.tree.get_selection()
 		row_selected = selection.get_selected()[1]
 		

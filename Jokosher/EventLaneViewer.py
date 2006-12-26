@@ -25,26 +25,32 @@ _ = gettext.gettext
 
 class EventLaneViewer(gtk.EventBox):
 	"""
-		This class is a container for all the individual EventViewers
-		for a single instrument.
+	This class is a container for all the individual EventViewers
+	for a single Instrument.
 	"""
 	
-	URI_DRAG_TYPE = 84			# Number only to be used inside Jokosher
+	""" Number only to be used inside Jokosher """
+	URI_DRAG_TYPE = 84
+	
+	""" Custom numbers for use while dragging text in Jokosher """
 	DRAG_TARGETS = [ ( "text/uri-list", 	# Accept uri-lists
-					   0,					# From everywhere
-					   URI_DRAG_TYPE ),		# Use the custom number
-					   ('text/plain', 0, URI_DRAG_TYPE) # so drags from Firefox work
-					   ]
+						0,					# From everywhere
+						URI_DRAG_TYPE ),		# Use the custom number
+						("text/plain", 0, URI_DRAG_TYPE) # so drags from Firefox work
+						]
 	
 	#_____________________________________________________________________
 
 	def __init__(self, project, instrument, instrumentviewer, mainview, small = False):
 		"""
-			project - the current active project
-			instrument - the instrument that the event lane belongs
-			instrumentviewer - the instrumentviewer holding the event lane
-			mainview - the main Jokosher window
-			small - set to True if we want small edit views (i.e. for mix view)
+		Creates a new instance of EventLaneViewer.
+		
+		Parameters:
+			project -- the currently active Project.
+			instrument -- the Instrument that the Event lane belongs to.
+			instrumentviewer -- the InstrumentViewer holding the Event lane.
+			mainview -- the MainApp Jokosher window.
+			small -- set to True if we want small edit views (i.e. for mixing view).
 		"""
 		gtk.EventBox.__init__(self)
 
@@ -107,38 +113,45 @@ class EventLaneViewer(gtk.EventBox):
 		
 	def OnDraw(self, widget, event):
 		"""
-			Callback for 'expose-event'
-			The drawing areas cannot be drawn on until this point
+		Called everytime the window is drawn.
+		Handles the drawing of the lane edges and vertical line cursors.
+		
+		Parameters:
+			widget -- GTK widget to be repainted.
+			event -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 
-		d = widget.window
-		gc = d.new_gc()
+		wnd = widget.window
+		gc = wnd.new_gc()
 		
 		transport = self.project.transport
 		
 		# Draw lane edges
 		col = gc.get_colormap().alloc_color("#666666")
 		gc.set_foreground(col)
-		d.draw_line(gc, 0, self.allocation.height-1, self.allocation.width-1, self.allocation.height-1)
+		wnd.draw_line(gc, 0, self.allocation.height-1, self.allocation.width-1, self.allocation.height-1)
 		
 		# Draw play cursor position
 		col = gc.get_colormap().alloc_color("#FF0000")
 		gc.set_foreground(col)
 		
 		x = int(round((transport.position - self.project.viewStart) * self.project.viewScale))
-		d.draw_line(gc, x, 0, x, self.allocation.height)
+		wnd.draw_line(gc, x, 0, x, self.allocation.height)
 		
 		# Draw edit position
 		if self.highlightCursor and not self.childActive:
 			col = gc.get_colormap().alloc_color("#0000FF")
 			gc.set_foreground(col)
-			d.draw_line(gc, int(self.highlightCursor), 0, int(self.highlightCursor), self.allocation.height)
+			wnd.draw_line(gc, int(self.highlightCursor), 0, int(self.highlightCursor), self.allocation.height)
 		
 	#_____________________________________________________________________
 		
 	def Update(self, child=None):
 		"""
-			Updates the complete view when requested by OnStateChanged or __init__
+		Updates the complete view when requested by OnStateChanged or __init__.
+		
+		Parameters:
+			child -- list of children widgets to be updated.
 		"""
 		if child and child in self.fixed.get_children():
 			x = int(round((child.event.start - self.project.viewStart) * self.project.viewScale))
@@ -146,25 +159,25 @@ class EventLaneViewer(gtk.EventBox):
 			child.UpdateDrawerPosition()
 		else:			
 			# Move them to the correct positions
-			for w in self.fixed.get_children():
+			for widget in self.fixed.get_children():
 				#Check that it is EventViewer (could be a button drawer)
-				if type(w) == EventViewer:
-					if w.event not in self.instrument.events:
+				if type(widget) == EventViewer:
+					if widget.event not in self.instrument.events:
 						# Check if any events have been deleted
-						self.fixed.remove(w)
+						self.fixed.remove(widget)
 						# remove the event's drawer if it's showing
-						if w.drawer.parent == self.fixed:
-							self.fixed.remove(w.drawer)
+						if widget.drawer.parent == self.fixed:
+							self.fixed.remove(widget.drawer)
 						self.childActive = False
 						#destroy the object
-						w.Destroy()
+						widget.Destroy()
 					else:
-						x = int(round((w.event.start - self.project.viewStart) * self.project.viewScale))
-						self.fixed.move(w, x, 0)
-						w.UpdateDrawerPosition()
+						x = int(round((widget.event.start - self.project.viewStart) * self.project.viewScale))
+						self.fixed.move(widget, x, 0)
+						widget.UpdateDrawerPosition()
 
 			# Check if any events have been added
-			widget_events = [w.event for w in self.fixed.get_children()]
+			widget_events = [widget.event for widget in self.fixed.get_children()]
 			for ev in self.instrument.events:
 				if ev not in widget_events:
 					x = int(round((ev.start - self.project.viewStart) * self.project.viewScale))
@@ -176,14 +189,19 @@ class EventLaneViewer(gtk.EventBox):
 	#_____________________________________________________________________
 	
 	def Destroy(self):
+		"""
+		Called when the EventLaneViewer gets destroyed.
+		It also destroys any child widget and disconnects itself from any
+		listening objects via Monitored.
+		"""
 		self.project.transport.RemoveListener(self)
 		self.project.RemoveListener(self)
 		self.instrument.RemoveListener(self)
 		
-		for w in self.fixed.get_children():
+		for widget in self.fixed.get_children():
 			#Check that it is EventViewer (could be a button drawer)
-			if type(w) == EventViewer:
-				w.Destroy()
+			if type(widget) == EventViewer:
+				widget.Destroy()
 		
 		self.destroy()
 	
@@ -191,22 +209,27 @@ class EventLaneViewer(gtk.EventBox):
 
 	def OnMouseDown(self, widget, mouse):
 		"""
-			Callback for 'button-press-event' signal 
-		"""
+		Called when the user pressed a mouse button.
+		If it's a right-click, creates a context menu on the fly for importing,
+		pasting and deleting Events.
 		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+			mouse -- GTK mouse event that fired this method call.
+		"""
 		if self.childActive:
 			return
 		
-		# set the instrument menu item in the jokosher window to be active if the user selects an instrument
+		# set the Instrument menu item in the jokosher window to be active
+		# if the user selects an Instrument
 		self.mainview.instrumentmenuitem.set_sensitive(True)
 		
 		self.mouseDownPos = [mouse.x, mouse.y]
 		
 		# Create context menu on RMB 
-		if mouse.button == 3: 
-			m = gtk.Menu()
-			
-			
+		if mouse.button == 3:
+			menu = gtk.Menu()
+		
 			audioimg = None
 			if self.mainview.audioFilePixbuf:
 				audioimg = gtk.Image()
@@ -216,33 +239,37 @@ class EventLaneViewer(gtk.EventBox):
 					("---", None, None, None),
 					(_("_Paste"), self.OnPaste, self.project.clipboardList, gtk.image_new_from_stock(gtk.STOCK_PASTE, gtk.ICON_SIZE_MENU)),
 					(_("_Delete"), self.OnDelete, True, gtk.image_new_from_stock(gtk.STOCK_DELETE, gtk.ICON_SIZE_MENU))
-					 ] 
+					]
 
-			for i, cb, sensitive, image in items: 
-				if i == "---":
-					a = gtk.SeparatorMenuItem()
+			for label, callback, sensitive, image in items:
+				if label == "---":
+					menuItem = gtk.SeparatorMenuItem()
 				elif image:
-					a = gtk.ImageMenuItem(i, True)
-					a.set_image(image)
+					menuItem = gtk.ImageMenuItem(label, True)
+					menuItem.set_image(image)
 				else:
-					a = gtk.MenuItem(label=i)
+					menuItem = gtk.MenuItem(label=label)
 					
-				a.set_sensitive(bool(sensitive))
-				a.show() 
-				m.append(a) 
-				if cb:
-					a.connect("activate", cb) 
+				menuItem.set_sensitive(bool(sensitive))
+				menuItem.show()
+				menu.append(menuItem)
+				if callback:
+					menuItem.connect("activate", callback)
 			self.highlightCursor = mouse.x
 			self.popupIsActive = True
 
-			m.popup(None, None, None, mouse.button, mouse.time)
-			m.connect("selection-done",self.OnMenuDone)
+			menu.popup(None, None, None, mouse.button, mouse.time)
+			menu.connect("selection-done", self.OnMenuDone)
 			
 	#_____________________________________________________________________
 	
 	def OnMenuDone(self, widget):
 		"""
-			Callback for 'selection-done' signal - context menu selected
+		Hides the right-click context menu after the user has selected one
+		of its options or clicked elsewhere.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		self.popupIsActive = False
 		self.highlightCursor = None
@@ -251,7 +278,12 @@ class EventLaneViewer(gtk.EventBox):
 
 	def OnMouseMove(self, widget, mouse):
 		"""
-			Callback for 'motion_notify_event' - mouse moved/entered eventlaneviewer
+		Display a message in the StatusBar when the mouse hovers over the
+		EventLaneViewer.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+			mouse -- GTK mouse event that fired this method call.
 		"""
 		# display status bar message if has not already been displayed
 		if not self.messageID: 
@@ -264,7 +296,12 @@ class EventLaneViewer(gtk.EventBox):
 		
 	def OnMouseLeave(self, widget, mouse):
 		"""
-			Callback for 'leave_notify_event' - mouse left eventlaneviewer
+		Clears the StatusBar message when the mouse moves out of the
+		EventLaneViewer area.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+			mouse -- GTK mouse event that fired this method call.
 		"""
 		if self.messageID:   #clear status bar if not already clear
 			self.mainview.ClearStatusBar(self.messageID)
@@ -275,10 +312,13 @@ class EventLaneViewer(gtk.EventBox):
 
 	#_____________________________________________________________________
 	
-	def CreateEventFromFile(self, evt):
+	def CreateEventFromFile(self, event):
 		"""
-			Called on selecting "Import Audio File..." from context menu.
-			Opens up a file chooser dialog.
+		Called when "Import Audio File..." is selected from the right-click context menu.
+		Opens up a file chooser dialog to import an Event.
+		
+		Parameters:
+			event -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		buttons = (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, gtk.STOCK_OPEN, gtk.RESPONSE_OK)
 
@@ -290,7 +330,6 @@ class EventLaneViewer(gtk.EventBox):
 		dlg = gtk.FileChooserDialog(_("Import file..."), action=gtk.FILE_CHOOSER_ACTION_OPEN, buttons=buttons)
 		dlg.set_current_folder(Globals.settings.general["projectfolder"])
 		dlg.set_extra_widget(copyfile)
-		
 		
 		vbox = gtk.VBox()
 		audiopreview = AudioPreview()
@@ -319,8 +358,11 @@ class EventLaneViewer(gtk.EventBox):
 	
 	def OnPaste(self, widget):
 		"""
-			Called when selecting "Paste" from context menu 
-			 - adds an event from the clipboard
+		Called when "Paste" is selected from the context menu.
+		Adds the selected Event to the clipboard.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		if not self.project.clipboardList:
 			return
@@ -333,11 +375,16 @@ class EventLaneViewer(gtk.EventBox):
 	
 	def OnDelete(self, event):
 		"""
-			Called when selecting Delete from context menu
-			 - deletes instrument from project
-			NOTE: This is delete when right-clicking an EMPTY section
-			      of the event lane. For right-clicking over a selected 
-						event see OnDelete in EventViewer
+		Called when "Delete" is selected from context menu.
+		Deletes the selected Instrument from the Project.
+		
+		Considerations:
+			This delete is called when right-clicking an EMPTY section
+			of the EventLaneViewer. For right-clicking over a selected
+			Event see OnDelete in EventViewer.
+			
+		Parameters:
+			event -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		self.project.DeleteInstrument(self.instrument.id)
 		self.mainview.UpdateDisplay()
@@ -349,9 +396,15 @@ class EventLaneViewer(gtk.EventBox):
 	
 	def OnStateChanged(self, obj, change=None, *extra):
 		"""
-			Called on a change of state in any of the objacts we are interested in.
-			If there's a project or instrument change then redraw everything,
-			otherwise just redraw the play head.
+		Called when a change of state is signalled by any of the
+		objects this view is 'listening' to.
+		If there's a Project or Instrument change, then redraw everything,
+		otherwise just redraw the playhead.
+		
+		Parameters:
+			obj -- object changing state.
+			change -- the change which has occured.
+			extra -- extra parameters passed by the caller.
 		"""
 		if obj is self.project or obj is self.instrument:
 			self.Update()
@@ -364,11 +417,24 @@ class EventLaneViewer(gtk.EventBox):
 	#_____________________________________________________________________
 	
 	def OnDragDataReceived(self, widget, context, x, y, selection, targetType, time):
-		'''
-			Called when the drop succeeds. Adds an event for each "file://"-uri
-			in the uri-list to the instrument, one after the other. The files
-			will be copied to the project audio directory.
-		'''
+		"""
+		Called when the user releases MOUSE1, finishing a drag and drop
+		procedure.
+		Adds an Event for each "file://"-uri in the uri-list to the Instrument, 
+		one after the other. The files will be copied to the Project's audio directory.
+			
+		Parameters:
+			widget -- InstrumentViewer being dragged.
+			context -- reserved for GTK callbacks, don't use it explicitly.
+			x -- point in the X axis the dragged object was dropped.
+			y -- point in the Y axis the dragged object was dropped..
+			selection -- selected object area that was dragged.
+			targetType -- mimetype of the dragged object.
+			time -- reserved for GTK callbacks, don't use it explicitly.
+			
+		Returns:
+			True -- continue GTK signal propagation. *CHECK*
+		"""
 		start = (x/self.project.viewScale) + self.project.viewStart
 		# Splitlines to separate the uri's, unquote to decode the uri-encoding ('%20' -> ' ')
 		uris = [urllib.unquote(uri) for uri in selection.data.splitlines()]
@@ -390,9 +456,20 @@ class EventLaneViewer(gtk.EventBox):
 	#_____________________________________________________________________
 	
 	def OnDragMotion(self, widget, context, x, y, time):
-		'''
-			Draws a cursor on the EventLane while dragging something over it.
-		'''
+		"""
+		Called each time the user moves the mouse while dragging.
+		Draws a cursor on the EventLane while dragging something over it.
+		
+		Parameters:
+			widget -- InstrumentViewer the mouse is hovering over.
+			context -- cairo widget context.
+			x -- reserved for GTK callbacks, don't use it explicitly.
+			y -- reserved for GTK callbacks, don't use it explicitly.
+			time -- reserved for GTK callbacks, don't use it explicitly.
+		
+		Returns:
+			True -- continue GTK signal propagation. *CHECK*
+		"""
 		context.drag_status(gtk.gdk.ACTION_COPY, time)
 		self.highlightCursor = x
 		self.queue_draw()
@@ -401,9 +478,16 @@ class EventLaneViewer(gtk.EventBox):
 	#_____________________________________________________________________
 	
 	def OnDragLeave(self, widget, drag_context, timestamp):
-		'''
-			Removes the cursor when dragging out of the EventLane.
-		'''
+		"""
+		Called when the user moves the cursor ouf of the EventLaneViewer
+		while performing a drag and drop procedure.
+		Hides the highlight cursor.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+			drag_context -- reserved for GTK callbacks, don't use it explicitly.
+			timestamp -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		self.highlightCursor = None
 		self.queue_draw()
 	

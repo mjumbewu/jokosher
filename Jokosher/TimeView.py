@@ -65,10 +65,10 @@ class TimeView(gtk.EventBox):
 		"""
 		Called when a change of state is signalled by any of the
 		objects this view is 'listening' to.
-		Udates the time label.
+		Updates the time label.
 		
 		Parameters:
-			obj -- object changing state. *CHECK*
+			obj -- object changing state.
 			change -- the change which has occured.
 			extra -- extra parameters passed by the caller.
 		"""

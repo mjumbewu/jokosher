@@ -18,17 +18,32 @@ pygtk.require("2.0")
 import gobject, gtk
 
 class Settings:
+	"""
+	Handles loading/saving settings from/to a file on disk.
+	"""
 
 	# the different settings in each config block
 	general = {"mixdownformat": "value", 
-			   "recentprojects": "value", 
-			   "startupaction" : "value",
-			   "projectfolder" : "" }
-	recording = {"fileformat": "vorbisenc ! oggmux", "samplerate": "44100"}
-	playback = {"device": "default", "devicecardnum": "value", "audiosink":"autoaudiosink"}
+				"recentprojects": "value", 
+				"startupaction" : "value",
+				"projectfolder" : "" }
+	recording = {"fileformat": "vorbisenc ! oggmux",
+				"samplerate": "44100"}
+	playback = {"device": "default",
+				"devicecardnum": "value",
+				"audiosink":"autoaudiosink"}
 	extensions = {"extensions_blacklist": ""}
 	
+	#_____________________________________________________________________
+	
 	def __init__(self, filename = None):
+		"""
+		Creates a new instance of Settings.
+		
+		Parameters:
+			filename -- path to the settings file.
+						If None, the default ~/.jokosher/config will be used.
+		"""
 		if not filename:
 			self.filename = os.path.expanduser("~/.jokosher/config")
 		else:
@@ -37,9 +52,13 @@ class Settings:
 
 		self.read()
 
+	#_____________________________________________________________________
+
 	def read(self):
-		"""Read in configuration settings from the config file"""
-		
+		"""
+		Reads configuration settings from the config file and loads
+		then into the Settings dictionaries.
+		"""
 		self.config.read(self.filename)
 	
 		if not self.config.has_section("General"):
@@ -59,10 +78,13 @@ class Settings:
 			self.playback[key] = value
 		for key, value in self.config.items("Extensions"):
 			self.extensions[key] = value
+	
+	#_____________________________________________________________________
 		
 	def write(self):
-		"""Write config settings to the config file"""
-		
+		"""
+		Writes configuration settings to the Settings config file.
+		"""		
 		for key in self.general:
 			self.config.set("General", key, self.general[key])
 		for key in self.recording:
@@ -94,9 +116,17 @@ class Settings:
 					os.makedirs(new_dir)
 				except:
 					raise "Failed to create user config directory %s" % new_dir
-
-#a global debug function so we can easily redirect all that output
+		
+		#_____________________________________________________________________
+		
 def debug(*listToPrint):
+	"""
+	Global debug function to redirect all the debugging output from the other
+	methods.
+	
+	Parameters:
+		*listToPrint -- list of elements to append to the debugging output.
+	"""
 	#HACK: we can't import gst at the top of Globals.py because
 	#if we do, gstreamer will get to the sys.args and print it's own
 	#message instead of ours. This will be fixed once we can use
@@ -110,7 +140,16 @@ def debug(*listToPrint):
 	if DEBUG_GST:
 		gst.debug(message)
 		
+#_____________________________________________________________________
+		
 def PrintPipelineDebug(message, pipeline):
+	"""
+	Prints debugging information for the GStreamer pipeline.
+	
+	Parameters:
+		message -- GStreamer message to be printed as debugging output.
+		pipeline -- the currently active Project's main pipeline.
+	"""
 	try:
 		if os.environ['JOKOSHER_DEBUG']:
 			import JokDebug
@@ -120,18 +159,25 @@ def PrintPipelineDebug(message, pipeline):
 	except:
 		pass
 
+#_____________________________________________________________________
 
-#static list of all the instrument files (to prevent having to reimport files)
+#static list of all the Instrument files (to prevent having to reimport files).
 instrumentPropertyList = []
 _alreadyCached = False
 _cacheGeneratorObject = None
 
 def _cacheInstrumentsGenerator(alreadyLoadedTypes=[]):
 	"""
-	   Yields a loaded instrument everytime this method is called
-	   so that the gui isn't blocked while loading many instrument.
-	   If an instrument's type is already in alreadyLoadedTypes,
-	   it is considered a duplicate and not loaded.
+	Yields a loaded Instrument everytime this method is called,
+	so that the gui isn't blocked while loading many Instruments.
+	If an Instrument's type is already in alreadyLoadedTypes,
+	it is considered a duplicate and it's not loaded.
+	
+	Parameters:
+		alreadyLoadedTypes -- array containing the already loaded Instrument types.
+		
+	Returns:
+		the loaded Instrument. *CHECK*
 	"""	
 	try:
 		#getlocale() will usually return  a tuple like: ('en_GB', 'UTF-8')
@@ -174,13 +220,20 @@ def _cacheInstrumentsGenerator(alreadyLoadedTypes=[]):
 			pixbuf = gtk.gdk.pixbuf_new_from_file(pixbufPath)
 				
 			yield (name, type, pixbuf)
-	
+
+#_____________________________________________________________________
+
 def getCachedInstruments(checkForNew=False):
 	"""
-	   Create the instrument cache if it hasn't been 
-	   created already and return the list.
-	   The instrument folders will be scanned for new_dir
-	   instruments if checkForNew is True.
+	Creates the Instrument cache if it hasn't been created already and
+	return it.
+	
+	Parameters:
+		checkForNew --	True = scan the Instrument folders for new_dir.
+						False = don't scan for new Instruments.
+						
+	Returns:
+		a list with the Instruments cached in memory.
 	"""
 	global instrumentPropertyList, _alreadyCached
 	if _alreadyCached and not checkForNew:
@@ -200,8 +253,17 @@ def getCachedInstruments(checkForNew=False):
 	#using the lowercase of the name (at index 0)
 	instrumentPropertyList.sort(key=lambda x: x[0].lower())
 	return instrumentPropertyList
-	
+
+#_____________________________________________________________________
+
 def idleCacheInstruments():
+	"""
+	Loads the Instruments 'lazily' to avoid blocking the GUI.
+	
+	Returns:
+		True = keep calling itself to load more Instruments.
+		False = stop calling itself and sort Instruments alphabetically.
+	"""
 	global instrumentPropertyList, _alreadyCached, _cacheGeneratorObject
 	if _alreadyCached:
 		#Stop idle_add from calling us again
@@ -222,10 +284,12 @@ def idleCacheInstruments():
 	instrumentPropertyList.sort(key=lambda x: x[0].lower())
 	#Stop idle_add from calling us again
 	return False
+
+#_____________________________________________________________________
 	
 def PopulateEncoders():
 	"""
-	   Check if our hard coded list of encoders is available on the system.
+	Check if the hardcoded list of encoders is available on the system.
 	"""
 	#HACK: we can't import gst at the top of Globals.py because
 	#if we do, gstreamer will get to the sys.args and print it's own
@@ -244,6 +308,8 @@ def PopulateEncoders():
 			#and the current item from _export_formats as the values.
 			d = dict(zip(_export_template, type))
 			EXPORT_FORMATS.append(d)
+
+#_____________________________________________________________________
 
 #Global paths, so we can find everything
 data_path = os.getenv("JOKOSHER_DATA_PATH")
@@ -276,6 +342,7 @@ AVAILABLE_EXTENSIONS = []
 INSTRUMENT_HEADER_WIDTH = 0
 
 LOCALE_APP = "jokosher"
+
 #set in Project.py
 VERSION = None
 EFFECT_PRESETS_VERSION = None
@@ -289,6 +356,7 @@ _export_formats = [	("Ogg Vorbis", "ogg", "vorbisenc ! oggmux"),
 					("Flac", "flac", "flacenc"),
 					("WAV", "wav", "wavenc"),
 				]
+
 EXPORT_FORMATS = []
 
 SAMPLE_RATES = [8000, 11025, 22050, 32000, 44100, 48000, 96000, 192000]
@@ -297,7 +365,6 @@ SAMPLE_RATES = [8000, 11025, 22050, 32000, 44100, 48000, 96000, 192000]
 settings = Settings()
 #cache instruments
 gobject.idle_add(idleCacheInstruments)
-
 
 # I have decided that Globals.py is a boring source file. So, here is a little
 # joke. What does the tax office and a pelican have in common? They can both stick

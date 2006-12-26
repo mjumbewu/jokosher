@@ -67,7 +67,7 @@ class InstrumentViewer(gtk.EventBox):
 			instrumentviewer - the InstrumentViewer holding the event lane.
 			projectview - the RecordingView instance that this belongs to.
 			mainview - the MainApp Jokosher window.
-			small - set to True if we want small edit views (i.e. for mix view).
+			small - set to True if we want small edit views (i.e. for mixing view).
 		"""
 		self.instrument = instrument
 		self.project = project
