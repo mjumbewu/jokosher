@@ -17,17 +17,17 @@ for doc in *.html; do
 	sed 's|#f0f0f8|#ffffff|' $doc -i
 	
 	#blue -> orange (Title)
-	sed 's|#7799ee|#f2c66d|' $doc -i
+	sed 's|#7799ee|#fcbb58|' $doc -i
 	
 	#purple -> green (Modules)
-	sed 's|#aa55cc|#70b538|' $doc -i
+	sed 's|#aa55cc|#4e9a06|' $doc -i
 	
 	#magenta -> blue (Classes)
-	sed 's|#ee77aa|#0462bf|' $doc -i
+	sed 's|#ee77aa|#3465a4|' $doc -i
 	
 	#pink -> light blue (Inside classes)
-	sed 's|#ffc8d8|#c7d7ff|' $doc -i
+	sed 's|#ffc8d8|#729fcf|' $doc -i
 	
 	#papaya -> brown (Functions)
-	sed 's|#eeaa77|#9c7c3e|' $doc -i
+	sed 's|#eeaa77|#c17d11|' $doc -i
 done
