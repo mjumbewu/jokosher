@@ -261,8 +261,8 @@ def idleCacheInstruments():
 	Loads the Instruments 'lazily' to avoid blocking the GUI.
 	
 	Returns:
-		True = keep calling itself to load more Instruments.
-		False = stop calling itself and sort Instruments alphabetically.
+		True -- keep calling itself to load more Instruments.
+		False -- stop calling itself and sort Instruments alphabetically.
 	"""
 	global instrumentPropertyList, _alreadyCached, _cacheGeneratorObject
 	if _alreadyCached:
@@ -311,7 +311,11 @@ def PopulateEncoders():
 
 #_____________________________________________________________________
 
-#Global paths, so we can find everything
+"""
+Global paths, so all methods can access them.
+If JOKOSHER_DATA_PATH is not set, that is, Jokosher is running locally,
+use paths relative to the current running directory instead of /usr ones.
+"""
 data_path = os.getenv("JOKOSHER_DATA_PATH")
 if data_path:
 	EFFECT_PRESETS_PATH = os.path.join(data_path, "effectspresets")
@@ -336,14 +340,14 @@ if not LOCALE_PATH:
 	LOCALE_PATH = os.path.join(this_path, "..", "locale")
 	
 
-#ExtensionManager Stuff
-AVAILABLE_EXTENSIONS = []
-	
+""" ExtensionManager data """
+AVAILABLE_EXTENSIONS = []	
 INSTRUMENT_HEADER_WIDTH = 0
 
+""" Locale constant """
 LOCALE_APP = "jokosher"
 
-#set in Project.py
+""" Set in Project.py """
 VERSION = None
 EFFECT_PRESETS_VERSION = None
 LADSPA_FACTORY_REGISTRY = None
@@ -361,9 +365,10 @@ EXPORT_FORMATS = []
 
 SAMPLE_RATES = [8000, 11025, 22050, 32000, 44100, 48000, 96000, 192000]
 	
-#init Settings
+""" init Settings """
 settings = Settings()
-#cache instruments
+
+""" Cache Instruments """
 gobject.idle_add(idleCacheInstruments)
 
 # I have decided that Globals.py is a boring source file. So, here is a little

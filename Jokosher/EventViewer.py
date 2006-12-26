@@ -23,10 +23,12 @@ import Globals
 #=========================================================================
 
 class EventViewer(gtk.DrawingArea):
-	""" The EventViewer class handles displaying a single event as part
-		of an EventLaneViewer object.
 	"""
-
+	The EventViewer class handles displaying a single event as part
+	of an EventLaneViewer object.
+	"""
+	
+	""" GTK widget name """
 	__gtype_name__ = 'EventViewer'
 	
 	#the maximum width of the stroke above the fill
@@ -37,7 +39,8 @@ class EventViewer(gtk.DrawingArea):
 	_PIXX_FADEMARKER_WIDTH = 30
 	_PIXY_FADEMARKER_HEIGHT = 11
 	
-	"""various colour configurations
+	"""
+	Various color configurations:
 	   ORGBA = Offset, Red, Green, Blue, Alpha
 	   RGBA = Red, Green, Blue, Alpha
 	   RGB = Red, Green, Blue
@@ -56,8 +59,19 @@ class EventViewer(gtk.DrawingArea):
 	
 	#_____________________________________________________________________
 
-	def __init__(self, lane, project, event, height, eventlaneviewer, mainview,  small = False):
-
+	def __init__(self, lane, project, event, height, eventlaneviewer, mainview,  small=False):
+		"""
+		Creates a new instance of EventViewer.
+		
+		Parameters:
+			lane -- parent Event lane for this instance.
+			project -- the currently active Project.
+			event -- Event drawn by this EventViewer.
+			height -- height in pixels for this EventViewer.
+			eventlaneviewer -- EventLaneViewer associated to this instance.
+			mainview -- the parent MainApp Jokosher window.
+			small - set to True if we want small edit views (i.e. for mixing view).
+		"""
 		self.small = small
 		
 		self.selectiontip = gtk.Tooltips()
@@ -142,14 +156,21 @@ class EventViewer(gtk.DrawingArea):
 	#_____________________________________________________________________
 
 	def OnDraw(self, widget, event):
-		""" This function blits the waveform data onto the screen, and
-			then draws the play cursor over it.
 		"""
-		c = self.cachedDrawArea
-		e = event.area
+		Blits the waveform data onto the screen, and then draws the play
+		cursor over it.
+		
+		widget -- GTK widget to be drawn.
+		event -- GTK event associated to the widget.
+		
+		Returns:
+			False -- stop propagating the GTK signal. *CHECK*
+		"""
+		cache = self.cachedDrawArea
+		area = event.area
 		
 		#check if the expose area is within the already cached rectangle
-		if e.x < c.x or (e.x + e.width > c.x + c.width) or self.redrawWaveform:
+		if area.x < cache.x or (area.x + area.width > cache.x + cache.width) or self.redrawWaveform:
 			self.DrawWaveform(event.area)
 		
 		# Get a cairo surface for this drawing op
@@ -167,7 +188,6 @@ class EventViewer(gtk.DrawingArea):
 							  event.area.width, event.area.height)
 			context.set_source_rgba(*self._SELECTED_RGBA)
 			context.fill()
-		
 		
 		#Draw play position
 		x = int(round((self.project.transport.position - self.event.start) * self.project.viewScale))
@@ -192,7 +212,6 @@ class EventViewer(gtk.DrawingArea):
 			pixbuf = widget.render_icon(gtk.STOCK_CUT, gtk.ICON_SIZE_SMALL_TOOLBAR)
 			widget.window.draw_pixbuf(None, pixbuf, 0, 0, int(self.highlightCursor), 0)
 			
-
 		# Overlay an extra rect if there is a selection
 		self.fadeMarkersContext = None
 		if self.event.selection != [0,0]:
@@ -216,7 +235,7 @@ class EventViewer(gtk.DrawingArea):
 				pixxFM_left -= self._PIXX_FADEMARKER_WIDTH
 			pixyFM_left = int(padded_height * (100-self.fadeMarkers[0]) / 100.0)
 			context.rectangle(pixxFM_left, pixyFM_left,
-			                  self._PIXX_FADEMARKER_WIDTH , self._PIXY_FADEMARKER_HEIGHT)
+							self._PIXX_FADEMARKER_WIDTH , self._PIXY_FADEMARKER_HEIGHT)
 			
 			pixxFM_right = x2
 			#if there is enough room on the right of the selection,
@@ -225,7 +244,7 @@ class EventViewer(gtk.DrawingArea):
 				pixxFM_right -= self._PIXX_FADEMARKER_WIDTH
 			pixyFM_right = int(padded_height * (100-self.fadeMarkers[1]) / 100.0)
 			context.rectangle(pixxFM_right, pixyFM_right,
-			                  self._PIXX_FADEMARKER_WIDTH, self._PIXY_FADEMARKER_HEIGHT)
+							self._PIXX_FADEMARKER_WIDTH, self._PIXY_FADEMARKER_HEIGHT)
 			
 			context.fill()
 			
@@ -238,9 +257,9 @@ class EventViewer(gtk.DrawingArea):
 			
 			# redo the rectangles so they're the path and we can in_fill() check later
 			context.rectangle(pixxFM_left, pixyFM_left,
-			                  self._PIXX_FADEMARKER_WIDTH, self._PIXY_FADEMARKER_HEIGHT)
+							self._PIXX_FADEMARKER_WIDTH, self._PIXY_FADEMARKER_HEIGHT)
 			context.rectangle(pixxFM_right, pixyFM_right,
-			                  self._PIXX_FADEMARKER_WIDTH, self._PIXY_FADEMARKER_HEIGHT)
+							self._PIXX_FADEMARKER_WIDTH, self._PIXY_FADEMARKER_HEIGHT)
 			self.fadeMarkersContext = context
 
 		return False
@@ -248,8 +267,11 @@ class EventViewer(gtk.DrawingArea):
 	#_____________________________________________________________________
 
 	def DrawWaveform(self, exposeArea):
-		""" This function uses Cairo to draw the waveform level information
-			onto a canvas in memory.
+		"""
+		Uses Cairo to draw the waveform level information onto a canvas in memory.
+		
+		Parameters:
+			exposeArea -- Cairo exposed area in which to draw the waveform.
 		"""
 		allocArea = self.get_allocation()
 		
@@ -334,7 +356,6 @@ class EventViewer(gtk.DrawingArea):
 				context.arc(pixx, pixy, 3.5, 0, 7)
 				context.fill()
 		
-		
 		# Reset the drawing scale
 		context.identity_matrix()
 		context.scale(1.0, 1.0)
@@ -374,6 +395,11 @@ class EventViewer(gtk.DrawingArea):
 	#_____________________________________________________________________
 	
 	def Destroy(self):
+		"""
+		Called when the EventViewer gets destroyed.
+		It also destroys any child widget and disconnects itself from any
+		listening objects via Monitored.
+		"""
 		self.project.RemoveListener(self)
 		self.event.RemoveListener(self)
 		#delete the cached image
@@ -383,7 +409,18 @@ class EventViewer(gtk.DrawingArea):
 	#_____________________________________________________________________
 
 	def OnMouseMove(self,widget,mouse):
-	
+		"""
+		Display a message in the StatusBar when the mouse hovers over the
+		EventViewer.
+		Also displays cursors depending on the current action being performed.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+			mouse -- GTK mouse event that fired this method call.
+			
+		Returns:
+			True -- continue GTK signal propagation. *CHECK*
+		"""
 		if not self.window:
 			return
 		# display status bar message if has not already been displayed
@@ -468,17 +505,25 @@ class EventViewer(gtk.DrawingArea):
 	#_____________________________________________________________________
 	
 	def OnMouseDown(self, widget, mouse):
-		""" Possible clicks to capture:
-		   {L|R}MB: deselect all events, remove any existing selection in this event,
-		      select this event, begin moving the event
-		   LMB+shift: remove any existing selection in this event, begin 
-		      selecting part of this event
-		   {L|R}MB+ctrl: select this event without deselecting other events
-		   RMB: context menu
-		   LMB double-click: split here
-		   LMB over a fadeMarker: drag that marker
 		"""
+		Called when the user pressed a mouse button.
+		Possible click combinations to capture:
+			{L|R}MB: deselect all Events, remove any existing selection in
+					this Event then select this Event and begin moving the Event.
+			LMB+shift: remove any existing selection in this Event and begin
+					selecting part of this Event.
+			{L|R}MB+ctrl: select this Event without deselecting other Events.
+			RMB: display a context menu.
+			LMB double-click: split this Event here.
+			LMB over a fadeMarker: drag the correspondent marker.
 		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+			mouse -- GTK mouse event that fired this method call.
+			
+		Returns:
+			True -- continue GTK signal propagation. *CHECK*
+		"""		
 		#Don't allow moving, etc while recording!
 		if self.event.isRecording:
 			return
@@ -539,8 +584,14 @@ class EventViewer(gtk.DrawingArea):
 
 	#_____________________________________________________________________
 		
-	def ContextMenu(self,mouse):
-		m = gtk.Menu()
+	def ContextMenu(self, mouse):
+		"""
+		Creates a context menu in response to a right click.
+		
+		Parameters:
+			mouse -- GTK mouse event that fired this method call.
+		"""
+		menu = gtk.Menu()
 		items = [	(_("_Split"), self.OnSplit, True, None),
 					("---", None, None, None),
 					(_("Cu_t"), self.OnCut, True, gtk.image_new_from_stock(gtk.STOCK_CUT, gtk.ICON_SIZE_MENU)),
@@ -548,41 +599,55 @@ class EventViewer(gtk.DrawingArea):
 					(_("_Delete"), self.OnDelete, False, gtk.image_new_from_stock(gtk.STOCK_DELETE, gtk.ICON_SIZE_MENU))
 					] 
 
-		for i, cb, sometimes, image in items: 
-			if i == "---":
-				a = gtk.SeparatorMenuItem()
+		for label, callback, sometimes, image in items: 
+			if label == "---":
+				menuItem = gtk.SeparatorMenuItem()
 			elif image:
-				a = gtk.ImageMenuItem(i, True)
-				a.set_image(image)
+				menuItem = gtk.ImageMenuItem(label, True)
+				menuItem.set_image(image)
 			else:
-				a = gtk.MenuItem(label=i)
+				menuItem = gtk.MenuItem(label=label)
 			
 			if self.event.isLoading and sometimes:
-				a.set_sensitive(False)
+				menuItem.set_sensitive(False)
 			else:
-				a.set_sensitive(True)
-			a.show() 
-			m.append(a) 
-			if cb:
-				a.connect("activate", cb) 
+				menuItem.set_sensitive(True)
+			menuItem.show() 
+			menu.append(menuItem) 
+			if callback:
+				menuItem.connect("activate", callback) 
 		self.highlightCursor = mouse.x
 		self.popupIsActive = True
 
-		m.popup(None, None, None, mouse.button, mouse.time)
-		m.connect("selection-done",self.OnMenuDone)
+		menu.popup(None, None, None, mouse.button, mouse.time)
+		menu.connect("selection-done",self.OnMenuDone)
 		
 		self.mouseAnchor = [mouse.x, mouse.y]
 			
 	#_____________________________________________________________________
 	
 	def OnMenuDone(self, widget):
+		"""
+		Hides the right-click context menu after the user has selected one
+		of its options or clicked elsewhere.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		self.popupIsActive = False
 		self.highlightCursor = None
 		
 	#_____________________________________________________________________
 		
 	def OnMouseUp(self, widget, mouse):
+		"""
+		Called when the left mouse button is released.
+		Finishes drag, fade and selection operations.
 		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+			mouse -- GTK mouse event that fired this method call.
+		"""
 		if mouse.button == 1:
 			if self.isDragging:		
 				self.isDragging = False
@@ -616,6 +681,14 @@ class EventViewer(gtk.DrawingArea):
 	#_____________________________________________________________________
 		
 	def OnMouseLeave(self, widget, event):
+		"""
+		Clears the StatusBar message when the mouse moves out of the
+		EventLaneViewer area. It also disables cursors accordingly.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+			mouse -- GTK mouse event that fired this method call.
+		"""
 		if self.messageID:   #clesr status bar if not already clear
 			self.mainview.ClearStatusBar(self.messageID)
 			self.messageID = None
@@ -625,9 +698,15 @@ class EventViewer(gtk.DrawingArea):
 		
 	#_____________________________________________________________________
 			
-	def OnSplit(self, evt):
+	def OnSplit(self, gtkevent):
+		"""
+		Splits an Event in two.
+		
+		Parameters:
+			gtkevent -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		x = self.mouseAnchor[0]
-		if x==0.0:
+		if x == 0.0:
 			return
 		x /= float(self.project.viewScale)
 		self.event.Split(x)
@@ -636,17 +715,36 @@ class EventViewer(gtk.DrawingArea):
 	#_____________________________________________________________________
 	
 	def OnCut(self, gtkevent):
+		"""
+		Cuts the selected portion of the Event, and puts it on the clipboard.
+		
+		Parameters:
+			gtkevent -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		self.project.clipboardList = [self.event]
 		self.OnDelete()
 	
 	#_____________________________________________________________________
 	
 	def OnCopy(self, gtkevent):
+		"""
+		Copies the selected portion of the Event to the clipboard.
+		
+		Parameters:
+			gtkevent -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		self.project.clipboardList = [self.event]
 	
 	#_____________________________________________________________________
 
-	def OnDelete(self, evt=None):
+	def OnDelete(self, event=None):
+		"""
+		Called when "Delete" is selected from context menu.
+		Deletes the selected Event from the Project.
+			
+		Parameters:
+			event -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		# delete event
 		self.lane.childActive = False
 		self.event.Delete()
@@ -657,10 +755,14 @@ class EventViewer(gtk.DrawingArea):
 	
 	#_____________________________________________________________________
 		
-	def TrimToSelection(self, evt):
-		# Cut this event down so only the selected bit remains. This event
-		# is L-S-R, where S is the selected bit; we're removing L and R.
+	def TrimToSelection(self, gtkevent):
+		"""
+		Cut this Event down so only the selected bit remains. This Event
+		is L-S-R, where S is the selected bit; L and R will be removed.
 		
+		Parameters:
+			gtkevent -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		if self.event.isLoading == True:
 			return
 		
@@ -673,8 +775,11 @@ class EventViewer(gtk.DrawingArea):
 	#_____________________________________________________________________
 	
 	def do_size_request(self, requisition):
-		""" We need to override this function otherwise we get
-			given a 1x1 display size!
+		"""
+		This function has been overrided to avoid getting a 1x1 display size.
+		
+		Parameters:
+			requisition -- TODO
 		"""
 		if self.event.duration > 0:
 			requisition.width = self.event.duration * self.project.viewScale
@@ -696,6 +801,16 @@ class EventViewer(gtk.DrawingArea):
 	#_____________________________________________________________________
 	
 	def OnStateChanged(self, obj, change=None, *extra):
+		"""
+		Called when a change of state is signalled by any of the
+		objects this view is 'listening' to.
+		Redraws the Event if any of its audio has been modified.
+		
+		Parameters:
+			obj -- object changing state.
+			change -- the change which has occured.
+			extra -- extra parameters passed by the caller.
+		"""
 		if change == self.event.WAVEFORM:
 			self.redrawWaveform = True
 			self.UpdateFadeMarkers()
@@ -730,30 +845,65 @@ class EventViewer(gtk.DrawingArea):
 	#_____________________________________________________________________
 
 	def PixXFromSec(self, sec):
-		"""Converts seconds to an X pixel position in the waveform"""
+		"""
+		Converts seconds to an X pixel position in the waveform.
+		
+		Parameters:
+			sec -- value in seconds.
+			
+		Returns:
+			the correspondent pixel X position in the waveform.
+		"""
 		return round(float(sec) * self.project.viewScale)
 	
 	#_____________________________________________________________________
 	
-	def SecFromPixX(self,pixx):
-		"""Converts an X pixel position in the waveform into seconds"""
+	def SecFromPixX(self, pixx):
+		"""
+		Converts an X pixel position in the waveform into seconds.
+		
+		Parameters:
+			pixx -- X pixel position value.
+			
+		Returns:
+			the correspondent value in seconds.
+		"""
 		return float(pixx) / self.project.viewScale
 	
 	#_____________________________________________________________________
 	
 	def PixYFromVol(self, vol):
-		"""Converts volume (0.0-1.0) to a Y pixel position in the waveform"""
+		"""
+		Converts a volume value into a Y pixel position in the waveform.
+		
+		Parameters:
+			vol -- volume value in a [0.0, 1.0] range.
+			
+		Returns:
+			the correspondent pixel Y position in the waveform.
+		"""
 		return round((1.0 - vol) * self.allocation.height)
 	
 	#_____________________________________________________________________
 	
-	def VolFromPixY(self,pixy):
-		"""Converts a Y pixel position in the waveform into a volume (0.0-1.0)"""
+	def VolFromPixY(self, pixy):
+		"""
+		Converts a Y pixel position in the waveform into a volume value.
+		
+		Parameters:
+			pixy -- Y pixel position value.
+			
+		Returns:
+			the correspondent value, in seconds, in a [0.0, 1.0] range.
+		"""
 		return 1.0 - (float(pixy) / self.allocation.height)
 
 	#_____________________________________________________________________
 	
-	def SetAudioFadePointsFromCurrentSelection(self):				
+	def SetAudioFadePointsFromCurrentSelection(self):
+		"""
+		Creates fade points for the current selection.
+		"""
 		volLeft = self.fadeMarkers[0] / 100.0
 		volRight = self.fadeMarkers[1] / 100.0
 		
@@ -764,8 +914,11 @@ class EventViewer(gtk.DrawingArea):
 	
 	def GetSelectionAsPixels(self):
 		"""
-		   Returns the event selection as a list of two points
-		   measured in pixels instead of seconds like event.selection.
+		Obtain the Event selection as a list of two points, measured in
+		pixels instead of seconds like Event.selection.
+		
+		Returns:
+			list with two X points describing the selection.
 		"""
 		x1 = self.PixXFromSec(self.event.selection[0])
 		x2 = self.PixXFromSec(self.event.selection[1])
@@ -774,6 +927,14 @@ class EventViewer(gtk.DrawingArea):
 	#_____________________________________________________________________
 	
 	def UpdateDrawerPosition(self, reverseSelectionPoints=False):
+		"""
+		Updates the drawer position to the correct position when user
+		moves the mouse over the EventViewer.
+		
+		Parameters:
+			reverseSelectionPoints -- True if the selection points should
+										be reversed.
+		"""
 		if self.drawer.parent != self.lane.fixed:
 			#drawer is not in lane
 			return
@@ -804,6 +965,12 @@ class EventViewer(gtk.DrawingArea):
 	#_____________________________________________________________________
 	
 	def DeleteSelectedFadePoints(self, event):
+		"""
+		Deletes the selected fade points from the Event.
+		
+		Parameters:
+			event -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		if self.event.isLoading == True:
 			return
 		self.event.DeleteSelectedFadePoints()
@@ -811,6 +978,12 @@ class EventViewer(gtk.DrawingArea):
 	#_____________________________________________________________________
 	
 	def SnapSelectionToFadePoints(self, event):
+		"""
+		Snaps the selection to a set of fade points.
+		
+		Parameters:
+			event -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		if len(self.event.audioFadePoints) < 2:
 			#not enough levels
 			return
@@ -849,6 +1022,10 @@ class EventViewer(gtk.DrawingArea):
 	#_____________________________________________________________________
 	
 	def UpdateFadeMarkers(self):
+		"""
+		Called when the a fade point's value changes, to update the graphical
+		marker over the waveform.
+		"""
 		self.fadeMarkers = [self.event.GetFadeLevelAtPoint(x) * 100 for x in self.event.selection]
 	
 	#_____________________________________________________________________
