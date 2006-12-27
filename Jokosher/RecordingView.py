@@ -339,9 +339,7 @@ class RecordingView(gtk.Frame):
 		self.project.ClearEventSelections()
 		self.project.SelectInstrument(None)
 		self.Update()
-		# set the instrument menu item in the jokosher window to be inactive if the user clicks in the recording view
-		self.mainview.instrumentmenuitem.set_sensitive(False)
-		
+	
 	#_____________________________________________________________________
 	
 	def OnStateChanged(self, obj, change=None, *extra):

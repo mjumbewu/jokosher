@@ -94,12 +94,14 @@ class MainApp:
 			"on_MouseDown" : self.OnMouseDown,
 			"on_instrumentconnections_activate" : self.OnInstrumentConnectionsDialog,
 			"on_editmenu_activate" : self.OnEditMenu,
-			"on_projectmenu_activate" : self.OnProjectMenu,
 			"on_help_contents_activate" : self.OnHelpContentsMenu,
 			"on_forums_activate" : self.OnForumsMenu,
 			"on_contributing_activate" : self.OnContributingDialog,
 			"on_ExtensionManager_activate" : self.OnExtensionManagerDialog,
-			"on_instrument_menu_item_activate" : self.OnInstrumentMenuItem
+			"on_instrumentmenu_activate" : self.OnInstrumentMenu,
+			"on_import_audio_file_activate" : self.OnImportAudio,
+			"on_change_instr_type_activate" : self.OnChangeInstrument,
+			"on_remove_instr_activate" : self.OnRemoveInstrument
 		}
 		self.wTree.signal_autoconnect(signals)
 		
@@ -123,13 +125,15 @@ class MainApp:
 		self.copy = self.wTree.get_widget("copy")
 		self.paste = self.wTree.get_widget("paste")
 		self.delete = self.wTree.get_widget("delete")
-		self.projectmenu = self.wTree.get_widget("projectmenu")
+		self.projectMenu = self.wTree.get_widget("projectmenu")
+		self.instrumentMenu = self.wTree.get_widget("instrumentmenu")
 		self.export = self.wTree.get_widget("export")
 		self.recentprojects = self.wTree.get_widget("recentprojects")
 		self.recentprojectsmenu = self.wTree.get_widget("recentprojects_menu")
 		self.menubar = self.wTree.get_widget("menubar")
-		self.instrumentmenuitem = self.wTree.get_widget("instrument_menuitem")
-		self.instrumentmenu = self.wTree.get_widget("instrument_menu")
+		self.importAudioMenuItem = self.wTree.get_widget("import_audio_file")
+		self.changeInstrMenuItem = self.wTree.get_widget("change_instrument_type")
+		self.removeInstrMenuItem = self.wTree.get_widget("remove_selected_instrument")
 		
 		self.recentprojectitems = []
 		self.lastopenedproject = None
@@ -155,8 +159,6 @@ class MainApp:
 		self.isPlaying = False
 		self.isPaused = False
 		self.exportFilename = None
-		self.importaudio = None
-		self.removeinstr = None
 
 		# Intialise context sensitive tooltips for workspaces buttons
 		self.contextTooltips.set_tip(self.recordingButton,_("Currently working in the Recording workspace"),None)
@@ -190,6 +192,11 @@ class MainApp:
 				size = gtk.icon_size_lookup(gtk.ICON_SIZE_MENU)
 				self.audioFilePixbuf = pixbuf.scale_simple(size[0], size[1], gtk.gdk.INTERP_BILINEAR)
 				break
+		
+		audioimg = gtk.Image()
+		audioimg.set_from_pixbuf(self.audioFilePixbuf)
+		# set the import audio menu item and remove selected instrument menu item icons
+		self.importAudioMenuItem.set_image(audioimg)
 		
 		# populate the Recent Projects menu
 		self.OpenRecentProjects()
@@ -1219,7 +1226,7 @@ class MainApp:
 		
 		ctrls = (self.save, self.save_as, self.close, self.addInstrumentButton,
 			self.reverse, self.forward, self.play, self.stop, self.record,
-			self.projectmenu, self.export, self.cut, self.copy, self.paste,
+			self.projectMenu, self.instrumentMenu, self.export, self.cut, self.copy, self.paste,
 			self.undo, self.redo, self.delete,
 			self.recordingButton,self.compactMixButton,
 			self.wTree.get_widget("WorkspacesLabel"))
@@ -1324,9 +1331,10 @@ class MainApp:
 		eventSelected = False
 		if self.project:
 			for instr in self.project.instruments:
+				if instrSelected and eventSelected:
+					break
 				if instr.isSelected:
 					instrSelected = True
-					break
 				else:
 					for ev in instr.events:
 						if ev.isSelected:
@@ -1339,26 +1347,24 @@ class MainApp:
 	
 	#_____________________________________________________________________
 	
-	def OnProjectMenu(self, widget):
+	def OnInstrumentMenu(self, widget):
 		"""
-		HACK: When the project menu opens, set sensitivity depending on
-		whether there's an open project or not.
+		HACK: When the instrument menu opens, set sensitivity depending on
+		whether there's a selected instrument or not.
 		
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-		if self.settingButtons:
-				return
-		self.settingButtons = True
 		
-		instrSelected = False
+		instrCount = 0
 		if self.project:
 			for instr in self.project.instruments:
 				if instr.isSelected:
-					instrSelected = True
-					break
+					instrCount += 1
 		
-		self.settingButtons = False
+		self.importAudioMenuItem.set_sensitive(instrCount == 1)
+		self.changeInstrMenuItem.set_sensitive(instrCount == 1)
+		self.removeInstrMenuItem.set_sensitive(instrCount > 0)
 	
 	#_____________________________________________________________________
 
@@ -1605,39 +1611,33 @@ class MainApp:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		ExtensionManagerDialog.ExtensionManagerDialog(self)
+	
 	#_____________________________________________________________________
+
+	def OnImportAudio(self, widget):
+		instrID = None
+		for instr in self.project.instruments:
+			if instr.isSelected:
+				instrID = instr.id
+				break
 		
-	def OnInstrumentMenuItem(self, widget):
-		"""
-		Creates and shows the "Instrument" menu.
+		if instrID != None:
+			for id, instrViewer in self.recording.views:
+				if instrID == id:
+					instrViewer.eventLane.CreateEventFromFile()
 		
-		Parameters:
-			widget -- reserved for GTK callbacks, don't use it explicitly.
-		"""
-		audioimg = gtk.Image()
-		audioimg.set_from_pixbuf(self.audioFilePixbuf)
-		items = self.instrumentmenu.get_children()
-		for i in items:
-			self.instrumentmenu.remove(i)
-			
-		items = [	(_("_Import Audio File"), audioimg, self.importaudio),
-				(_("_Change Instrument Type"), None, self.OnChangeInstrument),
-				(_("_Remove Selected Instrument"), gtk.image_new_from_stock(gtk.STOCK_REMOVE, gtk.ICON_SIZE_MENU), self.removeinstr)
-			]
-		for i, img, cb in items:
-			if i == "---":
-				a = gtk.SeparatorMenuItem()
-			elif img:
-				a = gtk.ImageMenuItem(i, True)
-				a.set_image(img)
-			else:
-				a = gtk.MenuItem(label=i)
-			if cb:
-				a.connect("activate", cb)
-			a.show()
-			self.instrumentmenu.add(a)
-			
-		self.instrumentmenu.show_all()
+	#_____________________________________________________________________
+
+	def OnRemoveInstrument(self, widget):
+		for instr in self.project.instruments:
+			if instr.isSelected:
+				#set not selected so when we undo we don't get two selected instruments
+				instr.isSelected = False
+				self.project.DeleteInstrument(instr.id)
+				
+		self.UpdateDisplay()
+	
+	#_____________________________________________________________________
 
 #=========================================================================
 

@@ -373,15 +373,53 @@
 	  </child>
 
 	  <child>
-	    <widget class="GtkMenuItem" id="instrument_menuitem">
+	    <widget class="GtkMenuItem" id="instrumentmenu">
 	      <property name="visible">True</property>
-	      <property name="sensitive">False</property>
 	      <property name="label" translatable="yes">_Instrument</property>
 	      <property name="use_underline">True</property>
-	      <signal name="activate" handler="on_instrument_menu_item_activate" last_modification_time="Sun, 24 Dec 2006 00:54:35 GMT"/>
+	      <signal name="activate" handler="on_instrumentmenu_activate" last_modification_time="Wed, 27 Dec 2006 21:35:15 GMT"/>
 
 	      <child>
-		<widget class="GtkMenu" id="instrument_menu">
+		<widget class="GtkMenu" id="instrumentmenu_menu">
+
+		  <child>
+		    <widget class="GtkImageMenuItem" id="import_audio_file">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">Import Audio File</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_import_audio_file_activate" last_modification_time="Tue, 26 Dec 2006 18:58:33 GMT"/>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="change_instrument_type">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">Change Instrument Type</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_change_instr_type_activate" last_modification_time="Tue, 26 Dec 2006 18:59:24 GMT"/>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkImageMenuItem" id="remove_selected_instrument">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">Remove Selected Instrument</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_remove_instr_activate" last_modification_time="Tue, 26 Dec 2006 18:59:48 GMT"/>
+
+		      <child internal-child="image">
+			<widget class="GtkImage" id="removeInstrImage">
+			  <property name="visible">True</property>
+			  <property name="stock">gtk-remove</property>
+			  <property name="icon_size">1</property>
+			  <property name="xalign">0.5</property>
+			  <property name="yalign">0.5</property>
+			  <property name="xpad">0</property>
+			  <property name="ypad">0</property>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
 		</widget>
 	      </child>
 	    </widget>

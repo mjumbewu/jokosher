@@ -102,11 +102,6 @@ class EventLaneViewer(gtk.EventBox):
 		self.fixed.connect("expose-event", self.OnDraw)
 		
 		self.messageID = None
-		
-		## these variables are associated with the Instrument menu item in JokosherApp
-		self.mainview.importaudio = self.CreateEventFromFile
-		self.mainview.removeinstr = self.OnDelete
-		
 		self.Update()
 		
 	#_____________________________________________________________________
@@ -219,11 +214,7 @@ class EventLaneViewer(gtk.EventBox):
 		"""
 		if self.childActive:
 			return
-		
-		# set the Instrument menu item in the jokosher window to be active
-		# if the user selects an Instrument
-		self.mainview.instrumentmenuitem.set_sensitive(True)
-		
+
 		self.mouseDownPos = [mouse.x, mouse.y]
 		
 		# Create context menu on RMB 
@@ -312,7 +303,7 @@ class EventLaneViewer(gtk.EventBox):
 
 	#_____________________________________________________________________
 	
-	def CreateEventFromFile(self, event):
+	def CreateEventFromFile(self, event=None):
 		"""
 		Called when "Import Audio File..." is selected from the right-click context menu.
 		Opens up a file chooser dialog to import an Event.
@@ -346,8 +337,13 @@ class EventLaneViewer(gtk.EventBox):
 			#stop the preview audio from playing without destorying the dialog
 			audiopreview.OnDestroy()
 			dlg.hide()
-			start = (self.mouseDownPos[0]/self.project.viewScale) + self.project.viewStart
-			self.instrument.addEventFromFile(start, dlg.get_filename(),copyfile.get_active())
+			
+			start = 0
+			if event:
+				#if we we're called from a mouse click, use the mouse position as the start
+				start = (self.mouseDownPos[0]/self.project.viewScale) + self.project.viewStart
+			
+			self.instrument.addEventFromFile(start, dlg.get_filename(), copyfile.get_active())
 			Globals.settings.general["projectfolder"] = os.path.dirname(dlg.get_filename())
 			Globals.settings.write()
 			dlg.destroy()
@@ -373,7 +369,7 @@ class EventLaneViewer(gtk.EventBox):
 		
 	#_____________________________________________________________________
 	
-	def OnDelete(self, event):
+	def OnDelete(self, event=None):
 		"""
 		Called when "Delete" is selected from context menu.
 		Deletes the selected Instrument from the Project.
@@ -388,9 +384,6 @@ class EventLaneViewer(gtk.EventBox):
 		"""
 		self.project.DeleteInstrument(self.instrument.id)
 		self.mainview.UpdateDisplay()
-		
-		## set the instrument menu item to be inactive if an instrument is deleted
-		self.mainview.instrumentmenuitem.set_sensitive(False)
 	
 	#_____________________________________________________________________
 	
