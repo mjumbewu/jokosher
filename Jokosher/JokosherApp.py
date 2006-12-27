@@ -1176,17 +1176,25 @@ class MainApp:
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
+		# list to store instruments to delete, so we don't modify the list while we are iterating
+		instrList = []
+		eventList = []
 		# Delete any select instruments
 		for instr in self.project.instruments:
 			if (instr.isSelected):
 				#set not selected so when we undo we don't get two selected instruments
 				instr.isSelected = False
-				self.project.DeleteInstrument(instr.id)
+				instrList.append(instr)
 			else:
 				# Delete any selected events
 				for ev in instr.events:
 					if ev.isSelected:
-						ev.Delete()
+						eventList.append(ev)
+		
+		for instr in instrList:
+			self.project.DeleteInstrument(instr.id)
+		for ev in eventList:
+			ev.Delete()
 	
 		self.UpdateDisplay()
 	
@@ -1629,11 +1637,16 @@ class MainApp:
 	#_____________________________________________________________________
 
 	def OnRemoveInstrument(self, widget):
+		# list to store instruments to delete, so we don't modify the list while we are iterating
+		instrList = []
 		for instr in self.project.instruments:
 			if instr.isSelected:
 				#set not selected so when we undo we don't get two selected instruments
 				instr.isSelected = False
-				self.project.DeleteInstrument(instr.id)
+				instrList.append(instr)
+		
+		for instr in instrList:
+			self.project.DeleteInstrument(instr.id)
 				
 		self.UpdateDisplay()
 	

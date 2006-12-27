@@ -102,7 +102,7 @@ class CancelUndoCommand(Exception):
 	in the function fails and the action that would have
 	been logged to the undo stack was never actually completed.
 	"""
-	def __init__(self, result):
+	def __init__(self, result=None):
 		"""
 		Creates a new instance of CancelUndoCommand.
 		
