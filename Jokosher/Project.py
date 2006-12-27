@@ -777,6 +777,30 @@ class Project(Monitored):
 			
 	#_____________________________________________________________________
 	
+	def __RecordingPadAddedCb(self, elem, pad, recInstruments, bin):
+		match = re.search("(\d+)$", pad.get_name())
+		if not match:
+			return
+		index = int(match.groups()[0])
+		for instr in recInstruments:
+			if instr.inTrack == index:
+				event = instr.getRecordingEvent()
+				
+				encodeString = Globals.settings.recording["fileformat"]
+				pipe = "audioconvert ! level name=eventlevel interval=%d message=true !" +\
+							"audioconvert ! %s ! filesink location=%s"
+				pipe %= (event.LEVEL_INTERVAL, encodeString, event.file.replace(" ", "\ "))
+				
+				encodeBin = gst.gst_parse_bin_from_description(pipe, True)
+				bin.add(encodeBin)
+				pad.link(encodeBin.get_pad("sink"))
+				
+				handle = self.bus.connect("message::element", event.recording_bus_level)
+				
+				self.recordingEvents[instr] = (event, bin, handle)
+
+	#_____________________________________________________________________
+	
 	def __PlaybackStateChangedCb(self, bus, message, newAudioState):
 		"""
 		Handles GStreamer statechange events when the pipline is changing from
