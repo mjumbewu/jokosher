@@ -181,7 +181,7 @@ class EventLaneViewer(gtk.EventBox):
 			for ev in self.instrument.events:
 				if ev not in widget_events:
 					x = int(round((ev.start - self.project.viewStart) * self.project.viewScale))
-					child = EventViewer(self, self.project, ev, self.allocation.height, self, self.mainview, self.small)
+					child = EventViewer(self, self.project, ev, self.allocation.height, self.mainview, self.small)
 					self.fixed.put(child, x, 0)
 			self.fixed.show_all()
 		self.queue_draw()

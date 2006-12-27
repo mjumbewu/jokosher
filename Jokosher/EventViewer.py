@@ -59,16 +59,15 @@ class EventViewer(gtk.DrawingArea):
 	
 	#_____________________________________________________________________
 
-	def __init__(self, lane, project, event, height, eventlaneviewer, mainview,  small=False):
+	def __init__(self, lane, project, event, height, mainview,  small=False):
 		"""
 		Creates a new instance of EventViewer.
 		
 		Parameters:
-			lane -- parent Event lane for this instance.
+			lane -- parent EventLaneViewer for this instance.
 			project -- the currently active Project.
 			event -- Event drawn by this EventViewer.
 			height -- height in pixels for this EventViewer.
-			eventlaneviewer -- EventLaneViewer associated to this instance.
 			mainview -- the parent MainApp Jokosher window.
 			small - set to True if we want small edit views (i.e. for mixing view).
 		"""
@@ -148,7 +147,6 @@ class EventViewer(gtk.DrawingArea):
 		self.drawer.show()
 		
 		self.mainview = mainview
-		self.eventlaneviewer = eventlaneviewer
 		self.messageID = None
 		self.volmessageID = None
 		self.selmessageID = None
