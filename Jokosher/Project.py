@@ -373,7 +373,6 @@ class Project(Monitored):
 		self.mainpipeline = gst.Pipeline("timeline")
 		self.playbackbin = gst.Bin("playbackbin")
 		self.adder = gst.element_factory_make("adder")
-		self.volumeElement = gst.element_factory_make("volume")
 		Globals.debug("Using audio output: %s" % Globals.settings.playback["audiosink"])
 		self.masterSink = gst.element_factory_make(Globals.settings.playback["audiosink"])
 		
@@ -402,13 +401,12 @@ class Project(Monitored):
 		# ADD ELEMENTS TO THE PIPELINE AND/OR THEIR BINS #
 		self.mainpipeline.add(self.playbackbin)
 		Globals.debug("added project playback bin to the pipeline")
-		for element in [self.adder, self.volumeElement, self.levelElementCaps, self.levelElement, self.masterSink]:
+		for element in [self.adder, self.levelElementCaps, self.levelElement, self.masterSink]:
 			self.playbackbin.add(element)
 			Globals.debug("added %s to project playbackbin" % element.get_name())
 
 		# LINK GSTREAMER ELEMENTS #
-		self.adder.link(self.volumeElement)
-		self.volumeElement.link(self.levelElementCaps)
+		self.adder.link(self.levelElementCaps)
 		self.levelElementCaps.link(self.levelElement)
 		self.levelElement.link(self.masterSink)
 		
@@ -1323,7 +1321,9 @@ class Project(Monitored):
 			volume - a value in the range [0,1]
 		"""
 		self.volume = volume
-		self.volumeElement.set_property("volume", volume)
+		for instr in self.instruments:
+			instr.UpdateVolume()
+		self.StateChanged("volume")
 
 	#_____________________________________________________________________
 

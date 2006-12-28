@@ -761,9 +761,19 @@ class Instrument(Monitored):
 		"""
 		if self.volume != volume:
 			self.volume = volume
-			self.volumeElement.set_property("volume", volume)
+			self.UpdateVolume()
 			self.StateChanged("volume")
 
+	#_____________________________________________________________________
+	
+	def UpdateVolume(self):
+		"""
+		Updates the volume property of the gstreamer volume element
+		based on this instrument's volume and the project's master volume.
+		"""
+		volume = self.volume * self.project.volume
+		self.volumeElement.set_property("volume", volume)
+	
 	#_____________________________________________________________________
 	
 	@UndoCommand("SetName", "temp")
