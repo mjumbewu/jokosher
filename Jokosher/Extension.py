@@ -514,12 +514,9 @@ class ExtensionAPI:
 		"""
 		for instr in self.mainapp.project.instruments:
 			if instr.id == instr_id:
-				if instr.effects == []:
-					instr.converterElement.unlink(instr.volumeElement)
-
 				for effect in Globals.LADSPA_NAME_MAP:
 					if effect[0] == effect_name:
-						instr.effects.append(gst.element_factory_make(effect_name, effect_name))
+						instr.AddEffect(effect_name)
 						return 0
 				return 2
 		return 1
@@ -539,18 +536,15 @@ class ExtensionAPI:
 			0 = the effect was successfully removed.
 			1 = effect_num out of range.
 			2 = the Instrument with id 'instr_id' was not found.
+			3 = unknown gstreamer error
 		"""		
 		for instr in self.mainapp.project.instruments:
 			if instr.id == instr_id:	
-				if effect_num <= len(instr.effects) - 1:
+				if effect_num < len(instr.effects):
 					try:
-						#FIXME: throws a gstreamer warning sometimes...I don't know gstreamer well, so 
-						#I don't even know why this is here
-						instr.effectsBin.remove(instr.effects[effect_num])
+						instr.RemoveEffect(instr.effects[effect_num])
 					except:
-						pass
-			
-					instr.effects.pop(effect_num)
+						return 3
 					return 0
 				return 1
 		return 2

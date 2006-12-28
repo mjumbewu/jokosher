@@ -442,7 +442,6 @@ class Instrument(Monitored):
 		state = self.playbackbin.get_state(0)[1]
 		if state == gst.STATE_PAUSED or state == gst.STATE_PLAYING:
 			previousConvert.get_pad("src").set_blocked(True)
-##			nextConvert.get_pad("src").get_peer().set_blocked(True)
 		
 		# If we have to remove from the end
 		if self.effects[-1] == effect:
