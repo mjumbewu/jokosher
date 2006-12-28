@@ -684,4 +684,38 @@ class ExtensionAPI:
 		
 	#_____________________________________________________________________
 	
+	@exported_function
+	def hide_main_window(self, timeout=0):
+		"""
+		Makes the main Jokosher window invisible.
+		
+		Parameters:
+			timeout -- Number of milliseconds to wait before reshowing the window (0 for infinity).
+		"""
+		self.mainapp.window.hide()
+		if timeout:
+			gobject.timeout_add(timeout, self.show_main_window)
+	
+	#_____________________________________________________________________
+	
+	@exported_function
+	def show_main_window(self):
+		"""
+		Makes the main Jokosher window visible.
+		"""
+		self.mainapp.window.show()
+		#in case we we're called by gobject.timeout_add
+		return False
+	
+	#_____________________________________________________________________
+	
+	@exported_function
+	def quit(self):
+		"""
+		Quit Jokosher
+		"""
+		self.mainapp.OnDestroy()
+	
+	#_____________________________________________________________________
+	
 API = None
