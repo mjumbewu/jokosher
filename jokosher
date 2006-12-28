@@ -14,9 +14,10 @@
 import os, sys
 
 ENV_PATHS = {"JOKOSHER_DATA_PATH" : "/usr/share/jokosher/",
-		"JOKOSHER_IMAGE_PATH" : "/usr/share/jokosher/pixmaps/",
-		"JOKOSHER_LOCALE_PATH" : "/usr/share/locale/",
-		}
+			"JOKOSHER_IMAGE_PATH" : "/usr/share/jokosher/pixmaps/",
+			"JOKOSHER_LOCALE_PATH" : "/usr/share/locale/",
+			"JOKOSHER_HELP_PATH" : "/usr/share/gnome/jokosher/"
+			}
 #must set variables before importing Globals because it requires them
 for var, path in ENV_PATHS.iteritems():
 	#if it is not already set, set the enviroment variable.
@@ -81,6 +82,7 @@ if options.noextensions:
 #wait until after we parse the args to import JokosherApp
 #because it will import gst which replaces our "--help" message.
 import Jokosher.JokosherApp as JokosherApp
-#Launching the program
+
+#Launch the program
 JokosherApp.MainApp(openproject, loadExtensions, startupType)
 JokosherApp.gtk.main()

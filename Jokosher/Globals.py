@@ -312,6 +312,15 @@ def PopulateEncoders():
 #_____________________________________________________________________
 
 """
+Used for launching the correct help file:
+	True -- Jokosher's running locally by the user. Use the help file from
+			the help subdirectory.
+	False -- Jokosher has been installed system-wide. Use yelp's automatic
+			help file selection.
+"""
+USE_LOCAL_HELP = False
+
+"""
 Global paths, so all methods can access them.
 If JOKOSHER_DATA_PATH is not set, that is, Jokosher is running locally,
 use paths relative to the current running directory instead of /usr ones.
@@ -334,14 +343,21 @@ else:
 IMAGE_PATH = os.getenv("JOKOSHER_IMAGE_PATH")
 if not IMAGE_PATH:
 	IMAGE_PATH = os.path.join(data_path, "..", "images")
+
 LOCALE_PATH = os.getenv("JOKOSHER_LOCALE_PATH")
 if not LOCALE_PATH:
-	this_path = os.path.dirname(os.path.abspath(__file__))
-	LOCALE_PATH = os.path.join(this_path, "..", "locale")
-	
+	LOCALE_PATH = os.path.join(data_path, "..", "locale")
+
+HELP_PATH = os.getenv("JOKOSHER_HELP_PATH")
+if not HELP_PATH:
+	USE_LOCAL_HELP = True
+	#TODO: replace C with the correct locale
+	current_locale = "C"
+	HELP_PATH = os.path.join(data_path, "..", "help/jokosher",
+							current_locale, "jokosher.xml")
 
 """ ExtensionManager data """
-AVAILABLE_EXTENSIONS = []	
+AVAILABLE_EXTENSIONS = []
 INSTRUMENT_HEADER_WIDTH = 0
 
 """ Locale constant """

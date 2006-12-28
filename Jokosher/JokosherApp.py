@@ -17,6 +17,7 @@ import pygst
 pygst.require("0.10")
 import gst
 from subprocess import call
+from subprocess import Popen
 
 import gettext
 _ = gettext.gettext
@@ -1512,13 +1513,14 @@ class MainApp:
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-		dlg = gtk.MessageDialog(self.window,
-			gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
-			gtk.MESSAGE_INFO,
-			gtk.BUTTONS_CLOSE)
-		dlg.set_markup(_("<big>Coming soon!</big>"))
-		dlg.run()
-		dlg.destroy()
+		helpfile = ""
+		
+		if Globals.USE_LOCAL_HELP:
+			helpfile = Globals.HELP_PATH
+		else:
+			helpfile = "ghelp:jokosher"
+			
+		Popen(args=["yelp", helpfile])
 
 	#_____________________________________________________________________
 
