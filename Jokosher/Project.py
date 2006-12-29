@@ -375,8 +375,7 @@ class Project(Monitored):
 		self.mainpipeline = gst.Pipeline("timeline")
 		self.playbackbin = gst.Bin("playbackbin")
 		self.adder = gst.element_factory_make("adder")
-		Globals.debug("Using audio output: %s" % Globals.settings.playback["audiosink"])
-		self.masterSink = gst.element_factory_make(Globals.settings.playback["audiosink"])
+		self.masterSink = self.MakeProjectSink()
 		
 		self.levelElement = gst.element_factory_make("level", "MasterLevel")
 		self.levelElement.set_property("interval", gst.SECOND / 50)
@@ -386,19 +385,6 @@ class Project(Monitored):
 		self.levelElementCaps = gst.element_factory_make("capsfilter", "levelcaps")
 		caps = gst.caps_from_string("audio/x-raw-int,rate=44100,channels=2,width=16,depth=16,signed=(boolean)true")
 		self.levelElementCaps.set_property("caps", caps)
-		
-		if Globals.settings.playback["audiosink"] == "alsasink":
-			#Set the alsa device for audio output
-			outdevice = Globals.settings.playback["devicecardnum"]
-			if outdevice == "default":
-				try:
-					# Select first output device as default to avoid a GStreamer bug which causes
-					# large amounts of latency with the ALSA 'default' device.
-					outdevice = GetAlsaList("playback").values()[1]
-				except:
-					pass
-			Globals.debug("Output device: %s" % outdevice)
-			self.masterSink.set_property("device", outdevice)
 		
 		# ADD ELEMENTS TO THE PIPELINE AND/OR THEIR BINS #
 		self.mainpipeline.add(self.playbackbin)
@@ -966,6 +952,7 @@ class Project(Monitored):
 		self.name = ""
 		self.ClearListeners()
 		self.transport.ClearListeners()
+		self.mainpipeline.set_state(gst.STATE_NULL)
 		
 	#_____________________________________________________________________
 	
@@ -1467,8 +1454,51 @@ class Project(Monitored):
 		Clear the click track controller times.
 		"""
 		self.clickTrackController.unset_all("volume")
+		
+	#_____________________________________________________________________
 
-
+	def MakeProjectSink(self):
+		"""
+		Contructs a gstreamer sink element (or bin with ghost pads) for the 
+		project's audio output according to the Global "audiosink" property.
+		
+		Return:
+			The gstreamer sink element.
+		"""
+		sinkString = Globals.settings.playback["audiosink"]
+		sinkElement = None
+		
+		if sinkString == "alsasink":
+			sinkElement = gst.element_factory_make("alsasink")
+			#Set the alsa device for audio output
+			outdevice = Globals.settings.playback["devicecardnum"]
+			if outdevice == "default":
+				try:
+					# Select first output device as default to avoid a GStreamer bug which causes
+					# large amounts of latency with the ALSA 'default' device.
+					outdevice = GetAlsaList("playback").values()[1]
+				except:
+					pass
+			Globals.debug("Output device: %s" % outdevice)
+			sinkElement.set_property("device", outdevice)
+			Globals.debug("Using alsasink for audio output")
+		
+		elif sinkString != "autoaudiosink":
+			try:
+				sinkElement = gst.gst_parse_bin_from_description(sinkString, True)
+			except gobject.GError:
+				Globals.debug("Parsing failed: %s" % sinkString)
+			else:
+				Globals.debug("Using custom pipeline for audio sink: %s" % sinkString)
+		
+		if not sinkElement:
+			# if a sink element has not yet been created, autoaudiosink is our last resort
+			sinkElement = gst.element_factory_make("autoaudiosink")
+			Globals.debug("Using autoaudiosink for audio output")
+			
+		return sinkElement
+	
+	#_____________________________________________________________________
 #=========================================================================
 	
 class OpenProjectError(EnvironmentError):
