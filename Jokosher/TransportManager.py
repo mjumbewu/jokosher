@@ -197,7 +197,7 @@ class TransportManager(Monitored):
 		if self.position != pos:
 			self.PrevPosition = self.position
 			self.position = pos
-			self.StateChanged()
+			self.StateChanged("position")
 
 	#_____________________________________________________________________
 

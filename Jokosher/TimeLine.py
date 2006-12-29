@@ -283,30 +283,32 @@ class TimeLine(gtk.DrawingArea):
 		if self.project.transport.RedrawTimeLine or self.project.RedrawTimeLine:
 			self.queue_draw()
 			return
-		# The next section is the autoscroll during playback
-		# so ignore if where not in playback
-		if self.project.GetIsPlaying() and not self.project.GetIsExporting():
-			#if playhead is now beyond the rightmost position then  force scroll & quit
-			rightPos = self.project.viewStart + self.timelinebar.projectview.scrollRange.page_size
-			if self.project.transport.position > rightPos:
-				while self.project.transport.position > rightPos:
-					self.project.SetViewStart(rightPos)
-					self.timelinebar.projectview.scrollRange.value = rightPos
-					rightPos += self.timelinebar.projectview.scrollRange.page_size
-				return
-			#if playhead is beyond leftmost position the force scroll and quit
-			if self.project.transport.position < self.project.viewStart:
-				pos = self.project.viewStart
-				while self.project.transport.position < pos:
-					pos = max(0, pos - self.timelinebar.projectview.scrollRange.page_size)
-					self.timelinebar.projectview.scrollRange.value = pos
-				self.project.SetViewStart(pos)
-				return
-		x1 = round((self.project.transport.PrevPosition - self.project.viewStart) * self.project.viewScale)
-		x2 = round((self.project.transport.position - self.project.viewStart) * self.project.viewScale)
 		
-		self.queue_draw_area(int(x1)-1, 0, 3, self.get_allocation().height)
-		self.queue_draw_area(int(x2)-1, 0, 3, self.get_allocation().height)
+		# The next section is the autoscroll when the position goes off the screen
+		if change == "position":
+			# The left and right sides of the viewable area
+			rightPos = self.project.viewStart + self.timelinebar.projectview.scrollRange.page_size
+			leftPos = self.project.viewStart
+			currentPos = self.project.transport.GetPosition()
+			
+			# Check if the playhead was recently viewable (don't force it in view if it wasn't previously in view)
+			if leftPos < self.project.transport.PrevPosition < rightPos:
+				if currentPos > rightPos:
+					# now the playhead has moved off to the right, so force the scroll in that direction
+					self.timelinebar.projectview.scrollRange.value = rightPos
+					self.project.SetViewStart(rightPos)
+			
+				elif currentPos < leftPos:
+					#if playhead is beyond leftmost position then force scroll and quit
+					leftPos = max(0, leftPos - self.timelinebar.projectview.scrollRange.page_size)
+					self.timelinebar.projectview.scrollRange.value = leftPos
+					self.project.SetViewStart(leftPos)
+		
+			x1 = round((self.project.transport.PrevPosition - self.project.viewStart) * self.project.viewScale)
+			x2 = round((self.project.transport.position - self.project.viewStart) * self.project.viewScale)
+		
+			self.queue_draw_area(int(x1)-1, 0, 3, self.get_allocation().height)
+			self.queue_draw_area(int(x2)-1, 0, 3, self.get_allocation().height)
 		
 	#_____________________________________________________________________
 		
