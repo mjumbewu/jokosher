@@ -57,11 +57,7 @@ class TransportManager(Monitored):
 		self.project = project
 		self.pipeline = self.project.mainpipeline
 		self.position = 0
-		self.PrevPosition = 0
-		self.bpm = 120			# Tempo in BPM
-		self.meter_nom = 4		# Meter nominator
-		self.meter_denom = 4	# Meter denominator
-		
+		self.PrevPosition = 0	
 		self.isPlaying = False
 		self.isPaused = False
 		self.isReversing = False
@@ -227,10 +223,10 @@ class TransportManager(Monitored):
 			tuple of the current position as (bar, beats, ticks).
 		"""
 		mins = self.position / 60.
-		beats = int(mins * self.bpm)
-		ticks = ((mins - (beats / float(self.bpm))) * self.bpm) * self.TICKS_PER_BEAT
-		bars = int(beats / self.meter_nom)
-		beats -= bars * self.meter_nom
+		beats = int(mins * self.project.bpm)
+		ticks = ((mins - (beats / float(self.project.bpm))) * self.project.bpm) * self.TICKS_PER_BEAT
+		bars = int(beats / self.project.meter_nom)
+		beats -= bars * self.project.meter_nom
 		return (bars+1, beats+1, ticks)
 		
 	#_____________________________________________________________________
@@ -251,41 +247,6 @@ class TransportManager(Monitored):
 	
 	#_____________________________________________________________________
 
-	def SetBPM(self, bpm):
-		"""
-		Changes the current beats per minute.
-		
-		Parameters:
-			bpm -- value of the new beats per minute.
-		"""
-		if self.bpm != bpm:
-			self.bpm = bpm
-			self.StateChanged("transport-bpm")
-		
-	#_____________________________________________________________________
-
-	def SetMeter(self, nom, denom):
-		"""
-		Changes the current time signature.
-		
-		Example:
-			nom = 3
-			denom = 4
-			
-			would result in the following signature:
-				3/4
-		
-		Parameters:
-			nom -- new time signature nominator.
-			denom --new time signature denominator.
-		"""
-		if self.meter_nom != nom or self.meter_denom != denom:
-			self.meter_nom = nom
-			self.meter_denom = denom
-			self.StateChanged("transport-time-sig")
-
-	#_____________________________________________________________________
-	
 	def StartUpdateTimeout(self):
 		"""
 		Starts the timeout that will control the playhead display.

@@ -164,12 +164,12 @@ class TimeLine(gtk.DrawingArea):
 							self.get_allocation().width, 
 							self.get_allocation().height)
 		
-		transport = self.project.transport
 		x = 0
+		transport = self.project.transport
 		if transport.mode == transport.MODE_BARS_BEATS:
 			# Calculate our scroll offset
 			# viewStart is in seconds. Seconds/60 = minutes. Minutes * Beat/Minute = beats (not an integer here)
-			pos = (self.project.viewStart / 60.) * transport.bpm
+			pos = (self.project.viewStart / 60.) * self.project.bpm
 			# floor to an integer. beat = the last beat before viewStart
 			beat = int(pos)
 			# offset = part of a beat that has past since the last beat (offset < 1)
@@ -178,29 +178,29 @@ class TimeLine(gtk.DrawingArea):
 			if offset > 0.:
 				# beats * ( pixels/minute ) / ( beats/minute ) = pixels
 				# Set x to the position in pixels of the last beat 
-				x -= offset * ((self.project.viewScale * 60.) / transport.bpm)
+				x -= offset * ((self.project.viewScale * 60.) / self.project.bpm)
 				# (pixels/minute) / ( beats/minute) * 1 beat = pixels
 				# Add the length of one beat, in pixels
-				x += (self.project.viewScale * 60.) / transport.bpm
+				x += (self.project.viewScale * 60.) / self.project.bpm
 				# x is now at the pixel-position of the first beat after the viewStart
 				beat += 1
 		
 			while x < self.get_allocation().width:
 				# Draw the beat/bar divisions
 				ix = int(x)
-				if beat % transport.meter_nom:
+				if beat % self.project.meter_nom:
 					d.draw_line(gc, ix, int(self.get_allocation().height/1.2), ix, self.get_allocation().height)
 				else:
 					d.draw_line(gc, ix, int(self.get_allocation().height/2), ix, self.get_allocation().height)
 					
 					# Draw the bar number
 					l = pango.Layout(self.create_pango_context())
-					l.set_text(str((beat / transport.meter_nom)+1))
+					l.set_text(str((beat / self.project.meter_nom)+1))
 					d.draw_layout(gc, ix, 5, l)
 					
 				beat += 1
 				
-				x += (60. / transport.bpm ) * self.project.viewScale
+				x += (60. / self.project.bpm ) * self.project.viewScale
 		else:
 			# Working in milliseconds here. Using seconds gives modulus problems because they're floats
 			viewScale = self.project.viewScale / 1000.

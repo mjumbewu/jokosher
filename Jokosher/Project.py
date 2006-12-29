@@ -138,7 +138,6 @@ def LoadFromFile(uri):
 	
 	# Hack to set the transport mode
 	project.transport.SetMode(project.transportMode)
-	project.transport.SetBPM(project.transportbpm)
 	
 	try:
 		undo = doc.getElementsByTagName("Undo")[0]
@@ -350,6 +349,9 @@ class Project(Monitored):
 		self.soloInstrCount = 0		#number of solo instruments (to know if others must be muted)
 		self.audioState = self.AUDIO_STOPPED	#which audio state we are currently in
 		self.exportPending = False	# True if we are waiting to start an export
+		self.bpm = 120
+		self.meter_nom = 4		# time signature numerator
+		self.meter_denom = 4		# time signature denominator
 		self.clickbpm = 120			#the number of beats per minute that the click track will play
 		self.clickEnabled = False	#True is the click track is currently enabled
 		self.RedrawTimeLine = False	#True if the timeline's background should be fully redrawn on the next update
@@ -441,8 +443,6 @@ class Project(Monitored):
 		#initialize the transport mode
 		self.transportMode = TransportManager.TransportManager.MODE_BARS_BEATS
 		self.transport = TransportManager.TransportManager(self.transportMode, self)
-		
-		self.transportbpm = self.transport.bpm
 
 		self.PrepareClick()
 	#_____________________________________________________________________
@@ -772,8 +772,43 @@ class Project(Monitored):
 			self.StateChanged("record")
 		elif newState == self.AUDIO_EXPORTING:
 			self.exportPending = False
-			
 	#_____________________________________________________________________
+
+	@UndoCommand("SetBPM", "temp")
+	def SetBPM(self, bpm):
+		"""
+		Changes the current beats per minute.
+		
+		Parameters:
+			bpm -- value of the new beats per minute.
+		"""
+		self.temp = self.bpm
+		if self.bpm != bpm:
+			self.bpm = bpm
+	#_____________________________________________________________________
+
+	@UndoCommand("SetMeter", "temp", "temp1")
+	def SetMeter(self, nom, denom):
+		"""
+		Changes the current time signature.
+		
+		Example:
+			nom = 3
+			denom = 4
+			
+			would result in the following signature:
+				3/4
+		
+		Parameters:
+			nom -- new time signature nominator.
+			denom --new time signature denominator.
+		"""
+		self.temp = self.meter_nom
+		self.temp1 = self.meter_denom
+		if self.meter_nom != nom or self.meter_denom != denom:
+			self.meter_nom = nom
+			self.meter_denom = denom
+			#_____________________________________________________________________
 	
 	def __RecordingPadAddedCb(self, elem, pad, recInstruments, bin):
 		match = re.search("(\d+)$", pad.get_name())
@@ -883,8 +918,6 @@ class Project(Monitored):
 			
 		#sync the transport's mode with the one which will be saved
 		self.transportMode = self.transport.mode
-		self.transportbpm = self.transport.bpm
-		
 		
 		self.unsavedChanges = False
 		#purge main undo stack so that it will not prompt to save on exit
@@ -903,7 +936,7 @@ class Project(Monitored):
 		params = doc.createElement("Parameters")
 		head.appendChild(params)
 		
-		items = ["viewScale", "viewStart", "name", "author", "transportMode", "transportbpm"]
+		items = ["viewScale", "viewStart", "name", "author", "transportMode", "bpm", "meter_nom", "meter_denom"]
 		
 		StoreParametersToXML(self, doc, params, items)
 			
@@ -1387,7 +1420,7 @@ class Project(Monitored):
 		
 		# FIXME: currently hard coded to 600 seconds
 		length = (600 * second)
-		interval = second / (self.transport.bpm/60)
+		interval = second / (self.bpm/60)
 		
 		self.clickTrackController.set("volume", 0 * gst.SECOND, 0.0)
 

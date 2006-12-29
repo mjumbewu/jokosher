@@ -61,7 +61,7 @@ class TimeLineBar(gtk.Frame):
 		
 		self.bpmlabel = gtk.Label()
 		self.bpmlabel.set_use_markup(True)
-		self.bpmlabel.set_markup("<span foreground='#0b410b'><b>%s</b></span>"%self.project.transportbpm)
+		self.bpmlabel.set_markup("<span foreground='#0b410b'><b>%s</b></span>"%self.project.bpm)
 		self.bpmlabel.set_padding(5, 5)
 		self.bpmeventbox.add(self.bpmlabel)
 		self.bpmframe.add(self.bpmeventbox)
@@ -77,7 +77,7 @@ class TimeLineBar(gtk.Frame):
 
 		self.siglabel = gtk.Label()
 		self.siglabel.set_use_markup(True)
-		self.siglabel.set_markup("<span foreground='#0b410b'><b>%d/%d</b></span>"%(self.project.transport.meter_nom, self.project.transport.meter_denom))
+		self.siglabel.set_markup("<span foreground='#0b410b'><b>%d/%d</b></span>"%(self.project.meter_nom, self.project.meter_denom))
 		self.siglabel.set_padding(5, 5)
 		self.sigeventbox.add(self.siglabel)
 		self.sigframe.add(self.sigeventbox)
@@ -185,7 +185,7 @@ class TimeLineBar(gtk.Frame):
 			self.bpmedit = gtk.SpinButton()
 			self.bpmedit.set_range(1, 400)
 			self.bpmedit.set_increments(1, 5)
-			self.bpmedit.set_value(self.project.transport.bpm)
+			self.bpmedit.set_value(self.project.bpm)
 			self.bpmedit.connect("activate", self.OnAcceptEditBPM)
 
 			self.bpmframe.add(self.bpmedit)
@@ -209,7 +209,7 @@ class TimeLineBar(gtk.Frame):
 			self.sigframe.remove(self.sigeventbox)
 			
 			self.sigedit = gtk.Entry()
-			self.sigedit.set_text("%d/%d"%(self.project.transport.meter_nom, self.project.transport.meter_denom))
+			self.sigedit.set_text("%d/%d"%(self.project.meter_nom, self.project.meter_denom))
 			self.sigedit.set_width_chars(5)
 			self.sigedit.connect("activate", self.OnAcceptEditSig)
 
@@ -235,7 +235,7 @@ class TimeLineBar(gtk.Frame):
 			#FIXME: find a better way to do project.PrepareClick() it doesn't take a really long time with large bpm
 			newbpm = self.bpmedit.get_value_as_int()
 			
-			self.project.transport.SetBPM(float(newbpm))
+			self.project.SetBPM(float(newbpm))
 			self.project.PrepareClick()
 			
 			self.bpmframe.add(self.bpmeventbox)
@@ -245,7 +245,7 @@ class TimeLineBar(gtk.Frame):
 		
 		#Do this outside the if statement so that it gets updated if someone else changes the bpm
 		self.bpmlabel.set_use_markup(True)
-		self.bpmlabel.set_markup("<span foreground='#0b410b'><b>%d</b></span>"%self.project.transport.bpm)
+		self.bpmlabel.set_markup("<span foreground='#0b410b'><b>%d</b></span>"%self.project.bpm)
 			
 		self.projectview.UpdateSize()
 
@@ -269,12 +269,12 @@ class TimeLineBar(gtk.Frame):
 			try:
 				nom=int(sig[0])
 			except (ValueError,IndexError):
-				nom=self.project.transport.meter_nom
+				nom=self.project.meter_nom
 
 			try:
 				denom=int(sig[1])
 			except (ValueError,IndexError):
-				denom=self.project.transport.meter_denom
+				denom=self.project.meter_denom
 			
 			if not self.sigedit.get_text() or nom == 0:
 				nom = 4
@@ -284,7 +284,7 @@ class TimeLineBar(gtk.Frame):
 				self.sigframe.show_all()
 				self.sigeditPacked = False
 								 
-			self.project.transport.SetMeter(nom, denom)
+			self.project.SetMeter(nom, denom)
 			
 			self.sigframe.add(self.sigeventbox)
 			self.sigedit.destroy()
@@ -293,7 +293,7 @@ class TimeLineBar(gtk.Frame):
 		
 		#Do this outside the if statement so that it gets updated if someone else changes the sig
 		self.siglabel.set_use_markup(True)
-		self.siglabel.set_markup("<span foreground='#0b410b'><b>%d/%d</b></span>"%(self.project.transport.meter_nom, self.project.transport.meter_denom))
+		self.siglabel.set_markup("<span foreground='#0b410b'><b>%d/%d</b></span>"%(self.project.meter_nom, self.project.meter_denom))
 		self.projectview.UpdateSize()
 			
 	#_____________________________________________________________________
