@@ -38,6 +38,9 @@ class TimeView(gtk.EventBox):
 		self.timeViewLabel = gtk.Label()
 		self.add(self.timeViewLabel)
 		self.project = project
+		# Listen for bpm and time sig changes
+		self.project.AddListener(self)
+		# Listen for playback position changes
 		self.project.transport.AddListener(self)
 		self.UpdateTime()
 		self.tmtip = gtk.Tooltips()

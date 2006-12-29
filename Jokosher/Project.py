@@ -445,6 +445,7 @@ class Project(Monitored):
 		self.transport = TransportManager.TransportManager(self.transportMode, self)
 
 		self.PrepareClick()
+	
 	#_____________________________________________________________________
 	
 	def Play(self, newAudioState=None, recording=False):
@@ -772,43 +773,8 @@ class Project(Monitored):
 			self.StateChanged("record")
 		elif newState == self.AUDIO_EXPORTING:
 			self.exportPending = False
+		
 	#_____________________________________________________________________
-
-	@UndoCommand("SetBPM", "temp")
-	def SetBPM(self, bpm):
-		"""
-		Changes the current beats per minute.
-		
-		Parameters:
-			bpm -- value of the new beats per minute.
-		"""
-		self.temp = self.bpm
-		if self.bpm != bpm:
-			self.bpm = bpm
-	#_____________________________________________________________________
-
-	@UndoCommand("SetMeter", "temp", "temp1")
-	def SetMeter(self, nom, denom):
-		"""
-		Changes the current time signature.
-		
-		Example:
-			nom = 3
-			denom = 4
-			
-			would result in the following signature:
-				3/4
-		
-		Parameters:
-			nom -- new time signature nominator.
-			denom --new time signature denominator.
-		"""
-		self.temp = self.meter_nom
-		self.temp1 = self.meter_denom
-		if self.meter_nom != nom or self.meter_denom != denom:
-			self.meter_nom = nom
-			self.meter_denom = denom
-			#_____________________________________________________________________
 	
 	def __RecordingPadAddedCb(self, elem, pad, recInstruments, bin):
 		match = re.search("(\d+)$", pad.get_name())
@@ -1148,6 +1114,47 @@ class Project(Monitored):
 		#TODO: ask more about the x,n variables
 		getattr(target_object, cmdList[1])(*cmdList[2:])
 
+	#_____________________________________________________________________
+	
+	@UndoCommand("SetBPM", "temp")
+	def SetBPM(self, bpm):
+		"""
+		Changes the current beats per minute.
+		
+		Parameters:
+			bpm -- value of the new beats per minute.
+		"""
+		self.temp = self.bpm
+		if self.bpm != bpm:
+			self.bpm = bpm
+			self.StateChanged("bpm")
+	
+	#_____________________________________________________________________
+
+	@UndoCommand("SetMeter", "temp", "temp1")
+	def SetMeter(self, nom, denom):
+		"""
+		Changes the current time signature.
+		
+		Example:
+			nom = 3
+			denom = 4
+			
+			would result in the following signature:
+				3/4
+		
+		Parameters:
+			nom -- new time signature nominator.
+			denom --new time signature denominator.
+		"""
+		self.temp = self.meter_nom
+		self.temp1 = self.meter_denom
+		
+		if self.meter_nom != nom or self.meter_denom != denom:
+			self.meter_nom = nom
+			self.meter_denom = denom
+			self.StateChanged("time-signature")
+			
 	#_____________________________________________________________________
 	
 	@UndoCommand("DeleteInstrument", "temp")
