@@ -563,8 +563,8 @@
 		  <property name="visible_vertical">True</property>
 		  <property name="is_important">False</property>
 		  <accessibility>
-		    <atkrelation target="Record" type="flows-to"/>
 		    <atkrelation target="Rewind" type="flows-to"/>
+		    <atkrelation target="Record" type="flows-to"/>
 		  </accessibility>
 		  <signal name="clicked" handler="on_AddInstrument_clicked"/>
 		</widget>
@@ -596,31 +596,10 @@
 		  <property name="visible_vertical">True</property>
 		  <property name="is_important">False</property>
 		  <accessibility>
-		    <atkrelation target="Stop" type="flows-to"/>
 		    <atkrelation target="AddInstrument" type="flows-from"/>
+		    <atkrelation target="Play" type="flows-to"/>
 		  </accessibility>
 		  <signal name="clicked" handler="on_Rewind_clicked"/>
-		</widget>
-		<packing>
-		  <property name="expand">False</property>
-		  <property name="homogeneous">True</property>
-		</packing>
-	      </child>
-
-	      <child>
-		<widget class="GtkToolButton" id="Stop">
-		  <property name="visible">True</property>
-		  <property name="sensitive">False</property>
-		  <property name="tooltip" translatable="yes">Stop playback</property>
-		  <property name="stock_id">gtk-media-stop</property>
-		  <property name="visible_horizontal">True</property>
-		  <property name="visible_vertical">True</property>
-		  <property name="is_important">False</property>
-		  <accessibility>
-		    <atkrelation target="Play" type="flows-to"/>
-		    <atkrelation target="Rewind" type="flows-from"/>
-		  </accessibility>
-		  <signal name="clicked" handler="on_Stop_clicked"/>
 		</widget>
 		<packing>
 		  <property name="expand">False</property>
@@ -638,10 +617,30 @@
 		  <property name="is_important">False</property>
 		  <property name="active">False</property>
 		  <accessibility>
-		    <atkrelation target="Forward" type="flows-to"/>
-		    <atkrelation target="Stop" type="flows-from"/>
+		    <atkrelation target="Stop" type="flows-to"/>
+		    <atkrelation target="Rewind" type="flows-from"/>
 		  </accessibility>
 		  <signal name="toggled" handler="on_Play_toggled"/>
+		</widget>
+		<packing>
+		  <property name="expand">False</property>
+		  <property name="homogeneous">True</property>
+		</packing>
+	      </child>
+
+	      <child>
+		<widget class="GtkToolButton" id="Stop">
+		  <property name="visible">True</property>
+		  <property name="tooltip" translatable="yes">Stop playback</property>
+		  <property name="stock_id">gtk-media-stop</property>
+		  <property name="visible_horizontal">True</property>
+		  <property name="visible_vertical">True</property>
+		  <property name="is_important">False</property>
+		  <accessibility>
+		    <atkrelation target="Forward" type="flows-to"/>
+		    <atkrelation target="Play" type="flows-from"/>
+		  </accessibility>
+		  <signal name="clicked" handler="on_Stop_clicked"/>
 		</widget>
 		<packing>
 		  <property name="expand">False</property>
@@ -658,8 +657,8 @@
 		  <property name="visible_vertical">True</property>
 		  <property name="is_important">False</property>
 		  <accessibility>
+		    <atkrelation target="Stop" type="flows-from"/>
 		    <atkrelation target="Record" type="flows-to"/>
-		    <atkrelation target="Play" type="flows-from"/>
 		  </accessibility>
 		  <signal name="clicked" handler="on_Forward_clicked"/>
 		</widget>
