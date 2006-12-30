@@ -80,7 +80,6 @@ class APIConsole:
 	def startup(self, api):
 		self.API = api
 		self.menu_item = self.API.add_menu_item("API Console", self.OnMenuItemClick)
-		Globals.debug("API Console Started Up")
 
 	def shutdown(self):
 		self.menu_item.destroy()

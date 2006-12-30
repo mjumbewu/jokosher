@@ -60,43 +60,35 @@ class ExtensionManager:
 			False -- an error ocurred while trying to register the Extension,
 					or the Extension has been disabled via the ExtensionManagerDialog.
 		"""
-		passed = True
 		name = None
 		preferences = False
 		# check if the necessary attributes EXTENSION_NAME, EXTENSION_VERSION
 		#	and EXTENSION_DESCRIPTION are present and
 		#	refuse to start the extension if they are missing. 
-		if hasattr(extension,"EXTENSION_NAME"):
+		requiredAttributes = ("EXTENSION_NAME", "EXTENSION_VERSION",
+				"EXTENSION_DESCRIPTION", "startup", "shutdown")
+		missingAttrs = []
+		for attr in requiredAttributes:
+			if not hasattr(extension, attr):
+				missingAttrs.append(attr)
+		
+		if missingAttrs:
+			Globals.debug("\t" + filename, "missing", ", ".join(missingAttrs))
+			return False
+		else:
 			name = extension.EXTENSION_NAME
-		else:
-			Globals.debug(filename + " missing EXTENSION NAME")
-			passed = False
-		if hasattr(extension,"EXTENSION_VERSION"):
 			version = extension.EXTENSION_VERSION
-		else:
-			Globals.debug(filename + " missing EXTENSION_VERSION")
-			passed = False
-		if hasattr(extension,"EXTENSION_DESCRIPTION"):
 			description = extension.EXTENSION_DESCRIPTION
-		else:
-			Globals.debug(filename + " missing EXTENSION_DESCRIPTION")
-			passed = False
+
 		# check for preferences attribute
 		if hasattr(extension, "preferences"):
 			preferences = True
-		# check for startup attribute
-		if not hasattr(extension,"startup"):
-			Globals.debug(filename + " missing startup() function")
-			passed = False
-		# check for shutdown attribute
-		if not hasattr(extension,"shutdown"):
-			Globals.debug(filename + " missing shutdown() function")
-			passed = False
-		# check extension is not already loaded
+
+			# check extension is not already loaded
 		for testExtension in self.loadedExtensions:
 			if testExtension["name"] == name:
 				Globals.debug(filename + " extension '" + name + "' already present")
-				passed = False
+				return False
 		# find full file name of extension
 		extensionFile = os.path.join(directory, filename)
 		# if we are installing locally first check the file doesn't exist and
@@ -105,19 +97,13 @@ class ExtensionManager:
 			extensionFile = os.path.expanduser(os.path.join("~/.jokosher/extensions/", filename))
 			if os.path.exists(extensionFile):
 				Globals.debug("Filename " + extensionFile + " already exists")
-				passed = False
+				return False
 			else:
-				# don't copy if there was a previous error
-				if passed:
-					try:
-						shutil.copy(os.path.join(directory, filename), extensionFile)
-					except Exception, e:
-						Globals.debug(filename + "Failed copying file: " + str(e))
-						passed = False
-		
-		# quit if invalid in any way
-		if not passed:
-			return False
+				try:
+					shutil.copy(os.path.join(directory, filename), extensionFile)
+				except Exception, e:
+					Globals.debug(filename + "Failed copying file: " + str(e))
+					return False
 		
 		enabled = True
 		if name in Globals.settings.extensions['extensions_blacklist']:
@@ -164,7 +150,7 @@ class ExtensionManager:
 			False -- an error ocurred while trying to load the Extension,
 					or the Extension has been disabled via the ExtensionManagerDialog.
 		"""
-		Globals.debug("importing extension...", filename)
+		Globals.debug("\timporting extension", filename)
 		extension = None
 		if filename.endswith(".py"):
 			# for a python module try and import it
@@ -174,9 +160,8 @@ class ExtensionManager:
 			
 			try:
 				extension = imp.load_module(fn, exten_file, filnme, description)
-				Globals.debug("...done.")
 			except Exception, e:
-				Globals.debug("...failed.")
+				Globals.debug("\t\t...failed.")
 				Globals.debug(e)
 				if exten_file:
 					exten_file.close()
@@ -194,9 +179,8 @@ class ExtensionManager:
 					extension_class = dist.load_entry_point("jokosher.extensions", "extension")
 					# create an instance of the class
 					extension = extension_class()
-					Globals.debug("...done.")
 				except Exception, e :
-					Globals.debug("...failed.")
+					Globals.debug("\t\t...failed.")
 					Globals.debug(e)
 					return False
 		else:
@@ -329,10 +313,11 @@ class ExtensionManager:
 			
 	def LoadAllExtensions(self):
 		"""
-		Load all the Extensions found in EXTENSION_DIRS and import every .py
+		Load all the Extensions found in EXTENSION_PATHS and import every .py
 		and .egg file found.
 		"""
-		for exten_dir in Extension.EXTENSION_DIRS:
+		Globals.debug("Loading extensions:")
+		for exten_dir in Globals.EXTENSION_PATHS:
 			if not os.path.isdir(exten_dir):
 				continue
 			for filename in os.listdir(exten_dir):

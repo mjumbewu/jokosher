@@ -121,21 +121,18 @@ class Event(Monitored):
 		Sets basic Event properties like location, start, duration, etc.
 		"""
 		if self.file:
-			Globals.debug("setting event properties")
-			self.filesrc.set_property("location", self.file)
-			self.filesrc.set_property("start", long(self.start * gst.SECOND))
-			self.filesrc.set_property("duration", long(self.duration * gst.SECOND))
-			self.filesrc.set_property("media-start", long(self.offset * gst.SECOND))
-			self.filesrc.set_property("media-duration", long(self.duration * gst.SECOND))
-			self.filesrc.set_property("priority", 2)
-			
-			Globals.debug("location =", self.file)
-			Globals.debug("start =", long(self.start * gst.SECOND))
-			Globals.debug("duration =", long(self.duration * gst.SECOND))
-			Globals.debug("media-start =", long(self.offset * gst.SECOND))
-			Globals.debug("media-duration =", long(self.duration * gst.SECOND))
-			
-			Globals.debug("event properties set")
+			Globals.debug("setting event properties:")
+			propsDict = {"location" : self.file,
+					"start" : long(self.start * gst.SECOND),
+					"duration" : long(self.duration * gst.SECOND),
+					"media-start" : long(self.offset * gst.SECOND),
+					"media-duration" : long(self.duration * gst.SECOND),
+					"priority" : 2
+					}
+					
+			for prop, value in propsDict.iteritems():
+				self.filesrc.set_property(prop, value)
+				Globals.debug("\t", prop, "=", value)
 
 	#_____________________________________________________________________
 

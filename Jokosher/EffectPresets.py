@@ -244,7 +244,7 @@ class EffectPresets:
 		Load all presets into the main presets registry.
 		"""
 		
-		Globals.debug("Reading in presets...")
+		Globals.debug("\tReading in presets...")
 		presetsfiles = glob.glob(Globals.EFFECT_PRESETS_PATH + "/*.jpreset")
 		
 		for file_ in presetsfiles:
@@ -292,7 +292,7 @@ class EffectPresets:
 			
 			self.effectpresetregistry[presetname] = preset
 		
-		Globals.debug("...done")
+		Globals.debug("\t...done.")
 		
 	#_____________________________________________________________________
 	
@@ -333,5 +333,5 @@ class EffectPresets:
 						effects.append(feature.get_name())
 						Globals.LADSPA_NAME_MAP.append((feature.get_name(), feature.get_longname()))
 
-		Globals.debug(str(len(effects)) + " LADSPA effects loaded")
+		Globals.debug("\t", len(effects), "LADSPA effects loaded")
 		Globals.LADSPA_FACTORY_REGISTRY = set(effects)

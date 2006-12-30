@@ -1,0 +1,7 @@
+To make modifications to any of the *.egg extensions,
+modify the files within the src/ folder and run:
+
+python setup.py bdist_egg
+
+This command will build an egg and place it in the 
+extensions folder.

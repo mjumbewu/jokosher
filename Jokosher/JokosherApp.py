@@ -223,7 +223,7 @@ class MainApp:
 		self.CheckGstreamerVersions()
 
 		# set up presets registry - this should probably be removed here	
-		EffectPresets().FillEffectsPresetsRegistry()
+		EffectPresets()
 		Globals.PopulateEncoders()
 
 

@@ -17,13 +17,7 @@ _ = gettext.gettext
 EXTENSION_DIR_USER = os.path.expanduser('~/.jokosher/extensions/')
 
 """ Append the default directory to the directory list """
-EXTENSION_DIRS = [EXTENSION_DIR_USER, '/usr/share/jokosher/extensions/']
-
-# add your own extension dirs with envar JOKOSHER_EXTENSION_DIRS, colon-separated
-OVERRIDE_EXTENSION_DIRS = os.environ.get('JOKOSHER_EXTENSION_DIRS','')
-if OVERRIDE_EXTENSION_DIRS:
-	EXTENSION_DIRS = OVERRIDE_EXTENSION_DIRS.split(':') + EXTENSION_DIRS
-PREFERRED_EXTENSION_DIR = EXTENSION_DIRS[0]
+PREFERRED_EXTENSION_DIR = Globals.EXTENSION_PATHS[0]
 
 # A couple of small constants; they get used as the default response from a
 # dialog, and they're nice and high so they don't conflict with anything else

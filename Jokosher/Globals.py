@@ -329,11 +329,13 @@ data_path = os.getenv("JOKOSHER_DATA_PATH")
 if data_path:
 	EFFECT_PRESETS_PATH = os.path.join(data_path, "effectspresets")
 	INSTR_PATHS = (os.path.join(data_path, "Instruments"), os.path.expanduser("~/.jokosher/instruments"))
+	EXTENSION_PATHS = (os.path.join(data_path, "extensions"), os.path.expanduser("~/.jokosher/extensions/"))
 	GLADE_PATH = os.path.join(data_path, "Jokosher.glade")
 else:
 	data_path = os.path.dirname(os.path.abspath(__file__))
 	EFFECT_PRESETS_PATH = os.path.join(data_path, "..", "effectspresets")
 	INSTR_PATHS = (os.path.join(data_path, "..", "Instruments"), os.path.expanduser("~/.jokosher/instruments"))
+	EXTENSION_PATHS = (os.path.join(data_path, "..", "extensions"), os.path.expanduser("~/.jokosher/extensions/"))
 	GLADE_PATH = os.path.join(data_path, "Jokosher.glade")
 	LOCALE_PATH = os.path.join(data_path, "..", "locale")
 
@@ -355,6 +357,11 @@ if not HELP_PATH:
 	current_locale = "C"
 	HELP_PATH = os.path.join(data_path, "..", "help/jokosher",
 							current_locale, "jokosher.xml")
+
+# add your own extension dirs with envar JOKOSHER_EXTENSION_DIRS, colon-separated
+__extra_ext_dirs = os.environ.get('JOKOSHER_EXTENSION_DIRS','')
+if __extra_ext_dirs:
+	EXTENSION_PATHS = __extra_ext_dirs.split(':') + EXTENSION_PATHS
 
 """ ExtensionManager data """
 AVAILABLE_EXTENSIONS = []
