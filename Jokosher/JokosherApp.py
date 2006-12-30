@@ -389,7 +389,7 @@ class MainApp:
 
 	def AboutLinkActivate(self, widget, link):
 		"""
-		Opens the jokosher website in the user's default web browser.
+		Opens the Jokosher website in the user's default web browser.
 
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
