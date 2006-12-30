@@ -51,7 +51,7 @@ dist = setup(name='jokosher',
 	download_url='http://www.jokosher.org/download',
 	license='GNU GPL',
 	platforms='linux',
-	scripts=['jokosher'],
+	scripts=['bin/jokosher'],
 	packages=['Jokosher'],
 	data_files=[
 		('share/jokosher/',
@@ -76,7 +76,7 @@ dist = setup(name='jokosher',
 		glob.glob("images/*.png")
 		),
 		('share/applications',
-		['jokosher.desktop'],
+		['bin/jokosher.desktop'],
 		),
 		('share/jokosher/extensions',
 		glob.glob("extensions/*.py") + glob.glob("extensions/*.egg") 
