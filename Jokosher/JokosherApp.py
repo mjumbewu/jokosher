@@ -1519,8 +1519,17 @@ class MainApp:
 			helpfile = Globals.HELP_PATH
 		else:
 			helpfile = "ghelp:jokosher"
-			
-		Popen(args=["yelp", helpfile])
+		
+		try:	
+			Popen(args=["yelp", helpfile])
+		except OSError:
+			dlg = gtk.MessageDialog(self.window,
+					gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
+					gtk.MESSAGE_ERROR,
+					gtk.BUTTONS_CLOSE)
+			dlg.set_markup(_("<big>Couldn't launch the Yelp help browser.</big>"))
+			dlg.run()
+			dlg.destroy()
 
 	#_____________________________________________________________________
 
@@ -1541,8 +1550,11 @@ class MainApp:
 		for command in ("xdg-open", "gnome-open", "kfmclient exec", "exo-open"):
 			try:
 				#the next line will send the args as a list like: ["kfmclient", "exec", "http://www.jokosher.org/forums"]
-				call(command.split() + [url])
-				return
+				retcode = call(command.split() + [url])
+				
+				#only return if the call was successful
+				if retcode == 0:
+					return
 			except OSError:
 				pass
 	
@@ -1551,7 +1563,6 @@ class MainApp:
 				gtk.MESSAGE_ERROR,
 				gtk.BUTTONS_CLOSE)
 		dlg.set_markup(_("<big>Couldn't launch the forums website automatically.</big>\n\nPlease visit %s to access them.") % url)
-
 		dlg.run()
 		dlg.destroy()
 		
@@ -1625,6 +1636,12 @@ class MainApp:
 	#_____________________________________________________________________
 
 	def OnImportAudio(self, widget):
+		"""
+		Imports an audio file into the selected Instrument.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		instrID = None
 		for instr in self.project.instruments:
 			if instr.isSelected:
@@ -1639,6 +1656,12 @@ class MainApp:
 	#_____________________________________________________________________
 
 	def OnRemoveInstrument(self, widget):
+		"""
+		Removes all selected Instruments from the Project.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+		"""
 		# list to store instruments to delete, so we don't modify the list while we are iterating
 		instrList = []
 		for instr in self.project.instruments:
