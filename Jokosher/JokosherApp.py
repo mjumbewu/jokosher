@@ -1595,7 +1595,7 @@ class MainApp:
 
 	#_____________________________________________________________________
 
-	def OnContributingLinkButtonClicked(self, button):
+	def OnContributingLinkButtonClicked(self, widget):
 		""" Opens the Jokosher contributing website in the user's default web browser.
 		
 		Parameters:
