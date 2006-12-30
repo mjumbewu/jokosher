@@ -11,8 +11,44 @@
 
 import xml.dom.minidom as xml
 import math
+import gtk
+from subprocess import call
 
 #_____________________________________________________________________
+
+def OpenExternalURL(url, message, parent):
+	"""
+	Opens a given url in the user's default web browser.
+	It'll try launchers in the following order:
+		xdg-open
+		gnome-open
+		kfmclient exec
+		exo-open
+		
+	Parameters:
+		url -- the url the user's default web browser will open.
+		message -- the error message in the dialog window. the error message dialog will show if a link cannot be opened.
+		parent -- parent window of the error message dialog.
+	"""
+		
+	for command in ("xdg-open", "gnome-open", "kfmclient exec", "exo-open"):
+		try:
+			#the next line will send the args as a list like: ["kfmclient", "exec", "http://www.jokosher.org/forums"]
+			retcode = call(command.split() + [url])
+			
+			#only return if the call was successful
+			if retcode == 0:
+				return
+		except OSError:
+			pass
+
+	dlg = gtk.MessageDialog(parent,
+			gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
+			gtk.MESSAGE_ERROR,
+			gtk.BUTTONS_CLOSE)
+	dlg.set_markup(message % url)
+	dlg.run()
+	dlg.destroy()
 
 def DbToFloat(f):
 	"""

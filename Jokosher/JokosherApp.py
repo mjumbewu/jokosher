@@ -16,7 +16,6 @@ import os.path
 import pygst
 pygst.require("0.10")
 import gst
-from subprocess import call
 from subprocess import Popen
 
 import gettext
@@ -29,6 +28,7 @@ import InstrumentConnectionsDialog, StatusBar
 from EffectPresets import *
 import Extension
 import ExtensionManager
+import Utils
 
 #=========================================================================
 
@@ -379,12 +379,22 @@ class MainApp:
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
+		gtk.about_dialog_set_url_hook(self.AboutLinkActivate)
 		aboutTree = gtk.glade.XML(Globals.GLADE_PATH, "AboutDialog")
 		dlg = aboutTree.get_widget("AboutDialog")
 		dlg.set_transient_for(self.window)
 		dlg.set_icon(self.icon)
 		dlg.run()
 		dlg.destroy()
+
+	def AboutLinkActivate(self, widget, link):
+		"""
+		Opens the jokosher website in the user's default web browser.
+
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+		"""
+		Utils.OpenExternalURL(link, _("<big>Couldn't launch the jokosher website automatically.</big>\n\nPlease visit %s to access it."), self.window)
 		
 	#_____________________________________________________________________
 
@@ -1538,35 +1548,11 @@ class MainApp:
 	def OnForumsMenu(self, widget):
 		"""
 		Opens the Jokosher forum in the user's default web browser.
-		It'll try launchers in the following order:
-			xdg-open
-			gnome-open
-			kfmclient exec
-			exo-open
-		
+
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-		url = "http://www.jokosher.org/forums"
-		
-		for command in ("xdg-open", "gnome-open", "kfmclient exec", "exo-open"):
-			try:
-				#the next line will send the args as a list like: ["kfmclient", "exec", "http://www.jokosher.org/forums"]
-				retcode = call(command.split() + [url])
-				
-				#only return if the call was successful
-				if retcode == 0:
-					return
-			except OSError:
-				pass
-	
-		dlg = gtk.MessageDialog(self.window,
-				gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
-				gtk.MESSAGE_ERROR,
-				gtk.BUTTONS_CLOSE)
-		dlg.set_markup(_("<big>Couldn't launch the forums website automatically.</big>\n\nPlease visit %s to access them.") % url)
-		dlg.run()
-		dlg.destroy()
+		Utils.OpenExternalURL("http://www.jokosher.org/forums", _("<big>Couldn't launch the forums website automatically.</big>\n\nPlease visit %s to access them."), self.window)
 		
 	#_____________________________________________________________________
 
@@ -1579,16 +1565,44 @@ class MainApp:
 		"""
 		self.contribTree = gtk.glade.XML(Globals.GLADE_PATH, "ContributingDialog")
 		
-		# grab reference to the ContributingDialog window
+		# grab references to the ContributingDialog window and vbox
 		self.contribdialog = self.contribTree.get_widget("ContributingDialog")
+		self.contribvbox = self.contribTree.get_widget("vbox14")
 		self.contribdialog.set_icon(self.icon)
-		
-		self.topimage = self.contribTree.get_widget("topimage")
-		self.topimage.set_from_file(os.path.join(Globals.IMAGE_PATH, "jokosher-logo.png"))
-		
+
 		# centre the ContributingDialog window on MainWindow
 		self.contribdialog.set_transient_for(self.window)
+
+		# set the contributing image
+		self.topimage = self.contribTree.get_widget("topimage")
+		self.topimage.set_from_file(os.path.join(Globals.IMAGE_PATH, "jokosher-logo.png"))
+
+		# create the bottom vbox containing the contributing website link
+		vbox = gtk.VBox()			
+		label = gtk.Label()
+		label.set_markup(_("<b>To find out more, visit:</b>"))
+		vbox.pack_start(label, False, False)
 		
+		if gtk.pygtk_version >= (2, 10, 0) and gtk.gtk_version >= (2, 10, 0):
+			contriblnkbtn = gtk.LinkButton("http://www.jokosher.org/contribute")
+			contriblnkbtn.connect("clicked", self.OnContributingLinkButtonClicked)
+			vbox.pack_start(contriblnkbtn, False, False)
+		else:
+			vbox.pack_start(gtk.Label("http://www.jokosher.org/contribute"), False, False)
+		
+		self.contribvbox.pack_start(vbox, False, False)
+		self.contribdialog.show_all()
+
+	#_____________________________________________________________________
+
+	def OnContributingLinkButtonClicked(self, button):
+		""" Opens the Jokosher contributing website in the user's default web browser.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+		"""
+		Utils.OpenExternalURL("http://www.jokosher.org/contribute", _("<big>Couldn't launch the contributing website automatically.</big>\n\nPlease visit %s to access it."), self.window)
+	
 	#_____________________________________________________________________
 	
 	def ShowOpenProjectErrorDialog(self, error, parent=None):
