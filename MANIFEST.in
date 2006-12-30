@@ -13,6 +13,6 @@ recursive-include images *.png
 recursive-include Instruments *.instr *.png
 recursive-include locale *
 recursive-include help *.omf *.xml *.png
-recursive-include extensions *
+recursive-include extensions *.py *.egg
 prune locale/src
 prune extensions/eggs

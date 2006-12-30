@@ -64,7 +64,7 @@ dist = setup(name='jokosher',
 		glob.glob("Instruments/*.instr")
 		),
 		('share/jokosher/Instruments/images',
-		glob.glob('Instruments/images/*')
+		glob.glob('Instruments/images/*.png')
 		),
 		('share/icons/hicolor/48x48/apps',
 		['images/jokosher-icon.png']
@@ -79,7 +79,7 @@ dist = setup(name='jokosher',
 		['jokosher.desktop'],
 		),
 		('share/jokosher/extensions',
-		glob.glob("extensions/*")
+		glob.glob("extensions/*.py") + glob.glob("extensions/*.egg") 
 		)
 		]+I18NFILES+HELPDOCS+HELPIMAGES+OMFFILES
 )
