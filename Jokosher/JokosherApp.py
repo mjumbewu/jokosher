@@ -912,7 +912,9 @@ class MainApp:
 			self.isRecording = (self.project.audioState == self.project.AUDIO_RECORDING)
 			self.stop.set_sensitive(True)	#stop should always be clickable
 			self.record.set_sensitive(not self.isPlaying)
-			self.play.set_sensitive(not self.isRecording)
+			
+			for widget in (self.play, self.reverse, self.forward):
+				widget.set_sensitive(not self.isRecording)
 			
 			self.settingButtons = True
 			self.record.set_active(self.isRecording)
