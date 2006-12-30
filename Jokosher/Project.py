@@ -434,7 +434,7 @@ class Project(Monitored):
 	
 	#_____________________________________________________________________
 	
-	def Play(self, newAudioState=None, recording=False):
+	def Play(self, newAudioState=None):
 		"""
 		Start playback or recording.
 		
@@ -604,7 +604,7 @@ class Project(Monitored):
 		self.transport.Stop()
 		
 		#start the pipeline!
-		self.Play(recording=True)
+		self.Play(newAudioState=self.AUDIO_RECORDING)
 		
 	#_____________________________________________________________________
 
