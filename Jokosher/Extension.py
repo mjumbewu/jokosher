@@ -174,10 +174,10 @@ class ExtensionAPI:
 	@exported_function
 	def play(self, play_state=True):
 		"""
-		Manipulates the project's playback status in Jokosher.
+		Manipulates the Project's playback status in Jokosher.
 		
 		Parameters:
-			play_state -- 	True = play the project from the beginning.
+			play_state -- 	True = play the Project from the beginning.
 							False = stop all playback.
 		"""
 		#Stop current playing (if any) and set to playhead to the beginning
@@ -276,7 +276,7 @@ class ExtensionAPI:
 	@exported_function
 	def add_instrument(self, instr_type, instr_name=None):
 		"""
-		Adds an instrument to the current Project.
+		Adds an Instrument to the current Project.
 		
 		Parameters:
 			instr_type -- type of the Instrument to be added.
@@ -410,7 +410,7 @@ class ExtensionAPI:
 		Sets the volume of an Instrument.
 		
 		Parameters:
-			instr_id -- ID of the Intrument to change the value to.
+			instr_id -- ID of the Instrument to change the value to.
 			instr_volume -- value the volume of the Instrument should be set to.
 			
 		Returns:
@@ -431,7 +431,7 @@ class ExtensionAPI:
 		Obtains the volume of an Instrument.
 		
 		Parameters:
-			instr_id -- ID of the Intrument to obtain the volume from.
+			instr_id -- ID of the Instrument to obtain the volume from.
 			
 		Returns:
 			volume = volume of the Instrument.
@@ -504,7 +504,7 @@ class ExtensionAPI:
 		Adds an effect to an Instrument.
 		
 		Parameters:
-			instr_id -- ID of the Intrument to add the effect to.
+			instr_id -- ID of the Instrument to add the effect to.
 			effect_name -- name of the effect to be added to Instrument.
 			
 		Returns:
@@ -536,7 +536,7 @@ class ExtensionAPI:
 			0 = the effect was successfully removed.
 			1 = effect_num out of range.
 			2 = the Instrument with id 'instr_id' was not found.
-			3 = unknown gstreamer error
+			3 = unknown GStreamer error.
 		"""		
 		for instr in self.mainapp.project.instruments:
 			if instr.id == instr_id:	
@@ -702,6 +702,9 @@ class ExtensionAPI:
 	def show_main_window(self):
 		"""
 		Makes the main Jokosher window visible.
+		
+		Returns:
+			False -- stop calling the callback on a timeout_add.
 		"""
 		self.mainapp.window.show()
 		#in case we we're called by gobject.timeout_add
@@ -712,7 +715,7 @@ class ExtensionAPI:
 	@exported_function
 	def quit(self):
 		"""
-		Quit Jokosher
+		Quits Jokosher.
 		"""
 		self.mainapp.OnDestroy()
 	
