@@ -9,7 +9,7 @@
 #
 #=========================================================================
 
-import Project, Globals
+import Project, Globals, Utils
 
 def UndoCommand(*command):
 	"""
@@ -58,32 +58,40 @@ def UndoCommand(*command):
 			Returns:
 				the wrapped function resulting value.
 			"""
+			atomicUndoObject = None
+			if kwargs.has_key("_undoAction_"):
+				atomicUndoObject = kwargs["_undoAction_"]
+				#remove the keyword from kwargs so it doesn't get passed to the function
+				del kwargs["_undoAction_"]
+			
 			try:
 				result = func(funcSelf, *args, **kwargs)
 			except CancelUndoCommand, e:
 				return e.result
 			
-			cmdList = []
+			# initialize the AtomicUndoAction object *after* we call the function,
+			# so that if CancelUndoCommand is raise, nothing is appended to the stack
+			if not atomicUndoObject:
+				#if we were not provided one, create a default atomic undo object 
+				atomicUndoObject = AtomicUndoAction()
 			
 			if isinstance(funcSelf, Project.Project):
-				cmdList.append("P")
+				objectString = "P"
 			elif isinstance(funcSelf, Project.Instrument):
-				cmdList.append("I%d" % funcSelf.id)
+				objectString = "I%d" % funcSelf.id
 			elif isinstance(funcSelf, Project.Event):
-				cmdList.append("E%d" % funcSelf.id)
+				objectString = "E%d" % funcSelf.id
 			
-			cmdList.append(command[0])
-			
-			for cmd in command[1:]:
+			paramList = []
+			for param in command[1:]:
 				try:
-					value = getattr(funcSelf, cmd)
+					value = getattr(funcSelf, param)
 				except:
 					continue
 				else:
-					cmdList.append(value)
+					paramList.append(value)
 				
-			Globals.debug("LOG COMMAND: ", cmdList)
-			Project.GlobalProjectObject.AppendToCurrentStack(cmdList)
+			atomicUndoObject.AddUndoCommand(objectString, command[0], paramList)
 			
 			return result
 			#_____________________________________________________________________
@@ -112,5 +120,63 @@ class CancelUndoCommand(Exception):
 		"""
 		Exception.__init__(self)
 		self.result = result
+
+#=========================================================================
+
+class AtomicUndoAction:
+	"""
+	This object is a container for many separate undo command,
+	which will be treated as a single undo action. For example, after
+	deleting many instruments at once, an AtomicUndoAction object
+	will be stored containing the commands to resurrect all the
+	instruments. When the user does an undo, all of the commands
+	stored by this object will be resurrected. This will make many
+	separate commands appear to be atomic from the user's
+	perspective.
+	"""
+	
+	def __init__(self, addToStack=True):
+		self.commandList = []
+		if addToStack:
+			# add ourselves to the undo stack for the current project.
+			Project.GlobalProjectObject.AppendToCurrentStack(self)
+	
+	#_____________________________________________________________________
+	
+	def AddUndoCommand(self, objectString, function, paramList):
+		newTuple = (objectString, function, paramList)
+		self.commandList.append(newTuple)
+		Globals.debug("LOG COMMAND: ", newTuple, "from", id(self))
+	
+	#_____________________________________________________________________
+	
+	def GetUndoCommands(self):
+		return self.commandList
+	
+	#_____________________________________________________________________
+	
+	def StoreToXML(self, doc, parent):
+		for cmd in self.GetUndoCommands():
+			commandXML = doc.createElement("Command")
+			parent.appendChild(commandXML)
+			commandXML.setAttribute("object", cmd[0])
+			commandXML.setAttribute("function", cmd[1])
+			Utils.StoreListToXML(doc, commandXML, cmd[2], "Parameter")
+		
+	#_____________________________________________________________________
+#=========================================================================
+
+def LoadUndoActionFromXML(node):
+	# Don't add to stack because the project is being loaded
+	undoAction = AtomicUndoAction(addToStack=False)
+	for cmdNode in node.childNodes:
+		if cmdNode.nodeName == "Command":
+			objectString = str(cmdNode.getAttribute("object"))
+			functionString = str(cmdNode.getAttribute("function"))
+			paramList = Utils.LoadListFromXML(cmdNode)
+			
+			undoAction.AddUndoCommand(objectString, functionString, paramList)
+	
+	return undoAction
 
 #=========================================================================

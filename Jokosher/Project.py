@@ -144,26 +144,20 @@ def LoadFromFile(uri):
 	except IndexError:
 		Globals.debug("No saved undo in project file")
 	else:
-		for node in undo.childNodes:
-			if node.nodeType == xml.Node.ELEMENT_NODE:
-				cmdList = []
-				cmdList.append(str(node.getAttribute("object")))
-				cmdList.append(str(node.getAttribute("function")))
-				cmdList.extend(LoadListFromXML(node))
-				project._Project__savedUndoStack.append(cmdList)
+		for actionNode in undo.childNodes:
+			if actionNode.nodeName == "Action":
+				action = LoadUndoActionFromXML(actionNode)
+				project._Project__savedUndoStack.append(action)
 	
 	try:
 		redo = doc.getElementsByTagName("Redo")[0]
 	except IndexError:
 		Globals.debug("No saved redo in project file")
 	else:
-		for node in redo.childNodes:
-			if node.nodeType == xml.Node.ELEMENT_NODE:
-				cmdList = []
-				cmdList.append(str(node.getAttribute("object")))
-				cmdList.append(str(node.getAttribute("function")))
-				cmdList.extend(LoadListFromXML(node))
-				project._Project__redoStack.append(cmdList)
+		for actionNode in redo.childNodes:
+			if actionNode.nodeName == "Action":
+				action = LoadUndoActionFromXML(actionNode)
+				project._Project__redoStack.append(action)
 	
 	for instrElement in doc.getElementsByTagName("Instrument"):
 		try:
@@ -894,22 +888,17 @@ class Project(Monitored):
 			
 		undo = doc.createElement("Undo")
 		head.appendChild(undo)
-		for cmd in self.__savedUndoStack:
-			element = doc.createElement("Command")
-			element.setAttribute("object", cmd[0])
-			element.setAttribute("function", cmd[1])
-			undo.appendChild(element)
-			StoreListToXML(doc, element, cmd[2:], "Parameter")
-		
+		for action in self.__savedUndoStack:
+			actionXML = doc.createElement("Action")
+			undo.appendChild(actionXML)
+			action.StoreToXML(doc, actionXML)
+			
 		redo = doc.createElement("Redo")
 		head.appendChild(redo)
-		for cmd in self.__redoStack:
-			element = doc.createElement("Command")
-			element.setAttribute("object", cmd[0])
-			element.setAttribute("function", cmd[1])
-			redo.appendChild(element)
-			StoreListToXML(doc, element, cmd[2:], "Parameter")
-		
+		for action in self.__redoStack:
+			actionXML = doc.createElement("Action")
+			redo.appendChild(actionXML)
+			action.StoreToXML(doc, actionXML)
 			
 		for instr in self.instruments:
 			instr.StoreToXML(doc, head)
@@ -965,12 +954,12 @@ class Project(Monitored):
 		
 		if len(self.__undoStack):
 			cmd = self.__undoStack.pop()
-			self.ExecuteCommand(cmd)
+			self.ExecuteAction(cmd)
 			
 		elif len(self.__savedUndoStack):
 			self.__savedUndo = True
 			cmd = self.__savedUndoStack.pop()
-			self.ExecuteCommand(cmd)
+			self.ExecuteAction(cmd)
 			self.__savedUndo = False
 			
 		self.__performingUndo = False
@@ -986,12 +975,12 @@ class Project(Monitored):
 		if len(self.__savedRedoStack):
 			self.__savedUndo = True
 			cmd = self.__savedRedoStack.pop()
-			self.ExecuteCommand(cmd)
+			self.ExecuteAction(cmd)
 			self.__savedUndo = False
 			
 		elif len(self.__redoStack):
 			cmd = self.__redoStack.pop()
-			self.ExecuteCommand(cmd)
+			self.ExecuteAction(cmd)
 			
 		self.__performingRedo = False
 
@@ -1065,41 +1054,44 @@ class Project(Monitored):
 	
 	#_____________________________________________________________________
 	
-	def ExecuteCommand(self, cmdList):
+	def ExecuteAction(self, undoAction):
 		"""
-		Executes the string cmd from the undo/redo stack.
-		Commands are made up of a list of which the first two items are
-		the object (and it's ID if relevant), and the function to call. 
-		The 3rd, 4th, etc. items in the list are the parameters to give to
-		the function when it is called.
+		Executes an AtomicUndoAction object, which will revert and changed
+		that we're stored in the object. AtomicUndoAction is a container for many
+		separate undo commands which are lists containing the object, function
+		and parameter information for the function that must be called to revert
+		a particular action.
 
-		Example:
+		Example or a command inside an AtomicUndoAction object:
 			cmdList = ["E2", "Move", 1, 2]
 			means 'Call Move(1, 2)' on the Event with ID=2
 			
 		Parameters:
-			cmdList -- undo/redo command list to be executed.
+			undoAction -- an instance of AtomicUndoAction to be executed.
 		"""
-		obj = cmdList[0]
-		target_object = None
-		if obj[0] == "P":		# Check if the object is a Project
-			target_object = self
-		elif obj[0] == "I":		# Check if the object is an Instrument
-			id = int(obj[1:])
-			target_object = [x for x in self.instruments if x.id==id][0]
-		elif obj[0] == "E":		# Check if the object is an Event
-			id = int(obj[1:])
-			for instr in self.instruments:
-				# First of all see if it's alive on an instrument
-				n = [x for x in instr.events if x.id==id]
-				if not n:
-					# If not, check the graveyard on each instrument
-					n = [x for x in instr.graveyard if x.id==id]
-				if n:
-					target_object = n[0]
-					break
-		#TODO: ask more about the x,n variables
-		getattr(target_object, cmdList[1])(*cmdList[2:])
+		newUndoAction = AtomicUndoAction()
+		for cmdList in undoAction.GetUndoCommands():
+			obj = cmdList[0]
+			print "OBJECT", obj, cmdList
+			target_object = None
+			if obj[0] == "P":		# Check if the object is a Project
+				target_object = self
+			elif obj[0] == "I":		# Check if the object is an Instrument
+				id = int(obj[1:])
+				target_object = [x for x in self.instruments if x.id==id][0]
+			elif obj[0] == "E":		# Check if the object is an Event
+				id = int(obj[1:])
+				for instr in self.instruments:
+					# First of all see if it's alive on an instrument
+					n = [x for x in instr.events if x.id==id]
+					if not n:
+						# If not, check the graveyard on each instrument
+						n = [x for x in instr.graveyard if x.id==id]
+					if n:
+						target_object = n[0]
+						break
+			#TODO: ask more about the x,n variables
+			getattr(target_object, cmdList[1])(_undoAction_=newUndoAction, *cmdList[2])
 
 	#_____________________________________________________________________
 	
