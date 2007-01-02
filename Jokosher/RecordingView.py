@@ -255,7 +255,7 @@ class RecordingView(gtk.Frame):
 		Globals.INSTRUMENT_HEADER_WIDTH = tempWidth
 		
 		#align timeline and scrollbar
-		self.timelinebar.Update(tempWidth)
+		self.timelinebar.Update()
 		self.al.set_padding(0, 0, tempWidth, 0)
 	
 	#_____________________________________________________________________

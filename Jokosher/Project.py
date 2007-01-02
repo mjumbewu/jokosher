@@ -349,7 +349,6 @@ class Project(Monitored):
 		self.meter_denom = 4		# time signature denominator
 		self.clickbpm = 120			#the number of beats per minute that the click track will play
 		self.clickEnabled = False	#True is the click track is currently enabled
-		self.RedrawTimeLine = False	#True if the timeline's background should be fully redrawn on the next update
 		#Keys are instruments which are recording; values are 3-tuples of the event being recorded, the recording bin and bus handler id
 		self.recordingEvents = {}	#Dict containing recording information for each recording instrument
 		self.volume = 0.5			#The volume setting for the entire project
@@ -1272,8 +1271,7 @@ class Project(Monitored):
 		"""
 		if self.viewStart != start:
 			self.viewStart = start
-			self.RedrawTimeLine = True
-			self.StateChanged()
+			self.StateChanged("view-start")
 		
 	#_____________________________________________________________________
 	
@@ -1285,8 +1283,7 @@ class Project(Monitored):
 			scale -- view scale in pixels per second.
 		"""
 		self.viewScale = scale
-		self.RedrawTimeLine = True
-		self.StateChanged()
+		self.StateChanged("zoom")
 		
 	#_____________________________________________________________________
 

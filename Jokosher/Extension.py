@@ -715,4 +715,34 @@ class ExtensionAPI:
 	
 	#_____________________________________________________________________
 	
+	@exported_function
+	def get_bpm(self):
+		"""
+			Returns the current beats per minute for the project
+		"""
+		return self.mainapp.project.bpm	
+		
+	#_____________________________________________________________________
+	
+	@exported_function
+	def get_meter(self):
+		"""
+			Returns the current meter of the project as a tuple
+		"""
+		return (self.mainapp.project.meter_nom, self.mainapp.project.meter_denom)
+		
+	#_____________________________________________________________________
+	
+	@exported_function
+	def set_bpm(self, bpm):
+		"""
+			Sets the current beats per minute for the project
+			Parameters:
+				bpm -- the beats per minute to set
+		"""
+		self.mainapp.project.SetBPM(float(bpm))
+		self.mainapp.project.PrepareClick()
+		
+	#_____________________________________________________________________
+	
 API = None

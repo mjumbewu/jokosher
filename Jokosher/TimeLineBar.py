@@ -130,13 +130,10 @@ class TimeLineBar(gtk.Frame):
 
 	#_____________________________________________________________________
 	
-	def Update(self, width):
+	def Update(self):
 		""" 
 		Updates the contents TimeLineBar, updating the values in the beats per minute box and time signature box,
 		as well as updating the click button sensitivity and instrument header width.
-		
-		Parameters:
-			width -- the instrument header width.
 		"""
 		if not self.Updating:
 			instrumentviews=[]

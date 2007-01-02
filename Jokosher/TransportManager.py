@@ -62,8 +62,6 @@ class TransportManager(Monitored):
 		self.isPaused = False
 		self.isReversing = False
 		self.isForwarding = False
-		self.RedrawTimeLine = False # set by SetMode to force redraw
-									# in TimeLine
 		self.UpdateTimeout = False
 		
 		self.mode = initialMode
@@ -210,7 +208,6 @@ class TransportManager(Monitored):
 		"""
 		if self.mode != mode:
 			self.mode = mode
-			self.RedrawTimeLine = True
 			self.StateChanged("transport-mode", mode)
 		
 	#_____________________________________________________________________

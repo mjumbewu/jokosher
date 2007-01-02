@@ -280,9 +280,6 @@ class MainApp:
 			self.settingButtons = False
 			
 			if view:
-				# need to force a redraw of timeline when changing
-				# views (may have been zoom or scroll while hidden)
-				self.project.RedrawTimeLine = True
 				children = self.main_vbox.get_children()
 				if self.recording in children:
 					self.main_vbox.remove(self.recording)
@@ -294,8 +291,14 @@ class MainApp:
 					self.recording.scrollRange.value = self.compactmix.projectview.scrollRange.value
 				
 				self.main_vbox.pack_end(view, True, True)
-				self.window.show_all()
 				self.mode = mode
+				# need to force a redraw of timeline when changing
+				# views (may have been zoom or scroll while hidden)
+				if mode == self.MODE_COMPACT_MIX:
+					view.projectview.timelinebar.timeline.DrawLine()
+				else:
+					view.timelinebar.timeline.DrawLine()
+				self.window.show_all()
 				self.UpdateCurrentDisplay()
 
 	#_____________________________________________________________________

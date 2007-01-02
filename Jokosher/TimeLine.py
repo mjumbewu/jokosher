@@ -86,7 +86,7 @@ class TimeLine(gtk.DrawingArea):
 		"""
 		self.allocation = allocation
 		# Reconstruce timeline because allocation changed
-		self.DrawLine(widget)
+		self.DrawLine()
 		# Redraw the reconstructed timeline
 		self.queue_draw()
 		
@@ -101,13 +101,7 @@ class TimeLine(gtk.DrawingArea):
 			event -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		if self.savedLine == None:
-			self.DrawLine(widget)
-		if self.project.transport.RedrawTimeLine:
-			self.project.transport.RedrawTimeLine = False
-			self.DrawLine(widget)
-		if self.project.RedrawTimeLine:
-			self.project.RedrawTimeLine = False
-			self.DrawLine(widget)
+			self.DrawLine()
 		d = widget.window
 
 		gc = d.new_gc()
@@ -128,17 +122,14 @@ class TimeLine(gtk.DrawingArea):
 	
 	#_____________________________________________________________________
 		
-	def DrawLine(self, widget):
+	def DrawLine(self):
 		""" 
 		Draws the timeline and saves it to memory
 		Must be called initially and to redraw the timeline
 		after moving the project start.
 		
-		Parameters:
-			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-		d = widget.window
-
+		d = self.window
 		gc = d.new_gc()
 		
 		y = 0
@@ -267,10 +258,10 @@ class TimeLine(gtk.DrawingArea):
 		Called when there is a change of state in transport	manager or project. 
 		Could be one of
 			*  Mode changed from bars/beats to minutes or vice versa
-			(requires a complete redraw of timeline - flag set)
+			(requires a complete redraw of timeline)
 			*  Change in playing position -only needs partial redraw
 			*  Project change e.g. a scroll or zoom change
-			(requires a complete redraw of timeline - flag set)
+			(requires a complete redraw of timeline)
 				
 		Parameters:
 			obj -- an object to inform when this method is called.
@@ -280,8 +271,14 @@ class TimeLine(gtk.DrawingArea):
 		#if the timeline is not currently on screen then quit
 		if not self.window:
 			return
-		if self.project.transport.RedrawTimeLine or self.project.RedrawTimeLine:
-			self.queue_draw()
+		
+		#redraw timeline if needed
+		if change in ("transport-mode", "bpm", "time-signature", "zoom", "view-start"):
+			self.DrawLine()
+			self.timelinebar.Update()
+			#for bpm change re-align timeline with event lane
+			if change == "bpm":
+				self.timelinebar.projectview.UpdateSize()
 			return
 		
 		# The next section is the autoscroll when the position goes off the screen
