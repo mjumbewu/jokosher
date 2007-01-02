@@ -243,7 +243,6 @@ class EffectPresets:
 		"""
 		Load all presets into the main presets registry.
 		"""
-		
 		Globals.debug("\tReading in presets...")
 		presetsfiles = glob.glob(Globals.EFFECT_PRESETS_PATH + "/*.jpreset")
 		
@@ -301,7 +300,6 @@ class EffectPresets:
 		Fill Globals.LADSPA_FACTORY_REGISTRY with effects on the system. This
 		is to ensure that only presets with effects on the current system are listed.
 		"""
-		
 		Globals.debug("Filling LADSPA Registry")
 		
 		##make sure all the structures are empty before we append to them
@@ -310,8 +308,6 @@ class EffectPresets:
 		effects = []
 
 		gstFeatures = gst.registry_get_default().get_feature_list(gst.ElementFactory)
-		
-
 		
 		for feature in gstFeatures:
 			if "Filter/Effect/Audio/LADSPA" in feature.get_klass():
@@ -335,3 +331,7 @@ class EffectPresets:
 
 		Globals.debug("\t", len(effects), "LADSPA effects loaded")
 		Globals.LADSPA_FACTORY_REGISTRY = set(effects)
+		
+	#_____________________________________________________________________
+	
+#=========================================================================

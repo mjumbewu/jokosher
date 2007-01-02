@@ -620,7 +620,7 @@ class ExtensionAPI:
 	@exported_function
 	def add_export_format(self, description, extension, encodeBin):
 		"""
-		Adds a new format that the use can select from the filetype drop down box
+		Adds a new format that the user can select from the filetype drop down box
 		in the 'Mixdown Project' dialog.
 		
 		Parameters:

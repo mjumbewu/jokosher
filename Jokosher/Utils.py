@@ -49,6 +49,8 @@ def OpenExternalURL(url, message, parent):
 	dlg.set_markup(message % url)
 	dlg.run()
 	dlg.destroy()
+	
+#_____________________________________________________________________
 
 def DbToFloat(f):
 	"""
