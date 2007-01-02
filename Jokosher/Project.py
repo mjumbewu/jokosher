@@ -35,13 +35,13 @@ from AlsaDevices import *
 
 def CreateNew(projecturi, name, author):
 	"""
-	Creates a new project.
+	Creates a new Project.
 
 	Parameters:
-		projecturi -- the filesystem location for the new project.
+		projecturi -- the filesystem location for the new Project.
 						Currently, only file:// URIs are considered valid.
-		name --	the name of the project.
-		author - the name of the project's author.
+		name --	the name of the Project.
+		author - the name of the Project's author.
 		
 	Returns:
 		the newly created Project object.
@@ -86,10 +86,10 @@ def CreateNew(projecturi, name, author):
 
 def LoadFromFile(uri):
 	"""
-	Loads a project from a saved file on disk.
+	Loads a Project from a saved file on disk.
 
 	Parameters:
-		uri -- the filesystem location of the project file to load. 
+		uri -- the filesystem location of the Project file to load. 
 				Currently only file:// URIs are considered valid.
 				
 	Returns:
@@ -186,11 +186,11 @@ def LoadFromFile(uri):
 
 def LoadFromZPOFile(project, doc):
 	"""
-	Loads a project from a Jokosher 0.1 (ZPO) project file into
-	the given project object using the XML document doc.
+	Loads a project from a Jokosher 0.1 (ZPO) Project file into
+	the given Project object using the XML document doc.
 	
 	Parameters:
-		project -- Jokosher 0.1 (ZPO) project file.
+		project -- Jokosher 0.1 (ZPO) Project file.
 		doc -- XML document doc used to load the 0.1 Project into the given 0.2+ Project object.
 		
 	Returns:
@@ -312,12 +312,13 @@ def LoadFromZPOFile(project, doc):
 
 class Project(Monitored):
 	"""
-	This class maintains all of the information required about single project. It also
+	This class maintains all of the information required about single Project. It also
 	saves and loads Project files.
 	"""
 	
-	""" The project structure version. Will be useful for handling old save files. """
+	""" The Project structure version. Will be useful for handling old save files. """
 	Globals.VERSION = "0.2"
+	
 	""" The audio playback state enum values """
 	AUDIO_STOPPED, AUDIO_RECORDING, AUDIO_PLAYING, AUDIO_PAUSED, AUDIO_EXPORTING = range(5)
 
@@ -433,7 +434,7 @@ class Project(Monitored):
 		Start playback or recording.
 		
 		Parameters:
-			newAudioState -- determines the project audio state to set when playback commences:
+			newAudioState -- determines the Project audio state to set when playback commences:
 							AUDIO_PAUSED or AUDIO_PLAYING = move the graphical indicator along playback.
 							AUDIO_EXPORTING = perform playback without moving the graphical bar.
 			recording -- determines if the Project should only playback or playback and record:
@@ -719,7 +720,7 @@ class Project(Monitored):
 	
 	def GetIsPlaying(self):
 		"""
-		Returns true if the project is not in the stopped state,
+		Returns true if the Project is not in the stopped state,
 		because paused, playing and recording are all forms of playing.
 		"""
 		return self.audioState != self.AUDIO_STOPPED
@@ -728,7 +729,7 @@ class Project(Monitored):
 	
 	def GetIsExporting(self):
 		"""
-		Returns true if the project is not in the stopped state,
+		Returns true if the Project is not in the stopped state,
 		because paused, playing and recording are all forms of playing.
 		"""
 		return self.audioState == self.AUDIO_EXPORTING
@@ -737,10 +738,10 @@ class Project(Monitored):
 	
 	def SetAudioState(self, newState):
 		"""
-		Set the project's audio state to the new state enum value.
+		Set the Project's audio state to the new state enum value.
 		
 		Parameters:
-			newState -- the new state to set the project to.
+			newState -- the new state to set the Project to.
 		"""
 		self.audioState = newState
 		if newState == self.AUDIO_PAUSED:
@@ -757,6 +758,16 @@ class Project(Monitored):
 	#_____________________________________________________________________
 	
 	def __RecordingPadAddedCb(self, elem, pad, recInstruments, bin):
+		"""
+		Handles GStreamer recording pad changes. This method will be called
+		when there's a new recording pad added to the playback bin.
+		
+		Parameters:
+			elem -- reserved for GStreamer callbacks, don't use it explicitly.
+			pad -- recently added GStreamer pad.
+			recInstruments -- list with all Instruments currently recording.
+			bin -- GStreamer bin to which the pad was added to.
+		"""
 		match = re.search("(\d+)$", pad.get_name())
 		if not match:
 			return
@@ -789,7 +800,8 @@ class Project(Monitored):
 		Parameters:
 			bus -- reserved for GStreamer callbacks, don't use it explicitly.
 			message -- reserved for GStreamer callbacks, don't use it explicitly.
-			newAudioState -- the new project audio state the transport manager should set when playback starts.
+			newAudioState -- the new Project audio state the transport manager
+							should set when playback starts.
 		"""
 		Globals.debug("STATE CHANGED")
 		change_status, new, pending = self.mainpipeline.get_state(0)
@@ -808,11 +820,14 @@ class Project(Monitored):
 	def __PipelineBusLevelCb(self, bus, message):
 		"""
 		Handles GStreamer bus messages about the currently reported level
-		for the project or any of the instruments.
+		for the Project or any of the Instruments.
 		
 		Parameters:
 			bus -- reserved for GStreamer callbacks, don't use it explicitly.
 			message -- reserved for GStreamer callbacks, don't use it explicitly.
+			
+		Returns:
+			True -- TODO
 		"""
 		struct = message.structure
 		
@@ -832,7 +847,7 @@ class Project(Monitored):
 
 	def __PipelineBusErrorCb(self, bus, message):
 		"""
-		Handler for GStreamer error messages.
+		Handles GStreamer error messages.
 		
 		Parameters:
 			bus -- reserved for GStreamer callbacks, don't use it explicitly.
@@ -847,11 +862,11 @@ class Project(Monitored):
 	
 	def SaveProjectFile(self, path=None):
 		"""
-		Saves the project and its children as an XML file 
+		Saves the Project and its children as an XML file
 		to the path specified by file.
 		
 		Parameters:
-			path -- path to the project file.
+			path -- path to the Project file.
 		"""
 		
 		if not path:
@@ -923,7 +938,7 @@ class Project(Monitored):
 
 	def CloseProject(self):
 		"""
-		Closes down this project.
+		Closes down this Project.
 		"""
 		global GlobalProjectObject
 		GlobalProjectObject = None
@@ -1056,18 +1071,11 @@ class Project(Monitored):
 	
 	def ExecuteAction(self, undoAction):
 		"""
-		Executes an AtomicUndoAction object, which will revert and changed
-		that we're stored in the object. AtomicUndoAction is a container for many
-		separate undo commands which are lists containing the object, function
-		and parameter information for the function that must be called to revert
-		a particular action.
-
-		Example or a command inside an AtomicUndoAction object:
-			cmdList = ["E2", "Move", 1, 2]
-			means 'Call Move(1, 2)' on the Event with ID=2
+		Executes an AtomicUndoAction object, reverting all operations stored
+		in it.
 			
 		Parameters:
-			undoAction -- an instance of AtomicUndoAction to be executed.
+			undoAction -- the instance of AtomicUndoAction to be executed.
 		"""
 		newUndoAction = AtomicUndoAction()
 		for cmdList in undoAction.GetUndoCommands():
@@ -1139,7 +1147,7 @@ class Project(Monitored):
 	@UndoCommand("DeleteInstrument", "temp")
 	def AddInstrument(self, name, type, pixbuf):
 		"""
-		Adds a new instrument to the project and returns the ID for that instrument.
+		Adds a new instrument to the Project and returns the ID for that instrument.
 		
 		Parameters:
 			name -- name of the instrument.
@@ -1167,7 +1175,7 @@ class Project(Monitored):
 	@UndoCommand("ResurrectInstrument", "temp")
 	def DeleteInstrument(self, id):
 		"""
-		Removes the instrument matching id from the project.
+		Removes the instrument matching id from the Project.
 		
 		Parameters:
 			id -- unique ID of the instument to remove.
@@ -1256,7 +1264,7 @@ class Project(Monitored):
 	
 	def SetViewStart(self, start):
 		"""
-		Sets the time at which the project view should start.
+		Sets the time at which the Project view should start.
 
 		Parameters:
 			start -- start time for the view in seconds.
@@ -1270,7 +1278,7 @@ class Project(Monitored):
 	
 	def SetViewScale(self, scale):
 		"""
-		Sets the scale of the project view.
+		Sets the scale of the Project view.
 		
 		Parameters:
 			scale -- view scale in pixels per second.
@@ -1283,10 +1291,10 @@ class Project(Monitored):
 
 	def GetProjectLength(self):
 		"""
-		Returns the length of the project.
+		Returns the length of the Project.
 		
 		Returns:
-			lenght of the project in seconds.
+			lenght of the Project in seconds.
 		"""
 		length = 0
 		for instr in self.instruments:
@@ -1299,7 +1307,7 @@ class Project(Monitored):
 	
 	def OnAllInstrumentsMute(self):
 		"""
-		Mutes all Instruments in this project.
+		Mutes all Instruments in this Project.
 		"""
 		for instr in self.instruments:
 			instr.OnMute()
@@ -1359,12 +1367,12 @@ class Project(Monitored):
 
 	def ValidateProject(self):
 		"""
-		Checks that the project is valid - i.e. that the files and 
+		Checks that the Project is valid - i.e. that the files and 
 		images it references can be found.
 
 		Returns:
-			True -- the project is valid.
-			False -- the project contains non-existant files and/or images.
+			True -- the Project is valid.
+			False -- the Project contains non-existant files and/or images.
 		"""
 		unknownfiles=[]
 		unknownimages=[]
@@ -1397,7 +1405,7 @@ class Project(Monitored):
 
 	def PrepareClick(self):
 		"""
-		Prepare the click track.
+		Prepares the click track.
 		"""
 
 		self.ClearClickTimes()
@@ -1423,7 +1431,7 @@ class Project(Monitored):
 
 	def EnableClick(self):
 		"""
-		Unmute and enable the click track.
+		Unmutes and enables the click track.
 		"""
 	
 		self.clickTrackVolume.set_property("mute", False)
@@ -1433,7 +1441,7 @@ class Project(Monitored):
 
 	def DisableClick(self):
 		"""
-		Mute and disable the click track.
+		Mutes and disables the click track.
 		"""
 	
 		self.clickTrackVolume.set_property("mute", True)
@@ -1443,7 +1451,7 @@ class Project(Monitored):
 
 	def ClearClickTimes(self):
 		"""
-		Clear the click track controller times.
+		Clears the click track controller times.
 		"""
 		self.clickTrackController.unset_all("volume")
 		
@@ -1451,11 +1459,11 @@ class Project(Monitored):
 
 	def MakeProjectSink(self):
 		"""
-		Contructs a gstreamer sink element (or bin with ghost pads) for the 
-		project's audio output according to the Global "audiosink" property.
+		Contructs a GStreamer sink element (or bin with ghost pads) for the 
+		Project's audio output, according to the Global "audiosink" property.
 		
 		Return:
-			The gstreamer sink element.
+			the newly created GStreamer sink element.
 		"""
 		sinkString = Globals.settings.playback["audiosink"]
 		sinkElement = None
@@ -1491,6 +1499,7 @@ class Project(Monitored):
 		return sinkElement
 	
 	#_____________________________________________________________________
+	
 #=========================================================================
 	
 class OpenProjectError(EnvironmentError):
@@ -1498,14 +1507,17 @@ class OpenProjectError(EnvironmentError):
 	This class will get created when a opening a Project fails.
 	It's used for handling errors.
 	"""
+	
+	#_____________________________________________________________________
+	
 	def __init__(self, errno, info = None):
 		"""
 		Creates a new instance of OpenProjectError.
 		
 		Parameters:
 			errno -- number indicating the type of error:
-					1 = invalid uri passed for the project file.
-					2 = unable to unzip the project.
+					1 = invalid uri passed for the Project file.
+					2 = unable to unzip the Project.
 					3 = Project created by a different version of Jokosher.
 					4 = Project file doesn't exist.
 			info -- version of Jokosher that created the Project.
@@ -1514,7 +1526,9 @@ class OpenProjectError(EnvironmentError):
 		EnvironmentError.__init__(self)
 		self.info = info
 		self.errno = errno
-		
+	
+	#_____________________________________________________________________
+	
 #=========================================================================
 
 class CreateProjectError(Exception):
@@ -1522,20 +1536,25 @@ class CreateProjectError(Exception):
 	This class will get created when creating a Project fails.
 	It's used for handling errors.
 	"""
+	
+	#_____________________________________________________________________
+	
 	def __init__(self, errno):
 		"""
 		Creates a new instance of CreateProjectError.
 		
 		Parameters:
 			errno -- number indicating the type of error:
-					1 = unable to create a project object.
-					2 = path for project file already exists.
+					1 = unable to create a Project object.
+					2 = path for Project file already exists.
 					3 = unable to create file. (Invalid permissions, read-only, or the disk is full).
 					4 = invalid path, name or author.
-					5 = invalid uri passed for the project file.
+					5 = invalid uri passed for the Project file.
 		"""
 		Exception.__init__(self)
 		self.errno=errno
+		
+	#_____________________________________________________________________
 
 #=========================================================================
 
@@ -1544,6 +1563,9 @@ class AudioInputsError(Exception):
 	This class will get created when there are problems with the soundcard inputs.
 	It's used for handling errors.
 	"""
+	
+	#_____________________________________________________________________
+	
 	def __init__(self, errno):
 		"""
 		Creates a new instance of AudioInputsError.
@@ -1556,6 +1578,8 @@ class AudioInputsError(Exception):
 		"""
 		Exception.__init__(self)
 		self.errno = errno
+		
+	#_____________________________________________________________________
 
 #=========================================================================
 
@@ -1564,6 +1588,9 @@ class InvalidProjectError(Exception):
 	This class will get created when there's an invalid Project.
 	It's used for handling errors.
 	"""
+	
+	#_____________________________________________________________________
+	
 	def __init__(self, missingfiles, missingimages):
 		"""
 		Creates a new instance of InvalidProjectError.
@@ -1575,6 +1602,8 @@ class InvalidProjectError(Exception):
 		Exception.__init__(self)
 		self.files=missingfiles
 		self.images=missingimages
+		
+	#_____________________________________________________________________
 
 #=========================================================================
 

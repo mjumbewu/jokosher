@@ -166,6 +166,12 @@ class AtomicUndoAction:
 		"""
 		Adds a new undo command to this AtomicUndoAction.
 		
+		Example:
+			A command inside an AtomicUndoAction object:
+				cmdList = ["E2", "Move", 1, 2]
+			means
+				'Call Move(1, 2)' on the Event with ID=2
+		
 		Parameters:
 			objectString -- the string representing the object and its ID
 							(ie "E2" for Event with ID == 2).
