@@ -1,56 +1,61 @@
 
 <!doctype html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html><head><title>Python: module InstrumentViewer</title>
-</head><body bgcolor="#f0f0f8">
+</head><body bgcolor="#ffffff">
 
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
-<tr bgcolor="#7799ee">
+<tr bgcolor="#fcbb58">
 <td valign=bottom>&nbsp;<br>
 <font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>InstrumentViewer</strong></big></big></font></td
 ><td align=right valign=bottom
-><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/mike/src/jokosher/trunk/Jokosher/InstrumentViewer.py">/home/mike/src/jokosher/trunk/Jokosher/InstrumentViewer.py</a></font></td></tr></table>
-    <p></p>
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/david/Projects/Jokosher/trunk/Jokosher/InstrumentViewer.py">/home/david/Projects/Jokosher/trunk/Jokosher/InstrumentViewer.py</a></font></td></tr></table>
+    <p><tt>#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THIS&nbsp;FILE&nbsp;IS&nbsp;PART&nbsp;OF&nbsp;THE&nbsp;JOKOSHER&nbsp;PROJECT&nbsp;AND&nbsp;LICENSED&nbsp;UNDER&nbsp;THE&nbsp;GPL.&nbsp;SEE<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THE&nbsp;'COPYING'&nbsp;FILE&nbsp;FOR&nbsp;DETAILS<br>
+#<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#InstrumentViewer">InstrumentViewer</a>.py<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Encapsulate&nbsp;the&nbsp;customised&nbsp;track&nbsp;viewing&nbsp;and&nbsp;editing&nbsp;control.<br>
+#<br>
+#-------------------------------------------------------------------------------</tt></p>
 <p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
-<tr bgcolor="#aa55cc">
+<tr bgcolor="#4e9a06">
 <td colspan=3 valign=bottom>&nbsp;<br>
 <font color="#fffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
     
-<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
-<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="Globals.html">Globals</a><br>
-<a href="Instrument.html">Instrument</a><br>
+<tr><td bgcolor="#4e9a06"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="AddInstrumentDialog.html">AddInstrumentDialog</a><br>
+<a href="AlsaDevices.html">AlsaDevices</a><br>
+<a href="Globals.html">Globals</a><br>
 <a href="InstrumentEffectsDialog.html">InstrumentEffectsDialog</a><br>
-<a href="JokDebug.html">JokDebug</a><br>
-<a href="Monitored.html">Monitored</a><br>
 <a href="Project.html">Project</a><br>
 <a href="TransportManager.html">TransportManager</a><br>
-</td><td width="25%" valign=top><a href="Utils.html">Utils</a><br>
-<a href="Waveform.html">Waveform</a><br>
-<a href="cairo.html">cairo</a><br>
+<a href="Utils.html">Utils</a><br>
+</td><td width="25%" valign=top><a href="cairo.html">cairo</a><br>
 <a href="dbus.html">dbus</a><br>
 <a href="gettext.html">gettext</a><br>
+<a href="gnomevfs.html">gnomevfs</a><br>
 <a href="gobject.html">gobject</a><br>
 <a href="gst.html">gst</a><br>
-</td><td width="25%" valign=top><a href="gtk.html">gtk</a><br>
-<a href="gzip.html">gzip</a><br>
+<a href="gtk.html">gtk</a><br>
+</td><td width="25%" valign=top><a href="gzip.html">gzip</a><br>
 <a href="math.html">math</a><br>
 <a href="os.html">os</a><br>
 <a href="pango.html">pango</a><br>
 <a href="pygst.html">pygst</a><br>
+<a href="re.html">re</a><br>
 <a href="shutil.html">shutil</a><br>
-</td><td width="25%" valign=top><a href="sys.html">sys</a><br>
-<a href="time.html">time</a><br>
-<a href="types.html">types</a><br>
+</td><td width="25%" valign=top><a href="time.html">time</a><br>
 <a href="urllib.html">urllib</a><br>
 <a href="urlparse.html">urlparse</a><br>
 <a href="xml.dom.minidom.html">xml.dom.minidom</a><br>
 </td></tr></table></td></tr></table><p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
-<tr bgcolor="#ee77aa">
+<tr bgcolor="#3465a4">
 <td colspan=3 valign=bottom>&nbsp;<br>
 <font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
     
-<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<tr><td bgcolor="#3465a4"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
 <td width="100%"><dl>
 <dt><font face="helvetica, arial">gobject.EventBox(gobject.Bin)
 </font></dt><dd>
@@ -61,12 +66,12 @@
 </dl>
  <p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
-<tr bgcolor="#ffc8d8">
+<tr bgcolor="#729fcf">
 <td colspan=3 valign=bottom>&nbsp;<br>
 <font color="#000000" face="helvetica, arial"><a name="InstrumentViewer">class <strong>InstrumentViewer</strong></a>(gobject.EventBox)</font></td></tr>
     
-<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
-<td colspan=2><tt>Class&nbsp;to&nbsp;encapsulate&nbsp;the&nbsp;customised&nbsp;track&nbsp;viewing&nbsp;and&nbsp;editing&nbsp;control.<br>&nbsp;</tt></td></tr>
+<tr bgcolor="#729fcf"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Encapsulates&nbsp;the&nbsp;customized&nbsp;track&nbsp;viewing&nbsp;and&nbsp;editing&nbsp;control.<br>&nbsp;</tt></td></tr>
 <tr><td>&nbsp;</td>
 <td width="100%"><dl><dt>Method resolution order:</dt>
 <dd><a href="InstrumentViewer.html#InstrumentViewer">InstrumentViewer</a></dd>
@@ -82,45 +87,146 @@
 </dl>
 <hr>
 Methods defined here:<br>
-<dl><dt><a name="InstrumentViewer-GetInstrumentViewVBox"><strong>GetInstrumentViewVBox</strong></a>(self)</dt><dd><tt>Returns&nbsp;the&nbsp;instrumentBox&nbsp;if&nbsp;the&nbsp;current&nbsp;view&nbsp;is&nbsp;a&nbsp;RecordingView.<br>
-Returns&nbsp;the&nbsp;timebox&nbsp;if&nbsp;the&nbsp;current&nbsp;view&nbsp;is&nbsp;a&nbsp;CompactMixView.</tt></dd></dl>
+<dl><dt><a name="InstrumentViewer-Destroy"><strong>Destroy</strong></a>(self)</dt><dd><tt>Called&nbsp;when&nbsp;the&nbsp;<a href="#InstrumentViewer">InstrumentViewer</a>&nbsp;is&nbsp;closed<br>
+This&nbsp;method&nbsp;also&nbsp;destroys&nbsp;the&nbsp;corresponding&nbsp;EventLaneViewer.</tt></dd></dl>
 
-<dl><dt><a name="InstrumentViewer-OnAcceptEditLabel"><strong>OnAcceptEditLabel</strong></a>(self, widget<font color="#909090">=None</font>)</dt></dl>
+<dl><dt><a name="InstrumentViewer-GetInstrumentViewVBox"><strong>GetInstrumentViewVBox</strong></a>(self)</dt><dd><tt>Obtain&nbsp;the&nbsp;current&nbsp;Instrument&nbsp;view&nbsp;box.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;instrumentBox&nbsp;if&nbsp;the&nbsp;current&nbsp;view&nbsp;is&nbsp;a&nbsp;RecordingView.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;timebox&nbsp;if&nbsp;the&nbsp;current&nbsp;view&nbsp;is&nbsp;a&nbsp;CompactMixView.</tt></dd></dl>
 
-<dl><dt><a name="InstrumentViewer-OnArm"><strong>OnArm</strong></a>(self, widget)</dt></dl>
+<dl><dt><a name="InstrumentViewer-OnAcceptEditLabel"><strong>OnAcceptEditLabel</strong></a>(self, widget<font color="#909090">=None</font>)</dt><dd><tt>Called&nbsp;after&nbsp;the&nbsp;instrument&nbsp;label&nbsp;has&nbsp;been&nbsp;edited.<br>
+This&nbsp;method&nbsp;updates&nbsp;the&nbsp;instrument&nbsp;label&nbsp;with&nbsp;the&nbsp;label&nbsp;the&nbsp;user&nbsp;entered.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="InstrumentViewer-OnDragBegin"><strong>OnDragBegin</strong></a>(self, widget, context)</dt><dd><tt>Called&nbsp;at&nbsp;the&nbsp;start&nbsp;of&nbsp;the&nbsp;drag&nbsp;and&nbsp;drop.<br>
-Displays&nbsp;the&nbsp;instrument&nbsp;icon&nbsp;when&nbsp;dragging.</tt></dd></dl>
+<dl><dt><a name="InstrumentViewer-OnArm"><strong>OnArm</strong></a>(self, widget)</dt><dd><tt>Toggles&nbsp;arming&nbsp;the&nbsp;instrument&nbsp;on/off.<br>
+It&nbsp;will&nbsp;also&nbsp;update&nbsp;the&nbsp;pressed&nbsp;in/out&nbsp;look&nbsp;of&nbsp;the&nbsp;button.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="InstrumentViewer-OnDragDrop"><strong>OnDragDrop</strong></a>(self, widget, context, x, y, time)</dt><dd><tt>Called&nbsp;when&nbsp;the&nbsp;user&nbsp;releases&nbsp;MOUSE1.<br>
-Calls&nbsp;MoveInstrument,&nbsp;which&nbsp;moves&nbsp;the&nbsp;dragged<br>
-instrument&nbsp;to&nbsp;the&nbsp;end&nbsp;position&nbsp;in&nbsp;the<br>
-self.<strong>project</strong>.instruments&nbsp;array.<br>
-MoveInstrument&nbsp;is&nbsp;undo-able.</tt></dd></dl>
+<dl><dt><a name="InstrumentViewer-OnChangeInstrumentType"><strong>OnChangeInstrumentType</strong></a>(self, widget, event)</dt><dd><tt>Called&nbsp;when&nbsp;a&nbsp;button&nbsp;has&nbsp;been&nbsp;pressed&nbsp;in&nbsp;the&nbsp;instrument&nbsp;header&nbsp;icon.<br>
+This&nbsp;method&nbsp;displays&nbsp;the&nbsp;AddInstrumentDialog,&nbsp;allowing&nbsp;the&nbsp;user<br>
+to&nbsp;change&nbsp;the&nbsp;selected&nbsp;instrument.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;event&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;True&nbsp;--&nbsp;if&nbsp;there's&nbsp;no&nbsp;instrument&nbsp;selected,&nbsp;select&nbsp;one&nbsp;and&nbsp;then<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;continue&nbsp;GTK&nbsp;signal&nbsp;propagation.&nbsp;*CHECK*</tt></dd></dl>
 
-<dl><dt><a name="InstrumentViewer-OnDragMotion"><strong>OnDragMotion</strong></a>(self, widget, context, x, y, time)</dt><dd><tt>Called&nbsp;each&nbsp;time&nbsp;the&nbsp;user&nbsp;moves&nbsp;his/her&nbsp;mouse&nbsp;while&nbsp;dragging.<br>
-'if'&nbsp;clause&nbsp;checks&nbsp;if&nbsp;mouse&nbsp;is&nbsp;on&nbsp;an&nbsp;instrument&nbsp;that&nbsp;isn't&nbsp;the<br>
-source&nbsp;instrument.&nbsp;If&nbsp;so,&nbsp;it&nbsp;swaps&nbsp;that&nbsp;instrument&nbsp;and&nbsp;the<br>
-source&nbsp;instrument&nbsp;in&nbsp;the&nbsp;GUI.&nbsp;Swapping&nbsp;of&nbsp;the&nbsp;Instrument&nbsp;objects<br>
-in&nbsp;self.<strong>project</strong>.instruments&nbsp;happens&nbsp;in&nbsp;<a href="#InstrumentViewer-OnDragDrop">OnDragDrop</a>().</tt></dd></dl>
+<dl><dt><a name="InstrumentViewer-OnDragBegin"><strong>OnDragBegin</strong></a>(self, widget, context)</dt><dd><tt>Called&nbsp;when&nbsp;the&nbsp;drag&nbsp;and&nbsp;drop&nbsp;procedure&nbsp;begins.<br>
+This&nbsp;method&nbsp;will&nbsp;display&nbsp;the&nbsp;instrument&nbsp;icon&nbsp;when&nbsp;dragging.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;context&nbsp;--&nbsp;a&nbsp;cairo&nbsp;context&nbsp;widget.</tt></dd></dl>
 
-<dl><dt><a name="InstrumentViewer-OnEditLabel"><strong>OnEditLabel</strong></a>(self, widget, event)</dt></dl>
+<dl><dt><a name="InstrumentViewer-OnDragDrop"><strong>OnDragDrop</strong></a>(self, widget, context, x, y, time)</dt><dd><tt>Called&nbsp;when&nbsp;the&nbsp;user&nbsp;releases&nbsp;MOUSE1,&nbsp;finishing&nbsp;a&nbsp;drag&nbsp;and&nbsp;drop<br>
+procedure.<br>
+Calls&nbsp;MoveInstrument,&nbsp;which&nbsp;moves&nbsp;the&nbsp;dragged&nbsp;instrument&nbsp;to<br>
+the&nbsp;end&nbsp;position&nbsp;in&nbsp;the&nbsp;self.<strong>project</strong>.instruments&nbsp;array.<br>
+&nbsp;<br>
+Considerations:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;MoveInstrument&nbsp;action&nbsp;is&nbsp;undo-able.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;<a href="#InstrumentViewer">InstrumentViewer</a>&nbsp;being&nbsp;dragged.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;context&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;y&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;time&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="InstrumentViewer-OnInstrumentEffects"><strong>OnInstrumentEffects</strong></a>(self, widget)</dt><dd><tt>Creates&nbsp;and&nbsp;shows&nbsp;the&nbsp;instrument&nbsp;effects&nbsp;dialog</tt></dd></dl>
+<dl><dt><a name="InstrumentViewer-OnDragMotion"><strong>OnDragMotion</strong></a>(self, widget, context, x, y, time)</dt><dd><tt>Called&nbsp;each&nbsp;time&nbsp;the&nbsp;user&nbsp;moves&nbsp;the&nbsp;mouse&nbsp;while&nbsp;dragging.<br>
+If&nbsp;the&nbsp;mouse&nbsp;is&nbsp;on&nbsp;an&nbsp;instrument&nbsp;that&nbsp;isn't&nbsp;the&nbsp;source<br>
+instrument,&nbsp;it&nbsp;swaps&nbsp;that&nbsp;instrument&nbsp;and&nbsp;the&nbsp;source&nbsp;instrument<br>
+in&nbsp;the&nbsp;GUI.&nbsp;Swapping&nbsp;of&nbsp;the&nbsp;Instrument&nbsp;objects&nbsp;in&nbsp;self.<strong>project</strong>.instruments<br>
+happens&nbsp;in&nbsp;<a href="#InstrumentViewer-OnDragDrop">OnDragDrop</a>().<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;<a href="#InstrumentViewer">InstrumentViewer</a>&nbsp;the&nbsp;mouse&nbsp;is&nbsp;hovering&nbsp;over.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;context&nbsp;--&nbsp;cairo&nbsp;widget&nbsp;context.&nbsp;Used&nbsp;to&nbsp;extract&nbsp;the&nbsp;source&nbsp;instrument.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;y&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;time&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;True&nbsp;--&nbsp;continue&nbsp;GTK&nbsp;signal&nbsp;propagation.&nbsp;*CHECK*</tt></dd></dl>
 
-<dl><dt><a name="InstrumentViewer-OnMouseMove"><strong>OnMouseMove</strong></a>(self, widget, event)</dt></dl>
+<dl><dt><a name="InstrumentViewer-OnEditLabel"><strong>OnEditLabel</strong></a>(self, widget, event)</dt><dd><tt>Called&nbsp;when&nbsp;a&nbsp;button&nbsp;has&nbsp;been&nbsp;pressed&nbsp;within&nbsp;the&nbsp;instrument&nbsp;name&nbsp;label.<br>
+This&nbsp;method&nbsp;shows&nbsp;a&nbsp;text&nbsp;entry&nbsp;that&nbsp;allows&nbsp;the&nbsp;user&nbsp;to&nbsp;change&nbsp;the&nbsp;name<br>
+of&nbsp;the&nbsp;correspondent&nbsp;Instrument<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;event&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;True&nbsp;--&nbsp;continue&nbsp;GTK&nbsp;signal&nbsp;propagation.&nbsp;*CHECK*</tt></dd></dl>
 
-<dl><dt><a name="InstrumentViewer-OnMute"><strong>OnMute</strong></a>(self, widget)</dt></dl>
+<dl><dt><a name="InstrumentViewer-OnInstrumentEffects"><strong>OnInstrumentEffects</strong></a>(self, widget, mouse)</dt><dd><tt>Creates&nbsp;and&nbsp;shows&nbsp;the&nbsp;instrument&nbsp;effects&nbsp;dialog<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mouse&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="InstrumentViewer-OnProcessingMenu"><strong>OnProcessingMenu</strong></a>(self, widget, mouse)</dt></dl>
+<dl><dt><a name="InstrumentViewer-OnInstrumentEffectsDestroyed"><strong>OnInstrumentEffectsDestroyed</strong></a>(self, window)</dt><dd><tt>Called&nbsp;when&nbsp;the&nbsp;InstrumentEffectsDialog&nbsp;is&nbsp;destroyed.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;window&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="InstrumentViewer-OnSelect"><strong>OnSelect</strong></a>(self, widget, event)</dt></dl>
+<dl><dt><a name="InstrumentViewer-OnMouseMove"><strong>OnMouseMove</strong></a>(self, widget, event)</dt><dd><tt>Called&nbsp;when&nbsp;the&nbsp;mouse&nbsp;cursor&nbsp;enters&nbsp;or&nbsp;leaves&nbsp;the&nbsp;instrument&nbsp;name&nbsp;label&nbsp;area.<br>
+This&nbsp;method&nbsp;changes&nbsp;the&nbsp;cursor&nbsp;to&nbsp;show&nbsp;text&nbsp;is&nbsp;editable&nbsp;<br>
+when&nbsp;hovered&nbsp;over&nbsp;the&nbsp;instrument&nbsp;label&nbsp;area.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;event&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="InstrumentViewer-OnSolo"><strong>OnSolo</strong></a>(self, widget)</dt></dl>
+<dl><dt><a name="InstrumentViewer-OnMute"><strong>OnMute</strong></a>(self, widget)</dt><dd><tt>Toggles&nbsp;muting&nbsp;the&nbsp;instrument&nbsp;on/off.<br>
+It&nbsp;will&nbsp;also&nbsp;update&nbsp;the&nbsp;pressed&nbsp;in/out&nbsp;look&nbsp;of&nbsp;the&nbsp;button.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="InstrumentViewer-ResizeHeader"><strong>ResizeHeader</strong></a>(self, width)</dt></dl>
+<dl><dt><a name="InstrumentViewer-OnSelect"><strong>OnSelect</strong></a>(self, widget, event)</dt><dd><tt>Called&nbsp;when&nbsp;a&nbsp;button&nbsp;has&nbsp;been&nbsp;pressed&nbsp;anywhere&nbsp;within&nbsp;<a href="#InstrumentViewer">InstrumentViewer</a>.<br>
+This&nbsp;method&nbsp;sets&nbsp;the&nbsp;instrument&nbsp;to&nbsp;a&nbsp;selected&nbsp;state.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;event&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;True&nbsp;--&nbsp;continue&nbsp;GTK&nbsp;signal&nbsp;propagation.&nbsp;*CHECK*</tt></dd></dl>
 
-<dl><dt><a name="InstrumentViewer-Update"><strong>Update</strong></a>(self)</dt></dl>
+<dl><dt><a name="InstrumentViewer-OnSolo"><strong>OnSolo</strong></a>(self, widget)</dt><dd><tt>Toggles&nbsp;soloing&nbsp;the&nbsp;instrument&nbsp;on/off.<br>
+It&nbsp;will&nbsp;also&nbsp;update&nbsp;the&nbsp;pressed&nbsp;in/out&nbsp;look&nbsp;of&nbsp;the&nbsp;button.</tt></dd></dl>
+
+<dl><dt><a name="InstrumentViewer-OnStateChanged"><strong>OnStateChanged</strong></a>(self, obj, change<font color="#909090">=None</font>, *extra)</dt><dd><tt>Called&nbsp;when&nbsp;a&nbsp;change&nbsp;of&nbsp;state&nbsp;is&nbsp;signalled&nbsp;by&nbsp;any&nbsp;of&nbsp;the<br>
+objects&nbsp;this&nbsp;view&nbsp;is&nbsp;'listening'&nbsp;to.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;obj&nbsp;--&nbsp;object&nbsp;changing&nbsp;state.&nbsp;*CHECK*<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;change&nbsp;--&nbsp;the&nbsp;change&nbsp;which&nbsp;has&nbsp;occured.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;extra&nbsp;--&nbsp;extra&nbsp;parameters&nbsp;passed&nbsp;by&nbsp;the&nbsp;caller.</tt></dd></dl>
+
+<dl><dt><a name="InstrumentViewer-ResizeHeader"><strong>ResizeHeader</strong></a>(self, width)</dt><dd><tt>Changes&nbsp;the&nbsp;padding&nbsp;space&nbsp;of&nbsp;the&nbsp;header&nbsp;box&nbsp;in&nbsp;order&nbsp;to&nbsp;line<br>
+up&nbsp;correctly&nbsp;with&nbsp;the&nbsp;timeline&nbsp;display.<br>
+&nbsp;<br>
+Considerations:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;method&nbsp;should&nbsp;be&nbsp;called&nbsp;from&nbsp;TimeLineBar.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;width&nbsp;--&nbsp;new&nbsp;size&nbsp;of&nbsp;the&nbsp;header&nbsp;box.</tt></dd></dl>
+
+<dl><dt><a name="InstrumentViewer-Update"><strong>Update</strong></a>(self)</dt><dd><tt>Called&nbsp;when&nbsp;requested&nbsp;by&nbsp;projectview.<a href="#InstrumentViewer-Update">Update</a>()&nbsp;to&nbsp;update&nbsp;the&nbsp;display,<br>
+in&nbsp;response&nbsp;to&nbsp;a&nbsp;change&nbsp;in&nbsp;state&nbsp;in&nbsp;any&nbsp;object&nbsp;is&nbsp;it&nbsp;listening&nbsp;to.<br>
+In&nbsp;turn&nbsp;calls&nbsp;EventLaneViewer.<a href="#InstrumentViewer-Update">Update</a>()&nbsp;for&nbsp;its&nbsp;EventLaneViewer.</tt></dd></dl>
 
 <dl><dt><a name="InstrumentViewer-__init__"><strong>__init__</strong></a>(self, project, instrument, projectview, mainview, small<font color="#909090">=False</font>)</dt></dl>
 
@@ -135,6 +241,8 @@ Data and other attributes defined here:<br>
 <dl><dt><strong>EDGE_HOT_ZONE</strong> = 10</dl>
 
 <dl><dt><strong>INSTR_DRAG_TYPE</strong> = 83</dl>
+
+<dl><dt><strong>LABEL_WIDTH_CHARS</strong> = 12</dl>
 
 <dl><dt><strong>MAX_PEAK</strong> = 30</dl>
 
@@ -154,7 +262,7 @@ Methods inherited from gobject.EventBox:<br>
 
 <hr>
 Data and other attributes inherited from gobject.EventBox:<br>
-<dl><dt><strong>__gtype__</strong> = &lt;GType GtkEventBox (135896320)&gt;</dl>
+<dl><dt><strong>__gtype__</strong> = &lt;GType GtkEventBox (136328696)&gt;</dl>
 
 <hr>
 Methods inherited from gobject.Bin:<br>
@@ -784,7 +892,7 @@ Methods inherited from <a href="gobject.html#GObject">gobject.GObject</a>:<br>
 Data and other attributes inherited from <a href="gobject.html#GObject">gobject.GObject</a>:<br>
 <dl><dt><strong>__dict__</strong> = &lt;dictproxy object&gt;</dl>
 
-<dl><dt><strong>__gdoc__</strong> = 'Object GtkEventBox<font color="#c040c0">\n\n</font> Class to encapsulate the cu...ointer<font color="#c040c0">\n\n</font>Signals from GObject:<font color="#c040c0">\n</font>  notify (GParam)<font color="#c040c0">\n\n</font>'</dl>
+<dl><dt><strong>__gdoc__</strong> = 'Object GtkEventBox<font color="#c040c0">\n\n</font> <font color="#c040c0">\n\t</font>Encapsulates the customiz...ointer<font color="#c040c0">\n\n</font>Signals from GObject:<font color="#c040c0">\n</font>  notify (GParam)<font color="#c040c0">\n\n</font>'</dl>
 
 <dl><dt><strong>__grefcount__</strong> = &lt;attribute '__grefcount__' of 'gobject.GObject' objects&gt;</dl>
 

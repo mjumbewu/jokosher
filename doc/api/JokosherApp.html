@@ -1,44 +1,51 @@
 
 <!doctype html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html><head><title>Python: module JokosherApp</title>
-</head><body bgcolor="#f0f0f8">
+</head><body bgcolor="#ffffff">
 
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
-<tr bgcolor="#7799ee">
+<tr bgcolor="#fcbb58">
 <td valign=bottom>&nbsp;<br>
 <font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>JokosherApp</strong></big></big></font></td
 ><td align=right valign=bottom
-><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/mike/src/jokosher/trunk/Jokosher/JokosherApp.py">/home/mike/src/jokosher/trunk/Jokosher/JokosherApp.py</a></font></td></tr></table>
-    <p></p>
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/david/Projects/Jokosher/trunk/Jokosher/JokosherApp.py">/home/david/Projects/Jokosher/trunk/Jokosher/JokosherApp.py</a></font></td></tr></table>
+    <p><tt>#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THIS&nbsp;FILE&nbsp;IS&nbsp;PART&nbsp;OF&nbsp;THE&nbsp;JOKOSHER&nbsp;PROJECT&nbsp;AND&nbsp;LICENSED&nbsp;UNDER&nbsp;THE&nbsp;GPL.&nbsp;SEE<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THE&nbsp;'COPYING'&nbsp;FILE&nbsp;FOR&nbsp;DETAILS<br>
+#<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Jokosher's&nbsp;main&nbsp;class.&nbsp;It&nbsp;creates&nbsp;the&nbsp;majority&nbsp;of&nbsp;the&nbsp;main&nbsp;window&nbsp;GUI<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;gets&nbsp;everything&nbsp;up&nbsp;and&nbsp;running.<br>
+#<br>
+#-------------------------------------------------------------------------------</tt></p>
 <p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
-<tr bgcolor="#aa55cc">
+<tr bgcolor="#4e9a06">
 <td colspan=3 valign=bottom>&nbsp;<br>
 <font color="#fffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
     
-<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<tr><td bgcolor="#4e9a06"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
 <td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="AddInstrumentDialog.html">AddInstrumentDialog</a><br>
 <a href="AlsaDevices.html">AlsaDevices</a><br>
 <a href="CompactMixView.html">CompactMixView</a><br>
 <a href="Extension.html">Extension</a><br>
+<a href="ExtensionManager.html">ExtensionManager</a><br>
+<a href="ExtensionManagerDialog.html">ExtensionManagerDialog</a><br>
 <a href="Globals.html">Globals</a><br>
-<a href="InstrumentConnectionsDialog.html">InstrumentConnectionsDialog</a><br>
+</td><td width="25%" valign=top><a href="InstrumentConnectionsDialog.html">InstrumentConnectionsDialog</a><br>
 <a href="NewProjectDialog.html">NewProjectDialog</a><br>
-</td><td width="25%" valign=top><a href="PreferencesDialog.html">PreferencesDialog</a><br>
+<a href="PreferencesDialog.html">PreferencesDialog</a><br>
 <a href="Project.html">Project</a><br>
 <a href="RecordingView.html">RecordingView</a><br>
 <a href="StatusBar.html">StatusBar</a><br>
 <a href="TimeView.html">TimeView</a><br>
+</td><td width="25%" valign=top><a href="Utils.html">Utils</a><br>
 <a href="WelcomeDialog.html">WelcomeDialog</a><br>
 <a href="gettext.html">gettext</a><br>
-</td><td width="25%" valign=top><a href="glob.html">glob</a><br>
+<a href="glob.html">glob</a><br>
 <a href="gobject.html">gobject</a><br>
 <a href="gst.html">gst</a><br>
 <a href="gtk.html">gtk</a><br>
-<a href="locale.html">locale</a><br>
-<a href="math.html">math</a><br>
-<a href="optparse.html">optparse</a><br>
-</td><td width="25%" valign=top><a href="os.html">os</a><br>
+</td><td width="25%" valign=top><a href="math.html">math</a><br>
+<a href="os.html">os</a><br>
 <a href="pygst.html">pygst</a><br>
 <a href="pygtk.html">pygtk</a><br>
 <a href="string.html">string</a><br>
@@ -46,131 +53,376 @@
 <a href="xml.dom.minidom.html">xml.dom.minidom</a><br>
 </td></tr></table></td></tr></table><p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
-<tr bgcolor="#ee77aa">
+<tr bgcolor="#3465a4">
 <td colspan=3 valign=bottom>&nbsp;<br>
 <font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
     
-<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<tr><td bgcolor="#3465a4"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
 <td width="100%"><dl>
 <dt><font face="helvetica, arial"><a href="JokosherApp.html#MainApp">MainApp</a>
 </font></dt></dl>
  <p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
-<tr bgcolor="#ffc8d8">
+<tr bgcolor="#729fcf">
 <td colspan=3 valign=bottom>&nbsp;<br>
 <font color="#000000" face="helvetica, arial"><a name="MainApp">class <strong>MainApp</strong></a></font></td></tr>
     
-<tr><td bgcolor="#ffc8d8"><tt>&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<tr bgcolor="#729fcf"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Jokosher's&nbsp;main&nbsp;class.&nbsp;It&nbsp;creates&nbsp;the&nbsp;majority&nbsp;of&nbsp;the&nbsp;main&nbsp;window&nbsp;GUI&nbsp;and&nbsp;<br>
+gets&nbsp;everything&nbsp;up&nbsp;and&nbsp;running.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
 <td width="100%">Methods defined here:<br>
-<dl><dt><a name="MainApp-About"><strong>About</strong></a>(self, widget<font color="#909090">=None</font>)</dt><dd><tt>Display&nbsp;about&nbsp;dialog</tt></dd></dl>
+<dl><dt><a name="MainApp-About"><strong>About</strong></a>(self, widget<font color="#909090">=None</font>)</dt><dd><tt>Creates&nbsp;and&nbsp;shows&nbsp;the&nbsp;"About"&nbsp;dialog&nbsp;box.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="MainApp-CheckGstreamerVersions"><strong>CheckGstreamerVersions</strong></a>(self)</dt></dl>
+<dl><dt><a name="MainApp-AboutLinkActivate"><strong>AboutLinkActivate</strong></a>(self, widget, link)</dt><dd><tt>Opens&nbsp;the&nbsp;Jokosher&nbsp;website&nbsp;in&nbsp;the&nbsp;user's&nbsp;default&nbsp;web&nbsp;browser.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="MainApp-ClearStatusBar"><strong>ClearStatusBar</strong></a>(self, messageID)</dt></dl>
+<dl><dt><a name="MainApp-CheckGstreamerVersions"><strong>CheckGstreamerVersions</strong></a>(self)</dt><dd><tt>Check&nbsp;for&nbsp;CVS&nbsp;versions&nbsp;of&nbsp;Gstreamer&nbsp;and&nbsp;gnonlin.&nbsp;If&nbsp;requirements&nbsp;are&nbsp;not&nbsp;met,<br>
+a&nbsp;warning&nbsp;message&nbsp;is&nbsp;issued&nbsp;to&nbsp;the&nbsp;user.</tt></dd></dl>
 
-<dl><dt><a name="MainApp-CloseProject"><strong>CloseProject</strong></a>(self)</dt></dl>
+<dl><dt><a name="MainApp-ClearStatusBar"><strong>ClearStatusBar</strong></a>(self, messageID)</dt><dd><tt>Clears&nbsp;the&nbsp;status&nbsp;bar&nbsp;text&nbsp;in&nbsp;the&nbsp;position&nbsp;pointed&nbsp;by&nbsp;messageID.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;messageID&nbsp;--&nbsp;the&nbsp;message&nbsp;identifier&nbsp;of&nbsp;the&nbsp;text&nbsp;to&nbsp;be&nbsp;cleared.</tt></dd></dl>
 
-<dl><dt><a name="MainApp-InsertRecentProject"><strong>InsertRecentProject</strong></a>(self, path, name)</dt></dl>
+<dl><dt><a name="MainApp-CloseProject"><strong>CloseProject</strong></a>(self)</dt><dd><tt>Closes&nbsp;the&nbsp;current&nbsp;project.&nbsp;If&nbsp;there's&nbsp;changes&nbsp;pending,&nbsp;it'll&nbsp;ask&nbsp;the&nbsp;user&nbsp;for&nbsp;confirmation.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;status&nbsp;of&nbsp;the&nbsp;close&nbsp;operation:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;=&nbsp;there&nbsp;was&nbsp;no&nbsp;project&nbsp;open&nbsp;or&nbsp;it&nbsp;was&nbsp;closed&nbsp;succesfully.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;=&nbsp;cancel&nbsp;the&nbsp;operation&nbsp;and&nbsp;return&nbsp;to&nbsp;the&nbsp;normal&nbsp;program&nbsp;flow.</tt></dd></dl>
 
-<dl><dt><a name="MainApp-InstrumentSelected"><strong>InstrumentSelected</strong></a>(self, widget<font color="#909090">=None</font>, event<font color="#909090">=None</font>)</dt><dd><tt>If&nbsp;an&nbsp;instrument&nbsp;has&nbsp;been&nbsp;selected,&nbsp;enable&nbsp;the&nbsp;record&nbsp;button</tt></dd></dl>
+<dl><dt><a name="MainApp-InsertRecentProject"><strong>InsertRecentProject</strong></a>(self, path, name)</dt><dd><tt>Inserts&nbsp;a&nbsp;new&nbsp;project&nbsp;with&nbsp;its&nbsp;corresponding&nbsp;path&nbsp;to&nbsp;the&nbsp;recent&nbsp;project&nbsp;list.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;path&nbsp;--&nbsp;path&nbsp;to&nbsp;the&nbsp;project&nbsp;file.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name&nbsp;--&nbsp;name&nbsp;of&nbsp;the&nbsp;project&nbsp;being&nbsp;added.</tt></dd></dl>
 
-<dl><dt><a name="MainApp-OnChangeView"><strong>OnChangeView</strong></a>(self, view, mode)</dt></dl>
+<dl><dt><a name="MainApp-OnChangeInstrument"><strong>OnChangeInstrument</strong></a>(self, widget<font color="#909090">=None</font>)</dt><dd><tt>Changes&nbsp;the&nbsp;type&nbsp;of&nbsp;the&nbsp;selected&nbsp;Instrument.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="MainApp-OnCloseProject"><strong>OnCloseProject</strong></a>(self, widget)</dt><dd><tt>Closes&nbsp;a&nbsp;project</tt></dd></dl>
+<dl><dt><a name="MainApp-OnChangeView"><strong>OnChangeView</strong></a>(self, view, mode)</dt><dd><tt>Updates&nbsp;the&nbsp;state&nbsp;of&nbsp;the&nbsp;recording&nbsp;and&nbsp;the&nbsp;compact&nbsp;mix&nbsp;buttons.&nbsp;It&nbsp;also&nbsp;might&nbsp;<br>
+need&nbsp;to&nbsp;force&nbsp;a&nbsp;redraw&nbsp;of&nbsp;the&nbsp;timeline&nbsp;when&nbsp;changing&nbsp;views&nbsp;as&nbsp;it&nbsp;may&nbsp;have&nbsp;been<br>
+zoomed&nbsp;or&nbsp;scrolled&nbsp;while&nbsp;hidden.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;view&nbsp;--&nbsp;reference&nbsp;to&nbsp;the&nbsp;view&nbsp;the&nbsp;main&nbsp;window&nbsp;has&nbsp;changed&nbsp;to.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mode&nbsp;--&nbsp;mode&nbsp;corresponding&nbsp;to&nbsp;the&nbsp;view&nbsp;the&nbsp;main&nbsp;window&nbsp;has&nbsp;changed&nbsp;to:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#MainApp">MainApp</a>.MODE_RECORDING&nbsp;=&nbsp;recording&nbsp;view<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#MainApp">MainApp</a>.MODE_COMPACT_MIX&nbsp;=&nbsp;mixing&nbsp;view</tt></dd></dl>
 
-<dl><dt><a name="MainApp-OnCompactMixView"><strong>OnCompactMixView</strong></a>(self, window<font color="#909090">=None</font>)</dt></dl>
+<dl><dt><a name="MainApp-OnClearRecentProjects"><strong>OnClearRecentProjects</strong></a>(self, widget)</dt><dd><tt>Clears&nbsp;the&nbsp;recent&nbsp;projects&nbsp;list.&nbsp;It&nbsp;then&nbsp;updates&nbsp;the&nbsp;user&nbsp;interface&nbsp;to&nbsp;reflect<br>
+the&nbsp;changes.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="MainApp-OnContributingDialog"><strong>OnContributingDialog</strong></a>(self, widget)</dt></dl>
+<dl><dt><a name="MainApp-OnCloseProject"><strong>OnCloseProject</strong></a>(self, widget)</dt><dd><tt>Closes&nbsp;the&nbsp;current&nbsp;project&nbsp;by&nbsp;calling&nbsp;<a href="#MainApp-CloseProject">CloseProject</a>().&nbsp;<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="MainApp-OnCopy"><strong>OnCopy</strong></a>(self, widget<font color="#909090">=None</font>)</dt></dl>
+<dl><dt><a name="MainApp-OnCompactMixView"><strong>OnCompactMixView</strong></a>(self, window<font color="#909090">=None</font>)</dt><dd><tt>Updates&nbsp;the&nbsp;main&nbsp;window&nbsp;after&nbsp;switching&nbsp;to&nbsp;the&nbsp;compact&nbsp;view&nbsp;mixing&nbsp;mode.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;window&nbsp;--&nbsp;Window&nbsp;object&nbsp;calling&nbsp;this&nbsp;method.</tt></dd></dl>
 
-<dl><dt><a name="MainApp-OnCut"><strong>OnCut</strong></a>(self, widget<font color="#909090">=None</font>, cut<font color="#909090">=True</font>)</dt></dl>
+<dl><dt><a name="MainApp-OnContributingDialog"><strong>OnContributingDialog</strong></a>(self, widget)</dt><dd><tt>Creates&nbsp;and&nbsp;shows&nbsp;the&nbsp;"Contributing&nbsp;to&nbsp;Jokosher"&nbsp;dialog.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="MainApp-OnDelete"><strong>OnDelete</strong></a>(self, widget<font color="#909090">=None</font>)</dt></dl>
+<dl><dt><a name="MainApp-OnContributingLinkButtonClicked"><strong>OnContributingLinkButtonClicked</strong></a>(self, widget)</dt><dd><tt>Opens&nbsp;the&nbsp;Jokosher&nbsp;contributing&nbsp;website&nbsp;in&nbsp;the&nbsp;user's&nbsp;default&nbsp;web&nbsp;browser.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="MainApp-OnDestroy"><strong>OnDestroy</strong></a>(self, widget<font color="#909090">=None</font>, event<font color="#909090">=None</font>)</dt></dl>
+<dl><dt><a name="MainApp-OnCopy"><strong>OnCopy</strong></a>(self, widget<font color="#909090">=None</font>)</dt><dd><tt>Copies&nbsp;the&nbsp;portion&nbsp;of&nbsp;selected&nbsp;audio&nbsp;to&nbsp;the&nbsp;clipboard.&nbsp;&nbsp;<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="MainApp-OnEditMenu"><strong>OnEditMenu</strong></a>(self, widget)</dt></dl>
+<dl><dt><a name="MainApp-OnCut"><strong>OnCut</strong></a>(self, widget<font color="#909090">=None</font>, cut<font color="#909090">=True</font>)</dt><dd><tt>Cuts&nbsp;the&nbsp;portion&nbsp;of&nbsp;selected&nbsp;audio&nbsp;and&nbsp;puts&nbsp;it&nbsp;in&nbsp;the&nbsp;clipboard.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cut&nbsp;--&nbsp;&nbsp;determines&nbsp;whether&nbsp;the&nbsp;operation&nbsp;should&nbsp;perform&nbsp;a&nbsp;cut&nbsp;or&nbsp;copy&nbsp;operation:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;True&nbsp;=&nbsp;perform&nbsp;a&nbsp;cut&nbsp;operation.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;False&nbsp;=&nbsp;perform&nbsp;a&nbsp;copy&nbsp;operation.</tt></dd></dl>
 
-<dl><dt><a name="MainApp-OnExport"><strong>OnExport</strong></a>(self, widget<font color="#909090">=None</font>)</dt><dd><tt>Display&nbsp;a&nbsp;save&nbsp;dialog&nbsp;allowing&nbsp;the&nbsp;user&nbsp;to&nbsp;export&nbsp;as&nbsp;ogg&nbsp;or&nbsp;mp3</tt></dd></dl>
+<dl><dt><a name="MainApp-OnDelete"><strong>OnDelete</strong></a>(self, widget<font color="#909090">=None</font>)</dt><dd><tt>Deletes&nbsp;the&nbsp;currently&nbsp;selected&nbsp;instrument&nbsp;or&nbsp;event.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="MainApp-OnExportCancel"><strong>OnExportCancel</strong></a>(self, widget<font color="#909090">=None</font>)</dt></dl>
+<dl><dt><a name="MainApp-OnDestroy"><strong>OnDestroy</strong></a>(self, widget<font color="#909090">=None</font>, event<font color="#909090">=None</font>)</dt><dd><tt>Called&nbsp;when&nbsp;the&nbsp;main&nbsp;window&nbsp;is&nbsp;destroyed.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;event&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;True&nbsp;--&nbsp;the&nbsp;current&nbsp;project&nbsp;can't&nbsp;be&nbsp;properly&nbsp;closed.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;stops&nbsp;signal&nbsp;propagation.</tt></dd></dl>
 
-<dl><dt><a name="MainApp-OnForwardPressed"><strong>OnForwardPressed</strong></a>(self, widget<font color="#909090">=None</font>)</dt></dl>
+<dl><dt><a name="MainApp-OnEditMenu"><strong>OnEditMenu</strong></a>(self, widget)</dt><dd><tt>HACK:&nbsp;When&nbsp;the&nbsp;edit&nbsp;menu&nbsp;opens,&nbsp;checks&nbsp;if&nbsp;any&nbsp;events&nbsp;or&nbsp;instruments&nbsp;are&nbsp;selected&nbsp;<br>
+and&nbsp;sets&nbsp;the&nbsp;cut,&nbsp;copy,&nbsp;paste&nbsp;and&nbsp;delete&nbsp;menu&nbsp;items'&nbsp;sensitivity&nbsp;accordingly.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="MainApp-OnForwardReleased"><strong>OnForwardReleased</strong></a>(self, widget<font color="#909090">=None</font>)</dt></dl>
+<dl><dt><a name="MainApp-OnExport"><strong>OnExport</strong></a>(self, widget<font color="#909090">=None</font>)</dt><dd><tt>Creates&nbsp;and&nbsp;shows&nbsp;a&nbsp;save&nbsp;file&nbsp;dialog&nbsp;which&nbsp;allows&nbsp;the&nbsp;user&nbsp;to&nbsp;export<br>
+the&nbsp;project&nbsp;as&nbsp;ogg&nbsp;or&nbsp;mp3.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="MainApp-OnInstrumentConnectonsDialog"><strong>OnInstrumentConnectonsDialog</strong></a>(self, widget)</dt></dl>
+<dl><dt><a name="MainApp-OnExportCancel"><strong>OnExportCancel</strong></a>(self, widget<font color="#909090">=None</font>)</dt><dd><tt>Cancels&nbsp;a&nbsp;running&nbsp;export&nbsp;operation&nbsp;and&nbsp;destroys&nbsp;the&nbsp;export&nbsp;progress&nbsp;dialog.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget:&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="MainApp-OnKeyPress"><strong>OnKeyPress</strong></a>(self, widget, event)</dt></dl>
+<dl><dt><a name="MainApp-OnExtensionManagerDialog"><strong>OnExtensionManagerDialog</strong></a>(self, widget)</dt><dd><tt>Creates&nbsp;and&nbsp;shows&nbsp;the&nbsp;"Extension&nbsp;Manager"&nbsp;dialog.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="MainApp-OnMouseDown"><strong>OnMouseDown</strong></a>(self, widget, mouse)</dt></dl>
+<dl><dt><a name="MainApp-OnForumsMenu"><strong>OnForumsMenu</strong></a>(self, widget)</dt><dd><tt>Opens&nbsp;the&nbsp;Jokosher&nbsp;forum&nbsp;in&nbsp;the&nbsp;user's&nbsp;default&nbsp;web&nbsp;browser.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="MainApp-OnNewProject"><strong>OnNewProject</strong></a>(self, widget, destroyCallback<font color="#909090">=None</font>)</dt><dd><tt>Creates&nbsp;and&nbsp;shows&nbsp;the&nbsp;'New&nbsp;Project'&nbsp;dialog&nbsp;box</tt></dd></dl>
+<dl><dt><a name="MainApp-OnForwardPressed"><strong>OnForwardPressed</strong></a>(self, widget<font color="#909090">=None</font>)</dt><dd><tt>Starts&nbsp;moving&nbsp;forward&nbsp;within&nbsp;the&nbsp;project's&nbsp;timeline.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="MainApp-OnOpenProject"><strong>OnOpenProject</strong></a>(self, widget, destroyCallback<font color="#909090">=None</font>)</dt></dl>
+<dl><dt><a name="MainApp-OnForwardReleased"><strong>OnForwardReleased</strong></a>(self, widget<font color="#909090">=None</font>)</dt><dd><tt>Stops&nbsp;the&nbsp;current&nbsp;forward&nbsp;operation.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="MainApp-OnPaste"><strong>OnPaste</strong></a>(self, widget<font color="#909090">=None</font>)</dt></dl>
+<dl><dt><a name="MainApp-OnHelpContentsMenu"><strong>OnHelpContentsMenu</strong></a>(self, widget<font color="#909090">=None</font>)</dt><dd><tt>Calls&nbsp;the&nbsp;appropiate&nbsp;help&nbsp;tool&nbsp;with&nbsp;the&nbsp;user&nbsp;manual&nbsp;in&nbsp;the&nbsp;correct<br>
+locale.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="MainApp-OnPreReleaseNotes"><strong>OnPreReleaseNotes</strong></a>(self, widget)</dt></dl>
+<dl><dt><a name="MainApp-OnImportAudio"><strong>OnImportAudio</strong></a>(self, widget)</dt><dd><tt>Imports&nbsp;an&nbsp;audio&nbsp;file&nbsp;into&nbsp;the&nbsp;selected&nbsp;Instrument.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="MainApp-OnPreferences"><strong>OnPreferences</strong></a>(self, widget, destroyCallback<font color="#909090">=None</font>)</dt></dl>
+<dl><dt><a name="MainApp-OnInstrumentConnectionsDialog"><strong>OnInstrumentConnectionsDialog</strong></a>(self, widget)</dt><dd><tt>Creates&nbsp;and&nbsp;shows&nbsp;the&nbsp;"Instrument&nbsp;Connections&nbsp;Dialog".<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="MainApp-OnProjectMenu"><strong>OnProjectMenu</strong></a>(self, widget)</dt></dl>
+<dl><dt><a name="MainApp-OnInstrumentMenu"><strong>OnInstrumentMenu</strong></a>(self, widget)</dt><dd><tt>HACK:&nbsp;When&nbsp;the&nbsp;instrument&nbsp;menu&nbsp;opens,&nbsp;set&nbsp;sensitivity&nbsp;depending&nbsp;on<br>
+whether&nbsp;there's&nbsp;a&nbsp;selected&nbsp;instrument&nbsp;or&nbsp;not.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="MainApp-OnRecentProjectsItem"><strong>OnRecentProjectsItem</strong></a>(self, widget, path, name)</dt></dl>
+<dl><dt><a name="MainApp-OnKeyPress"><strong>OnKeyPress</strong></a>(self, widget, event)</dt><dd><tt>Handles&nbsp;the&nbsp;hotkeys,&nbsp;calling&nbsp;whichever&nbsp;function&nbsp;they&nbsp;are&nbsp;assigned&nbsp;to.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;event&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="MainApp-OnRecordingView"><strong>OnRecordingView</strong></a>(self, window<font color="#909090">=None</font>)</dt></dl>
+<dl><dt><a name="MainApp-OnMouseDown"><strong>OnMouseDown</strong></a>(self, widget, mouse)</dt><dd><tt>If&nbsp;there's&nbsp;a&nbsp;project&nbsp;open,&nbsp;clears&nbsp;event&nbsp;and&nbsp;instrument&nbsp;selections.&nbsp;It&nbsp;also<br>
+updates&nbsp;the&nbsp;current&nbsp;display.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mouse&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="MainApp-OnRedo"><strong>OnRedo</strong></a>(self, widget)</dt></dl>
+<dl><dt><a name="MainApp-OnNewProject"><strong>OnNewProject</strong></a>(self, widget, destroyCallback<font color="#909090">=None</font>)</dt><dd><tt>Creates&nbsp;and&nbsp;shows&nbsp;the&nbsp;"New&nbsp;Project"&nbsp;dialog.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;destroyCallback&nbsp;--&nbsp;function&nbsp;that'll&nbsp;get&nbsp;called&nbsp;when&nbsp;the&nbsp;new&nbsp;project<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dialog&nbsp;gets&nbsp;destroyed.</tt></dd></dl>
 
-<dl><dt><a name="MainApp-OnRewindPressed"><strong>OnRewindPressed</strong></a>(self, widget<font color="#909090">=None</font>)</dt></dl>
+<dl><dt><a name="MainApp-OnOpenProject"><strong>OnOpenProject</strong></a>(self, widget, destroyCallback<font color="#909090">=None</font>)</dt><dd><tt>Creates&nbsp;and&nbsp;shows&nbsp;a&nbsp;open&nbsp;file&nbsp;dialog&nbsp;which&nbsp;allows&nbsp;the&nbsp;user&nbsp;to&nbsp;open<br>
+an&nbsp;existing&nbsp;Jokosher&nbsp;project.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;destroyCallback&nbsp;--&nbsp;function&nbsp;that'll&nbsp;get&nbsp;called&nbsp;when&nbsp;the&nbsp;open&nbsp;file<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dialog&nbsp;gets&nbsp;destroyed.</tt></dd></dl>
 
-<dl><dt><a name="MainApp-OnRewindReleased"><strong>OnRewindReleased</strong></a>(self, widget<font color="#909090">=None</font>)</dt></dl>
+<dl><dt><a name="MainApp-OnPaste"><strong>OnPaste</strong></a>(self, widget<font color="#909090">=None</font>)</dt><dd><tt>Pastes&nbsp;the&nbsp;portion&nbsp;of&nbsp;audio&nbsp;in&nbsp;the&nbsp;clipboard&nbsp;to&nbsp;the&nbsp;selected&nbsp;instrument,<br>
+at&nbsp;the&nbsp;selected&nbsp;position&nbsp;in&nbsp;time.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="MainApp-OnSaveAsProject"><strong>OnSaveAsProject</strong></a>(self, widget<font color="#909090">=None</font>)</dt></dl>
+<dl><dt><a name="MainApp-OnPreferences"><strong>OnPreferences</strong></a>(self, widget, destroyCallback<font color="#909090">=None</font>)</dt><dd><tt>Creates&nbsp;and&nbsp;shows&nbsp;the&nbsp;"Jokosher&nbsp;Preferences"&nbsp;dialog.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;destroyCallback&nbsp;--&nbsp;function&nbsp;that'll&nbsp;get&nbsp;called&nbsp;when&nbsp;the&nbsp;preferences&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dialog&nbsp;gets&nbsp;destroyed.</tt></dd></dl>
 
-<dl><dt><a name="MainApp-OnSaveProject"><strong>OnSaveProject</strong></a>(self, widget<font color="#909090">=None</font>)</dt></dl>
+<dl><dt><a name="MainApp-OnRecentProjectsItem"><strong>OnRecentProjectsItem</strong></a>(self, widget, path, name)</dt><dd><tt>Opens&nbsp;the&nbsp;project&nbsp;selected&nbsp;from&nbsp;the&nbsp;"Recent&nbsp;Projects"&nbsp;drop-down&nbsp;menu.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;path&nbsp;--&nbsp;path&nbsp;to&nbsp;the&nbsp;project&nbsp;file.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name&nbsp;--&nbsp;name&nbsp;of&nbsp;the&nbsp;project&nbsp;being&nbsp;opened.</tt></dd></dl>
 
-<dl><dt><a name="MainApp-OnShowAddInstrumentDialog"><strong>OnShowAddInstrumentDialog</strong></a>(self, widget)</dt><dd><tt>Creates&nbsp;and&nbsp;shows&nbsp;the&nbsp;'Add&nbsp;Instrument'&nbsp;dialog&nbsp;box</tt></dd></dl>
+<dl><dt><a name="MainApp-OnRecordingView"><strong>OnRecordingView</strong></a>(self, window<font color="#909090">=None</font>)</dt><dd><tt>Updates&nbsp;the&nbsp;main&nbsp;window&nbsp;after&nbsp;switching&nbsp;to&nbsp;the&nbsp;recording&nbsp;mode.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;window&nbsp;--&nbsp;Window&nbsp;object&nbsp;calling&nbsp;this&nbsp;method.</tt></dd></dl>
 
-<dl><dt><a name="MainApp-OnShowBarsBeats"><strong>OnShowBarsBeats</strong></a>(self, widget)</dt></dl>
+<dl><dt><a name="MainApp-OnRedo"><strong>OnRedo</strong></a>(self, widget)</dt><dd><tt>Redoes&nbsp;the&nbsp;last&nbsp;undo&nbsp;operation&nbsp;and&nbsp;updates&nbsp;the&nbsp;displays.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="MainApp-OnShowHoursMins"><strong>OnShowHoursMins</strong></a>(self, widget)</dt></dl>
+<dl><dt><a name="MainApp-OnRemoveInstrument"><strong>OnRemoveInstrument</strong></a>(self, widget)</dt><dd><tt>Removes&nbsp;all&nbsp;selected&nbsp;Instruments&nbsp;from&nbsp;the&nbsp;Project.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="MainApp-OnStateChanged"><strong>OnStateChanged</strong></a>(self, obj<font color="#909090">=None</font>, change<font color="#909090">=None</font>)</dt></dl>
+<dl><dt><a name="MainApp-OnRewindPressed"><strong>OnRewindPressed</strong></a>(self, widget<font color="#909090">=None</font>)</dt><dd><tt>Starts&nbsp;moving&nbsp;backward&nbsp;within&nbsp;the&nbsp;project's&nbsp;timeline.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="MainApp-OnUndo"><strong>OnUndo</strong></a>(self, widget)</dt></dl>
+<dl><dt><a name="MainApp-OnRewindReleased"><strong>OnRewindReleased</strong></a>(self, widget<font color="#909090">=None</font>)</dt><dd><tt>Stops&nbsp;the&nbsp;current&nbsp;rewind&nbsp;operation.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="MainApp-OpenProjectFromPath"><strong>OpenProjectFromPath</strong></a>(self, path, parent<font color="#909090">=None</font>)</dt></dl>
+<dl><dt><a name="MainApp-OnSaveAsProject"><strong>OnSaveAsProject</strong></a>(self, widget<font color="#909090">=None</font>)</dt><dd><tt>Creates&nbsp;and&nbsp;shows&nbsp;a&nbsp;save&nbsp;as&nbsp;file&nbsp;dialog&nbsp;which&nbsp;allows&nbsp;the&nbsp;user&nbsp;to&nbsp;save<br>
+the&nbsp;current&nbsp;project&nbsp;to&nbsp;an&nbsp;specific&nbsp;file&nbsp;name.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="MainApp-OpenRecentProjects"><strong>OpenRecentProjects</strong></a>(self)</dt><dd><tt>Populate&nbsp;the&nbsp;self.<strong>recentprojectpaths</strong>&nbsp;with&nbsp;items&nbsp;from&nbsp;global&nbsp;settings</tt></dd></dl>
+<dl><dt><a name="MainApp-OnSaveProject"><strong>OnSaveProject</strong></a>(self, widget<font color="#909090">=None</font>)</dt><dd><tt>Saves&nbsp;the&nbsp;current&nbsp;project&nbsp;file.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="MainApp-Play"><strong>Play</strong></a>(self, widget<font color="#909090">=None</font>)</dt><dd><tt>Toggle&nbsp;playing</tt></dd></dl>
+<dl><dt><a name="MainApp-OnShowAddInstrumentDialog"><strong>OnShowAddInstrumentDialog</strong></a>(self, widget)</dt><dd><tt>Creates&nbsp;and&nbsp;shows&nbsp;the&nbsp;"Add&nbsp;Instrument"&nbsp;dialog&nbsp;box.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="MainApp-PopulateRecentProjects"><strong>PopulateRecentProjects</strong></a>(self)</dt><dd><tt>Populate&nbsp;the&nbsp;Recent&nbsp;Projects&nbsp;menu&nbsp;with&nbsp;items&nbsp;from&nbsp;self.<strong>recentprojectitems</strong></tt></dd></dl>
+<dl><dt><a name="MainApp-OnShowBarsBeats"><strong>OnShowBarsBeats</strong></a>(self, widget)</dt><dd><tt>Sets&nbsp;and&nbsp;updates&nbsp;the&nbsp;current&nbsp;timeline&nbsp;view&nbsp;to&nbsp;Bars,&nbsp;Beats&nbsp;and&nbsp;Ticks.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="MainApp-Record"><strong>Record</strong></a>(self, widget<font color="#909090">=None</font>)</dt><dd><tt>Toggle&nbsp;recording</tt></dd></dl>
+<dl><dt><a name="MainApp-OnShowHoursMins"><strong>OnShowHoursMins</strong></a>(self, widget)</dt><dd><tt>Sets&nbsp;and&nbsp;updates&nbsp;the&nbsp;current&nbsp;timeline&nbsp;view&nbsp;to&nbsp;Hours,&nbsp;Minutes&nbsp;and&nbsp;Seconds.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="MainApp-SaveRecentProjects"><strong>SaveRecentProjects</strong></a>(self)</dt></dl>
+<dl><dt><a name="MainApp-OnStateChanged"><strong>OnStateChanged</strong></a>(self, obj<font color="#909090">=None</font>, change<font color="#909090">=None</font>, *extra)</dt><dd><tt>Updates&nbsp;internal&nbsp;flags,&nbsp;views&nbsp;and&nbsp;the&nbsp;user&nbsp;interface&nbsp;to&nbsp;reflect&nbsp;a&nbsp;given<br>
+change&nbsp;in&nbsp;the&nbsp;project.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;obj&nbsp;--&nbsp;object&nbsp;calling&nbsp;the&nbsp;method.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;change&nbsp;--&nbsp;string&nbsp;indicating&nbsp;the&nbsp;change&nbsp;which&nbsp;fired&nbsp;this&nbsp;function:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gst-bus-error&nbsp;=&nbsp;a&nbsp;serious&nbsp;core&nbsp;engine&nbsp;error&nbsp;occurred.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;play&nbsp;=&nbsp;playback&nbsp;started.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pause&nbsp;=&nbsp;playback&nbsp;paused.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;record&nbsp;=&nbsp;recording&nbsp;started.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;stop&nbsp;=&nbsp;playback&nbsp;or&nbsp;recording&nbsp;was&nbsp;stopped.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;transport-mode&nbsp;=&nbsp;the&nbsp;transport&nbsp;mode&nbsp;display&nbsp;was&nbsp;changed.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;undo&nbsp;=&nbsp;an&nbsp;undo&nbsp;operation&nbsp;was&nbsp;performed.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*extra&nbsp;--&nbsp;parameters&nbsp;of&nbsp;additional&nbsp;information&nbsp;depending&nbsp;on&nbsp;the&nbsp;change&nbsp;parameter.</tt></dd></dl>
 
-<dl><dt><a name="MainApp-SetGUIProjectLoaded"><strong>SetGUIProjectLoaded</strong></a>(self)</dt></dl>
+<dl><dt><a name="MainApp-OnUndo"><strong>OnUndo</strong></a>(self, widget)</dt><dd><tt>Undoes&nbsp;the&nbsp;last&nbsp;change&nbsp;made&nbsp;to&nbsp;the&nbsp;project&nbsp;and&nbsp;updates&nbsp;the&nbsp;displays.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="MainApp-SetProject"><strong>SetProject</strong></a>(self, project)</dt></dl>
+<dl><dt><a name="MainApp-OpenProjectFromPath"><strong>OpenProjectFromPath</strong></a>(self, path, parent<font color="#909090">=None</font>)</dt><dd><tt>Opens&nbsp;the&nbsp;project&nbsp;file&nbsp;referred&nbsp;by&nbsp;the&nbsp;path&nbsp;parameter.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;path&nbsp;--&nbsp;path&nbsp;to&nbsp;the&nbsp;project&nbsp;to&nbsp;be&nbsp;opened.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parent&nbsp;--&nbsp;parent&nbsp;window&nbsp;of&nbsp;the&nbsp;error&nbsp;message&nbsp;dialog.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;status&nbsp;of&nbsp;the&nbsp;loading&nbsp;operation:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;True&nbsp;=&nbsp;the&nbsp;project&nbsp;could&nbsp;be&nbsp;successfully&nbsp;opened&nbsp;and&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set&nbsp;as&nbsp;the&nbsp;current&nbsp;project.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;False&nbsp;=&nbsp;loading&nbsp;the&nbsp;project&nbsp;failed.&nbsp;A&nbsp;dialog&nbsp;will&nbsp;be<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;displayed&nbsp;to&nbsp;user&nbsp;detailing&nbsp;the&nbsp;error.</tt></dd></dl>
 
-<dl><dt><a name="MainApp-SetStatusBar"><strong>SetStatusBar</strong></a>(self, message)</dt></dl>
+<dl><dt><a name="MainApp-OpenRecentProjects"><strong>OpenRecentProjects</strong></a>(self)</dt><dd><tt>Populate&nbsp;the&nbsp;self.<strong>recentprojectpaths</strong>&nbsp;with&nbsp;items&nbsp;from&nbsp;global&nbsp;settings.</tt></dd></dl>
 
-<dl><dt><a name="MainApp-ShowOpenProjectErrorDialog"><strong>ShowOpenProjectErrorDialog</strong></a>(self, error, parent<font color="#909090">=None</font>)</dt></dl>
+<dl><dt><a name="MainApp-Play"><strong>Play</strong></a>(self, widget<font color="#909090">=None</font>)</dt><dd><tt>Toggles&nbsp;playback.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="MainApp-Stop"><strong>Stop</strong></a>(self, widget<font color="#909090">=None</font>)</dt><dd><tt>Stop&nbsp;recording/playing&nbsp;(whichever&nbsp;is&nbsp;happening)</tt></dd></dl>
+<dl><dt><a name="MainApp-PopulateRecentProjects"><strong>PopulateRecentProjects</strong></a>(self)</dt><dd><tt>Populates&nbsp;the&nbsp;Recent&nbsp;Projects&nbsp;menu&nbsp;with&nbsp;items&nbsp;from&nbsp;self.<strong>recentprojectitems</strong>.</tt></dd></dl>
 
-<dl><dt><a name="MainApp-UpdateCurrentDisplay"><strong>UpdateCurrentDisplay</strong></a>(self)</dt></dl>
+<dl><dt><a name="MainApp-Record"><strong>Record</strong></a>(self, widget<font color="#909090">=None</font>)</dt><dd><tt>Toggles&nbsp;recording.&nbsp;If&nbsp;there's&nbsp;an&nbsp;error,&nbsp;a&nbsp;warning/error&nbsp;message&nbsp;is&nbsp;<br>
+issued&nbsp;to&nbsp;the&nbsp;user.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="MainApp-UpdateDisplay"><strong>UpdateDisplay</strong></a>(self)</dt></dl>
+<dl><dt><a name="MainApp-SaveRecentProjects"><strong>SaveRecentProjects</strong></a>(self)</dt><dd><tt>Saves&nbsp;the&nbsp;list&nbsp;of&nbsp;the&nbsp;last&nbsp;8&nbsp;recent&nbsp;projects&nbsp;to&nbsp;the&nbsp;Jokosher&nbsp;config&nbsp;file.</tt></dd></dl>
 
-<dl><dt><a name="MainApp-UpdateExportDialog"><strong>UpdateExportDialog</strong></a>(self)</dt></dl>
+<dl><dt><a name="MainApp-SetGUIProjectLoaded"><strong>SetGUIProjectLoaded</strong></a>(self)</dt><dd><tt>Refreshes&nbsp;the&nbsp;main&nbsp;window&nbsp;and&nbsp;it's&nbsp;components&nbsp;when&nbsp;a&nbsp;project&nbsp;is&nbsp;opened&nbsp;or&nbsp;closed.<br>
+For&nbsp;example,&nbsp;buttons&nbsp;are&nbsp;enabled/disabled&nbsp;whether&nbsp;there's&nbsp;a&nbsp;project&nbsp;currently&nbsp;open&nbsp;or&nbsp;not.</tt></dd></dl>
 
-<dl><dt><a name="MainApp-__init__"><strong>__init__</strong></a>(self)</dt></dl>
+<dl><dt><a name="MainApp-SetProject"><strong>SetProject</strong></a>(self, project)</dt><dd><tt>Tries&nbsp;to&nbsp;establish&nbsp;the&nbsp;Project&nbsp;parameter&nbsp;as&nbsp;the&nbsp;current&nbsp;project.<br>
+If&nbsp;there&nbsp;are&nbsp;errors,&nbsp;an&nbsp;error&nbsp;message&nbsp;is&nbsp;issued&nbsp;to&nbsp;the&nbsp;user.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;project&nbsp;--&nbsp;the&nbsp;Project&nbsp;object&nbsp;to&nbsp;set&nbsp;as&nbsp;the&nbsp;main&nbsp;project.</tt></dd></dl>
+
+<dl><dt><a name="MainApp-SetStatusBar"><strong>SetStatusBar</strong></a>(self, message)</dt><dd><tt>Appends&nbsp;the&nbsp;message&nbsp;parameter&nbsp;to&nbsp;the&nbsp;status&nbsp;bar&nbsp;text.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message&nbsp;--&nbsp;string&nbsp;to&nbsp;append&nbsp;to&nbsp;the&nbsp;status&nbsp;bar&nbsp;text.</tt></dd></dl>
+
+<dl><dt><a name="MainApp-ShowOpenProjectErrorDialog"><strong>ShowOpenProjectErrorDialog</strong></a>(self, error, parent<font color="#909090">=None</font>)</dt><dd><tt>Creates&nbsp;and&nbsp;shows&nbsp;a&nbsp;dialog&nbsp;to&nbsp;inform&nbsp;the&nbsp;user&nbsp;about&nbsp;an&nbsp;error&nbsp;that&nbsp;has&nbsp;ocurred.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;error&nbsp;--&nbsp;string&nbsp;with&nbsp;the&nbsp;error(s)&nbsp;description.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parent&nbsp;--&nbsp;parent&nbsp;window&nbsp;of&nbsp;the&nbsp;error&nbsp;message&nbsp;dialog.</tt></dd></dl>
+
+<dl><dt><a name="MainApp-Stop"><strong>Stop</strong></a>(self, widget<font color="#909090">=None</font>)</dt><dd><tt>Stops&nbsp;the&nbsp;current&nbsp;record/playback&nbsp;(whichever&nbsp;is&nbsp;happening)&nbsp;operation.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
+
+<dl><dt><a name="MainApp-UpdateCurrentDisplay"><strong>UpdateCurrentDisplay</strong></a>(self)</dt><dd><tt>Updates&nbsp;the&nbsp;current&nbsp;display,&nbsp;Recording&nbsp;or&nbsp;Mixing,&nbsp;depending&nbsp;on&nbsp;which&nbsp;one<br>
+is&nbsp;active.</tt></dd></dl>
+
+<dl><dt><a name="MainApp-UpdateDisplay"><strong>UpdateDisplay</strong></a>(self)</dt><dd><tt>Updates&nbsp;the&nbsp;current&nbsp;display,&nbsp;Recording&nbsp;or&nbsp;Mixing,&nbsp;depending&nbsp;on&nbsp;which&nbsp;one<br>
+is&nbsp;active.&nbsp;Additionally,&nbsp;when&nbsp;idle,&nbsp;it'll&nbsp;update&nbsp;the&nbsp;view&nbsp;hidden&nbsp;in&nbsp;the<br>
+background.</tt></dd></dl>
+
+<dl><dt><a name="MainApp-UpdateExportDialog"><strong>UpdateExportDialog</strong></a>(self)</dt><dd><tt>Updates&nbsp;the&nbsp;progress&nbsp;bar&nbsp;corresponding&nbsp;to&nbsp;the&nbsp;current&nbsp;export&nbsp;operation.</tt></dd></dl>
+
+<dl><dt><a name="MainApp-__init__"><strong>__init__</strong></a>(self, openproject<font color="#909090">=None</font>, loadExtensions<font color="#909090">=True</font>, startuptype<font color="#909090">=None</font>)</dt><dd><tt>Creates&nbsp;a&nbsp;new&nbsp;instance&nbsp;of&nbsp;<a href="#MainApp">MainApp</a>.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;openproject&nbsp;--&nbsp;filename&nbsp;of&nbsp;the&nbsp;project&nbsp;to&nbsp;open&nbsp;at&nbsp;startup.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;loadExtensions&nbsp;--&nbsp;whether&nbsp;the&nbsp;extensions&nbsp;should&nbsp;be&nbsp;loaded.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;startuptype&nbsp;--&nbsp;determines&nbsp;the&nbsp;startup&nbsp;state&nbsp;of&nbsp;Jokosher:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;=&nbsp;Open&nbsp;the&nbsp;project&nbsp;referred&nbsp;by&nbsp;the&nbsp;openproject&nbsp;parameter.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;=&nbsp;Do&nbsp;not&nbsp;display&nbsp;the&nbsp;welcome&nbsp;dialog&nbsp;or&nbsp;open&nbsp;a&nbsp;the&nbsp;previous&nbsp;project.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;=&nbsp;Display&nbsp;the&nbsp;welcome&nbsp;dialog.</tt></dd></dl>
 
 <hr>
 Data and other attributes defined here:<br>
@@ -180,11 +432,11 @@ Data and other attributes defined here:<br>
 
 </td></tr></table></td></tr></table><p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
-<tr bgcolor="#eeaa77">
+<tr bgcolor="#c17d11">
 <td colspan=3 valign=bottom>&nbsp;<br>
 <font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
     
-<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
-<td width="100%"><dl><dt><a name="-main"><strong>main</strong></a>()</dt></dl>
+<tr><td bgcolor="#c17d11"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-main"><strong>main</strong></a>()</dt><dd><tt>Main&nbsp;entry&nbsp;point&nbsp;for&nbsp;Jokosher.</tt></dd></dl>
 </td></tr></table>
 </body></html>

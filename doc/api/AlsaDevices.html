@@ -1,45 +1,84 @@
 
 <!doctype html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html><head><title>Python: module AlsaDevices</title>
-</head><body bgcolor="#f0f0f8">
+</head><body bgcolor="#ffffff">
 
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
-<tr bgcolor="#7799ee">
+<tr bgcolor="#fcbb58">
 <td valign=bottom>&nbsp;<br>
 <font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>AlsaDevices</strong></big></big></font></td
 ><td align=right valign=bottom
-><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/mike/src/jokosher/trunk/Jokosher/AlsaDevices.py">/home/mike/src/jokosher/trunk/Jokosher/AlsaDevices.py</a></font></td></tr></table>
-    <p><tt>#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THIS&nbsp;FILE&nbsp;IS&nbsp;PART&nbsp;OF&nbsp;THE&nbsp;JOKOSHER&nbsp;PROJECT&nbsp;AND&nbsp;LICENSED&nbsp;UNDER&nbsp;THE&nbsp;GPL.&nbsp;SEE<br>
-#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THE&nbsp;'COPYING'&nbsp;FILE&nbsp;FOR&nbsp;DETAILS<br>
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/david/Projects/Jokosher/trunk/Jokosher/AlsaDevices.py">/home/david/Projects/Jokosher/trunk/Jokosher/AlsaDevices.py</a></font></td></tr></table>
+    <p><tt>#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THIS&nbsp;FILE&nbsp;IS&nbsp;PART&nbsp;OF&nbsp;THE&nbsp;JOKOSHER&nbsp;PROJECT&nbsp;AND&nbsp;LICENSED&nbsp;UNDER&nbsp;THE&nbsp;GPL.&nbsp;SEE<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THE&nbsp;'COPYING'&nbsp;FILE&nbsp;FOR&nbsp;DETAILS<br>
 #<br>
-#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AlsaDevices.py<br>
-#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
-#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;file&nbsp;offers&nbsp;ALSA&nbsp;specific&nbsp;helper&nbsp;functions.<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AlsaDevices.py<br>
+#<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;file&nbsp;offers&nbsp;ALSA&nbsp;specific&nbsp;helper&nbsp;functions.<br>
 #<br>
 #-------------------------------------------------------------------------------</tt></p>
 <p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
-<tr bgcolor="#aa55cc">
+<tr bgcolor="#4e9a06">
 <td colspan=3 valign=bottom>&nbsp;<br>
 <font color="#fffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
     
-<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
-<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="dbus.html">dbus</a><br>
+<tr><td bgcolor="#4e9a06"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="Globals.html">Globals</a><br>
+</td><td width="25%" valign=top><a href="dbus.html">dbus</a><br>
 </td><td width="25%" valign=top><a href="gst.html">gst</a><br>
-</td><td width="25%" valign=top></td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
-<tr bgcolor="#eeaa77">
+<tr bgcolor="#c17d11">
 <td colspan=3 valign=bottom>&nbsp;<br>
 <font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
     
-<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
-<td width="100%"><dl><dt><a name="-GetAlsaList"><strong>GetAlsaList</strong></a>(type)</dt><dd><tt>Returns&nbsp;a&nbsp;dictionary&nbsp;containing&nbsp;ALSA&nbsp;device&nbsp;names&nbsp;and&nbsp;their&nbsp;correspoding&nbsp;ALSA&nbsp;ids&nbsp;(e.g.&nbsp;hw:0).<br>
+<tr><td bgcolor="#c17d11"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-GetAlsaList"><strong>GetAlsaList</strong></a>(type)</dt><dd><tt>Returns&nbsp;a&nbsp;dictionary&nbsp;containing&nbsp;ALSA&nbsp;device&nbsp;names&nbsp;and&nbsp;their&nbsp;<br>
+correspoding&nbsp;ALSA&nbsp;id's&nbsp;(i.e.&nbsp;hw:0).<br>
 &nbsp;<br>
-Keyword&nbsp;arguments:<br>
-type&nbsp;--&nbsp;specifies&nbsp;the&nbsp;type&nbsp;of&nbsp;ALSA&nbsp;device&nbsp;we&nbsp;are&nbsp;looking&nbsp;for,&nbsp;playback&nbsp;or&nbsp;capture.</tt></dd></dl>
- <dl><dt><a name="-GetRecordingMixers"><strong>GetRecordingMixers</strong></a>(device)</dt><dd><tt>Returns&nbsp;a&nbsp;list&nbsp;containing&nbsp;all&nbsp;the&nbsp;channels&nbsp;which&nbsp;have&nbsp;recording&nbsp;switched&nbsp;on.<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type&nbsp;--&nbsp;string&nbsp;specifying&nbsp;the&nbsp;type&nbsp;of&nbsp;ALSA&nbsp;device&nbsp;needed:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"playback"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"capture"<br>
 &nbsp;<br>
-Keyword&nbsp;arguments:<br>
-device&nbsp;--&nbsp;specifies&nbsp;which&nbsp;ALSA&nbsp;device&nbsp;(e.g.&nbsp;hw:0)&nbsp;to&nbsp;return&nbsp;values&nbsp;for.</tt></dd></dl>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;list&nbsp;containing&nbsp;all&nbsp;the&nbsp;matching&nbsp;devices&nbsp;found.</tt></dd></dl>
+ <dl><dt><a name="-GetChannelsOffered"><strong>GetChannelsOffered</strong></a>(device)</dt><dd><tt>Checks&nbsp;for&nbsp;the&nbsp;number&nbsp;of&nbsp;available&nbsp;channels&nbsp;on&nbsp;a&nbsp;device.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;device&nbsp;--&nbsp;ALSA&nbsp;device&nbsp;(e.g.&nbsp;hw:0)&nbsp;to&nbsp;poll&nbsp;for&nbsp;available&nbsp;channels.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;number&nbsp;of&nbsp;channels&nbsp;available&nbsp;on&nbsp;a&nbsp;device.</tt></dd></dl>
+ <dl><dt><a name="-GetGstElementSampleRate"><strong>GetGstElementSampleRate</strong></a>(elementName, padName, **properties)</dt><dd><tt>Checks&nbsp;for&nbsp;available&nbsp;sample&nbsp;rates&nbsp;for&nbsp;the&nbsp;given&nbsp;GStreamer&nbsp;element.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;elementName&nbsp;--&nbsp;the&nbsp;name&nbsp;of&nbsp;the&nbsp;gstreamer&nbsp;element&nbsp;(ie&nbsp;"alsasrc").<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;padName&nbsp;--&nbsp;the&nbsp;name&nbsp;of&nbsp;the&nbsp;pad&nbsp;to&nbsp;query&nbsp;("src"&nbsp;or&nbsp;"sink").<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;properties&nbsp;--&nbsp;and&nbsp;properties&nbsp;to&nbsp;set&nbsp;on&nbsp;the&nbsp;element.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;any&nbsp;of&nbsp;the&nbsp;following&nbsp;depending&nbsp;on&nbsp;the&nbsp;gstreamer&nbsp;element:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1)&nbsp;an&nbsp;int&nbsp;representing&nbsp;the&nbsp;only&nbsp;supported&nbsp;sample&nbsp;rate.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2)&nbsp;an&nbsp;IntRange&nbsp;class&nbsp;with&nbsp;IntRange.low&nbsp;and&nbsp;IntRange.high&nbsp;being&nbsp;the&nbsp;min&nbsp;and&nbsp;max&nbsp;sample&nbsp;rates.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3)&nbsp;a&nbsp;list&nbsp;of&nbsp;ints&nbsp;representing&nbsp;all&nbsp;the&nbsp;supported&nbsp;sample&nbsp;rates.</tt></dd></dl>
+ <dl><dt><a name="-GetRecordingMixers"><strong>GetRecordingMixers</strong></a>(device)</dt><dd><tt>Looks&nbsp;for&nbsp;channels&nbsp;enabled&nbsp;for&nbsp;recording.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;device&nbsp;--&nbsp;ALSA&nbsp;device&nbsp;(i.e.&nbsp;hw:0)&nbsp;to&nbsp;poll&nbsp;for&nbsp;values.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;list&nbsp;containing&nbsp;all&nbsp;the&nbsp;channels&nbsp;which&nbsp;have&nbsp;recording&nbsp;enabled.</tt></dd></dl>
+ <dl><dt><a name="-GetRecordingSampleRate"><strong>GetRecordingSampleRate</strong></a>(device<font color="#909090">='hw:0'</font>)</dt><dd><tt>Checks&nbsp;for&nbsp;available&nbsp;recording&nbsp;sample&nbsp;rates.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;device&nbsp;--&nbsp;ALSA&nbsp;device&nbsp;to&nbsp;poll&nbsp;for&nbsp;values.&nbsp;"hw:0"&nbsp;by&nbsp;default.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;any&nbsp;of&nbsp;the&nbsp;following&nbsp;depending&nbsp;on&nbsp;the&nbsp;sound&nbsp;card:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1)&nbsp;an&nbsp;int&nbsp;representing&nbsp;the&nbsp;only&nbsp;supported&nbsp;sample&nbsp;rate.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2)&nbsp;an&nbsp;IntRange&nbsp;class&nbsp;with&nbsp;IntRange.low&nbsp;and&nbsp;IntRange.high&nbsp;being&nbsp;the&nbsp;min&nbsp;and&nbsp;max&nbsp;sample&nbsp;rates.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3)&nbsp;a&nbsp;list&nbsp;of&nbsp;ints&nbsp;representing&nbsp;all&nbsp;the&nbsp;supported&nbsp;sample&nbsp;rates.</tt></dd></dl>
 </td></tr></table>
 </body></html>

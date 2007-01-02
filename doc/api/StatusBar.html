@@ -1,30 +1,38 @@
 
 <!doctype html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html><head><title>Python: module StatusBar</title>
-</head><body bgcolor="#f0f0f8">
+</head><body bgcolor="#ffffff">
 
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
-<tr bgcolor="#7799ee">
+<tr bgcolor="#fcbb58">
 <td valign=bottom>&nbsp;<br>
 <font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>StatusBar</strong></big></big></font></td
 ><td align=right valign=bottom
-><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/mike/src/jokosher/trunk/Jokosher/StatusBar.py">/home/mike/src/jokosher/trunk/Jokosher/StatusBar.py</a></font></td></tr></table>
-    <p></p>
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/david/Projects/Jokosher/trunk/Jokosher/StatusBar.py">/home/david/Projects/Jokosher/trunk/Jokosher/StatusBar.py</a></font></td></tr></table>
+    <p><tt>#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THIS&nbsp;FILE&nbsp;IS&nbsp;PART&nbsp;OF&nbsp;THE&nbsp;JOKOSHER&nbsp;PROJECT&nbsp;AND&nbsp;LICENSED&nbsp;UNDER&nbsp;THE&nbsp;GPL.&nbsp;SEE<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THE&nbsp;'COPYING'&nbsp;FILE&nbsp;FOR&nbsp;DETAILS<br>
+#<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#StatusBar">StatusBar</a>.py<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;module&nbsp;is&nbsp;a&nbsp;better&nbsp;status&nbsp;bar&nbsp;than&nbsp;the&nbsp;one&nbsp;included<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;with&nbsp;gtk&nbsp;because&nbsp;it&nbsp;allows&nbsp;pango&nbsp;markup&nbsp;(bold,&nbsp;etc.).<br>
+#<br>
+#-------------------------------------------------------------------------------</tt></p>
 <p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
-<tr bgcolor="#aa55cc">
+<tr bgcolor="#4e9a06">
 <td colspan=3 valign=bottom>&nbsp;<br>
 <font color="#fffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
     
-<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<tr><td bgcolor="#4e9a06"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
 <td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="gtk.html">gtk</a><br>
 </td><td width="25%" valign=top></td><td width="25%" valign=top></td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
-<tr bgcolor="#ee77aa">
+<tr bgcolor="#3465a4">
 <td colspan=3 valign=bottom>&nbsp;<br>
 <font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
     
-<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<tr><td bgcolor="#3465a4"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
 <td width="100%"><dl>
 <dt><font face="helvetica, arial">gobject.HBox(gobject.Box)
 </font></dt><dd>
@@ -35,12 +43,12 @@
 </dl>
  <p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
-<tr bgcolor="#ffc8d8">
+<tr bgcolor="#729fcf">
 <td colspan=3 valign=bottom>&nbsp;<br>
 <font color="#000000" face="helvetica, arial"><a name="StatusBar">class <strong>StatusBar</strong></a>(gobject.HBox)</font></td></tr>
     
-<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
-<td colspan=2><tt>This&nbsp;class&nbsp;implements&nbsp;the&nbsp;status&nbsp;bar<br>&nbsp;</tt></td></tr>
+<tr bgcolor="#729fcf"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Implements&nbsp;an&nbsp;improved&nbsp;status&nbsp;bar&nbsp;which&nbsp;allows&nbsp;pango&nbsp;markup&nbsp;styles&nbsp;(bold,&nbsp;italics,&nbsp;etc).<br>&nbsp;</tt></td></tr>
 <tr><td>&nbsp;</td>
 <td width="100%"><dl><dt>Method resolution order:</dt>
 <dd><a href="StatusBar.html#StatusBar">StatusBar</a></dd>
@@ -56,17 +64,26 @@
 </dl>
 <hr>
 Methods defined here:<br>
-<dl><dt><a name="StatusBar-DisplayTopOfStack"><strong>DisplayTopOfStack</strong></a>(self)</dt></dl>
+<dl><dt><a name="StatusBar-DisplayTopOfStack"><strong>DisplayTopOfStack</strong></a>(self)</dt><dd><tt>Updates&nbsp;the&nbsp;<a href="#StatusBar">StatusBar</a>&nbsp;display&nbsp;when&nbsp;a&nbsp;message&nbsp;is&nbsp;added&nbsp;or&nbsp;removed.</tt></dd></dl>
 
-<dl><dt><a name="StatusBar-Push"><strong>Push</strong></a>(self, message)</dt></dl>
+<dl><dt><a name="StatusBar-Push"><strong>Push</strong></a>(self, message)</dt><dd><tt>Insert&nbsp;a&nbsp;new&nbsp;message&nbsp;into&nbsp;the&nbsp;messages&nbsp;stack.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message&nbsp;--&nbsp;string&nbsp;containing&nbsp;the&nbsp;new&nbsp;message&nbsp;to&nbsp;be&nbsp;added&nbsp;to&nbsp;the&nbsp;<a href="#StatusBar">StatusBar</a>.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Return:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;value&nbsp;of&nbsp;the&nbsp;next&nbsp;valid&nbsp;message&nbsp;ID.</tt></dd></dl>
 
-<dl><dt><a name="StatusBar-Remove"><strong>Remove</strong></a>(self, message_id)</dt></dl>
+<dl><dt><a name="StatusBar-Remove"><strong>Remove</strong></a>(self, message_id)</dt><dd><tt>Removes&nbsp;a&nbsp;new&nbsp;message&nbsp;from&nbsp;the&nbsp;messages&nbsp;stack.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message_id&nbsp;--&nbsp;numerical&nbsp;id&nbsp;of&nbsp;the&nbsp;message&nbsp;to&nbsp;be&nbsp;removed&nbsp;from&nbsp;the&nbsp;<a href="#StatusBar">StatusBar</a>.</tt></dd></dl>
 
-<dl><dt><a name="StatusBar-__init__"><strong>__init__</strong></a>(self)</dt></dl>
+<dl><dt><a name="StatusBar-__init__"><strong>__init__</strong></a>(self)</dt><dd><tt>Creates&nbsp;a&nbsp;new&nbsp;instance&nbsp;of&nbsp;<a href="#StatusBar">StatusBar</a>&nbsp;with&nbsp;no&nbsp;messages&nbsp;shown.</tt></dd></dl>
 
 <hr>
 Data and other attributes inherited from gobject.HBox:<br>
-<dl><dt><strong>__gtype__</strong> = &lt;GType GtkHBox (135894808)&gt;</dl>
+<dl><dt><strong>__gtype__</strong> = &lt;GType GtkHBox (136341304)&gt;</dl>
 
 <hr>
 Methods inherited from gobject.Box:<br>
@@ -712,7 +729,7 @@ Methods inherited from <a href="gobject.html#GObject">gobject.GObject</a>:<br>
 Data and other attributes inherited from <a href="gobject.html#GObject">gobject.GObject</a>:<br>
 <dl><dt><strong>__dict__</strong> = &lt;dictproxy object&gt;</dl>
 
-<dl><dt><strong>__gdoc__</strong> = 'Object GtkHBox<font color="#c040c0">\n\n</font> This class implements the statu...ointer<font color="#c040c0">\n\n</font>Signals from GObject:<font color="#c040c0">\n</font>  notify (GParam)<font color="#c040c0">\n\n</font>'</dl>
+<dl><dt><strong>__gdoc__</strong> = 'Object GtkHBox<font color="#c040c0">\n\n\n\t</font>Implements an improved status ...ointer<font color="#c040c0">\n\n</font>Signals from GObject:<font color="#c040c0">\n</font>  notify (GParam)<font color="#c040c0">\n\n</font>'</dl>
 
 <dl><dt><strong>__grefcount__</strong> = &lt;attribute '__grefcount__' of 'gobject.GObject' objects&gt;</dl>
 

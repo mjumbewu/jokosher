@@ -1,33 +1,38 @@
 
 <!doctype html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html><head><title>Python: module TimeLine</title>
-</head><body bgcolor="#f0f0f8">
+</head><body bgcolor="#ffffff">
 
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
-<tr bgcolor="#7799ee">
+<tr bgcolor="#fcbb58">
 <td valign=bottom>&nbsp;<br>
 <font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>TimeLine</strong></big></big></font></td
 ><td align=right valign=bottom
-><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/mike/src/jokosher/trunk/Jokosher/TimeLine.py">/home/mike/src/jokosher/trunk/Jokosher/TimeLine.py</a></font></td></tr></table>
-    <p></p>
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/david/Projects/Jokosher/trunk/Jokosher/TimeLine.py">/home/david/Projects/Jokosher/trunk/Jokosher/TimeLine.py</a></font></td></tr></table>
+    <p><tt>#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THIS&nbsp;FILE&nbsp;IS&nbsp;PART&nbsp;OF&nbsp;THE&nbsp;JOKOSHER&nbsp;PROJECT&nbsp;AND&nbsp;LICENSED&nbsp;UNDER&nbsp;THE&nbsp;GPL.&nbsp;SEE<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THE&nbsp;'COPYING'&nbsp;FILE&nbsp;FOR&nbsp;DETAILS<br>
+#<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#TimeLine">TimeLine</a>.py<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;class&nbsp;handles&nbsp;the&nbsp;drawing&nbsp;of&nbsp;the&nbsp;timeline&nbsp;display.<br>
+#<br>
+#-------------------------------------------------------------------------------</tt></p>
 <p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
-<tr bgcolor="#aa55cc">
+<tr bgcolor="#4e9a06">
 <td colspan=3 valign=bottom>&nbsp;<br>
 <font color="#fffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
     
-<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
-<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="gobject.html">gobject</a><br>
-</td><td width="25%" valign=top><a href="gst.html">gst</a><br>
-</td><td width="25%" valign=top><a href="gtk.html">gtk</a><br>
+<tr><td bgcolor="#4e9a06"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="gtk.html">gtk</a><br>
 </td><td width="25%" valign=top><a href="pango.html">pango</a><br>
-</td></tr></table></td></tr></table><p>
+</td><td width="25%" valign=top></td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
-<tr bgcolor="#ee77aa">
+<tr bgcolor="#3465a4">
 <td colspan=3 valign=bottom>&nbsp;<br>
 <font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
     
-<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<tr><td bgcolor="#3465a4"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
 <td width="100%"><dl>
 <dt><font face="helvetica, arial">gobject.DrawingArea(gobject.Widget)
 </font></dt><dd>
@@ -38,21 +43,21 @@
 </dl>
  <p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
-<tr bgcolor="#ffc8d8">
+<tr bgcolor="#729fcf">
 <td colspan=3 valign=bottom>&nbsp;<br>
 <font color="#000000" face="helvetica, arial"><a name="TimeLine">class <strong>TimeLine</strong></a>(gobject.DrawingArea)</font></td></tr>
     
-<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<tr bgcolor="#729fcf"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
 <td colspan=2><tt>This&nbsp;class&nbsp;handles&nbsp;drawing&nbsp;the&nbsp;time&nbsp;line&nbsp;display.&nbsp;The&nbsp;time&nbsp;line&nbsp;is&nbsp;part&nbsp;of&nbsp;the<br>
 TimeLineBar.&nbsp;<a href="#TimeLine">TimeLine</a>&nbsp;displays&nbsp;the&nbsp;time&nbsp;in&nbsp;minutes/seconds&nbsp;(MODE_HOURS_MINS_SECS)<br>
 or&nbsp;bars&nbsp;and&nbsp;beats&nbsp;(MODE_BARS_BEATS).&nbsp;These&nbsp;modes&nbsp;are&nbsp;set&nbsp;in&nbsp;project.transport.<br>
-&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
 To&nbsp;improve&nbsp;performance,&nbsp;the&nbsp;line&nbsp;isn't&nbsp;being&nbsp;constructed&nbsp;on&nbsp;each&nbsp;call&nbsp;of&nbsp;OnDraw.&nbsp;It<br>
 is&nbsp;saved&nbsp;into&nbsp;self.<strong>savedLine</strong>&nbsp;as&nbsp;a&nbsp;gtk.gdk.Image.&nbsp;A&nbsp;new&nbsp;savedLine&nbsp;is&nbsp;constructed&nbsp;when<br>
--&nbsp;there&nbsp;is&nbsp;no&nbsp;savedLine<br>
--&nbsp;or&nbsp;project.transport.RedrawTimeLine&nbsp;is&nbsp;True<br>
--&nbsp;or&nbsp;project.RedrawTimeLine&nbsp;is&nbsp;True<br>
-&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;there&nbsp;is&nbsp;no&nbsp;savedLine<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;or&nbsp;project.transport.RedrawTimeLine&nbsp;is&nbsp;True<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;or&nbsp;project.RedrawTimeLine&nbsp;is&nbsp;True<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
 When&nbsp;the&nbsp;time&nbsp;line&nbsp;is&nbsp;constructed&nbsp;in&nbsp;MODE_HOURS_MINS_SECS,&nbsp;it&nbsp;dynamically&nbsp;adjusts<br>
 its&nbsp;scale&nbsp;to&nbsp;the&nbsp;project.viewScale.&nbsp;MODE_BARS_BEATS&nbsp;does&nbsp;not&nbsp;support&nbsp;this&nbsp;(yet).<br>&nbsp;</tt></td></tr>
 <tr><td>&nbsp;</td>
@@ -68,52 +73,95 @@ its&nbsp;scale&nbsp;to&nbsp;the&nbsp;project.viewScale.&nbsp;MODE_BARS_BEATS&nbs
 </dl>
 <hr>
 Methods defined here:<br>
-<dl><dt><a name="TimeLine-DrawLine"><strong>DrawLine</strong></a>(self, widget)</dt><dd><tt>&nbsp;&nbsp;&nbsp;&nbsp;Draws&nbsp;the&nbsp;timeline&nbsp;and&nbsp;saves&nbsp;it&nbsp;to&nbsp;memory<br>
--&nbsp;Must&nbsp;be&nbsp;called&nbsp;initially&nbsp;and&nbsp;to&nbsp;redraw&nbsp;the&nbsp;timeline<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;after&nbsp;moving&nbsp;the&nbsp;project&nbsp;start</tt></dd></dl>
+<dl><dt><a name="TimeLine-DrawLine"><strong>DrawLine</strong></a>(self, widget)</dt><dd><tt>Draws&nbsp;the&nbsp;timeline&nbsp;and&nbsp;saves&nbsp;it&nbsp;to&nbsp;memory<br>
+Must&nbsp;be&nbsp;called&nbsp;initially&nbsp;and&nbsp;to&nbsp;redraw&nbsp;the&nbsp;timeline<br>
+after&nbsp;moving&nbsp;the&nbsp;project&nbsp;start.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="TimeLine-GetZoomFactor"><strong>GetZoomFactor</strong></a>(self, viewScale)</dt><dd><tt>To&nbsp;be&nbsp;used&nbsp;for&nbsp;drawing&nbsp;the&nbsp;MODE_HOURS_MINS_SECS&nbsp;timeline<br>
+<dl><dt><a name="TimeLine-GetZoomFactor"><strong>GetZoomFactor</strong></a>(self, viewScale)</dt><dd><tt>To&nbsp;be&nbsp;used&nbsp;for&nbsp;drawing&nbsp;the&nbsp;MODE_HOURS_MINS_SECS&nbsp;timeline.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;viewScale&nbsp;--&nbsp;the&nbsp;view&nbsp;scale&nbsp;in&nbsp;pixels&nbsp;per&nbsp;second.<br>
 &nbsp;<br>
 Returns:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;an&nbsp;integer&nbsp;factor&nbsp;to&nbsp;be&nbsp;multiplied&nbsp;with&nbsp;the&nbsp;viewScale&nbsp;to&nbsp;zoom&nbsp;the&nbsp;timeline&nbsp;in/out<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;a&nbsp;boolean&nbsp;indicating&nbsp;if&nbsp;milliseconds&nbsp;should&nbsp;be&nbsp;displayed<br>
-The&nbsp;default&nbsp;factor&nbsp;is&nbsp;1000,&nbsp;meaning&nbsp;that&nbsp;the&nbsp;distance&nbsp;between&nbsp;the&nbsp;short&nbsp;lines&nbsp;of&nbsp;the&nbsp;timeline<br>
-symbolizes&nbsp;1000&nbsp;milliseconds.&nbsp;The&nbsp;code&nbsp;will&nbsp;increase&nbsp;of&nbsp;decrease&nbsp;this&nbsp;factor&nbsp;to&nbsp;keep&nbsp;the<br>
-timeline&nbsp;readable.&nbsp;The&nbsp;factors&nbsp;can&nbsp;be&nbsp;set&nbsp;with&nbsp;the&nbsp;zoomLevels&nbsp;array.&nbsp;This&nbsp;array<br>
-contains&nbsp;zoom&nbsp;levels&nbsp;that&nbsp;support&nbsp;precision&nbsp;from&nbsp;20&nbsp;ms&nbsp;to&nbsp;1&nbsp;minute.&nbsp;More&nbsp;extreme&nbsp;zoom<br>
-levels&nbsp;could&nbsp;be&nbsp;added,&nbsp;but&nbsp;will&nbsp;never&nbsp;be&nbsp;reached&nbsp;because&nbsp;the&nbsp;viewScale&nbsp;is&nbsp;limited.</tt></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;default&nbsp;factor&nbsp;is&nbsp;1000,&nbsp;meaning&nbsp;that&nbsp;the&nbsp;distance&nbsp;between&nbsp;the&nbsp;short&nbsp;lines&nbsp;of&nbsp;the&nbsp;timeline<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;symbolizes&nbsp;1000&nbsp;milliseconds.&nbsp;The&nbsp;code&nbsp;will&nbsp;increase&nbsp;of&nbsp;decrease&nbsp;this&nbsp;factor&nbsp;to&nbsp;keep&nbsp;the<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;timeline&nbsp;readable.&nbsp;The&nbsp;factors&nbsp;can&nbsp;be&nbsp;set&nbsp;with&nbsp;the&nbsp;zoomLevels&nbsp;array.&nbsp;This&nbsp;array<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;contains&nbsp;zoom&nbsp;levels&nbsp;that&nbsp;support&nbsp;precision&nbsp;from&nbsp;20&nbsp;ms&nbsp;to&nbsp;1&nbsp;minute.&nbsp;More&nbsp;extreme&nbsp;zoom<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;levels&nbsp;could&nbsp;be&nbsp;added,&nbsp;but&nbsp;will&nbsp;never&nbsp;be&nbsp;reached&nbsp;because&nbsp;the&nbsp;viewScale&nbsp;is&nbsp;limited.</tt></dd></dl>
 
 <dl><dt><a name="TimeLine-OnAllocate"><strong>OnAllocate</strong></a>(self, widget, allocation)</dt><dd><tt>From:<br>
 <a href="http://www.moeraki.com/pygtkreference/pygtk2reference/class-gtkwidget.html#signal-gtkwidget--size-allocate">http://www.moeraki.com/pygtkreference/pygtk2reference/class-gtkwidget.html#signal-gtkwidget--size-allocate</a><br>
-The&nbsp;"size-allocate"&nbsp;signal&nbsp;is&nbsp;emitted&nbsp;when&nbsp;widget&nbsp;is&nbsp;given&nbsp;a&nbsp;new&nbsp;space&nbsp;allocation.</tt></dd></dl>
+The&nbsp;"size-allocate"&nbsp;signal&nbsp;is&nbsp;emitted&nbsp;when&nbsp;widget&nbsp;is&nbsp;given&nbsp;a&nbsp;new&nbsp;space&nbsp;allocation.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;allocation&nbsp;--&nbsp;the&nbsp;position&nbsp;and&nbsp;size&nbsp;to&nbsp;be&nbsp;allocated&nbsp;to&nbsp;the&nbsp;widget.</tt></dd></dl>
 
-<dl><dt><a name="TimeLine-OnDraw"><strong>OnDraw</strong></a>(self, widget, event)</dt><dd><tt>Fires&nbsp;off&nbsp;the&nbsp;drawing&nbsp;operation.</tt></dd></dl>
+<dl><dt><a name="TimeLine-OnDraw"><strong>OnDraw</strong></a>(self, widget, event)</dt><dd><tt>Fires&nbsp;off&nbsp;the&nbsp;drawing&nbsp;operation.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;event&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="TimeLine-OnStateChanged"><strong>OnStateChanged</strong></a>(self, obj, change<font color="#909090">=None</font>)</dt><dd><tt>Called&nbsp;when&nbsp;there&nbsp;is&nbsp;a&nbsp;change&nbsp;of&nbsp;state&nbsp;in&nbsp;transport<br>
-manager&nbsp;or&nbsp;project.&nbsp;Could&nbsp;be&nbsp;one&nbsp;of<br>
-&nbsp;*&nbsp;&nbsp;Mode&nbsp;changed&nbsp;from&nbsp;bars/beats&nbsp;to&nbsp;minutes&nbsp;or&nbsp;vice&nbsp;versa<br>
-&nbsp;&nbsp;&nbsp;&nbsp;(requires&nbsp;a&nbsp;complete&nbsp;redraw&nbsp;of&nbsp;timeline&nbsp;-&nbsp;flag&nbsp;set)<br>
-&nbsp;*&nbsp;&nbsp;Change&nbsp;in&nbsp;playing&nbsp;position&nbsp;-only&nbsp;needs&nbsp;partial&nbsp;redraw<br>
-&nbsp;*&nbsp;&nbsp;Project&nbsp;change&nbsp;e.g.&nbsp;a&nbsp;scroll&nbsp;or&nbsp;zoom&nbsp;change<br>
-&nbsp;&nbsp;&nbsp;&nbsp;(requires&nbsp;a&nbsp;complete&nbsp;redraw&nbsp;of&nbsp;timeline&nbsp;-&nbsp;flag&nbsp;set)</tt></dd></dl>
+<dl><dt><a name="TimeLine-OnStateChanged"><strong>OnStateChanged</strong></a>(self, obj, change<font color="#909090">=None</font>, *extra)</dt><dd><tt>Called&nbsp;when&nbsp;there&nbsp;is&nbsp;a&nbsp;change&nbsp;of&nbsp;state&nbsp;in&nbsp;transport&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;manager&nbsp;or&nbsp;project.&nbsp;<br>
+Could&nbsp;be&nbsp;one&nbsp;of<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;Mode&nbsp;changed&nbsp;from&nbsp;bars/beats&nbsp;to&nbsp;minutes&nbsp;or&nbsp;vice&nbsp;versa<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(requires&nbsp;a&nbsp;complete&nbsp;redraw&nbsp;of&nbsp;timeline&nbsp;-&nbsp;flag&nbsp;set)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;Change&nbsp;in&nbsp;playing&nbsp;position&nbsp;-only&nbsp;needs&nbsp;partial&nbsp;redraw<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;Project&nbsp;change&nbsp;e.g.&nbsp;a&nbsp;scroll&nbsp;or&nbsp;zoom&nbsp;change<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(requires&nbsp;a&nbsp;complete&nbsp;redraw&nbsp;of&nbsp;timeline&nbsp;-&nbsp;flag&nbsp;set)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;obj&nbsp;--&nbsp;an&nbsp;object&nbsp;to&nbsp;inform&nbsp;when&nbsp;this&nbsp;method&nbsp;is&nbsp;called.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;change&nbsp;--&nbsp;the&nbsp;change&nbsp;which&nbsp;has&nbsp;occured.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;extra&nbsp;--&nbsp;the&nbsp;extra&nbsp;parameters&nbsp;to&nbsp;be&nbsp;passed.</tt></dd></dl>
 
-<dl><dt><a name="TimeLine-__init__"><strong>__init__</strong></a>(self, project, timelinebar, mainview)</dt><dd><tt>project&nbsp;-&nbsp;reference&nbsp;to&nbsp;the&nbsp;active&nbsp;project<br>
-timelinebar&nbsp;-&nbsp;reference&nbsp;of&nbsp;TimeLineBar&nbsp;(TimeLineBar.py)<br>
-mainview&nbsp;-&nbsp;reference&nbsp;to&nbsp;JokosherApp&nbsp;(JokosherApp.py)&nbsp;-&nbsp;Not&nbsp;used&nbsp;atm.</tt></dd></dl>
+<dl><dt><a name="TimeLine-__init__"><strong>__init__</strong></a>(self, project, timelinebar, mainview)</dt><dd><tt>Creates&nbsp;a&nbsp;new&nbsp;instance&nbsp;of&nbsp;<a href="#TimeLine">TimeLine</a><br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;project&nbsp;-&nbsp;reference&nbsp;to&nbsp;Project&nbsp;(Project.py)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;timelinebar&nbsp;-&nbsp;reference&nbsp;of&nbsp;TimeLineBar&nbsp;(TimeLineBar.py)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mainview&nbsp;-&nbsp;reference&nbsp;to&nbsp;JokosherApp&nbsp;(JokosherApp.py)&nbsp;-&nbsp;Not&nbsp;used&nbsp;atm.</tt></dd></dl>
 
-<dl><dt><a name="TimeLine-do_size_request"><strong>do_size_request</strong></a>(self, requisition)</dt></dl>
+<dl><dt><a name="TimeLine-do_size_request"><strong>do_size_request</strong></a>(self, requisition)</dt><dd><tt>From:<br>
+<a href="http://www.moeraki.com/pygtkreference/pygtk2reference/class-gtkwidget.html#signal-gtkwidget--size-request">http://www.moeraki.com/pygtkreference/pygtk2reference/class-gtkwidget.html#signal-gtkwidget--size-request</a><br>
+The&nbsp;"size-request"&nbsp;signal&nbsp;is&nbsp;emitted&nbsp;when&nbsp;a&nbsp;new&nbsp;size&nbsp;is<br>
+requested&nbsp;for&nbsp;widget&nbsp;using&nbsp;the&nbsp;<a href="#TimeLine-set_size_request">set_size_request</a>()&nbsp;method.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;requisition&nbsp;--&nbsp;the&nbsp;widget's&nbsp;requested&nbsp;size&nbsp;as&nbsp;a&nbsp;gtk.Requisition.</tt></dd></dl>
 
-<dl><dt><a name="TimeLine-moveHead"><strong>moveHead</strong></a>(self, xpos)</dt><dd><tt>Changes&nbsp;the&nbsp;project&nbsp;position&nbsp;to&nbsp;the&nbsp;time&nbsp;matching&nbsp;xpos.</tt></dd></dl>
+<dl><dt><a name="TimeLine-moveHead"><strong>moveHead</strong></a>(self, xpos)</dt><dd><tt>Changes&nbsp;the&nbsp;project&nbsp;position&nbsp;to&nbsp;the&nbsp;time&nbsp;matching&nbsp;xpos.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xpos&nbsp;--&nbsp;the&nbsp;time&nbsp;of&nbsp;the&nbsp;new&nbsp;project&nbsp;position.</tt></dd></dl>
 
-<dl><dt><a name="TimeLine-onMouseDown"><strong>onMouseDown</strong></a>(self, widget, event)</dt></dl>
+<dl><dt><a name="TimeLine-onMouseDown"><strong>onMouseDown</strong></a>(self, widget, event)</dt><dd><tt>Called&nbsp;when&nbsp;a&nbsp;mouse&nbsp;button&nbsp;is&nbsp;clicked.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;event&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="TimeLine-onMouseMove"><strong>onMouseMove</strong></a>(self, widget, event)</dt></dl>
+<dl><dt><a name="TimeLine-onMouseMove"><strong>onMouseMove</strong></a>(self, widget, event)</dt><dd><tt>Called&nbsp;when&nbsp;the&nbsp;mouse&nbsp;pointer&nbsp;has&nbsp;moved.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;event&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="TimeLine-onMouseUp"><strong>onMouseUp</strong></a>(self, widget, event)</dt></dl>
+<dl><dt><a name="TimeLine-onMouseUp"><strong>onMouseUp</strong></a>(self, widget, event)</dt><dd><tt>Called&nbsp;when&nbsp;a&nbsp;mouse&nbsp;button&nbsp;is&nbsp;released.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;event&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
 <hr>
 Data and other attributes defined here:<br>
-<dl><dt><strong>__gtype__</strong> = &lt;GType TimeLine (136951352)&gt;</dl>
+<dl><dt><strong>__gtype__</strong> = &lt;GType TimeLine (138065688)&gt;</dl>
 
 <dl><dt><strong>__gtype_name__</strong> = 'TimeLine'</dl>
 
@@ -641,7 +689,7 @@ Methods inherited from <a href="gobject.html#GObject">gobject.GObject</a>:<br>
 Data and other attributes inherited from <a href="gobject.html#GObject">gobject.GObject</a>:<br>
 <dl><dt><strong>__dict__</strong> = &lt;dictproxy object&gt;</dl>
 
-<dl><dt><strong>__gdoc__</strong> = 'Object TimeLine<font color="#c040c0">\n\n\n\t\t</font>This class handles drawing t...ointer<font color="#c040c0">\n\n</font>Signals from GObject:<font color="#c040c0">\n</font>  notify (GParam)<font color="#c040c0">\n\n</font>'</dl>
+<dl><dt><strong>__gdoc__</strong> = 'Object TimeLine<font color="#c040c0">\n\n\n\t</font>This class handles drawing th...ointer<font color="#c040c0">\n\n</font>Signals from GObject:<font color="#c040c0">\n</font>  notify (GParam)<font color="#c040c0">\n\n</font>'</dl>
 
 <dl><dt><strong>__grefcount__</strong> = &lt;attribute '__grefcount__' of 'gobject.GObject' objects&gt;</dl>
 

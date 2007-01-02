@@ -1,49 +1,147 @@
 
 <!doctype html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html><head><title>Python: module Utils</title>
-</head><body bgcolor="#f0f0f8">
+</head><body bgcolor="#ffffff">
 
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
-<tr bgcolor="#7799ee">
+<tr bgcolor="#fcbb58">
 <td valign=bottom>&nbsp;<br>
 <font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>Utils</strong></big></big></font></td
 ><td align=right valign=bottom
-><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/mike/src/jokosher/trunk/Jokosher/Utils.py">/home/mike/src/jokosher/trunk/Jokosher/Utils.py</a></font></td></tr></table>
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/david/Projects/Jokosher/trunk/Jokosher/Utils.py">/home/david/Projects/Jokosher/trunk/Jokosher/Utils.py</a></font></td></tr></table>
     <p><tt>#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THIS&nbsp;FILE&nbsp;IS&nbsp;PART&nbsp;OF&nbsp;THE&nbsp;JOKOSHER&nbsp;PROJECT&nbsp;AND&nbsp;LICENSED&nbsp;UNDER&nbsp;THE&nbsp;GPL.&nbsp;SEE<br>
 #&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THE&nbsp;'COPYING'&nbsp;FILE&nbsp;FOR&nbsp;DETAILS<br>
 #<br>
 #&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Utils.py<br>
 #&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
 #&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;module&nbsp;contains&nbsp;a&nbsp;bunch&nbsp;of&nbsp;useful&nbsp;helper&nbsp;methods&nbsp;used&nbsp;elsewhere&nbsp;in<br>
-#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;code.<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;code,&nbsp;that&nbsp;are&nbsp;not&nbsp;specific&nbsp;to&nbsp;any&nbsp;particular&nbsp;class.<br>
 #<br>
 #-------------------------------------------------------------------------------</tt></p>
 <p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
-<tr bgcolor="#aa55cc">
+<tr bgcolor="#4e9a06">
 <td colspan=3 valign=bottom>&nbsp;<br>
 <font color="#fffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
     
-<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
-<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="math.html">math</a><br>
+<tr><td bgcolor="#4e9a06"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="gtk.html">gtk</a><br>
+</td><td width="25%" valign=top><a href="math.html">math</a><br>
 </td><td width="25%" valign=top><a href="xml.dom.minidom.html">xml.dom.minidom</a><br>
-</td><td width="25%" valign=top></td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
-<tr bgcolor="#eeaa77">
+<tr bgcolor="#c17d11">
 <td colspan=3 valign=bottom>&nbsp;<br>
 <font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
     
-<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
-<td width="100%"><dl><dt><a name="-DbToFloat"><strong>DbToFloat</strong></a>(f)</dt><dd><tt>Converts&nbsp;f&nbsp;from&nbsp;the&nbsp;decibel&nbsp;scale&nbsp;to&nbsp;a&nbsp;0..1&nbsp;float</tt></dd></dl>
+<tr><td bgcolor="#c17d11"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-DbToFloat"><strong>DbToFloat</strong></a>(f)</dt><dd><tt>Converts&nbsp;f&nbsp;from&nbsp;the&nbsp;decibel&nbsp;scale&nbsp;to&nbsp;a&nbsp;float.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f&nbsp;--&nbsp;number&nbsp;in&nbsp;decibel&nbsp;format.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;float&nbsp;in&nbsp;the&nbsp;[0,1]&nbsp;range.</tt></dd></dl>
  <dl><dt><a name="-LoadDictionaryFromXML"><strong>LoadDictionaryFromXML</strong></a>(parentElement)</dt><dd><tt>For&nbsp;those&nbsp;times&nbsp;when&nbsp;you&nbsp;don't&nbsp;want&nbsp;to&nbsp;fill&nbsp;module&nbsp;variables&nbsp;with<br>
-parameters&nbsp;from&nbsp;the&nbsp;XML&nbsp;but&nbsp;just&nbsp;want&nbsp;to&nbsp;fill&nbsp;a&nbsp;dictionary&nbsp;instead.</tt></dd></dl>
- <dl><dt><a name="-LoadParametersFromXML"><strong>LoadParametersFromXML</strong></a>(self, parentElement)</dt><dd><tt>Loads&nbsp;parameters&nbsp;from&nbsp;the&nbsp;XML&nbsp;and&nbsp;fills&nbsp;variables&nbsp;of&nbsp;the&nbsp;same&nbsp;name<br>
-in&nbsp;that&nbsp;module.&nbsp;The&nbsp;parentElement&nbsp;is&nbsp;the&nbsp;block&nbsp;of&nbsp;XML&nbsp;with&nbsp;the<br>
-parameters.</tt></dd></dl>
- <dl><dt><a name="-StoreDictionaryToXML"><strong>StoreDictionaryToXML</strong></a>(self, doc, parent, dict)</dt><dd><tt>Saves&nbsp;a&nbsp;dictionary&nbsp;of&nbsp;settings<br>
-in&nbsp;an&nbsp;XML&nbsp;document&nbsp;(doc)&nbsp;with&nbsp;the&nbsp;parent&nbsp;XML&nbsp;tag&nbsp;(parent)</tt></dd></dl>
- <dl><dt><a name="-StoreParametersToXML"><strong>StoreParametersToXML</strong></a>(self, doc, parent, parameters)</dt><dd><tt>Saves&nbsp;a&nbsp;list&nbsp;of&nbsp;variable&nbsp;names&nbsp;(parameters)<br>
-in&nbsp;an&nbsp;XML&nbsp;document&nbsp;(doc)&nbsp;with&nbsp;the&nbsp;parent&nbsp;XML&nbsp;tag&nbsp;(parent)</tt></dd></dl>
- <dl><dt><a name="-floatRange"><strong>floatRange</strong></a>(start, end<font color="#909090">=None</font>, inc<font color="#909090">=None</font>)</dt><dd><tt>A&nbsp;range&nbsp;function,&nbsp;that&nbsp;does&nbsp;accept&nbsp;float&nbsp;increments...</tt></dd></dl>
+parameters&nbsp;from&nbsp;the&nbsp;XML&nbsp;but&nbsp;just&nbsp;want&nbsp;to&nbsp;fill&nbsp;a&nbsp;dictionary&nbsp;instead.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parentElement&nbsp;--&nbsp;XML&nbsp;element&nbsp;from&nbsp;which&nbsp;the&nbsp;dictionary&nbsp;is&nbsp;loaded.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;dictionary&nbsp;with&nbsp;the&nbsp;loaded&nbsp;values&nbsp;in&nbsp;(type,&nbsp;value)&nbsp;format.</tt></dd></dl>
+ <dl><dt><a name="-LoadListFromXML"><strong>LoadListFromXML</strong></a>(parentElement)</dt><dd><tt>Loads&nbsp;a&nbsp;list&nbsp;from&nbsp;an&nbsp;XML&nbsp;file.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parentElement&nbsp;--&nbsp;block&nbsp;of&nbsp;XML&nbsp;with&nbsp;the&nbsp;list&nbsp;nodes.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;list&nbsp;with&nbsp;the&nbsp;loaded&nbsp;values.</tt></dd></dl>
+ <dl><dt><a name="-LoadParametersFromXML"><strong>LoadParametersFromXML</strong></a>(self, parentElement)</dt><dd><tt>Loads&nbsp;parameters&nbsp;from&nbsp;an&nbsp;XML&nbsp;and&nbsp;fills&nbsp;variables&nbsp;of&nbsp;the&nbsp;same&nbsp;name<br>
+in&nbsp;that&nbsp;module.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parentElement&nbsp;--&nbsp;block&nbsp;of&nbsp;XML&nbsp;with&nbsp;the&nbsp;parameters.</tt></dd></dl>
+ <dl><dt><a name="-LoadVariableFromNode"><strong>LoadVariableFromNode</strong></a>(node, typeAttr<font color="#909090">='type'</font>, valueAttr<font color="#909090">='value'</font>)</dt><dd><tt>Loads&nbsp;a&nbsp;variable&nbsp;from&nbsp;an&nbsp;specific&nbsp;XML&nbsp;node.<br>
+&nbsp;<br>
+Example:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Please&nbsp;refer&nbsp;to&nbsp;the&nbsp;StoreVariableToNode&nbsp;example<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;the&nbsp;explanation&nbsp;of&nbsp;the&nbsp;typeAttr&nbsp;and&nbsp;valueAttr<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parameters.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;node&nbsp;--&nbsp;node&nbsp;from&nbsp;which&nbsp;the&nbsp;variable&nbsp;is&nbsp;loaded.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;typeAttr&nbsp;--&nbsp;string&nbsp;of&nbsp;the&nbsp;attribute&nbsp;name&nbsp;that&nbsp;the<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;variable's&nbsp;type&nbsp;will&nbsp;be&nbsp;saved&nbsp;under.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;valueAttr&nbsp;--&nbsp;string&nbsp;of&nbsp;the&nbsp;attribute&nbsp;name&nbsp;that&nbsp;the<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;variable's&nbsp;value&nbsp;will&nbsp;be&nbsp;saved&nbsp;under.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;loaded&nbsp;variable.</tt></dd></dl>
+ <dl><dt><a name="-OpenExternalURL"><strong>OpenExternalURL</strong></a>(url, message, parent)</dt><dd><tt>Opens&nbsp;a&nbsp;given&nbsp;url&nbsp;in&nbsp;the&nbsp;user's&nbsp;default&nbsp;web&nbsp;browser.<br>
+It'll&nbsp;try&nbsp;launchers&nbsp;in&nbsp;the&nbsp;following&nbsp;order:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xdg-open<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gnome-open<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;kfmclient&nbsp;exec<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;exo-open<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;url&nbsp;--&nbsp;the&nbsp;url&nbsp;the&nbsp;user's&nbsp;default&nbsp;web&nbsp;browser&nbsp;will&nbsp;open.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message&nbsp;--&nbsp;the&nbsp;error&nbsp;message&nbsp;in&nbsp;the&nbsp;dialog&nbsp;window.&nbsp;the&nbsp;error&nbsp;message&nbsp;dialog&nbsp;will&nbsp;show&nbsp;if&nbsp;a&nbsp;link&nbsp;cannot&nbsp;be&nbsp;opened.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parent&nbsp;--&nbsp;parent&nbsp;window&nbsp;of&nbsp;the&nbsp;error&nbsp;message&nbsp;dialog.</tt></dd></dl>
+ <dl><dt><a name="-StoreDictionaryToXML"><strong>StoreDictionaryToXML</strong></a>(doc, parent, dict, tagName<font color="#909090">=None</font>)</dt><dd><tt>Saves&nbsp;a&nbsp;dictionary&nbsp;of&nbsp;settings&nbsp;in&nbsp;an&nbsp;XML&nbsp;document.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;doc&nbsp;--&nbsp;name&nbsp;of&nbsp;the&nbsp;XML&nbsp;document&nbsp;to&nbsp;save&nbsp;the&nbsp;settings&nbsp;into.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parent&nbsp;--&nbsp;XML&nbsp;parent&nbsp;tag&nbsp;to&nbsp;use&nbsp;in&nbsp;doc.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dict&nbsp;--&nbsp;dictionary&nbsp;to&nbsp;be&nbsp;saved&nbsp;in&nbsp;doc.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tagName&nbsp;--&nbsp;name&nbsp;used&nbsp;for&nbsp;all&nbsp;tag&nbsp;names.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Considerations:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;tagName&nbsp;is&nbsp;not&nbsp;given,&nbsp;the&nbsp;dictionary&nbsp;keys&nbsp;will&nbsp;be&nbsp;used&nbsp;for&nbsp;the&nbsp;tag&nbsp;names.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;means&nbsp;that&nbsp;the&nbsp;keys&nbsp;must&nbsp;all&nbsp;be&nbsp;strings&nbsp;and&nbsp;can't&nbsp;have&nbsp;any&nbsp;invalid&nbsp;XML<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;characters&nbsp;in&nbsp;them.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;tagName&nbsp;is&nbsp;given,&nbsp;it&nbsp;is&nbsp;used&nbsp;for&nbsp;all&nbsp;the&nbsp;tag&nbsp;names,&nbsp;and&nbsp;the&nbsp;key&nbsp;is&nbsp;stored<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;in&nbsp;the&nbsp;keyvalue&nbsp;attribute&nbsp;and&nbsp;its&nbsp;type&nbsp;in&nbsp;the&nbsp;keytype&nbsp;attribute.</tt></dd></dl>
+ <dl><dt><a name="-StoreListToXML"><strong>StoreListToXML</strong></a>(doc, parent, itemList, tagName)</dt><dd><tt>Saves&nbsp;a&nbsp;list&nbsp;of&nbsp;items&nbsp;in&nbsp;an&nbsp;XML&nbsp;document.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;doc&nbsp;--&nbsp;name&nbsp;of&nbsp;the&nbsp;XML&nbsp;document&nbsp;to&nbsp;save&nbsp;the&nbsp;items&nbsp;into.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parent&nbsp;--&nbsp;XML&nbsp;parent&nbsp;tag&nbsp;to&nbsp;use&nbsp;in&nbsp;doc.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;itemList&nbsp;--&nbsp;list&nbsp;of&nbsp;items&nbsp;to&nbsp;be&nbsp;saved&nbsp;in&nbsp;doc.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tagName&nbsp;--&nbsp;name&nbsp;used&nbsp;for&nbsp;all&nbsp;tag&nbsp;names.</tt></dd></dl>
+ <dl><dt><a name="-StoreParametersToXML"><strong>StoreParametersToXML</strong></a>(self, doc, parent, parameters)</dt><dd><tt>Saves&nbsp;the&nbsp;variables&nbsp;indicated&nbsp;by&nbsp;the&nbsp;parameters&nbsp;in&nbsp;an&nbsp;XML&nbsp;document.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;doc&nbsp;--&nbsp;name&nbsp;of&nbsp;the&nbsp;XML&nbsp;document&nbsp;to&nbsp;save&nbsp;the&nbsp;settings&nbsp;into.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parent&nbsp;--&nbsp;XML&nbsp;parent&nbsp;tag&nbsp;to&nbsp;use&nbsp;in&nbsp;doc.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parameters&nbsp;--&nbsp;list&nbsp;of&nbsp;variable&nbsp;names&nbsp;whose&nbsp;value,&nbsp;save&nbsp;in&nbsp;doc.</tt></dd></dl>
+ <dl><dt><a name="-StoreVariableToNode"><strong>StoreVariableToNode</strong></a>(value, node, typeAttr<font color="#909090">='type'</font>, valueAttr<font color="#909090">='value'</font>)</dt><dd><tt>Saves&nbsp;a&nbsp;variable&nbsp;to&nbsp;an&nbsp;specific&nbsp;XML&nbsp;node.<br>
+&nbsp;<br>
+Example:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;typeAttr&nbsp;=&nbsp;"foo"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;valueAttr&nbsp;=&nbsp;"bar"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value&nbsp;=&nbsp;"mystring"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;would&nbsp;result&nbsp;in&nbsp;the&nbsp;following&nbsp;XML&nbsp;code:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;foo="str"&nbsp;bar="mystring"&nbsp;/&gt;<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value&nbsp;--&nbsp;the&nbsp;value&nbsp;of&nbsp;the&nbsp;variable.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;node&nbsp;--&nbsp;node&nbsp;to&nbsp;save&nbsp;the&nbsp;variable&nbsp;value&nbsp;to.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;typeAttr&nbsp;--&nbsp;type&nbsp;of&nbsp;the&nbsp;variable&nbsp;to&nbsp;be&nbsp;saved.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;valueAttr&nbsp;--&nbsp;value&nbsp;of&nbsp;the&nbsp;variable&nbsp;to&nbsp;be&nbsp;loaded.&nbsp;TODO</tt></dd></dl>
+ <dl><dt><a name="-floatRange"><strong>floatRange</strong></a>(start, end<font color="#909090">=None</font>, inc<font color="#909090">=None</font>)</dt><dd><tt>A&nbsp;range&nbsp;function&nbsp;capable&nbsp;of&nbsp;performing&nbsp;float&nbsp;increments.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;start&nbsp;--&nbsp;minimum&nbsp;value&nbsp;of&nbsp;the&nbsp;range&nbsp;list.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;end&nbsp;--&nbsp;maximum&nbsp;value&nbsp;of&nbsp;the&nbsp;range&nbsp;list.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;inc&nbsp;--&nbsp;delta&nbsp;between&nbsp;values&nbsp;in&nbsp;the&nbsp;range&nbsp;list.<br>
+&nbsp;<br>
+Considerations:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;start&nbsp;is&nbsp;the&nbsp;only&nbsp;parameter&nbsp;given,&nbsp;the&nbsp;range&nbsp;goes&nbsp;from&nbsp;[0.0,&nbsp;start].<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A&nbsp;list&nbsp;with&nbsp;the&nbsp;range&nbsp;[start,&nbsp;end]&nbsp;in&nbsp;inc&nbsp;increments.</tt></dd></dl>
 </td></tr></table>
 </body></html>

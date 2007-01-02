@@ -1,82 +1,290 @@
 
 <!doctype html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html><head><title>Python: module Extension</title>
-</head><body bgcolor="#f0f0f8">
+</head><body bgcolor="#ffffff">
 
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
-<tr bgcolor="#7799ee">
+<tr bgcolor="#fcbb58">
 <td valign=bottom>&nbsp;<br>
 <font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>Extension</strong></big></big></font></td
 ><td align=right valign=bottom
-><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/mike/src/jokosher/trunk/Jokosher/Extension.py">/home/mike/src/jokosher/trunk/Jokosher/Extension.py</a></font></td></tr></table>
-    <p><tt>#&nbsp;The&nbsp;Jokosher&nbsp;Extension&nbsp;API<br>
-#&nbsp;write&nbsp;proper&nbsp;docstrings&nbsp;so&nbsp;that&nbsp;we&nbsp;can&nbsp;autogenerate&nbsp;the&nbsp;docs</tt></p>
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/david/Projects/Jokosher/trunk/Jokosher/Extension.py">/home/david/Projects/Jokosher/trunk/Jokosher/Extension.py</a></font></td></tr></table>
+    <p><tt>#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THIS&nbsp;FILE&nbsp;IS&nbsp;PART&nbsp;OF&nbsp;THE&nbsp;JOKOSHER&nbsp;PROJECT&nbsp;AND&nbsp;LICENSED&nbsp;UNDER&nbsp;THE&nbsp;GPL.&nbsp;SEE<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THE&nbsp;'COPYING'&nbsp;FILE&nbsp;FOR&nbsp;DETAILS<br>
+#<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Jokosher&nbsp;Extension&nbsp;API.<br>
+#<br>
+#-------------------------------------------------------------------------------</tt></p>
 <p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
-<tr bgcolor="#aa55cc">
+<tr bgcolor="#4e9a06">
 <td colspan=3 valign=bottom>&nbsp;<br>
 <font color="#fffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
     
-<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
-<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="gettext.html">gettext</a><br>
+<tr><td bgcolor="#4e9a06"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="ConfigParser.html">ConfigParser</a><br>
+<a href="Globals.html">Globals</a><br>
+<a href="gettext.html">gettext</a><br>
+</td><td width="25%" valign=top><a href="gobject.html">gobject</a><br>
+<a href="gst.html">gst</a><br>
 <a href="gtk.html">gtk</a><br>
 </td><td width="25%" valign=top><a href="imp.html">imp</a><br>
 <a href="inspect.html">inspect</a><br>
-</td><td width="25%" valign=top><a href="os.html">os</a><br>
-<a href="sys.html">sys</a><br>
-</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<a href="os.html">os</a><br>
+</td><td width="25%" valign=top><a href="pickle.html">pickle</a><br>
+<a href="pkg_resources.html">pkg_resources</a><br>
+<a href="traceback.html">traceback</a><br>
+</td></tr></table></td></tr></table><p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
-<tr bgcolor="#ee77aa">
+<tr bgcolor="#3465a4">
 <td colspan=3 valign=bottom>&nbsp;<br>
 <font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
     
-<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<tr><td bgcolor="#3465a4"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
 <td width="100%"><dl>
 <dt><font face="helvetica, arial"><a href="Extension.html#ExtensionAPI">ExtensionAPI</a>
 </font></dt></dl>
  <p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
-<tr bgcolor="#ffc8d8">
+<tr bgcolor="#729fcf">
 <td colspan=3 valign=bottom>&nbsp;<br>
 <font color="#000000" face="helvetica, arial"><a name="ExtensionAPI">class <strong>ExtensionAPI</strong></a></font></td></tr>
     
-<tr><td bgcolor="#ffc8d8"><tt>&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<tr bgcolor="#729fcf"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Defines&nbsp;the&nbsp;API&nbsp;for&nbsp;implementing&nbsp;external&nbsp;extensions&nbsp;for&nbsp;Jokosher.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
 <td width="100%">Methods defined here:<br>
-<dl><dt><a name="ExtensionAPI-__init__"><strong>__init__</strong></a>(self, mainapp)</dt></dl>
+<dl><dt><a name="ExtensionAPI-__init__"><strong>__init__</strong></a>(self, mainapp)</dt><dd><tt>Creates&nbsp;a&nbsp;new&nbsp;instance&nbsp;of&nbsp;<a href="#ExtensionAPI">ExtensionAPI</a>.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mainapp&nbsp;--&nbsp;reference&nbsp;the&nbsp;MainApp&nbsp;Jokosher&nbsp;window.</tt></dd></dl>
 
-<dl><dt><a name="ExtensionAPI-add_file_to_selected_instrument"><strong>add_file_to_selected_instrument</strong></a>(self, uri)</dt><dd><tt>Creates&nbsp;a&nbsp;new&nbsp;event&nbsp;from&nbsp;the&nbsp;file&nbsp;at&nbsp;the&nbsp;given&nbsp;URI&nbsp;and&nbsp;<br>
-adds&nbsp;it&nbsp;to&nbsp;the&nbsp;first&nbsp;selected&nbsp;instrument.<br>
-Return&nbsp;values:<br>
-0:&nbsp;success<br>
-1:&nbsp;bad&nbsp;URI&nbsp;or&nbsp;file&nbsp;could&nbsp;not&nbsp;be&nbsp;loaded<br>
-2:&nbsp;no&nbsp;instrument&nbsp;selected</tt></dd></dl>
+<dl><dt><a name="ExtensionAPI-add_export_format"><strong>add_export_format</strong></a>(*args, **kwargs)</dt><dd><tt>Adds&nbsp;a&nbsp;new&nbsp;format&nbsp;that&nbsp;the&nbsp;user&nbsp;can&nbsp;select&nbsp;from&nbsp;the&nbsp;filetype&nbsp;drop&nbsp;down&nbsp;box<br>
+in&nbsp;the&nbsp;'Mixdown&nbsp;Project'&nbsp;dialog.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;description&nbsp;--&nbsp;string&nbsp;for&nbsp;the&nbsp;drop&nbsp;down&nbsp;box.&nbsp;i.e:&nbsp;'Ogg&nbsp;Vorbis&nbsp;(.ogg)'.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;extension&nbsp;--&nbsp;string&nbsp;of&nbsp;the&nbsp;file&nbsp;extension&nbsp;without&nbsp;a&nbsp;'.'.&nbsp;i.e:&nbsp;'ogg'.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;encodeBin&nbsp;--&nbsp;string&nbsp;used&nbsp;by&nbsp;gst_parse_bin_from_description&nbsp;to&nbsp;create<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;bin&nbsp;that&nbsp;can&nbsp;encode&nbsp;and&nbsp;mux&nbsp;the&nbsp;audio&nbsp;when&nbsp;added&nbsp;to&nbsp;a<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pipeline.&nbsp;i.e:&nbsp;'vorbisenc&nbsp;!&nbsp;oggmux'.<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;=&nbsp;the&nbsp;new&nbsp;export&nbsp;format&nbsp;was&nbsp;successfully&nbsp;added&nbsp;to&nbsp;Jokosher.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;=&nbsp;invalid&nbsp;options.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;=&nbsp;a&nbsp;format&nbsp;with&nbsp;the&nbsp;same&nbsp;three&nbsp;values&nbsp;already&nbsp;exists.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3&nbsp;=&nbsp;cannot&nbsp;parse&nbsp;or&nbsp;create&nbsp;encoder/muxer&nbsp;bin.</tt></dd></dl>
 
-<dl><dt><a name="ExtensionAPI-add_instrument"><strong>add_instrument</strong></a>(self, instr_type)</dt><dd><tt>Adds&nbsp;an&nbsp;instrument&nbsp;with&nbsp;the&nbsp;type&nbsp;'instr_type'<br>
-from&nbsp;<a href="#ExtensionAPI-get_available_instruments">get_available_instruments</a>()&nbsp;to&nbsp;the&nbsp;project.<br>
-Return&nbsp;values:<br>
-0:&nbsp;success<br>
-1:&nbsp;that&nbsp;project&nbsp;type&nbsp;does&nbsp;not&nbsp;exist</tt></dd></dl>
+<dl><dt><a name="ExtensionAPI-add_file_to_instrument"><strong>add_file_to_instrument</strong></a>(*args, **kwargs)</dt><dd><tt>Creates&nbsp;a&nbsp;new&nbsp;Event&nbsp;from&nbsp;a&nbsp;given&nbsp;file&nbsp;and&nbsp;adds&nbsp;it&nbsp;to&nbsp;the&nbsp;Instrument&nbsp;<br>
+with&nbsp;the&nbsp;correspondent&nbsp;id,&nbsp;at&nbsp;the&nbsp;given&nbsp;position.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;instr_id&nbsp;--&nbsp;unique&nbsp;id&nbsp;of&nbsp;the&nbsp;Instrument.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;uri&nbsp;--&nbsp;file&nbsp;with&nbsp;the&nbsp;Event&nbsp;to&nbsp;load.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;position&nbsp;--&nbsp;position&nbsp;in&nbsp;seconds&nbsp;to&nbsp;insert&nbsp;the&nbsp;new&nbsp;Event&nbsp;at.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;=&nbsp;the&nbsp;Event&nbsp;was&nbsp;loaded&nbsp;successfully.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;=&nbsp;bad&nbsp;URI&nbsp;or&nbsp;file&nbsp;could&nbsp;not&nbsp;be&nbsp;loaded.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;=&nbsp;the&nbsp;Instrument&nbsp;with&nbsp;id&nbsp;'instr_id'&nbsp;was&nbsp;not&nbsp;found.</tt></dd></dl>
 
-<dl><dt><a name="ExtensionAPI-add_menu_item"><strong>add_menu_item</strong></a>(self, menu_item_name, callback_function)</dt><dd><tt>Adds&nbsp;a&nbsp;menu&nbsp;item&nbsp;to&nbsp;a&nbsp;Jokosher&nbsp;extension&nbsp;menu.</tt></dd></dl>
+<dl><dt><a name="ExtensionAPI-add_file_to_selected_instrument"><strong>add_file_to_selected_instrument</strong></a>(*args, **kwargs)</dt><dd><tt>Creates&nbsp;a&nbsp;new&nbsp;Event&nbsp;from&nbsp;a&nbsp;given&nbsp;file&nbsp;and&nbsp;adds&nbsp;it&nbsp;to&nbsp;the&nbsp;first<br>
+selected&nbsp;Instrument,&nbsp;at&nbsp;the&nbsp;given&nbsp;position.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;uri&nbsp;--&nbsp;file&nbsp;with&nbsp;the&nbsp;Event&nbsp;to&nbsp;load.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;position&nbsp;--&nbsp;position&nbsp;in&nbsp;seconds&nbsp;to&nbsp;insert&nbsp;the&nbsp;new&nbsp;Event&nbsp;at.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;=&nbsp;the&nbsp;Event&nbsp;was&nbsp;loaded&nbsp;successfully.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;=&nbsp;bad&nbsp;URI&nbsp;or&nbsp;file&nbsp;could&nbsp;not&nbsp;be&nbsp;loaded.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;=&nbsp;no&nbsp;Instrument&nbsp;selected.</tt></dd></dl>
 
-<dl><dt><a name="ExtensionAPI-get_available_instruments"><strong>get_available_instruments</strong></a>(self)</dt><dd><tt>Returns&nbsp;a&nbsp;list&nbsp;of&nbsp;instrument&nbsp;'type'&nbsp;strings.<br>
-The&nbsp;list&nbsp;will&nbsp;contain&nbsp;exactly&nbsp;one&nbsp;string&nbsp;for&nbsp;each<br>
-available&nbsp;type&nbsp;of&nbsp;instrument.</tt></dd></dl>
+<dl><dt><a name="ExtensionAPI-add_instrument"><strong>add_instrument</strong></a>(*args, **kwargs)</dt><dd><tt>Adds&nbsp;an&nbsp;Instrument&nbsp;to&nbsp;the&nbsp;current&nbsp;Project.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;instr_type&nbsp;--&nbsp;type&nbsp;of&nbsp;the&nbsp;Instrument&nbsp;to&nbsp;be&nbsp;added.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;instr_name&nbsp;--&nbsp;name&nbsp;of&nbsp;the&nbsp;Instrument&nbsp;to&nbsp;be&nbsp;added.&nbsp;This&nbsp;value&nbsp;can&nbsp;be<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;obtained&nbsp;via&nbsp;get_available_instruments().<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-1&nbsp;=&nbsp;that&nbsp;Instrument&nbsp;type&nbsp;does&nbsp;not&nbsp;exist.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&gt;0&nbsp;=&nbsp;if&nbsp;the&nbsp;Instrument&nbsp;is&nbsp;successfully&nbsp;added,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;return&nbsp;value&nbsp;will&nbsp;be&nbsp;the&nbsp;ID&nbsp;of&nbsp;that&nbsp;Instrument.</tt></dd></dl>
 
-<dl><dt><a name="ExtensionAPI-play"><strong>play</strong></a>(self, play_state<font color="#909090">=True</font>)</dt><dd><tt>If&nbsp;play_state&nbsp;is&nbsp;True,&nbsp;it&nbsp;will&nbsp;play&nbsp;the&nbsp;project&nbsp;from&nbsp;the&nbsp;beginning.<br>
-Otherwise,&nbsp;it&nbsp;will&nbsp;stop&nbsp;all&nbsp;playing.</tt></dd></dl>
+<dl><dt><a name="ExtensionAPI-add_instrument_effect"><strong>add_instrument_effect</strong></a>(*args, **kwargs)</dt><dd><tt>Adds&nbsp;an&nbsp;effect&nbsp;to&nbsp;an&nbsp;Instrument.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;instr_id&nbsp;--&nbsp;ID&nbsp;of&nbsp;the&nbsp;Instrument&nbsp;to&nbsp;add&nbsp;the&nbsp;effect&nbsp;to.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;effect_name&nbsp;--&nbsp;name&nbsp;of&nbsp;the&nbsp;effect&nbsp;to&nbsp;be&nbsp;added&nbsp;to&nbsp;Instrument.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;=&nbsp;the&nbsp;effect&nbsp;was&nbsp;successfully&nbsp;added&nbsp;to&nbsp;the&nbsp;Instrument.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;=&nbsp;the&nbsp;Instrument&nbsp;with&nbsp;id&nbsp;'instr_id'&nbsp;was&nbsp;not&nbsp;found.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;=&nbsp;the&nbsp;LADSPA&nbsp;plugin&nbsp;named&nbsp;'effect_name'&nbsp;was&nbsp;not&nbsp;found.</tt></dd></dl>
 
-<dl><dt><a name="ExtensionAPI-stop"><strong>stop</strong></a>(self)</dt><dd><tt>Stops&nbsp;the&nbsp;project&nbsp;if&nbsp;it&nbsp;is&nbsp;currently&nbsp;playing.<br>
-Same&nbsp;as&nbsp;<a href="#ExtensionAPI-play">play</a>(play_state=False)</tt></dd></dl>
+<dl><dt><a name="ExtensionAPI-add_menu_item"><strong>add_menu_item</strong></a>(*args, **kwargs)</dt><dd><tt>Adds&nbsp;a&nbsp;menu&nbsp;item&nbsp;to&nbsp;a&nbsp;Jokosher&nbsp;extension&nbsp;menu.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;menu_item_name&nbsp;--&nbsp;name&nbsp;of&nbsp;the&nbsp;new&nbsp;menu.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;callback_function&nbsp;--&nbsp;function&nbsp;to&nbsp;be&nbsp;called&nbsp;when&nbsp;the&nbsp;menu&nbsp;is&nbsp;invoked.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reference&nbsp;to&nbsp;the&nbsp;new&nbsp;menu&nbsp;item.</tt></dd></dl>
+
+<dl><dt><a name="ExtensionAPI-create_new_instrument_type"><strong>create_new_instrument_type</strong></a>(*args, **kwargs)</dt><dd><tt>Creates&nbsp;a&nbsp;new&nbsp;Instrument&nbsp;type&nbsp;in&nbsp;the&nbsp;user's&nbsp;~/.jokosher/instruments&nbsp;folder.<br>
+It&nbsp;will&nbsp;then&nbsp;be&nbsp;automatically&nbsp;loaded&nbsp;on&nbsp;startup.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;defaultName&nbsp;--&nbsp;the&nbsp;en_GB&nbsp;name&nbsp;of&nbsp;the&nbsp;Instrument.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;typeString&nbsp;--&nbsp;a&nbsp;unique&nbsp;type&nbsp;string&nbsp;to&nbsp;this&nbsp;particular&nbsp;Instrument&nbsp;file.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;imagePath&nbsp;--&nbsp;absolute&nbsp;path&nbsp;to&nbsp;the&nbsp;Instrument's&nbsp;image&nbsp;(png).<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;=&nbsp;the&nbsp;new&nbsp;Instrument&nbsp;type&nbsp;was&nbsp;successfully&nbsp;created.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;=&nbsp;file&nbsp;already&nbsp;exists&nbsp;or&nbsp;defaultName&nbsp;is&nbsp;already&nbsp;used&nbsp;by&nbsp;a&nbsp;loaded&nbsp;Instrument.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;=&nbsp;cannot&nbsp;load&nbsp;image&nbsp;file.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3&nbsp;=&nbsp;cannot&nbsp;write&nbsp;to&nbsp;~/.jokosher/instruments&nbsp;or&nbsp;~/.jokosher/instruments/images.</tt></dd></dl>
+
+<dl><dt><a name="ExtensionAPI-delete_instrument"><strong>delete_instrument</strong></a>(*args, **kwargs)</dt><dd><tt>Removes&nbsp;an&nbsp;Instrument&nbsp;from&nbsp;the&nbsp;Project.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;instrumentID&nbsp;--&nbsp;ID&nbsp;of&nbsp;the&nbsp;Instrument&nbsp;to&nbsp;be&nbsp;removed.</tt></dd></dl>
+
+<dl><dt><a name="ExtensionAPI-get_config_value"><strong>get_config_value</strong></a>(*args, **kwargs)</dt><dd><tt>Obtain&nbsp;the&nbsp;config&nbsp;value&nbsp;saved&nbsp;under&nbsp;this&nbsp;key.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;key&nbsp;--&nbsp;config&nbsp;key&nbsp;to&nbsp;obtain&nbsp;the&nbsp;value&nbsp;of.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;value&nbsp;of&nbsp;the&nbsp;config&nbsp;key,&nbsp;or&nbsp;None&nbsp;if&nbsp;the&nbsp;value&nbsp;doesn't&nbsp;exist.</tt></dd></dl>
+
+<dl><dt><a name="ExtensionAPI-get_instrument_effects"><strong>get_instrument_effects</strong></a>(*args, **kwargs)</dt><dd><tt>Obtains&nbsp;the&nbsp;current&nbsp;effects&nbsp;applied&nbsp;to&nbsp;an&nbsp;Instrument.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;instr_id&nbsp;--&nbsp;ID&nbsp;of&nbsp;the&nbsp;Instrument&nbsp;to&nbsp;obtain&nbsp;the&nbsp;effects&nbsp;from.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;list&nbsp;=&nbsp;list&nbsp;of&nbsp;effects&nbsp;applied&nbsp;to&nbsp;the&nbsp;Instrument.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;=&nbsp;the&nbsp;Instrument&nbsp;with&nbsp;id&nbsp;'instr_id'&nbsp;was&nbsp;not&nbsp;found.</tt></dd></dl>
+
+<dl><dt><a name="ExtensionAPI-get_instrument_volume"><strong>get_instrument_volume</strong></a>(*args, **kwargs)</dt><dd><tt>Obtains&nbsp;the&nbsp;volume&nbsp;of&nbsp;an&nbsp;Instrument.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;instr_id&nbsp;--&nbsp;ID&nbsp;of&nbsp;the&nbsp;Instrument&nbsp;to&nbsp;obtain&nbsp;the&nbsp;volume&nbsp;from.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;volume&nbsp;=&nbsp;volume&nbsp;of&nbsp;the&nbsp;Instrument.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;=&nbsp;the&nbsp;Instrument&nbsp;with&nbsp;id&nbsp;'instr_id'&nbsp;was&nbsp;not&nbsp;found.</tt></dd></dl>
+
+<dl><dt><a name="ExtensionAPI-hide_main_window"><strong>hide_main_window</strong></a>(*args, **kwargs)</dt><dd><tt>Makes&nbsp;the&nbsp;main&nbsp;Jokosher&nbsp;window&nbsp;invisible.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;timeout&nbsp;--&nbsp;Number&nbsp;of&nbsp;milliseconds&nbsp;to&nbsp;wait&nbsp;before&nbsp;reshowing&nbsp;the&nbsp;window&nbsp;(0&nbsp;for&nbsp;infinity).</tt></dd></dl>
+
+<dl><dt><a name="ExtensionAPI-list_available_effects"><strong>list_available_effects</strong></a>(*args, **kwargs)</dt><dd><tt>Obtain&nbsp;the&nbsp;available&nbsp;LADSPA&nbsp;effects.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;list&nbsp;with&nbsp;all&nbsp;available&nbsp;LADSPA&nbsp;effects.</tt></dd></dl>
+
+<dl><dt><a name="ExtensionAPI-list_available_instrument_types"><strong>list_available_instrument_types</strong></a>(*args, **kwargs)</dt><dd><tt>Obtain&nbsp;a&nbsp;list&nbsp;of&nbsp;tuples&nbsp;in&nbsp;the&nbsp;format:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(instr_name,&nbsp;instr_type,&nbsp;instr_pixbuf)<br>
+for&nbsp;each&nbsp;of&nbsp;the&nbsp;*.instr&nbsp;files&nbsp;that&nbsp;have&nbsp;been&nbsp;cached.<br>
+&nbsp;<br>
+Considerations:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;These&nbsp;Instruments&nbsp;are&nbsp;*not*&nbsp;the&nbsp;ones&nbsp;in&nbsp;the&nbsp;current&nbsp;Project,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;but&nbsp;those&nbsp;available&nbsp;for&nbsp;any&nbsp;Jokosher&nbsp;Project.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;list&nbsp;with&nbsp;tuples&nbsp;describing&nbsp;each&nbsp;available&nbsp;Instrument&nbsp;in&nbsp;Jokosher.</tt></dd></dl>
+
+<dl><dt><a name="ExtensionAPI-list_project_instruments"><strong>list_project_instruments</strong></a>(*args, **kwargs)</dt><dd><tt>Obtain&nbsp;a&nbsp;list&nbsp;of&nbsp;tuples&nbsp;in&nbsp;the&nbsp;format:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(instr_id_number,&nbsp;instr_name,&nbsp;instr_type,&nbsp;instr_pixbuf)<br>
+for&nbsp;each&nbsp;of&nbsp;the&nbsp;Instruments&nbsp;currently&nbsp;shown&nbsp;in&nbsp;the&nbsp;Project.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;list&nbsp;with&nbsp;tuples&nbsp;describing&nbsp;each&nbsp;Instrument&nbsp;in&nbsp;the&nbsp;Project.</tt></dd></dl>
+
+<dl><dt><a name="ExtensionAPI-play"><strong>play</strong></a>(*args, **kwargs)</dt><dd><tt>Manipulates&nbsp;the&nbsp;Project's&nbsp;playback&nbsp;status&nbsp;in&nbsp;Jokosher.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;play_state&nbsp;--&nbsp;&nbsp;&nbsp;True&nbsp;=&nbsp;play&nbsp;the&nbsp;Project&nbsp;from&nbsp;the&nbsp;beginning.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;False&nbsp;=&nbsp;stop&nbsp;all&nbsp;playback.</tt></dd></dl>
+
+<dl><dt><a name="ExtensionAPI-quit"><strong>quit</strong></a>(*args, **kwargs)</dt><dd><tt>Quits&nbsp;Jokosher.</tt></dd></dl>
+
+<dl><dt><a name="ExtensionAPI-remove_export_format"><strong>remove_export_format</strong></a>(*args, **kwargs)</dt><dd><tt>Removes&nbsp;an&nbsp;export&nbsp;format&nbsp;that&nbsp;was&nbsp;previously&nbsp;added&nbsp;using&nbsp;add_export_format.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;description&nbsp;--&nbsp;string&nbsp;for&nbsp;the&nbsp;drop&nbsp;down&nbsp;box.&nbsp;i.e:&nbsp;'Ogg&nbsp;Vorbis&nbsp;(.ogg)'.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;extension&nbsp;--&nbsp;string&nbsp;of&nbsp;the&nbsp;file&nbsp;extension&nbsp;without&nbsp;a&nbsp;'.'.&nbsp;i.e:&nbsp;'ogg'.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;encodeBin&nbsp;--&nbsp;string&nbsp;used&nbsp;by&nbsp;gst_parse_bin_from_description&nbsp;to&nbsp;create<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;bin&nbsp;that&nbsp;can&nbsp;encode&nbsp;and&nbsp;mux&nbsp;the&nbsp;audio&nbsp;when&nbsp;added&nbsp;to&nbsp;a<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pipeline.&nbsp;i.e:&nbsp;'vorbisenc&nbsp;!&nbsp;oggmux'.<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;=&nbsp;successfully&nbsp;removed&nbsp;the&nbsp;export&nbsp;format.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;=&nbsp;no&nbsp;export&nbsp;format&nbsp;exists&nbsp;with&nbsp;those&nbsp;parameters.</tt></dd></dl>
+
+<dl><dt><a name="ExtensionAPI-remove_instrument_effect"><strong>remove_instrument_effect</strong></a>(*args, **kwargs)</dt><dd><tt>Removes&nbsp;an&nbsp;effect&nbsp;from&nbsp;an&nbsp;Instrument.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;instr_id&nbsp;--&nbsp;ID&nbsp;of&nbsp;the&nbsp;Instrument&nbsp;to&nbsp;remove&nbsp;the&nbsp;effect&nbsp;from.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;effect_num&nbsp;--&nbsp;index&nbsp;of&nbsp;the&nbsp;effect&nbsp;inside&nbsp;the&nbsp;Instrument's&nbsp;effects&nbsp;array.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;=&nbsp;the&nbsp;effect&nbsp;was&nbsp;successfully&nbsp;removed.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;=&nbsp;effect_num&nbsp;out&nbsp;of&nbsp;range.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;=&nbsp;the&nbsp;Instrument&nbsp;with&nbsp;id&nbsp;'instr_id'&nbsp;was&nbsp;not&nbsp;found.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3&nbsp;=&nbsp;unknown&nbsp;GStreamer&nbsp;error.</tt></dd></dl>
+
+<dl><dt><a name="ExtensionAPI-set_config_value"><strong>set_config_value</strong></a>(*args, **kwargs)</dt><dd><tt>Sets&nbsp;a&nbsp;new&nbsp;config&nbsp;value&nbsp;under&nbsp;a&nbsp;given&nbsp;key&nbsp;for&nbsp;later&nbsp;retrieval.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;key&nbsp;--&nbsp;name&nbsp;of&nbsp;the&nbsp;key&nbsp;to&nbsp;save&nbsp;the&nbsp;value&nbsp;under.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value&nbsp;--&nbsp;value&nbsp;to&nbsp;save.</tt></dd></dl>
+
+<dl><dt><a name="ExtensionAPI-set_instrument_volume"><strong>set_instrument_volume</strong></a>(*args, **kwargs)</dt><dd><tt>Sets&nbsp;the&nbsp;volume&nbsp;of&nbsp;an&nbsp;Instrument.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;instr_id&nbsp;--&nbsp;ID&nbsp;of&nbsp;the&nbsp;Instrument&nbsp;to&nbsp;change&nbsp;the&nbsp;value&nbsp;to.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;instr_volume&nbsp;--&nbsp;value&nbsp;the&nbsp;volume&nbsp;of&nbsp;the&nbsp;Instrument&nbsp;should&nbsp;be&nbsp;set&nbsp;to.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;=&nbsp;the&nbsp;volume&nbsp;was&nbsp;successfully&nbsp;changed.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;=&nbsp;the&nbsp;Instrument&nbsp;with&nbsp;id&nbsp;'instr_id'&nbsp;was&nbsp;not&nbsp;found.</tt></dd></dl>
+
+<dl><dt><a name="ExtensionAPI-show_main_window"><strong>show_main_window</strong></a>(*args, **kwargs)</dt><dd><tt>Makes&nbsp;the&nbsp;main&nbsp;Jokosher&nbsp;window&nbsp;visible.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;False&nbsp;--&nbsp;stop&nbsp;calling&nbsp;the&nbsp;callback&nbsp;on&nbsp;a&nbsp;timeout_add.</tt></dd></dl>
+
+<dl><dt><a name="ExtensionAPI-stop"><strong>stop</strong></a>(*args, **kwargs)</dt><dd><tt>Stops&nbsp;the&nbsp;project&nbsp;if&nbsp;it's&nbsp;currently&nbsp;playing.<br>
+Same&nbsp;as&nbsp;<a href="#ExtensionAPI-play">play</a>(play_state=False).</tt></dd></dl>
+
+<dl><dt><a name="ExtensionAPI-toggle_mute_instrument"><strong>toggle_mute_instrument</strong></a>(*args, **kwargs)</dt><dd><tt>Mutes&nbsp;an&nbsp;Instrument.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;instr_id&nbsp;--&nbsp;ID&nbsp;of&nbsp;the&nbsp;Instrument&nbsp;to&nbsp;mute.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;=&nbsp;the&nbsp;Instrument&nbsp;was&nbsp;successfully&nbsp;muted.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;=&nbsp;the&nbsp;Instrument&nbsp;with&nbsp;id&nbsp;'instr_id'&nbsp;was&nbsp;not&nbsp;found.</tt></dd></dl>
 
 </td></tr></table></td></tr></table><p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
-<tr bgcolor="#eeaa77">
+<tr bgcolor="#c17d11">
 <td colspan=3 valign=bottom>&nbsp;<br>
 <font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
     
-<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
-<td width="100%"><dl><dt><a name="-LoadAllExtensions"><strong>LoadAllExtensions</strong></a>()</dt><dd><tt>Walk&nbsp;through&nbsp;all&nbsp;the&nbsp;EXTENSION_DIRS&nbsp;and&nbsp;import&nbsp;every&nbsp;.py&nbsp;file&nbsp;we&nbsp;find.</tt></dd></dl>
+<tr><td bgcolor="#c17d11"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-exported_function"><strong>exported_function</strong></a>(f)</dt><dd><tt>Wraps&nbsp;any&nbsp;exported&nbsp;functions&nbsp;so&nbsp;that&nbsp;exceptions&nbsp;do&nbsp;not&nbsp;cross&nbsp;the&nbsp;exported&nbsp;API.<br>
+Any&nbsp;exceptions&nbsp;caught&nbsp;by&nbsp;this&nbsp;function,&nbsp;should&nbsp;be&nbsp;a&nbsp;return&nbsp;error&nbsp;code&nbsp;from&nbsp;<br>
+exported&nbsp;function.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f&nbsp;--&nbsp;function&nbsp;to&nbsp;wrap.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;wrapped&nbsp;function.</tt></dd></dl>
 </td></tr></table><p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#55aa55">
@@ -85,10 +293,8 @@ Same&nbsp;as&nbsp;<a href="#ExtensionAPI-play">play</a>(play_state=False)</tt></
     
 <tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
 <td width="100%"><strong>API</strong> = None<br>
-<strong>EXTENSION_DIRS</strong> = ['/home/mike/.jokosher/extensions/', '/usr/lib/jokosher/extensions/']<br>
-<strong>EXTENSION_DIR_USER</strong> = '/home/mike/.jokosher/extensions/'<br>
-<strong>OVERRIDE_EXTENSION_DIRS</strong> = ''<br>
-<strong>PREFERRED_EXTENSION_DIR</strong> = '/home/mike/.jokosher/extensions/'<br>
+<strong>EXTENSION_DIR_USER</strong> = '/home/david/.jokosher/extensions/'<br>
+<strong>PREFERRED_EXTENSION_DIR</strong> = '/home/david/Projects/Jokosher/trunk/Jokosher/../extensions'<br>
 <strong>RESP_INSTALL</strong> = 9999<br>
 <strong>RESP_REPLACE</strong> = 9998</td></tr></table>
 </body></html>

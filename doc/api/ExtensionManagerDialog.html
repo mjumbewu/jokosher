@@ -1,0 +1,108 @@
+
+<!doctype html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module ExtensionManagerDialog</title>
+</head><body bgcolor="#ffffff">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#fcbb58">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>ExtensionManagerDialog</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/david/Projects/Jokosher/trunk/Jokosher/ExtensionManagerDialog.py">/home/david/Projects/Jokosher/trunk/Jokosher/ExtensionManagerDialog.py</a></font></td></tr></table>
+    <p><tt>#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THIS&nbsp;FILE&nbsp;IS&nbsp;PART&nbsp;OF&nbsp;THE&nbsp;JOKOSHER&nbsp;PROJECT&nbsp;AND&nbsp;LICENSED&nbsp;UNDER&nbsp;THE&nbsp;GPL.&nbsp;SEE<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THE&nbsp;'COPYING'&nbsp;FILE&nbsp;FOR&nbsp;DETAILS<br>
+#<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;module&nbsp;shows&nbsp;the&nbsp;Extensions&nbsp;Manager&nbsp;dialog&nbsp;which&nbsp;is&nbsp;used&nbsp;to&nbsp;add,&nbsp;remove<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;configure&nbsp;Jokosher's&nbsp;Extensions.<br>
+#<br>
+#-------------------------------------------------------------------------------</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#4e9a06">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#fffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#4e9a06"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="Extension.html">Extension</a><br>
+<a href="Globals.html">Globals</a><br>
+</td><td width="25%" valign=top><a href="gettext.html">gettext</a><br>
+<a href="gtk.html">gtk</a><br>
+</td><td width="25%" valign=top><a href="os.html">os</a><br>
+<a href="pango.html">pango</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#3465a4">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#3465a4"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="ExtensionManagerDialog.html#ExtensionManagerDialog">ExtensionManagerDialog</a>
+</font></dt></dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#729fcf">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="ExtensionManagerDialog">class <strong>ExtensionManagerDialog</strong></a></font></td></tr>
+    
+<tr bgcolor="#729fcf"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>This&nbsp;module&nbsp;shows&nbsp;the&nbsp;Extensions&nbsp;Manager&nbsp;dialog&nbsp;which&nbsp;is&nbsp;used&nbsp;to&nbsp;add,&nbsp;remove<br>
+and&nbsp;configure&nbsp;Jokosher's&nbsp;Extensions.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="ExtensionManagerDialog-AddColumn"><strong>AddColumn</strong></a>(self, title, modelId, cell_renderer<font color="#909090">='text'</font>, cell_width<font color="#909090">=20</font>)</dt><dd><tt>Adds&nbsp;a&nbsp;display&nbsp;column&nbsp;to&nbsp;the&nbsp;ExtensionManager&nbsp;dialog.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title&nbsp;--&nbsp;title&nbsp;of&nbsp;the&nbsp;column.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;modelId&nbsp;--&nbsp;index&nbsp;of&nbsp;the&nbsp;column&nbsp;within&nbsp;the&nbsp;TreeView&nbsp;model.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cell_renderer&nbsp;--&nbsp;type&nbsp;of&nbsp;render&nbsp;to&nbsp;use:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'text'&nbsp;=&nbsp;renders&nbsp;text&nbsp;into&nbsp;the&nbsp;TreeView.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'toggle'&nbsp;=&nbsp;renders&nbsp;toggle&nbsp;buttons&nbsp;into&nbsp;the&nbsp;TreeView.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cell_width&nbsp;--&nbsp;width&nbsp;in&nbsp;pixels&nbsp;of&nbsp;the&nbsp;column.</tt></dd></dl>
+
+<dl><dt><a name="ExtensionManagerDialog-OnAdd"><strong>OnAdd</strong></a>(self, button)</dt><dd><tt>Displays&nbsp;a&nbsp;dialog&nbsp;which&nbsp;allows&nbsp;the&nbsp;user&nbsp;to&nbsp;add&nbsp;an&nbsp;external&nbsp;Extension.<br>
+If&nbsp;an&nbsp;error&nbsp;occurs,&nbsp;an&nbsp;error&nbsp;dialog&nbsp;is&nbsp;displayed.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;button&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
+
+<dl><dt><a name="ExtensionManagerDialog-OnClose"><strong>OnClose</strong></a>(self, button)</dt><dd><tt>Destroys&nbsp;the&nbsp;dialog&nbsp;when&nbsp;the&nbsp;close&nbsp;button&nbsp;is&nbsp;pressed.<br>
+It&nbsp;also&nbsp;saves&nbsp;the&nbsp;Extensions's&nbsp;settings.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;button&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
+
+<dl><dt><a name="ExtensionManagerDialog-OnPreferences"><strong>OnPreferences</strong></a>(self, button)</dt><dd><tt>Displays&nbsp;the&nbsp;Extension's&nbsp;preferences&nbsp;dialog.<br>
+If&nbsp;an&nbsp;error&nbsp;occurs,&nbsp;an&nbsp;error&nbsp;dialog&nbsp;is&nbsp;displayed.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;button&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
+
+<dl><dt><a name="ExtensionManagerDialog-OnRemove"><strong>OnRemove</strong></a>(self, button)</dt><dd><tt>Removes&nbsp;an&nbsp;Extension&nbsp;from&nbsp;the&nbsp;Extensions&nbsp;list.<br>
+If&nbsp;an&nbsp;error&nbsp;occurs,&nbsp;an&nbsp;error&nbsp;dialog&nbsp;is&nbsp;displayed.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;button&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
+
+<dl><dt><a name="ExtensionManagerDialog-OnSelect"><strong>OnSelect</strong></a>(self, tree)</dt><dd><tt>When&nbsp;an&nbsp;Extension&nbsp;is&nbsp;selected,&nbsp;enables/disables&nbsp;the&nbsp;preferences&nbsp;button<br>
+according&nbsp;to&nbsp;the&nbsp;reported&nbsp;Extension&nbsp;capabilities.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tree&nbsp;--&nbsp;GTKTreeView&nbsp;holding&nbsp;the&nbsp;Extensions's&nbsp;representation.</tt></dd></dl>
+
+<dl><dt><a name="ExtensionManagerDialog-ToggleEnabled"><strong>ToggleEnabled</strong></a>(self, cell, path)</dt><dd><tt>Enables/disables&nbsp;an&nbsp;Extension.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cell&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;path&nbsp;--&nbsp;path&nbsp;to&nbsp;the&nbsp;Extension.</tt></dd></dl>
+
+<dl><dt><a name="ExtensionManagerDialog-UpdateModel"><strong>UpdateModel</strong></a>(self)</dt><dd><tt>Updates&nbsp;the&nbsp;<a href="#ExtensionManagerDialog">ExtensionManagerDialog</a>&nbsp;Extension&nbsp;list,&nbsp;to&nbsp;reflect&nbsp;changes<br>
+in&nbsp;the&nbsp;currently&nbsp;available&nbsp;Extensions.</tt></dd></dl>
+
+<dl><dt><a name="ExtensionManagerDialog-__init__"><strong>__init__</strong></a>(self, parent)</dt><dd><tt>Creates&nbsp;a&nbsp;new&nbsp;instance&nbsp;of&nbsp;<a href="#ExtensionManagerDialog">ExtensionManagerDialog</a>.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parent&nbsp;--&nbsp;the&nbsp;parent&nbsp;MainApp&nbsp;Jokosher&nbsp;window.</tt></dd></dl>
+
+</td></tr></table></td></tr></table>
+</body></html>

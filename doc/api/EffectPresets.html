@@ -1,14 +1,14 @@
 
 <!doctype html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html><head><title>Python: module EffectPresets</title>
-</head><body bgcolor="#f0f0f8">
+</head><body bgcolor="#ffffff">
 
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
-<tr bgcolor="#7799ee">
+<tr bgcolor="#fcbb58">
 <td valign=bottom>&nbsp;<br>
 <font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>EffectPresets</strong></big></big></font></td
 ><td align=right valign=bottom
-><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/mike/src/jokosher/trunk/Jokosher/EffectPresets.py">/home/mike/src/jokosher/trunk/Jokosher/EffectPresets.py</a></font></td></tr></table>
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/david/Projects/Jokosher/trunk/Jokosher/EffectPresets.py">/home/david/Projects/Jokosher/trunk/Jokosher/EffectPresets.py</a></font></td></tr></table>
     <p><tt>#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THIS&nbsp;FILE&nbsp;IS&nbsp;PART&nbsp;OF&nbsp;THE&nbsp;JOKOSHER&nbsp;PROJECT&nbsp;AND&nbsp;LICENSED&nbsp;UNDER&nbsp;THE&nbsp;GPL.&nbsp;SEE<br>
 #&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THE&nbsp;'COPYING'&nbsp;FILE&nbsp;FOR&nbsp;DETAILS<br>
 #<br>
@@ -28,57 +28,85 @@
 #-------------------------------------------------------------------------------</tt></p>
 <p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
-<tr bgcolor="#aa55cc">
+<tr bgcolor="#4e9a06">
 <td colspan=3 valign=bottom>&nbsp;<br>
 <font color="#fffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
     
-<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<tr><td bgcolor="#4e9a06"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
 <td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="Globals.html">Globals</a><br>
 <a href="glob.html">glob</a><br>
-<a href="gobject.html">gobject</a><br>
-</td><td width="25%" valign=top><a href="gst.html">gst</a><br>
-<a href="gtk.html">gtk</a><br>
+<a href="gst.html">gst</a><br>
+</td><td width="25%" valign=top><a href="gtk.html">gtk</a><br>
 <a href="math.html">math</a><br>
-</td><td width="25%" valign=top><a href="os.html">os</a><br>
-<a href="pygst.html">pygst</a><br>
+<a href="os.html">os</a><br>
+</td><td width="25%" valign=top><a href="pygst.html">pygst</a><br>
 <a href="string.html">string</a><br>
-</td><td width="25%" valign=top><a href="xml.dom.minidom.html">xml.dom.minidom</a><br>
-</td></tr></table></td></tr></table><p>
+<a href="xml.dom.minidom.html">xml.dom.minidom</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
-<tr bgcolor="#ee77aa">
+<tr bgcolor="#3465a4">
 <td colspan=3 valign=bottom>&nbsp;<br>
 <font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
     
-<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<tr><td bgcolor="#3465a4"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
 <td width="100%"><dl>
 <dt><font face="helvetica, arial"><a href="EffectPresets.html#EffectPresets">EffectPresets</a>
 </font></dt></dl>
  <p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
-<tr bgcolor="#ffc8d8">
+<tr bgcolor="#729fcf">
 <td colspan=3 valign=bottom>&nbsp;<br>
 <font color="#000000" face="helvetica, arial"><a name="EffectPresets">class <strong>EffectPresets</strong></a></font></td></tr>
     
-<tr><td bgcolor="#ffc8d8"><tt>&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<tr bgcolor="#729fcf"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>This&nbsp;class&nbsp;implements&nbsp;support&nbsp;for&nbsp;effects&nbsp;presets.&nbsp;These&nbsp;presets&nbsp;are&nbsp;used<br>
+to&nbsp;store&nbsp;settings&nbsp;for&nbsp;single&nbsp;effects&nbsp;and&nbsp;multiple&nbsp;effects&nbsp;strung&nbsp;together<br>
+(called&nbsp;a&nbsp;'chain').<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
 <td width="100%">Methods defined here:<br>
-<dl><dt><a name="EffectPresets-FillEffectsPresetsRegistry"><strong>FillEffectsPresetsRegistry</strong></a>(self)</dt><dd><tt>Read&nbsp;in&nbsp;all&nbsp;presets&nbsp;into&nbsp;the&nbsp;main&nbsp;presets&nbsp;registry</tt></dd></dl>
+<dl><dt><a name="EffectPresets-FillEffectsPresetsRegistry"><strong>FillEffectsPresetsRegistry</strong></a>(self)</dt><dd><tt>Load&nbsp;all&nbsp;presets&nbsp;into&nbsp;the&nbsp;main&nbsp;presets&nbsp;registry.</tt></dd></dl>
 
 <dl><dt><a name="EffectPresets-FillLADSPARegistry"><strong>FillLADSPARegistry</strong></a>(self)</dt><dd><tt>Fill&nbsp;Globals.LADSPA_FACTORY_REGISTRY&nbsp;with&nbsp;effects&nbsp;on&nbsp;the&nbsp;system.&nbsp;This<br>
-is&nbsp;to&nbsp;ensure&nbsp;only&nbsp;presets&nbsp;with&nbsp;effects&nbsp;on&nbsp;the&nbsp;current&nbsp;system&nbsp;are&nbsp;listed.</tt></dd></dl>
+is&nbsp;to&nbsp;ensure&nbsp;that&nbsp;only&nbsp;presets&nbsp;with&nbsp;effects&nbsp;on&nbsp;the&nbsp;current&nbsp;system&nbsp;are&nbsp;listed.</tt></dd></dl>
 
-<dl><dt><a name="EffectPresets-LoadInstrumentEffectChain"><strong>LoadInstrumentEffectChain</strong></a>(self, presetname)</dt><dd><tt>Load&nbsp;settings&nbsp;from&nbsp;the&nbsp;preset&nbsp;file&nbsp;for&nbsp;an&nbsp;effects&nbsp;chain</tt></dd></dl>
+<dl><dt><a name="EffectPresets-LoadInstrumentEffectChain"><strong>LoadInstrumentEffectChain</strong></a>(self, presetname)</dt><dd><tt>Load&nbsp;settings&nbsp;from&nbsp;the&nbsp;preset&nbsp;file&nbsp;for&nbsp;an&nbsp;effects&nbsp;chain.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;presetname&nbsp;--&nbsp;name&nbsp;of&nbsp;the&nbsp;preset&nbsp;to&nbsp;be&nbsp;loaded.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;settings&nbsp;dictionary&nbsp;with&nbsp;the&nbsp;loaded&nbsp;settings&nbsp;for&nbsp;the&nbsp;effects.</tt></dd></dl>
 
-<dl><dt><a name="EffectPresets-LoadInstrumentEffectList"><strong>LoadInstrumentEffectList</strong></a>(self)</dt></dl>
+<dl><dt><a name="EffectPresets-LoadInstrumentEffectList"><strong>LoadInstrumentEffectList</strong></a>(self)</dt><dd><tt>TODO&nbsp;--&nbsp;This&nbsp;method&nbsp;is&nbsp;not&nbsp;yet&nbsp;implemented.</tt></dd></dl>
 
-<dl><dt><a name="EffectPresets-LoadSingleEffectList"><strong>LoadSingleEffectList</strong></a>(self)</dt></dl>
+<dl><dt><a name="EffectPresets-LoadSingleEffectList"><strong>LoadSingleEffectList</strong></a>(self)</dt><dd><tt>TODO&nbsp;--&nbsp;This&nbsp;method&nbsp;is&nbsp;not&nbsp;yet&nbsp;implemented.</tt></dd></dl>
 
-<dl><dt><a name="EffectPresets-LoadSingleEffectSettings"><strong>LoadSingleEffectSettings</strong></a>(self, effectelement, presetname)</dt><dd><tt>Load&nbsp;effect&nbsp;settings&nbsp;from&nbsp;a&nbsp;preset&nbsp;file&nbsp;for&nbsp;a&nbsp;single&nbsp;effect</tt></dd></dl>
+<dl><dt><a name="EffectPresets-LoadSingleEffectSettings"><strong>LoadSingleEffectSettings</strong></a>(self, effectelement, presetname)</dt><dd><tt>Load&nbsp;effect&nbsp;settings&nbsp;from&nbsp;a&nbsp;preset&nbsp;file&nbsp;for&nbsp;a&nbsp;single&nbsp;effect.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;effectelement&nbsp;--&nbsp;the&nbsp;effect&nbsp;element&nbsp;to&nbsp;be&nbsp;loaded.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;presetname&nbsp;--&nbsp;the&nbsp;name&nbsp;of&nbsp;the&nbsp;preset&nbsp;to&nbsp;be&nbsp;loaded.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;settings&nbsp;dictionary&nbsp;with&nbsp;the&nbsp;loaded&nbsp;settings&nbsp;for&nbsp;the&nbsp;effect.</tt></dd></dl>
 
-<dl><dt><a name="EffectPresets-SaveEffectChain"><strong>SaveEffectChain</strong></a>(self, label, effectlist, instrumenttype)</dt><dd><tt>Write&nbsp;an&nbsp;effect&nbsp;chain&nbsp;to&nbsp;a&nbsp;preset&nbsp;file</tt></dd></dl>
+<dl><dt><a name="EffectPresets-SaveEffectChain"><strong>SaveEffectChain</strong></a>(self, label, effectlist, instrumenttype)</dt><dd><tt>Write&nbsp;an&nbsp;effect&nbsp;chain&nbsp;to&nbsp;a&nbsp;preset&nbsp;file.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;label&nbsp;--&nbsp;the&nbsp;name&nbsp;of&nbsp;the&nbsp;effect.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;effectlist&nbsp;--&nbsp;the&nbsp;list&nbsp;of&nbsp;effects.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;instrumenttype&nbsp;--&nbsp;the&nbsp;type&nbsp;of&nbsp;instrument&nbsp;currently&nbsp;being&nbsp;used.</tt></dd></dl>
 
-<dl><dt><a name="EffectPresets-SaveSingleEffect"><strong>SaveSingleEffect</strong></a>(self, label, effectdict, effectelement, effecttype)</dt><dd><tt>Write&nbsp;a&nbsp;single&nbsp;effect&nbsp;preset&nbsp;to&nbsp;a&nbsp;preset&nbsp;file</tt></dd></dl>
+<dl><dt><a name="EffectPresets-SaveSingleEffect"><strong>SaveSingleEffect</strong></a>(self, label, effectdict, effectelement, effecttype)</dt><dd><tt>This&nbsp;method&nbsp;will&nbsp;write&nbsp;a&nbsp;single&nbsp;effect&nbsp;preset&nbsp;to&nbsp;a&nbsp;preset&nbsp;file.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;label&nbsp;--the&nbsp;name&nbsp;of&nbsp;the&nbsp;effect.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;effectdict&nbsp;--&nbsp;the&nbsp;effect&nbsp;dictionary.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;effectelement&nbsp;--&nbsp;the&nbsp;effect&nbsp;that&nbsp;the&nbsp;user&nbsp;selected.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;effecttype&nbsp;--&nbsp;the&nbsp;type&nbsp;of&nbsp;the&nbsp;effect&nbsp;the&nbsp;user&nbsp;selected.</tt></dd></dl>
 
-<dl><dt><a name="EffectPresets-__init__"><strong>__init__</strong></a>(self)</dt></dl>
+<dl><dt><a name="EffectPresets-__init__"><strong>__init__</strong></a>(self)</dt><dd><tt>Creates&nbsp;a&nbsp;new&nbsp;instance&nbsp;of&nbsp;EffectsPresets.&nbsp;If&nbsp;needed,&nbsp;it&nbsp;populates&nbsp;the<br>
+LADSPA&nbsp;and&nbsp;effect&nbsp;presets&nbsp;registries.</tt></dd></dl>
 
 </td></tr></table></td></tr></table>
 </body></html>

@@ -1,22 +1,29 @@
 
 <!doctype html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html><head><title>Python: module CompactMixView</title>
-</head><body bgcolor="#f0f0f8">
+</head><body bgcolor="#ffffff">
 
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
-<tr bgcolor="#7799ee">
+<tr bgcolor="#fcbb58">
 <td valign=bottom>&nbsp;<br>
 <font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>CompactMixView</strong></big></big></font></td
 ><td align=right valign=bottom
-><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/mike/src/jokosher/trunk/Jokosher/CompactMixView.py">/home/mike/src/jokosher/trunk/Jokosher/CompactMixView.py</a></font></td></tr></table>
-    <p></p>
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/david/Projects/Jokosher/trunk/Jokosher/CompactMixView.py">/home/david/Projects/Jokosher/trunk/Jokosher/CompactMixView.py</a></font></td></tr></table>
+    <p><tt>#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THIS&nbsp;FILE&nbsp;IS&nbsp;PART&nbsp;OF&nbsp;THE&nbsp;JOKOSHER&nbsp;PROJECT&nbsp;AND&nbsp;LICENSED&nbsp;UNDER&nbsp;THE&nbsp;GPL.&nbsp;SEE<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THE&nbsp;'COPYING'&nbsp;FILE&nbsp;FOR&nbsp;DETAILS<br>
+#<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#CompactMixView">CompactMixView</a>.py<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A&nbsp;sub-class&nbsp;of&nbsp;gtk.Frame&nbsp;containing&nbsp;the&nbsp;mixing&nbsp;view&nbsp;of&nbsp;the&nbsp;project<br>
+#<br>
+#-------------------------------------------------------------------------------</tt></p>
 <p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
-<tr bgcolor="#aa55cc">
+<tr bgcolor="#4e9a06">
 <td colspan=3 valign=bottom>&nbsp;<br>
 <font color="#fffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
     
-<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<tr><td bgcolor="#4e9a06"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
 <td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="Globals.html">Globals</a><br>
 <a href="RecordingView.html">RecordingView</a><br>
 </td><td width="25%" valign=top><a href="cairo.html">cairo</a><br>
@@ -27,11 +34,11 @@
 <a href="pygtk.html">pygtk</a><br>
 </td></tr></table></td></tr></table><p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
-<tr bgcolor="#ee77aa">
+<tr bgcolor="#3465a4">
 <td colspan=3 valign=bottom>&nbsp;<br>
 <font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
     
-<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<tr><td bgcolor="#3465a4"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
 <td width="100%"><dl>
 <dt><font face="helvetica, arial">gobject.Frame(gobject.Bin)
 </font></dt><dd>
@@ -42,12 +49,12 @@
 </dl>
  <p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
-<tr bgcolor="#ffc8d8">
+<tr bgcolor="#729fcf">
 <td colspan=3 valign=bottom>&nbsp;<br>
 <font color="#000000" face="helvetica, arial"><a name="CompactMixView">class <strong>CompactMixView</strong></a>(gobject.Frame)</font></td></tr>
     
-<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
-<td colspan=2><tt>This&nbsp;class&nbsp;implements&nbsp;the&nbsp;mix&nbsp;view<br>&nbsp;</tt></td></tr>
+<tr bgcolor="#729fcf"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>This&nbsp;class&nbsp;implements&nbsp;the&nbsp;mixing&nbsp;workspace&nbsp;view.<br>&nbsp;</tt></td></tr>
 <tr><td>&nbsp;</td>
 <td width="100%"><dl><dt>Method resolution order:</dt>
 <dd><a href="CompactMixView.html#CompactMixView">CompactMixView</a></dd>
@@ -63,26 +70,52 @@
 </dl>
 <hr>
 Methods defined here:<br>
-<dl><dt><a name="CompactMixView-OnMaximiseTrack"><strong>OnMaximiseTrack</strong></a>(self, widget, instr)</dt><dd><tt>Callback&nbsp;for&nbsp;'clicked'&nbsp;signal&nbsp;on&nbsp;minimise&nbsp;buttons<br>
-&nbsp;-&nbsp;maximises&nbsp;mixer&nbsp;strip</tt></dd></dl>
+<dl><dt><a name="CompactMixView-OnMaximiseTrack"><strong>OnMaximiseTrack</strong></a>(self, widget, instr)</dt><dd><tt>Maximizes&nbsp;a&nbsp;mixer&nbsp;strip&nbsp;(instrument).<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;instr&nbsp;--&nbsp;the&nbsp;Instrument&nbsp;to&nbsp;be&nbsp;shown.</tt></dd></dl>
 
-<dl><dt><a name="CompactMixView-OnMinimiseTrack"><strong>OnMinimiseTrack</strong></a>(self, widget, instr)</dt><dd><tt>Callback&nbsp;for&nbsp;'minimise'&nbsp;signal&nbsp;-&nbsp;minimises&nbsp;mixer&nbsp;strip</tt></dd></dl>
+<dl><dt><a name="CompactMixView-OnMinimiseTrack"><strong>OnMinimiseTrack</strong></a>(self, widget, instr)</dt><dd><tt>Minimizes&nbsp;a&nbsp;mixer&nbsp;strip&nbsp;(instrument).<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;instr&nbsp;--&nbsp;the&nbsp;Instrument&nbsp;to&nbsp;be&nbsp;hidden.</tt></dd></dl>
 
-<dl><dt><a name="CompactMixView-OnStateChanged"><strong>OnStateChanged</strong></a>(self, obj, change<font color="#909090">=None</font>)</dt><dd><tt>Called&nbsp;when&nbsp;a&nbsp;change&nbsp;of&nbsp;state&nbsp;is&nbsp;signalled&nbsp;by&nbsp;any&nbsp;of&nbsp;the<br>
-instruments&nbsp;that&nbsp;this&nbsp;view&nbsp;is&nbsp;'listening'&nbsp;to.&nbsp;<br>
-NOTE:&nbsp;the&nbsp;actual&nbsp;AddListener&nbsp;call&nbsp;is&nbsp;in&nbsp;RecordingView.py<br>
-&nbsp;&nbsp;as&nbsp;this&nbsp;is&nbsp;wher&nbsp;the&nbsp;InstrumentViewer&nbsp;objects&nbsp;are&nbsp;created&nbsp;when<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;instruments&nbsp;are&nbsp;added.</tt></dd></dl>
+<dl><dt><a name="CompactMixView-OnStateChanged"><strong>OnStateChanged</strong></a>(self, obj, change<font color="#909090">=None</font>, *extra)</dt><dd><tt>Called&nbsp;when&nbsp;a&nbsp;change&nbsp;of&nbsp;state&nbsp;is&nbsp;signalled&nbsp;by&nbsp;any&nbsp;of&nbsp;the<br>
+objects&nbsp;this&nbsp;view&nbsp;is&nbsp;'listening'&nbsp;to.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;obj&nbsp;--&nbsp;object&nbsp;changing&nbsp;state.&nbsp;*CHECK*<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;change&nbsp;--&nbsp;the&nbsp;change&nbsp;which&nbsp;has&nbsp;occured.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;extra&nbsp;--&nbsp;extra&nbsp;parameters&nbsp;passed&nbsp;by&nbsp;the&nbsp;caller.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Considerations:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;actual&nbsp;AddListener&nbsp;call&nbsp;is&nbsp;in&nbsp;RecordingView.py,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;as&nbsp;this&nbsp;is&nbsp;where&nbsp;the&nbsp;InstrumentViewer&nbsp;objects&nbsp;are&nbsp;created<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;when&nbsp;instruments&nbsp;are&nbsp;added.</tt></dd></dl>
 
-<dl><dt><a name="CompactMixView-OnUpdateTimeout"><strong>OnUpdateTimeout</strong></a>(self)</dt><dd><tt>Called&nbsp;at&nbsp;intervals&nbsp;(self.<strong>FPS</strong>)&nbsp;to&nbsp;update&nbsp;the&nbsp;VU&nbsp;meters</tt></dd></dl>
+<dl><dt><a name="CompactMixView-OnUpdateTimeout"><strong>OnUpdateTimeout</strong></a>(self)</dt><dd><tt>Called&nbsp;at&nbsp;intervals&nbsp;(self.<strong>FPS</strong>)&nbsp;to&nbsp;update&nbsp;the&nbsp;VU&nbsp;meters.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;True&nbsp;--&nbsp;keeps&nbsp;the&nbsp;timeout&nbsp;going&nbsp;during&nbsp;playback.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;False&nbsp;--&nbsp;stops&nbsp;the&nbsp;timeout&nbsp;when&nbsp;playback&nbsp;stops.</tt></dd></dl>
 
 <dl><dt><a name="CompactMixView-StartUpdateTimeout"><strong>StartUpdateTimeout</strong></a>(self)</dt><dd><tt>Initiates&nbsp;the&nbsp;OnUpdateTimeout&nbsp;-&nbsp;called&nbsp;from&nbsp;MainApp.play()<br>
-when&nbsp;the&nbsp;play&nbsp;button&nbsp;is&nbsp;pressed</tt></dd></dl>
+when&nbsp;the&nbsp;play&nbsp;button&nbsp;is&nbsp;pressed.</tt></dd></dl>
 
-<dl><dt><a name="CompactMixView-Update"><strong>Update</strong></a>(self)</dt><dd><tt>Updates&nbsp;the&nbsp;mix&nbsp;view&nbsp;when&nbsp;requested&nbsp;by&nbsp;OnStateChanged&nbsp;or&nbsp;__init__</tt></dd></dl>
+<dl><dt><a name="CompactMixView-Update"><strong>Update</strong></a>(self)</dt><dd><tt>Updates&nbsp;the&nbsp;mix&nbsp;view&nbsp;when&nbsp;requested&nbsp;by&nbsp;OnStateChanged&nbsp;or&nbsp;__init__<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;False&nbsp;--&nbsp;indicates&nbsp;the&nbsp;GTK&nbsp;signal&nbsp;to:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1)&nbsp;continue&nbsp;propagating&nbsp;the&nbsp;regular&nbsp;signal.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2)&nbsp;stop&nbsp;calling&nbsp;the&nbsp;callback&nbsp;on&nbsp;a&nbsp;timeout_add.</tt></dd></dl>
 
-<dl><dt><a name="CompactMixView-__init__"><strong>__init__</strong></a>(self, project, mainview)</dt><dd><tt>project&nbsp;=&nbsp;the&nbsp;active&nbsp;project<br>
-mainview&nbsp;-&nbsp;the&nbsp;main&nbsp;Jokosher&nbsp;window</tt></dd></dl>
+<dl><dt><a name="CompactMixView-__init__"><strong>__init__</strong></a>(self, project, mainview)</dt><dd><tt>Creates&nbsp;a&nbsp;new&nbsp;instance&nbsp;of&nbsp;<a href="#CompactMixView">CompactMixView</a>.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;project&nbsp;--&nbsp;the&nbsp;active&nbsp;Project.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mainview&nbsp;--&nbsp;reference&nbsp;to&nbsp;the&nbsp;MainApp&nbsp;Jokosher&nbsp;window.</tt></dd></dl>
 
 <hr>
 Data and other attributes defined here:<br>
@@ -108,7 +141,7 @@ Methods inherited from gobject.Frame:<br>
 
 <hr>
 Data and other attributes inherited from gobject.Frame:<br>
-<dl><dt><strong>__gtype__</strong> = &lt;GType GtkFrame (135884344)&gt;</dl>
+<dl><dt><strong>__gtype__</strong> = &lt;GType GtkFrame (136327352)&gt;</dl>
 
 <dl><dt><strong>do_compute_child_allocation</strong> = &lt;built-in method do_compute_child_allocation of GObjectMeta object&gt;</dl>
 
@@ -740,7 +773,7 @@ Methods inherited from <a href="gobject.html#GObject">gobject.GObject</a>:<br>
 Data and other attributes inherited from <a href="gobject.html#GObject">gobject.GObject</a>:<br>
 <dl><dt><strong>__dict__</strong> = &lt;dictproxy object&gt;</dl>
 
-<dl><dt><strong>__gdoc__</strong> = 'Object GtkFrame<font color="#c040c0">\n\n\n\t\t</font>This class implements the mi...ointer<font color="#c040c0">\n\n</font>Signals from GObject:<font color="#c040c0">\n</font>  notify (GParam)<font color="#c040c0">\n\n</font>'</dl>
+<dl><dt><strong>__gdoc__</strong> = 'Object GtkFrame<font color="#c040c0">\n\n\n\t</font>This class implements the mix...ointer<font color="#c040c0">\n\n</font>Signals from GObject:<font color="#c040c0">\n</font>  notify (GParam)<font color="#c040c0">\n\n</font>'</dl>
 
 <dl><dt><strong>__grefcount__</strong> = &lt;attribute '__grefcount__' of 'gobject.GObject' objects&gt;</dl>
 

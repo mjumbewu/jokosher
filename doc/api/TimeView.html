@@ -1,31 +1,39 @@
 
 <!doctype html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html><head><title>Python: module TimeView</title>
-</head><body bgcolor="#f0f0f8">
+</head><body bgcolor="#ffffff">
 
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
-<tr bgcolor="#7799ee">
+<tr bgcolor="#fcbb58">
 <td valign=bottom>&nbsp;<br>
 <font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>TimeView</strong></big></big></font></td
 ><td align=right valign=bottom
-><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/mike/src/jokosher/trunk/Jokosher/TimeView.py">/home/mike/src/jokosher/trunk/Jokosher/TimeView.py</a></font></td></tr></table>
-    <p></p>
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/david/Projects/Jokosher/trunk/Jokosher/TimeView.py">/home/david/Projects/Jokosher/trunk/Jokosher/TimeView.py</a></font></td></tr></table>
+    <p><tt>#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THIS&nbsp;FILE&nbsp;IS&nbsp;PART&nbsp;OF&nbsp;THE&nbsp;JOKOSHER&nbsp;PROJECT&nbsp;AND&nbsp;LICENSED&nbsp;UNDER&nbsp;THE&nbsp;GPL.&nbsp;SEE<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THE&nbsp;'COPYING'&nbsp;FILE&nbsp;FOR&nbsp;DETAILS<br>
+#<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#TimeView">TimeView</a>.py<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;module&nbsp;holds&nbsp;and&nbsp;updates&nbsp;the&nbsp;gtk.Label&nbsp;which&nbsp;displays<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;current&nbsp;time&nbsp;position.<br>
+#<br>
+#-------------------------------------------------------------------------------</tt></p>
 <p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
-<tr bgcolor="#aa55cc">
+<tr bgcolor="#4e9a06">
 <td colspan=3 valign=bottom>&nbsp;<br>
 <font color="#fffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
     
-<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
-<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="gtk.html">gtk</a><br>
-</td><td width="25%" valign=top><a href="pango.html">pango</a><br>
+<tr><td bgcolor="#4e9a06"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="gettext.html">gettext</a><br>
+</td><td width="25%" valign=top><a href="gtk.html">gtk</a><br>
 </td><td width="25%" valign=top></td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
-<tr bgcolor="#ee77aa">
+<tr bgcolor="#3465a4">
 <td colspan=3 valign=bottom>&nbsp;<br>
 <font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
     
-<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<tr><td bgcolor="#3465a4"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
 <td width="100%"><dl>
 <dt><font face="helvetica, arial">gobject.EventBox(gobject.Bin)
 </font></dt><dd>
@@ -36,11 +44,13 @@
 </dl>
  <p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
-<tr bgcolor="#ffc8d8">
+<tr bgcolor="#729fcf">
 <td colspan=3 valign=bottom>&nbsp;<br>
 <font color="#000000" face="helvetica, arial"><a name="TimeView">class <strong>TimeView</strong></a>(gobject.EventBox)</font></td></tr>
     
-<tr><td bgcolor="#ffc8d8"><tt>&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<tr bgcolor="#729fcf"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>This&nbsp;class&nbsp;updates&nbsp;the&nbsp;time&nbsp;label&nbsp;which&nbsp;displays&nbsp;the&nbsp;time&nbsp;position&nbsp;of&nbsp;a&nbsp;loaded&nbsp;project.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
 <td width="100%"><dl><dt>Method resolution order:</dt>
 <dd><a href="TimeView.html#TimeView">TimeView</a></dd>
 <dd>gobject.EventBox</dd>
@@ -55,17 +65,34 @@
 </dl>
 <hr>
 Methods defined here:<br>
-<dl><dt><a name="TimeView-OnClick"><strong>OnClick</strong></a>(self, widget, event)</dt></dl>
+<dl><dt><a name="TimeView-OnClick"><strong>OnClick</strong></a>(self, widget, event)</dt><dd><tt>Called&nbsp;when&nbsp;the&nbsp;label&nbsp;is&nbsp;double&nbsp;clicked.<br>
+It&nbsp;will&nbsp;then&nbsp;change&nbsp;the&nbsp;time&nbsp;label&nbsp;to&nbsp;represent&nbsp;either&nbsp;MODE_HOURS_MINS_SECS&nbsp;or&nbsp;MODE_BARS_BEATS.<br>
+MODE_HOURS_MINS_SECS&nbsp;-&nbsp;time&nbsp;in&nbsp;seconds,&nbsp;minutes&nbsp;and&nbsp;hours.<br>
+MODE_BARS_BEATS&nbsp;-&nbsp;time&nbsp;in&nbsp;how&nbsp;many&nbsp;beats&nbsp;are&nbsp;in&nbsp;each&nbsp;bar.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;event&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="TimeView-OnStateChanged"><strong>OnStateChanged</strong></a>(self, obj, change<font color="#909090">=None</font>)</dt></dl>
+<dl><dt><a name="TimeView-OnStateChanged"><strong>OnStateChanged</strong></a>(self, obj, change<font color="#909090">=None</font>, *extra)</dt><dd><tt>Called&nbsp;when&nbsp;a&nbsp;change&nbsp;of&nbsp;state&nbsp;is&nbsp;signalled&nbsp;by&nbsp;any&nbsp;of&nbsp;the<br>
+objects&nbsp;this&nbsp;view&nbsp;is&nbsp;'listening'&nbsp;to.<br>
+Updates&nbsp;the&nbsp;time&nbsp;label.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;obj&nbsp;--&nbsp;object&nbsp;changing&nbsp;state.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;change&nbsp;--&nbsp;the&nbsp;change&nbsp;which&nbsp;has&nbsp;occured.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;extra&nbsp;--&nbsp;extra&nbsp;parameters&nbsp;passed&nbsp;by&nbsp;the&nbsp;caller.</tt></dd></dl>
 
-<dl><dt><a name="TimeView-UpdateTime"><strong>UpdateTime</strong></a>(self)</dt></dl>
+<dl><dt><a name="TimeView-UpdateTime"><strong>UpdateTime</strong></a>(self)</dt><dd><tt>Updates&nbsp;the&nbsp;time&nbsp;label.</tt></dd></dl>
 
-<dl><dt><a name="TimeView-__init__"><strong>__init__</strong></a>(self, project)</dt></dl>
+<dl><dt><a name="TimeView-__init__"><strong>__init__</strong></a>(self, project)</dt><dd><tt>Creates&nbsp;a&nbsp;new&nbsp;instance&nbsp;of&nbsp;<a href="#TimeView">TimeView</a><br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;project&nbsp;--&nbsp;reference&nbsp;to&nbsp;Project&nbsp;(Project.py)</tt></dd></dl>
 
 <hr>
 Data and other attributes defined here:<br>
-<dl><dt><strong>__gtype__</strong> = &lt;GType TimeView (136945384)&gt;</dl>
+<dl><dt><strong>__gtype__</strong> = &lt;GType TimeView (137820512)&gt;</dl>
 
 <dl><dt><strong>__gtype_name__</strong> = 'TimeView'</dl>
 
@@ -707,7 +734,7 @@ Methods inherited from <a href="gobject.html#GObject">gobject.GObject</a>:<br>
 Data and other attributes inherited from <a href="gobject.html#GObject">gobject.GObject</a>:<br>
 <dl><dt><strong>__dict__</strong> = &lt;dictproxy object&gt;</dl>
 
-<dl><dt><strong>__gdoc__</strong> = 'Object TimeView<font color="#c040c0">\n\n</font>Properties from GtkEventBox:<font color="#c040c0">\n</font>  ...ointer<font color="#c040c0">\n\n</font>Signals from GObject:<font color="#c040c0">\n</font>  notify (GParam)<font color="#c040c0">\n\n</font>'</dl>
+<dl><dt><strong>__gdoc__</strong> = 'Object TimeView<font color="#c040c0">\n\n\n\t</font>This class updates the time l...ointer<font color="#c040c0">\n\n</font>Signals from GObject:<font color="#c040c0">\n</font>  notify (GParam)<font color="#c040c0">\n\n</font>'</dl>
 
 <dl><dt><strong>__grefcount__</strong> = &lt;attribute '__grefcount__' of 'gobject.GObject' objects&gt;</dl>
 

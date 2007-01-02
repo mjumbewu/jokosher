@@ -1,52 +1,80 @@
 
 <!doctype html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html><head><title>Python: module JokDebug</title>
-</head><body bgcolor="#f0f0f8">
+</head><body bgcolor="#ffffff">
 
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
-<tr bgcolor="#7799ee">
+<tr bgcolor="#fcbb58">
 <td valign=bottom>&nbsp;<br>
 <font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>JokDebug</strong></big></big></font></td
 ><td align=right valign=bottom
-><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/mike/src/jokosher/trunk/Jokosher/JokDebug.py">/home/mike/src/jokosher/trunk/Jokosher/JokDebug.py</a></font></td></tr></table>
-    <p><tt>#&nbsp;&nbsp;&nbsp;&nbsp;THIS&nbsp;FILE&nbsp;IS&nbsp;PART&nbsp;OF&nbsp;THE&nbsp;JOKOSHER&nbsp;PROJECT&nbsp;AND&nbsp;LICENSED&nbsp;UNDER&nbsp;THE&nbsp;GPL.&nbsp;SEE<br>
-#&nbsp;&nbsp;&nbsp;&nbsp;THE&nbsp;'COPYING'&nbsp;FILE&nbsp;FOR&nbsp;DETAILS<br>
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/david/Projects/Jokosher/trunk/Jokosher/JokDebug.py">/home/david/Projects/Jokosher/trunk/Jokosher/JokDebug.py</a></font></td></tr></table>
+    <p><tt>#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THIS&nbsp;FILE&nbsp;IS&nbsp;PART&nbsp;OF&nbsp;THE&nbsp;JOKOSHER&nbsp;PROJECT&nbsp;AND&nbsp;LICENSED&nbsp;UNDER&nbsp;THE&nbsp;GPL.&nbsp;SEE<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THE&nbsp;'COPYING'&nbsp;FILE&nbsp;FOR&nbsp;DETAILS<br>
 #<br>
-#&nbsp;&nbsp;&nbsp;&nbsp;NewDialog.py<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#JokDebug">JokDebug</a>.py<br>
 #<br>
-#&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;class&nbsp;provides&nbsp;a&nbsp;bunch&nbsp;of&nbsp;debugging&nbsp;methods&nbsp;that&nbsp;are&nbsp;mainly&nbsp;intended<br>
-#&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;cracking&nbsp;open&nbsp;pipelines&nbsp;and&nbsp;looking&nbsp;at&nbsp;the&nbsp;goo&nbsp;inside.&nbsp;This&nbsp;most&nbsp;likely<br>
-#&nbsp;&nbsp;&nbsp;&nbsp;won't&nbsp;be&nbsp;shipped&nbsp;with&nbsp;the&nbsp;final&nbsp;release&nbsp;and&nbsp;is&nbsp;mainly&nbsp;useful&nbsp;for&nbsp;hackers<br>
-#&nbsp;&nbsp;&nbsp;&nbsp;who&nbsp;are&nbsp;involved&nbsp;in&nbsp;the&nbsp;project.<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;class&nbsp;provides&nbsp;a&nbsp;bunch&nbsp;of&nbsp;debugging&nbsp;methods&nbsp;that&nbsp;are&nbsp;mainly&nbsp;intended<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;cracking&nbsp;open&nbsp;pipelines&nbsp;and&nbsp;looking&nbsp;at&nbsp;the&nbsp;goo&nbsp;inside.&nbsp;This&nbsp;most&nbsp;likely<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;won't&nbsp;be&nbsp;shipped&nbsp;with&nbsp;the&nbsp;final&nbsp;release&nbsp;and&nbsp;is&nbsp;mainly&nbsp;useful&nbsp;for&nbsp;hackers<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;who&nbsp;are&nbsp;involved&nbsp;in&nbsp;the&nbsp;project.<br>
 #<br>
-#&nbsp;&nbsp;&nbsp;&nbsp;To&nbsp;enable&nbsp;debugging&nbsp;mode,&nbsp;set&nbsp;an&nbsp;environmental&nbsp;variable:<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To&nbsp;enable&nbsp;debugging&nbsp;mode,&nbsp;set&nbsp;an&nbsp;environmental&nbsp;variable:<br>
 #<br>
-#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;foo@bar~$&nbsp;export&nbsp;JOKOSHER_DEBUG=1<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;foo@bar~$&nbsp;export&nbsp;JOKOSHER_DEBUG=1<br>
 #<br>
 #-------------------------------------------------------------------------------</tt></p>
 <p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
-<tr bgcolor="#ee77aa">
+<tr bgcolor="#4e9a06">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#fffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#4e9a06"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="Globals.html">Globals</a><br>
+</td><td width="25%" valign=top></td><td width="25%" valign=top></td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#3465a4">
 <td colspan=3 valign=bottom>&nbsp;<br>
 <font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
     
-<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<tr><td bgcolor="#3465a4"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
 <td width="100%"><dl>
 <dt><font face="helvetica, arial"><a href="JokDebug.html#JokDebug">JokDebug</a>
 </font></dt></dl>
  <p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
-<tr bgcolor="#ffc8d8">
+<tr bgcolor="#729fcf">
 <td colspan=3 valign=bottom>&nbsp;<br>
 <font color="#000000" face="helvetica, arial"><a name="JokDebug">class <strong>JokDebug</strong></a></font></td></tr>
     
-<tr><td bgcolor="#ffc8d8"><tt>&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<tr bgcolor="#729fcf"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>This&nbsp;class&nbsp;provides&nbsp;debugging&nbsp;methods&nbsp;that&nbsp;are&nbsp;mainly&nbsp;intended<br>
+for&nbsp;cracking&nbsp;open&nbsp;pipelines&nbsp;and&nbsp;looking&nbsp;at&nbsp;the&nbsp;goo&nbsp;inside.&nbsp;This&nbsp;most&nbsp;likely<br>
+won't&nbsp;be&nbsp;shipped&nbsp;with&nbsp;the&nbsp;final&nbsp;release&nbsp;and&nbsp;is&nbsp;mainly&nbsp;useful&nbsp;for&nbsp;hackers<br>
+who&nbsp;are&nbsp;involved&nbsp;in&nbsp;the&nbsp;project.<br>
+&nbsp;<br>
+To&nbsp;enable&nbsp;debugging&nbsp;mode,&nbsp;set&nbsp;an&nbsp;environmental&nbsp;variable:<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;foo@bar~$&nbsp;export&nbsp;JOKOSHER_DEBUG=1<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
 <td width="100%">Methods defined here:<br>
-<dl><dt><a name="JokDebug-ShowPipeline"><strong>ShowPipeline</strong></a>(self, pipeline)</dt><dd><tt>Display&nbsp;the&nbsp;construction&nbsp;of&nbsp;the&nbsp;pipeline&nbsp;in&nbsp;a&nbsp;gst-launch&nbsp;type&nbsp;format</tt></dd></dl>
+<dl><dt><a name="JokDebug-ShowPipeline"><strong>ShowPipeline</strong></a>(self, pipeline)</dt><dd><tt>Display&nbsp;the&nbsp;construction&nbsp;of&nbsp;the&nbsp;pipeline&nbsp;in&nbsp;a&nbsp;gst-launch&nbsp;type&nbsp;format.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pipeline&nbsp;--&nbsp;pipeline&nbsp;object&nbsp;to&nbsp;inspect.</tt></dd></dl>
 
-<dl><dt><a name="JokDebug-ShowPipelineDetails"><strong>ShowPipelineDetails</strong></a>(self, pipeline)</dt><dd><tt>Display&nbsp;the&nbsp;pipeline&nbsp;details,&nbsp;including&nbsp;pads</tt></dd></dl>
+<dl><dt><a name="JokDebug-ShowPipelineDetails"><strong>ShowPipelineDetails</strong></a>(self, pipeline)</dt><dd><tt>Display&nbsp;the&nbsp;pipeline&nbsp;details,&nbsp;including&nbsp;pads.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pipeline&nbsp;--&nbsp;pipeline&nbsp;object&nbsp;to&nbsp;inspect.</tt></dd></dl>
 
-<dl><dt><a name="JokDebug-ShowPipelineTree"><strong>ShowPipelineTree</strong></a>(self, pipeline, recurseDepth<font color="#909090">=0</font>, maxDepth<font color="#909090">=3</font>)</dt><dd><tt>Display&nbsp;a&nbsp;tree&nbsp;of&nbsp;pipeline&nbsp;elements&nbsp;and&nbsp;their&nbsp;children</tt></dd></dl>
+<dl><dt><a name="JokDebug-ShowPipelineTree"><strong>ShowPipelineTree</strong></a>(self, pipeline, recurseDepth<font color="#909090">=0</font>, maxDepth<font color="#909090">=3</font>)</dt><dd><tt>Display&nbsp;a&nbsp;tree&nbsp;of&nbsp;pipeline&nbsp;elements&nbsp;and&nbsp;their&nbsp;children.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pipeline&nbsp;--&nbsp;pipeline&nbsp;object&nbsp;to&nbsp;inspect.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;recurseDepth&nbsp;--&nbsp;recursion&nbsp;tree&nbsp;depth.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;maxDepth&nbsp;--&nbsp;maximum&nbsp;recursion&nbsp;depth.</tt></dd></dl>
 
 <dl><dt><a name="JokDebug-__init__"><strong>__init__</strong></a>(self)</dt></dl>
 

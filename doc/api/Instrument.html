@@ -1,0 +1,396 @@
+
+<!doctype html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module Instrument</title>
+</head><body bgcolor="#ffffff">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#fcbb58">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>Instrument</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/david/Projects/Jokosher/trunk/Jokosher/Instrument.py">/home/david/Projects/Jokosher/trunk/Jokosher/Instrument.py</a></font></td></tr></table>
+    <p><tt>#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THIS&nbsp;FILE&nbsp;IS&nbsp;PART&nbsp;OF&nbsp;THE&nbsp;JOKOSHER&nbsp;PROJECT&nbsp;AND&nbsp;LICENSED&nbsp;UNDER&nbsp;THE&nbsp;GPL.&nbsp;SEE<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THE&nbsp;'COPYING'&nbsp;FILE&nbsp;FOR&nbsp;DETAILS<br>
+#<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#Instrument">Instrument</a>.py<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;module&nbsp;is&nbsp;the&nbsp;non-gui&nbsp;class&nbsp;the&nbsp;represents&nbsp;instruments.&nbsp;instruments<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;represent&nbsp;a&nbsp;track&nbsp;of&nbsp;audio&nbsp;that&nbsp;can&nbsp;contain&nbsp;many&nbsp;different&nbsp;sources&nbsp;in&nbsp;sequence.<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;module&nbsp;handles&nbsp;loading&nbsp;and&nbsp;saving&nbsp;instruments&nbsp;from&nbsp;xml,&nbsp;the&nbsp;gstreamer<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bits&nbsp;for&nbsp;playing&nbsp;and&nbsp;recording&nbsp;events,&nbsp;audio&nbsp;effects&nbsp;plugins,&nbsp;as&nbsp;well&nbsp;as&nbsp;any&nbsp;<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;instrument&nbsp;specific&nbsp;functionality&nbsp;like;&nbsp;solo,&nbsp;mute,&nbsp;volume,&nbsp;etc.<br>
+#<br>
+#-------------------------------------------------------------------------------</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#4e9a06">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#fffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#4e9a06"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="AlsaDevices.html">AlsaDevices</a><br>
+<a href="Globals.html">Globals</a><br>
+<a href="Project.html">Project</a><br>
+<a href="Utils.html">Utils</a><br>
+</td><td width="25%" valign=top><a href="gettext.html">gettext</a><br>
+<a href="gnomevfs.html">gnomevfs</a><br>
+<a href="gobject.html">gobject</a><br>
+<a href="gst.html">gst</a><br>
+</td><td width="25%" valign=top><a href="gtk.html">gtk</a><br>
+<a href="math.html">math</a><br>
+<a href="os.html">os</a><br>
+<a href="pygst.html">pygst</a><br>
+</td><td width="25%" valign=top><a href="shutil.html">shutil</a><br>
+<a href="time.html">time</a><br>
+<a href="xml.dom.minidom.html">xml.dom.minidom</a><br>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#3465a4">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#3465a4"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="Monitored.html#Monitored">Monitored.Monitored</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="Instrument.html#Instrument">Instrument</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#729fcf">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Instrument">class <strong>Instrument</strong></a>(<a href="Monitored.html#Monitored">Monitored.Monitored</a>)</font></td></tr>
+    
+<tr bgcolor="#729fcf"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>This&nbsp;module&nbsp;is&nbsp;the&nbsp;non-gui&nbsp;class&nbsp;the&nbsp;represents&nbsp;Instruments.&nbsp;Instruments<br>
+represent&nbsp;a&nbsp;track&nbsp;of&nbsp;audio&nbsp;that&nbsp;can&nbsp;contain&nbsp;many&nbsp;different&nbsp;sources&nbsp;in&nbsp;sequence.<br>
+It&nbsp;also&nbsp;handles&nbsp;loading&nbsp;and&nbsp;saving&nbsp;Instruments&nbsp;from&nbsp;xml,&nbsp;the&nbsp;gstreamer<br>
+bits&nbsp;for&nbsp;playing&nbsp;and&nbsp;recording&nbsp;events,&nbsp;audio&nbsp;effects&nbsp;plugins,&nbsp;as&nbsp;well&nbsp;as&nbsp;any&nbsp;<br>
+<a href="#Instrument">Instrument</a>&nbsp;specific&nbsp;functionality&nbsp;like;&nbsp;solo,&nbsp;mute,&nbsp;volume,&nbsp;etc.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="Instrument-AddAndLinkPlaybackbin"><strong>AddAndLinkPlaybackbin</strong></a>(self)</dt><dd><tt>Creates&nbsp;a&nbsp;playback&nbsp;bin&nbsp;for&nbsp;this&nbsp;<a href="#Instrument">Instrument</a>&nbsp;and&nbsp;adds&nbsp;it&nbsp;to&nbsp;the&nbsp;main<br>
+playback&nbsp;pipeline.&nbsp;*CHECK*</tt></dd></dl>
+
+<dl><dt><a name="Instrument-AddEffect"><strong>AddEffect</strong></a>(self, effectName)</dt><dd><tt>Adds&nbsp;an&nbsp;effect&nbsp;to&nbsp;the&nbsp;pipeline&nbsp;for&nbsp;this&nbsp;<a href="#Instrument">Instrument</a>.<br>
+&nbsp;<br>
+Considerations:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;effect&nbsp;is&nbsp;always&nbsp;placed&nbsp;in&nbsp;the&nbsp;pipeline&nbsp;after&nbsp;any&nbsp;other<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;effects&nbsp;that&nbsp;were&nbsp;previously&nbsp;added.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;effectName&nbsp;--&nbsp;GStreamer&nbsp;element&nbsp;name&nbsp;of&nbsp;the&nbsp;effect&nbsp;to&nbsp;add.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;added&nbsp;effect&nbsp;element.</tt></dd></dl>
+
+<dl><dt><a name="Instrument-ChangeEffectOrder"><strong>ChangeEffectOrder</strong></a>(self, effect, newPosition)</dt><dd><tt>TODO:&nbsp;this&nbsp;function&nbsp;has&nbsp;yet&nbsp;to&nbsp;be&nbsp;implemented.<br>
+&nbsp;<br>
+Move&nbsp;a&nbsp;given&nbsp;GStreamer&nbsp;element&nbsp;inside&nbsp;the&nbsp;effects&nbsp;bin.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;effect&nbsp;--&nbsp;GStreamer&nbsp;effect&nbsp;to&nbsp;be&nbsp;moved.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;newPosition&nbsp;--&nbsp;value&nbsp;of&nbsp;the&nbsp;new&nbsp;position&nbsp;inside&nbsp;the&nbsp;effects&nbsp;bin<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;effect&nbsp;will&nbsp;have.</tt></dd></dl>
+
+<dl><dt><a name="Instrument-ChangeType"><strong>ChangeType</strong></a> = UndoWrapper(funcSelf, *args, **kwargs)</dt><dd><tt>This&nbsp;function&nbsp;will&nbsp;wrap&nbsp;and&nbsp;take&nbsp;the&nbsp;place&nbsp;of&nbsp;the&nbsp;function<br>
+that&nbsp;is&nbsp;being&nbsp;decorated.&nbsp;All&nbsp;arguments&nbsp;to&nbsp;the&nbsp;original&nbsp;function<br>
+will&nbsp;be&nbsp;saved,&nbsp;and&nbsp;sent&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function&nbsp;call.<br>
+The&nbsp;funcSelf&nbsp;value&nbsp;must&nbsp;be&nbsp;the&nbsp;first&nbsp;parameter,&nbsp;because<br>
+the&nbsp;first&nbsp;parameter&nbsp;will&nbsp;always&nbsp;be&nbsp;self,&nbsp;and&nbsp;it&nbsp;carries&nbsp;a<br>
+reference&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function's&nbsp;class.<br>
+&nbsp;<br>
+Considerations:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;All&nbsp;decorated&nbsp;undo&nbsp;functions&nbsp;*must*&nbsp;be&nbsp;in&nbsp;a&nbsp;class&nbsp;or&nbsp;this&nbsp;will&nbsp;fail.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;funcSelf&nbsp;--&nbsp;reference&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function's&nbsp;class.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*args&nbsp;--&nbsp;parameters&nbsp;meant&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**kwargs&nbsp;--&nbsp;dictionary&nbsp;of&nbsp;keyword:value&nbsp;parameters&nbsp;meant<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;wrapped&nbsp;function&nbsp;resulting&nbsp;value.</tt></dd></dl>
+
+<dl><dt><a name="Instrument-DeleteEvent"><strong>DeleteEvent</strong></a>(self, eventid)</dt><dd><tt>Removes&nbsp;an&nbsp;Event&nbsp;from&nbsp;this&nbsp;<a href="#Instrument">Instrument</a>.<br>
+&nbsp;<br>
+Considerations:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;operation&nbsp;does&nbsp;not&nbsp;register&nbsp;with&nbsp;undo&nbsp;or&nbsp;append&nbsp;it&nbsp;to&nbsp;the<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;graveyard,&nbsp;because&nbsp;both&nbsp;are&nbsp;done&nbsp;by&nbsp;event.Delete()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;eventid&nbsp;--&nbsp;ID&nbsp;of&nbsp;the&nbsp;Event&nbsp;to&nbsp;be&nbsp;removed.</tt></dd></dl>
+
+<dl><dt><a name="Instrument-JoinEvents"><strong>JoinEvents</strong></a>(self)</dt><dd><tt>Joins&nbsp;together&nbsp;all&nbsp;the&nbsp;selected&nbsp;Events&nbsp;into&nbsp;a&nbsp;single&nbsp;Event.</tt></dd></dl>
+
+<dl><dt><a name="Instrument-LoadFromXML"><strong>LoadFromXML</strong></a>(self, node)</dt><dd><tt>Restores&nbsp;an&nbsp;<a href="#Instrument">Instrument</a>&nbsp;from&nbsp;its&nbsp;serialized&nbsp;XML&nbsp;representation.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;node&nbsp;--&nbsp;the&nbsp;XML&nbsp;node&nbsp;to&nbsp;retreive&nbsp;data&nbsp;from.</tt></dd></dl>
+
+<dl><dt><a name="Instrument-MultipleEventsSelected"><strong>MultipleEventsSelected</strong></a>(self)</dt><dd><tt>Confirms&nbsp;whether&nbsp;or&nbsp;not&nbsp;multiple&nbsp;events&nbsp;are&nbsp;selected.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;True&nbsp;=&nbsp;multiple&nbsp;Instruments&nbsp;have&nbsp;been&nbsp;selected.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;False&nbsp;=&nbsp;none&nbsp;or&nbsp;just&nbsp;one&nbsp;<a href="#Instrument">Instrument</a>&nbsp;has&nbsp;been&nbsp;seleced.</tt></dd></dl>
+
+<dl><dt><a name="Instrument-OnMute"><strong>OnMute</strong></a>(self)</dt><dd><tt>Updates&nbsp;the&nbsp;GStreamer&nbsp;volume&nbsp;element&nbsp;to&nbsp;reflect&nbsp;the&nbsp;mute&nbsp;status.</tt></dd></dl>
+
+<dl><dt><a name="Instrument-PrepareController"><strong>PrepareController</strong></a>(self)</dt><dd><tt>Fills&nbsp;the&nbsp;gst.Controller&nbsp;for&nbsp;this&nbsp;<a href="#Instrument">Instrument</a>&nbsp;with&nbsp;its&nbsp;list&nbsp;of&nbsp;fade&nbsp;times.</tt></dd></dl>
+
+<dl><dt><a name="Instrument-RemoveAndUnlinkPlaybackbin"><strong>RemoveAndUnlinkPlaybackbin</strong></a>(self)</dt><dd><tt>Removes&nbsp;this&nbsp;Instrumen's&nbsp;playback&nbsp;bin&nbsp;from&nbsp;the&nbsp;main&nbsp;playback&nbsp;pipeline.&nbsp;*CHECK*</tt></dd></dl>
+
+<dl><dt><a name="Instrument-RemoveEffect"><strong>RemoveEffect</strong></a>(self, effect)</dt><dd><tt>Remove&nbsp;the&nbsp;given&nbsp;GStreamer&nbsp;element&nbsp;from&nbsp;the&nbsp;effects&nbsp;bin.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;effect&nbsp;--&nbsp;GStreamer&nbsp;effect&nbsp;to&nbsp;be&nbsp;removed&nbsp;from&nbsp;this&nbsp;<a href="#Instrument">Instrument</a>.</tt></dd></dl>
+
+<dl><dt><a name="Instrument-SetLevel"><strong>SetLevel</strong></a>(self, level)</dt><dd><tt>Sets&nbsp;the&nbsp;level&nbsp;of&nbsp;this&nbsp;<a href="#Instrument">Instrument</a>.<br>
+&nbsp;<br>
+Considerations:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;sets&nbsp;the&nbsp;current&nbsp;REPORTED&nbsp;level,&nbsp;NOT&nbsp;THE&nbsp;VOLUME!<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;level&nbsp;--&nbsp;new&nbsp;level&nbsp;value&nbsp;in&nbsp;a&nbsp;[0,1]&nbsp;range.</tt></dd></dl>
+
+<dl><dt><a name="Instrument-SetName"><strong>SetName</strong></a> = UndoWrapper(funcSelf, *args, **kwargs)</dt><dd><tt>This&nbsp;function&nbsp;will&nbsp;wrap&nbsp;and&nbsp;take&nbsp;the&nbsp;place&nbsp;of&nbsp;the&nbsp;function<br>
+that&nbsp;is&nbsp;being&nbsp;decorated.&nbsp;All&nbsp;arguments&nbsp;to&nbsp;the&nbsp;original&nbsp;function<br>
+will&nbsp;be&nbsp;saved,&nbsp;and&nbsp;sent&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function&nbsp;call.<br>
+The&nbsp;funcSelf&nbsp;value&nbsp;must&nbsp;be&nbsp;the&nbsp;first&nbsp;parameter,&nbsp;because<br>
+the&nbsp;first&nbsp;parameter&nbsp;will&nbsp;always&nbsp;be&nbsp;self,&nbsp;and&nbsp;it&nbsp;carries&nbsp;a<br>
+reference&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function's&nbsp;class.<br>
+&nbsp;<br>
+Considerations:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;All&nbsp;decorated&nbsp;undo&nbsp;functions&nbsp;*must*&nbsp;be&nbsp;in&nbsp;a&nbsp;class&nbsp;or&nbsp;this&nbsp;will&nbsp;fail.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;funcSelf&nbsp;--&nbsp;reference&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function's&nbsp;class.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*args&nbsp;--&nbsp;parameters&nbsp;meant&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**kwargs&nbsp;--&nbsp;dictionary&nbsp;of&nbsp;keyword:value&nbsp;parameters&nbsp;meant<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;wrapped&nbsp;function&nbsp;resulting&nbsp;value.</tt></dd></dl>
+
+<dl><dt><a name="Instrument-SetSelected"><strong>SetSelected</strong></a>(self, sel)</dt><dd><tt>Sets&nbsp;the&nbsp;<a href="#Instrument">Instrument</a>&nbsp;to&nbsp;be&nbsp;highlighted&nbsp;and&nbsp;receive&nbsp;keyboard&nbsp;actions.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sel&nbsp;--&nbsp;&nbsp;True&nbsp;=&nbsp;the&nbsp;<a href="#Instrument">Instrument</a>&nbsp;is&nbsp;currently&nbsp;selected.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;False&nbsp;=&nbsp;the&nbsp;<a href="#Instrument">Instrument</a>&nbsp;is&nbsp;not&nbsp;currently&nbsp;selected.</tt></dd></dl>
+
+<dl><dt><a name="Instrument-SetVisible"><strong>SetVisible</strong></a> = UndoWrapper(funcSelf, *args, **kwargs)</dt><dd><tt>This&nbsp;function&nbsp;will&nbsp;wrap&nbsp;and&nbsp;take&nbsp;the&nbsp;place&nbsp;of&nbsp;the&nbsp;function<br>
+that&nbsp;is&nbsp;being&nbsp;decorated.&nbsp;All&nbsp;arguments&nbsp;to&nbsp;the&nbsp;original&nbsp;function<br>
+will&nbsp;be&nbsp;saved,&nbsp;and&nbsp;sent&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function&nbsp;call.<br>
+The&nbsp;funcSelf&nbsp;value&nbsp;must&nbsp;be&nbsp;the&nbsp;first&nbsp;parameter,&nbsp;because<br>
+the&nbsp;first&nbsp;parameter&nbsp;will&nbsp;always&nbsp;be&nbsp;self,&nbsp;and&nbsp;it&nbsp;carries&nbsp;a<br>
+reference&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function's&nbsp;class.<br>
+&nbsp;<br>
+Considerations:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;All&nbsp;decorated&nbsp;undo&nbsp;functions&nbsp;*must*&nbsp;be&nbsp;in&nbsp;a&nbsp;class&nbsp;or&nbsp;this&nbsp;will&nbsp;fail.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;funcSelf&nbsp;--&nbsp;reference&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function's&nbsp;class.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*args&nbsp;--&nbsp;parameters&nbsp;meant&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**kwargs&nbsp;--&nbsp;dictionary&nbsp;of&nbsp;keyword:value&nbsp;parameters&nbsp;meant<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;wrapped&nbsp;function&nbsp;resulting&nbsp;value.</tt></dd></dl>
+
+<dl><dt><a name="Instrument-SetVolume"><strong>SetVolume</strong></a>(self, volume)</dt><dd><tt>Sets&nbsp;the&nbsp;volume&nbsp;of&nbsp;this&nbsp;<a href="#Instrument">Instrument</a>.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;volume&nbsp;--&nbsp;new&nbsp;volume&nbsp;value&nbsp;in&nbsp;a&nbsp;[0,1]&nbsp;range.</tt></dd></dl>
+
+<dl><dt><a name="Instrument-StoreToXML"><strong>StoreToXML</strong></a>(self, doc, parent, graveyard<font color="#909090">=False</font>)</dt><dd><tt>Converts&nbsp;this&nbsp;<a href="#Instrument">Instrument</a>&nbsp;into&nbsp;an&nbsp;XML&nbsp;representation&nbsp;suitable&nbsp;for&nbsp;saving&nbsp;to&nbsp;a&nbsp;file.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;doc&nbsp;--&nbsp;the&nbsp;XML&nbsp;document&nbsp;object&nbsp;the&nbsp;<a href="#Instrument">Instrument</a>&nbsp;will&nbsp;be&nbsp;saved&nbsp;to.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parent&nbsp;--&nbsp;the&nbsp;parent&nbsp;node&nbsp;that&nbsp;the&nbsp;serialized&nbsp;<a href="#Instrument">Instrument</a>&nbsp;should<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;be&nbsp;added&nbsp;to.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;graveyard&nbsp;--&nbsp;True&nbsp;if&nbsp;this&nbsp;<a href="#Instrument">Instrument</a>&nbsp;is&nbsp;on&nbsp;the&nbsp;graveyard&nbsp;stack,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;should&nbsp;be&nbsp;serialized&nbsp;as&nbsp;a&nbsp;dead&nbsp;<a href="#Instrument">Instrument</a>.</tt></dd></dl>
+
+<dl><dt><a name="Instrument-ToggleArmed"><strong>ToggleArmed</strong></a> = UndoWrapper(funcSelf, *args, **kwargs)</dt><dd><tt>This&nbsp;function&nbsp;will&nbsp;wrap&nbsp;and&nbsp;take&nbsp;the&nbsp;place&nbsp;of&nbsp;the&nbsp;function<br>
+that&nbsp;is&nbsp;being&nbsp;decorated.&nbsp;All&nbsp;arguments&nbsp;to&nbsp;the&nbsp;original&nbsp;function<br>
+will&nbsp;be&nbsp;saved,&nbsp;and&nbsp;sent&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function&nbsp;call.<br>
+The&nbsp;funcSelf&nbsp;value&nbsp;must&nbsp;be&nbsp;the&nbsp;first&nbsp;parameter,&nbsp;because<br>
+the&nbsp;first&nbsp;parameter&nbsp;will&nbsp;always&nbsp;be&nbsp;self,&nbsp;and&nbsp;it&nbsp;carries&nbsp;a<br>
+reference&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function's&nbsp;class.<br>
+&nbsp;<br>
+Considerations:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;All&nbsp;decorated&nbsp;undo&nbsp;functions&nbsp;*must*&nbsp;be&nbsp;in&nbsp;a&nbsp;class&nbsp;or&nbsp;this&nbsp;will&nbsp;fail.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;funcSelf&nbsp;--&nbsp;reference&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function's&nbsp;class.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*args&nbsp;--&nbsp;parameters&nbsp;meant&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**kwargs&nbsp;--&nbsp;dictionary&nbsp;of&nbsp;keyword:value&nbsp;parameters&nbsp;meant<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;wrapped&nbsp;function&nbsp;resulting&nbsp;value.</tt></dd></dl>
+
+<dl><dt><a name="Instrument-ToggleMuted"><strong>ToggleMuted</strong></a> = UndoWrapper(funcSelf, *args, **kwargs)</dt><dd><tt>This&nbsp;function&nbsp;will&nbsp;wrap&nbsp;and&nbsp;take&nbsp;the&nbsp;place&nbsp;of&nbsp;the&nbsp;function<br>
+that&nbsp;is&nbsp;being&nbsp;decorated.&nbsp;All&nbsp;arguments&nbsp;to&nbsp;the&nbsp;original&nbsp;function<br>
+will&nbsp;be&nbsp;saved,&nbsp;and&nbsp;sent&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function&nbsp;call.<br>
+The&nbsp;funcSelf&nbsp;value&nbsp;must&nbsp;be&nbsp;the&nbsp;first&nbsp;parameter,&nbsp;because<br>
+the&nbsp;first&nbsp;parameter&nbsp;will&nbsp;always&nbsp;be&nbsp;self,&nbsp;and&nbsp;it&nbsp;carries&nbsp;a<br>
+reference&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function's&nbsp;class.<br>
+&nbsp;<br>
+Considerations:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;All&nbsp;decorated&nbsp;undo&nbsp;functions&nbsp;*must*&nbsp;be&nbsp;in&nbsp;a&nbsp;class&nbsp;or&nbsp;this&nbsp;will&nbsp;fail.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;funcSelf&nbsp;--&nbsp;reference&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function's&nbsp;class.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*args&nbsp;--&nbsp;parameters&nbsp;meant&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**kwargs&nbsp;--&nbsp;dictionary&nbsp;of&nbsp;keyword:value&nbsp;parameters&nbsp;meant<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;wrapped&nbsp;function&nbsp;resulting&nbsp;value.</tt></dd></dl>
+
+<dl><dt><a name="Instrument-ToggleSolo"><strong>ToggleSolo</strong></a> = UndoWrapper(funcSelf, *args, **kwargs)</dt><dd><tt>This&nbsp;function&nbsp;will&nbsp;wrap&nbsp;and&nbsp;take&nbsp;the&nbsp;place&nbsp;of&nbsp;the&nbsp;function<br>
+that&nbsp;is&nbsp;being&nbsp;decorated.&nbsp;All&nbsp;arguments&nbsp;to&nbsp;the&nbsp;original&nbsp;function<br>
+will&nbsp;be&nbsp;saved,&nbsp;and&nbsp;sent&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function&nbsp;call.<br>
+The&nbsp;funcSelf&nbsp;value&nbsp;must&nbsp;be&nbsp;the&nbsp;first&nbsp;parameter,&nbsp;because<br>
+the&nbsp;first&nbsp;parameter&nbsp;will&nbsp;always&nbsp;be&nbsp;self,&nbsp;and&nbsp;it&nbsp;carries&nbsp;a<br>
+reference&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function's&nbsp;class.<br>
+&nbsp;<br>
+Considerations:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;All&nbsp;decorated&nbsp;undo&nbsp;functions&nbsp;*must*&nbsp;be&nbsp;in&nbsp;a&nbsp;class&nbsp;or&nbsp;this&nbsp;will&nbsp;fail.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;funcSelf&nbsp;--&nbsp;reference&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function's&nbsp;class.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*args&nbsp;--&nbsp;parameters&nbsp;meant&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**kwargs&nbsp;--&nbsp;dictionary&nbsp;of&nbsp;keyword:value&nbsp;parameters&nbsp;meant<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;wrapped&nbsp;function&nbsp;resulting&nbsp;value.</tt></dd></dl>
+
+<dl><dt><a name="Instrument-UpdateVolume"><strong>UpdateVolume</strong></a>(self)</dt><dd><tt>Updates&nbsp;the&nbsp;volume&nbsp;property&nbsp;of&nbsp;the&nbsp;gstreamer&nbsp;volume&nbsp;element<br>
+based&nbsp;on&nbsp;this&nbsp;instrument's&nbsp;volume&nbsp;and&nbsp;the&nbsp;project's&nbsp;master&nbsp;volume.</tt></dd></dl>
+
+<dl><dt><a name="Instrument-__init__"><strong>__init__</strong></a>(self, project, name, type, pixbuf, id<font color="#909090">=None</font>)</dt><dd><tt>Creates&nbsp;a&nbsp;new&nbsp;instance&nbsp;of&nbsp;<a href="#Instrument">Instrument</a>.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;project&nbsp;--&nbsp;the&nbsp;currently&nbsp;active&nbsp;Project.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name&nbsp;--&nbsp;name&nbsp;of&nbsp;the&nbsp;<a href="#Instrument">Instrument</a>.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type&nbsp;--&nbsp;type&nbsp;of&nbsp;the&nbsp;<a href="#Instrument">Instrument</a>.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pixbuf&nbsp;--&nbsp;image&nbsp;of&nbsp;the&nbsp;<a href="#Instrument">Instrument</a>&nbsp;resource&nbsp;object.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id&nbsp;--&nbsp;unique&nbsp;ID&nbsp;value&nbsp;for&nbsp;the&nbsp;<a href="#Instrument">Instrument</a>.</tt></dd></dl>
+
+<dl><dt><a name="Instrument-__repr__"><strong>__repr__</strong></a>(self)</dt><dd><tt>Creates&nbsp;a&nbsp;representation&nbsp;string&nbsp;of&nbsp;the&nbsp;<a href="#Instrument">Instrument</a>.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;string&nbsp;representing&nbsp;the&nbsp;id&nbsp;and&nbsp;name&nbsp;for&nbsp;this&nbsp;<a href="#Instrument">Instrument</a>.</tt></dd></dl>
+
+<dl><dt><a name="Instrument-addEventFromEvent"><strong>addEventFromEvent</strong></a> = UndoWrapper(funcSelf, *args, **kwargs)</dt><dd><tt>This&nbsp;function&nbsp;will&nbsp;wrap&nbsp;and&nbsp;take&nbsp;the&nbsp;place&nbsp;of&nbsp;the&nbsp;function<br>
+that&nbsp;is&nbsp;being&nbsp;decorated.&nbsp;All&nbsp;arguments&nbsp;to&nbsp;the&nbsp;original&nbsp;function<br>
+will&nbsp;be&nbsp;saved,&nbsp;and&nbsp;sent&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function&nbsp;call.<br>
+The&nbsp;funcSelf&nbsp;value&nbsp;must&nbsp;be&nbsp;the&nbsp;first&nbsp;parameter,&nbsp;because<br>
+the&nbsp;first&nbsp;parameter&nbsp;will&nbsp;always&nbsp;be&nbsp;self,&nbsp;and&nbsp;it&nbsp;carries&nbsp;a<br>
+reference&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function's&nbsp;class.<br>
+&nbsp;<br>
+Considerations:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;All&nbsp;decorated&nbsp;undo&nbsp;functions&nbsp;*must*&nbsp;be&nbsp;in&nbsp;a&nbsp;class&nbsp;or&nbsp;this&nbsp;will&nbsp;fail.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;funcSelf&nbsp;--&nbsp;reference&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function's&nbsp;class.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*args&nbsp;--&nbsp;parameters&nbsp;meant&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**kwargs&nbsp;--&nbsp;dictionary&nbsp;of&nbsp;keyword:value&nbsp;parameters&nbsp;meant<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;wrapped&nbsp;function&nbsp;resulting&nbsp;value.</tt></dd></dl>
+
+<dl><dt><a name="Instrument-addEventFromFile"><strong>addEventFromFile</strong></a> = UndoWrapper(funcSelf, *args, **kwargs)</dt><dd><tt>This&nbsp;function&nbsp;will&nbsp;wrap&nbsp;and&nbsp;take&nbsp;the&nbsp;place&nbsp;of&nbsp;the&nbsp;function<br>
+that&nbsp;is&nbsp;being&nbsp;decorated.&nbsp;All&nbsp;arguments&nbsp;to&nbsp;the&nbsp;original&nbsp;function<br>
+will&nbsp;be&nbsp;saved,&nbsp;and&nbsp;sent&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function&nbsp;call.<br>
+The&nbsp;funcSelf&nbsp;value&nbsp;must&nbsp;be&nbsp;the&nbsp;first&nbsp;parameter,&nbsp;because<br>
+the&nbsp;first&nbsp;parameter&nbsp;will&nbsp;always&nbsp;be&nbsp;self,&nbsp;and&nbsp;it&nbsp;carries&nbsp;a<br>
+reference&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function's&nbsp;class.<br>
+&nbsp;<br>
+Considerations:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;All&nbsp;decorated&nbsp;undo&nbsp;functions&nbsp;*must*&nbsp;be&nbsp;in&nbsp;a&nbsp;class&nbsp;or&nbsp;this&nbsp;will&nbsp;fail.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;funcSelf&nbsp;--&nbsp;reference&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function's&nbsp;class.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*args&nbsp;--&nbsp;parameters&nbsp;meant&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**kwargs&nbsp;--&nbsp;dictionary&nbsp;of&nbsp;keyword:value&nbsp;parameters&nbsp;meant<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;wrapped&nbsp;function&nbsp;resulting&nbsp;value.</tt></dd></dl>
+
+<dl><dt><a name="Instrument-addEventFromURL"><strong>addEventFromURL</strong></a> = UndoWrapper(funcSelf, *args, **kwargs)</dt><dd><tt>This&nbsp;function&nbsp;will&nbsp;wrap&nbsp;and&nbsp;take&nbsp;the&nbsp;place&nbsp;of&nbsp;the&nbsp;function<br>
+that&nbsp;is&nbsp;being&nbsp;decorated.&nbsp;All&nbsp;arguments&nbsp;to&nbsp;the&nbsp;original&nbsp;function<br>
+will&nbsp;be&nbsp;saved,&nbsp;and&nbsp;sent&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function&nbsp;call.<br>
+The&nbsp;funcSelf&nbsp;value&nbsp;must&nbsp;be&nbsp;the&nbsp;first&nbsp;parameter,&nbsp;because<br>
+the&nbsp;first&nbsp;parameter&nbsp;will&nbsp;always&nbsp;be&nbsp;self,&nbsp;and&nbsp;it&nbsp;carries&nbsp;a<br>
+reference&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function's&nbsp;class.<br>
+&nbsp;<br>
+Considerations:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;All&nbsp;decorated&nbsp;undo&nbsp;functions&nbsp;*must*&nbsp;be&nbsp;in&nbsp;a&nbsp;class&nbsp;or&nbsp;this&nbsp;will&nbsp;fail.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;funcSelf&nbsp;--&nbsp;reference&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function's&nbsp;class.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*args&nbsp;--&nbsp;parameters&nbsp;meant&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**kwargs&nbsp;--&nbsp;dictionary&nbsp;of&nbsp;keyword:value&nbsp;parameters&nbsp;meant<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;wrapped&nbsp;function&nbsp;resulting&nbsp;value.</tt></dd></dl>
+
+<dl><dt><a name="Instrument-checkActuallyIsMuted"><strong>checkActuallyIsMuted</strong></a>(self)</dt><dd><tt>Determines&nbsp;if&nbsp;this&nbsp;Intrument&nbsp;should&nbsp;be&nbsp;muted,&nbsp;by&nbsp;taking&nbsp;into&nbsp;account<br>
+if&nbsp;any&nbsp;other&nbsp;Intruments&nbsp;are&nbsp;muted.</tt></dd></dl>
+
+<dl><dt><a name="Instrument-finishRecordingEvent"><strong>finishRecordingEvent</strong></a> = UndoWrapper(funcSelf, *args, **kwargs)</dt><dd><tt>This&nbsp;function&nbsp;will&nbsp;wrap&nbsp;and&nbsp;take&nbsp;the&nbsp;place&nbsp;of&nbsp;the&nbsp;function<br>
+that&nbsp;is&nbsp;being&nbsp;decorated.&nbsp;All&nbsp;arguments&nbsp;to&nbsp;the&nbsp;original&nbsp;function<br>
+will&nbsp;be&nbsp;saved,&nbsp;and&nbsp;sent&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function&nbsp;call.<br>
+The&nbsp;funcSelf&nbsp;value&nbsp;must&nbsp;be&nbsp;the&nbsp;first&nbsp;parameter,&nbsp;because<br>
+the&nbsp;first&nbsp;parameter&nbsp;will&nbsp;always&nbsp;be&nbsp;self,&nbsp;and&nbsp;it&nbsp;carries&nbsp;a<br>
+reference&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function's&nbsp;class.<br>
+&nbsp;<br>
+Considerations:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;All&nbsp;decorated&nbsp;undo&nbsp;functions&nbsp;*must*&nbsp;be&nbsp;in&nbsp;a&nbsp;class&nbsp;or&nbsp;this&nbsp;will&nbsp;fail.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;funcSelf&nbsp;--&nbsp;reference&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function's&nbsp;class.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*args&nbsp;--&nbsp;parameters&nbsp;meant&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**kwargs&nbsp;--&nbsp;dictionary&nbsp;of&nbsp;keyword:value&nbsp;parameters&nbsp;meant<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;wrapped&nbsp;function&nbsp;resulting&nbsp;value.</tt></dd></dl>
+
+<dl><dt><a name="Instrument-getRecordingEvent"><strong>getRecordingEvent</strong></a>(self)</dt><dd><tt>Obtain&nbsp;an&nbsp;Event&nbsp;suitable&nbsp;for&nbsp;recording.&nbsp;*CHECK*<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;an&nbsp;Event&nbsp;suitable&nbsp;for&nbsp;recording.</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="Monitored.html#Monitored">Monitored.Monitored</a>:<br>
+<dl><dt><a name="Instrument-AddListener"><strong>AddListener</strong></a>(self, obj)</dt><dd><tt>Adds&nbsp;an&nbsp;object&nbsp;to&nbsp;report&nbsp;changes&nbsp;to.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;obj&nbsp;--&nbsp;an&nbsp;object&nbsp;to&nbsp;inform&nbsp;when&nbsp;StateChanged&nbsp;is&nbsp;called.</tt></dd></dl>
+
+<dl><dt><a name="Instrument-ClearListeners"><strong>ClearListeners</strong></a>(self)</dt><dd><tt>Remove&nbsp;all&nbsp;listeners&nbsp;to&nbsp;allow&nbsp;them&nbsp;to&nbsp;be&nbsp;destroyed.</tt></dd></dl>
+
+<dl><dt><a name="Instrument-RemoveListener"><strong>RemoveListener</strong></a>(self, obj)</dt><dd><tt>Stop&nbsp;reporting&nbsp;changes&nbsp;to&nbsp;the&nbsp;specified&nbsp;object.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;obj&nbsp;--&nbsp;the&nbsp;object&nbsp;which&nbsp;should&nbsp;no&nbsp;longer&nbsp;receive&nbsp;change&nbsp;updates.</tt></dd></dl>
+
+<dl><dt><a name="Instrument-StateChanged"><strong>StateChanged</strong></a>(self, change<font color="#909090">=None</font>, *extra)</dt><dd><tt>This&nbsp;method&nbsp;should&nbsp;be&nbsp;called&nbsp;when&nbsp;we&nbsp;want&nbsp;a&nbsp;change&nbsp;to&nbsp;be&nbsp;reported<br>
+to&nbsp;all&nbsp;objects&nbsp;previously&nbsp;added&nbsp;by&nbsp;AddListener.&nbsp;<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;change&nbsp;--&nbsp;the&nbsp;change&nbsp;which&nbsp;has&nbsp;occured.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;extra&nbsp;--&nbsp;any&nbsp;extra&nbsp;parameters&nbsp;that&nbsp;should&nbsp;be&nbsp;passed.</tt></dd></dl>
+
+</td></tr></table></td></tr></table>
+</body></html>

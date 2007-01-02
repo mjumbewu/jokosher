@@ -1,37 +1,46 @@
 
 <!doctype html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html><head><title>Python: module EventViewer</title>
-</head><body bgcolor="#f0f0f8">
+</head><body bgcolor="#ffffff">
 
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
-<tr bgcolor="#7799ee">
+<tr bgcolor="#fcbb58">
 <td valign=bottom>&nbsp;<br>
 <font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>EventViewer</strong></big></big></font></td
 ><td align=right valign=bottom
-><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/mike/src/jokosher/trunk/Jokosher/EventViewer.py">/home/mike/src/jokosher/trunk/Jokosher/EventViewer.py</a></font></td></tr></table>
-    <p></p>
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/david/Projects/Jokosher/trunk/Jokosher/EventViewer.py">/home/david/Projects/Jokosher/trunk/Jokosher/EventViewer.py</a></font></td></tr></table>
+    <p><tt>#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THIS&nbsp;FILE&nbsp;IS&nbsp;PART&nbsp;OF&nbsp;THE&nbsp;JOKOSHER&nbsp;PROJECT&nbsp;AND&nbsp;LICENSED&nbsp;UNDER&nbsp;THE&nbsp;GPL.&nbsp;SEE<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THE&nbsp;'COPYING'&nbsp;FILE&nbsp;FOR&nbsp;DETAILS<br>
+#<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#EventViewer">EventViewer</a>.py<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;module&nbsp;is&nbsp;the&nbsp;gui&nbsp;class&nbsp;that&nbsp;represents&nbsp;an&nbsp;event.<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;It&nbsp;handles&nbsp;the&nbsp;drawing&nbsp;of&nbsp;the&nbsp;waveform,&nbsp;audio&nbsp;fades,&nbsp;and<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;anything&nbsp;else&nbsp;that&nbsp;happens&nbsp;when&nbsp;you&nbsp;click&nbsp;a&nbsp;rectangular&nbsp;<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;event&nbsp;on&nbsp;the&nbsp;gui.<br>
+#<br>
+#-------------------------------------------------------------------------------</tt></p>
 <p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
-<tr bgcolor="#aa55cc">
+<tr bgcolor="#4e9a06">
 <td colspan=3 valign=bottom>&nbsp;<br>
 <font color="#fffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
     
-<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
-<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="Monitored.html">Monitored</a><br>
+<tr><td bgcolor="#4e9a06"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="Globals.html">Globals</a><br>
 <a href="Project.html">Project</a><br>
 </td><td width="25%" valign=top><a href="Utils.html">Utils</a><br>
 <a href="cairo.html">cairo</a><br>
 </td><td width="25%" valign=top><a href="gettext.html">gettext</a><br>
 <a href="gtk.html">gtk</a><br>
-</td><td width="25%" valign=top><a href="math.html">math</a><br>
-<a href="sys.html">sys</a><br>
+</td><td width="25%" valign=top><a href="os.html">os</a><br>
 </td></tr></table></td></tr></table><p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
-<tr bgcolor="#ee77aa">
+<tr bgcolor="#3465a4">
 <td colspan=3 valign=bottom>&nbsp;<br>
 <font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
     
-<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<tr><td bgcolor="#3465a4"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
 <td width="100%"><dl>
 <dt><font face="helvetica, arial">gobject.DrawingArea(gobject.Widget)
 </font></dt><dd>
@@ -42,11 +51,11 @@
 </dl>
  <p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
-<tr bgcolor="#ffc8d8">
+<tr bgcolor="#729fcf">
 <td colspan=3 valign=bottom>&nbsp;<br>
 <font color="#000000" face="helvetica, arial"><a name="EventViewer">class <strong>EventViewer</strong></a>(gobject.DrawingArea)</font></td></tr>
     
-<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<tr bgcolor="#729fcf"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
 <td colspan=2><tt>The&nbsp;<a href="#EventViewer">EventViewer</a>&nbsp;class&nbsp;handles&nbsp;displaying&nbsp;a&nbsp;single&nbsp;event&nbsp;as&nbsp;part<br>
 of&nbsp;an&nbsp;EventLaneViewer&nbsp;object.<br>&nbsp;</tt></td></tr>
 <tr><td>&nbsp;</td>
@@ -62,69 +71,192 @@ of&nbsp;an&nbsp;EventLaneViewer&nbsp;object.<br>&nbsp;</tt></td></tr>
 </dl>
 <hr>
 Methods defined here:<br>
-<dl><dt><a name="EventViewer-ContextMenu"><strong>ContextMenu</strong></a>(self, mouse)</dt></dl>
+<dl><dt><a name="EventViewer-ContextMenu"><strong>ContextMenu</strong></a>(self, mouse)</dt><dd><tt>Creates&nbsp;a&nbsp;context&nbsp;menu&nbsp;in&nbsp;response&nbsp;to&nbsp;a&nbsp;right&nbsp;click.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mouse&nbsp;--&nbsp;GTK&nbsp;mouse&nbsp;event&nbsp;that&nbsp;fired&nbsp;this&nbsp;method&nbsp;call.</tt></dd></dl>
 
-<dl><dt><a name="EventViewer-DrawWaveform"><strong>DrawWaveform</strong></a>(self, exposeArea)</dt><dd><tt>This&nbsp;function&nbsp;uses&nbsp;Cairo&nbsp;to&nbsp;draw&nbsp;the&nbsp;waveform&nbsp;level&nbsp;information<br>
-onto&nbsp;a&nbsp;canvas&nbsp;in&nbsp;memory.</tt></dd></dl>
+<dl><dt><a name="EventViewer-DeleteSelectedFadePoints"><strong>DeleteSelectedFadePoints</strong></a>(self, event)</dt><dd><tt>Deletes&nbsp;the&nbsp;selected&nbsp;fade&nbsp;points&nbsp;from&nbsp;the&nbsp;Event.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;event&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="EventViewer-OnCopy"><strong>OnCopy</strong></a>(self, gtkevent)</dt></dl>
+<dl><dt><a name="EventViewer-Destroy"><strong>Destroy</strong></a>(self)</dt><dd><tt>Called&nbsp;when&nbsp;the&nbsp;<a href="#EventViewer">EventViewer</a>&nbsp;gets&nbsp;destroyed.<br>
+It&nbsp;also&nbsp;destroys&nbsp;any&nbsp;child&nbsp;widget&nbsp;and&nbsp;disconnects&nbsp;itself&nbsp;from&nbsp;any<br>
+listening&nbsp;objects&nbsp;via&nbsp;Monitored.</tt></dd></dl>
 
-<dl><dt><a name="EventViewer-OnCut"><strong>OnCut</strong></a>(self, gtkevent)</dt></dl>
+<dl><dt><a name="EventViewer-DrawWaveform"><strong>DrawWaveform</strong></a>(self, exposeArea)</dt><dd><tt>Uses&nbsp;Cairo&nbsp;to&nbsp;draw&nbsp;the&nbsp;waveform&nbsp;level&nbsp;information&nbsp;onto&nbsp;a&nbsp;canvas&nbsp;in&nbsp;memory.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;exposeArea&nbsp;--&nbsp;Cairo&nbsp;exposed&nbsp;area&nbsp;in&nbsp;which&nbsp;to&nbsp;draw&nbsp;the&nbsp;waveform.</tt></dd></dl>
 
-<dl><dt><a name="EventViewer-OnDelete"><strong>OnDelete</strong></a>(self, evt<font color="#909090">=None</font>)</dt></dl>
+<dl><dt><a name="EventViewer-GetSelectionAsPixels"><strong>GetSelectionAsPixels</strong></a>(self)</dt><dd><tt>Obtain&nbsp;the&nbsp;Event&nbsp;selection&nbsp;as&nbsp;a&nbsp;list&nbsp;of&nbsp;two&nbsp;points,&nbsp;measured&nbsp;in<br>
+pixels&nbsp;instead&nbsp;of&nbsp;seconds&nbsp;like&nbsp;Event.selection.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;list&nbsp;with&nbsp;two&nbsp;X&nbsp;points&nbsp;describing&nbsp;the&nbsp;selection.</tt></dd></dl>
 
-<dl><dt><a name="EventViewer-OnDraw"><strong>OnDraw</strong></a>(self, widget, event)</dt><dd><tt>This&nbsp;function&nbsp;blits&nbsp;the&nbsp;waveform&nbsp;data&nbsp;onto&nbsp;the&nbsp;screen,&nbsp;and<br>
-then&nbsp;draws&nbsp;the&nbsp;play&nbsp;cursor&nbsp;over&nbsp;it.</tt></dd></dl>
+<dl><dt><a name="EventViewer-OnCopy"><strong>OnCopy</strong></a>(self, gtkevent)</dt><dd><tt>Copies&nbsp;the&nbsp;selected&nbsp;portion&nbsp;of&nbsp;the&nbsp;Event&nbsp;to&nbsp;the&nbsp;clipboard.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gtkevent&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="EventViewer-OnMenuDone"><strong>OnMenuDone</strong></a>(self, widget)</dt></dl>
+<dl><dt><a name="EventViewer-OnCut"><strong>OnCut</strong></a>(self, gtkevent)</dt><dd><tt>Cuts&nbsp;the&nbsp;selected&nbsp;portion&nbsp;of&nbsp;the&nbsp;Event,&nbsp;and&nbsp;puts&nbsp;it&nbsp;on&nbsp;the&nbsp;clipboard.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gtkevent&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="EventViewer-OnMouseDown"><strong>OnMouseDown</strong></a>(self, widget, mouse)</dt><dd><tt>Possible&nbsp;clicks&nbsp;to&nbsp;capture:<br>
-{L|R}MB:&nbsp;deselect&nbsp;all&nbsp;events,&nbsp;remove&nbsp;any&nbsp;existing&nbsp;selection&nbsp;in&nbsp;this&nbsp;event,<br>
-&nbsp;&nbsp;&nbsp;select&nbsp;this&nbsp;event,&nbsp;begin&nbsp;moving&nbsp;the&nbsp;event<br>
-LMB+shift:&nbsp;remove&nbsp;any&nbsp;existing&nbsp;selection&nbsp;in&nbsp;this&nbsp;event,&nbsp;begin&nbsp;<br>
-&nbsp;&nbsp;&nbsp;selecting&nbsp;part&nbsp;of&nbsp;this&nbsp;event<br>
-{L|R}MB+ctrl:&nbsp;select&nbsp;this&nbsp;event&nbsp;without&nbsp;deselecting&nbsp;other&nbsp;events<br>
-RMB:&nbsp;context&nbsp;menu<br>
-LMB&nbsp;double-click:&nbsp;split&nbsp;here<br>
-LMB&nbsp;over&nbsp;a&nbsp;fadeMarker:&nbsp;drag&nbsp;that&nbsp;marker</tt></dd></dl>
+<dl><dt><a name="EventViewer-OnDelete"><strong>OnDelete</strong></a>(self, event<font color="#909090">=None</font>)</dt><dd><tt>Called&nbsp;when&nbsp;"Delete"&nbsp;is&nbsp;selected&nbsp;from&nbsp;context&nbsp;menu.<br>
+Deletes&nbsp;the&nbsp;selected&nbsp;Event&nbsp;from&nbsp;the&nbsp;Project.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;event&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="EventViewer-OnMouseLeave"><strong>OnMouseLeave</strong></a>(self, widget, event)</dt></dl>
+<dl><dt><a name="EventViewer-OnDraw"><strong>OnDraw</strong></a>(self, widget, event)</dt><dd><tt>Blits&nbsp;the&nbsp;waveform&nbsp;data&nbsp;onto&nbsp;the&nbsp;screen,&nbsp;and&nbsp;then&nbsp;draws&nbsp;the&nbsp;play<br>
+cursor&nbsp;over&nbsp;it.<br>
+&nbsp;<br>
+widget&nbsp;--&nbsp;GTK&nbsp;widget&nbsp;to&nbsp;be&nbsp;drawn.<br>
+event&nbsp;--&nbsp;GTK&nbsp;event&nbsp;associated&nbsp;to&nbsp;the&nbsp;widget.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;False&nbsp;--&nbsp;stop&nbsp;propagating&nbsp;the&nbsp;GTK&nbsp;signal.&nbsp;*CHECK*</tt></dd></dl>
 
-<dl><dt><a name="EventViewer-OnMouseMove"><strong>OnMouseMove</strong></a>(self, widget, mouse)</dt></dl>
+<dl><dt><a name="EventViewer-OnMenuDone"><strong>OnMenuDone</strong></a>(self, widget)</dt><dd><tt>Hides&nbsp;the&nbsp;right-click&nbsp;context&nbsp;menu&nbsp;after&nbsp;the&nbsp;user&nbsp;has&nbsp;selected&nbsp;one<br>
+of&nbsp;its&nbsp;options&nbsp;or&nbsp;clicked&nbsp;elsewhere.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="EventViewer-OnMouseUp"><strong>OnMouseUp</strong></a>(self, widget, mouse)</dt></dl>
+<dl><dt><a name="EventViewer-OnMouseDown"><strong>OnMouseDown</strong></a>(self, widget, mouse)</dt><dd><tt>Called&nbsp;when&nbsp;the&nbsp;user&nbsp;pressed&nbsp;a&nbsp;mouse&nbsp;button.<br>
+Possible&nbsp;click&nbsp;combinations&nbsp;to&nbsp;capture:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{L|R}MB:&nbsp;deselect&nbsp;all&nbsp;Events,&nbsp;remove&nbsp;any&nbsp;existing&nbsp;selection&nbsp;in<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this&nbsp;Event&nbsp;then&nbsp;select&nbsp;this&nbsp;Event&nbsp;and&nbsp;begin&nbsp;moving&nbsp;the&nbsp;Event.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LMB+shift:&nbsp;remove&nbsp;any&nbsp;existing&nbsp;selection&nbsp;in&nbsp;this&nbsp;Event&nbsp;and&nbsp;begin<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;selecting&nbsp;part&nbsp;of&nbsp;this&nbsp;Event.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{L|R}MB+ctrl:&nbsp;select&nbsp;this&nbsp;Event&nbsp;without&nbsp;deselecting&nbsp;other&nbsp;Events.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RMB:&nbsp;display&nbsp;a&nbsp;context&nbsp;menu.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LMB&nbsp;double-click:&nbsp;split&nbsp;this&nbsp;Event&nbsp;here.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LMB&nbsp;over&nbsp;a&nbsp;fadeMarker:&nbsp;drag&nbsp;the&nbsp;correspondent&nbsp;marker.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mouse&nbsp;--&nbsp;GTK&nbsp;mouse&nbsp;event&nbsp;that&nbsp;fired&nbsp;this&nbsp;method&nbsp;call.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;True&nbsp;--&nbsp;continue&nbsp;GTK&nbsp;signal&nbsp;propagation.&nbsp;*CHECK*</tt></dd></dl>
 
-<dl><dt><a name="EventViewer-OnSplit"><strong>OnSplit</strong></a>(self, evt)</dt></dl>
+<dl><dt><a name="EventViewer-OnMouseLeave"><strong>OnMouseLeave</strong></a>(self, widget, event)</dt><dd><tt>Clears&nbsp;the&nbsp;StatusBar&nbsp;message&nbsp;when&nbsp;the&nbsp;mouse&nbsp;moves&nbsp;out&nbsp;of&nbsp;the<br>
+EventLaneViewer&nbsp;area.&nbsp;It&nbsp;also&nbsp;disables&nbsp;cursors&nbsp;accordingly.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mouse&nbsp;--&nbsp;GTK&nbsp;mouse&nbsp;event&nbsp;that&nbsp;fired&nbsp;this&nbsp;method&nbsp;call.</tt></dd></dl>
 
-<dl><dt><a name="EventViewer-OnStateChanged"><strong>OnStateChanged</strong></a>(self, obj, change<font color="#909090">=None</font>)</dt></dl>
+<dl><dt><a name="EventViewer-OnMouseMove"><strong>OnMouseMove</strong></a>(self, widget, mouse)</dt><dd><tt>Display&nbsp;a&nbsp;message&nbsp;in&nbsp;the&nbsp;StatusBar&nbsp;when&nbsp;the&nbsp;mouse&nbsp;hovers&nbsp;over&nbsp;the<br>
+<a href="#EventViewer">EventViewer</a>.<br>
+Also&nbsp;displays&nbsp;cursors&nbsp;depending&nbsp;on&nbsp;the&nbsp;current&nbsp;action&nbsp;being&nbsp;performed.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mouse&nbsp;--&nbsp;GTK&nbsp;mouse&nbsp;event&nbsp;that&nbsp;fired&nbsp;this&nbsp;method&nbsp;call.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;True&nbsp;--&nbsp;continue&nbsp;GTK&nbsp;signal&nbsp;propagation.&nbsp;*CHECK*</tt></dd></dl>
 
-<dl><dt><a name="EventViewer-TrimToSelection"><strong>TrimToSelection</strong></a>(self, evt)</dt></dl>
+<dl><dt><a name="EventViewer-OnMouseUp"><strong>OnMouseUp</strong></a>(self, widget, mouse)</dt><dd><tt>Called&nbsp;when&nbsp;the&nbsp;left&nbsp;mouse&nbsp;button&nbsp;is&nbsp;released.<br>
+Finishes&nbsp;drag,&nbsp;fade&nbsp;and&nbsp;selection&nbsp;operations.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mouse&nbsp;--&nbsp;GTK&nbsp;mouse&nbsp;event&nbsp;that&nbsp;fired&nbsp;this&nbsp;method&nbsp;call.</tt></dd></dl>
 
-<dl><dt><a name="EventViewer-__init__"><strong>__init__</strong></a>(self, lane, project, event, height, eventlaneviewer, mainview, small<font color="#909090">=False</font>)</dt></dl>
+<dl><dt><a name="EventViewer-OnSplit"><strong>OnSplit</strong></a>(self, gtkevent)</dt><dd><tt>Splits&nbsp;an&nbsp;Event&nbsp;in&nbsp;two.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gtkevent&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="EventViewer-do_size_request"><strong>do_size_request</strong></a>(self, requisition)</dt><dd><tt>We&nbsp;need&nbsp;to&nbsp;override&nbsp;this&nbsp;function&nbsp;otherwise&nbsp;we&nbsp;get<br>
-given&nbsp;a&nbsp;1x1&nbsp;display&nbsp;size!</tt></dd></dl>
+<dl><dt><a name="EventViewer-OnStateChanged"><strong>OnStateChanged</strong></a>(self, obj, change<font color="#909090">=None</font>, *extra)</dt><dd><tt>Called&nbsp;when&nbsp;a&nbsp;change&nbsp;of&nbsp;state&nbsp;is&nbsp;signalled&nbsp;by&nbsp;any&nbsp;of&nbsp;the<br>
+objects&nbsp;this&nbsp;view&nbsp;is&nbsp;'listening'&nbsp;to.<br>
+Redraws&nbsp;the&nbsp;Event&nbsp;if&nbsp;any&nbsp;of&nbsp;its&nbsp;audio&nbsp;has&nbsp;been&nbsp;modified.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;obj&nbsp;--&nbsp;object&nbsp;changing&nbsp;state.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;change&nbsp;--&nbsp;the&nbsp;change&nbsp;which&nbsp;has&nbsp;occured.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;extra&nbsp;--&nbsp;extra&nbsp;parameters&nbsp;passed&nbsp;by&nbsp;the&nbsp;caller.</tt></dd></dl>
 
-<dl><dt><a name="EventViewer-getFadeCurve"><strong>getFadeCurve</strong></a>(self, duration, fades, totalLevels)</dt><dd><tt>The&nbsp;fade&nbsp;curve&nbsp;is&nbsp;a&nbsp;list&nbsp;of&nbsp;multipliers;&nbsp;the&nbsp;list&nbsp;is&nbsp;the<br>
-length&nbsp;of&nbsp;the&nbsp;levels&nbsp;list,&nbsp;and&nbsp;to&nbsp;make&nbsp;the&nbsp;actual&nbsp;levels&nbsp;list,<br>
-you&nbsp;take&nbsp;the&nbsp;ordinary&nbsp;levels&nbsp;list&nbsp;and&nbsp;multiply&nbsp;each&nbsp;level&nbsp;by<br>
-its&nbsp;corresponding&nbsp;entry&nbsp;in&nbsp;the&nbsp;fadecurve.<br>
-Pass&nbsp;the&nbsp;duration&nbsp;of&nbsp;the&nbsp;sample,&nbsp;the&nbsp;list&nbsp;of&nbsp;audio&nbsp;fade&nbsp;points,&nbsp;<br>
-and&nbsp;the&nbsp;number&nbsp;of&nbsp;levels</tt></dd></dl>
+<dl><dt><a name="EventViewer-PixXFromSec"><strong>PixXFromSec</strong></a>(self, sec)</dt><dd><tt>Converts&nbsp;seconds&nbsp;to&nbsp;an&nbsp;X&nbsp;pixel&nbsp;position&nbsp;in&nbsp;the&nbsp;waveform.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sec&nbsp;--&nbsp;value&nbsp;in&nbsp;seconds.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;correspondent&nbsp;pixel&nbsp;X&nbsp;position&nbsp;in&nbsp;the&nbsp;waveform.</tt></dd></dl>
 
-<dl><dt><a name="EventViewer-pixxFromSec"><strong>pixxFromSec</strong></a>(self, sec)</dt><dd><tt>Converts&nbsp;seconds&nbsp;to&nbsp;an&nbsp;X&nbsp;pixel&nbsp;position&nbsp;in&nbsp;the&nbsp;waveform</tt></dd></dl>
+<dl><dt><a name="EventViewer-PixYFromVol"><strong>PixYFromVol</strong></a>(self, vol)</dt><dd><tt>Converts&nbsp;a&nbsp;volume&nbsp;value&nbsp;into&nbsp;a&nbsp;Y&nbsp;pixel&nbsp;position&nbsp;in&nbsp;the&nbsp;waveform.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vol&nbsp;--&nbsp;volume&nbsp;value&nbsp;in&nbsp;a&nbsp;[0.0,&nbsp;1.0]&nbsp;range.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;correspondent&nbsp;pixel&nbsp;Y&nbsp;position&nbsp;in&nbsp;the&nbsp;waveform.</tt></dd></dl>
 
-<dl><dt><a name="EventViewer-pixyFromVol"><strong>pixyFromVol</strong></a>(self, vol)</dt><dd><tt>Converts&nbsp;volume&nbsp;(0.0-1.0)&nbsp;to&nbsp;a&nbsp;Y&nbsp;pixel&nbsp;position&nbsp;in&nbsp;the&nbsp;waveform</tt></dd></dl>
+<dl><dt><a name="EventViewer-SecFromPixX"><strong>SecFromPixX</strong></a>(self, pixx)</dt><dd><tt>Converts&nbsp;an&nbsp;X&nbsp;pixel&nbsp;position&nbsp;in&nbsp;the&nbsp;waveform&nbsp;into&nbsp;seconds.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pixx&nbsp;--&nbsp;X&nbsp;pixel&nbsp;position&nbsp;value.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;correspondent&nbsp;value&nbsp;in&nbsp;seconds.</tt></dd></dl>
 
-<dl><dt><a name="EventViewer-secFromPixx"><strong>secFromPixx</strong></a>(self, pixx)</dt><dd><tt>Converts&nbsp;an&nbsp;X&nbsp;pixel&nbsp;position&nbsp;in&nbsp;the&nbsp;waveform&nbsp;into&nbsp;seconds</tt></dd></dl>
+<dl><dt><a name="EventViewer-SetAudioFadePointsFromCurrentSelection"><strong>SetAudioFadePointsFromCurrentSelection</strong></a>(self)</dt><dd><tt>Creates&nbsp;fade&nbsp;points&nbsp;for&nbsp;the&nbsp;current&nbsp;selection.</tt></dd></dl>
 
-<dl><dt><a name="EventViewer-setAudioFadePointsFromCurrentSelection"><strong>setAudioFadePointsFromCurrentSelection</strong></a>(self)</dt></dl>
+<dl><dt><a name="EventViewer-SnapSelectionToFadePoints"><strong>SnapSelectionToFadePoints</strong></a>(self, event)</dt><dd><tt>Snaps&nbsp;the&nbsp;selection&nbsp;to&nbsp;a&nbsp;set&nbsp;of&nbsp;fade&nbsp;points.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;event&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="EventViewer-volFromPixy"><strong>volFromPixy</strong></a>(self, pixy)</dt><dd><tt>Converts&nbsp;a&nbsp;Y&nbsp;pixel&nbsp;position&nbsp;in&nbsp;the&nbsp;waveform&nbsp;into&nbsp;a&nbsp;volume&nbsp;(0.0-1.0)</tt></dd></dl>
+<dl><dt><a name="EventViewer-TrimToSelection"><strong>TrimToSelection</strong></a>(self, gtkevent)</dt><dd><tt>Cut&nbsp;this&nbsp;Event&nbsp;down&nbsp;so&nbsp;only&nbsp;the&nbsp;selected&nbsp;bit&nbsp;remains.&nbsp;This&nbsp;Event<br>
+is&nbsp;L-S-R,&nbsp;where&nbsp;S&nbsp;is&nbsp;the&nbsp;selected&nbsp;bit;&nbsp;L&nbsp;and&nbsp;R&nbsp;will&nbsp;be&nbsp;removed.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gtkevent&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
+
+<dl><dt><a name="EventViewer-UpdateDrawerPosition"><strong>UpdateDrawerPosition</strong></a>(self, reverseSelectionPoints<font color="#909090">=False</font>)</dt><dd><tt>Updates&nbsp;the&nbsp;drawer&nbsp;position&nbsp;to&nbsp;the&nbsp;correct&nbsp;position&nbsp;when&nbsp;user<br>
+moves&nbsp;the&nbsp;mouse&nbsp;over&nbsp;the&nbsp;<a href="#EventViewer">EventViewer</a>.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reverseSelectionPoints&nbsp;--&nbsp;True&nbsp;if&nbsp;the&nbsp;selection&nbsp;points&nbsp;should<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;be&nbsp;reversed.</tt></dd></dl>
+
+<dl><dt><a name="EventViewer-UpdateFadeMarkers"><strong>UpdateFadeMarkers</strong></a>(self)</dt><dd><tt>Called&nbsp;when&nbsp;the&nbsp;a&nbsp;fade&nbsp;point's&nbsp;value&nbsp;changes,&nbsp;to&nbsp;update&nbsp;the&nbsp;graphical<br>
+marker&nbsp;over&nbsp;the&nbsp;waveform.</tt></dd></dl>
+
+<dl><dt><a name="EventViewer-VolFromPixY"><strong>VolFromPixY</strong></a>(self, pixy)</dt><dd><tt>Converts&nbsp;a&nbsp;Y&nbsp;pixel&nbsp;position&nbsp;in&nbsp;the&nbsp;waveform&nbsp;into&nbsp;a&nbsp;volume&nbsp;value.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pixy&nbsp;--&nbsp;Y&nbsp;pixel&nbsp;position&nbsp;value.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;correspondent&nbsp;value,&nbsp;in&nbsp;seconds,&nbsp;in&nbsp;a&nbsp;[0.0,&nbsp;1.0]&nbsp;range.</tt></dd></dl>
+
+<dl><dt><a name="EventViewer-__init__"><strong>__init__</strong></a>(self, lane, project, event, height, mainview, small<font color="#909090">=False</font>)</dt><dd><tt>Creates&nbsp;a&nbsp;new&nbsp;instance&nbsp;of&nbsp;<a href="#EventViewer">EventViewer</a>.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lane&nbsp;--&nbsp;parent&nbsp;EventLaneViewer&nbsp;for&nbsp;this&nbsp;instance.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;project&nbsp;--&nbsp;the&nbsp;currently&nbsp;active&nbsp;Project.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;event&nbsp;--&nbsp;Event&nbsp;drawn&nbsp;by&nbsp;this&nbsp;<a href="#EventViewer">EventViewer</a>.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;height&nbsp;--&nbsp;height&nbsp;in&nbsp;pixels&nbsp;for&nbsp;this&nbsp;<a href="#EventViewer">EventViewer</a>.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mainview&nbsp;--&nbsp;the&nbsp;parent&nbsp;MainApp&nbsp;Jokosher&nbsp;window.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;small&nbsp;-&nbsp;set&nbsp;to&nbsp;True&nbsp;if&nbsp;we&nbsp;want&nbsp;small&nbsp;edit&nbsp;views&nbsp;(i.e.&nbsp;for&nbsp;mixing&nbsp;view).</tt></dd></dl>
+
+<dl><dt><a name="EventViewer-do_size_request"><strong>do_size_request</strong></a>(self, requisition)</dt><dd><tt>This&nbsp;function&nbsp;has&nbsp;been&nbsp;overrided&nbsp;to&nbsp;avoid&nbsp;getting&nbsp;a&nbsp;1x1&nbsp;display&nbsp;size.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;requisition&nbsp;--&nbsp;TODO</tt></dd></dl>
 
 <hr>
 Data and other attributes defined here:<br>
-<dl><dt><strong>__gtype__</strong> = &lt;GType EventViewer (137865304)&gt;</dl>
+<dl><dt><strong>__gtype__</strong> = &lt;GType EventViewer (137957448)&gt;</dl>
 
 <dl><dt><strong>__gtype_name__</strong> = 'EventViewer'</dl>
 
@@ -652,7 +784,7 @@ Methods inherited from <a href="gobject.html#GObject">gobject.GObject</a>:<br>
 Data and other attributes inherited from <a href="gobject.html#GObject">gobject.GObject</a>:<br>
 <dl><dt><strong>__dict__</strong> = &lt;dictproxy object&gt;</dl>
 
-<dl><dt><strong>__gdoc__</strong> = 'Object EventViewer<font color="#c040c0">\n\n</font> The EventViewer class handl...ointer<font color="#c040c0">\n\n</font>Signals from GObject:<font color="#c040c0">\n</font>  notify (GParam)<font color="#c040c0">\n\n</font>'</dl>
+<dl><dt><strong>__gdoc__</strong> = 'Object EventViewer<font color="#c040c0">\n\n\n\t</font>The EventViewer class hand...ointer<font color="#c040c0">\n\n</font>Signals from GObject:<font color="#c040c0">\n</font>  notify (GParam)<font color="#c040c0">\n\n</font>'</dl>
 
 <dl><dt><strong>__grefcount__</strong> = &lt;attribute '__grefcount__' of 'gobject.GObject' objects&gt;</dl>
 

@@ -1,33 +1,41 @@
 
 <!doctype html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html><head><title>Python: module VUWidget</title>
-</head><body bgcolor="#f0f0f8">
+</head><body bgcolor="#ffffff">
 
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
-<tr bgcolor="#7799ee">
+<tr bgcolor="#fcbb58">
 <td valign=bottom>&nbsp;<br>
 <font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>VUWidget</strong></big></big></font></td
 ><td align=right valign=bottom
-><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/mike/src/jokosher/trunk/Jokosher/VUWidget.py">/home/mike/src/jokosher/trunk/Jokosher/VUWidget.py</a></font></td></tr></table>
-    <p></p>
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/david/Projects/Jokosher/trunk/Jokosher/VUWidget.py">/home/david/Projects/Jokosher/trunk/Jokosher/VUWidget.py</a></font></td></tr></table>
+    <p><tt>#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THIS&nbsp;FILE&nbsp;IS&nbsp;PART&nbsp;OF&nbsp;THE&nbsp;JOKOSHER&nbsp;PROJECT&nbsp;AND&nbsp;LICENSED&nbsp;UNDER&nbsp;THE&nbsp;GPL.&nbsp;SEE<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THE&nbsp;'COPYING'&nbsp;FILE&nbsp;FOR&nbsp;DETAILS<br>
+#<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#VUWidget">VUWidget</a>.py<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;module&nbsp;draws&nbsp;the&nbsp;gradient&nbsp;volume&nbsp;levels&nbsp;and&nbsp;is&nbsp;used&nbsp;by<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MixerStrip.py&nbsp;to&nbsp;show&nbsp;the&nbsp;volume&nbsp;levels&nbsp;in&nbsp;Jokosher's&nbsp;mix&nbsp;view.<br>
+#<br>
+#-------------------------------------------------------------------------------</tt></p>
 <p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
-<tr bgcolor="#aa55cc">
+<tr bgcolor="#4e9a06">
 <td colspan=3 valign=bottom>&nbsp;<br>
 <font color="#fffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
     
-<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<tr><td bgcolor="#4e9a06"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
 <td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="cairo.html">cairo</a><br>
 </td><td width="25%" valign=top><a href="gettext.html">gettext</a><br>
 </td><td width="25%" valign=top><a href="gtk.html">gtk</a><br>
 </td><td width="25%" valign=top><a href="pygtk.html">pygtk</a><br>
 </td></tr></table></td></tr></table><p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
-<tr bgcolor="#ee77aa">
+<tr bgcolor="#3465a4">
 <td colspan=3 valign=bottom>&nbsp;<br>
 <font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
     
-<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<tr><td bgcolor="#3465a4"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
 <td width="100%"><dl>
 <dt><font face="helvetica, arial">gobject.DrawingArea(gobject.Widget)
 </font></dt><dd>
@@ -38,11 +46,14 @@
 </dl>
  <p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
-<tr bgcolor="#ffc8d8">
+<tr bgcolor="#729fcf">
 <td colspan=3 valign=bottom>&nbsp;<br>
 <font color="#000000" face="helvetica, arial"><a name="VUWidget">class <strong>VUWidget</strong></a>(gobject.DrawingArea)</font></td></tr>
     
-<tr><td bgcolor="#ffc8d8"><tt>&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<tr bgcolor="#729fcf"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Draws&nbsp;the&nbsp;gradient&nbsp;volume&nbsp;levels&nbsp;and&nbsp;is&nbsp;used&nbsp;by&nbsp;MixerStrip.py<br>
+to&nbsp;show&nbsp;the&nbsp;volume&nbsp;levels&nbsp;in&nbsp;Jokosher's&nbsp;mix&nbsp;view.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
 <td width="100%"><dl><dt>Method resolution order:</dt>
 <dd><a href="VUWidget.html#VUWidget">VUWidget</a></dd>
 <dd>gobject.DrawingArea</dd>
@@ -55,30 +66,66 @@
 </dl>
 <hr>
 Methods defined here:<br>
-<dl><dt><a name="VUWidget-GenerateBackground"><strong>GenerateBackground</strong></a>(self)</dt><dd><tt>Renders&nbsp;the&nbsp;gradient&nbsp;strip&nbsp;for&nbsp;the&nbsp;VU&nbsp;meter&nbsp;background&nbsp;to&nbsp;speed&nbsp;up<br>
-drawing.</tt></dd></dl>
+<dl><dt><a name="VUWidget-Destroy"><strong>Destroy</strong></a>(self)</dt><dd><tt>Deletes&nbsp;the&nbsp;cairo.ImageSurface&nbsp;and&nbsp;then&nbsp;calls&nbsp;the&nbsp;class&nbsp;destructor.</tt></dd></dl>
 
-<dl><dt><a name="VUWidget-OnDraw"><strong>OnDraw</strong></a>(self, widget, event)</dt><dd><tt>Handles&nbsp;the&nbsp;GTK&nbsp;paint&nbsp;event.</tt></dd></dl>
+<dl><dt><a name="VUWidget-GenerateBackground"><strong>GenerateBackground</strong></a>(self)</dt><dd><tt>Renders&nbsp;the&nbsp;gradient&nbsp;strip&nbsp;for&nbsp;the&nbsp;VU&nbsp;meter&nbsp;background&nbsp;to&nbsp;speed&nbsp;up&nbsp;drawing.</tt></dd></dl>
 
-<dl><dt><a name="VUWidget-OnMouseDown"><strong>OnMouseDown</strong></a>(self, widget, mouse)</dt></dl>
+<dl><dt><a name="VUWidget-OnDraw"><strong>OnDraw</strong></a>(self, widget, event)</dt><dd><tt>Handles&nbsp;the&nbsp;GTK&nbsp;paint&nbsp;event.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;event&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;False&nbsp;--&nbsp;TODO</tt></dd></dl>
 
-<dl><dt><a name="VUWidget-OnMouseLeave"><strong>OnMouseLeave</strong></a>(self, widget, mouse)</dt></dl>
+<dl><dt><a name="VUWidget-OnMouseDown"><strong>OnMouseDown</strong></a>(self, widget, mouse)</dt><dd><tt>If&nbsp;the&nbsp;fader&nbsp;widget&nbsp;is&nbsp;clicked,&nbsp;activates&nbsp;it.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mouse&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="VUWidget-OnMouseMove"><strong>OnMouseMove</strong></a>(self, widget, mouse)</dt></dl>
+<dl><dt><a name="VUWidget-OnMouseLeave"><strong>OnMouseLeave</strong></a>(self, widget, mouse)</dt><dd><tt>Clears&nbsp;the&nbsp;StatusBar&nbsp;helper&nbsp;message.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mouse&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="VUWidget-OnMouseUp"><strong>OnMouseUp</strong></a>(self, widget, mouse)</dt></dl>
+<dl><dt><a name="VUWidget-OnMouseMove"><strong>OnMouseMove</strong></a>(self, widget, mouse)</dt><dd><tt>Displays&nbsp;a&nbsp;helper&nbsp;message&nbsp;in&nbsp;the&nbsp;StatusBar&nbsp;and&nbsp;sets&nbsp;the&nbsp;volume<br>
+according&nbsp;to&nbsp;the&nbsp;position&nbsp;of&nbsp;the&nbsp;fader&nbsp;widget.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mouse&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="VUWidget-OnSizeChanged"><strong>OnSizeChanged</strong></a>(self, obj, evt)</dt><dd><tt>Called&nbsp;when&nbsp;the&nbsp;widget's&nbsp;size&nbsp;changes</tt></dd></dl>
+<dl><dt><a name="VUWidget-OnMouseUp"><strong>OnMouseUp</strong></a>(self, widget, mouse)</dt><dd><tt>Deactivates&nbsp;the&nbsp;fader&nbsp;widget.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mouse&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="VUWidget-__init__"><strong>__init__</strong></a>(self, mixerstrip, mainview)</dt></dl>
+<dl><dt><a name="VUWidget-OnSizeChanged"><strong>OnSizeChanged</strong></a>(self, obj, evt)</dt><dd><tt>Toggles&nbsp;a&nbsp;redraw&nbsp;of&nbsp;the&nbsp;<a href="#VUWidget">VUWidget</a>&nbsp;if&nbsp;needed.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;obj&nbsp;--&nbsp;reserved&nbsp;for&nbsp;Cairo&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.&nbsp;*CHECK*<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;evt&nbsp;--reserved&nbsp;for&nbsp;Cairo&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.&nbsp;*CHECK*</tt></dd></dl>
 
-<dl><dt><a name="VUWidget-do_size_request"><strong>do_size_request</strong></a>(self, requisition)</dt></dl>
+<dl><dt><a name="VUWidget-__init__"><strong>__init__</strong></a>(self, mixerstrip, mainview)</dt><dd><tt>Creates&nbsp;a&nbsp;new&nbsp;instance&nbsp;of&nbsp;<a href="#VUWidget">VUWidget</a>.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mixerstrip&nbsp;--&nbsp;TODO<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mainview&nbsp;--&nbsp;the&nbsp;main&nbsp;Jokosher&nbsp;window&nbsp;(JokosherApp).</tt></dd></dl>
+
+<dl><dt><a name="VUWidget-do_size_request"><strong>do_size_request</strong></a>(self, requisition)</dt><dd><tt>TODO<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;requisition&nbsp;--&nbsp;TODO</tt></dd></dl>
 
 <hr>
 Data and other attributes defined here:<br>
 <dl><dt><strong>BAR_WIDTH</strong> = 20</dl>
 
-<dl><dt><strong>__gtype__</strong> = &lt;GType VUWidget (137011496)&gt;</dl>
+<dl><dt><strong>__gtype__</strong> = &lt;GType VUWidget (138585352)&gt;</dl>
 
 <dl><dt><strong>__gtype_name__</strong> = 'VUWidget'</dl>
 
@@ -606,7 +653,7 @@ Methods inherited from <a href="gobject.html#GObject">gobject.GObject</a>:<br>
 Data and other attributes inherited from <a href="gobject.html#GObject">gobject.GObject</a>:<br>
 <dl><dt><strong>__dict__</strong> = &lt;dictproxy object&gt;</dl>
 
-<dl><dt><strong>__gdoc__</strong> = 'Object VUWidget<font color="#c040c0">\n\n</font>Signals from GtkWidget:<font color="#c040c0">\n</font>  compo...ointer<font color="#c040c0">\n\n</font>Signals from GObject:<font color="#c040c0">\n</font>  notify (GParam)<font color="#c040c0">\n\n</font>'</dl>
+<dl><dt><strong>__gdoc__</strong> = 'Object VUWidget<font color="#c040c0">\n\n\n\t</font>Draws the gradient volume lev...ointer<font color="#c040c0">\n\n</font>Signals from GObject:<font color="#c040c0">\n</font>  notify (GParam)<font color="#c040c0">\n\n</font>'</dl>
 
 <dl><dt><strong>__grefcount__</strong> = &lt;attribute '__grefcount__' of 'gobject.GObject' objects&gt;</dl>
 

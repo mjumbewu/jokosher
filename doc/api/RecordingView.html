@@ -1,35 +1,42 @@
 
 <!doctype html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html><head><title>Python: module RecordingView</title>
-</head><body bgcolor="#f0f0f8">
+</head><body bgcolor="#ffffff">
 
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
-<tr bgcolor="#7799ee">
+<tr bgcolor="#fcbb58">
 <td valign=bottom>&nbsp;<br>
 <font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>RecordingView</strong></big></big></font></td
 ><td align=right valign=bottom
-><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/mike/src/jokosher/trunk/Jokosher/RecordingView.py">/home/mike/src/jokosher/trunk/Jokosher/RecordingView.py</a></font></td></tr></table>
-    <p></p>
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/david/Projects/Jokosher/trunk/Jokosher/RecordingView.py">/home/david/Projects/Jokosher/trunk/Jokosher/RecordingView.py</a></font></td></tr></table>
+    <p><tt>#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THIS&nbsp;FILE&nbsp;IS&nbsp;PART&nbsp;OF&nbsp;THE&nbsp;JOKOSHER&nbsp;PROJECT&nbsp;AND&nbsp;LICENSED&nbsp;UNDER&nbsp;THE&nbsp;GPL.&nbsp;SEE<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THE&nbsp;'COPYING'&nbsp;FILE&nbsp;FOR&nbsp;DETAILS<br>
+#<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#RecordingView">RecordingView</a>.py<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A&nbsp;sub-class&nbsp;of&nbsp;gtk.Frame&nbsp;containing&nbsp;the&nbsp;visual&nbsp;layout&nbsp;of&nbsp;instrument<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tracks,&nbsp;timeline,&nbsp;and&nbsp;horizontal&nbsp;scrollbars.<br>
+#<br>
+#-------------------------------------------------------------------------------</tt></p>
 <p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
-<tr bgcolor="#aa55cc">
+<tr bgcolor="#4e9a06">
 <td colspan=3 valign=bottom>&nbsp;<br>
 <font color="#fffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
     
-<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<tr><td bgcolor="#4e9a06"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
 <td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="Globals.html">Globals</a><br>
 <a href="InstrumentViewer.html">InstrumentViewer</a><br>
-</td><td width="25%" valign=top><a href="Monitored.html">Monitored</a><br>
-<a href="TimeLineBar.html">TimeLineBar</a><br>
-</td><td width="25%" valign=top><a href="gobject.html">gobject</a><br>
-<a href="gtk.html">gtk</a><br>
+</td><td width="25%" valign=top><a href="TimeLineBar.html">TimeLineBar</a><br>
+<a href="gettext.html">gettext</a><br>
+</td><td width="25%" valign=top><a href="gtk.html">gtk</a><br>
 </td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
-<tr bgcolor="#ee77aa">
+<tr bgcolor="#3465a4">
 <td colspan=3 valign=bottom>&nbsp;<br>
 <font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
     
-<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<tr><td bgcolor="#3465a4"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
 <td width="100%"><dl>
 <dt><font face="helvetica, arial">gobject.Frame(gobject.Bin)
 </font></dt><dd>
@@ -40,11 +47,17 @@
 </dl>
  <p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
-<tr bgcolor="#ffc8d8">
+<tr bgcolor="#729fcf">
 <td colspan=3 valign=bottom>&nbsp;<br>
 <font color="#000000" face="helvetica, arial"><a name="RecordingView">class <strong>RecordingView</strong></a>(gobject.Frame)</font></td></tr>
     
-<tr><td bgcolor="#ffc8d8"><tt>&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<tr bgcolor="#729fcf"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>This&nbsp;class&nbsp;encapsulates&nbsp;a&nbsp;visual&nbsp;layout&nbsp;of&nbsp;a&nbsp;project&nbsp;comprising<br>
+instrument&nbsp;tracks,&nbsp;timeline,&nbsp;and&nbsp;horizontal&nbsp;scrollbars.<br>
+Despite&nbsp;its&nbsp;name,&nbsp;it&nbsp;also&nbsp;appears&nbsp;under&nbsp;the&nbsp;mixing&nbsp;view&nbsp;contained<br>
+in&nbsp;a&nbsp;CompactMixView&nbsp;object,&nbsp;where&nbsp;it&nbsp;represents&nbsp;the&nbsp;same<br>
+information&nbsp;with&nbsp;shorter&nbsp;instrument&nbsp;tracks.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
 <td width="100%"><dl><dt>Method resolution order:</dt>
 <dd><a href="RecordingView.html#RecordingView">RecordingView</a></dd>
 <dd>gobject.Frame</dd>
@@ -59,33 +72,94 @@
 </dl>
 <hr>
 Methods defined here:<br>
-<dl><dt><a name="RecordingView-OnAllocate"><strong>OnAllocate</strong></a>(self, widget, allocation)</dt></dl>
+<dl><dt><a name="RecordingView-OnAllocate"><strong>OnAllocate</strong></a>(self, widget, allocation)</dt><dd><tt>Callback&nbsp;for&nbsp;"size-allocate"&nbsp;signal.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;allocation&nbsp;--&nbsp;new&nbsp;allocation&nbsp;value&nbsp;to&nbsp;be&nbsp;set.</tt></dd></dl>
 
-<dl><dt><a name="RecordingView-OnExpose"><strong>OnExpose</strong></a>(self, widget, event)</dt><dd><tt>Sets&nbsp;scrollbar&nbsp;properties&nbsp;once&nbsp;space&nbsp;has&nbsp;been&nbsp;allocated</tt></dd></dl>
+<dl><dt><a name="RecordingView-OnExpose"><strong>OnExpose</strong></a>(self, widget, event)</dt><dd><tt>Sets&nbsp;scrollbar&nbsp;properties&nbsp;(i.e.&nbsp;size,&nbsp;scroll&nbsp;increments,&nbsp;etc),<br>
+once&nbsp;space&nbsp;for&nbsp;the&nbsp;object&nbsp;has&nbsp;been&nbsp;allocated.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;event&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="RecordingView-OnMouseDown"><strong>OnMouseDown</strong></a>(self, widget, mouse)</dt></dl>
+<dl><dt><a name="RecordingView-OnMouseDown"><strong>OnMouseDown</strong></a>(self, widget, mouse)</dt><dd><tt>Callback&nbsp;for&nbsp;"button_press_event"&nbsp;(not&nbsp;catered&nbsp;for,&nbsp;by&nbsp;any<br>
+button&nbsp;presses&nbsp;or&nbsp;other&nbsp;mouse&nbsp;handlers).<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mouse&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="RecordingView-OnScroll"><strong>OnScroll</strong></a>(self, widget)</dt></dl>
+<dl><dt><a name="RecordingView-OnScroll"><strong>OnScroll</strong></a>(self, widget)</dt><dd><tt>Callback&nbsp;for&nbsp;"value-changed"&nbsp;signal&nbsp;from&nbsp;scrollbar.<br>
+Updates&nbsp;the&nbsp;Project&nbsp;playhead&nbsp;position.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="RecordingView-OnStateChanged"><strong>OnStateChanged</strong></a>(self, obj, change<font color="#909090">=None</font>)</dt></dl>
+<dl><dt><a name="RecordingView-OnStateChanged"><strong>OnStateChanged</strong></a>(self, obj, change<font color="#909090">=None</font>, *extra)</dt><dd><tt>Called&nbsp;when&nbsp;a&nbsp;change&nbsp;of&nbsp;state&nbsp;is&nbsp;signalled&nbsp;by&nbsp;any&nbsp;of&nbsp;the<br>
+objects&nbsp;this&nbsp;view&nbsp;is&nbsp;'listening'&nbsp;to.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;obj&nbsp;--&nbsp;object&nbsp;changing&nbsp;state.&nbsp;*CHECK*<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;change&nbsp;--&nbsp;the&nbsp;change&nbsp;which&nbsp;has&nbsp;occured.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;extra&nbsp;--&nbsp;extra&nbsp;parameters&nbsp;passed&nbsp;by&nbsp;the&nbsp;caller.</tt></dd></dl>
 
-<dl><dt><a name="RecordingView-OnZoom100"><strong>OnZoom100</strong></a>(self, widget)</dt></dl>
+<dl><dt><a name="RecordingView-OnZoom"><strong>OnZoom</strong></a>(self, widget)</dt><dd><tt>Updates&nbsp;the&nbsp;viewing&nbsp;scale&nbsp;for&nbsp;the&nbsp;Project&nbsp;when&nbsp;the&nbsp;user<br>
+zooms&nbsp;in&nbsp;or&nbsp;out.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="RecordingView-OnZoomIn"><strong>OnZoomIn</strong></a>(self, widget)</dt></dl>
+<dl><dt><a name="RecordingView-OnZoom100"><strong>OnZoom100</strong></a>(self, widget)</dt><dd><tt>This&nbsp;method&nbsp;is&nbsp;not&nbsp;currently&nbsp;used&nbsp;(it&nbsp;was&nbsp;used&nbsp;when&nbsp;the&nbsp;zoom&nbsp;buttons&nbsp;existed).<br>
+It's&nbsp;left&nbsp;here&nbsp;for&nbsp;future&nbsp;use.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="RecordingView-OnZoomOut"><strong>OnZoomOut</strong></a>(self, widget)</dt></dl>
+<dl><dt><a name="RecordingView-OnZoomIn"><strong>OnZoomIn</strong></a>(self, widget)</dt><dd><tt>Calls&nbsp;OnZoom&nbsp;when&nbsp;the&nbsp;user&nbsp;zooms&nbsp;in.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="RecordingView-Update"><strong>Update</strong></a>(self)</dt></dl>
+<dl><dt><a name="RecordingView-OnZoomOut"><strong>OnZoomOut</strong></a>(self, widget)</dt><dd><tt>Calls&nbsp;OnZoom&nbsp;when&nbsp;the&nbsp;user&nbsp;zooms&nbsp;out.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="RecordingView-UpdateSize"><strong>UpdateSize</strong></a>(self, widget<font color="#909090">=None</font>, size<font color="#909090">=None</font>)</dt></dl>
+<dl><dt><a name="RecordingView-Update"><strong>Update</strong></a>(self)</dt><dd><tt>Updates&nbsp;the&nbsp;GUI&nbsp;to&nbsp;reflect&nbsp;changes&nbsp;on&nbsp;the&nbsp;instruments,&nbsp;timeline&nbsp;and<br>
+scrollbars.<br>
+Called&nbsp;either&nbsp;directly&nbsp;from&nbsp;<a href="#RecordingView-OnStateChanged">OnStateChanged</a>(),&nbsp;or&nbsp;via&nbsp;the&nbsp;owning<br>
+CompactMixView.update()(depending&nbsp;on&nbsp;which&nbsp;view&nbsp;we&nbsp;are&nbsp;in)&nbsp;when<br>
+there&nbsp;is&nbsp;a&nbsp;change&nbsp;of&nbsp;state&nbsp;in&nbsp;an&nbsp;instrument&nbsp;being&nbsp;listened&nbsp;to.<br>
+&nbsp;<br>
+Considerations:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;InstrumentViews&nbsp;MUST&nbsp;have&nbsp;the&nbsp;order&nbsp;that&nbsp;the&nbsp;instruments&nbsp;have&nbsp;in<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Project.instruments,&nbsp;to&nbsp;keep&nbsp;the&nbsp;drag&nbsp;and&nbsp;drop&nbsp;of&nbsp;InstrumentViews<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;consistent.</tt></dd></dl>
 
-<dl><dt><a name="RecordingView-__init__"><strong>__init__</strong></a>(self, project, mainview, mixView<font color="#909090">=None</font>, small<font color="#909090">=False</font>)</dt></dl>
+<dl><dt><a name="RecordingView-UpdateSize"><strong>UpdateSize</strong></a>(self, widget<font color="#909090">=None</font>, size<font color="#909090">=None</font>)</dt><dd><tt>Called&nbsp;during&nbsp;update()&nbsp;to&nbsp;re-align&nbsp;the&nbsp;timeline&nbsp;and&nbsp;scrollbars<br>
+with&nbsp;the&nbsp;start&nbsp;of&nbsp;the&nbsp;event&nbsp;lane&nbsp;since&nbsp;the&nbsp;instrument&nbsp;width&nbsp;may<br>
+have&nbsp;been&nbsp;altered.</tt></dd></dl>
+
+<dl><dt><a name="RecordingView-__init__"><strong>__init__</strong></a>(self, project, mainview, mixView<font color="#909090">=None</font>, small<font color="#909090">=False</font>)</dt><dd><tt>Creates&nbsp;a&nbsp;new&nbsp;instance&nbsp;of&nbsp;<a href="#RecordingView">RecordingView</a>.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;project&nbsp;--&nbsp;the&nbsp;currently&nbsp;active&nbsp;Project.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mainview&nbsp;--&nbsp;the&nbsp;main&nbsp;Jokosher&nbsp;window&nbsp;(MainApp).<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mixView&nbsp;--&nbsp;the&nbsp;CompactMixView&nbsp;object&nbsp;that&nbsp;holds&nbsp;this&nbsp;instance&nbsp;of<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#RecordingView">RecordingView</a>,&nbsp;if&nbsp;the&nbsp;mixing&nbsp;view&nbsp;is&nbsp;the&nbsp;currently&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;active&nbsp;one.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;the&nbsp;recording&nbsp;view&nbsp;is&nbsp;the&nbsp;active&nbsp;one,&nbsp;then&nbsp;this<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;should&nbsp;be&nbsp;set&nbsp;to&nbsp;None.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;small&nbsp;--&nbsp;set&nbsp;to&nbsp;True&nbsp;if&nbsp;we&nbsp;want&nbsp;small&nbsp;edit&nbsp;views&nbsp;(i.e.&nbsp;for&nbsp;the&nbsp;mixing&nbsp;view).</tt></dd></dl>
 
 <hr>
 Data and other attributes defined here:<br>
 <dl><dt><strong>INSTRUMENT_HEADER_WIDTH</strong> = 150</dl>
 
-<dl><dt><strong>__gtype__</strong> = &lt;GType RecordingView (138224048)&gt;</dl>
+<dl><dt><strong>__gtype__</strong> = &lt;GType RecordingView (138345912)&gt;</dl>
 
 <dl><dt><strong>__gtype_name__</strong> = 'RecordingView'</dl>
 
@@ -739,7 +813,7 @@ Methods inherited from <a href="gobject.html#GObject">gobject.GObject</a>:<br>
 Data and other attributes inherited from <a href="gobject.html#GObject">gobject.GObject</a>:<br>
 <dl><dt><strong>__dict__</strong> = &lt;dictproxy object&gt;</dl>
 
-<dl><dt><strong>__gdoc__</strong> = 'Object RecordingView<font color="#c040c0">\n\n</font>Properties from GtkFrame:<font color="#c040c0">\n</font>...ointer<font color="#c040c0">\n\n</font>Signals from GObject:<font color="#c040c0">\n</font>  notify (GParam)<font color="#c040c0">\n\n</font>'</dl>
+<dl><dt><strong>__gdoc__</strong> = 'Object RecordingView<font color="#c040c0">\n\n\n\t</font>This class encapsulates ...ointer<font color="#c040c0">\n\n</font>Signals from GObject:<font color="#c040c0">\n</font>  notify (GParam)<font color="#c040c0">\n\n</font>'</dl>
 
 <dl><dt><strong>__grefcount__</strong> = &lt;attribute '__grefcount__' of 'gobject.GObject' objects&gt;</dl>
 

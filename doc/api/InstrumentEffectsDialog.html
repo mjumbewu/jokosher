@@ -1,14 +1,14 @@
 
 <!doctype html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html><head><title>Python: module InstrumentEffectsDialog</title>
-</head><body bgcolor="#f0f0f8">
+</head><body bgcolor="#ffffff">
 
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
-<tr bgcolor="#7799ee">
+<tr bgcolor="#fcbb58">
 <td valign=bottom>&nbsp;<br>
 <font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>InstrumentEffectsDialog</strong></big></big></font></td
 ><td align=right valign=bottom
-><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/mike/src/jokosher/trunk/Jokosher/InstrumentEffectsDialog.py">/home/mike/src/jokosher/trunk/Jokosher/InstrumentEffectsDialog.py</a></font></td></tr></table>
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/david/Projects/Jokosher/trunk/Jokosher/InstrumentEffectsDialog.py">/home/david/Projects/Jokosher/trunk/Jokosher/InstrumentEffectsDialog.py</a></font></td></tr></table>
     <p><tt>#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THIS&nbsp;FILE&nbsp;IS&nbsp;PART&nbsp;OF&nbsp;THE&nbsp;JOKOSHER&nbsp;PROJECT&nbsp;AND&nbsp;LICENSED&nbsp;UNDER&nbsp;THE&nbsp;GPL.&nbsp;SEE<br>
 #&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THE&nbsp;'COPYING'&nbsp;FILE&nbsp;FOR&nbsp;DETAILS<br>
 #<br>
@@ -16,82 +16,762 @@
 #&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
 #&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;module&nbsp;us&nbsp;used&nbsp;to&nbsp;present&nbsp;the&nbsp;dialog&nbsp;for&nbsp;adding&nbsp;and&nbsp;managing&nbsp;instrument<br>
 #&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;effects.&nbsp;Note&nbsp;that&nbsp;this&nbsp;module&nbsp;deals&nbsp;with&nbsp;the&nbsp;main&nbsp;effects&nbsp;dialog&nbsp;*and*&nbsp;the<br>
-#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;effect&nbsp;settings&nbsp;dialog.<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;effect&nbsp;settings&nbsp;dialog,&nbsp;which&nbsp;we're&nbsp;both&nbsp;handed&nbsp;to&nbsp;Mr.&nbsp;Bacon&nbsp;in&nbsp;a&nbsp;spec&nbsp;by&nbsp;the<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gods&nbsp;of&nbsp;Metal.&nbsp;They&nbsp;came&nbsp;to&nbsp;him&nbsp;in&nbsp;a&nbsp;dream&nbsp;to&nbsp;warn&nbsp;against&nbsp;a&nbsp;bleak&nbsp;future&nbsp;where<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;massively&nbsp;distorted&nbsp;music&nbsp;could&nbsp;not&nbsp;be&nbsp;made&nbsp;using&nbsp;linux.<br>
 #<br>
 #-------------------------------------------------------------------------------</tt></p>
 <p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
-<tr bgcolor="#aa55cc">
+<tr bgcolor="#4e9a06">
 <td colspan=3 valign=bottom>&nbsp;<br>
 <font color="#fffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
     
-<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<tr><td bgcolor="#4e9a06"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
 <td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="EffectPresets.html">EffectPresets</a><br>
 <a href="Globals.html">Globals</a><br>
-</td><td width="25%" valign=top><a href="Project.html">Project</a><br>
+<a href="cairo.html">cairo</a><br>
+</td><td width="25%" valign=top><a href="gettext.html">gettext</a><br>
 <a href="gobject.html">gobject</a><br>
-</td><td width="25%" valign=top><a href="gst.html">gst</a><br>
-<a href="gtk.html">gtk</a><br>
-</td><td width="25%" valign=top><a href="os.html">os</a><br>
+<a href="gst.html">gst</a><br>
+</td><td width="25%" valign=top><a href="gtk.html">gtk</a><br>
+<a href="os.html">os</a><br>
 <a href="pygst.html">pygst</a><br>
-</td></tr></table></td></tr></table><p>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
-<tr bgcolor="#ee77aa">
+<tr bgcolor="#3465a4">
 <td colspan=3 valign=bottom>&nbsp;<br>
 <font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
     
-<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<tr><td bgcolor="#3465a4"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
 <td width="100%"><dl>
 <dt><font face="helvetica, arial"><a href="InstrumentEffectsDialog.html#InstrumentEffectsDialog">InstrumentEffectsDialog</a>
+</font></dt><dt><font face="helvetica, arial">gobject.DrawingArea(gobject.Widget)
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="InstrumentEffectsDialog.html#CairoDialogHeaderImage">CairoDialogHeaderImage</a>
 </font></dt></dl>
+</dd>
+</dl>
  <p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
-<tr bgcolor="#ffc8d8">
+<tr bgcolor="#729fcf">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="CairoDialogHeaderImage">class <strong>CairoDialogHeaderImage</strong></a>(gobject.DrawingArea)</font></td></tr>
+    
+<tr bgcolor="#729fcf"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Renders&nbsp;a&nbsp;banner&nbsp;for&nbsp;the&nbsp;top&nbsp;of&nbsp;the&nbsp;effects&nbsp;dialog&nbsp;using&nbsp;Cairo.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="InstrumentEffectsDialog.html#CairoDialogHeaderImage">CairoDialogHeaderImage</a></dd>
+<dd>gobject.DrawingArea</dd>
+<dd>gobject.Widget</dd>
+<dd>gobject.Object</dd>
+<dd><a href="gobject.html#GObject">gobject.GObject</a></dd>
+<dd><a href="atk.html#ImplementorIface">atk.ImplementorIface</a></dd>
+<dd><a href="gobject.html#GInterface">gobject.GInterface</a></dd>
+<dd><a href="__builtin__.html#object">__builtin__.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="CairoDialogHeaderImage-GenerateCachedImage"><strong>GenerateCachedImage</strong></a>(self)</dt><dd><tt>Renders&nbsp;the&nbsp;image&nbsp;so&nbsp;that&nbsp;we&nbsp;don't&nbsp;have&nbsp;to&nbsp;re-render&nbsp;it&nbsp;every<br>
+time&nbsp;there&nbsp;is&nbsp;an&nbsp;expose&nbsp;event&nbsp;from&nbsp;a&nbsp;mouse&nbsp;move&nbsp;or&nbsp;something.</tt></dd></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-OnDraw"><strong>OnDraw</strong></a>(self, widget, event)</dt><dd><tt>Handles&nbsp;the&nbsp;GTK&nbsp;expose&nbsp;event.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;event&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;False&nbsp;--&nbsp;indicates&nbsp;the&nbsp;GTK&nbsp;signal&nbsp;to:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1)&nbsp;continue&nbsp;propagating&nbsp;the&nbsp;regular&nbsp;signal.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2)&nbsp;stop&nbsp;calling&nbsp;the&nbsp;callback&nbsp;on&nbsp;a&nbsp;timeout_add.</tt></dd></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-OnSizeChanged"><strong>OnSizeChanged</strong></a>(self, obj, evt)</dt><dd><tt>Called&nbsp;when&nbsp;the&nbsp;widget's&nbsp;size&nbsp;changes.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;obj&nbsp;--&nbsp;reserved&nbsp;for&nbsp;Cairo&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.&nbsp;*CHECK*<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;evt&nbsp;--&nbsp;reserved&nbsp;for&nbsp;Cairo&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.&nbsp;*CHECK*</tt></dd></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-__init__"><strong>__init__</strong></a>(self, headerText)</dt><dd><tt>Creates&nbsp;a&nbsp;new&nbsp;instance&nbsp;of&nbsp;<a href="#CairoDialogHeaderImage">CairoDialogHeaderImage</a>.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;headerText&nbsp;--&nbsp;text&nbsp;to&nbsp;be&nbsp;displayed&nbsp;at&nbsp;the&nbsp;header.</tt></dd></dl>
+
+<hr>
+Methods inherited from gobject.DrawingArea:<br>
+<dl><dt><a name="CairoDialogHeaderImage-size"><strong>size</strong></a>(...)</dt></dl>
+
+<hr>
+Data and other attributes inherited from gobject.DrawingArea:<br>
+<dl><dt><strong>__gtype__</strong> = &lt;GType GtkDrawingArea (135890848)&gt;</dl>
+
+<hr>
+Methods inherited from gobject.Widget:<br>
+<dl><dt><a name="CairoDialogHeaderImage-activate"><strong>activate</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-add_accelerator"><strong>add_accelerator</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-add_events"><strong>add_events</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-add_mnemonic_label"><strong>add_mnemonic_label</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-can_activate_accel"><strong>can_activate_accel</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-child_focus"><strong>child_focus</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-child_notify"><strong>child_notify</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-class_path"><strong>class_path</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-create_pango_context"><strong>create_pango_context</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-create_pango_layout"><strong>create_pango_layout</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-destroy"><strong>destroy</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-drag_begin"><strong>drag_begin</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-drag_check_threshold"><strong>drag_check_threshold</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-drag_dest_add_image_targets"><strong>drag_dest_add_image_targets</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-drag_dest_add_text_targets"><strong>drag_dest_add_text_targets</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-drag_dest_add_uri_targets"><strong>drag_dest_add_uri_targets</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-drag_dest_find_target"><strong>drag_dest_find_target</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-drag_dest_get_target_list"><strong>drag_dest_get_target_list</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-drag_dest_get_track_motion"><strong>drag_dest_get_track_motion</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-drag_dest_set"><strong>drag_dest_set</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-drag_dest_set_proxy"><strong>drag_dest_set_proxy</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-drag_dest_set_target_list"><strong>drag_dest_set_target_list</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-drag_dest_set_track_motion"><strong>drag_dest_set_track_motion</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-drag_dest_unset"><strong>drag_dest_unset</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-drag_get_data"><strong>drag_get_data</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-drag_highlight"><strong>drag_highlight</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-drag_source_add_image_targets"><strong>drag_source_add_image_targets</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-drag_source_add_text_targets"><strong>drag_source_add_text_targets</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-drag_source_add_uri_targets"><strong>drag_source_add_uri_targets</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-drag_source_get_target_list"><strong>drag_source_get_target_list</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-drag_source_set"><strong>drag_source_set</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-drag_source_set_icon"><strong>drag_source_set_icon</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-drag_source_set_icon_name"><strong>drag_source_set_icon_name</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-drag_source_set_icon_pixbuf"><strong>drag_source_set_icon_pixbuf</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-drag_source_set_icon_stock"><strong>drag_source_set_icon_stock</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-drag_source_set_target_list"><strong>drag_source_set_target_list</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-drag_source_unset"><strong>drag_source_unset</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-drag_unhighlight"><strong>drag_unhighlight</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-draw"><strong>draw</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-ensure_style"><strong>ensure_style</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-event"><strong>event</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-freeze_child_notify"><strong>freeze_child_notify</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-get_accessible"><strong>get_accessible</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-get_action"><strong>get_action</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-get_allocation"><strong>get_allocation</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-get_ancestor"><strong>get_ancestor</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-get_child_requisition"><strong>get_child_requisition</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-get_child_visible"><strong>get_child_visible</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-get_clipboard"><strong>get_clipboard</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-get_colormap"><strong>get_colormap</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-get_composite_name"><strong>get_composite_name</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-get_direction"><strong>get_direction</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-get_display"><strong>get_display</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-get_events"><strong>get_events</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-get_extension_events"><strong>get_extension_events</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-get_modifier_style"><strong>get_modifier_style</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-get_name"><strong>get_name</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-get_no_show_all"><strong>get_no_show_all</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-get_pango_context"><strong>get_pango_context</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-get_parent"><strong>get_parent</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-get_parent_window"><strong>get_parent_window</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-get_pointer"><strong>get_pointer</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-get_root_window"><strong>get_root_window</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-get_screen"><strong>get_screen</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-get_settings"><strong>get_settings</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-get_size_request"><strong>get_size_request</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-get_style"><strong>get_style</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-get_toplevel"><strong>get_toplevel</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-get_visual"><strong>get_visual</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-grab_add"><strong>grab_add</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-grab_default"><strong>grab_default</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-grab_focus"><strong>grab_focus</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-grab_remove"><strong>grab_remove</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-has_screen"><strong>has_screen</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-hide"><strong>hide</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-hide_all"><strong>hide_all</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-hide_on_delete"><strong>hide_on_delete</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-input_shape_combine_mask"><strong>input_shape_combine_mask</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-intersect"><strong>intersect</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-is_ancestor"><strong>is_ancestor</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-is_composited"><strong>is_composited</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-is_focus"><strong>is_focus</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-list_mnemonic_labels"><strong>list_mnemonic_labels</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-map"><strong>map</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-menu_get_for_attach_widget"><strong>menu_get_for_attach_widget</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-mnemonic_activate"><strong>mnemonic_activate</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-modify_base"><strong>modify_base</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-modify_bg"><strong>modify_bg</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-modify_fg"><strong>modify_fg</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-modify_font"><strong>modify_font</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-modify_style"><strong>modify_style</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-modify_text"><strong>modify_text</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-path"><strong>path</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-queue_clear"><strong>queue_clear</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-queue_clear_area"><strong>queue_clear_area</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-queue_draw"><strong>queue_draw</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-queue_draw_area"><strong>queue_draw_area</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-queue_resize"><strong>queue_resize</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-queue_resize_no_redraw"><strong>queue_resize_no_redraw</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-rc_get_style"><strong>rc_get_style</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-realize"><strong>realize</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-region_intersect"><strong>region_intersect</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-remove_accelerator"><strong>remove_accelerator</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-remove_mnemonic_label"><strong>remove_mnemonic_label</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-render_icon"><strong>render_icon</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-reparent"><strong>reparent</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-reset_rc_styles"><strong>reset_rc_styles</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-reset_shapes"><strong>reset_shapes</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-selection_add_target"><strong>selection_add_target</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-selection_add_targets"><strong>selection_add_targets</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-selection_clear_targets"><strong>selection_clear_targets</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-selection_convert"><strong>selection_convert</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-selection_owner_set"><strong>selection_owner_set</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-selection_remove_all"><strong>selection_remove_all</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-send_expose"><strong>send_expose</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-set_accel_path"><strong>set_accel_path</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-set_app_paintable"><strong>set_app_paintable</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-set_child_visible"><strong>set_child_visible</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-set_colormap"><strong>set_colormap</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-set_composite_name"><strong>set_composite_name</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-set_direction"><strong>set_direction</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-set_double_buffered"><strong>set_double_buffered</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-set_events"><strong>set_events</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-set_extension_events"><strong>set_extension_events</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-set_name"><strong>set_name</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-set_no_show_all"><strong>set_no_show_all</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-set_parent"><strong>set_parent</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-set_parent_window"><strong>set_parent_window</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-set_redraw_on_allocate"><strong>set_redraw_on_allocate</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-set_scroll_adjustments"><strong>set_scroll_adjustments</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-set_sensitive"><strong>set_sensitive</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-set_size_request"><strong>set_size_request</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-set_state"><strong>set_state</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-set_style"><strong>set_style</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-set_uposition"><strong>set_uposition</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-set_usize"><strong>set_usize</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-shape_combine_mask"><strong>shape_combine_mask</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-show"><strong>show</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-show_all"><strong>show_all</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-show_now"><strong>show_now</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-size_allocate"><strong>size_allocate</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-size_request"><strong>size_request</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-style_get_property"><strong>style_get_property</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-thaw_child_notify"><strong>thaw_child_notify</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-translate_coordinates"><strong>translate_coordinates</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-unmap"><strong>unmap</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-unparent"><strong>unparent</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-unrealize"><strong>unrealize</strong></a>(...)</dt></dl>
+
+<hr>
+Data and other attributes inherited from gobject.Widget:<br>
+<dl><dt><strong>allocation</strong> = &lt;attribute 'allocation' of 'gtk.Widget' objects&gt;</dl>
+
+<dl><dt><strong>do_button_press_event</strong> = &lt;built-in method do_button_press_event of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_button_release_event</strong> = &lt;built-in method do_button_release_event of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_can_activate_accel</strong> = &lt;built-in method do_can_activate_accel of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_client_event</strong> = &lt;built-in method do_client_event of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_composited_changed</strong> = &lt;built-in method do_composited_changed of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_configure_event</strong> = &lt;built-in method do_configure_event of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_delete_event</strong> = &lt;built-in method do_delete_event of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_destroy_event</strong> = &lt;built-in method do_destroy_event of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_direction_changed</strong> = &lt;built-in method do_direction_changed of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_drag_begin</strong> = &lt;built-in method do_drag_begin of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_drag_data_delete</strong> = &lt;built-in method do_drag_data_delete of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_drag_data_get</strong> = &lt;built-in method do_drag_data_get of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_drag_data_received</strong> = &lt;built-in method do_drag_data_received of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_drag_drop</strong> = &lt;built-in method do_drag_drop of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_drag_end</strong> = &lt;built-in method do_drag_end of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_drag_leave</strong> = &lt;built-in method do_drag_leave of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_drag_motion</strong> = &lt;built-in method do_drag_motion of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_enter_notify_event</strong> = &lt;built-in method do_enter_notify_event of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_event</strong> = &lt;built-in method do_event of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_expose_event</strong> = &lt;built-in method do_expose_event of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_focus</strong> = &lt;built-in method do_focus of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_focus_in_event</strong> = &lt;built-in method do_focus_in_event of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_focus_out_event</strong> = &lt;built-in method do_focus_out_event of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_get_accessible</strong> = &lt;built-in method do_get_accessible of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_grab_broken_event</strong> = &lt;built-in method do_grab_broken_event of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_grab_focus</strong> = &lt;built-in method do_grab_focus of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_grab_notify</strong> = &lt;built-in method do_grab_notify of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_hide</strong> = &lt;built-in method do_hide of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_hide_all</strong> = &lt;built-in method do_hide_all of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_hierarchy_changed</strong> = &lt;built-in method do_hierarchy_changed of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_key_press_event</strong> = &lt;built-in method do_key_press_event of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_key_release_event</strong> = &lt;built-in method do_key_release_event of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_leave_notify_event</strong> = &lt;built-in method do_leave_notify_event of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_map</strong> = &lt;built-in method do_map of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_map_event</strong> = &lt;built-in method do_map_event of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_mnemonic_activate</strong> = &lt;built-in method do_mnemonic_activate of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_motion_notify_event</strong> = &lt;built-in method do_motion_notify_event of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_no_expose_event</strong> = &lt;built-in method do_no_expose_event of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_parent_set</strong> = &lt;built-in method do_parent_set of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_popup_menu</strong> = &lt;built-in method do_popup_menu of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_property_notify_event</strong> = &lt;built-in method do_property_notify_event of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_proximity_in_event</strong> = &lt;built-in method do_proximity_in_event of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_proximity_out_event</strong> = &lt;built-in method do_proximity_out_event of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_realize</strong> = &lt;built-in method do_realize of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_screen_changed</strong> = &lt;built-in method do_screen_changed of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_scroll_event</strong> = &lt;built-in method do_scroll_event of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_selection_clear_event</strong> = &lt;built-in method do_selection_clear_event of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_selection_get</strong> = &lt;built-in method do_selection_get of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_selection_notify_event</strong> = &lt;built-in method do_selection_notify_event of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_selection_received</strong> = &lt;built-in method do_selection_received of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_selection_request_event</strong> = &lt;built-in method do_selection_request_event of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_show</strong> = &lt;built-in method do_show of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_show_all</strong> = &lt;built-in method do_show_all of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_show_help</strong> = &lt;built-in method do_show_help of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_size_allocate</strong> = &lt;built-in method do_size_allocate of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_size_request</strong> = &lt;built-in method do_size_request of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_state_changed</strong> = &lt;built-in method do_state_changed of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_style_set</strong> = &lt;built-in method do_style_set of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_unmap</strong> = &lt;built-in method do_unmap of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_unmap_event</strong> = &lt;built-in method do_unmap_event of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_unrealize</strong> = &lt;built-in method do_unrealize of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_visibility_notify_event</strong> = &lt;built-in method do_visibility_notify_event of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_window_state_event</strong> = &lt;built-in method do_window_state_event of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>get_activate_signal</strong> = &lt;built-in method get_activate_signal of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>name</strong> = &lt;attribute 'name' of 'gtk.Widget' objects&gt;</dl>
+
+<dl><dt><strong>parent</strong> = &lt;attribute 'parent' of 'gtk.Widget' objects&gt;</dl>
+
+<dl><dt><strong>saved_state</strong> = &lt;attribute 'saved_state' of 'gtk.Widget' objects&gt;</dl>
+
+<dl><dt><strong>set_activate_signal</strong> = &lt;built-in method set_activate_signal of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>set_set_scroll_adjustments_signal</strong> = &lt;built-in method set_set_scroll_adjustments_signal of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>state</strong> = &lt;attribute 'state' of 'gtk.Widget' objects&gt;</dl>
+
+<dl><dt><strong>style</strong> = &lt;attribute 'style' of 'gtk.Widget' objects&gt;</dl>
+
+<dl><dt><strong>window</strong> = &lt;attribute 'window' of 'gtk.Widget' objects&gt;</dl>
+
+<hr>
+Methods inherited from gobject.Object:<br>
+<dl><dt><a name="CairoDialogHeaderImage-flags"><strong>flags</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-remove_data"><strong>remove_data</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-remove_no_notify"><strong>remove_no_notify</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-set_flags"><strong>set_flags</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-unset_flags"><strong>unset_flags</strong></a>(...)</dt></dl>
+
+<hr>
+Data and other attributes inherited from gobject.Object:<br>
+<dl><dt><strong>do_destroy</strong> = &lt;built-in method do_destroy of GObjectMeta object&gt;</dl>
+
+<hr>
+Methods inherited from <a href="gobject.html#GObject">gobject.GObject</a>:<br>
+<dl><dt><a name="CairoDialogHeaderImage-__cmp__"><strong>__cmp__</strong></a>(...)</dt><dd><tt>x.<a href="#CairoDialogHeaderImage-__cmp__">__cmp__</a>(y)&nbsp;&lt;==&gt;&nbsp;cmp(x,y)</tt></dd></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-__gobject_init__"><strong>__gobject_init__</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-__hash__"><strong>__hash__</strong></a>(...)</dt><dd><tt>x.<a href="#CairoDialogHeaderImage-__hash__">__hash__</a>()&nbsp;&lt;==&gt;&nbsp;hash(x)</tt></dd></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-__repr__"><strong>__repr__</strong></a>(...)</dt><dd><tt>x.<a href="#CairoDialogHeaderImage-__repr__">__repr__</a>()&nbsp;&lt;==&gt;&nbsp;repr(x)</tt></dd></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-chain"><strong>chain</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-connect"><strong>connect</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-connect_after"><strong>connect_after</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-connect_object"><strong>connect_object</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-connect_object_after"><strong>connect_object_after</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-disconnect"><strong>disconnect</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-disconnect_by_func"><strong>disconnect_by_func</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-emit"><strong>emit</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-emit_stop_by_name"><strong>emit_stop_by_name</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-freeze_notify"><strong>freeze_notify</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-get_data"><strong>get_data</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-get_property"><strong>get_property</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-handler_block"><strong>handler_block</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-handler_block_by_func"><strong>handler_block_by_func</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-handler_disconnect"><strong>handler_disconnect</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-handler_is_connected"><strong>handler_is_connected</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-handler_unblock"><strong>handler_unblock</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-handler_unblock_by_func"><strong>handler_unblock_by_func</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-notify"><strong>notify</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-set_data"><strong>set_data</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-set_property"><strong>set_property</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-stop_emission"><strong>stop_emission</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CairoDialogHeaderImage-thaw_notify"><strong>thaw_notify</strong></a>(...)</dt></dl>
+
+<hr>
+Data and other attributes inherited from <a href="gobject.html#GObject">gobject.GObject</a>:<br>
+<dl><dt><strong>__dict__</strong> = &lt;dictproxy object&gt;</dl>
+
+<dl><dt><strong>__gdoc__</strong> = 'Object GtkDrawingArea<font color="#c040c0">\n\n\n\t</font>Renders a banner for th...ointer<font color="#c040c0">\n\n</font>Signals from GObject:<font color="#c040c0">\n</font>  notify (GParam)<font color="#c040c0">\n\n</font>'</dl>
+
+<dl><dt><strong>__grefcount__</strong> = &lt;attribute '__grefcount__' of 'gobject.GObject' objects&gt;</dl>
+
+<dl><dt><strong>__new__</strong> = &lt;built-in method __new__ of GObjectMeta object&gt;<dd><tt>T.<a href="#CairoDialogHeaderImage-__new__">__new__</a>(S,&nbsp;...)&nbsp;-&gt;&nbsp;a&nbsp;new&nbsp;object&nbsp;with&nbsp;type&nbsp;S,&nbsp;a&nbsp;subtype&nbsp;of&nbsp;T</tt></dl>
+
+<dl><dt><strong>props</strong> = &lt;gobject.GProps object&gt;</dl>
+
+<hr>
+Methods inherited from <a href="atk.html#ImplementorIface">atk.ImplementorIface</a>:<br>
+<dl><dt><a name="CairoDialogHeaderImage-ref_accessible"><strong>ref_accessible</strong></a>(...)</dt></dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#729fcf">
 <td colspan=3 valign=bottom>&nbsp;<br>
 <font color="#000000" face="helvetica, arial"><a name="InstrumentEffectsDialog">class <strong>InstrumentEffectsDialog</strong></a></font></td></tr>
     
-<tr><td bgcolor="#ffc8d8"><tt>&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<tr bgcolor="#729fcf"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>This&nbsp;class&nbsp;displays&nbsp;and&nbsp;implements&nbsp;the&nbsp;instrument&nbsp;effects&nbsp;dialog<br>
+box,&nbsp;which&nbsp;can&nbsp;be&nbsp;used&nbsp;to&nbsp;add,&nbsp;remove,&nbsp;and&nbsp;edit&nbsp;effects&nbsp;for&nbsp;an<br>
+instrument.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
 <td width="100%">Methods defined here:<br>
-<dl><dt><a name="InstrumentEffectsDialog-OnAddEffect"><strong>OnAddEffect</strong></a>(self, combo)</dt><dd><tt>The&nbsp;effect&nbsp;element&nbsp;is&nbsp;created&nbsp;and&nbsp;added&nbsp;to&nbsp;the<br>
-self.<strong>instrument</strong>.effects&nbsp;list</tt></dd></dl>
+<dl><dt><a name="InstrumentEffectsDialog-BringWindowToFront"><strong>BringWindowToFront</strong></a>(self)</dt><dd><tt>Puts&nbsp;the&nbsp;InstrumentsEffectDialog&nbsp;on&nbsp;top&nbsp;of&nbsp;other&nbsp;windows.</tt></dd></dl>
 
-<dl><dt><a name="InstrumentEffectsDialog-OnCancel"><strong>OnCancel</strong></a>(self, button)</dt></dl>
+<dl><dt><a name="InstrumentEffectsDialog-OnAddEffect"><strong>OnAddEffect</strong></a>(self, widget)</dt><dd><tt>Get&nbsp;the&nbsp;name&nbsp;of&nbsp;the&nbsp;currently&nbsp;selected&nbsp;effect<br>
+and&nbsp;add&nbsp;it&nbsp;to&nbsp;the&nbsp;instrument.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="InstrumentEffectsDialog-OnChainPresetChanged"><strong>OnChainPresetChanged</strong></a>(self, combo)</dt><dd><tt>A&nbsp;preset&nbsp;is&nbsp;selected&nbsp;from&nbsp;the&nbsp;chain&nbsp;preset&nbsp;combo.&nbsp;Load&nbsp;it.</tt></dd></dl>
+<dl><dt><a name="InstrumentEffectsDialog-OnCancel"><strong>OnCancel</strong></a>(self, button)</dt><dd><tt>If&nbsp;the&nbsp;Cancel&nbsp;button&nbsp;is&nbsp;pressed,&nbsp;the&nbsp;dialog&nbsp;is&nbsp;destroyed.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;button&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="InstrumentEffectsDialog-OnEffectPresetChanged"><strong>OnEffectPresetChanged</strong></a>(self, combo)</dt><dd><tt>A&nbsp;preset&nbsp;is&nbsp;selected&nbsp;from&nbsp;the&nbsp;single&nbsp;effect&nbsp;preset&nbsp;combo.&nbsp;Load&nbsp;it.</tt></dd></dl>
+<dl><dt><a name="InstrumentEffectsDialog-OnChainPresetChanged"><strong>OnChainPresetChanged</strong></a>(self, combo)</dt><dd><tt>Loads&nbsp;a&nbsp;preset&nbsp;when&nbsp;it's&nbsp;selected&nbsp;from&nbsp;the&nbsp;chain&nbsp;preset&nbsp;combo.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;combo&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="InstrumentEffectsDialog-OnEffectSetting"><strong>OnEffectSetting</strong></a>(self, button)</dt><dd><tt>Show&nbsp;a&nbsp;dialog&nbsp;filled&nbsp;with&nbsp;settings&nbsp;sliders&nbsp;for&nbsp;a&nbsp;specific&nbsp;effect</tt></dd></dl>
+<dl><dt><a name="InstrumentEffectsDialog-OnEffectPresetChanged"><strong>OnEffectPresetChanged</strong></a>(self, combo)</dt><dd><tt>Loads&nbsp;a&nbsp;preset&nbsp;when&nbsp;it's&nbsp;selected&nbsp;from&nbsp;the&nbsp;single&nbsp;effect&nbsp;preset&nbsp;combo.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;combo&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="InstrumentEffectsDialog-OnEffectSettingCancel"><strong>OnEffectSettingCancel</strong></a>(self, button)</dt><dd><tt>Close&nbsp;the&nbsp;window</tt></dd></dl>
+<dl><dt><a name="InstrumentEffectsDialog-OnEffectSetting"><strong>OnEffectSetting</strong></a>(self, button, effect)</dt><dd><tt>Show&nbsp;a&nbsp;dialog&nbsp;filled&nbsp;with&nbsp;settings&nbsp;sliders&nbsp;for&nbsp;a&nbsp;specific&nbsp;effect<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;button&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;effect&nbsp;--&nbsp;effect&nbsp;to&nbsp;be&nbsp;configured.</tt></dd></dl>
 
-<dl><dt><a name="InstrumentEffectsDialog-OnEffectSettingOK"><strong>OnEffectSettingOK</strong></a>(self, button)</dt><dd><tt>Close&nbsp;the&nbsp;window</tt></dd></dl>
+<dl><dt><a name="InstrumentEffectsDialog-OnEffectSettingCancel"><strong>OnEffectSettingCancel</strong></a>(self, button)</dt><dd><tt>Close&nbsp;the&nbsp;effect&nbsp;settings&nbsp;window,&nbsp;after&nbsp;a&nbsp;user&nbsp;cancelation.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;button&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="InstrumentEffectsDialog-OnOK"><strong>OnOK</strong></a>(self, button)</dt></dl>
+<dl><dt><a name="InstrumentEffectsDialog-OnEffectSettingOK"><strong>OnEffectSettingOK</strong></a>(self, button)</dt><dd><tt>Close&nbsp;the&nbsp;effect&nbsp;settings&nbsp;window.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;button&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="InstrumentEffectsDialog-OnRemoveEffect"><strong>OnRemoveEffect</strong></a>(self, widget, effectnum)</dt></dl>
+<dl><dt><a name="InstrumentEffectsDialog-OnEntrySelected"><strong>OnEntrySelected</strong></a>(self, completion, model, modelIter)</dt><dd><tt>Callback&nbsp;for&nbsp;the&nbsp;selection&nbsp;made&nbsp;in&nbsp;the&nbsp;entry&nbsp;completion&nbsp;for&nbsp;effects&nbsp;combo.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;completion&nbsp;--&nbsp;TODO<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;model&nbsp;--&nbsp;TODO<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;modelIter&nbsp;--&nbsp;TODO</tt></dd></dl>
 
-<dl><dt><a name="InstrumentEffectsDialog-OnSaveEffectChainPreset"><strong>OnSaveEffectChainPreset</strong></a>(self, widget)</dt><dd><tt>Grab&nbsp;the&nbsp;chain&nbsp;send&nbsp;it&nbsp;to&nbsp;the&nbsp;presets&nbsp;code&nbsp;to&nbsp;be&nbsp;saved</tt></dd></dl>
+<dl><dt><a name="InstrumentEffectsDialog-OnOK"><strong>OnOK</strong></a>(self, button)</dt><dd><tt>If&nbsp;the&nbsp;OK&nbsp;button&nbsp;is&nbsp;pressed&nbsp;on&nbsp;the&nbsp;dialog&nbsp;box,&nbsp;the&nbsp;window&nbsp;is&nbsp;destroyed.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;button&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="InstrumentEffectsDialog-OnSaveSingleEffectPreset"><strong>OnSaveSingleEffectPreset</strong></a>(self, widget)</dt><dd><tt>Grab&nbsp;the&nbsp;effect&nbsp;properties&nbsp;and&nbsp;send&nbsp;it&nbsp;to&nbsp;the&nbsp;presets&nbsp;code&nbsp;to&nbsp;be&nbsp;saved</tt></dd></dl>
+<dl><dt><a name="InstrumentEffectsDialog-OnRemoveEffect"><strong>OnRemoveEffect</strong></a>(self, widget, effect)</dt><dd><tt>Remove&nbsp;an&nbsp;effect&nbsp;from&nbsp;the&nbsp;instrument.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;effect&nbsp;--&nbsp;effect&nbsp;instance&nbsp;to&nbsp;be&nbsp;removed&nbsp;from&nbsp;the&nbsp;instrument.</tt></dd></dl>
 
-<dl><dt><a name="InstrumentEffectsDialog-OnSelectEffect"><strong>OnSelectEffect</strong></a>(self, combo)</dt><dd><tt>Callback&nbsp;for&nbsp;when&nbsp;an&nbsp;effect&nbsp;is&nbsp;selected&nbsp;from&nbsp;the&nbsp;effects&nbsp;list.&nbsp;This<br>
-method&nbsp;looks&nbsp;up&nbsp;the&nbsp;name&nbsp;from&nbsp;the&nbsp;combo&nbsp;box&nbsp;in&nbsp;LADSPA_NAME_MAP&nbsp;and<br>
-returns&nbsp;the&nbsp;factory&nbsp;name&nbsp;(e.g.&nbsp;ladspa-foo-effect).&nbsp;This&nbsp;is&nbsp;then&nbsp;set&nbsp;to<br>
-self.<strong>currentplugin</strong>.</tt></dd></dl>
+<dl><dt><a name="InstrumentEffectsDialog-OnSaveEffectChainPreset"><strong>OnSaveEffectChainPreset</strong></a>(self, widget)</dt><dd><tt>Grab&nbsp;the&nbsp;effects&nbsp;chain&nbsp;and&nbsp;send&nbsp;it&nbsp;to&nbsp;the&nbsp;presets&nbsp;code&nbsp;to&nbsp;be&nbsp;saved.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="InstrumentEffectsDialog-OnSettingEntryChanged"><strong>OnSettingEntryChanged</strong></a>(self, widget)</dt></dl>
+<dl><dt><a name="InstrumentEffectsDialog-OnSaveSingleEffectPreset"><strong>OnSaveSingleEffectPreset</strong></a>(self, widget)</dt><dd><tt>Grab&nbsp;the&nbsp;effect&nbsp;properties&nbsp;and&nbsp;send&nbsp;it&nbsp;to&nbsp;the&nbsp;presets&nbsp;code<br>
+to&nbsp;be&nbsp;saved.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="InstrumentEffectsDialog-OnTransport"><strong>OnTransport</strong></a>(self, button)</dt></dl>
+<dl><dt><a name="InstrumentEffectsDialog-OnSelectEffect"><strong>OnSelectEffect</strong></a>(self, combo)</dt><dd><tt>Callback&nbsp;for&nbsp;when&nbsp;an&nbsp;effect&nbsp;is&nbsp;selected&nbsp;from&nbsp;the&nbsp;effects&nbsp;list.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;combo&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="InstrumentEffectsDialog-PopulateEffects"><strong>PopulateEffects</strong></a>(self)</dt><dd><tt>Fill&nbsp;the&nbsp;effectsbox&nbsp;table&nbsp;with&nbsp;the&nbsp;effects,&nbsp;iterated&nbsp;from&nbsp;the<br>
-effects&nbsp;list</tt></dd></dl>
+<dl><dt><a name="InstrumentEffectsDialog-OnSettingEntryChanged"><strong>OnSettingEntryChanged</strong></a>(self, widget)</dt><dd><tt>TODO&nbsp;--&nbsp;This&nbsp;method&nbsp;is&nbsp;not&nbsp;yet&nbsp;implemented.</tt></dd></dl>
 
-<dl><dt><a name="InstrumentEffectsDialog-SetEffectSetting"><strong>SetEffectSetting</strong></a>(self, slider, name, property)</dt><dd><tt>Set&nbsp;the&nbsp;value&nbsp;of&nbsp;a&nbsp;gstreamer&nbsp;property&nbsp;from&nbsp;an&nbsp;effects&nbsp;slider</tt></dd></dl>
+<dl><dt><a name="InstrumentEffectsDialog-OnStateChanged"><strong>OnStateChanged</strong></a>(self, obj, change<font color="#909090">=None</font>, *extra)</dt><dd><tt>Called&nbsp;when&nbsp;a&nbsp;change&nbsp;of&nbsp;state&nbsp;is&nbsp;signalled&nbsp;by&nbsp;any&nbsp;of&nbsp;the<br>
+objects&nbsp;this&nbsp;view&nbsp;is&nbsp;'listening'&nbsp;to.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;obj&nbsp;--&nbsp;object&nbsp;changing&nbsp;state.&nbsp;*CHECK*<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;change&nbsp;--&nbsp;the&nbsp;change&nbsp;which&nbsp;has&nbsp;occured.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;extra&nbsp;--&nbsp;extra&nbsp;parameters&nbsp;passed&nbsp;by&nbsp;the&nbsp;caller.</tt></dd></dl>
 
-<dl><dt><a name="InstrumentEffectsDialog-__init__"><strong>__init__</strong></a>(self, instrument)</dt><dd><tt>This&nbsp;constructor&nbsp;enables&nbsp;a&nbsp;bunch&nbsp;of&nbsp;variables,&nbsp;reads&nbsp;in&nbsp;the&nbsp;glade<br>
+<dl><dt><a name="InstrumentEffectsDialog-OnTransport"><strong>OnTransport</strong></a>(self, button)</dt><dd><tt>Pressing&nbsp;the&nbsp;Play/Stop&nbsp;button&nbsp;on&nbsp;the&nbsp;dialog&nbsp;box&nbsp;allows&nbsp;the&nbsp;user<br>
+to&nbsp;play&nbsp;back&nbsp;the&nbsp;project&nbsp;to&nbsp;test&nbsp;if&nbsp;the&nbsp;effect&nbsp;settings&nbsp;are<br>
+right&nbsp;for&nbsp;them.&nbsp;When&nbsp;user&nbsp;press&nbsp;the&nbsp;Play&nbsp;button,&nbsp;it&nbsp;switches&nbsp;to<br>
+a&nbsp;stop&nbsp;button,&nbsp;and&nbsp;vice&nbsp;versa.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;button&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
+
+<dl><dt><a name="InstrumentEffectsDialog-SetEffectSetting"><strong>SetEffectSetting</strong></a>(self, slider, name, property)</dt><dd><tt>Set&nbsp;the&nbsp;value&nbsp;of&nbsp;a&nbsp;gstreamer&nbsp;property&nbsp;from&nbsp;an&nbsp;effects&nbsp;slider.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;slider&nbsp;--&nbsp;slider&nbsp;control&nbsp;which&nbsp;indicates&nbsp;the&nbsp;value&nbsp;to&nbsp;assign&nbsp;to&nbsp;property.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name&nbsp;--&nbsp;name&nbsp;of&nbsp;the&nbsp;property&nbsp;being&nbsp;set.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;property&nbsp;--&nbsp;property&nbsp;being&nbsp;set.</tt></dd></dl>
+
+<dl><dt><a name="InstrumentEffectsDialog-Update"><strong>Update</strong></a>(self)</dt><dd><tt>Refreshes&nbsp;the&nbsp;EffectWidgets&nbsp;inside&nbsp;the&nbsp;<a href="#InstrumentEffectsDialog">InstrumentEffectsDialog</a><br>
+when&nbsp;they're&nbsp;added&nbsp;or&nbsp;removed.</tt></dd></dl>
+
+<dl><dt><a name="InstrumentEffectsDialog-__init__"><strong>__init__</strong></a>(self, instrument, destroyCallback)</dt><dd><tt>This&nbsp;constructor&nbsp;enables&nbsp;a&nbsp;lot&nbsp;of&nbsp;variables,&nbsp;reads&nbsp;in&nbsp;the&nbsp;glade<br>
 file&nbsp;for&nbsp;the&nbsp;main&nbsp;dialog,&nbsp;and&nbsp;populates&nbsp;the&nbsp;effects&nbsp;and&nbsp;presets<br>
-combo&nbsp;boxes</tt></dd></dl>
+combo&nbsp;boxes.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;instrument&nbsp;--&nbsp;instrument&nbsp;whose&nbsp;effects&nbsp;are&nbsp;being&nbsp;modified.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;destroyCallback&nbsp;--&nbsp;GTK&nbsp;callback.&nbsp;Called&nbsp;when&nbsp;this&nbsp;dialog&nbsp;gets&nbsp;destroyed.</tt></dd></dl>
+
+<dl><dt><a name="InstrumentEffectsDialog-matchEffect"><strong>matchEffect</strong></a>(self, completion, entrystr, iter)</dt><dd><tt>Callback&nbsp;for&nbsp;matching&nbsp;an&nbsp;effect&nbsp;on&nbsp;the&nbsp;effect&nbsp;entry&nbsp;box.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;completion&nbsp;--&nbsp;TODO<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;entrystr&nbsp;--&nbsp;string&nbsp;to&nbsp;be&nbsp;matched&nbsp;against&nbsp;the&nbsp;effects&nbsp;list.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iter&nbsp;--&nbsp;number&nbsp;of&nbsp;the&nbsp;current&nbsp;iteration&nbsp;through&nbsp;the&nbsp;complete&nbsp;effects&nbsp;list.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;True&nbsp;--&nbsp;the&nbsp;effect&nbsp;contains&nbsp;the&nbsp;entrystr&nbsp;string.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;False&nbsp;--&nbsp;the&nbsp;effect&nbsp;doesn't&nbsp;contain&nbsp;the&nbsp;entrystr&nbsp;stirng.</tt></dd></dl>
 
 </td></tr></table></td></tr></table>
 </body></html>

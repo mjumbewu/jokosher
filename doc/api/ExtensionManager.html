@@ -1,0 +1,154 @@
+
+<!doctype html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module ExtensionManager</title>
+</head><body bgcolor="#ffffff">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#fcbb58">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>ExtensionManager</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/david/Projects/Jokosher/trunk/Jokosher/ExtensionManager.py">/home/david/Projects/Jokosher/trunk/Jokosher/ExtensionManager.py</a></font></td></tr></table>
+    <p><tt>#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THIS&nbsp;FILE&nbsp;IS&nbsp;PART&nbsp;OF&nbsp;THE&nbsp;JOKOSHER&nbsp;PROJECT&nbsp;AND&nbsp;LICENSED&nbsp;UNDER&nbsp;THE&nbsp;GPL.&nbsp;SEE<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THE&nbsp;'COPYING'&nbsp;FILE&nbsp;FOR&nbsp;DETAILS<br>
+#<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#ExtensionManager">ExtensionManager</a>.py<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;module&nbsp;defines&nbsp;the&nbsp;<a href="#ExtensionManager">ExtensionManager</a>&nbsp;class&nbsp;which&nbsp;is&nbsp;<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;responsible&nbsp;for&nbsp;controlling&nbsp;extensions&nbsp;to&nbsp;Jokosher<br>
+#<br>
+#-------------------------------------------------------------------------------</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#4e9a06">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#fffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#4e9a06"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="Extension.html">Extension</a><br>
+<a href="Globals.html">Globals</a><br>
+</td><td width="25%" valign=top><a href="gtk.html">gtk</a><br>
+<a href="imp.html">imp</a><br>
+</td><td width="25%" valign=top><a href="os.html">os</a><br>
+<a href="pkg_resources.html">pkg_resources</a><br>
+</td><td width="25%" valign=top><a href="shutil.html">shutil</a><br>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#3465a4">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#3465a4"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="ExtensionManager.html#ExtensionManager">ExtensionManager</a>
+</font></dt></dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#729fcf">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="ExtensionManager">class <strong>ExtensionManager</strong></a></font></td></tr>
+    
+<tr bgcolor="#729fcf"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>The&nbsp;<a href="#ExtensionManager">ExtensionManager</a>&nbsp;class&nbsp;handles&nbsp;the&nbsp;installation&nbsp;and&nbsp;running&nbsp;of<br>
+Extensions.&nbsp;It&nbsp;also&nbsp;controls&nbsp;their&nbsp;disabling&nbsp;and&nbsp;removal.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="ExtensionManager-ExtensionPreferences"><strong>ExtensionPreferences</strong></a>(self, filename)</dt><dd><tt>Loads&nbsp;the&nbsp;preferences()&nbsp;function&nbsp;of&nbsp;an&nbsp;Extension.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;filename&nbsp;--&nbsp;the&nbsp;name&nbsp;of&nbsp;the&nbsp;file&nbsp;containing&nbsp;the&nbsp;Extension.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;True&nbsp;--&nbsp;the&nbsp;Extension's&nbsp;preferences&nbsp;were&nbsp;successfully&nbsp;loaded.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;False&nbsp;--&nbsp;an&nbsp;error&nbsp;ocurred&nbsp;while&nbsp;trying&nbsp;to&nbsp;load&nbsp;the&nbsp;Extension's<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;preferences.</tt></dd></dl>
+
+<dl><dt><a name="ExtensionManager-GetExtensions"><strong>GetExtensions</strong></a>(self)</dt><dd><tt>Obtain&nbsp;a&nbsp;generator&nbsp;for&nbsp;iterating&nbsp;the&nbsp;list&nbsp;of&nbsp;loadedExtensions.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;generator&nbsp;with&nbsp;the&nbsp;list&nbsp;of&nbsp;loadedExtensions.</tt></dd></dl>
+
+<dl><dt><a name="ExtensionManager-LoadAllExtensions"><strong>LoadAllExtensions</strong></a>(self)</dt><dd><tt>Load&nbsp;all&nbsp;the&nbsp;Extensions&nbsp;found&nbsp;in&nbsp;EXTENSION_PATHS&nbsp;and&nbsp;import&nbsp;every&nbsp;.py<br>
+and&nbsp;.egg&nbsp;file&nbsp;found.</tt></dd></dl>
+
+<dl><dt><a name="ExtensionManager-LoadExtensionFromFile"><strong>LoadExtensionFromFile</strong></a>(self, filename, directory, local<font color="#909090">=False</font>)</dt><dd><tt>Tries&nbsp;to&nbsp;load&nbsp;an&nbsp;Extension&nbsp;fron&nbsp;a&nbsp;given&nbsp;file.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;filename&nbsp;--&nbsp;the&nbsp;name&nbsp;of&nbsp;the&nbsp;file&nbsp;containing&nbsp;the&nbsp;Extension.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;directory&nbsp;--&nbsp;full&nbsp;path&nbsp;to&nbsp;the&nbsp;directory&nbsp;containing&nbsp;the&nbsp;file.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;local&nbsp;--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;True&nbsp;=&nbsp;the&nbsp;extension&nbsp;is&nbsp;to&nbsp;be&nbsp;copied&nbsp;to&nbsp;the<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;local&nbsp;extension&nbsp;directory&nbsp;after&nbsp;checking<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;False&nbsp;=&nbsp;don't&nbsp;copy&nbsp;the&nbsp;Extension.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;True&nbsp;--&nbsp;the&nbsp;Extension&nbsp;was&nbsp;successfully&nbsp;loaded.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;False&nbsp;--&nbsp;an&nbsp;error&nbsp;ocurred&nbsp;while&nbsp;trying&nbsp;to&nbsp;load&nbsp;the&nbsp;Extension,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;or&nbsp;the&nbsp;Extension&nbsp;has&nbsp;been&nbsp;disabled&nbsp;via&nbsp;the&nbsp;ExtensionManagerDialog.</tt></dd></dl>
+
+<dl><dt><a name="ExtensionManager-RemoveExtension"><strong>RemoveExtension</strong></a>(self, filename)</dt><dd><tt>Removes&nbsp;the&nbsp;given&nbsp;Extension.<br>
+&nbsp;<br>
+Considerations:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;function&nbsp;"unloads"&nbsp;the&nbsp;Extension.&nbsp;It&nbsp;executes&nbsp;the&nbsp;shutdown()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;function&nbsp;of&nbsp;the&nbsp;Extension&nbsp;and&nbsp;then&nbsp;removes&nbsp;it&nbsp;from&nbsp;loadedExtensions.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;filename&nbsp;--&nbsp;the&nbsp;name&nbsp;of&nbsp;the&nbsp;file&nbsp;containing&nbsp;the&nbsp;Extension.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;True&nbsp;--&nbsp;the&nbsp;Extension&nbsp;was&nbsp;successfully&nbsp;removed.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;False&nbsp;--&nbsp;an&nbsp;error&nbsp;ocurred&nbsp;while&nbsp;trying&nbsp;to&nbsp;remove&nbsp;the&nbsp;Extension.</tt></dd></dl>
+
+<dl><dt><a name="ExtensionManager-StartExtension"><strong>StartExtension</strong></a>(self, filename)</dt><dd><tt>Starts&nbsp;the&nbsp;given&nbsp;Extension.<br>
+&nbsp;<br>
+Considerations:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;method&nbsp;executes&nbsp;the&nbsp;startup()&nbsp;function&nbsp;of&nbsp;the&nbsp;Extension<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;is&nbsp;mainly&nbsp;for&nbsp;enabling&nbsp;an&nbsp;Extension&nbsp;on&nbsp;the&nbsp;fly&nbsp;without<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;loading&nbsp;another&nbsp;instance.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;filename&nbsp;--&nbsp;the&nbsp;name&nbsp;of&nbsp;the&nbsp;file&nbsp;containing&nbsp;the&nbsp;Extension.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;True&nbsp;--&nbsp;the&nbsp;Extension&nbsp;was&nbsp;successfully&nbsp;started.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;False&nbsp;--&nbsp;an&nbsp;error&nbsp;ocurred&nbsp;while&nbsp;trying&nbsp;to&nbsp;start&nbsp;the&nbsp;Extension.</tt></dd></dl>
+
+<dl><dt><a name="ExtensionManager-StopExtension"><strong>StopExtension</strong></a>(self, filename)</dt><dd><tt>Stops&nbsp;the&nbsp;given&nbsp;Extension.<br>
+&nbsp;<br>
+Considerations:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;method&nbsp;executes&nbsp;the&nbsp;shutdown()&nbsp;function&nbsp;of&nbsp;the&nbsp;Extension.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;is&nbsp;mainly&nbsp;for&nbsp;disabling&nbsp;Extensions&nbsp;on&nbsp;the&nbsp;fly,&nbsp;but&nbsp;is&nbsp;also<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;used&nbsp;for&nbsp;removing&nbsp;them.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;filename&nbsp;--&nbsp;the&nbsp;name&nbsp;of&nbsp;the&nbsp;file&nbsp;containing&nbsp;the&nbsp;Extension.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;True&nbsp;--&nbsp;the&nbsp;Extension&nbsp;was&nbsp;successfully&nbsp;stopped.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;False&nbsp;--&nbsp;an&nbsp;error&nbsp;ocurred&nbsp;while&nbsp;trying&nbsp;to&nbsp;stop&nbsp;the&nbsp;Extension.</tt></dd></dl>
+
+<dl><dt><a name="ExtensionManager-__init__"><strong>__init__</strong></a>(self, mainapp)</dt><dd><tt>Creates&nbsp;a&nbsp;new&nbsp;Instance&nbsp;of&nbsp;<a href="#ExtensionManager">ExtensionManager</a>.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parent&nbsp;--&nbsp;the&nbsp;parent&nbsp;MainApp&nbsp;Jokosher&nbsp;window.</tt></dd></dl>
+
+<dl><dt><a name="ExtensionManager-register"><strong>register</strong></a>(self, extension, filename, directory, local)</dt><dd><tt>Called&nbsp;from&nbsp;Extension.LoadAllExtensions&nbsp;afer&nbsp;the&nbsp;Extensions<br>
+module&nbsp;has&nbsp;been&nbsp;imported&nbsp;(and&nbsp;the&nbsp;class&nbsp;instantiated&nbsp;in&nbsp;the&nbsp;case<br>
+of&nbsp;extensions&nbsp;that&nbsp;are&nbsp;oggs).&nbsp;<br>
+&nbsp;<br>
+Parameters:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;extension&nbsp;--&nbsp;a&nbsp;reference&nbsp;to&nbsp;the&nbsp;Extension&nbsp;(either&nbsp;a&nbsp;module&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;or&nbsp;in&nbsp;the&nbsp;case&nbsp;of&nbsp;an&nbsp;Extension&nbsp;imported&nbsp;from&nbsp;an<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;egg,&nbsp;an&nbsp;instance&nbsp;object.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;filename&nbsp;--&nbsp;the&nbsp;name&nbsp;of&nbsp;the&nbsp;file&nbsp;containing&nbsp;the&nbsp;Extension.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;directory&nbsp;--&nbsp;full&nbsp;path&nbsp;to&nbsp;the&nbsp;directory&nbsp;containing&nbsp;the&nbsp;file.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;local&nbsp;--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;True&nbsp;=&nbsp;the&nbsp;extension&nbsp;is&nbsp;to&nbsp;be&nbsp;copied&nbsp;to&nbsp;the<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;local&nbsp;extension&nbsp;directory&nbsp;after&nbsp;checking<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;False&nbsp;=&nbsp;don't&nbsp;copy&nbsp;the&nbsp;Extension.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;True&nbsp;--&nbsp;the&nbsp;Extension&nbsp;was&nbsp;successfully&nbsp;registered.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;False&nbsp;--&nbsp;an&nbsp;error&nbsp;ocurred&nbsp;while&nbsp;trying&nbsp;to&nbsp;register&nbsp;the&nbsp;Extension,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;or&nbsp;the&nbsp;Extension&nbsp;has&nbsp;been&nbsp;disabled&nbsp;via&nbsp;the&nbsp;ExtensionManagerDialog.</tt></dd></dl>
+
+</td></tr></table></td></tr></table>
+</body></html>
