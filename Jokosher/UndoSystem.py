@@ -129,13 +129,18 @@ class AtomicUndoAction:
 	which will be treated as a single undo action. For example, after
 	deleting many instruments at once, an AtomicUndoAction object
 	will be stored containing the commands to resurrect all the
-	instruments. When the user does an undo, all of the commands
-	stored by this object will be resurrected. This will make many
-	separate commands appear to be atomic from the user's
-	perspective.
+	instruments. When the user performs an undo, all of the commands
+	stored by this object will be executed together. This will make many
+	separate commands appear to be atomic from the user's perspective.
 	"""
 	
 	def __init__(self, addToStack=True):
+		"""
+		Create a new AtomicUndoAction and optionally add it to the undo stack.
+		
+		Parameters:
+			addToStack -- If True, this instance will be added to the currently active undo/redo stack.
+		"""
 		self.commandList = []
 		if addToStack:
 			# add ourselves to the undo stack for the current project.
@@ -144,6 +149,15 @@ class AtomicUndoAction:
 	#_____________________________________________________________________
 	
 	def AddUndoCommand(self, objectString, function, paramList):
+		"""
+		Add a new undo command to this AtomicUndoAction.
+		
+		Parameters:
+			objectString -- The string representing the object and its ID (ie "E2" for Event with ID == 2).
+			function -- The name of the function to be called on the object.
+			paramList -- A list of values to be passed to the function as parameters.
+					Key, value parameters are not supported.
+		"""
 		newTuple = (objectString, function, paramList)
 		self.commandList.append(newTuple)
 		Globals.debug("LOG COMMAND: ", newTuple, "from", id(self))
@@ -151,11 +165,24 @@ class AtomicUndoAction:
 	#_____________________________________________________________________
 	
 	def GetUndoCommands(self):
+		"""
+		Get the list of undo commands that are held by this instance.
+		
+		Return:
+			A list of tuples, each of which contains a single undo command.
+		"""
 		return self.commandList
 	
 	#_____________________________________________________________________
 	
 	def StoreToXML(self, doc, parent):
+		"""
+		Store this instance of AtomicUndoAction to an XML node.
+		
+		Parameters:
+			doc -- The XML document that it will be stored to.
+			parent -- The parent node of our XML tags.
+		"""
 		for cmd in self.GetUndoCommands():
 			commandXML = doc.createElement("Command")
 			parent.appendChild(commandXML)
@@ -167,6 +194,14 @@ class AtomicUndoAction:
 #=========================================================================
 
 def LoadUndoActionFromXML(node):
+	"""
+	Return an instance of AtomicUndoAction, loaded from an XML node.
+	
+	Parameters:
+		node -- the XML "<Action>" node.
+	Return:
+		The new AtomicUndoAction instance loaded from the XML.
+	"""
 	# Don't add to stack because the project is being loaded
 	undoAction = AtomicUndoAction(addToStack=False)
 	for cmdNode in node.childNodes:
