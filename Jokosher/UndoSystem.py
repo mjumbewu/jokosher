@@ -215,7 +215,7 @@ class AtomicUndoAction:
 		"""
 		for cmd in self.GetUndoCommands():
 			commandXML = doc.createElement("Command")
-			parent.appendChild(commandXML)
+			node.appendChild(commandXML)
 			commandXML.setAttribute("object", cmd[0])
 			commandXML.setAttribute("function", cmd[1])
 			Utils.StoreListToXML(doc, commandXML, cmd[2], "Parameter")
