@@ -196,13 +196,22 @@ class AtomicUndoAction:
 	
 	#_____________________________________________________________________
 	
-	def StoreToXML(self, doc, parent):
+	def StoreToXML(self, doc, node):
 		"""
 		Stores this instance of AtomicUndoAction into an XML node.
 		
+		Example:
+				doc = xml.Document()
+				node = doc.createElement("Action")
+				doc.appendChild(node)
+				StoreToXml(doc, node)
+				
+			will save this AtomicUndoAction in doc, inside node.
+		
 		Parameters:
-			doc -- name of the XML document to save this AtomicUndoAction into.
-			parent -- XML parent tag to use in doc.
+			doc -- XML document to save this AtomicUndoAction into.
+			node -- XML node to store this AtomicUndoAction under.
+					This node's name should be "Action".
 		"""
 		for cmd in self.GetUndoCommands():
 			commandXML = doc.createElement("Command")
@@ -220,7 +229,7 @@ def LoadUndoActionFromXML(node):
 	Loads an AtomicUndoAction from an XML node.
 	
 	Parameters:
-		node -- node from which the AtomicUndoAction is loaded.
+		node -- XML node from which the AtomicUndoAction is loaded.
 				Should be an "<Action>" node.
 		
 	Returns:
