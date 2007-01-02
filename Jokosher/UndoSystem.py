@@ -167,8 +167,8 @@ class AtomicUndoAction:
 		Adds a new undo command to this AtomicUndoAction.
 		
 		Example:
-			A command inside an AtomicUndoAction object:
-				cmdList = ["E2", "Move", 1, 2]
+			The parameters passed to this function:
+				"E2", "Move", [1, 2]
 			means
 				'Call Move(1, 2)' on the Event with ID=2
 		

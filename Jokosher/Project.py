@@ -759,14 +759,15 @@ class Project(Monitored):
 	
 	def __RecordingPadAddedCb(self, elem, pad, recInstruments, bin):
 		"""
-		Handles GStreamer recording pad changes. This method will be called
-		when there's a new recording pad added to the playback bin.
+		Handles new pad creation on the GStreamer channel split element
+		when recording multiple streams at once. This method will be called
+		when the new pad is ready to be connected to the encoder.
 		
 		Parameters:
-			elem -- reserved for GStreamer callbacks, don't use it explicitly.
-			pad -- recently added GStreamer pad.
+			elem -- the GStreamer channel split element.
+			pad -- the new src pad on the channel split element.
 			recInstruments -- list with all Instruments currently recording.
-			bin -- GStreamer bin to which the pad was added to.
+			bin -- the bin that stores all the recording elements.
 		"""
 		match = re.search("(\d+)$", pad.get_name())
 		if not match:
