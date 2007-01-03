@@ -725,6 +725,18 @@ class ExtensionAPI:
 	#_____________________________________________________________________
 	
 	@exported_function
+	def set_bpm(self, bpm):
+		"""
+			Sets the current beats per minute for the project
+			Parameters:
+				bpm -- the beats per minute to set
+		"""
+		self.mainapp.project.SetBPM(float(bpm))
+		self.mainapp.project.PrepareClick()
+		
+	#_____________________________________________________________________
+	
+	@exported_function
 	def get_meter(self):
 		"""
 			Returns the current meter of the project as a tuple
@@ -734,14 +746,22 @@ class ExtensionAPI:
 	#_____________________________________________________________________
 	
 	@exported_function
-	def set_bpm(self, bpm):
+	def set_meter(self, nom, denom):
 		"""
-			Sets the current beats per minute for the project
-			Parameters:
-				bpm -- the beats per minute to set
+		Changes the current time signature.
+		
+		Example:
+			nom = 3
+			denom = 4
+			
+			would result in the following signature:
+				3/4
+		
+		Parameters:
+			nom -- new time signature nominator.
+			denom --new time signature denominator.
 		"""
-		self.mainapp.project.SetBPM(float(bpm))
-		self.mainapp.project.PrepareClick()
+		self.mainapp.project.SetMeter(nom, denom)
 		
 	#_____________________________________________________________________
 	
