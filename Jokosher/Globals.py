@@ -361,7 +361,7 @@ if not HELP_PATH:
 # add your own extension dirs with envar JOKOSHER_EXTENSION_DIRS, colon-separated
 __extra_ext_dirs = os.environ.get('JOKOSHER_EXTENSION_DIRS','')
 if __extra_ext_dirs:
-	EXTENSION_PATHS = __extra_ext_dirs.split(':') + EXTENSION_PATHS
+	EXTENSION_PATHS = __extra_ext_dirs.split(':') + list(EXTENSION_PATHS)
 
 """ ExtensionManager data """
 AVAILABLE_EXTENSIONS = []
