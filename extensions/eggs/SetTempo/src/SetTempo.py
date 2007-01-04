@@ -26,6 +26,9 @@ class SetTempo:
 	EXTENSION_DESCRIPTION = "Sets the tempo for the current project by tapping in time with the music"
 	EXTENSION_VERSION = "0.9"
 	
+	# The number of past intervals it will store to perform a "rolling" average.
+	ROLLING_SAMPLE_SIZE = 4
+	
 	#_____________________________________________________________________
 	
 	def startup(self, api):
@@ -76,9 +79,8 @@ class SetTempo:
 		self.window.set_transient_for(self.API.mainapp.window)
 		self.WriteLabel(0)
 		self.tappingTime = False
-		self.startTime = 0
 		self.prevTime = 0
-		self.intervals = 0
+		self.intervalList = []
 		self.bpm = 0
 
 	#_____________________________________________________________________
@@ -131,19 +133,17 @@ class SetTempo:
 		"""
 		timeNow = time.time()
 		if self.tappingTime:
-			if timeNow - self.prevTime > 5:
-				print 'reset'
-				self.tappingTime = False
-				self.WriteLabel(0)
-			else:
-				self.intervals += 1
-				self.bpm = int(60 * self.intervals / (timeNow - self.startTime))
-				self.WriteLabel(self.bpm)
-				self.prevTime = timeNow
-				return
-		self.tappingTime = True
-		self.startTime, self.prevTime = timeNow, timeNow
-		self.intervals = 0
+			self.intervalList.append(timeNow - self.prevTime)
+			while len(self.intervalList) > self.ROLLING_SAMPLE_SIZE:
+				self.intervalList.pop(0)
+			sum = reduce(lambda x,y:x+y, self.intervalList)
+			self.bpm = int(60 * float(len(self.intervalList)) / sum)
+			print sum, self.bpm
+			self.WriteLabel(self.bpm)
+		else:
+			self.tappingTime = True
+
+		self.prevTime = timeNow
 		
 	#_____________________________________________________________________
 	
@@ -175,9 +175,11 @@ class SetTempo:
 		"""
 		Formats and writes the bpm value
 		"""
-		self.tempoLabel.set_markup("<span font_desc='Sans Bold 32'>%d bpm</span>" % value)
-		
+		if value:
+			self.tempoLabel.set_markup("<span font_desc='Sans Bold 32'>%d BPM</span>" % value)
+		else:
+			self.tempoLabel.set_markup("<span font_desc='Sans Bold 32'>No BPM</span>")
+
 	#_____________________________________________________________________
 	
 #=========================================================================
-		
