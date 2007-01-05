@@ -566,8 +566,8 @@
 		  <property name="visible_vertical">True</property>
 		  <property name="is_important">False</property>
 		  <accessibility>
-		    <atkrelation target="Record" type="flows-to"/>
 		    <atkrelation target="Rewind" type="flows-to"/>
+		    <atkrelation target="Record" type="flows-to"/>
 		  </accessibility>
 		  <signal name="clicked" handler="on_AddInstrument_clicked"/>
 		</widget>
@@ -599,8 +599,8 @@
 		  <property name="visible_vertical">True</property>
 		  <property name="is_important">False</property>
 		  <accessibility>
-		    <atkrelation target="Play" type="flows-to"/>
 		    <atkrelation target="AddInstrument" type="flows-from"/>
+		    <atkrelation target="Play" type="flows-to"/>
 		  </accessibility>
 		  <signal name="clicked" handler="on_Rewind_clicked"/>
 		</widget>
@@ -620,8 +620,8 @@
 		  <property name="is_important">False</property>
 		  <property name="active">False</property>
 		  <accessibility>
-		    <atkrelation target="Rewind" type="flows-from"/>
 		    <atkrelation target="Stop" type="flows-to"/>
+		    <atkrelation target="Rewind" type="flows-from"/>
 		  </accessibility>
 		  <signal name="toggled" handler="on_Play_toggled"/>
 		</widget>
@@ -640,8 +640,8 @@
 		  <property name="visible_vertical">True</property>
 		  <property name="is_important">False</property>
 		  <accessibility>
-		    <atkrelation target="Play" type="flows-from"/>
 		    <atkrelation target="Forward" type="flows-to"/>
+		    <atkrelation target="Play" type="flows-from"/>
 		  </accessibility>
 		  <signal name="clicked" handler="on_Stop_clicked"/>
 		</widget>
@@ -660,8 +660,8 @@
 		  <property name="visible_vertical">True</property>
 		  <property name="is_important">False</property>
 		  <accessibility>
-		    <atkrelation target="Record" type="flows-to"/>
 		    <atkrelation target="Stop" type="flows-from"/>
+		    <atkrelation target="Record" type="flows-to"/>
 		  </accessibility>
 		  <signal name="clicked" handler="on_Forward_clicked"/>
 		</widget>
@@ -3455,30 +3455,16 @@ Custom</property>
 	  </child>
 
 	  <child>
-	    <widget class="GtkButton" id="cancelbutton">
-	      <property name="visible">True</property>
-	      <property name="tooltip" translatable="yes">Don't use these effects</property>
-	      <property name="can_default">True</property>
-	      <property name="can_focus">True</property>
-	      <property name="label">gtk-cancel</property>
-	      <property name="use_stock">True</property>
-	      <property name="relief">GTK_RELIEF_NORMAL</property>
-	      <property name="focus_on_click">True</property>
-	      <signal name="clicked" handler="on_cancelbutton_clicked"/>
-	    </widget>
-	  </child>
-
-	  <child>
-	    <widget class="GtkButton" id="okbutton">
+	    <widget class="GtkButton" id="closebutton">
 	      <property name="visible">True</property>
 	      <property name="tooltip" translatable="yes">Use these effects</property>
 	      <property name="can_default">True</property>
 	      <property name="can_focus">True</property>
-	      <property name="label">gtk-ok</property>
+	      <property name="label">gtk-close</property>
 	      <property name="use_stock">True</property>
 	      <property name="relief">GTK_RELIEF_NORMAL</property>
 	      <property name="focus_on_click">True</property>
-	      <signal name="clicked" handler="on_okbutton_clicked"/>
+	      <signal name="clicked" handler="on_close_clicked" last_modification_time="Fri, 05 Jan 2007 22:01:04 GMT"/>
 	    </widget>
 	  </child>
 	</widget>

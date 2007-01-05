@@ -57,8 +57,7 @@ class InstrumentEffectsDialog:
 		self.effectWidgets = []
 		
 		self.signals = {
-			"on_okbutton_clicked" : self.OnOK,
-			"on_cancelbutton_clicked" : self.OnCancel,
+			"on_close_clicked" : self.OnClose,
 			"on_transportbutton_clicked" : self.OnTransport,
 			"on_effectscombo_changed" : self.OnSelectEffect,
 			"on_addbutton_clicked" : self.OnAddEffect,
@@ -192,7 +191,7 @@ class InstrumentEffectsDialog:
 		
 	#_____________________________________________________________________	
 		
-	def OnOK(self, button):
+	def OnClose(self, button):
 		"""
 		If the OK button is pressed on the dialog box, the window is destroyed.
 		
@@ -203,19 +202,6 @@ class InstrumentEffectsDialog:
 		self.instrument.RemoveListener(self)
 		self.window.destroy()
 		
-	#_____________________________________________________________________	
-	
-	def OnCancel(self, button):
-		"""
-		If the Cancel button is pressed, the dialog is destroyed.
-		
-		Parameters:
-			button -- reserved for GTK callbacks, don't use it explicitly.
-		"""
-		self.instrument.project.RemoveListener(self)
-		self.instrument.RemoveListener(self)	
-		self.window.destroy()
-
 	#_____________________________________________________________________	
 
 	def OnTransport(self, button):
