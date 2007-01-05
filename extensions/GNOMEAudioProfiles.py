@@ -25,7 +25,8 @@ def startup(api):
 			extension = _GCONF.get_string(_GCONF_PROFILE_PATH + name + "/extension")
 			encodeBin = _GCONF.get_string(_GCONF_PROFILE_PATH + name + "/pipeline")
 			
-			error = API.add_export_format(description, extension, encodeBin)
+			#last parameter is False to tell Jokosher to assume the strings are correct, and not check them.
+			error = API.add_export_format(description, extension, encodeBin, False)
 			if error == 0:
 				#it has been succesfully added, so keep track of what we added
 				audio_profiles_list.append((description, extension, encodeBin))
