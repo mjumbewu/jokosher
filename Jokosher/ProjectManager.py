@@ -157,7 +157,7 @@ def LoadProjectFile(uri):
 #=========================================================================
 
 class _LoadZPOFile:
-	def __init__(project, xmlDoc):
+	def __init__(self, project, xmlDoc):
 		"""
 		Loads a project from a Jokosher 0.1 (Zero Point One) Project file into
 		the given Project object using the given XML document.
