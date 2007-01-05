@@ -619,6 +619,7 @@ class Instrument(Monitored):
 	
 	#_____________________________________________________________________
 	
+	@UndoCommand("ResurrectEvent", "temp")
 	def DeleteEvent(self, eventid):
 		"""
 		Removes an Event from this Instrument.
@@ -631,7 +632,30 @@ class Instrument(Monitored):
 			eventid -- ID of the Event to be removed.
 		"""
 		event = [x for x in self.events if x.id == eventid][0]
-		event.Delete()
+		
+		self.graveyard.append(event)
+		self.events.remove(event)
+		self.composition.remove(event.filesrc)
+		
+		self.temp = eventid
+	
+	#_____________________________________________________________________
+	
+	@UndoCommand("DeleteEvent", "temp")
+	def ResurrectEvent(self, eventid):
+		"""
+		Brings an Event back from the graveyard.
+		
+		Parameters:
+			eventid -- ID of the Event to be resurrected.
+		"""
+		event = [x for x in self.graveyard if x.id == eventid][0]
+		
+		self.events.append(event)
+		self.graveyard.remove(event)
+		event.CreateFilesource()
+		
+		self.temp = eventid
 	
 	#_____________________________________________________________________
 

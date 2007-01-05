@@ -463,27 +463,13 @@ class Event(Monitored):
 		
 	#_____________________________________________________________________
 	
-	@UndoCommand("Resurrect")
 	def Delete(self):
 		"""
 		Deletes this Event and sends it to the graveyard.
 		"""
-		self.instrument.graveyard.append(self)
-		self.instrument.events.remove(self)
-		self.instrument.composition.remove(self.filesrc)
+		self.instrument.DeleteEvent(self.id)
 
 	#_____________________________________________________________________
-	
-	@UndoCommand("Delete")
-	def Resurrect(self):
-		"""
-		Brings this Event back from the graveyard.
-		"""
-		self.instrument.events.append(self)
-		self.instrument.graveyard.remove(self)
-		self.CreateFilesource()
-		
-	#______________________________________________________________________
 	
 	def bus_message(self, bus, message):
 		"""
