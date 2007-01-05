@@ -792,7 +792,6 @@ class Project(Monitored):
 		newUndoAction = AtomicUndoAction()
 		for cmdList in undoAction.GetUndoCommands():
 			obj = cmdList[0]
-			print "OBJECT", obj, cmdList
 			target_object = None
 			if obj[0] == "P":		# Check if the object is a Project
 				target_object = self

@@ -54,28 +54,20 @@ def UndoCommand(*command):
 			Parameters:
 				funcSelf -- reference to the decorated function's class.
 				*args -- parameters meant for the decorated function.
-				**kwargs -- dictionary of keyword:value parameters meant
-							for the decorated function.
+				**kwargs -- dictionary of keyword:value parameters
+						containing the optional _undoAction_ parameter.
+				_undoAction_ -- has to be passed as a key:value pair inside kwargs.
+						The AtomicUndoAction object to append the 
+						command to or None to create a default 
+						AtomicUndoAction with only the one command.
 			
 			Returns:
 				the wrapped function resulting value.
 			"""
-			atomicUndoObject = None
-			if kwargs.has_key("_undoAction_"):
-				atomicUndoObject = kwargs["_undoAction_"]
-				#remove the keyword from kwargs so it doesn't get passed to the function
-				del kwargs["_undoAction_"]
-			
 			try:
-				result = func(funcSelf, *args, **kwargs)
+				result = func(funcSelf, *args)
 			except CancelUndoCommand, e:
 				return e.result
-			
-			# initialize the AtomicUndoAction object *after* we call the function,
-			# so that if CancelUndoCommand is raise, nothing is appended to the stack
-			if not atomicUndoObject:
-				#if we were not provided one, create a default atomic undo object 
-				atomicUndoObject = AtomicUndoAction()
 			
 			if isinstance(funcSelf, ProjectManager.Project.Project):
 				objectString = "P"
@@ -92,7 +84,12 @@ def UndoCommand(*command):
 					continue
 				else:
 					paramList.append(value)
-				
+			
+			if kwargs.has_key("_undoAction_"):
+				atomicUndoObject = kwargs["_undoAction_"]
+			else:
+				atomicUndoObject = AtomicUndoAction()
+			
 			atomicUndoObject.AddUndoCommand(objectString, command[0], paramList)
 			
 			return result
