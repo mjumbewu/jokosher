@@ -10,7 +10,6 @@
 
 import gtk
 import pango
-from Project import *
 from EventLaneViewer import *
 import Globals
 import InstrumentEffectsDialog

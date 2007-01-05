@@ -16,300 +16,16 @@ pygst.require("0.10")
 import gst
 import os
 import gzip
-import urlparse
-import shutil
 import re
 
 import TransportManager
-from UndoSystem import *
+from UndoSystem import UndoCommand
 import Globals
 import xml.dom.minidom as xml
 from Instrument import *
 from Monitored import *
 from Utils import *
 from AlsaDevices import *
-
-#=========================================================================
-
-#_____________________________________________________________________
-
-def CreateNew(projecturi, name, author):
-	"""
-	Creates a new Project.
-
-	Parameters:
-		projecturi -- the filesystem location for the new Project.
-						Currently, only file:// URIs are considered valid.
-		name --	the name of the Project.
-		author - the name of the Project's author.
-		
-	Returns:
-		the newly created Project object.
-	"""
-	if name == "" or author == "" or projecturi == "":
-		raise CreateProjectError(4)
-
-	(scheme, domain,folder, params, query, fragment) = urlparse.urlparse(projecturi, "file")
-
-	if scheme!="file":
-		# raise "The URI scheme used is invalid." message
-		raise CreateProjectError(5)
-
-	filename = (name + ".jokosher")
-	projectdir = os.path.join(folder, name)
-
-	try:
-		project = Project()
-	except gst.PluginNotFoundError, e:
-		Globals.debug("Missing Gstreamer plugin:", e)
-		raise CreateProjectError(6, str(e))
-	except Exception, e:
-		Globals.debug("Could not make project object:", e)
-		raise CreateProjectError(1)
-
-	project.name = name
-	project.author = author
-	project.projectfile = os.path.join(projectdir, filename)
-
-	if os.path.exists(projectdir):
-		raise CreateProjectError(2)
-	else: 
-		audio_dir = os.path.join(projectdir, "audio")
-		try:
-			os.mkdir(projectdir)
-			os.mkdir(audio_dir)
-		except:
-			raise CreateProjectError(3)
-
-	project.SaveProjectFile(project.projectfile)
-
-	return project
-
-#_____________________________________________________________________
-
-def LoadFromFile(uri):
-	"""
-	Loads a Project from a saved file on disk.
-
-	Parameters:
-		uri -- the filesystem location of the Project file to load. 
-				Currently only file:// URIs are considered valid.
-				
-	Returns:
-		the loaded Project object.
-	"""
-	project = Project()
-
-	(scheme, domain, projectfile, params, query, fragment) = urlparse.urlparse(uri, "file")
-	if scheme != "file":
-		# raise "The URI scheme used is invalid." message
-		raise OpenProjectError(1, scheme)
-
-	Globals.debug(projectfile)
-
-	if not os.path.exists(projectfile):
-		raise OpenProjectError(4, projectfile)
-
-	try:
-		gzipfile = gzip.GzipFile(projectfile, "r")
-		doc = xml.parse(gzipfile)
-	except Exception, e:
-		Globals.debug(e.__class__, e)
-		# raise "This file doesn't unzip" message
-		raise OpenProjectError(2, projectfile)
-	
-	project.projectfile = projectfile
-	
-	#only open projects with the proper version number
-	version = doc.firstChild.getAttribute("version")
-	if version != Globals.VERSION:
-		if version == "0.1":
-			LoadFromZPOFile(project, doc)
-			#copy the project so that the 0.1 is not overwritten when the user clicks save
-			withoutExt = os.path.splitext(projectfile)[0]
-			shutil.copy(projectfile, "%s.0.1.jokosher" % withoutExt)
-			return project
-		else:
-			if not version:
-				version = "0.1" # 0.1 projects had version as element, not attr
-			# raise a "this project was created in a different version of Jokosher" message
-			raise OpenProjectError(3, version)
-	
-	params = doc.getElementsByTagName("Parameters")[0]
-	
-	LoadParametersFromXML(project, params)
-	
-	# Hack to set the transport mode
-	project.transport.SetMode(project.transportMode)
-	
-	try:
-		undo = doc.getElementsByTagName("Undo")[0]
-	except IndexError:
-		Globals.debug("No saved undo in project file")
-	else:
-		for actionNode in undo.childNodes:
-			if actionNode.nodeName == "Action":
-				action = LoadUndoActionFromXML(actionNode)
-				project._Project__savedUndoStack.append(action)
-	
-	try:
-		redo = doc.getElementsByTagName("Redo")[0]
-	except IndexError:
-		Globals.debug("No saved redo in project file")
-	else:
-		for actionNode in redo.childNodes:
-			if actionNode.nodeName == "Action":
-				action = LoadUndoActionFromXML(actionNode)
-				project._Project__redoStack.append(action)
-	
-	for instrElement in doc.getElementsByTagName("Instrument"):
-		try:
-			id = int(instrElement.getAttribute("id"))
-		except ValueError:
-			id = None
-		instr = Instrument(project, None, None, None, id)
-		instr.LoadFromXML(instrElement)
-		project.instruments.append(instr)
-		if instr.isSolo:
-			project.soloInstrCount += 1
-	
-	for instrElement in doc.getElementsByTagName("DeadInstrument"):
-		try:
-			id = int(instrElement.getAttribute("id"))
-		except ValueError:
-			id = None
-		instr = Instrument(project, None, None, None, id)
-		instr.LoadFromXML(instrElement)
-		project.graveyard.append(instr)
-		instr.RemoveAndUnlinkPlaybackbin()
-
-	return project
-
-#_____________________________________________________________________
-
-def LoadFromZPOFile(project, doc):
-	"""
-	Loads a project from a Jokosher 0.1 (ZPO) Project file into
-	the given Project object using the XML document doc.
-	
-	Parameters:
-		project -- Jokosher 0.1 (ZPO) Project file.
-		doc -- XML document doc used to load the 0.1 Project into the given 0.2+ Project object.
-		
-	Returns:
-		the loaded Project object.
-	"""
-	def LoadEventFromZPO(self, node):
-		"""
-		Loads event properties from a Jokosher 0.1 XML node
-		and saves then to the given self object.
-		
-		Parameters:
-			node -- XML node object from which to extract event properties.
-		"""
-		params = node.getElementsByTagName("Parameters")[0]
-		LoadParametersFromXML(self, params)
-		
-		try:
-			xmlPoints = node.getElementsByTagName("FadePoints")[0]
-		except IndexError:
-			Globals.debug("Missing FadePoints in Event XML")
-		else:
-			for n in xmlPoints.childNodes:
-				if n.nodeType == xml.Node.ELEMENT_NODE:
-					pos = float(n.getAttribute("position"))
-					value = float(n.getAttribute("fade"))
-					self._Event__fadePointsDict[pos] = value
-		
-		try:	
-			levelsXML = node.getElementsByTagName("Levels")[0]
-		except IndexError:
-			Globals.debug("No event levels in project file")
-			self.GenerateWaveform()
-		else: 
-			if levelsXML.nodeType == xml.Node.ELEMENT_NODE:
-				value = str(levelsXML.getAttribute("value"))
-				self.levels = map(float, value.split(","))
-		
-		if self.isLoading:
-			self.GenerateWaveform()
-
-		self._Event__UpdateAudioFadePoints()
-		self.CreateFilesource()
-	#_____________________________________________________________________
-	
-	def LoadInstrFromZPO(self, node):
-		"""
-		Loads instrument properties from a Jokosher 0.1 XML node
-		and saves then to the given self object.
-		
-		Parameters:
-			node -- XML node object from which to extract instrument properties.
-		"""
-		params = node.getElementsByTagName("Parameters")[0]
-		LoadParametersFromXML(self, params)
-		#work around because in 0.2 self.effects is a list not a string.
-		self.effects = []
-		
-		for ev in node.getElementsByTagName("Event"):
-			try:
-				id = int(ev.getAttribute("id"))
-			except ValueError:
-				id = None
-			e = Event(self, None, id)
-			LoadEventFromZPO(e, ev)
-			self.events.append(e)
-	
-		for ev in node.getElementsByTagName("DeadEvent"):
-			try:
-				id = int(ev.getAttribute("id"))
-			except ValueError:
-				id = None
-			e = Event(self, None, id)
-			LoadEventFromZPO(e, ev)
-			self.graveyard.append(e)
-		
-		pixbufFilename = os.path.basename(self.pixbufPath)
-		self.instrType = os.path.splitext(pixbufFilename)[0]
-			
-		for i in Globals.getCachedInstruments():
-			if self.instrType == i[1]:
-				self.pixbuf = i[2]
-				break
-		if not self.pixbuf:
-			Globals.debug("Error, could not load image:", self.instrType)
-			
-		#initialize the actuallyIsMuted variable
-		self.checkActuallyIsMuted()
-	#_____________________________________________________________________
-	
-	params = doc.getElementsByTagName("Parameters")[0]
-	
-	LoadParametersFromXML(project, params)
-	
-	for instr in doc.getElementsByTagName("Instrument"):
-		try:
-			id = int(instr.getAttribute("id"))
-		except ValueError:
-			id = None
-		i = Instrument(project, None, None, None, id)
-		LoadInstrFromZPO(i, instr)
-		project.instruments.append(i)
-		if i.isSolo:
-			project.soloInstrCount += 1
-	
-	for instr in doc.getElementsByTagName("DeadInstrument"):
-		try:
-			id = int(instr.getAttribute("id"))
-		except ValueError:
-			id = None
-		i = Instrument(project, None, None, None, id)
-		LoadInstrFromZPO(i, instr)
-		project.graveyard.append(i)
-
-	return project
-
-#_____________________________________________________________________	
 
 #=========================================================================
 
@@ -320,7 +36,7 @@ class Project(Monitored):
 	"""
 	
 	""" The Project structure version. Will be useful for handling old save files. """
-	Globals.VERSION = "0.2"
+	Globals.VERSION = "0.9"
 	
 	""" The audio playback state enum values """
 	AUDIO_STOPPED, AUDIO_RECORDING, AUDIO_PLAYING, AUDIO_PAUSED, AUDIO_EXPORTING = range(5)
@@ -943,23 +659,16 @@ class Project(Monitored):
 		"""
 		Closes down this Project.
 		"""
-		global GlobalProjectObject
-		GlobalProjectObject = None
-		
 		for file in self.deleteOnCloseAudioFiles:
 			if os.path.exists(file):
 				Globals.debug("Deleting copied audio file:", file)
 				os.remove(file)
 		self.deleteOnCloseAudioFiles = []
 		
-		self.instruments = []
-		self.metadata = {}
-		self.projectfile = ""
-		self.projectdir = ""
-		self.name = ""
 		self.ClearListeners()
 		self.transport.ClearListeners()
 		self.mainpipeline.set_state(gst.STATE_NULL)
+		self.__dict__ = {}
 		
 	#_____________________________________________________________________
 	
@@ -1365,29 +1074,6 @@ class Project(Monitored):
 		self.level = level
 
 	#_____________________________________________________________________
-
-	def ValidateProject(self):
-		"""
-		Checks that the Project is valid - i.e. that the files and 
-		images it references can be found.
-
-		Returns:
-			True -- the Project is valid.
-			False -- the Project contains non-existant files and/or images.
-		"""
-		unknownfiles=[]
-		unknownimages=[]
-
-		for instr in self.instruments:
-			for event in instr.events:
-				if (event.file!=None) and (not os.path.exists(event.file)) and (not event.file in unknownfiles):
-					unknownfiles.append(event.file)
-		if len(unknownfiles) > 0 or len(unknownimages) > 0:
-			raise InvalidProjectError(unknownfiles,unknownimages)
-
-		return True
-	
-	#_____________________________________________________________________
 	
 	@UndoCommand("SetTransportMode", "temp")
 	def SetTransportMode(self, val):
@@ -1502,114 +1188,3 @@ class Project(Monitored):
 	#_____________________________________________________________________
 	
 #=========================================================================
-	
-class OpenProjectError(EnvironmentError):
-	"""
-	This class will get created when a opening a Project fails.
-	It's used for handling errors.
-	"""
-	
-	#_____________________________________________________________________
-	
-	def __init__(self, errno, info = None):
-		"""
-		Creates a new instance of OpenProjectError.
-		
-		Parameters:
-			errno -- number indicating the type of error:
-					1 = invalid uri passed for the Project file.
-					2 = unable to unzip the Project.
-					3 = Project created by a different version of Jokosher.
-					4 = Project file doesn't exist.
-			info -- version of Jokosher that created the Project.
-					Will be present only along with error #3.
-		"""
-		EnvironmentError.__init__(self)
-		self.info = info
-		self.errno = errno
-	
-	#_____________________________________________________________________
-	
-#=========================================================================
-
-class CreateProjectError(Exception):
-	"""
-	This class will get created when creating a Project fails.
-	It's used for handling errors.
-	"""
-	
-	#_____________________________________________________________________
-	
-	def __init__(self, errno, message=None):
-		"""
-		Creates a new instance of CreateProjectError.
-		
-		Parameters:
-			errno -- number indicating the type of error:
-					1 = unable to create a Project object.
-					2 = path for Project file already exists.
-					3 = unable to create file. (Invalid permissions, read-only, or the disk is full).
-					4 = invalid path, name or author.
-					5 = invalid uri passed for the Project file.
-					6 = unable to load a particular gstreamer plugin (message will be the plugin's name)
-			message -- a string with more specific information about the error
-		"""
-		Exception.__init__(self)
-		self.errno = errno
-		self.message = message
-		
-	#_____________________________________________________________________
-
-#=========================================================================
-
-class AudioInputsError(Exception):
-	"""
-	This class will get created when there are problems with the soundcard inputs.
-	It's used for handling errors.
-	"""
-	
-	#_____________________________________________________________________
-	
-	def __init__(self, errno):
-		"""
-		Creates a new instance of AudioInputsError.
-		
-		Parameters:
-			errno -- number indicating the type of error:
-					1 = no recording channels found.
-					2 = sound card is not capable of multiple simultaneous inputs.
-					3 = channel splitting element not found.
-		"""
-		Exception.__init__(self)
-		self.errno = errno
-		
-	#_____________________________________________________________________
-
-#=========================================================================
-
-class InvalidProjectError(Exception):
-	"""
-	This class will get created when there's an invalid Project.
-	It's used for handling errors.
-	"""
-	
-	#_____________________________________________________________________
-	
-	def __init__(self, missingfiles, missingimages):
-		"""
-		Creates a new instance of InvalidProjectError.
-		
-		Parameters:
-			missingfiles -- filenames of the missing files.
-			missingimages -- filenames of the missing images.
-		"""
-		Exception.__init__(self)
-		self.files=missingfiles
-		self.images=missingimages
-		
-	#_____________________________________________________________________
-
-#=========================================================================
-
-""" (Singleton) Unique reference to the currently active Project object. """
-GlobalProjectObject = None

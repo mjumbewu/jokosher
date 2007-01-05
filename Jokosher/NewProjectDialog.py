@@ -11,7 +11,7 @@
 
 import gtk.glade
 import os
-import Project
+import ProjectManager
 import pwd
 import Globals
 import gettext
@@ -103,8 +103,8 @@ class NewProjectDialog:
 			folder = "~"
 		
 		try:
-			project=Project.CreateNew(folder,name, author)
-		except Project.CreateProjectError, e:
+			project = ProjectManager.CreateNewProject(folder,name, author)
+		except ProjectManager.CreateProjectError, e:
 			if e.errno == 1:
 				message = _("Could not initialize project.")
 			elif e.errno == 2:

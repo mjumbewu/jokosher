@@ -12,7 +12,7 @@
 #
 #-------------------------------------------------------------------------------
 
-from UndoSystem import *
+from UndoSystem import UndoCommand
 import xml.dom.minidom as xml
 import pygst
 pygst.require("0.10")
@@ -158,7 +158,7 @@ class Event(Monitored):
 		ev.appendChild(params)
 		
 		items = ["start", "duration", "isSelected", 
-				  "name", "offset", "file", "isLoading"
+				  "name", "offset", "file", "isLoading", "isRecording"
 				]
 				
 		#Since we are saving the path to the project file, don't delete it on exit
@@ -185,46 +185,6 @@ class Event(Monitored):
 			ev.appendChild(levelsXML)
 			stringList = map(str, self.levels)
 			levelsXML.setAttribute("value", ",".join(stringList))
-			
-	#_____________________________________________________________________
-			
-	def LoadFromXML(self, node):
-		"""
-		Restores an Event from its serialized XML representation.
-		
-		Parameters:
-			node -- the XML node to retreive data from.
-		"""
-		params = node.getElementsByTagName("Parameters")[0]
-		
-		LoadParametersFromXML(self, params)
-		
-		if not os.path.isabs(self.file):
-			# If there is a relative path for self.file, assume it is in the audio dir
-			self.file = os.path.join(self.instrument.path, self.file)
-		
-		try:
-			xmlPoints = node.getElementsByTagName("FadePoints")[0]
-		except IndexError:
-			Globals.debug("Missing FadePoints in Event XML")
-		else:
-			self.__fadePointsDict = LoadDictionaryFromXML(xmlPoints)
-		
-		try:	
-			levelsXML = node.getElementsByTagName("Levels")[0]
-		except IndexError:
-			Globals.debug("No event levels in project file")
-			self.GenerateWaveform()
-		else: 
-			if levelsXML.nodeType == xml.Node.ELEMENT_NODE:
-				value = str(levelsXML.getAttribute("value"))
-				self.levels = map(float, value.split(","))
-
-		if self.isLoading or self.isRecording:
-			self.GenerateWaveform()
-
-		self.__UpdateAudioFadePoints()
-		self.CreateFilesource()
 		
 	#_____________________________________________________________________
 		

@@ -21,9 +21,10 @@ from subprocess import Popen
 import gettext
 _ = gettext.gettext
 
+import ProjectManager #this has to be imported first to avoid cyclic dependency hell cause by UndoSystem.py
 import AddInstrumentDialog, TimeView, CompactMixView
 import PreferencesDialog, ExtensionManagerDialog, RecordingView, NewProjectDialog
-import Project, Globals, WelcomeDialog, AlsaDevices
+import Globals, WelcomeDialog, AlsaDevices
 import InstrumentConnectionsDialog, StatusBar
 from EffectPresets import *
 import Extension
@@ -471,7 +472,7 @@ class MainApp:
 			self.addInstrumentButton.set_sensitive(False)
 			try:
 				self.project.Record()
-			except Project.AudioInputsError, e:
+			except ProjectManager.AudioInputsError, e:
 				if e.errno==0:
 					message=_("No channels capable of recording have been found, please attach a device and try again.")
 				elif e.errno==1:
@@ -869,7 +870,7 @@ class MainApp:
 			elif response == gtk.RESPONSE_CANCEL or response == gtk.RESPONSE_DELETE_EVENT:
 				return 1
 				
-		self.project.CloseProject()
+		ProjectManager.CloseProject()
 		
 		self.project = None
 		self.mode = None
@@ -1408,9 +1409,9 @@ class MainApp:
 					displayed to user detailing the error.
 		"""
 		try:
-			self.SetProject(Project.LoadFromFile(path))
+			self.SetProject(ProjectManager.LoadProjectFile(path))
 			return True
-		except Project.OpenProjectError, e:
+		except ProjectManager.OpenProjectError, e:
 			self.ShowOpenProjectErrorDialog(e,parent)
 			return False
 
@@ -1425,8 +1426,8 @@ class MainApp:
 			project -- the Project object to set as the main project.
 		"""
 		try:
-			project.ValidateProject()
-		except Project.InvalidProjectError, e:
+			ProjectManager.ValidateProject(project)
+		except ProjectManager.InvalidProjectError, e:
 			message=""
 			if e.files:
 				message+=_("The project references non-existant files:\n")
@@ -1456,7 +1457,7 @@ class MainApp:
 		self.OnStateChanged(change="transport-mode")
 		self.InsertRecentProject(project.projectfile, project.name)
 		
-		Project.GlobalProjectObject = project
+		ProjectManager.GlobalProjectObject = project
 
 		# make various buttons and menu items enabled now we have a project
 		self.SetGUIProjectLoaded()

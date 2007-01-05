@@ -9,7 +9,7 @@
 #
 #=========================================================================
 
-import Project, Globals, Utils
+import ProjectManager, Globals, Utils
 
 def UndoCommand(*command):
 	"""
@@ -158,7 +158,7 @@ class AtomicUndoAction:
 		self.commandList = []
 		if addToStack:
 			# add ourselves to the undo stack for the current Project.
-			Project.GlobalProjectObject.AppendToCurrentStack(self)
+			ProjectManager.GlobalProjectObject.AppendToCurrentStack(self)
 	
 	#_____________________________________________________________________
 	
@@ -222,29 +222,4 @@ class AtomicUndoAction:
 		
 	#_____________________________________________________________________
 	
-#=========================================================================
-
-def LoadUndoActionFromXML(node):
-	"""
-	Loads an AtomicUndoAction from an XML node.
-	
-	Parameters:
-		node -- XML node from which the AtomicUndoAction is loaded.
-				Should be an "<Action>" node.
-		
-	Returns:
-		the loaded AtomicUndoAction object.
-	"""
-	# Don't add to the undo stack because the Project is being loaded
-	undoAction = AtomicUndoAction(addToStack=False)
-	for cmdNode in node.childNodes:
-		if cmdNode.nodeName == "Command":
-			objectString = str(cmdNode.getAttribute("object"))
-			functionString = str(cmdNode.getAttribute("function"))
-			paramList = Utils.LoadListFromXML(cmdNode)
-			
-			undoAction.AddUndoCommand(objectString, functionString, paramList)
-	
-	return undoAction
-
 #=========================================================================

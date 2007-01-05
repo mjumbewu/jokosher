@@ -13,7 +13,7 @@
 
 import gtk
 import cairo
-import Project
+from Project import Project
 import Utils
 import os
 import gettext
@@ -832,7 +832,7 @@ class EventViewer(gtk.DrawingArea):
 			dlg.show()
 			self.OnDelete()
 	
-		elif obj.__class__ == Project.Project and self.currentScale != self.project.viewScale:
+		elif obj.__class__ == Project and self.currentScale != self.project.viewScale:
 			self.redrawWaveform = True
 			self.queue_resize()
 			self.last_num_levels = len(self.event.levels)
