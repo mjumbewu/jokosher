@@ -77,11 +77,11 @@ def UndoCommand(*command):
 				#if we were not provided one, create a default atomic undo object 
 				atomicUndoObject = AtomicUndoAction()
 			
-			if isinstance(funcSelf, Project.Project):
+			if isinstance(funcSelf, ProjectManager.Project.Project):
 				objectString = "P"
-			elif isinstance(funcSelf, Project.Instrument):
+			elif isinstance(funcSelf, ProjectManager.Instrument.Instrument):
 				objectString = "I%d" % funcSelf.id
-			elif isinstance(funcSelf, Project.Event):
+			elif isinstance(funcSelf, ProjectManager.Event.Event):
 				objectString = "E%d" % funcSelf.id
 			
 			paramList = []
