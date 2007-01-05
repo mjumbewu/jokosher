@@ -60,6 +60,9 @@ def CreateNew(projecturi, name, author):
 
 	try:
 		project = Project()
+	except gst.PluginNotFoundError, e:
+		Globals.debug("Missing Gstreamer plugin:", e)
+		raise CreateProjectError(6, str(e))
 	except Exception, e:
 		Globals.debug("Could not make project object:", e)
 		raise CreateProjectError(1)
@@ -1537,7 +1540,7 @@ class CreateProjectError(Exception):
 	
 	#_____________________________________________________________________
 	
-	def __init__(self, errno):
+	def __init__(self, errno, message=None):
 		"""
 		Creates a new instance of CreateProjectError.
 		
@@ -1548,9 +1551,12 @@ class CreateProjectError(Exception):
 					3 = unable to create file. (Invalid permissions, read-only, or the disk is full).
 					4 = invalid path, name or author.
 					5 = invalid uri passed for the Project file.
+					6 = unable to load a particular gstreamer plugin (message will be the plugin's name)
+			message -- a string with more specific information about the error
 		"""
 		Exception.__init__(self)
-		self.errno=errno
+		self.errno = errno
+		self.message = message
 		
 	#_____________________________________________________________________
 

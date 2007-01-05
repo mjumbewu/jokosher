@@ -115,6 +115,8 @@ class NewProjectDialog:
 				message = _("Invalid name or author.")
 			elif e.errno == 5:
 				message = _("The URI scheme given is either invalid or not supported")
+			elif e.errno == 6:
+				message = "%s %s" % (_("Unable load required Gstreamer plugin:"), e.message)
 			
 			# show the error dialog with the relavent error message	
 			dlg = gtk.MessageDialog(self.dlg,
