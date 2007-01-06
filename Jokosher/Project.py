@@ -19,13 +19,13 @@ import gzip
 import re
 
 import TransportManager
-from UndoSystem import UndoCommand
+import UndoSystem
 import Globals
 import xml.dom.minidom as xml
-from Instrument import *
-from Monitored import *
-from Utils import *
-from AlsaDevices import *
+import Instrument
+from Monitored import Monitored
+import Utils
+import AlsaDevices
 
 #=========================================================================
 
@@ -250,7 +250,7 @@ class Project(Monitored):
 		#Add all instruments to the pipeline
 		self.recordingEvents = {}
 		devices = {}
-		for device in GetAlsaList("capture").values():
+		for device in AlsaDevices.GetAlsaList("capture").values():
 			devices[device] = []
 			for instr in self.instruments:
 				if instr.isArmed and instr.input == device:
@@ -554,10 +554,10 @@ class Project(Monitored):
 			if not message.src is self.levelElement:
 				for instr in self.instruments:
 					if message.src is instr.levelElement:
-						instr.SetLevel(DbToFloat(struct["decay"][0]))
+						instr.SetLevel(Utils.DbToFloat(struct["decay"][0]))
 						break
 			else:
-				self.SetLevel(DbToFloat(struct["decay"][0]))
+				self.SetLevel(Utils.DbToFloat(struct["decay"][0]))
 			
 		return True
 
@@ -618,7 +618,7 @@ class Project(Monitored):
 		
 		items = ["viewScale", "viewStart", "name", "author", "transportMode", "bpm", "meter_nom", "meter_denom"]
 		
-		StoreParametersToXML(self, doc, params, items)
+		Utils.StoreParametersToXML(self, doc, params, items)
 			
 		undo = doc.createElement("Undo")
 		head.appendChild(undo)
@@ -789,7 +789,7 @@ class Project(Monitored):
 		Parameters:
 			undoAction -- the instance of AtomicUndoAction to be executed.
 		"""
-		newUndoAction = AtomicUndoAction()
+		newUndoAction = UndoSystem.AtomicUndoAction()
 		for cmdList in undoAction.GetUndoCommands():
 			obj = cmdList[0]
 			target_object = None
@@ -814,7 +814,7 @@ class Project(Monitored):
 
 	#_____________________________________________________________________
 	
-	@UndoCommand("SetBPM", "temp")
+	@UndoSystem.UndoCommand("SetBPM", "temp")
 	def SetBPM(self, bpm):
 		"""
 		Changes the current beats per minute.
@@ -829,7 +829,7 @@ class Project(Monitored):
 	
 	#_____________________________________________________________________
 
-	@UndoCommand("SetMeter", "temp", "temp1")
+	@UndoSystem.UndoCommand("SetMeter", "temp", "temp1")
 	def SetMeter(self, nom, denom):
 		"""
 		Changes the current time signature.
@@ -855,7 +855,7 @@ class Project(Monitored):
 			
 	#_____________________________________________________________________
 	
-	@UndoCommand("DeleteInstrument", "temp")
+	@UndoSystem.UndoCommand("DeleteInstrument", "temp")
 	def AddInstrument(self, name, type, pixbuf):
 		"""
 		Adds a new instrument to the Project and returns the ID for that instrument.
@@ -869,10 +869,10 @@ class Project(Monitored):
 			ID of the added Instrument.
 		"""
 			
-		instr = Instrument(self, name, type, pixbuf)
+		instr = Instrument.Instrument(self, name, type, pixbuf)
 		if len(self.instruments) == 0:
 			#If this is the first instrument, arm it by default
-			instr.ToggleArmed()
+			instr.isArmed = True
 		audio_dir = os.path.join(os.path.split(self.projectfile)[0], "audio")
 		instr.path = os.path.join(audio_dir)
 		
@@ -883,7 +883,7 @@ class Project(Monitored):
 		
 	#_____________________________________________________________________	
 	
-	@UndoCommand("ResurrectInstrument", "temp")
+	@UndoSystem.UndoCommand("ResurrectInstrument", "temp")
 	def DeleteInstrument(self, id):
 		"""
 		Removes the instrument matching id from the Project.
@@ -906,7 +906,7 @@ class Project(Monitored):
 	
 	#_____________________________________________________________________
 	
-	@UndoCommand("DeleteInstrument", "temp")
+	@UndoSystem.UndoCommand("DeleteInstrument", "temp")
 	def ResurrectInstrument(self, id):
 		"""
 		Brings a deleted Instrument back from the graveyard.
@@ -928,7 +928,7 @@ class Project(Monitored):
 		
 	#_____________________________________________________________________
 	
-	@UndoCommand("MoveInstrument", "temp", "temp1")
+	@UndoSystem.UndoCommand("MoveInstrument", "temp", "temp1")
 	def MoveInstrument(self, id, position):
 		"""
 		Move an instrument in the instrument list.
@@ -1074,7 +1074,7 @@ class Project(Monitored):
 
 	#_____________________________________________________________________
 	
-	@UndoCommand("SetTransportMode", "temp")
+	@UndoSystem.UndoCommand("SetTransportMode", "temp")
 	def SetTransportMode(self, val):
 		"""
 		Sets the Mode in the Transportmanager. Used to enable Undo/Redo.
@@ -1162,7 +1162,7 @@ class Project(Monitored):
 				try:
 					# Select first output device as default to avoid a GStreamer bug which causes
 					# large amounts of latency with the ALSA 'default' device.
-					outdevice = GetAlsaList("playback").values()[1]
+					outdevice = AlsaDevices.GetAlsaList("playback").values()[1]
 				except:
 					pass
 			Globals.debug("Output device: %s" % outdevice)

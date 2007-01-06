@@ -12,19 +12,17 @@
 #
 #-------------------------------------------------------------------------------
 
-from Event import *
-from UndoSystem import *
 import pygst
 pygst.require("0.10")
 import gst
-import os
-import time
-from Monitored import *
-from Utils import *
-import gobject
-import gnomevfs
+import os, time, shutil
+import gobject, gnomevfs
+import Event
+import UndoSystem
+from Monitored import Monitored
+import Utils
+
 import Globals
-import shutil
 import AlsaDevices
 import gettext
 _ = gettext.gettext
@@ -274,7 +272,7 @@ class Instrument(Monitored):
 		params = doc.createElement("Parameters")
 		ins.appendChild(params)
 		
-		StoreParametersToXML(self, doc, params, items)
+		Utils.StoreParametersToXML(self, doc, params, items)
 		
 		for effect in self.effects:
 			globaleffect = doc.createElement("GlobalEffect")
@@ -286,7 +284,7 @@ class Instrument(Monitored):
 				if prop.flags & gobject.PARAM_WRITABLE:
 					propsdict[prop.name] = effect.get_property(prop.name)
 			
-			StoreDictionaryToXML(doc, globaleffect, propsdict)
+			Utils.StoreDictionaryToXML(doc, globaleffect, propsdict)
 			
 		for ev in self.events:
 			ev.StoreToXML(doc, ins)
@@ -441,7 +439,7 @@ class Instrument(Monitored):
 		Returns:
 			an Event suitable for recording.
 		"""
-		event = Event(self)
+		event = Event.Event(self)
 		event.start = 0
 		event.isRecording = True
 		event.name = _("Recorded audio")
@@ -451,7 +449,7 @@ class Instrument(Monitored):
 
 	#_____________________________________________________________________
 
-	@UndoCommand("DeleteEvent", "temp")
+	@UndoSystem.UndoCommand("DeleteEvent", "temp")
 	def finishRecordingEvent(self, event):
 		"""
 		Called when the recording of an Event has finished.
@@ -466,7 +464,7 @@ class Instrument(Monitored):
 	
 	#_____________________________________________________________________
 
-	@UndoCommand("DeleteEvent", "temp")
+	@UndoSystem.UndoCommand("DeleteEvent", "temp")
 	def addEventFromFile(self, start, file, copyfile=False):
 		"""
 		Adds an Event from a file to this Instrument.
@@ -499,7 +497,7 @@ class Instrument(Monitored):
 		else:
 			name = file.split(os.sep)[-1]
 
-		ev = Event(self, file,None,filelabel)
+		ev = Event.Event(self, file,None,filelabel)
 		ev.start = start
 		ev.name = name
 		self.events.append(ev)
@@ -513,7 +511,7 @@ class Instrument(Monitored):
 		
 	#_____________________________________________________________________
 	
-	@UndoCommand("DeleteEvent", "temp")
+	@UndoSystem.UndoCommand("DeleteEvent", "temp")
 	def addEventFromURL(self, start, url):
 		"""
 		Adds an Event from a URL to this Instrument.
@@ -536,7 +534,7 @@ class Instrument(Monitored):
 		self.project.deleteOnCloseAudioFiles.append(audio_file)
 		
 		# Create the event now so we can return it, and fill in the file later
-		ev = Event(self, None, None)
+		ev = Event.Event(self, None, None)
 		ev.start = start
 		self.events.append(ev)
 		self.temp = ev.id
@@ -594,7 +592,7 @@ class Instrument(Monitored):
 		
 	#_____________________________________________________________________
 	
-	@UndoCommand("DeleteEvent", "temp")
+	@UndoSystem.UndoCommand("DeleteEvent", "temp")
 	def addEventFromEvent(self, start, event):
 		"""
 		Creates a new Event instance identical to the given Event object
@@ -604,7 +602,7 @@ class Instrument(Monitored):
 			start - the offset time in seconds for the new Event.
 			event - the Event to be cloned on this instrument.
 		"""
-		ev = Event(self, event.file)
+		ev = Event.Event(self, event.file)
 		ev.start = start
 		for i in ["duration", "name", "offset"]:
 			setattr(ev, i, getattr(event, i))
@@ -619,7 +617,7 @@ class Instrument(Monitored):
 	
 	#_____________________________________________________________________
 	
-	@UndoCommand("ResurrectEvent", "temp")
+	@UndoSystem.UndoCommand("ResurrectEvent", "temp")
 	def DeleteEvent(self, eventid):
 		"""
 		Removes an Event from this Instrument.
@@ -641,7 +639,7 @@ class Instrument(Monitored):
 	
 	#_____________________________________________________________________
 	
-	@UndoCommand("DeleteEvent", "temp")
+	@UndoSystem.UndoCommand("DeleteEvent", "temp")
 	def ResurrectEvent(self, eventid):
 		"""
 		Brings an Event back from the graveyard.
@@ -736,7 +734,7 @@ class Instrument(Monitored):
 	
 	#_____________________________________________________________________
 	
-	@UndoCommand("SetName", "temp")
+	@UndoSystem.UndoCommand("SetName", "temp")
 	def SetName(self, name):
 		"""
 		Sets the Instrument's name so it can be registered in the undo stack.
@@ -751,7 +749,7 @@ class Instrument(Monitored):
 	
 	#_____________________________________________________________________
 	
-	@UndoCommand("ToggleArmed")
+	@UndoSystem.UndoCommand("ToggleArmed")
 	def ToggleArmed(self):
 		"""
 		Arms/Disarms the Instrument for recording.
@@ -761,7 +759,7 @@ class Instrument(Monitored):
 		
 	#_____________________________________________________________________
 	
-	@UndoCommand("ToggleMuted", "temp")
+	@UndoSystem.UndoCommand("ToggleMuted", "temp")
 	def ToggleMuted(self, wasSolo):
 		"""
 		Mutes/Unmutes the Instrument.
@@ -787,7 +785,7 @@ class Instrument(Monitored):
 	
 	#_____________________________________________________________________
 	
-	@UndoCommand("ToggleSolo", "temp")
+	@UndoSystem.UndoCommand("ToggleSolo", "temp")
 	def ToggleSolo(self, wasMuted):
 		"""
 		Mutes/Unmutes the other Instruments in the Project.
@@ -811,7 +809,7 @@ class Instrument(Monitored):
 	
 	#_____________________________________________________________________
 	
-	@UndoCommand("SetVisible", "temp")
+	@UndoSystem.UndoCommand("SetVisible", "temp")
 	def SetVisible(self, visible):
 		"""
 		Sets whether the Instrument is minimized in the CompactMixView.
@@ -916,7 +914,7 @@ class Instrument(Monitored):
 	
 	#_____________________________________________________________________
 
-	@UndoCommand("ChangeType", "temp", "temp2")
+	@UndoSystem.UndoCommand("ChangeType", "temp", "temp2")
 	def ChangeType(self, type, name):
 		"""
 		Changes the Intrument's type and name.

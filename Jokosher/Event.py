@@ -12,14 +12,15 @@
 #
 #-------------------------------------------------------------------------------
 
-from UndoSystem import UndoCommand
 import xml.dom.minidom as xml
+import os
 import pygst
 pygst.require("0.10")
 import gst
-from Monitored import *
-from Utils import *
-import os, Globals
+from Monitored import Monitored
+import Utils
+import UndoSystem
+import Globals
 import gettext
 _ = gettext.gettext
 
@@ -170,7 +171,7 @@ class Event(Monitored):
 			# If the file is in the audio dir, just include the filename, not the absolute path
 			self.file = os.path.basename(self.file)
 		
-		StoreParametersToXML(self, doc, params, items)
+		Utils.StoreParametersToXML(self, doc, params, items)
 		
 		# Put self.file back to its absolute path
 		self.file = self.temp
@@ -178,7 +179,7 @@ class Event(Monitored):
 		
 		xmlPoints = doc.createElement("FadePoints")
 		ev.appendChild(xmlPoints)
-		StoreDictionaryToXML(doc, xmlPoints, self.__fadePointsDict, "FadePoint")
+		Utils.StoreDictionaryToXML(doc, xmlPoints, self.__fadePointsDict, "FadePoint")
 		
 		if self.levels:
 			levelsXML = doc.createElement("Levels")
@@ -217,7 +218,7 @@ class Event(Monitored):
 	
 	#_____________________________________________________________________
 	
-	@UndoCommand("Move", "start", "temp")
+	@UndoSystem.UndoCommand("Move", "start", "temp")
 	def Move(self, frm, to):
 		"""
 		Moves this Event in time.
@@ -232,7 +233,7 @@ class Event(Monitored):
 	
 	#_____________________________________________________________________
 	
-	@UndoCommand("Join", "temp")
+	@UndoSystem.UndoCommand("Join", "temp")
 	def Split(self, split_point, id=-1):
 		"""
 		Splits this Event.
@@ -271,7 +272,7 @@ class Event(Monitored):
 		
 	#_____________________________________________________________________
 	
-	@UndoCommand("Split", "temp", "temp2")
+	@UndoSystem.UndoCommand("Split", "temp", "temp2")
 	def Join(self, joinEventID):
 		"""
 		Joins two Events together.
@@ -408,7 +409,7 @@ class Event(Monitored):
 		
 	#_____________________________________________________________________
 	
-	@UndoCommand("UndoTrim", "temp", "temp2")
+	@UndoSystem.UndoCommand("UndoTrim", "temp", "temp2")
 	def Trim(self, start_split, end_split):
 		"""
 		Splits the Event and then deletes the first and last sections,
@@ -436,7 +437,7 @@ class Event(Monitored):
 		
 	#_____________________________________________________________________
 	
-	@UndoCommand("Trim", "temp", "temp2")
+	@UndoSystem.UndoCommand("Trim", "temp", "temp2")
 	def UndoTrim(self, leftID, rightID):
 		"""
 		Resurrects two pieces from the graveyard and joins them to
@@ -688,7 +689,7 @@ class Event(Monitored):
 			peaktotal = negInf
 		
 		#convert to 0...1 float, and return
-		return DbToFloat(peaktotal)
+		return Utils.DbToFloat(peaktotal)
 		
 	#_____________________________________________________________________
 	
@@ -775,7 +776,7 @@ class Event(Monitored):
 	
 	#_____________________________________________________________________
 	
-	@UndoCommand("RemoveAudioFadePoints", "temp", "temp2", "temp3", "temp4")
+	@UndoSystem.UndoCommand("RemoveAudioFadePoints", "temp", "temp2", "temp3", "temp4")
 	def AddAudioFadePoints(self, firstPoint, secondPoint, firstVolume, secondVolume):
 		"""
 		Adds two fade points to the audioFadePoints list.
@@ -808,7 +809,7 @@ class Event(Monitored):
 	
 	#_____________________________________________________________________
 	
-	@UndoCommand("AddAudioFadePoints", "temp", "temp2", "temp3", "temp4")
+	@UndoSystem.UndoCommand("AddAudioFadePoints", "temp", "temp2", "temp3", "temp4")
 	def RemoveAudioFadePoints(self, firstPoint, secondPoint, firstOldVolume=None, secondOldVolume=None):
 		"""
 		Removes a fade point (along with its values) from the audioFadePoints list.
@@ -902,7 +903,7 @@ class Event(Monitored):
 				fadePercents.extend([ fade[1] ] * levelsInThisSection)
 			else:
 				step = (fade[1] - previousFade[1]) / levelsInThisSection
-				floatList = floatRange(previousFade[1], fade[1], step)
+				floatList = Utils.floatRange(previousFade[1], fade[1], step)
 				#make sure the list of levels does not exceed the calculated length
 				floatList = floatList[:levelsInThisSection]
 				fadePercents.extend(floatList)

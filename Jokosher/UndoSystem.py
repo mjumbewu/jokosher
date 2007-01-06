@@ -9,8 +9,6 @@
 #
 #=========================================================================
 
-import ProjectManager, Globals, Utils
-
 def UndoCommand(*command):
 	"""
 	Decorates functions, enabling them to be logged in the undo stack.
@@ -69,11 +67,11 @@ def UndoCommand(*command):
 			except CancelUndoCommand, e:
 				return e.result
 			
-			if isinstance(funcSelf, ProjectManager.Project.Project):
+			if isinstance(funcSelf, Project.Project):
 				objectString = "P"
-			elif isinstance(funcSelf, ProjectManager.Instrument.Instrument):
+			elif isinstance(funcSelf, Instrument.Instrument):
 				objectString = "I%d" % funcSelf.id
-			elif isinstance(funcSelf, ProjectManager.Event.Event):
+			elif isinstance(funcSelf, Event.Event):
 				objectString = "E%d" % funcSelf.id
 			
 			paramList = []
@@ -103,7 +101,19 @@ def UndoCommand(*command):
 	return UndoFunction
 
 	#_____________________________________________________________________
-	
+
+#=========================================================================
+"""
+These import statements *must* be placed below the UndoCommand function because
+decorators are called at import-time to decorate other functions. Project, Instrument
+and Event classes all use the UndoCommand decorator. Therefore importing any of those
+modules before UndoCommand is defined will cause a cyclic dependency in which
+Event depends on UndoSystem and UndoSystem depends on Event. A cyclic import
+dependency will stop the program before it even starts.
+"""
+import ProjectManager, Globals, Utils
+import Project, Event, Instrument
+
 #=========================================================================
 
 class CancelUndoCommand(Exception):

@@ -21,14 +21,11 @@ from subprocess import Popen
 import gettext
 _ = gettext.gettext
 
-import ProjectManager #this has to be imported first to avoid cyclic dependency hell cause by UndoSystem.py
 import AddInstrumentDialog, TimeView, CompactMixView
 import PreferencesDialog, ExtensionManagerDialog, RecordingView, NewProjectDialog
-import Globals, WelcomeDialog, AlsaDevices
+import ProjectManager, Globals, WelcomeDialog, AlsaDevices
 import InstrumentConnectionsDialog, StatusBar
-from EffectPresets import *
-import Extension
-import ExtensionManager
+import EffectPresets, Extension, ExtensionManager
 import Utils
 
 #=========================================================================
@@ -224,7 +221,7 @@ class MainApp:
 		self.CheckGstreamerVersions()
 
 		# set up presets registry - this should probably be removed here	
-		EffectPresets()
+		EffectPresets.EffectPresets()
 		Globals.PopulateEncoders()
 
 
