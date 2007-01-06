@@ -383,7 +383,7 @@ class _LoadZPTFile:
 				id = int(ev.getAttribute("id"))
 			except ValueError:
 				id = None
-			event = Event(instr, None, id)
+			event = Event.Event(instr, None, id)
 			self.LoadEvent(event, ev)
 			instr.graveyard.append(event)
 			#remove it from the composition so it doesnt play
