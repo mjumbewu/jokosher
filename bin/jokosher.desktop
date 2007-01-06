@@ -8,5 +8,6 @@ Exec=jokosher
 Icon=jokosher-icon.png
 Terminal=false
 Type=Application
+MimeType=application/x-jokosher;
 Categories=Application;AudioVideo;
 GenericName[en_CA]=Jokosher audio editor
