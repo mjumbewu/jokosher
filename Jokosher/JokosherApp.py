@@ -601,12 +601,12 @@ class MainApp:
 			Globals.settings.write()
 			#If they haven't already appended the extension for the 
 			#chosen file type, add it to the end of the file.
-			filetype = Globals.EXPORT_FORMATS[typeCombo.get_active()]["extension"]
-			if not self.exportFilename.lower().endswith(filetype):
-				self.exportFilename += "." + filetype
+			filetypeDict = Globals.EXPORT_FORMATS[typeCombo.get_active()]
+			if not self.exportFilename.lower().endswith(filetypeDict["extension"]):
+				self.exportFilename += "." + filetypeDict["extension"]
 		
 			chooser.destroy()
-			self.project.Export(self.exportFilename)
+			self.project.Export(self.exportFilename, filetypeDict["pipeline"])
 		else:
 			chooser.destroy()
 		

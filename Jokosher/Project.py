@@ -321,32 +321,19 @@ class Project(Monitored):
 		
 	#_____________________________________________________________________
 
-	def Export(self, filename, format=None):
+	def Export(self, filename, encodeBin):
 		"""
 		Export to location filename with format specified by format variable.
 		
 		Parameters:
 			filename -- filename where the exported audio will be saved.
-			format -- string of the file extension as used in Globals.EXPORT_FORMATS:
-					"ogg"
-					"mp3"
-					"wav"
-					*if no format is given, it'll be guessed by the file extension*
+			encodeBin -- the gst-launch syntax string of the encoder as used in Globals.EXPORT_FORMATS:
+					for ogg: "vorbisenc ! oggmux"
+					for mp3: "lame"
+					for wav: "wavenc"
 		"""
 		#stop playback because some elements will be removed from the pipeline
 		self.Stop()
-		
-		if not format:
-			format = filename[filename.rfind(".")+1:].lower()
-		
-		exportingFormatDict = None
-		for formatDict in Globals.EXPORT_FORMATS:
-			if format == formatDict["extension"]:
-				exportingFormatDict = formatDict
-				break
-		if not exportingFormatDict:
-			Globals.debug("Unknown filetype for export")
-			return -1
 		
 		#remove and unlink the alsasink
 		self.playbackbin.remove(self.masterSink, self.levelElement)
@@ -359,7 +346,7 @@ class Project(Monitored):
 		self.playbackbin.add(self.outfile)
 		
 		#create encoder/muxer
-		self.encodebin = gst.gst_parse_bin_from_description("audioconvert ! %s" % exportingFormatDict["pipeline"], True)
+		self.encodebin = gst.gst_parse_bin_from_description("audioconvert ! %s" % encodeBin, True)
 		self.playbackbin.add(self.encodebin)
 		self.levelElementCaps.link(self.encodebin)
 		self.encodebin.link(self.outfile)

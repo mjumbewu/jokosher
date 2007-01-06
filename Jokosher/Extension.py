@@ -684,6 +684,39 @@ class ExtensionAPI:
 	#_____________________________________________________________________
 	
 	@exported_function
+	def get_export_formats(self):
+		"""
+		Returns the list of dictionaries of available export formats
+		that Jokosher knowns about. Even if a format is not listed
+		here, you can still export with it by passing the gst-launch
+		formatted string to export_to_file.
+		An example format dictionary for Ogg: 
+		{"description":"Ogg Vorbis", "extension":"ogg", "pipeline":"vorbisenc ! oggmux"}
+		"""
+		newList = []
+		for formatDict in Globals.EXPORT_FORMATS:
+			newList.append(formatDict.copy())
+		
+		return newList
+	
+	#_____________________________________________________________________
+	
+	@exported_function
+	def export_to_file(self, uri, encodeBin):
+		"""
+		Exports the entire project to a single audio file at the URI given,
+		and encoded with the Gstreamer encoding bin given.
+		
+		Parameters:
+			uri -- string of the location to save the file.
+			encodeBin -- gst-launch formatted string used to create the 
+					bin that will encode the audio before being written to disk.
+		"""
+		self.mainapp.project.Export(uri, encodeBin)
+	
+	#_____________________________________________________________________
+	
+	@exported_function
 	def hide_main_window(self, timeout=0):
 		"""
 		Makes the main Jokosher window invisible.
