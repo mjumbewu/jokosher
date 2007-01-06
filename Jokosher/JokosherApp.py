@@ -92,6 +92,7 @@ class MainApp:
 			"on_delete_activate" : self.OnDelete,
 			"on_MouseDown" : self.OnMouseDown,
 			"on_instrumentconnections_activate" : self.OnInstrumentConnectionsDialog,
+			"on_filemenu_activate" : self.OnFileMenu,
 			"on_editmenu_activate" : self.OnEditMenu,
 			"on_help_contents_activate" : self.OnHelpContentsMenu,
 			"on_forums_activate" : self.OnForumsMenu,
@@ -1341,10 +1342,26 @@ class MainApp:
 		
 	#_____________________________________________________________________
 	
+	def OnFileMenu(self, widget):
+		"""
+		When the file menu opens, check if there are any events and set the mixdown project menu item's
+		sensitivity accordingly.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+		"""
+		eventList = False
+		for instr in self.project.instruments:
+			for ev in instr.events:
+				if ev:
+					eventList = True
+		self.export.set_sensitive(eventList)			
+	#_____________________________________________________________________
+	
 	def OnEditMenu(self, widget):
 		"""
 		HACK: When the edit menu opens, checks if any events or instruments are selected 
-		and sets the cut, copy, paste and delete menu items' sensitivity accordingly.
+		and sets the cut, copy, paste and delete menu items sensitivity accordingly.
 		
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
