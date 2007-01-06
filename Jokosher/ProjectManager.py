@@ -220,7 +220,7 @@ class _LoadZPOFile:
 				id = int(ev.getAttribute("id"))
 			except ValueError:
 				id = None
-			e = Event(instr, None, id)
+			e = Event.Event(instr, None, id)
 			self.LoadEvent(e, ev)
 			instr.graveyard.append(e)
 		
@@ -544,7 +544,7 @@ class _LoadZPNFile:
 				id = int(ev.getAttribute("id"))
 			except ValueError:
 				id = None
-			event = Event(instr, None, id)
+			event = Event.Event(instr, None, id)
 			self.LoadEvent(event, ev)
 			instr.graveyard.append(event)
 			#remove it from the composition so it doesnt play
