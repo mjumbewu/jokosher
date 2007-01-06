@@ -301,7 +301,7 @@ def PopulateEncoders():
 		for element in type[2].split("!"):
 			exists = gst.default_registry_check_feature_version(element.strip(), 0, 10, 0)
 			if not exists:
-				Globals.debug('Cannot find "%s" plugin, disabling encoder: "%s"' % (element.strip(), type[2]))
+				debug('Cannot find "%s" plugin, disabling encoder: "%s"' % (element.strip(), type[2]))
 				# we know at least one of the elements doesnt exist, so skip this encode format.
 				continue
 				
