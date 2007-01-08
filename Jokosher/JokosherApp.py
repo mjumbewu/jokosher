@@ -1186,7 +1186,7 @@ class MainApp:
 	
 	def OnDelete(self, widget=None):
 		"""
-		Deletes the currently selected instrument or event.
+		Deletes the currently selected instruments or events.
 		
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
@@ -1205,9 +1205,9 @@ class MainApp:
 				for ev in instr.events:
 					if ev.isSelected:
 						eventList.append(ev)
-		
-		for instr in instrList:
-			self.project.DeleteInstrument(instr.id)
+
+		if instrList:
+			self.project.DeleteInstruments(instrList)
 		for ev in eventList:
 			ev.Delete()
 	
@@ -1704,9 +1704,9 @@ class MainApp:
 				instr.isSelected = False
 				instrList.append(instr)
 		
-		for instr in instrList:
-			self.project.DeleteInstrument(instr.id)
-				
+		if instrList:
+			self.project.DeleteInstruments(instrList)
+		
 		self.UpdateDisplay()
 	
 	#_____________________________________________________________________

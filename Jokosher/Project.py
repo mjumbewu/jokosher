@@ -550,7 +550,6 @@ class Project(Monitored):
 
 	#_____________________________________________________________________
 
-
 	def __PipelineBusErrorCb(self, bus, message):
 		"""
 		Handles GStreamer error messages.
@@ -842,10 +841,46 @@ class Project(Monitored):
 			
 	#_____________________________________________________________________
 	
+	def AddInstruments(self, instrTuples):
+		"""
+		Adds one or more instruments to the Project, and ensures that
+		they are all appended to the undo stack as a single atomic action.
+		
+		Parameters:
+			instrTuples -- a list of tuples containing name, type and pixbuf
+					that will be passed to AddInstrument().
+			
+		Returns:
+			A list of IDs of the added Instruments.
+		"""
+		
+		undoAction = UndoSystem.AtomicUndoAction()
+		for name, type, pixbuf in instrTuples:
+			self.AddInstrument(name, type, pixbuf, _undoAction_=undoAction)
+	
+	#_____________________________________________________________________
+	
+	def DeleteInstruments(self, instrumentList):
+		"""
+		Removes the given instruments the Project.
+		
+		Parameters:
+			instrumentList -- a list of Instrument instances to be removed.
+		"""
+		undoAction = UndoSystem.AtomicUndoAction()
+		for instr in instrumentList:
+			self.DeleteInstrument(instr.id, _undoAction_=undoAction)
+	
+	#_____________________________________________________________________
+	
 	@UndoSystem.UndoCommand("DeleteInstrument", "temp")
 	def AddInstrument(self, name, type, pixbuf):
 		"""
 		Adds a new instrument to the Project and returns the ID for that instrument.
+		
+		Considerations:
+			In most cases, AddInstruments() should be used instead of this function
+			to ensure that the undo actions are made atomic.
 		
 		Parameters:
 			name -- name of the instrument.
@@ -875,12 +910,19 @@ class Project(Monitored):
 		"""
 		Removes the instrument matching id from the Project.
 		
+		Considerations:
+			In most cases, DeleteInstruments() should be used instead of this function
+			to ensure that the undo actions are made atomic.
+		
 		Parameters:
 			id -- unique ID of the instument to remove.
 		"""
 		
-		instr = [x for x in self.instruments if x.id == id][0]
+		instrs = [x for x in self.instruments if x.id == id]
+		if not instrs:
+			raise UndoSystem.CancelUndoCommand()
 		
+		instr = instrs[0]
 		instr.RemoveAndUnlinkPlaybackbin()
 		
 		self.graveyard.append(instr)

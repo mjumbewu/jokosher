@@ -80,7 +80,11 @@ class AddInstrumentDialog:
 		self.tree.set_text_column(0)
 		self.tree.set_pixbuf_column(2)
 		self.tree.set_orientation(gtk.ORIENTATION_VERTICAL)
-		self.tree.set_selection_mode(gtk.SELECTION_MULTIPLE)
+		if self.instr:
+			self.tree.set_selection_mode(gtk.SELECTION_SINGLE)
+		else:
+			self.tree.set_selection_mode(gtk.SELECTION_MULTIPLE)
+			
 		self.tree.set_item_width(90)
 		self.tree.set_size_request(72, -1)
 		self.dlg.resize(350, 300)
@@ -118,12 +122,15 @@ class AddInstrumentDialog:
 		"""
 		selectedItems = self.tree.get_selected_items()
 		if not self.instr:
+			instrList = []
 			for i in selectedItems:
 				item = self.model[i[0]]
 				#find the actual instrument using index 1 (the instrument type)
 				#because the name has been wrapped in self.model and can't be used
 				instrItem = [x for x in Globals.getCachedInstruments() if x[1] == item[1]][0]
-				self.project.AddInstrument(*instrItem)
+				instrList.append(instrItem)
+			
+			self.project.AddInstruments(instrList)
 		else:
 			item = self.model[selectedItems[0][0]]
 			instrItem = [x for x in Globals.getCachedInstruments() if x[1] == item[1]][0]
