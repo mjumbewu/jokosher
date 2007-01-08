@@ -22,7 +22,7 @@ import TransportManager
 import UndoSystem
 import Globals
 import xml.dom.minidom as xml
-import Instrument
+import Instrument, Event
 from Monitored import Monitored
 import Utils
 import AlsaDevices
@@ -860,7 +860,7 @@ class Project(Monitored):
 	
 	#_____________________________________________________________________
 	
-	def DeleteInstruments(self, instrumentList):
+	def DeleteInstrumentsOrEvents(self, instrumentOrEventList):
 		"""
 		Removes the given instruments the Project.
 		
@@ -868,8 +868,11 @@ class Project(Monitored):
 			instrumentList -- a list of Instrument instances to be removed.
 		"""
 		undoAction = UndoSystem.AtomicUndoAction()
-		for instr in instrumentList:
-			self.DeleteInstrument(instr.id, _undoAction_=undoAction)
+		for instrOrEvent in instrumentOrEventList:
+			if isinstance(instrOrEvent, Instrument.Instrument):
+				self.DeleteInstrument(instrOrEvent.id, _undoAction_=undoAction)
+			elif isinstance(instrOrEvent, Event.Event):
+				instrOrEvent.instrument.DeleteEvent(instrOrEvent.id, _undoAction_=undoAction)
 	
 	#_____________________________________________________________________
 	
@@ -911,8 +914,8 @@ class Project(Monitored):
 		Removes the instrument matching id from the Project.
 		
 		Considerations:
-			In most cases, DeleteInstruments() should be used instead of this function
-			to ensure that the undo actions are made atomic.
+			In most cases, DeleteInstrumentsOrEvents() should be used instead
+			of this function to ensure that the undo actions are made atomic.
 		
 		Parameters:
 			id -- unique ID of the instument to remove.

@@ -1192,24 +1192,22 @@ class MainApp:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		# list to store instruments to delete, so we don't modify the list while we are iterating
-		instrList = []
+		instrOrEventList = []
 		eventList = []
 		# Delete any select instruments
 		for instr in self.project.instruments:
 			if (instr.isSelected):
 				#set not selected so when we undo we don't get two selected instruments
 				instr.isSelected = False
-				instrList.append(instr)
+				instrOrEventList.append(instr)
 			else:
 				# Delete any selected events
 				for ev in instr.events:
 					if ev.isSelected:
-						eventList.append(ev)
+						instrOrEventList.append(ev)
 
-		if instrList:
-			self.project.DeleteInstruments(instrList)
-		for ev in eventList:
-			ev.Delete()
+		if instrOrEventList:
+			self.project.DeleteInstrumentsOrEvents(instrOrEventList)
 	
 		self.UpdateDisplay()
 	
@@ -1705,7 +1703,7 @@ class MainApp:
 				instrList.append(instr)
 		
 		if instrList:
-			self.project.DeleteInstruments(instrList)
+			self.project.DeleteInstrumentsOrEvents(instrList)
 		
 		self.UpdateDisplay()
 	

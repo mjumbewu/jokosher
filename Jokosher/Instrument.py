@@ -621,10 +621,6 @@ class Instrument(Monitored):
 	def DeleteEvent(self, eventid):
 		"""
 		Removes an Event from this Instrument.
-		
-		Considerations:
-			This operation does not register with undo or append it to the
-			graveyard, because both are done by event.Delete()
 			
 		Parameters:
 			eventid -- ID of the Event to be removed.
