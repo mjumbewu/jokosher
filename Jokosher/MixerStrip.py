@@ -15,7 +15,7 @@ import gtk
 import gobject
 import os
 import Globals
-
+import Utils
 import gettext
 _ = gettext.gettext
 
@@ -196,10 +196,10 @@ class MixerStrip(gtk.Frame):
 		
 		self.muteButton.set_active(self.instrument.actuallyIsMuted)
 		if self.instrument.actuallyIsMuted:
-			self.muteButton.set_image(gtk.image_new_from_icon_name("stock_volume-mute", gtk.ICON_SIZE_BUTTON))
+			self.muteButton.set_image(Utils.GetIconThatMayBeMissing("stock_volume-mute", gtk.ICON_SIZE_BUTTON))
 			self.muteTip.set_tip(self.muteButton, _("Muted"), None)
 		else:
-			self.muteButton.set_image(gtk.image_new_from_icon_name("stock_volume", gtk.ICON_SIZE_BUTTON))
+			self.muteButton.set_image(Utils.GetIconThatMayBeMissing("stock_volume", gtk.ICON_SIZE_BUTTON))
 			self.muteTip.set_tip(self.muteButton, _("Unmuted"), None)
 		
 		

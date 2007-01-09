@@ -62,8 +62,14 @@ def UndoCommand(*command):
 			Returns:
 				the wrapped function resulting value.
 			"""
+			if kwargs.has_key("_undoAction_"):
+				atomicUndoObject = kwargs["_undoAction_"]
+				del kwargs["_undoAction_"]
+			else:
+				atomicUndoObject = AtomicUndoAction()
+			
 			try:
-				result = func(funcSelf, *args)
+				result = func(funcSelf, *args, **kwargs)
 			except CancelUndoCommand, e:
 				return e.result
 			
@@ -82,11 +88,6 @@ def UndoCommand(*command):
 					continue
 				else:
 					paramList.append(value)
-			
-			if kwargs.has_key("_undoAction_"):
-				atomicUndoObject = kwargs["_undoAction_"]
-			else:
-				atomicUndoObject = AtomicUndoAction()
 			
 			atomicUndoObject.AddUndoCommand(objectString, command[0], paramList)
 			

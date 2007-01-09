@@ -10,9 +10,10 @@
 #-------------------------------------------------------------------------------
 
 import xml.dom.minidom as xml
-import math
-import gtk
+import math, os.path
+import gtk, gobject
 from subprocess import call
+import Globals
 
 #_____________________________________________________________________
 
@@ -50,6 +51,38 @@ def OpenExternalURL(url, message, parent):
 	dlg.run()
 	dlg.destroy()
 	
+#_____________________________________________________________________
+
+def GetIconThatMayBeMissing(iconName, iconSize):
+	"""
+	First tries to get the icon with the given name from the icon theme.
+	If that fails, it will try and load it from the Jokosher image directory.
+	
+	Parameters:
+		iconName -- the string of the icon's name
+		iconSize -- an icon size from the gtk.
+	
+	Returns:
+		an instance of gtk.gdk.Pixbuf that contains the requested image.
+	"""
+	pixbuf = None
+	try:
+		pixbuf = gtk.icon_theme_get_default().load_icon(iconName, iconSize, 0)
+	except gobject.GError:
+		path = os.path.join(Globals.IMAGE_PATH, "%s.png" % iconName)
+		try:
+			pixbuf = gtk.gdk.pixbuf_new_from_file(path)
+		except:
+			pass
+	
+	if pixbuf:
+		image = gtk.Image()
+		image.set_from_pixbuf(pixbuf)
+	else:
+		image = gtk.image_new_from_stock(gtk.STOCK_MISSING_IMAGE, iconSize)
+	
+	return image
+
 #_____________________________________________________________________
 
 def DbToFloat(f):

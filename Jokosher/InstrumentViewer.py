@@ -14,6 +14,7 @@ from EventLaneViewer import *
 import Globals
 import InstrumentEffectsDialog
 import AddInstrumentDialog
+import Utils
 import gettext
 _ = gettext.gettext
 
@@ -339,10 +340,10 @@ class InstrumentViewer(gtk.EventBox):
 			self.soloTip.enable()
 		
 			if self.instrument.actuallyIsMuted:
-				self.muteButton.set_image(gtk.image_new_from_icon_name("stock_volume-mute", gtk.ICON_SIZE_BUTTON))
+				self.muteButton.set_image(Utils.GetIconThatMayBeMissing("stock_volume-mute", gtk.ICON_SIZE_BUTTON))
 				self.muteTip.set_tip(self.muteButton, _("Muted"), None)
 			else:
-				self.muteButton.set_image(gtk.image_new_from_icon_name("stock_volume", gtk.ICON_SIZE_BUTTON))
+				self.muteButton.set_image(Utils.GetIconThatMayBeMissing("stock_volume", gtk.ICON_SIZE_BUTTON))
 				self.muteTip.set_tip(self.muteButton, _("Unmuted"), None)
 		
 		if self.instrument.isSelected:
