@@ -1468,6 +1468,7 @@ class MainApp:
 		self.project.transport.AddListener(self)
 		self.OnStateChanged(change="transport-mode")
 		self.InsertRecentProject(project.projectfile, project.name)
+		self.project.PrepareClick()
 		
 		ProjectManager.GlobalProjectObject = project
 
