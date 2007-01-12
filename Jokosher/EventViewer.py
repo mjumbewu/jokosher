@@ -31,9 +31,11 @@ class EventViewer(gtk.DrawingArea):
 	""" GTK widget name """
 	__gtype_name__ = 'EventViewer'
 	
-	#the maximum width of the stroke above the fill
-	#stroke width will shrink when zooming out
-	_MAX_LINE_WIDTH = 2
+	#the width of the stroke above the fill (the line on the top of the waveform)
+	_LINE_WIDTH = 2
+	#the minimum distance allowed between each sample point in the waveform
+	#making this bigger will make the waveform less crowed but also less detailed
+	_MIN_POINT_SEPARATION = 2
 	
 	#the width and height of the volume curve handles
 	_PIXX_FADEMARKER_WIDTH = 30
@@ -301,6 +303,7 @@ class EventViewer(gtk.DrawingArea):
 			# Draw waveform
 			x_pos = int(rect.x/scale)
 			x = 0
+			lastX = x
 			context.move_to(0,rect.height)
 					
 			# get levels list
@@ -308,8 +311,11 @@ class EventViewer(gtk.DrawingArea):
 			
 			for peak in fadedLevels[x_pos:]:
 				x = (x_pos * scale) - rect.x
-				peakOnScreen = int(peak * rect.height)
-				context.line_to(x, rect.height - peakOnScreen)
+				#if this point and the previous one are not too close...
+				if x - lastX >= self._MIN_POINT_SEPARATION:
+					peakOnScreen = int(peak * rect.height)
+					context.line_to(x, rect.height - peakOnScreen)
+					lastX = x
 				
 				if x > rect.width:
 					break
@@ -327,10 +333,7 @@ class EventViewer(gtk.DrawingArea):
 			#levels path (on top of the fill)
 			context.set_source_rgb(*self._BORDER_RGB)
 			context.set_line_join(cairo.LINE_JOIN_ROUND)
-			if scale < self._MAX_LINE_WIDTH:
-				context.set_line_width(scale)
-			else:
-				context.set_line_width(self._MAX_LINE_WIDTH)
+			context.set_line_width(self._LINE_WIDTH)
 			context.stroke()
 		
 		if self.event.audioFadePoints:

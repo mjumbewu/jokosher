@@ -36,7 +36,7 @@ class Event(Monitored):
 	WAVEFORM, MOVE, LENGTH, CORRUPT = range(4)
 	
 	""" The level sample interval in seconds """
-	LEVEL_INTERVAL = 0.1
+	LEVEL_INTERVAL = 0.01
 	
 	#_____________________________________________________________________
 	
@@ -554,6 +554,7 @@ class Event(Monitored):
 			time = self.bin.query_duration(gst.FORMAT_TIME)
 			if self.duration == 0:
 				self.duration = float(time[0] / float(gst.SECOND))
+				self.loadingLength = 0
 				#update position with proper duration
 				self.MoveButDoNotOverlap(self.start)
 				self.SetProperties()
