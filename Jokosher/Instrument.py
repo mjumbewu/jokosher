@@ -440,7 +440,7 @@ class Instrument(Monitored):
 			an Event suitable for recording.
 		"""
 		event = Event.Event(self)
-		event.start = 0
+		event.start = self.project.transport.GetPosition()
 		event.isRecording = True
 		event.name = _("Recorded audio")
 		event.file = "%s_%d_%d.ogg"%(os.path.join(self.path, self.name.replace(" ", "_")), self.id, int(time.time()))
@@ -1021,7 +1021,6 @@ class Instrument(Monitored):
 			elif start <= eventLeft and eventLeft < stop < eventRight:
 				# this event is straddling the stop of our interval
 				rightTrimEvent = event
-			print start, stop, eventLeft, eventRight
 		
 		if leftTrimEvent:
 			leftPiece = leftTrimEvent.Split(start - leftTrimEvent.start, _undoAction_=undoAction)

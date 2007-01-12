@@ -313,10 +313,6 @@ class Project(Monitored):
 				
 				Globals.debug("adding recordingbin")
 				self.mainpipeline.add(recordingbin)
-
-		#Make sure we start playing from the beginning
-		Globals.debug("Setting transport to Stop")
-		self.transport.Stop()
 		
 		#start the pipeline!
 		self.Play(newAudioState=self.AUDIO_RECORDING)
@@ -777,7 +773,7 @@ class Project(Monitored):
 			undoAction -- the instance of AtomicUndoAction to be executed.
 		"""
 		newUndoAction = UndoSystem.AtomicUndoAction()
-		for cmdList in undoAction.GetUndoCommands():
+		for cmdList in reversed(undoAction.GetUndoCommands()):
 			obj = cmdList[0]
 			target_object = None
 			if obj[0] == "P":		# Check if the object is a Project
