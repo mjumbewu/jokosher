@@ -207,7 +207,7 @@ class Project(Monitored):
 
 		#If we've been recording then add new events to instruments
 		for instr, (event, bin, handle) in self.recordingEvents.items():
-			instr.finishRecordingEvent(event)
+			instr.FinalizeRecording(event)
 			self.bus.disconnect(handle)
 
 		self.TerminateRecording()
@@ -288,9 +288,11 @@ class Project(Monitored):
 				
 				split.connect("pad-added", self.__RecordingPadAddedCb, recInstruments, recordingbin)
 				Globals.debug("Recording in multi-input mode")
+				Globals.debug("adding recordingbin")
+				self.mainpipeline.add(recordingbin)
 			else:
 				instr = recInstruments[0]
-				event = instr.getRecordingEvent()
+				event = instr.GetRecordingEvent()
 				
 				encodeString = Globals.settings.recording["fileformat"]
 				capsString = "audio/x-raw-int,rate=%s" % Globals.settings.recording["samplerate"]
@@ -308,12 +310,12 @@ class Project(Monitored):
 				
 				Globals.debug("Recording in single-input mode")
 				Globals.debug("Using input track: %s" % instr.inTrack)
-
-		Globals.debug("adding recordingbin")
-		self.mainpipeline.add(recordingbin)
+				
+				Globals.debug("adding recordingbin")
+				self.mainpipeline.add(recordingbin)
 
 		#Make sure we start playing from the beginning
-		Globals.debug("recordingbin added, setting transport to Stop")
+		Globals.debug("Setting transport to Stop")
 		self.transport.Stop()
 		
 		#start the pipeline!
@@ -480,7 +482,7 @@ class Project(Monitored):
 		index = int(match.groups()[0])
 		for instr in recInstruments:
 			if instr.inTrack == index:
-				event = instr.getRecordingEvent()
+				event = instr.GetRecordingEvent()
 				
 				encodeString = Globals.settings.recording["fileformat"]
 				pipe = "audioconvert ! level name=eventlevel interval=%d message=true !" +\
@@ -654,7 +656,6 @@ class Project(Monitored):
 		self.ClearListeners()
 		self.transport.ClearListeners()
 		self.mainpipeline.set_state(gst.STATE_NULL)
-		self.__dict__ = {}
 		
 	#_____________________________________________________________________
 	

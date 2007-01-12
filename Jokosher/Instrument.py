@@ -433,7 +433,7 @@ class Instrument(Monitored):
 	
 	#_____________________________________________________________________
 	
-	def getRecordingEvent(self):
+	def GetRecordingEvent(self):
 		"""
 		Obtain an Event suitable for recording. *CHECK*
 		Returns:
@@ -444,15 +444,17 @@ class Instrument(Monitored):
 		event.isRecording = True
 		event.name = _("Recorded audio")
 		event.file = "%s_%d_%d.ogg"%(os.path.join(self.path, self.name.replace(" ", "_")), self.id, int(time.time()))
+		#must add it to the instrument's list so that an update of the event lane will not remove the widget
 		self.events.append(event)
 		return event
 
 	#_____________________________________________________________________
 
 	@UndoSystem.UndoCommand("DeleteEvent", "temp")
-	def finishRecordingEvent(self, event):
+	def FinishRecordingEvent(self, event):
 		"""
-		Called when the recording of an Event has finished.
+		Called to log the adding of this event on the undo stack
+		and to properly load the file that has just been recorded.
 		
 		Parameters:
 			event -- Event object that has finished being recorded.
@@ -462,6 +464,22 @@ class Instrument(Monitored):
 		self.temp = event.id
 		self.StateChanged()
 	
+	#_____________________________________________________________________
+	
+	def FinalizeRecording(self, event):
+		"""
+		Called when the recording of an Event has finished.
+		
+		Parameters:
+			event -- Event object that has finished being recorded.
+		"""
+		#create our undo action to make everything atomic
+		undoAction = UndoSystem.AtomicUndoAction()
+		#make sure the event will act mormally (like a loaded file) now
+		self.FinishRecordingEvent(event, _undoAction_=undoAction)
+		# remove all the events behind the recorded event (because we can't have overlapping events.
+		self.RemoveEventsUnderEvent(event, undoAction)
+		
 	#_____________________________________________________________________
 
 	@UndoSystem.UndoCommand("DeleteEvent", "temp")
@@ -971,4 +989,46 @@ class Instrument(Monitored):
 			self.control.set("volume", 0, 0.99)
 	#_____________________________________________________________________
 	
+	def RemoveEventsUnderEvent(self, mainEvent, undoAction=None):
+		"""
+		Deletes and/or trims any events which are between the two given values.
+		This is useful for ensuring that a particular section of this instrument in
+		totally clear of any audio.
+		
+		Parameters:
+			start -- the start of the interval in seconds
+			stop -- the stop of the interval in seconds
+		"""
+		if not undoAction:
+			#init our own undo action so everything is nice and atomic
+			undoAction = UndoSystem.AtomicUndoAction()
+		
+		start = mainEvent.start
+		stop = mainEvent.start + max(mainEvent.duration, mainEvent.loadingLength)
+		leftTrimEvent = rightTrimEvent = None
+		for event in self.events:
+			if event is mainEvent:
+				continue
+			
+			eventLeft = event.start
+			eventRight = event.start + event.duration
+			if start <= eventLeft and eventRight <= stop:
+				#this event is in between
+				self.DeleteEvent(event.id, _undoAction_=undoAction)
+			elif eventLeft < start < eventRight and eventRight <= stop:
+				# this event is straddling the start of our interval
+				leftTrimEvent = event
+			elif start <= eventLeft and eventLeft < stop < eventRight:
+				# this event is straddling the stop of our interval
+				rightTrimEvent = event
+			print start, stop, eventLeft, eventRight
+		
+		if leftTrimEvent:
+			leftPiece = leftTrimEvent.Split(start - leftTrimEvent.start, _undoAction_=undoAction)
+			self.DeleteEvent(leftPiece.id, _undoAction_=undoAction)
+		if rightTrimEvent:
+			rightTrimEvent.Split(stop - rightTrimEvent.start, _undoAction_=undoAction)
+			self.DeleteEvent(rightTrimEvent.id, _undoAction_=undoAction)
+	
+	#_____________________________________________________________________
 #=========================================================================	

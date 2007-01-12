@@ -318,7 +318,7 @@ class _LoadZPTFile:
 						
 						undoAction = UndoSystem.AtomicUndoAction(addToStack=False)
 						undoAction.AddUndoCommand(objectString, functionString, paramList)
-						self.project._Project__savedUndoStack.append(action)
+						self.project._Project__savedUndoStack.append(undoAction)
 		
 		for instrElement in self.xmlDoc.getElementsByTagName("Instrument"):
 			try:
