@@ -14,7 +14,7 @@ pygtk.require("2.0")
 import gtk
 import cairo
 
-import gettext
+import gettext, locale
 _ = gettext.gettext
 
 #=========================================================================
@@ -28,8 +28,33 @@ class VUWidget(gtk.DrawingArea):
 	""" GTK widget name """
 	__gtype_name__ = 'VUWidget'
 	
-	""" Width, in pixels, for the TODO """
-	BAR_WIDTH = 20
+	""" Height, in pixels, for the volume handle """
+	_VH_HEIGHT = 25
+	""" Space between the edge of the volume handle and the edge of the VU meter"""
+	_VH_PADDING = 20
+	_VH_BORDER_WIDTH = 5
+	""" the highest value allowed to be set for the volume (lowest is always zero)"""
+	_MAX_VOLUME = 2
+	
+	""" Both text height and width below depend on the font size. 
+	If you change the font size, figure out the new pixel sizes and update these values."""
+	_FONT_SIZE = 18
+	_TEXT_HEIGHT = 13
+	_TEXT_WIDTH = 37
+	
+	"""
+	Various color configurations:
+	   ORGBA = Offset, Red, Green, Blue, Alpha
+	   RGBA = Red, Green, Blue, Alpha
+	   RGB = Red, Green, Blue
+	"""
+	_VH_ACTIVE_RGBA = (1., 1., 1., 1.)
+	_VH_INACTIVE_RGBA = (1., 1., 1., 0.75)
+	_VH_BORDER_RGBA = (0.5, 0., 0., 0.75)
+	_BACKGROUND_RGB = (0., 0., 0.)
+	_LEVEL_GRADIENT_BOTTOM_ORGBA = (1, 0, 1, 0, 1)
+	_LEVEL_GRADIENT_TOP_ORGBA = (0, 1, 0, 0, 1)
+	_TEXT_RGBA = (0., 0., 0., 1.)
 	
 	#_____________________________________________________________________
 	
@@ -63,7 +88,6 @@ class VUWidget(gtk.DrawingArea):
 		
 		self.source = cairo.ImageSurface(cairo.FORMAT_ARGB32, self.allocation.width, self.allocation.height)
 		
-		
 	#_____________________________________________________________________
 		
 	def OnMouseDown(self, widget, mouse):
@@ -74,9 +98,7 @@ class VUWidget(gtk.DrawingArea):
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 			mouse -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-		rect = self.get_allocation()
-		pos = (rect.height-self.BAR_WIDTH) * (1. - self.mixerstrip.GetVolume()) + (self.BAR_WIDTH/2)
-		if mouse.y > pos - (self.BAR_WIDTH / 2) and mouse.y < pos + (self.BAR_WIDTH / 2):
+		if self.__YPosOverVolumeHandle(mouse.y):
 			self.fader_active = True
 	
 	#_____________________________________________________________________
@@ -92,19 +114,15 @@ class VUWidget(gtk.DrawingArea):
 		"""
 		if not self.message_id:
 			self.message_id = self.mainview.SetStatusBar(_("<b>Drag</b> the <b>slider</b> to alter volume levels"))
-		rect = self.get_allocation()
-		pos = (rect.height-self.BAR_WIDTH) * (1. - self.mixerstrip.GetVolume()) + (self.BAR_WIDTH/2)
-		if mouse.y > pos - (self.BAR_WIDTH / 2) and mouse.y < pos + (self.BAR_WIDTH / 2):
-			self.fader_hover = True
-		else:
-			self.fader_hover = False
+		
+		self.fader_hover = self.__YPosOverVolumeHandle(mouse.y)
 			
 		if self.fader_active:
-			volume = 1. - ((mouse.y - self.BAR_WIDTH/2)
-						   /  (rect.height-self.BAR_WIDTH))
+			rect = self.get_allocation()
+			volume = 1. - ((mouse.y - self._VH_HEIGHT/2) /  (rect.height-self._VH_HEIGHT))
 			volume  = max(volume, 0.)
 			volume  = min(volume, 1.)
-			self.mixerstrip.SetVolume(volume)
+			self.mixerstrip.SetVolume(volume * self._MAX_VOLUME)
 			self.queue_draw()
 	
 	#_____________________________________________________________________
@@ -162,8 +180,8 @@ class VUWidget(gtk.DrawingArea):
 		
 		# Create our green to red gradient
 		pat = cairo.LinearGradient(0.0, 0.0, 0, rect.height)
-		pat.add_color_stop_rgba(1, 0, 1, 0, 1)
-		pat.add_color_stop_rgba(0, 1, 0, 0, 1)
+		pat.add_color_stop_rgba(*self._LEVEL_GRADIENT_BOTTOM_ORGBA)
+		pat.add_color_stop_rgba(*self._LEVEL_GRADIENT_TOP_ORGBA)
 
 		# Fill the volume bar
 		ctx.rectangle(0, 0, rect.width, rect.height)
@@ -189,7 +207,7 @@ class VUWidget(gtk.DrawingArea):
 
 		# Fill a black background		
 		ctx.rectangle(0, 0, rect.width, rect.height)
-		ctx.set_source_rgb(0., 0., 0.)
+		ctx.set_source_rgb(*self._BACKGROUND_RGB)
 		ctx.fill()
 
 		# Blit across the cached gradient backgound
@@ -202,37 +220,34 @@ class VUWidget(gtk.DrawingArea):
 		ctx.reset_clip()
 		
 		# Draw the current volume level bar, with highlight if appropriate
-		vpos = (rect.height-self.BAR_WIDTH) * (1. - self.mixerstrip.GetVolume()) + (self.BAR_WIDTH/2)
+		vpos = self.__GetVolumeHandleYPos()
 		if self.fader_active:
-			ctx.set_source_rgba(0.5, 0., 0., 0.75)
-			ctx.set_line_width(self.BAR_WIDTH + 5)
+			ctx.set_source_rgba(*self._VH_BORDER_RGBA)
+			ctx.set_line_width(self._VH_HEIGHT + self._VH_BORDER_WIDTH)
 			ctx.set_line_cap(cairo.LINE_CAP_ROUND)
-			ctx.move_to(20, vpos)
-			ctx.line_to(rect.width - 20, vpos)
+			ctx.move_to(self._VH_PADDING, vpos)
+			ctx.line_to(rect.width - self._VH_PADDING, vpos)
 			ctx.stroke()
-			ctx.set_source_rgba(1., 1., 1., 1.)
+			ctx.set_source_rgba(*self._VH_ACTIVE_RGBA)
 		elif self.fader_hover:
-			ctx.set_source_rgba(1., 1., 1., 1.)
+			ctx.set_source_rgba(*self._VH_ACTIVE_RGBA)
 		else:
-			ctx.set_source_rgba(1., 1., 1., 0.75)
+			ctx.set_source_rgba(*self._VH_INACTIVE_RGBA)
 
 		ctx.set_line_cap(cairo.LINE_CAP_ROUND)
-		ctx.set_line_width(self.BAR_WIDTH)
-		ctx.move_to(20, vpos)
-		ctx.line_to(rect.width - 20, vpos)
+		ctx.set_line_width(self._VH_HEIGHT)
+		ctx.move_to(self._VH_PADDING, vpos)
+		ctx.line_to(rect.width - self._VH_PADDING, vpos)
 		ctx.stroke()
 
 		# Draw the volume level in the bar
-		ctx.set_source_rgba(0., 0., 0., 1.)
-		ctx.move_to(18, vpos + 3)
-		#HACK: workaround because strings are frozen
-		#make sure the string does not exceed 12 characters
-		vol_string = _("Volume: %.2f")
-		vol_word = vol_string[:-5]
-		if len(vol_word) > 7:
-			#we can cut at 5 here because "..." takes less than other characters
-			vol_word = vol_word[:5] + "..."
-		ctx.show_text("%s %.2f" % (vol_word, self.mixerstrip.GetVolume()))
+		ctx.set_source_rgba(*self._TEXT_RGBA)
+		textYOffset = (self._VH_HEIGHT - self._TEXT_HEIGHT) / 2
+		textXOffset = ((rect.width - (2 * self._VH_PADDING) - self._TEXT_WIDTH) / 2) + self._VH_PADDING
+		ctx.move_to(textXOffset, vpos + textYOffset)
+		ctx.set_font_size(self._FONT_SIZE)
+		localizedText = locale.format("%.2f", self.mixerstrip.GetVolume())
+		ctx.show_text(localizedText)
 
 		return False
 		
@@ -259,4 +274,37 @@ class VUWidget(gtk.DrawingArea):
 	
 	#_____________________________________________________________________
 	
+	def __GetVolumeHandleYPos(self):
+		"""
+		Calculates the verical position of the *center* of the volume handle
+		based on the instrument's current volume, and the size of the volume
+		handle itself (so that is doesn't go off the screen at the top or bottom.
+		
+		Returns:
+			the Y value in pixels of the center of the volume handle.
+		"""
+		height = self.get_allocation().height
+		totalPixelHeight = height - self._VH_HEIGHT
+		inverseVolume = (self._MAX_VOLUME - self.mixerstrip.GetVolume()) / self._MAX_VOLUME
+		offset = self._VH_HEIGHT / 2
+		
+		return totalPixelHeight * inverseVolume + offset
+	
+	#_____________________________________________________________________
+	
+	def __YPosOverVolumeHandle(self, yPos):
+		"""
+		Calculates if the given vertical position is located over top of the volume handle.
+		
+		Parameters:
+			yPos -- the vertical position in pixels
+		
+		Returns:
+			True if the value is over the volume handle; False otherwise.
+		"""
+		handleYPos = self.__GetVolumeHandleYPos()
+		halfHandle = self._VH_HEIGHT / 2
+		return handleYPos - halfHandle < yPos < handleYPos + halfHandle
+	
+	#_____________________________________________________________________
 #=========================================================================

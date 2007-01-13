@@ -62,7 +62,10 @@ class MixerStrip(gtk.Frame):
 		self.minbutt.connect("clicked", self.EmitMinimise)
 				
 		self.vbox.pack_start(self.minbutt, False)
-
+		
+		# the slider label
+		balanceLabel = gtk.Label(_("Balance:"))
+		self.vbox.pack_start(balanceLabel, False)
 		# add the panning slider
 		self.panbox = gtk.HBox()
 		self.leftlab = gtk.Label(_("L"))
@@ -72,7 +75,8 @@ class MixerStrip(gtk.Frame):
 		self.pan.set_draw_value(False)
 		self.pantip = gtk.Tooltips()
 		self.pantip.set_tip(self.pan,_("Adjust instrument balance"),None)		
-		if self.instrument.pan is not None:
+		
+		if self.instrument.pan:
 			self.pan.set_value(self.instrument.pan)
 		
 		self.pan.connect("value-changed", self.OnPanChanged)
@@ -82,7 +86,9 @@ class MixerStrip(gtk.Frame):
 		
 		self.vbox.pack_start(self.panbox, False)
 
-		
+		#volume label
+		volumeLabel = gtk.Label(_("Volume:"))
+		self.vbox.pack_start(volumeLabel, False)
 		# VU Meter
 		self.vu = VUWidget(self, self.mainview)
 		self.vbox.pack_start(self.vu, True, True)

@@ -24,18 +24,6 @@ class InstrumentViewer(gtk.EventBox):
 	""" 
 	Encapsulates the customized track viewing and editing control.
 	"""
-
-	""" Size of the event edge handle """
-	EDGE_DISTANCE = 5
-	
-	""" Size of 'hot zone' used to trigger drawing of edge handle """
-	EDGE_HOT_ZONE = 10
-	
-	""" Width of the instrument audio bar """
-	BAR_WIDTH = 15
-	
-	""" Max value a peak can have when displayed """
-	MAX_PEAK = 30
 	
 	""" Size of the instrument name label """
 	LABEL_WIDTH_CHARS = 12

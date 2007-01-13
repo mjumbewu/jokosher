@@ -43,7 +43,7 @@ class MasterMixerStrip(gtk.Frame):
 		self.vbox = gtk.VBox()
 		self.add(self.vbox)
 
-		self.label = gtk.Label(_("Master Volume"))
+		self.label = gtk.Label(_("Master Volume:"))
 				
 		self.vbox.pack_start(self.label, False)
 		
