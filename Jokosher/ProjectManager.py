@@ -146,9 +146,10 @@ def LoadProjectFile(uri):
 		loaderClass = JOKOSHER_VERSION_FUNCTIONS[version]
 		Globals.debug("Loading project file version", version)
 		loaderClass(project, doc)
-		#copy the project so that the 0.1 is not overwritten when the user clicks save
-		withoutExt = os.path.splitext(projectfile)[0]
-		shutil.copy(projectfile, "%s.%s.jokosher" % (withoutExt, version))
+		if version != Globals.VERSION:
+			#if we're loading an old version copy the project so that it is not overwritten when the user clicks save
+			withoutExt = os.path.splitext(projectfile)[0]
+			shutil.copy(projectfile, "%s.%s.jokosher" % (withoutExt, version))
 		return project
 	else:
 		# raise a "this project was created in an incompatible version of Jokosher" message
