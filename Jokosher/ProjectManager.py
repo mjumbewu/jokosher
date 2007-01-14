@@ -181,15 +181,6 @@ class _LoadZPOFile:
 			project.instruments.append(i)
 			if i.isSolo:
 				project.soloInstrCount += 1
-		
-		for instr in xmlDoc.getElementsByTagName("DeadInstrument"):
-			try:
-				id = int(instr.getAttribute("id"))
-			except ValueError:
-				id = None
-			i = Instrument.Instrument(project, None, None, None, id)
-			self.LoadInstrument(i, instr)
-			project.graveyard.append(i)
 	
 	#_____________________________________________________________________
 	
@@ -215,15 +206,6 @@ class _LoadZPOFile:
 			e = Event.Event(instr, None, id)
 			self.LoadEvent(e, ev)
 			instr.events.append(e)
-	
-		for ev in xmlNode.getElementsByTagName("DeadEvent"):
-			try:
-				id = int(ev.getAttribute("id"))
-			except ValueError:
-				id = None
-			e = Event.Event(instr, None, id)
-			self.LoadEvent(e, ev)
-			instr.graveyard.append(e)
 		
 		pixbufFilename = os.path.basename(instr.pixbufPath)
 		instr.instrType = os.path.splitext(pixbufFilename)[0]
@@ -303,24 +285,6 @@ class _LoadZPTFile:
 		# Hack to set the transport mode
 		self.project.transport.SetMode(self.project.transportMode)
 		
-		undoRedo = (("Undo", self.project._Project__savedUndoStack),
-				("Redo", self.project._Project__redoStack))
-		for tagName, stack in undoRedo:
-			try:
-				undo = self.xmlDoc.getElementsByTagName(tagName)[0]
-			except IndexError:
-				Globals.debug("No saved %s in project file" % tagName)
-			else:
-				for cmdNode in undo.childNodes:
-					if cmdNode.nodeName == "Command":
-						objectString = str(cmdNode.getAttribute("object"))
-						functionString = str(cmdNode.getAttribute("function"))
-						paramList = Utils.LoadListFromXML(cmdNode)
-						
-						undoAction = UndoSystem.AtomicUndoAction(addToStack=False)
-						undoAction.AddUndoCommand(objectString, functionString, paramList)
-						self.project._Project__savedUndoStack.append(undoAction)
-		
 		for instrElement in self.xmlDoc.getElementsByTagName("Instrument"):
 			try:
 				id = int(instrElement.getAttribute("id"))
@@ -331,16 +295,6 @@ class _LoadZPTFile:
 			self.project.instruments.append(instr)
 			if instr.isSolo:
 				self.project.soloInstrCount += 1
-		
-		for instrElement in self.xmlDoc.getElementsByTagName("DeadInstrument"):
-			try:
-				id = int(instrElement.getAttribute("id"))
-			except ValueError:
-				id = None
-			instr = Instrument.Instrument(self.project, None, None, None, id)
-			self.LoadInstrument(instr, instrElement)
-			self.project.graveyard.append(instr)
-			instr.RemoveAndUnlinkPlaybackbin()
 	
 	#_____________________________________________________________________
 	
@@ -378,17 +332,6 @@ class _LoadZPTFile:
 			event = Event.Event(instr, None, id)
 			self.LoadEvent(event, ev)
 			instr.events.append(event)
-	
-		for ev in xmlNode.getElementsByTagName("DeadEvent"):
-			try:
-				id = int(ev.getAttribute("id"))
-			except ValueError:
-				id = None
-			event = Event.Event(instr, None, id)
-			self.LoadEvent(event, ev)
-			instr.graveyard.append(event)
-			#remove it from the composition so it doesnt play
-			instr.composition.remove(event.filesrc)
 		
 		#load image from file based on unique type
 		for instrTuple in Globals.getCachedInstruments():
