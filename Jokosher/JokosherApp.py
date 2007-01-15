@@ -99,9 +99,10 @@ class MainApp:
 			"on_contributing_activate" : self.OnContributingDialog,
 			"on_ExtensionManager_activate" : self.OnExtensionManagerDialog,
 			"on_instrumentmenu_activate" : self.OnInstrumentMenu,
-			"on_import_audio_file_activate" : self.OnImportAudio,
+			"on_add_audio_file_activate" : self.OnAddAudio,
 			"on_change_instr_type_activate" : self.OnChangeInstrument,
-			"on_remove_instr_activate" : self.OnRemoveInstrument
+			"on_remove_instr_activate" : self.OnRemoveInstrument,
+			"on_report_bug_activate" : self.OnReportBug
 		}
 		self.wTree.signal_autoconnect(signals)
 		
@@ -131,7 +132,7 @@ class MainApp:
 		self.recentprojects = self.wTree.get_widget("recentprojects")
 		self.recentprojectsmenu = self.wTree.get_widget("recentprojects_menu")
 		self.menubar = self.wTree.get_widget("menubar")
-		self.importAudioMenuItem = self.wTree.get_widget("import_audio_file")
+		self.addAudioMenuItem = self.wTree.get_widget("add_audio_file")
 		self.changeInstrMenuItem = self.wTree.get_widget("change_instrument_type")
 		self.removeInstrMenuItem = self.wTree.get_widget("remove_selected_instrument")
 		
@@ -195,8 +196,8 @@ class MainApp:
 		
 		audioimg = gtk.Image()
 		audioimg.set_from_pixbuf(self.audioFilePixbuf)
-		# set the import audio menu item and remove selected instrument menu item icons
-		self.importAudioMenuItem.set_image(audioimg)
+		# set the add audio menu item icon
+		self.addAudioMenuItem.set_image(audioimg)
 		
 		# populate the Recent Projects menu
 		self.OpenRecentProjects()
@@ -388,6 +389,8 @@ class MainApp:
 		dlg.set_icon(self.icon)
 		dlg.run()
 		dlg.destroy()
+		
+	#_____________________________________________________________________
 
 	def AboutLinkActivate(self, widget, link):
 		"""
@@ -396,7 +399,18 @@ class MainApp:
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-		Utils.OpenExternalURL(link, _("<big>Couldn't launch the jokosher website automatically.</big>\n\nPlease visit %s to access it."), self.window)
+		Utils.OpenExternalURL(url=link, message=_("<big>Couldn't launch the jokosher website automatically.</big>\n\nPlease visit %s to access it."), parent=self.window)
+		
+	#_____________________________________________________________________
+	
+	def OnReportBug(self, widget):
+		"""
+		Opens the report bug launchpad website in the user's default web browser.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+		"""
+		Utils.OpenExternalURL(url="https://bugs.launchpad.net/jokosher/+filebug/", message=_("<big>Couldn't launch the launchpad website automatically.</big>\n\nPlease visit %s to access it."), parent=self.window)
 		
 	#_____________________________________________________________________
 
@@ -1399,7 +1413,7 @@ class MainApp:
 				if instr.isSelected:
 					instrCount += 1
 		
-		self.importAudioMenuItem.set_sensitive(instrCount == 1)
+		self.addAudioMenuItem.set_sensitive(instrCount == 1)
 		self.changeInstrMenuItem.set_sensitive(instrCount == 1)
 		self.removeInstrMenuItem.set_sensitive(instrCount > 0)
 	
@@ -1569,7 +1583,7 @@ class MainApp:
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-		Utils.OpenExternalURL("http://www.jokosher.org/forums", _("<big>Couldn't launch the forums website automatically.</big>\n\nPlease visit %s to access them."), self.window)
+		Utils.OpenExternalURL(url="http://www.jokosher.org/forums", message=_("<big>Couldn't launch the forums website automatically.</big>\n\nPlease visit %s to access them."), parent=self.window)
 		
 	#_____________________________________________________________________
 
@@ -1618,7 +1632,7 @@ class MainApp:
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-		Utils.OpenExternalURL("http://www.jokosher.org/contribute", _("<big>Couldn't launch the contributing website automatically.</big>\n\nPlease visit %s to access it."), self.window)
+		Utils.OpenExternalURL(url="http://www.jokosher.org/contribute", message=_("<big>Couldn't launch the contributing website automatically.</big>\n\nPlease visit %s to access it."), parent=self.window)
 	
 	#_____________________________________________________________________
 	
@@ -1668,9 +1682,9 @@ class MainApp:
 	
 	#_____________________________________________________________________
 
-	def OnImportAudio(self, widget):
+	def OnAddAudio(self, widget):
 		"""
-		Imports an audio file into the selected Instrument.
+		Adds an audio file to the selected Instrument.
 		
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly.

@@ -226,7 +226,7 @@ class EventLaneViewer(gtk.EventBox):
 				audioimg = gtk.Image()
 				audioimg.set_from_pixbuf(self.mainview.audioFilePixbuf)
 			
-			items = [	(_("_Import Audio File..."), self.CreateEventFromFile, True, audioimg),
+			items = [	(_("_Add Audio File..."), self.CreateEventFromFile, True, audioimg),
 					("---", None, None, None),
 					(_("_Paste"), self.OnPaste, self.project.clipboardList, gtk.image_new_from_stock(gtk.STOCK_PASTE, gtk.ICON_SIZE_MENU)),
 					(_("_Delete"), self.OnDelete, True, gtk.image_new_from_stock(gtk.STOCK_DELETE, gtk.ICON_SIZE_MENU))
@@ -318,7 +318,7 @@ class EventLaneViewer(gtk.EventBox):
 		copyfile.set_active(True)
 		copyfile.show()
 
-		dlg = gtk.FileChooserDialog(_("Import file..."), action=gtk.FILE_CHOOSER_ACTION_OPEN, buttons=buttons)
+		dlg = gtk.FileChooserDialog(_("Add Audio File..."), action=gtk.FILE_CHOOSER_ACTION_OPEN, buttons=buttons)
 		dlg.set_current_folder(Globals.settings.general["projectfolder"])
 		dlg.set_extra_widget(copyfile)
 		
