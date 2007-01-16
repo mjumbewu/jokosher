@@ -7,7 +7,7 @@
 #	tarballs are built via: python setup.py sdist
 #
 #-------------------------------------------------------------------------------
-include AUTHORS COPYING COPYING-DOCS bin/jokosher.desktop
+include AUTHORS COPYING COPYING-DOCS bin/jokosher.desktop bin/jokosher.xml
 recursive-include Jokosher *.png *.glade *.gladep Jokosher
 recursive-include images *.png
 recursive-include Instruments *.instr *.png

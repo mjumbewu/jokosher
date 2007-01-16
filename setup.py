@@ -30,15 +30,15 @@ omfdir = None
 try:
 	process = Popen(args=["scrollkeeper-config", "--omfdir"], stdout=PIPE)
 except OSError:
-	pass
 	#Not available. Skip the registration.
+	pass
 else:
 	#Obtain the OMF repository directory to install and register the help files
 	#This step only makes sense if run as root
 	if os.geteuid() == 0:
 		omfdir = os.path.join(process.stdout.read().strip(), "jokosher")
 		OMFFILES.append((omfdir, glob.glob("help/jokosher/*.omf")))
-
+		
 dist = setup(name='jokosher',
 	version='0.9',
 	author='Jokosher Project',
@@ -54,38 +54,21 @@ dist = setup(name='jokosher',
 	scripts=['bin/jokosher'],
 	packages=['Jokosher'],
 	data_files=[
-		('share/jokosher/',
-		glob.glob("Jokosher/*.glade")
-		),
-		('share/jokosher/',
-		["Jokosher/jokosher-logo.png"]
-		),
-		('share/jokosher/Instruments',
-		glob.glob("Instruments/*.instr")
-		),
-		('share/jokosher/Instruments/images',
-		glob.glob('Instruments/images/*.png')
-		),
-		('share/icons/hicolor/48x48/apps',
-		['images/jokosher-icon.png']
-		),
-		('share/pixmaps',
-		['images/jokosher-icon.png']
-		),
-		('share/jokosher/pixmaps',
-		glob.glob("images/*.png")
-		),
-		('share/applications',
-		['bin/jokosher.desktop'],
-		),
-		('share/jokosher/extensions',
-		glob.glob("extensions/*.py") + glob.glob("extensions/*.egg") 
-		)
+		('share/jokosher/', glob.glob("Jokosher/*.glade")),
+		('share/jokosher/', ["Jokosher/jokosher-logo.png"]),
+		('share/jokosher/Instruments', glob.glob("Instruments/*.instr")),
+		('share/jokosher/Instruments/images', glob.glob('Instruments/images/*.png')),
+		('share/icons/hicolor/48x48/apps', ['images/jokosher-icon.png']),
+		('share/pixmaps', ['images/jokosher-icon.png']),
+		('share/jokosher/pixmaps', glob.glob("images/*.png")),
+		('share/applications', ['bin/jokosher.desktop']),
+		('share/mime/packages',	['bin/jokosher.xml']),
+		('share/jokosher/extensions', glob.glob("extensions/*.py") + glob.glob("extensions/*.egg"))
 		]+I18NFILES+HELPDOCS+HELPIMAGES+OMFFILES
 )
 
 #Update the real URL attribute inside the OMF files and then
-#register the docs with scrollkeeper
+#register the docs with scrollkeeper. Also update the mime types.
 if omfdir != None and os.geteuid() == 0 and dist != None:
 	#Non-documented way of getting the final directory prefix
 	installdir = dist.get_command_obj(command="install_data").install_dir
@@ -104,9 +87,10 @@ if omfdir != None and os.geteuid() == 0 and dist != None:
 		call(["sed", "-e", expression, filepath, "-i"])
 		i += 1
 		
-	#Update the scrollkeeper catalog
-	print "Updating the scrollkeeper index..."
+	#Update the scrollkeeper catalog and mime types
+	print "Updating the scrollkeeper index and mime types..."
 	call(["scrollkeeper-update", "-o", omfdir])
+	call(["update-mime-database", "/usr/share/mime/"])
 
 print "\nInstallation finished! You can now run Jokosher by typing 'jokosher' or through your applications menu icon."
 	
