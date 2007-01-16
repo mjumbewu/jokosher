@@ -90,7 +90,13 @@ if omfdir != None and os.geteuid() == 0 and dist != None:
 	#Update the scrollkeeper catalog and mime types
 	print "Updating the scrollkeeper index and mime types..."
 	call(["scrollkeeper-update", "-o", omfdir])
+
+
+if os.geteuid() == 0 and dist != None:
+	#update the mimetypes database
 	call(["update-mime-database", "/usr/share/mime/"])
+	#update the .desktop file database
+	call(["update-desktop-database"])
 
 print "\nInstallation finished! You can now run Jokosher by typing 'jokosher' or through your applications menu icon."
 	
