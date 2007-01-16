@@ -26,7 +26,7 @@ def GetAlsaList(type):
 				"capture"
 
 	Returns:
-		a list containing all the matching devices found.
+		a dictionary containing all the matching devices found.
 	"""
 	#Get HAL Manager
 	bus = dbus.SystemBus()
@@ -37,7 +37,7 @@ def GetAlsaList(type):
 	#Find all alsa devices of the requested type
 	devices = manager.FindDeviceStringMatch("alsa.type", type)
 	#Add the ALSA default card to the list
-	found["Default"] = "default"
+	found["default"] = "Default"
 	for device in devices:
 		#Iterate through all the ALSA devices found and insert them in to a dictionary
 		device_object = bus.get_object("org.freedesktop.Hal", device)
@@ -45,8 +45,8 @@ def GetAlsaList(type):
 		name = properties["alsa.device_id"]
 		cardnum = "hw:" + str(properties["alsa.card"]) #FIXME: This may cause problems with plughw devices
 		#Avoid duplicate entries
-		if cardnum not in found.values():
-			found[name] = cardnum
+		if cardnum not in found.items():
+			found[cardnum] = name
 		
 	return found
 

@@ -82,15 +82,15 @@ class InstrumentConnectionsDialog:
 		self.inputs = {}
 	
 		#Find out how many channels a device offers
-		for deviceName, device in AlsaDevices.GetAlsaList("capture").items():
+		for device, deviceName in AlsaDevices.GetAlsaList("capture").items():
 
 			#Don't want the default device twice (once as 'default' and once as its actual hw ref)
 			if device == "default":
 				continue
 
-			self.inputs[deviceName] = (device, AlsaDevices.GetChannelsOffered(device))
+			self.inputs[device] = (deviceName, AlsaDevices.GetChannelsOffered(device))
 		
-		for instr in self.project.instruments:			
+		for instr in self.project.instruments:		
 			instrument = instr
 			row = gtk.HBox()
 			row.set_spacing(10)
@@ -110,7 +110,7 @@ class InstrumentConnectionsDialog:
 			combobox.append_text(_("None"))
 			
 			currentItem = 1
-			for deviceName, (device, numInputs) in self.inputs.items():
+			for device, (deviceName, numInputs) in self.inputs.items():
 				for input in range(0, numInputs):
 					combobox.append_text("%s input %d"%(deviceName, input))
 					if instr.input == device and input == instr.inTrack:

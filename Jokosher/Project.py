@@ -250,7 +250,7 @@ class Project(Monitored):
 		#Add all instruments to the pipeline
 		self.recordingEvents = {}
 		devices = {}
-		for device in AlsaDevices.GetAlsaList("capture").values():
+		for device in AlsaDevices.GetAlsaList("capture").keys():
 			devices[device] = []
 			for instr in self.instruments:
 				if instr.isArmed and instr.input == device:
@@ -1191,7 +1191,7 @@ class Project(Monitored):
 				try:
 					# Select first output device as default to avoid a GStreamer bug which causes
 					# large amounts of latency with the ALSA 'default' device.
-					outdevice = AlsaDevices.GetAlsaList("playback").values()[1]
+					outdevice = AlsaDevices.GetAlsaList("playback").keys()[1]
 				except:
 					pass
 			Globals.debug("Output device: %s" % outdevice)

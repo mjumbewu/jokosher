@@ -80,9 +80,10 @@ class PreferencesDialog:
 			self.customSink.set_text(audioSinkSetting)
 			self.playbackDevice.set_sensitive(False)
 		
-		#Find all ALSA devices 
-		self.playbacks = AlsaDevices.GetAlsaList("playback")
-		for playback in self.playbacks:
+		#Find all ALSA devices
+		self.playbacks = [] #Map combobox entries to ALSA devices
+		for device, playback in AlsaDevices.GetAlsaList("playback").items():
+			self.playbacks.append(device)
 			self.playbackDevice.append_text(playback)
 		self.LoadSetting(self.playbackDevice, Globals.settings.playback, "device")
 			
@@ -200,7 +201,7 @@ class PreferencesDialog:
 		#only get the number from "44100 Hz", not the whole string
 		Globals.settings.recording["samplerate"] = self.samplingRate.get_active_text().split(" ")[0]
 		Globals.settings.playback["device"] = self.playbackDevice.get_active_text()
-		Globals.settings.playback["devicecardnum"] = self.playbacks[self.playbackDevice.get_active_text()]		
+		Globals.settings.playback["devicecardnum"] = self.playbacks[self.playbackDevice.get_active()]
 		
 		if self.radioWelcome.get_active():
 			Globals.settings.general["startupaction"] = STARTUP_WELCOME_DIALOG
