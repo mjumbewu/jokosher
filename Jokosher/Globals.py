@@ -17,22 +17,36 @@ import pygtk
 pygtk.require("2.0")
 import gobject, gtk
 
+import gettext
+_ = gettext.gettext
+
 class Settings:
 	"""
 	Handles loading/saving settings from/to a file on disk.
 	"""
 
 	# the different settings in each config block
-	general = {"mixdownformat": "value", 
+	general = 	{
+				"mixdownformat": "value", 
 				"recentprojects": "value", 
 				"startupaction" : "value",
-				"projectfolder" : "" }
-	recording = {"fileformat": "vorbisenc ! oggmux",
-				"samplerate": "44100"}
-	playback = {"device": "default",
+				"projectfolder" : ""
+				}
+	
+	recording = {
+				"fileformat": "vorbisenc ! oggmux",
+				"samplerate": "44100"
+				}
+	
+	playback = 	{
+				"device": "default",
 				"devicecardnum": "value",
-				"audiosink":"autoaudiosink"}
-	extensions = {"extensions_blacklist": ""}
+				"audiosink":"autoaudiosink"
+				}
+	
+	extensions = {
+				 "extensions_blacklist": ""
+				 }
 	
 	#_____________________________________________________________________
 	
@@ -106,16 +120,6 @@ class Settings:
 		file = open(self.filename, 'w')
 		self.config.write(file)
 		file.close()
-				
-		# make some other directories that we're going to need later
-		for d in ['extensions', 'instruments', 'instruments/images', 
-				'presets', 'presets/effects', 'presets/mixdown']:
-			new_dir = os.path.join(new_jokosher_file_dir, d)
-			if not os.path.isdir(new_dir): 
-				try:
-					os.makedirs(new_dir)
-				except:
-					raise "Failed to create user config directory %s" % new_dir
 		
 		#_____________________________________________________________________
 		
@@ -328,20 +332,29 @@ use paths relative to the current running directory instead of /usr ones.
 """
 data_path = os.getenv("JOKOSHER_DATA_PATH")
 if data_path:
-	EFFECT_PRESETS_PATH = os.path.join(data_path, "effectspresets")
 	INSTR_PATHS = (os.path.join(data_path, "Instruments"), os.path.expanduser("~/.jokosher/instruments"))
 	EXTENSION_PATHS = (os.path.join(data_path, "extensions"), os.path.expanduser("~/.jokosher/extensions/"))
 	GLADE_PATH = os.path.join(data_path, "Jokosher.glade")
 else:
 	data_path = os.path.dirname(os.path.abspath(__file__))
-	EFFECT_PRESETS_PATH = os.path.join(data_path, "..", "effectspresets")
 	INSTR_PATHS = (os.path.join(data_path, "..", "Instruments"), os.path.expanduser("~/.jokosher/instruments"))
 	EXTENSION_PATHS = (os.path.join(data_path, "..", "extensions"), os.path.expanduser("~/.jokosher/extensions/"))
 	GLADE_PATH = os.path.join(data_path, "Jokosher.glade")
 	LOCALE_PATH = os.path.join(data_path, "..", "locale")
 
-	if not os.path.exists(EFFECT_PRESETS_PATH):
-		os.mkdir(EFFECT_PRESETS_PATH)
+# create a couple dirs to avoid having problems creating a non-existing
+# directory inside another non-existing directory
+for directory in ['extensions', 'instruments', 'instruments/images', 
+		'presets', 'presets/effects', 'presets/mixdown']:
+	new_dir = os.path.join(os.path.expanduser("~/.jokosher/"), directory)
+	if not os.path.isdir(new_dir): 
+		try:
+			os.makedirs(new_dir)
+		except:
+			raise "Failed to create user config directory %s" % new_dir
+
+#TODO: make this a list with the system path and home directory path
+EFFECT_PRESETS_PATH = os.path.expanduser("~/.jokosher/presets/effects")
 
 IMAGE_PATH = os.getenv("JOKOSHER_IMAGE_PATH")
 if not IMAGE_PATH:
@@ -376,14 +389,209 @@ VERSION = None
 EFFECT_PRESETS_VERSION = None
 LADSPA_FACTORY_REGISTRY = None
 LADSPA_NAME_MAP = []
+							#TODO: FIX THE ICONS
+LADPSA_CATEGORIES_LIST = [
+						(_("Broken"), "effect_stock_volume-mute.png"),		#0 - this image is never used
+						(_("Unclassified"), "effect_unclassified.png"),	#1
+						(_("Delays"), "effect_delays.png"),				#2
+						(_("Equalizers"), "effect_equalizers.png"),		#3
+						(_("Modulators"), "effect_modulators.png"),		#4
+						(_("Filters"), "effect_filters.png"),				#5
+						(_("Distortion"), "effect_distortion.png"),		#6
+						(_("Simulators"), "effect_simulators.png"),		#7
+						(_("Miscellaneous"), "effect_miscellaneous.png"),	#8
+						(_("Chorus"), "effect_chorus.png"),				#9
+						(_("Phasers"), "effect_phasers.png"),				#10
+						(_("Flangers"), "effect_flangers.png"),			#11
+						(_("Oscillators"), "effect_oscillators.png"),		#12
+						(_("Compressors"), "effect_compressors.png"),		#13
+						(_("Amplifiers"), "effect_amplifiers.png")			#14
+						]
+LADSPA_CATEGORIES_DICT = {
+						"ladspa-SweepVFII" : 4,
+						"ladspa-SweepVFI" : 4,
+						"ladspa-PhaserII" : 10,
+						"ladspa-PhaserI" : 10,
+						"ladspa-ChorusII" : 9,
+						"ladspa-ChorusI" : 9,
+						"ladspa-Clip" : 14,
+						"ladspa-CabinetII" : 7,
+						"ladspa-CabinetI" : 7,
+						"ladspa-AmpV" : 7,
+						"ladspa-AmpIV" : 7,
+						"ladspa-AmpIII" : 7,
+						"ladspa-PreampIV" : 7,
+						"ladspa-PreampIII" : 7,
+						"ladspa-Compress" : 13,
+						"ladspa-Eq" : 3,
+						"ladspa-ssm-masher" : 0, #no sound
+						"ladspa-slew-limiter-rc" : 0, #no sound
+						"ladspa-slide-tc" : 0, #chirps then dies
+						"ladspa-signal-abs-cr" : 4,
+						"ladspa-vcf-hshelf" : 0, #erratic behavior.
+						"ladspa-vcf-lshelf" : 0, #erratic behavior
+						"ladspa-vcf-peakeq" : 5,
+						"ladspa-vcf-notch" : 5,
+						"ladspa-vcf-bp2" : 5,
+						"ladspa-vcf-bp1" : 0, #no sound
+						"ladspa-vcf-hp" : 5,
+						"ladspa-vcf-lp" : 5,
+						"ladspa-vcf-reslp" : 5,
+						"ladspa-range-trans-cr" : 14, #works, but the settings are impossible to use properly
+						"ladspa-hz-voct-ar" : 0, #no sound
+						"ladspa-Phaser1+LFO" : 10,
+						"ladspa-Chorus2" : 9, #so so
+						"ladspa-Chorus1" : 9, # so so
+						"ladspa-tap-vibrato" : 4,
+						"ladspa-tap-tubewarmth" : 5,
+						"ladspa-tap-tremolo" : 4,
+						"ladspa-tap-sigmoid" : 14,
+						"ladspa-tap-reflector" : 4,
+						"ladspa-tap-pitch" : 4,
+						"ladspa-tap-pinknoise" : 8,
+						"ladspa-tap-limiter" : 14,
+						"ladspa-tap-equalizer-bw" : 3,
+						"ladspa-tap-equalizer" : 3,
+						"ladspa-formant-vc" : 4,
+						"ladspa-tap-deesser" : 5,
+						"ladspa-tap-dynamics-m" : 5, #could be in another category
+						"ladspa-imp" : 5,
+						"ladspa-pitchScaleHQ" : 4, #crap
+						"ladspa-mbeq" : 3,
+						"ladspa-sc4m" : 5, #could be in another category
+						"ladspa-artificialLatency" : 8,
+						"ladspa-pitchScale" : 4, #crap
+						"ladspa-pointerCastDistortion" : 6, #crap
+						"ladspa-const" : 6, #could be in another category
+						"ladspa-lsFilter" : 5,
+						"ladspa-revdelay" : 2,
+						"ladspa-delay-c" : 0, #erratic behavior
+						"ladspa-delay-l" : 0, #no change in sound?
+						"ladspa-delay-n" : 0, #no change in sound?
+						"ladspa-decay" : 6, #controls make it unusable
+						"ladspa-comb-c" : 0, #erratic behavior
+						"ladspa-comb-l" : 0, #no change in sound?
+						"ladspa-comb-n" : 0, #no change in sound and static
+						"ladspa-allpass-c" : 0, #no change in sound?
+						"ladspa-allpass-l" : 0, #no change in sound?
+						"ladspa-allpass-n" : 0, #no change in sound?
+						"ladspa-butthigh-iir" : 5,
+						"ladspa-buttlow-iir" : 5,
+						"ladspa-dj-eq-mono" : 3,
+						"ladspa-notch-iir" : 5,
+						"ladspa-lowpass-iir" : 5,
+						"ladspa-highpass-iir" : 5,
+						"ladspa-bandpass-iir" : 5,
+						"ladspa-bandpass-a-iir" : 5,
+						"ladspa-gongBeater" : 4, #crap
+						"ladspa-djFlanger" : 11,
+						"ladspa-giantFlange" : 11,
+						"ladspa-amPitchshift" : 4,
+						"ladspa-chebstortion" : 6, #weak
+						"ladspa-inv" : 0, #no change in sound, no options either
+						"ladspa-zm1" : 0, #no change in sound, no options either
+						"ladspa-sc1" : 13, #could be in another category
+						"ladspa-gong" : 5,
+						"ladspa-freqTracker" : 0, #no sound
+						"ladspa-rateShifter" : 5,
+						"ladspa-fmOsc" : 0, #erratic behavior
+						"ladspa-smoothDecimate" : 5,
+						"ladspa-hardLimiter" : 14,
+						"ladspa-gate" : 5, #could be in another category
+						"ladspa-satanMaximiser" : 6,
+						"ladspa-alias" : 5, #could be in another category
+						"ladspa-valveRect" : 5,
+						"ladspa-crossoverDist" : 6, #crap
+						"ladspa-dysonCompress" : 13,
+						"ladspa-delayorama" : 2,
+						"ladspa-autoPhaser" : 10,
+						"ladspa-fourByFourPole" : 5,
+						"ladspa-lfoPhaser" : 10,
+						"ladspa-gsm" : 4,
+						"ladspa-svf" : 5,
+						"ladspa-foldover" : 6,
+						"ladspa-harmonicGen" : 4, #crap
+						"ladspa-sifter" : 4, #sounds like Distortion
+						"ladspa-valve" : 6, #weak
+						"ladspa-tapeDelay" : 2,
+						"ladspa-dcRemove" : 0, #no change in sound, no options either
+						"ladspa-fadDelay" : 2, #psychedelic stuff
+						"ladspa-transient" : 4,
+						"ladspa-triplePara" : 5,
+						"ladspa-singlePara" : 5,
+						"ladspa-retroFlange" : 11,
+						"ladspa-flanger" : 11,
+						"ladspa-decimator" : 5,
+						"ladspa-hermesFilter" : 5, #control needs to have 2 columns, doesn't fit screen
+						"ladspa-multivoiceChorus" : 9,
+						"ladspa-foverdrive" : 6,
+						"ladspa-declip" : 5, #couldn't properly test it since I had to clipping audio
+						"ladspa-comb" : 5,
+						"ladspa-ringmod-1i1o1l" : 4,
+						"ladspa-shaper" : 5,
+						"ladspa-divider" : 5,
+						"ladspa-diode" : 6,
+						"ladspa-amp" : 14,
+						"ladspa-Parametric1" : 5,
+						"ladspa-wshape-sine" : 0, #controls make it unusable
+						"ladspa-vcf303" : 5,
+						"ladspa-limit-rms" : 0, #controls make it unusable
+						"ladspa-limit-peak" : 0, #controls make it unusable
+						"ladspa-expand-rms" : 0, #controls make it unusable
+						"ladspa-expand-peak" : 0, #controls make it unusable
+						"ladspa-compress-rms" : 0, #controls make it unusable
+						"ladspa-compress-peak" : 0, #controls make it unusable
+						"ladspa-identity-audio" : 0, #no change in sound?
+						"ladspa-hard-gate" : 5,
+						"ladspa-grain-scatter" : 0, #no sound
+						"ladspa-fbdelay-60s" : 2,
+						"ladspa-fbdelay-5s" : 2,
+						"ladspa-fbdelay-1s" : 2,
+						"ladspa-fbdelay-0-1s" : 2,
+						"ladspa-fbdelay-0-01s" : 2,
+						"ladspa-delay-60s" : 2,
+						"ladspa-delay-1s" : 2,
+						"ladspa-delay-0-1s" : 2,
+						"ladspa-delay-0-01s" : 2,
+						"ladspa-disintegrator" : 5, #crap
+						"ladspa-triangle-fcsa-oa" : 12,
+						"ladspa-triangle-fasc-oa" : 0, #no sound
+						"ladspa-syncsquare-fcga-oa" : 12,
+						"ladspa-syncpulse-fcpcga-oa" : 12,
+						"ladspa-sum-iaic-oa" : 0, #controls make it unusable
+						"ladspa-square-fa-oa" : 12,
+						"ladspa-sinusWavewrapper" : 5,
+						"ladspa-ratio-ncda-oa" : 6,
+						"ladspa-ratio-nadc-oa" : 0, #no sound
+						"ladspa-random-fcsa-oa" : 12, #we GOTTA call this Atari or Arcade. It's the same sound!
+						"ladspa-random-fasc-oa" : 0, #no sound
+						"ladspa-sawtooth-fa-oa" : 12,
+						"ladspa-pulse-fcpa-oa" : 12,
+						"ladspa-pulse-fapc-oa" : 12,
+						"ladspa-product-iaic-oa" : 12,
+						"ladspa-lp4pole-fcrcia-oa" : 12, #controls suck
+						"ladspa-fmod-fcma-oa" : 5,
+						"ladspa-fmod-famc-oa" : 0, #controls make it unusable
+						"ladspa-amp-gcia-oa" : 0, #controls make it unusable
+						"ladspa-difference-icma-oa" : 14,
+						"ladspa-difference-iamc-oa" : 0, #no sound
+						"ladspa-sine-fcaa" : 12,
+						"ladspa-sine-faac" : 0, #no sound
+						"ladspa-hpf" : 5,
+						"ladspa-lpf" : 5,
+						"ladspa-adsr" : 0, #controls make it unusable, no sound
+						"ladspa-amp-mono" : 0, #controls make it unusable
+						"ladspa-delay-5s" : 2
+						}
 DEBUG_STDOUT, DEBUG_GST = (False, False)
 
 _export_template = ("description", "extension", "pipeline") 
-_export_formats = [	("Ogg Vorbis", "ogg", "vorbisenc ! oggmux"),
+_export_formats = 	[
+					("Ogg Vorbis", "ogg", "vorbisenc ! oggmux"),
 					("MP3", "mp3", "lame"),
 					("Flac", "flac", "flacenc"),
 					("WAV", "wav", "wavenc"),
-				]
+					]
 
 EXPORT_FORMATS = []
 

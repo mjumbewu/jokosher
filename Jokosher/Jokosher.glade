@@ -123,7 +123,7 @@
 		      <signal name="activate" handler="on_export_activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image325">
+			<widget class="GtkImage" id="image335">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-jump-to</property>
 			  <property name="icon_size">1</property>
@@ -176,7 +176,7 @@
 		      <accelerator key="Z" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image326">
+			<widget class="GtkImage" id="image336">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-undo</property>
 			  <property name="icon_size">1</property>
@@ -199,7 +199,7 @@
 		      <accelerator key="Z" modifiers="GDK_CONTROL_MASK | GDK_SHIFT_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image327">
+			<widget class="GtkImage" id="image337">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-redo</property>
 			  <property name="icon_size">1</property>
@@ -297,7 +297,7 @@
 		      <signal name="activate" handler="on_AddInstrument_clicked"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image328">
+			<widget class="GtkImage" id="image338">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-add</property>
 			  <property name="icon_size">1</property>
@@ -319,7 +319,7 @@
 		      <signal name="activate" handler="on_instrumentconnections_activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image329">
+			<widget class="GtkImage" id="image339">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-preferences</property>
 			  <property name="icon_size">1</property>
@@ -412,7 +412,7 @@
 		      <signal name="activate" handler="on_remove_instr_activate" last_modification_time="Tue, 26 Dec 2006 18:59:48 GMT"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image330">
+			<widget class="GtkImage" id="image340">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-remove</property>
 			  <property name="icon_size">1</property>
@@ -481,7 +481,7 @@
 		    <widget class="GtkMenuItem" id="report_bug">
 		      <property name="visible">True</property>
 		      <property name="tooltip" translatable="yes">Report a bug in Jokosher</property>
-		      <property name="label" translatable="yes">Report Bug...</property>
+		      <property name="label" translatable="yes">_Report Bug...</property>
 		      <property name="use_underline">True</property>
 		      <signal name="activate" handler="on_report_bug_activate" last_modification_time="Mon, 15 Jan 2007 01:25:52 GMT"/>
 		    </widget>
@@ -496,7 +496,7 @@
 		      <signal name="activate" handler="on_forums_activate" last_modification_time="Sat, 16 Dec 2006 07:53:08 GMT"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image331">
+			<widget class="GtkImage" id="image341">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-info</property>
 			  <property name="icon_size">1</property>
@@ -518,7 +518,7 @@
 		      <signal name="activate" handler="on_contributing_activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image332">
+			<widget class="GtkImage" id="image342">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-index</property>
 			  <property name="icon_size">1</property>
@@ -861,7 +861,7 @@
 <widget class="GtkAboutDialog" id="AboutDialog">
   <property name="visible">True</property>
   <property name="destroy_with_parent">True</property>
-  <property name="name" translatable="yes">version 0.2</property>
+  <property name="name" translatable="yes">version 0.9</property>
   <property name="comments" translatable="yes">Audio production made simple.</property>
   <property name="license">    GNU GENERAL PUBLIC LICENSE
 		       Version 2, June 1991
@@ -3351,7 +3351,7 @@ Custom</property>
 	      <child>
 		<widget class="GtkImage" id="image113">
 		  <property name="visible">True</property>
-		  <property name="stock">gtk-jump-to</property>
+		  <property name="stock">gtk-properties</property>
 		  <property name="icon_size">4</property>
 		  <property name="xalign">0.5</property>
 		  <property name="yalign">0.5</property>
@@ -3370,7 +3370,7 @@ Custom</property>
 	      <child>
 		<widget class="GtkImage" id="image112">
 		  <property name="visible">True</property>
-		  <property name="stock">gtk-missing-image</property>
+		  <property name="stock">gtk-about</property>
 		  <property name="icon_size">4</property>
 		  <property name="xalign">0.5</property>
 		  <property name="yalign">0.5</property>
@@ -3423,7 +3423,8 @@ Custom</property>
 </widget>
 
 <widget class="GtkWindow" id="InstrumentEffectsDialog">
-  <property name="width_request">650</property>
+  <property name="width_request">750</property>
+  <property name="height_request">500</property>
   <property name="visible">True</property>
   <property name="title" translatable="yes">Configure Instrument Effects</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
@@ -3447,12 +3448,13 @@ Custom</property>
 
       <child>
 	<widget class="GtkHButtonBox" id="buttonbox">
+	  <property name="border_width">12</property>
 	  <property name="visible">True</property>
 	  <property name="layout_style">GTK_BUTTONBOX_END</property>
-	  <property name="spacing">5</property>
+	  <property name="spacing">6</property>
 
 	  <child>
-	    <widget class="GtkButton" id="transportbutton">
+	    <widget class="GtkButton" id="buttonPlay">
 	      <property name="visible">True</property>
 	      <property name="tooltip" translatable="yes">Listen to these effects</property>
 	      <property name="can_default">True</property>
@@ -3461,12 +3463,12 @@ Custom</property>
 	      <property name="use_stock">True</property>
 	      <property name="relief">GTK_RELIEF_NORMAL</property>
 	      <property name="focus_on_click">True</property>
-	      <signal name="clicked" handler="on_transportbutton_clicked"/>
+	      <signal name="clicked" handler="on_buttonPlay_clicked" last_modification_time="Tue, 09 Jan 2007 23:21:43 GMT"/>
 	    </widget>
 	  </child>
 
 	  <child>
-	    <widget class="GtkButton" id="closebutton">
+	    <widget class="GtkButton" id="buttonClose">
 	      <property name="visible">True</property>
 	      <property name="tooltip" translatable="yes">Use these effects</property>
 	      <property name="can_default">True</property>
@@ -3475,8 +3477,437 @@ Custom</property>
 	      <property name="use_stock">True</property>
 	      <property name="relief">GTK_RELIEF_NORMAL</property>
 	      <property name="focus_on_click">True</property>
-	      <signal name="clicked" handler="on_close_clicked" last_modification_time="Fri, 05 Jan 2007 22:01:04 GMT"/>
+	      <signal name="clicked" handler="on_buttonClose_clicked" last_modification_time="Tue, 09 Jan 2007 23:21:50 GMT"/>
 	    </widget>
+	  </child>
+	</widget>
+	<packing>
+	  <property name="padding">0</property>
+	  <property name="expand">False</property>
+	  <property name="fill">True</property>
+	  <property name="pack_type">GTK_PACK_END</property>
+	</packing>
+      </child>
+
+      <child>
+	<widget class="GtkHBox" id="hboxPanes">
+	  <property name="visible">True</property>
+	  <property name="homogeneous">False</property>
+	  <property name="spacing">6</property>
+
+	  <child>
+	    <widget class="GtkFrame" id="frame8">
+	      <property name="visible">True</property>
+	      <property name="label_xalign">0</property>
+	      <property name="label_yalign">0.5</property>
+	      <property name="shadow_type">GTK_SHADOW_NONE</property>
+
+	      <child>
+		<widget class="GtkAlignment" id="alignment16">
+		  <property name="visible">True</property>
+		  <property name="xalign">0.5</property>
+		  <property name="yalign">0.5</property>
+		  <property name="xscale">1</property>
+		  <property name="yscale">1</property>
+		  <property name="top_padding">0</property>
+		  <property name="bottom_padding">0</property>
+		  <property name="left_padding">12</property>
+		  <property name="right_padding">0</property>
+
+		  <child>
+		    <widget class="GtkVBox" id="vbox22">
+		      <property name="visible">True</property>
+		      <property name="homogeneous">False</property>
+		      <property name="spacing">0</property>
+
+		      <child>
+			<widget class="GtkComboBox" id="comboCategories">
+			  <property name="visible">True</property>
+			  <property name="add_tearoffs">False</property>
+			  <property name="focus_on_click">True</property>
+			  <signal name="changed" handler="on_comboCategories_changed" last_modification_time="Tue, 09 Jan 2007 23:06:47 GMT"/>
+			</widget>
+			<packing>
+			  <property name="padding">6</property>
+			  <property name="expand">False</property>
+			  <property name="fill">True</property>
+			</packing>
+		      </child>
+
+		      <child>
+			<widget class="GtkScrolledWindow" id="scrolledwindow6">
+			  <property name="visible">True</property>
+			  <property name="can_focus">True</property>
+			  <property name="hscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
+			  <property name="vscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
+			  <property name="shadow_type">GTK_SHADOW_IN</property>
+			  <property name="window_placement">GTK_CORNER_TOP_LEFT</property>
+
+			  <child>
+			    <widget class="GtkTreeView" id="listEffects">
+			      <property name="visible">True</property>
+			      <property name="can_focus">True</property>
+			      <property name="headers_visible">True</property>
+			      <property name="rules_hint">False</property>
+			      <property name="reorderable">False</property>
+			      <property name="enable_search">True</property>
+			      <property name="fixed_height_mode">False</property>
+			      <property name="hover_selection">False</property>
+			      <property name="hover_expand">False</property>
+			      <signal name="cursor_changed" handler="on_listEffects_selected" last_modification_time="Tue, 09 Jan 2007 23:16:24 GMT"/>
+			      <signal name="row_activated" handler="on_listEffects_row_activated" last_modification_time="Sat, 13 Jan 2007 21:42:02 GMT"/>
+			    </widget>
+			  </child>
+			</widget>
+			<packing>
+			  <property name="padding">0</property>
+			  <property name="expand">True</property>
+			  <property name="fill">True</property>
+			</packing>
+		      </child>
+		    </widget>
+		  </child>
+		</widget>
+	      </child>
+
+	      <child>
+		<widget class="GtkLabel" id="labelEffects">
+		  <property name="visible">True</property>
+		  <property name="label" translatable="yes">&lt;b&gt;Effects&lt;/b&gt;</property>
+		  <property name="use_underline">False</property>
+		  <property name="use_markup">True</property>
+		  <property name="justify">GTK_JUSTIFY_LEFT</property>
+		  <property name="wrap">False</property>
+		  <property name="selectable">False</property>
+		  <property name="xalign">0.5</property>
+		  <property name="yalign">0.5</property>
+		  <property name="xpad">12</property>
+		  <property name="ypad">0</property>
+		  <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
+		  <property name="width_chars">-1</property>
+		  <property name="single_line_mode">False</property>
+		  <property name="angle">0</property>
+		</widget>
+		<packing>
+		  <property name="type">label_item</property>
+		</packing>
+	      </child>
+	    </widget>
+	    <packing>
+	      <property name="padding">0</property>
+	      <property name="expand">True</property>
+	      <property name="fill">True</property>
+	    </packing>
+	  </child>
+
+	  <child>
+	    <widget class="GtkVBox" id="vbox21">
+	      <property name="visible">True</property>
+	      <property name="homogeneous">False</property>
+	      <property name="spacing">0</property>
+
+	      <child>
+		<placeholder/>
+	      </child>
+
+	      <child>
+		<widget class="GtkButton" id="buttonEffectAdd">
+		  <property name="visible">True</property>
+		  <property name="can_focus">True</property>
+		  <property name="relief">GTK_RELIEF_NORMAL</property>
+		  <property name="focus_on_click">True</property>
+		  <signal name="clicked" handler="on_buttonEffectAdd_clicked" last_modification_time="Tue, 09 Jan 2007 23:21:07 GMT"/>
+
+		  <child>
+		    <widget class="GtkImage" id="image324">
+		      <property name="visible">True</property>
+		      <property name="stock">gtk-go-forward</property>
+		      <property name="icon_size">4</property>
+		      <property name="xalign">0.5</property>
+		      <property name="yalign">0.5</property>
+		      <property name="xpad">0</property>
+		      <property name="ypad">0</property>
+		    </widget>
+		  </child>
+		</widget>
+		<packing>
+		  <property name="padding">0</property>
+		  <property name="expand">True</property>
+		  <property name="fill">False</property>
+		</packing>
+	      </child>
+
+	      <child>
+		<placeholder/>
+	      </child>
+	    </widget>
+	    <packing>
+	      <property name="padding">0</property>
+	      <property name="expand">False</property>
+	      <property name="fill">True</property>
+	    </packing>
+	  </child>
+
+	  <child>
+	    <widget class="GtkFrame" id="frame9">
+	      <property name="visible">True</property>
+	      <property name="label_xalign">0</property>
+	      <property name="label_yalign">0.5</property>
+	      <property name="shadow_type">GTK_SHADOW_NONE</property>
+
+	      <child>
+		<widget class="GtkAlignment" id="alignment17">
+		  <property name="visible">True</property>
+		  <property name="xalign">0.5</property>
+		  <property name="yalign">0.5</property>
+		  <property name="xscale">1</property>
+		  <property name="yscale">1</property>
+		  <property name="top_padding">0</property>
+		  <property name="bottom_padding">0</property>
+		  <property name="left_padding">0</property>
+		  <property name="right_padding">12</property>
+
+		  <child>
+		    <widget class="GtkVBox" id="vbox23">
+		      <property name="visible">True</property>
+		      <property name="homogeneous">False</property>
+		      <property name="spacing">0</property>
+
+		      <child>
+			<widget class="GtkScrolledWindow" id="scrolledwindow7">
+			  <property name="visible">True</property>
+			  <property name="can_focus">True</property>
+			  <property name="hscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
+			  <property name="vscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
+			  <property name="shadow_type">GTK_SHADOW_IN</property>
+			  <property name="window_placement">GTK_CORNER_TOP_LEFT</property>
+
+			  <child>
+			    <widget class="GtkTreeView" id="listActiveEffects">
+			      <property name="visible">True</property>
+			      <property name="can_focus">True</property>
+			      <property name="headers_visible">True</property>
+			      <property name="rules_hint">False</property>
+			      <property name="reorderable">False</property>
+			      <property name="enable_search">True</property>
+			      <property name="fixed_height_mode">False</property>
+			      <property name="hover_selection">False</property>
+			      <property name="hover_expand">False</property>
+			      <signal name="cursor_changed" handler="on_listActiveEffects_selected" last_modification_time="Tue, 09 Jan 2007 23:19:33 GMT"/>
+			      <signal name="row_activated" handler="on_listActiveEffects_row_activated" last_modification_time="Sat, 13 Jan 2007 21:06:22 GMT"/>
+			    </widget>
+			  </child>
+			</widget>
+			<packing>
+			  <property name="padding">6</property>
+			  <property name="expand">True</property>
+			  <property name="fill">True</property>
+			</packing>
+		      </child>
+
+		      <child>
+			<widget class="GtkHBox" id="hbox25">
+			  <property name="visible">True</property>
+			  <property name="homogeneous">False</property>
+			  <property name="spacing">6</property>
+
+			  <child>
+			    <widget class="GtkLabel" id="label68">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes"></property>
+			      <property name="use_underline">False</property>
+			      <property name="use_markup">False</property>
+			      <property name="justify">GTK_JUSTIFY_LEFT</property>
+			      <property name="wrap">False</property>
+			      <property name="selectable">False</property>
+			      <property name="xalign">0.5</property>
+			      <property name="yalign">0.5</property>
+			      <property name="xpad">0</property>
+			      <property name="ypad">0</property>
+			      <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
+			      <property name="width_chars">-1</property>
+			      <property name="single_line_mode">False</property>
+			      <property name="angle">0</property>
+			    </widget>
+			    <packing>
+			      <property name="padding">0</property>
+			      <property name="expand">True</property>
+			      <property name="fill">False</property>
+			    </packing>
+			  </child>
+
+			  <child>
+			    <widget class="GtkButton" id="buttonEffectUp">
+			      <property name="visible">True</property>
+			      <property name="can_focus">True</property>
+			      <property name="relief">GTK_RELIEF_NORMAL</property>
+			      <property name="focus_on_click">True</property>
+			      <signal name="clicked" handler="on_buttonEffectUp_clicked" last_modification_time="Tue, 09 Jan 2007 23:21:12 GMT"/>
+
+			      <child>
+				<widget class="GtkImage" id="image325">
+				  <property name="visible">True</property>
+				  <property name="stock">gtk-go-up</property>
+				  <property name="icon_size">4</property>
+				  <property name="xalign">0.5</property>
+				  <property name="yalign">0.5</property>
+				  <property name="xpad">0</property>
+				  <property name="ypad">0</property>
+				</widget>
+			      </child>
+			    </widget>
+			    <packing>
+			      <property name="padding">0</property>
+			      <property name="expand">False</property>
+			      <property name="fill">False</property>
+			    </packing>
+			  </child>
+
+			  <child>
+			    <widget class="GtkButton" id="buttonEffectDown">
+			      <property name="visible">True</property>
+			      <property name="can_focus">True</property>
+			      <property name="relief">GTK_RELIEF_NORMAL</property>
+			      <property name="focus_on_click">True</property>
+			      <signal name="clicked" handler="on_buttonEffectDown_clicked" last_modification_time="Tue, 09 Jan 2007 23:21:17 GMT"/>
+
+			      <child>
+				<widget class="GtkImage" id="image326">
+				  <property name="visible">True</property>
+				  <property name="stock">gtk-go-down</property>
+				  <property name="icon_size">4</property>
+				  <property name="xalign">0.5</property>
+				  <property name="yalign">0.5</property>
+				  <property name="xpad">0</property>
+				  <property name="ypad">0</property>
+				</widget>
+			      </child>
+			    </widget>
+			    <packing>
+			      <property name="padding">0</property>
+			      <property name="expand">False</property>
+			      <property name="fill">False</property>
+			    </packing>
+			  </child>
+
+			  <child>
+			    <widget class="GtkButton" id="buttonEffectDelete">
+			      <property name="visible">True</property>
+			      <property name="can_focus">True</property>
+			      <property name="relief">GTK_RELIEF_NORMAL</property>
+			      <property name="focus_on_click">True</property>
+			      <signal name="clicked" handler="on_buttonEffectDelete_clicked" last_modification_time="Tue, 09 Jan 2007 23:21:21 GMT"/>
+
+			      <child>
+				<widget class="GtkImage" id="image327">
+				  <property name="visible">True</property>
+				  <property name="stock">gtk-delete</property>
+				  <property name="icon_size">4</property>
+				  <property name="xalign">0.5</property>
+				  <property name="yalign">0.5</property>
+				  <property name="xpad">0</property>
+				  <property name="ypad">0</property>
+				</widget>
+			      </child>
+			    </widget>
+			    <packing>
+			      <property name="padding">0</property>
+			      <property name="expand">False</property>
+			      <property name="fill">False</property>
+			    </packing>
+			  </child>
+
+			  <child>
+			    <widget class="GtkButton" id="buttonEffectSettings">
+			      <property name="visible">True</property>
+			      <property name="can_focus">True</property>
+			      <property name="relief">GTK_RELIEF_NORMAL</property>
+			      <property name="focus_on_click">True</property>
+			      <signal name="clicked" handler="on_buttonEffectSettings_clicked" last_modification_time="Tue, 09 Jan 2007 23:21:26 GMT"/>
+
+			      <child>
+				<widget class="GtkImage" id="image328">
+				  <property name="visible">True</property>
+				  <property name="stock">gtk-properties</property>
+				  <property name="icon_size">4</property>
+				  <property name="xalign">0.5</property>
+				  <property name="yalign">0.5</property>
+				  <property name="xpad">0</property>
+				  <property name="ypad">0</property>
+				</widget>
+			      </child>
+			    </widget>
+			    <packing>
+			      <property name="padding">0</property>
+			      <property name="expand">False</property>
+			      <property name="fill">False</property>
+			    </packing>
+			  </child>
+			</widget>
+			<packing>
+			  <property name="padding">0</property>
+			  <property name="expand">False</property>
+			  <property name="fill">True</property>
+			</packing>
+		      </child>
+		    </widget>
+		  </child>
+		</widget>
+	      </child>
+
+	      <child>
+		<widget class="GtkLabel" id="labelActiveEffects">
+		  <property name="visible">True</property>
+		  <property name="label" translatable="yes">&lt;b&gt;Active effects for: &lt;/b&gt;</property>
+		  <property name="use_underline">False</property>
+		  <property name="use_markup">True</property>
+		  <property name="justify">GTK_JUSTIFY_LEFT</property>
+		  <property name="wrap">False</property>
+		  <property name="selectable">False</property>
+		  <property name="xalign">0.5</property>
+		  <property name="yalign">0.5</property>
+		  <property name="xpad">0</property>
+		  <property name="ypad">0</property>
+		  <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
+		  <property name="width_chars">-1</property>
+		  <property name="single_line_mode">False</property>
+		  <property name="angle">0</property>
+		</widget>
+		<packing>
+		  <property name="type">label_item</property>
+		</packing>
+	      </child>
+	    </widget>
+	    <packing>
+	      <property name="padding">0</property>
+	      <property name="expand">True</property>
+	      <property name="fill">True</property>
+	    </packing>
+	  </child>
+	</widget>
+	<packing>
+	  <property name="padding">6</property>
+	  <property name="expand">True</property>
+	  <property name="fill">True</property>
+	  <property name="pack_type">GTK_PACK_END</property>
+	</packing>
+      </child>
+
+      <child>
+	<widget class="GtkHBox" id="hboxSeparator">
+	  <property name="visible">True</property>
+	  <property name="homogeneous">False</property>
+	  <property name="spacing">0</property>
+
+	  <child>
+	    <widget class="GtkHSeparator" id="hseparator1">
+	      <property name="visible">True</property>
+	    </widget>
+	    <packing>
+	      <property name="padding">5</property>
+	      <property name="expand">True</property>
+	      <property name="fill">True</property>
+	    </packing>
 	  </child>
 	</widget>
 	<packing>
@@ -3488,14 +3919,39 @@ Custom</property>
       </child>
 
       <child>
-	<widget class="GtkHBox" id="hbox11">
-	  <property name="border_width">10</property>
+	<widget class="GtkHBox" id="hboxPresets">
+	  <property name="border_width">12</property>
 	  <property name="visible">True</property>
 	  <property name="homogeneous">False</property>
-	  <property name="spacing">0</property>
+	  <property name="spacing">6</property>
 
 	  <child>
-	    <widget class="GtkImage" id="instrumentimage">
+	    <widget class="GtkLabel" id="labelPresets">
+	      <property name="visible">True</property>
+	      <property name="label" translatable="yes">&lt;b&gt;Presets for:&lt;/b&gt;</property>
+	      <property name="use_underline">False</property>
+	      <property name="use_markup">True</property>
+	      <property name="justify">GTK_JUSTIFY_LEFT</property>
+	      <property name="wrap">False</property>
+	      <property name="selectable">False</property>
+	      <property name="xalign">0.5</property>
+	      <property name="yalign">0.5</property>
+	      <property name="xpad">0</property>
+	      <property name="ypad">0</property>
+	      <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
+	      <property name="width_chars">-1</property>
+	      <property name="single_line_mode">False</property>
+	      <property name="angle">0</property>
+	    </widget>
+	    <packing>
+	      <property name="padding">0</property>
+	      <property name="expand">False</property>
+	      <property name="fill">False</property>
+	    </packing>
+	  </child>
+
+	  <child>
+	    <widget class="GtkImage" id="imageInstrument">
 	      <property name="visible">True</property>
 	      <property name="stock">gtk-missing-image</property>
 	      <property name="icon_size">4</property>
@@ -3505,20 +3961,46 @@ Custom</property>
 	      <property name="ypad">0</property>
 	    </widget>
 	    <packing>
-	      <property name="padding">5</property>
+	      <property name="padding">0</property>
 	      <property name="expand">False</property>
 	      <property name="fill">True</property>
 	    </packing>
 	  </child>
 
 	  <child>
-	    <widget class="GtkHBox" id="effectsbox">
+	    <widget class="GtkComboBoxEntry" id="comboPresets">
 	      <property name="visible">True</property>
-	      <property name="homogeneous">False</property>
-	      <property name="spacing">0</property>
+	      <property name="items" translatable="yes">Choose a chain effects preset.</property>
+	      <property name="add_tearoffs">False</property>
+	      <property name="has_frame">True</property>
+	      <property name="focus_on_click">True</property>
+	      <signal name="changed" handler="on_comboPresets_changed" last_modification_time="Sun, 14 Jan 2007 22:24:05 GMT"/>
+	    </widget>
+	    <packing>
+	      <property name="padding">0</property>
+	      <property name="expand">True</property>
+	      <property name="fill">True</property>
+	    </packing>
+	  </child>
+
+	  <child>
+	    <widget class="GtkButton" id="buttonPresetSave">
+	      <property name="visible">True</property>
+	      <property name="can_focus">True</property>
+	      <property name="relief">GTK_RELIEF_NORMAL</property>
+	      <property name="focus_on_click">True</property>
+	      <signal name="clicked" handler="on_buttonPresetSave_clicked" last_modification_time="Tue, 09 Jan 2007 23:09:50 GMT"/>
 
 	      <child>
-		<placeholder/>
+		<widget class="GtkImage" id="image322">
+		  <property name="visible">True</property>
+		  <property name="stock">gtk-save</property>
+		  <property name="icon_size">4</property>
+		  <property name="xalign">0.5</property>
+		  <property name="yalign">0.5</property>
+		  <property name="xpad">0</property>
+		  <property name="ypad">0</property>
+		</widget>
 	      </child>
 	    </widget>
 	    <packing>
@@ -3527,236 +4009,31 @@ Custom</property>
 	      <property name="fill">False</property>
 	    </packing>
 	  </child>
-	</widget>
-	<packing>
-	  <property name="padding">10</property>
-	  <property name="expand">True</property>
-	  <property name="fill">True</property>
-	  <property name="pack_type">GTK_PACK_END</property>
-	</packing>
-      </child>
-
-      <child>
-	<widget class="GtkHBox" id="hbox12">
-	  <property name="visible">True</property>
-	  <property name="homogeneous">False</property>
-	  <property name="spacing">0</property>
 
 	  <child>
-	    <widget class="GtkVBox" id="vbox17">
+	    <widget class="GtkButton" id="buttonPresetDelete">
 	      <property name="visible">True</property>
-	      <property name="homogeneous">False</property>
-	      <property name="spacing">0</property>
+	      <property name="can_focus">True</property>
+	      <property name="relief">GTK_RELIEF_NORMAL</property>
+	      <property name="focus_on_click">True</property>
+	      <signal name="clicked" handler="on_buttonPresetDelete_clicked" last_modification_time="Tue, 09 Jan 2007 23:09:55 GMT"/>
 
 	      <child>
-		<widget class="GtkLabel" id="label58">
+		<widget class="GtkImage" id="image323">
 		  <property name="visible">True</property>
-		  <property name="label" translatable="yes">Select an effect to add to the instrument</property>
-		  <property name="use_underline">False</property>
-		  <property name="use_markup">False</property>
-		  <property name="justify">GTK_JUSTIFY_LEFT</property>
-		  <property name="wrap">False</property>
-		  <property name="selectable">False</property>
+		  <property name="stock">gtk-delete</property>
+		  <property name="icon_size">4</property>
 		  <property name="xalign">0.5</property>
 		  <property name="yalign">0.5</property>
-		  <property name="xpad">5</property>
-		  <property name="ypad">5</property>
-		  <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
-		  <property name="width_chars">-1</property>
-		  <property name="single_line_mode">False</property>
-		  <property name="angle">0</property>
+		  <property name="xpad">0</property>
+		  <property name="ypad">0</property>
 		</widget>
-		<packing>
-		  <property name="padding">0</property>
-		  <property name="expand">False</property>
-		  <property name="fill">False</property>
-		</packing>
-	      </child>
-
-	      <child>
-		<widget class="GtkHBox" id="hbox13">
-		  <property name="visible">True</property>
-		  <property name="homogeneous">False</property>
-		  <property name="spacing">0</property>
-
-		  <child>
-		    <widget class="GtkImage" id="image118">
-		      <property name="visible">True</property>
-		      <property name="stock">gtk-go-up</property>
-		      <property name="icon_size">4</property>
-		      <property name="xalign">0.5</property>
-		      <property name="yalign">0.5</property>
-		      <property name="xpad">0</property>
-		      <property name="ypad">0</property>
-		    </widget>
-		    <packing>
-		      <property name="padding">5</property>
-		      <property name="expand">False</property>
-		      <property name="fill">True</property>
-		    </packing>
-		  </child>
-
-		  <child>
-		    <widget class="GtkComboBoxEntry" id="effectscombo">
-		      <property name="visible">True</property>
-		      <property name="items" translatable="yes">Select/search for an effect</property>
-		      <property name="add_tearoffs">False</property>
-		      <property name="has_frame">True</property>
-		      <property name="focus_on_click">True</property>
-		      <signal name="changed" handler="on_effectscombo_changed" last_modification_time="Mon, 04 Dec 2006 11:21:56 GMT"/>
-		    </widget>
-		    <packing>
-		      <property name="padding">0</property>
-		      <property name="expand">True</property>
-		      <property name="fill">True</property>
-		    </packing>
-		  </child>
-
-		  <child>
-		    <widget class="GtkButton" id="addbutton">
-		      <property name="visible">True</property>
-		      <property name="tooltip" translatable="yes">Add the selected effect</property>
-		      <property name="can_focus">True</property>
-		      <property name="label">gtk-add</property>
-		      <property name="use_stock">True</property>
-		      <property name="relief">GTK_RELIEF_NORMAL</property>
-		      <property name="focus_on_click">True</property>
-		      <signal name="clicked" handler="on_addbutton_clicked"/>
-		    </widget>
-		    <packing>
-		      <property name="padding">0</property>
-		      <property name="expand">False</property>
-		      <property name="fill">False</property>
-		    </packing>
-		  </child>
-		</widget>
-		<packing>
-		  <property name="padding">0</property>
-		  <property name="expand">True</property>
-		  <property name="fill">True</property>
-		</packing>
 	      </child>
 	    </widget>
 	    <packing>
-	      <property name="padding">5</property>
-	      <property name="expand">True</property>
-	      <property name="fill">True</property>
-	    </packing>
-	  </child>
-
-	  <child>
-	    <widget class="GtkVBox" id="vbox18">
-	      <property name="visible">True</property>
-	      <property name="homogeneous">False</property>
-	      <property name="spacing">0</property>
-
-	      <child>
-		<widget class="GtkLabel" id="label59">
-		  <property name="visible">True</property>
-		  <property name="label" translatable="yes">Presets</property>
-		  <property name="use_underline">False</property>
-		  <property name="use_markup">False</property>
-		  <property name="justify">GTK_JUSTIFY_LEFT</property>
-		  <property name="wrap">False</property>
-		  <property name="selectable">False</property>
-		  <property name="xalign">0.5</property>
-		  <property name="yalign">0.5</property>
-		  <property name="xpad">5</property>
-		  <property name="ypad">5</property>
-		  <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
-		  <property name="width_chars">-1</property>
-		  <property name="single_line_mode">False</property>
-		  <property name="angle">0</property>
-		</widget>
-		<packing>
-		  <property name="padding">0</property>
-		  <property name="expand">False</property>
-		  <property name="fill">False</property>
-		</packing>
-	      </child>
-
-	      <child>
-		<widget class="GtkHBox" id="hbox14">
-		  <property name="visible">True</property>
-		  <property name="homogeneous">False</property>
-		  <property name="spacing">0</property>
-
-		  <child>
-		    <widget class="GtkImage" id="image119">
-		      <property name="visible">True</property>
-		      <property name="stock">gtk-copy</property>
-		      <property name="icon_size">4</property>
-		      <property name="xalign">0.5</property>
-		      <property name="yalign">0.5</property>
-		      <property name="xpad">0</property>
-		      <property name="ypad">0</property>
-		    </widget>
-		    <packing>
-		      <property name="padding">5</property>
-		      <property name="expand">False</property>
-		      <property name="fill">True</property>
-		    </packing>
-		  </child>
-
-		  <child>
-		    <widget class="GtkComboBoxEntry" id="chainpresetcombo">
-		      <property name="visible">True</property>
-		      <property name="items"></property>
-		      <property name="add_tearoffs">False</property>
-		      <property name="has_frame">True</property>
-		      <property name="focus_on_click">True</property>
-		      <signal name="changed" handler="on_chainpresetcombo_changed"/>
-
-		      <child internal-child="entry">
-			<widget class="GtkEntry" id="comboboxentry-entry1">
-			  <property name="visible">True</property>
-			  <property name="tooltip" translatable="yes">Type the name of the preset</property>
-			  <property name="editable">True</property>
-			  <property name="visibility">True</property>
-			  <property name="max_length">0</property>
-			  <property name="text" translatable="yes"></property>
-			  <property name="has_frame">True</property>
-			  <property name="invisible_char">●</property>
-			  <property name="activates_default">False</property>
-			</widget>
-		      </child>
-		    </widget>
-		    <packing>
-		      <property name="padding">0</property>
-		      <property name="expand">True</property>
-		      <property name="fill">True</property>
-		    </packing>
-		  </child>
-
-		  <child>
-		    <widget class="GtkButton" id="chainpresetsave">
-		      <property name="visible">True</property>
-		      <property name="tooltip" translatable="yes">Save the current effects configuration</property>
-		      <property name="can_focus">True</property>
-		      <property name="label">gtk-save</property>
-		      <property name="use_stock">True</property>
-		      <property name="relief">GTK_RELIEF_NORMAL</property>
-		      <property name="focus_on_click">True</property>
-		      <signal name="clicked" handler="on_chainpresetsave_clicked"/>
-		    </widget>
-		    <packing>
-		      <property name="padding">0</property>
-		      <property name="expand">False</property>
-		      <property name="fill">False</property>
-		    </packing>
-		  </child>
-		</widget>
-		<packing>
-		  <property name="padding">0</property>
-		  <property name="expand">True</property>
-		  <property name="fill">True</property>
-		</packing>
-	      </child>
-	    </widget>
-	    <packing>
-	      <property name="padding">5</property>
+	      <property name="padding">0</property>
 	      <property name="expand">False</property>
-	      <property name="fill">True</property>
+	      <property name="fill">False</property>
 	    </packing>
 	  </child>
 	</widget>
@@ -3795,34 +4072,21 @@ Custom</property>
 
       <child>
 	<widget class="GtkHButtonBox" id="hbuttonbox6">
-	  <property name="border_width">5</property>
+	  <property name="border_width">12</property>
 	  <property name="visible">True</property>
 	  <property name="layout_style">GTK_BUTTONBOX_END</property>
-	  <property name="spacing">0</property>
+	  <property name="spacing">6</property>
 
 	  <child>
-	    <widget class="GtkButton" id="cancelbutton">
+	    <widget class="GtkButton" id="okButton">
 	      <property name="visible">True</property>
 	      <property name="can_default">True</property>
 	      <property name="can_focus">True</property>
-	      <property name="label">gtk-cancel</property>
+	      <property name="label">gtk-close</property>
 	      <property name="use_stock">True</property>
 	      <property name="relief">GTK_RELIEF_NORMAL</property>
 	      <property name="focus_on_click">True</property>
-	      <signal name="clicked" handler="on_cancelbutton_clicked"/>
-	    </widget>
-	  </child>
-
-	  <child>
-	    <widget class="GtkButton" id="okbutton">
-	      <property name="visible">True</property>
-	      <property name="can_default">True</property>
-	      <property name="can_focus">True</property>
-	      <property name="label">gtk-ok</property>
-	      <property name="use_stock">True</property>
-	      <property name="relief">GTK_RELIEF_NORMAL</property>
-	      <property name="focus_on_click">True</property>
-	      <signal name="clicked" handler="on_okbutton_clicked"/>
+	      <signal name="clicked" handler="on_closeButton_clicked" last_modification_time="Sat, 13 Jan 2007 20:53:05 GMT"/>
 	    </widget>
 	  </child>
 	</widget>
@@ -3835,7 +4099,8 @@ Custom</property>
       </child>
 
       <child>
-	<widget class="GtkTable" id="settingstable">
+	<widget class="GtkTable" id="settingsTable">
+	  <property name="border_width">12</property>
 	  <property name="visible">True</property>
 	  <property name="n_rows">1</property>
 	  <property name="n_columns">2</property>
@@ -3853,12 +4118,13 @@ Custom</property>
 
       <child>
 	<widget class="GtkHBox" id="hbox18">
+	  <property name="border_width">6</property>
 	  <property name="visible">True</property>
 	  <property name="homogeneous">False</property>
 	  <property name="spacing">0</property>
 
 	  <child>
-	    <widget class="GtkImage" id="image123">
+	    <widget class="GtkImage" id="presetIcon">
 	      <property name="visible">True</property>
 	      <property name="stock">gtk-copy</property>
 	      <property name="icon_size">4</property>
@@ -3868,53 +4134,77 @@ Custom</property>
 	      <property name="ypad">0</property>
 	    </widget>
 	    <packing>
-	      <property name="padding">5</property>
+	      <property name="padding">6</property>
 	      <property name="expand">False</property>
 	      <property name="fill">True</property>
 	    </packing>
 	  </child>
 
 	  <child>
-	    <widget class="GtkComboBoxEntry" id="presetcombo">
+	    <widget class="GtkComboBoxEntry" id="presetsCombo">
 	      <property name="visible">True</property>
-	      <property name="items"></property>
+	      <property name="items" translatable="yes">Choose an effect preset.</property>
 	      <property name="add_tearoffs">False</property>
 	      <property name="has_frame">True</property>
 	      <property name="focus_on_click">True</property>
-	      <signal name="changed" handler="on_presetcombo_changed"/>
-
-	      <child internal-child="entry">
-		<widget class="GtkEntry" id="comboboxentry-entry2">
-		  <property name="visible">True</property>
-		  <property name="editable">True</property>
-		  <property name="visibility">True</property>
-		  <property name="max_length">0</property>
-		  <property name="text" translatable="yes"></property>
-		  <property name="has_frame">True</property>
-		  <property name="invisible_char">●</property>
-		  <property name="activates_default">False</property>
-		</widget>
-	      </child>
+	      <signal name="changed" handler="on_presetsCombo_changed" last_modification_time="Wed, 03 Jan 2007 23:51:37 GMT"/>
 	    </widget>
 	    <packing>
-	      <property name="padding">0</property>
+	      <property name="padding">7</property>
 	      <property name="expand">True</property>
 	      <property name="fill">True</property>
 	    </packing>
 	  </child>
 
 	  <child>
-	    <widget class="GtkButton" id="savepresetbutton">
+	    <widget class="GtkButton" id="savePresetButton">
 	      <property name="visible">True</property>
 	      <property name="can_focus">True</property>
-	      <property name="label">gtk-save</property>
-	      <property name="use_stock">True</property>
 	      <property name="relief">GTK_RELIEF_NORMAL</property>
 	      <property name="focus_on_click">True</property>
-	      <signal name="clicked" handler="on_savepresetbutton_clicked"/>
+	      <signal name="clicked" handler="on_savePresetButton_clicked" last_modification_time="Wed, 03 Jan 2007 23:51:18 GMT"/>
+
+	      <child>
+		<widget class="GtkImage" id="image333">
+		  <property name="visible">True</property>
+		  <property name="stock">gtk-save</property>
+		  <property name="icon_size">4</property>
+		  <property name="xalign">0.5</property>
+		  <property name="yalign">0.5</property>
+		  <property name="xpad">0</property>
+		  <property name="ypad">0</property>
+		</widget>
+	      </child>
 	    </widget>
 	    <packing>
 	      <property name="padding">0</property>
+	      <property name="expand">False</property>
+	      <property name="fill">False</property>
+	    </packing>
+	  </child>
+
+	  <child>
+	    <widget class="GtkButton" id="deletePresetButton">
+	      <property name="visible">True</property>
+	      <property name="can_focus">True</property>
+	      <property name="relief">GTK_RELIEF_NORMAL</property>
+	      <property name="focus_on_click">True</property>
+	      <signal name="clicked" handler="on_deletePresetButton_clicked" last_modification_time="Mon, 15 Jan 2007 19:22:35 GMT"/>
+
+	      <child>
+		<widget class="GtkImage" id="image334">
+		  <property name="visible">True</property>
+		  <property name="stock">gtk-delete</property>
+		  <property name="icon_size">4</property>
+		  <property name="xalign">0.5</property>
+		  <property name="yalign">0.5</property>
+		  <property name="xpad">0</property>
+		  <property name="ypad">0</property>
+		</widget>
+	      </child>
+	    </widget>
+	    <packing>
+	      <property name="padding">6</property>
 	      <property name="expand">False</property>
 	      <property name="fill">False</property>
 	    </packing>
@@ -3929,25 +4219,11 @@ Custom</property>
       </child>
 
       <child>
-	<widget class="GtkLabel" id="effectlabel">
+	<widget class="GtkHSeparator" id="hseparator2">
 	  <property name="visible">True</property>
-	  <property name="label" translatable="yes"></property>
-	  <property name="use_underline">False</property>
-	  <property name="use_markup">False</property>
-	  <property name="justify">GTK_JUSTIFY_LEFT</property>
-	  <property name="wrap">False</property>
-	  <property name="selectable">False</property>
-	  <property name="xalign">0.5</property>
-	  <property name="yalign">0.5</property>
-	  <property name="xpad">0</property>
-	  <property name="ypad">0</property>
-	  <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
-	  <property name="width_chars">-1</property>
-	  <property name="single_line_mode">False</property>
-	  <property name="angle">0</property>
 	</widget>
 	<packing>
-	  <property name="padding">0</property>
+	  <property name="padding">6</property>
 	  <property name="expand">False</property>
 	  <property name="fill">False</property>
 	  <property name="pack_type">GTK_PACK_END</property>
@@ -3956,6 +4232,62 @@ Custom</property>
 
       <child>
 	<placeholder/>
+      </child>
+
+      <child>
+	<widget class="GtkHBox" id="hbox22">
+	  <property name="visible">True</property>
+	  <property name="homogeneous">False</property>
+	  <property name="spacing">0</property>
+
+	  <child>
+	    <widget class="GtkImage" id="effectImage">
+	      <property name="visible">True</property>
+	      <property name="stock">gtk-missing-image</property>
+	      <property name="icon_size">4</property>
+	      <property name="xalign">0.5</property>
+	      <property name="yalign">0.5</property>
+	      <property name="xpad">0</property>
+	      <property name="ypad">6</property>
+	    </widget>
+	    <packing>
+	      <property name="padding">12</property>
+	      <property name="expand">False</property>
+	      <property name="fill">True</property>
+	    </packing>
+	  </child>
+
+	  <child>
+	    <widget class="GtkLabel" id="effectLabel">
+	      <property name="visible">True</property>
+	      <property name="label" translatable="yes">&lt;b&gt;Effect Name&lt;/b&gt;</property>
+	      <property name="use_underline">False</property>
+	      <property name="use_markup">True</property>
+	      <property name="justify">GTK_JUSTIFY_LEFT</property>
+	      <property name="wrap">False</property>
+	      <property name="selectable">False</property>
+	      <property name="xalign">0.5</property>
+	      <property name="yalign">0.5</property>
+	      <property name="xpad">0</property>
+	      <property name="ypad">6</property>
+	      <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
+	      <property name="width_chars">-1</property>
+	      <property name="single_line_mode">False</property>
+	      <property name="angle">0</property>
+	    </widget>
+	    <packing>
+	      <property name="padding">0</property>
+	      <property name="expand">False</property>
+	      <property name="fill">False</property>
+	    </packing>
+	  </child>
+	</widget>
+	<packing>
+	  <property name="padding">0</property>
+	  <property name="expand">False</property>
+	  <property name="fill">True</property>
+	  <property name="pack_type">GTK_PACK_END</property>
+	</packing>
       </child>
     </widget>
   </child>

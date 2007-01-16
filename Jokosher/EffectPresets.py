@@ -71,7 +71,7 @@ class EffectPresets:
 		self.effecttype = effecttype
 	
 		if not Globals.EFFECT_PRESETS_PATH:
-			raise "No save path specified!"
+			raise "No preset save path specified!"
 		
 		doc = xml.Document()
 		head = doc.createElement("JokosherPreset")
@@ -96,7 +96,8 @@ class EffectPresets:
 		
 		StoreDictionaryToXML(doc, settingsblock, effectdict)
 		
-		file = open(Globals.EFFECT_PRESETS_PATH + "/" + label + ".jpreset", "w")
+		filename = "/%s.jpreset" % label
+		file = open(Globals.EFFECT_PRESETS_PATH + filename, "w")
 		file.write(doc.toprettyxml())
 		file.close()
 		
@@ -115,7 +116,7 @@ class EffectPresets:
 		self.effecttype = None
 		
 		if not Globals.EFFECT_PRESETS_PATH:
-			raise "No save path specified!"
+			raise "No effect chain preset save path specified!"
 		
 		doc = xml.Document()
 		head = doc.createElement("JokosherPreset")
@@ -157,7 +158,8 @@ class EffectPresets:
 			
 			StoreDictionaryToXML(doc, settingsblock, effect["settings"])
 		
-		presetfile = open(Globals.EFFECT_PRESETS_PATH + "/" + label + ".jpreset", "w")
+		filename = "/%s.jpreset" % label
+		presetfile = open(os.path.realpath(Globals.EFFECT_PRESETS_PATH + filename), "w")
 		presetfile.write(doc.toprettyxml())
 		presetfile.close()
 		
@@ -172,9 +174,11 @@ class EffectPresets:
 			presetname -- the name of the preset to be loaded.
 			
 		Returns:
-			a settings dictionary with the loaded settings for the effect.
+			a settings dictionary with the loaded settings for the effect or
+			False if the preset file doesn't exist.
 		"""
-		presetfile = Globals.EFFECT_PRESETS_PATH + "/" + presetname + ".jpreset"
+		filename = "/%s.jpreset" % presetname
+		presetfile = Globals.EFFECT_PRESETS_PATH + filename
 		Globals.debug(presetfile)
 
 		if not os.path.exists(presetfile):
@@ -216,7 +220,8 @@ class EffectPresets:
 		Returns:
 			a settings dictionary with the loaded settings for the effects.
 		"""
-		presetfile = Globals.EFFECT_PRESETS_PATH + "/" + presetname + ".jpreset"
+		filename = "/%s.jpreset" % presetname
+		presetfile = Globals.EFFECT_PRESETS_PATH + filename
 			
 		if not os.path.exists(presetfile):
 			Globals.debug("preset file does not exist")
@@ -264,8 +269,7 @@ class EffectPresets:
 				ischain = 1
 			except:
 				instrument = None
-			
-			
+					
 			for effect in doc.getElementsByTagName("Effect"):
 				paramtags = effect.getElementsByTagName("Parameters")[0]
 

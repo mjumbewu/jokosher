@@ -30,9 +30,9 @@ _ = gettext.gettext
 
 class InstrumentEffectsDialog:
 	"""
-	This class displays and implements the instrument effects dialog
+	This class displays and implements the Instrument effects dialog
 	box, which can be used to add, remove, and edit effects for an
-	instrument.
+	Instrument.
 	"""
 	
 	#_____________________________________________________________________	
@@ -41,13 +41,12 @@ class InstrumentEffectsDialog:
 		"""
 		This constructor enables a lot of variables, reads in the glade
 		file for the main dialog, and populates the effects and presets
-		combo boxes.
+		controls.
 		
 		Parameters:
-			instrument -- instrument whose effects are being modified.
+			instrument -- Instrument whose effects are being modified.
 			destroyCallback -- GTK callback. Called when this dialog gets destroyed.
 		"""
-		
 		# a reference to the instrument object
 		self.instrument = instrument
 		
@@ -57,100 +56,177 @@ class InstrumentEffectsDialog:
 		self.effectWidgets = []
 		
 		self.signals = {
-			"on_close_clicked" : self.OnClose,
-			"on_transportbutton_clicked" : self.OnTransport,
-			"on_effectscombo_changed" : self.OnSelectEffect,
-			"on_addbutton_clicked" : self.OnAddEffect,
-			"on_chainpresetsave_clicked" : self.OnSaveEffectChainPreset,
-			"on_chainpresetcombo_changed" : self.OnChainPresetChanged
+			"on_comboPresets_changed" : self.OnEffectChainPresetChanged,
+			"on_buttonPresetSave_clicked" : self.OnEffectChainPresetSave,
+			"on_buttonPresetDelete_clicked" : self.OnEffectChainPresetDelete,
+			
+			"on_comboCategories_changed" : self.OnCategoryChanged,
+			"on_listEffects_row_activated" : self.OnEffectActivated,
+			"on_listActiveEffects_row_activated" : self.OnActiveEffectActivated,
+			"on_buttonEffectAdd_clicked" : self.OnEffectAdd,
+			"on_buttonEffectUp_clicked" : self.OnEffectUp,
+			"on_buttonEffectDown_clicked" : self.OnEffectDown,
+			"on_buttonEffectDelete_clicked" : self.OnEffectDeleted,
+			"on_buttonEffectSettings_clicked" : self.OnEffectSettings,
+			
+			"on_buttonPlay_clicked" : self.OnPlay,
+			"on_buttonClose_clicked" : self.OnClose
 		}
 		
 		# auto connect the signals to the methods
 		self.res.signal_autoconnect(self.signals)
 
-		# grab some references to Glade items
+		# grab references to some Glade items
 		self.window = self.res.get_widget("InstrumentEffectsDialog")
 		self.mainvbox = self.res.get_widget("InstrumentEffectsDialogVBox")
-		self.effectscombo = self.res.get_widget("effectscombo")
-		self.effectsbox = self.res.get_widget("effectsbox")
-		self.addeffect = self.res.get_widget("addbutton")
-		self.instrumentimage = self.res.get_widget("instrumentimage")
-		self.chainpresetcombo = self.res.get_widget("chainpresetcombo")
-		self.chainsave = self.res.get_widget("chainpresetsave")
-		self.transportbutton = self.res.get_widget("transportbutton")
+		
+		self.imageInstrument = self.res.get_widget("imageInstrument")
+		self.comboPresets = self.res.get_widget("comboPresets")
+		self.buttonPresetSave = self.res.get_widget("buttonPresetSave")
+		self.buttonPresetDelete = self.res.get_widget("buttonPresetDelete")
+		
+		self.comboCategories = self.res.get_widget("comboCategories")
+		self.listEffects = self.res.get_widget("listEffects")
+		self.buttonEffectAdd = self.res.get_widget("buttonEffectAdd")
+		self.labelActiveEffects = self.res.get_widget("labelActiveEffects")
+		self.listActiveEffects = self.res.get_widget("listActiveEffects")
+		self.buttonEffectUp = self.res.get_widget("buttonEffectUp")
+		self.buttonEffectDown = self.res.get_widget("buttonEffectDown")
+		self.buttonEffectDelete = self.res.get_widget("buttonEffectDelete")
+		self.buttonEffectSettings = self.res.get_widget("buttonEffectSettings")
 
+		self.buttonPlay = self.res.get_widget("buttonPlay")
+		self.buttonClose = self.res.get_widget("buttonClose")
+
+		#TODO: Reenable this buttons
+		self.buttonEffectUp.set_sensitive(False)
+		self.buttonEffectDown.set_sensitive(False)
+		self.buttonPresetDelete.set_sensitive(False)
+
+		# connect the destroy signal, and set single selection for the list views
 		self.window.connect("destroy", destroyCallback)
-		self.addeffect.set_sensitive(False)
+		self.listEffects.get_selection().set_mode(gtk.SELECTION_SINGLE)
+		self.listActiveEffects.get_selection().set_mode(gtk.SELECTION_SINGLE)
 
+		# create and pack the header image
 		self.headerCairoImage = CairoDialogHeaderImage(_("Instrument Effects"))
 		self.headerCairoImage.set_size_request(self.window.allocation.width, 60)
 		self.mainvbox.pack_start(self.headerCairoImage, False, False)
 		self.headerCairoImage.show()
 		
-		# pick the gtk.Entry out of the effectscombo and
-		# add a gtk.EntryCompletion to it
-		self.effectsEntry = self.effectscombo.child
-		self.effectsEntryCompletion = gtk.EntryCompletion()
-		self.effectsEntryCompletion.set_match_func(self.matchEffect)
-		self.effectsEntry.set_completion(self.effectsEntryCompletion)
-		self.effectsEntryCompletion.set_text_column(0)
-		self.effectsEntryCompletion.connect("match-selected", self.OnEntrySelected)
+		# set the instrument name and image from self.instrument
+		self.imageInstrument.set_from_pixbuf(self.instrument.pixbuf.scale_simple(32, 32, gtk.gdk.INTERP_BILINEAR))
+		self.labelActiveEffects.set_label(self.labelActiveEffects.get_label()+self.instrument.name)
 		
-		
-		# set the instrumentimage to the self.instrument icon
-		self.instrumentimage.set_from_pixbuf(self.instrument.pixbuf)
-		
-		# set the model for the effects combo to a ListStore
-		self.model = gtk.ListStore(str)
-		self.effectscombo.set_model(self.model)
+		# create the appropriate models
+		self.modelCategories = gtk.ListStore(gtk.gdk.Pixbuf, str) #image, category
+		self.modelPresets = gtk.ListStore(str) #name
+		self.modelEffects = gtk.ListStore(gtk.gdk.Pixbuf, str, str, str, bool) #image, shortname, longname, category, listed
+		self.modelActiveEffects = gtk.ListStore(gtk.gdk.Pixbuf, str, str, int) #image, shortname, longname, uniqueID
 
-		for item in Globals.LADSPA_NAME_MAP:
-			Globals.debug(item[1])
-			longname = item[1]
-			shortname = longname[:30]
+		# create a model filter for the effects model, and set it's visible column
+		self.filterEffects = self.modelEffects.filter_new()
+		self.filterEffects.set_visible_column(4)
+
+		# set the models for each widget accordingly
+		self.comboCategories.set_model(self.modelCategories)
+		self.comboPresets.set_model(self.modelPresets)
+		self.listEffects.set_model(self.filterEffects)
+		self.listActiveEffects.set_model(self.modelActiveEffects)
+		
+		# create the columns with their respective renderers and add them	
+		self.listEffects.append_column(gtk.TreeViewColumn(_("Name"), gtk.CellRendererText(), text=2))
+		self.listActiveEffects.append_column(gtk.TreeViewColumn(_("Type"), gtk.CellRendererPixbuf(), pixbuf=0))
+		self.listActiveEffects.append_column(gtk.TreeViewColumn(_("Name"), gtk.CellRendererText(), text=2))
+		
+		# effects combo
+		pixRenderer = gtk.CellRendererPixbuf()
+		pixRenderer.set_property("xpad", 6)
+		pixRenderer.set_property("ypad", 3)
+		textRenderer = gtk.CellRendererText()
+		self.comboCategories.clear()					# all combos by default have one textRenderer. Remove it
+														# before adding the pixRenderer.
+		self.comboCategories.pack_start(pixRenderer, expand=False)
+		self.comboCategories.pack_start(textRenderer)
+		self.comboCategories.add_attribute(pixRenderer, "pixbuf", 0)
+		self.comboCategories.add_attribute(textRenderer, "text", 1)
+		
+		# presets combo
+		self.comboPresets.clear()
+		textRenderer = gtk.CellRendererText()
+		self.comboPresets.pack_start(textRenderer)
+		self.comboPresets.add_attribute(textRenderer, "text", 0)
+		
+		# create a copy of the categories list to avoid errors in the for's
+		categories = Globals.LADPSA_CATEGORIES_LIST
+		
+		# load all available effects into modelEffects
+		for effect in Globals.LADSPA_NAME_MAP:
+			newEffect = [None, None, None, None, None]
+
+			try:
+				imageFile = categories[Globals.LADSPA_CATEGORIES_DICT[effect[0]]][1]	# image path
+				category = categories[Globals.LADSPA_CATEGORIES_DICT[effect[0]]][0]
+			except KeyError:	# unclassified
+				imageFile = categories[1][1]
+				category = categories[1][0]
+				
+				#TODO: Remove this print
+				print "Unclassified effect: %s" % (effect[0])
+				
+			newEffect[0] = gtk.gdk.pixbuf_new_from_file(os.path.join(Globals.IMAGE_PATH, imageFile)) # image
+			newEffect[1] = effect[0]	# short name
+			newEffect[2] = effect[1]	# long name
+			newEffect[3] = category
+			newEffect[4] = False		# listed in the left effects pane
 			
-			if len(longname) > 30:
-				shortname = shortname + "..."
-			
-			self.effectscombo.append_text(shortname)
+			self.modelEffects.append(newEffect)
+		
+		# create a list with available presets
+		self.presets = EffectPresets.EffectPresets()		
 
-		# make the EntryCompletion use the same list for its model
-		self.effectsEntryCompletion.set_model(self.model)
-		self.presets = EffectPresets.EffectPresets()
-
-		# set up presets
-						
-		self.model = gtk.ListStore(str)
-		self.chainpresetcombo.set_model(self.model)
-
-		# appends presets for this instrument
-		# if it is on the system (in LADSPA_FACTORY_REGISTRY). It then adds the
-		# presets to the chain presets combo box.
+		# append the presets for this Instrument type if it is on the system 
+		# (in LADSPA_FACTORY_REGISTRY). It then adds the presets to the presets 
+		# combo box.
 		self.availpresets = []
 		for key, value in self.presets.effectpresetregistry.iteritems():
-			if value['instrument'] == self.instrument.instrType and \
-					value['dependencies'].issubset(Globals.LADSPA_FACTORY_REGISTRY):
-				self.availpresets.append(key)
+			#print "key: %s, value: %s" % (key, value)
+			#print self.instrument.instrType
+			#print value['instrument']
+			try:
+				if value['instrument'] == self.instrument.instrType and \
+						value['dependencies'].issubset(Globals.LADSPA_FACTORY_REGISTRY):
+					self.availpresets.append(key)
+			except KeyError:
+				# non-existant key
+				pass
 		
 		for pres in self.availpresets:
-			self.chainpresetcombo.append_text(pres)
-			
+			self.modelPresets.append([pres])
+		
+		# append the categories and their image to the categories combo box
+		for category in range(len(categories)):
+			# skip the Broken category
+			if category != 0:
+				imageFile = categories[category][1]
+				icon = gtk.gdk.pixbuf_new_from_file(os.path.join(Globals.IMAGE_PATH, imageFile))
+				self.modelCategories.append([icon, categories[category][0]])
+		
 		# this says if the project is playing, so we know to toggle the
-		# transport button in the dialog	
-
+		# play button in the dialog	
 		self.isPlaying = self.instrument.project.GetIsPlaying()
 
 		if self.isPlaying:
-			self.transportbutton.set_use_stock(True)
-			self.transportbutton.set_label(gtk.STOCK_MEDIA_STOP)
+			self.buttonPlay.set_use_stock(True)
+			self.buttonPlay.set_label(gtk.STOCK_MEDIA_STOP)
 
-
+		# listen to the Project and Instrument changes
 		self.instrument.project.AddListener(self)
 		self.instrument.AddListener(self)
 
 		self.updatinggui = True
 		if self.instrument.currentchainpreset is not None:
-			self.chainpresetcombo.set_active(self.instrument.currentchainpreset)
+			self.comboPresets.set_active(self.instrument.currentchainpreset)
 		self.updatinggui = False
 			
 		self.Update()
@@ -159,33 +235,38 @@ class InstrumentEffectsDialog:
 	
 	def Update(self):
 		"""
-		Refreshes the EffectWidgets inside the InstrumentEffectsDialog
-		when they're added or removed.
+		Refreshes the effects inside the modelActiveEffects when they are
+		added, removed or shuffled.
 		"""
 		if self.Updating:
 			return
 		self.Updating = True
 		
-		for effect in self.effectsbox.get_children():
-			self.effectsbox.remove(effect)
+		# create a copy of the categories list to avoid errors in the for
+		categories = Globals.LADPSA_CATEGORIES_LIST
 		
+		# clear the active effects list
+		self.modelActiveEffects.clear()
+		
+		# append all the active effects to the modelActiveEffects
 		for effect in self.instrument.effects:
-			effwidget = None
-			for widget in self.effectWidgets:
-				if widget.effect is effect:
-					effwidget = widget
-					break
+			shortName =  effect.get_factory().get_name()
+			longName = effect.get_factory().get_longname()	
+			activeEffect = [None, None, None, None]
 			
-			if not effwidget:
-				effectname =  effect.get_factory().get_longname()
-				effwidget = EffectWidget(effect, effectname)
-				effwidget.connect("remove", self.OnRemoveEffect, effect)
-				effwidget.connect("clicked", self.OnEffectSetting, effect)
-				self.effectWidgets.append(effwidget)
+			#TODO: make sure this is a chokepoint (add and remove are done. Need move up/down)
 			
-			self.effectsbox.pack_start(effwidget, True)
-		
-		self.effectsbox.show_all()
+			try:
+				imageFile = categories[Globals.LADSPA_CATEGORIES_DICT[shortName]][1]	# image path
+			except KeyError:
+				imageFile = categories[1][1]	# unclassified
+				
+			activeEffect[0] = gtk.gdk.pixbuf_new_from_file(os.path.join(Globals.IMAGE_PATH, imageFile))
+			activeEffect[1] = shortName
+			activeEffect[2] = longName
+			activeEffect[3] = len(self.modelActiveEffects)
+			
+			self.modelActiveEffects.append(activeEffect)
 		
 		self.Updating = False
 		
@@ -204,7 +285,7 @@ class InstrumentEffectsDialog:
 		
 	#_____________________________________________________________________	
 
-	def OnTransport(self, button):
+	def OnPlay(self, button):
 		"""
 		Pressing the Play/Stop button on the dialog box allows the user
 		to play back the project to test if the effect settings are
@@ -224,7 +305,7 @@ class InstrumentEffectsDialog:
 			self.isPlaying = False
 
 	#_____________________________________________________________________
-
+	
 	def OnStateChanged(self, obj, change=None, *extra):
 		"""
 		Called when a change of state is signalled by any of the
@@ -243,99 +324,189 @@ class InstrumentEffectsDialog:
 		elif change == "play":
 			# things to do if the project is not already playing, and hence
 			# needs to start playing
-			self.transportbutton.set_use_stock(True)
-			self.transportbutton.set_label(gtk.STOCK_MEDIA_STOP)
+			self.buttonPlay.set_use_stock(True)
+			self.buttonPlay.set_label(gtk.STOCK_MEDIA_STOP)
 			
 			# set this to True to show we are now playing
 			self.isPlaying = True
 
 		elif change =="stop":
 			# things to do when the stop button is pressed to stop playback
-			self.transportbutton.set_use_stock(True)
-			self.transportbutton.set_label(gtk.STOCK_MEDIA_PLAY)
+			self.buttonPlay.set_use_stock(True)
+			self.buttonPlay.set_label(gtk.STOCK_MEDIA_PLAY)
 			
 			# set this to False to show we are no longer playing
 			self.isPlaying = False
 					
-
-	#_____________________________________________________________________	
-
-	def OnSelectEffect(self, combo):
+	#_____________________________________________________________________
+	
+	def OnCategoryChanged(self, combo):
 		"""
-		Callback for when an effect is selected from the effects list.
+		Updates the list of available effects depending on the category chosen.
 		
 		Parameters:
 			combo -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-		self.addeffect.set_sensitive(True)
-		
-	#_____________________________________________________________________	
-
-	def OnAddEffect(self, widget):
+		# display all the correspondent effects in the effects list
+		for effect in self.modelEffects:
+			if effect[3] == self.modelCategories[combo.get_active()][1]:	#match the category
+				effect[4] = True	#display the effect
+			else:
+				effect[4] = False	#hide the effect
+	
+	#_____________________________________________________________________
+	
+	def OnEffectActivated(self, treeview, path, view_column):
 		"""
-		Get the name of the currently selected effect
-		and add it to the instrument.
+		Adds the double clicked effect from the left effects pane to the Instrument.
 		
 		Parameters:
-			widget -- reserved for GTK callbacks, don't use it explicitly.
+			treeview -- treeview that fired this event.
+			path -- path to the activated row. Format: (index,)
+			view_column -- the column in the activated row.
 		"""
-		effectindex = self.effectscombo.get_active()	
-		# quit if there is no active selection
-		if effectindex == -1:
-			return
-		
-		# check the actively selected name  matches the 
-		# value in the gtk.Entry if it doesn't then a search was
-		# probably abandoned without selecting so ignore this
-		if self.effectscombo.get_model()[effectindex][0] != self.effectsEntry.get_text():
-			return
-		
-		name = Globals.LADSPA_NAME_MAP[effectindex][0]
-		self.instrument.AddEffect(name)
+		self.OnEffectAdd()
 		
 	#_____________________________________________________________________
 	
-	def OnRemoveEffect(self, widget, effect):
+	def OnActiveEffectActivated(self, treeview, path, view_column):
 		"""
-		Remove an effect from the instrument.
+		Displays the settings for the double clicked effect from the active effects
+		pane.
+		
+		Parameters:
+			treeview -- treeview that fired this event.
+			path -- path to the activated row. Format: (index,)
+			view_column -- the column in the activated row.
+		"""
+		self.OnEffectSettings()
+	
+	#_____________________________________________________________________
+	
+	def OnEffectAdd(self, widget=None):
+		"""
+		Adds the currently selected effect to the Instrument.
 		
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
-			effect -- effect instance to be removed from the instrument.
 		"""
+		selection = self.listEffects.get_selection().get_selected()
+		
+		# return if there is no active selection
+		if not selection[1]:
+			return
+
+		self.instrument.AddEffect(self.filterEffects[selection[1]][1])
+		
+	#_____________________________________________________________________
+
+	def OnEffectUp(self, button):
+		"""
+		Moves the selected effect one position up on the list.
+		
+		Parameters:
+			button -- reserved for GTK callbacks, don't use it explicitly.
+		"""
+		selection = self.listActiveEffects.get_selection().get_selected()
+		
+		#TODO: THIS CODE SHOULD NOT BE NECESSARY WHEN MOVEUP IS IMPLEMENTED
+		
+		# return if there is no active selection or it's the first element
+		if not selection[1] or self.modelActiveEffects[selection[1]].path == (0,):
+			return
+		
+		for effect in self.modelActiveEffects:
+			if effect.next[3] == self.modelActiveEffects[selection[1]][3]:		#match ID's
+				self.modelActiveEffects.swap(self.modelActiveEffects.get_iter(effect.path),
+											 selection[1])
+				break
+		
+		#TODO: change the real effect order
+	
+	#_____________________________________________________________________
+	
+	def OnEffectDown(self, button):
+		"""
+		Moves the selected effect one position down on the list.
+		
+		Parameters:
+			button -- reserved for GTK callbacks, don't use it explicitly.
+		"""
+		selection = self.listActiveEffects.get_selection().get_selected()
+		
+		#TODO: THIS CODE SHOULD NOT BE NECESSARY WHEN MOVEDOWN IS IMPLEMENTED
+		
+		# return if there is no active selection or it's the last element
+		if not selection[1] or self.modelActiveEffects[selection[1]].next == None:
+			return
+		
+		nextRow = self.modelActiveEffects[selection[1]].next
+		self.modelActiveEffects.swap(self.modelActiveEffects.get_iter(nextRow.path),
+									 selection[1])
+		
+		#TODO: change the real effect order
+		
+	#_____________________________________________________________________
+	
+	def OnEffectDeleted(self, widget):
+		"""
+		Removes the currently selected effect from the Instrument.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+		"""
+		selection = self.listActiveEffects.get_selection().get_selected()
+		
+		# return if there is no active selection
+		if not selection[1]:
+			return
+		
+		# grab references to the effect position in the table and the
+		# effect element itself, to then delete it
+		effectPos = self.modelActiveEffects[selection[1]].path[0]
+		effect = self.instrument.effects[effectPos]
+		
 		self.instrument.RemoveEffect(effect)
 		
 	#_____________________________________________________________________
-		
-	def OnEffectSetting(self, button, effect):
+	
+	def OnEffectSettings(self, button=None):
 		"""
 		Show a dialog filled with settings sliders for a specific effect
 		
 		Parameters:
 			button -- reserved for GTK callbacks, don't use it explicitly.
-			effect -- effect to be configured.
 		"""
+		# TODO: Make this modal or as part of the effects window
+		selection = self.listActiveEffects.get_selection().get_selected()
 		
-		# TODO: Make this modal or as part of the effects window"""
-
-		# grab references the effect position in the table and the
+		# return if there is no active selection
+		if not selection[1]:
+			return
+		
+		# grab references to the effect position in the table and the
 		# effect element itself
-		self.effectpos = self.effectsbox.child_get_property(button, "position")
+		self.effectpos = self.modelActiveEffects[selection[1]].path[0]
 		self.effectelement = self.instrument.effects[self.effectpos]
 		
 		# this variable is used to slash the values for the different sliders
 		self.sliderdict = {}
 		
+		# Threshold value to determine if a property is buggy
+		self.propertyThreshold = 1000000
+		
+		# Min/Max value assigned to buggy properties
+		self.fixValue = 15.0
+		
 		# set the index of the current edited effect - used to reference the
 		# effect elsewhere
-						
 		self.settWin = gtk.glade.XML(Globals.GLADE_PATH, "EffectSettingsDialog")
 
 		settsignals = {
-			"on_cancelbutton_clicked" : self.OnEffectSettingCancel,
-			"on_okbutton_clicked" : self.OnEffectSettingOK,
-			"on_savepresetbutton_clicked" : self.OnSaveSingleEffectPreset,
-			"on_presetcombo_changed" : self.OnEffectPresetChanged
+			"on_presetsCombo_changed" : self.OnSingleEffectPresetChanged,
+			"on_savePresetButton_clicked" : self.OnSingleEffectPresetSave,
+			"on_deletePresetButton_clicked" : self.OnSingleEffectPresetDelete,
+			"on_closeButton_clicked" : self.OnSingleEffectSettingsClose
 		}
 
 		self.settWin.signal_autoconnect(settsignals)
@@ -343,83 +514,116 @@ class InstrumentEffectsDialog:
 		# create references to glade items
 		self.settingswindow = self.settWin.get_widget("EffectSettingsDialog")
 		self.settingsvbox = self.settWin.get_widget("EffectSettingsVBox")
-		#self.effectlabel = self.settWin.get_widget("effectlabel")
-		#self.effectlabel.set_text(self.currentplugin)
-		self.settingstable = self.settWin.get_widget("settingstable")
-		self.presetcombo = self.settWin.get_widget("presetcombo")
+		self.effectLabel = self.settWin.get_widget("effectLabel")
+		self.effectImage = self.settWin.get_widget("effectImage")
+		self.settingstable = self.settWin.get_widget("settingsTable")
+		self.presetscombo = self.settWin.get_widget("presetsCombo")
 		
 		self.settingsHeaderCairoImage = CairoDialogHeaderImage(_("Effect Settings"))
 		self.settingsHeaderCairoImage.set_size_request(450, 60)
-		self.settingsvbox.pack_start(self.settingsHeaderCairoImage, False, False)
+		self.settingsvbox.pack_start(self.settingsHeaderCairoImage, expand=False, fill=True)
 		self.settingsHeaderCairoImage.show()
+		
+		#TODO: Reenable this button
+		self.buttonEffectPresetDelete = self.settWin.get_widget("deletePresetButton")
+		self.buttonEffectPresetDelete.set_sensitive(False)
+		
+		# tooltips object used to assign tooltips to the sliders
+		tooltips = gtk.Tooltips()
 		
 		# grab a list of properties from the effect
 		proplist = gobject.list_properties(self.instrument.effects[self.effectpos])
 		
-		# resize the settingstable to accomodate the number of effects
-		# sliders required
+		# set the effect name and icon
+		self.effectLabel.set_label(self.modelActiveEffects[selection[1]][2])
+		self.effectImage.set_from_pixbuf(self.modelActiveEffects[selection[1]][0])
+		
+		# resize the settingstable to accomodate the number of settings sliders required
 		self.settingstable.resize(len(proplist), 2)
 		
 		count = 0
 		
-		# iterate through the properties list and determine the value type
-		# of the property and show it where needed
+		# iterate through the properties list, determine its value type 
+		# and show it where needed
 		for property in proplist:
 			# non readable params
 			if not(property.flags & gobject.PARAM_READABLE):
+				#TODO: Remove this print
+				#print "Non readable property"
+				# create and attach a property name label to the settings table
 				label = gtk.Label(property.name)
-				label.set_alignment(1,0.5)
-				self.settingstable.attach(label, 0, 1, count, count+1, gtk.SHRINK)
+				label.set_alignment(1, 0.5)
+				self.settingstable.attach(label, 0, 1, count, count+1, xoptions=gtk.FILL)
 
-				rlabel = gtk.Label("-parameter not readable-")
+				rlabel = gtk.Label(_("-parameter not readable-"))
 				self.settingstable.attach(rlabel, 1, 2, count, count+1)
 
 			# just display non-writable param values
 			elif not(property.flags & gobject.PARAM_WRITABLE):
+				# create and attach a property name label to the settings table
 				label = gtk.Label(property.name)
-				label.set_alignment(1,0.5)
-				self.settingstable.attach(label, 0, 1, count, count+1)
-
+				label.set_alignment(1, 0.5)
+				self.settingstable.attach(label, 0, 1, count, count+1, xoptions=gtk.FILL)
+								
 				wvalue = self.effectelement.get_property(property.name)
-				if wvalue:
+				#TODO: Remove this print
+				#print "Readonly value: %f" % wvalue
+				if wvalue != None:
 					wlabel = gtk.Label(wvalue)
-					self.settingstable.attach(wlabel, 1, 2, count, count+1, gtk.SHRINK)
-
-			# TODO: tooltips using property.blurb
+					self.settingstable.attach(wlabel, 1, 2, count, count+1, xoptions=gtk.FILL)
 
 			elif hasattr(property, "minimum") and hasattr(property, "maximum"):
+				# create and attach a property name label to the settings table
 				label = gtk.Label(property.name)
-				label.set_alignment(1,0.5)
-				self.settingstable.attach(label, 0, 1, count, count+1, gtk.SHRINK)
+				label.set_alignment(1, 0.5)
+				self.settingstable.attach(label, 0, 1, count, count+1, xoptions=gtk.FILL)
 
-				#guess that it's numeric - we can use an HScale
+				# assume that it's numeric so we can use an HScale
 				value = self.effectelement.get_property(property.name)
-				adj = gtk.Adjustment(value, property.minimum, property.maximum)
-
-				adj.connect("value_changed", self.SetEffectSetting, property.name, property)
+				
+				# use these values for the slider range
+				minValue = property.minimum
+				maxValue = property.maximum
+				
+				# fix the ridiculously big min/max range values if needed
+				if property.minimum < -self.propertyThreshold:
+					minValue = -self.fixValue
+					
+				if property.maximum > self.propertyThreshold:
+					maxValue = self.fixValue
+				
+				#TODO: Remove this print
+				#print "**Name: %s**, Min: %f, Max: %f, nMin: %f, nMax: %f" % (property.name, property.minimum, property.maximum, minValue, maxValue)
+				
+				adj = gtk.Adjustment(value, minValue, maxValue)
+				adj.connect("value_changed", self.SetSingleEffectSetting, property.name, property)
 				self.sliderdict[property.name] = hscale = gtk.HScale(adj)
 				hscale.set_value_pos(gtk.POS_RIGHT)
+				
 				# add step increment for mouse-wheel scrolling - proportional
 				# to range in view. Must be at least the smallest interval
 				# possible (determined by get_digits()) or scroll doesn't happen
-				adj.step_increment = (property.maximum - property.minimum) / 100
+				adj.step_increment = (maxValue - minValue) / 100.0
 				adj.step_increment = max(adj.step_increment, 1.0 / (10 ** hscale.get_digits()))
 				
-				#check for ints and change digits
+				# check for ints and change digits
 				if not((property.value_type == gobject.TYPE_FLOAT) or
 					   (property.value_type == gobject.TYPE_DOUBLE)):
+					#TODO: Remove this print
+					#print "This value is an integer"
 					hscale.set_digits(0)
-	
+
+				# add the slider to the settings table (with tooltips)
+				tooltips.set_tip(self.sliderdict[property.name], property.blurb)
 				self.settingstable.attach(self.sliderdict[property.name], 1, 2, count, count+1, gtk.FILL|gtk.EXPAND)
 			
 			count += 1
 
 		# set up presets
-		
 		elementfactory = self.effectelement.get_factory().get_name()
 		
 		self.model = gtk.ListStore(str)
-		self.presetcombo.set_model(self.model)
+		self.presetscombo.set_model(self.model)
 
 		# append preset for this effects plugin
 		# if (a) it is on the system (in LADSPA_FACTORY_REGISTRY) and (b) if the preset is
@@ -427,20 +631,21 @@ class InstrumentEffectsDialog:
 		self.availpresets = []
 		if elementfactory in Globals.LADSPA_FACTORY_REGISTRY:
 			for key, value in self.presets.effectpresetregistry.iteritems():
+				#TODO: Remove this print
+				#print "key: %s, value: %s" % (key, value)
 				deps = value['dependencies']
 				if len(deps) == 1 and elementfactory in deps:
 					self.availpresets.append(key)
 				
-
 		for pres in self.availpresets:
-			self.presetcombo.append_text(pres)
+			self.presetscombo.append_text(pres)
 		
 		self.settingstable.show()
 		self.settingswindow.show_all()
 
 	#_____________________________________________________________________	
 		
-	def OnEffectSettingOK(self, button):
+	def OnSingleEffectSettingsClose(self, button):
 		"""
 		Close the effect settings window.
 		
@@ -450,19 +655,8 @@ class InstrumentEffectsDialog:
 		self.settingswindow.destroy()
 
 	#_____________________________________________________________________	
-		
-	def OnEffectSettingCancel(self, button):
-		"""
-		Close the effect settings window, after a user cancelation.
-		
-		Parameters:
-			button -- reserved for GTK callbacks, don't use it explicitly.
-		"""
-		self.settingswindow.destroy()
-		
-	#_____________________________________________________________________	
-		
-	def SetEffectSetting(self, slider, name, property):
+	
+	def SetSingleEffectSetting(self, slider, name, property):
 		"""
 		Set the value of a gstreamer property from an effects slider.
 		
@@ -477,13 +671,15 @@ class InstrumentEffectsDialog:
 			value = int(slider.get_value())
 		else:
 			value = slider.get_value()
+			#TODO: Remove this print
+			#print "Value: %f" % value
 		
-		# now set the gstreamer property
+		# set the gstreamer property
 		self.instrument.effects[self.effectpos].set_property(name, value)
 		
 	#_____________________________________________________________________	
 
-	def OnSaveSingleEffectPreset(self, widget):
+	def OnSingleEffectPresetSave(self, widget):
 		"""
 		Grab the effect properties and send it to the presets code
 		to be saved.
@@ -492,7 +688,7 @@ class InstrumentEffectsDialog:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		# grab the label from the combo
-		label = self.presetcombo.get_active_text()
+		label = self.presetscombo.get_active_text()
 		
 		effectdict = {}
 		
@@ -508,16 +704,28 @@ class InstrumentEffectsDialog:
 		# save the preset	
 		self.presets.SaveSingleEffect(label, effectdict, effectelement, "LADSPA")
 		
-	#_____________________________________________________________________	
+	#_____________________________________________________________________
 	
-	def OnSaveEffectChainPreset(self, widget):
+	def OnSingleEffectPresetDelete(self, button):
 		"""
-		Grab the effects chain and send it to the presets code to be saved.
+		Removes the selected effect preset.
 		
 		Parameters:
-			widget -- reserved for GTK callbacks, don't use it explicitly.
+			button -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-		label = self.chainpresetcombo.get_active_text()
+		#TODO: there's no code in EffectPresets to handle this case.
+		pass
+	
+	#_____________________________________________________________________
+	
+	def OnEffectChainPresetSave(self, button):
+		"""
+		Grabs the effects chain and sends it to the presets code to be saved.
+		
+		Parameters:
+			button -- reserved for GTK callbacks, don't use it explicitly.
+		"""
+		label = self.comboPresets.get_active_text()
 		
 		self.effectlist = []
 				
@@ -535,20 +743,24 @@ class InstrumentEffectsDialog:
 			effectdict["settings"] = effectsettings
 			
 			self.effectlist.append(effectdict)			
-			
+		
 		self.presets.SaveEffectChain(label, self.effectlist, self.instrument.instrType)
 
-	#_____________________________________________________________________	
+	#_____________________________________________________________________
 	
-	def OnSettingEntryChanged(self, widget):
+	def OnEffectChainPresetDelete(self, button):
 		"""
-		TODO -- This method is not yet implemented.
+		Removes the selected effects chain preset.
+		
+		Parameters:
+			button -- reserved for GTK callbacks, don't use it explicitly.
 		"""
+		#TODO: there's no code in EffectPresets to handle this case.
 		pass
-
-	#_____________________________________________________________________	
 	
-	def OnEffectPresetChanged(self, combo):
+	#_____________________________________________________________________
+	
+	def OnSingleEffectPresetChanged(self, combo):
 		"""
 		Loads a preset when it's selected from the single effect preset combo.
 		
@@ -576,7 +788,7 @@ class InstrumentEffectsDialog:
 
 	#_____________________________________________________________________	
 	
-	def OnChainPresetChanged(self, combo):
+	def OnEffectChainPresetChanged(self, combo):
 		"""
 		Loads a preset when it's selected from the chain preset combo.
 		
@@ -614,7 +826,7 @@ class InstrumentEffectsDialog:
 					pass
 
 		self.Update()
-
+		
 	#_____________________________________________________________________	
 	
 	def BringWindowToFront(self):
@@ -625,43 +837,6 @@ class InstrumentEffectsDialog:
 		
 	#_____________________________________________________________________
 
-	def matchEffect(self, completion, entrystr, iter):
-		"""
-		Callback for matching an effect on the effect entry box.
-		
-		Parameters:
-			completion -- TODO
-			entrystr -- string to be matched against the effects list.
-			iter -- number of the current iteration through the complete effects list.
-			
-		Returns:
-			True -- the effect contains the entrystr string.
-			False -- the effect doesn't contain the entrystr stirng.
-		"""
-		modelString = completion.get_model()[iter][0]
-		return entrystr.lower() in modelString.lower()
-		
-	#_____________________________________________________________________
-
-	def OnEntrySelected(self, completion, model, modelIter):
-		"""
-		Callback for the selection made in the entry completion for effects combo.
-		
-		Parameters:
-			completion -- TODO
-			model -- TODO
-			modelIter -- TODO
-		"""
-		# read the effect description and scan the effectscombo
-		# until it's found and set it active as this is what the add
-		# button uses
-		value = model.get_value(modelIter, 0)
-		effectsModel = self.effectscombo.get_model()
-		effectsIter = effectsModel.get_iter_first()
-		while effectsModel.get_value(effectsIter, 0) != value:
-			effectsIter = effectsModel.iter_next(effectsIter)
-		self.effectscombo.set_active_iter(effectsIter)
-	#_____________________________________________________________________
 #=========================================================================
 
 class CairoDialogHeaderImage(gtk.DrawingArea):
@@ -771,4 +946,5 @@ class CairoDialogHeaderImage(gtk.DrawingArea):
 		return False
 		
 	#_____________________________________________________________________
+
 #=========================================================================
