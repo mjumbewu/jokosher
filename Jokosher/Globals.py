@@ -391,7 +391,7 @@ LADSPA_FACTORY_REGISTRY = None
 LADSPA_NAME_MAP = []
 							#TODO: FIX THE ICONS
 LADPSA_CATEGORIES_LIST = [
-						(_("Broken"), "effect_stock_volume-mute.png"),		#0 - this image is never used
+						("Broken", "effect_unclassified.png"),		#0 - this image is never used
 						(_("Unclassified"), "effect_unclassified.png"),	#1
 						(_("Delays"), "effect_delays.png"),				#2
 						(_("Equalizers"), "effect_equalizers.png"),		#3
