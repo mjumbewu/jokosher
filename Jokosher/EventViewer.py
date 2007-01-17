@@ -303,23 +303,20 @@ class EventViewer(gtk.DrawingArea):
 			# Draw waveform
 			x_pos = int(rect.x/scale)
 			x = 0
-			lastX = x
+			skipFactor = max(int(self._MIN_POINT_SEPARATION / scale), 1)
 			context.move_to(0,rect.height)
 					
 			# get levels list
 			fadedLevels = self.event.GetFadeLevels()
 			
-			for peak in fadedLevels[x_pos:]:
+			for peak in fadedLevels[x_pos::skipFactor]:
 				x = (x_pos * scale) - rect.x
-				#if this point and the previous one are not too close...
-				if x - lastX >= self._MIN_POINT_SEPARATION:
-					peakOnScreen = int(peak * rect.height)
-					context.line_to(x, rect.height - peakOnScreen)
-					lastX = x
+				peakOnScreen = int(peak * rect.height)
+				context.line_to(x, rect.height - peakOnScreen)
 				
 				if x > rect.width:
 					break
-				x_pos += 1
+				x_pos += skipFactor
 			
 			context.line_to(x, rect.height)
 			
