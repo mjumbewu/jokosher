@@ -940,7 +940,9 @@ class MainApp:
 			self.stop.set_sensitive(True)	#stop should always be clickable
 			self.record.set_sensitive(not self.isPlaying)
 			
-			for widget in (self.play, self.reverse, self.forward):
+			controls = (self.play, self.reverse, self.forward, self.menubar, self.recording.timelinebar.headerhbox,
+					self.compactmix.projectview.timelinebar.headerhbox)
+			for widget in controls:
 				widget.set_sensitive(not self.isRecording)
 			
 			self.settingButtons = True

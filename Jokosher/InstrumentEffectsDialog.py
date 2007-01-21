@@ -336,12 +336,16 @@ class InstrumentEffectsDialog:
 			self.isPlaying = True
 
 		elif change == "stop":
+			self.window.set_sensitive(True)
 			# things to do when the stop button is pressed to stop playback
 			self.buttonPlay.set_use_stock(True)
 			self.buttonPlay.set_label(gtk.STOCK_MEDIA_PLAY)
 			
 			# set this to False to show we are no longer playing
 			self.isPlaying = False
+			
+		elif change == "record":
+			self.window.set_sensitive(False)
 			
 		elif change == "singlePreset":
 			# update the effect presets model
