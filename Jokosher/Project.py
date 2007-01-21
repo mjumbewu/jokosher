@@ -930,6 +930,9 @@ class Project(Monitored):
 		if instr.isSolo:
 			self.soloInstrCount -= 1
 			self.OnAllInstrumentsMute()
+		
+		for event in instr.events:
+			event.StopGenerateWaveform(False)
 			
 		self.temp = id
 	
@@ -951,6 +954,11 @@ class Project(Monitored):
 		if instr.isSolo:
 			self.soloInstrCount += 1
 			self.OnAllInstrumentsMute()
+			
+		for event in instr.events:
+			if event.isLoading:
+				event.GenerateWaveform()
+		
 		instr.isVisible = True
 		self.graveyard.remove(instr)
 		self.temp = id

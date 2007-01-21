@@ -82,6 +82,8 @@ class Event(Monitored):
 		self.isRecording = False		# True if the event is currently loading level data from a live recording
 		self.loadingLength = 0 		# The length of the file in seconds as its being rendered
 		self.lastEnd = 0 			# The last length of the loading file - used to minimise redraws
+		self.loadingPipeline = None	# The Gstreamer pipeline used to load the waveform
+		self.bus = None			# The bus to monitor messages on the loadingPipeline
 		
 		self.CreateFilesource()
 
@@ -523,7 +525,7 @@ class Event(Monitored):
 		if message.type == gst.MESSAGE_EOS:
 			
 			# Update levels for partial events
-			q = self.bin.query_duration(gst.FORMAT_TIME)
+			q = self.loadingPipeline.query_duration(gst.FORMAT_TIME)
 			length = q[0] / float(gst.SECOND)
 			
 			if self.offset > 0 or self.duration != length:
@@ -532,8 +534,7 @@ class Event(Monitored):
 				self.levels = self.levels[start:start+dt]
 			
 			# We're done with the bin so release it
-			self.bin.set_state(gst.STATE_NULL)
-			self.isLoading = False
+			self.StopGenerateWaveform()
 			
 			# Signal to interested objects that we've changed
 			self.StateChanged(self.WAVEFORM)
@@ -551,7 +552,7 @@ class Event(Monitored):
 		"""
 		# state has changed
 		try:
-			time = self.bin.query_duration(gst.FORMAT_TIME)
+			time = self.loadingPipeline.query_duration(gst.FORMAT_TIME)
 			if self.duration == 0:
 				self.duration = float(time[0] / float(gst.SECOND))
 				self.loadingLength = 0
@@ -612,9 +613,9 @@ class Event(Monitored):
 		"""
 		pipe = """filesrc name=src location=%s ! decodebin ! audioconvert ! level interval=%d message=true ! fakesink""" 
 		pipe = pipe % (self.file.replace(" ", "\ "), self.LEVEL_INTERVAL * gst.SECOND)
-		self.bin = gst.parse_launch(pipe)
+		self.loadingPipeline = gst.parse_launch(pipe)
 
-		self.bus = self.bin.get_bus()
+		self.bus = self.loadingPipeline.get_bus()
 		self.bus.add_signal_watch()
 		self.bus.connect("message::element", self.bus_message)
 		self.bus.connect("message::tag", self.bus_message_tags)
@@ -625,8 +626,26 @@ class Event(Monitored):
 		self.levels = []
 		self.isLoading = True
 
-		self.bin.set_state(gst.STATE_PLAYING)
+		self.loadingPipeline.set_state(gst.STATE_PLAYING)
 
+	#_____________________________________________________________________
+	
+	def StopGenerateWaveform(self, finishedLoading=True):
+		"""
+		Stops the internal pipeline that loads the waveform from this event's file.
+		
+		Parameters:
+			finishedLoading -- True if the event has finished loading the waveform,
+					False if the loading is being cancelled.
+		"""
+		if self.bus:
+			self.bus.remove_signal_watch()
+			self.bus = None
+		if self.loadingPipeline:
+			self.loadingPipeline.set_state(gst.STATE_NULL)
+			self.isLoading = not finishedLoading
+			self.loadingPipeline = None
+	
 	#_____________________________________________________________________
 
 	def recording_bus_level(self, bus, message):

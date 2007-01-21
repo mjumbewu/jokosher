@@ -21,7 +21,6 @@ import gst
 import os
 import Globals
 import EffectPresets
-from EffectWidget import EffectWidget
 
 import gettext
 _ = gettext.gettext

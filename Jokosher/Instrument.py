@@ -648,6 +648,7 @@ class Instrument(Monitored):
 		self.graveyard.append(event)
 		self.events.remove(event)
 		self.composition.remove(event.filesrc)
+		event.StopGenerateWaveform(False)
 		
 		self.temp = eventid
 	
@@ -666,6 +667,8 @@ class Instrument(Monitored):
 		self.events.append(event)
 		self.graveyard.remove(event)
 		event.CreateFilesource()
+		if event.isLoading:
+			event.GenerateWaveform()
 		
 		self.temp = eventid
 	
