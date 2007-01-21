@@ -100,7 +100,6 @@ class InstrumentEffectsDialog:
 		#TODO: Reenable this buttons
 		self.buttonEffectUp.set_sensitive(False)
 		self.buttonEffectDown.set_sensitive(False)
-		self.buttonPresetDelete.set_sensitive(False)
 
 		# connect the destroy signal, and set single selection for the list views
 		self.window.connect("destroy", destroyCallback)
@@ -181,28 +180,10 @@ class InstrumentEffectsDialog:
 			
 			self.modelEffects.append(newEffect)
 		
-		# create a list with available presets
-		self.presets = EffectPresets.EffectPresets()		
-
-		# append the presets for this Instrument type if it is on the system 
-		# (in LADSPA_FACTORY_REGISTRY). It then adds the presets to the presets 
-		# combo box.
-		self.availpresets = []
-		for key, value in self.presets.effectpresetregistry.iteritems():
-			#print "key: %s, value: %s" % (key, value)
-			#print self.instrument.instrType
-			#print value['instrument']
-			try:
-				if value['instrument'] == self.instrument.instrType and \
-						value['dependencies'].issubset(Globals.LADSPA_FACTORY_REGISTRY):
-					self.availpresets.append(key)
-			except KeyError:
-				# non-existant key
-				pass
-		
-		for pres in self.availpresets:
-			self.modelPresets.append([pres])
-		
+		# create a list with available presets and populate the model
+		self.presets = EffectPresets.EffectPresets()
+		self._LoadInstrumentPresets()
+				
 		# append the categories and their image to the categories combo box
 		for category in range(len(categories)):
 			# skip the Broken category
@@ -219,9 +200,10 @@ class InstrumentEffectsDialog:
 			self.buttonPlay.set_use_stock(True)
 			self.buttonPlay.set_label(gtk.STOCK_MEDIA_STOP)
 
-		# listen to the Project and Instrument changes
+		# listen to the Project, Instrument and Preset changes
 		self.instrument.project.AddListener(self)
 		self.instrument.AddListener(self)
+		self.presets.AddListener(self)
 
 		self.updatinggui = True
 		if self.instrument.currentchainpreset is not None:
@@ -230,7 +212,32 @@ class InstrumentEffectsDialog:
 			
 		self.Update()
 			
-	#_____________________________________________________________________	
+	#_____________________________________________________________________
+	
+	def _LoadInstrumentPresets(self):
+		"""
+		Loads the presets for this Instrument type if there are any available.
+		It then adds them to the chain presets combo box model.
+		"""
+		self.availpresets = []
+		self.modelPresets.clear()
+		
+		self.presets.FillEffectsPresetsRegistry()
+		
+		try:
+			instrPresets = self.presets.effectpresetregistry["instruments"][self.instrument.instrType] 
+			for pres in instrPresets:
+				if instrPresets[pres]["dependencies"].issubset(Globals.LADSPA_FACTORY_REGISTRY):
+					# TODO: remove this print
+					#print "EC: %s" % pres
+					
+					self.availpresets.append(pres)
+					self.modelPresets.append([pres])
+		except KeyError:
+			# no presets for this Instrument
+			pass
+		
+	#_____________________________________________________________________
 	
 	def Update(self):
 		"""
@@ -315,7 +322,6 @@ class InstrumentEffectsDialog:
 			change -- the change which has occured.
 			extra -- extra parameters passed by the caller.
 		"""
-		
 		if obj is self.instrument and change == "effects":
 			self.Update()
 		
@@ -329,14 +335,26 @@ class InstrumentEffectsDialog:
 			# set this to True to show we are now playing
 			self.isPlaying = True
 
-		elif change =="stop":
+		elif change == "stop":
 			# things to do when the stop button is pressed to stop playback
 			self.buttonPlay.set_use_stock(True)
 			self.buttonPlay.set_label(gtk.STOCK_MEDIA_PLAY)
 			
 			# set this to False to show we are no longer playing
 			self.isPlaying = False
-					
+			
+		elif change == "singlePreset":
+			# update the effect presets model
+			#TODO: remove this print
+			#print "singlePreset"
+			self._LoadEffectPresets()
+			
+		elif change == "chainPreset":
+			# update the Instrument presets model
+			#TODO: remove this print
+			#print "chainPreset"
+			self._LoadInstrumentPresets()
+		
 	#_____________________________________________________________________
 	
 	def OnCategoryChanged(self, combo):
@@ -523,10 +541,6 @@ class InstrumentEffectsDialog:
 		self.settingsvbox.pack_start(self.settingsHeaderCairoImage, expand=False, fill=True)
 		self.settingsHeaderCairoImage.show()
 		
-		#TODO: Reenable this button
-		self.buttonEffectPresetDelete = self.settWin.get_widget("deletePresetButton")
-		self.buttonEffectPresetDelete.set_sensitive(False)
-		
 		# tooltips object used to assign tooltips to the sliders
 		tooltips = gtk.Tooltips()
 		
@@ -619,30 +633,49 @@ class InstrumentEffectsDialog:
 			count += 1
 
 		# set up presets
-		elementfactory = self.effectelement.get_factory().get_name()
+		self.elementfactory = self.effectelement.get_factory().get_name()
 		
 		self.model = gtk.ListStore(str)
 		self.presetscombo.set_model(self.model)
-
-		# append preset for this effects plugin
-		# if (a) it is on the system (in LADSPA_FACTORY_REGISTRY) and (b) if the preset is
-		# only for that plugin. The list is shown in the presets combo box for this effect
-		self.availpresets = []
-		if elementfactory in Globals.LADSPA_FACTORY_REGISTRY:
-			for key, value in self.presets.effectpresetregistry.iteritems():
-				#TODO: Remove this print
-				#print "key: %s, value: %s" % (key, value)
-				deps = value['dependencies']
-				if len(deps) == 1 and elementfactory in deps:
-					self.availpresets.append(key)
-				
-		for pres in self.availpresets:
-			self.presetscombo.append_text(pres)
+		self._LoadEffectPresets()
 		
+		# show the settings window	
 		self.settingstable.show()
 		self.settingswindow.show_all()
 
-	#_____________________________________________________________________	
+	#_____________________________________________________________________
+	
+	def _LoadEffectPresets(self):
+		"""
+		Loads the presets for the selected effect if there are any available.
+		It then adds them to the effects presets combo box.
+		
+		The following checks are performed during this operation:
+			a) the preset is on the system (in LADSPA_FACTORY_REGISTRY).
+			b) the preset is for this plugin.
+		"""
+		self.availEffectPresets = []
+		self.model.clear()
+		
+		self.presets.FillEffectsPresetsRegistry()
+		
+		try:
+			effectPresets = self.presets.effectpresetregistry["effects"][self.elementfactory]
+			if self.elementfactory in Globals.LADSPA_FACTORY_REGISTRY:
+				for pres in effectPresets:
+					#TODO: Remove this print
+					#print "SE: %s" % pres
+					
+					deps = effectPresets[pres]["dependencies"]
+					if len(deps) == 1 and self.elementfactory in deps:
+						self.availEffectPresets.append(pres)
+						self.model.append([pres])
+						#self.presetscombo.append_text(pres)
+		except KeyError:
+			# no presets for this effect
+			pass
+	
+	#_____________________________________________________________________
 		
 	def OnSingleEffectSettingsClose(self, button):
 		"""
@@ -712,8 +745,12 @@ class InstrumentEffectsDialog:
 		Parameters:
 			button -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-		#TODO: there's no code in EffectPresets to handle this case.
-		pass
+		presetName = self.presetscombo.get_active_text()
+		
+		effect = self.instrument.effects[self.effectpos]
+		effectName = effect.get_factory().get_name()
+		
+		self.presets.DeleteSingleEffect(presetName, effectName)
 	
 	#_____________________________________________________________________
 	
@@ -724,6 +761,7 @@ class InstrumentEffectsDialog:
 		Parameters:
 			button -- reserved for GTK callbacks, don't use it explicitly.
 		"""
+		# grab the label from the combo
 		label = self.comboPresets.get_active_text()
 		
 		self.effectlist = []
@@ -741,7 +779,7 @@ class InstrumentEffectsDialog:
 			effectdict["effecttype"] = "LADSPA"
 			effectdict["settings"] = effectsettings
 			
-			self.effectlist.append(effectdict)			
+			self.effectlist.append(effectdict)
 		
 		self.presets.SaveEffectChain(label, self.effectlist, self.instrument.instrType)
 
@@ -754,8 +792,9 @@ class InstrumentEffectsDialog:
 		Parameters:
 			button -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-		#TODO: there's no code in EffectPresets to handle this case.
-		pass
+		presetName = self.comboPresets.get_active_text()
+		
+		self.presets.DeleteEffectChain(presetName, self.instrument.instrType)
 	
 	#_____________________________________________________________________
 	
@@ -767,10 +806,12 @@ class InstrumentEffectsDialog:
 			combo -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		presetname = name = combo.get_active_text()
-		if presetname not in self.availpresets:
+		
+		if presetname not in self.availEffectPresets:
 			return
-
-		settings = self.presets.LoadSingleEffectSettings(self.effectelement, presetname)
+		
+		settings = self.presets.LoadSingleEffect(presetname, 
+												 self.effectelement.get_factory().get_name())
 		if not settings:
 			return
 
@@ -804,7 +845,7 @@ class InstrumentEffectsDialog:
 			return
 
 		self.instrument.currentchainpreset = combo.get_active()
-		settings = self.presets.LoadInstrumentEffectChain(presetname)
+		settings = self.presets.LoadEffectChain(presetname, self.instrument.instrType)
 		
 		self.instrument.effects = []
 		

@@ -26,15 +26,17 @@ import Globals
 from Utils import *
 import glob
 import string
+from Monitored import Monitored
 
 #=========================================================================
 
-class EffectPresets:
+class EffectPresets(Monitored):
 	"""
 	This class implements support for effects presets. These presets are used
 	to store settings for single effects and multiple effects strung together
 	(called a 'chain').
 	"""
+	
 	#_____________________________________________________________________	
 	
 	def __init__(self):
@@ -42,10 +44,84 @@ class EffectPresets:
 		Creates a new instance of EffectsPresets. If needed, it populates the
 		LADSPA and effect presets registries.
 		"""
+		Monitored.__init__(self)
+		
+		# Version of the preset files xml format
 		Globals.EFFECT_PRESETS_VERSION = "0.2"
 		
-		# this is the main dictionary of presets
+		"""
+		This is the main dictionary of presets. It has the following structure when filled:
+		
+		 	effectpresetregistry[presetType][elementName][presetname][property]
+		 	
+		where:
+			presetType = "instruments" or "effects"
+			elementName = unique ladspa or instrument name (i.e. ladspa-eq or guitar)
+			presetName = name of the preset (i.e. Chorus + Delay)
+			property = an specific preset property (i.e. dependencies or file)
+			
+			*Note: all these 4 fields are dictionaries
+		
+		Diagram:
+		
+		effectpresetregistry
+			|
+			+--instruments
+			|  |
+			|  +--guitar
+			|  |  |
+			|  |  +--Chorus + Delay
+			|  |  |  |
+			|  |  |  +--instrument: guitar
+			|  |  |  +--dependencies: ["effect1", "effect2"]
+			|  |  |  +--file: guitar - Chorus + Delay.jpreset
+			|  |  |
+			|  |  +--Heavy Metal
+			|  |     |
+			|  |     +-- (...)
+			|  |
+			|  +--audiofile
+			|     |
+			|     +--Delay chamber
+			|     |  |
+			|     |  +-- (...)
+			|     |
+			|     +--Hum removal
+			|        |
+			|        +-- (...)
+			|
+			+--effects
+			   |
+			   +--ladspa-eq
+			   |  |
+			   |  +--Rock
+			   |  |  |
+			   |  |  +--dependencies: ["effect1", "effect2"]
+			   |  |  +--file: ladspa-eq - Rock.jpreset
+			   |  |
+			   |  +--Jazz
+			   |  |  |
+			   |  |  +-- (...)
+			   |  |
+			   |  +--Pop
+			   |     |
+			   |     +-- (...)
+			   |
+			   +--ladspa-chorus
+			      |
+			      +--Full depth
+			      |  |
+			      |  +-- (...)
+			      |
+			      +--Bubbly dream
+			         |
+			         +-- (...)
+		"""
 		self.effectpresetregistry = {}
+		
+		# string used to separate the preset type from its name when generating
+		# a preset filename
+		self.separator = " - "
 		
 		# fill the different data structures with information if necessary. The LADSPA
 		# structures are part of Globals.py
@@ -96,11 +172,12 @@ class EffectPresets:
 		
 		StoreDictionaryToXML(doc, settingsblock, effectdict)
 		
-		filename = "/%s.jpreset" % label
+		filename = self._PresetFilename(effectelement, label)
 		file = open(Globals.EFFECT_PRESETS_PATH + filename, "w")
 		file.write(doc.toprettyxml())
 		file.close()
 		
+		self.StateChanged("singlePreset")
 	#_____________________________________________________________________
 
 	def SaveEffectChain(self, label, effectlist, instrumenttype):
@@ -158,28 +235,33 @@ class EffectPresets:
 			
 			StoreDictionaryToXML(doc, settingsblock, effect["settings"])
 		
-		filename = "/%s.jpreset" % label
+		filename = self._PresetFilename(instrumenttype, label)
 		presetfile = open(os.path.realpath(Globals.EFFECT_PRESETS_PATH + filename), "w")
 		presetfile.write(doc.toprettyxml())
 		presetfile.close()
 		
+		self.StateChanged("chainPreset")
+		
 	#_____________________________________________________________________
 	
-	def LoadSingleEffectSettings(self, effectelement, presetname):
+	def LoadSingleEffect(self, presetName, effectelement):
 		"""
 		Load effect settings from a preset file for a single effect.
 		
 		Parameters:
+			presetName -- the name of the preset to be loaded.
 			effectelement -- the effect element to be loaded.
-			presetname -- the name of the preset to be loaded.
 			
 		Returns:
 			a settings dictionary with the loaded settings for the effect or
 			False if the preset file doesn't exist.
 		"""
-		filename = "/%s.jpreset" % presetname
+		filename = self._PresetFilename(effectelement, presetName)
 		presetfile = Globals.EFFECT_PRESETS_PATH + filename
 		Globals.debug(presetfile)
+		
+		#TODO: remove this print
+		#print "(Load) Single effect filename: %s" % filename
 
 		if not os.path.exists(presetfile):
 			Globals.debug("preset file does not exist")
@@ -192,36 +274,24 @@ class EffectPresets:
 		settdict = LoadDictionaryFromXML(settingstags)
 		
 		return settdict
-	#_____________________________________________________________________
 	
-	def LoadSingleEffectList(self):
-		"""
-		TODO -- This method is not yet implemented.
-		"""
-		pass
-		
-	#_____________________________________________________________________
+	#____________________________________________________________________
 	
-	def LoadInstrumentEffectList(self):
+	def LoadEffectChain(self, presetName, instrType):
 		"""
-		TODO -- This method is not yet implemented.
-		"""
-		pass
-		
-	#_____________________________________________________________________
-	
-	def LoadInstrumentEffectChain(self, presetname):
-		"""
-		Load settings from the preset file for an effects chain.
+		Load settings from the preset file for an Instrument's effects chain.
 		
 		Parameters:
-			presetname -- name of the preset to be loaded.
+			presetName -- name of the preset to be loaded.
 			
 		Returns:
 			a settings dictionary with the loaded settings for the effects.
 		"""
-		filename = "/%s.jpreset" % presetname
+		filename = self._PresetFilename(instrType, presetName)
 		presetfile = Globals.EFFECT_PRESETS_PATH + filename
+		
+		#TODO: remove this print
+		#print "(Load) Effect chain filename: %s" % filename
 			
 		if not os.path.exists(presetfile):
 			Globals.debug("preset file does not exist")
@@ -244,17 +314,105 @@ class EffectPresets:
 		
 	#_____________________________________________________________________
 	
+	def LoadSingleEffectList(self):
+		"""
+		TODO -- This method is not yet implemented.
+		"""
+		pass
+		
+	#_____________________________________________________________________
+	
+	def LoadEffectChainList(self):
+		"""
+		TODO -- This method is not yet implemented.
+		"""
+		pass
+		
+	#_____________________________________________________________________
+	
+	def DeleteSingleEffect(self, presetName, effectName):
+		"""
+		Removes a single effect preset.
+		
+		Parameters:
+			presetName -- name of the preset to be removed.
+			effectName -- ladspa unique name of the effect the preset 
+							belongs to.
+		"""
+		self._DeletePresetFile(self._PresetFilename(effectName, presetName))
+		self.StateChanged("singlePreset")
+	
+	#_____________________________________________________________________
+	
+	def DeleteEffectChain(self, presetName, instrType):
+		"""
+		Removes an effect chain preset.
+		
+		Parameters:
+			presetName -- name of the preset to be removed.
+			instrType -- type of the Instrument the preset belongs to.
+		"""
+		self._DeletePresetFile(self._PresetFilename(instrType, presetName))
+		self.StateChanged("chainPreset")
+	
+	#_____________________________________________________________________
+	
+	def _DeletePresetFile(self, filename):
+		"""
+		Removes a preset file.
+		
+		Parameters:
+			filename -- name of the preset file to remove.
+		"""
+		presetFile = os.path.expanduser(Globals.EFFECT_PRESETS_PATH + filename)
+		
+		if os.path.isfile(presetFile):
+			#TODO: remove this print
+			#print "Removing file: %s" % presetFile
+			os.remove(presetFile)
+	
+	#_____________________________________________________________________
+	
+	def _PresetFilename(self, prefix, name):
+		"""
+		Creates the correct preset filename according to the parameters.
+		
+		Examples:	
+			PresetFilename("Guitar", "Soloist") will output:
+				"/Guitar %separator% Soloist.jpreset"
+				
+			PresetFilename("ladspa-delay", "5ms deep delay") will output:
+				"/ladspa-delay %separator% 5ms deep delay.jpreset"
+			
+			where %separator% is the separator string defined inside __init__
+			
+		Parameters:
+			prefix -- unique ladspa shortname or instrType.
+			name -- name of the preset.
+			
+		Returns:
+			a properly formatted preset filename string.
+		"""
+		return ("/%s%s%s.jpreset") % (prefix, self.separator, name)
+	
+	#_____________________________________________________________________
+	
 	def FillEffectsPresetsRegistry(self):
 		"""
-		Load all presets into the main presets registry.
+		Load all chain/effect presets into the main presets registry.
 		"""
 		Globals.debug("\tReading in presets...")
 		presetsfiles = glob.glob(Globals.EFFECT_PRESETS_PATH + "/*.jpreset")
+		
+		self.effectpresetregistry = {}
+		self.effectpresetregistry["instruments"] = {}
+		self.effectpresetregistry["effects"] = {}
 		
 		for file_ in presetsfiles:
 			preset = {}
 			depslist = []
 			presetname = None
+			effectName = None
 			
 			if not os.path.exists(file_):
 				Globals.debug("preset file does not exist")
@@ -262,11 +420,12 @@ class EffectPresets:
 				xmlfile = open(file_, "r")
 				doc = xml.parse(file_)
 
-			ischain = None
+			# True if the loaded preset corresponds to an effect chain, False otherwise
+			isChain = None
 			
 			try:	
 				instrument = doc.getElementsByTagName('Chain')[0].getElementsByTagName('instrument')[0].getAttribute('value')
-				ischain = 1
+				isChain = True
 			except:
 				instrument = None
 					
@@ -282,19 +441,62 @@ class EffectPresets:
 						else:
 							if node.tagName == "effectelement":
 								depslist.append(str(node.getAttribute("value")))
+								effectName = str(node.getAttribute("value"))
 			
 			presetname = file_.replace(str(Globals.EFFECT_PRESETS_PATH + "/"), "")
 			presetfile = presetname
+			
+			# extract the preset name from the prefix
+			presetname = presetname.split(self.separator, 1)
+			if len(presetname) == 1:
+				# the filename doesn't have a prefix. Could be an old or non-compliant file
+				# TODO: should upgrade the filename or it won't load
+				presetname = presetname[0]
+			else:
+				presetname = presetname[1]
 			presetname = presetname.replace(".jpreset", "")
+			
+			#TODO: remove this print
+			#print "Preset name: %s" % presetname
 			
 			preset["dependencies"] = set(depslist)
 			preset["file"] = str(presetfile)
 			
-			if ischain == 1:
+			if isChain:
+				#TODO: remove this print
+				#print "Chain name: %s" % instrument
 				preset["instrument"] = str(instrument)
+				presetType = "instruments"
+				elementName = instrument
+			else:
+				#TODO: remove this print
+				#print "Effect name: %s" % effectName
+				presetType = "effects"
+				elementName = effectName
+				
+			# create the elementName dir if it doesn't exist
+			try:
+				self.effectpresetregistry[presetType][elementName]
+			except KeyError:
+				self.effectpresetregistry[presetType][elementName] = {}
 			
-			self.effectpresetregistry[presetname] = preset
+			self.effectpresetregistry[presetType][elementName][presetname] = preset
 		
+		#TODO: remove this print
+		"""
+		print self.effectpresetregistry
+		
+		print ""
+		for key in self.effectpresetregistry:
+			 print key
+			 for key2 in self.effectpresetregistry[key]:
+			 	print "\t%s" % key2
+			 	for key3 in self.effectpresetregistry[key][key2]:
+			 		print "\t\t%s" % key3
+			 		for key4 in self.effectpresetregistry[key][key2][key3]:
+			 			print "\t\t\t%s: %s" % (key4,
+							  self.effectpresetregistry[key][key2][key3][key4])
+		"""
 		Globals.debug("\t...done.")
 		
 	#_____________________________________________________________________
