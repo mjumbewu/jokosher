@@ -1363,10 +1363,11 @@ class MainApp:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		eventList = False
-		for instr in self.project.instruments:
-			for ev in instr.events:
-				if ev:
+		if self.project:
+			for instr in self.project.instruments:
+				if instr.events:
 					eventList = True
+					break
 		self.export.set_sensitive(eventList)			
 	#_____________________________________________________________________
 	

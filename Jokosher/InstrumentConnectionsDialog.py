@@ -107,12 +107,15 @@ class InstrumentConnectionsDialog:
 			self.AlsaID = []
 			
 			# put in a none option just in case
-			combobox.append_text(_("None"))
+			combobox.append_text(_("Default"))
+			if instr.input == "default" and instr.inTrack == 0:
+				combobox.set_active(0)
+			self.AlsaID.append(("default", 0))
 			
 			currentItem = 1
 			for device, (deviceName, numInputs) in self.inputs.items():
 				for input in range(0, numInputs):
-					combobox.append_text("%s input %d"%(deviceName, input))
+					combobox.append_text(_("%s input %d") % (deviceName, input))
 					if instr.input == device and input == instr.inTrack:
 						combobox.set_active(currentItem)
 					self.AlsaID.append((device, input))
@@ -135,16 +138,11 @@ class InstrumentConnectionsDialog:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 			instr -- Instrument to change the input device to.
 		"""
-		if widget.get_active() == 0:
-			#the 0 index is our "None" option.
-			instr.input = "default"
-			instr.inTrack = 0
-		else:
-			device, inTrack = self.AlsaID[widget.get_active() - 1]
-			if device != instr.input or inTrack != instr.inTrack:
-				instr.input = device
-				instr.inTrack = inTrack
-				self.project.unsavedChanges = True
+		device, inTrack = self.AlsaID[widget.get_active()]
+		if device != instr.input or inTrack != instr.inTrack:
+			instr.input = device
+			instr.inTrack = inTrack
+			self.project.unsavedChanges = True
 			
 	#_____________________________________________________________________
 	
