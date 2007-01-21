@@ -311,6 +311,16 @@
 		  </child>
 
 		  <child>
+		    <widget class="GtkImageMenuItem" id="add_audio_file_instrument">
+		      <property name="visible">True</property>
+		      <property name="tooltip" translatable="yes">Add an audio file instrument to the project</property>
+		      <property name="label" translatable="yes">Add Audio File Instrument</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_add_audio_file_instrument_activate" last_modification_time="Tue, 26 Dec 2006 18:58:33 GMT"/>
+		    </widget>
+		  </child>
+
+		  <child>
 		    <widget class="GtkImageMenuItem" id="instrument_connections1">
 		      <property name="visible">True</property>
 		      <property name="tooltip" translatable="yes">Manage instrument recording inputs</property>

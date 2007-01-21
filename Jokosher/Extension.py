@@ -285,14 +285,14 @@ class ExtensionAPI:
 		for instr in Globals.getCachedInstruments():
 			if instr[1] == instr_type:
 				if instr_name:
-					instr_index = self.mainapp.project.AddInstrument(instr_name, instr[1], instr[2])
+					newInstr = self.mainapp.project.AddInstrument(instr_name, instr[1], instr[2])
 				else:
-					instr_index = self.mainapp.project.AddInstrument(instr[0], instr[1], instr[2])
+					newInstr = self.mainapp.project.AddInstrument(instr[0], instr[1], instr[2])
 					#instr[0] is the default Instrument name
 					#instr[1] is the Instrument type
 					#instr[2] is the Instrument icon in the .instr file
 				self.mainapp.UpdateDisplay()
-				return instr_index
+				return newInstr.id
 		return -1
 	
 	#_____________________________________________________________________

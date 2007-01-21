@@ -26,7 +26,7 @@ import PreferencesDialog, ExtensionManagerDialog, RecordingView, NewProjectDialo
 import ProjectManager, Globals, WelcomeDialog, AlsaDevices
 import InstrumentConnectionsDialog, StatusBar
 import EffectPresets, Extension, ExtensionManager
-import Utils
+import Utils, AudioPreview
 
 #=========================================================================
 
@@ -102,7 +102,8 @@ class MainApp:
 			"on_add_audio_file_activate" : self.OnAddAudio,
 			"on_change_instr_type_activate" : self.OnChangeInstrument,
 			"on_remove_instr_activate" : self.OnRemoveInstrument,
-			"on_report_bug_activate" : self.OnReportBug
+			"on_report_bug_activate" : self.OnReportBug,
+			"on_add_audio_file_instrument_activate" : self.OnAddAudioInstrument
 		}
 		self.wTree.signal_autoconnect(signals)
 		
@@ -1724,7 +1725,69 @@ class MainApp:
 		self.UpdateDisplay()
 	
 	#_____________________________________________________________________
+	
+	def ShowImportFileChooser(self):
+		"""
+		Creates a file chooser dialog and gets the filename to be imported,
+		as well as if the file should be copied to the project folder or not.
+		
+		Returns:
+			A 2-tuple containing the path of the file to be imported and a boolean
+			that will be true if the user requested the file to be copied to the project folder,
+			or None if the dialog was cancelled.
+		"""
+		buttons = (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, gtk.STOCK_OPEN, gtk.RESPONSE_OK)
 
+		copyfile = gtk.CheckButton(_("Copy file to project"))
+		# Make it copy files to audio dir by default
+		copyfile.set_active(True)
+		copyfile.show()
+
+		dlg = gtk.FileChooserDialog(_("Add Audio File..."), action=gtk.FILE_CHOOSER_ACTION_OPEN, buttons=buttons)
+		dlg.set_current_folder(Globals.settings.general["projectfolder"])
+		dlg.set_extra_widget(copyfile)
+		
+		vbox = gtk.VBox()
+		audiopreview = AudioPreview.AudioPreview()
+		vbox.pack_start(audiopreview, True, False)
+		vbox.show_all()
+		
+		dlg.set_preview_widget(vbox)
+		dlg.set_use_preview_label(False)
+		dlg.connect("selection-changed", audiopreview.OnSelection)
+		
+		response = dlg.run()
+		if response == gtk.RESPONSE_OK:
+			#stop the preview audio from playing without destorying the dialog
+			audiopreview.OnDestroy()
+			dlg.hide()
+			Globals.settings.general["projectfolder"] = os.path.dirname(dlg.get_filename())
+			Globals.settings.write()
+			filename = dlg.get_filename()
+			copyfileBool = copyfile.get_active()
+			dlg.destroy()
+			return (filename, copyfileBool)
+		
+		dlg.destroy()
+		return (None, None)
+
+	#_____________________________________________________________________
+
+	def OnAddAudioInstrument(self, widget):
+		"""
+		Called when the "Add Audio File Instrument" in the project menu is clicked.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+		"""
+		
+		filename, copyfile = self.ShowImportFileChooser()
+		#check if None in case the user click cancel on the dialog.
+		if filename:
+			self.project.AddInstrumentAndEvent(filename, copyfile)
+			self.UpdateDisplay()
+		
+	#_____________________________________________________________________
 #=========================================================================
 
 def main():

@@ -13,7 +13,6 @@
 
 import gtk
 from EventViewer import *
-from AudioPreview import AudioPreview
 import os.path
 import gettext
 import urlparse # To split up URI's
@@ -311,44 +310,15 @@ class EventLaneViewer(gtk.EventBox):
 		Parameters:
 			event -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-		buttons = (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, gtk.STOCK_OPEN, gtk.RESPONSE_OK)
-
-		copyfile = gtk.CheckButton(_("Copy file to project"))
-		# Make it copy files to audio dir by default
-		copyfile.set_active(True)
-		copyfile.show()
-
-		dlg = gtk.FileChooserDialog(_("Add Audio File..."), action=gtk.FILE_CHOOSER_ACTION_OPEN, buttons=buttons)
-		dlg.set_current_folder(Globals.settings.general["projectfolder"])
-		dlg.set_extra_widget(copyfile)
-		
-		vbox = gtk.VBox()
-		audiopreview = AudioPreview()
-		vbox.pack_start(audiopreview, True, False)
-		vbox.show_all()
-		
-		dlg.set_preview_widget(vbox)
-		dlg.set_use_preview_label(False)
-		dlg.connect("selection-changed", audiopreview.OnSelection)
-		
-		response = dlg.run()
-
-		if response == gtk.RESPONSE_OK:
-			#stop the preview audio from playing without destorying the dialog
-			audiopreview.OnDestroy()
-			dlg.hide()
-			
+		filename, copyfile = self.mainview.ShowImportFileChooser()
+		#filename will be None is the user cancelled the dialog
+		if filename:
 			start = 0
 			if event:
 				#if we we're called from a mouse click, use the mouse position as the start
 				start = (self.mouseDownPos[0]/self.project.viewScale) + self.project.viewStart
 			
-			self.instrument.addEventFromFile(start, dlg.get_filename(), copyfile.get_active())
-			Globals.settings.general["projectfolder"] = os.path.dirname(dlg.get_filename())
-			Globals.settings.write()
-			dlg.destroy()
-		else:
-			dlg.destroy()
+			self.instrument.addEventFromFile(start, filename, copyfile)
 
 	#_____________________________________________________________________
 	

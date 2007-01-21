@@ -901,7 +901,7 @@ class Project(Monitored):
 		self.temp = instr.id
 		self.instruments.append(instr)
 		
-		return instr.id
+		return instr
 		
 	#_____________________________________________________________________	
 	
@@ -982,6 +982,23 @@ class Project(Monitored):
 		
 		self.instruments.remove(instr)
 		self.instruments.insert(position, instr)		
+	
+	#_____________________________________________________________________
+	
+	def AddInstrumentAndEvent(self, file, copyFile=False):
+		"""
+		Adds a new instrument of type "audio file" to the project, and adds the
+		given file to the new instrument.
+		
+		Parameters:
+			file -- the path to the file that should be added.
+			copyFile -- True = copy the file to Project's audio directory.
+					False = don't copy the file to the Project's audio directory.
+		"""
+		undoAction = UndoSystem.AtomicUndoAction()
+		instrTuple = [x for x in Globals.getCachedInstruments() if x[1] == "audiofile"][0]
+		instr = self.AddInstrument(_undoAction_=undoAction, *instrTuple)
+		instr.addEventFromFile(0, file, copyFile, _undoAction_=undoAction)
 	
 	#_____________________________________________________________________
 	
