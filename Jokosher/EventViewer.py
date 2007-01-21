@@ -78,7 +78,7 @@ class EventViewer(gtk.DrawingArea):
 		self.selectiontip = gtk.Tooltips()
 		
 		gtk.DrawingArea.__init__(self)
-		
+
 		self.set_events(	gtk.gdk.POINTER_MOTION_MASK |
 							gtk.gdk.BUTTON_RELEASE_MASK |
 							gtk.gdk.BUTTON_PRESS_MASK |
@@ -104,6 +104,10 @@ class EventViewer(gtk.DrawingArea):
 		self.drawerAlignToLeft = True		#boolean; if the drawer should be at the left of current selection
 									#otherwise it will be put on the right
 		self.fadeMarkers = [100,100]		#the values of the right and left fade markers on the selection
+
+		# Set accessibility helpers
+		self.SetAccessibleName()
+		self.set_property("can-focus", True)
 		
 		# source is an offscreen canvas to hold our waveform image
 		self.source = cairo.ImageSurface(cairo.FORMAT_ARGB32, 0, 0)
@@ -525,6 +529,8 @@ class EventViewer(gtk.DrawingArea):
 		#Don't allow moving, etc while recording!
 		if self.event.isRecording:
 			return
+
+		self.grab_focus()
 		
 		# {L|R}MB: deselect all events, select this event, begin moving the event
 		# {L|R}MB+ctrl: select this event without deselecting other events
@@ -837,6 +843,8 @@ class EventViewer(gtk.DrawingArea):
 			self.queue_resize()
 			self.last_num_levels = len(self.event.levels)
 			self.currentScale = self.project.viewScale
+
+		self.SetAccessibleName()
 		
 		self.queue_draw()
 
@@ -1027,5 +1035,11 @@ class EventViewer(gtk.DrawingArea):
 		self.fadeMarkers = [self.event.GetFadeLevelAtPoint(x) * 100 for x in self.event.selection]
 	
 	#_____________________________________________________________________
+
+	def SetAccessibleName(self):
+		"""
+		Set an ATK name to help users with screenreaders.
+		"""
+		self.get_accessible().set_name(_("Event, %s, %d seconds long" % (self.event.name, int(round(self.event.duration)))))
 
 #=========================================================================

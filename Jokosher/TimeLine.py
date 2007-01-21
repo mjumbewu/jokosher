@@ -63,6 +63,10 @@ class TimeLine(gtk.DrawingArea):
 		self.buttonDown = False
 		self.dragging = False
 		self.savedLine = None
+
+		# Accessibility helpers
+		self.SetAccessibleName()
+		self.set_property("can-focus", True)
 	
 		self.set_events(gtk.gdk.POINTER_MOTION_MASK |
 								gtk.gdk.BUTTON_PRESS_MASK |
@@ -320,6 +324,7 @@ class TimeLine(gtk.DrawingArea):
 		self.buttonDown = True
 		self.dragging = False
 		self.moveHead(event.x)
+		self.grab_focus()
 		return True
 
 	#_____________________________________________________________________
@@ -367,6 +372,7 @@ class TimeLine(gtk.DrawingArea):
 		"""
 		pos = self.project.viewStart + xpos/ self.project.viewScale
 		self.project.transport.SeekTo(pos)
+		self.SetAccessibleName()
 		
 	#_____________________________________________________________________
 	
@@ -402,5 +408,18 @@ class TimeLine(gtk.DrawingArea):
 				if factor == 200:
 					textWidth = longTextWidth
 		return factor, (factor < 200) # 0.2 * 5 = 1.0 second, if the interval is smaller, milliseconds are needed
+
+	def SetAccessibleName(self):
+		"""
+		Set a name property in ATK to help users with screenreaders.
+		"""
+		if self.project.transport.mode == self.project.transport.MODE_BARS_BEATS:
+			position_text = _("Timeline, %d bars, %d beats and %d ticks in" % self.project.transport.GetPositionAsBarsAndBeats())
+		else:
+			position_text = _("Timeline, %d hours, %d minutes, %d seconds and %d milliseconds in" % self.project.transport.GetPositionAsHoursMinutesSeconds())
+
+		self.get_accessible().set_name(position_text)
+
+		
 	
 #=========================================================================
