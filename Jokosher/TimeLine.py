@@ -408,7 +408,9 @@ class TimeLine(gtk.DrawingArea):
 				if factor == 200:
 					textWidth = longTextWidth
 		return factor, (factor < 200) # 0.2 * 5 = 1.0 second, if the interval is smaller, milliseconds are needed
-
+	
+	#_____________________________________________________________________
+	
 	def SetAccessibleName(self):
 		"""
 		Set a name property in ATK to help users with screenreaders.
@@ -420,6 +422,6 @@ class TimeLine(gtk.DrawingArea):
 
 		self.get_accessible().set_name(position_text)
 
-		
+	#_____________________________________________________________________
 	
 #=========================================================================
