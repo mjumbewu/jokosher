@@ -367,10 +367,19 @@ if not LOCALE_PATH:
 HELP_PATH = os.getenv("JOKOSHER_HELP_PATH")
 if not HELP_PATH:
 	USE_LOCAL_HELP = True
-	#TODO: replace C with the correct locale
-	current_locale = "C"
+	
+	# change the local help file to match the current locale
+	if locale.getlocale()[0].startswith("en", 0, 2):
+		current_locale = "C"
+	else:
+		current_locale = locale.getlocale()[0][:2]
+		
 	HELP_PATH = os.path.join(data_path, "..", "help/jokosher",
-							current_locale, "jokosher.xml")
+							 current_locale, "jokosher.xml")
+	
+	# use C (en) as the default help fallback
+	if not os.path.exists(HELP_PATH):
+		HELP_PATH = os.path.join(data_path, "..", "help/jokosher/C/jokosher.xml")
 
 # add your own extension dirs with envar JOKOSHER_EXTENSION_DIRS, colon-separated
 __extra_ext_dirs = os.environ.get('JOKOSHER_EXTENSION_DIRS','')
@@ -384,204 +393,211 @@ INSTRUMENT_HEADER_WIDTH = 0
 """ Locale constant """
 LOCALE_APP = "jokosher"
 
+""" Categories enum """
+class Categories:
+	(broken, unclassified, amplifiers, chorus, compressors,
+	delays, distortions, equalizers, filters, flangers,
+	miscellaneous, modulators, oscillators, phasers, reverbs,
+	simulators) = range(16)
+
 """ Set in Project.py """
 VERSION = None
 EFFECT_PRESETS_VERSION = None
 LADSPA_FACTORY_REGISTRY = None
 LADSPA_NAME_MAP = []
-							#TODO: FIX THE ICONS
 LADPSA_CATEGORIES_LIST = [
-						("Broken", "effect_unclassified.png"),		#0 - this image is never used
-						(_("Unclassified"), "effect_unclassified.png"),	#1
-						(_("Delays"), "effect_delays.png"),				#2
-						(_("Equalizers"), "effect_equalizers.png"),		#3
-						(_("Modulators"), "effect_modulators.png"),		#4
-						(_("Filters"), "effect_filters.png"),				#5
-						(_("Distortion"), "effect_distortion.png"),		#6
-						(_("Simulators"), "effect_simulators.png"),		#7
-						(_("Miscellaneous"), "effect_miscellaneous.png"),	#8
-						(_("Chorus"), "effect_chorus.png"),				#9
-						(_("Phasers"), "effect_phasers.png"),				#10
-						(_("Flangers"), "effect_flangers.png"),			#11
-						(_("Oscillators"), "effect_oscillators.png"),		#12
-						(_("Compressors"), "effect_compressors.png"),		#13
-						(_("Amplifiers"), "effect_amplifiers.png")			#14
+						(_("Broken"), "effect_unclassified.png"),
+						(_("Unclassified"), "effect_unclassified.png"),
+						(_("Amplifiers"), "effect_amplifiers.png"),
+						(_("Chorus"), "effect_chorus.png"),
+						(_("Compressors"), "effect_compressors.png"),
+						(_("Delays"), "effect_delays.png"),
+						(_("Distortions"), "effect_distortion.png"),
+						(_("Equalizers"), "effect_equalizers.png"),
+						(_("Filters"), "effect_filters.png"),
+						(_("Flangers"), "effect_flangers.png"),
+						(_("Miscellaneous"), "effect_miscellaneous.png"),
+						(_("Modulators"), "effect_modulators.png"),
+						(_("Oscillators"), "effect_oscillators.png"),
+						(_("Phasers"), "effect_phasers.png"),
+						(_("Reverbs"), "effect_reverbs.png"),
+						(_("Simulators"), "effect_simulators.png")
 						]
 LADSPA_CATEGORIES_DICT = {
-						"ladspa-SweepVFII" : 4,
-						"ladspa-SweepVFI" : 4,
-						"ladspa-PhaserII" : 10,
-						"ladspa-PhaserI" : 10,
-						"ladspa-ChorusII" : 9,
-						"ladspa-ChorusI" : 9,
-						"ladspa-Clip" : 14,
-						"ladspa-CabinetII" : 7,
-						"ladspa-CabinetI" : 7,
-						"ladspa-AmpV" : 7,
-						"ladspa-AmpIV" : 7,
-						"ladspa-AmpIII" : 7,
-						"ladspa-PreampIV" : 7,
-						"ladspa-PreampIII" : 7,
-						"ladspa-Compress" : 13,
-						"ladspa-Eq" : 3,
-						"ladspa-ssm-masher" : 0, #no sound
-						"ladspa-slew-limiter-rc" : 0, #no sound
-						"ladspa-slide-tc" : 0, #chirps then dies
-						"ladspa-signal-abs-cr" : 4,
-						"ladspa-vcf-hshelf" : 0, #erratic behavior.
-						"ladspa-vcf-lshelf" : 0, #erratic behavior
-						"ladspa-vcf-peakeq" : 5,
-						"ladspa-vcf-notch" : 5,
-						"ladspa-vcf-bp2" : 5,
-						"ladspa-vcf-bp1" : 0, #no sound
-						"ladspa-vcf-hp" : 5,
-						"ladspa-vcf-lp" : 5,
-						"ladspa-vcf-reslp" : 5,
-						"ladspa-range-trans-cr" : 14, #works, but the settings are impossible to use properly
-						"ladspa-hz-voct-ar" : 0, #no sound
-						"ladspa-Phaser1+LFO" : 10,
-						"ladspa-Chorus2" : 9, #so so
-						"ladspa-Chorus1" : 9, # so so
-						"ladspa-tap-vibrato" : 4,
-						"ladspa-tap-tubewarmth" : 5,
-						"ladspa-tap-tremolo" : 4,
-						"ladspa-tap-sigmoid" : 14,
-						"ladspa-tap-reflector" : 4,
-						"ladspa-tap-pitch" : 4,
-						"ladspa-tap-pinknoise" : 8,
-						"ladspa-tap-limiter" : 14,
-						"ladspa-tap-equalizer-bw" : 3,
-						"ladspa-tap-equalizer" : 3,
-						"ladspa-formant-vc" : 4,
-						"ladspa-tap-deesser" : 5,
-						"ladspa-tap-dynamics-m" : 5, #could be in another category
-						"ladspa-imp" : 5,
-						"ladspa-pitchScaleHQ" : 4, #crap
-						"ladspa-mbeq" : 3,
-						"ladspa-sc4m" : 5, #could be in another category
-						"ladspa-artificialLatency" : 8,
-						"ladspa-pitchScale" : 4, #crap
-						"ladspa-pointerCastDistortion" : 6, #crap
-						"ladspa-const" : 6, #could be in another category
-						"ladspa-lsFilter" : 5,
-						"ladspa-revdelay" : 2,
-						"ladspa-delay-c" : 0, #erratic behavior
-						"ladspa-delay-l" : 0, #no change in sound?
-						"ladspa-delay-n" : 0, #no change in sound?
-						"ladspa-decay" : 6, #controls make it unusable
-						"ladspa-comb-c" : 0, #erratic behavior
-						"ladspa-comb-l" : 0, #no change in sound?
-						"ladspa-comb-n" : 0, #no change in sound and static
-						"ladspa-allpass-c" : 0, #no change in sound?
-						"ladspa-allpass-l" : 0, #no change in sound?
-						"ladspa-allpass-n" : 0, #no change in sound?
-						"ladspa-butthigh-iir" : 5,
-						"ladspa-buttlow-iir" : 5,
-						"ladspa-dj-eq-mono" : 3,
-						"ladspa-notch-iir" : 5,
-						"ladspa-lowpass-iir" : 5,
-						"ladspa-highpass-iir" : 5,
-						"ladspa-bandpass-iir" : 5,
-						"ladspa-bandpass-a-iir" : 5,
-						"ladspa-gongBeater" : 4, #crap
-						"ladspa-djFlanger" : 11,
-						"ladspa-giantFlange" : 11,
-						"ladspa-amPitchshift" : 4,
-						"ladspa-chebstortion" : 6, #weak
-						"ladspa-inv" : 0, #no change in sound, no options either
-						"ladspa-zm1" : 0, #no change in sound, no options either
-						"ladspa-sc1" : 13, #could be in another category
-						"ladspa-gong" : 5,
-						"ladspa-freqTracker" : 0, #no sound
-						"ladspa-rateShifter" : 5,
-						"ladspa-fmOsc" : 0, #erratic behavior
-						"ladspa-smoothDecimate" : 5,
-						"ladspa-hardLimiter" : 14,
-						"ladspa-gate" : 5, #could be in another category
-						"ladspa-satanMaximiser" : 6,
-						"ladspa-alias" : 5, #could be in another category
-						"ladspa-valveRect" : 5,
-						"ladspa-crossoverDist" : 6, #crap
-						"ladspa-dysonCompress" : 13,
-						"ladspa-delayorama" : 2,
-						"ladspa-autoPhaser" : 10,
-						"ladspa-fourByFourPole" : 5,
-						"ladspa-lfoPhaser" : 10,
-						"ladspa-gsm" : 4,
-						"ladspa-svf" : 5,
-						"ladspa-foldover" : 6,
-						"ladspa-harmonicGen" : 4, #crap
-						"ladspa-sifter" : 4, #sounds like Distortion
-						"ladspa-valve" : 6, #weak
-						"ladspa-tapeDelay" : 2,
-						"ladspa-dcRemove" : 0, #no change in sound, no options either
-						"ladspa-fadDelay" : 2, #psychedelic stuff
-						"ladspa-transient" : 4,
-						"ladspa-triplePara" : 5,
-						"ladspa-singlePara" : 5,
-						"ladspa-retroFlange" : 11,
-						"ladspa-flanger" : 11,
-						"ladspa-decimator" : 5,
-						"ladspa-hermesFilter" : 5, #control needs to have 2 columns, doesn't fit screen
-						"ladspa-multivoiceChorus" : 9,
-						"ladspa-foverdrive" : 6,
-						"ladspa-declip" : 5, #couldn't properly test it since I had to clipping audio
-						"ladspa-comb" : 5,
-						"ladspa-ringmod-1i1o1l" : 4,
-						"ladspa-shaper" : 5,
-						"ladspa-divider" : 5,
-						"ladspa-diode" : 6,
-						"ladspa-amp" : 14,
-						"ladspa-Parametric1" : 5,
-						"ladspa-wshape-sine" : 0, #controls make it unusable
-						"ladspa-vcf303" : 5,
-						"ladspa-limit-rms" : 0, #controls make it unusable
-						"ladspa-limit-peak" : 0, #controls make it unusable
-						"ladspa-expand-rms" : 0, #controls make it unusable
-						"ladspa-expand-peak" : 0, #controls make it unusable
-						"ladspa-compress-rms" : 0, #controls make it unusable
-						"ladspa-compress-peak" : 0, #controls make it unusable
-						"ladspa-identity-audio" : 0, #no change in sound?
-						"ladspa-hard-gate" : 5,
-						"ladspa-grain-scatter" : 0, #no sound
-						"ladspa-fbdelay-60s" : 2,
-						"ladspa-fbdelay-5s" : 2,
-						"ladspa-fbdelay-1s" : 2,
-						"ladspa-fbdelay-0-1s" : 2,
-						"ladspa-fbdelay-0-01s" : 2,
-						"ladspa-delay-60s" : 2,
-						"ladspa-delay-1s" : 2,
-						"ladspa-delay-0-1s" : 2,
-						"ladspa-delay-0-01s" : 2,
-						"ladspa-disintegrator" : 5, #crap
-						"ladspa-triangle-fcsa-oa" : 12,
-						"ladspa-triangle-fasc-oa" : 0, #no sound
-						"ladspa-syncsquare-fcga-oa" : 12,
-						"ladspa-syncpulse-fcpcga-oa" : 12,
-						"ladspa-sum-iaic-oa" : 0, #controls make it unusable
-						"ladspa-square-fa-oa" : 12,
-						"ladspa-sinusWavewrapper" : 5,
-						"ladspa-ratio-ncda-oa" : 6,
-						"ladspa-ratio-nadc-oa" : 0, #no sound
-						"ladspa-random-fcsa-oa" : 12, #we GOTTA call this Atari or Arcade. It's the same sound!
-						"ladspa-random-fasc-oa" : 0, #no sound
-						"ladspa-sawtooth-fa-oa" : 12,
-						"ladspa-pulse-fcpa-oa" : 12,
-						"ladspa-pulse-fapc-oa" : 12,
-						"ladspa-product-iaic-oa" : 12,
-						"ladspa-lp4pole-fcrcia-oa" : 12, #controls suck
-						"ladspa-fmod-fcma-oa" : 5,
-						"ladspa-fmod-famc-oa" : 0, #controls make it unusable
-						"ladspa-amp-gcia-oa" : 0, #controls make it unusable
-						"ladspa-difference-icma-oa" : 14,
-						"ladspa-difference-iamc-oa" : 0, #no sound
-						"ladspa-sine-fcaa" : 12,
-						"ladspa-sine-faac" : 0, #no sound
-						"ladspa-hpf" : 5,
-						"ladspa-lpf" : 5,
-						"ladspa-adsr" : 0, #controls make it unusable, no sound
-						"ladspa-amp-mono" : 0, #controls make it unusable
-						"ladspa-delay-5s" : 2
+						"ladspa-SweepVFII" : Categories.modulators,
+						"ladspa-SweepVFI" : Categories.modulators,
+						"ladspa-PhaserII" : Categories.phasers,
+						"ladspa-PhaserI" : Categories.phasers,
+						"ladspa-ChorusII" : Categories.chorus,
+						"ladspa-ChorusI" : Categories.chorus,
+						"ladspa-Clip" : Categories.amplifiers,
+						"ladspa-CabinetII" : Categories.simulators,
+						"ladspa-CabinetI" : Categories.simulators,
+						"ladspa-AmpV" : Categories.simulators,
+						"ladspa-AmpIV" : Categories.simulators,
+						"ladspa-AmpIII" : Categories.simulators,
+						"ladspa-PreampIV" : Categories.simulators,
+						"ladspa-PreampIII" : Categories.simulators,
+						"ladspa-Compress" : Categories.compressors,
+						"ladspa-Eq" : Categories.equalizers,
+						"ladspa-ssm-masher" : Categories.broken, #no sound
+						"ladspa-slew-limiter-rc" : Categories.broken, #no sound
+						"ladspa-slide-tc" : Categories.broken, #chirps then dies
+						"ladspa-signal-abs-cr" : Categories.modulators,
+						"ladspa-vcf-hshelf" : Categories.broken, #erratic behavior.
+						"ladspa-vcf-lshelf" : Categories.broken, #erratic behavior
+						"ladspa-vcf-peakeq" : Categories.filters,
+						"ladspa-vcf-notch" : Categories.filters,
+						"ladspa-vcf-bp2" : Categories.filters,
+						"ladspa-vcf-bp1" : Categories.broken, #no sound
+						"ladspa-vcf-hp" : Categories.filters,
+						"ladspa-vcf-lp" : Categories.filters,
+						"ladspa-vcf-reslp" : Categories.filters,
+						"ladspa-range-trans-cr" : Categories.amplifiers, #works, but the settings are impossible to use properly
+						"ladspa-hz-voct-ar" : Categories.broken, #no sound
+						"ladspa-Phaser1+LFO" : Categories.phasers,
+						"ladspa-Chorus2" : Categories.chorus, #so so
+						"ladspa-Chorus1" : Categories.chorus, # so so
+						"ladspa-tap-vibrato" : Categories.modulators,
+						"ladspa-tap-tubewarmth" : Categories.filters,
+						"ladspa-tap-tremolo" : Categories.modulators,
+						"ladspa-tap-sigmoid" : Categories.amplifiers,
+						"ladspa-tap-reflector" : Categories.modulators,
+						"ladspa-tap-pitch" : Categories.modulators,
+						"ladspa-tap-pinknoise" : Categories.miscellaneous,
+						"ladspa-tap-limiter" : Categories.amplifiers,
+						"ladspa-tap-equalizer-bw" : Categories.equalizers,
+						"ladspa-tap-equalizer" : Categories.equalizers,
+						"ladspa-formant-vc" : Categories.modulators,
+						"ladspa-tap-deesser" : Categories.filters,
+						"ladspa-tap-dynamics-m" : Categories.filters, #could be in another category
+						"ladspa-imp" : Categories.filters,
+						"ladspa-pitchScaleHQ" : Categories.modulators, #crap
+						"ladspa-mbeq" : Categories.equalizers,
+						"ladspa-sc4m" : Categories.filters, #could be in another category
+						"ladspa-artificialLatency" : Categories.miscellaneous,
+						"ladspa-pitchScale" : Categories.modulators, #crap
+						"ladspa-pointerCastDistortion" : Categories.distortions, #crap
+						"ladspa-const" : Categories.distortions, #could be in another category
+						"ladspa-lsFilter" : Categories.filters,
+						"ladspa-revdelay" : Categories.delays,
+						"ladspa-delay-c" : Categories.broken, #erratic behavior
+						"ladspa-delay-l" : Categories.broken, #no change in sound?
+						"ladspa-delay-n" : Categories.broken, #no change in sound?
+						"ladspa-decay" : Categories.distortions, #controls make it unusable
+						"ladspa-comb-c" : Categories.broken, #erratic behavior
+						"ladspa-comb-l" : Categories.broken, #no change in sound?
+						"ladspa-comb-n" : Categories.broken, #no change in sound and static
+						"ladspa-allpass-c" : Categories.broken, #no change in sound?
+						"ladspa-allpass-l" : Categories.broken, #no change in sound?
+						"ladspa-allpass-n" : Categories.broken, #no change in sound?
+						"ladspa-butthigh-iir" : Categories.filters,
+						"ladspa-buttlow-iir" : Categories.filters,
+						"ladspa-dj-eq-mono" : Categories.equalizers,
+						"ladspa-notch-iir" : Categories.filters,
+						"ladspa-lowpass-iir" : Categories.filters,
+						"ladspa-highpass-iir" : Categories.filters,
+						"ladspa-bandpass-iir" : Categories.filters,
+						"ladspa-bandpass-a-iir" : Categories.filters,
+						"ladspa-gongBeater" : Categories.modulators, #crap
+						"ladspa-djFlanger" : Categories.flangers,
+						"ladspa-giantFlange" : Categories.flangers,
+						"ladspa-amPitchshift" : Categories.modulators,
+						"ladspa-chebstortion" : Categories.distortions, #weak
+						"ladspa-inv" : Categories.broken, #no change in sound, no options either
+						"ladspa-zm1" : Categories.broken, #no change in sound, no options either
+						"ladspa-sc1" : Categories.compressors, #could be in another category
+						"ladspa-gong" : Categories.filters,
+						"ladspa-freqTracker" : Categories.broken, #no sound
+						"ladspa-rateShifter" : Categories.filters,
+						"ladspa-fmOsc" : Categories.broken, #erratic behavior
+						"ladspa-smoothDecimate" : Categories.filters,
+						"ladspa-hardLimiter" : Categories.amplifiers,
+						"ladspa-gate" : Categories.filters, #could be in another category
+						"ladspa-satanMaximiser" : Categories.distortions,
+						"ladspa-alias" : Categories.filters, #could be in another category
+						"ladspa-valveRect" : Categories.filters,
+						"ladspa-crossoverDist" : Categories.distortions, #crap
+						"ladspa-dysonCompress" : Categories.compressors,
+						"ladspa-delayorama" : Categories.delays,
+						"ladspa-autoPhaser" : Categories.phasers,
+						"ladspa-fourByFourPole" : Categories.filters,
+						"ladspa-lfoPhaser" : Categories.phasers,
+						"ladspa-gsm" : Categories.modulators,
+						"ladspa-svf" : Categories.filters,
+						"ladspa-foldover" : Categories.distortions,
+						"ladspa-harmonicGen" : Categories.modulators, #crap
+						"ladspa-sifter" : Categories.modulators, #sounds like Distortion
+						"ladspa-valve" : Categories.distortions, #weak
+						"ladspa-tapeDelay" : Categories.delays,
+						"ladspa-dcRemove" : Categories.broken, #no change in sound, no options either
+						"ladspa-fadDelay" : Categories.delays, #psychedelic stuff
+						"ladspa-transient" : Categories.modulators,
+						"ladspa-triplePara" : Categories.filters,
+						"ladspa-singlePara" : Categories.filters,
+						"ladspa-retroFlange" : Categories.flangers,
+						"ladspa-flanger" : Categories.flangers,
+						"ladspa-decimator" : Categories.filters,
+						"ladspa-hermesFilter" : Categories.filters, #control needs to have 2 columns, doesn't fit screen
+						"ladspa-multivoiceChorus" : Categories.chorus,
+						"ladspa-foverdrive" : Categories.distortions,
+						"ladspa-declip" : Categories.filters, #couldn't properly test it since I had to clipping audio
+						"ladspa-comb" : Categories.filters,
+						"ladspa-ringmod-1i1o1l" : Categories.modulators,
+						"ladspa-shaper" : Categories.filters,
+						"ladspa-divider" : Categories.filters,
+						"ladspa-diode" : Categories.distortions,
+						"ladspa-amp" : Categories.amplifiers,
+						"ladspa-Parametric1" : Categories.filters,
+						"ladspa-wshape-sine" : Categories.broken, #controls make it unusable
+						"ladspa-vcf303" : Categories.filters,
+						"ladspa-limit-rms" : Categories.broken, #controls make it unusable
+						"ladspa-limit-peak" : Categories.broken, #controls make it unusable
+						"ladspa-expand-rms" : Categories.broken, #controls make it unusable
+						"ladspa-expand-peak" : Categories.broken, #controls make it unusable
+						"ladspa-compress-rms" : Categories.broken, #controls make it unusable
+						"ladspa-compress-peak" : Categories.broken, #controls make it unusable
+						"ladspa-identity-audio" : Categories.broken, #no change in sound?
+						"ladspa-hard-gate" : Categories.filters,
+						"ladspa-grain-scatter" : Categories.broken, #no sound
+						"ladspa-fbdelay-60s" : Categories.delays,
+						"ladspa-fbdelay-5s" : Categories.delays,
+						"ladspa-fbdelay-1s" : Categories.delays,
+						"ladspa-fbdelay-0-1s" : Categories.delays,
+						"ladspa-fbdelay-0-01s" : Categories.delays,
+						"ladspa-delay-60s" : Categories.delays,
+						"ladspa-delay-1s" : Categories.delays,
+						"ladspa-delay-0-1s" : Categories.delays,
+						"ladspa-delay-0-01s" : Categories.delays,
+						"ladspa-disintegrator" : Categories.filters, #crap
+						"ladspa-triangle-fcsa-oa" : Categories.oscillators,
+						"ladspa-triangle-fasc-oa" : Categories.broken, #no sound
+						"ladspa-syncsquare-fcga-oa" : Categories.oscillators,
+						"ladspa-syncpulse-fcpcga-oa" : Categories.oscillators,
+						"ladspa-sum-iaic-oa" : Categories.broken, #controls make it unusable
+						"ladspa-square-fa-oa" : Categories.oscillators,
+						"ladspa-sinusWavewrapper" : Categories.filters,
+						"ladspa-ratio-ncda-oa" : Categories.distortions,
+						"ladspa-ratio-nadc-oa" : Categories.broken, #no sound
+						"ladspa-random-fcsa-oa" : Categories.oscillators, #we GOTTA call this Atari or Arcade. It's the same sound!
+						"ladspa-random-fasc-oa" : Categories.broken, #no sound
+						"ladspa-sawtooth-fa-oa" : Categories.oscillators,
+						"ladspa-pulse-fcpa-oa" : Categories.oscillators,
+						"ladspa-pulse-fapc-oa" : Categories.oscillators,
+						"ladspa-product-iaic-oa" : Categories.oscillators,
+						"ladspa-lp4pole-fcrcia-oa" : Categories.oscillators, #controls suck
+						"ladspa-fmod-fcma-oa" : Categories.filters,
+						"ladspa-fmod-famc-oa" : Categories.broken, #controls make it unusable
+						"ladspa-amp-gcia-oa" : Categories.broken, #controls make it unusable
+						"ladspa-difference-icma-oa" : Categories.amplifiers,
+						"ladspa-difference-iamc-oa" : Categories.broken, #no sound
+						"ladspa-sine-fcaa" : Categories.oscillators,
+						"ladspa-sine-faac" : Categories.broken, #no sound
+						"ladspa-hpf" : Categories.filters,
+						"ladspa-lpf" : Categories.filters,
+						"ladspa-adsr" : Categories.broken, #controls make it unusable, no sound
+						"ladspa-amp-mono" : Categories.amplifiers,
+						"ladspa-delay-5s" : Categories.delays
 						}
 DEBUG_STDOUT, DEBUG_GST = (False, False)
 
