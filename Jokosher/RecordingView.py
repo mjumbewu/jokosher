@@ -32,6 +32,12 @@ class RecordingView(gtk.Frame):
 	
 	""" Width, in pixel, for the instrument headers """
 	INSTRUMENT_HEADER_WIDTH = 150
+	""" How far in you are allowed to zoom. """
+	ZOOM_MAX_SCALE = 100.0
+	""" How for out you are allowed to zoom. 
+	This is just a default value and will change 
+	depending on the project length."""
+	ZOOM_MIN_SCALE = 5.0
 	
 	""" Number only to be used inside Jokosher """
 	URI_DRAG_TYPE = 86
@@ -94,9 +100,8 @@ class RecordingView(gtk.Frame):
 		if not self.mixView:
 			self.zoomSlider = gtk.HScale()
 			self.zoomSlider.set_size_request(70, -1)
-			# if you plan on changing the zoom range remember
-			# beyond 4000 is likely to make the levels disappear
-			self.zoomSlider.set_range(5, 100.0)
+			
+			self.zoomSlider.set_range(self.ZOOM_MIN_SCALE, self.ZOOM_MAX_SCALE)
 			self.zoomSlider.set_increments(0.2, 0.2)
 			self.zoomSlider.set_draw_value(False)
 			self.zoomSlider.set_value(self.project.viewScale)
@@ -167,7 +172,13 @@ class RecordingView(gtk.Frame):
 			self.scrollRange.value = start
 			if start != self.project.viewStart:
 				self.project.SetViewStart(start)
-			
+		
+		#check the min zoom value (based on project length)
+		pixelSize = self.allocation.width - Globals.INSTRUMENT_HEADER_WIDTH - 4	# four pixels to account for borders
+		minScale = pixelSize / length
+		self.zoomSlider.set_range(minScale, self.ZOOM_MAX_SCALE)
+		if self.zoomSlider.get_value() < minScale:
+			self.zoomSlider.set_value(minScale)
 		
 	#_____________________________________________________________________
 
