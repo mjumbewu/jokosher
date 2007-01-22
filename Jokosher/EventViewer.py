@@ -1096,7 +1096,6 @@ class EventViewer(gtk.DrawingArea):
 		"""
 		accessible = self.get_accessible()
 		accessible.set_name(_("Event, %s, %0.2f seconds long, starting at %0.2f seconds." % (self.event.name, self.event.duration, self.event.start)))
-		self.emit("property-change", "name")
 		
 
 #=========================================================================
