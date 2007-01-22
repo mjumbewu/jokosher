@@ -82,12 +82,16 @@ class EventViewer(gtk.DrawingArea):
 		self.set_events(	gtk.gdk.POINTER_MOTION_MASK |
 							gtk.gdk.BUTTON_RELEASE_MASK |
 							gtk.gdk.BUTTON_PRESS_MASK |
-							gtk.gdk.LEAVE_NOTIFY_MASK )
+							gtk.gdk.LEAVE_NOTIFY_MASK |
+							gtk.gdk.KEY_PRESS)
 							
 		self.connect("expose_event",self.OnDraw)
 		self.connect("motion_notify_event", self.OnMouseMove)
 		self.connect("leave_notify_event", self.OnMouseLeave)
 		self.connect("button_press_event", self.OnMouseDown)
+		self.connect("focus-in-event", self.OnFocus)
+		self.connect("focus-out-event", self.OnFocusLost)
+		self.connect("key_press_event", self.OnKeyPress)
 		self.connect("button_release_event", self.OnMouseUp)
 		
 		self.height = height			# Height of this object in pixels
@@ -587,6 +591,56 @@ class EventViewer(gtk.DrawingArea):
 		return True
 
 	#_____________________________________________________________________
+
+	def OnFocus(self, widget, event):
+		"""
+			Select the event when focused via a non-mouse based method.
+		"""
+		#Don't allow moving, etc while recording!
+		if self.event.isRecording:
+			return
+
+		self.event.SetSelected(True)
+
+		return True
+
+	#_____________________________________________________________________
+
+	def OnFocusLost(self, widget, event):
+		"""
+			Deselect the event when focus is lost.
+		"""
+		self.event.SetSelected(False)
+
+		return True
+	
+	#_____________________________________________________________________
+
+	def OnKeyPress(self, widget, event):
+		"""
+			Handle movement of events from the keyboard.
+		"""
+		modifier = 0.1 # Multiply movement by this amount (modified by ctrl key)
+		if event.state == gtk.gdk.CONTROL_MASK:
+			modifier = 1
+		
+		key = gtk.gdk.keyval_name(event.keyval)
+		if key == "Left":
+			moveTo = self.event.start - modifier
+		elif key == "Right":
+			moveTo = self.event.start + modifier
+		else:
+			return False
+
+		if moveTo < 0:
+			moveTo = 0
+		self.event.MoveButDoNotOverlap(moveTo)
+
+		self.lane.Update(self)
+			
+		return True
+
+	#_____________________________________________________________________
 		
 	def ContextMenu(self, mouse):
 		"""
@@ -1040,6 +1094,9 @@ class EventViewer(gtk.DrawingArea):
 		"""
 		Set an ATK name to help users with screenreaders.
 		"""
-		self.get_accessible().set_name(_("Event, %s, %d seconds long" % (self.event.name, int(round(self.event.duration)))))
+		accessible = self.get_accessible()
+		accessible.set_name(_("Event, %s, %0.2f seconds long, starting at %0.2f seconds." % (self.event.name, self.event.duration, self.event.start)))
+		self.emit("property-change", "name")
+		
 
 #=========================================================================
