@@ -599,8 +599,8 @@
 		  <property name="visible_vertical">True</property>
 		  <property name="is_important">False</property>
 		  <accessibility>
-		    <atkrelation target="Record" type="flows-to"/>
 		    <atkrelation target="Rewind" type="flows-to"/>
+		    <atkrelation target="Record" type="flows-to"/>
 		  </accessibility>
 		  <signal name="clicked" handler="on_AddInstrument_clicked"/>
 		</widget>
@@ -649,8 +649,8 @@
 		  <property name="visible_vertical">True</property>
 		  <property name="is_important">False</property>
 		  <accessibility>
-		    <atkrelation target="Play" type="flows-to"/>
 		    <atkrelation target="AddInstrument" type="flows-from"/>
+		    <atkrelation target="Play" type="flows-to"/>
 		  </accessibility>
 		  <signal name="clicked" handler="on_Rewind_clicked"/>
 		</widget>
@@ -670,8 +670,8 @@
 		  <property name="is_important">False</property>
 		  <property name="active">False</property>
 		  <accessibility>
-		    <atkrelation target="Rewind" type="flows-from"/>
 		    <atkrelation target="Stop" type="flows-to"/>
+		    <atkrelation target="Rewind" type="flows-from"/>
 		  </accessibility>
 		  <signal name="toggled" handler="on_Play_toggled"/>
 		</widget>
@@ -690,8 +690,8 @@
 		  <property name="visible_vertical">True</property>
 		  <property name="is_important">False</property>
 		  <accessibility>
-		    <atkrelation target="Play" type="flows-from"/>
 		    <atkrelation target="Forward" type="flows-to"/>
+		    <atkrelation target="Play" type="flows-from"/>
 		  </accessibility>
 		  <signal name="clicked" handler="on_Stop_clicked"/>
 		</widget>
@@ -710,8 +710,8 @@
 		  <property name="visible_vertical">True</property>
 		  <property name="is_important">False</property>
 		  <accessibility>
-		    <atkrelation target="Record" type="flows-to"/>
 		    <atkrelation target="Stop" type="flows-from"/>
+		    <atkrelation target="Record" type="flows-to"/>
 		  </accessibility>
 		  <signal name="clicked" handler="on_Forward_clicked"/>
 		</widget>
@@ -825,7 +825,7 @@
 		      <child>
 			<widget class="GtkToggleButton" id="Recording">
 			  <property name="visible">True</property>
-			  <property name="tooltip" translatable="yes">Switch to Recording workspace</property>
+			  <property name="tooltip" translatable="yes">Switch to the Recording workspace</property>
 			  <property name="can_focus">True</property>
 			  <property name="label" translatable="yes">Recording</property>
 			  <property name="use_underline">True</property>
@@ -845,7 +845,7 @@
 		      <child>
 			<widget class="GtkToggleButton" id="CompactMix">
 			  <property name="visible">True</property>
-			  <property name="tooltip" translatable="yes">Switch to Mixing workspace</property>
+			  <property name="tooltip" translatable="yes">Switch to the Mixing workspace</property>
 			  <property name="can_focus">True</property>
 			  <property name="label" translatable="yes">Mixing</property>
 			  <property name="use_underline">True</property>
@@ -3585,6 +3585,7 @@ Custom</property>
 			  <child>
 			    <widget class="GtkTreeView" id="listEffects">
 			      <property name="visible">True</property>
+			      <property name="tooltip" translatable="yes">Double-click an effect to active it</property>
 			      <property name="can_focus">True</property>
 			      <property name="headers_visible">True</property>
 			      <property name="rules_hint">False</property>
@@ -3652,6 +3653,7 @@ Custom</property>
 	      <child>
 		<widget class="GtkButton" id="buttonEffectAdd">
 		  <property name="visible">True</property>
+		  <property name="tooltip" translatable="yes">Activate the selected effect</property>
 		  <property name="can_focus">True</property>
 		  <property name="relief">GTK_RELIEF_NORMAL</property>
 		  <property name="focus_on_click">True</property>
@@ -3724,6 +3726,7 @@ Custom</property>
 			  <child>
 			    <widget class="GtkTreeView" id="listActiveEffects">
 			      <property name="visible">True</property>
+			      <property name="tooltip" translatable="yes">Double-click an active effect to adjust its settings</property>
 			      <property name="can_focus">True</property>
 			      <property name="headers_visible">True</property>
 			      <property name="rules_hint">False</property>
@@ -3778,6 +3781,7 @@ Custom</property>
 			  <child>
 			    <widget class="GtkButton" id="buttonEffectUp">
 			      <property name="visible">True</property>
+			      <property name="tooltip" translatable="yes">Move the selected active effect up on the effects chain</property>
 			      <property name="can_focus">True</property>
 			      <property name="relief">GTK_RELIEF_NORMAL</property>
 			      <property name="focus_on_click">True</property>
@@ -3805,6 +3809,7 @@ Custom</property>
 			  <child>
 			    <widget class="GtkButton" id="buttonEffectDown">
 			      <property name="visible">True</property>
+			      <property name="tooltip" translatable="yes">Move the selected active effect down on the effects chain</property>
 			      <property name="can_focus">True</property>
 			      <property name="relief">GTK_RELIEF_NORMAL</property>
 			      <property name="focus_on_click">True</property>
@@ -3832,6 +3837,7 @@ Custom</property>
 			  <child>
 			    <widget class="GtkButton" id="buttonEffectDelete">
 			      <property name="visible">True</property>
+			      <property name="tooltip" translatable="yes">Deactivate the currently selected active effect</property>
 			      <property name="can_focus">True</property>
 			      <property name="relief">GTK_RELIEF_NORMAL</property>
 			      <property name="focus_on_click">True</property>
@@ -3859,6 +3865,7 @@ Custom</property>
 			  <child>
 			    <widget class="GtkButton" id="buttonEffectSettings">
 			      <property name="visible">True</property>
+			      <property name="tooltip" translatable="yes">Adjust the settings for the currently selected active effect</property>
 			      <property name="can_focus">True</property>
 			      <property name="relief">GTK_RELIEF_NORMAL</property>
 			      <property name="focus_on_click">True</property>
@@ -4025,6 +4032,7 @@ Custom</property>
 	  <child>
 	    <widget class="GtkButton" id="buttonPresetSave">
 	      <property name="visible">True</property>
+	      <property name="tooltip" translatable="yes">Save the currently active effects as a preset</property>
 	      <property name="can_focus">True</property>
 	      <property name="relief">GTK_RELIEF_NORMAL</property>
 	      <property name="focus_on_click">True</property>
@@ -4052,6 +4060,7 @@ Custom</property>
 	  <child>
 	    <widget class="GtkButton" id="buttonPresetDelete">
 	      <property name="visible">True</property>
+	      <property name="tooltip" translatable="yes">Delete the currently active effects preset</property>
 	      <property name="can_focus">True</property>
 	      <property name="relief">GTK_RELIEF_NORMAL</property>
 	      <property name="focus_on_click">True</property>
@@ -4119,6 +4128,7 @@ Custom</property>
 	  <child>
 	    <widget class="GtkButton" id="okButton">
 	      <property name="visible">True</property>
+	      <property name="tooltip" translatable="yes">Use these effect settings</property>
 	      <property name="can_default">True</property>
 	      <property name="can_focus">True</property>
 	      <property name="label">gtk-close</property>
@@ -4198,6 +4208,7 @@ Custom</property>
 	  <child>
 	    <widget class="GtkButton" id="savePresetButton">
 	      <property name="visible">True</property>
+	      <property name="tooltip" translatable="yes">Save the current settings as a preset</property>
 	      <property name="can_focus">True</property>
 	      <property name="relief">GTK_RELIEF_NORMAL</property>
 	      <property name="focus_on_click">True</property>
@@ -4225,6 +4236,7 @@ Custom</property>
 	  <child>
 	    <widget class="GtkButton" id="deletePresetButton">
 	      <property name="visible">True</property>
+	      <property name="tooltip" translatable="yes">Delete the currently active preset</property>
 	      <property name="can_focus">True</property>
 	      <property name="relief">GTK_RELIEF_NORMAL</property>
 	      <property name="focus_on_click">True</property>
@@ -4428,7 +4440,7 @@ Custom</property>
 	      <child>
 		<widget class="GtkButton" id="button11">
 		  <property name="visible">True</property>
-		  <property name="tooltip" translatable="yes">Remove curently selected extension</property>
+		  <property name="tooltip" translatable="yes">Remove the currently selected extension</property>
 		  <property name="relief">GTK_RELIEF_NORMAL</property>
 		  <property name="focus_on_click">True</property>
 		  <signal name="clicked" handler="on_Remove_clicked"/>

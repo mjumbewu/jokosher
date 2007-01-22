@@ -552,7 +552,7 @@ class InstrumentEffectsDialog:
 		proplist = gobject.list_properties(self.instrument.effects[self.effectpos])
 		
 		# set the effect name and icon
-		self.effectLabel.set_label(self.modelActiveEffects[selection[1]][2])
+		self.effectLabel.set_label("<b>%s</b>" % self.modelActiveEffects[selection[1]][2])
 		self.effectImage.set_from_pixbuf(self.modelActiveEffects[selection[1]][0])
 		
 		# resize the settingstable to accomodate the number of settings sliders required
@@ -726,6 +726,9 @@ class InstrumentEffectsDialog:
 		# grab the label from the combo
 		label = self.presetscombo.get_active_text()
 		
+		if label == "":
+			return
+		
 		effectdict = {}
 		
 		effect = self.instrument.effects[self.effectpos]
@@ -751,6 +754,9 @@ class InstrumentEffectsDialog:
 		"""
 		presetName = self.presetscombo.get_active_text()
 		
+		if presetName == "":
+			return
+		
 		effect = self.instrument.effects[self.effectpos]
 		effectName = effect.get_factory().get_name()
 		
@@ -767,6 +773,9 @@ class InstrumentEffectsDialog:
 		"""
 		# grab the label from the combo
 		label = self.comboPresets.get_active_text()
+		
+		if label == "":
+			return
 		
 		self.effectlist = []
 				
@@ -797,6 +806,9 @@ class InstrumentEffectsDialog:
 			button -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		presetName = self.comboPresets.get_active_text()
+		
+		if presetName == "":
+			return
 		
 		self.presets.DeleteEffectChain(presetName, self.instrument.instrType)
 	
