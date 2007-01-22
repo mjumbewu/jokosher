@@ -99,11 +99,11 @@ class MainApp:
 			"on_contributing_activate" : self.OnContributingDialog,
 			"on_ExtensionManager_activate" : self.OnExtensionManagerDialog,
 			"on_instrumentmenu_activate" : self.OnInstrumentMenu,
-			"on_add_audio_file_activate" : self.OnAddAudio,
+			"on_instrMenu_add_audio" : self.OnAddAudio,
 			"on_change_instr_type_activate" : self.OnChangeInstrument,
 			"on_remove_instr_activate" : self.OnRemoveInstrument,
 			"on_report_bug_activate" : self.OnReportBug,
-			"on_add_audio_file_instrument_activate" : self.OnAddAudioInstrument
+			"on_project_add_audio" : self.OnAddAudioFile
 		}
 		self.wTree.signal_autoconnect(signals)
 		
@@ -133,9 +133,11 @@ class MainApp:
 		self.recentprojects = self.wTree.get_widget("recentprojects")
 		self.recentprojectsmenu = self.wTree.get_widget("recentprojects_menu")
 		self.menubar = self.wTree.get_widget("menubar")
-		self.addAudioMenuItem = self.wTree.get_widget("add_audio_file")
+		self.addAudioMenuItem = self.wTree.get_widget("add_audio_file_instrument_menu")
 		self.changeInstrMenuItem = self.wTree.get_widget("change_instrument_type")
 		self.removeInstrMenuItem = self.wTree.get_widget("remove_selected_instrument")
+		self.addAudioFileButton = self.wTree.get_widget("addAudioFileButton")
+		self.addAudioFileMenuItem = self.wTree.get_widget("add_audio_file_project_menu")
 		
 		self.recentprojectitems = []
 		self.lastopenedproject = None
@@ -937,8 +939,9 @@ class MainApp:
 			self.stop.set_sensitive(True)	#stop should always be clickable
 			self.record.set_sensitive(not self.isPlaying)
 			
-			controls = (self.play, self.reverse, self.forward, self.menubar, self.recording.timelinebar.headerhbox,
-					self.compactmix.projectview.timelinebar.headerhbox, self.addInstrumentButton)
+			controls = (self.play, self.reverse, self.forward, self.editmenu, self.projectMenu, self.instrumentMenu, 
+					self.recording.timelinebar.headerhbox, self.compactmix.projectview.timelinebar.headerhbox, 
+					self.addInstrumentButton, self.addAudioFileButton)
 			for widget in controls:
 				widget.set_sensitive(not self.isRecording)
 			
@@ -1259,7 +1262,7 @@ class MainApp:
 		if self.tvtoolitem in self.wTree.get_widget("MainToolbar").get_children():
 			self.wTree.get_widget("MainToolbar").remove(self.tvtoolitem)
 		
-		ctrls = (self.save, self.save_as, self.close, self.addInstrumentButton,
+		ctrls = (self.save, self.save_as, self.close, self.addInstrumentButton, self.addAudioFileButton,
 			self.reverse, self.forward, self.play, self.stop, self.record,
 			self.projectMenu, self.instrumentMenu, self.export, self.cut, self.copy, self.paste,
 			self.undo, self.redo, self.delete,
@@ -1362,6 +1365,10 @@ class MainApp:
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
+		if self.isRecording:
+			self.export.set_sensitive(False)
+			return
+		
 		eventList = False
 		if self.project:
 			for instr in self.project.instruments:
@@ -1772,7 +1779,7 @@ class MainApp:
 
 	#_____________________________________________________________________
 
-	def OnAddAudioInstrument(self, widget):
+	def OnAddAudioFile(self, widget):
 		"""
 		Called when the "Add Audio File Instrument" in the project menu is clicked.
 		

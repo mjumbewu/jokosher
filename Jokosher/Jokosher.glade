@@ -311,12 +311,24 @@
 		  </child>
 
 		  <child>
-		    <widget class="GtkImageMenuItem" id="add_audio_file_instrument">
+		    <widget class="GtkImageMenuItem" id="add_audio_file_project_menu">
 		      <property name="visible">True</property>
-		      <property name="tooltip" translatable="yes">Add an audio file instrument to the project</property>
-		      <property name="label" translatable="yes">Add Audio File Instrument</property>
+		      <property name="tooltip" translatable="yes">Add an audio file to the project</property>
+		      <property name="label" translatable="yes">Add Audio File</property>
 		      <property name="use_underline">True</property>
-		      <signal name="activate" handler="on_add_audio_file_instrument_activate" last_modification_time="Tue, 26 Dec 2006 18:58:33 GMT"/>
+		      <signal name="activate" handler="on_project_add_audio" last_modification_time="Tue, 26 Dec 2006 18:58:33 GMT"/>
+
+		      <child internal-child="image">
+			<widget class="GtkImage" id="image3384">
+			  <property name="visible">True</property>
+			  <property name="stock">gtk-open</property>
+			  <property name="icon_size">1</property>
+			  <property name="xalign">0.5</property>
+			  <property name="yalign">0.5</property>
+			  <property name="xpad">0</property>
+			  <property name="ypad">0</property>
+			</widget>
+		      </child>
 		    </widget>
 		  </child>
 
@@ -394,12 +406,12 @@
 		<widget class="GtkMenu" id="instrumentmenu_menu">
 
 		  <child>
-		    <widget class="GtkImageMenuItem" id="add_audio_file">
+		    <widget class="GtkImageMenuItem" id="add_audio_file_instrument_menu">
 		      <property name="visible">True</property>
 		      <property name="tooltip" translatable="yes">Add an audio file to the selected instrument</property>
 		      <property name="label" translatable="yes">Add Audio File</property>
 		      <property name="use_underline">True</property>
-		      <signal name="activate" handler="on_add_audio_file_activate" last_modification_time="Tue, 26 Dec 2006 18:58:33 GMT"/>
+		      <signal name="activate" handler="on_instrMenu_add_audio" last_modification_time="Tue, 26 Dec 2006 18:58:33 GMT"/>
 		    </widget>
 		  </child>
 
@@ -599,6 +611,23 @@
 	      </child>
 
 	      <child>
+		<widget class="GtkToolButton" id="addAudioFileButton">
+		  <property name="visible">True</property>
+		  <property name="label" translatable="yes">Add Audio FIle</property>
+		  <property name="use_underline">True</property>
+		  <property name="stock_id">gtk-open</property>
+		  <property name="visible_horizontal">True</property>
+		  <property name="visible_vertical">True</property>
+		  <property name="is_important">False</property>
+		  <signal name="clicked" handler="on_project_add_audio" last_modification_time="Mon, 22 Jan 2007 19:04:35 GMT"/>
+		</widget>
+		<packing>
+		  <property name="expand">False</property>
+		  <property name="homogeneous">True</property>
+		</packing>
+	      </child>
+
+	      <child>
 		<widget class="GtkSeparatorToolItem" id="separatortoolitem1">
 		  <property name="visible">True</property>
 		  <property name="draw">True</property>
@@ -695,7 +724,7 @@
 	      <child>
 		<widget class="GtkToggleToolButton" id="Record">
 		  <property name="visible">True</property>
-		  <property name="tooltip" translatable="yes">Select an instrument, then click here to begin recording</property>
+		  <property name="tooltip" translatable="yes">Arm an instrument, then click here to begin recording</property>
 		  <property name="stock_id">gtk-media-record</property>
 		  <property name="visible_horizontal">True</property>
 		  <property name="visible_vertical">True</property>
