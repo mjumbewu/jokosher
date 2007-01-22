@@ -985,7 +985,7 @@ class Project(Monitored):
 	
 	#_____________________________________________________________________
 	
-	def AddInstrumentAndEvent(self, file, copyFile=False):
+	def AddInstrumentAndEvent(self, file, copyFile=False, undoAction=None):
 		"""
 		Adds a new instrument of type "audio file" to the project, and adds the
 		given file to the new instrument.
@@ -995,7 +995,8 @@ class Project(Monitored):
 			copyFile -- True = copy the file to Project's audio directory.
 					False = don't copy the file to the Project's audio directory.
 		"""
-		undoAction = UndoSystem.AtomicUndoAction()
+		if not undoAction:
+			undoAction = UndoSystem.AtomicUndoAction()
 		instrTuple = [x for x in Globals.getCachedInstruments() if x[1] == "audiofile"][0]
 		instr = self.AddInstrument(_undoAction_=undoAction, *instrTuple)
 		instr.addEventFromFile(0, file, copyFile, _undoAction_=undoAction)

@@ -14,6 +14,7 @@ import InstrumentViewer
 import TimeLineBar
 import Globals
 import gettext
+import urllib, urlparse
 
 #=========================================================================
 
@@ -31,6 +32,16 @@ class RecordingView(gtk.Frame):
 	
 	""" Width, in pixel, for the instrument headers """
 	INSTRUMENT_HEADER_WIDTH = 150
+	
+	""" Number only to be used inside Jokosher """
+	URI_DRAG_TYPE = 86
+	
+	""" Custom numbers for use while dragging text in Jokosher """
+	DRAG_TARGETS = [ ( "text/uri-list", 	# Accept uri-lists
+						0,					# From everywhere
+						URI_DRAG_TYPE ),		# Use the custom number
+						("text/plain", 0, URI_DRAG_TYPE) # so drags from Firefox work
+						]
 
 	#_____________________________________________________________________
 
@@ -121,6 +132,12 @@ class RecordingView(gtk.Frame):
 		self.connect("button_release_event", self.OnExpose)
 		self.connect("button_press_event", self.OnMouseDown)
 		self.connect("size-allocate", self.OnAllocate)
+		
+		self.vbox.drag_dest_set(	gtk.DEST_DEFAULT_DROP,
+									self.DRAG_TARGETS, 
+									gtk.gdk.ACTION_COPY)
+		self.vbox.connect("drag_data_received", self.OnDragDataReceived)
+		self.vbox.connect("drag_motion", self.OnDragMotion)
 		
 		self.Update()
 	#_____________________________________________________________________
@@ -356,5 +373,57 @@ class RecordingView(gtk.Frame):
 		if change != "volume":
 			self.Update()
 		
-	#_____________________________________________________________________	
+	#_____________________________________________________________________
+	
+	def OnDragDataReceived(self, widget, context, x, y, selection, targetType, time):
+		"""
+		Called when the user releases MOUSE1, finishing a drag and drop
+		procedure.
+		Adds an instrument and event for each "file://"-uri in the uri-list to the Instrument, 
+		one after the other. The files will be copied to the Project's audio directory.
+			
+		Parameters:
+			widget -- InstrumentViewer being dragged.
+			context -- reserved for GTK callbacks, don't use it explicitly.
+			x -- point in the X axis the dragged object was dropped.
+			y -- point in the Y axis the dragged object was dropped..
+			selection -- selected object area that was dragged.
+			targetType -- mimetype of the dragged object.
+			time -- reserved for GTK callbacks, don't use it explicitly.
+			
+		Returns:
+			True -- continue GTK signal propagation. *CHECK*
+		"""
+		# Splitlines to separate the uri's, unquote to decode the uri-encoding ('%20' -> ' ')
+		uris = [urllib.unquote(uri) for uri in selection.data.splitlines()]
+		for uri in uris:
+			# Parse the uri, and continue only if it is pointing to a local file
+			(scheme, domain, file, params, query, fragment) = urlparse.urlparse(uri, "file")
+			if scheme == "file":
+				event = self.project.AddInstrumentAndEvent(file, True) # True: copy
+		
+		context.finish(True, False, time)
+		self.Update()
+		return True
+	
+	#_____________________________________________________________________
+	
+	def OnDragMotion(self, widget, context, x, y, time):
+		"""
+		Called each time the user moves the mouse onto this widget while dragging.
+		
+		Parameters:
+			widget -- InstrumentViewer the mouse is hovering over.
+			context -- cairo widget context.
+			x -- reserved for GTK callbacks, don't use it explicitly.
+			y -- reserved for GTK callbacks, don't use it explicitly.
+			time -- reserved for GTK callbacks, don't use it explicitly.
+		
+		Returns:
+			True -- continue GTK signal propagation. *CHECK*
+		"""
+		context.drag_status(gtk.gdk.ACTION_COPY, time)
+		return True
+	
+	#_____________________________________________________________________
 #=========================================================================
