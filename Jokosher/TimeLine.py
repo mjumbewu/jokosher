@@ -37,7 +37,7 @@ class TimeLine(gtk.DrawingArea):
 				|  |1 |2 |3 |4 	|  |  |  |  | etc
 	"""
 	_NUM_LINES = 5
-
+	
 	#_____________________________________________________________________
 
 	def __init__(self, project, timelinebar, mainview):
@@ -106,8 +106,8 @@ class TimeLine(gtk.DrawingArea):
 		"""
 		if self.savedLine == None:
 			self.DrawLine()
+			
 		d = widget.window
-
 		gc = d.new_gc()
 		
 		# redraw area from saved gtk.gdk.Image
@@ -278,17 +278,17 @@ class TimeLine(gtk.DrawingArea):
 		
 		#redraw timeline if needed
 		if change in ("transport-mode", "bpm", "time-signature", "zoom", "view-start"):
-			self.DrawLine()
+			# delete the cached image so that it will be redrawn
+			self.savedLine = None
 			self.timelinebar.Update()
 			#for bpm change re-align timeline with event lane
 			if change == "bpm":
 				self.timelinebar.projectview.UpdateSize()
-			return
 		
 		# The next section is the autoscroll when the position goes off the screen
 		# Don't autoscroll if "stop-action" is send in extra because that means the 
 		# user just hit stop and did not purposely change the position.
-		if change == "position" and not "stop-action" in extra:
+		elif change == "position" and not "stop-action" in extra:
 			# The left and right sides of the viewable area
 			rightPos = self.project.viewStart + self.timelinebar.projectview.scrollRange.page_size
 			leftPos = self.project.viewStart

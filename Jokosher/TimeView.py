@@ -75,7 +75,8 @@ class TimeView(gtk.EventBox):
 			change -- the change which has occured.
 			extra -- extra parameters passed by the caller.
 		"""
-		self.UpdateTime()
+		if change in ("position", "transport-mode", "bpm", "time-signature"):
+			self.UpdateTime()
 	
 	#_____________________________________________________________________
 
@@ -98,5 +99,5 @@ class TimeView(gtk.EventBox):
 				self.project.SetTransportMode(transport.MODE_BARS_BEATS)
 			
 	#_____________________________________________________________________
-					
+	
 #=========================================================================

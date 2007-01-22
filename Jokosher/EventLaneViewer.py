@@ -145,7 +145,8 @@ class EventLaneViewer(gtk.EventBox):
 		Updates the complete view when requested by OnStateChanged or __init__.
 		
 		Parameters:
-			child -- list of children widgets to be updated.
+			child -- a particular child widget to be updated. If provided, only this 
+					one will be updated, and all other children will be left alone.
 		"""
 		if child and child in self.fixed.get_children():
 			x = int(round((child.event.start - self.project.viewStart) * self.project.viewScale))
