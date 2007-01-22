@@ -645,6 +645,7 @@ class Event(Monitored):
 			self.loadingPipeline.set_state(gst.STATE_NULL)
 			self.isLoading = not finishedLoading
 			self.loadingPipeline = None
+			self.loadingLength = 0
 	
 	#_____________________________________________________________________
 
