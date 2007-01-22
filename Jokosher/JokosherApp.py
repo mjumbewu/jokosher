@@ -431,7 +431,6 @@ class MainApp:
 		
 		if self.isRecording:
 			self.project.Stop()
-			self.addInstrumentButton.set_sensitive(True)
 			return
 		
 		canRecord = False
@@ -482,7 +481,6 @@ class MainApp:
 		else:
 			Globals.debug("can record")
 			
-			self.addInstrumentButton.set_sensitive(False)
 			try:
 				self.project.Record()
 			except ProjectManager.AudioInputsError, e:
@@ -531,7 +529,6 @@ class MainApp:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 
-		self.addInstrumentButton.set_sensitive(True)
 		self.project.Stop()
 
 	#_____________________________________________________________________
@@ -941,7 +938,7 @@ class MainApp:
 			self.record.set_sensitive(not self.isPlaying)
 			
 			controls = (self.play, self.reverse, self.forward, self.menubar, self.recording.timelinebar.headerhbox,
-					self.compactmix.projectview.timelinebar.headerhbox)
+					self.compactmix.projectview.timelinebar.headerhbox, self.addInstrumentButton)
 			for widget in controls:
 				widget.set_sensitive(not self.isRecording)
 			

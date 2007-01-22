@@ -200,11 +200,7 @@ class Project(Monitored):
 
 		Globals.debug("Stop pressed, about to set state to READY")
 		Globals.debug("current state:", self.mainpipeline.get_state(0)[1].value_name)
-
-		#read pipeline for current position - it will have been read
-		#periodically in TimeLine.py but could be out by 1/FPS
-		self.transport.QueryPosition()
-
+		
 		#If we've been recording then add new events to instruments
 		for instr, (event, bin, handle) in self.recordingEvents.items():
 			instr.FinalizeRecording(event)

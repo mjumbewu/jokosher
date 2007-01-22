@@ -111,7 +111,7 @@ class TransportManager(Monitored):
 		"""
 		self.isPlaying = False
 		self.project.SetAudioState(self.project.AUDIO_STOPPED)
-		self.SetPosition(0.0)
+		self.SetPosition(0.0, True)
 		self.pipeline.set_state(gst.STATE_READY)
 		
 	#_____________________________________________________________________
@@ -181,7 +181,7 @@ class TransportManager(Monitored):
 	
 	#_____________________________________________________________________
 	
-	def SetPosition(self, pos):
+	def SetPosition(self, pos, stopAction=False):
 		"""
 		Change the current position variable.
 		
@@ -191,11 +191,16 @@ class TransportManager(Monitored):
 		
 		Parameters:
 			pos -- new playhead cursor position.
+			stopAction -- true if this position change was a result of stopping
+					and sending the position back to zero.
 		"""
 		if self.position != pos:
 			self.PrevPosition = self.position
 			self.position = pos
-			self.StateChanged("position")
+			if stopAction:
+				self.StateChanged("position", "stop-action")
+			else:
+				self.StateChanged("position")
 
 	#_____________________________________________________________________
 

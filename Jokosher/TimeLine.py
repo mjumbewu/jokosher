@@ -286,7 +286,9 @@ class TimeLine(gtk.DrawingArea):
 			return
 		
 		# The next section is the autoscroll when the position goes off the screen
-		if change == "position":
+		# Don't autoscroll if "stop-action" is send in extra because that means the 
+		# user just hit stop and did not purposely change the position.
+		if change == "position" and not "stop-action" in extra:
 			# The left and right sides of the viewable area
 			rightPos = self.project.viewStart + self.timelinebar.projectview.scrollRange.page_size
 			leftPos = self.project.viewStart
