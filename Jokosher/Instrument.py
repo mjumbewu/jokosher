@@ -979,6 +979,13 @@ class Instrument(Monitored):
 		self.control.unset_all("volume")
 		firstpoint = False
 		for ev in self.events:
+			if not ev.audioFadePoints:
+				#there are no fade points, so just make it 100% all the way through
+				for point, vol in ((ev.start, 0.99), (ev.start+ev.duration, 0.99)):
+					Globals.debug("FADE POINT: time(%.2f) vol(%.2f)" % (point, vol))
+					self.control.set("volume", (point) * gst.SECOND, vol)
+				continue
+			
 			for point in ev.audioFadePoints:
 				if ev.start + point[0] == 0.0:
 					firstpoint = True
