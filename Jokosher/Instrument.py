@@ -625,6 +625,8 @@ class Instrument(Monitored):
 		for i in ["duration", "name", "offset"]:
 			setattr(ev, i, getattr(event, i))
 		ev.levels = event.levels[:]
+		ev._Event__fadePointsDict = event._Event__fadePointsDict.copy()
+		ev._Event__UpdateAudioFadePoints()
 		
 		self.events.append(ev)
 		ev.SetProperties()

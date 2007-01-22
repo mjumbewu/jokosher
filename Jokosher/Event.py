@@ -877,6 +877,10 @@ class Event(Monitored):
 		"""
 		Private function that uses the private dictionary with
 		all the fade points to update the audioFadePoints list.
+		The audioFadePoints is different from the dictionary
+		because it will always have points at the beginning and
+		the end of the event (unless there are none at all), and
+		it is a list, so accessing the contents in order is much faster.
 		"""
 		
 		#update the fade points list from the dictionary
@@ -905,7 +909,9 @@ class Event(Monitored):
 	def __UpdateFadeLevels(self):
 		"""
 		Private function that uses the private dictionary with
-		all the fade leves to update the fadeLevels list. *CHECK*
+		all the fade leves to update the fadeLevels list. The fadeLevels
+		list is a cache of faded levels as they will be shown on the screen
+		so that we don't have to calculate them everytime we draw.
 		"""
 		if not self.audioFadePoints:
 			#there are no fade points for us to use
