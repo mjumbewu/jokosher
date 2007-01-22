@@ -481,6 +481,31 @@ class Instrument(Monitored):
 		self.RemoveEventsUnderEvent(event, undoAction)
 		
 	#_____________________________________________________________________
+	
+	def AddEventsFromList(self, start, fileList, copyFile=False, undoAction=None):
+		"""
+		Adds multiple files to an instrument one after another starting
+		at the given start position.
+		
+		Parameters:
+			start -- the offset time in seconds for the first event.
+			fileList -- paths to the Event files.
+			copyfile --	True = copy the files to Project's audio directory.
+						False = don't copy the files to the Project's audio directory.
+		"""
+		if not fileList:
+			return
+			
+		if not undoAction:
+			undoAction = UndoSystem.AtomicUndoAction()
+		
+		for file in fileList:
+			event = self.addEventFromFile(start, file, copyFile, _undoAction_=undoAction)
+			event.MoveButDoNotOverlap(event.start)
+			event.SetProperties()
+			start += event.duration
+	
+	#_____________________________________________________________________
 
 	@UndoSystem.UndoCommand("DeleteEvent", "temp")
 	def addEventFromFile(self, start, file, copyfile=False):

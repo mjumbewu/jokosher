@@ -311,15 +311,15 @@ class EventLaneViewer(gtk.EventBox):
 		Parameters:
 			event -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-		filename, copyfile = self.mainview.ShowImportFileChooser()
+		filenames, copyfile = self.mainview.ShowImportFileChooser()
 		#filename will be None is the user cancelled the dialog
-		if filename:
+		if filenames:
 			start = 0
 			if event:
 				#if we we're called from a mouse click, use the mouse position as the start
 				start = (self.mouseDownPos[0]/self.project.viewScale) + self.project.viewStart
 			
-			self.instrument.addEventFromFile(start, filename, copyfile)
+			self.instrument.AddEventsFromList(start, filenames)
 
 	#_____________________________________________________________________
 	
@@ -408,11 +408,13 @@ class EventLaneViewer(gtk.EventBox):
 			if scheme == "file":
 				event = self.instrument.addEventFromFile(start, file, True) # True: copy
 				event.MoveButDoNotOverlap(event.start)
+				event.SetProperties()
 				start = event.start # Should improve performance with very large file-lists
 			elif scheme == 'http':
 				# download and import. This should probably be done in the background.
 				event = self.instrument.addEventFromURL(start, uri)
 				event.MoveButDoNotOverlap(event.start)
+				event.SetProperties()
 				start = event.start
 		context.finish(True, False, time)
 		return True

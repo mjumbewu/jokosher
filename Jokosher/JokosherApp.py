@@ -1738,9 +1738,9 @@ class MainApp:
 		as well as if the file should be copied to the project folder or not.
 		
 		Returns:
-			A 2-tuple containing the path of the file to be imported and a boolean
-			that will be true if the user requested the file to be copied to the project folder,
-			or None if the dialog was cancelled.
+			A 2-tuple containing the a list of file paths to be imported and a boolean
+			that will be true if the user requested the file to be copied to the project folder.
+			Both entries in the tuple will be None is the dialog was cancelled.
 		"""
 		buttons = (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, gtk.STOCK_OPEN, gtk.RESPONSE_OK)
 
@@ -1752,6 +1752,7 @@ class MainApp:
 		dlg = gtk.FileChooserDialog(_("Add Audio File..."), action=gtk.FILE_CHOOSER_ACTION_OPEN, buttons=buttons)
 		dlg.set_current_folder(Globals.settings.general["projectfolder"])
 		dlg.set_extra_widget(copyfile)
+		dlg.set_select_multiple(True)
 		
 		vbox = gtk.VBox()
 		audiopreview = AudioPreview.AudioPreview()
@@ -1769,10 +1770,11 @@ class MainApp:
 			dlg.hide()
 			Globals.settings.general["projectfolder"] = os.path.dirname(dlg.get_filename())
 			Globals.settings.write()
-			filename = dlg.get_filename()
+			filenames = dlg.get_filenames()
 			copyfileBool = copyfile.get_active()
 			dlg.destroy()
-			return (filename, copyfileBool)
+			
+			return (filenames, copyfileBool)
 		
 		dlg.destroy()
 		return (None, None)
@@ -1787,10 +1789,10 @@ class MainApp:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		
-		filename, copyfile = self.ShowImportFileChooser()
+		filenames, copyfile = self.ShowImportFileChooser()
 		#check if None in case the user click cancel on the dialog.
-		if filename:
-			self.project.AddInstrumentAndEvents([filename], copyfile)
+		if filenames:
+			self.project.AddInstrumentAndEvents(filenames, copyfile)
 			self.UpdateDisplay()
 		
 	#_____________________________________________________________________

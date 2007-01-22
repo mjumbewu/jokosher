@@ -996,11 +996,7 @@ class Project(Monitored):
 		
 		instrTuple = [x for x in Globals.getCachedInstruments() if x[1] == "audiofile"][0]
 		instr = self.AddInstrument(_undoAction_=undoAction, *instrTuple)
-		start = 0
-		for file in fileList:
-			event = instr.addEventFromFile(start, file, copyFile, _undoAction_=undoAction)
-			event.MoveButDoNotOverlap(event.start)
-			start += event.duration
+		instr.AddEventsFromList(0, fileList, copyFile, undoAction)
 	
 	#_____________________________________________________________________
 	
