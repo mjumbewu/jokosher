@@ -985,21 +985,26 @@ class Project(Monitored):
 	
 	#_____________________________________________________________________
 	
-	def AddInstrumentAndEvent(self, file, copyFile=False, undoAction=None):
+	def AddInstrumentAndEvents(self, fileList, copyFile=False, undoAction=None):
 		"""
 		Adds a new instrument of type "audio file" to the project, and adds the
-		given file to the new instrument.
+		given files to the new instrument.
 		
 		Parameters:
-			file -- the path to the file that should be added.
-			copyFile -- True = copy the file to Project's audio directory.
-					False = don't copy the file to the Project's audio directory.
+			fileList -- the list of paths of the files that should be added.
+			copyFile -- True = copy the files to Project's audio directory.
+					False = don't copy the files to the Project's audio directory.
 		"""
 		if not undoAction:
 			undoAction = UndoSystem.AtomicUndoAction()
+		
 		instrTuple = [x for x in Globals.getCachedInstruments() if x[1] == "audiofile"][0]
 		instr = self.AddInstrument(_undoAction_=undoAction, *instrTuple)
-		instr.addEventFromFile(0, file, copyFile, _undoAction_=undoAction)
+		start = 0
+		for file in fileList:
+			event = instr.addEventFromFile(start, file, copyFile, _undoAction_=undoAction)
+			event.MoveButDoNotOverlap(event.start)
+			start += event.duration
 	
 	#_____________________________________________________________________
 	

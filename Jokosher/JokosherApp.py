@@ -1786,7 +1786,7 @@ class MainApp:
 		filename, copyfile = self.ShowImportFileChooser()
 		#check if None in case the user click cancel on the dialog.
 		if filename:
-			self.project.AddInstrumentAndEvent(filename, copyfile)
+			self.project.AddInstrumentAndEvents([filename], copyfile)
 			self.UpdateDisplay()
 		
 	#_____________________________________________________________________

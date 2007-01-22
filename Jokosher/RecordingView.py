@@ -396,11 +396,15 @@ class RecordingView(gtk.Frame):
 		"""
 		# Splitlines to separate the uri's, unquote to decode the uri-encoding ('%20' -> ' ')
 		uris = [urllib.unquote(uri) for uri in selection.data.splitlines()]
+		fileList = []
 		for uri in uris:
 			# Parse the uri, and continue only if it is pointing to a local file
 			(scheme, domain, file, params, query, fragment) = urlparse.urlparse(uri, "file")
 			if scheme == "file":
-				event = self.project.AddInstrumentAndEvent(file, True) # True: copy
+				fileList.append(file)
+		
+		if fileList:
+			self.project.AddInstrumentAndEvents(fileList, True) # True: copy
 		
 		context.finish(True, False, time)
 		self.Update()
