@@ -10,6 +10,8 @@
 
 import gtk
 import pango
+import gettext
+_ = gettext.gettext
 
 #=========================================================================
 

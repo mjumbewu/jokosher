@@ -83,7 +83,7 @@ class EventViewer(gtk.DrawingArea):
 							gtk.gdk.BUTTON_RELEASE_MASK |
 							gtk.gdk.BUTTON_PRESS_MASK |
 							gtk.gdk.LEAVE_NOTIFY_MASK |
-							gtk.gdk.KEY_PRESS)
+							gtk.gdk.KEY_PRESS_MASK)
 							
 		self.connect("expose_event",self.OnDraw)
 		self.connect("motion_notify_event", self.OnMouseMove)
