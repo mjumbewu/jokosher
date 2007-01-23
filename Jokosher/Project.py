@@ -1032,6 +1032,7 @@ class Project(Monitored):
 		Parameters:
 			start -- start time for the view in seconds.
 		"""
+		start = max(0, min(self.GetProjectLength(), start))
 		if self.viewStart != start:
 			self.viewStart = start
 			self.StateChanged("view-start")

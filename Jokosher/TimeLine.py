@@ -300,14 +300,12 @@ class TimeLine(gtk.DrawingArea):
 			if leftPos < self.project.transport.PrevPosition < rightPos:
 				if currentPos > rightPos:
 					# now the playhead has moved off to the right, so force the scroll in that direction
-					self.timelinebar.projectview.scrollRange.value = rightPos
-					self.project.SetViewStart(rightPos)
+					self.timelinebar.projectview.SetViewPosition(rightPos)
 			
 				elif currentPos < leftPos:
 					#if playhead is beyond leftmost position then force scroll and quit
 					leftPos = max(0, leftPos - self.timelinebar.projectview.scrollRange.page_size)
-					self.timelinebar.projectview.scrollRange.value = leftPos
-					self.project.SetViewStart(leftPos)
+					self.timelinebar.projectview.SetViewPosition(leftPos)
 		
 			x1 = round((self.project.transport.PrevPosition - self.project.viewStart) * self.project.viewScale)
 			x2 = round((self.project.transport.position - self.project.viewStart) * self.project.viewScale)

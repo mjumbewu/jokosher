@@ -127,7 +127,6 @@ class RecordingView(gtk.Frame):
 			self.hb.pack_start( inbutton, False, False)
 		
 		self.extraScrollTime = 25
-		self.centreViewOnPosition = False
 		self.scrollRange.lower = 0
 		self.scrollRange.upper = 100
 		self.scrollRange.value = 0
@@ -165,24 +164,12 @@ class RecordingView(gtk.Frame):
 		length = self.project.GetProjectLength() + self.extraScrollTime
 		self.scrollRange.upper = length
 		
-		if self.centreViewOnPosition:
-			self.centreViewOnPosition = False
-			#set the view to be centred over the playhead
-			start = self.project.transport.GetPosition() - (self.scrollRange.page_size / 2)
-			#check if its over the project length
-			start = min(length - self.scrollRange.page_size, start)
-			#check if its under zero (do this after checking the project length, because if the project length is 0 it will go under)
-			start = max(0, start)
-			self.scrollRange.value = start
-			self.project.SetViewStart(start)
 		# Need to adjust project view start if we are zooming out
 		# and the end of the project is now before the end of the page.
 		# Project end will be at right edge unless the start is also on 
 		# screen, in which case the start will be at the left.
-		elif self.project.viewStart + self.scrollRange.page_size > length:
-			start = max(0, length - self.scrollRange.page_size)
-			self.scrollRange.value = start
-			self.project.SetViewStart(start)
+		if self.project.viewStart + self.scrollRange.page_size > length:
+			self.SetViewPosition(length - self.scrollRange.page_size)
 		
 		#check the min zoom value (based on project length)
 		pixelSize = self.allocation.width - Globals.INSTRUMENT_HEADER_WIDTH - 4	# four pixels to account for borders
@@ -320,13 +307,22 @@ class RecordingView(gtk.Frame):
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-		self.centreViewOnPosition = True
-		#change the scale
+		# The left and right sides of the viewable area
+		rightPos = self.project.viewStart + self.scrollRange.page_size
+		leftPos = self.project.viewStart
+		currentPos = self.project.transport.GetPosition()
+		
+		# Check if the playhead is currently viewable (don't force it in view if it isn't already in view)
+		if leftPos < currentPos < rightPos:
+			#set the view to be centred over the playhead
+			start = currentPos - (self.scrollRange.page_size / 2)
+			self.SetViewPosition(start)
+		
+		#now do the zoom
 		self.project.SetViewScale(widget.get_value())
 
 	#_____________________________________________________________________
-
-		
+	
 	def OnZoomOut(self, widget):
 		"""
 		Calls OnZoom when the user zooms out.
@@ -365,6 +361,24 @@ class RecordingView(gtk.Frame):
 		
 	#_____________________________________________________________________
 
+	def SetViewPosition(self, position):
+		"""
+		Moves the view so that the given position is the leftmost side
+		of the viewable area for scrolling, etc.
+		
+		Parameters:
+			position -- the new position to set.
+		"""
+		length = self.project.GetProjectLength() + self.extraScrollTime 
+		#check if its over the project length
+		start = min(length - self.scrollRange.page_size, position)
+		#check if its under zero (do this after checking the project length, because if the project length is 0 it will go under)
+		start = max(0, start)
+		self.scrollRange.value = start
+		self.project.SetViewStart(start)
+	
+	#_____________________________________________________________________
+	
 	def OnMouseDown(self, widget, mouse):
 		"""
 		Callback for "button_press_event" (not catered for, by any
