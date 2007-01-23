@@ -402,7 +402,9 @@ class InstrumentViewer(gtk.EventBox):
 		"""
 		Globals.debug("props button pressed")
 		if not self.effectsDialog:
-			self.effectsDialog = InstrumentEffectsDialog.InstrumentEffectsDialog(self.instrument, self.OnInstrumentEffectsDestroyed)
+			self.effectsDialog = InstrumentEffectsDialog.InstrumentEffectsDialog(self.instrument,
+																				 self.OnInstrumentEffectsDestroyed,
+																				 self.mainview.icon)
 		else:
 			self.effectsDialog.BringWindowToFront()
 

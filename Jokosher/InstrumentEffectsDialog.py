@@ -36,7 +36,7 @@ class InstrumentEffectsDialog:
 	
 	#_____________________________________________________________________	
 	
-	def __init__(self, instrument, destroyCallback):
+	def __init__(self, instrument, destroyCallback, windowIcon):
 		"""
 		This constructor enables a lot of variables, reads in the glade
 		file for the main dialog, and populates the effects and presets
@@ -45,16 +45,19 @@ class InstrumentEffectsDialog:
 		Parameters:
 			instrument -- Instrument whose effects are being modified.
 			destroyCallback -- GTK callback. Called when this dialog gets destroyed.
+			windowIcon -- icon to use on the window's upper corner.
 		"""
 		# a reference to the instrument object
 		self.instrument = instrument
-		
+		self.windowIcon = windowIcon
 		self.res = gtk.glade.XML(Globals.GLADE_PATH, "InstrumentEffectsDialog")
 
 		self.Updating = False
 		self.effectWidgets = []
 		
 		self.signals = {
+			"button-press-event" : self.OnMouseDown,
+			
 			"on_comboPresets_changed" : self.OnEffectChainPresetChanged,
 			"on_buttonPresetSave_clicked" : self.OnEffectChainPresetSave,
 			"on_buttonPresetDelete_clicked" : self.OnEffectChainPresetDelete,
@@ -96,13 +99,15 @@ class InstrumentEffectsDialog:
 
 		self.buttonPlay = self.res.get_widget("buttonPlay")
 		self.buttonClose = self.res.get_widget("buttonClose")
-
+		
 		#TODO: Reenable this buttons
 		self.buttonEffectUp.set_sensitive(False)
 		self.buttonEffectDown.set_sensitive(False)
 
-		# connect the destroy signal, and set single selection for the list views
+		# connect the destroy signal, set single selection for the list views
+		# and set the window icon
 		self.window.connect("destroy", destroyCallback)
+		self.window.set_icon(self.windowIcon)
 		self.listEffects.get_selection().set_mode(gtk.SELECTION_SINGLE)
 		self.listActiveEffects.get_selection().set_mode(gtk.SELECTION_SINGLE)
 
@@ -377,6 +382,56 @@ class InstrumentEffectsDialog:
 	
 	#_____________________________________________________________________
 	
+	def OnMouseDown(self, widget, mouse):
+		"""
+		Called when the user presses a mouse button.
+		If it's a right-click, creates a context menu on the fly for
+		manipulating effects.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+			mouse -- GTK mouse event that fired this method call.
+		"""
+		self.mouseDownPos = [mouse.x, mouse.y]
+		print "mouse"
+		# Create context menu on a right-click 
+		if mouse.button == 3:
+			print "mouse"
+		"""	menu = gtk.Menu()
+		
+			audioimg = None
+			if self.mainview.audioFilePixbuf:
+				audioimg = gtk.Image()
+				audioimg.set_from_pixbuf(self.mainview.audioFilePixbuf)
+			
+			items = [	(_("_Add Audio File..."), self.CreateEventFromFile, True, audioimg),
+					("---", None, None, None),
+					(_("_Paste"), self.OnPaste, self.project.clipboardList, gtk.image_new_from_stock(gtk.STOCK_PASTE, gtk.ICON_SIZE_MENU)),
+					(_("_Delete"), self.OnDelete, True, gtk.image_new_from_stock(gtk.STOCK_DELETE, gtk.ICON_SIZE_MENU))
+					]
+
+			for label, callback, sensitive, image in items:
+				if label == "---":
+					menuItem = gtk.SeparatorMenuItem()
+				elif image:
+					menuItem = gtk.ImageMenuItem(label, True)
+					menuItem.set_image(image)
+				else:
+					menuItem = gtk.MenuItem(label=label)
+					
+				menuItem.set_sensitive(bool(sensitive))
+				menuItem.show()
+				menu.append(menuItem)
+				if callback:
+					menuItem.connect("activate", callback)
+			self.highlightCursor = mouse.x
+			self.popupIsActive = True
+
+			menu.popup(None, None, None, mouse.button, mouse.time)
+			menu.connect("selection-done", self.OnMenuDone) """
+			
+	#_____________________________________________________________________
+	
 	def OnEffectActivated(self, treeview, path, view_column):
 		"""
 		Adds the double clicked effect from the left effects pane to the Instrument.
@@ -489,6 +544,11 @@ class InstrumentEffectsDialog:
 		
 		self.instrument.RemoveEffect(effect)
 		
+		# select another existing active effect for usability,
+		# so users can repeteadly click on delete to delete all effects
+		if len(self.modelActiveEffects) > 0:
+			self.listActiveEffects.set_cursor(0)
+		
 	#_____________________________________________________________________
 	
 	def OnEffectSettings(self, button=None):
@@ -544,6 +604,10 @@ class InstrumentEffectsDialog:
 		self.settingsHeaderCairoImage.set_size_request(450, 60)
 		self.settingsvbox.pack_start(self.settingsHeaderCairoImage, expand=False, fill=True)
 		self.settingsHeaderCairoImage.show()
+		
+		# set the window icon and parent (for correct modal mode)
+		self.settingswindow.set_icon(self.windowIcon)
+		self.settingswindow.set_transient_for(self.window)
 		
 		# tooltips object used to assign tooltips to the sliders
 		tooltips = gtk.Tooltips()
