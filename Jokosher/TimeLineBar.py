@@ -153,7 +153,9 @@ class TimeLineBar(gtk.Frame):
 			for ident, iv in instrumentviews:  #self.mainview.recording.views:
 				if iv.headerAlign.size_request()[0] != (maxwidth+2):
 					iv.ResizeHeader(maxwidth+2)
-
+			
+			Globals.INSTRUMENT_HEADER_WIDTH = maxwidth + 2
+			
 			self.alignment.set_padding(0, 0, 0, maxwidth - self.headerhbox.size_request()[0])
 
 			self.clickbutton.set_active(self.project.clickEnabled)
