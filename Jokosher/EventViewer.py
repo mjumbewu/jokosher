@@ -673,8 +673,11 @@ class EventViewer(gtk.DrawingArea):
 		else:
 			return False
 
+		# Don't go beyond respective boundaries
 		if moveTo < 0:
 			moveTo = 0
+		if moveCursor and moveTo > self.allocation.width:
+			moveTo = self.allocation.width
 
 		if moveCursor:
 			self.highlightCursor = moveTo
