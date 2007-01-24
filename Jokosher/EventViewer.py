@@ -595,12 +595,21 @@ class EventViewer(gtk.DrawingArea):
 	def OnFocus(self, widget, event):
 		"""
 			Select the event when focused via a non-mouse based method.
+			
+			Parameters:
+				widget -- reserved for GTK callbacks, don't use it explicitly.
+				event -- GTK focus event that fired this method call.
+				
+			Returns:
+				True -- continue GTK signal propagation after processing event.
+				False -- pass this event on to other handlers because we don't want it.
 		"""
 		#Don't allow moving, etc while recording!
 		if self.event.isRecording:
-			return
+			return False
 
 		self.event.SetSelected(True)
+		self.lane.childActive = True
 
 		return True
 
@@ -609,8 +618,17 @@ class EventViewer(gtk.DrawingArea):
 	def OnFocusLost(self, widget, event):
 		"""
 			Deselect the event when focus is lost.
+			
+			Parameters:
+				widget -- reserved for GTK callbacks, don't use it explicitly.
+				event -- GTK focus event that fired this method call.
+				
+			Returns:
+				True -- continue GTK signal propagation after processing the event.
 		"""
 		self.event.SetSelected(False)
+		self.lane.childActive = False
+		self.highlightCursor = None
 
 		return True
 	
@@ -618,23 +636,50 @@ class EventViewer(gtk.DrawingArea):
 
 	def OnKeyPress(self, widget, event):
 		"""
-			Handle movement of events from the keyboard.
+			Handle manipulation of events via the keyboard.
+
+			Parameters:
+			 	widget -- reserved for GTK callbacks, don't use it explicitly.
+				event -- GTK keyboard event that fired this method call.
+				
+			Returns:
+				True -- continue GTK signal propagation after processing the event. 
+				False -- pass this event on to other handlers because we don't want it.
 		"""
 		modifier = 0.1 # Multiply movement by this amount (modified by ctrl key)
-		if event.state == gtk.gdk.CONTROL_MASK:
-			modifier = 1
+		moveCursor = False # Are we moving the highlight cursor or the event?
+		if self.highlightCursor == None:
+			self.highlightCursor = 0
+		if "GDK_SHIFT_MASK" in event.state.value_names:
+			moveCursor = True
+			modifier = 0.5
+		if "GDK_CONTROL_MASK" in event.state.value_names:
+			modifier *= 10
 		
 		key = gtk.gdk.keyval_name(event.keyval)
 		if key == "Left":
-			moveTo = self.event.start - modifier
+			if moveCursor:
+				moveTo = self.highlightCursor - modifier
+			else:
+				moveTo = self.event.start - modifier
 		elif key == "Right":
-			moveTo = self.event.start + modifier
+			if moveCursor:
+				moveTo = self.highlightCursor + modifier
+			else:
+				moveTo = self.event.start + modifier
+		elif key == "space":
+			self.OnSplit(None)
+			return True
 		else:
 			return False
 
 		if moveTo < 0:
 			moveTo = 0
-		self.event.MoveButDoNotOverlap(moveTo)
+
+		if moveCursor:
+			self.highlightCursor = moveTo
+		else:
+			self.event.MoveButDoNotOverlap(moveTo)
 
 		self.lane.Update(self)
 			
@@ -763,7 +808,12 @@ class EventViewer(gtk.DrawingArea):
 		Parameters:
 			gtkevent -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-		x = self.mouseAnchor[0]
+		if self.highlightCursor:
+			# We're splitting by double clicking or through the keyboard
+			x = self.highlightCursor 
+		else:
+			# We're splitting from the popup menu
+			x = self.mouseAnchor[0]
 		if x == 0.0:
 			return
 		x /= float(self.project.viewScale)
