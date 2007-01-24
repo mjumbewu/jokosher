@@ -171,12 +171,13 @@ class RecordingView(gtk.Frame):
 		if self.project.viewStart + self.scrollRange.page_size > length:
 			self.SetViewPosition(length - self.scrollRange.page_size)
 		
-		#check the min zoom value (based on project length)
-		pixelSize = self.allocation.width - Globals.INSTRUMENT_HEADER_WIDTH - 4	# four pixels to account for borders
-		minScale = pixelSize / length
-		self.zoomSlider.set_range(minScale, self.ZOOM_MAX_SCALE)
-		if self.zoomSlider.get_value() < minScale:
-			self.zoomSlider.set_value(minScale)
+		if not self.mixView:
+			#check the min zoom value (based on project length)
+			pixelSize = self.allocation.width - Globals.INSTRUMENT_HEADER_WIDTH - 4	# four pixels to account for borders
+			minScale = pixelSize / length
+			self.zoomSlider.set_range(minScale, self.ZOOM_MAX_SCALE)
+			if self.zoomSlider.get_value() < minScale:
+				self.zoomSlider.set_value(minScale)
 		
 	#_____________________________________________________________________
 

@@ -70,7 +70,7 @@ class Project(Monitored):
 		self.clickEnabled = False	#True is the click track is currently enabled
 		#Keys are instruments which are recording; values are 3-tuples of the event being recorded, the recording bin and bus handler id
 		self.recordingEvents = {}	#Dict containing recording information for each recording instrument
-		self.volume = 0.5			#The volume setting for the entire project
+		self.volume = 1.0			#The volume setting for the entire project
 		self.level = 0.0			#The level of the entire project as reported by the gstreamer element
 
 		# Variables for the undo/redo command system

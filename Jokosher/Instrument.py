@@ -66,7 +66,7 @@ class Instrument(Monitored):
 		self.isSolo = False				# True if the instrument is solo'd (only instrument active)
 		self.isVisible = True			# True if the instrument should be displayed in the mixer views
 		self.level = 0.0				# Current audio level in range 0..1
-		self.volume = 0.5				# Gain of the current instrument in range 0..1
+		self.volume = 1.0				# Gain of the current instrument in range 0..1
 		self.instrType = type			# The type of instrument
 		self.effects = []				# List of GStreamer effect elements
 		self.pan = 0.0					# pan number (between -100 and 100)
@@ -205,6 +205,8 @@ class Instrument(Monitored):
 		
 		#mute this instrument if another one is solo
 		self.OnMute()
+		#set the volume element since it depends on the project's volume as well
+		self.UpdateVolume()
 		
 	#_____________________________________________________________________
 	

@@ -14,7 +14,7 @@ pygtk.require("2.0")
 import gtk
 import cairo
 
-import gettext, locale
+import gettext
 _ = gettext.gettext
 
 #=========================================================================
@@ -246,8 +246,8 @@ class VUWidget(gtk.DrawingArea):
 		textXOffset = ((rect.width - (2 * self._VH_PADDING) - self._TEXT_WIDTH) / 2) + self._VH_PADDING
 		ctx.move_to(textXOffset, vpos + textYOffset)
 		ctx.set_font_size(self._FONT_SIZE)
-		localizedText = locale.format("%.2f", self.mixerstrip.GetVolume())
-		ctx.show_text(localizedText)
+		text = "%d%%" % (self.mixerstrip.GetVolume() * 100)
+		ctx.show_text(text)
 
 		return False
 		
