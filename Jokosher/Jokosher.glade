@@ -599,8 +599,8 @@
 		  <property name="visible_vertical">True</property>
 		  <property name="is_important">False</property>
 		  <accessibility>
-		    <atkrelation target="Rewind" type="flows-to"/>
-		    <atkrelation target="Record" type="flows-to"/>
+		    <atkproperty name="AtkObject::accessible_name" translatable="yes">Add Instrument</atkproperty>
+		    <atkrelation target="addAudioFileButton" type="flows-to"/>
 		  </accessibility>
 		  <signal name="clicked" handler="on_AddInstrument_clicked"/>
 		</widget>
@@ -619,6 +619,11 @@
 		  <property name="visible_horizontal">True</property>
 		  <property name="visible_vertical">True</property>
 		  <property name="is_important">False</property>
+		  <accessibility>
+		    <atkproperty name="AtkObject::accessible_name" translatable="yes">Add Audio FIle</atkproperty>
+		    <atkrelation target="AddInstrument" type="flows-from"/>
+		    <atkrelation target="Rewind" type="flows-to"/>
+		  </accessibility>
 		  <signal name="clicked" handler="on_project_add_audio" last_modification_time="Mon, 22 Jan 2007 19:04:35 GMT"/>
 		</widget>
 		<packing>
@@ -649,8 +654,9 @@
 		  <property name="visible_vertical">True</property>
 		  <property name="is_important">False</property>
 		  <accessibility>
-		    <atkrelation target="AddInstrument" type="flows-from"/>
+		    <atkproperty name="AtkObject::accessible_name" translatable="yes">Rewind</atkproperty>
 		    <atkrelation target="Play" type="flows-to"/>
+		    <atkrelation target="addAudioFileButton" type="flows-from"/>
 		  </accessibility>
 		  <signal name="clicked" handler="on_Rewind_clicked"/>
 		</widget>
@@ -670,8 +676,9 @@
 		  <property name="is_important">False</property>
 		  <property name="active">False</property>
 		  <accessibility>
-		    <atkrelation target="Stop" type="flows-to"/>
+		    <atkproperty name="AtkObject::accessible_name" translatable="yes">Stop</atkproperty>
 		    <atkrelation target="Rewind" type="flows-from"/>
+		    <atkrelation target="Stop" type="flows-to"/>
 		  </accessibility>
 		  <signal name="toggled" handler="on_Play_toggled"/>
 		</widget>
@@ -690,8 +697,9 @@
 		  <property name="visible_vertical">True</property>
 		  <property name="is_important">False</property>
 		  <accessibility>
-		    <atkrelation target="Forward" type="flows-to"/>
+		    <atkproperty name="AtkObject::accessible_name" translatable="yes">Stop</atkproperty>
 		    <atkrelation target="Play" type="flows-from"/>
+		    <atkrelation target="Forward" type="flows-to"/>
 		  </accessibility>
 		  <signal name="clicked" handler="on_Stop_clicked"/>
 		</widget>
@@ -710,8 +718,9 @@
 		  <property name="visible_vertical">True</property>
 		  <property name="is_important">False</property>
 		  <accessibility>
-		    <atkrelation target="Stop" type="flows-from"/>
+		    <atkproperty name="AtkObject::accessible_name" translatable="yes">FastForward</atkproperty>
 		    <atkrelation target="Record" type="flows-to"/>
+		    <atkrelation target="Stop" type="flows-from"/>
 		  </accessibility>
 		  <signal name="clicked" handler="on_Forward_clicked"/>
 		</widget>
@@ -731,6 +740,8 @@
 		  <property name="is_important">False</property>
 		  <property name="active">False</property>
 		  <accessibility>
+		    <atkproperty name="AtkObject::accessible_name" translatable="yes">Record</atkproperty>
+		    <atkrelation target="Recording" type="flows-to"/>
 		    <atkrelation target="Forward" type="flows-from"/>
 		  </accessibility>
 		  <signal name="toggled" handler="on_Record_toggled"/>
@@ -833,6 +844,11 @@
 			  <property name="focus_on_click">True</property>
 			  <property name="active">False</property>
 			  <property name="inconsistent">False</property>
+			  <accessibility>
+			    <atkproperty name="AtkObject::accessible_name" translatable="yes">Recording Workspace</atkproperty>
+			    <atkrelation target="Record" type="flows-from"/>
+			    <atkrelation target="CompactMix" type="flows-to"/>
+			  </accessibility>
 			  <signal name="toggled" handler="on_Recording_toggled"/>
 			</widget>
 			<packing>
@@ -853,6 +869,9 @@
 			  <property name="focus_on_click">True</property>
 			  <property name="active">False</property>
 			  <property name="inconsistent">False</property>
+			  <accessibility>
+			    <atkproperty name="AtkObject::accessible_name" translatable="yes">Mixing Workspace</atkproperty>
+			  </accessibility>
 			  <signal name="toggled" handler="on_CompactMix_toggled"/>
 			</widget>
 			<packing>
