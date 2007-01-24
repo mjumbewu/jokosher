@@ -243,7 +243,7 @@ class TransportManager(Monitored):
 		hours = int(self.position / 3600)
 		mins = int((self.position % 3600) / 60)
 		secs = int(self.position % 60)
-		millis = int((self.position * 10000) % 10000)
+		millis = int((self.position * 1000) % 1000)
 		
 		return (hours, mins, secs, millis)
 	
