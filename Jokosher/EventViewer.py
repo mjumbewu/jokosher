@@ -708,14 +708,14 @@ class EventViewer(gtk.DrawingArea):
 			mouse -- GTK mouse event that fired this method call.
 		"""
 		menu = gtk.Menu()
-		items = [	(_("_Split"), self.OnSplit, True, None, self.mouseAnchor[0]),
-					("---", None, None, None),
-					(_("Cu_t"), self.OnCut, True, gtk.image_new_from_stock(gtk.STOCK_CUT, gtk.ICON_SIZE_MENU)),
-					(_("_Copy"), self.OnCopy, True, gtk.image_new_from_stock(gtk.STOCK_COPY, gtk.ICON_SIZE_MENU)),
-					(_("_Delete"), self.OnDelete, False, gtk.image_new_from_stock(gtk.STOCK_DELETE, gtk.ICON_SIZE_MENU))
+		items = [	(_("_Split"), self.OnSplit, True, None, mouse.x),
+					("---", None, None, None, None),
+					(_("Cu_t"), self.OnCut, True, gtk.image_new_from_stock(gtk.STOCK_CUT, gtk.ICON_SIZE_MENU), None),
+					(_("_Copy"), self.OnCopy, True, gtk.image_new_from_stock(gtk.STOCK_COPY, gtk.ICON_SIZE_MENU), None),
+					(_("_Delete"), self.OnDelete, False, gtk.image_new_from_stock(gtk.STOCK_DELETE, gtk.ICON_SIZE_MENU), None)
 					] 
 
-		for label, callback, sometimes, image in items: 
+		for label, callback, sometimes, image, param in items: 
 			if label == "---":
 				menuItem = gtk.SeparatorMenuItem()
 			elif image:
@@ -731,7 +731,10 @@ class EventViewer(gtk.DrawingArea):
 			menuItem.show() 
 			menu.append(menuItem) 
 			if callback:
-				menuItem.connect("activate", callback) 
+				if param:
+					menuItem.connect("activate", callback, param) 
+				else:
+					menuItem.connect("activate", callback)
 		self.highlightCursor = mouse.x
 		self.popupIsActive = True
 
