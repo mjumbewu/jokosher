@@ -283,6 +283,7 @@ class MainWindow:
 									gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
 									(gtk.STOCK_OK,gtk.RESPONSE_OK,
 									gtk.STOCK_CANCEL,gtk.RESPONSE_CANCEL))
+		self.API.set_window_icon(d)
 		d.vbox.add(h1)
 		d.vbox.add(h2)
 		if warning:

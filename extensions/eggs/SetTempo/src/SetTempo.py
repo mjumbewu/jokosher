@@ -65,6 +65,7 @@ class SetTempo:
 		wTree = gtk.glade.xml_new_from_buffer(xmlString, len(xmlString))
 		
 		self.window = wTree.get_widget("SetTempoDialog")
+		self.API.set_window_icon(self.window)
 		self.tempoLabel = wTree.get_widget("tempoLabel")
 		signals = {
 			"OnClearClicked" : self.OnClear,

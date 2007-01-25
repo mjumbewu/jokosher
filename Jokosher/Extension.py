@@ -800,6 +800,15 @@ class ExtensionAPI:
 			denom --new time signature denominator.
 		"""
 		self.mainapp.project.SetMeter(nom, denom)
+
+	def set_window_icon(self, window):
+		"""
+		Sets the specified window to use the Jokosher icon
+		
+		Parameters:
+			window -- the window which will use the Jokosher icon as its icon in the window border.
+		"""
+		window.set_icon(self.mainapp.icon)
 		
 	#_____________________________________________________________________
 	

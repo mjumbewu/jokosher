@@ -25,6 +25,7 @@ class APIConsole:
 		signal = {"on_Activate" : self.Execute}
 		wTree.signal_autoconnect(signal)
 		window = wTree.get_widget("APITestDialog")
+		self.API.set_window_icon(window)
 		self.command = wTree.get_widget("entry1")
 		self.output = wTree.get_widget("textview1")
 		self.scrollwindow = wTree.get_widget("scrolledwindow1")

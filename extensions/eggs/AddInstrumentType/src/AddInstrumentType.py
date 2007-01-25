@@ -50,6 +50,7 @@ class AddInstrumentType:
 		wTree.signal_autoconnect(signals)
 	
 		self.window = wTree.get_widget("NewInstrumentTypeDialog")
+		self.API.set_window_icon(self.window)
 		self.filechooser = wTree.get_widget("filechooserbutton1")
 		self.instrument_name = wTree.get_widget("entry1")
 	

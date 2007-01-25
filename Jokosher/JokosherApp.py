@@ -1750,6 +1750,7 @@ class MainApp:
 		copyfile.show()
 
 		dlg = gtk.FileChooserDialog(_("Add Audio File..."), action=gtk.FILE_CHOOSER_ACTION_OPEN, buttons=buttons)
+		dlg.set_icon(self.icon)
 		dlg.set_current_folder(Globals.settings.general["projectfolder"])
 		dlg.set_extra_widget(copyfile)
 		dlg.set_select_multiple(True)
