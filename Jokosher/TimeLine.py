@@ -288,24 +288,25 @@ class TimeLine(gtk.DrawingArea):
 				self.timelinebar.projectview.UpdateSize()
 		
 		# The next section is the autoscroll when the position goes off the screen
-		# Don't autoscroll if "stop-action" is send in extra because that means the 
-		# user just hit stop and did not purposely change the position.
-		elif change == "position" and not "stop-action" in extra:
+		elif change == "position":
 			# The left and right sides of the viewable area
 			rightPos = self.project.viewStart + self.timelinebar.projectview.scrollRange.page_size
 			leftPos = self.project.viewStart
 			currentPos = self.project.transport.GetPosition()
 			
 			# Check if the playhead was recently viewable (don't force it in view if it wasn't previously in view)
-			if leftPos < self.project.transport.PrevPosition < rightPos:
-				if currentPos > rightPos:
-					# now the playhead has moved off to the right, so force the scroll in that direction
-					self.timelinebar.projectview.SetViewPosition(rightPos)
-			
-				elif currentPos < leftPos:
-					#if playhead is beyond leftmost position then force scroll and quit
-					leftPos = max(0, leftPos - self.timelinebar.projectview.scrollRange.page_size)
-					self.timelinebar.projectview.SetViewPosition(leftPos)
+			# Don't autoscroll if "stop-action" is send in extra because that means the 
+			# user just hit stop and did not purposely change the position.
+			if not "stop-action" in extra:
+				if leftPos < self.project.transport.PrevPosition < rightPos:
+					if currentPos > rightPos:
+						# now the playhead has moved off to the right, so force the scroll in that direction
+						self.timelinebar.projectview.SetViewPosition(rightPos)
+				
+					elif currentPos < leftPos:
+						#if playhead is beyond leftmost position then force scroll and quit
+						leftPos = max(0, leftPos - self.timelinebar.projectview.scrollRange.page_size)
+						self.timelinebar.projectview.SetViewPosition(leftPos)
 		
 			x1 = round((self.project.transport.PrevPosition - self.project.viewStart) * self.project.viewScale)
 			x2 = round((self.project.transport.position - self.project.viewStart) * self.project.viewScale)
