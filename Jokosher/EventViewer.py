@@ -569,7 +569,7 @@ class EventViewer(gtk.DrawingArea):
 					# LMB double-click: split here
 					self.mouseAnchor[0] = mouse.x
 					if self.event.isLoading == False:
-						self.OnSplit(None)
+						self.OnSplit(None, mouse.x)
 					return True
 				
 				# remove any existing selection in this event
@@ -648,8 +648,6 @@ class EventViewer(gtk.DrawingArea):
 		"""
 		modifier = 0.1 # Multiply movement by this amount (modified by ctrl key)
 		moveCursor = False # Are we moving the highlight cursor or the event?
-		if self.highlightCursor == None:
-			self.highlightCursor = 0
 		if "GDK_SHIFT_MASK" in event.state.value_names:
 			moveCursor = True
 			modifier = 0.5
@@ -658,17 +656,29 @@ class EventViewer(gtk.DrawingArea):
 		
 		key = gtk.gdk.keyval_name(event.keyval)
 		if key == "Left":
+			if not self.highlightCursor:
+				self.highlightCursor = 0
 			if moveCursor:
 				moveTo = self.highlightCursor - modifier
 			else:
 				moveTo = self.event.start - modifier
 		elif key == "Right":
+			if not self.highlightCursor:
+				self.higlightCursor = 0
 			if moveCursor:
 				moveTo = self.highlightCursor + modifier
 			else:
 				moveTo = self.event.start + modifier
 		elif key == "space":
-			self.OnSplit(None)
+			if self.highlightCursor:
+				# If we've got the highlight cursor out cut at that point
+				self.OnSplit(None, self.highlightCursor)
+			else:
+				# Otherwise, stop playing and cut at the play position (if it's over this event)
+				play_pos = int(round((self.project.transport.position - self.event.start) * self.project.viewScale))
+				if play_pos > 0 and play_pos < self.allocation.width:
+					self.project.Stop()
+					self.OnSplit(None, play_pos)
 			return True
 		else:
 			return False
@@ -698,7 +708,7 @@ class EventViewer(gtk.DrawingArea):
 			mouse -- GTK mouse event that fired this method call.
 		"""
 		menu = gtk.Menu()
-		items = [	(_("_Split"), self.OnSplit, True, None),
+		items = [	(_("_Split"), self.OnSplit, True, None, self.mouseAnchor[0]),
 					("---", None, None, None),
 					(_("Cu_t"), self.OnCut, True, gtk.image_new_from_stock(gtk.STOCK_CUT, gtk.ICON_SIZE_MENU)),
 					(_("_Copy"), self.OnCopy, True, gtk.image_new_from_stock(gtk.STOCK_COPY, gtk.ICON_SIZE_MENU)),
@@ -804,23 +814,18 @@ class EventViewer(gtk.DrawingArea):
 		
 	#_____________________________________________________________________
 			
-	def OnSplit(self, gtkevent):
+	def OnSplit(self, gtkevent, pos):
 		"""
 		Splits an Event in two.
 		
 		Parameters:
 			gtkevent -- reserved for GTK callbacks, don't use it explicitly.
+			position -- The position in the event to split
 		"""
-		if self.highlightCursor:
-			# We're splitting by double clicking or through the keyboard
-			x = self.highlightCursor 
-		else:
-			# We're splitting from the popup menu
-			x = self.mouseAnchor[0]
-		if x == 0.0:
+		if pos == 0.0:
 			return
-		x /= float(self.project.viewScale)
-		self.event.Split(x)
+		pos /= float(self.project.viewScale)
+		self.event.Split(pos)
 		self.lane.Update()
 		
 	#_____________________________________________________________________
