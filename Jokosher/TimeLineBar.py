@@ -16,6 +16,9 @@ import os
 import Globals
 import gobject
 
+# for the time signature combo
+from math import log
+
 _=gettext.gettext
 
 class TimeLineBar(gtk.Frame):
@@ -61,7 +64,7 @@ class TimeLineBar(gtk.Frame):
 		
 		self.bpmlabel = gtk.Label()
 		self.bpmlabel.set_use_markup(True)
-		self.bpmlabel.set_markup("<span foreground='#0b410b'><b>%s</b></span>"%self.project.bpm)
+		self.bpmlabel.set_markup("<span foreground='#0b410b'><b>%s</b></span>" % self.project.bpm)
 		self.bpmlabel.set_padding(5, 5)
 		self.bpmeventbox.add(self.bpmlabel)
 		self.bpmframe.add(self.bpmeventbox)
@@ -77,14 +80,13 @@ class TimeLineBar(gtk.Frame):
 
 		self.siglabel = gtk.Label()
 		self.siglabel.set_use_markup(True)
-		self.siglabel.set_markup("<span foreground='#0b410b'><b>%d/%d</b></span>"%(self.project.meter_nom, self.project.meter_denom))
+		self.siglabel.set_markup("<span foreground='#0b410b'><b>%d/%d</b></span>" % (self.project.meter_nom, self.project.meter_denom))
 		self.siglabel.set_padding(5, 5)
 		self.sigeventbox.add(self.siglabel)
 		self.sigframe.add(self.sigeventbox)
 		self.sigeditPacked = False
 
 		# set events
-		# ##### BPM boxes disabled in 0.1 - re-enable for 0.2 #######
 		self.bpmeventbox.set_events(gtk.gdk.BUTTON_PRESS_MASK)
 		self.bpmeventbox.connect("button_press_event", self.OnEditBPM)
 		self.bpmeventbox.connect("enter_notify_event", self.OnMouseMoveBPM)
@@ -92,8 +94,8 @@ class TimeLineBar(gtk.Frame):
 		
 		self.sigeventbox.set_events(gtk.gdk.BUTTON_PRESS_MASK)
 		self.sigeventbox.connect("button_press_event", self.OnEditSig)
-		self.sigeventbox.connect("enter_notify_event", self.OnMouseMoveSig)
-		self.sigeventbox.connect("leave_notify_event", self.OnMouseMoveSig)
+
+		self.sigDialog = None
 		
 		# ###########################################################
 		
@@ -113,7 +115,6 @@ class TimeLineBar(gtk.Frame):
 		self.connect("size-allocate", self.OnAllocate)
 		self.hbox.pack_start(self.timeline)	
 
-	
 	#_____________________________________________________________________
 
 	def OnAllocate(self, widget, allocation):
@@ -132,8 +133,9 @@ class TimeLineBar(gtk.Frame):
 	
 	def Update(self):
 		""" 
-		Updates the contents TimeLineBar, updating the values in the beats per minute box and time signature box,
-		as well as updating the click button sensitivity and instrument header width.
+		Updates the contents TimeLineBar, updating the values in the beats per
+		minute box and time signature box, as well as updating the click button
+		sensitivity and instrument header width.
 		"""
 		if not self.Updating:
 			instrumentviews=[]
@@ -160,12 +162,11 @@ class TimeLineBar(gtk.Frame):
 
 			self.clickbutton.set_active(self.project.clickEnabled)
 			self.OnAcceptEditBPM()
-			self.OnAcceptEditSig()
+			self.UpdateSigLabel()
 			self.timeline.queue_draw()
 			
 			self.Updating = False
-
-		return
+			
 	#_____________________________________________________________________
 	
 	def OnEditBPM(self, widget, event):
@@ -177,7 +178,6 @@ class TimeLineBar(gtk.Frame):
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 			event -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-		#self.parentUpdateMethod()
 		if event.type == gtk.gdk.BUTTON_PRESS:
 			self.bpmframe.remove(self.bpmeventbox)
 						
@@ -197,26 +197,82 @@ class TimeLineBar(gtk.Frame):
 	def OnEditSig(self, widget, event):
 		"""
 		Called when the user clicks the time signature box.
-		This method will show a text entry widget with a value inside it which the user can change.
+		This method will show a dialog for changing the time signature.
 		
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 			event -- reserved for GTK callbacks, don't use it explicitly.
 		""" 
-		#self.parentUpdateMethod()
 		if event.type == gtk.gdk.BUTTON_PRESS:
-			self.sigframe.remove(self.sigeventbox)
-			
-			self.sigedit = gtk.Entry()
-			self.sigedit.set_text("%d/%d"%(self.project.meter_nom, self.project.meter_denom))
-			self.sigedit.set_width_chars(5)
-			self.sigedit.connect("activate", self.OnAcceptEditSig)
+			if not self.sigDialog:
+				self.sigDialogTree = gtk.glade.XML(Globals.GLADE_PATH, "TimeSignatureDialog")
+		
+				signals = {
+					"on_spinBeats_value_changed" : self.OnNomValueChange,
+					"on_comboValue_changed" : self.OnDenomValueChange,
+					"on_buttonClose_clicked" : self.OnSigDialogClose
+				}
+				
+				self.sigDialogTree.signal_autoconnect(signals)
 
-			self.sigframe.add(self.sigedit)
-			self.sigedit.show()
-			self.sigedit.grab_focus()
-			self.sigeditPacked = True
+				# references to GUI widgets
+				self.sigDialog = self.sigDialogTree.get_widget("TimeSignatureDialog")
+				self.spinBeats = self.sigDialogTree.get_widget("spinBeats")
+				self.comboValue = self.sigDialogTree.get_widget("comboValue")
+				
+				# set some properties for the widgets
+				self.sigDialog.set_icon(self.mainview.icon)
+				self.spinBeats.set_value(self.project.meter_nom)
+				self.comboValue.set_active(int(log(self.project.meter_denom, 2)))
+			else:
+				self.sigDialog.present()
+							
+	#_____________________________________________________________________
 	
+	def OnNomValueChange(self, spinButton):
+		"""
+		Updates the Project's beats per measure value.
+		
+		Parameters:
+			combobox -- beats per measure combobox.
+		"""
+		self.project.SetMeter(int(spinButton.get_value()),
+							  self.project.meter_denom)
+		
+	#_____________________________________________________________________
+		
+	def OnDenomValueChange(self, combobox):
+		"""
+		Updates the Project's beat value.
+		
+		Parameters:
+			spinButton -- beat value spin button.
+		"""
+		self.project.SetMeter(self.project.meter_nom,
+							  int(combobox.get_active_text()))
+	
+	#_____________________________________________________________________
+	
+	def OnSigDialogClose(self, button):
+		"""
+		Closes the time signature settings dialog.
+		
+		Parameters:
+			button -- reserved for GTK callbacks, don't use it explicitly.
+		"""
+		self.sigDialog.destroy()
+		self.sigDialog = None
+
+	#_____________________________________________________________________
+	
+	def UpdateSigLabel(self):
+		"""
+		Updates the time signature label in the main Jokosher window.
+		"""
+		self.siglabel.set_use_markup(True)
+		self.siglabel.set_markup("<span foreground='#0b410b'><b>%d/%d</b></span>" % (self.project.meter_nom, self.project.meter_denom))
+		self.projectview.UpdateSize()
+		
 	#_____________________________________________________________________
 	
 	def OnAcceptEditBPM(self, widget=None):
@@ -247,54 +303,7 @@ class TimeLineBar(gtk.Frame):
 		self.bpmlabel.set_markup("<span foreground='#0b410b'><b>%d</b></span>"%self.project.bpm)
 			
 		self.projectview.UpdateSize()
-
-	#_____________________________________________________________________
-
-	def OnAcceptEditSig(self, widget=None):
-		"""
-		Called when the user finishes editing the time signature box.
-		This method then updates the time signature value to be the value the user 
-		enters and then writes that value to disk if the user saves the project.
-		If anything but OnEditSig calls this method, it will update the contents of the time signature box.
 		
-		Parameters:
-			widget -- reserved for GTK callbacks, don't use it explicitly.
-		"""
-		if self.sigeditPacked:
-			self.sigframe.remove(self.sigedit)
-			sigstring = _("Please enter a correct time signature")
-			sig = self.sigedit.get_text().split("/")
-			
-			try:
-				nom=int(sig[0])
-			except (ValueError,IndexError):
-				nom=self.project.meter_nom
-
-			try:
-				denom=int(sig[1])
-			except (ValueError,IndexError):
-				denom=self.project.meter_denom
-			
-			if not self.sigedit.get_text() or nom == 0:
-				nom = 4
-				denom = 4
-				sigid = self.mainview.SetStatusBar(sigstring)
-				gobject.timeout_add(1500, self.mainview.ClearStatusBar, sigid)
-				self.sigframe.show_all()
-				self.sigeditPacked = False
-								 
-			self.project.SetMeter(nom, denom)
-			
-			self.sigframe.add(self.sigeventbox)
-			self.sigedit.destroy()
-			self.sigframe.show_all()
-			self.sigeditPacked = False
-		
-		#Do this outside the if statement so that it gets updated if someone else changes the sig
-		self.siglabel.set_use_markup(True)
-		self.siglabel.set_markup("<span foreground='#0b410b'><b>%d/%d</b></span>"%(self.project.meter_nom, self.project.meter_denom))
-		self.projectview.UpdateSize()
-			
 	#_____________________________________________________________________
 	
 	def OnMouseMoveBPM(self, widget, event):
@@ -314,24 +323,6 @@ class TimeLineBar(gtk.Frame):
 			widget.window.set_cursor(None)
 			
 	#_____________________________________________________________________
-	
-	def OnMouseMoveSig(self, widget, event):
-		"""
-		Called when the mouse pointer enters or leaves the time signature box.
-		This method also changes the type of cursor if the mouse pointer is hovered over the time signature box.
-		
-		Parameters:
-			widget -- reserved for GTK callbacks, don't use it explicitly.
-			event -- reserved for GTK callbacks, don't use it explicitly.
-		"""
-		if not widget.window: 
-			return
-		if (event.type == gtk.gdk.ENTER_NOTIFY):
-			widget.window.set_cursor(gtk.gdk.Cursor(gtk.gdk.XTERM))
-		else:
-			widget.window.set_cursor(None)
-		
-	#_____________________________________________________________________
 
 	def OnClick(self, widget):
 		"""
@@ -345,5 +336,7 @@ class TimeLineBar(gtk.Frame):
 		if widget.get_active() == False:
 			self.project.DisableClick()
 			self.clicktip.set_tip(self.clickbutton, _("Turn click track on"), None)
+			
+	#_____________________________________________________________________
 		
 #=========================================================================
