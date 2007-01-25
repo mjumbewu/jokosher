@@ -111,8 +111,8 @@ class Settings:
 		# delete a .jokosher file if it exists, because that's old-fashioned
 		old_jokosher_file = os.path.expanduser("~/.jokosher")
 		if os.path.isfile(old_jokosher_file):
-		  os.unlink(old_jokosher_file)
-		  
+			os.unlink(old_jokosher_file)
+		
 		# make sure that the directory that the config file is in exists
 		new_jokosher_file_dir = os.path.split(self.filename)[0]
 		if not os.path.isdir(new_jokosher_file_dir): 
@@ -342,12 +342,18 @@ else:
 	GLADE_PATH = os.path.join(data_path, "Jokosher.glade")
 	LOCALE_PATH = os.path.join(data_path, "..", "locale")
 
+#delete the 0.1 jokosher config file
+if os.path.isfile(os.path.expanduser("~/.jokosher")):
+	try:
+		os.remove(os.path.expanduser("~/.jokosher"))
+	except:
+		raise "Failed to delete old user config file %s" % new_dir
 # create a couple dirs to avoid having problems creating a non-existing
 # directory inside another non-existing directory
 for directory in ['extensions', 'instruments', 'instruments/images', 
 		'presets', 'presets/effects', 'presets/mixdown']:
 	new_dir = os.path.join(os.path.expanduser("~/.jokosher/"), directory)
-	if not os.path.isdir(new_dir): 
+	if not os.path.isdir(new_dir):
 		try:
 			os.makedirs(new_dir)
 		except:
