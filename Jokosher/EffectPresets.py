@@ -126,7 +126,7 @@ class EffectPresets(Monitored):
 		# fill the different data structures with information if necessary. The LADSPA
 		# structures are part of Globals.py
 
-		if Globals.LADSPA_NAME_MAP==[] or Globals.LADSPA_FACTORY_REGISTRY == None:
+		if not Globals.LADSPA_NAME_MAP or not Globals.LADSPA_FACTORY_REGISTRY:
 			self.FillLADSPARegistry()
 
 		self.FillEffectsPresetsRegistry()
