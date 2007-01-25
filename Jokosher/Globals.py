@@ -412,7 +412,7 @@ EFFECT_PRESETS_VERSION = None
 LADSPA_FACTORY_REGISTRY = None
 LADSPA_NAME_MAP = []
 LADPSA_CATEGORIES_LIST = [
-						(_("Broken"), "effect_unclassified.png"),
+						(_("Broken"), "effect_broken.png"),
 						(_("Unclassified"), "effect_unclassified.png"),
 						(_("Amplifiers"), "effect_amplifiers.png"),
 						(_("Chorus"), "effect_chorus.png"),
@@ -547,7 +547,7 @@ LADSPA_CATEGORIES_DICT = {
 						"ladspa-hermesFilter" : Categories.filters, #control needs to have 2 columns, doesn't fit screen
 						"ladspa-multivoiceChorus" : Categories.chorus,
 						"ladspa-foverdrive" : Categories.distortions,
-						"ladspa-declip" : Categories.filters, #couldn't properly test it since I had to clipping audio
+						"ladspa-declip" : Categories.filters, #couldn't properly test it since I had no clipping audio
 						"ladspa-comb" : Categories.filters,
 						"ladspa-ringmod-1i1o1l" : Categories.modulators,
 						"ladspa-shaper" : Categories.filters,
@@ -555,7 +555,7 @@ LADSPA_CATEGORIES_DICT = {
 						"ladspa-diode" : Categories.distortions,
 						"ladspa-amp" : Categories.amplifiers,
 						"ladspa-Parametric1" : Categories.filters,
-						"ladspa-wshape-sine" : Categories.broken, #controls make it unusable
+						"ladspa-wshape-sine" : Categories.broken, #no change in sound?
 						"ladspa-vcf303" : Categories.filters,
 						"ladspa-limit-rms" : Categories.broken, #controls make it unusable
 						"ladspa-limit-peak" : Categories.broken, #controls make it unusable
@@ -580,7 +580,7 @@ LADSPA_CATEGORIES_DICT = {
 						"ladspa-triangle-fasc-oa" : Categories.broken, #no sound
 						"ladspa-syncsquare-fcga-oa" : Categories.oscillators,
 						"ladspa-syncpulse-fcpcga-oa" : Categories.oscillators,
-						"ladspa-sum-iaic-oa" : Categories.broken, #controls make it unusable
+						"ladspa-sum-iaic-oa" : Categories.filters,
 						"ladspa-square-fa-oa" : Categories.oscillators,
 						"ladspa-sinusWavewrapper" : Categories.filters,
 						"ladspa-ratio-ncda-oa" : Categories.distortions,
@@ -591,7 +591,7 @@ LADSPA_CATEGORIES_DICT = {
 						"ladspa-pulse-fcpa-oa" : Categories.oscillators,
 						"ladspa-pulse-fapc-oa" : Categories.oscillators,
 						"ladspa-product-iaic-oa" : Categories.oscillators,
-						"ladspa-lp4pole-fcrcia-oa" : Categories.oscillators, #controls suck
+						"ladspa-lp4pole-fcrcia-oa" : Categories.filters,
 						"ladspa-fmod-fcma-oa" : Categories.filters,
 						"ladspa-fmod-famc-oa" : Categories.broken, #controls make it unusable
 						"ladspa-amp-gcia-oa" : Categories.broken, #controls make it unusable

@@ -42,7 +42,7 @@ else:
 dist = setup(name='jokosher',
 	version='0.9',
 	author='Jokosher Project',
-	author_email='email@jokosher.org',
+	author_email='corrales.david@gmail.com',
 	maintainer='David Corrales',
 	maintainer_email='corrales.david@gmail.com',
 	description='Multi-track non-linear audio editing.',

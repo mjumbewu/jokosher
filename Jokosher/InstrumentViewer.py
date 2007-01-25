@@ -70,7 +70,6 @@ class InstrumentViewer(gtk.EventBox):
 		#get the default colour for the current theme
 		self.UNSELECTED_COLOR = self.get_style().bg[0]
 		
-		
 		self.mainBox = gtk.HBox()
 		self.add(self.mainBox)
 		
@@ -124,26 +123,37 @@ class InstrumentViewer(gtk.EventBox):
 		self.controlsBox = gtk.HBox()
 		self.headerBox.pack_start(self.controlsBox, False)
 		
+		# define the tooltip messages and images for buttons that change states
+		self.recTipDisabled = _("Enable this instrument for recording")
+		self.recTipEnabled = _("Disable this instrument for recording")
+		self.muteTipDisabled = _("Mute - silence this instrument")
+		self.muteTipEnabled = _("Unmute - hear this instrument")
+		self.soloTipDisabled = _("Activate Solo - silence all other instruments")
+		self.soloTipEnabled = _("Deactivate Solo - hear all the instruments")
+		
+		self.recImgDisabled = gtk.gdk.pixbuf_new_from_file(os.path.join(Globals.IMAGE_PATH, "icon_arm.png"))
+		self.recImgEnabled = gtk.gdk.pixbuf_new_from_file(os.path.join(Globals.IMAGE_PATH, "icon_disarm.png"))
+		self.soloImgDisabled = gtk.gdk.pixbuf_new_from_file(os.path.join(Globals.IMAGE_PATH, "icon_solo.png"))
+		self.soloImgEnabled = gtk.gdk.pixbuf_new_from_file(os.path.join(Globals.IMAGE_PATH, "icon_group.png"))
+		#self.muteImgDisabled = Utils.GetIconThatMayBeMissing("stock_volume", gtk.ICON_SIZE_BUTTON).get_pixbuf()
+		#self.muteImgEnabled = Utils.GetIconThatMayBeMissing("stock_volume-mute", gtk.ICON_SIZE_BUTTON).get_pixbuf()
+		self.muteImgDisabled = gtk.gdk.pixbuf_new_from_file(os.path.join(Globals.IMAGE_PATH, "stock_volume.png"))
+		self.muteImgEnabled = gtk.gdk.pixbuf_new_from_file(os.path.join(Globals.IMAGE_PATH, "stock_volume-mute.png"))
+
 		if not (self.small):
-			recimg = gtk.image_new_from_stock(gtk.STOCK_MEDIA_RECORD, gtk.ICON_SIZE_BUTTON)
 			self.recTip = gtk.Tooltips()
 			self.recButton = gtk.ToggleButton("")
-			self.recButton.set_property("image", recimg)
-			self.recTip.set_tip(self.recButton, _("Enable this instrument for recording"), None)
+			self.recTip.set_tip(self.recButton, self.recTipEnabled, None)
 			self.recButton.connect("toggled", self.OnArm)
 			
 			self.muteButton = gtk.ToggleButton("")
 			self.muteButton.connect("toggled", self.OnMute)
 			self.muteTip = gtk.Tooltips()
-			self.muteTip.set_tip(self.muteButton, _("Mute - silence this instrument"), None)
+			self.muteTip.set_tip(self.muteButton, self.muteTipDisabled, None)
 			
-			soloimg = gtk.Image()
-			soloimg.set_from_file(os.path.join(Globals.IMAGE_PATH, "icon_solo.png"))
 			self.soloButton = gtk.ToggleButton("")
-			self.soloButton.set_image(soloimg)
 			self.soloTip = gtk.Tooltips()
-			self.soloTip.set_tip(self.soloButton, _("Solo - silence all other instruments"), None)
-			#self.recButton.set_property("image", soloimg)
+			self.soloTip.set_tip(self.soloButton, self.soloTipDisabled, None)
 			self.soloButton.connect("toggled", self.OnSolo)
 			
 			self.propsButton = gtk.Button()
@@ -326,13 +336,39 @@ class InstrumentViewer(gtk.EventBox):
 			self.muteButton.set_active(self.instrument.actuallyIsMuted)
 			self.soloButton.set_active(self.instrument.isSolo)
 			self.soloTip.enable()
-		
+
+			# update the mute button image and tooltip
+			image = gtk.Image()
 			if self.instrument.actuallyIsMuted:
-				self.muteButton.set_image(Utils.GetIconThatMayBeMissing("stock_volume-mute", gtk.ICON_SIZE_BUTTON))
-				self.muteTip.set_tip(self.muteButton, _("Muted"), None)
+				image.set_from_pixbuf(self.muteImgEnabled)
+				self.muteButton.set_image(image)
+				self.muteTip.set_tip(self.muteButton, self.muteTipEnabled, None)
 			else:
-				self.muteButton.set_image(Utils.GetIconThatMayBeMissing("stock_volume", gtk.ICON_SIZE_BUTTON))
-				self.muteTip.set_tip(self.muteButton, _("Unmuted"), None)
+				image.set_from_pixbuf(self.muteImgDisabled)
+				self.muteButton.set_image(image)
+				self.muteTip.set_tip(self.muteButton, self.muteTipDisabled, None)
+			
+			# update the arm button image and tooltip	
+			image = gtk.Image()
+			if self.instrument.isArmed:
+				image.set_from_pixbuf(self.recImgEnabled)
+				self.recButton.set_image(image)
+				self.recTip.set_tip(self.recButton, self.recTipEnabled, None)
+			else:
+				image.set_from_pixbuf(self.recImgDisabled)
+				self.recButton.set_image(image)
+				self.recTip.set_tip(self.recButton, self.recTipDisabled, None)
+				
+			# update the solo button image and tooltip
+			image = gtk.Image()
+			if self.instrument.isSolo:
+				image.set_from_pixbuf(self.soloImgEnabled)
+				self.soloButton.set_image(image)
+				self.soloTip.set_tip(self.soloButton, self.soloTipEnabled, None)
+			else:
+				image.set_from_pixbuf(self.soloImgDisabled)
+				self.soloButton.set_image(image)
+				self.soloTip.set_tip(self.soloButton, self.soloTipDisabled, None)
 		
 		if self.instrument.isSelected:
 			#For some reason, putting self.style.base[3] in __init__ makes it return the wrong colour.
