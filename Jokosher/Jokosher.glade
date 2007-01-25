@@ -4576,7 +4576,7 @@ Custom</property>
 
 <widget class="GtkWindow" id="TimeSignatureDialog">
   <property name="visible">True</property>
-  <property name="title" translatable="yes">Time Signature</property>
+  <property name="title" translatable="yes">Set Time Signature</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_MOUSE</property>
   <property name="modal">False</property>
@@ -4710,7 +4710,7 @@ Custom</property>
 	  <child>
 	    <widget class="GtkLabel" id="labelTime">
 	      <property name="visible">True</property>
-	      <property name="label" translatable="yes">&lt;b&gt;Time&lt;/b&gt;</property>
+	      <property name="label" translatable="yes">&lt;b&gt;Time Signature&lt;/b&gt;</property>
 	      <property name="use_underline">False</property>
 	      <property name="use_markup">True</property>
 	      <property name="justify">GTK_JUSTIFY_LEFT</property>
