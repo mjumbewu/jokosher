@@ -669,7 +669,7 @@ class EventViewer(gtk.DrawingArea):
 				moveTo = self.highlightCursor + modifier
 			else:
 				moveTo = self.event.start + modifier
-		elif key == "space":
+		elif key == "space" and not self.event.isLoading:
 			if self.highlightCursor:
 				# If we've got the highlight cursor out cut at that point
 				self.OnSplit(None, self.highlightCursor)
