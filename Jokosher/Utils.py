@@ -53,7 +53,7 @@ def OpenExternalURL(url, message, parent):
 	
 #_____________________________________________________________________
 
-def GetIconThatMayBeMissing(iconName, iconSize):
+def GetIconThatMayBeMissing(iconName, iconSize, returnGtkImage=True):
 	"""
 	First tries to get the icon with the given name from the icon theme.
 	If that fails, it will try and load it from the Jokosher image directory.
@@ -61,6 +61,8 @@ def GetIconThatMayBeMissing(iconName, iconSize):
 	Parameters:
 		iconName -- the string of the icon's name
 		iconSize -- an icon size from the gtk.
+		returnGtkImage -- If True, this method will return a gtk.Image.
+				If False it will return a gtk.gdk.Pixbuf.
 	
 	Returns:
 		an instance of gtk.gdk.Pixbuf that contains the requested image.
@@ -74,6 +76,9 @@ def GetIconThatMayBeMissing(iconName, iconSize):
 			pixbuf = gtk.gdk.pixbuf_new_from_file(path)
 		except:
 			pass
+	
+	if not returnGtkImage:
+		return pixbuf
 	
 	if pixbuf:
 		image = gtk.Image()

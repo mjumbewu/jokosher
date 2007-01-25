@@ -135,11 +135,9 @@ class InstrumentViewer(gtk.EventBox):
 		self.recImgEnabled = gtk.gdk.pixbuf_new_from_file(os.path.join(Globals.IMAGE_PATH, "icon_disarm.png"))
 		self.soloImgDisabled = gtk.gdk.pixbuf_new_from_file(os.path.join(Globals.IMAGE_PATH, "icon_solo.png"))
 		self.soloImgEnabled = gtk.gdk.pixbuf_new_from_file(os.path.join(Globals.IMAGE_PATH, "icon_group.png"))
-		#self.muteImgDisabled = Utils.GetIconThatMayBeMissing("stock_volume", gtk.ICON_SIZE_BUTTON).get_pixbuf()
-		#self.muteImgEnabled = Utils.GetIconThatMayBeMissing("stock_volume-mute", gtk.ICON_SIZE_BUTTON).get_pixbuf()
-		self.muteImgDisabled = gtk.gdk.pixbuf_new_from_file(os.path.join(Globals.IMAGE_PATH, "stock_volume.png"))
-		self.muteImgEnabled = gtk.gdk.pixbuf_new_from_file(os.path.join(Globals.IMAGE_PATH, "stock_volume-mute.png"))
-
+		self.muteImgDisabled = Utils.GetIconThatMayBeMissing("stock_volume", gtk.ICON_SIZE_BUTTON, False)
+		self.muteImgEnabled = Utils.GetIconThatMayBeMissing("stock_volume-mute", gtk.ICON_SIZE_BUTTON, False)
+		
 		if not (self.small):
 			self.recTip = gtk.Tooltips()
 			self.recButton = gtk.ToggleButton("")
@@ -185,6 +183,8 @@ class InstrumentViewer(gtk.EventBox):
 		# Connect to drag_begin to add a custom icon
 		self.headerEventBox.connect('drag_begin', self.OnDragBegin)
 		self.headerEventBox.connect('drag_drop', self.OnDragDrop)
+		
+		self.Update()
 
 	#_____________________________________________________________________
 
