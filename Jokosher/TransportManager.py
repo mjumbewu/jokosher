@@ -80,6 +80,8 @@ class TransportManager(Monitored):
 		if self.pipeline.get_state(0)[1] != gst.STATE_PAUSED:
 			return
 			
+		if self.isPaused:
+			self.isPaused = False
 		self.isPlaying = True
 		self.project.SetAudioState(newAudioState)
 		
@@ -110,6 +112,7 @@ class TransportManager(Monitored):
 		Stops the playback.
 		"""
 		self.isPlaying = False
+		self.isPaused = False
 		self.project.SetAudioState(self.project.AUDIO_STOPPED)
 		self.SetPosition(0.0, True)
 		self.pipeline.set_state(gst.STATE_READY)
