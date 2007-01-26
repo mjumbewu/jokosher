@@ -422,16 +422,81 @@ class Instrument(Monitored):
 	
 	def ChangeEffectOrder(self, effect, newPosition):
 		"""
-		TODO: this function has yet to be implemented.
-		
-		Move a given GStreamer element inside the effects bin.
+		Move a given GStreamer element inside the effects bin. This method
+		does not swap the element into its new position, it simply shifts all the
+		elements between the effect's current position and the new position
+		down by one. Since a Gstreamer pipeline is essentially a linked list, this
+		"shift" implementation is the fastest way to make one element move to
+		a new position without changing the order of any of the others.
+		For example if this instrument has five effects which are ordered
+		A, B, C, D, E, and I call this method with effect D and a new position
+		of 2 the new order will be:  A, D, B, C, E.
 		
 		Parameters:
 			effect -- GStreamer effect to be moved.
 			newPosition -- value of the new position inside the effects bin
-							the effect will have.
+					the effect will have (with 0 as the first position).
 		"""
-		pass
+		if effect not in self.effects:
+			Globals.debug("Error: trying to remove an element that is not in the list")
+			return
+		if newPosition >= len(self.effects):
+			Globals.debug("Error: trying to move effect to position past the end of the list")
+			return
+			
+		oldPosition = self.effects.index(effect)
+		if oldPosition == newPosition:
+			#the effect is already in the proper position
+			return
+		
+		# The effect currently at the position we want to move the given effect to
+		newPositionEffect = self.effects[newPosition]
+		
+		newPositionPreviousConvert = None
+		for pad in newPositionEffect.sink_pads():
+			if pad.is_linked():
+				newPositionPreviousConvert = pad.get_peer().get_parent()
+				break
+				
+		previousConvert = None
+		for pad in effect.sink_pads():
+			if pad.is_linked():
+				previousConvert = pad.get_peer().get_parent()
+				break
+					
+		nextConvert = None
+		for pad in effect.src_pads():
+			if pad.is_linked():
+				nextConvert = pad.get_peer().get_parent()
+				break
+		
+		# check the state and block if we have to
+		state = self.playbackbin.get_state(0)[1]
+		if state == gst.STATE_PAUSED or state == gst.STATE_PLAYING:
+			# The src pad on the last element in the bin
+			endSrcPad = self.effectsBinSrc.get_target()
+			endSrcPad.set_blocked(True)
+			
+		#here's where we unlink everything
+		newPositionPreviousConvert.unlink(newPositionEffect)
+		previousConvert.unlink(effect)
+		effect.unlink(nextConvert)
+		# the "src" pad on the end of the chain of events that is being shifted over
+		chainEndPad = previousConvert.get_pad("sink").get_peer()
+		chainEndPad.get_parent().unlink(previousConvert)
+		
+		#here's where we link everything back together in the new order
+		newPositionPreviousConvert.link(effect)
+		effect.link(previousConvert)
+		previousConvert.link(newPositionEffect)
+		chainEndPad.link(nextConvert.get_pad("sink"))
+		
+		# remove and insert to our own llst so it matches the changes just made
+		del self.effects[oldPosition]
+		self.effects.insert(newPosition, effect)
+		
+		#give it a lambda for a callback that does nothing, so we don't have to wait
+		endSrcPad.set_blocked_async(False, lambda x,y: False)
 	
 	#_____________________________________________________________________
 	
