@@ -127,6 +127,7 @@ class RecordingView(gtk.Frame):
 			self.hb.pack_start( inbutton, False, False)
 		
 		self.extraScrollTime = 25
+		self.centreViewOnPosition = False
 		self.scrollRange.lower = 0
 		self.scrollRange.upper = 100
 		self.scrollRange.value = 0
@@ -164,11 +165,16 @@ class RecordingView(gtk.Frame):
 		length = self.project.GetProjectLength() + self.extraScrollTime
 		self.scrollRange.upper = length
 		
+		if self.centreViewOnPosition:  
+			self.centreViewOnPosition = False  
+			#set the view to be centred over the playhead  
+			start = self.project.transport.GetPosition() - (self.scrollRange.page_size / 2)
+			self.SetViewPosition(start)
 		# Need to adjust project view start if we are zooming out
 		# and the end of the project is now before the end of the page.
 		# Project end will be at right edge unless the start is also on 
 		# screen, in which case the start will be at the left.
-		if self.project.viewStart + self.scrollRange.page_size > length:
+		elif self.project.viewStart + self.scrollRange.page_size > length:
 			self.SetViewPosition(length - self.scrollRange.page_size)
 		
 		if not self.mixView:
@@ -312,12 +318,9 @@ class RecordingView(gtk.Frame):
 		rightPos = self.project.viewStart + self.scrollRange.page_size
 		leftPos = self.project.viewStart
 		currentPos = self.project.transport.GetPosition()
-		
 		# Check if the playhead is currently viewable (don't force it in view if it isn't already in view)
 		if leftPos < currentPos < rightPos:
-			#set the view to be centred over the playhead
-			start = currentPos - (self.scrollRange.page_size / 2)
-			self.SetViewPosition(start)
+			self.centreViewOnPosition = True
 		
 		#now do the zoom
 		self.project.SetViewScale(widget.get_value())
