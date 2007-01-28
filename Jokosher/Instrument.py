@@ -452,12 +452,6 @@ class Instrument(Monitored):
 		# The effect currently at the position we want to move the given effect to
 		newPositionEffect = self.effects[newPosition]
 		
-		newPositionPreviousConvert = None
-		for pad in newPositionEffect.sink_pads():
-			if pad.is_linked():
-				newPositionPreviousConvert = pad.get_peer().get_parent()
-				break
-				
 		previousConvert = None
 		for pad in effect.sink_pads():
 			if pad.is_linked():
@@ -478,19 +472,43 @@ class Instrument(Monitored):
 			endSrcPad.set_blocked(True)
 			
 		#here's where we unlink everything
-		newPositionPreviousConvert.unlink(newPositionEffect)
 		previousConvert.unlink(effect)
 		effect.unlink(nextConvert)
-		previousConvertSink = previousConvert.get_pad("sink")
-		# the "src" pad on the end of the chain of events that is being shifted over
-		chainEndPad = previousConvertSink.get_peer()
-		chainEndPad.unlink(previousConvertSink)
 		
-		#here's where we link everything back together in the new order
-		newPositionPreviousConvert.link(effect)
-		effect.link(previousConvert)
-		previousConvert.link(newPositionEffect)
-		chainEndPad.link(nextConvert.get_pad("sink"))
+		if oldPosition > newPosition:
+			newPositionPreviousConvert = None
+			for pad in newPositionEffect.sink_pads():
+				if pad.is_linked():
+					newPositionPreviousConvert = pad.get_peer().get_parent()
+					break
+			
+			newPositionPreviousConvert.unlink(newPositionEffect)
+			previousConvertSink = previousConvert.get_pad("sink")
+			# the "src" pad on the end of the chain of events that is being shifted over
+			chainEndPad = previousConvertSink.get_peer()
+			chainEndPad.unlink(previousConvertSink)
+			
+			#here's where we link everything back together in the new order
+			newPositionPreviousConvert.link(effect)
+			effect.link(previousConvert)
+			previousConvert.link(newPositionEffect)
+			chainEndPad.link(nextConvert.get_pad("sink"))
+		else:
+			newPositionNextConvert = None
+			for pad in newPositionEffect.src_pads():
+				if pad.is_linked():
+					newPositionNextConvert = pad.get_peer().get_parent()
+					break
+					
+			newPositionEffect.unlink(newPositionNextConvert)
+			nextConvertSrc = nextConvert.get_pad("src")
+			chainBeginningPad = nextConvertSrc.get_peer()
+			nextConvertSrc.unlink(chainBeginningPad)
+			
+			previousConvert.get_pad("src").link(chainBeginningPad)
+			newPositionEffect.link(nextConvert)
+			nextConvert.link(effect)
+			effect.link(newPositionNextConvert)
 		
 		# remove and insert to our own llst so it matches the changes just made
 		del self.effects[oldPosition]
