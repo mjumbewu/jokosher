@@ -708,7 +708,10 @@ class EventViewer(gtk.DrawingArea):
 			mouse -- GTK mouse event that fired this method call.
 		"""
 		menu = gtk.Menu()
-		items = [	(_("_Split"), self.OnSplit, True, None, mouse.x),
+		
+		splitImg = gtk.Image()
+		splitImg.set_from_file(os.path.join(Globals.IMAGE_PATH, "icon_split.png"))
+		items = [	(_("_Split"), self.OnSplit, True, splitImg, mouse.x),
 					("---", None, None, None, None),
 					(_("Cu_t"), self.OnCut, True, gtk.image_new_from_stock(gtk.STOCK_CUT, gtk.ICON_SIZE_MENU), None),
 					(_("_Copy"), self.OnCopy, True, gtk.image_new_from_stock(gtk.STOCK_COPY, gtk.ICON_SIZE_MENU), None),
