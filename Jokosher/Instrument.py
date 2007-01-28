@@ -470,20 +470,21 @@ class Instrument(Monitored):
 				nextConvert = pad.get_peer().get_parent()
 				break
 		
+		# The src pad on the last element in the bin
+		endSrcPad = self.effectsBinSrc.get_target()
 		# check the state and block if we have to
 		state = self.playbackbin.get_state(0)[1]
 		if state == gst.STATE_PAUSED or state == gst.STATE_PLAYING:
-			# The src pad on the last element in the bin
-			endSrcPad = self.effectsBinSrc.get_target()
 			endSrcPad.set_blocked(True)
 			
 		#here's where we unlink everything
 		newPositionPreviousConvert.unlink(newPositionEffect)
 		previousConvert.unlink(effect)
 		effect.unlink(nextConvert)
+		previousConvertSink = previousConvert.get_pad("sink")
 		# the "src" pad on the end of the chain of events that is being shifted over
-		chainEndPad = previousConvert.get_pad("sink").get_peer()
-		chainEndPad.get_parent().unlink(previousConvert)
+		chainEndPad = previousConvertSink.get_peer()
+		chainEndPad.unlink(previousConvertSink)
 		
 		#here's where we link everything back together in the new order
 		newPositionPreviousConvert.link(effect)
