@@ -72,13 +72,36 @@ class RecordingView(gtk.Frame):
 		self.mixView = mixView
 		self.small = small
 		self.timelinebar = TimeLineBar.TimeLineBar(self.project, self, mainview)
-
+		
+		## create darker workspace box
+		self.eventBox = gtk.EventBox()
+		
+		st = self.rc_get_style().bg[gtk.STATE_NORMAL]
+		
+		## Set the new color components
+		st.red -= 3000
+		st.green -= 3000
+		st.blue -= 3000
+		
+		cmap = self.get_colormap()
+		
+		## allocate new colors
+		col = cmap.alloc_color(st.red, st.green, st.blue)
+		stcp = self.get_style().copy()
+		stcp.bg[gtk.STATE_NORMAL] = col
+		
+		## use the new colormap
+		self.eventBox.set_style(stcp)
+		
 		self.vbox = gtk.VBox()
 		self.add(self.vbox)
 		self.vbox.pack_start(self.timelinebar, False, False)
 		self.instrumentWindow = gtk.ScrolledWindow()
 		self.instrumentBox = gtk.VBox()
-		self.instrumentWindow.add_with_viewport(self.instrumentBox)
+		
+		## pack the instrument box inside the eventbox as you cant modify the color of a gtk.Box
+		self.eventBox.add(self.instrumentBox)
+		self.instrumentWindow.add_with_viewport(self.eventBox)
 		self.instrumentWindow.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
 		self.vbox.pack_start(self.instrumentWindow, True, True)
 		self.instrumentWindow.child.set_shadow_type(gtk.SHADOW_NONE)
