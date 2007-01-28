@@ -42,8 +42,11 @@ def GetAlsaList(type):
 		#Iterate through all the ALSA devices found and insert them in to a dictionary
 		device_object = bus.get_object("org.freedesktop.Hal", device)
 		properties = device_object.GetAllProperties(dbus_interface="org.freedesktop.Hal.Device")
-		name = properties["alsa.device_id"]
 		cardnum = "hw:" + str(properties["alsa.card"]) #FIXME: This may cause problems with plughw devices
+		if "alsa.device_id" in properties:
+			name = properties["alsa.device_id"]
+		else:
+			name = cardnum
 		#Avoid duplicate entries
 		if cardnum not in found.items():
 			found[cardnum] = name
