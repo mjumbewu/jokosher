@@ -129,14 +129,14 @@ class ExportAsFileType(MixdownAction):
 	
 	def display_name(self):
 		"See MixdownAction.display_name"
-		return "Export to %s as %s" % (
+		return _("Export to %s as %s") % (
 			os.path.split(self.config["filename"])[1],
 			self.filetypedict["description"])
 
 	@staticmethod
 	def create_name():
 		"See MixdownAction.create_name"
-		return "Export file"
+		return _("Export file")
 
 	def run(self,data):
 		"See MixdownAction.run"
@@ -194,12 +194,12 @@ class RunAScript(MixdownAction):
 	
 	def display_name(self):
 		"See MixdownAction.display_name"
-		return "Run script %s" % (os.path.split(self.config["script"])[1])
+		return _("Run script %s") % (os.path.split(self.config["script"])[1])
 	
 	@staticmethod
 	def create_name():
 		"See MixdownAction.create_name"
-		return "Run external script"
+		return _("Run external script")
 
 	def run(self,data):
 		"See MixdownAction.run"
@@ -214,10 +214,9 @@ class RunAScript(MixdownAction):
 			subprocess.Popen(self.config["script"], env=subprocess_environment, shell=True).wait()
 			# have to get the subprocess's environment after it's finished. How?
 		except OSError:
-			raise
-			raise "No such script %s" % self.config["script"], e
+			raise _("No such script %s") % self.config["script"], e
 		except:
-			raise "Error in script %s" % self.config["script"]
+			raise _("Error in script %s") % self.config["script"]
 		for k,v in subprocess_environment.items(): # this won't work until we have the s.p.'s env
 			if k.startswith("JOKOSHER_"):
 				varname = k[9:].lower() # strip off JOKOSHER_

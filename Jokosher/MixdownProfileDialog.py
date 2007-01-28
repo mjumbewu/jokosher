@@ -198,7 +198,6 @@ class MixdownProfileDialog:
 		"""
 		active = combo.get_active()
 		if active == 0: return
-		print "Active:",	active
 		action_class = self.possible_action_classes[active-1]
 		# specialcase ExportAsFileType
 		if action_class == MixdownProfiles.ExportAsFileType: 
