@@ -97,10 +97,6 @@ class InstrumentEffectsDialog:
 
 		self.buttonPlay = self.res.get_widget("buttonPlay")
 		self.buttonClose = self.res.get_widget("buttonClose")
-		
-		#TODO: Reenable this buttons
-		self.buttonEffectUp.set_sensitive(False)
-		self.buttonEffectDown.set_sensitive(False)
 
 		# connect the right-click signal for both treeviews
 		self.listEffects.connect("button-press-event", self.OnEffectsTreeViewClick)
@@ -268,8 +264,6 @@ class InstrumentEffectsDialog:
 			longName = effect.get_factory().get_longname()	
 			activeEffect = [None, None, None, None]
 			
-			#TODO: make sure this is a chokepoint (add and remove are done. Need move up/down)
-			
 			try:
 				imageFile = categories[Globals.LADSPA_CATEGORIES_DICT[shortName]][1]	# image path
 			except KeyError:
@@ -357,14 +351,10 @@ class InstrumentEffectsDialog:
 			
 		elif change == "singlePreset":
 			# update the effect presets model
-			#TODO: remove this print
-			#print "singlePreset"
 			self._LoadEffectPresets()
 			
 		elif change == "chainPreset":
 			# update the Instrument presets model
-			#TODO: remove this print
-			#print "chainPreset"
 			self._LoadInstrumentPresets()
 		
 	#_____________________________________________________________________
@@ -404,12 +394,9 @@ class InstrumentEffectsDialog:
 		# Create context menu on a right-click
 		if mouse.button == 3:
 			menu = gtk.Menu()
-			
-			# TODO: remove the sensitive value in items and enable the up/down buttons
-			
 			items = [
-					(_("_Move up..."), self.OnEffectUp, False, gtk.image_new_from_stock(gtk.STOCK_GO_UP, gtk.ICON_SIZE_MENU)),
-					(_("M_ove down..."), self.OnEffectDown, False, gtk.image_new_from_stock(gtk.STOCK_GO_DOWN, gtk.ICON_SIZE_MENU)),
+					(_("_Move up..."), self.OnEffectUp, True, gtk.image_new_from_stock(gtk.STOCK_GO_UP, gtk.ICON_SIZE_MENU)),
+					(_("M_ove down..."), self.OnEffectDown, True, gtk.image_new_from_stock(gtk.STOCK_GO_DOWN, gtk.ICON_SIZE_MENU)),
 					("---", None, False, None),
 					(_("_Delete"), self.OnEffectDeleted, True, gtk.image_new_from_stock(gtk.STOCK_DELETE, gtk.ICON_SIZE_MENU)),
 					(_("_Settings"), self.OnEffectSettings, True, gtk.image_new_from_stock(gtk.STOCK_PROPERTIES, gtk.ICON_SIZE_MENU))
@@ -516,19 +503,20 @@ class InstrumentEffectsDialog:
 		"""
 		selection = self.listActiveEffects.get_selection().get_selected()
 		
-		#TODO: THIS CODE SHOULD NOT BE NECESSARY WHEN MOVEUP IS IMPLEMENTED
-		
 		# return if there is no active selection or it's the first element
 		if not selection[1] or self.modelActiveEffects[selection[1]].path == (0,):
 			return
 		
-		for effect in self.modelActiveEffects:
-			if effect.next[3] == self.modelActiveEffects[selection[1]][3]:		#match ID's
-				self.modelActiveEffects.swap(self.modelActiveEffects.get_iter(effect.path),
-											 selection[1])
-				break
+		# grab references to the effect position in the table and the
+		# effect element itself, to then move it
+		effectPos = self.modelActiveEffects[selection[1]].path[0]
+		effect = self.instrument.effects[effectPos]
 		
-		#TODO: change the real effect order
+		print effect.get_name()
+		
+		newPosition = self.modelActiveEffects[selection[1]].path[0]-1
+		print "Up: %s" % newPosition
+		self.instrument.ChangeEffectOrder(effect, newPosition)
 	
 	#_____________________________________________________________________
 	
@@ -541,17 +529,20 @@ class InstrumentEffectsDialog:
 		"""
 		selection = self.listActiveEffects.get_selection().get_selected()
 		
-		#TODO: THIS CODE SHOULD NOT BE NECESSARY WHEN MOVEDOWN IS IMPLEMENTED
-		
 		# return if there is no active selection or it's the last element
 		if not selection[1] or self.modelActiveEffects[selection[1]].next == None:
 			return
 		
-		nextRow = self.modelActiveEffects[selection[1]].next
-		self.modelActiveEffects.swap(self.modelActiveEffects.get_iter(nextRow.path),
-									 selection[1])
+		# grab references to the effect position in the table and the
+		# effect element itself, to then move it
+		effectPos = self.modelActiveEffects[selection[1]].path[0]
+		effect = self.instrument.effects[effectPos]
 		
-		#TODO: change the real effect order
+		print effect.get_name()
+		
+		newPosition = self.modelActiveEffects[selection[1]].path[0]+1
+		print "Down: %s" % newPosition
+		self.instrument.ChangeEffectOrder(effect, newPosition)
 		
 	#_____________________________________________________________________
 	

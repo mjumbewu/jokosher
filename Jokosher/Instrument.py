@@ -497,6 +497,8 @@ class Instrument(Monitored):
 		
 		#give it a lambda for a callback that does nothing, so we don't have to wait
 		endSrcPad.set_blocked_async(False, lambda x,y: False)
+		
+		self.StateChanged("effects")
 	
 	#_____________________________________________________________________
 	
