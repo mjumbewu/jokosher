@@ -351,7 +351,7 @@ if os.path.isfile(os.path.expanduser("~/.jokosher")):
 # create a couple dirs to avoid having problems creating a non-existing
 # directory inside another non-existing directory
 for directory in ['extensions', 'instruments', 'instruments/images', 
-		'presets', 'presets/effects', 'presets/mixdown']:
+		'presets', 'presets/effects', 'presets/mixdown', 'mixdownprofiles']:
 	new_dir = os.path.join(os.path.expanduser("~/.jokosher/"), directory)
 	if not os.path.isdir(new_dir):
 		try:
