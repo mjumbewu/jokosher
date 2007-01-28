@@ -65,14 +65,22 @@ class MixdownAction:
 		w.show_all()
 		
 	def __finishConfiguration(self, widget, event):
+		"Internal function to update our button on the Mixdown window"
 		widget.destroy()
 		self.update_button()
 
 	def __configEntryChanged(self, widget, event, datakey):
+		"Internal function to update our config dictionary"
 		self.config[datakey] = widget.get_text()
 
 	def update_button(self):
+		"Update our button on the mixdown window"
 		self.button.set_label(self.display_name())
+
+	@staticmethod
+	def create_name():
+		"""A name for this action, to go in the choose-an-action menu"""
+		return "Export file"
 
 	def run(self, data):
 		"""do whatever this action actually does. data is a dictionary populated 
@@ -101,6 +109,15 @@ class MixdownAction:
 
 class ExportAsFileType(MixdownAction):
 	def __init__(self, project):
+		"""Special init function for this particular MixdownAction, which takes
+		a reference to the project as a parameter; this is so we can call back
+		into the project to do the export. This means that the core code must
+		special-case action creation, and if it's creating one of these then
+		pass it a project.
+		
+		Parameters:
+			project -- the current Jokosher project
+		"""
 		MixdownAction.__init__(self)
 		# Always start with ogg as the filetype
 		self.filetypedict = [x for x in Globals.EXPORT_FORMATS if x['extension'] == 'ogg'][0]
@@ -111,20 +128,24 @@ class ExportAsFileType(MixdownAction):
 		                       # in the core.
 	
 	def display_name(self):
+		"See MixdownAction.display_name"
 		return "Export to %s as %s" % (
 			os.path.split(self.config["filename"])[1],
 			self.filetypedict["description"])
 
 	@staticmethod
 	def create_name():
+		"See MixdownAction.create_name"
 		return "Export file"
 
 	def run(self,data):
+		"See MixdownAction.run"
 		data["filename"] = self.config["filename"]
 		data["filetype"] = self.filetypedict["extension"]
 		self.project.Export(self.config["filename"], self.filetypedict["pipeline"])
 		
 	def configure(self):
+		"See MixdownAction.configure"
 		buttons = (gtk.STOCK_CANCEL,gtk.RESPONSE_CANCEL,gtk.STOCK_SAVE,gtk.RESPONSE_OK)
 		chooser = gtk.FileChooserDialog(_("Export as"), None, gtk.FILE_CHOOSER_ACTION_SAVE, buttons)
 		chooser.set_current_folder(os.path.expanduser("~"))
@@ -167,18 +188,21 @@ class ExportAsFileType(MixdownAction):
 
 class RunAScript(MixdownAction):
 	def __init__(self):
+		"See MixdownAction.__init__"
 		MixdownAction.__init__(self)
 		self.config["script"] = os.path.expanduser("~/jokscript.sh")
 	
 	def display_name(self):
+		"See MixdownAction.display_name"
 		return "Run script %s" % (os.path.split(self.config["script"])[1])
 	
 	@staticmethod
 	def create_name():
+		"See MixdownAction.create_name"
 		return "Run external script"
 
 	def run(self,data):
-		print "running script",self.config["script"]
+		"See MixdownAction.run"
 		# Set up the environment for the process by putting all of the
 		# vars from the mixdownprofile in it as JOKOSHER_* vars
 		subprocess_environment = {}
