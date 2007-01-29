@@ -92,6 +92,7 @@ class EventViewer(gtk.DrawingArea):
 		self.connect("focus-in-event", self.OnFocus)
 		self.connect("focus-out-event", self.OnFocusLost)
 		self.connect("key_press_event", self.OnKeyPress)
+		self.connect("key_release_event", self.OnKeyRelease)
 		self.connect("button_release_event", self.OnMouseUp)
 		
 		self.height = height			# Height of this object in pixels
@@ -648,21 +649,80 @@ class EventViewer(gtk.DrawingArea):
 		"""
 		modifier = 0.1 # Multiply movement by this amount (modified by ctrl key)
 		moveCursor = False # Are we moving the highlight cursor or the event?
+		moveLeftFade = False
+		moveRightFade = False
+		moveTo = None
 		if "GDK_SHIFT_MASK" in event.state.value_names:
+			if self.event.selection != [0, 0]:
+				moveLeftFade = True
 			moveCursor = True
 			modifier = 0.5
 		if "GDK_CONTROL_MASK" in event.state.value_names:
+			if self.event.selection != [0, 0]:
+				moveRightFade = True
 			modifier *= 10
+		if "GDK_MOD1_MASK" in event.state.value_names:
+			moveCursor = True
+			modifier *= 10
+			if not self.isSelecting:
+				if not self.highlightCursor:
+					self.event.selection[0] = 0
+				else:
+					self.event.selection[0] = self.SecFromPixX(self.highlightCursor)
+			self.UpdateFadeMarkers()
+			self.isSelecting = True
+			selection_direction = "ltor"
+			selection = self.event.selection
+			if selection[0] > selection[1]:
+				selection_direction = "rtol"
+				self.fadeMarkers.reverse()
+
 		
 		key = gtk.gdk.keyval_name(event.keyval)
-		if key == "Left":
+		if key == "Up":
+			# Adjust fade points
+			if moveLeftFade:
+				self.fadeMarkers[0] += 1
+			if moveRightFade:
+				self.fadeMarkers[1] += 1
+			if self.fadeMarkers[0] > 100:
+				self.fadeMarkers[0] = 100
+			if self.fadeMarkers[1] > 100:
+				self.fadeMarkers[1] = 100
+			if moveLeftFade or moveRightFade:
+				self.SetAudioFadePointsFromCurrentSelection()
+		elif key == "Down":
+			# Adjust fade points
+			if moveLeftFade:
+				self.fadeMarkers[0] -= 1
+			if moveRightFade:
+				self.fadeMarkers[1] -= 1
+			if self.fadeMarkers[0] < 0:
+				self.fadeMarkers[0] = 0
+			if self.fadeMarkers[1] < 0:
+				self.fadeMarkers[1] = 0
+			if moveLeftFade or moveRightFade:
+				self.SetAudioFadePointsFromCurrentSelection()
+		elif key == "Left":
+			# Move event/highlight cursor
+			if not self.isSelecting:
+				# Reset selection
+				self.event.selection = [0, 0]
+				self.fadeMarkers = [100, 100]
 			if not self.highlightCursor:
+				self.event.select = [0, 0]
+				self.fadeMarkers = [100, 100]
 				self.highlightCursor = 0
 			if moveCursor:
 				moveTo = self.highlightCursor - modifier
 			else:
 				moveTo = self.event.start - modifier
 		elif key == "Right":
+			# Move event/highlight cursor
+			if not self.isSelecting:
+				# Reset selection
+				self.event.selection = [0, 0]
+				self.fadeMarkers = [100, 100]
 			if not self.highlightCursor:
 				self.highlightCursor = 0
 			if moveCursor:
@@ -683,23 +743,50 @@ class EventViewer(gtk.DrawingArea):
 		else:
 			return False
 
-		# Don't go beyond respective boundaries
-		if moveTo < 0:
-			moveTo = 0
-		if moveCursor and moveTo > self.allocation.width:
-			moveTo = self.allocation.width
+		if moveTo:
+			# Don't go beyond respective boundaries
+			if moveTo < 0:
+				moveTo = 0
+			if (moveCursor or self.isSelecting) and moveTo > self.allocation.width:
+				moveTo = self.allocation.width
 
-		if moveCursor:
-			self.highlightCursor = moveTo
-		else:
-			self.event.MoveButDoNotOverlap(moveTo)
+			if moveCursor:
+				self.highlightCursor = moveTo
+			else:
+				self.event.MoveButDoNotOverlap(moveTo)
+			if self.isSelecting:
+				self.event.selection[1] = self.SecFromPixX(moveTo)
 
 		self.lane.Update(self)
 			
 		return True
 
 	#_____________________________________________________________________
-		
+
+	def OnKeyRelease(self, widget, event):
+		"""
+			Handle releasing of ALT key to stop drawing selection.
+			
+			Parameters:
+				widget -- reserved for GTK callbacks, don't use it explicitly.
+				event -- GTK keyboard event that fired this method call.
+				
+			Returns:
+				True -- continue GTK signal propagation after processing the event.
+				False -- pass this event on to other handlers because we don't want it.
+		"""
+
+		key = gtk.gdk.keyval_name(event.keyval)
+		if self.isSelecting and "GDK_MOD1_MASK" in event.state.value_names and (key == "Left" or key == "Right"):
+			self.isSelecting = False
+			self.highlightCursor = None
+			self.ShowDrawer()
+
+		# Allow this even to be processed by other widgets regardless (so accelerators still work)
+		return False
+
+	#_____________________________________________________________________
+	
 	def ContextMenu(self, mouse):
 		"""
 		Creates a context menu in response to a right click.
@@ -782,24 +869,31 @@ class EventViewer(gtk.DrawingArea):
 				self.SetAudioFadePointsFromCurrentSelection()
 			elif self.isSelecting:
 				self.isSelecting = False
-				selection_direction = "ltor"
-				selection = self.event.selection
-				if selection[0] > selection[1]:
-					self.event.selection = [selection[1], selection[0]]
-					selection_direction = "rtol"
-					
+				self.ShowDrawer()
+
+	#_____________________________________________________________________
+
+	def ShowDrawer(self):
+		"""
+		Cause the draw to be shown at the current event selection position.
+		"""
+		selection_direction = "ltor"
+		selection = self.event.selection
+		if selection[0] > selection[1]:
+			self.event.selection = [selection[1], selection[0]]
+			selection_direction = "rtol"
 				
-				if self.drawer.parent != self.lane.fixed:
-					#the drawer is not in the lane, we must add it
-					self.lane.fixed.put(self.drawer,1,75)
-					
-				#set the drawer align position
-				self.drawerAlignToLeft = (selection_direction == "rtol")
-				#move the drawer to its proper position
-				self.UpdateDrawerPosition()
-				#update the lane so the drawer is shown
-				self.lane.Update()
-				
+		if self.drawer.parent != self.lane.fixed:
+			#the drawer is not in the lane, we must add it
+			self.lane.fixed.put(self.drawer,1,75)
+			
+			#set the drawer align position
+			self.drawerAlignToLeft = (selection_direction == "rtol")
+			#move the drawer to its proper position
+			self.UpdateDrawerPosition()
+			#update the lane so the drawer is shown
+			self.lane.Update()
+
 	#_____________________________________________________________________
 		
 	def OnMouseLeave(self, widget, event):
