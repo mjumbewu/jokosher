@@ -621,8 +621,8 @@
 		  <property name="is_important">False</property>
 		  <accessibility>
 		    <atkproperty name="AtkObject::accessible_name" translatable="yes">Add Audio FiIe</atkproperty>
-		    <atkrelation target="AddInstrument" type="flows-from"/>
 		    <atkrelation target="Rewind" type="flows-to"/>
+		    <atkrelation target="AddInstrument" type="flows-from"/>
 		  </accessibility>
 		  <signal name="clicked" handler="on_project_add_audio" last_modification_time="Mon, 22 Jan 2007 19:04:35 GMT"/>
 		</widget>
@@ -655,8 +655,8 @@
 		  <property name="is_important">False</property>
 		  <accessibility>
 		    <atkproperty name="AtkObject::accessible_name" translatable="yes">Rewind</atkproperty>
-		    <atkrelation target="Play" type="flows-to"/>
 		    <atkrelation target="addAudioFileButton" type="flows-from"/>
+		    <atkrelation target="Play" type="flows-to"/>
 		  </accessibility>
 		  <signal name="clicked" handler="on_Rewind_clicked"/>
 		</widget>
@@ -677,8 +677,8 @@
 		  <property name="active">False</property>
 		  <accessibility>
 		    <atkproperty name="AtkObject::accessible_name" translatable="yes">Stop</atkproperty>
-		    <atkrelation target="Rewind" type="flows-from"/>
 		    <atkrelation target="Stop" type="flows-to"/>
+		    <atkrelation target="Rewind" type="flows-from"/>
 		  </accessibility>
 		  <signal name="toggled" handler="on_Play_toggled"/>
 		</widget>
@@ -698,8 +698,8 @@
 		  <property name="is_important">False</property>
 		  <accessibility>
 		    <atkproperty name="AtkObject::accessible_name" translatable="yes">Stop</atkproperty>
-		    <atkrelation target="Play" type="flows-from"/>
 		    <atkrelation target="Forward" type="flows-to"/>
+		    <atkrelation target="Play" type="flows-from"/>
 		  </accessibility>
 		  <signal name="clicked" handler="on_Stop_clicked"/>
 		</widget>
@@ -719,8 +719,8 @@
 		  <property name="is_important">False</property>
 		  <accessibility>
 		    <atkproperty name="AtkObject::accessible_name" translatable="yes">FastForward</atkproperty>
-		    <atkrelation target="Record" type="flows-to"/>
 		    <atkrelation target="Stop" type="flows-from"/>
+		    <atkrelation target="Record" type="flows-to"/>
 		  </accessibility>
 		  <signal name="clicked" handler="on_Forward_clicked"/>
 		</widget>
@@ -741,8 +741,8 @@
 		  <property name="active">False</property>
 		  <accessibility>
 		    <atkproperty name="AtkObject::accessible_name" translatable="yes">Record</atkproperty>
-		    <atkrelation target="Recording" type="flows-to"/>
 		    <atkrelation target="Forward" type="flows-from"/>
+		    <atkrelation target="Recording" type="flows-to"/>
 		  </accessibility>
 		  <signal name="toggled" handler="on_Record_toggled"/>
 		</widget>
@@ -846,8 +846,8 @@
 			  <property name="inconsistent">False</property>
 			  <accessibility>
 			    <atkproperty name="AtkObject::accessible_name" translatable="yes">Recording Workspace</atkproperty>
-			    <atkrelation target="Record" type="flows-from"/>
 			    <atkrelation target="CompactMix" type="flows-to"/>
+			    <atkrelation target="Record" type="flows-from"/>
 			  </accessibility>
 			  <signal name="toggled" handler="on_Recording_toggled"/>
 			</widget>
@@ -4400,7 +4400,7 @@ Custom</property>
 	  <property name="window_placement">GTK_CORNER_TOP_LEFT</property>
 
 	  <child>
-	    <widget class="GtkTreeView" id="treeview1">
+	    <widget class="GtkTreeView" id="treeviewExtensions">
 	      <property name="visible">True</property>
 	      <property name="headers_visible">True</property>
 	      <property name="rules_hint">False</property>
@@ -4427,7 +4427,7 @@ Custom</property>
 	  <property name="spacing">6</property>
 
 	  <child>
-	    <widget class="GtkButton" id="button15">
+	    <widget class="GtkButton" id="buttonAdd">
 	      <property name="visible">True</property>
 	      <property name="tooltip" translatable="yes">Add an extension</property>
 	      <property name="relief">GTK_RELIEF_NORMAL</property>
@@ -4454,7 +4454,7 @@ Custom</property>
 	  </child>
 
 	  <child>
-	    <widget class="GtkButton" id="button11">
+	    <widget class="GtkButton" id="buttonRemove">
 	      <property name="visible">True</property>
 	      <property name="tooltip" translatable="yes">Remove the currently selected extension</property>
 	      <property name="relief">GTK_RELIEF_NORMAL</property>
@@ -4481,7 +4481,7 @@ Custom</property>
 	  </child>
 
 	  <child>
-	    <widget class="GtkButton" id="button5">
+	    <widget class="GtkButton" id="buttonPreferences">
 	      <property name="visible">True</property>
 	      <property name="sensitive">False</property>
 	      <property name="tooltip" translatable="yes">Edit Jokosher preferences</property>
@@ -4524,7 +4524,7 @@ Custom</property>
 	  </child>
 
 	  <child>
-	    <widget class="GtkButton" id="button13">
+	    <widget class="GtkButton" id="buttonClose">
 	      <property name="visible">True</property>
 	      <property name="tooltip" translatable="yes">Close the extension manager</property>
 	      <property name="label">gtk-close</property>

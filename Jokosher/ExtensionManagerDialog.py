@@ -40,9 +40,8 @@ class ExtensionManagerDialog:
 		self.wTree.signal_autoconnect(signals)
 		
 		self.dlg = self.wTree.get_widget("ExtensionManagerDialog")
-		self.tree = self.wTree.get_widget("treeview1")
-		self.restart_label = self.wTree.get_widget("label1")
-		self.prefs_button = self.wTree.get_widget("button5")
+		self.tree = self.wTree.get_widget("treeviewExtensions")
+		self.prefs_button = self.wTree.get_widget("buttonPreferences")
 		
 		self.AddColumn("Enabled", 0, 'toggle')
 		self.AddColumn("Name", 1, 'text', 25)
