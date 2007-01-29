@@ -145,6 +145,21 @@ def debug(*listToPrint):
 		gst.debug(message)
 		
 #_____________________________________________________________________
+
+def FAT32SafeFilename(filename):
+	"""
+	Returns a copy fo the given string that has all the
+	characters that are not allowed in FAT32 path names
+	taken out.
+	
+	Parameters:
+		filename -- the filename string.
+	"""
+	
+	allowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789$%'`-@{}~!#()&_^ "
+	return "".join([x for x in filename if x in allowedChars])
+
+#_____________________________________________________________________
 		
 def PrintPipelineDebug(message, pipeline):
 	"""

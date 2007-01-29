@@ -532,6 +532,7 @@ class Instrument(Monitored):
 		event.isRecording = True
 		event.name = _("Recorded audio")
 		event.file = "%s_%d_%d.ogg"%(os.path.join(self.path, self.name.replace(" ", "_")), self.id, int(time.time()))
+		event.file = Globals.FAT32SafeFilename(event.file)
 		#must add it to the instrument's list so that an update of the event lane will not remove the widget
 		self.events.append(event)
 		return event
