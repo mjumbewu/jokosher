@@ -512,11 +512,11 @@ class InstrumentEffectsDialog:
 		effectPos = self.modelActiveEffects[selection[1]].path[0]
 		effect = self.instrument.effects[effectPos]
 		
-		print effect.get_name()
-		
 		newPosition = self.modelActiveEffects[selection[1]].path[0]-1
-		print "Up: %s" % newPosition
 		self.instrument.ChangeEffectOrder(effect, newPosition)
+		
+		# reselect the effect moved in this operation
+		self.listActiveEffects.set_cursor(newPosition)
 	
 	#_____________________________________________________________________
 	
@@ -538,11 +538,11 @@ class InstrumentEffectsDialog:
 		effectPos = self.modelActiveEffects[selection[1]].path[0]
 		effect = self.instrument.effects[effectPos]
 		
-		print effect.get_name()
-		
 		newPosition = self.modelActiveEffects[selection[1]].path[0]+1
-		print "Down: %s" % newPosition
 		self.instrument.ChangeEffectOrder(effect, newPosition)
+		
+		# reselect the effect moved in this operation
+		self.listActiveEffects.set_cursor(newPosition)
 		
 	#_____________________________________________________________________
 	
