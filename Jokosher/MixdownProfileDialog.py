@@ -46,7 +46,7 @@ class MixdownProfileDialog:
 		self.signals = {
 			"on_mixdownbutton_clicked" : self.OnMixdown,
 			"on_savesettingsbutton_clicked" : self.OnSaveSettings,
-			"on_newstep_changed" : self.OnChangeStepCombo
+			"on_addstepbutton_clicked" : self.OnAddStep
 		}
 		
 		self.res.signal_autoconnect(self.signals)
@@ -76,7 +76,6 @@ class MixdownProfileDialog:
 		self.combo_newstep_model = self.combo_newstep.get_model()
 		for a in self.possible_action_classes:
 			self.combo_newstep_model.append([a.create_name()])
-		self.combo_newstep.set_active(0) # add new step
 
 		self.actions = []
 		if profile:
@@ -86,6 +85,8 @@ class MixdownProfileDialog:
 			# specialcase ExportAsFileType
 			export_action = MixdownProfiles.ExportAsFileType(self.project)
 			self.AddAction(export_action)
+			
+		# If a profile was supplied, show a delete button for it
 		
 		self.window.show_all()
 
@@ -189,14 +190,14 @@ class MixdownProfileDialog:
 
 	#_____________________________________________________________________
 
-	def OnChangeStepCombo(self, combo):
+	def OnAddStep(self, button):
 		"""
-		Called when the user changes the "Add a step" dropdown to add a step
+		Called when the user clicks the "Add step" button to add a step
 		
 		Parameters:
-			combo -- the combo
+			button -- the button
 		"""
-		active = combo.get_active()
+		active = self.combo_newstep.get_active()
 		if active == 0: return
 		action_class = self.possible_action_classes[active-1]
 		# specialcase ExportAsFileType
@@ -205,7 +206,6 @@ class MixdownProfileDialog:
 		else:
 			new_action = action_class()
 		self.AddAction(new_action)
-		combo.set_active(0) # reset to "Add new step"
 		
 	#_____________________________________________________________________
 

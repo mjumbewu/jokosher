@@ -178,9 +178,9 @@ class ExportAsFileType(MixdownAction):
 			Globals.settings.write()
 			#If they haven't already appended the extension for the 
 			#chosen file type, add it to the end of the file.
-			filetypeDict = Globals.EXPORT_FORMATS[typeCombo.get_active()]
-			if not self.config["filename"].lower().endswith(filetypeDict["extension"]):
-				self.config["filename"] += "." + filetypeDict["extension"]
+			self.filetypedict = Globals.EXPORT_FORMATS[typeCombo.get_active()]
+			if not self.config["filename"].lower().endswith(self.filetypedict["extension"]):
+				self.config["filename"] += "." + self.filetypedict["extension"]
 			chooser.destroy()
 			self.update_button()
 		else:

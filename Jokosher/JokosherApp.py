@@ -1824,8 +1824,17 @@ class MainApp:
 		savefolder = os.path.expanduser('~/.jokosher/mixdownprofiles') # created by Globals
 		profiles = os.listdir(savefolder)
 		if not profiles: return
+		
+		filemenulist = self.filemenu.get_submenu()
+		# If there's already a Mixdown As submenu, delete it and recreate it
+		for i in filemenulist.get_children():
+			if i.get_children():
+				if i.get_children()[0].get_label() == _("_Mixdown as"):
+					filemenulist.remove(i)
+					i.destroy()
+		
 		# Create a Mixdown As submenu header
-		mixdown_as_header = gtk.MenuItem(label="Mixdown as")
+		mixdown_as_header = gtk.MenuItem(label=_("Mixdown as"))
 		submenu = gtk.Menu()
 		for p in profiles:
 			menuitem = gtk.MenuItem(label=p)
@@ -1833,7 +1842,6 @@ class MainApp:
 			submenu.append(menuitem)
 		mixdown_as_header.set_submenu(submenu)
 		# insert it after Mixdown Project
-		filemenulist = self.filemenu.get_submenu()
 		counter = 0
 		insert_position = None
 		for i in filemenulist.get_children():
