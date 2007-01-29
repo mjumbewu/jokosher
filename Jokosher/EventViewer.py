@@ -664,7 +664,7 @@ class EventViewer(gtk.DrawingArea):
 				moveTo = self.event.start - modifier
 		elif key == "Right":
 			if not self.highlightCursor:
-				self.higlightCursor = 0
+				self.highlightCursor = 0
 			if moveCursor:
 				moveTo = self.highlightCursor + modifier
 			else:
