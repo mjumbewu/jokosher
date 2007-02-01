@@ -1918,7 +1918,7 @@ Custom</property>
 		      <property name="has_frame">True</property>
 		      <property name="invisible_char">●</property>
 		      <property name="activates_default">False</property>
-		      <signal name="changed" handler="on_playbackSink_changed" last_modification_time="Sat, 23 Dec 2006 19:57:39 GMT"/>
+		      <signal name="focus_out_event" handler="on_playbackSink_changed" last_modification_time="Thu, 01 Feb 2007 01:58:40 GMT"/>
 		    </widget>
 		    <packing>
 		      <property name="left_attach">1</property>

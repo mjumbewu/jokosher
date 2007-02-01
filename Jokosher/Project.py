@@ -72,6 +72,7 @@ class Project(Monitored):
 		self.recordingEvents = {}	#Dict containing recording information for each recording instrument
 		self.volume = 1.0			#The volume setting for the entire project
 		self.level = 0.0			#The level of the entire project as reported by the gstreamer element
+		self.currentSinkString = None	#to keep track if the sink changes or not
 
 		# Variables for the undo/redo command system
 		self.unsavedChanges = False		#This boolean is to indicate if something which is not on the undo/redo stack needs to be saved
@@ -1195,7 +1196,31 @@ class Project(Monitored):
 		self.clickTrackController.unset_all("volume")
 		
 	#_____________________________________________________________________
-
+	
+	def SetProjectSink(self):
+		"""
+		Grabs the sink element based on the Global preferences, and sets
+		the pipeline to use that sink.
+		"""
+		
+		if self.audioState == self.AUDIO_EXPORTING:
+			#we're exporting so some encoders and a filesink are hooked up
+			#changing that would mess everything up.
+			return
+		
+		if self.audioState != self.AUDIO_STOPPED:
+			self.Stop()
+		
+		self.levelElement.unlink(self.masterSink)
+		self.playbackbin.remove(self.masterSink)
+		self.masterSink.set_state(gst.STATE_NULL)
+		
+		self.masterSink = self.MakeProjectSink()
+		self.playbackbin.add(self.masterSink)
+		self.levelElement.link(self.masterSink)
+	
+	#_____________________________________________________________________
+	
 	def MakeProjectSink(self):
 		"""
 		Contructs a GStreamer sink element (or bin with ghost pads) for the 
@@ -1204,7 +1229,12 @@ class Project(Monitored):
 		Return:
 			the newly created GStreamer sink element.
 		"""
+		
 		sinkString = Globals.settings.playback["audiosink"]
+		if self.currentSinkString == sinkString:
+			return self.masterSink
+		
+		self.currentSinkString = sinkString
 		sinkElement = None
 		
 		if sinkString == "alsasink":

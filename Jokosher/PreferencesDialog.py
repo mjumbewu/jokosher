@@ -216,7 +216,7 @@ class PreferencesDialog:
 
 	#_____________________________________________________________________
 
-	def OnPlaybackSinkChanged(self, comboBox=None):
+	def OnPlaybackSinkChanged(self, widget=None, event=None):
 		"""
 		Updates the selected playback audio device from the comboBox selection.
 		It then writes an updated settings file.
@@ -244,6 +244,7 @@ class PreferencesDialog:
 			Globals.settings.playback["audiosink"] = self.customSink.get_text()
 			
 		Globals.settings.write()
+		self.project.SetProjectSink()
 	
 	#_____________________________________________________________________
 	
