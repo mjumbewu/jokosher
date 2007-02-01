@@ -237,8 +237,12 @@ def _cacheInstrumentsGenerator(alreadyLoadedTypes=[]):
 			name = unicode(name, "UTF-8")
 			pixbufPath = os.path.join(instr_path, "images", icon)
 			pixbuf = gtk.gdk.pixbuf_new_from_file(pixbufPath)
+			
+			# add instrument to defaults list if it's a defaults
+			if instr_path == INSTR_PATHS[0]:
+				DEFAULT_INSTRUMENTS.append(type)
 				
-			yield (name, type, pixbuf)
+			yield (name, type, pixbuf, pixbufPath)
 
 #_____________________________________________________________________
 
@@ -634,6 +638,8 @@ EXPORT_FORMATS = []
 
 SAMPLE_RATES = [8000, 11025, 22050, 32000, 44100, 48000, 96000, 192000]
 	
+""" Default Instruments """
+DEFAULT_INSTRUMENTS = []
 """ init Settings """
 settings = Settings()
 

@@ -192,7 +192,7 @@ class MainApp:
 		
 		#get the audiofile image from Globals
 		self.audioFilePixbuf = None
-		for name, type, pixbuf in Globals.getCachedInstruments():
+		for name, type, pixbuf, path in Globals.getCachedInstruments():
 			if type == "audiofile":
 				size = gtk.icon_size_lookup(gtk.ICON_SIZE_MENU)
 				self.audioFilePixbuf = pixbuf.scale_simple(size[0], size[1], gtk.gdk.INTERP_BILINEAR)

@@ -849,7 +849,7 @@ class Project(Monitored):
 		"""
 		
 		undoAction = UndoSystem.AtomicUndoAction()
-		for name, type, pixbuf in instrTuples:
+		for name, type, pixbuf, path in instrTuples:
 			self.AddInstrument(name, type, pixbuf, _undoAction_=undoAction)
 	
 	#_____________________________________________________________________
@@ -996,7 +996,8 @@ class Project(Monitored):
 			undoAction = UndoSystem.AtomicUndoAction()
 		
 		instrTuple = [x for x in Globals.getCachedInstruments() if x[1] == "audiofile"][0]
-		instr = self.AddInstrument(_undoAction_=undoAction, *instrTuple)
+		print instrTuple
+		instr = self.AddInstrument(_undoAction_=undoAction, *instrTuple[0:3])
 		instr.AddEventsFromList(0, fileList, copyFile, undoAction)
 	
 	#_____________________________________________________________________

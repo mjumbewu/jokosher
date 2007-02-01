@@ -263,7 +263,8 @@ class ExtensionAPI:
 		Returns:
 			a list with tuples describing each available Instrument in Jokosher.
 		"""
-		return [(x[0], x[1], x[2].copy()) for x in Globals.getCachedInstruments()]
+		
+		return [(x[0], x[1], x[2].copy(), x[3]) for x in Globals.getCachedInstruments()]
 	
 	#_____________________________________________________________________
 		
@@ -615,6 +616,42 @@ class ExtensionAPI:
 		
 		return 0
 	
+	#_____________________________________________________________________
+	
+	def delete_instrument_type(self, typeString):
+		"""
+		Deletes an instrument type from the user's ~/.jokosher/instruments 
+		directory (deleting default instruments isn't allowed)
+		
+		Parameters:
+			typeString -- The instrument type, the instrument name is translated
+						so we can't use that one
+		
+		Returns:
+			0 = Instrument successfully deleted
+			1 = Instrument is a default instrument and cannot be deleted
+			2 = Error deleting instrument files
+			3 = Error removing instrument from cache
+		"""
+		if typeString not in Globals.DEFAULT_INSTRUMENTS:			
+			for instr in Globals.getCachedInstruments():
+				if typeString == instr[1]:
+					Globals.debug("Deleting instrument type")
+					instr_path = os.path.join(Globals.INSTR_PATHS[1], typeString + ".instr")
+					image_path = instr[3]
+					try:
+						os.remove(instr_path)
+						os.remove(image_path)
+					except:
+						return 2
+					try:
+						cached_instr = [x for x in Globals.getCachedInstruments() if x[1] == typeString]
+						Globals.instrumentPropertyList.remove(cached_instr[0])
+					except:
+						return 3
+		else:
+			return 1
+			
 	#_____________________________________________________________________
 		
 	@exported_function

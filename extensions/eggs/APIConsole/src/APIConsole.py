@@ -37,6 +37,8 @@ class APIConsole:
 		self.output.set_buffer(self.output_text)
 		self.output.scroll_mark_onscreen(self.output_text.get_insert())
 		
+		self.completion_model = gtk.ListStore(str)
+		
 		window.show_all()
 	
 	
