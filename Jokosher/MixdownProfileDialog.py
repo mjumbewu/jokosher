@@ -13,10 +13,11 @@ import pygst
 pygst.require("0.10")
 import gst
 import Globals
+import os
+import MixdownProfiles
+
 import gettext
 _ = gettext.gettext
-import MixdownProfiles
-import os
 
 #=========================================================================
 
@@ -34,7 +35,7 @@ class MixdownProfileDialog:
 		Parameters:
 			project -- the currently active Project.
 			parent -- reference to the MainApp Jokosher window.
-			profile -- a profile name, as saved by SaveSettings
+			profile -- a profile name, as saved by SaveSettings.
 		"""
 		if project:
 			self.project = project
@@ -74,8 +75,8 @@ class MixdownProfileDialog:
 
 		self.combo_newstep = self.res.get_widget("newstep")
 		self.combo_newstep_model = self.combo_newstep.get_model()
-		for a in self.possible_action_classes:
-			self.combo_newstep_model.append([a.create_name()])
+		for action in self.possible_action_classes:
+			self.combo_newstep_model.append([action.create_name()])
 
 		self.actions = []
 		if profile:
@@ -101,24 +102,29 @@ class MixdownProfileDialog:
 		"""
 		rows = self.actionstable.get_property("n-rows")
 		cols = self.actionstable.get_property("n-columns")
+		
 		if rows == 1 and len(self.actions) == 0:
 			pass
 		else:
 			rows += 1
-			self.actionstable.resize(rows,cols)
+			self.actionstable.resize(rows, cols)
+			
 		button = gtk.Button()
 		button.mixdownaction = action
 		action.button = button
 		action.update_button()
 		button.connect("clicked", self.ConfigureButton)
-		self.actionstable.attach(button,0,1,rows-1,rows)
+		self.actionstable.attach(button, 0, 1, rows-1, rows)
+		
 		buttondel = gtk.Button(stock=gtk.STOCK_DELETE)
 		buttondel.mixdownaction = action
 		buttondel.connect("clicked", self.DeleteButton)
 		buttondel.actionbutton = button
 		if rows == 1:
 			buttondel.set_sensitive(False) # you can't delete the first export
-		self.actionstable.attach(buttondel,1,2,rows-1,rows)
+			
+		self.actionstable.attach(buttondel, 1, 2, rows-1, rows)
+		
 		self.actionstable.show_all()
 		self.actions.append(action)
 	
@@ -127,10 +133,10 @@ class MixdownProfileDialog:
 	def ConfigureButton(self, button):
 		"""
 		Called when the user clicks the button for an action, which
-		pops its config window
+		pops its config window.
 		
 		Parameters:
-			button -- the button.
+			button -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		button.mixdownaction.configure()
 
@@ -139,19 +145,21 @@ class MixdownProfileDialog:
 	def DeleteButton(self, button):
 		"""
 		Called when the user clicks the delete button for an action, which
-		removes that action
+		removes that action.
 		
 		Parameters:
-			button -- the button.
+			button -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		# remove the action from the list
 		self.actions.remove(button.mixdownaction)
+		
 		# delete the action
 		del(button.mixdownaction)
-		# delete the buttons
 		
+		# delete the buttons
 		table = button.get_parent()
 		actionbutton = button.actionbutton
+		
 		# walk through the table; when we find our button, delete it and
 		# its associated action button, and then move everything up a row;
 		# finally, resize the table to be one row smaller
@@ -165,17 +173,17 @@ class MixdownProfileDialog:
 		# than the buttons we've removed, and removing them too while stashing them
 		# in a list. Then sort the list into incrementing row order, and finally
 		# walk through the list readding them. We have to do this stupid dance
-		# so that we readd them all in increasing row order, otherwise it'll 
+		# so that we read them all in increasing row order, otherwise it'll 
 		# possibly break by putting two things in a table cell, etc.
 		removed_buttons_to_readd = []
-		for c in table.get_children():
-			this_child_row = table.child_get_property(c, "top-attach")
-			this_child_col = table.child_get_property(c, "left-attach")
+		for child in table.get_children():
+			this_child_row = table.child_get_property(child, "top-attach")
+			this_child_col = table.child_get_property(child, "left-attach")
 			if this_child_row > our_row:
-				removed_buttons_to_readd.append((this_child_row - 1, this_child_col, c))
-				table.remove(c)
+				removed_buttons_to_readd.append((this_child_row - 1, this_child_col, child))
+				table.remove(child)
 		
-		removed_buttons_to_readd.sort(cmp=lambda a,b: cmp(a[0],b[0]))
+		removed_buttons_to_readd.sort(cmp=lambda a,b: cmp(a[0], b[0]))
 		
 		for row_to_readd_to, col_to_readd_to, widget in removed_buttons_to_readd:
 			table.attach(widget, col_to_readd_to, col_to_readd_to + 1,
@@ -185,21 +193,24 @@ class MixdownProfileDialog:
 		rows = self.actionstable.get_property("n-rows")
 		cols = self.actionstable.get_property("n-columns")
 		rows -= 1
-		self.actionstable.resize(rows,cols)
-		
+		self.actionstable.resize(rows, cols)
 
 	#_____________________________________________________________________
 
 	def OnAddStep(self, button):
 		"""
-		Called when the user clicks the "Add step" button to add a step
+		Called when the user clicks the "Add step" button to add a step.
 		
 		Parameters:
-			button -- the button
+			button -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		active = self.combo_newstep.get_active()
-		if active == 0: return
+		
+		if active == 0:
+			return
+		
 		action_class = self.possible_action_classes[active-1]
+		
 		# specialcase ExportAsFileType
 		if action_class == MixdownProfiles.ExportAsFileType: 
 			new_action = action_class(self.project)
@@ -227,13 +238,12 @@ class MixdownProfileDialog:
 		Parameters:
 			button -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-		
-		# FIXME: show a progress bar in a window for these steps
+		# TODO: show a progress bar in a window for these steps
 		data = {}
-		for a in self.actions:
-			# FIXME: trap errors and abort if you find any
-			a.run(data)
-	
+		for action in self.actions:
+			# TODO: trap errors and abort if you find any
+			action.run(data)
+			
 	#_____________________________________________________________________
 	
 	def OnSaveSettings(self, button):
@@ -243,24 +253,36 @@ class MixdownProfileDialog:
 		Parameters:
 			button -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-
 		# create a window to ask for a title to save it as
-		w = gtk.Window()
+		window = gtk.Window()
 		vb = gtk.VBox()
-		w.add(vb)
-		vb.add(gtk.Label("Choose a name for this profile"))
-		e = gtk.Entry()
-		vb.add(e)
-		bb = gtk.HButtonBox()
-		savebtn = gtk.Button(stock=gtk.STOCK_SAVE)
-		cancelbtn = gtk.Button(stock=gtk.STOCK_CANCEL)
-		savebtn.connect("clicked", self.SaveProfile, e, w)
-		cancelbtn.connect("clicked", lambda x:w.destroy())
-		bb.add(savebtn)
-		bb.add(cancelbtn)
-		vb.add(bb)
-		w.connect("delete_event", w.destroy)
-		w.show_all()
+		entry = gtk.Entry()
+		buttonBox = gtk.HButtonBox()
+		saveButton = gtk.Button(stock=gtk.STOCK_SAVE)
+		cancelButton = gtk.Button(stock=gtk.STOCK_CANCEL)
+		tooltips = gtk.Tooltips()
+		
+		window.set_transient_for(self.window)
+		window.set_property("window-position", gtk.WIN_POS_CENTER)
+		window.set_border_width(12)
+		vb.set_spacing(6)
+		buttonBox.set_layout(gtk.BUTTONBOX_END)
+		buttonBox.set_spacing(6)
+		tooltips.set_tip(saveButton, _("Save these mixdown settings"))
+		tooltips.set_tip(cancelButton, _("Don't save these mixdown settings"))
+		
+		window.add(vb)
+		vb.add(gtk.Label(_("Choose a name for this profile")))
+		vb.add(entry)
+		
+		saveButton.connect("clicked", self.SaveProfile, entry, window)
+		cancelButton.connect("clicked", lambda x:window.destroy())
+		buttonBox.add(saveButton)
+		buttonBox.add(cancelButton)
+		vb.add(buttonBox)
+		
+		window.connect("delete_event", window.destroy)
+		window.show_all()
 		
 	#_____________________________________________________________________
 	
@@ -297,26 +319,30 @@ class MixdownProfileDialog:
 		"""
 		savefolder = os.path.expanduser('~/.jokosher/mixdownprofiles') # created by Globals
 		profile_file = os.path.join(savefolder, profile_title)
+		
 		from xml.dom import minidom
 		dom = minidom.parse(profile_file)
-		for el in dom.documentElement.childNodes:
-			if el.nodeType == 1: # an element, not a text node
-				action_name = el.nodeName
+		
+		for element in dom.documentElement.childNodes:
+			if element.nodeType == 1: # an element, not a text node
+				action_name = element.nodeName
 				action_obj = getattr(MixdownProfiles,action_name)
+				
 				# specialcase ExportAsFileType
 				if action_obj == MixdownProfiles.ExportAsFileType:
 					action = action_obj(self.project)
 				else:
 					action = action_obj()
+					
 				# now get all its saved properties
-				for subel in el.childNodes:
+				for subel in element.childNodes:
 					if subel.nodeType == 1:
-						k = subel.nodeName
+						name = subel.nodeName
 						if subel.childNodes:
-							v = subel.firstChild.nodeValue
+							value = subel.firstChild.nodeValue
 						else:
-							v = ""
-						action.config[k] = v
+							value = ""
+						action.config[name] = value
 				# and add the action to this profile
 				self.AddAction(action)
 
