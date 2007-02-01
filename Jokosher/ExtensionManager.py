@@ -156,10 +156,10 @@ class ExtensionManager:
 			# for a python module try and import it
 			extension = None
 			fn = os.path.splitext(filename)[0]
-			exten_file, filnme, description = imp.find_module(fn, [directory])
+			exten_file, filename, description = imp.find_module(fn, [directory])
 			
 			try:
-				extension = imp.load_module(fn, exten_file, filnme, description)
+				extension = imp.load_module(fn, exten_file, filename, description)
 			except Exception, e:
 				Globals.debug("\t\t...failed.")
 				Globals.debug(e)
@@ -168,8 +168,9 @@ class ExtensionManager:
 				return False
 			if exten_file:
 				exten_file.close()
+				
 		elif filename.endswith(".egg"):
-			# for an egg add it to working_set and then try and
+			# for an egg, add it to working_set and then try and
 			# load it and pick out the entry points
 			fullName = os.path.join(directory, filename)
 			pkg_resources.working_set.add_entry(fullName)
@@ -189,6 +190,8 @@ class ExtensionManager:
 			return False
 		# try and register the extension - quit if failed
 		if not self.register(extension, filename, directory, local):
+			# TODO: remove this print
+			#print "Failed registering %s" % extension
 			return False
 		
 		# if we're still here then start the extension, if its not in the extensions_blacklist
@@ -305,7 +308,7 @@ class ExtensionManager:
 				try:
 					extension['extension'].preferences()
 				except:
-					Globals.debug("Some screwed up their preferences function")
+					Globals.debug("Someone screwed up their preferences function")
 					return False
 		return True
 				

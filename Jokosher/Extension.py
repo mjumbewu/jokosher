@@ -803,13 +803,24 @@ class ExtensionAPI:
 
 	def set_window_icon(self, window):
 		"""
-		Sets the specified window to use the Jokosher icon
+		Sets the specified window to use the Jokosher icon.
 		
 		Parameters:
 			window -- the window which will use the Jokosher icon as its icon in the window border.
 		"""
 		window.set_icon(self.mainapp.icon)
 		
+	#_____________________________________________________________________
+	
+	def set_window_parent(self, window):
+		"""
+		Sets the main Jokosher window as the parent for the given window.
+		
+		Parameters:
+			window -- window who's parent is to be set as the main window.
+		"""
+		window.set_transient_for(self.mainapp.window)
+	
 	#_____________________________________________________________________
 	
 API = None
