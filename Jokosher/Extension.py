@@ -641,28 +641,34 @@ class ExtensionAPI:
 			1 = Instrument is a default instrument and cannot be deleted
 			2 = Error deleting instrument files
 			3 = Error removing instrument from cache
+			4 = Cannot find an instrument with that type string
 		"""
-		if typeString not in Globals.DEFAULT_INSTRUMENTS:			
-			for instr in Globals.getCachedInstruments():
-				if typeString == instr[1]:
-					Globals.debug("Deleting instrument type")
-					instr_path = os.path.join(Globals.INSTR_PATHS[1], typeString + ".instr")
-					image_path = instr[3]
-					try:
-						os.remove(instr_path)
-						os.remove(image_path)
-					except:
-						return 2
-					try:
-						cached_instr = [x for x in Globals.getCachedInstruments() if x[1] == typeString]
-						Globals.instrumentPropertyList.remove(cached_instr[0])
-					except:
-						return 3
-		else:
+		if typeString in Globals.DEFAULT_INSTRUMENTS:
 			return 1
 			
-	#_____________________________________________________________________
+		instrList = [x for x in Globals.getCachedInstruments() if typeString == x[1]]
+		if not instrList:
+			return 4
+		else:
+			instr = instrList[0]
+				
+		Globals.debug("Deleting instrument type")
+		instr_path = os.path.join(Globals.INSTR_PATHS[1], typeString + ".instr")
+		image_path = instr[3]
+		try:
+			os.remove(instr_path)
+			os.remove(image_path)
+		except:
+			return 2
+		try:
+			Globals.instrumentPropertyList.remove(instr)
+		except:
+			return 3
+			
+		return 0
 		
+	#_____________________________________________________________________
+	
 	@exported_function
 	def add_export_format(self, description, extension, encodeBin, checkIfValid=True):
 		"""

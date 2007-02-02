@@ -1002,9 +1002,8 @@ class Project(Monitored):
 		if not undoAction:
 			undoAction = UndoSystem.AtomicUndoAction()
 		
-		instrTuple = [x for x in Globals.getCachedInstruments() if x[1] == "audiofile"][0]
-		print instrTuple
-		instr = self.AddInstrument(_undoAction_=undoAction, *instrTuple[0:3])
+		name, type, pixbuf, path = [x for x in Globals.getCachedInstruments() if x[1] == "audiofile"][0]
+		instr = self.AddInstrument(name, type, pixbuf, _undoAction_=undoAction)
 		instr.AddEventsFromList(0, fileList, copyFile, undoAction)
 	
 	#_____________________________________________________________________
