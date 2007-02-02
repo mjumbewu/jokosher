@@ -474,6 +474,18 @@ class Event(Monitored):
 
 	#_____________________________________________________________________
 	
+	def Resurrect(self):
+		"""
+		Brings this event back from the graveyard.
+		
+		Considerations:
+			This method is made obsolete by instrument.ResurrectEvent(),
+			but is still kept here for 0.2 undo history compatibility.
+		"""
+		self.instrument.ResurrectEvent(self.id)
+
+	#_____________________________________________________________________
+	
 	def bus_message(self, bus, message):
 		"""
 		Handler for the GStreamer bus messages relevant to this Event.
