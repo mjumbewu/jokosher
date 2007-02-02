@@ -99,6 +99,7 @@ class FreesoundSearch:
 		
 		signals = {
 			"on_buttonFind_clicked" : self.OnFind,
+			"on_buttonClose_clicked" : self.OnClose,
 			"on_destroy" : self.OnDestroy
 		}
 		wTree.signal_autoconnect(signals)
@@ -139,6 +140,15 @@ class FreesoundSearch:
 	
 	#_____________________________________________________________________
 	
+	def OnClose(self, window):
+		"""
+		Called when the search dialog gets closed.
+		Destroys the dialog.
+		"""
+		self.window.destroy()
+		
+	#_____________________________________________________________________
+	
 	def OnDestroy(self, window):
 		"""
 		Called when the search window gets destroyed.
@@ -149,7 +159,7 @@ class FreesoundSearch:
 	
 	#_____________________________________________________________________
 	
-	def LoginDetails(self, warning=None):
+	def LoginDetails(self, warning=False):
 		"""
 		Displays the account details dialog.
 		
@@ -212,6 +222,9 @@ class FreesoundSearch:
 		"""
 		Attempts to login in to confirm the given credentials.
 		If successful, they're written to a local file for subsequent use.
+		
+		The GUI calls are done using gobject.idle_add() to assure they're
+		within the main gtk thread.
 		"""
 		self.freeSound.Login(username, password)
 		
