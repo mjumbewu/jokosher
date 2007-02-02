@@ -93,8 +93,7 @@ class Minimal:
 		gobject.timeout_add(40, self.UpdateTime)
 		gobject.timeout_add(250, self.SyncButtons)
 		self.window.set_transient_for(self.API.mainapp.window)
-		# TODO: reenable this call when the API method has been implemented
-		#self.API.add_end_of_stream_handler(self.OnEndOfStream)
+		self.API.add_end_of_stream_handler(self.OnEndOfStream)
 		self.eosFlag = False
 
 	#_____________________________________________________________________
@@ -162,8 +161,8 @@ class Minimal:
 		#redisplay main window if it's hidden before quitting
 		if self.mainWindowHide:
 			self.API.show_main_window()
-		# TODO: reenable this call when the API method has been implemented
-		#self.API.remove_end_of_stream_handler(self.OnEndOfStream)
+			
+		self.API.remove_end_of_stream_handler(self.OnEndOfStream)
 		self.window.destroy()
 		
 	#_____________________________________________________________________
@@ -289,8 +288,7 @@ class Minimal:
 		#if the window is destroyed then cancel timeout
 		if not self.window.has_user_ref_count:
 			return False
-		# TODO: reenable this call when the API method has been implemented
-		"""
+		
 		buttonStates = self.API.get_button_states()
 		for buttonName in ("play", "record", "stop"):
 			toggleState = buttonStates[buttonName][0]
@@ -316,7 +314,6 @@ class Minimal:
 		
 		if not self.play.get_active() == self.abButton.get_property("sensitive"):
 			self.abButton.set_sensitive(self.play.get_active())
-		"""
 		
 		return True
 	
