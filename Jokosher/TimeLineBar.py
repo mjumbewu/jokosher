@@ -276,7 +276,7 @@ class TimeLineBar(gtk.Frame):
 		Updates the time signature label in the main Jokosher window.
 		"""
 		self.siglabel.set_use_markup(True)
-		self.siglabel.set_markup("<span foreground='#0b410b'><b>%d/%d</b></span>" % (self.project.meter_nom, self.project.meter_denom))
+		self.siglabel.set_markup("<span foreground='%s'><b>%d/%d</b></span>" % (self.fontColor, self.project.meter_nom, self.project.meter_denom))
 		self.projectview.UpdateSize()
 		
 	#_____________________________________________________________________
@@ -306,7 +306,8 @@ class TimeLineBar(gtk.Frame):
 		
 		#Do this outside the if statement so that it gets updated if someone else changes the bpm
 		self.bpmlabel.set_use_markup(True)
-		self.bpmlabel.set_markup("<span foreground='#0b410b'><b>%d</b></span>"%self.project.bpm)
+		self.bpmlabel.set_markup("<span foreground='%s'><b>%d</b></span>" % (self.fontColor, self.project.bpm))
+		self.bpmeventbox.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.bgColor))
 			
 		self.projectview.UpdateSize()
 		
