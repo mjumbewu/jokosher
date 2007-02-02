@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: jokosher\n"
-"Report-Msgid-Bugs-To:\n"
-"POT-Creation-Date: 2006-11-02 07:43-0500\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-02-02 14:20-0500\n"
 "PO-Revision-Date: 2006-11-17 05:21+0000\n"
 "Last-Translator: Laszlo Pandy <laszlok2@gmail.com>\n"
 "Language-Team: Esperanto <eo@li.org>\n"
@@ -17,26 +17,42 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../../Jokosher/Jokosher.glade.h:1
+msgid "\n"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:3
+msgid "<b>Active effects for: </b>"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:4
 msgid "<b>Application Start-up</b>"
 msgstr "<b>Programa Ekado</b>"
 
-#: ../../Jokosher/Jokosher.glade.h:2
+#: ../../Jokosher/Jokosher.glade.h:5
 msgid "<b>Art</b>"
 msgstr "<b>Arto</b>"
 
-#: ../../Jokosher/Jokosher.glade.h:3
-msgid "<b>Audio Playback Device</b>"
-msgstr "<b>Luda Aparato</b>"
+#: ../../Jokosher/Jokosher.glade.h:6
+msgid "<b>Audio Output Plugin</b>"
+msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:4
+#: ../../Jokosher/Jokosher.glade.h:7
 msgid "<b>Coding</b>"
 msgstr "<b>Kodado</b>"
 
-#: ../../Jokosher/Jokosher.glade.h:5
+#: ../../Jokosher/Jokosher.glade.h:8
 msgid "<b>Documentation</b>"
 msgstr "<b>Dokumentado</b>"
 
-#: ../../Jokosher/Jokosher.glade.h:6
+#: ../../Jokosher/Jokosher.glade.h:9
+msgid "<b>Effect Name</b>"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:10
+msgid "<b>Effects</b>"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:11
 msgid ""
 "<b>Jokosher is an Open Source project that is driven by a community of "
 "contributors. To make Jokosher rock, we need your help!</b>"
@@ -44,549 +60,778 @@ msgstr ""
 "<b>Jokosher estas projekto de libera programaro kiu estas verkado per "
 "comunado. Por superfantazias Jokosher, ni bezonas vian helpon!</b>"
 
-#: ../../Jokosher/Jokosher.glade.h:7
+#: ../../Jokosher/Jokosher.glade.h:12
+msgid "<b>Presets for:</b>"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:13
 msgid "<b>Recent Projects</b>"
 msgstr "<b>Freŝprojektoj</b>"
 
-#: ../../Jokosher/Jokosher.glade.h:8
+#: ../../Jokosher/Jokosher.glade.h:14
 msgid "<b>Recorded Audio Format</b>"
 msgstr "<b>Rekordsonda Formato</b>"
 
-#: ../../Jokosher/Jokosher.glade.h:9
+#: ../../Jokosher/Jokosher.glade.h:15
+msgid "<b>Recording Sample Rate</b>"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:16
 msgid "<b>Testing</b>"
 msgstr "<b>Testado</b>"
 
-#: ../../Jokosher/Jokosher.glade.h:10
-msgid ""
-"<b>To find out more, visit:</b>\n"
-"http://www.jokosher.org/contribute"
+#: ../../Jokosher/Jokosher.glade.h:17
+msgid "<b>Time Signature</b>"
 msgstr ""
-"<b>Por trovas pli, vizitu:</b>\n"
-"http://www.jokosher.org/contribute"
 
-#: ../../Jokosher/Jokosher.glade.h:12
+#: ../../Jokosher/Jokosher.glade.h:18
+msgid "Activate the selected effect"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:19
+msgid "Add Audio FiIe"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:20
+msgid "Add Audio File"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:21
 msgid "Add Instrument"
 msgstr "Aldonu instrumenton"
 
-#: ../../Jokosher/Jokosher.glade.h:13
+#: ../../Jokosher/Jokosher.glade.h:22
 msgid "Add a new instrument"
 msgstr "Aldonu novan instrumenton"
 
-#: ../../Jokosher/Jokosher.glade.h:14
+#: ../../Jokosher/Jokosher.glade.h:23
+msgid "Add a new step:"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:24
+msgid "Add an audio file to the project"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:25
+msgid "Add an audio file to the selected instrument"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:26
 msgid "Add an extension"
 msgstr "Aldonu etendaĵon"
 
-#: ../../Jokosher/Jokosher.glade.h:15
+#: ../../Jokosher/Jokosher.glade.h:27
 msgid "Add an instrument"
 msgstr "Aldonu instrumenton"
 
-#: ../../Jokosher/Jokosher.glade.h:16
+#: ../../Jokosher/Jokosher.glade.h:28
 msgid "Add an instrument to the project"
 msgstr "Aldonu novan instrumenton al la projekto"
 
-#: ../../Jokosher/Jokosher.glade.h:17
-msgid "Add the selected effect"
-msgstr "Aldonu elektan efekton"
-
-#: ../../Jokosher/Jokosher.glade.h:18
+#: ../../Jokosher/Jokosher.glade.h:29
 msgid "Add the selected instrument"
 msgstr "Aldonu elektan instrumenton"
 
-#: ../../Jokosher/Jokosher.glade.h:19
-msgid "Audio production made simple."
-msgstr "Muzikproduktado simpligas."
-
-#: ../../Jokosher/Jokosher.glade.h:20
-msgid "Author"
-msgstr "Aŭtoro"
-
-#: ../../Jokosher/Jokosher.glade.h:21
-msgid "Browse for an Existing Project"
-msgstr "Foliumilu por projekton"
-
-#: ../../Jokosher/Jokosher.glade.h:22 ../../Jokosher/AddInstrumentDialog.py:50
-msgid "Change Instrument Type"
-msgstr "Ŝanĝu Instrumentan Tipon"
-
-#: ../../Jokosher/Jokosher.glade.h:23
-msgid "Change Jokosher preferences"
-msgstr "Modifu Preferojn de Jokosher"
-
-#: ../../Jokosher/Jokosher.glade.h:24
-msgid "Change the selected instrument type"
-msgstr "Ŝanĝu elektan instrumentan tipon"
-
-#: ../../Jokosher/Jokosher.glade.h:25
-msgid "Change the timeline"
-msgstr "Modifu la templinion"
-
-#: ../../Jokosher/Jokosher.glade.h:26
-msgid "Change the timeline to show bars, beats and ticks"
+#: ../../Jokosher/Jokosher.glade.h:30
+msgid "Add this step to the current mixdown"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:27
-msgid "Change the timeline to show hours, minutes and seconds"
-msgstr "Vidigu la templinion kiel horoj, minutoj kaj sekundoj"
-
-#: ../../Jokosher/Jokosher.glade.h:28
-msgid "Choose one or more instruments to add to your project."
-msgstr "Elektu instrumentojn por aldoni je via projekto."
-
-#: ../../Jokosher/Jokosher.glade.h:29
-msgid "Click and hold to fast forward"
-msgstr "Klaku daŭre por avanuli"
-
-#: ../../Jokosher/Jokosher.glade.h:30
-msgid "Click and hold to rewind"
-msgstr "Klaku daŭre por malavanuli"
-
 #: ../../Jokosher/Jokosher.glade.h:31
-msgid "Close the current project"
-msgstr "Fermu la nunan projekton"
+msgid "Adjust the amount of beats per measure"
+msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:32
-msgid "Close the extension manager"
-msgstr "Fermu etendaĵadministradon"
+msgid "Adjust the settings for the currently selected active effect"
+msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:33
-msgid "Configure Instrument Effects"
+msgid "Arm an instrument, then click here to begin recording"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:34
-msgid "Contributing to Jokosher"
-msgstr ""
+msgid "Audio production made simple."
+msgstr "Muzikproduktado simpligas."
 
 #: ../../Jokosher/Jokosher.glade.h:35
+msgid "Author"
+msgstr "Aŭtoro"
+
+#: ../../Jokosher/Jokosher.glade.h:36
+msgid ""
+"Autodetect\n"
+"ALSA\n"
+"Custom"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:39
+msgid "Beat value"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:40
+msgid "Beats per measure"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:41
+msgid "Browse for an Existing Project"
+msgstr "Foliumilu por projekton"
+
+#: ../../Jokosher/Jokosher.glade.h:42 ../../Jokosher/AddInstrumentDialog.py:61
+msgid "Change Instrument Type"
+msgstr "Ŝanĝu Instrumentan Tipon"
+
+#: ../../Jokosher/Jokosher.glade.h:43
+msgid "Change Jokosher preferences"
+msgstr "Modifu Preferojn de Jokosher"
+
+#: ../../Jokosher/Jokosher.glade.h:44
+msgid "Change the timeline"
+msgstr "Modifu la templinion"
+
+#: ../../Jokosher/Jokosher.glade.h:45
+msgid "Change the timeline to show bars, beats and ticks"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:46
+msgid "Change the timeline to show hours, minutes and seconds"
+msgstr "Vidigu la templinion kiel horoj, minutoj kaj sekundoj"
+
+#: ../../Jokosher/Jokosher.glade.h:47
+msgid "Change type of the selected instrument"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:48
+msgid "Choose a chain effects preset."
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:49
+msgid "Choose an effect preset."
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:50
+msgid "Choose one or more instruments to add to your project."
+msgstr "Elektu instrumentojn por aldoni je via projekto."
+
+#: ../../Jokosher/Jokosher.glade.h:51
+msgid "Click and hold to fast forward"
+msgstr "Klaku daŭre por avanuli"
+
+#: ../../Jokosher/Jokosher.glade.h:52
+msgid "Click and hold to rewind"
+msgstr "Klaku daŭre por malavanuli"
+
+#: ../../Jokosher/Jokosher.glade.h:53
+msgid "Close the current project"
+msgstr "Fermu la nunan projekton"
+
+#: ../../Jokosher/Jokosher.glade.h:54
+msgid "Close the extension manager"
+msgstr "Fermu etendaĵadministradon"
+
+#: ../../Jokosher/Jokosher.glade.h:55
+msgid "Configure Instrument Effects"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:56
 msgid "Copy the current selection"
 msgstr "Kopiu la elektaĵon"
 
-#: ../../Jokosher/Jokosher.glade.h:36
+#: ../../Jokosher/Jokosher.glade.h:57
 msgid "Create a New Project"
 msgstr "Kreu Novan Projekton"
 
-#: ../../Jokosher/Jokosher.glade.h:37
+#: ../../Jokosher/Jokosher.glade.h:58
 msgid "Create a new project"
 msgstr "Kreu novan projekton"
 
-#: ../../Jokosher/Jokosher.glade.h:38
+#: ../../Jokosher/Jokosher.glade.h:59
 msgid "Create the project"
 msgstr "Kreu projekton"
 
-#: ../../Jokosher/Jokosher.glade.h:39
+#: ../../Jokosher/Jokosher.glade.h:60
 msgid "Cut the current selection"
 msgstr "Eltondu la elektaĵon"
 
-#: ../../Jokosher/Jokosher.glade.h:40
+#: ../../Jokosher/Jokosher.glade.h:61
+msgid "Deactivate the currently selected active effect"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:62
 msgid "Delete the current selection"
 msgstr "Forĵetu la elektaĵon"
 
-#: ../../Jokosher/Jokosher.glade.h:41
+#: ../../Jokosher/Jokosher.glade.h:63
+msgid "Delete the currently active effects preset"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:64
+msgid "Delete the currently active preset"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:65
+msgid "Device:"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:66
 msgid "Don't add an instrument"
 msgstr "Ne aldonu nenian instrumentojn"
 
-#: ../../Jokosher/Jokosher.glade.h:42
+#: ../../Jokosher/Jokosher.glade.h:67
 msgid "Don't create the project"
 msgstr "Ne kreu projekton"
 
-#: ../../Jokosher/Jokosher.glade.h:43
+#: ../../Jokosher/Jokosher.glade.h:68
 msgid "Don't open anything"
 msgstr "Malfermu nenion"
 
-#: ../../Jokosher/Jokosher.glade.h:44
+#: ../../Jokosher/Jokosher.glade.h:69
 msgid "Don't show this on start-up"
 msgstr "Ne vidigu ĉi tion dum ekado"
 
-#: ../../Jokosher/Jokosher.glade.h:45
-msgid "Don't use these effects"
-msgstr "Ne apliku ĉi efektojn"
+#: ../../Jokosher/Jokosher.glade.h:70
+msgid "Double-click an active effect to adjust its settings"
+msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:46
+#: ../../Jokosher/Jokosher.glade.h:71
+msgid "Double-click an effect to activate it"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:72
 msgid "Double-click on a recent project to open"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:47
+#: ../../Jokosher/Jokosher.glade.h:73
 msgid "Drawing icons, images and other art."
 msgstr "Desegnu bildojn kaj arton"
 
-#: ../../Jokosher/Jokosher.glade.h:48
+#: ../../Jokosher/Jokosher.glade.h:74
 msgid "Edit Jokosher preferences"
 msgstr "Modifu preferojn de Jokosher"
 
-#: ../../Jokosher/Jokosher.glade.h:49
+#: ../../Jokosher/Jokosher.glade.h:75
 msgid ""
 "Enter a name for your project and select a folder to store the project in:"
 msgstr "Donu nomon por la projekto kaj elektu dosierujon de surdiskigi:"
 
-#: ../../Jokosher/Jokosher.glade.h:50
+#: ../../Jokosher/Jokosher.glade.h:76
 msgid "Enter the author's name"
 msgstr "Entajpu nomon de la aŭtoro"
 
-#: ../../Jokosher/Jokosher.glade.h:51
+#: ../../Jokosher/Jokosher.glade.h:77
 msgid "Enter the project's name"
 msgstr "Entajpu nomon de la projekto"
 
-#: ../../Jokosher/Jokosher.glade.h:52
-msgid "Export current project to an audio file"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:53
-msgid "Find and open an existing project"
-msgstr "Trovu kaj malfermu malnovan projekto"
-
-#: ../../Jokosher/Jokosher.glade.h:54
-msgid "Find out how you can help"
-msgstr "Lernu kiel helpi"
-
-#: ../../Jokosher/Jokosher.glade.h:55
-msgid "Folder"
-msgstr "Dosierujo"
-
-#: ../../Jokosher/Jokosher.glade.h:56
-msgid "Instrument Connections"
-msgstr "Instrumentkonektoj"
-
-#: ../../Jokosher/Jokosher.glade.h:57 ../../Jokosher/JokosherApp.py:931
-msgid "Jokosher"
-msgstr "Jokosher"
-
-#: ../../Jokosher/Jokosher.glade.h:58
-msgid "Listen to these effects"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:59
-msgid "Manage instrument recording inputs"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:60
-msgid "Mixing"
-msgstr "Miksado"
-
-#: ../../Jokosher/Jokosher.glade.h:61
-msgid "Mixing Project"
-msgstr "Projekta Miksado"
-
-#: ../../Jokosher/Jokosher.glade.h:62 ../../Jokosher/NewProjectDialog.py:72
-msgid "New Project"
-msgstr "Nova projekto"
-
-#: ../../Jokosher/Jokosher.glade.h:63
-msgid "Notes about this release"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:64
-msgid "Open Selected Project"
-msgstr "Malfermu elektan projekton"
-
-#: ../../Jokosher/Jokosher.glade.h:65
-msgid "Open a recent project"
-msgstr "Malfermu freŝprojekton"
-
-#: ../../Jokosher/Jokosher.glade.h:66
-msgid "Open an existing project"
-msgstr "Malfermu malnovan projekton"
-
-#: ../../Jokosher/Jokosher.glade.h:67
-msgid "Open most recent project"
-msgstr "Malfermu la plej freŝan projekton"
-
-#: ../../Jokosher/Jokosher.glade.h:68
-msgid "Open the extension manager"
-msgstr "Malfermu etendaĵadministradon"
-
-#: ../../Jokosher/Jokosher.glade.h:69
-msgid "Paste the contents of the clipboard"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:70
-msgid "Pre-release Notes"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:71
-msgid "Preferences"
-msgstr "Preferoj"
-
-#: ../../Jokosher/Jokosher.glade.h:72
-msgid "Presets"
-msgstr "Antaŭsetaĵoj"
-
-#: ../../Jokosher/Jokosher.glade.h:73
-msgid "Project Name"
-msgstr "Projekta Nomo"
-
-#: ../../Jokosher/Jokosher.glade.h:74
-msgid "Quit Jokosher"
-msgstr "Eliru de Jokosher"
-
-#: ../../Jokosher/Jokosher.glade.h:75
-msgid "Recent Projects"
-msgstr "Freŝprojektoj"
-
-#: ../../Jokosher/Jokosher.glade.h:76
-msgid "Recording"
-msgstr "Rekordado"
-
-#: ../../Jokosher/Jokosher.glade.h:77
-msgid "Redo"
-msgstr "Refaru"
-
 #: ../../Jokosher/Jokosher.glade.h:78
-msgid "Redo the previous edit"
+msgid "Ex_tensions"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:79
-msgid "Remove curently selected extension"
-msgstr "Elprenu elektan etendaĵon"
+msgid "Export current project to an audio file"
+msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:80
-msgid "Save a copy of the current project"
+msgid "FastForward"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:81
+msgid "Find and open an existing project"
+msgstr "Trovu kaj malfermu malnovan projekto"
+
+#: ../../Jokosher/Jokosher.glade.h:82
+msgid "Find out how you can help"
+msgstr "Lernu kiel helpi"
+
+#: ../../Jokosher/Jokosher.glade.h:83
+msgid "Folder"
+msgstr "Dosierujo"
+
+#: ../../Jokosher/Jokosher.glade.h:85
+msgid ""
+"Iestyn Pryce <dylunio@gmail.com>\n"
+"Jerome S. Gotangco <jgotangco@ubuntu.com>\n"
+"torb <torrb@musiker.nu>\n"
+"Robert Renling Berencreuz <berencreuz@gmail.com>\n"
+"Ola Jeppsson <ola.jeppsson@gmail.com>\n"
+"Daniel Nylander <po@danielnylander.se>\n"
+"aruiz <aruiz@synaptia.net>\n"
+"Manuel Duran Moyano <mduran@ubiobio.cl>\n"
+"Laszlo Pandy <laszlok2@gmail.com>\n"
+"Iván Edgardo Vázquez Santos \n"
+"David Corrales <corrales.david@gmail.com>\n"
+"Benjamin A'Lee <bma@bmalee.eu>\n"
+"Peter Baričič <pbaricic@gmail.com>\n"
+"Артём Попов <artfwo@gmail.com>\n"
+"deepred <psalmos@swissinfo.org>\n"
+"KeepYourMind <keepyourmind@gmail.com>\n"
+"Georgy Faradzhev <georgy.faradzhev@gmail.com>\n"
+"Gendolf <pr-baukalo@rambler.ru>\n"
+"Rodrigo NSH <rodrigo.nsh@gmail.com>\n"
+"Christian Reis <kiko@async.com.br>\n"
+"Lourabe Multimédia \n"
+"Tomasz Dominikowski <dominikowski@gmail.com>\n"
+"Konrad Adamczyk <konrad@svx.pl>\n"
+"Hender <simsalabimladen@gmail.com>\n"
+"sklp\n"
+"Bård Aase <base@kvarteret.no>\n"
+"Pecisk <pecisk@gmail.com>\n"
+"Luca Ferretti <elle.uca@libero.it>\n"
+"Daniele Medri <daniele@medri.org>\n"
+"Igor Khanin \n"
+"Tobias Frederick <me@tbfr.org>\n"
+"Tim Fuchs <tim.fuchs@gmail.com>\n"
+"Ramona Barte \n"
+"Marcus Hochstadt\n"
+"Lebowski\n"
+"Julian Turner\n"
+"Dennis Lichtenthäler <dennis.lichtenthaeler@episode-iv.de>\n"
+"dyphil <dyphil@wanadoo.fr>\n"
+"XioNoX \n"
+"Stemp <StempUbuntu@gmail.com>\n"
+"Signez\n"
+"Pierre Slamich <pierre.slamich@gmail.com>\n"
+"Nicolas Velin <nsv@fr.st>\n"
+"Jean-Francois Arseneau <jf.arseneau@gmail.com>\n"
+"Guillaume Hoffmann \n"
+"Gabriel de Perthuis <gabriel.de-perthuis@laposte.net>\n"
+"Bruno Bord <bruno@jehaisleprintemps.net>\n"
+"Mikko Virkkilä <mvirkkil@cc.hut.fi>\n"
+"Boyd Timothy\n"
+"William Anderson<neuro@well.com>\n"
+"Sridhar Dhanapalan <sridhar@dhanapalan.com>\n"
+"Roger Light <roger@atchoo.org>\n"
+"Malcolm Parsons\n"
+"Peturrr <peterdekraker@planet.nl>\n"
+"jerven Bolleman <ik@jerven.eu>\n"
+"Mathias-K <mathias@computergeil.dk>\n"
+"Niels Kjøller Hansen <niels.k.h@gmail.com>\n"
+"David Nielsen <david@lovesunix.net>\n"
+"daave <fan.d.liu@gmail.com>\n"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:145
+msgid "Listen to these effects"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:146
+msgid "Manage instrument recording inputs"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:147 ../../Jokosher/JokosherApp.py:607
+msgid "Mixdown Project"
+msgstr "Miksado de Projekto"
+
+#: ../../Jokosher/Jokosher.glade.h:148
+msgid "Mixdown the project"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:149
+msgid "Mixing"
+msgstr "Miksado"
+
+#: ../../Jokosher/Jokosher.glade.h:150
+msgid "Mixing Project"
+msgstr "Projekta Miksado"
+
+#: ../../Jokosher/Jokosher.glade.h:151
+msgid "Mixing Workspace"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:152
+msgid "Move the selected active effect down on the effects chain"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:153
+msgid "Move the selected active effect up on the effects chain"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:154 ../../Jokosher/NewProjectDialog.py:92
+msgid "New Project"
+msgstr "Nova projekto"
+
+#: ../../Jokosher/Jokosher.glade.h:155
+msgid "Open Selected Project"
+msgstr "Malfermu elektan projekton"
+
+#: ../../Jokosher/Jokosher.glade.h:156
+msgid "Open a recent project"
+msgstr "Malfermu freŝprojekton"
+
+#: ../../Jokosher/Jokosher.glade.h:157
+msgid "Open an existing project"
+msgstr "Malfermu malnovan projekton"
+
+#: ../../Jokosher/Jokosher.glade.h:158
+msgid "Open most recent project"
+msgstr "Malfermu la plej freŝan projekton"
+
+#: ../../Jokosher/Jokosher.glade.h:159
+msgid "Open the extension manager"
+msgstr "Malfermu etendaĵadministradon"
+
+#: ../../Jokosher/Jokosher.glade.h:160
+msgid "Output:"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:161
+msgid "Paste the contents of the clipboard"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:162
+msgid "Pipeline:"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:163
+msgid "Preferences"
+msgstr "Preferoj"
+
+#: ../../Jokosher/Jokosher.glade.h:164
+msgid "Project Name"
+msgstr "Projekta Nomo"
+
+#: ../../Jokosher/Jokosher.glade.h:165
+msgid "Quit Jokosher"
+msgstr "Eliru de Jokosher"
+
+#: ../../Jokosher/Jokosher.glade.h:166
+msgid "Record"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:167
+msgid "Recording"
+msgstr "Rekordado"
+
+#: ../../Jokosher/Jokosher.glade.h:168
+msgid "Recording Workspace"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:169
+msgid "Redo"
+msgstr "Refaru"
+
+#: ../../Jokosher/Jokosher.glade.h:170
+msgid "Redo the previous edit"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:171
+msgid "Remove Selected Instrument"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:172
+msgid "Remove the currently selected extension"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:173
+msgid "Remove the selected instrument"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:174
+msgid "Report a bug in Jokosher"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:175
+msgid "Rewind"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:176
+msgid "Save a copy of the current project"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:177
 msgid "Save preferences and close"
 msgstr "Surdiskigu preferojn kaj fermu"
 
-#: ../../Jokosher/Jokosher.glade.h:82
-msgid "Save the current effects configuration"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:83
+#: ../../Jokosher/Jokosher.glade.h:178
 msgid "Save the current project"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:84
-msgid "Save your connections and close this window"
+#: ../../Jokosher/Jokosher.glade.h:179
+msgid "Save the current settings as a preset"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:85
+#: ../../Jokosher/Jokosher.glade.h:180
+msgid "Save the currently active effects as a preset"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:181
+#: ../../Jokosher/MixdownProfileDialog.py:271
+msgid "Save these mixdown settings"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:182
+msgid "Save your selections and close this window"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:183
 msgid "Search:"
 msgstr "Serĉu:"
 
-#: ../../Jokosher/Jokosher.glade.h:86
+#: ../../Jokosher/Jokosher.glade.h:184
 msgid "Select A Folder"
 msgstr "Elektu dosieron"
 
-#: ../../Jokosher/Jokosher.glade.h:87
+#: ../../Jokosher/Jokosher.glade.h:185
 msgid "Select a project to open from the list"
 msgstr "Elektu projekton de la listo por malfermi"
 
-#: ../../Jokosher/Jokosher.glade.h:88
-msgid "Select an effect"
-msgstr "Elektu efikon"
+#: ../../Jokosher/Jokosher.glade.h:186
+msgid "Set Time Signature"
+msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:89
-msgid "Select an effect to add to the instrument"
-msgstr "Elektu efikon por aldoni al la instrumento"
-
-#: ../../Jokosher/Jokosher.glade.h:90
-msgid "Select an instrument, then click here to begin recording"
-msgstr "Poste elektu instrumenton, klaku ĉi tie por rekordi"
-
-#: ../../Jokosher/Jokosher.glade.h:91
+#: ../../Jokosher/Jokosher.glade.h:187
 msgid "Settings"
 msgstr "Agordo"
 
-#: ../../Jokosher/Jokosher.glade.h:92
-msgid "Show as Bars, Beats, Ticks"
+#: ../../Jokosher/Jokosher.glade.h:188
+msgid "Show as _Bars, Beats, Ticks"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:93
-msgid "Show as Hours, Minutes, Seconds"
-msgstr "Vidigu tiel horojn, minutojn, sekundojn"
+#: ../../Jokosher/Jokosher.glade.h:189
+msgid "Show as _Hours, Minutes, Seconds"
+msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:94
+#: ../../Jokosher/Jokosher.glade.h:190
 msgid "Show welcome dialog"
 msgstr "Vidigu ekadan dialogon"
 
-#: ../../Jokosher/Jokosher.glade.h:95
+#: ../../Jokosher/Jokosher.glade.h:191
 msgid "Start Jokosher with an empty project"
 msgstr "Komencu Jokosher kun nova projekto"
 
-#: ../../Jokosher/Jokosher.glade.h:96
+#: ../../Jokosher/Jokosher.glade.h:192
 msgid "Start playback"
 msgstr "Komencu ludadon"
 
-#: ../../Jokosher/Jokosher.glade.h:97
+#: ../../Jokosher/Jokosher.glade.h:193
+msgid "Steps to mix down $PROJECTNAME"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:194
+msgid "Stop"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:195
 msgid "Stop mixing the project"
 msgstr "Haltu projektan miksadon"
 
-#: ../../Jokosher/Jokosher.glade.h:98
+#: ../../Jokosher/Jokosher.glade.h:196
 msgid "Stop playback"
 msgstr "Haltu ludado"
 
-#: ../../Jokosher/Jokosher.glade.h:99
-msgid "Switch to Mixing workspace"
+#: ../../Jokosher/Jokosher.glade.h:197 ../../Jokosher/JokosherApp.py:170
+#: ../../Jokosher/JokosherApp.py:323
+msgid "Switch to the Mixing workspace"
 msgstr "Iru je la miksejo"
 
-#: ../../Jokosher/Jokosher.glade.h:100
-msgid "Switch to Recording workspace"
-msgstr "Iru je la rekordejon"
+#: ../../Jokosher/Jokosher.glade.h:198 ../../Jokosher/JokosherApp.py:336
+msgid "Switch to the Recording workspace"
+msgstr "Iru je la rekordejo"
 
-#: ../../Jokosher/Jokosher.glade.h:101
+#: ../../Jokosher/Jokosher.glade.h:199
 msgid "Testing Jokosher, and submitting bugs."
 msgstr "Testado de jokosher, kaj submetado de bugoj"
 
-#: ../../Jokosher/Jokosher.glade.h:102
-msgid "Time Format"
-msgstr "Hora Formato"
-
-#: ../../Jokosher/Jokosher.glade.h:103
+#: ../../Jokosher/Jokosher.glade.h:200
 msgid "Type here to search for an instrument"
 msgstr "Entajpu por serĉi instrumentojn"
 
-#: ../../Jokosher/Jokosher.glade.h:104
-msgid "Type the preset's name"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:105
+#: ../../Jokosher/Jokosher.glade.h:201
 msgid "Undo"
 msgstr "Malfari"
 
-#: ../../Jokosher/Jokosher.glade.h:106
+#: ../../Jokosher/Jokosher.glade.h:202
 msgid "Undo the last edit"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:107
+#: ../../Jokosher/Jokosher.glade.h:203
 msgid ""
-"Use the combo boxes below to select which input is used with which instrument"
+"Use the combo boxes below to select which input is used with which "
+"instrument."
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:108
+#: ../../Jokosher/Jokosher.glade.h:204
+msgid "Use these effect settings"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:205
 msgid "Use these effects"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:109
+#: ../../Jokosher/Jokosher.glade.h:206
+msgid "User manual contents"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:207
 msgid "Version information, credits and licence"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:110
+#: ../../Jokosher/Jokosher.glade.h:208
+msgid "Visit Jokosher's online forums"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:209
 msgid "Welcome to Jokosher!"
 msgstr "Bonvenon al Jokosher!"
 
-#: ../../Jokosher/Jokosher.glade.h:111
+#: ../../Jokosher/Jokosher.glade.h:210
 msgid "Workspaces"
 msgstr "Ejoj"
 
-#: ../../Jokosher/Jokosher.glade.h:112
+#: ../../Jokosher/Jokosher.glade.h:211
 msgid "Writing code and features in Python."
 msgstr "Skribado de kodo kaj trajto kun Python."
 
-#: ../../Jokosher/Jokosher.glade.h:113
+#: ../../Jokosher/Jokosher.glade.h:212
 msgid "Writing simple to read documentation."
 msgstr "Skribado de simplaj dokumentoj"
 
-#: ../../Jokosher/Jokosher.glade.h:114
+#: ../../Jokosher/Jokosher.glade.h:213
+msgid "_Add Instrument"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:214
+msgid "_Contributing to Jokosher"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:215
 msgid "_Edit"
 msgstr "_Redaktu"
 
-#: ../../Jokosher/Jokosher.glade.h:115
-msgid "_Extensions"
-msgstr "_Etendaĵoj"
-
-#: ../../Jokosher/Jokosher.glade.h:116
+#: ../../Jokosher/Jokosher.glade.h:216
 msgid "_File"
 msgstr "_Dosiero"
 
-#: ../../Jokosher/Jokosher.glade.h:117
+#: ../../Jokosher/Jokosher.glade.h:217
 msgid "_Help"
 msgstr "_Helpo"
 
-#: ../../Jokosher/Jokosher.glade.h:118
+#: ../../Jokosher/Jokosher.glade.h:218
+msgid "_Instrument"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:219
 msgid "_Manage Extensions"
 msgstr "_Manaĝu Etendaĵojn"
 
-#: ../../Jokosher/Jokosher.glade.h:119
+#: ../../Jokosher/Jokosher.glade.h:220
+msgid "_Mixdown"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:221 ../../Jokosher/JokosherApp.py:1849
 msgid "_Mixdown Project"
 msgstr "_Miksado de Projekto"
 
-#: ../../Jokosher/Jokosher.glade.h:120
+#: ../../Jokosher/Jokosher.glade.h:222
+msgid "_Online Forums"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:223
 msgid "_Project"
 msgstr "_Projekto"
 
-#: ../../Jokosher/Jokosher.glade.h:122
-msgid "translator-credits"
-msgstr "Laszlo Pandy <laszlok2@gmail.com>"
+#: ../../Jokosher/Jokosher.glade.h:224
+msgid "_Recent Projects"
+msgstr ""
 
-#: ../../Jokosher/AddInstrumentDialog.py:52
+#: ../../Jokosher/Jokosher.glade.h:225
+msgid "_Recording Inputs"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:226
+msgid "_Report Bug..."
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:227
+msgid "_Save these settings"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:228
+msgid "_Time Format"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:229
+msgid "autoaudiosink"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:230
+msgid "version 0.9"
+msgstr ""
+
+#: ../../Jokosher/AddInstrumentDialog.py:63
 #, python-format
 msgid "Choose the new instrument type for %s"
 msgstr "Elektu novan instrumentan tipon por %s"
 
-#: ../../Jokosher/CompactMixView.py:105
+#: ../../Jokosher/CompactMixView.py:120
 msgid "<b>Instruments Not Shown:</b>"
 msgstr "<b>Malvida Instrumentoj:</b>"
 
-#: ../../Jokosher/EventLaneViewer.py:182
-msgid "Import Audio File..."
-msgstr "Importu sondosieron..."
+#: ../../Jokosher/Event.py:616
+#, python-format
+msgid "%s by %s"
+msgstr ""
 
-#: ../../Jokosher/EventLaneViewer.py:184
-msgid "Paste"
-msgstr "Enmetu"
+#: ../../Jokosher/EventLaneViewer.py:229
+msgid "_Add Audio File..."
+msgstr ""
 
-#: ../../Jokosher/EventLaneViewer.py:185 ../../Jokosher/EventViewer.py:534
-msgid "Delete"
-msgstr "Forĵetu"
+#: ../../Jokosher/EventLaneViewer.py:231
+msgid "_Paste"
+msgstr ""
 
-#: ../../Jokosher/EventLaneViewer.py:222
+#: ../../Jokosher/EventLaneViewer.py:232 ../../Jokosher/EventViewer.py:805
+#: ../../Jokosher/InstrumentEffectsDialog.py:401
+msgid "_Delete"
+msgstr ""
+
+#: ../../Jokosher/EventLaneViewer.py:281
 msgid "<b>Right-click</b> for more options."
 msgstr ""
 
-#: ../../Jokosher/EventLaneViewer.py:249
-msgid "Copy file to project"
-msgstr "Kopiu la dosieron al la projekto"
-
-#: ../../Jokosher/EventLaneViewer.py:254
-msgid "Import file..."
-msgstr "Importu dosieron..."
-
-#: ../../Jokosher/EventViewer.py:113
+#: ../../Jokosher/EventViewer.py:137
 msgid "Trim"
 msgstr "Stuci"
 
-#: ../../Jokosher/EventViewer.py:121
+#: ../../Jokosher/EventViewer.py:148
 msgid "Delete Fade Points"
 msgstr "Forigu volumpunkton"
 
-#: ../../Jokosher/EventViewer.py:126
+#: ../../Jokosher/EventViewer.py:156
 msgid "Snap To Fade Points"
 msgstr "Gluiĝu al volumpunkton"
 
-#: ../../Jokosher/EventViewer.py:276
+#: ../../Jokosher/EventViewer.py:391
 #, python-format
 msgid "Loading (%d%%)..."
 msgstr "Alŝutado (%d%%)..."
 
-#: ../../Jokosher/EventViewer.py:382
+#: ../../Jokosher/EventViewer.py:393
+msgid "Recording..."
+msgstr ""
+
+#: ../../Jokosher/EventViewer.py:435
 msgid ""
 "To <b>Split, Double-Click</b> the wave - To <b>Select, Shift-Click</b> and "
 "drag the mouse"
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:396
-msgid ""
-"<b>NOTE</b>: The volume sliders in this pre-release version of Jokosher do "
-"not affect the audio."
-msgstr ""
-
-#: ../../Jokosher/EventViewer.py:490
+#: ../../Jokosher/EventViewer.py:558
 msgid ""
 "<b>Click</b> the buttons below the selection to do something to that portion "
 "of audio."
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:530
-msgid "Split"
-msgstr "Dividi"
+#: ../../Jokosher/EventViewer.py:801
+msgid "_Split"
+msgstr ""
 
-#: ../../Jokosher/EventViewer.py:532
-msgid "Cut"
-msgstr "Eltondu"
+#: ../../Jokosher/EventViewer.py:803
+msgid "Cu_t"
+msgstr ""
 
-#: ../../Jokosher/EventViewer.py:533
-msgid "Copy"
-msgstr "Kopiu"
+#: ../../Jokosher/EventViewer.py:804
+msgid "_Copy"
+msgstr ""
 
-#: ../../Jokosher/EventViewer.py:689
+#: ../../Jokosher/EventViewer.py:1042
 #, python-format
 msgid ""
 "%s\n"
@@ -594,32 +839,16 @@ msgid ""
 "File is corrupt, not an audio file, or the associated plugin is not installed"
 msgstr ""
 
-#: ../../Jokosher/ExtensionManagerDialog.py:106
-msgid "Choose a Jokosher Extension file"
-msgstr "Elektu Jokosher-an etendaĵan dosieron"
-
-#: ../../Jokosher/ExtensionManagerDialog.py:112
-msgid "Jokosher Extension Files (*.py *.egg)"
-msgstr "Jokosher-ajn etendaĵajn dosierojn (*.py *.egg)"
-
-#: ../../Jokosher/ExtensionManagerDialog.py:134
-msgid "There was a problem loading the extension"
+#: ../../Jokosher/EventViewer.py:1256
+#, python-format
+msgid "Event, %s, %0.2f seconds long, starting at %0.2f seconds."
 msgstr ""
 
-#: ../../Jokosher/ExtensionManagerDialog.py:165
-msgid "There was a problem removing the extension"
-msgstr ""
-
-#: ../../Jokosher/ExtensionManagerDialog.py:195
-msgid ""
-"An error occurred when trying to launch the preferences for the extension"
-msgstr ""
-
-#: ../../Jokosher/Extension.py:44
+#: ../../Jokosher/Extension.py:49
 msgid "This is a Jokosher extension; it is not meant to be run directly."
 msgstr "Ĉi tio estas etendaĵo de Jokosher kaj ne devu ekzekuti sola."
 
-#: ../../Jokosher/Extension.py:45
+#: ../../Jokosher/Extension.py:50
 #, python-format
 msgid ""
 "To install it, move it to the directory %s\n"
@@ -628,7 +857,7 @@ msgstr ""
 "Por instali ĝin, moviĝu al la dosierujo %s\n"
 "kaj eku Jokosher."
 
-#: ../../Jokosher/Extension.py:48
+#: ../../Jokosher/Extension.py:53
 msgid ""
 "This is a Jokosher extension, which needs to be installed. Would you like to "
 "install it?"
@@ -636,11 +865,11 @@ msgstr ""
 "Ĉi tio estas etendaĵo de Jokosher, kiu bezonas instali. Ĉu vi volas instali "
 "ĝin?"
 
-#: ../../Jokosher/Extension.py:50
+#: ../../Jokosher/Extension.py:55
 msgid "Install"
 msgstr "Instalu"
 
-#: ../../Jokosher/Extension.py:59
+#: ../../Jokosher/Extension.py:65
 #, python-format
 msgid ""
 "You already have a extension with the name %s installed; would you like to "
@@ -648,64 +877,203 @@ msgid ""
 msgstr ""
 "Jam ekzistu instalan etendaĵon kun la nomo %s. Ĉu vi volas anstataŭigu ĝin?"
 
-#: ../../Jokosher/Extension.py:62
+#: ../../Jokosher/Extension.py:68
 msgid "Replace"
 msgstr "Anstataŭigu"
 
-#: ../../Jokosher/Extension.py:75
+#: ../../Jokosher/Extension.py:81
 msgid "Your new extension is now available in Jokosher!"
 msgstr "La novan etendaĵo nun estas en Jokosher!"
 
-#: ../../Jokosher/InstrumentConnectionsDialog.py:41
+#: ../../Jokosher/ExtensionManagerDialog.py:162
+msgid "Choose a Jokosher Extension file"
+msgstr "Elektu Jokosher-an etendaĵan dosieron"
+
+#: ../../Jokosher/ExtensionManagerDialog.py:168
+msgid "Jokosher Extension Files (*.py *.egg)"
+msgstr "Jokosher-ajn etendaĵajn dosierojn (*.py *.egg)"
+
+#: ../../Jokosher/ExtensionManagerDialog.py:190
+msgid "There was a problem loading the extension"
+msgstr ""
+
+#: ../../Jokosher/ExtensionManagerDialog.py:228
+msgid "There was a problem removing the extension"
+msgstr ""
+
+#: ../../Jokosher/ExtensionManagerDialog.py:265
+msgid ""
+"An error occurred when trying to launch the preferences for the extension"
+msgstr ""
+
+#: ../../Jokosher/Globals.py:434
+msgid "Broken"
+msgstr ""
+
+#: ../../Jokosher/Globals.py:435
+msgid "Unclassified"
+msgstr ""
+
+#: ../../Jokosher/Globals.py:436
+msgid "Amplifiers"
+msgstr ""
+
+#: ../../Jokosher/Globals.py:437
+msgid "Chorus"
+msgstr ""
+
+#: ../../Jokosher/Globals.py:438
+msgid "Compressors"
+msgstr ""
+
+#: ../../Jokosher/Globals.py:439
+msgid "Delays"
+msgstr ""
+
+#: ../../Jokosher/Globals.py:440
+msgid "Distortions"
+msgstr ""
+
+#: ../../Jokosher/Globals.py:441
+msgid "Equalizers"
+msgstr ""
+
+#: ../../Jokosher/Globals.py:442
+msgid "Filters"
+msgstr ""
+
+#: ../../Jokosher/Globals.py:443
+msgid "Flangers"
+msgstr ""
+
+#: ../../Jokosher/Globals.py:444
+msgid "Miscellaneous"
+msgstr ""
+
+#: ../../Jokosher/Globals.py:445
+msgid "Modulators"
+msgstr ""
+
+#: ../../Jokosher/Globals.py:446
+msgid "Oscillators"
+msgstr ""
+
+#: ../../Jokosher/Globals.py:447
+msgid "Phasers"
+msgstr ""
+
+#: ../../Jokosher/Globals.py:448
+msgid "Reverbs"
+msgstr ""
+
+#: ../../Jokosher/Globals.py:449
+msgid "Simulators"
+msgstr ""
+
+#: ../../Jokosher/Instrument.py:533
+msgid "Recorded audio"
+msgstr ""
+
+#: ../../Jokosher/InstrumentConnectionsDialog.py:56
 msgid "There are no instruments to connect"
 msgstr "Ne estas neniaj instrumentoj por konekti"
 
-#: ../../Jokosher/InstrumentEffectsDialog.py:82
-#: ../../Jokosher/InstrumentViewer.py:152
+#: ../../Jokosher/InstrumentConnectionsDialog.py:110
+msgid "Default"
+msgstr ""
+
+#: ../../Jokosher/InstrumentConnectionsDialog.py:118
+#, python-format
+msgid "%s input %d"
+msgstr ""
+
+#: ../../Jokosher/InstrumentEffectsDialog.py:114
+#: ../../Jokosher/InstrumentViewer.py:164
 msgid "Instrument Effects"
 msgstr "Instrumenta Efikoj"
 
-#: ../../Jokosher/InstrumentEffectsDialog.py:265
+#: ../../Jokosher/InstrumentEffectsDialog.py:140
+#: ../../Jokosher/InstrumentEffectsDialog.py:142
+msgid "Name"
+msgstr ""
+
+#: ../../Jokosher/InstrumentEffectsDialog.py:141
+msgid "Type"
+msgstr ""
+
+#: ../../Jokosher/InstrumentEffectsDialog.py:398
+msgid "_Move up..."
+msgstr ""
+
+#: ../../Jokosher/InstrumentEffectsDialog.py:399
+msgid "M_ove down..."
+msgstr ""
+
+#: ../../Jokosher/InstrumentEffectsDialog.py:402
+msgid "_Settings"
+msgstr ""
+
+#: ../../Jokosher/InstrumentEffectsDialog.py:443
+msgid "_Activate effect"
+msgstr ""
+
+#: ../../Jokosher/InstrumentEffectsDialog.py:625
 msgid "Effect Settings"
 msgstr "Efika Agordo"
 
-#: ../../Jokosher/InstrumentViewer.py:128 ../../Jokosher/MixerStrip.py:73
+#: ../../Jokosher/InstrumentEffectsDialog.py:661
+msgid "-parameter not readable-"
+msgstr ""
+
+#: ../../Jokosher/InstrumentViewer.py:127 ../../Jokosher/MixerStrip.py:104
 msgid "Enable this instrument for recording"
 msgstr ""
 
-#: ../../Jokosher/InstrumentViewer.py:134
+#: ../../Jokosher/InstrumentViewer.py:128
+msgid "Disable this instrument for recording"
+msgstr ""
+
+#: ../../Jokosher/InstrumentViewer.py:129
 msgid "Mute - silence this instrument"
 msgstr "Muta - silentigu la instrumenton"
 
-#: ../../Jokosher/InstrumentViewer.py:141 ../../Jokosher/MixerStrip.py:85
-msgid "Solo - silence all other instruments"
-msgstr "Sola - silentigu tutajn aliajn instrumentojn"
+#: ../../Jokosher/InstrumentViewer.py:130
+msgid "Unmute - hear this instrument"
+msgstr ""
 
-#: ../../Jokosher/InstrumentViewer.py:287 ../../Jokosher/MixerStrip.py:147
-msgid "Muted"
-msgstr "Muta"
+#: ../../Jokosher/InstrumentViewer.py:131
+msgid "Activate Solo - silence all other instruments"
+msgstr ""
 
-#: ../../Jokosher/InstrumentViewer.py:290 ../../Jokosher/MixerStrip.py:150
-msgid "Unmuted"
-msgstr "Malmuta"
+#: ../../Jokosher/InstrumentViewer.py:132
+msgid "Deactivate Solo - hear all the instruments"
+msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:131 ../../Jokosher/JokosherApp.py:239
+#: ../../Jokosher/JokosherApp.py:169 ../../Jokosher/JokosherApp.py:322
 msgid "Currently working in the Recording workspace"
 msgstr "Je la rekordejo"
 
-#: ../../Jokosher/JokosherApp.py:132 ../../Jokosher/JokosherApp.py:240
-msgid "Switch to the Mixing workspace"
-msgstr "Iru je la miksejo"
-
-#: ../../Jokosher/JokosherApp.py:247
-msgid "Switch to the Recording workspace"
-msgstr "Iru je la rekordejo"
-
-#: ../../Jokosher/JokosherApp.py:248
+#: ../../Jokosher/JokosherApp.py:337
 msgid "Currently working in the Mixing workspace"
 msgstr "Je la miksejo"
 
-#: ../../Jokosher/JokosherApp.py:304
+#: ../../Jokosher/JokosherApp.py:409
+#, python-format
+msgid ""
+"<big>Couldn't launch the jokosher website automatically.</big>\n"
+"\n"
+"Please visit %s to access it."
+msgstr ""
+
+#: ../../Jokosher/JokosherApp.py:420
+#, python-format
+msgid ""
+"<big>Couldn't launch the launchpad website automatically.</big>\n"
+"\n"
+"Please visit %s to access it."
+msgstr ""
+
+#: ../../Jokosher/JokosherApp.py:453
 #, python-format
 msgid ""
 "The instruments '%s' and '%s' both have the same input selected (%s). Please "
@@ -713,21 +1081,13 @@ msgid ""
 "Instrument Connections'"
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:328
-msgid ""
-"No instruments are armed for recording. You need to arm an instrument before "
-"you can begin recording."
-msgstr ""
-"Nenia instrumentoj estas aktiviga por rekordado. Bezonu aktivigi instrumento "
-"antaŭ komenci rekordadon."
-
-#: ../../Jokosher/JokosherApp.py:360
+#: ../../Jokosher/JokosherApp.py:494
 msgid ""
 "No channels capable of recording have been found, please attach a device and "
 "try again."
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:362
+#: ../../Jokosher/JokosherApp.py:496
 msgid ""
 "Your sound card isn't capable of recording from multiple sources at the same "
 "time. Please disarm all but one instrument."
@@ -735,52 +1095,43 @@ msgstr ""
 "La sondokarto eblas rekordi nur unu instrumenton je sama tempo. Bezonu "
 "malkapabligi tutan instrumentojn krom la unuon."
 
-#: ../../Jokosher/JokosherApp.py:364
+#: ../../Jokosher/JokosherApp.py:498
 msgid ""
 "You require the GStreamer channel splitting element to be able to record "
-"from multiple input devices. This can be downloaded from "
-"http://www.jokosher.org/download."
+"from multiple input devices. This can be downloaded from http://www.jokosher."
+"org/download."
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:442
-msgid "Mixdown Project"
-msgstr "Miksado de Projekto"
-
-#: ../../Jokosher/JokosherApp.py:445
+#: ../../Jokosher/JokosherApp.py:613 ../../Jokosher/MixdownProfiles.py:285
 msgid "Save as file type:"
 msgstr "Surdiskigi la dosiero kiel:"
 
-#: ../../Jokosher/JokosherApp.py:480
-#, python-format
-msgid "Mixing project to file: %s"
-msgstr "Miksanto de projekto en dosiero: %s"
-
-#: ../../Jokosher/JokosherApp.py:495
+#: ../../Jokosher/JokosherApp.py:652
 msgid "Preparing to mixdown project"
 msgstr "Preparanto de miksanta projekto"
 
-#: ../../Jokosher/JokosherApp.py:501
+#: ../../Jokosher/JokosherApp.py:658
 #, python-format
 msgid "%d of %d seconds completed"
 msgstr "%d de %d sekundo kompleta"
 
-#: ../../Jokosher/JokosherApp.py:557
+#: ../../Jokosher/JokosherApp.py:757
 msgid "Choose a Jokosher project file"
 msgstr "Elektu projektan dosieron de Jokosher"
 
-#: ../../Jokosher/JokosherApp.py:563
+#: ../../Jokosher/JokosherApp.py:763
 msgid "All Files"
 msgstr "Ĉiom dosieroj"
 
-#: ../../Jokosher/JokosherApp.py:567
+#: ../../Jokosher/JokosherApp.py:767
 msgid "Jokosher Project File (*.jokosher)"
 msgstr "Projecta Dosiero de Jokosher (*.jokosher)"
 
-#: ../../Jokosher/JokosherApp.py:604
+#: ../../Jokosher/JokosherApp.py:817
 msgid "Choose a location to save the project"
 msgstr "Electu surdiskigan lokon por la projekta"
 
-#: ../../Jokosher/JokosherApp.py:640
+#: ../../Jokosher/JokosherApp.py:875
 #, python-format
 msgid ""
 "<span size='large' weight='bold'>Save changes to project \"%s\" before "
@@ -792,56 +1143,75 @@ msgstr ""
 "fermado?</span>\n"
 "Via ŝanĝoj estos perdita se vi ne surdiskigas la projekton."
 
-#: ../../Jokosher/JokosherApp.py:649
+#: ../../Jokosher/JokosherApp.py:884
 #, fuzzy
 msgid "Close _Without Saving"
 msgstr "Fermu _Sen Surdiskigado"
 
-#: ../../Jokosher/JokosherApp.py:694
+#: ../../Jokosher/JokosherApp.py:980
+#, python-format
+msgid "Mixing project to file: %s"
+msgstr "Miksanto de projekto en dosiero: %s"
+
+#: ../../Jokosher/JokosherApp.py:994
 #, python-format
 msgid "*%s - Jokosher"
 msgstr "*%s - Jokosher"
 
-#: ../../Jokosher/JokosherApp.py:696
+#: ../../Jokosher/JokosherApp.py:996
 #, python-format
 msgid "%s - Jokosher"
 msgstr "%s - Jokosher"
 
-#: ../../Jokosher/JokosherApp.py:749
+#: ../../Jokosher/JokosherApp.py:999
+msgid "Argh! Something went wrong and a serious error occurred:"
+msgstr ""
+
+#: ../../Jokosher/JokosherApp.py:1000
+msgid ""
+"It is recommended that you report this to the Jokosher developers or get "
+"help at http://www.jokosher.org/forums/"
+msgstr ""
+
+#: ../../Jokosher/JokosherApp.py:1081
 msgid "Clear the list of recent projects"
 msgstr "Klarigu la freŝprojektan liston"
 
-#: ../../Jokosher/JokosherApp.py:1036
+#: ../../Jokosher/JokosherApp.py:1322
+msgid "Jokosher"
+msgstr "Jokosher"
+
+#: ../../Jokosher/JokosherApp.py:1483
 msgid "The project references non-existant files:\n"
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:1040
+#: ../../Jokosher/JokosherApp.py:1487
 msgid ""
 "\n"
 "The project references non-existant images:\n"
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:1048
+#: ../../Jokosher/JokosherApp.py:1495
 #, python-format
 msgid ""
 "%s\n"
 " Invalid or corrupt project file, will not open."
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:1074
+#: ../../Jokosher/JokosherApp.py:1527
 msgid "You must have Gstreamer version 0.10.9 or higher.\n"
 msgstr "Jokosher bezonas versio 0.10.9 aŭ pli bona de Gstreamer.\n"
 
-#: ../../Jokosher/JokosherApp.py:1082
+#: ../../Jokosher/JokosherApp.py:1535
 msgid "You must have Gstreamer plugin gnonlin version 0.10.4.2 or later.\n"
 msgstr ""
 "Bezonu instali version 0.10.4.2 aŭ pli de modjulo \"gnonlin\" de Gstreamer.\n"
 
-#: ../../Jokosher/JokosherApp.py:1084
+#: ../../Jokosher/JokosherApp.py:1537
 msgid "Gstreamer plugin gnonlin is not installed."
 msgstr "Modjulo \"gnonlin\" de Gstreamer ne estas instala."
 
-#: ../../Jokosher/JokosherApp.py:1085
+#: ../../Jokosher/JokosherApp.py:1538
 msgid ""
 "\n"
 "See http://jokosher.org/trac/wiki/GettingJokosher for more details.\n"
@@ -849,7 +1219,7 @@ msgstr ""
 "\n"
 "Visitu http://jokosher.org/trac/wiki/GettingJokosher por detalo.\n"
 
-#: ../../Jokosher/JokosherApp.py:1088
+#: ../../Jokosher/JokosherApp.py:1541
 msgid ""
 "You must have the Gstreamer plugin packs gst-plugins-base and gst-plugins-"
 "good installed.\n"
@@ -857,7 +1227,7 @@ msgstr ""
 "Bezonu instali modjularojn de Gstreamer \"gst-plugins-base\" kaj \"gst-"
 "plugins-good\".\n"
 
-#: ../../Jokosher/JokosherApp.py:1094
+#: ../../Jokosher/JokosherApp.py:1547
 #, python-format
 msgid ""
 "<big>Some functionality will not work correctly or at all.</big>\n"
@@ -865,35 +1235,51 @@ msgid ""
 "%s"
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:1115
-msgid ""
-"<big>Notes about this release</big>\n"
-"\n"
-"This version of Jokosher (0.2) is a pre-release version. As such, you may "
-"encounter some bugs and functionality that is not present."
+#: ../../Jokosher/JokosherApp.py:1597
+msgid "<big>Couldn't launch the Yelp help browser.</big>"
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:1141
+#: ../../Jokosher/JokosherApp.py:1610
+#, python-format
+msgid ""
+"<big>Couldn't launch the forums website automatically.</big>\n"
+"\n"
+"Please visit %s to access them."
+msgstr ""
+
+#: ../../Jokosher/JokosherApp.py:1638
+msgid "<b>To find out more, visit:</b>"
+msgstr ""
+
+#: ../../Jokosher/JokosherApp.py:1659
+#, python-format
+msgid ""
+"<big>Couldn't launch the contributing website automatically.</big>\n"
+"\n"
+"Please visit %s to access it."
+msgstr ""
+
+#: ../../Jokosher/JokosherApp.py:1675
 #, python-format
 msgid "The URI scheme '%s' is either invalid or not supported."
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:1143
+#: ../../Jokosher/JokosherApp.py:1677
 #, python-format
 msgid "Unable to unzip the project file %s"
 msgstr "Ne povu malkunpreni la projektan dosieron %s"
 
-#: ../../Jokosher/JokosherApp.py:1145
+#: ../../Jokosher/JokosherApp.py:1679
 #, python-format
 msgid "The project file was created with version \"%s\" of Jokosher.\n"
 msgstr "La projekta dosiero estas kreita kun versio \"%s\" de Jokosher.\n"
 
-#: ../../Jokosher/JokosherApp.py:1146
+#: ../../Jokosher/JokosherApp.py:1680
 #, python-format
 msgid "Projects from version \"%s\" are incompatible with this release.\n"
 msgstr "Projektoj de versio \"%s\" estas malkongrua al ĉi versio.\n"
 
-#: ../../Jokosher/JokosherApp.py:1148
+#: ../../Jokosher/JokosherApp.py:1682
 #, python-format
 msgid ""
 "The project:\n"
@@ -902,57 +1288,141 @@ msgid ""
 "does not exist.\n"
 msgstr "La projekto %s ne ekzistas.\n"
 
-#: ../../Jokosher/JokosherApp.py:1150
+#: ../../Jokosher/JokosherApp.py:1684
 msgid "The project file could not be opened.\n"
 msgstr "La projekto ne povas malfermiĝi.\n"
 
-#: ../../Jokosher/MasterMixerStrip.py:28
-msgid "Master Volume"
-msgstr "Mastra laŭteco"
+#: ../../Jokosher/JokosherApp.py:1763
+msgid "Copy file to project"
+msgstr "Kopiu la dosieron al la projekto"
 
-#: ../../Jokosher/MixerStrip.py:36
+#: ../../Jokosher/JokosherApp.py:1768
+msgid "Add Audio File..."
+msgstr ""
+
+#: ../../Jokosher/JokosherApp.py:1832
+msgid "_Mixdown as"
+msgstr ""
+
+#: ../../Jokosher/JokosherApp.py:1837
+msgid "Mixdown as"
+msgstr ""
+
+#: ../../Jokosher/MasterMixerStrip.py:46
+msgid "Master Volume:"
+msgstr ""
+
+#: ../../Jokosher/MixdownProfileDialog.py:272
+msgid "Don't save these mixdown settings"
+msgstr ""
+
+#: ../../Jokosher/MixdownProfileDialog.py:275
+msgid "Choose a name for this profile"
+msgstr ""
+
+#: ../../Jokosher/MixdownProfiles.py:156 ../../Jokosher/MixdownProfiles.py:260
+msgid "Export file"
+msgstr ""
+
+#: ../../Jokosher/MixdownProfiles.py:183
+msgid "An unspecified MixdownAction"
+msgstr ""
+
+#: ../../Jokosher/MixdownProfiles.py:249
+#, python-format
+msgid "Export to %s as %s"
+msgstr ""
+
+#: ../../Jokosher/MixdownProfiles.py:279
+msgid "Export as"
+msgstr ""
+
+#: ../../Jokosher/MixdownProfiles.py:342
+#, python-format
+msgid "Run script %s"
+msgstr ""
+
+#: ../../Jokosher/MixdownProfiles.py:351
+msgid "Run external script"
+msgstr ""
+
+#: ../../Jokosher/MixdownProfiles.py:371
+#, python-format
+msgid "No such script %s"
+msgstr ""
+
+#: ../../Jokosher/MixdownProfiles.py:373
+#, python-format
+msgid "Error in script %s"
+msgstr ""
+
+#: ../../Jokosher/MixerStrip.py:61
 msgid "Minimize instrument"
 msgstr "Minimumigu instrumenton"
 
-#: ../../Jokosher/MixerStrip.py:43
+#: ../../Jokosher/MixerStrip.py:67
+msgid "Balance:"
+msgstr ""
+
+#: ../../Jokosher/MixerStrip.py:71
 msgid "L"
 msgstr "M"
 
-#: ../../Jokosher/MixerStrip.py:44
+#: ../../Jokosher/MixerStrip.py:72
 msgid "R"
 msgstr "D"
 
-#: ../../Jokosher/MixerStrip.py:49
+#: ../../Jokosher/MixerStrip.py:77
 msgid "Adjust instrument balance"
 msgstr ""
 
-#: ../../Jokosher/NewProjectDialog.py:76
+#: ../../Jokosher/MixerStrip.py:90
+msgid "Volume:"
+msgstr ""
+
+#: ../../Jokosher/MixerStrip.py:116
+msgid "Solo - silence all other instruments"
+msgstr "Sola - silentigu tutajn aliajn instrumentojn"
+
+#: ../../Jokosher/MixerStrip.py:206
+msgid "Muted"
+msgstr "Muta"
+
+#: ../../Jokosher/MixerStrip.py:209
+msgid "Unmuted"
+msgstr "Malmuta"
+
+#: ../../Jokosher/NewProjectDialog.py:96
 msgid "Unknown Author"
 msgstr "Nekonatan Aŭtoron"
 
-#: ../../Jokosher/NewProjectDialog.py:89
+#: ../../Jokosher/NewProjectDialog.py:109
 msgid "Could not initialize project."
 msgstr "Ne povu komencigi la projekton."
 
-#: ../../Jokosher/NewProjectDialog.py:91
+#: ../../Jokosher/NewProjectDialog.py:111
 msgid ""
 "A file or folder with this name already exists. Please choose a different "
 "project name and try again."
 msgstr ""
 
-#: ../../Jokosher/NewProjectDialog.py:93
+#: ../../Jokosher/NewProjectDialog.py:113
 msgid "The file or folder location is write-protected."
 msgstr "La dosiero aŭ dosierujo estas ŝlosata de skribado."
 
-#: ../../Jokosher/NewProjectDialog.py:95
+#: ../../Jokosher/NewProjectDialog.py:115
 msgid "Invalid name or author."
 msgstr "Malvalidan nomon aŭ aŭtoro."
 
-#: ../../Jokosher/NewProjectDialog.py:97
+#: ../../Jokosher/NewProjectDialog.py:117
 msgid "The URI scheme given is either invalid or not supported"
 msgstr ""
 
-#: ../../Jokosher/NewProjectDialog.py:104
+#: ../../Jokosher/NewProjectDialog.py:119
+msgid "Unable load required Gstreamer plugin:"
+msgstr ""
+
+#: ../../Jokosher/NewProjectDialog.py:126
 #, python-format
 msgid ""
 "Unable to create project.\n"
@@ -963,30 +1433,74 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../../Jokosher/RecordingView.py:82
+#: ../../Jokosher/PreferencesDialog.py:95
+#: ../../Jokosher/PreferencesDialog.py:98
+#: ../../Jokosher/PreferencesDialog.py:113
+#: ../../Jokosher/PreferencesDialog.py:119
+msgid "Hz"
+msgstr ""
+
+#: ../../Jokosher/RecordingView.py:132
 msgid "Zoom the timeline"
 msgstr ""
 
-#: ../../Jokosher/TimeLineBar.py:37 ../../Jokosher/TimeLineBar.py:235
+#: ../../Jokosher/TimeLine.py:422
+#, python-format
+msgid "Timeline, %d bars, %d beats and %d ticks in"
+msgstr ""
+
+#: ../../Jokosher/TimeLine.py:424
+#, python-format
+msgid "Timeline, %d hours, %d minutes, %d seconds and %d milliseconds in"
+msgstr ""
+
+#: ../../Jokosher/TimeLineBar.py:54 ../../Jokosher/TimeLineBar.py:338
 msgid "Turn click track on"
 msgstr ""
 
-#: ../../Jokosher/TimeLineBar.py:44
+#: ../../Jokosher/TimeLineBar.py:61
 msgid "Beats per minute"
 msgstr ""
 
-#: ../../Jokosher/TimeLineBar.py:232
+#: ../../Jokosher/TimeLineBar.py:76
+msgid "Time signature"
+msgstr ""
+
+#: ../../Jokosher/TimeLineBar.py:335
 msgid "Turn click track off"
 msgstr "Malŝalti klaksondon"
 
-#: ../../Jokosher/VUWidget.py:66
+#: ../../Jokosher/TimeView.py:47
+msgid "Double click to change the time format"
+msgstr ""
+
+#: ../../Jokosher/VUWidget.py:116
 msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"
 msgstr ""
 
-#: ../../Jokosher/VUWidget.py:173
-#, python-format
-msgid "Volume: %.2f"
-msgstr "Volumeno: %.2f"
+#: ../../Jokosher/Jokosher:66
+msgid "Print debug output to stdout"
+msgstr ""
+
+#: ../../Jokosher/Jokosher:68
+msgid "Sent debug output to Gstreamer's debug system"
+msgstr ""
+
+#: ../../Jokosher/Jokosher:70
+msgid "Don't load extensions or last project on startup (same as -ne)"
+msgstr ""
+
+#: ../../Jokosher/Jokosher:72
+msgid "Force the welcome dialog to show on startup"
+msgstr ""
+
+#: ../../Jokosher/Jokosher:74
+msgid "Force Jokosher to load without a welcome dialog or project"
+msgstr ""
+
+#: ../../Jokosher/Jokosher:76
+msgid "Do not load extensions on startup"
+msgstr ""
 
 #: i18n.instr.h:1
 msgid "Acoustic Guitar"
@@ -1059,6 +1573,98 @@ msgstr "Violono"
 #: i18n.instr.h:18
 msgid "Vocal"
 msgstr "Kantado"
+
+#~ msgid "<b>Audio Playback Device</b>"
+#~ msgstr "<b>Luda Aparato</b>"
+
+#~ msgid ""
+#~ "<b>To find out more, visit:</b>\n"
+#~ "http://www.jokosher.org/contribute"
+#~ msgstr ""
+#~ "<b>Por trovas pli, vizitu:</b>\n"
+#~ "http://www.jokosher.org/contribute"
+
+#~ msgid "Add the selected effect"
+#~ msgstr "Aldonu elektan efekton"
+
+#~ msgid "Change the selected instrument type"
+#~ msgstr "Ŝanĝu elektan instrumentan tipon"
+
+#~ msgid "Don't use these effects"
+#~ msgstr "Ne apliku ĉi efektojn"
+
+#~ msgid "Instrument Connections"
+#~ msgstr "Instrumentkonektoj"
+
+#~ msgid "Presets"
+#~ msgstr "Antaŭsetaĵoj"
+
+#~ msgid "Recent Projects"
+#~ msgstr "Freŝprojektoj"
+
+#~ msgid "Remove curently selected extension"
+#~ msgstr "Elprenu elektan etendaĵon"
+
+#~ msgid "Select an effect"
+#~ msgstr "Elektu efikon"
+
+#~ msgid "Select an effect to add to the instrument"
+#~ msgstr "Elektu efikon por aldoni al la instrumento"
+
+#~ msgid "Select an instrument, then click here to begin recording"
+#~ msgstr "Poste elektu instrumenton, klaku ĉi tie por rekordi"
+
+#~ msgid "Show as Hours, Minutes, Seconds"
+#~ msgstr "Vidigu tiel horojn, minutojn, sekundojn"
+
+#~ msgid "Switch to Mixing workspace"
+#~ msgstr "Iru je la miksejo"
+
+#~ msgid "Switch to Recording workspace"
+#~ msgstr "Iru je la rekordejon"
+
+#~ msgid "Time Format"
+#~ msgstr "Hora Formato"
+
+#~ msgid "_Extensions"
+#~ msgstr "_Etendaĵoj"
+
+#~ msgid "translator-credits"
+#~ msgstr "Laszlo Pandy <laszlok2@gmail.com>"
+
+#~ msgid "Import Audio File..."
+#~ msgstr "Importu sondosieron..."
+
+#~ msgid "Paste"
+#~ msgstr "Enmetu"
+
+#~ msgid "Delete"
+#~ msgstr "Forĵetu"
+
+#~ msgid "Import file..."
+#~ msgstr "Importu dosieron..."
+
+#~ msgid "Split"
+#~ msgstr "Dividi"
+
+#~ msgid "Cut"
+#~ msgstr "Eltondu"
+
+#~ msgid "Copy"
+#~ msgstr "Kopiu"
+
+#~ msgid ""
+#~ "No instruments are armed for recording. You need to arm an instrument "
+#~ "before you can begin recording."
+#~ msgstr ""
+#~ "Nenia instrumentoj estas aktiviga por rekordado. Bezonu aktivigi "
+#~ "instrumento antaŭ komenci rekordadon."
+
+#~ msgid "Master Volume"
+#~ msgstr "Mastra laŭteco"
+
+#~ msgid "Volume: %.2f"
+#~ msgstr "Volumeno: %.2f"
 
 #~ msgid ""
 #~ "16 bit\n"
