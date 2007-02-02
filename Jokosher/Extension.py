@@ -161,6 +161,7 @@ class ExtensionAPI:
 		new_menu_item.connect("activate", callback_function)
 		extensions_menu.prepend(new_menu_item)
 		new_menu_item.show()
+		
 		return new_menu_item
 	
 	#_____________________________________________________________________
@@ -354,6 +355,7 @@ class ExtensionAPI:
 		mycallerfn = os.path.split(mycallerframe.f_code.co_filename)[1]
 		mycaller = os.path.splitext(mycallerfn)[0]
 		config_dict_fn = os.path.join(CONFIGPATH,mycaller + ".config")
+		
 		return os.path.normpath(config_dict_fn)
 
 	#_____________________________________________________________________
@@ -808,7 +810,7 @@ class ExtensionAPI:
 	@exported_function
 	def get_bpm(self):
 		"""
-			Returns the current beats per minute for the project
+		Returns the current beats per minute for the Project.
 		"""
 		return self.mainapp.project.bpm	
 		
@@ -817,9 +819,10 @@ class ExtensionAPI:
 	@exported_function
 	def set_bpm(self, bpm):
 		"""
-			Sets the current beats per minute for the project
-			Parameters:
-				bpm -- the beats per minute to set
+		Sets the current beats per minute for the Project.
+		
+		Parameters:
+			bpm -- the beats per minute to set.
 		"""
 		self.mainapp.project.SetBPM(float(bpm))
 		self.mainapp.project.PrepareClick()
@@ -829,7 +832,7 @@ class ExtensionAPI:
 	@exported_function
 	def get_meter(self):
 		"""
-			Returns the current meter of the project as a tuple
+		Returns the current meter of the project as a tuple.
 		"""
 		return (self.mainapp.project.meter_nom, self.mainapp.project.meter_denom)
 		
@@ -852,6 +855,8 @@ class ExtensionAPI:
 			denom --new time signature denominator.
 		"""
 		self.mainapp.project.SetMeter(nom, denom)
+		
+	#_____________________________________________________________________
 
 	#_____________________________________________________________________
 	
@@ -979,6 +984,16 @@ class ExtensionAPI:
 		"""
 		window.set_transient_for(self.mainapp.window)
 	
+	#_____________________________________________________________________
+	
+	def get_position_as_hours_minutes_seconds(self):
+		"""
+		Obtains the current playback position in hours, minutes, seconds.
+		
+		Returns:
+			tuple of the current position as (hours, minutes, seconds, milliseconds).
+		"""
+		return self.mainapp.project.transport.GetPositionAsHoursMinutesSeconds()
 	#_____________________________________________________________________
 	
 API = None

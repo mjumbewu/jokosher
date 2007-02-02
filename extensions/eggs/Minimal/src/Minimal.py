@@ -1,7 +1,11 @@
+#
 #	Minimal.py
 #	-----------
 #	This extension allows you to replace the main Jokosher window with
 #	a tiny dialog with just transport buttons and time display.
+#
+#-------------------------------------------------------------------------------
+
 import Jokosher.Extension
 import gtk
 import gtk.glade
@@ -12,7 +16,9 @@ import gobject
 import gettext
 _ = gettext.gettext
 
-	
+# used for the ToggleButton wrapper
+settingButtons = False
+
 #=========================================================================
 
 class Minimal:
@@ -24,7 +30,7 @@ class Minimal:
 	EXTENSION_NAME = "Minimal"
 	EXTENSION_DESCRIPTION = "Replaces the normal Jokosher window with a tiny dialog"
 	EXTENSION_VERSION = "0.9"
-		
+	
 	#_____________________________________________________________________
 	
 	def startup(self, api):
@@ -68,15 +74,17 @@ class Minimal:
 		self.play = wTree.get_widget("playButton")
 		self.stop = wTree.get_widget("stopButton")
 		self.record = wTree.get_widget("recordButton")
+		
 		signals = {
 			"on_stopButton_clicked" : self.OnStop,
 			"on_playButton_clicked" : self.OnPlay,
 			"on_recordButton_clicked" : self.OnRecord,
 			"on_abButton_clicked" : self.OnAB,
 			"on_hideShowButton_clicked" : self.OnHide,
-			"on_cancelButton_clicked" : self.OnCancel,
-			"on_MinimalDialog_delete_event" : self.OnCancel
+			"on_closeButton_clicked" : self.OnClose,
+			"on_MinimalDialog_delete_event" : self.OnClose
 		}
+		
 		self.abStatus = self.abStart = self.abEnd = 0
 		wTree.signal_autoconnect(signals)
 		self.API.hide_main_window()
@@ -85,8 +93,8 @@ class Minimal:
 		gobject.timeout_add(40, self.UpdateTime)
 		gobject.timeout_add(250, self.SyncButtons)
 		self.window.set_transient_for(self.API.mainapp.window)
-		self.API.add_end_of_stream_handler(self.OnEndOfStream)
-		self.settingButtons = False
+		# TODO: reenable this call when the API method has been implemented
+		#self.API.add_end_of_stream_handler(self.OnEndOfStream)
 		self.eosFlag = False
 
 	#_____________________________________________________________________
@@ -94,7 +102,7 @@ class Minimal:
 	def ToggleButton(func):
 		"""
 		Function that wraps methods that change the toggle button states.
-		This is because when the button state is chaged then a new 'clicked'
+		This is because when the button state is changed then a new 'clicked'
 		signal is emitted which we want to ignore.
 		"""
 		def wrapper(self, *args):
@@ -103,18 +111,26 @@ class Minimal:
 			duration of the method we are actually calling preventing it
 			from being called a second time whilst changing the button state.
 			"""
-			if self.settingButtons:
+			global settingButtons
+			
+			if settingButtons:
 				return
-			self.settingButtons = True
+			
+			settingButtons = True
 			result = func(self, *args)
-			self.settingButtons = False
+			settingButtons = False
+			
 			return result
+	
+		#____________________________________________________________________
+		
 		return wrapper
-	#____________________________________________________________________	
+	
+	#____________________________________________________________________
 	
 	def OnStop(self, widget):
 		"""
-		GTK callback when the "Stop" button is clicked
+		GTK callback when the "Stop" button is clicked.
 			
 		Parameters:
 			widget -- set by GTK
@@ -126,7 +142,7 @@ class Minimal:
 	@ToggleButton
 	def OnPlay(self, widget):
 		"""
-		GTK callback when the "Play" button is clicked
+		GTK callback when the "Play" button is clicked.
 			
 		Parameters:
 			widget -- set by GTK
@@ -135,10 +151,10 @@ class Minimal:
 		
 	#_____________________________________________________________________
 	
-	def OnCancel(self, widget, event=None):
+	def OnClose(self, widget, event=None):
 		"""
-		GTK callback when the "Cancel" button is clicked or
-		when the dialog closed button is pressed
+		GTK callback when the "Close" button is clicked or
+		when the dialog closed button is pressed.
 			
 		Parameters:
 			widget -- set by GTK
@@ -146,29 +162,36 @@ class Minimal:
 		#redisplay main window if it's hidden before quitting
 		if self.mainWindowHide:
 			self.API.show_main_window()
-		self.API.remove_end_of_stream_handler(self.OnEndOfStream)
+		# TODO: reenable this call when the API method has been implemented
+		#self.API.remove_end_of_stream_handler(self.OnEndOfStream)
 		self.window.destroy()
 		
 	#_____________________________________________________________________
 	
 	def UpdateTime(self):
 		"""
-		Updates the time display
+		Updates the time display.
+		
+		Returns:
+			True -- continue the timer callbacks.
 		"""
 		#if the window is destroyed then cancel timeout
 		if not self.window.has_user_ref_count:
 			return False
+		
 		formatString = "<span font_desc='Sans Bold 12'>%01d:%02d:%02d:%03d</span>"
 		pos = self.API.get_position_as_hours_minutes_seconds()
 		if pos != self.currentPosition:
 			self.timeLabel.set_markup(formatString % pos)
 			self.currentPosition = pos
+			
 		return True
+	
 	#_____________________________________________________________________
 
 	def OnHide(self, widget):
 		"""
-		GTK callback when the "Hide/restore" button is clicked
+		GTK callback when the "Hide/restore" button is clicked.
 
 		Parameters:
 			widget -- set by GTK
@@ -181,12 +204,13 @@ class Minimal:
 			self.API.hide_main_window()
 			self.mainWindowHide = True
 			self.hideShowButton.set_label("S_how")
+			
 	#____________________________________________________________________	
 
 	@ToggleButton
 	def OnRecord(self, widget):
 		"""
-		GTK callback when the "Record" button is clicked
+		GTK callback when the "Record" button is clicked.
 		
 		Parameters:
 			widget -- set by GTK
@@ -199,7 +223,7 @@ class Minimal:
 	@ToggleButton
 	def OnAB(self, widget):
 		"""
-		GTK callback when the "A-B" button is clicked
+		GTK callback when the "A-B" button is clicked.
 		"""
 		tooltip = gtk.tooltips_data_get(self.abButton)[0]
 		if self.abStatus == 0:
@@ -223,7 +247,7 @@ class Minimal:
 
 	def OnEndOfStream(self):
 		"""
-		Called when there is an end of stream signal from Jokosher
+		Called when there is an end of stream signal from Jokosher.
 		"""
 		#set flag so we know we've stopped because of
 		#end of stream
@@ -245,7 +269,7 @@ class Minimal:
 	@ToggleButton
 	def ResetAB(self):
 		"""
-		Resets the "A-B" button to its initial state
+		Resets the "A-B" button to its initial state.
 		"""
 		self.abStatus = self.abStart = self.abEnd = 0
 		self.abButton.set_label("A-B")
@@ -260,11 +284,13 @@ class Minimal:
 		"""
 		Synchronizes transport buttons with the main
 		Jokosher window transport buttons as they might 
-		change independently
+		change independently.
 		"""
 		#if the window is destroyed then cancel timeout
 		if not self.window.has_user_ref_count:
 			return False
+		# TODO: reenable this call when the API method has been implemented
+		"""
 		buttonStates = self.API.get_button_states()
 		for buttonName in ("play", "record", "stop"):
 			toggleState = buttonStates[buttonName][0]
@@ -287,8 +313,11 @@ class Minimal:
 						button.set_active(toggleState)
 			if not button.get_property("sensitive") == buttonStates[buttonName][1]:
 				button.set_sensitive(buttonStates[buttonName][1])
+		
 		if not self.play.get_active() == self.abButton.get_property("sensitive"):
 			self.abButton.set_sensitive(self.play.get_active())
+		"""
+		
 		return True
 	
 	#____________________________________________________________________	

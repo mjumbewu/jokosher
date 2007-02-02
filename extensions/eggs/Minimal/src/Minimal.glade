@@ -7,7 +7,7 @@
   <property name="visible">True</property>
   <property name="title" translatable="yes">Minimal Jokosher</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
-  <property name="window_position">GTK_WIN_POS_CENTER_ON_PARENT</property>
+  <property name="window_position">GTK_WIN_POS_CENTER</property>
   <property name="modal">False</property>
   <property name="resizable">True</property>
   <property name="destroy_with_parent">False</property>
@@ -131,15 +131,15 @@
 	  </child>
 
 	  <child>
-	    <widget class="GtkButton" id="cancelButton">
+	    <widget class="GtkButton" id="closeButton">
 	      <property name="visible">True</property>
-	      <property name="tooltip" translatable="yes">Cancel this dialog</property>
+	      <property name="tooltip" translatable="yes">Close this dialog</property>
 	      <property name="can_focus">True</property>
-	      <property name="label">gtk-cancel</property>
+	      <property name="label">gtk-close</property>
 	      <property name="use_stock">True</property>
 	      <property name="relief">GTK_RELIEF_NORMAL</property>
 	      <property name="focus_on_click">True</property>
-	      <signal name="clicked" handler="on_cancelButton_clicked" last_modification_time="Mon, 22 Jan 2007 10:04:15 GMT"/>
+	      <signal name="clicked" handler="on_closeButton_clicked" last_modification_time="Fri, 02 Feb 2007 20:39:31 GMT"/>
 	    </widget>
 	    <packing>
 	      <property name="padding">0</property>
@@ -150,7 +150,7 @@
 	</widget>
 	<packing>
 	  <property name="padding">0</property>
-	  <property name="expand">False</property>
+	  <property name="expand">True</property>
 	  <property name="fill">True</property>
 	</packing>
       </child>
