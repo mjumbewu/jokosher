@@ -144,6 +144,8 @@ class Project(Monitored):
 		self.transportMode = TransportManager.TransportManager.MODE_BARS_BEATS
 		self.transport = TransportManager.TransportManager(self.transportMode, self)
 
+		self.EOShandlers = [] #extension functions needing EOS notifications
+
 		self.PrepareClick()
 	
 	#_____________________________________________________________________
@@ -208,6 +210,11 @@ class Project(Monitored):
 			self.bus.disconnect(handle)
 
 		self.TerminateRecording()
+
+		#If this is due to end of stream then notify those interested
+		if bus:
+			for function in self.EOShandlers:
+				function()
 		
 		Globals.PrintPipelineDebug("PIPELINE AFTER STOP:", self.mainpipeline)
 		
@@ -1269,5 +1276,30 @@ class Project(Monitored):
 		return sinkElement
 	
 	#_____________________________________________________________________
+	
+	def AddEndOfStreamHandler(self, function):
+		"""
+		Adds a function to the list of functions that need notification of 
+		end-of-stream messages from gstreamer
+		
+		Parameters:
+			function -- the function to be added
+		"""
+		self.EOShandlers.append(function)
+		
+	#_____________________________________________________________________
+	
+	def RemoveEndOfStreamHandler(self, function):
+		"""
+		Removes a function from the list of functions that need notification of 
+		end-of-stream messages from gstreamer
+		
+		Parameters:
+			function -- the function to be removed
+		"""
+		self.EOShandlers.remove(function)
+		
+	#____________________________________________________________________	
+
 	
 #=========================================================================

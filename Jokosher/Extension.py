@@ -174,8 +174,6 @@ class ExtensionAPI:
 			play_state -- 	True = play the Project from the beginning.
 							False = stop all playback.
 		"""
-		#Stop current playing (if any) and set to playhead to the beginning
-		self.mainapp.Stop()
 		if play_state:
 			#Commence playing
 			self.mainapp.Play()
@@ -192,6 +190,16 @@ class ExtensionAPI:
 		
 	#_____________________________________________________________________
 	
+	@exported_function
+	def record(self):
+		"""
+		Starts the project recording
+		
+		"""
+		self.mainapp.Record()
+		
+	#____________________________________________________________________	
+
 	@exported_function
 	def add_file_to_selected_instrument(self, uri, position=0):
 		"""
@@ -618,6 +626,7 @@ class ExtensionAPI:
 	
 	#_____________________________________________________________________
 	
+	@exported_function
 	def delete_instrument_type(self, typeString):
 		"""
 		Deletes an instrument type from the user's ~/.jokosher/instruments 
@@ -838,6 +847,9 @@ class ExtensionAPI:
 		"""
 		self.mainapp.project.SetMeter(nom, denom)
 
+	#_____________________________________________________________________
+	
+	@exported_function
 	def set_window_icon(self, window):
 		"""
 		Sets the specified window to use the Jokosher icon.
@@ -849,6 +861,109 @@ class ExtensionAPI:
 		
 	#_____________________________________________________________________
 	
+	@exported_function
+	def get_position(self):
+		"""
+		Gives the current position in pipeline
+		
+		Returns: time in seconds
+		"""
+		return self.mainapp.project.transport.GetPosition()
+			
+	#_____________________________________________________________________
+	
+	@exported_function
+	def get_position_as_hours_minutes_seconds(self):
+		"""
+		Gives the current position in pipeline
+		
+		Returns: position as a tuple (hours, minutes, seconds, milliseconds)
+		"""
+		return self.mainapp.project.transport.GetPositionAsHoursMinutesSeconds()
+			
+	#_____________________________________________________________________
+	
+	@exported_function
+	def get_position_as_bars_and_beats(self):
+		"""
+		Gives the current position in pipeline
+		
+		Returns: position as a tuple (bars, beats, ticks)
+		"""
+		return self.mainapp.project.transport.GetPositionAsBarsAndBeats()
+			
+	#____________________________________________________________________	
+	
+	@exported_function
+	def add_end_of_stream_handler(self, function):
+		"""
+		Adds a function to receive and end-of-stream notification.
+		
+		Parameters:
+			function --	the function that will receive the motification
+		"""
+		self.mainapp.project.AddEndOfStreamHandler(function)
+		
+	#____________________________________________________________________	
+
+	@exported_function
+	def remove_end_of_stream_handler(self, function):
+		"""
+		Removes a function from the end-of-stream-handler list
+		
+		Parameters:
+			function -- the function to remove
+		"""
+		self.mainapp.project.RemoveEndOfStreamHandler(function)
+		
+	#____________________________________________________________________	
+
+	@exported_function
+	def seek(self, start_position, end_position=0):
+		"""
+		Performs a seek on the pipeline
+		
+		Parameters:
+			start_position -- position to seek to
+			end_position -- position where playing will stop
+		"""
+		self.mainapp.project.transport.SeekTo(start_position, end_position)
+		
+	#____________________________________________________________________	
+
+	@exported_function
+	def get_button_states(self):
+		"""
+		Obtains the states of the transport toggle buttons
+		
+		Returns:
+			a dictionary containing a set of tuples representing the
+			toggle state and sensitive state of the transport buttons
+		"""
+		stateDict = {}
+		for buttonName in ("play","record","stop","reverse","forward"):
+			button = getattr(self.mainapp, buttonName)
+			if hasattr(button, "get_active"):
+				active = button.get_active()
+			else:
+				active = None
+			stateDict[buttonName] = (active, button.get_property("sensitive"))
+		return stateDict
+	#____________________________________________________________________	
+
+	@exported_function
+	def get_pipeline_state(self):
+		"""
+		Obtains up the state of the pipeline
+		
+		Returns:
+			the state of the pipeline 
+		"""
+		return self.mainapp.project.mainpipeline.get_state(0)[1]
+		
+	#____________________________________________________________________	
+
+	@exported_function
 	def set_window_parent(self, window):
 		"""
 		Sets the main Jokosher window as the parent for the given window.

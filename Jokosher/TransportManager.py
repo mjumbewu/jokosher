@@ -63,7 +63,7 @@ class TransportManager(Monitored):
 		self.isReversing = False
 		self.isForwarding = False
 		self.UpdateTimeout = False
-		
+		self.stopPosition = 0
 		self.mode = initialMode
 
 	#_____________________________________________________________________
@@ -86,7 +86,9 @@ class TransportManager(Monitored):
 		self.project.SetAudioState(newAudioState)
 		
 		if self.position > 0:
-			self.SeekTo(self.position)
+			self.SeekTo(self.position, self.stopPosition)
+			#clear stopPosition in case it has been set by previous SeekTo()
+			self.stopPosition = 0
 		
 		self.pipeline.set_state(gst.STATE_PLAYING)
 		#for normal playback then we need to start the timeout that will 
@@ -295,19 +297,30 @@ class TransportManager(Monitored):
 		
 	#_____________________________________________________________________
 	
-	def SeekTo(self, pos):
+	def SeekTo(self, pos, stopPos=0):
 		"""
 		Performs a pipeline seek to alter position of the playhead cursor.
 		
 		Parameters:
 			pos -- position to place the playhead cursor.
+			stopPos -- new stop position
 		"""
 		#make sure we cant seek to before the beginning
 		pos = max(0, pos)
 		if self.isPlaying or self.isPaused:
-			self.pipeline.seek( 1.0, gst.FORMAT_TIME, gst.SEEK_FLAG_FLUSH,
-					gst.SEEK_TYPE_SET, long(pos * gst.SECOND), 
-					gst.SEEK_TYPE_NONE, -1)
+			#if stopPos is set then pass it to gstreamer here anc clear
+			if stopPos:
+				self.pipeline.seek( 1.0, gst.FORMAT_TIME, gst.SEEK_FLAG_FLUSH,
+						gst.SEEK_TYPE_SET, long(pos * gst.SECOND), 
+						gst.SEEK_TYPE_SET, long(stopPos * gst.SECOND))
+			else:
+				self.pipeline.seek( 1.0, gst.FORMAT_TIME, gst.SEEK_FLAG_FLUSH,
+						gst.SEEK_TYPE_SET, long(pos * gst.SECOND), 
+						gst.SEEK_TYPE_NONE, 0)
+		else:
+			#if we haven't done the seek yet (because seek doesn't work while
+			#stopped) then we need to save the stop position until we play again
+			self.stopPosition = stopPos
 		self.SetPosition(pos)
 		
 	#_____________________________________________________________________
