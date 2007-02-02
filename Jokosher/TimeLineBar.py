@@ -44,6 +44,10 @@ class TimeLineBar(gtk.Frame):
 		self.timeline = TimeLine.TimeLine(self.project, self, mainview)
 		self.Updating = False
 		
+		self.bgColor = "#73d216"
+		self.bgActiveColor = "#81eb17"
+		self.fontColor = "#0b410b"
+		
 		# add click / bpm / signature box
 		self.clickbutton = gtk.ToggleButton()
 		self.clicktip = gtk.Tooltips()
@@ -55,32 +59,32 @@ class TimeLineBar(gtk.Frame):
 		self.clickbutton.connect("toggled", self.OnClick)
 					
 		self.bpmeventbox = gtk.EventBox()
-		self.bpmeventbox.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse("#87d987"))
+		self.bpmeventbox.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.bgColor))
 		self.bpmframe = gtk.Frame()
 		self.bpmeventtip = gtk.Tooltips()
 		self.bpmeventtip.set_tip(self.bpmeventbox, _("Beats per minute"), None)
 		self.bpmframe.set_shadow_type(gtk.SHADOW_ETCHED_OUT)
-		self.bpmframe.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse("#87d987"))
+		self.bpmframe.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.bgColor))
 		
 		self.bpmlabel = gtk.Label()
 		self.bpmlabel.set_use_markup(True)
-		self.bpmlabel.set_markup("<span foreground='#0b410b'><b>%s</b></span>" % self.project.bpm)
+		self.bpmlabel.set_markup("<span foreground='%s'><b>%s</b></span>" % (self.fontColor, self.project.bpm))
 		self.bpmlabel.set_padding(5, 5)
 		self.bpmeventbox.add(self.bpmlabel)
 		self.bpmframe.add(self.bpmeventbox)
 		self.bpmeditPacked = False
 
 		self.sigeventbox = gtk.EventBox()
-		self.sigeventbox.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse("#87d987"))
+		self.sigeventbox.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.bgColor))
 		self.sigeventtip = gtk.Tooltips()
 		self.sigeventtip.set_tip(self.sigeventbox, _("Time signature"), None)
 		self.sigframe = gtk.Frame()
 		self.sigframe.set_shadow_type(gtk.SHADOW_ETCHED_OUT)
-		self.sigframe.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse("#87d987"))
+		self.sigframe.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.bgColor))
 
 		self.siglabel = gtk.Label()
 		self.siglabel.set_use_markup(True)
-		self.siglabel.set_markup("<span foreground='#0b410b'><b>%d/%d</b></span>" % (self.project.meter_nom, self.project.meter_denom))
+		self.siglabel.set_markup("<span foreground='%s'><b>%d/%d</b></span>" % (self.fontColor, self.project.meter_nom, self.project.meter_denom))
 		self.siglabel.set_padding(5, 5)
 		self.sigeventbox.add(self.siglabel)
 		self.sigframe.add(self.sigeventbox)
@@ -94,6 +98,8 @@ class TimeLineBar(gtk.Frame):
 		
 		self.sigeventbox.set_events(gtk.gdk.BUTTON_PRESS_MASK)
 		self.sigeventbox.connect("button_press_event", self.OnEditSig)
+		self.sigeventbox.connect("enter_notify_event", self.OnMouseMoveTimeSig)
+		self.sigeventbox.connect("leave_notify_event", self.OnMouseMoveTimeSig)
 
 		self.sigDialog = None
 		
@@ -317,10 +323,32 @@ class TimeLineBar(gtk.Frame):
 		"""
 		if not widget.window: 
 			return
+		
 		if (event.type == gtk.gdk.ENTER_NOTIFY):
 			widget.window.set_cursor(gtk.gdk.Cursor(gtk.gdk.XTERM))
+			self.bpmeventbox.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.bgActiveColor))
 		else:
 			widget.window.set_cursor(None)
+			self.bpmeventbox.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.bgColor))
+			
+	#_____________________________________________________________________
+	
+	def OnMouseMoveTimeSig(self, widget, event):
+		"""
+		Called when the mouse pointer enters or leaves the beats per minute box.
+		This method changes the type of cursor if the mouse pointer is hovered over the beats per minute box.
+				
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+			event -- reserved for GTK callbacks, don't use it explicitly.
+		"""
+		if not widget.window: 
+			return
+		
+		if (event.type == gtk.gdk.ENTER_NOTIFY):
+			self.sigeventbox.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.bgActiveColor))
+		else:
+			self.sigeventbox.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.bgColor))
 			
 	#_____________________________________________________________________
 
