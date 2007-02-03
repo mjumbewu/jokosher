@@ -1672,7 +1672,7 @@ class MainApp:
 			parent = self.window
 
 		if error.errno==1:
-			message = _("The URI scheme '%s' is either invalid or not supported."%error.info)
+			message = _("The URI scheme '%s' is either invalid or not supported.") %error.info
 		elif error.errno==2:
 			message = _("Unable to unzip the project file %s") %error.info
 		elif error.errno==3:		
