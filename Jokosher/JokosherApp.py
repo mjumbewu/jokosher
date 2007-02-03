@@ -450,7 +450,7 @@ class MainApp:
 			if instr.isArmed:
 				if usedChannels.has_key(instr.input):
 					if usedChannels[instr.input].has_key(instr.inTrack):
-						string = _("The instruments '%s' and '%s' both have the same input selected (%s). Please either disarm one, or connect it to a different input through 'Project -> Instrument Connections'")
+						string = _("The instruments '%s' and '%s' both have the same input selected (%s). Please either disarm one, or connect it to a different input through 'Project -> Recording Inputs'")
 						message = string % (usedChannels[instr.input][instr.inTrack], instr.name, instr.inTrack)
 						dlg = gtk.MessageDialog(self.window,
 							gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
@@ -1535,7 +1535,7 @@ class MainApp:
 				message += _("You must have Gstreamer plugin gnonlin version 0.10.4.2 or later.\n")
 		elif not gnl:
 			message += _("Gstreamer plugin gnonlin is not installed.") + \
-			_("\nSee http://jokosher.org/trac/wiki/GettingJokosher for more details.\n")
+			_("\nSee http://doc.jokosher.org/Installation for more details.\n")
 
 		if not gst.registry_get_default().find_plugin("level"):
 			message += _("You must have the Gstreamer plugin packs gst-plugins-base and gst-plugins-good installed.\n")

@@ -1,4 +1,4 @@
-<?xml version="1.0" standalone="no"?> <!--*- mode: xml -*-->
+<<?xml version="1.0" standalone="no"?> <!--*- mode: xml -*-->
 <!DOCTYPE glade-interface SYSTEM "http://glade.gnome.org/glade-2.0.dtd">
 
 <glade-interface>
@@ -620,7 +620,7 @@
 		  <property name="visible_vertical">True</property>
 		  <property name="is_important">False</property>
 		  <accessibility>
-		    <atkproperty name="AtkObject::accessible_name" translatable="yes">Add Audio FiIe</atkproperty>
+		    <atkproperty name="AtkObject::accessible_name" translatable="yes">Add Audio File</atkproperty>
 		    <atkrelation target="Rewind" type="flows-to"/>
 		    <atkrelation target="AddInstrument" type="flows-from"/>
 		  </accessibility>
@@ -4649,8 +4649,7 @@ Custom</property>
 	  <child>
 	    <widget class="GtkComboBox" id="newstep">
 	      <property name="visible">True</property>
-	      <property name="items" translatable="yes">
-</property>
+	      <property name="items" translatable="yes"></property>
 	      <property name="add_tearoffs">False</property>
 	      <property name="focus_on_click">True</property>
 	      <signal name="changed" handler="on_newstep_changed" last_modification_time="Thu, 25 Jan 2007 15:33:44 GMT"/>
