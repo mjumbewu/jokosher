@@ -182,7 +182,7 @@ class AddInstrumentDialog:
 		
 		for instr in Globals.getCachedInstruments():
 			if search_text.lower() in instr[0].lower():
-				self.model.append(instr)
+				self.model.append((instr[0], instr[1], instr[2]))
 		
 		self.tree.set_model(self.model)
 		
