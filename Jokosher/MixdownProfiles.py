@@ -246,9 +246,9 @@ class ExportAsFileType(MixdownAction):
 		"""
 		See MixdownAction.display_name
 		"""
-		return _("Export to %s as %s") % (
-			os.path.split(self.config["filename"])[1],
-			self.filetypedict["description"])
+		return _("Export to %(file)s as %(desc)s") % {
+			"file" : os.path.split(self.config["filename"])[1],
+			"desc" : self.filetypedict["description"]}
 
 	#_____________________________________________________________________
 

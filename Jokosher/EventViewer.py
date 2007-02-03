@@ -1039,7 +1039,7 @@ class EventViewer(gtk.DrawingArea):
 			self.queue_resize()
 		
 		elif change == self.event.CORRUPT and self.small==False:
-			message=_("%s\n\nFile is corrupt, not an audio file, or the associated plugin is not installed"%self.event.filelabel)
+			message=_("%s\n\nFile is corrupt, not an audio file, or the associated plugin is not installed") % self.event.filelabel
 
 			dlg = gtk.MessageDialog(None,
 				gtk.DIALOG_MODAL,
@@ -1253,7 +1253,8 @@ class EventViewer(gtk.DrawingArea):
 		Set an ATK name to help users with screenreaders.
 		"""
 		accessible = self.get_accessible()
-		accessible.set_name(_("Event, %s, %0.2f seconds long, starting at %0.2f seconds." % (self.event.name, self.event.duration, self.event.start)))
+		accessible.set_name(_("Event, %(name)s, %(dur)0.2f seconds long, starting at %(start)0.2f seconds.") \
+				% {"name":self.event.name, "dur":self.event.duration, "start":self.event.start})
 		
 
 #=========================================================================

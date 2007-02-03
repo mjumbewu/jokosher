@@ -450,8 +450,8 @@ class MainApp:
 			if instr.isArmed:
 				if usedChannels.has_key(instr.input):
 					if usedChannels[instr.input].has_key(instr.inTrack):
-						string = _("The instruments '%s' and '%s' both have the same input selected (%s). Please either disarm one, or connect it to a different input through 'Project -> Recording Inputs'")
-						message = string % (usedChannels[instr.input][instr.inTrack], instr.name, instr.inTrack)
+						string = _("The instruments '%(name1)s' and '%(name2)s' both have the same input selected (%(track)s). Please either disarm one, or connect it to a different input through 'Project -> Recording Inputs'")
+						message = string % {"name1":usedChannels[instr.input][instr.inTrack], "name2":instr.name, "track":instr.inTrack}
 						dlg = gtk.MessageDialog(self.window,
 							gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
 							gtk.MESSAGE_INFO,
@@ -655,7 +655,7 @@ class MainApp:
 			return False
 		else:
 			self.exportprogress.set_fraction(progress[0]/progress[1])
-			self.exportprogress.set_text(_("%d of %d seconds completed") % (progress[0], progress[1]))
+			self.exportprogress.set_text(_("%(progress)d of %(total)d seconds completed") % {"progress":progress[0], "total":progress[1] } )
 			
 		return True
 	
@@ -1674,7 +1674,7 @@ class MainApp:
 		if error.errno==1:
 			message = _("The URI scheme '%s' is either invalid or not supported."%error.info)
 		elif error.errno==2:
-			message = _("Unable to unzip the project file %s"%error.info)
+			message = _("Unable to unzip the project file %s") %error.info
 		elif error.errno==3:		
 			message = _("The project file was created with version \"%s\" of Jokosher.\n") % error.info + \
 					  _("Projects from version \"%s\" are incompatible with this release.\n") % error.info

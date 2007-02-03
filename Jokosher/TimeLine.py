@@ -419,9 +419,13 @@ class TimeLine(gtk.DrawingArea):
 		Set a name property in ATK to help users with screenreaders.
 		"""
 		if self.project.transport.mode == self.project.transport.MODE_BARS_BEATS:
-			position_text = _("Timeline, %d bars, %d beats and %d ticks in" % self.project.transport.GetPositionAsBarsAndBeats())
+			tuple_ = self.project.transport.GetPositionAsBarsAndBeats()
+			position_text = _("Timeline, %(bars)d bars, %(beats)d beats and %(ticks)d ticks in") % \
+					{"bars":tuple_[0], "beats":tuple_[1], "ticks":tuple_[2]}
 		else:
-			position_text = _("Timeline, %d hours, %d minutes, %d seconds and %d milliseconds in" % self.project.transport.GetPositionAsHoursMinutesSeconds())
+			tuple_ = self.project.transport.GetPositionAsHoursMinutesSeconds()
+			position_text = _("Timeline, %(hours)d hours, %(mins)d minutes, %(secs)d seconds and %(millis)d milliseconds in") % \
+					{"hours":tuple_[0], "mins":tuple_[1], "secs":tuple_[2], "millis":tuple_[3]}
 
 		self.get_accessible().set_name(position_text)
 

@@ -613,7 +613,7 @@ class Event(Monitored):
 		
 		#check which tags actually contain something
 		if title and artist:
-			self.name = _("%s by %s") % (title, artist)
+			self.name = _("%(title)s by %(artist)s") % {"title":title, "artist":artist}
 		elif title:
 			self.name = title
 	

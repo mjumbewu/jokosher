@@ -1,4 +1,4 @@
-<<?xml version="1.0" standalone="no"?> <!--*- mode: xml -*-->
+<?xml version="1.0" standalone="no"?> <!--*- mode: xml -*-->
 <!DOCTYPE glade-interface SYSTEM "http://glade.gnome.org/glade-2.0.dtd">
 
 <glade-interface>
@@ -621,8 +621,8 @@
 		  <property name="is_important">False</property>
 		  <accessibility>
 		    <atkproperty name="AtkObject::accessible_name" translatable="yes">Add Audio File</atkproperty>
-		    <atkrelation target="Rewind" type="flows-to"/>
 		    <atkrelation target="AddInstrument" type="flows-from"/>
+		    <atkrelation target="Rewind" type="flows-to"/>
 		  </accessibility>
 		  <signal name="clicked" handler="on_project_add_audio" last_modification_time="Mon, 22 Jan 2007 19:04:35 GMT"/>
 		</widget>
@@ -655,8 +655,8 @@
 		  <property name="is_important">False</property>
 		  <accessibility>
 		    <atkproperty name="AtkObject::accessible_name" translatable="yes">Rewind</atkproperty>
-		    <atkrelation target="addAudioFileButton" type="flows-from"/>
 		    <atkrelation target="Play" type="flows-to"/>
+		    <atkrelation target="addAudioFileButton" type="flows-from"/>
 		  </accessibility>
 		  <signal name="clicked" handler="on_Rewind_clicked"/>
 		</widget>
@@ -677,8 +677,8 @@
 		  <property name="active">False</property>
 		  <accessibility>
 		    <atkproperty name="AtkObject::accessible_name" translatable="yes">Stop</atkproperty>
-		    <atkrelation target="Stop" type="flows-to"/>
 		    <atkrelation target="Rewind" type="flows-from"/>
+		    <atkrelation target="Stop" type="flows-to"/>
 		  </accessibility>
 		  <signal name="toggled" handler="on_Play_toggled"/>
 		</widget>
@@ -698,8 +698,8 @@
 		  <property name="is_important">False</property>
 		  <accessibility>
 		    <atkproperty name="AtkObject::accessible_name" translatable="yes">Stop</atkproperty>
-		    <atkrelation target="Forward" type="flows-to"/>
 		    <atkrelation target="Play" type="flows-from"/>
+		    <atkrelation target="Forward" type="flows-to"/>
 		  </accessibility>
 		  <signal name="clicked" handler="on_Stop_clicked"/>
 		</widget>
@@ -719,8 +719,8 @@
 		  <property name="is_important">False</property>
 		  <accessibility>
 		    <atkproperty name="AtkObject::accessible_name" translatable="yes">FastForward</atkproperty>
-		    <atkrelation target="Stop" type="flows-from"/>
 		    <atkrelation target="Record" type="flows-to"/>
+		    <atkrelation target="Stop" type="flows-from"/>
 		  </accessibility>
 		  <signal name="clicked" handler="on_Forward_clicked"/>
 		</widget>
@@ -741,8 +741,8 @@
 		  <property name="active">False</property>
 		  <accessibility>
 		    <atkproperty name="AtkObject::accessible_name" translatable="yes">Record</atkproperty>
-		    <atkrelation target="Forward" type="flows-from"/>
 		    <atkrelation target="Recording" type="flows-to"/>
+		    <atkrelation target="Forward" type="flows-from"/>
 		  </accessibility>
 		  <signal name="toggled" handler="on_Record_toggled"/>
 		</widget>
@@ -846,8 +846,8 @@
 			  <property name="inconsistent">False</property>
 			  <accessibility>
 			    <atkproperty name="AtkObject::accessible_name" translatable="yes">Recording Workspace</atkproperty>
-			    <atkrelation target="CompactMix" type="flows-to"/>
 			    <atkrelation target="Record" type="flows-from"/>
+			    <atkrelation target="CompactMix" type="flows-to"/>
 			  </accessibility>
 			  <signal name="toggled" handler="on_Recording_toggled"/>
 			</widget>
@@ -2927,7 +2927,7 @@ Custom</property>
 	  <child>
 	    <widget class="GtkLabel" id="explainLabel">
 	      <property name="visible">True</property>
-	      <property name="label" translatable="yes">Use the combo boxes below to select which input is used with which instrument.</property>
+	      <property name="label" translatable="yes">Select the audio input to use with each instrument.</property>
 	      <property name="use_underline">False</property>
 	      <property name="use_markup">False</property>
 	      <property name="justify">GTK_JUSTIFY_CENTER</property>

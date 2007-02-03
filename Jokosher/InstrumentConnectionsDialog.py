@@ -115,7 +115,7 @@ class InstrumentConnectionsDialog:
 			currentItem = 1
 			for device, (deviceName, numInputs) in self.inputs.items():
 				for input in range(0, numInputs):
-					combobox.append_text(_("%s input %d") % (deviceName, input))
+					combobox.append_text(_("%(device)s input %(input)d") % {"device":deviceName, "input":input})
 					if instr.input == device and input == instr.inTrack:
 						combobox.set_active(currentItem)
 					self.AlsaID.append((device, input))
