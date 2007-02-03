@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: jokosher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-02 14:20-0500\n"
+"POT-Creation-Date: 2007-02-02 22:13-0500\n"
 "PO-Revision-Date: 2006-08-16 00:37+0000\n"
 "Last-Translator: daave <fan.d.liu@gmail.com>\n"
 "Language-Team: Chinese (China) <zh_CN@li.org>\n"
@@ -690,111 +690,115 @@ msgid "Use these effects"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:206
-msgid "User manual contents"
+msgid "Use these settings"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:207
-msgid "Version information, credits and licence"
+msgid "User manual contents"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:208
-msgid "Visit Jokosher's online forums"
+msgid "Version information, credits and licence"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:209
+msgid "Visit Jokosher's online forums"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:210
 #, fuzzy
 msgid "Welcome to Jokosher!"
 msgstr "欢迎来到Jokosher！"
 
-#: ../../Jokosher/Jokosher.glade.h:210
+#: ../../Jokosher/Jokosher.glade.h:211
 #, fuzzy
 msgid "Workspaces"
 msgstr "工作空间"
 
-#: ../../Jokosher/Jokosher.glade.h:211
+#: ../../Jokosher/Jokosher.glade.h:212
 #, fuzzy
 msgid "Writing code and features in Python."
 msgstr "用Python书写代码和特性"
 
-#: ../../Jokosher/Jokosher.glade.h:212
+#: ../../Jokosher/Jokosher.glade.h:213
 #, fuzzy
 msgid "Writing simple to read documentation."
 msgstr "书写易读的文档"
 
-#: ../../Jokosher/Jokosher.glade.h:213
+#: ../../Jokosher/Jokosher.glade.h:214
 msgid "_Add Instrument"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:214
+#: ../../Jokosher/Jokosher.glade.h:215
 msgid "_Contributing to Jokosher"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:215
+#: ../../Jokosher/Jokosher.glade.h:216
 #, fuzzy
 msgid "_Edit"
 msgstr "_E编辑"
 
-#: ../../Jokosher/Jokosher.glade.h:216
+#: ../../Jokosher/Jokosher.glade.h:217
 #, fuzzy
 msgid "_File"
 msgstr "_F文件"
 
-#: ../../Jokosher/Jokosher.glade.h:217
+#: ../../Jokosher/Jokosher.glade.h:218
 #, fuzzy
 msgid "_Help"
 msgstr "_H帮助"
 
-#: ../../Jokosher/Jokosher.glade.h:218
+#: ../../Jokosher/Jokosher.glade.h:219
 msgid "_Instrument"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:219
+#: ../../Jokosher/Jokosher.glade.h:220
 msgid "_Manage Extensions"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:220
+#: ../../Jokosher/Jokosher.glade.h:221
 msgid "_Mixdown"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:221 ../../Jokosher/JokosherApp.py:1849
+#: ../../Jokosher/Jokosher.glade.h:222 ../../Jokosher/JokosherApp.py:1849
 #, fuzzy
 msgid "_Mixdown Project"
 msgstr "_M项目混音"
 
-#: ../../Jokosher/Jokosher.glade.h:222
+#: ../../Jokosher/Jokosher.glade.h:223
 msgid "_Online Forums"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:223
+#: ../../Jokosher/Jokosher.glade.h:224
 #, fuzzy
 msgid "_Project"
 msgstr "_P项目"
 
-#: ../../Jokosher/Jokosher.glade.h:224
+#: ../../Jokosher/Jokosher.glade.h:225
 msgid "_Recent Projects"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:225
+#: ../../Jokosher/Jokosher.glade.h:226
 msgid "_Recording Inputs"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:226
+#: ../../Jokosher/Jokosher.glade.h:227
 msgid "_Report Bug..."
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:227
+#: ../../Jokosher/Jokosher.glade.h:228
 msgid "_Save these settings"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:228
+#: ../../Jokosher/Jokosher.glade.h:229
 msgid "_Time Format"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:229
+#: ../../Jokosher/Jokosher.glade.h:230
 msgid "autoaudiosink"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:230
+#: ../../Jokosher/Jokosher.glade.h:231
 msgid "version 0.9"
 msgstr ""
 
@@ -1525,19 +1529,19 @@ msgstr ""
 msgid "Timeline, %d hours, %d minutes, %d seconds and %d milliseconds in"
 msgstr ""
 
-#: ../../Jokosher/TimeLineBar.py:54 ../../Jokosher/TimeLineBar.py:338
+#: ../../Jokosher/TimeLineBar.py:58 ../../Jokosher/TimeLineBar.py:367
 msgid "Turn click track on"
 msgstr ""
 
-#: ../../Jokosher/TimeLineBar.py:61
+#: ../../Jokosher/TimeLineBar.py:65
 msgid "Beats per minute"
 msgstr ""
 
-#: ../../Jokosher/TimeLineBar.py:76
+#: ../../Jokosher/TimeLineBar.py:80
 msgid "Time signature"
 msgstr ""
 
-#: ../../Jokosher/TimeLineBar.py:335
+#: ../../Jokosher/TimeLineBar.py:364
 msgid "Turn click track off"
 msgstr ""
 
