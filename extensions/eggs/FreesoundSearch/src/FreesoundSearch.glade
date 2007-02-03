@@ -256,13 +256,13 @@
 </widget>
 
 <widget class="GtkWindow" id="FreesoundSearchWindow">
-  <property name="border_width">1</property>
   <property name="visible">True</property>
   <property name="title" translatable="yes">Search Freesound</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_CENTER</property>
   <property name="modal">False</property>
-  <property name="default_width">500</property>
+  <property name="default_width">565</property>
+  <property name="default_height">400</property>
   <property name="resizable">True</property>
   <property name="destroy_with_parent">False</property>
   <property name="decorated">True</property>
@@ -275,13 +275,28 @@
   <signal name="destroy" handler="on_destroy" last_modification_time="Tue, 30 Jan 2007 02:13:41 GMT"/>
 
   <child>
-    <widget class="GtkVBox" id="vbox1">
+    <widget class="GtkVBox" id="vboxMain">
       <property name="visible">True</property>
       <property name="homogeneous">False</property>
       <property name="spacing">6</property>
 
       <child>
-	<widget class="GtkVBox" id="vbox2">
+	<widget class="GtkImage" id="imageHeader">
+	  <property name="visible">True</property>
+	  <property name="xalign">0.5</property>
+	  <property name="yalign">0.5</property>
+	  <property name="xpad">0</property>
+	  <property name="ypad">0</property>
+	</widget>
+	<packing>
+	  <property name="padding">0</property>
+	  <property name="expand">False</property>
+	  <property name="fill">True</property>
+	</packing>
+      </child>
+
+      <child>
+	<widget class="GtkVBox" id="vboxQuery">
 	  <property name="border_width">12</property>
 	  <property name="visible">True</property>
 	  <property name="homogeneous">False</property>
@@ -313,7 +328,7 @@
 	  </child>
 
 	  <child>
-	    <widget class="GtkHBox" id="hbox1">
+	    <widget class="GtkHBox" id="hboxFind">
 	      <property name="visible">True</property>
 	      <property name="homogeneous">False</property>
 	      <property name="spacing">6</property>
@@ -363,6 +378,124 @@
 	  </child>
 
 	  <child>
+	    <widget class="GtkHBox" id="hboxOptions">
+	      <property name="visible">True</property>
+	      <property name="homogeneous">False</property>
+	      <property name="spacing">6</property>
+
+	      <child>
+		<widget class="GtkLabel" id="label9">
+		  <property name="visible">True</property>
+		  <property name="label" translatable="yes">Search in:</property>
+		  <property name="use_underline">False</property>
+		  <property name="use_markup">False</property>
+		  <property name="justify">GTK_JUSTIFY_LEFT</property>
+		  <property name="wrap">False</property>
+		  <property name="selectable">False</property>
+		  <property name="xalign">0.5</property>
+		  <property name="yalign">0.5</property>
+		  <property name="xpad">0</property>
+		  <property name="ypad">0</property>
+		  <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
+		  <property name="width_chars">-1</property>
+		  <property name="single_line_mode">False</property>
+		  <property name="angle">0</property>
+		</widget>
+		<packing>
+		  <property name="padding">0</property>
+		  <property name="expand">False</property>
+		  <property name="fill">False</property>
+		</packing>
+	      </child>
+
+	      <child>
+		<widget class="GtkCheckButton" id="checkbuttonDescriptions">
+		  <property name="visible">True</property>
+		  <property name="tooltip" translatable="yes">Include samples descriptions in the query</property>
+		  <property name="can_focus">True</property>
+		  <property name="label" translatable="yes">Descriptions</property>
+		  <property name="use_underline">True</property>
+		  <property name="relief">GTK_RELIEF_NORMAL</property>
+		  <property name="focus_on_click">True</property>
+		  <property name="active">True</property>
+		  <property name="inconsistent">False</property>
+		  <property name="draw_indicator">True</property>
+		</widget>
+		<packing>
+		  <property name="padding">0</property>
+		  <property name="expand">False</property>
+		  <property name="fill">False</property>
+		</packing>
+	      </child>
+
+	      <child>
+		<widget class="GtkCheckButton" id="checkbuttonTags">
+		  <property name="visible">True</property>
+		  <property name="tooltip" translatable="yes">Include samples user given tags in the query</property>
+		  <property name="can_focus">True</property>
+		  <property name="label" translatable="yes">Tags</property>
+		  <property name="use_underline">True</property>
+		  <property name="relief">GTK_RELIEF_NORMAL</property>
+		  <property name="focus_on_click">True</property>
+		  <property name="active">True</property>
+		  <property name="inconsistent">False</property>
+		  <property name="draw_indicator">True</property>
+		</widget>
+		<packing>
+		  <property name="padding">0</property>
+		  <property name="expand">False</property>
+		  <property name="fill">False</property>
+		</packing>
+	      </child>
+
+	      <child>
+		<widget class="GtkCheckButton" id="checkbuttonFilenames">
+		  <property name="visible">True</property>
+		  <property name="tooltip" translatable="yes">Include samples filenames in the query</property>
+		  <property name="can_focus">True</property>
+		  <property name="label" translatable="yes">Filenames</property>
+		  <property name="use_underline">True</property>
+		  <property name="relief">GTK_RELIEF_NORMAL</property>
+		  <property name="focus_on_click">True</property>
+		  <property name="active">False</property>
+		  <property name="inconsistent">False</property>
+		  <property name="draw_indicator">True</property>
+		</widget>
+		<packing>
+		  <property name="padding">0</property>
+		  <property name="expand">False</property>
+		  <property name="fill">False</property>
+		</packing>
+	      </child>
+
+	      <child>
+		<widget class="GtkCheckButton" id="checkbuttonUsernames">
+		  <property name="visible">True</property>
+		  <property name="tooltip" translatable="yes">Include Freesound accounts usernames in the query</property>
+		  <property name="can_focus">True</property>
+		  <property name="label" translatable="yes">Usernames</property>
+		  <property name="use_underline">True</property>
+		  <property name="relief">GTK_RELIEF_NORMAL</property>
+		  <property name="focus_on_click">True</property>
+		  <property name="active">False</property>
+		  <property name="inconsistent">False</property>
+		  <property name="draw_indicator">True</property>
+		</widget>
+		<packing>
+		  <property name="padding">0</property>
+		  <property name="expand">False</property>
+		  <property name="fill">False</property>
+		</packing>
+	      </child>
+	    </widget>
+	    <packing>
+	      <property name="padding">0</property>
+	      <property name="expand">False</property>
+	      <property name="fill">True</property>
+	    </packing>
+	  </child>
+
+	  <child>
 	    <widget class="GtkScrolledWindow" id="scrolledwindowResults">
 	      <property name="visible">True</property>
 	      <property name="can_focus">True</property>
@@ -390,7 +523,7 @@
       </child>
 
       <child>
-	<widget class="GtkHBox" id="hbox2">
+	<widget class="GtkHBox" id="hboxButtons">
 	  <property name="visible">True</property>
 	  <property name="homogeneous">False</property>
 	  <property name="spacing">0</property>

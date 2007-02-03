@@ -105,7 +105,11 @@ class Sample:
 		Fetch thyself from the Freesound service.
 		"""
 		req = Request("http://freesound.iua.upf.edu/samplesViewSingleXML.php?id=%s" % self.sid)
-		handle = urlopen(req)
+		try:
+			handle = urlopen(req)
+		except URLError:
+			# TODO: handle URL problems
+			pass
 		data = handle.read()
 		dom = minidom.parseString(data)
 		for attribute, xpath in SAMPLE_ATTRIBUTES.items():
@@ -161,7 +165,12 @@ class Freesound:
 			"redirect": "../tests/login.php"}
 		req = Request("http://freesound.iua.upf.edu/forum/login.php", 
 				urllib.urlencode(data))
-		handle = urlopen(req)
+		try:
+			handle = urlopen(req)
+		except URLError:
+			# TODO: handle URL problems
+			self.loggedIn = False
+			return
 		data = handle.read()
 		
 		# check to see if login was successful
@@ -179,14 +188,29 @@ class Freesound:
 		
 		Parameters:
 			query -- query to look for in the Freesound database.
+					It's a dictionary with the following format:
+					{
+					search : "string to match",
+					searchDescriptions : "1 or 0",
+					searchTags : "1 or 0",
+					searchFilenames : "1 or 0",
+					searchUsernames : "1 or 0"
+					}
+			
+			*the fields labeled "1 or 0" define whether those fields
+			should be included in the search.
 			
 		Returns:
 			the matching sample(s) list.
 		"""
-		data = {"search": query}
 		req = Request("http://freesound.iua.upf.edu/searchTextXML.php", 
-				urllib.urlencode(data))
-		handle = urlopen(req)
+				urllib.urlencode(query))
+		try:
+			handle = urlopen(req)
+		except URLError:
+			# TODO: handle URL problems
+			print "Search: URL Error"
+			pass
 		data = handle.read()
 		dom = minidom.parseString(data)
 		if dom.documentElement.nodeName != "freesound":

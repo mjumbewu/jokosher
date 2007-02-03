@@ -13,7 +13,7 @@ setup(name="FreesoundSearch",
 	  platforms='linux',
 	  packages=["FreesoundSearch"],
 	  package_dir={"FreesoundSearch":"src"},
-	  package_data={"":["FreesoundSearch.glade", "freesound.py"]},
+	  package_data={"":["FreesoundSearch.glade", "freesound.py", "images/banner.png"]},
 	  entry_points="""
 		[jokosher.extensions]
 		extension = FreesoundSearch:FreesoundSearch

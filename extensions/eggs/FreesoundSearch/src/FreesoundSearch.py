@@ -10,11 +10,6 @@
 # TODO
 # give downloaded samples proper names
 # when dragging, event doesn't appear for a few secs so it looks like it hadn't worked
-# DONE
-# don't hang while fetching imagery
-# expanding the window shouldn't expand the top search pane
-# getting no results fails
-# show "searching..." when searching
 
 import Jokosher.Extension # required in all Jokosher extensions
 import pygtk
@@ -59,7 +54,7 @@ class FreesoundSearch:
 		self.showSearch = False
 		self.searchQueue = Queue.Queue()
 		self.maxResults = 15
-
+		
 	#_____________________________________________________________________
 	
 	def shutdown(self):
@@ -94,7 +89,7 @@ class FreesoundSearch:
 			self.LoginDetails()
 			return
 		
-		xmlString = pkg_resources.resource_string(__name__,"FreesoundSearch.glade")
+		xmlString = pkg_resources.resource_string(__name__, "FreesoundSearch.glade")
 		wTree = gtk.glade.xml_new_from_buffer(xmlString, len(xmlString), "FreesoundSearchWindow")
 		
 		signals = {
@@ -103,11 +98,16 @@ class FreesoundSearch:
 			"on_destroy" : self.OnDestroy
 		}
 		wTree.signal_autoconnect(signals)
-	
+		
 		self.entryFind = wTree.get_widget("entryFind")
 		self.buttonFind = wTree.get_widget("buttonFind")
 		self.scrollResults = wTree.get_widget("scrolledwindowResults")
 		self.statusbar = wTree.get_widget("statusbar")
+		self.imageHeader = wTree.get_widget("imageHeader")
+		self.checkDescriptions = wTree.get_widget("checkbuttonDescriptions")
+		self.checkTags = wTree.get_widget("checkbuttonTags")
+		self.checkFilenames = wTree.get_widget("checkbuttonFilenames")
+		self.checkUsernames = wTree.get_widget("checkbuttonUsernames")
 		self.window = wTree.get_widget("FreesoundSearchWindow")
 		self.vboxResults = gtk.VBox(spacing=6)
 		
@@ -116,6 +116,7 @@ class FreesoundSearch:
 		self.buttonFind.grab_default()
 		self.scrollResults.add_with_viewport(self.vboxResults)
 		self.api.set_window_icon(self.window)
+		self.imageHeader.set_from_file(pkg_resources.resource_filename(__name__, "images/banner.png"))
 		
 		self.window.show_all()
 		
@@ -135,8 +136,36 @@ class FreesoundSearch:
 		Parameters:
 			button -- reserved for GTK callbacks. Don't use explicitly.
 		"""
-		searchText = self.entryFind.get_text()
-		self.searchQueue.put(searchText)
+		# TODO: very very ugly way to handle this =/
+		if self.checkDescriptions.get_active():
+			descriptions = "1"
+		else:
+			descriptions = "0"
+		
+		if self.checkTags.get_active():
+			tags = "1"
+		else:
+			tags = "0"
+			
+		if self.checkFilenames.get_active():
+			filenames = "1"
+		else:
+			filenames = "0"
+			
+		if self.checkUsernames.get_active():
+			usernames = "1"
+		else:
+			usernames = "0"
+		
+		query = {
+				"search" : self.entryFind.get_text(),
+				"searchDescriptions" : descriptions,
+				"searchTags" : tags,
+				"searchFilenames" : filenames,
+				"searchUsernames" : usernames
+				}
+		
+		self.searchQueue.put(query)
 	
 	#_____________________________________________________________________
 	
@@ -213,7 +242,7 @@ class FreesoundSearch:
 		
 		# create a worker thread to avoid blocking the GUI while logging in
 		worker = threading.Thread(group=None, target=self.FinishLogin, name="Login", 
-					    args=(username, password))
+						args=(username, password))
 		worker.start()
 		
 	#_____________________________________________________________________
@@ -283,7 +312,7 @@ class SearchFreesoundThread(threading.Thread):
 		self.username = username
 		self.password = password
 		self.queue = queue
-		self.searchText = None
+		self.query = None
 		self.maxResults = maxResults
 		self.player = gst.element_factory_make("playbin", "player")
 	
@@ -307,7 +336,11 @@ class SearchFreesoundThread(threading.Thread):
 		# TODO: remove this print
 		#print "Retrieving sample image to %s" % tmpnam
 		
-		imgfile = urllib.urlretrieve(sample.image, tmpnam)
+		try:
+			imgfile = urllib.urlretrieve(sample.image, tmpnam)
+		except IOError:
+			# TODO: handle the url problems
+			pass
 		image = gtk.Image()
 		image.set_from_pixbuf(gtk.gdk.pixbuf_new_from_file_at_size(tmpnam, 50, 50))
 		os.unlink(tmpnam)
@@ -366,7 +399,7 @@ class SearchFreesoundThread(threading.Thread):
 		It displays a label to inform the user.
 		"""
 		self.EmptyContainer()
-		self.container.add(gtk.Label(_("No results for %s") % self.searchText))
+		self.container.add(gtk.Label(_("No results for %s") % self.query["search"]))
 		self.container.show_all()
 	
 	#_____________________________________________________________________
@@ -405,7 +438,7 @@ class SearchFreesoundThread(threading.Thread):
 		gobject.idle_add(self.EmptyContainer)
 		gobject.idle_add(self.SetSearchingStatus)
 		
-		self.searchText = query
+		self.query = query
 		samples = self.freeSound.Search(query)
 		if not samples:
 			gobject.idle_add(self.NoResults)
