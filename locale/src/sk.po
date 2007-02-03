@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: jokosher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-03 12:13-0500\n"
+"POT-Creation-Date: 2007-02-03 16:51-0500\n"
 "PO-Revision-Date: 2006-08-24 20:30+0000\n"
 "Last-Translator: Peter Baričič <pbaricic@gmail.com>\n"
 "Language-Team: Slovak <sk@li.org>\n"
@@ -567,78 +567,76 @@ msgid "Select a project to open from the list"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:183
-msgid "Set Time Signature"
+msgid "Select the audio input to use with each instrument."
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:184
+msgid "Set Time Signature"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:185
 msgid "Settings"
 msgstr "Nastavenie"
 
-#: ../../Jokosher/Jokosher.glade.h:185
+#: ../../Jokosher/Jokosher.glade.h:186
 msgid "Show as _Bars, Beats, Ticks"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:186
+#: ../../Jokosher/Jokosher.glade.h:187
 msgid "Show as _Hours, Minutes, Seconds"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:187
+#: ../../Jokosher/Jokosher.glade.h:188
 msgid "Show welcome dialog"
 msgstr "Zobraz uvítacú obrazovku"
 
-#: ../../Jokosher/Jokosher.glade.h:188
+#: ../../Jokosher/Jokosher.glade.h:189
 msgid "Start Jokosher with an empty project"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:189
+#: ../../Jokosher/Jokosher.glade.h:190
 msgid "Start playback"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:190
+#: ../../Jokosher/Jokosher.glade.h:191
 msgid "Steps to mix down $PROJECTNAME"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:191
+#: ../../Jokosher/Jokosher.glade.h:192
 msgid "Stop"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:192
+#: ../../Jokosher/Jokosher.glade.h:193
 msgid "Stop mixing the project"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:193
+#: ../../Jokosher/Jokosher.glade.h:194
 msgid "Stop playback"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:194 ../../Jokosher/JokosherApp.py:170
+#: ../../Jokosher/Jokosher.glade.h:195 ../../Jokosher/JokosherApp.py:170
 #: ../../Jokosher/JokosherApp.py:323
 msgid "Switch to the Mixing workspace"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:195 ../../Jokosher/JokosherApp.py:336
+#: ../../Jokosher/Jokosher.glade.h:196 ../../Jokosher/JokosherApp.py:336
 msgid "Switch to the Recording workspace"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:196
+#: ../../Jokosher/Jokosher.glade.h:197
 msgid "Testing Jokosher, and submitting bugs."
 msgstr "Testovanie Jokosher, posielanie hlásení o chybách"
 
-#: ../../Jokosher/Jokosher.glade.h:197
+#: ../../Jokosher/Jokosher.glade.h:198
 msgid "Type here to search for an instrument"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:198
+#: ../../Jokosher/Jokosher.glade.h:199
 msgid "Undo"
 msgstr "Vrátiť späť"
 
-#: ../../Jokosher/Jokosher.glade.h:199
-msgid "Undo the last edit"
-msgstr ""
-
 #: ../../Jokosher/Jokosher.glade.h:200
-msgid ""
-"Use the combo boxes below to select which input is used with which "
-"instrument."
+msgid "Undo the last edit"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:201
@@ -764,7 +762,7 @@ msgstr "<b>Nezobrazené nástroje:</b>"
 
 #: ../../Jokosher/Event.py:616
 #, python-format
-msgid "%s by %s"
+msgid "%(title)s by %(artist)s"
 msgstr ""
 
 #: ../../Jokosher/EventLaneViewer.py:229
@@ -845,7 +843,8 @@ msgstr ""
 
 #: ../../Jokosher/EventViewer.py:1256
 #, python-format
-msgid "Event, %s, %0.2f seconds long, starting at %0.2f seconds."
+msgid ""
+"Event, %(name)s, %(dur)0.2f seconds long, starting at %(start)0.2f seconds."
 msgstr ""
 
 #: ../../Jokosher/Extension.py:49
@@ -984,7 +983,7 @@ msgstr ""
 
 #: ../../Jokosher/InstrumentConnectionsDialog.py:118
 #, python-format
-msgid "%s input %d"
+msgid "%(device)s input %(input)d"
 msgstr ""
 
 #: ../../Jokosher/InstrumentEffectsDialog.py:114
@@ -1076,12 +1075,10 @@ msgstr ""
 #: ../../Jokosher/JokosherApp.py:453
 #, python-format
 msgid ""
-"The instruments '%s' and '%s' both have the same input selected (%s). Please "
-"either disarm one, or connect it to a different input through 'Project -> "
-"Instrument Connections'"
+"The instruments '%(name1)s' and '%(name2)s' both have the same input "
+"selected (%(track)s). Please either disarm one, or connect it to a different "
+"input through 'Project -> Recording Inputs'"
 msgstr ""
-"Nástroje '%s' a '%s' majú zvolený rovnaký vstup (%s). Prosím buď odpojte "
-"jeden, alebo ho pripojte na iný vstup cez 'Projekt -> Pripojenia nástrojov'"
 
 #: ../../Jokosher/JokosherApp.py:494
 #, fuzzy
@@ -1117,8 +1114,8 @@ msgstr "Pripravujem zmixovanie projektu"
 
 #: ../../Jokosher/JokosherApp.py:658
 #, python-format
-msgid "%d of %d seconds completed"
-msgstr "%d z %d sekúnd dokončených"
+msgid "%(progress)d of %(total)d seconds completed"
+msgstr ""
 
 #: ../../Jokosher/JokosherApp.py:757
 msgid "Choose a Jokosher project file"
@@ -1222,10 +1219,8 @@ msgstr "Gstreamer plugin gnonlin nie je nainštalovaný."
 #: ../../Jokosher/JokosherApp.py:1538
 msgid ""
 "\n"
-"See http://jokosher.org/trac/wiki/GettingJokosher for more details.\n"
+"See http://doc.jokosher.org/Installation for more details.\n"
 msgstr ""
-"\n"
-"Pozri http://jokosher.org/trac/wiki/GettingJokosher pre viac informácií.\n"
 
 #: ../../Jokosher/JokosherApp.py:1541
 msgid ""
@@ -1344,7 +1339,7 @@ msgstr ""
 
 #: ../../Jokosher/MixdownProfiles.py:249
 #, python-format
-msgid "Export to %s as %s"
+msgid "Export to %(file)s as %(desc)s"
 msgstr ""
 
 #: ../../Jokosher/MixdownProfiles.py:279
@@ -1461,14 +1456,16 @@ msgstr ""
 msgid "Zoom the timeline"
 msgstr ""
 
-#: ../../Jokosher/TimeLine.py:422
+#: ../../Jokosher/TimeLine.py:423
 #, python-format
-msgid "Timeline, %d bars, %d beats and %d ticks in"
+msgid "Timeline, %(bars)d bars, %(beats)d beats and %(ticks)d ticks in"
 msgstr ""
 
-#: ../../Jokosher/TimeLine.py:424
+#: ../../Jokosher/TimeLine.py:427
 #, python-format
-msgid "Timeline, %d hours, %d minutes, %d seconds and %d milliseconds in"
+msgid ""
+"Timeline, %(hours)d hours, %(mins)d minutes, %(secs)d seconds and %(millis)d "
+"milliseconds in"
 msgstr ""
 
 #: ../../Jokosher/TimeLineBar.py:58 ../../Jokosher/TimeLineBar.py:367
@@ -1591,6 +1588,25 @@ msgstr "Husle"
 #: i18n.instr.h:18
 msgid "Vocal"
 msgstr "Spev"
+
+#~ msgid ""
+#~ "The instruments '%s' and '%s' both have the same input selected (%s). "
+#~ "Please either disarm one, or connect it to a different input through "
+#~ "'Project -> Instrument Connections'"
+#~ msgstr ""
+#~ "Nástroje '%s' a '%s' majú zvolený rovnaký vstup (%s). Prosím buď odpojte "
+#~ "jeden, alebo ho pripojte na iný vstup cez 'Projekt -> Pripojenia "
+#~ "nástrojov'"
+
+#~ msgid "%d of %d seconds completed"
+#~ msgstr "%d z %d sekúnd dokončených"
+
+#~ msgid ""
+#~ "\n"
+#~ "See http://jokosher.org/trac/wiki/GettingJokosher for more details.\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Pozri http://jokosher.org/trac/wiki/GettingJokosher pre viac informácií.\n"
 
 #~ msgid ""
 #~ "<b>To find out more, visit:</b>\n"

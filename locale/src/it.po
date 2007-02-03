@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-03 12:13-0500\n"
+"POT-Creation-Date: 2007-02-03 16:51-0500\n"
 "PO-Revision-Date: 2006-11-11 20:17+0000\n"
 "Last-Translator: Luca Ferretti <elle.uca@libero.it>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
@@ -569,79 +569,77 @@ msgid "Select a project to open from the list"
 msgstr "Seleziona dall'elenco un progetto da aprire"
 
 #: ../../Jokosher/Jokosher.glade.h:183
-msgid "Set Time Signature"
+msgid "Select the audio input to use with each instrument."
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:184
+msgid "Set Time Signature"
+msgstr ""
+
+#: ../../Jokosher/Jokosher.glade.h:185
 msgid "Settings"
 msgstr "Impostazioni"
 
-#: ../../Jokosher/Jokosher.glade.h:185
+#: ../../Jokosher/Jokosher.glade.h:186
 msgid "Show as _Bars, Beats, Ticks"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:186
+#: ../../Jokosher/Jokosher.glade.h:187
 msgid "Show as _Hours, Minutes, Seconds"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:187
+#: ../../Jokosher/Jokosher.glade.h:188
 msgid "Show welcome dialog"
 msgstr "Mostrare il dialogo di benvenuto"
 
-#: ../../Jokosher/Jokosher.glade.h:188
+#: ../../Jokosher/Jokosher.glade.h:189
 msgid "Start Jokosher with an empty project"
 msgstr "Avvia Jokosher con un progetto vuoto"
 
-#: ../../Jokosher/Jokosher.glade.h:189
+#: ../../Jokosher/Jokosher.glade.h:190
 msgid "Start playback"
 msgstr "Avvia la riproduzione"
 
-#: ../../Jokosher/Jokosher.glade.h:190
+#: ../../Jokosher/Jokosher.glade.h:191
 msgid "Steps to mix down $PROJECTNAME"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:191
+#: ../../Jokosher/Jokosher.glade.h:192
 msgid "Stop"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:192
+#: ../../Jokosher/Jokosher.glade.h:193
 msgid "Stop mixing the project"
 msgstr "Ferma il mixing del progetto"
 
-#: ../../Jokosher/Jokosher.glade.h:193
+#: ../../Jokosher/Jokosher.glade.h:194
 msgid "Stop playback"
 msgstr "Ferma la riproduzione"
 
-#: ../../Jokosher/Jokosher.glade.h:194 ../../Jokosher/JokosherApp.py:170
+#: ../../Jokosher/Jokosher.glade.h:195 ../../Jokosher/JokosherApp.py:170
 #: ../../Jokosher/JokosherApp.py:323
 msgid "Switch to the Mixing workspace"
 msgstr "Passa all'area di lavoro «Mixing»"
 
-#: ../../Jokosher/Jokosher.glade.h:195 ../../Jokosher/JokosherApp.py:336
+#: ../../Jokosher/Jokosher.glade.h:196 ../../Jokosher/JokosherApp.py:336
 msgid "Switch to the Recording workspace"
 msgstr "Passa all'area di lavoro «Registrazione»"
 
-#: ../../Jokosher/Jokosher.glade.h:196
+#: ../../Jokosher/Jokosher.glade.h:197
 msgid "Testing Jokosher, and submitting bugs."
 msgstr "Provare Jokosher e segnalare bug."
 
-#: ../../Jokosher/Jokosher.glade.h:197
+#: ../../Jokosher/Jokosher.glade.h:198
 msgid "Type here to search for an instrument"
 msgstr "Digitare qui per cercare uno strumento"
 
-#: ../../Jokosher/Jokosher.glade.h:198
+#: ../../Jokosher/Jokosher.glade.h:199
 msgid "Undo"
 msgstr "Annulla"
 
-#: ../../Jokosher/Jokosher.glade.h:199
+#: ../../Jokosher/Jokosher.glade.h:200
 msgid "Undo the last edit"
 msgstr "Annulla l'ultima modifica"
-
-#: ../../Jokosher/Jokosher.glade.h:200
-msgid ""
-"Use the combo boxes below to select which input is used with which "
-"instrument."
-msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:201
 msgid "Use these effect settings"
@@ -766,7 +764,7 @@ msgstr "<b>Strumenti non mostrati:</b>"
 
 #: ../../Jokosher/Event.py:616
 #, python-format
-msgid "%s by %s"
+msgid "%(title)s by %(artist)s"
 msgstr ""
 
 #: ../../Jokosher/EventLaneViewer.py:229
@@ -851,7 +849,8 @@ msgstr ""
 
 #: ../../Jokosher/EventViewer.py:1256
 #, python-format
-msgid "Event, %s, %0.2f seconds long, starting at %0.2f seconds."
+msgid ""
+"Event, %(name)s, %(dur)0.2f seconds long, starting at %(start)0.2f seconds."
 msgstr ""
 
 #: ../../Jokosher/Extension.py:49
@@ -999,7 +998,7 @@ msgstr ""
 
 #: ../../Jokosher/InstrumentConnectionsDialog.py:118
 #, python-format
-msgid "%s input %d"
+msgid "%(device)s input %(input)d"
 msgstr ""
 
 #: ../../Jokosher/InstrumentEffectsDialog.py:114
@@ -1091,13 +1090,10 @@ msgstr ""
 #: ../../Jokosher/JokosherApp.py:453
 #, python-format
 msgid ""
-"The instruments '%s' and '%s' both have the same input selected (%s). Please "
-"either disarm one, or connect it to a different input through 'Project -> "
-"Instrument Connections'"
+"The instruments '%(name1)s' and '%(name2)s' both have the same input "
+"selected (%(track)s). Please either disarm one, or connect it to a different "
+"input through 'Project -> Recording Inputs'"
 msgstr ""
-"Per gli strumenti «%s» e «%s» è stato selezionato lo stesso ingresso (%s). "
-"Disabilitare uno strumento, oppure connetterlo a un ingresso differente "
-"tramite Progetto -> Connessioni strumenti"
 
 #: ../../Jokosher/JokosherApp.py:494
 msgid ""
@@ -1135,8 +1131,8 @@ msgstr "Preparazione al mixdown del progetto"
 
 #: ../../Jokosher/JokosherApp.py:658
 #, python-format
-msgid "%d of %d seconds completed"
-msgstr "completati %d secondi su %d"
+msgid "%(progress)d of %(total)d seconds completed"
+msgstr ""
 
 #: ../../Jokosher/JokosherApp.py:757
 msgid "Choose a Jokosher project file"
@@ -1242,11 +1238,8 @@ msgstr "Plugin «gnonlin» di Gstreamer non installato."
 #: ../../Jokosher/JokosherApp.py:1538
 msgid ""
 "\n"
-"See http://jokosher.org/trac/wiki/GettingJokosher for more details.\n"
+"See http://doc.jokosher.org/Installation for more details.\n"
 msgstr ""
-"\n"
-"Consultare http://jokosher.org/trac/wiki/GettingJokosher per maggiori "
-"dettagli.\n"
 
 #: ../../Jokosher/JokosherApp.py:1541
 msgid ""
@@ -1369,7 +1362,7 @@ msgstr ""
 
 #: ../../Jokosher/MixdownProfiles.py:249
 #, python-format
-msgid "Export to %s as %s"
+msgid "Export to %(file)s as %(desc)s"
 msgstr ""
 
 #: ../../Jokosher/MixdownProfiles.py:279
@@ -1485,14 +1478,16 @@ msgstr ""
 msgid "Zoom the timeline"
 msgstr "Ingrandisce la linea temporale"
 
-#: ../../Jokosher/TimeLine.py:422
+#: ../../Jokosher/TimeLine.py:423
 #, python-format
-msgid "Timeline, %d bars, %d beats and %d ticks in"
+msgid "Timeline, %(bars)d bars, %(beats)d beats and %(ticks)d ticks in"
 msgstr ""
 
-#: ../../Jokosher/TimeLine.py:424
+#: ../../Jokosher/TimeLine.py:427
 #, python-format
-msgid "Timeline, %d hours, %d minutes, %d seconds and %d milliseconds in"
+msgid ""
+"Timeline, %(hours)d hours, %(mins)d minutes, %(secs)d seconds and %(millis)d "
+"milliseconds in"
 msgstr ""
 
 #: ../../Jokosher/TimeLineBar.py:58 ../../Jokosher/TimeLineBar.py:367
@@ -1618,6 +1613,26 @@ msgstr "Violino"
 #: i18n.instr.h:18
 msgid "Vocal"
 msgstr "Voce"
+
+#~ msgid ""
+#~ "The instruments '%s' and '%s' both have the same input selected (%s). "
+#~ "Please either disarm one, or connect it to a different input through "
+#~ "'Project -> Instrument Connections'"
+#~ msgstr ""
+#~ "Per gli strumenti «%s» e «%s» è stato selezionato lo stesso ingresso (%"
+#~ "s). Disabilitare uno strumento, oppure connetterlo a un ingresso "
+#~ "differente tramite Progetto -> Connessioni strumenti"
+
+#~ msgid "%d of %d seconds completed"
+#~ msgstr "completati %d secondi su %d"
+
+#~ msgid ""
+#~ "\n"
+#~ "See http://jokosher.org/trac/wiki/GettingJokosher for more details.\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Consultare http://jokosher.org/trac/wiki/GettingJokosher per maggiori "
+#~ "dettagli.\n"
 
 #~ msgid "<b>Audio Playback Device</b>"
 #~ msgstr "<b>Dispositivo riproduzione audio</b>"
