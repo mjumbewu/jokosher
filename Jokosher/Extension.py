@@ -912,8 +912,16 @@ class ExtensionAPI:
 		
 		Parameters:
 			function --	the function that will receive the motification
+			
+		Returns:
+			0 = end of stream handler successfully added
+			1 = no project currently open
 		"""
-		self.mainapp.project.AddEndOfStreamHandler(function)
+		if self.mainapp.project:
+			self.mainapp.project.AddEndOfStreamHandler(function)
+			return 0
+		else:
+			return 1
 		
 	#____________________________________________________________________	
 
@@ -924,8 +932,17 @@ class ExtensionAPI:
 		
 		Parameters:
 			function -- the function to remove
+		
+		Returns:
+			0 = end of stream handler successfully removed
+			1 = no project currently open
 		"""
-		self.mainapp.project.RemoveEndOfStreamHandler(function)
+		if self.mainapp.project:
+			self.mainapp.project.RemoveEndOfStreamHandler(function)
+			return 0
+		else:
+			return 1
+		
 		
 	#____________________________________________________________________	
 
@@ -992,8 +1009,12 @@ class ExtensionAPI:
 		
 		Returns:
 			tuple of the current position as (hours, minutes, seconds, milliseconds).
+			None - no project is currently open
 		"""
-		return self.mainapp.project.transport.GetPositionAsHoursMinutesSeconds()
+		if self.mainapp.project:
+			return self.mainapp.project.transport.GetPositionAsHoursMinutesSeconds()
+		else:
+			return None
 	#_____________________________________________________________________
 	
 API = None

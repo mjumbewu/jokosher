@@ -180,7 +180,7 @@ class Minimal:
 		
 		formatString = "<span font_desc='Sans Bold 12'>%01d:%02d:%02d:%03d</span>"
 		pos = self.API.get_position_as_hours_minutes_seconds()
-		if pos != self.currentPosition:
+		if pos and pos != self.currentPosition:
 			self.timeLabel.set_markup(formatString % pos)
 			self.currentPosition = pos
 			
