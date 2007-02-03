@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: jokosher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-02 22:13-0500\n"
+"POT-Creation-Date: 2007-02-03 12:13-0500\n"
 "PO-Revision-Date: 2006-11-05 05:04+0000\n"
 "Last-Translator: Jerome S. Gotangco <jgotangco@ubuntu.com>\n"
 "Language-Team: Tagalog <tl@li.org>\n"
@@ -17,42 +17,38 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../../Jokosher/Jokosher.glade.h:1
-msgid "\n"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:3
 msgid "<b>Active effects for: </b>"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:4
+#: ../../Jokosher/Jokosher.glade.h:2
 msgid "<b>Application Start-up</b>"
 msgstr "<b>Application Start-up</b>"
 
-#: ../../Jokosher/Jokosher.glade.h:5
+#: ../../Jokosher/Jokosher.glade.h:3
 msgid "<b>Art</b>"
 msgstr "<b>Sining</b>"
 
-#: ../../Jokosher/Jokosher.glade.h:6
+#: ../../Jokosher/Jokosher.glade.h:4
 msgid "<b>Audio Output Plugin</b>"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:7
+#: ../../Jokosher/Jokosher.glade.h:5
 msgid "<b>Coding</b>"
 msgstr "<b>Coding</b>"
 
-#: ../../Jokosher/Jokosher.glade.h:8
+#: ../../Jokosher/Jokosher.glade.h:6
 msgid "<b>Documentation</b>"
 msgstr "<b>Dokumentasyon</b>"
 
-#: ../../Jokosher/Jokosher.glade.h:9
+#: ../../Jokosher/Jokosher.glade.h:7
 msgid "<b>Effect Name</b>"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:10
+#: ../../Jokosher/Jokosher.glade.h:8
 msgid "<b>Effects</b>"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:11
+#: ../../Jokosher/Jokosher.glade.h:9
 msgid ""
 "<b>Jokosher is an Open Source project that is driven by a community of "
 "contributors. To make Jokosher rock, we need your help!</b>"
@@ -61,294 +57,290 @@ msgstr ""
 "nag-aambag ng tulong. Kailangan namin ang tulong niyo para lalong gumanda "
 "ang Jokosher!</b>"
 
-#: ../../Jokosher/Jokosher.glade.h:12
+#: ../../Jokosher/Jokosher.glade.h:10
 msgid "<b>Presets for:</b>"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:13
+#: ../../Jokosher/Jokosher.glade.h:11
 msgid "<b>Recent Projects</b>"
 msgstr "<b>Mga Proyektong kailan lamang ginamit</b>"
 
-#: ../../Jokosher/Jokosher.glade.h:14
+#: ../../Jokosher/Jokosher.glade.h:12
 msgid "<b>Recorded Audio Format</b>"
 msgstr "<b>Recorded Audio Format</b>"
 
-#: ../../Jokosher/Jokosher.glade.h:15
+#: ../../Jokosher/Jokosher.glade.h:13
 msgid "<b>Recording Sample Rate</b>"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:16
+#: ../../Jokosher/Jokosher.glade.h:14
 msgid "<b>Testing</b>"
 msgstr "<b>Subukin</b>"
 
-#: ../../Jokosher/Jokosher.glade.h:17
+#: ../../Jokosher/Jokosher.glade.h:15
 msgid "<b>Time Signature</b>"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:18
+#: ../../Jokosher/Jokosher.glade.h:16
 msgid "Activate the selected effect"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:19
-msgid "Add Audio FiIe"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:20
+#: ../../Jokosher/Jokosher.glade.h:17
 msgid "Add Audio File"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:21
+#: ../../Jokosher/Jokosher.glade.h:18
 msgid "Add Instrument"
 msgstr "Magdagdag ng instrumento"
 
-#: ../../Jokosher/Jokosher.glade.h:22
+#: ../../Jokosher/Jokosher.glade.h:19
 msgid "Add a new instrument"
 msgstr "Magdagdag ng bagong instrumento"
 
-#: ../../Jokosher/Jokosher.glade.h:23
+#: ../../Jokosher/Jokosher.glade.h:20
 msgid "Add a new step:"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:24
+#: ../../Jokosher/Jokosher.glade.h:21
 msgid "Add an audio file to the project"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:25
+#: ../../Jokosher/Jokosher.glade.h:22
 msgid "Add an audio file to the selected instrument"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:26
+#: ../../Jokosher/Jokosher.glade.h:23
 msgid "Add an extension"
 msgstr "Magdagdag ng extension"
 
-#: ../../Jokosher/Jokosher.glade.h:27
+#: ../../Jokosher/Jokosher.glade.h:24
 msgid "Add an instrument"
 msgstr "Magdagdag ng instrumento"
 
-#: ../../Jokosher/Jokosher.glade.h:28
+#: ../../Jokosher/Jokosher.glade.h:25
 msgid "Add an instrument to the project"
 msgstr "Magdagdag ng instrumento sa proyekto"
 
-#: ../../Jokosher/Jokosher.glade.h:29
+#: ../../Jokosher/Jokosher.glade.h:26
 msgid "Add the selected instrument"
 msgstr "Idagdag ang napiling instrumento"
 
-#: ../../Jokosher/Jokosher.glade.h:30
+#: ../../Jokosher/Jokosher.glade.h:27
 msgid "Add this step to the current mixdown"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:31
+#: ../../Jokosher/Jokosher.glade.h:28
 msgid "Adjust the amount of beats per measure"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:32
+#: ../../Jokosher/Jokosher.glade.h:29
 msgid "Adjust the settings for the currently selected active effect"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:33
+#: ../../Jokosher/Jokosher.glade.h:30
 msgid "Arm an instrument, then click here to begin recording"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:34
+#: ../../Jokosher/Jokosher.glade.h:31
 msgid "Audio production made simple."
 msgstr "Pag-buo ng Audio ginawang simple."
 
-#: ../../Jokosher/Jokosher.glade.h:35
+#: ../../Jokosher/Jokosher.glade.h:32
 msgid "Author"
 msgstr "May-katha"
 
-#: ../../Jokosher/Jokosher.glade.h:36
+#: ../../Jokosher/Jokosher.glade.h:33
 msgid ""
 "Autodetect\n"
 "ALSA\n"
 "Custom"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:39
+#: ../../Jokosher/Jokosher.glade.h:36
 msgid "Beat value"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:40
+#: ../../Jokosher/Jokosher.glade.h:37
 msgid "Beats per measure"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:41
+#: ../../Jokosher/Jokosher.glade.h:38
 msgid "Browse for an Existing Project"
 msgstr "Maghanap ng Proyekto"
 
-#: ../../Jokosher/Jokosher.glade.h:42 ../../Jokosher/AddInstrumentDialog.py:61
+#: ../../Jokosher/Jokosher.glade.h:39 ../../Jokosher/AddInstrumentDialog.py:61
 msgid "Change Instrument Type"
 msgstr "Palitan ang tipo ng Intrumento"
 
-#: ../../Jokosher/Jokosher.glade.h:43
+#: ../../Jokosher/Jokosher.glade.h:40
 msgid "Change Jokosher preferences"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:44
+#: ../../Jokosher/Jokosher.glade.h:41
 msgid "Change the timeline"
 msgstr "Palitan ang timeline"
 
-#: ../../Jokosher/Jokosher.glade.h:45
+#: ../../Jokosher/Jokosher.glade.h:42
 msgid "Change the timeline to show bars, beats and ticks"
 msgstr "Palitan ang timeline para ipakita ang mga bars, beats at ticks"
 
-#: ../../Jokosher/Jokosher.glade.h:46
+#: ../../Jokosher/Jokosher.glade.h:43
 msgid "Change the timeline to show hours, minutes and seconds"
 msgstr "Palitan ang timeline para ipakita ang oras, minuto at segundo"
 
-#: ../../Jokosher/Jokosher.glade.h:47
+#: ../../Jokosher/Jokosher.glade.h:44
 msgid "Change type of the selected instrument"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:48
+#: ../../Jokosher/Jokosher.glade.h:45
 msgid "Choose a chain effects preset."
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:49
+#: ../../Jokosher/Jokosher.glade.h:46
 msgid "Choose an effect preset."
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:50
+#: ../../Jokosher/Jokosher.glade.h:47
 msgid "Choose one or more instruments to add to your project."
 msgstr ""
 "Pumili ng isa o higit pang mga instrumento para idagdag sa iyong proyekto"
 
-#: ../../Jokosher/Jokosher.glade.h:51
+#: ../../Jokosher/Jokosher.glade.h:48
 msgid "Click and hold to fast forward"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:52
+#: ../../Jokosher/Jokosher.glade.h:49
 msgid "Click and hold to rewind"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:53
+#: ../../Jokosher/Jokosher.glade.h:50
 msgid "Close the current project"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:54
+#: ../../Jokosher/Jokosher.glade.h:51
 msgid "Close the extension manager"
 msgstr "Isarado ang extension manager"
 
-#: ../../Jokosher/Jokosher.glade.h:55
+#: ../../Jokosher/Jokosher.glade.h:52
 msgid "Configure Instrument Effects"
 msgstr "Ayusin ang mga epekto ng Instrumento"
 
-#: ../../Jokosher/Jokosher.glade.h:56
+#: ../../Jokosher/Jokosher.glade.h:53
 msgid "Copy the current selection"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:57
+#: ../../Jokosher/Jokosher.glade.h:54
 msgid "Create a New Project"
 msgstr "Gumawa ng Bagong Proyekto"
 
-#: ../../Jokosher/Jokosher.glade.h:58
+#: ../../Jokosher/Jokosher.glade.h:55
 msgid "Create a new project"
 msgstr "Lumikha ng bagong proyekto"
 
-#: ../../Jokosher/Jokosher.glade.h:59
+#: ../../Jokosher/Jokosher.glade.h:56
 msgid "Create the project"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:60
+#: ../../Jokosher/Jokosher.glade.h:57
 msgid "Cut the current selection"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:61
+#: ../../Jokosher/Jokosher.glade.h:58
 msgid "Deactivate the currently selected active effect"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:62
+#: ../../Jokosher/Jokosher.glade.h:59
 msgid "Delete the current selection"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:63
+#: ../../Jokosher/Jokosher.glade.h:60
 msgid "Delete the currently active effects preset"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:64
+#: ../../Jokosher/Jokosher.glade.h:61
 msgid "Delete the currently active preset"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:65
+#: ../../Jokosher/Jokosher.glade.h:62
 msgid "Device:"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:66
+#: ../../Jokosher/Jokosher.glade.h:63
 msgid "Don't add an instrument"
 msgstr "Huwag magdagdag ng instrumento"
 
-#: ../../Jokosher/Jokosher.glade.h:67
+#: ../../Jokosher/Jokosher.glade.h:64
 msgid "Don't create the project"
 msgstr "Huwag likhain ang proyekto"
 
-#: ../../Jokosher/Jokosher.glade.h:68
+#: ../../Jokosher/Jokosher.glade.h:65
 msgid "Don't open anything"
 msgstr "Huwag magbukas ng kahit na ano"
 
-#: ../../Jokosher/Jokosher.glade.h:69
+#: ../../Jokosher/Jokosher.glade.h:66
 msgid "Don't show this on start-up"
 msgstr "Huwag nang ipakita ito sa pag-simula"
 
-#: ../../Jokosher/Jokosher.glade.h:70
+#: ../../Jokosher/Jokosher.glade.h:67
 msgid "Double-click an active effect to adjust its settings"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:71
+#: ../../Jokosher/Jokosher.glade.h:68
 msgid "Double-click an effect to activate it"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:72
+#: ../../Jokosher/Jokosher.glade.h:69
 msgid "Double-click on a recent project to open"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:73
+#: ../../Jokosher/Jokosher.glade.h:70
 msgid "Drawing icons, images and other art."
 msgstr "Gumuhit ng mga icons, larawan at iba pang sining."
 
-#: ../../Jokosher/Jokosher.glade.h:74
+#: ../../Jokosher/Jokosher.glade.h:71
 msgid "Edit Jokosher preferences"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:75
+#: ../../Jokosher/Jokosher.glade.h:72
 msgid ""
 "Enter a name for your project and select a folder to store the project in:"
 msgstr ""
 "Maglagay ng pangalan para sa inyong proyekto at pumili ng polder kung saan "
 "iluluklok ang proyekto:"
 
-#: ../../Jokosher/Jokosher.glade.h:76
+#: ../../Jokosher/Jokosher.glade.h:73
 msgid "Enter the author's name"
 msgstr "Ilagay ang pangalan ng taga-likha"
 
-#: ../../Jokosher/Jokosher.glade.h:77
+#: ../../Jokosher/Jokosher.glade.h:74
 msgid "Enter the project's name"
 msgstr "Ilagay ang pangalan ng proyekto"
 
-#: ../../Jokosher/Jokosher.glade.h:78
+#: ../../Jokosher/Jokosher.glade.h:75
 msgid "Ex_tensions"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:79
+#: ../../Jokosher/Jokosher.glade.h:76
 msgid "Export current project to an audio file"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:80
+#: ../../Jokosher/Jokosher.glade.h:77
 msgid "FastForward"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:81
+#: ../../Jokosher/Jokosher.glade.h:78
 msgid "Find and open an existing project"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:82
+#: ../../Jokosher/Jokosher.glade.h:79
 msgid "Find out how you can help"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:83
+#: ../../Jokosher/Jokosher.glade.h:80
 msgid "Folder"
 msgstr "Polder"
 
-#: ../../Jokosher/Jokosher.glade.h:85
+#: ../../Jokosher/Jokosher.glade.h:82
 msgid ""
 "Iestyn Pryce <dylunio@gmail.com>\n"
 "Jerome S. Gotangco <jgotangco@ubuntu.com>\n"
@@ -411,355 +403,355 @@ msgid ""
 "daave <fan.d.liu@gmail.com>\n"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:145
+#: ../../Jokosher/Jokosher.glade.h:142
 msgid "Listen to these effects"
 msgstr "Pakinggan ang mga epekto na ito"
 
-#: ../../Jokosher/Jokosher.glade.h:146
+#: ../../Jokosher/Jokosher.glade.h:143
 msgid "Manage instrument recording inputs"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:147 ../../Jokosher/JokosherApp.py:607
+#: ../../Jokosher/Jokosher.glade.h:144 ../../Jokosher/JokosherApp.py:607
 msgid "Mixdown Project"
 msgstr "I-Mixdown ang Proyekto"
 
-#: ../../Jokosher/Jokosher.glade.h:148
+#: ../../Jokosher/Jokosher.glade.h:145
 msgid "Mixdown the project"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:149
+#: ../../Jokosher/Jokosher.glade.h:146
 msgid "Mixing"
 msgstr "Mixing"
 
-#: ../../Jokosher/Jokosher.glade.h:150
+#: ../../Jokosher/Jokosher.glade.h:147
 msgid "Mixing Project"
 msgstr "Kasalukyang Mini-mix na ang Proyekto"
 
-#: ../../Jokosher/Jokosher.glade.h:151
+#: ../../Jokosher/Jokosher.glade.h:148
 msgid "Mixing Workspace"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:152
+#: ../../Jokosher/Jokosher.glade.h:149
 msgid "Move the selected active effect down on the effects chain"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:153
+#: ../../Jokosher/Jokosher.glade.h:150
 msgid "Move the selected active effect up on the effects chain"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:154 ../../Jokosher/NewProjectDialog.py:92
+#: ../../Jokosher/Jokosher.glade.h:151 ../../Jokosher/NewProjectDialog.py:92
 msgid "New Project"
 msgstr "Bagong Proyekto"
 
-#: ../../Jokosher/Jokosher.glade.h:155
+#: ../../Jokosher/Jokosher.glade.h:152
 msgid "Open Selected Project"
 msgstr "Buksan ang napiling Proyekto"
 
-#: ../../Jokosher/Jokosher.glade.h:156
+#: ../../Jokosher/Jokosher.glade.h:153
 msgid "Open a recent project"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:157
+#: ../../Jokosher/Jokosher.glade.h:154
 msgid "Open an existing project"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:158
+#: ../../Jokosher/Jokosher.glade.h:155
 msgid "Open most recent project"
 msgstr "Buksan ang huling proyekto na ginamit"
 
-#: ../../Jokosher/Jokosher.glade.h:159
+#: ../../Jokosher/Jokosher.glade.h:156
 msgid "Open the extension manager"
 msgstr "Buksan ang extension manager"
 
-#: ../../Jokosher/Jokosher.glade.h:160
+#: ../../Jokosher/Jokosher.glade.h:157
 msgid "Output:"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:161
+#: ../../Jokosher/Jokosher.glade.h:158
 msgid "Paste the contents of the clipboard"
 msgstr "Idikit ang nilalaman ng clipboard"
 
-#: ../../Jokosher/Jokosher.glade.h:162
+#: ../../Jokosher/Jokosher.glade.h:159
 msgid "Pipeline:"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:163
+#: ../../Jokosher/Jokosher.glade.h:160
 msgid "Preferences"
 msgstr "Mga Kagustuhan"
 
-#: ../../Jokosher/Jokosher.glade.h:164
+#: ../../Jokosher/Jokosher.glade.h:161
 msgid "Project Name"
 msgstr "Pangalan ng Proyekto"
 
-#: ../../Jokosher/Jokosher.glade.h:165
+#: ../../Jokosher/Jokosher.glade.h:162
 msgid "Quit Jokosher"
 msgstr "Isarado ang Jokosher"
 
-#: ../../Jokosher/Jokosher.glade.h:166
+#: ../../Jokosher/Jokosher.glade.h:163
 msgid "Record"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:167
+#: ../../Jokosher/Jokosher.glade.h:164
 msgid "Recording"
 msgstr "Nagre-rekord"
 
-#: ../../Jokosher/Jokosher.glade.h:168
+#: ../../Jokosher/Jokosher.glade.h:165
 msgid "Recording Workspace"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:169
+#: ../../Jokosher/Jokosher.glade.h:166
 msgid "Redo"
 msgstr "Gawin muli"
 
-#: ../../Jokosher/Jokosher.glade.h:170
+#: ../../Jokosher/Jokosher.glade.h:167
 msgid "Redo the previous edit"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:171
+#: ../../Jokosher/Jokosher.glade.h:168
 msgid "Remove Selected Instrument"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:172
+#: ../../Jokosher/Jokosher.glade.h:169
 msgid "Remove the currently selected extension"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:173
+#: ../../Jokosher/Jokosher.glade.h:170
 msgid "Remove the selected instrument"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:174
+#: ../../Jokosher/Jokosher.glade.h:171
 msgid "Report a bug in Jokosher"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:175
+#: ../../Jokosher/Jokosher.glade.h:172
 msgid "Rewind"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:176
+#: ../../Jokosher/Jokosher.glade.h:173
 msgid "Save a copy of the current project"
 msgstr "Magluklok ng kopya ng pangkasalukuyang proyekto"
 
-#: ../../Jokosher/Jokosher.glade.h:177
+#: ../../Jokosher/Jokosher.glade.h:174
 msgid "Save preferences and close"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:178
+#: ../../Jokosher/Jokosher.glade.h:175
 msgid "Save the current project"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:179
+#: ../../Jokosher/Jokosher.glade.h:176
 msgid "Save the current settings as a preset"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:180
+#: ../../Jokosher/Jokosher.glade.h:177
 msgid "Save the currently active effects as a preset"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:181
+#: ../../Jokosher/Jokosher.glade.h:178
 #: ../../Jokosher/MixdownProfileDialog.py:271
 msgid "Save these mixdown settings"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:182
+#: ../../Jokosher/Jokosher.glade.h:179
 msgid "Save your selections and close this window"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:183
+#: ../../Jokosher/Jokosher.glade.h:180
 msgid "Search:"
 msgstr "Hanapin:"
 
-#: ../../Jokosher/Jokosher.glade.h:184
+#: ../../Jokosher/Jokosher.glade.h:181
 msgid "Select A Folder"
 msgstr "Pumili ng Polder"
 
-#: ../../Jokosher/Jokosher.glade.h:185
+#: ../../Jokosher/Jokosher.glade.h:182
 msgid "Select a project to open from the list"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:186
+#: ../../Jokosher/Jokosher.glade.h:183
 msgid "Set Time Signature"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:187
+#: ../../Jokosher/Jokosher.glade.h:184
 msgid "Settings"
 msgstr "Settings"
 
-#: ../../Jokosher/Jokosher.glade.h:188
+#: ../../Jokosher/Jokosher.glade.h:185
 msgid "Show as _Bars, Beats, Ticks"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:189
+#: ../../Jokosher/Jokosher.glade.h:186
 msgid "Show as _Hours, Minutes, Seconds"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:190
+#: ../../Jokosher/Jokosher.glade.h:187
 msgid "Show welcome dialog"
 msgstr "Ipakita ang diyalogo ng pagbati."
 
-#: ../../Jokosher/Jokosher.glade.h:191
+#: ../../Jokosher/Jokosher.glade.h:188
 msgid "Start Jokosher with an empty project"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:192
+#: ../../Jokosher/Jokosher.glade.h:189
 msgid "Start playback"
 msgstr "Simulan ang playback"
 
-#: ../../Jokosher/Jokosher.glade.h:193
+#: ../../Jokosher/Jokosher.glade.h:190
 msgid "Steps to mix down $PROJECTNAME"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:194
+#: ../../Jokosher/Jokosher.glade.h:191
 msgid "Stop"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:195
+#: ../../Jokosher/Jokosher.glade.h:192
 msgid "Stop mixing the project"
 msgstr "Itigil ang pag-mix ng proyekto"
 
-#: ../../Jokosher/Jokosher.glade.h:196
+#: ../../Jokosher/Jokosher.glade.h:193
 msgid "Stop playback"
 msgstr "Itigil ang playback"
 
-#: ../../Jokosher/Jokosher.glade.h:197 ../../Jokosher/JokosherApp.py:170
+#: ../../Jokosher/Jokosher.glade.h:194 ../../Jokosher/JokosherApp.py:170
 #: ../../Jokosher/JokosherApp.py:323
 msgid "Switch to the Mixing workspace"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:198 ../../Jokosher/JokosherApp.py:336
+#: ../../Jokosher/Jokosher.glade.h:195 ../../Jokosher/JokosherApp.py:336
 msgid "Switch to the Recording workspace"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:199
+#: ../../Jokosher/Jokosher.glade.h:196
 msgid "Testing Jokosher, and submitting bugs."
 msgstr "Pagsusuri sa Jokosher at pag-sumite ng mga pagkakamali"
 
-#: ../../Jokosher/Jokosher.glade.h:200
+#: ../../Jokosher/Jokosher.glade.h:197
 msgid "Type here to search for an instrument"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:201
+#: ../../Jokosher/Jokosher.glade.h:198
 msgid "Undo"
 msgstr "Ibalik"
 
-#: ../../Jokosher/Jokosher.glade.h:202
+#: ../../Jokosher/Jokosher.glade.h:199
 msgid "Undo the last edit"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:203
+#: ../../Jokosher/Jokosher.glade.h:200
 msgid ""
 "Use the combo boxes below to select which input is used with which "
 "instrument."
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:204
+#: ../../Jokosher/Jokosher.glade.h:201
 msgid "Use these effect settings"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:205
+#: ../../Jokosher/Jokosher.glade.h:202
 msgid "Use these effects"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:206
+#: ../../Jokosher/Jokosher.glade.h:203
 msgid "Use these settings"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:207
+#: ../../Jokosher/Jokosher.glade.h:204
 msgid "User manual contents"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:208
+#: ../../Jokosher/Jokosher.glade.h:205
 msgid "Version information, credits and licence"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:209
+#: ../../Jokosher/Jokosher.glade.h:206
 msgid "Visit Jokosher's online forums"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:210
+#: ../../Jokosher/Jokosher.glade.h:207
 msgid "Welcome to Jokosher!"
 msgstr "Mabuhay ito ang Jokosher!"
 
-#: ../../Jokosher/Jokosher.glade.h:211
+#: ../../Jokosher/Jokosher.glade.h:208
 msgid "Workspaces"
 msgstr "Workspaces"
 
-#: ../../Jokosher/Jokosher.glade.h:212
+#: ../../Jokosher/Jokosher.glade.h:209
 msgid "Writing code and features in Python."
 msgstr "Magsulat ng code at mga dagdag na mga katangian sa Python"
 
-#: ../../Jokosher/Jokosher.glade.h:213
+#: ../../Jokosher/Jokosher.glade.h:210
 msgid "Writing simple to read documentation."
 msgstr "Magsulat ng dokumentasyon na madaling basahin at maintindihan"
 
-#: ../../Jokosher/Jokosher.glade.h:214
+#: ../../Jokosher/Jokosher.glade.h:211
 msgid "_Add Instrument"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:215
+#: ../../Jokosher/Jokosher.glade.h:212
 msgid "_Contributing to Jokosher"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:216
+#: ../../Jokosher/Jokosher.glade.h:213
 msgid "_Edit"
 msgstr "I-_Edit"
 
-#: ../../Jokosher/Jokosher.glade.h:217
+#: ../../Jokosher/Jokosher.glade.h:214
 msgid "_File"
 msgstr "_Talaksan"
 
-#: ../../Jokosher/Jokosher.glade.h:218
+#: ../../Jokosher/Jokosher.glade.h:215
 msgid "_Help"
 msgstr "_Tulong"
 
-#: ../../Jokosher/Jokosher.glade.h:219
+#: ../../Jokosher/Jokosher.glade.h:216
 msgid "_Instrument"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:220
+#: ../../Jokosher/Jokosher.glade.h:217
 msgid "_Manage Extensions"
 msgstr "_Manage ang mga Extension"
 
-#: ../../Jokosher/Jokosher.glade.h:221
+#: ../../Jokosher/Jokosher.glade.h:218
 msgid "_Mixdown"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:222 ../../Jokosher/JokosherApp.py:1849
+#: ../../Jokosher/Jokosher.glade.h:219 ../../Jokosher/JokosherApp.py:1849
 msgid "_Mixdown Project"
 msgstr "_Mixdown and Proyekto"
 
-#: ../../Jokosher/Jokosher.glade.h:223
+#: ../../Jokosher/Jokosher.glade.h:220
 msgid "_Online Forums"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:224
+#: ../../Jokosher/Jokosher.glade.h:221
 msgid "_Project"
 msgstr "_Proyekto"
 
-#: ../../Jokosher/Jokosher.glade.h:225
+#: ../../Jokosher/Jokosher.glade.h:222
 msgid "_Recent Projects"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:226
+#: ../../Jokosher/Jokosher.glade.h:223
 msgid "_Recording Inputs"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:227
+#: ../../Jokosher/Jokosher.glade.h:224
 msgid "_Report Bug..."
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:228
+#: ../../Jokosher/Jokosher.glade.h:225
 msgid "_Save these settings"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:229
+#: ../../Jokosher/Jokosher.glade.h:226
 msgid "_Time Format"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:230
+#: ../../Jokosher/Jokosher.glade.h:227
 msgid "autoaudiosink"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:231
+#: ../../Jokosher/Jokosher.glade.h:228
 msgid "version 0.9"
 msgstr ""
 
@@ -1457,7 +1449,7 @@ msgid "The URI scheme given is either invalid or not supported"
 msgstr "Ang URI scheme na binigay ay inbalido o kaya ay hindi suportado"
 
 #: ../../Jokosher/NewProjectDialog.py:119
-msgid "Unable load required Gstreamer plugin:"
+msgid "Unable to load required Gstreamer plugin:"
 msgstr ""
 
 #: ../../Jokosher/NewProjectDialog.py:126
