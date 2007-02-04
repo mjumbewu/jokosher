@@ -65,7 +65,9 @@ if cookieJar is not None:
 		opener = ClientCookie.build_opener(ClientCookie.HTTPCookieProcessor(cookieJar))
 		ClientCookie.install_opener(opener)
 
+# XML node paths as returned by the Freesound search
 SAMPLE_ATTRIBUTES = {
+	"author" : "/freesound/sample/user/name",
 	"date": "/freesound/sample/date",
 	"originalFilename": "/freesound/sample/originalFilename",
 	"image": "/freesound/sample/image",
@@ -107,7 +109,7 @@ class Sample:
 		req = Request("http://freesound.iua.upf.edu/samplesViewSingleXML.php?id=%s" % self.sid)
 		try:
 			handle = urlopen(req)
-		except URLError:
+		except:
 			# TODO: handle URL problems
 			pass
 		data = handle.read()
@@ -116,7 +118,7 @@ class Sample:
 			try:
 				setattr(self, attribute, Evaluate(xpath, dom)[0].firstChild.nodeValue)
 			except:
-				setattr(self, attribute,None)
+				setattr(self, attribute, None)
 				
 	#_____________________________________________________________________
 
@@ -167,7 +169,7 @@ class Freesound:
 				urllib.urlencode(data))
 		try:
 			handle = urlopen(req)
-		except URLError:
+		except:
 			# TODO: handle URL problems
 			self.loggedIn = False
 			return
@@ -207,15 +209,17 @@ class Freesound:
 				urllib.urlencode(query))
 		try:
 			handle = urlopen(req)
-		except URLError:
+		except:
 			# TODO: handle URL problems
 			print "Search: URL Error"
 			pass
 		data = handle.read()
 		dom = minidom.parseString(data)
+		
 		if dom.documentElement.nodeName != "freesound":
 			raise "Search failed"
-		return [Sample(x.getAttribute("id")) for x in
+		
+		return [Sample(sample.getAttribute("id")) for sample in
 				dom.getElementsByTagName('sample')]
 	
 	#_____________________________________________________________________

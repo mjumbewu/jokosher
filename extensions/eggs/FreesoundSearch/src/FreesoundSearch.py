@@ -95,6 +95,7 @@ class FreesoundSearch:
 		signals = {
 			"on_buttonFind_clicked" : self.OnFind,
 			"on_buttonClose_clicked" : self.OnClose,
+			"on_spinbuttonResults_value_changed" : self.OnChangeResults,
 			"on_destroy" : self.OnDestroy
 		}
 		wTree.signal_autoconnect(signals)
@@ -104,13 +105,17 @@ class FreesoundSearch:
 		self.scrollResults = wTree.get_widget("scrolledwindowResults")
 		self.statusbar = wTree.get_widget("statusbar")
 		self.imageHeader = wTree.get_widget("imageHeader")
+		self.eventBoxHeader = wTree.get_widget("eventboxHeader")
 		self.checkDescriptions = wTree.get_widget("checkbuttonDescriptions")
 		self.checkTags = wTree.get_widget("checkbuttonTags")
 		self.checkFilenames = wTree.get_widget("checkbuttonFilenames")
 		self.checkUsernames = wTree.get_widget("checkbuttonUsernames")
+		self.spinResults = wTree.get_widget("spinbuttonResults")
 		self.window = wTree.get_widget("FreesoundSearchWindow")
 		self.vboxResults = gtk.VBox(spacing=6)
 		
+		self.eventBoxHeader.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse("#ffffff"))
+		self.spinResults.set_value(self.maxResults)
 		self.entryFind.set_activates_default(True)
 		self.buttonFind.set_flags(gtk.CAN_DEFAULT)
 		self.buttonFind.grab_default()
@@ -122,8 +127,7 @@ class FreesoundSearch:
 		
 		# set up the result fetching thread
 		searchThread = SearchFreesoundThread(self.vboxResults, self.statusbar,
-											 username, password, self.searchQueue,
-											 self.maxResults)
+											 username, password, self.searchQueue)
 		searchThread.setDaemon(True) # thread exits when Jokosher exits
 		searchThread.start()
 		
@@ -136,37 +140,32 @@ class FreesoundSearch:
 		Parameters:
 			button -- reserved for GTK callbacks. Don't use explicitly.
 		"""
-		# TODO: very very ugly way to handle this =/
-		if self.checkDescriptions.get_active():
-			descriptions = "1"
-		else:
-			descriptions = "0"
-		
-		if self.checkTags.get_active():
-			tags = "1"
-		else:
-			tags = "0"
-			
-		if self.checkFilenames.get_active():
-			filenames = "1"
-		else:
-			filenames = "0"
-			
-		if self.checkUsernames.get_active():
-			usernames = "1"
-		else:
-			usernames = "0"
-		
-		query = {
+		# small proxy dict to convert booleans into 1 or 0
+		proxy = {True: "1", False: "0"}
+		query = [
+				{
 				"search" : self.entryFind.get_text(),
-				"searchDescriptions" : descriptions,
-				"searchTags" : tags,
-				"searchFilenames" : filenames,
-				"searchUsernames" : usernames
-				}
+				"searchDescriptions" : proxy[self.checkDescriptions.get_active()],
+				"searchTags" : proxy[self.checkTags.get_active()],
+				"searchFilenames" : proxy[self.checkFilenames.get_active()],
+				"searchUsernames" : proxy[self.checkUsernames.get_active()]
+				},
+				self.maxResults
+				]
 		
 		self.searchQueue.put(query)
+		
+	#_____________________________________________________________________
 	
+	def OnChangeResults(self, spinbutton):
+		"""
+		Changes maximum amount of query results displayed.
+		
+		Parameters:
+			spinbutton -- gtk.SpinButton whose value changed.
+		"""
+		self.maxResults = int(spinbutton.get_value())
+		
 	#_____________________________________________________________________
 	
 	def OnClose(self, window):
@@ -293,7 +292,7 @@ class SearchFreesoundThread(threading.Thread):
 	
 	#_____________________________________________________________________
 	
-	def __init__(self, container, statusbar, username, password, queue, maxResults):
+	def __init__(self, container, statusbar, username, password, queue):
 		"""
 		Creates a new instance of SearchFreesoundThread.
 		
@@ -303,7 +302,6 @@ class SearchFreesoundThread(threading.Thread):
 			username -- Freesound account username.
 			password -- Freesound account password.
 			queue -- thread queue with the query text.
-			maxResults -- maximum number of query matches to display.
 		"""
 		super(SearchFreesoundThread, self).__init__()
 		self.container = container
@@ -313,7 +311,6 @@ class SearchFreesoundThread(threading.Thread):
 		self.password = password
 		self.queue = queue
 		self.query = None
-		self.maxResults = maxResults
 		self.player = gst.element_factory_make("playbin", "player")
 	
 	#_____________________________________________________________________
@@ -328,6 +325,9 @@ class SearchFreesoundThread(threading.Thread):
 		"""
 		evBox = gtk.EventBox()
 		hzBox = gtk.HBox()
+		
+		hzBox.set_border_width(6)
+		hzBox.set_spacing(6)
 		evBox.add(hzBox)
 		evBox.drag_source_set(gtk.gdk.BUTTON1_MASK, [('text/plain', 0, 88)],gtk.gdk.ACTION_COPY)
 		evBox.connect("drag_data_get", self.ReturnData, sample)
@@ -338,9 +338,10 @@ class SearchFreesoundThread(threading.Thread):
 		
 		try:
 			imgfile = urllib.urlretrieve(sample.image, tmpnam)
-		except IOError:
+		except:
 			# TODO: handle the url problems
 			pass
+		
 		image = gtk.Image()
 		image.set_from_pixbuf(gtk.gdk.pixbuf_new_from_file_at_size(tmpnam, 50, 50))
 		os.unlink(tmpnam)
@@ -349,11 +350,17 @@ class SearchFreesoundThread(threading.Thread):
 		sampleDesc = gtk.Label(sample.description)
 		sampleDesc.set_width_chars(50)
 		sampleDesc.set_line_wrap(True)
+		sampleDesc.set_alignment(0, 0.5)
 		hzBox.add(sampleDesc)
 		
 		playButton = gtk.Button(stock=gtk.STOCK_MEDIA_PLAY)
 		playButton.connect("clicked", self.PlayStreamedSample, sample.previewURL)
 		hzBox.add(playButton)
+		
+		# set the correct packaging properties for the hzBox children
+		# (widget, expand, fill, padding, pack_type)
+		hzBox.set_child_packing(sampleDesc, True, True, 0, gtk.PACK_START)
+		hzBox.set_child_packing(playButton, True, False, 0, gtk.PACK_START)
 		
 		evBox.show_all()
 		self.container.add(evBox)
@@ -399,7 +406,7 @@ class SearchFreesoundThread(threading.Thread):
 		It displays a label to inform the user.
 		"""
 		self.EmptyContainer()
-		self.container.add(gtk.Label(_("No results for %s") % self.query["search"]))
+		self.container.add(gtk.Label(_("No results for %s") % self.query[0]["search"]))
 		self.container.show_all()
 	
 	#_____________________________________________________________________
@@ -412,14 +419,20 @@ class SearchFreesoundThread(threading.Thread):
 
 	#_____________________________________________________________________
 	
-	def SetFetchingStatus(self):
+	def SetFetchingStatus(self, counter, maxResults):
 		"""
-		Sets the fetching status bar message.
+		Sets the current fetching status bar message to display a
+		percentage.
+		
+		Parameters:
+			counter -- number of samples already added to the results.
+			maxResults -- number of maximum results to display.
 		"""
-		self.statusbar.push(0, _("Fetching samples... please wait"))
+		self.statusbar.pop(0)
+		self.statusbar.push(0, _("Fetching samples... %s%%") % int((counter*100)/maxResults))
 		
 	#_____________________________________________________________________
-		
+				
 	def SetIdleStatus(self):
 		"""
 		Clears the status bar messages.
@@ -434,23 +447,41 @@ class SearchFreesoundThread(threading.Thread):
 		
 		Parameters:
 			query -- query to look for in the Freesound database.
+					It's a list with the following format:
+					[
+					{
+					search : "string to match",
+					searchDescriptions : "1 or 0",
+					searchTags : "1 or 0",
+					searchFilenames : "1 or 0",
+					searchUsernames : "1 or 0"
+					},
+					maxResults
+					]
+			
+			*the fields labeled "1 or 0" define whether those fields
+			should be included in the search.
 		"""
 		gobject.idle_add(self.EmptyContainer)
 		gobject.idle_add(self.SetSearchingStatus)
 		
 		self.query = query
-		samples = self.freeSound.Search(query)
+		samples = self.freeSound.Search(query[0])
+		counter = 0
+		
 		if not samples:
 			gobject.idle_add(self.NoResults)
 			gobject.idle_add(self.SetIdleStatus)
 		else:
 			gobject.idle_add(self.EmptyContainer)
 			gobject.idle_add(self.SetIdleStatus)
-			gobject.idle_add(self.SetFetchingStatus)
+			gobject.idle_add(self.SetFetchingStatus, counter, query[1])
 			
-			for sample in samples[:self.maxResults]:
+			for sample in samples[:query[1]]:
 				sample.Fetch()
 				gobject.idle_add(self.AddSample, sample)
+				counter += 1
+				gobject.idle_add(self.SetFetchingStatus, counter, query[1])
 				
 			gobject.idle_add(self.SetIdleStatus)
 
