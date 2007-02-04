@@ -150,6 +150,8 @@ class VUWidget(gtk.DrawingArea):
 		if self.message_id:
 			self.mainview.ClearStatusBar(self.message_id)
 			self.message_id = None
+		if self.fader_active:
+			self.fader_active = False
 
 	#_____________________________________________________________________
 
