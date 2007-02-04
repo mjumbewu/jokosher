@@ -99,7 +99,13 @@ class VUWidget(gtk.DrawingArea):
 			mouse -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		if self.__YPosOverVolumeHandle(mouse.y):
-			self.fader_active = True
+			response = gtk.gdk.pointer_grab(self.window, False, self.get_events(), None, None, mouse.time)
+			self.fader_active = (response == gtk.gdk.GRAB_SUCCESS)
+			self.queue_draw()
+		
+		#Returning True is very important!! It tells other not to handle the mouse event for us.
+		#Without it weird thing will happen; pointer grabs will not work, and button-release-events will sometimes not be sent, etc.
+		return True
 	
 	#_____________________________________________________________________
 	
@@ -115,15 +121,20 @@ class VUWidget(gtk.DrawingArea):
 		if not self.message_id:
 			self.message_id = self.mainview.SetStatusBar(_("<b>Drag</b> the <b>slider</b> to alter volume levels"))
 		
-		self.fader_hover = self.__YPosOverVolumeHandle(mouse.y)
-			
+		oldHover = self.fader_hover
+		self.fader_hover = (0 < mouse.x < self.get_allocation().width) and self.__YPosOverVolumeHandle(mouse.y)
+		
 		if self.fader_active:
 			rect = self.get_allocation()
 			volume = 1. - ((mouse.y - self._VH_HEIGHT/2) /  (rect.height-self._VH_HEIGHT))
 			volume  = max(volume, 0.)
 			volume  = min(volume, 1.)
 			self.mixerstrip.SetVolume(volume * self._MAX_VOLUME)
+		
+		if self.fader_active or oldHover != self.fader_hover:
 			self.queue_draw()
+		
+		return True
 	
 	#_____________________________________________________________________
 	
@@ -135,7 +146,12 @@ class VUWidget(gtk.DrawingArea):
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 			mouse -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-		self.fader_active = False
+		if self.fader_active:
+			self.fader_active = False
+			gtk.gdk.pointer_ungrab(mouse.time)
+			self.queue_draw()
+		
+		return True
 		
 	#_____________________________________________________________________
 	
@@ -150,8 +166,12 @@ class VUWidget(gtk.DrawingArea):
 		if self.message_id:
 			self.mainview.ClearStatusBar(self.message_id)
 			self.message_id = None
-		if self.fader_active:
-			self.fader_active = False
+		
+		if self.fader_hover:
+			self.fader_hover = False
+			self.queue_draw()
+			
+		return True
 
 	#_____________________________________________________________________
 
