@@ -35,6 +35,8 @@ class VUWidget(gtk.DrawingArea):
 	_VH_BORDER_WIDTH = 5
 	""" the highest value allowed to be set for the volume (lowest is always zero)"""
 	_MAX_VOLUME = 2
+	"""the amount to move the volume up or down by when scrolling or pressing the arrow keys"""
+	_VOLUME_STEP_AMOUNT = 0.2
 	
 	""" Both text height and width below depend on the font size. 
 	If you change the font size, figure out the new pixel sizes and update these values."""
@@ -56,6 +58,16 @@ class VUWidget(gtk.DrawingArea):
 	_LEVEL_GRADIENT_TOP_ORGBA = (0, 1, 0, 0, 1)
 	_TEXT_RGBA = (0., 0., 0., 1.)
 	
+	"""
+	   The events we wish to receive after we grab the mouse (and it is no longer above this widget)
+	   If events other than mouse event are put in here, it may cause the program to crash.
+	"""
+	_POINTER_GRAB_EVENTS = (
+			gtk.gdk.POINTER_MOTION_MASK |
+			gtk.gdk.BUTTON_RELEASE_MASK |
+			gtk.gdk.BUTTON_PRESS_MASK |
+			gtk.gdk.LEAVE_NOTIFY_MASK )
+	
 	#_____________________________________________________________________
 	
 	def __init__(self, mixerstrip, mainview):
@@ -70,10 +82,11 @@ class VUWidget(gtk.DrawingArea):
 		self.mixerstrip = mixerstrip
 		self.mainview = mainview
 		
-		self.set_events(	gtk.gdk.POINTER_MOTION_MASK |
-							gtk.gdk.BUTTON_RELEASE_MASK |
-							gtk.gdk.BUTTON_PRESS_MASK |
-							gtk.gdk.LEAVE_NOTIFY_MASK )
+		self.set_events(self._POINTER_GRAB_EVENTS | 
+				gtk.gdk.KEY_PRESS_MASK |
+				gtk.gdk.SCROLL_MASK )
+		
+		self.set_flags(gtk.CAN_FOCUS)
 		
 		self.connect("button-press-event", self.OnMouseDown)
 		self.connect("button-release-event", self.OnMouseUp)
@@ -81,7 +94,10 @@ class VUWidget(gtk.DrawingArea):
 		self.connect("leave_notify_event", self.OnMouseLeave)
 		self.connect("configure_event", self.OnSizeChanged)
 		self.connect("expose-event", self.OnDraw)
+		self.connect("key_press_event", self.OnKeyPress)
+		self.connect("scroll-event", self.OnScroll)
 		
+				
 		self.fader_active = False
 		self.fader_hover = False
 		self.message_id = None
@@ -99,9 +115,11 @@ class VUWidget(gtk.DrawingArea):
 			mouse -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		if self.__YPosOverVolumeHandle(mouse.y):
-			response = gtk.gdk.pointer_grab(self.window, False, self.get_events(), None, None, mouse.time)
+			response = gtk.gdk.pointer_grab(self.window, False, self._POINTER_GRAB_EVENTS, None, None, mouse.time)
 			self.fader_active = (response == gtk.gdk.GRAB_SUCCESS)
 			self.queue_draw()
+		
+		self.grab_focus()
 		
 		#Returning True is very important!! It tells other not to handle the mouse event for us.
 		#Without it weird thing will happen; pointer grabs will not work, and button-release-events will sometimes not be sent, etc.
@@ -173,6 +191,63 @@ class VUWidget(gtk.DrawingArea):
 			
 		return True
 
+	#_____________________________________________________________________
+	
+	def OnKeyPress(self, widget, event):
+		"""
+		Moves the volume up or down based on the key presses.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+			mouse -- reserved for GTK callbacks, don't use it explicitly.
+		"""
+		
+		key = gtk.gdk.keyval_name(event.keyval)
+		if key == "Up" or key == "Down":
+			self.ChangeVolumeByStep(increaseVolume=(key == "Up"))
+			return True
+		return False
+		
+	#_____________________________________________________________________
+	
+	def OnScroll(self, widget, event):
+		"""
+		Moves the volume up or down based on the scroll motion.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+			mouse -- reserved for GTK callbacks, don't use it explicitly.
+		"""
+		if self.fader_active:
+			return False
+		
+		if event.direction == gtk.gdk.SCROLL_UP or event.direction == gtk.gdk.SCROLL_DOWN:
+			self.ChangeVolumeByStep(increaseVolume=(event.direction == gtk.gdk.SCROLL_UP))
+			#Don't make the handle glow if it has moved out from under the mouse
+			self.fader_hover = self.fader_hover = (0 < event.x < self.get_allocation().width) and self.__YPosOverVolumeHandle(event.y)
+			return True
+		
+		return False
+	
+	#_____________________________________________________________________
+	
+	def ChangeVolumeByStep(self, increaseVolume):
+		"""
+		Moves the volume up or down based on the volume step size.
+		
+		Parameters:
+			increaseVolume -- if True, volume will be increased, otherwise it will be decreased.
+		"""
+		if increaseVolume:
+			volume = self.mixerstrip.GetVolume() + self._VOLUME_STEP_AMOUNT
+		else:
+			volume = self.mixerstrip.GetVolume() - self._VOLUME_STEP_AMOUNT
+		
+		volume = max(0, min(self._MAX_VOLUME, volume))
+		self.mixerstrip.SetVolume(volume)
+		
+		self.queue_draw()
+		
 	#_____________________________________________________________________
 
 	def OnSizeChanged(self, obj, evt):

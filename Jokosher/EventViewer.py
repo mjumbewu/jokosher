@@ -640,7 +640,7 @@ class EventViewer(gtk.DrawingArea):
 			Handle manipulation of events via the keyboard.
 
 			Parameters:
-			 	widget -- reserved for GTK callbacks, don't use it explicitly.
+				widget -- reserved for GTK callbacks, don't use it explicitly.
 				event -- GTK keyboard event that fired this method call.
 				
 			Returns:
