@@ -75,7 +75,7 @@ class Instrument(Monitored):
 		# Select first input device as default to avoid a GStreamer bug which causes
 		# large amounts of latency with the ALSA 'default' device.
 		try:
-			self.input = AlsaDevices.GetAlsaList("capture").values()[1]
+			self.input = AlsaDevices.GetAlsaList("capture").keys()[1]
 		except: 
 			self.input = "default"
 	
