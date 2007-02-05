@@ -164,16 +164,25 @@ class MainApp:
 		self.isPlaying = False
 		self.isPaused = False
 		self.exportFilename = None
+		
+		# create tooltip messages for buttons
+		self.recTipEnabled = _("Stop recording")
+		self.recTipDisabled = _("Arm an instrument, then click here to begin recording")
+		self.recStopTipEnabled = _("Stop recording")
+		self.recStopTipDisabled = _("Stop playback")
+		self.recordingViewEnabledTip = _("Currently working in the Recording workspace")
+		self.recordingViewDisabledTip = _("Switch to the Recording workspace")
+		self.mixingViewEnabledTip = _("Currently working in the Mixing workspace")
+		self.mixingViewDisabledTip = _("Switch to the Mixing workspace")
 
-		# Intialise context sensitive tooltips for workspaces buttons
-		self.contextTooltips.set_tip(self.recordingButton,_("Currently working in the Recording workspace"),None)
-		self.contextTooltips.set_tip(self.compactMixButton,_("Switch to the Mixing workspace"),None)
+		# Intialise context sensitive tooltips for workspace buttons
+		self.contextTooltips.set_tip(self.recordingButton, self.recordingViewEnabledTip, None)
+		self.contextTooltips.set_tip(self.compactMixButton, self.mixingViewDisabledTip, None)
 		
 		# set sensitivity
 		self.SetGUIProjectLoaded()
 
 		# Connect up the forward and reverse handlers. We can't use the autoconnect as we need child items
-		
 		innerbtn = self.reverse.get_children()[0]
 		innerbtn.connect("pressed", self.OnRewindPressed)
 		innerbtn.connect("released", self.OnRewindReleased)
@@ -233,7 +242,6 @@ class MainApp:
 		EffectPresets.EffectPresets()
 		Globals.PopulateEncoders()
 
-
 		if loadExtensions:
 			# Load extensions -- this should probably go somewhere more appropriate
 			self.extensionManager = ExtensionManager.ExtensionManager(self)
@@ -248,7 +256,6 @@ class MainApp:
 
 		# command line options override preferences so check for them first,
 		# then preferences, then default to the welcome dialog
-
 		if startuptype == 2: # welcomedialog cmdline switch
 			WelcomeDialog.WelcomeDialog(self)
 			return
@@ -319,8 +326,8 @@ class MainApp:
 		"""
 		if hasattr(self, "recording"):
 			self.OnChangeView(self.recording, self.MODE_RECORDING)
-			self.contextTooltips.set_tip(self.recordingButton,_("Currently working in the Recording workspace"),None)
-			self.contextTooltips.set_tip(self.compactMixButton,_("Switch to the Mixing workspace"),None)
+			self.contextTooltips.set_tip(self.recordingButton, self.recordingViewEnabledTip, None)
+			self.contextTooltips.set_tip(self.compactMixButton, self.mixingViewDisabledTip, None)
 
 	#_____________________________________________________________________
 	
@@ -333,8 +340,9 @@ class MainApp:
 		"""
 		if hasattr(self, "compactmix"):
 			self.OnChangeView(self.compactmix, self.MODE_COMPACT_MIX)
-			self.contextTooltips.set_tip(self.recordingButton,_("Switch to the Recording workspace"),None)
-			self.contextTooltips.set_tip(self.compactMixButton,_("Currently working in the Mixing workspace"),None)			
+			self.contextTooltips.set_tip(self.recordingButton, self.recordingViewDisabledTip, None)
+			self.contextTooltips.set_tip(self.compactMixButton, self.mixingViewEnabledTip, None)		
+				
 	#_____________________________________________________________________
 	
 	def OnDestroy(self, widget=None, event=None):
@@ -429,7 +437,6 @@ class MainApp:
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-		
 		# toggling the record button invokes this function so we use the settingButtons var to 
 		# indicate that we're just changing the GUI state and dont need to do anything code-wise
 		if self.settingButtons:
@@ -594,6 +601,8 @@ class MainApp:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		MixdownProfileDialog.MixdownProfileDialog(self.project, self, profile)
+		
+	#_____________________________________________________________________
 		
 	def OnExport_old(self, widget=None):
 		"""
@@ -947,7 +956,6 @@ class MainApp:
 					undo = an undo operation was performed.
 			*extra -- parameters of additional information depending on the change parameter.
 		"""
-
 		if change == "play" or change == "pause" or change == "record" or change == "stop":
 			self.isPlaying = (self.project.audioState == self.project.AUDIO_PLAYING)
 			self.isPaused = (self.project.audioState == self.project.AUDIO_PAUSED)
@@ -965,6 +973,14 @@ class MainApp:
 			self.record.set_active(self.isRecording)
 			self.play.set_active(self.isPlaying)
 			self.settingButtons = False
+			
+			# update the tooltips depending on the current recording state
+			if self.isRecording:
+				self.record.set_tooltip(self.contextTooltips, self.recTipEnabled, None)
+				self.stop.set_tooltip(self.contextTooltips, self.recStopTipEnabled, None)
+			else:
+				self.record.set_tooltip(self.contextTooltips, self.recTipDisabled, None)
+				self.stop.set_tooltip(self.contextTooltips, self.recStopTipDisabled, None)
 			
 			self.compactmix.StartUpdateTimeout()
 			
@@ -1856,6 +1872,7 @@ class MainApp:
 			self.filemenu.get_submenu().insert(mixdown_as_header,insert_position + 1)
 		
 	#_____________________________________________________________________
+	
 #=========================================================================
 
 def main():
