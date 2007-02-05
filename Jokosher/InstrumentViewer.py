@@ -236,6 +236,9 @@ class InstrumentViewer(gtk.EventBox):
 		Returns:
 			True -- continue GTK signal propagation. *CHECK*
 		"""
+		if self.instrument.project.GetIsRecording():
+			return
+		
 		if 'GDK_CONTROL_MASK' in event.state.value_names:
 			self.instrument.SetSelected(True)
 		else:
@@ -403,7 +406,8 @@ class InstrumentViewer(gtk.EventBox):
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 			event -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-		if not self.window: return
+		if not self.window or self.instrument.project.GetIsRecording():
+			return
 		if (event.type == gtk.gdk.ENTER_NOTIFY):
 			self.window.set_cursor(gtk.gdk.Cursor(gtk.gdk.XTERM))
 		else:
@@ -438,9 +442,10 @@ class InstrumentViewer(gtk.EventBox):
 		"""
 		Globals.debug("props button pressed")
 		if not self.effectsDialog:
-			self.effectsDialog = InstrumentEffectsDialog.InstrumentEffectsDialog(self.instrument,
-																				 self.OnInstrumentEffectsDestroyed,
-																				 self.mainview.icon)
+			self.effectsDialog = InstrumentEffectsDialog.InstrumentEffectsDialog(
+					self.instrument,
+					self.OnInstrumentEffectsDestroyed,
+					self.mainview.icon)
 		else:
 			self.effectsDialog.BringWindowToFront()
 

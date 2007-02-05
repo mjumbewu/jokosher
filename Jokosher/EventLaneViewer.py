@@ -82,9 +82,6 @@ class EventLaneViewer(gtk.EventBox):
 		#The position where the last mouse click was
 		self.mouseDownPos = [0,0]
 		
-		# True if the cursor is inside a child event object
-		self.childActive = False
-		
 		self.set_events(	gtk.gdk.POINTER_MOTION_MASK |
 							gtk.gdk.BUTTON_RELEASE_MASK |
 							gtk.gdk.BUTTON_PRESS_MASK )
@@ -133,7 +130,7 @@ class EventLaneViewer(gtk.EventBox):
 		wnd.draw_line(gc, x, 0, x, self.allocation.height)
 		
 		# Draw edit position
-		if self.highlightCursor and not self.childActive:
+		if self.highlightCursor:
 			col = gc.get_colormap().alloc_color("#0000FF")
 			gc.set_foreground(col)
 			wnd.draw_line(gc, int(self.highlightCursor), 0, int(self.highlightCursor), self.allocation.height)
@@ -163,7 +160,6 @@ class EventLaneViewer(gtk.EventBox):
 						# remove the event's drawer if it's showing
 						if widget.drawer.parent == self.fixed:
 							self.fixed.remove(widget.drawer)
-						self.childActive = False
 						#destroy the object
 						widget.Destroy()
 					else:
@@ -212,13 +208,15 @@ class EventLaneViewer(gtk.EventBox):
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 			mouse -- GTK mouse event that fired this method call.
 		"""
-		if self.childActive:
-			return
+		if self.project.GetIsRecording():
+			return True
 
 		self.mouseDownPos = [mouse.x, mouse.y]
 		
+		if self.popupIsActive:
+			self.OnMenuDone()
 		# Create context menu on RMB 
-		if mouse.button == 3:
+		elif mouse.button == 3:
 			menu = gtk.Menu()
 		
 			audioimg = None
@@ -251,10 +249,18 @@ class EventLaneViewer(gtk.EventBox):
 
 			menu.popup(None, None, None, mouse.button, mouse.time)
 			menu.connect("selection-done", self.OnMenuDone)
+		
+		if 'GDK_CONTROL_MASK' in mouse.state.value_names:
+			self.instrument.SetSelected(True)
+		else:
+			self.project.ClearEventSelections()
+			self.project.SelectInstrument(self.instrument)
+			
+		return True
 			
 	#_____________________________________________________________________
 	
-	def OnMenuDone(self, widget):
+	def OnMenuDone(self, widget=None):
 		"""
 		Hides the right-click context menu after the user has selected one
 		of its options or clicked elsewhere.
@@ -276,6 +282,9 @@ class EventLaneViewer(gtk.EventBox):
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 			mouse -- GTK mouse event that fired this method call.
 		"""
+		if self.project.GetIsRecording():
+			return True
+		
 		# display status bar message if has not already been displayed
 		if not self.messageID: 
 			self.messageID = self.mainview.SetStatusBar(_("<b>Right-click</b> for more options."))

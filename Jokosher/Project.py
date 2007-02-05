@@ -434,6 +434,14 @@ class Project(Monitored):
 	
 	#_____________________________________________________________________
 	
+	def GetIsRecording(self):
+		"""
+		Returns true if the Project is in the recording state.
+		"""
+		return self.audioState == self.AUDIO_RECORDING
+	
+	#_____________________________________________________________________
+	
 	def GetIsExporting(self):
 		"""
 		Returns true if the Project is not in the stopped state,

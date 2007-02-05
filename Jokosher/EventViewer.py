@@ -128,6 +128,8 @@ class EventViewer(gtk.DrawingArea):
 		
 		self.fadeMarkersContext = None
 		
+		self.splitImg = gtk.gdk.pixbuf_new_from_file(os.path.join(Globals.IMAGE_PATH, "icon_split.png"))
+		
 		# drawer: this will probably be its own object in time
 		self.drawer = gtk.HBox()
 		trimButton = gtk.Button()
@@ -208,7 +210,7 @@ class EventViewer(gtk.DrawingArea):
 		context.stroke()
 		
 		#Don't draw any cut markers, cause we cant cut while recording!
-		if self.event.isRecording:
+		if self.event.instrument.project.GetIsRecording():
 			return
 		
 		# Draw the highlight cursor if it's over us and we're not dragging a fadeMarker
@@ -218,8 +220,7 @@ class EventViewer(gtk.DrawingArea):
 			context.set_source_rgb(*self._HIGHLIGHT_POSITION_RGB)
 			context.set_dash([3,1],1)
 			context.stroke()
-			splitImg = gtk.gdk.pixbuf_new_from_file(os.path.join(Globals.IMAGE_PATH, "icon_split.png"))
-			widget.window.draw_pixbuf(None, splitImg, 0, 0, int(self.highlightCursor) - int(splitImg.get_width() / 2) , 0)
+			widget.window.draw_pixbuf(None, self.splitImg, 0, 0, int(self.highlightCursor) - int(self.splitImg.get_width() / 2) , 0)
 			
 		# Overlay an extra rect if there is a selection
 		self.fadeMarkersContext = None
@@ -426,10 +427,10 @@ class EventViewer(gtk.DrawingArea):
 			mouse -- GTK mouse event that fired this method call.
 			
 		Returns:
-			True -- continue GTK signal propagation. *CHECK*
+			True -- stop GTK signal propagation.
 		"""
-		if not self.window:
-			return
+		if not self.window or self.event.instrument.project.GetIsRecording():
+			return True #don't let the intrument viewer handle it
 		# display status bar message if has not already been displayed
 		if not self.messageID: 
 			self.messageID = self.mainview.SetStatusBar(_("To <b>Split, Double-Click</b> the wave - To <b>Select, Shift-Click</b> and drag the mouse"))
@@ -505,7 +506,6 @@ class EventViewer(gtk.DrawingArea):
 		else:
 			self.highlightCursor = mouse.x
 		
-		self.lane.childActive = True
 		self.queue_draw()
 		return True
 
@@ -532,8 +532,8 @@ class EventViewer(gtk.DrawingArea):
 			True -- continue GTK signal propagation. *CHECK*
 		"""		
 		#Don't allow moving, etc while recording!
-		if self.event.isRecording:
-			return
+		if self.event.instrument.project.GetIsRecording():
+			return True #don't let the instrument viewer handle this click
 
 		self.grab_focus()
 		
@@ -606,11 +606,10 @@ class EventViewer(gtk.DrawingArea):
 				False -- pass this event on to other handlers because we don't want it.
 		"""
 		#Don't allow moving, etc while recording!
-		if self.event.isRecording:
+		if self.event.instrument.project.GetIsRecording():
 			return False
 
 		self.event.SetSelected(True)
-		self.lane.childActive = True
 
 		return True
 
@@ -628,7 +627,6 @@ class EventViewer(gtk.DrawingArea):
 				True -- continue GTK signal propagation after processing the event.
 		"""
 		self.event.SetSelected(False)
-		self.lane.childActive = False
 		self.highlightCursor = None
 
 		return True
@@ -909,7 +907,6 @@ class EventViewer(gtk.DrawingArea):
 			self.mainview.ClearStatusBar(self.messageID)
 			self.messageID = None
 		self.highlightCursor = None
-		self.lane.childActive = False
 		self.queue_draw()
 		
 	#_____________________________________________________________________
@@ -962,7 +959,6 @@ class EventViewer(gtk.DrawingArea):
 			event -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		# delete event
-		self.lane.childActive = False
 		self.event.Delete()
 		# Hide the drawer
 		if self.drawer.parent == self.lane.fixed:

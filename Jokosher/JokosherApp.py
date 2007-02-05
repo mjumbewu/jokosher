@@ -1224,6 +1224,9 @@ class MainApp:
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
+		if self.project.GetIsRecording():
+			return
+		
 		# list to store instruments to delete, so we don't modify the list while we are iterating
 		instrOrEventList = []
 		eventList = []
