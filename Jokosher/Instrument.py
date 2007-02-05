@@ -78,7 +78,7 @@ class Instrument(Monitored):
 			self.input = AlsaDevices.GetAlsaList("capture").values()[1]
 		except: 
 			self.input = "default"
-
+	
 		self.inTrack = 0	# Input track to record from
 		self.output = ""
 		self.recordingbin = None
@@ -531,8 +531,7 @@ class Instrument(Monitored):
 		event.start = self.project.transport.GetPosition()
 		event.isRecording = True
 		event.name = _("Recorded audio")
-		event.file = "%s_%d_%d.ogg"%(os.path.join(self.path, self.name.replace(" ", "_")), self.id, int(time.time()))
-		event.file = Globals.FAT32SafeFilename(event.file)
+		event.file = "%s_%d_%d.ogg" % (os.path.join(self.path, Globals.FAT32SafeFilename(self.name)), self.id, int(time.time()))
 		#must add it to the instrument's list so that an update of the event lane will not remove the widget
 		self.events.append(event)
 		return event
