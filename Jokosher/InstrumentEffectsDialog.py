@@ -189,12 +189,21 @@ class InstrumentEffectsDialog:
 		self._LoadInstrumentPresets()
 				
 		# append the categories and their image to the categories combo box
-		for category in range(len(categories)):
+		for index, category in enumerate(categories):
 			# skip the Broken category
-			if category != 0:
-				imageFile = categories[category][1]
-				icon = gtk.gdk.pixbuf_new_from_file(os.path.join(Globals.IMAGE_PATH, imageFile))
-				self.modelCategories.append([icon, categories[category][0]])
+			if index == 0:
+				continue
+				
+			for effect in self.modelEffects:
+				#If there is at least one effect in this category; always include unclassified
+				if effect[3] == category[0] or index == 1:	
+					imageFile = category[1]
+					icon = gtk.gdk.pixbuf_new_from_file(os.path.join(Globals.IMAGE_PATH, imageFile))
+					self.modelCategories.append([icon, category[0]])
+					break
+		
+		#set the first one active
+		self.comboCategories.set_active(0)
 		
 		# this says if the project is playing, so we know to toggle the
 		# play button in the dialog	
