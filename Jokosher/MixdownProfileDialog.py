@@ -54,12 +54,19 @@ class MixdownProfileDialog:
 		self.res.signal_autoconnect(self.signals)
 
 		self.window = self.res.get_widget("MixdownProfileDialog")
+		self.scrolledSteps = self.res.get_widget("scrolledwindow")
 
 		self.parent = parent
 		self.window.set_icon(self.parent.icon)
-		self.actionstable = self.res.get_widget("actionstable")
+		self.actionstable = gtk.Table(rows=1, columns=2)
 		
-		## centre the MixdownProfileDialog on the main jokosher window
+		# set up the table for displaying the results
+		self.actionstable.set_row_spacings(6)
+		self.actionstable.set_col_spacings(6)
+		self.actionstable.set_border_width(6)
+		self.scrolledSteps.add_with_viewport(self.actionstable)
+		
+		# centre the MixdownProfileDialog on the main jokosher window
 		self.window.set_transient_for(self.parent.window)
 		
 		# replace $PROJECTNAME with the project name in the window label
@@ -117,7 +124,7 @@ class MixdownProfileDialog:
 		action.update_button()
 		tooltips.set_tip(button, _("Edit this mixdown step settings"))
 		button.connect("clicked", self.ConfigureButton)
-		self.actionstable.attach(button, 0, 1, rows-1, rows)
+		self.actionstable.attach(button, 0, 1, rows-1, rows, xoptions=gtk.FILL|gtk.EXPAND, yoptions=gtk.FILL|gtk.EXPAND)
 		
 		buttondel = gtk.Button(stock=gtk.STOCK_DELETE)
 		buttondel.mixdownaction = action
@@ -125,9 +132,8 @@ class MixdownProfileDialog:
 		buttondel.connect("clicked", self.DeleteButton)
 		buttondel.actionbutton = button
 		if rows == 1:
-			buttondel.set_sensitive(False) # you can't delete the first export
-			
-		self.actionstable.attach(buttondel, 1, 2, rows-1, rows)
+			buttondel.set_sensitive(False) # you can't delete the first export	
+		self.actionstable.attach(buttondel, 1, 2, rows-1, rows, xoptions=gtk.FILL|gtk.EXPAND, yoptions=gtk.FILL|gtk.EXPAND)
 		
 		self.actionstable.show_all()
 		self.actions.append(action)
