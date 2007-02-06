@@ -47,7 +47,8 @@ class MixdownProfileDialog:
 		self.signals = {
 			"on_mixdownbutton_clicked" : self.OnMixdown,
 			"on_savesettingsbutton_clicked" : self.OnSaveSettings,
-			"on_addstepbutton_clicked" : self.OnAddStep
+			"on_addstepbutton_clicked" : self.OnAddStep,
+			"on_cancelbutton_clicked" : self.OnClose
 		}
 		
 		self.res.signal_autoconnect(self.signals)
@@ -56,16 +57,16 @@ class MixdownProfileDialog:
 
 		self.parent = parent
 		self.window.set_icon(self.parent.icon)
+		self.actionstable = self.res.get_widget("actionstable")
+		
 		## centre the MixdownProfileDialog on the main jokosher window
 		self.window.set_transient_for(self.parent.window)
-		
-		self.actionstable = self.res.get_widget("actionstable")
 		
 		# replace $PROJECTNAME with the project name in the window label
 		projectnamelabel = self.res.get_widget("lbl_projectname")
 		txt = projectnamelabel.get_text()
-		txt = txt.replace("$PROJECTNAME", self.project.name)
-		projectnamelabel.set_text(txt)
+		txt = "<b>%s</b>" % txt.replace("$PROJECTNAME", self.project.name)
+		projectnamelabel.set_markup(txt)
 
 		# populate actions list
 		self.possible_action_classes = [
@@ -87,7 +88,7 @@ class MixdownProfileDialog:
 			export_action = MixdownProfiles.ExportAsFileType(self.project)
 			self.AddAction(export_action)
 			
-		# If a profile was supplied, show a delete button for it
+		# TODO: if a profile was supplied, show a delete button for it
 		
 		self.window.show_all()
 
@@ -108,16 +109,19 @@ class MixdownProfileDialog:
 		else:
 			rows += 1
 			self.actionstable.resize(rows, cols)
-			
+		
+		tooltips = gtk.Tooltips()
 		button = gtk.Button()
 		button.mixdownaction = action
 		action.button = button
 		action.update_button()
+		tooltips.set_tip(button, _("Edit this mixdown step settings"))
 		button.connect("clicked", self.ConfigureButton)
 		self.actionstable.attach(button, 0, 1, rows-1, rows)
 		
 		buttondel = gtk.Button(stock=gtk.STOCK_DELETE)
 		buttondel.mixdownaction = action
+		tooltips.set_tip(buttondel, _("Remove this mixdown step"))
 		buttondel.connect("clicked", self.DeleteButton)
 		buttondel.actionbutton = button
 		if rows == 1:
@@ -206,7 +210,7 @@ class MixdownProfileDialog:
 		"""
 		active = self.combo_newstep.get_active()
 		
-		if active == 0:
+		if active == -1:
 			return
 		
 		action_class = self.possible_action_classes[active-1]
@@ -345,7 +349,7 @@ class MixdownProfileDialog:
 						action.config[name] = value
 				# and add the action to this profile
 				self.AddAction(action)
-
+				
 	#_____________________________________________________________________
 	
 #=========================================================================
