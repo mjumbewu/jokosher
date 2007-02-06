@@ -84,9 +84,8 @@ class MixerStrip(gtk.Frame):
 		
 		self.pan.connect("value-changed", self.OnPanChanged)
 		self.pan.connect("button-press-event", self.OnPanClicked)
-		self.pan.connect("button-release-event", self.OnPanReleased)
-		self.pan.connect("key-release-event", self.OnPanReleased)
-		self.pan.connect("leave-notify-event", self.OnPanReleased)
+		self.pan.connect("key-release-event", self.OnTimedStatusBarClear)
+		self.pan.connect("button-release-event", self.OnTimedStatusBarClear)
 		self.panbox.pack_start(self.leftlab, False)
 		self.panbox.pack_start(self.pan, True)
 		self.panbox.pack_start(self.rightlab, False)
@@ -335,24 +334,25 @@ class MixerStrip(gtk.Frame):
 		"""
 		if mouse.button == 3:
 			slider.set_value(0.0)
+			return True
 			
 	#_____________________________________________________________________
 	
-	def OnPanReleased(self, slider, mouse):
+	def OnTimedStatusBarClear(self, slider, event):
 		"""
-		Clears the statusbar messages when the mouse button is released.
+		Waits for a few seconds after the key press has finished,
+		then clears the status bar message.
 		
 		Parameters:
 			slider -- panning slider control.
-			mouse -- mouse event that fired this callback.
+			event -- the key event that fired this callback.
 		"""
 		# clear any existing status bar messages
 		if self.statusbarMsgID is not None:
-			self.mainview.ClearStatusBar(self.statusbarMsgID)
+			gobject.timeout_add(2000, self.mainview.ClearStatusBar, self.statusbarMsgID)
 			self.statusbarMsgID = None
-		
-	#_____________________________________________________________________
 	
+	#_____________________________________________________________________
 #=========================================================================
 
 #create signal to be emitted by MixerStrip
