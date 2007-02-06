@@ -15,7 +15,6 @@ import gtk
 from EventViewer import *
 import os.path
 import gettext
-import urlparse # To split up URI's
 import urllib # To decode URI's
 import Globals # To get projectfolder
 _ = gettext.gettext
@@ -411,20 +410,8 @@ class EventLaneViewer(gtk.EventBox):
 		start = (x/self.project.viewScale) + self.project.viewStart
 		# Splitlines to separate the uri's, unquote to decode the uri-encoding ('%20' -> ' ')
 		uris = [urllib.unquote(uri) for uri in selection.data.splitlines()]
-		for uri in uris:
-			# Parse the uri, and continue only if it is pointing to a local file
-			(scheme, domain, file, params, query, fragment) = urlparse.urlparse(uri, "file")
-			if scheme == "file":
-				event = self.instrument.addEventFromFile(start, file, True) # True: copy
-				event.MoveButDoNotOverlap(event.start)
-				event.SetProperties()
-				start = event.start # Should improve performance with very large file-lists
-			elif scheme == 'http':
-				# download and import. This should probably be done in the background.
-				event = self.instrument.addEventFromURL(start, uri)
-				event.MoveButDoNotOverlap(event.start)
-				event.SetProperties()
-				start = event.start
+		self.instrument.AddEventsFromList(start, uris, True)
+		
 		context.finish(True, False, time)
 		return True
 	

@@ -16,6 +16,7 @@ import pygst
 pygst.require("0.10")
 import gst
 import os, time, shutil
+import urlparse # To split up URI's
 import gobject
 import Event
 import UndoSystem
@@ -577,7 +578,7 @@ class Instrument(Monitored):
 		
 		Parameters:
 			start -- the offset time in seconds for the first event.
-			fileList -- paths to the Event files.
+			fileList -- paths or URIs to the Event files.
 			copyfile --	True = copy the files to Project's audio directory.
 						False = don't copy the files to the Project's audio directory.
 		"""
@@ -586,12 +587,19 @@ class Instrument(Monitored):
 			
 		if not undoAction:
 			undoAction = UndoSystem.AtomicUndoAction()
-		
-		for file in fileList:
-			event = self.addEventFromFile(start, file, copyFile, _undoAction_=undoAction)
-			event.MoveButDoNotOverlap(event.start)
-			event.SetProperties()
-			start += event.duration
+			
+		for uri in fileList:
+			# Parse the uri, and continue only if it is pointing to a local file
+			(scheme, domain, file, params, query, fragment) = urlparse.urlparse(uri, "file")
+			if scheme == "file":
+				event = self.addEventFromFile(start, file, copyFile, _undoAction_=undoAction)
+			else:
+				event = self.addEventFromURL(start, uri, _undoAction_=undoAction)
+			
+			if event:
+				event.MoveButDoNotOverlap(event.start)
+				event.SetProperties()
+				start += event.duration
 	
 	#_____________________________________________________________________
 
@@ -620,7 +628,12 @@ class Instrument(Monitored):
 				newfile = "%s_%d_%d" % (basecomp[0], self.id, int(time.time()))
 
 			audio_file = os.path.join(self.path, newfile)
-			shutil.copyfile(file,audio_file)
+			
+			try:
+				shutil.copyfile(file, audio_file)
+			except IOError:
+				raise UndoSystem.CancelUndoCommand()
+				
 			self.project.deleteOnCloseAudioFiles.append(audio_file)
 			
 			file = audio_file
@@ -672,7 +685,11 @@ class Instrument(Monitored):
 		self.events.append(ev)
 		
 		Globals.debug("Event data downloading...")
-		ev.CopyAndGenerateWaveform(url)
+		result = ev.CopyAndGenerateWaveform(url)
+		
+		if not result:
+			self.events.remove(ev)
+			raise UndoSystem.CancelUndoCommand()
 		
 		self.temp = ev.id
 		self.StateChanged()
@@ -1113,4 +1130,4 @@ class Instrument(Monitored):
 			self.DeleteEvent(rightTrimEvent.id, _undoAction_=undoAction)
 	
 	#_____________________________________________________________________
-#=========================================================================	
+#=========================================================================

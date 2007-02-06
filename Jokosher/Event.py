@@ -648,6 +648,10 @@ class Event(Monitored):
 		Copies the audio file to the new file location and reads the levels
 		at the same time.
 		"""
+		if not gst.element_make_from_uri(gst.URI_SRC, uri):
+			#This means that here is no gstreamer src element on the system that can handle this URI type.
+			return False
+		
 		pipe = """%s ! tee name=mytee mytee. ! queue ! filesink location=%s """ +\
 		"""mytee. ! queue ! decodebin ! audioconvert ! level interval=%d message=true ! fakesink""" 
 		pipe = pipe % (uri, self.file.replace(" ", "\ "), self.LEVEL_INTERVAL * gst.SECOND)
@@ -665,6 +669,8 @@ class Event(Monitored):
 		self.isLoading = True
 
 		self.loadingPipeline.set_state(gst.STATE_PLAYING)
+		
+		return True
 		
 	#_____________________________________________________________________
 	

@@ -14,7 +14,7 @@ import InstrumentViewer
 import TimeLineBar
 import Globals
 import gettext
-import urllib, urlparse
+import urllib
 
 #=========================================================================
 
@@ -460,15 +460,7 @@ class RecordingView(gtk.Frame):
 		"""
 		# Splitlines to separate the uri's, unquote to decode the uri-encoding ('%20' -> ' ')
 		uris = [urllib.unquote(uri) for uri in selection.data.splitlines()]
-		fileList = []
-		for uri in uris:
-			# Parse the uri, and continue only if it is pointing to a local file
-			(scheme, domain, file, params, query, fragment) = urlparse.urlparse(uri, "file")
-			if scheme == "file":
-				fileList.append(file)
-		
-		if fileList:
-			self.project.AddInstrumentAndEvents(fileList, True) # True: copy
+		self.project.AddInstrumentAndEvents(uris, True) # True: copy
 		
 		context.finish(True, False, time)
 		self.Update()
