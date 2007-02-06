@@ -57,6 +57,16 @@ class MainApp:
 							1 = Do not display the welcome dialog or open a the previous project.
 							2 = Display the welcome dialog.
 		"""
+		# create tooltip messages for buttons
+		self.recTipEnabled = _("Stop recording")
+		self.recTipDisabled = _("Arm an instrument, then click here to begin recording")
+		self.recStopTipEnabled = _("Stop recording")
+		self.recStopTipDisabled = _("Stop playback")
+		self.recordingViewEnabledTip = _("Currently working in the Recording workspace")
+		self.recordingViewDisabledTip = _("Switch to the Recording workspace")
+		self.mixingViewEnabledTip = _("Currently working in the Mixing workspace")
+		self.mixingViewDisabledTip = _("Switch to the Mixing workspace")
+		
 		gtk.glade.bindtextdomain(Globals.LOCALE_APP, Globals.LOCALE_PATH)
 		gtk.glade.textdomain(Globals.LOCALE_APP)
 
@@ -164,16 +174,6 @@ class MainApp:
 		self.isPlaying = False
 		self.isPaused = False
 		self.exportFilename = None
-		
-		# create tooltip messages for buttons
-		self.recTipEnabled = _("Stop recording")
-		self.recTipDisabled = _("Arm an instrument, then click here to begin recording")
-		self.recStopTipEnabled = _("Stop recording")
-		self.recStopTipDisabled = _("Stop playback")
-		self.recordingViewEnabledTip = _("Currently working in the Recording workspace")
-		self.recordingViewDisabledTip = _("Switch to the Recording workspace")
-		self.mixingViewEnabledTip = _("Currently working in the Mixing workspace")
-		self.mixingViewDisabledTip = _("Switch to the Mixing workspace")
 
 		# Intialise context sensitive tooltips for workspace buttons
 		self.contextTooltips.set_tip(self.recordingButton, self.recordingViewEnabledTip, None)
