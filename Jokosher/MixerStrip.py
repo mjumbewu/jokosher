@@ -306,15 +306,11 @@ class MixerStrip(gtk.Frame):
 		Parameters:
 			slider -- panning slider control.
 		"""
-		value = slider.get_value()
+		value = round(slider.get_value(), 2)
 		
 		# clear any existing status bar messages
 		if self.statusbarMsgID is not None:
 			self.mainview.ClearStatusBar(self.statusbarMsgID)
-		
-		# fix a rare case of a very small value
-		if 0 < value < 0.00001:
-			value = 0
 		
 		# set the statusbar message depending on the current pan value
 		if value < 0:
