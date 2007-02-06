@@ -124,7 +124,7 @@ class MixdownProfileDialog:
 		action.update_button()
 		tooltips.set_tip(button, _("Edit this mixdown step settings"))
 		button.connect("clicked", self.ConfigureButton)
-		self.actionstable.attach(button, 0, 1, rows-1, rows, xoptions=gtk.FILL|gtk.EXPAND, yoptions=gtk.FILL|gtk.EXPAND)
+		self.actionstable.attach(button, 0, 1, rows-1, rows, xoptions=gtk.FILL|gtk.EXPAND, yoptions=gtk.FILL|gtk.SHRINK)
 		
 		buttondel = gtk.Button(stock=gtk.STOCK_DELETE)
 		buttondel.mixdownaction = action
@@ -133,7 +133,7 @@ class MixdownProfileDialog:
 		buttondel.actionbutton = button
 		if rows == 1:
 			buttondel.set_sensitive(False) # you can't delete the first export	
-		self.actionstable.attach(buttondel, 1, 2, rows-1, rows, xoptions=gtk.FILL|gtk.EXPAND, yoptions=gtk.FILL|gtk.EXPAND)
+		self.actionstable.attach(buttondel, 1, 2, rows-1, rows, xoptions=gtk.FILL|gtk.EXPAND, yoptions=gtk.FILL|gtk.SHRINK)
 		
 		self.actionstable.show_all()
 		self.actions.append(action)
