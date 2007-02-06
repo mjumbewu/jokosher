@@ -44,12 +44,12 @@ class StatusBar(gtk.HBox):
 		Return:
 			the value of the next valid message ID.
 		"""
-		#increment message_id - this will be key for
-		#message and highest message_id will be 'top of stack'
+		# increment message_id - this will be key for
+		# message and highest message_id will be 'top of stack'
 		self.latest_id += 1
 		self.stack[self.latest_id] = message
 		self.DisplayTopOfStack()
-		#print "adding",self.latest_id, message
+		
 		return self.latest_id
 	
 	#_____________________________________________________________________
@@ -61,10 +61,10 @@ class StatusBar(gtk.HBox):
 		Parameters:
 			message_id -- numerical id of the message to be removed from the StatusBar.
 		"""
-		#remove message from stack (frst check if it's really there)
+		# remove message from stack (first check if it's really there)
 		if message_id in self.stack:
 			del self.stack[message_id]
-		#print "clearing", message_id
+			
 		self.DisplayTopOfStack()
 		
 	#_____________________________________________________________________
@@ -77,8 +77,10 @@ class StatusBar(gtk.HBox):
 		if len(self.stack) == 0:
 			self.label.set_markup("")
 			return
+		
 		# find the message at the top of the stack and display it
 		self.label.set_markup(self.stack[max(self.stack.keys())])
+		
 	#_____________________________________________________________________
 
 #=========================================================================

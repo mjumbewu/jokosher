@@ -16,6 +16,7 @@ import gobject
 import os
 import Globals
 import Utils
+
 import gettext
 _ = gettext.gettext
 
@@ -50,6 +51,7 @@ class MixerStrip(gtk.Frame):
 		self.mixview = mixview
 		self.mainview = mainview
 		self.Updating = False
+		self.statusbarMsgID = None
 		
 		self.vbox = gtk.VBox()
 		self.add(self.vbox)
@@ -75,12 +77,14 @@ class MixerStrip(gtk.Frame):
 		self.pan.set_increments(0.1, 1.0)
 		self.pan.set_draw_value(False)
 		self.pantip = gtk.Tooltips()
-		self.pantip.set_tip(self.pan,_("Adjust instrument balance"),None)		
+		self.pantip.set_tip(self.pan, _("Adjust instrument balance. Right-click to center"), None)
 		
 		if self.instrument.pan:
 			self.pan.set_value(self.instrument.pan)
 		
 		self.pan.connect("value-changed", self.OnPanChanged)
+		self.pan.connect("button-press-event", self.OnPanClicked)
+		self.pan.connect("button-release-event", self.OnPanReleased)
 		self.panbox.pack_start(self.leftlab, False)
 		self.panbox.pack_start(self.pan, True)
 		self.panbox.pack_start(self.rightlab, False)
@@ -293,16 +297,57 @@ class MixerStrip(gtk.Frame):
 	
 	def OnPanChanged(self, slider):
 		"""
-		Change the instrument's audiopanorama value to the
+		Changes the Instrument's audiopanorama value to the
 		one indicated by the slider control.
+		It also updates the statusbar when dragging the slider.
 		
 		Parameters:
 			slider -- panning slider control.
 		"""
 		value = slider.get_value()
-
+		
+		# clear any existing status bar messages
+		if self.statusbarMsgID is not None:
+			self.mainview.ClearStatusBar(self.statusbarMsgID)
+		
+		# set the statusbar message depending on the current pan value
+		if value < 0:
+			self.statusbarMsgID = self.mainview.SetStatusBar(_("Current balance is <b>%d%%</b> left") % (-value * 100))
+		elif value == 0:
+			self.statusbarMsgID = self.mainview.SetStatusBar(_("Current balance is <b>centered</b>"))
+		else:
+			self.statusbarMsgID = self.mainview.SetStatusBar(_("Current balance is <b>%d%%</b> right") % (value * 100))
+		
 		self.instrument.pan = value
 		self.instrument.panElement.set_property("panorama", value)
+		
+	#_____________________________________________________________________
+	
+	def OnPanClicked(self, slider, mouse):
+		"""
+		Centers the panning slider bar when right clicked.
+		
+		Parameters:
+			slider -- panning slider control.
+			mouse -- mouse event that fired this callback.
+		"""
+		if mouse.button == 3:
+			slider.set_value(0.0)
+			
+	#_____________________________________________________________________
+	
+	def OnPanReleased(self, slider, mouse):
+		"""
+		Clears the statusbar messages when the mouse button is released.
+		
+		Parameters:
+			slider -- panning slider control.
+			mouse -- mouse event that fired this callback.
+		"""
+		# clear any existing status bar messages
+		if self.statusbarMsgID is not None:
+			self.mainview.ClearStatusBar(self.statusbarMsgID)
+			self.statusbarMsgID = None
 		
 	#_____________________________________________________________________
 	
