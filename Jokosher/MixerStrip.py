@@ -84,8 +84,6 @@ class MixerStrip(gtk.Frame):
 		
 		self.pan.connect("value-changed", self.OnPanChanged)
 		self.pan.connect("button-press-event", self.OnPanClicked)
-		self.pan.connect("key-release-event", self.OnTimedStatusBarClear)
-		self.pan.connect("button-release-event", self.OnTimedStatusBarClear)
 		self.panbox.pack_start(self.leftlab, False)
 		self.panbox.pack_start(self.pan, True)
 		self.panbox.pack_start(self.rightlab, False)
@@ -319,6 +317,9 @@ class MixerStrip(gtk.Frame):
 		else:
 			self.statusbarMsgID = self.mainview.SetStatusBar(_("Current balance is <b>%d%%</b> right") % (value * 100))
 		
+		#to remove the status bar message in a few seconds
+		self.OnTimedStatusBarClear()
+		
 		self.instrument.pan = value
 		self.instrument.panElement.set_property("panorama", value)
 		
@@ -338,14 +339,9 @@ class MixerStrip(gtk.Frame):
 			
 	#_____________________________________________________________________
 	
-	def OnTimedStatusBarClear(self, slider, event):
+	def OnTimedStatusBarClear(self):
 		"""
-		Waits for a few seconds after the key press has finished,
-		then clears the status bar message.
-		
-		Parameters:
-			slider -- panning slider control.
-			event -- the key event that fired this callback.
+		Waits for a few seconds and then clears the status bar message.
 		"""
 		# clear any existing status bar messages
 		if self.statusbarMsgID is not None:
