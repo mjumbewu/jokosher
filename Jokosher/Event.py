@@ -79,6 +79,7 @@ class Event(Monitored):
 		
 		self.offset = 0.0			# Offset through the file in seconds
 		self.isLoading = False		# True if the event is currently loading level data
+		self.isDownloading = False	# True if the event is currently loading from a remote source.
 		self.isRecording = False		# True if the event is currently loading level data from a live recording
 		self.loadingLength = 0 		# The length of the file in seconds as its being rendered
 		self.lastEnd = 0 			# The last length of the loading file - used to minimise redraws
@@ -642,6 +643,31 @@ class Event(Monitored):
 
 	#_____________________________________________________________________
 	
+	def CopyAndGenerateWaveform(self, uri):
+		"""
+		Copies the audio file to the new file location and reads the levels
+		at the same time.
+		"""
+		pipe = """%s ! tee name=mytee mytee. ! queue ! filesink location=%s """ +\
+		"""mytee. ! queue ! decodebin ! audioconvert ! level interval=%d message=true ! fakesink""" 
+		pipe = pipe % (uri, self.file.replace(" ", "\ "), self.LEVEL_INTERVAL * gst.SECOND)
+		self.loadingPipeline = gst.parse_launch(pipe)
+
+		self.bus = self.loadingPipeline.get_bus()
+		self.bus.add_signal_watch()
+		self.bus.connect("message::element", self.bus_message)
+		self.bus.connect("message::tag", self.bus_message_tags)
+		self.bus.connect("message::state-changed", self.bus_message_statechange)
+		self.bus.connect("message::eos", self.bus_eos)
+		self.bus.connect("message::error", self.bus_error)
+
+		self.levels = []
+		self.isLoading = True
+
+		self.loadingPipeline.set_state(gst.STATE_PLAYING)
+		
+	#_____________________________________________________________________
+	
 	def StopGenerateWaveform(self, finishedLoading=True):
 		"""
 		Stops the internal pipeline that loads the waveform from this event's file.
@@ -655,7 +681,15 @@ class Event(Monitored):
 			self.bus = None
 		if self.loadingPipeline:
 			self.loadingPipeline.set_state(gst.STATE_NULL)
-			self.isLoading = not finishedLoading
+			
+			if self.isDownloading:
+				# If we are currently downloading, we can't restart later, 
+				# so cancel regardless of the finishedLoading boolean's value.
+				self.isDownloading = False
+				self.isLoading = False
+			else:
+				self.isLoading = not finishedLoading
+			
 			self.loadingPipeline = None
 			self.loadingLength = 0
 	

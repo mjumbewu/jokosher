@@ -16,7 +16,7 @@ import pygst
 pygst.require("0.10")
 import gst
 import os, time, shutil
-import gobject, gnomevfs
+import gobject
 import Event
 import UndoSystem
 from Monitored import Monitored
@@ -665,62 +665,20 @@ class Instrument(Monitored):
 		self.project.deleteOnCloseAudioFiles.append(audio_file)
 		
 		# Create the event now so we can return it, and fill in the file later
-		ev = Event.Event(self, None, None)
+		ev = Event.Event(self, audio_file, None)
 		ev.start = start
+		ev.name = os.path.split(audio_file)[1]
+		ev.isDownloading = True
 		self.events.append(ev)
+		
+		Globals.debug("Event data downloading...")
+		ev.CopyAndGenerateWaveform(url)
+		
 		self.temp = ev.id
-
-		PRIORITY_DEFAULT = 0 # not wrapped in gnomevfs module yet
-		gnomevfs.async.open(url, self.__got_url_handle, gnomevfs.OPEN_READ, 
-		  PRIORITY_DEFAULT, [audio_file, start, ev])
-
+		self.StateChanged()
+		
 		return ev
 	
-	#_____________________________________________________________________
-	
-	def __got_url_handle(self, handle, param, callbackdata):
-		"""
-		Called once gnomevfs has an object that can be read from.
-		
-		Parameters:
-			handle -- reference to the URL handle.
-			param -- reserved for gnomefvs callbacks, don't use it explicitly.
-			callbackdata -- the callback data from gnomevfs.
-		"""
-		audio_file, start, event = callbackdata
-		fp = open(audio_file, 'wb')
-		handle.read(1024, self.__async_read_callback, [fp, start, event])
-	
-	#_____________________________________________________________________
-	
-	def __async_read_callback(self, handle, data, iserror, length, callbackdata):
-		"""
-		Reads the data from the gnomevfs URL callback and creates an Event for it.
-		
-		Parameters:
-			handle -- reference to the URL handle.
-			data -- the data available from the URL.
-			iserror --	!None = there's still data to fetch from the URL.
-						None = all the data has been fetched from the URL.
-			length -- length of the URL data.
-			callbackdata -- the callback data from gnomevfs.
-		"""
-		fp, start, event = callbackdata
-		fp.write(data)
-		if iserror is None:
-			handle.read(1024, self.__async_read_callback, [fp, start, event])
-		else:
-			# all data now loaded
-			Globals.debug("Event data downloaded")
-			event.name = os.path.split(fp.name)[1]
-			event.file = fp.name
-			fp.close()
-			Globals.debug("Creating filesource")
-			event.CreateFilesource()
-			Globals.debug("Generating waveform")
-			event.GenerateWaveform()
-			self.StateChanged()
-		
 	#_____________________________________________________________________
 	
 	@UndoSystem.UndoCommand("DeleteEvent", "temp")

@@ -389,7 +389,12 @@ class EventViewer(gtk.DrawingArea):
 					displayLength = 0
 				else:
 					displayLength = int(100 * self.event.loadingLength / self.event.duration)
-				context.show_text(_("Loading (%d%%)...") % displayLength)
+				
+				if self.event.isDownloading:
+					context.show_text(_("Downloading (%d%%)...") % displayLength)
+				else:
+					context.show_text(_("Loading (%d%%)...") % displayLength)
+				
 			elif self.event.isRecording:
 				context.show_text(_("Recording..."))
 			else:
