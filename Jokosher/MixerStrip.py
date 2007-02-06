@@ -85,6 +85,8 @@ class MixerStrip(gtk.Frame):
 		self.pan.connect("value-changed", self.OnPanChanged)
 		self.pan.connect("button-press-event", self.OnPanClicked)
 		self.pan.connect("button-release-event", self.OnPanReleased)
+		self.pan.connect("key-release-event", self.OnPanReleased)
+		self.pan.connect("leave-notify-event", self.OnPanReleased)
 		self.panbox.pack_start(self.leftlab, False)
 		self.panbox.pack_start(self.pan, True)
 		self.panbox.pack_start(self.rightlab, False)
@@ -309,6 +311,10 @@ class MixerStrip(gtk.Frame):
 		# clear any existing status bar messages
 		if self.statusbarMsgID is not None:
 			self.mainview.ClearStatusBar(self.statusbarMsgID)
+		
+		# fix a rare case of a very small value
+		if 0 < value < 0.00001:
+			value = 0
 		
 		# set the statusbar message depending on the current pan value
 		if value < 0:
