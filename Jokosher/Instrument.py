@@ -628,7 +628,7 @@ class Instrument(Monitored):
 		else:
 			name = file.split(os.sep)[-1]
 
-		ev = Event.Event(self, file,None,filelabel)
+		ev = Event.Event(self, file, None, filelabel)
 		ev.start = start
 		ev.name = name
 		self.events.append(ev)
@@ -665,7 +665,7 @@ class Instrument(Monitored):
 		self.project.deleteOnCloseAudioFiles.append(audio_file)
 		
 		# Create the event now so we can return it, and fill in the file later
-		ev = Event.Event(self, audio_file, None)
+		ev = Event.Event(self, audio_file, None, url)
 		ev.start = start
 		ev.name = os.path.split(audio_file)[1]
 		ev.isDownloading = True

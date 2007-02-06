@@ -1040,13 +1040,17 @@ class EventViewer(gtk.DrawingArea):
 			self.queue_resize()
 		
 		elif change == self.event.CORRUPT and self.small==False:
-			message=_("%s\n\nFile is corrupt, not an audio file, or the associated plugin is not installed") % self.event.filelabel
-
+			message="%s %s\n\n%s" % (_("Error loading file:"), self.event.filelabel, 
+					_("Please make sure the file exists, and the appropriate plugin is installed."))
+			
+			outputtext = "\n\n".join(extra)
+			outputtext = "\n\n".join((message, outputtext))
+			
 			dlg = gtk.MessageDialog(None,
 				gtk.DIALOG_MODAL,
 				gtk.MESSAGE_ERROR,
 				gtk.BUTTONS_CLOSE,
-				message)
+				outputtext)
 			dlg.connect('response', lambda dlg, response: dlg.destroy())
 			dlg.show()
 			self.OnDelete()
