@@ -9,9 +9,6 @@
 
 import gtk.glade
 import gobject
-import pygst
-pygst.require("0.10")
-import gst
 import Globals
 import os
 import MixdownProfiles
@@ -85,6 +82,7 @@ class MixdownProfileDialog:
 		self.combo_newstep_model = self.combo_newstep.get_model()
 		for action in self.possible_action_classes:
 			self.combo_newstep_model.append([action.create_name()])
+		self.combo_newstep.set_active(0)
 
 		self.actions = []
 		if profile:
@@ -219,7 +217,7 @@ class MixdownProfileDialog:
 		if active == -1:
 			return
 		
-		action_class = self.possible_action_classes[active-1]
+		action_class = self.possible_action_classes[active]
 		
 		# specialcase ExportAsFileType
 		if action_class == MixdownProfiles.ExportAsFileType: 
