@@ -63,6 +63,7 @@ class Project(Monitored):
 		self.soloInstrCount = 0		#number of solo instruments (to know if others must be muted)
 		self.audioState = self.AUDIO_STOPPED	#which audio state we are currently in
 		self.exportPending = False	# True if we are waiting to start an export
+		self.exportFilename = ""
 		self.bpm = 120
 		self.meter_nom = 4		# time signature numerator
 		self.meter_denom = 4		# time signature denominator
@@ -359,6 +360,7 @@ class Project(Monitored):
 		self.EOShandler = self.bus.connect("message::eos", self.TerminateExport)
 		
 		self.exportPending = True
+		self.exportFilename = filename
 		#start the pipeline!
 		self.Play(newAudioState=self.AUDIO_EXPORTING)
 		self.StateChanged("export-start")

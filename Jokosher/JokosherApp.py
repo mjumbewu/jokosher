@@ -173,7 +173,6 @@ class MainApp:
 		self.isRecording = False
 		self.isPlaying = False
 		self.isPaused = False
-		self.exportFilename = None
 
 		# Intialise context sensitive tooltips for workspace buttons
 		self.contextTooltips.set_tip(self.recordingButton, self.recordingViewEnabledTip, None)
@@ -635,17 +634,17 @@ class MainApp:
 		
 		response = chooser.run()
 		if response == gtk.RESPONSE_OK:
-			self.exportFilename = chooser.get_filename()
-			Globals.settings.general["projectfolder"] = os.path.dirname(self.exportFilename)
+			exportFilename = chooser.get_filename()
+			Globals.settings.general["projectfolder"] = os.path.dirname(exportFilename)
 			Globals.settings.write()
 			#If they haven't already appended the extension for the 
 			#chosen file type, add it to the end of the file.
 			filetypeDict = Globals.EXPORT_FORMATS[typeCombo.get_active()]
-			if not self.exportFilename.lower().endswith(filetypeDict["extension"]):
-				self.exportFilename += "." + filetypeDict["extension"]
+			if not exportFilename.lower().endswith(filetypeDict["extension"]):
+				exportFilename += "." + filetypeDict["extension"]
 		
 			chooser.destroy()
-			self.project.Export(self.exportFilename, filetypeDict["pipeline"])
+			self.project.Export(exportFilename, filetypeDict["pipeline"])
 		else:
 			chooser.destroy()
 		
@@ -993,7 +992,7 @@ class MainApp:
 			self.exportdlg.set_transient_for(self.window)
 			
 			label = export.get_widget("progressLabel")
-			label.set_text(_("Mixing project to file: %s") %self.exportFilename)
+			label.set_text(_("Mixing project to file: %s") % self.project.exportFilename)
 			
 			self.exportprogress = export.get_widget("progressBar")
 			
