@@ -162,6 +162,8 @@ class InstrumentEffectsDialog:
 		# create a copy of the categories list to avoid errors in the for's
 		categories = Globals.LADPSA_CATEGORIES_LIST
 		
+		#the temporary list to sort them
+		tempEffectList = []
 		# load all available effects into modelEffects
 		for effect in Globals.LADSPA_NAME_MAP:
 			newEffect = [None, None, None, None, None]
@@ -182,6 +184,10 @@ class InstrumentEffectsDialog:
 			newEffect[3] = category
 			newEffect[4] = False		# listed in the left effects pane
 			
+			tempEffectList.append(newEffect)
+		
+		tempEffectList.sort(key=lambda x: x[2].lower()) #sort alphabetically by long name
+		for newEffect in tempEffectList:
 			self.modelEffects.append(newEffect)
 		
 		# create a list with available presets and populate the model
