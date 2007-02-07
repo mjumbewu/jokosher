@@ -102,9 +102,9 @@ class Sample:
 		
 	#_____________________________________________________________________
 		
-	def Fetch(self):
+	def FetchMetaData(self):
 		"""
-		Fetch thyself from the Freesound service.
+		Fetches the sample's meta data from the Freesound service.
 		"""
 		req = Request("http://freesound.iua.upf.edu/samplesViewSingleXML.php?id=%s" % self.sid)
 		try:

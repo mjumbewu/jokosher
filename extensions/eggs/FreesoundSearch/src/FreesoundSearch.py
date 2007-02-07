@@ -332,20 +332,7 @@ class SearchFreesoundThread(threading.Thread):
 		evBox.drag_source_set(gtk.gdk.BUTTON1_MASK, [('text/plain', 0, 88)],gtk.gdk.ACTION_COPY)
 		evBox.connect("drag_data_get", self.ReturnData, sample)
 		
-		tmpnam = os.tmpnam()
-		# TODO: remove this print
-		#print "Retrieving sample image to %s" % tmpnam
-		
-		try:
-			imgfile = urllib.urlretrieve(sample.image, tmpnam)
-		except:
-			# TODO: handle the url problems
-			pass
-		
-		image = gtk.Image()
-		image.set_from_pixbuf(gtk.gdk.pixbuf_new_from_file_at_size(tmpnam, 50, 50))
-		os.unlink(tmpnam)
-		hzBox.add(image)
+		hzBox.add(sample.image)
 		
 		sampleDesc = gtk.Label(sample.description)
 		sampleDesc.set_width_chars(50)
@@ -478,13 +465,39 @@ class SearchFreesoundThread(threading.Thread):
 			gobject.idle_add(self.SetFetchingStatus, counter, query[1])
 			
 			for sample in samples[:query[1]]:
-				sample.Fetch()
-				gobject.idle_add(self.AddSample, sample)
+				# fetch the sample's metadata and preview image in this thread
+				sample.FetchMetaData()
+				self.FetchPreviewImage(sample)
+				
+				# add the sample and update the status bar in the gtk thread
 				counter += 1
+				gobject.idle_add(self.AddSample, sample)
 				gobject.idle_add(self.SetFetchingStatus, counter, query[1])
 				
 			gobject.idle_add(self.SetIdleStatus)
 
+	#_____________________________________________________________________
+
+	def FetchPreviewImage(self, sample):
+		"""
+		Downloads the preview image for the given sample. It then assigns
+		it to the sample's image property.
+		
+		Parameter:
+			sample -- sample whose preview image shoud be fetched.
+		"""
+		tmpnam = os.tmpnam()
+		try:
+			imgfile = urllib.urlretrieve(sample.image, tmpnam)
+		except:
+			# TODO: handle the url problems
+			pass
+		
+		image = gtk.Image()
+		image.set_from_pixbuf(gtk.gdk.pixbuf_new_from_file_at_size(tmpnam, 50, 50))
+		sample.image = image
+		os.unlink(tmpnam)
+		
 	#_____________________________________________________________________
 
 	def PlayStreamedSample(self, event, url):
