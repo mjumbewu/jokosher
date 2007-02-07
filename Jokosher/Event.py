@@ -539,9 +539,16 @@ class Event(Monitored):
 			
 			# Update levels for partial events
 			q = self.loadingPipeline.query_duration(gst.FORMAT_TIME)
-			length = q[0] / float(gst.SECOND)
+			length = float(q[0] / float(gst.SECOND))
 			
-			if self.offset > 0 or self.duration != length:
+			#we're at EOS, and still have no value for duration
+			if not self.duration:
+				if length:
+					self.duration = length
+				else:
+					self.duration = self.loadingLength
+			
+			if length and self.offset > 0 or self.duration != length:
 				dt = int(self.duration * len(self.levels) / length)
 				start = int(self.offset * len(self.levels) / length)
 				self.levels = self.levels[start:start+dt]
@@ -566,9 +573,9 @@ class Event(Monitored):
 		# state has changed
 		try:
 			time = self.loadingPipeline.query_duration(gst.FORMAT_TIME)
-			if self.duration == 0:
+			if self.duration == 0 and time[0] != 0:
 				self.duration = float(time[0] / float(gst.SECOND))
-				self.loadingLength = 0
+				
 				#update position with proper duration
 				self.MoveButDoNotOverlap(self.start)
 				self.SetProperties()
@@ -638,9 +645,7 @@ class Event(Monitored):
 
 		self.levels = []
 		self.isLoading = True
-		print "loading"
 		self.StateChanged(self.LOADING)
-		print "state"
 
 		self.loadingPipeline.set_state(gst.STATE_PLAYING)
 

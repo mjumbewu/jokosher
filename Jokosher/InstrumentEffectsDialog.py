@@ -175,9 +175,6 @@ class InstrumentEffectsDialog:
 				imageFile = categories[1][1]
 				category = categories[1][0]
 				
-				#TODO: Remove this print
-				print "Unclassified effect: %s" % (effect[0])
-				
 			newEffect[0] = gtk.gdk.pixbuf_new_from_file(os.path.join(Globals.IMAGE_PATH, imageFile)) # image
 			newEffect[1] = effect[0]	# short name
 			newEffect[2] = effect[1]	# long name
