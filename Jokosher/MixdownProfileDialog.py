@@ -195,7 +195,8 @@ class MixdownProfileDialog:
 		
 		for row_to_readd_to, col_to_readd_to, widget in removed_buttons_to_readd:
 			table.attach(widget, col_to_readd_to, col_to_readd_to + 1,
-													 row_to_readd_to, row_to_readd_to + 1)
+													 row_to_readd_to, row_to_readd_to + 1,
+													 xoptions=gtk.FILL|gtk.EXPAND, yoptions=gtk.FILL|gtk.SHRINK)
 		
 		# finally resize the table down by one row
 		rows = self.actionstable.get_property("n-rows")
