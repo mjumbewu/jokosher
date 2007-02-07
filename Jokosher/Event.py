@@ -33,7 +33,7 @@ class Event(Monitored):
 	"""
 	
 	""" State changed types (to be sent through the Monitored class) """
-	WAVEFORM, MOVE, LENGTH, CORRUPT = range(4)
+	WAVEFORM, MOVE, LENGTH, CORRUPT, LOADING = range(5)
 	
 	""" The level sample interval in seconds """
 	LEVEL_INTERVAL = 0.01
@@ -638,6 +638,9 @@ class Event(Monitored):
 
 		self.levels = []
 		self.isLoading = True
+		print "loading"
+		self.StateChanged(self.LOADING)
+		print "state"
 
 		self.loadingPipeline.set_state(gst.STATE_PLAYING)
 
@@ -667,6 +670,7 @@ class Event(Monitored):
 
 		self.levels = []
 		self.isLoading = True
+		self.StateChanged(self.LOADING)
 
 		self.loadingPipeline.set_state(gst.STATE_PLAYING)
 		
@@ -698,6 +702,7 @@ class Event(Monitored):
 			
 			self.loadingPipeline = None
 			self.loadingLength = 0
+			self.StateChanged(self.LOADING)
 	
 	#_____________________________________________________________________
 

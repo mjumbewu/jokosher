@@ -157,6 +157,7 @@ class EventViewer(gtk.DrawingArea):
 		snapFPButton.connect("clicked", self.SnapSelectionToFadePoints)
 		self.selectiontip.set_tip(snapFPButton,_("Snap To Fade Points"),None)
 		
+		self.drawer.set_sensitive(not self.event.isLoading)
 		self.drawer.show()
 		
 		self.mainview = mainview
@@ -1038,6 +1039,9 @@ class EventViewer(gtk.DrawingArea):
 		elif change == self.event.LENGTH:
 			self.redrawWaveform = True
 			self.queue_resize()
+			
+		elif change == self.event.LOADING:
+			self.drawer.set_sensitive(not self.event.isLoading)
 		
 		elif change == self.event.CORRUPT and self.small==False:
 			message="%s %s\n\n%s" % (_("Error loading file:"), self.event.filelabel, 
