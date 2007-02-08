@@ -548,7 +548,7 @@ class Event(Monitored):
 				else:
 					self.duration = self.loadingLength
 			
-			if length and self.offset > 0 or self.duration != length:
+			if length and (self.offset > 0 or self.duration != length):
 				dt = int(self.duration * len(self.levels) / length)
 				start = int(self.offset * len(self.levels) / length)
 				self.levels = self.levels[start:start+dt]

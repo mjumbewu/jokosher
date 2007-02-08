@@ -999,7 +999,7 @@ class ExtensionAPI:
 		Adds a function to receive and end-of-stream notification.
 		
 		Parameters:
-			function --	the function that will receive the motification
+			function --	the function that will receive the notification
 			
 		Returns:
 			0 = end of stream handler successfully added
