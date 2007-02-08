@@ -4,6 +4,7 @@
 <glade-interface>
 
 <widget class="GtkWindow" id="SetTempoDialog">
+  <property name="border_width">6</property>
   <property name="visible">True</property>
   <property name="title" translatable="yes">Set Tempo</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
@@ -20,7 +21,7 @@
   <property name="urgency_hint">False</property>
 
   <child>
-    <widget class="GtkVBox" id="vbox1">
+    <widget class="GtkVBox" id="vboxMain">
       <property name="visible">True</property>
       <property name="homogeneous">True</property>
       <property name="spacing">0</property>
@@ -44,17 +45,17 @@
 	  <property name="angle">0</property>
 	</widget>
 	<packing>
-	  <property name="padding">10</property>
-	  <property name="expand">False</property>
-	  <property name="fill">False</property>
+	  <property name="padding">6</property>
+	  <property name="expand">True</property>
+	  <property name="fill">True</property>
 	</packing>
       </child>
 
       <child>
-	<widget class="GtkHBox" id="hbox1">
+	<widget class="GtkHBox" id="hboxButtons">
 	  <property name="visible">True</property>
 	  <property name="homogeneous">True</property>
-	  <property name="spacing">0</property>
+	  <property name="spacing">6</property>
 
 	  <child>
 	    <widget class="GtkButton" id="clearButton">
@@ -68,7 +69,7 @@
 	      <signal name="clicked" handler="OnClearClicked" last_modification_time="Tue, 19 Dec 2006 20:26:49 GMT"/>
 	    </widget>
 	    <packing>
-	      <property name="padding">3</property>
+	      <property name="padding">0</property>
 	      <property name="expand">False</property>
 	      <property name="fill">True</property>
 	    </packing>
@@ -86,7 +87,7 @@
 	      <signal name="clicked" handler="OnStopClicked" last_modification_time="Fri, 22 Dec 2006 01:12:23 GMT"/>
 	    </widget>
 	    <packing>
-	      <property name="padding">3</property>
+	      <property name="padding">0</property>
 	      <property name="expand">False</property>
 	      <property name="fill">True</property>
 	    </packing>
@@ -104,7 +105,7 @@
 	      <signal name="clicked" handler="OnPlayClicked" last_modification_time="Thu, 21 Dec 2006 18:54:17 GMT"/>
 	    </widget>
 	    <packing>
-	      <property name="padding">3</property>
+	      <property name="padding">0</property>
 	      <property name="expand">False</property>
 	      <property name="fill">True</property>
 	    </packing>
@@ -123,7 +124,7 @@
 	      <signal name="clicked" handler="OnTapClicked" last_modification_time="Tue, 19 Dec 2006 20:26:40 GMT"/>
 	    </widget>
 	    <packing>
-	      <property name="padding">3</property>
+	      <property name="padding">0</property>
 	      <property name="expand">False</property>
 	      <property name="fill">True</property>
 	    </packing>
@@ -141,7 +142,7 @@
 	      <signal name="clicked" handler="OnSetClicked" last_modification_time="Tue, 19 Dec 2006 20:27:07 GMT"/>
 	    </widget>
 	    <packing>
-	      <property name="padding">3</property>
+	      <property name="padding">0</property>
 	      <property name="expand">False</property>
 	      <property name="fill">True</property>
 	    </packing>
@@ -159,7 +160,7 @@
 	      <signal name="clicked" handler="OnCancelClicked" last_modification_time="Tue, 19 Dec 2006 20:27:33 GMT"/>
 	    </widget>
 	    <packing>
-	      <property name="padding">3</property>
+	      <property name="padding">0</property>
 	      <property name="expand">False</property>
 	      <property name="fill">True</property>
 	    </packing>
@@ -167,7 +168,7 @@
 	</widget>
 	<packing>
 	  <property name="padding">0</property>
-	  <property name="expand">False</property>
+	  <property name="expand">True</property>
 	  <property name="fill">False</property>
 	</packing>
       </child>

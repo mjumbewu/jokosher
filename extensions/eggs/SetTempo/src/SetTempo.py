@@ -61,7 +61,7 @@ class SetTempo:
 		Parameters:
 			arg -- set by GTK
 		"""
-		xmlString = pkg_resources.resource_string(__name__,"SetTempo.glade")
+		xmlString = pkg_resources.resource_string(__name__, "SetTempo.glade")
 		wTree = gtk.glade.xml_new_from_buffer(xmlString, len(xmlString))
 		
 		self.window = wTree.get_widget("SetTempoDialog")
@@ -139,7 +139,6 @@ class SetTempo:
 				self.intervalList.pop(0)
 			sum = reduce(lambda x,y:x+y, self.intervalList)
 			self.bpm = int(60 * float(len(self.intervalList)) / sum)
-			print sum, self.bpm
 			self.WriteLabel(self.bpm)
 		else:
 			self.tappingTime = True
