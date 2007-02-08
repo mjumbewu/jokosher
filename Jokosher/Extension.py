@@ -120,6 +120,7 @@ def exported_function(f):
 			Globals.debug("EXTENSION API BUG:\nUnhandled exception thrown in exported function: %s\n%s" %
 				(f.func_name, traceback.format_exc()))
 			return -2
+		
 	#_____________________________________________________________________
 	
 	wrapped.__doc__ = f.__doc__
@@ -133,6 +134,8 @@ class ExtensionAPI:
 	Defines the API for implementing external extensions for Jokosher.
 	"""
 	
+	#_____________________________________________________________________
+	
 	def __init__(self, mainapp):
 		"""
 		Creates a new instance of ExtensionAPI.
@@ -141,7 +144,27 @@ class ExtensionAPI:
 			mainapp -- reference the MainApp Jokosher window.
 		"""
 		self.mainapp = mainapp
-	
+		
+		self.CONFIGPATH = os.path.join(EXTENSION_DIR_USER, '../extension-config')
+		self.DATAPATH = os.path.join(EXTENSION_DIR_USER, '../extension-data')
+		
+		self.extDataFilename = os.path.join(self.DATAPATH, "extData")
+		
+		# See if there is a config and data directory, if not, create them
+		if not os.path.exists(self.CONFIGPATH):
+			os.makedirs(self.CONFIGPATH)
+			
+		if not os.path.exists(self.DATAPATH):
+			os.makedirs(self.DATAPATH)
+		
+		# try to load the extension data dictionary
+		try:
+			fp = open(self.extDataFilename)
+			self.extData = pickle.load(fp)
+			fp.close()
+		except:
+			self.extData = {}
+			
 	#_____________________________________________________________________
 	
 	@exported_function	
@@ -340,21 +363,17 @@ class ExtensionAPI:
 
 	def __get_config_dict_fn(self):
 		"""
-		Calculate the config dictionary filename for the calling extension.
+		Calculates the config dictionary filename for the calling extension.
 		
 		Returns:
 			the config dictionary filename for the calling extension.
 		"""
-		# First, see if there is a config directory at all
-		CONFIGPATH = os.path.join(EXTENSION_DIR_USER,'../extension-config')
-		if not os.path.exists(CONFIGPATH):
-			os.makedirs(CONFIGPATH)
 		# Next, check if this extension has a saved config dict
 		# we go back twice because our immediate caller is (get|set)_config_value
 		mycallerframe = inspect.currentframe().f_back.f_back
 		mycallerfn = os.path.split(mycallerframe.f_code.co_filename)[1]
 		mycaller = os.path.splitext(mycallerfn)[0]
-		config_dict_fn = os.path.join(CONFIGPATH,mycaller + ".config")
+		config_dict_fn = os.path.join(self.CONFIGPATH, mycaller + ".config")
 		
 		return os.path.normpath(config_dict_fn)
 
@@ -363,7 +382,7 @@ class ExtensionAPI:
 	@exported_function
 	def get_config_value(self, key):
 		"""
-		Obtain the config value saved under this key.
+		Obtains the config value saved under this key.
 		
 		Parameters:
 			key -- config key to obtain the value of.
@@ -400,11 +419,82 @@ class ExtensionAPI:
 			fp.close()
 		else:
 			config_dict = {}
+			
 		# Set the config value
 		config_dict[key] = value
+		
 		# And save it again
-		fp = open(config_dict_fn,"wb")
+		fp = open(config_dict_fn, "wb")
 		pickle.dump(config_dict, fp)
+		fp.close()
+		
+	#_____________________________________________________________________
+	
+	def __get_data_filename_fn(self):
+		"""
+		Generates an unique filename for an extension data file.
+		
+		Returns:
+			the unique data filename.
+		"""
+		filename = ""
+		for i in xrange(1000000):
+			filename = os.path.join(self.DATAPATH, "%s.dat" % i)
+			if not os.path.exists(filename):
+				return filename
+			
+	#_____________________________________________________________________
+
+	@exported_function
+	def get_data_file(self, extName, key):
+		"""
+		Obtain the data file saved under this key.
+		
+		Parameters:
+			extName -- name of the extension loading the file.
+			key -- config key to obtain the data file of.
+			
+		Returns:
+			the data retrieved, or None if the value doesn't exist
+				or couldn't be loaded.
+		"""
+		try:
+			fp = open(self.extData[extName][key])
+			data = pickle.load(fp)
+			fp.close()
+			return data
+		except:
+			return None
+		
+	#_____________________________________________________________________
+
+	@exported_function
+	def set_data_file(self, extName, key, data):
+		"""
+		Stores a new data file under a given key for later retrieval.
+		It must a serializable object.
+		
+		Parameters:
+			extName -- name of the extension loading the file.
+			key -- name of the key to save this data under.
+			data -- data to store.
+		"""
+		# see if the dict exists, if not then create it
+		if extName not in self.extData:
+			self.extData[extName] = {}
+			
+		# if the data doesn't exist, add the tuple to self.extData
+		if key not in self.extData[extName]:
+			self.extData[extName][key] = self.__get_data_filename_fn()
+		
+		# write the serialized file
+		fp = open(self.extData[extName][key], "wb")
+		pickle.dump(data, fp)
+		fp.close()
+		
+		# write the newly modified self.extData dictionary
+		fp = open(self.extDataFilename, "wb")
+		pickle.dump(self.extData, fp)
 		fp.close()
 		
 	#_____________________________________________________________________
@@ -857,8 +947,6 @@ class ExtensionAPI:
 		self.mainapp.project.SetMeter(nom, denom)
 		
 	#_____________________________________________________________________
-
-	#_____________________________________________________________________
 	
 	@exported_function
 	def set_window_icon(self, window):
@@ -1003,6 +1091,7 @@ class ExtensionAPI:
 	
 	#_____________________________________________________________________
 	
+	@exported_function
 	def get_position_as_hours_minutes_seconds(self):
 		"""
 		Obtains the current playback position in hours, minutes, seconds.
