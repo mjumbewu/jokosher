@@ -27,6 +27,11 @@ _ = gettext.gettext
 
 #=========================================================================
 
+# in this extension this global was defined outside the main class because it gets
+# used in the search thread
+# Note: the following string should not be translated
+EXTENSION_DATA_NAME = "freesound"
+
 class FreesoundSearch:
 	"""
 	Allows the user to search for samples on Freesound with free form queries.
@@ -37,7 +42,7 @@ class FreesoundSearch:
 	EXTENSION_VERSION = "0.2"
 	EXTENSION_DESCRIPTION = _("Searches the Freesound library of freely" + \
 							" licenceable and useable sound clips")
-
+	
 	#_____________________________________________________________________
 
 	def startup(self, api):
@@ -53,7 +58,7 @@ class FreesoundSearch:
 		self.freeSound = freesound.Freesound()
 		self.showSearch = False
 		self.searchQueue = Queue.Queue()
-		self.maxResults = 15
+		self.maxResults = 10
 		
 	#_____________________________________________________________________
 	
@@ -62,7 +67,7 @@ class FreesoundSearch:
 		Destroys any object created by the extension when it is disabled.
 		"""
 		self.menuItem.destroy()
-		#TODO: stop the search threads
+		#TODO: stop the search threads and playback
 		
 	#_____________________________________________________________________
 	
@@ -112,22 +117,50 @@ class FreesoundSearch:
 		self.checkUsernames = wTree.get_widget("checkbuttonUsernames")
 		self.spinResults = wTree.get_widget("spinbuttonResults")
 		self.window = wTree.get_widget("FreesoundSearchWindow")
+		self.treeHistory = wTree.get_widget("treeviewHistory")
 		self.vboxResults = gtk.VBox(spacing=6)
 		
+		# load the history dict from the extension data
+		self.sampleHistory = self.api.get_data_file(EXTENSION_DATA_NAME, "sampleHistory")
+		if not self.sampleHistory:
+			self.sampleHistory = {}
+		
+		# create a model for the used samples history and hook it to the GUI
+		self.sampleHistoryModel = gtk.TreeStore(gobject.TYPE_STRING, gobject.TYPE_STRING)
+		
+		# populate the model using the history dictionary
+		for author in self.sampleHistory:
+			parent = self.sampleHistoryModel.append(None, [author, None])
+			for id in self.sampleHistory[author]:
+				self.sampleHistoryModel.append(parent, [id, self.sampleHistory[author][id]])
+		
+		# hook up the model to the GUI
+		self.treeHistory.set_model(self.sampleHistoryModel)
+		self.treeHistory.get_selection().set_mode(gtk.SELECTION_SINGLE)
+		
+		# create the columns with their respective renderers and add them
+		# these strings are not displayed, so they're not marked as translatable
+		self.treeHistory.append_column(gtk.TreeViewColumn("Author-ID", gtk.CellRendererText(), text=0))
+		self.treeHistory.append_column(gtk.TreeViewColumn("Description", gtk.CellRendererText(), text=1))
+		
+		# set up other widget properties
 		self.eventBoxHeader.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse("#ffffff"))
 		self.spinResults.set_value(self.maxResults)
 		self.entryFind.set_activates_default(True)
+		self.entryFind.grab_focus()
 		self.buttonFind.set_flags(gtk.CAN_DEFAULT)
 		self.buttonFind.grab_default()
 		self.scrollResults.add_with_viewport(self.vboxResults)
 		self.api.set_window_icon(self.window)
 		self.imageHeader.set_from_file(pkg_resources.resource_filename(__name__, "images/banner.png"))
+		self.statusbar.push(0, _("Tip: To add a sample to your project, drag and drop it into the recording view"))
 		
 		self.window.show_all()
 		
 		# set up the result fetching thread
-		searchThread = SearchFreesoundThread(self.vboxResults, self.statusbar,
-											 username, password, self.searchQueue)
+		searchThread = SearchFreesoundThread(self.api, self.vboxResults, self.statusbar,
+											username, password, self.searchQueue,
+											self.sampleHistory, self.sampleHistoryModel)
 		searchThread.setDaemon(True) # thread exits when Jokosher exits
 		searchThread.start()
 		
@@ -182,7 +215,7 @@ class FreesoundSearch:
 		Called when the search window gets destroyed.
 		Destroys the search threads.
 		"""
-		#TODO: stop the search threads
+		#TODO: stop the search threads and playback
 		pass
 	
 	#_____________________________________________________________________
@@ -292,18 +325,22 @@ class SearchFreesoundThread(threading.Thread):
 	
 	#_____________________________________________________________________
 	
-	def __init__(self, container, statusbar, username, password, queue):
+	def __init__(self, api, container, statusbar, username, password, queue, history, historyModel):
 		"""
 		Creates a new instance of SearchFreesoundThread.
 		
 		Parameters:
+			api -- Jokosher extension API.
 			container -- gtk container object to put the results into.
 			statusbar -- gtk.statusbar used for displaying information.
 			username -- Freesound account username.
 			password -- Freesound account password.
 			queue -- thread queue with the query text.
+			history -- history dictionary.
+			historyModel -- gtk.TreeStore to display the used samples.
 		"""
 		super(SearchFreesoundThread, self).__init__()
+		self.api = api
 		self.container = container
 		self.statusbar = statusbar
 		self.freeSound = None
@@ -311,6 +348,8 @@ class SearchFreesoundThread(threading.Thread):
 		self.password = password
 		self.queue = queue
 		self.query = None
+		self.history = history
+		self.historyModel = historyModel
 		self.player = gst.element_factory_make("playbin", "player")
 	
 	#_____________________________________________________________________
@@ -325,21 +364,28 @@ class SearchFreesoundThread(threading.Thread):
 		"""
 		evBox = gtk.EventBox()
 		hzBox = gtk.HBox()
+		tooltips = gtk.Tooltips()
 		
+		# create the container
 		hzBox.set_border_width(6)
 		hzBox.set_spacing(6)
 		evBox.add(hzBox)
-		evBox.drag_source_set(gtk.gdk.BUTTON1_MASK, [('text/plain', 0, 88)],gtk.gdk.ACTION_COPY)
-		evBox.connect("drag_data_get", self.ReturnData, sample)
+		evBox.drag_source_set(gtk.gdk.BUTTON1_MASK, [('text/plain', gtk.TARGET_SAME_APP, 88)], gtk.gdk.ACTION_COPY)
+		evBox.drag_source_set_icon_pixbuf(sample.image.get_pixbuf())
+		evBox.connect("drag-data-get", self.ReturnData, sample)
+		evBox.connect("drag-end", self.DragEnd, sample)
 		
+		# add the image
 		hzBox.add(sample.image)
 		
+		# add the description label
 		sampleDesc = gtk.Label(sample.description)
 		sampleDesc.set_width_chars(50)
 		sampleDesc.set_line_wrap(True)
 		sampleDesc.set_alignment(0, 0.5)
 		hzBox.add(sampleDesc)
 		
+		# add the play button
 		playButton = gtk.Button(stock=gtk.STOCK_MEDIA_PLAY)
 		playButton.connect("clicked", self.PlayStreamedSample, sample.previewURL)
 		hzBox.add(playButton)
@@ -349,6 +395,11 @@ class SearchFreesoundThread(threading.Thread):
 		hzBox.set_child_packing(sampleDesc, True, True, 0, gtk.PACK_START)
 		hzBox.set_child_packing(playButton, True, False, 0, gtk.PACK_START)
 		
+		# set the tooltips
+		tooltips.set_tip(playButton, _("Play this sample"))
+		tooltips.set_tip(sampleDesc, _("You can drag and drop this sample into your Jokosher project"))
+		
+		# add everything to the container and then show it
 		evBox.show_all()
 		self.container.add(evBox)
 		
@@ -356,7 +407,7 @@ class SearchFreesoundThread(threading.Thread):
 	
 	def ReturnData(self, widget, drag_context, selection_data, info, time, sample):
 		"""
-		Used for drag and drop operations.
+		Called when the user drops a sample inside Jokosher.
 		
 		Parameters:
 			widget -- reserved for GTK callbacks. Don't use it explicitly.
@@ -364,12 +415,47 @@ class SearchFreesoundThread(threading.Thread):
 			selection_data -- reserved for GTK callbacks. Don't use it explicitly.
 			info -- reserved for GTK callbacks. Don't use it explicitly.
 			time -- reserved for GTK callbacks. Don't use it explicitly.
-			sample -- the Sample to add to be dropped into another window.
+			sample -- the Sample to be dropped into another window.
 		"""
-		selection_data.set (selection_data.target, 8, sample.previewURL)
+		selection_data.set(selection_data.target, 8, sample.previewURL)
 
 	#_____________________________________________________________________
-
+	
+	def DragEnd(self, widget, drag_context, sample):
+		"""
+		Called when a drag and drop operation finishes.
+		It adds the dropped Sample to the used sample history dictionary
+		and the treeview.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks. Don't use it explicitly.
+			drag_context -- reserved for GTK callbacks. Don't use it explicitly.
+			sample -- the sample to be added to the history.
+		"""
+		# check if the author already exists
+		if sample.author in self.history:
+			# check if the sample already exists
+			if sample.sid in self.history[sample.author]:
+				#already listed, nothing to do
+				return
+			else:
+				for row in self.historyModel:
+					# match the author name and make sure it's a root level node
+					if row[0] == sample.author and self.historyModel.iter_depth(row.iter) == 0:
+						self.history[sample.author][sample.sid] = sample.description
+						self.historyModel.append(row.iter, [sample.sid, sample.description])
+		else:
+			self.history[sample.author] = {}
+			self.history[sample.author][sample.sid] = sample.description
+			
+			parent = self.historyModel.append(None, [sample.author, None])
+			self.historyModel.append(parent, [sample.sid, sample.description])
+		
+		# save the newly updated history dict
+		self.api.set_data_file(EXTENSION_DATA_NAME, "sampleHistory", self.history)
+		
+	#_____________________________________________________________________
+	
 	def Login(self):
 		"""
 		Attempts to login to Freesound.
@@ -450,6 +536,7 @@ class SearchFreesoundThread(threading.Thread):
 			should be included in the search.
 		"""
 		gobject.idle_add(self.EmptyContainer)
+		gobject.idle_add(self.SetIdleStatus)
 		gobject.idle_add(self.SetSearchingStatus)
 		
 		self.query = query
@@ -475,7 +562,7 @@ class SearchFreesoundThread(threading.Thread):
 				gobject.idle_add(self.SetFetchingStatus, counter, query[1])
 				
 			gobject.idle_add(self.SetIdleStatus)
-
+			
 	#_____________________________________________________________________
 
 	def FetchPreviewImage(self, sample):
