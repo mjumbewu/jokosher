@@ -392,7 +392,12 @@ class EventViewer(gtk.DrawingArea):
 					displayLength = int(100 * self.event.loadingLength / self.event.duration)
 				
 				if self.event.isDownloading:
-					context.show_text(_("Downloading (%d%%)...") % displayLength)
+					# for some file types gstreamer doesn't give us a duration
+					# at the minure so don't display the percentage
+					if displayLength == 0:
+						context.show_text(_("Downloading ..."))
+					else:
+						context.show_text(_("Downloading (%d%%)...") % displayLength)
 				else:
 					context.show_text(_("Loading (%d%%)...") % displayLength)
 				
