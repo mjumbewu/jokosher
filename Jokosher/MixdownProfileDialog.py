@@ -68,8 +68,7 @@ class MixdownProfileDialog:
 		
 		# replace $PROJECTNAME with the project name in the window label
 		projectnamelabel = self.res.get_widget("lbl_projectname")
-		txt = projectnamelabel.get_text()
-		txt = "<b>%s</b>" % txt.replace("$PROJECTNAME", self.project.name)
+		txt = _("<b>Steps to mixdown %(projectname)s</b>") % {"projectname":self.project.name}
 		projectnamelabel.set_markup(txt)
 
 		# populate actions list
