@@ -387,19 +387,18 @@ class EventViewer(gtk.DrawingArea):
 			if self.event.isLoading:
 				# Write "Loading..."
 				if self.event.duration == 0:
-					displayLength = 0
+					# for some file types gstreamer doesn't give us a duration
+					# so don't display the percentage
+					if self.event.isDownloading:
+						context.show_text(_("Downloading..."))
+					else:
+						context.show_text(_("Loading..."))
 				else:
 					displayLength = int(100 * self.event.loadingLength / self.event.duration)
-				
-				if self.event.isDownloading:
-					# for some file types gstreamer doesn't give us a duration
-					# at the minure so don't display the percentage
-					if displayLength == 0:
-						context.show_text(_("Downloading ..."))
-					else:
+					if self.event.isDownloading:
 						context.show_text(_("Downloading (%d%%)...") % displayLength)
-				else:
-					context.show_text(_("Loading (%d%%)...") % displayLength)
+					else:
+						context.show_text(_("Loading (%d%%)...") % displayLength)
 				
 			elif self.event.isRecording:
 				context.show_text(_("Recording..."))
