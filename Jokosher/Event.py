@@ -22,6 +22,7 @@ import Utils
 import UndoSystem
 import Globals
 import gettext
+import urllib
 _ = gettext.gettext
 
 #=========================================================================
@@ -662,7 +663,7 @@ class Event(Monitored):
 		
 		pipe = """%s ! tee name=mytee mytee. ! queue ! filesink location=%s """ +\
 		"""mytee. ! queue ! decodebin ! audioconvert ! level interval=%d message=true ! fakesink""" 
-		pipe = pipe % (uri, self.file.replace(" ", "\ "), self.LEVEL_INTERVAL * gst.SECOND)
+		pipe = pipe % (urllib.quote(uri,":/"), self.file.replace(" ", "\ "), self.LEVEL_INTERVAL * gst.SECOND)
 		self.loadingPipeline = gst.parse_launch(pipe)
 
 		self.bus = self.loadingPipeline.get_bus()
