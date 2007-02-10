@@ -42,7 +42,7 @@ class CompactMixView(gtk.Frame):
 		self.channels = []
 		self.lanes = []
 		self.Updating = False
-		self.instrbar = None
+		self.CreateInstrBar()
 		
 		self.vbox = gtk.VBox()
 		self.add(self.vbox)
@@ -60,6 +60,17 @@ class CompactMixView(gtk.Frame):
 		self.Update()
 	#_____________________________________________________________________
 
+	def CreateInstrBar(self):
+		self.instrbar = gtk.Toolbar()
+		self.instrbar.set_show_arrow(True)
+		self.instrbar.set_style(gtk.TOOLBAR_BOTH_HORIZ)
+		toollab = gtk.ToolItem()
+		lab = gtk.Label()
+		lab.set_markup(_("<b>Instruments Not Shown:</b>"))
+		toollab.add(lab)
+		toollab.set_is_important(True)
+		self.instrbar.insert(toollab, 0)
+		
 	def Update(self):
 		"""
 		Updates the mix view when requested by OnStateChanged or __init__
@@ -106,43 +117,33 @@ class CompactMixView(gtk.Frame):
 		
 		#Pack the master vuwidget  
 		self.hbox.pack_end(self.mastermixer, False, False)  			
-			
-		#create the minimise instruments bar
-		if self.instrbar:
-			for i in self.vbox.get_children():
-				if i == self.instrbar:
-					self.vbox.remove(self.instrbar)
-		self.instrbar = gtk.Toolbar()
-		self.instrbar.set_show_arrow(True)
-		self.instrbar.set_style(gtk.TOOLBAR_BOTH_HORIZ)
 		
-		toollab = gtk.ToolItem()
-		lab = gtk.Label()
-		lab.set_markup(_("<b>Instruments Not Shown:</b>"))
-		toollab.add(lab)
-		toollab.set_is_important(True)
-		self.instrbar.insert(toollab, 0)
+		# Remove all minimized instruments from the toolbar
+		for child in self.instrbar.get_children()[1:]:
+			self.instrbar.remove(child)
 
 		# add the minimised instruments to the minimised bar
-		for instr in self.project.instruments:
-			if not instr.isVisible:
-				toolbutt = gtk.ToolButton()
-				
-				imgsize = gtk.icon_size_lookup(gtk.ICON_SIZE_MENU)[0]
-				pixbuf = instr.pixbuf.scale_simple(imgsize, imgsize, gtk.gdk.INTERP_BILINEAR)
-				image = gtk.Image()
-				image.set_from_pixbuf(pixbuf)
-				
-				toolbutt.set_label(instr.name)
-				toolbutt.set_icon_widget(image)
-				toolbutt.set_is_important(True)
-				toolbutt.connect("clicked", self.OnMaximiseTrack, instr)
-				
-				self.instrbar.insert(toolbutt, -1)
-				
+		minimisedInstrs = [x for x in self.project.instruments if not x.isVisible]
+		for instr in minimisedInstrs:
+			toolbutt = gtk.ToolButton()
+			
+			imgsize = gtk.icon_size_lookup(gtk.ICON_SIZE_MENU)[0]
+			pixbuf = instr.pixbuf.scale_simple(imgsize, imgsize, gtk.gdk.INTERP_BILINEAR)
+			image = gtk.Image()
+			image.set_from_pixbuf(pixbuf)
+			
+			toolbutt.set_label(instr.name)
+			toolbutt.set_icon_widget(image)
+			toolbutt.set_is_important(True)
+			toolbutt.connect("clicked", self.OnMaximiseTrack, instr)
+			
+			self.instrbar.insert(toolbutt, -1)
+		
 		# Only show this toolbar if there is something minimized
-		if self.instrbar.get_n_items() != 1:
+		if minimisedInstrs and not self.instrbar.parent:
 			self.vbox.pack_end(self.instrbar, False, True)
+		elif not minimisedInstrs and self.instrbar.parent:
+			self.vbox.remove(self.instrbar)
 		
 		self.show_all()
 		self.Updating = False
