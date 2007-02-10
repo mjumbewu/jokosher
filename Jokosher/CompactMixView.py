@@ -109,11 +109,12 @@ class CompactMixView(gtk.Frame):
 			
 		#create the minimise instruments bar
 		if self.instrbar:
-			self.vbox.remove(self.instrbar)
+			for i in self.vbox.get_children():
+				if i == self.instrbar:
+					self.vbox.remove(self.instrbar)
 		self.instrbar = gtk.Toolbar()
 		self.instrbar.set_show_arrow(True)
 		self.instrbar.set_style(gtk.TOOLBAR_BOTH_HORIZ)
-		self.vbox.pack_end(self.instrbar, False, True)
 		
 		toollab = gtk.ToolItem()
 		lab = gtk.Label()
@@ -138,6 +139,10 @@ class CompactMixView(gtk.Frame):
 				toolbutt.connect("clicked", self.OnMaximiseTrack, instr)
 				
 				self.instrbar.insert(toolbutt, -1)
+				
+		# Only show this toolbar if there is something minimized
+		if self.instrbar.get_n_items() != 1:
+			self.vbox.pack_end(self.instrbar, False, True)
 		
 		self.show_all()
 		self.Updating = False
