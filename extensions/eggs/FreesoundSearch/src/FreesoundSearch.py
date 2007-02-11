@@ -7,10 +7,6 @@
 #
 #-------------------------------------------------------------------------------
 
-# TODO
-# give downloaded samples proper names
-# when dragging, event doesn't appear for a few secs so it looks like it hadn't worked
-
 import Jokosher.Extension # required in all Jokosher extensions
 import pygtk
 pygtk.require("2.0")
@@ -101,7 +97,9 @@ class FreesoundSearch:
 			"on_buttonFind_clicked" : self.OnFind,
 			"on_buttonClose_clicked" : self.OnClose,
 			"on_spinbuttonResults_value_changed" : self.OnChangeResults,
-			"on_destroy" : self.OnDestroy
+			"on_destroy" : self.OnDestroy,
+			"on_buttonDelete_clicked" : self.OnDelete,
+			"on_buttonCopy_clicked" : self.OnCopy
 		}
 		wTree.signal_autoconnect(signals)
 		
@@ -119,6 +117,7 @@ class FreesoundSearch:
 		self.window = wTree.get_widget("FreesoundSearchWindow")
 		self.treeHistory = wTree.get_widget("treeviewHistory")
 		self.vboxResults = gtk.VBox(spacing=6)
+		self.clipboard = gtk.Clipboard()
 		
 		# load the history dict from the extension data
 		self.sampleHistory = self.api.get_data_file(EXTENSION_DATA_NAME, "sampleHistory")
@@ -141,7 +140,11 @@ class FreesoundSearch:
 		# create the columns with their respective renderers and add them
 		# these strings are not displayed, so they're not marked as translatable
 		self.treeHistory.append_column(gtk.TreeViewColumn("Author-ID", gtk.CellRendererText(), text=0))
-		self.treeHistory.append_column(gtk.TreeViewColumn("Description", gtk.CellRendererText(), text=1))
+		renderer = gtk.CellRendererText()
+		#renderer.set_property("wrap-width", -1)
+		#renderer.set_property("wrap-mode", pango.WRAP_WORD)
+		#renderer.ellipsize = pango.ELLIPSIZE_END
+		self.treeHistory.append_column(gtk.TreeViewColumn("Description", renderer, text=1))
 		
 		# set up other widget properties
 		self.eventBoxHeader.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse("#ffffff"))
@@ -187,6 +190,76 @@ class FreesoundSearch:
 				]
 		
 		self.searchQueue.put(query)
+		
+	#_____________________________________________________________________
+	
+	def OnDelete(self, button):
+		"""
+		Deletes a used sample history entry.
+		
+		Parameters:
+			button -- reserved for GTK callbacks. Don't use it explicitly.
+		"""
+		selection = self.treeHistory.get_selection().get_selected()
+		
+		# return if there is no active selection
+		if not selection[1]:
+			return
+
+		selection = self.treeHistory.get_selection().get_selected()
+		
+		# return if there is no active selection
+		if not selection[1]:
+			return
+		
+		if self.sampleHistoryModel.iter_depth(selection[1]) == 0:
+			# it's an author row
+			sampleAuthor = self.sampleHistoryModel[selection[1]][0]
+			del self.sampleHistory[sampleAuthor]
+		else:
+			# it's a sample row
+			sampleID = self.sampleHistoryModel[selection[1]][0]
+			sampleDesc = self.sampleHistoryModel[selection[1]][1]
+			
+			for author in self.sampleHistory:
+				if sampleID in self.sampleHistory[author]:
+					del self.sampleHistory[author][sampleID]
+					
+					#TODO: finish this bit
+					# if the author has no samples listed, delete him/her
+					#if len(self.sampleHistory[author]) == 0:
+					#	del self.sampleHistory[author]
+					#	self.sampleHistoryModel.remove(selection[1])
+					
+					break
+		
+		self.sampleHistoryModel.remove(selection[1])
+		
+		# save the newly updated history dict
+		self.api.set_data_file(EXTENSION_DATA_NAME, "sampleHistory", self.sampleHistory)
+		
+	#_____________________________________________________________________
+		
+	def OnCopy(self, button):
+		"""
+		Copies a used sample history entry to the clipboard.
+		
+		Parameters:
+			button -- reserved for GTK callbacks. Don't use it explicitly.
+		"""
+		selection = self.treeHistory.get_selection().get_selected()
+		
+		# return if there is no active selection
+		if not selection[1]:
+			return
+		
+		if self.sampleHistoryModel.iter_depth(selection[1]) == 0:
+			# it's an author row
+			self.clipboard.set_text(_("Author: %s") % self.sampleHistoryModel[selection[1]][0])
+		else:
+			# it's a sample row
+			self.clipboard.set_text(_("Sample ID: %s\n Sample description: %s") % (self.sampleHistoryModel[selection[1]][0],
+																				self.sampleHistoryModel[selection[1]][1]))
 		
 	#_____________________________________________________________________
 	
@@ -271,6 +344,7 @@ class FreesoundSearch:
 		"""
 		username, password = self.entryUsername.get_text(), self.entryPassword.get_text()
 		self.labelWarning.set_label(_("Login in..."))
+		self.buttonOK.set_sensitive(False)
 		
 		# create a worker thread to avoid blocking the GUI while logging in
 		worker = threading.Thread(group=None, target=self.FinishLogin, name="Login", 
@@ -364,7 +438,7 @@ class SearchFreesoundThread(threading.Thread):
 		"""
 		evBox = gtk.EventBox()
 		hzBox = gtk.HBox()
-		tooltips = gtk.Tooltips()
+		#tooltips = gtk.Tooltips()
 		
 		# create the container
 		hzBox.set_border_width(6)
@@ -396,8 +470,8 @@ class SearchFreesoundThread(threading.Thread):
 		hzBox.set_child_packing(playButton, True, False, 0, gtk.PACK_START)
 		
 		# set the tooltips
-		tooltips.set_tip(playButton, _("Play this sample"))
-		tooltips.set_tip(sampleDesc, _("You can drag and drop this sample into your Jokosher project"))
+		#tooltips.set_tip(playButton, _("Play this sample"))
+		#tooltips.set_tip(sampleDesc, _("You can drag and drop this sample into your Jokosher project"))
 		
 		# add everything to the container and then show it
 		evBox.show_all()

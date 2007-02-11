@@ -769,7 +769,7 @@
 		  </child>
 
 		  <child>
-		    <widget class="GtkButton" id="button1">
+		    <widget class="GtkButton" id="buttonDelete">
 		      <property name="visible">True</property>
 		      <property name="tooltip" translatable="yes">Delete the selected sample or artist</property>
 		      <property name="can_focus">True</property>
@@ -777,6 +777,7 @@
 		      <property name="use_stock">True</property>
 		      <property name="relief">GTK_RELIEF_NORMAL</property>
 		      <property name="focus_on_click">True</property>
+		      <signal name="clicked" handler="on_buttonDelete_clicked" last_modification_time="Fri, 09 Feb 2007 01:13:32 GMT"/>
 		    </widget>
 		    <packing>
 		      <property name="padding">0</property>
@@ -786,7 +787,7 @@
 		  </child>
 
 		  <child>
-		    <widget class="GtkButton" id="button2">
+		    <widget class="GtkButton" id="buttonCopy">
 		      <property name="visible">True</property>
 		      <property name="tooltip" translatable="yes">Copy the sample or artist information to the clipboard</property>
 		      <property name="can_focus">True</property>
@@ -794,6 +795,7 @@
 		      <property name="use_stock">True</property>
 		      <property name="relief">GTK_RELIEF_NORMAL</property>
 		      <property name="focus_on_click">True</property>
+		      <signal name="clicked" handler="on_buttonCopy_clicked" last_modification_time="Fri, 09 Feb 2007 01:13:36 GMT"/>
 		    </widget>
 		    <packing>
 		      <property name="padding">0</property>
@@ -1005,7 +1007,8 @@ David Corrales - corrales.david@gmail.com</property>
 	      <child>
 		<widget class="GtkLabel" id="label16">
 		  <property name="visible">True</property>
-		  <property name="label" translatable="yes">This extension is licensed under the GNU GPL license. Please refer to the main Jokosher COPYING file for more details.</property>
+		  <property name="label" translatable="yes">This software is licensed under the GNU GPL license. 
+Please refer to the main Jokosher COPYING file for more details.</property>
 		  <property name="use_underline">False</property>
 		  <property name="use_markup">False</property>
 		  <property name="justify">GTK_JUSTIFY_LEFT</property>
