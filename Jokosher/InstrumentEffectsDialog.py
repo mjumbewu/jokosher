@@ -244,9 +244,6 @@ class InstrumentEffectsDialog:
 			instrPresets = self.presets.effectpresetregistry["instruments"][self.instrument.instrType] 
 			for pres in instrPresets:
 				if instrPresets[pres]["dependencies"].issubset(Globals.LADSPA_FACTORY_REGISTRY):
-					# TODO: remove this print
-					#print "EC: %s" % pres
-					
 					self.availpresets.append(pres)
 					self.modelPresets.append([pres])
 		except KeyError:
@@ -663,8 +660,6 @@ class InstrumentEffectsDialog:
 		for property in proplist:
 			# non readable params
 			if not(property.flags & gobject.PARAM_READABLE):
-				#TODO: Remove this print
-				#print "Non readable property"
 				# create and attach a property name label to the settings table
 				label = gtk.Label(property.name)
 				label.set_alignment(1, 0.5)
@@ -681,8 +676,7 @@ class InstrumentEffectsDialog:
 				self.settingstable.attach(label, 0, 1, count, count+1, xoptions=gtk.FILL)
 								
 				wvalue = self.effectelement.get_property(property.name)
-				#TODO: Remove this print
-				#print "Readonly value: %f" % wvalue
+				
 				if wvalue != None:
 					wlabel = gtk.Label(wvalue)
 					self.settingstable.attach(wlabel, 1, 2, count, count+1, xoptions=gtk.FILL)
@@ -707,9 +701,6 @@ class InstrumentEffectsDialog:
 				if property.maximum > self.propertyThreshold:
 					maxValue = self.fixValue
 				
-				#TODO: Remove this print
-				#print "**Name: %s**, Min: %f, Max: %f, nMin: %f, nMax: %f" % (property.name, property.minimum, property.maximum, minValue, maxValue)
-				
 				adj = gtk.Adjustment(value, minValue, maxValue)
 				adj.connect("value_changed", self.SetSingleEffectSetting, property.name, property)
 				self.sliderdict[property.name] = hscale = gtk.HScale(adj)
@@ -724,8 +715,6 @@ class InstrumentEffectsDialog:
 				# check for ints and change digits
 				if not((property.value_type == gobject.TYPE_FLOAT) or
 					   (property.value_type == gobject.TYPE_DOUBLE)):
-					#TODO: Remove this print
-					#print "This value is an integer"
 					hscale.set_digits(0)
 
 				# add the slider to the settings table (with tooltips)
@@ -765,9 +754,6 @@ class InstrumentEffectsDialog:
 			effectPresets = self.presets.effectpresetregistry["effects"][self.elementfactory]
 			if self.elementfactory in Globals.LADSPA_FACTORY_REGISTRY:
 				for pres in effectPresets:
-					#TODO: Remove this print
-					#print "SE: %s" % pres
-					
 					deps = effectPresets[pres]["dependencies"]
 					if len(deps) == 1 and self.elementfactory in deps:
 						self.availEffectPresets.append(pres)
@@ -805,8 +791,6 @@ class InstrumentEffectsDialog:
 			value = int(slider.get_value())
 		else:
 			value = slider.get_value()
-			#TODO: Remove this print
-			#print "Value: %f" % value
 		
 		# set the gstreamer property
 		self.instrument.effects[self.effectpos].set_property(name, value)

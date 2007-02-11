@@ -260,9 +260,6 @@ class EffectPresets(Monitored):
 		presetfile = Globals.EFFECT_PRESETS_PATH + filename
 		Globals.debug(presetfile)
 		
-		#TODO: remove this print
-		#print "(Load) Single effect filename: %s" % filename
-
 		if not os.path.exists(presetfile):
 			Globals.debug("preset file does not exist")
 			return False
@@ -290,9 +287,6 @@ class EffectPresets(Monitored):
 		filename = self._PresetFilename(instrType, presetName)
 		presetfile = Globals.EFFECT_PRESETS_PATH + filename
 		
-		#TODO: remove this print
-		#print "(Load) Effect chain filename: %s" % filename
-			
 		if not os.path.exists(presetfile):
 			Globals.debug("preset file does not exist")
 		else:	
@@ -367,8 +361,6 @@ class EffectPresets(Monitored):
 		presetFile = os.path.expanduser(Globals.EFFECT_PRESETS_PATH + filename)
 		
 		if os.path.isfile(presetFile):
-			#TODO: remove this print
-			#print "Removing file: %s" % presetFile
 			os.remove(presetFile)
 	
 	#_____________________________________________________________________
@@ -454,23 +446,16 @@ class EffectPresets(Monitored):
 				presetname = presetname[0]
 			else:
 				presetname = presetname[1]
-			presetname = presetname.replace(".jpreset", "")
 			
-			#TODO: remove this print
-			#print "Preset name: %s" % presetname
-			
+			presetname = presetname.replace(".jpreset", "")	
 			preset["dependencies"] = set(depslist)
 			preset["file"] = str(presetfile)
 			
 			if isChain:
-				#TODO: remove this print
-				#print "Chain name: %s" % instrument
 				preset["instrument"] = str(instrument)
 				presetType = "instruments"
 				elementName = instrument
 			else:
-				#TODO: remove this print
-				#print "Effect name: %s" % effectName
 				presetType = "effects"
 				elementName = effectName
 				
@@ -481,22 +466,7 @@ class EffectPresets(Monitored):
 				self.effectpresetregistry[presetType][elementName] = {}
 			
 			self.effectpresetregistry[presetType][elementName][presetname] = preset
-		
-		#TODO: remove this print
-		"""
-		print self.effectpresetregistry
-		
-		print ""
-		for key in self.effectpresetregistry:
-			 print key
-			 for key2 in self.effectpresetregistry[key]:
-			 	print "\t%s" % key2
-			 	for key3 in self.effectpresetregistry[key][key2]:
-			 		print "\t\t%s" % key3
-			 		for key4 in self.effectpresetregistry[key][key2][key3]:
-			 			print "\t\t\t%s: %s" % (key4,
-							  self.effectpresetregistry[key][key2][key3][key4])
-		"""
+			
 		Globals.debug("\t...done.")
 		
 	#_____________________________________________________________________

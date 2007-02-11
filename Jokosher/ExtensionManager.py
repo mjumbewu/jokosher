@@ -190,8 +190,6 @@ class ExtensionManager:
 			return False
 		# try and register the extension - quit if failed
 		if not self.register(extension, filename, directory, local):
-			# TODO: remove this print
-			#print "Failed registering %s" % extension
 			return False
 		
 		# if we're still here then start the extension, if its not in the extensions_blacklist
