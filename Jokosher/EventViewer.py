@@ -33,6 +33,7 @@ class EventViewer(gtk.DrawingArea):
 	
 	#the width of the stroke above the fill (the line on the top of the waveform)
 	_LINE_WIDTH = 2
+	
 	#the minimum distance allowed between each sample point in the waveform
 	#making this bigger will make the waveform less crowed but also less detailed
 	_MIN_POINT_SEPARATION = 2
@@ -116,6 +117,7 @@ class EventViewer(gtk.DrawingArea):
 		
 		# source is an offscreen canvas to hold our waveform image
 		self.source = cairo.ImageSurface(cairo.FORMAT_ARGB32, 0, 0)
+		
 		#rectangle of cached draw area
 		self.cachedDrawArea = gtk.gdk.Rectangle(0, 0, 0, 0)
 
@@ -240,6 +242,7 @@ class EventViewer(gtk.DrawingArea):
 			context.set_source_rgba(*self._FADEMARKERS_RGBA)
 			
 			pixxFM_left = x1 + 1
+			
 			#if there is enough room on the left of the selection,
 			#place the fademarker outside the selection bounds.
 			if x1 + 1 >= self._PIXX_FADEMARKER_WIDTH:
@@ -249,6 +252,7 @@ class EventViewer(gtk.DrawingArea):
 							self._PIXX_FADEMARKER_WIDTH , self._PIXY_FADEMARKER_HEIGHT)
 			
 			pixxFM_right = x2
+			
 			#if there is enough room on the right of the selection,
 			#place the fademarker outside the selection bounds.
 			if x2 + self._PIXX_FADEMARKER_WIDTH > event.area.width:
@@ -288,6 +292,7 @@ class EventViewer(gtk.DrawingArea):
 		
 		rect = gtk.gdk.Rectangle(exposeArea.x - exposeArea.width, exposeArea.y,
 						exposeArea.width*3, exposeArea.height)
+		
 		#Check if our area to cache is outside the allocated area
 		if rect.x < 0:
 			rect.x = 0
@@ -295,7 +300,7 @@ class EventViewer(gtk.DrawingArea):
 			rect.width = allocArea.width - rect.x
 			
 		self.source = cairo.ImageSurface(cairo.FORMAT_ARGB32, rect.width, rect.height)
-
+		
 		context = cairo.Context(self.source)
 		context.set_line_width(2)
 		context.set_antialias(cairo.ANTIALIAS_SUBPIXEL)

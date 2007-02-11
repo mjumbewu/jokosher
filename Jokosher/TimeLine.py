@@ -10,6 +10,8 @@
 
 import gtk
 import pango
+import cairo
+
 import gettext
 _ = gettext.gettext
 
@@ -40,6 +42,24 @@ class TimeLine(gtk.DrawingArea):
 	"""
 	_NUM_LINES = 5
 	
+	"""
+	Various color configurations:
+	   ORGBA = Offset, Red, Green, Blue, Alpha
+	   RGBA = Red, Green, Blue, Alpha
+	   RGB = Red, Green, Blue
+	"""
+	#_OPAQUE_GRADIENT_STOP_ORGBA = (0.2, 138./255, 226./255, 52./255, 1)
+	#_TRANSPARENT_GRADIENT_STOP_ORGBA = (1, 138./255, 226./255, 52./255, 0.5)
+	_BORDER_RGB = (85./255, 85./255, 85./255)
+	_BACKGROUND_RGB = (1, 1, 1)
+	_TEXT_RGB = (0, 0, 0)
+	#_SELECTED_RGBA = (0, 0, 1, 0.2)
+	#_SELECTION_RGBA = (0, 0, 1, 0.5)
+	#_FADEMARKERS_RGBA = (1, 0, 0, 0.8)
+	_BEAT_BAR_RGB = (0, 0, 0)
+	_PLAY_CURSOR_RGB = (0, 0, 0)
+	#_FADELINE_RGB = (1, 0.6, 0.6)
+	
 	#_____________________________________________________________________
 
 	def __init__(self, project, timelinebar, mainview):
@@ -64,7 +84,12 @@ class TimeLine(gtk.DrawingArea):
 		self.height = 44
 		self.buttonDown = False
 		self.dragging = False
-		self.savedLine = None
+
+		# source is an offscreen canvas to hold our waveform image
+		self.source = cairo.ImageSurface(cairo.FORMAT_ARGB32, 0, 0)
+		
+		#rectangle of cached draw area
+		self.cachedDrawArea = gtk.gdk.Rectangle(0, 0, 0, 0)
 
 		# Accessibility helpers
 		self.SetAccessibleName()
@@ -78,6 +103,7 @@ class TimeLine(gtk.DrawingArea):
 		self.connect("button_press_event", self.onMouseDown)
 		self.connect("motion_notify_event", self.onMouseMove)
 		self.connect("size_allocate", self.OnAllocate)
+		
 	#_____________________________________________________________________
 
 	def OnAllocate(self, widget, allocation):
@@ -87,12 +113,14 @@ class TimeLine(gtk.DrawingArea):
 		The "size-allocate" signal is emitted when widget is given a new space allocation.
 		
 		Parameters:
-			widget -- reserved for GTK callbacks, don't use it explicitly.
-			allocation -- the position and size to be allocated to the widget.
+			widget -- reserved for GTK callbacks.
+			allocation -- the gtk.gdk.Rectangle allocated to the widget.
 		"""
 		self.allocation = allocation
-		# Reconstruce timeline because allocation changed
+		
+		# Reconstruct the timeline because the size allocation changed
 		self.DrawLine()
+		
 		# Redraw the reconstructed timeline
 		self.queue_draw()
 		
@@ -106,60 +134,79 @@ class TimeLine(gtk.DrawingArea):
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 			event -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-		if self.savedLine == None:
-			self.DrawLine()
-			
-		d = widget.window
-		gc = d.new_gc()
+		area = event.area
+		cache = self.cachedDrawArea
 		
-		# redraw area from saved gtk.gdk.Image
-		d.draw_image(gc, self.savedLine,
-					 event.area.x, event.area.y,
-					 event.area.x, event.area.y,
-					 event.area.width, event.area.height)
+		# TODO: remove this prints
+		#print "Area - x: %d, y: %d" % (area.x, area.y)
+		#print "Cache - x: %d, y: %d" % (cache.x, cache.y)
+		
+		#check if the expose area is within the already cached rectangle
+		if area.x < cache.x or (area.x + area.width > cache.x + cache.width):
+			# TODO: remove this print
+			#print "**Redraw**"
+			self.DrawLine()
+		
+		# Get a cairo surface for this drawing op
+		context = widget.window.cairo_create()
 
-		# Draw play cursor position
-		# Set the color:
-		col = gc.get_colormap().alloc_color("#FF0000")
-		gc.set_foreground(col)
-		# And draw:
-		x = int(round((self.project.transport.position - self.project.viewStart) * self.project.viewScale))
-		d.draw_line(gc, x, 0, x, self.get_allocation().height)	
+		# Give it our timeline image as a source
+		context.set_source_surface(self.source, 0, 0)
+		# TODO: see what's the problem with using the cached (x,y) values
+		#context.set_source_surface(self.source, self.cachedDrawArea.x, self.cachedDrawArea.y)
+
+		# Blit our timeline
+		context.paint()
+		
+		# Draw play cursor position (add 1 so it lines up correctly)
+		x = int(round((self.project.transport.position - self.project.viewStart) * self.project.viewScale))+1
+		context.move_to(x, 0)
+		context.set_line_width(1)
+		context.line_to(x, self.allocation.height)
+		context.set_source_rgb(*self._PLAY_CURSOR_RGB)
+		context.stroke()
 	
 	#_____________________________________________________________________
 		
 	def DrawLine(self):
 		""" 
-		Draws the timeline and saves it to memory
+		Uses Cairo to draw the timeline onto a canvas in memory.
 		Must be called initially and to redraw the timeline
 		after moving the project start.
 		
+		Parameters:
+			allocation -- the gtk.gdk.Rectangle allocated to the widget.
 		"""
-		d = self.window
-		gc = d.new_gc()
+		allocArea = self.get_allocation()
 		
-		y = 0
+		#rect = gtk.gdk.Rectangle(allocArea.x - allocArea.width, allocArea.y,
+		#				allocArea.width*3, allocArea.height)
 		
-		# Draw the white background
-		col = gc.get_colormap().alloc_color("#FFFFFF")
-		gc.set_foreground(col)
-		gc.set_fill(gtk.gdk.SOLID)
+		# TODO: temporary rect initialization
+		rect = allocArea
 		
-		d.draw_rectangle(	gc, True, # True = filled
-							0, 
-							0, 
-							self.get_allocation().width, 
-							self.get_allocation().height)
+		#Check if our area to cache is outside the allocated area
+		#if rect.x < 0:
+		#	rect.x = 0
+		#if rect.x + rect.width > allocArea.width:
+		#	rect.width = allocArea.width - rect.x
 		
-		# Draw a gray frame around the background
-		col = gc.get_colormap().alloc_color("#555555")
-		gc.set_foreground(col)
-							
-		d.draw_rectangle(	gc, False, # False = not filled
-							0, 
-							0, 
-							self.get_allocation().width, 
-							self.get_allocation().height)
+		self.source = cairo.ImageSurface(cairo.FORMAT_ARGB32, rect.width, rect.height)
+		
+		context = cairo.Context(self.source)
+		context.set_line_width(2)
+		context.set_antialias(cairo.ANTIALIAS_SUBPIXEL)
+
+		# Draw white background
+		context.rectangle(0, 0, rect.width, rect.height)
+		context.set_source_rgb(*self._BACKGROUND_RGB)
+		context.fill()
+		
+		# Draw the widget border
+		context.set_line_width(0.2)
+		context.rectangle(0, 0, rect.width, rect.height)
+		context.set_source_rgb(*self._BORDER_RGB)
+		context.stroke()
 		
 		x = 0
 		transport = self.project.transport
@@ -167,8 +214,10 @@ class TimeLine(gtk.DrawingArea):
 			# Calculate our scroll offset
 			# viewStart is in seconds. Seconds/60 = minutes. Minutes * Beat/Minute = beats (not an integer here)
 			pos = (self.project.viewStart / 60.) * self.project.bpm
+			
 			# floor to an integer. beat = the last beat before viewStart
 			beat = int(pos)
+			
 			# offset = part of a beat that has past since the last beat (offset < 1)
 			offset = pos - beat
 			
@@ -176,24 +225,33 @@ class TimeLine(gtk.DrawingArea):
 				# beats * ( pixels/minute ) / ( beats/minute ) = pixels
 				# Set x to the position in pixels of the last beat 
 				x -= offset * ((self.project.viewScale * 60.) / self.project.bpm)
+				
 				# (pixels/minute) / ( beats/minute) * 1 beat = pixels
 				# Add the length of one beat, in pixels
 				x += (self.project.viewScale * 60.) / self.project.bpm
+				
 				# x is now at the pixel-position of the first beat after the viewStart
 				beat += 1
 		
 			while x < self.get_allocation().width:
 				# Draw the beat/bar divisions
 				ix = int(x)
+				
 				if beat % self.project.meter_nom:
-					d.draw_line(gc, ix, int(self.get_allocation().height/1.2), ix, self.get_allocation().height)
+					lineHeight = int(self.get_allocation().height/1.2)
 				else:
-					d.draw_line(gc, ix, int(self.get_allocation().height/2), ix, self.get_allocation().height)
+					lineHeight = int(self.get_allocation().height/2)
 					
 					# Draw the bar number
-					l = pango.Layout(self.create_pango_context())
-					l.set_text(str((beat / self.project.meter_nom)+1))
-					d.draw_layout(gc, ix, 5, l)
+					context.set_source_rgb(*self._TEXT_RGB)
+					context.move_to(ix, 15)
+					context.show_text(str((beat / self.project.meter_nom)+1))
+				
+				# Draw the bar itself	
+				context.move_to(ix, lineHeight)
+				context.line_to(ix, self.get_allocation().height)
+				context.set_source_rgb(*self._BEAT_BAR_RGB)
+				context.stroke()
 					
 				beat += 1
 				
@@ -207,9 +265,11 @@ class TimeLine(gtk.DrawingArea):
 			# Calculate our scroll offset
 			# sec : viewStart, truncated to 1000ms; the second that has past just before the beginning of our surface
 			msec = viewStart - (viewStart % 1000)
+			
 			# sec : move to the last 'line' that wasn't drawn
 			if (msec % factor) != 0:
 				msec -= (msec % factor)
+				
 			# offset: the amount of milliseconds since the last second before the timeline
 			offset = viewStart - msec
 
@@ -224,23 +284,34 @@ class TimeLine(gtk.DrawingArea):
 			# Draw ticks up to the end of our display
 			while x < self.get_allocation().width:
 				ix = int(x)
+				
 				if msec % (self._NUM_LINES * factor):
-					d.draw_line(gc, ix, int(self.get_allocation().height/1.2), ix, self.get_allocation().height)
+					lineHeight = int(self.get_allocation().height/1.2)
 				else:
-					d.draw_line(gc, ix, int(self.get_allocation().height/2), ix, self.get_allocation().height)
+					lineHeight = int(self.get_allocation().height/2)
 					
 					# Draw the bar number
-					l = pango.Layout(self.create_pango_context())
 					if displayMilliseconds:
 						#Should use transportmanager for this...
-						l.set_text("%d:%02d:%03d"%((msec/1000) / 60, (msec/1000) % 60, msec%1000) )
+						number = "%d:%02d:%03d"%((msec/1000) / 60, (msec/1000) % 60, msec%1000)
 					else:
-						l.set_text("%d:%02d"%((msec/1000) / 60, (msec/1000) % 60))
-					d.draw_layout(gc, ix, 5, l)
+						number = "%d:%02d"%((msec/1000) / 60, (msec/1000) % 60)
+						
+					context.set_source_rgb(*self._TEXT_RGB)
+					context.move_to(ix, 15)
+					context.show_text(number)
+				
+				# Draw the bar itself
+				context.move_to(ix, lineHeight)
+				context.line_to(ix, self.get_allocation().height)
+				context.set_source_rgb(*self._BEAT_BAR_RGB)
+				context.stroke()
 				
 				msec += factor
 				x += viewScale * factor
-		self.savedLine = d.get_image(0, 0, self.get_allocation().width, self.get_allocation().height)
+		
+		#set area to record where the cached surface goes
+		self.cachedDrawArea = rect
 	
 	#_____________________________________________________________________
 		
@@ -323,11 +394,15 @@ class TimeLine(gtk.DrawingArea):
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 			event -- reserved for GTK callbacks, don't use it explicitly.
+			
+		Returns:
+			True -- to continue the GTK signal propagation.
 		"""
 		self.buttonDown = True
 		self.dragging = False
 		self.moveHead(event.x)
 		self.grab_focus()
+		
 		return True
 
 	#_____________________________________________________________________
