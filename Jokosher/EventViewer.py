@@ -461,9 +461,8 @@ class EventViewer(gtk.DrawingArea):
 			self.fadeMarkers[self.fadeBeingDragged] = 100 - int(percent * 100)
 			self.queue_draw()
 			
-			#FIXME: put a proper status message about how to use the volume faders once the string freeze is over
-			#if not self.volmessageID:
-			#	self.volmessageID = self.mainview.SetStatusBar(_("<b>NOTE</b>: The volume sliders in this pre-release version of Jokosher do not affect the audio."))
+			if not self.volmessageID:
+				self.volmessageID = self.mainview.SetStatusBar(_("<b>Drag</b> the red sliders to modify the volume fade."))
 			
 			return True
 
