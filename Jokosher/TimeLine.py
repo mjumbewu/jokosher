@@ -57,7 +57,7 @@ class TimeLine(gtk.DrawingArea):
 	#_SELECTION_RGBA = (0, 0, 1, 0.5)
 	#_FADEMARKERS_RGBA = (1, 0, 0, 0.8)
 	_BEAT_BAR_RGB = (0, 0, 0)
-	_PLAY_CURSOR_RGB = (0, 0, 0)
+	_PLAY_CURSOR_RGB = (0, 0, 1)
 	#_FADELINE_RGB = (1, 0.6, 0.6)
 	
 	#_____________________________________________________________________
