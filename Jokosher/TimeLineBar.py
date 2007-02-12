@@ -185,6 +185,7 @@ class TimeLineBar(gtk.Frame):
 			event -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		if event.type == gtk.gdk.BUTTON_PRESS:
+			startWidth = self.headerhbox.size_request()[0]
 			self.bpmframe.remove(self.bpmeventbox)
 						
 			self.bpmedit = gtk.SpinButton()
@@ -197,6 +198,10 @@ class TimeLineBar(gtk.Frame):
 			self.bpmedit.show()
 			self.bpmedit.grab_focus()
 			self.bpmeditPacked = True
+			#adjust padding so that the timeline event lanes still line up
+			newWidth = self.headerhbox.size_request()[0]
+			padding = self.alignment.get_padding()
+			self.alignment.set_padding(0, 0, 0, padding[3] - (newWidth -startWidth))
 
 	#_____________________________________________________________________
 
