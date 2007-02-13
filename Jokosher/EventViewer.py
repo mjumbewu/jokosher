@@ -118,7 +118,7 @@ class EventViewer(gtk.DrawingArea):
 		# source is an offscreen canvas to hold our waveform image
 		self.source = cairo.ImageSurface(cairo.FORMAT_ARGB32, 0, 0)
 		
-		#rectangle of cached draw area
+		# rectangle of cached draw area
 		self.cachedDrawArea = gtk.gdk.Rectangle(0, 0, 0, 0)
 
 		# Monitor the things this object cares about
@@ -127,10 +127,12 @@ class EventViewer(gtk.DrawingArea):
 
 		# This defines where the blue cursor indicator should be drawn (in pixels)
 		self.highlightCursor = None
-		
 		self.fadeMarkersContext = None
 		
 		self.splitImg = gtk.gdk.pixbuf_new_from_file(os.path.join(Globals.IMAGE_PATH, "icon_split.png"))
+		# TODO: load the correct image here
+		self.cancelImg = cairo.ImageSurface.create_from_png(os.path.join(Globals.IMAGE_PATH, "icon_cancel.png"))
+		self.cancelButtonArea = gtk.gdk.Rectangle(85, 3, self.cancelImg.get_width(), self.cancelImg.get_height())
 		
 		# drawer: this will probably be its own object in time
 		self.drawer = gtk.HBox()
@@ -387,7 +389,7 @@ class EventViewer(gtk.DrawingArea):
 		#check if we are at the beginning
 		if rect.x == 0:
 			context.set_source_rgb(*self._TEXT_RGB)
-			context.move_to(5, 12)
+			context.move_to(5, 15)
 			
 			if self.event.isLoading:
 				# Write "Loading..."
@@ -404,7 +406,12 @@ class EventViewer(gtk.DrawingArea):
 						context.show_text(_("Downloading (%d%%)...") % displayLength)
 					else:
 						context.show_text(_("Loading (%d%%)...") % displayLength)
-				
+						
+				# display a cancel button
+				context.set_source_surface(self.cancelImg, self.cancelButtonArea.x,
+											self.cancelButtonArea.y)
+				context.paint()
+								
 			elif self.event.isRecording:
 				context.show_text(_("Recording..."))
 			else:
@@ -425,13 +432,15 @@ class EventViewer(gtk.DrawingArea):
 		"""
 		self.project.RemoveListener(self)
 		self.event.RemoveListener(self)
-		#delete the cached image
+		
+		#delete the cached images
 		del self.source
+		del self.cancelImg
 		self.destroy()
 	
 	#_____________________________________________________________________
 
-	def OnMouseMove(self,widget,mouse):
+	def OnMouseMove(self, widget, mouse):
 		"""
 		Display a message in the StatusBar when the mouse hovers over the
 		EventViewer.
@@ -562,6 +571,13 @@ class EventViewer(gtk.DrawingArea):
 		if mouse.button == 3:
 			self.ContextMenu(mouse)
 		elif mouse.button == 1:
+			# check to see if the user clicked on the cancel button
+			if self.cancelButtonArea.x <= mouse.x <= self.cancelButtonArea.width+self.cancelButtonArea.x \
+				and self.cancelButtonArea.y <= mouse.y <= self.cancelButtonArea.height+self.cancelButtonArea.y \
+				and self.event.isLoading:
+				self.OnDelete()
+				return True
+			
 			if 'GDK_SHIFT_MASK' in mouse.state.value_names:
 				# LMB+shift: remove any existing selection in this event, begin 
 				#   selecting part of this event
@@ -1273,5 +1289,6 @@ class EventViewer(gtk.DrawingArea):
 		accessible.set_name(_("Event, %(name)s, %(dur)0.2f seconds long, starting at %(start)0.2f seconds.") \
 				% {"name":self.event.name, "dur":self.event.duration, "start":self.event.start})
 		
+	#_____________________________________________________________________
 
 #=========================================================================

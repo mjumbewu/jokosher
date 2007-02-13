@@ -704,7 +704,9 @@ class Event(Monitored):
 				self.isDownloading = False
 				self.isLoading = False
 			else:
-				self.isLoading = not finishedLoading
+				# TODO: see if this fix is alright
+				self.isLoading = False
+				#self.isLoading = not finishedLoading
 			
 			self.loadingPipeline = None
 			self.loadingLength = 0
