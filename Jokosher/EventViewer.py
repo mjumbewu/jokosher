@@ -130,7 +130,6 @@ class EventViewer(gtk.DrawingArea):
 		self.fadeMarkersContext = None
 		
 		self.splitImg = gtk.gdk.pixbuf_new_from_file(os.path.join(Globals.IMAGE_PATH, "icon_split.png"))
-		# TODO: load the correct image here
 		self.cancelImg = cairo.ImageSurface.create_from_png(os.path.join(Globals.IMAGE_PATH, "icon_cancel.png"))
 		self.cancelButtonArea = gtk.gdk.Rectangle(85, 3, self.cancelImg.get_width(), self.cancelImg.get_height())
 		
@@ -219,7 +218,7 @@ class EventViewer(gtk.DrawingArea):
 			return
 		
 		# Draw the highlight cursor if it's over us and we're not dragging a fadeMarker
-		if self.highlightCursor and not self.isDraggingFade:
+		if self.highlightCursor and not self.isDraggingFade and not self.event.isLoading:
 			context.move_to(self.highlightCursor, 0)
 			context.line_to(self.highlightCursor, self.allocation.height)
 			context.set_source_rgb(*self._HIGHLIGHT_POSITION_RGB)
