@@ -261,6 +261,7 @@ class TimeLineBar(gtk.Frame):
 		"""
 		self.project.SetMeter(self.project.meter_nom,
 							  int(combobox.get_active_text()))
+		self.projectview.UpdateSize()
 	
 	#_____________________________________________________________________
 	
