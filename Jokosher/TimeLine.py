@@ -196,7 +196,7 @@ class TimeLine(gtk.DrawingArea):
 		
 		context = cairo.Context(self.source)
 		context.set_line_width(2)
-		context.set_antialias(cairo.ANTIALIAS_SUBPIXEL)
+		context.set_antialias(cairo.ANTIALIAS_NONE)
 
 		# Draw white background
 		context.rectangle(0, 0, rect.width, rect.height)
@@ -245,8 +245,16 @@ class TimeLine(gtk.DrawingArea):
 					
 					# Draw the bar number
 					context.set_source_rgb(*self._TEXT_RGB)
-					context.move_to(ix, 15)
-					context.show_text(str((beat / self.project.meter_nom)+1))
+					number = (beat / self.project.meter_nom)+1
+					
+					# TODO: small hack to fix a problem with the numbers not being
+					#       properly centered
+					if(number == 1):
+						context.move_to(ix, 15)
+					else:
+						context.move_to(ix-3, 15)
+						
+					context.show_text(str(number))
 				
 				# Draw the bar itself	
 				context.move_to(ix, lineHeight)
