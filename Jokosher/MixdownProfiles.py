@@ -265,6 +265,21 @@ class ExportAsFileType(MixdownAction):
 		"""
 		See MixdownAction.run
 		"""
+		#prevent outputting to one of the input files
+		if self.config["filename"] in self.project.GetInputFilenames():
+			message = _("You have specified as the output for the mixdown " +
+					  "the file: \n    %s\n\nHowever a file with the same name is " +
+			          "already being used as the input to one of the instruments. " +
+			          "This is impossible - please choose another name.")
+			message = message % self.config["filename"]
+			dlg = gtk.MessageDialog(None,
+							gtk.DIALOG_MODAL,
+							gtk.MESSAGE_ERROR,
+							gtk.BUTTONS_CLOSE,
+							message)
+			dlg.run()
+			dlg.destroy()
+			return
 		data["filename"] = self.config["filename"]
 		data["filetype"] = self.filetypedict["extension"]
 		self.project.Export(self.config["filename"], self.filetypedict["pipeline"])

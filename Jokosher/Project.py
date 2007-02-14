@@ -1309,6 +1309,21 @@ class Project(Monitored):
 		self.EOShandlers.remove(function)
 		
 	#____________________________________________________________________	
+	def GetInputFilenames(self):
+		"""
+		Obtains a list of  all filenames that are to be input to
+		the pipeline.
+		
+		Return: 
+			a list of  the filenames
+		"""
+		fileList = []
+		for instrument in self.instruments:
+			for event in instrument.events:
+				fileList.append(event.file)
+		return fileList
+		
+	#____________________________________________________________________	
 
 	
 #=========================================================================
