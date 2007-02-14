@@ -56,22 +56,30 @@ class Instrument(Monitored):
 		
 		self.project = project
 		
-		self.path = ""					# The 'audio' directory for this instrument
+		self.path = ""				# The 'audio' directory for this instrument
 		self.events = []				# List of events attached to this instrument
-		self.graveyard = []				# List of events that have been deleted (kept for undo)
-		self.name = name				# Name of this instrument
+		self.graveyard = []			# List of events that have been deleted (kept for undo)
+		self.effects = []				# List of GStreamer effect elements
+		
+		self.name = name			# Name of this instrument
 		self.pixbuf = pixbuf			# The icon pixbuf resource
+		self.instrType = type		# The type of instrument
+		
 		self.isArmed = False			# True if the instrument is armed for recording
 		self.isMuted = False			# True if the "mute" button is toggled on
 		self.actuallyIsMuted = False	# True if the instrument is muted (silent)
-		self.isSolo = False				# True if the instrument is solo'd (only instrument active)
+		self.isSolo = False			# True if the instrument is solo'd (only instrument active)
 		self.isVisible = True			# True if the instrument should be displayed in the mixer views
+		self.isSelected = False		# True if the instrument is currently selected
+		
 		self.level = 0.0				# Current audio level in range 0..1
-		self.volume = 1.0				# Gain of the current instrument in range 0..1
-		self.instrType = type			# The type of instrument
-		self.effects = []				# List of GStreamer effect elements
-		self.pan = 0.0					# pan number (between -100 and 100)
+		self.volume = 1.0			# Gain of the current instrument in range 0..1
+		self.pan = 0.0				# pan number (between -100 and 100)
 		self.currentchainpreset = None	# current instrument wide chain preset
+		self.inTrack = 0			# Input track to record from
+		self.output = ""
+		self.recordingbin = None
+		self.id = project.GenerateUniqueID(id)	#check is id is already being used before setting
 		
 		# Select first input device as default to avoid a GStreamer bug which causes
 		# large amounts of latency with the ALSA 'default' device.
@@ -80,124 +88,85 @@ class Instrument(Monitored):
 		except: 
 			self.input = "default"
 	
-		self.inTrack = 0	# Input track to record from
-		self.output = ""
-		self.recordingbin = None
-		self.id = project.GenerateUniqueID(id) #check is id is already being used before setting
-		self.isSelected = False			# True if the instrument is currently selected
-		
-		# GStreamer pipeline elements for this instrument		
+		# CREATE GSTREAMER ELEMENTS #
+		self.playbackbin = gst.element_factory_make("bin", "Instrument_%d"%self.id)
 		self.volumeElement = gst.element_factory_make("volume", "Instrument_Volume_%d"%self.id)
 		self.levelElement = gst.element_factory_make("level", "Instrument_Level_%d"%self.id)
-		self.levelElement.set_property("interval", gst.SECOND / 50)
-		self.levelElement.set_property("message", True)
-		self.levelElement.set_property("peak-ttl", 0)
-		self.levelElement.set_property("peak-falloff", 20)
-
 		self.panElement = gst.element_factory_make("audiopanorama", "Instrument_Pan_%d"%self.id)
-
-		self.playbackbin = gst.element_factory_make("bin", "Instrument_%d"%self.id)
-
-		self.playbackbin.add(self.volumeElement)
-		Globals.debug("added volume (instrument)")
-
-		self.playbackbin.add(self.levelElement)
-		Globals.debug("added level (instrument)")
-
-		self.playbackbin.add(self.panElement)
-		Globals.debug("added audiopanorama (instrument)")
-
-		# Create Effects Bin
+		self.resample = gst.element_factory_make("audioresample")
+		
+		self.composition = gst.element_factory_make("gnlcomposition")
+		self.silentGnlSource = gst.element_factory_make("gnlsource")		# the default source that makes the silence between the tracks
+		self.silenceAudioSource = gst.element_factory_make("audiotestsrc")
+		
 		self.effectsBin = gst.element_factory_make("bin", "InstrumentEffects_%d"%self.id)
-		self.playbackbin.add(self.effectsBin)
-		# Create convert for start of effects bin
 		self.effectsBinConvert = gst.element_factory_make("audioconvert", "Start_Effects_Converter_%d"%self.id)
+		
+		self.volumeFadeBin = gst.element_factory_make("bin", "Volume_fades_bin")
+		self.volumeFadeElement = gst.element_factory_make("volume", "Volume_Fade_Element")
+		self.volumeFadeStartConvert = gst.element_factory_make("audioconvert", "Start_fadebin_converter")	
+		self.volumeFadeEndConvert = gst.element_factory_make("audioconvert", "End_fadebin_converter")
+		self.volumeFadeOperation = gst.element_factory_make("gnloperation", "gnloperation")
+		self.volumeFadeController = gst.Controller(self.volumeFadeElement, "volume")
+		
+		# CREATE GHOSTPADS FOR BINS #
 		self.effectsBin.add(self.effectsBinConvert)
-		# Create ghostpads for the bin from the audioconvert
 		self.effectsBinSink = gst.GhostPad("sink", self.effectsBinConvert.get_pad("sink"))
 		self.effectsBin.add_pad(self.effectsBinSink)
 		self.effectsBinSrc = gst.GhostPad("src", self.effectsBinConvert.get_pad("src"))
 		self.effectsBin.add_pad(self.effectsBinSrc)
-		# Link the end of the effects bin to the level element
-		self.effectsBin.link(self.volumeElement)
 		
+		self.volumeFadeBin.add(self.volumeFadeElement)
+		self.volumeFadeBin.add(self.volumeFadeStartConvert)
+		self.volumeFadeBin.add(self.volumeFadeEndConvert)
+		volumeFadeBinSink = gst.GhostPad("sink", self.volumeFadeStartConvert.get_pad("sink"))
+		self.volumeFadeBin.add_pad(volumeFadeBinSink)
+		volumeFadeBinSrc = gst.GhostPad("src", self.volumeFadeEndConvert.get_pad("src"))
+		self.volumeFadeBin.add_pad(volumeFadeBinSrc)
 		
-		self.composition = gst.element_factory_make("gnlcomposition")
-
-		# adding default source - this adds silence betweent the tracks
-		self.silenceaudio = gst.element_factory_make("audiotestsrc")
-		self.silenceaudio.set_property("wave", 4)	#4 is silence
+		# SET ELEMENT PROPERTIES #
+		self.levelElement.set_property("interval", gst.SECOND / 50)
+		self.levelElement.set_property("message", True)
+		self.levelElement.set_property("peak-ttl", 0)
+		self.levelElement.set_property("peak-falloff", 20)
 		
-		self.silencesource = gst.element_factory_make("gnlsource")
-		self.silencesource.set_property("priority", 2 ** 32 - 1)
-		self.silencesource.set_property("start", 0)
-		self.silencesource.set_property("duration", 1000 * gst.SECOND)
-		self.silencesource.set_property("media-start", 0)
-		self.silencesource.set_property("media-duration", 1000 * gst.SECOND)
-		self.silencesource.add(self.silenceaudio)
-		self.composition.add(self.silencesource)
-
-		self.playbackbin.add(self.composition)
-		Globals.debug("added composition (instrument)")
-		
-		self.resample = gst.element_factory_make("audioresample")
-		self.playbackbin.add(self.resample)
-		Globals.debug("added audioresample (instrument)")
-
-		# create operation
-
-		self.volbin = gst.element_factory_make("bin", "volbin")
-
-		self.opvol = gst.element_factory_make("volume", "opvol")
-		self.volbin.add(self.opvol)
-
-		self.vollac = gst.element_factory_make("audioconvert", "vollac")
-		self.volbin.add(self.vollac)
-		
-		self.volrac = gst.element_factory_make("audioconvert", "volrac")
-		self.volbin.add(self.volrac)
-
-		self.vollac.link(self.opvol)
-		self.opvol.link(self.volrac)
-
-		volbinsink = gst.GhostPad("sink", self.vollac.get_pad("sink"))
-		self.volbin.add_pad(volbinsink)
-		volbinsrc = gst.GhostPad("src", self.volrac.get_pad("src"))
-		self.volbin.add_pad(volbinsrc)
-
-		self.op = gst.element_factory_make("gnloperation", "gnloperation")
-		self.op.set_property("start", long(0) * gst.SECOND)
-		self.op.set_property("duration", long(20) * gst.SECOND)
-		self.op.set_property("priority", 1)
-
-		self.op.add(self.volbin)
-
-		self.composition.add(self.op)
-		
-		# set controller
-
-		self.control = gst.Controller(self.opvol, "volume")
-		self.control.set_interpolation_mode("volume", gst.INTERPOLATE_LINEAR)
-
-		# link elements
-		
-		#self.converterElement.link(self.volumeElement)
-		#print "linked instrument audioconvert to instrument volume"
-
-		self.volumeElement.link(self.levelElement)
-		Globals.debug("linked instrument volume to instrument level")
-
-		self.levelElement.link(self.panElement)
 		self.panElement.set_property("panorama", 0)
-		Globals.debug("linked instrument level to instrument pan")
 
-
+		self.silenceAudioSource.set_property("wave", 4)	#4 is silence
+		
+		self.silentGnlSource.set_property("priority", 2 ** 32 - 1)
+		self.silentGnlSource.set_property("start", 0)
+		self.silentGnlSource.set_property("duration", 1000 * gst.SECOND)
+		self.silentGnlSource.set_property("media-start", 0)
+		self.silentGnlSource.set_property("media-duration", 1000 * gst.SECOND)
+		
+		self.volumeFadeOperation.set_property("start", long(0) * gst.SECOND)
+		self.volumeFadeOperation.set_property("duration", long(20) * gst.SECOND)
+		self.volumeFadeOperation.set_property("priority", 1)
+		
+		self.volumeFadeController.set_interpolation_mode("volume", gst.INTERPOLATE_LINEAR)
+		
+		# ADD ELEMENTS TO THE PIPELINE AND/OR THEIR BINS #
+		self.playbackbin.add(self.volumeElement, self.levelElement, self.panElement, self.resample)
+		self.playbackbin.add(self.composition)
+		self.playbackbin.add(self.effectsBin)
+		
+		self.volumeFadeOperation.add(self.volumeFadeBin)
+		self.silentGnlSource.add(self.silenceAudioSource)
+		self.composition.add(self.silentGnlSource)
+		self.composition.add(self.volumeFadeOperation)
+		
+		# LINK GSTREAMER ELEMENTS #
+		self.effectsBin.link(self.volumeElement)
+		self.volumeElement.link(self.levelElement)
+		self.levelElement.link(self.panElement)	
 		self.panElement.link(self.resample)
-		Globals.debug("linked instrument pan to instrument resample")
 		
 		self.playghostpad = gst.GhostPad("src", self.resample.get_pad("src"))
 		self.playbackbin.add_pad(self.playghostpad)
-		Globals.debug("created ghostpad for instrument playbackbin")
+		
+		self.volumeFadeStartConvert.link(self.volumeFadeElement)
+		self.volumeFadeElement.link(self.volumeFadeEndConvert)
 		
 		self.AddAndLinkPlaybackbin()
 
@@ -1063,15 +1032,15 @@ class Instrument(Monitored):
 		
 		Globals.debug("Preparing the controller")
 		# set the length of the operation to be the full length of the project
-		self.op.set_property("duration", self.project.GetProjectLength() * gst.SECOND)
-		self.control.unset_all("volume")
+		self.volumeFadeOperation.set_property("duration", self.project.GetProjectLength() * gst.SECOND)
+		self.volumeFadeController.unset_all("volume")
 		firstpoint = False
 		for ev in self.events:
 			if not ev.audioFadePoints:
 				#there are no fade points, so just make it 100% all the way through
 				for point, vol in ((ev.start, 0.99), (ev.start+ev.duration, 0.99)):
 					Globals.debug("FADE POINT: time(%.2f) vol(%.2f)" % (point, vol))
-					self.control.set("volume", (point) * gst.SECOND, vol)
+					self.volumeFadeController.set("volume", (point) * gst.SECOND, vol)
 				continue
 			
 			for point in ev.audioFadePoints:
@@ -1083,10 +1052,10 @@ class Instrument(Monitored):
 				else:
 					vol = point[1]
 				Globals.debug("FADE POINT: time(%.2f) vol(%.2f)" % (ev.start + point[0], vol))
-				self.control.set("volume", (ev.start + point[0]) * gst.SECOND, vol)
+				self.volumeFadeController.set("volume", (ev.start + point[0]) * gst.SECOND, vol)
 		if not firstpoint:
 			Globals.debug("Set extra zero fade point")
-			self.control.set("volume", 0, 0.99)
+			self.volumeFadeController.set("volume", 0, 0.99)
 	#_____________________________________________________________________
 	
 	def RemoveEventsUnderEvent(self, mainEvent, undoAction=None):
