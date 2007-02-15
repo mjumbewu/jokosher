@@ -234,7 +234,9 @@ class ExportAsFileType(MixdownAction):
 		MixdownAction.__init__(self)
 		# Always start with ogg as the filetype
 		self.filetypedict = [x for x in Globals.EXPORT_FORMATS if x['extension'] == 'ogg'][0]
-		self.config["filename"] = os.path.expanduser("~/export.ogg")
+		# offer a default filename in the project folder that 
+		# doesn't previously exist
+		self.config["filename"] = self.MakeUniqueFilename(os.path.join(os.path.dirname(project.projectfile),"export.ogg"))
 		self.config["filetype"] = self.filetypedict['extension']
 		self.project = project # note: this is special to this action, and needs
 		                       # to be passed, so this action needs special handling
@@ -265,21 +267,6 @@ class ExportAsFileType(MixdownAction):
 		"""
 		See MixdownAction.run
 		"""
-		#prevent outputting to one of the input files
-		if self.config["filename"] in self.project.GetInputFilenames():
-			message = _("You have specified as the output for the mixdown " +
-					  "the file: \n    %s\n\nHowever a file with the same name is " +
-			          "already being used as the input to one of the instruments. " +
-			          "This is impossible - please choose another name.")
-			message = message % self.config["filename"]
-			dlg = gtk.MessageDialog(None,
-							gtk.DIALOG_MODAL,
-							gtk.MESSAGE_ERROR,
-							gtk.BUTTONS_CLOSE,
-							message)
-			dlg.run()
-			dlg.destroy()
-			return
 		data["filename"] = self.config["filename"]
 		data["filetype"] = self.filetypedict["extension"]
 		self.project.Export(self.config["filename"], self.filetypedict["pipeline"])
@@ -292,10 +279,10 @@ class ExportAsFileType(MixdownAction):
 		"""
 		buttons = (gtk.STOCK_CANCEL,gtk.RESPONSE_CANCEL,gtk.STOCK_SAVE,gtk.RESPONSE_OK)
 		chooser = gtk.FileChooserDialog(_("Export as"), None, gtk.FILE_CHOOSER_ACTION_SAVE, buttons)
-		chooser.set_current_folder(os.path.expanduser("~"))
 		chooser.set_do_overwrite_confirmation(True)
 		chooser.set_default_response(gtk.RESPONSE_OK)
-		chooser.set_current_name(os.path.split(self.config["filename"])[1])
+		chooser.set_current_folder(os.path.dirname(self.config["filename"]))
+		chooser.set_current_name(os.path.basename(self.config["filename"]))
 
 		saveLabel = gtk.Label(_("Save as file type:"))		
 		typeCombo = gtk.combo_box_new_text()
@@ -317,7 +304,12 @@ class ExportAsFileType(MixdownAction):
 		
 		response = chooser.run()
 		if response == gtk.RESPONSE_OK:
-			self.config["filename"] = chooser.get_filename()
+			name = chooser.get_filename()
+			#if the user has chosen a name that is belongs to 
+			#one of the project events then we must override it
+			if name in self.project.GetInputFilenames():
+				name = self.MakeUniqueFilename(name)
+			self.config["filename"] = name
 			Globals.settings.general["projectfolder"] = os.path.dirname(self.config["filename"])
 			Globals.settings.write()
 			#If they haven't already appended the extension for the 
@@ -331,6 +323,40 @@ class ExportAsFileType(MixdownAction):
 			chooser.destroy()
 			
 	#_____________________________________________________________________
+	
+	def MakeUniqueFilename(self, filename):
+		"""
+		From a given filename generates a name which doesn't exist
+		by appending increasing numbers to it as necessary.
+		
+		Return:
+			the unique filename
+		"""
+		dirName, baseName = os.path.split(filename)
+		name, ext =  os.path.splitext(baseName)
+		for offset in range(len(name)):
+			if not name[-1 - offset].isdigit():
+				offset -= 1
+				break
+		newName = name[:len(name) - offset - 1]
+		if offset == -1:
+			count = 0
+		else:
+			count = int(name[-(offset + 1):])
+		while True:
+			tryName = newName
+			if count > 0:
+				tryName = tryName + str(count)
+			if ext:
+				tryName = tryName + ext
+			if os.path.exists(os.path.join(dirName,tryName)):
+				count += 1
+			else:
+				break
+		return os.path.join(dirName, tryName)
+		
+	#_____________________________________________________________________
+	
 
 #=========================================================================
 
