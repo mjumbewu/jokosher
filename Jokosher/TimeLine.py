@@ -48,17 +48,11 @@ class TimeLine(gtk.DrawingArea):
 	   RGBA = Red, Green, Blue, Alpha
 	   RGB = Red, Green, Blue
 	"""
-	#_OPAQUE_GRADIENT_STOP_ORGBA = (0.2, 138./255, 226./255, 52./255, 1)
-	#_TRANSPARENT_GRADIENT_STOP_ORGBA = (1, 138./255, 226./255, 52./255, 0.5)
 	_BORDER_RGB = (85./255, 85./255, 85./255)
 	_BACKGROUND_RGB = (1, 1, 1)
 	_TEXT_RGB = (0, 0, 0)
-	#_SELECTED_RGBA = (0, 0, 1, 0.2)
-	#_SELECTION_RGBA = (0, 0, 1, 0.5)
-	#_FADEMARKERS_RGBA = (1, 0, 0, 0.8)
 	_BEAT_BAR_RGB = (0, 0, 0)
 	_PLAY_CURSOR_RGB = (1, 0, 0)
-	#_FADELINE_RGB = (1, 0.6, 0.6)
 	
 	#_____________________________________________________________________
 

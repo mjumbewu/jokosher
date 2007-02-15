@@ -6,10 +6,11 @@
 #
 #-------------------------------------------------------------------------------
 
-import os, gtk, imp, pickle, Globals, pkg_resources
-import gettext
+import os, gtk, imp, pickle, pkg_resources
 import traceback
+import Globals
 
+import gettext
 _ = gettext.gettext
 
 # Define some constants
