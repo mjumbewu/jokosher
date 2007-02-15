@@ -378,15 +378,23 @@ class RunAScript(MixdownAction):
 			subprocess_environment["JOKOSHER_%s" % key.upper()] = value
 			
 		import subprocess
-		try:
-			# needs to happen in a thread!
-			subprocess.Popen(self.config["script"], env=subprocess_environment, shell=True).wait()
-			# have to get the subprocess's environment after it's finished. How?
-		except OSError:
-			raise _("No such script %s") % self.config["script"], e
-		except:
-			raise _("Error in script %s") % self.config["script"]
+		import os.path
+		# Interestingly when you use shell=True Popen doesn't raise an OSError if the script doesn't exist
+		# because the shell runs happily (you get a shell error on stderr instead).
+		# So we need to raise it by hand, or use shell=False and require an interpreter line
+		if os.path.exists(self.config["script"]):
+			try:
+				# needs to happen in a thread!
+				subprocess.Popen(self.config["script"], env=subprocess_environment,shell=True).wait()
+				# have to get the subprocess's environment after it's finished. How?
+			except OSError,e:
+				raise _("An error occured with the script %s") % self.config["script"], e
+			except:
+				raise _("Error in script %s") % self.config["script"]
 		
+		else:
+			raise OSError, _("The script %s does not exist.") % self.config["script"]
+
 		for key, value in subprocess_environment.items(): # this won't work until we have the s.p.'s env
 			if key.startswith("JOKOSHER_"):
 				varname = key[9:].lower() # strip off JOKOSHER_
