@@ -1394,13 +1394,15 @@ class MainApp:
 	def OnFileMenu(self, widget):
 		"""
 		When the file menu opens, check if there are any events and set the mixdown project menu item's
-		sensitivity accordingly.
+		sensitivity accordingly and also the 'mixdown as' sensitivity.
 		
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		if self.isRecording:
 			self.export.set_sensitive(False)
+			if self.mixdown_as_header:
+				self.mixdown_as_header.set_sensitive(False)
 			return
 		
 		eventList = False
@@ -1410,6 +1412,8 @@ class MainApp:
 					eventList = True
 					break
 		self.export.set_sensitive(eventList)			
+		if self.mixdown_as_header:
+			self.mixdown_as_header.set_sensitive(eventList)
 	#_____________________________________________________________________
 	
 	def OnEditMenu(self, widget):
@@ -1839,6 +1843,7 @@ class MainApp:
 		
 		"""
 		
+		self.mixdown_as_header = None
 		savefolder = os.path.expanduser('~/.jokosher/mixdownprofiles') # created by Globals
 		profiles = os.listdir(savefolder)
 		if not profiles: return
@@ -1852,13 +1857,13 @@ class MainApp:
 					i.destroy()
 		
 		# Create a Mixdown As submenu header
-		mixdown_as_header = gtk.MenuItem(label=_("Mixdown as"))
+		self.mixdown_as_header = gtk.MenuItem(label=_("Mixdown as"))
 		submenu = gtk.Menu()
 		for p in profiles:
 			menuitem = gtk.MenuItem(label=p)
 			menuitem.connect("activate", self.OnExport, p)
 			submenu.append(menuitem)
-		mixdown_as_header.set_submenu(submenu)
+		self.mixdown_as_header.set_submenu(submenu)
 		# insert it after Mixdown Project
 		counter = 0
 		insert_position = None
@@ -1868,7 +1873,7 @@ class MainApp:
 					insert_position = counter
 			counter += 1
 		if insert_position:
-			self.filemenu.get_submenu().insert(mixdown_as_header,insert_position + 1)
+			self.filemenu.get_submenu().insert(self.mixdown_as_header,insert_position + 1)
 		
 	#_____________________________________________________________________
 	
