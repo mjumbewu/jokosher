@@ -41,6 +41,13 @@ class Instrument(Monitored):
 	
 	#_____________________________________________________________________
 	
+	"""
+	Only elements that accept these caps will be work if added to the effects bin.
+	This current must be audio/x-raw-float to prevent static from occuring
+	when adding LADSPA effects while playing.
+	"""
+	LADSPA_ELEMENT_CAPS = "audio/x-raw-float, width=(int)32, rate=(int)[ 1, 2147483647 ], channels=(int)1, endianness=(int)1234"
+	
 	def __init__(self, project, name, type, pixbuf, id=None):
 		"""
 		Creates a new instance of Instrument.
@@ -101,6 +108,9 @@ class Instrument(Monitored):
 		
 		self.effectsBin = gst.element_factory_make("bin", "InstrumentEffects_%d"%self.id)
 		self.effectsBinConvert = gst.element_factory_make("audioconvert", "Start_Effects_Converter_%d"%self.id)
+		self.effectsBinCaps = gst.element_factory_make("capsfilter", "Effects_float_caps_%d"%self.id)
+		self.effectsBinCaps.set_property("caps", gst.Caps(self.LADSPA_ELEMENT_CAPS))
+		self.effectsBinEndConvert = gst.element_factory_make("audioconvert", "End_Effects_Converter_%d"%self.id)
 		
 		self.volumeFadeBin = gst.element_factory_make("bin", "Volume_fades_bin")
 		self.volumeFadeElement = gst.element_factory_make("volume", "Volume_Fade_Element")
@@ -110,10 +120,10 @@ class Instrument(Monitored):
 		self.volumeFadeController = gst.Controller(self.volumeFadeElement, "volume")
 		
 		# CREATE GHOSTPADS FOR BINS #
-		self.effectsBin.add(self.effectsBinConvert)
+		self.effectsBin.add(self.effectsBinConvert, self.effectsBinCaps, self.effectsBinEndConvert)
 		self.effectsBinSink = gst.GhostPad("sink", self.effectsBinConvert.get_pad("sink"))
 		self.effectsBin.add_pad(self.effectsBinSink)
-		self.effectsBinSrc = gst.GhostPad("src", self.effectsBinConvert.get_pad("src"))
+		self.effectsBinSrc = gst.GhostPad("src", self.effectsBinEndConvert.get_pad("src"))
 		self.effectsBin.add_pad(self.effectsBinSrc)
 		
 		self.volumeFadeBin.add(self.volumeFadeElement)
@@ -157,6 +167,9 @@ class Instrument(Monitored):
 		self.composition.add(self.volumeFadeOperation)
 		
 		# LINK GSTREAMER ELEMENTS #
+		self.effectsBinConvert.link(self.effectsBinCaps)
+		self.effectsBinCaps.link(self.effectsBinEndConvert)
+		
 		self.effectsBin.link(self.volumeElement)
 		self.volumeElement.link(self.levelElement)
 		self.levelElement.link(self.panElement)	
@@ -279,42 +292,29 @@ class Instrument(Monitored):
 		Returns:
 			the added effect element.
 		"""
-		#make the new effect and an audioconvert to go with it
-		convert = gst.element_factory_make("audioconvert")
+		#make the new effect
 		effectElement = gst.element_factory_make(effectName)
 		self.effects.append(effectElement)
-		#add both elements to effects bin
-		self.effectsBin.add(convert)
+		#add the element to effects bin
 		self.effectsBin.add(effectElement)
 		
-		# The sink pad on the first element to the right of the bin
-		externalSinkPad = self.effectsBinSrc.get_peer()
-		# The src pad on the last element in the bin
-		endSrcPad = self.effectsBinSrc.get_target()
+		# The src pad on the first element (an audioconvert) in the bin
+		startSrcPad = self.effectsBinConvert.get_pad("src")
 		
 		state = self.playbackbin.get_state(0)[1]
 		if state == gst.STATE_PAUSED or state == gst.STATE_PLAYING:
-			endSrcPad.set_blocked(True)
-		# Unlink the bin from the external element so we can put in a new ghostpad
-		self.effectsBinSrc.unlink(externalSinkPad)
-		# Remove the old ghostpad
-		self.effectsBin.remove_pad(self.effectsBinSrc)
+			startSrcPad.set_blocked(True)
+			
+		lastEffectElement = self.effectsBinEndConvert.get_pad("sink").get_peer().get_parent()
 		
-		newEffectPad = effectElement.sink_pads().next()
-		# Link the last element in the bin with the new effect
-		endSrcPad.link(newEffectPad)
-		# Link the new element to the new convert
-		effectElement.link(convert)
-		# Make the audioconvert the new ghostpad
-		self.effectsBinSrc = gst.GhostPad("src", convert.get_pad("src"))
-		self.effectsBin.add_pad(self.effectsBinSrc)
-		self.effectsBinSrc.link(externalSinkPad)
+		lastEffectElement.unlink(self.effectsBinEndConvert)
+		lastEffectElement.link(effectElement)
+		effectElement.link(self.effectsBinEndConvert)
 		
-		# make the elements' state match the bin's state
-		convert.set_state(state)
+		# make the element's state match the bin's state
 		effectElement.set_state(state)
 		#give it a lambda for a callback that does nothing, so we don't have to wait
-		endSrcPad.set_blocked_async(False, lambda x,y: False)
+		startSrcPad.set_blocked_async(False, lambda x,y: False)
 		
 		self.StateChanged("effects")
 		
@@ -333,58 +333,35 @@ class Instrument(Monitored):
 			Globals.debug("Error: trying to remove an element that is not in the list")
 			return
 		
-		previousConvert = None
 		for pad in effect.sink_pads():
 			if pad.is_linked():
-				previousConvert = pad.get_peer().get_parent()
+				previousElement = pad.get_peer().get_parent()
 				break
-					
-		nextConvert = None
+		
 		for pad in effect.src_pads():
 			if pad.is_linked():
-				nextConvert = pad.get_peer().get_parent()
+				nextElement = pad.get_peer().get_parent()
 				break
+		
+		# The src pad on the first element (an audioconvert) in the bin
+		startSrcPad = self.effectsBinConvert.get_pad("src")
 		
 		state = self.playbackbin.get_state(0)[1]
 		if state == gst.STATE_PAUSED or state == gst.STATE_PLAYING:
-			previousConvert.get_pad("src").set_blocked(True)
+			startSrcPad.set_blocked(True)
 		
-		# If we have to remove from the end
-		if self.effects[-1] == effect:
-			# The sink pad on the first element to the right of the bin
-			externalSinkPad = self.effectsBinSrc.get_peer()
-			
-			# Unlink the bin from the external element so we can put in a new ghostpad
-			self.effectsBinSrc.unlink(externalSinkPad)
-			# Remove the old ghostpad
-			self.effectsBin.remove_pad(self.effectsBinSrc)
-			
-			previousConvert.unlink(effect)
-			
-			# Make the audioconvert the new ghostpad
-			self.effectsBinSrc = gst.GhostPad("src", previousConvert.get_pad("src"))
-			self.effectsBin.add_pad(self.effectsBinSrc)
-			self.effectsBinSrc.link(externalSinkPad)
-			
-		# Else we are removing from the middle or beginning of the list
-		else: 
-			nextEffect = nextConvert.get_pad("src").get_peer().get_parent()
-			nextConvert.unlink(nextEffect)
-			
-			previousConvert.unlink(effect)
-			previousConvert.link(nextEffect)
-			
-		# Remove and dispose of the two elements
-		effect.unlink(nextConvert)
+		previousElement.unlink(effect)
+		effect.unlink(nextElement)
+		previousElement.link(nextElement)
+		
+		# Remove and dispose of the element
 		self.effectsBin.remove(effect)
-		self.effectsBin.remove(nextConvert)
 		effect.set_state(gst.STATE_NULL)
-		nextConvert.set_state(gst.STATE_NULL)
 		#remove the effect from our own list
 		self.effects.remove(effect)
 		
 		#give it a lambda for a callback that does nothing, so we don't have to wait
-		previousConvert.get_pad("src").set_blocked_async(False, lambda x,y: False)
+		startSrcPad.set_blocked_async(False, lambda x,y: False)
 		
 		self.StateChanged("effects")
 	
@@ -400,7 +377,7 @@ class Instrument(Monitored):
 		a new position without changing the order of any of the others.
 		For example if this instrument has five effects which are ordered
 		A, B, C, D, E, and I call this method with effect D and a new position
-		of 2 the new order will be:  A, D, B, C, E.
+		of 1 the new order will be:  A, D, B, C, E.
 		
 		Parameters:
 			effect -- GStreamer effect to be moved.
@@ -422,70 +399,53 @@ class Instrument(Monitored):
 		# The effect currently at the position we want to move the given effect to
 		newPositionEffect = self.effects[newPosition]
 		
-		previousConvert = None
 		for pad in effect.sink_pads():
 			if pad.is_linked():
-				previousConvert = pad.get_peer().get_parent()
-				break
-					
-		nextConvert = None
-		for pad in effect.src_pads():
-			if pad.is_linked():
-				nextConvert = pad.get_peer().get_parent()
+				previousElement = pad.get_peer().get_parent()
 				break
 		
-		# The src pad on the last element in the bin
-		endSrcPad = self.effectsBinSrc.get_target()
+		for pad in effect.src_pads():
+			if pad.is_linked():
+				nextElement = pad.get_peer().get_parent()
+				break
+		
+		# The src pad on the first element (an audioconvert) in the bin
+		startSrcPad = self.effectsBinConvert.get_pad("src")
 		# check the state and block if we have to
 		state = self.playbackbin.get_state(0)[1]
 		if state == gst.STATE_PAUSED or state == gst.STATE_PLAYING:
-			endSrcPad.set_blocked(True)
+			startSrcPad.set_blocked(True)
 			
-		#here's where we unlink everything
-		previousConvert.unlink(effect)
-		effect.unlink(nextConvert)
+		#here's where we start unlinking and relinking
+		previousElement.unlink(effect)
+		effect.unlink(nextElement)
+		previousElement.link(nextElement)
 		
 		if oldPosition > newPosition:
-			newPositionPreviousConvert = None
 			for pad in newPositionEffect.sink_pads():
 				if pad.is_linked():
-					newPositionPreviousConvert = pad.get_peer().get_parent()
+					newPositionPrevious = pad.get_peer().get_parent()
 					break
 			
-			newPositionPreviousConvert.unlink(newPositionEffect)
-			previousConvertSink = previousConvert.get_pad("sink")
-			# the "src" pad on the end of the chain of events that is being shifted over
-			chainEndPad = previousConvertSink.get_peer()
-			chainEndPad.unlink(previousConvertSink)
-			
-			#here's where we link everything back together in the new order
-			newPositionPreviousConvert.link(effect)
-			effect.link(previousConvert)
-			previousConvert.link(newPositionEffect)
-			chainEndPad.link(nextConvert.get_pad("sink"))
+			newPositionPrevious.unlink(newPositionEffect)
+			newPositionPrevious.link(effect)
+			effect.link(newPositionEffect)
 		else:
-			newPositionNextConvert = None
 			for pad in newPositionEffect.src_pads():
 				if pad.is_linked():
-					newPositionNextConvert = pad.get_peer().get_parent()
+					newPositionNext = pad.get_peer().get_parent()
 					break
-					
-			newPositionEffect.unlink(newPositionNextConvert)
-			nextConvertSrc = nextConvert.get_pad("src")
-			chainBeginningPad = nextConvertSrc.get_peer()
-			nextConvertSrc.unlink(chainBeginningPad)
 			
-			previousConvert.get_pad("src").link(chainBeginningPad)
-			newPositionEffect.link(nextConvert)
-			nextConvert.link(effect)
-			effect.link(newPositionNextConvert)
-		
+			newPositionEffect.unlink(newPositionNext)
+			newPositionEffect.link(effect)
+			effect.link(newPositionNext)
+			
 		# remove and insert to our own llst so it matches the changes just made
 		del self.effects[oldPosition]
 		self.effects.insert(newPosition, effect)
 		
 		#give it a lambda for a callback that does nothing, so we don't have to wait
-		endSrcPad.set_blocked_async(False, lambda x,y: False)
+		startSrcPad.set_blocked_async(False, lambda x,y: False)
 		
 		self.StateChanged("effects")
 	
