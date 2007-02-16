@@ -709,29 +709,6 @@ class Instrument(Monitored):
 
 	#_____________________________________________________________________
 
-	def JoinEvents(self):
-		"""
-		Joins together all the selected Events into a single Event.
-		"""
-
-		eventsToJoin = []
-		for ev in self.events:
-			if (ev.isSelected):
-				eventsToJoin.append(ev)
-
-		# Move them next to each other
-		joinPoint = eventsToJoin[0].start + eventsToJoin[0].duration
-		for ev in eventsToJoin[1:]:
-			ev.Move(ev.start, joinPoint)
-			joinPoint = joinPoint + ev.duration
-
-		# Join them into a single event
-		while (len(eventsToJoin) > 1):
-			eventsToJoin[0].Join(eventsToJoin[1].id)
-			eventsToJoin.remove(eventsToJoin[1])
-			
-	#_____________________________________________________________________
-
 	def SetLevel(self, level):
 		"""
 		Sets the level of this Instrument.

@@ -483,27 +483,20 @@ class EffectPresets(Monitored):
 		Globals.LADSPA_FACTORY_REGISTRY = None
 		effects = []
 
-		gstFeatures = gst.registry_get_default().get_feature_list(gst.ElementFactory)
+		ladspaFactoryList = gst.registry_get_default().get_feature_list_by_plugin("ladspa")
 		
-		for feature in gstFeatures:
-			if "Filter/Effect/Audio/LADSPA" in feature.get_klass():
+		for factory in ladspaFactoryList:
+			if isinstance(factory, gst.ElementFactory):
 				# from the list of LADSPA effects we check which ones only
 				# have a single sink and a single src so we know they work
-				if feature.get_num_pad_templates() == 2:
-					sinkpads = 0
-					srcpads = 0
-					pads = feature.get_static_pad_templates()
-				
-					for pad in pads:
-						if pad.direction == gst.PAD_SINK:
-							sinkpads += 1
-
-						if pad.direction == gst.PAD_SRC:
-							srcpads += 1
+				if factory.get_num_pad_templates() == 2:
+					pads = factory.get_static_pad_templates()
+					sinkpads = len( [pad for pad in pads if pad.direction == gst.PAD_SINK] )
+					srcpads = len( [pad for pad in pads if pad.direction == gst.PAD_SRC] )
 					
 					if srcpads == 1 and sinkpads == 1:
-						effects.append(feature.get_name())
-						Globals.LADSPA_NAME_MAP.append((feature.get_name(), feature.get_longname()))
+						effects.append(factory.get_name())
+						Globals.LADSPA_NAME_MAP.append((factory.get_name(), factory.get_longname()))
 
 		Globals.debug("\t", len(effects), "LADSPA effects loaded")
 		Globals.LADSPA_FACTORY_REGISTRY = set(effects)
