@@ -334,26 +334,12 @@ class ExportAsFileType(MixdownAction):
 		"""
 		dirName, baseName = os.path.split(filename)
 		name, ext =  os.path.splitext(baseName)
-		for offset in range(len(name)):
-			if not name[-1 - offset].isdigit():
-				offset -= 1
-				break
-		newName = name[:len(name) - offset - 1]
-		if offset == -1:
-			count = 0
-		else:
-			count = int(name[-(offset + 1):])
-		while True:
-			tryName = newName
-			if count > 0:
-				tryName = tryName + str(count)
-			if ext:
-				tryName = tryName + ext
-			if os.path.exists(os.path.join(dirName,tryName)):
-				count += 1
-			else:
-				break
-		return os.path.join(dirName, tryName)
+		current = name
+		count = 1
+		while os.path.exists(os.path.join(dirName, current + ext)):
+			current = "%s-%d" % (name, count)
+			count += 1
+		return os.path.join(dirName, current + ext)
 		
 	#_____________________________________________________________________
 	
