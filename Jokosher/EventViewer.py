@@ -51,6 +51,7 @@ class EventViewer(gtk.DrawingArea):
 	_OPAQUE_GRADIENT_STOP_ORGBA = (0.2, 138./255, 226./255, 52./255, 1)
 	_TRANSPARENT_GRADIENT_STOP_ORGBA = (1, 138./255, 226./255, 52./255, 0.5)
 	_BORDER_RGB = (79./255, 154./255, 6./255)
+	_BORDER_HIGHLIGHT_RGB = (0, 0, 1)
 	_BACKGROUND_RGB = (1, 1, 1)
 	_TEXT_RGB = (0, 0, 0)
 	_SELECTED_RGBA = (0, 0, 1, 0.2)
@@ -203,6 +204,18 @@ class EventViewer(gtk.DrawingArea):
 							  event.area.width, event.area.height)
 			context.set_source_rgba(*self._SELECTED_RGBA)
 			context.fill()
+			
+
+		bx, by, bwidth, bheight = self.get_allocation()
+		context.rectangle(0, 0, bwidth, bheight)
+		# Draw the border
+		if self.is_focus():
+			# Highlight the border if we have focus
+			context.set_source_rgb(*self._BORDER_HIGHLIGHT_RGB)
+		else:
+			context.set_source_rgb(*self._BORDER_RGB)
+		context.stroke()
+		context.set_line_width(2)
 		
 		#Draw play position
 		x = int(round((self.project.transport.position - self.event.start) * self.project.viewScale))
@@ -374,16 +387,6 @@ class EventViewer(gtk.DrawingArea):
 		# Reset the drawing scale
 		context.identity_matrix()
 		context.scale(1.0, 1.0)
-		
-		# Draw border
-		if (self.event.isSelected):
-			context.set_line_width(4)
-		else:
-			context.set_line_width(2)
-		context.rectangle(0, 0, rect.width, rect.height)
-		context.set_source_rgb(*self._BORDER_RGB)
-		context.stroke()
-		context.set_line_width(2)
 		
 		#check if we are at the beginning
 		if rect.x == 0:
@@ -634,11 +637,8 @@ class EventViewer(gtk.DrawingArea):
 				True -- continue GTK signal propagation after processing event.
 				False -- pass this event on to other handlers because we don't want it.
 		"""
-		#Don't allow moving, etc while recording!
-		if self.event.instrument.project.GetIsRecording():
-			return False
 
-		self.event.SetSelected(True)
+		self.queue_draw()
 
 		return True
 
@@ -655,8 +655,8 @@ class EventViewer(gtk.DrawingArea):
 			Returns:
 				True -- continue GTK signal propagation after processing the event.
 		"""
-		self.event.SetSelected(False)
-		self.highlightCursor = None
+
+		self.queue_draw()
 
 		return True
 	
@@ -674,11 +674,17 @@ class EventViewer(gtk.DrawingArea):
 				True -- continue GTK signal propagation after processing the event. 
 				False -- pass this event on to other handlers because we don't want it.
 		"""
+
+		#Don't allow moving, etc while recording!
+		if self.event.instrument.project.GetIsRecording():
+			return False
+
 		modifier = 0.1 # Multiply movement by this amount (modified by ctrl key)
 		moveCursor = False # Are we moving the highlight cursor or the event?
 		moveLeftFade = False
 		moveRightFade = False
 		moveTo = None
+
 		if "GDK_SHIFT_MASK" in event.state.value_names:
 			if self.event.selection != [0, 0]:
 				moveLeftFade = True
@@ -706,6 +712,23 @@ class EventViewer(gtk.DrawingArea):
 
 		
 		key = gtk.gdk.keyval_name(event.keyval)
+
+		if key == "Return":
+			# Toggle if this event is selected or not
+			self.event.SetSelected(not self.event.isSelected)
+
+			# Clear any selection that has been made
+			self.event.selection = [0, 0]
+			self.isSelecting = False
+			self.highlightCursor = None
+			self.HideDrawer()
+
+			return True
+
+		if not self.event.isSelected:
+			# If this event isn't selected don't process any key events for it (except
+			return False
+
 		if key == "Up":
 			# Adjust fade points
 			if moveLeftFade:
@@ -783,6 +806,10 @@ class EventViewer(gtk.DrawingArea):
 				self.event.MoveButDoNotOverlap(moveTo)
 			if self.isSelecting:
 				self.event.selection[1] = self.SecFromPixX(moveTo)
+
+		# Hide the drawer if the selection has been cleared
+		if self.event.selection == [0, 0]:
+			self.HideDrawer()
 
 		self.lane.Update(self)
 			
@@ -989,9 +1016,7 @@ class EventViewer(gtk.DrawingArea):
 		"""
 		# delete event
 		self.event.Delete()
-		# Hide the drawer
-		if self.drawer.parent == self.lane.fixed:
-			self.lane.fixed.remove(self.drawer)
+		self.HideDrawer()
 		self.lane.Update()
 	
 	#_____________________________________________________________________
@@ -1006,14 +1031,21 @@ class EventViewer(gtk.DrawingArea):
 		"""
 		if self.event.isLoading == True:
 			return
-		
-		# Hide the drawer
-		self.lane.fixed.remove(self.drawer)
+
+		self.HideDrawer()
 
 		self.event.Trim(self.event.selection[0], self.event.selection[1])
 		self.event.selection = [0,0]
 
 	#_____________________________________________________________________
+
+	def HideDrawer(self):
+		"""
+		Hide the drawer.
+		"""
+		if self.drawer.parent == self.lane.fixed:
+			self.lane.fixed.remove(self.drawer)
+
 	
 	def do_size_request(self, requisition):
 		"""
