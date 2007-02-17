@@ -394,24 +394,27 @@ class EventViewer(gtk.DrawingArea):
 			context.move_to(5, 15)
 			
 			if self.event.isLoading:
-				# Write "Loading..."
+				# Write "Loading..." or "Downloading..."
 				if self.event.duration == 0:
 					# for some file types gstreamer doesn't give us a duration
 					# so don't display the percentage
 					if self.event.isDownloading:
-						context.show_text(_("Downloading..."))
+						message = _("Downloading...")
 					else:
-						context.show_text(_("Loading..."))
+						message = _("Loading...")
 				else:
 					displayLength = int(100 * self.event.loadingLength / self.event.duration)
 					if self.event.isDownloading:
-						context.show_text(_("Downloading (%d%%)...") % displayLength)
+						message = _("Downloading (%d%%)...") % displayLength
 					else:
-						context.show_text(_("Loading (%d%%)...") % displayLength)
-						
+						message = _("Loading (%d%%)...") % displayLength
+				
+				# show the appropriate message
+				context.show_text(message)
+				
 				# display a cancel button
-				context.set_source_surface(self.cancelImg, self.cancelButtonArea.x,
-											self.cancelButtonArea.y)
+				self.cancelButtonArea.x = context.get_current_point()[0]+3	# take the current context.x and pad it a bit
+				context.set_source_surface(self.cancelImg, self.cancelButtonArea.x, self.cancelButtonArea.y)
 				context.paint()
 								
 			elif self.event.isRecording:
