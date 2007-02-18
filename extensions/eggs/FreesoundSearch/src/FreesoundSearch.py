@@ -23,10 +23,11 @@ _ = gettext.gettext
 
 #=========================================================================
 
-# in this extension this global was defined outside the main class because it gets
-# used in the search thread
+# in this extension these globals were defined outside the main class because
+# they are used in the search thread
 # Note: the following string should not be translated
 EXTENSION_DATA_NAME = "freesound"
+isSearching = False
 
 class FreesoundSearch:
 	"""
@@ -53,8 +54,9 @@ class FreesoundSearch:
 		self.menuItem = self.api.add_menu_item(_("Search Freesound"), self.OnMenuItemClick)
 		self.freeSound = freesound.Freesound()
 		self.showSearch = False
+		self.retryLogin = True
 		self.searchQueue = Queue.Queue()
-		self.maxResults = 10
+		self.maxResults = 15
 		
 	#_____________________________________________________________________
 	
@@ -63,7 +65,9 @@ class FreesoundSearch:
 		Destroys any object created by the extension when it is disabled.
 		"""
 		self.menuItem.destroy()
-		#TODO: stop the search threads and playback
+		global isSearching
+		isSearching = False
+		self.searchQueue.put("quit")
 		
 	#_____________________________________________________________________
 	
@@ -71,6 +75,7 @@ class FreesoundSearch:
 		"""
 		Shows the preferences window for changing username/password.
 		"""
+		self.showSearch = False
 		self.LoginDetails()
 		
 	#_____________________________________________________________________
@@ -163,33 +168,66 @@ class FreesoundSearch:
 		# set up the result fetching thread
 		searchThread = SearchFreesoundThread(self.api, self.vboxResults, self.statusbar,
 											username, password, self.searchQueue,
-											self.sampleHistory, self.sampleHistoryModel)
+											self.sampleHistory, self.sampleHistoryModel,
+											self.ToggleFindButton)
 		searchThread.setDaemon(True) # thread exits when Jokosher exits
 		searchThread.start()
 		
 	#_____________________________________________________________________
 	
+	def ToggleFindButton(self, status):
+		"""
+		Toggles the Find button between Find/Stop.
+		
+		Parameters:
+			status -- True for Find, False for Stop.
+		"""
+		tooltips = gtk.Tooltips()
+		
+		if status:
+			# change the icon to a search one
+			tooltips.set_tip(self.buttonFind, _("Search the Freesound library"))
+			self.buttonFind.set_label(_("Find"))
+			self.buttonFind.set_image(gtk.image_new_from_stock(gtk.STOCK_FIND, gtk.ICON_SIZE_BUTTON))
+		else:
+			# change the icon to a stop one
+			tooltips.set_tip(self.buttonFind, _("Stop the current search"))
+			self.buttonFind.set_label(_("Stop"))
+			self.buttonFind.set_image(gtk.image_new_from_stock(gtk.STOCK_STOP, gtk.ICON_SIZE_BUTTON))
+			
+	#_____________________________________________________________________
+	
 	def OnFind(self, button):
 		"""
 		Queries Freesound with the user given input.
+		Alternatively, stops the current search.
 		
 		Parameters:
 			button -- reserved for GTK callbacks. Don't use explicitly.
 		"""
-		# small proxy dict to convert booleans into 1 or 0
-		proxy = {True: "1", False: "0"}
-		query = [
-				{
-				"search" : self.entryFind.get_text(),
-				"searchDescriptions" : proxy[self.checkDescriptions.get_active()],
-				"searchTags" : proxy[self.checkTags.get_active()],
-				"searchFilenames" : proxy[self.checkFilenames.get_active()],
-				"searchUsernames" : proxy[self.checkUsernames.get_active()]
-				},
-				self.maxResults
-				]
+		global isSearching
 		
-		self.searchQueue.put(query)
+		if not isSearching:
+			isSearching = True
+			
+			# small adapter dict to convert booleans into 1 or 0
+			adapter = {True: "1", False: "0"}
+			query = [
+					{
+					"search" : self.entryFind.get_text(),
+					"searchDescriptions" : adapter[self.checkDescriptions.get_active()],
+					"searchTags" : adapter[self.checkTags.get_active()],
+					"searchFilenames" : adapter[self.checkFilenames.get_active()],
+					"searchUsernames" : adapter[self.checkUsernames.get_active()]
+					},
+					self.maxResults
+					]
+			
+			self.searchQueue.put(query)
+			self.ToggleFindButton(False)
+		else:
+			isSearching = False
+			self.ToggleFindButton(True)
 		
 	#_____________________________________________________________________
 	
@@ -238,6 +276,10 @@ class FreesoundSearch:
 		# save the newly updated history dict
 		self.api.set_data_file(EXTENSION_DATA_NAME, "sampleHistory", self.sampleHistory)
 		
+		# if there's a field left, select the first one
+		if len(self.sampleHistoryModel) > 0:
+			self.treeHistory.set_cursor(0)
+		
 	#_____________________________________________________________________
 		
 	def OnCopy(self, button):
@@ -258,7 +300,7 @@ class FreesoundSearch:
 			self.clipboard.set_text(_("Author: %s") % self.sampleHistoryModel[selection[1]][0])
 		else:
 			# it's a sample row
-			self.clipboard.set_text(_("Sample ID: %s\n Sample description: %s") % (self.sampleHistoryModel[selection[1]][0],
+			self.clipboard.set_text(_("Sample ID: %s\nSample description: %s") % (self.sampleHistoryModel[selection[1]][0],
 																				self.sampleHistoryModel[selection[1]][1]))
 		
 	#_____________________________________________________________________
@@ -278,7 +320,7 @@ class FreesoundSearch:
 		"""
 		Called when the search dialog gets closed.
 		Destroys the dialog.
-		"""
+		"""		
 		self.window.destroy()
 		
 	#_____________________________________________________________________
@@ -286,10 +328,11 @@ class FreesoundSearch:
 	def OnDestroy(self, window):
 		"""
 		Called when the search window gets destroyed.
-		Destroys the search threads.
+		Destroys the search thread.
 		"""
-		#TODO: stop the search threads and playback
-		pass
+		global isSearching
+		isSearching = False
+		self.searchQueue.put("quit")
 	
 	#_____________________________________________________________________
 	
@@ -343,7 +386,7 @@ class FreesoundSearch:
 			button -- reserved for GTK callbacks. Don't use it explicitly.
 		"""
 		username, password = self.entryUsername.get_text(), self.entryPassword.get_text()
-		self.labelWarning.set_label(_("Login in..."))
+		self.labelWarning.set_label(_("Logging in..."))
 		self.buttonOK.set_sensitive(False)
 		
 		# create a worker thread to avoid blocking the GUI while logging in
@@ -370,10 +413,12 @@ class FreesoundSearch:
 			
 			if self.showSearch:
 				self.showSearch = False
-				gobject.idle_add(self.OnMenuItemClick)	
+				gobject.idle_add(self.OnMenuItemClick)
 		else:
 			gobject.idle_add(self.loginWindow.destroy)
-			gobject.idle_add(self.LoginDetails, _("Login failed!"))
+			
+			if self.retryLogin:
+				gobject.idle_add(self.LoginDetails, _("Login failed!"))
 	
 	#_____________________________________________________________________
 	
@@ -384,8 +429,9 @@ class FreesoundSearch:
 		Parameters:
 			button -- reserved for GTK callbacks. Don't use it explicitly.
 		"""
-		self.loginWindow.destroy()
+		self.retryLogin = False
 		self.showSearch = False
+		self.loginWindow.destroy()
 		
 	#_____________________________________________________________________
 
@@ -399,7 +445,7 @@ class SearchFreesoundThread(threading.Thread):
 	
 	#_____________________________________________________________________
 	
-	def __init__(self, api, container, statusbar, username, password, queue, history, historyModel):
+	def __init__(self, api, container, statusbar, username, password, queue, history, historyModel, ToggleFindButton):
 		"""
 		Creates a new instance of SearchFreesoundThread.
 		
@@ -412,6 +458,7 @@ class SearchFreesoundThread(threading.Thread):
 			queue -- thread queue with the query text.
 			history -- history dictionary.
 			historyModel -- gtk.TreeStore to display the used samples.
+			ToggleFindButton -- function used to toggle the find button between Find/Stop.
 		"""
 		super(SearchFreesoundThread, self).__init__()
 		self.api = api
@@ -424,6 +471,7 @@ class SearchFreesoundThread(threading.Thread):
 		self.query = None
 		self.history = history
 		self.historyModel = historyModel
+		self.ToggleFindButton = ToggleFindButton
 		self.player = gst.element_factory_make("playbin", "player")
 	
 	#_____________________________________________________________________
@@ -609,6 +657,8 @@ class SearchFreesoundThread(threading.Thread):
 			*the fields labeled "1 or 0" define whether those fields
 			should be included in the search.
 		"""
+		global isSearching
+		
 		gobject.idle_add(self.EmptyContainer)
 		gobject.idle_add(self.SetIdleStatus)
 		gobject.idle_add(self.SetSearchingStatus)
@@ -626,6 +676,10 @@ class SearchFreesoundThread(threading.Thread):
 			gobject.idle_add(self.SetFetchingStatus, counter, query[1])
 			
 			for sample in samples[:query[1]]:
+				# stop the current search operation if the user requested so
+				if not isSearching:
+					break
+				
 				# fetch the sample's metadata and preview image in this thread
 				sample.FetchMetaData()
 				self.FetchPreviewImage(sample)
@@ -636,6 +690,7 @@ class SearchFreesoundThread(threading.Thread):
 				gobject.idle_add(self.SetFetchingStatus, counter, query[1])
 				
 			gobject.idle_add(self.SetIdleStatus)
+			gobject.idle_add(self.ToggleFindButton, True)
 			
 	#_____________________________________________________________________
 
@@ -688,7 +743,13 @@ class SearchFreesoundThread(threading.Thread):
 		"""
 		self.Login()
 		while True:
-			self.Search(self.queue.get()) # blocks until there's an item to search for
+			query = self.queue.get() # blocks until there's an item to search for
+			
+			if query == "quit":
+				self.player.set_state(gst.STATE_NULL) # stop any playback
+				break
+			else:
+				self.Search(query)
 			
 	#_____________________________________________________________________
 	
