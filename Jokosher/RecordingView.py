@@ -75,6 +75,7 @@ class RecordingView(gtk.Frame):
 		
 		## create darker workspace box
 		self.eventBox = gtk.EventBox()
+		self.eventBox.connect("button-press-event", self.EmptySpaceDoubleClicked)
 		
 		st = self.rc_get_style().bg[gtk.STATE_NORMAL]
 		
@@ -420,7 +421,22 @@ class RecordingView(gtk.Frame):
 		self.project.ClearEventSelections()
 		self.project.SelectInstrument(None)
 		self.Update()
+		
+	#_____________________________________________________________________
 	
+	def EmptySpaceDoubleClicked(self, widget, mouse):
+		"""
+		Callback for "button_press_event" (not catered for, by any
+		button presses or other mouse handlers).
+		Shows the add instrument dialog when the empty space is double clicked.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+			mouse -- reserved for GTK callbacks, don't use it explicitly.
+		"""
+		if mouse.type == gtk.gdk._2BUTTON_PRESS:
+			self.mainview.OnShowAddInstrumentDialog()
+			
 	#_____________________________________________________________________
 	
 	def OnStateChanged(self, obj, change=None, *extra):

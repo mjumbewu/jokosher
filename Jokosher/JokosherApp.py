@@ -363,7 +363,7 @@ class MainApp:
 		
 	#_____________________________________________________________________
 	
-	def OnShowAddInstrumentDialog(self, widget):
+	def OnShowAddInstrumentDialog(self, widget=None):
 		"""
 		Creates and shows the "Add Instrument" dialog box.
 		
