@@ -77,23 +77,6 @@ class RecordingView(gtk.Frame):
 		self.eventBox = gtk.EventBox()
 		self.eventBox.connect("button-press-event", self.EmptySpaceDoubleClicked)
 		
-		st = self.rc_get_style().bg[gtk.STATE_NORMAL]
-		
-		## Set the new color components
-		st.red -= 3000
-		st.green -= 3000
-		st.blue -= 3000
-		
-		cmap = self.get_colormap()
-		
-		## allocate new colors
-		col = cmap.alloc_color(st.red, st.green, st.blue)
-		stcp = self.get_style().copy()
-		stcp.bg[gtk.STATE_NORMAL] = col
-		
-		## use the new colormap
-		self.eventBox.set_style(stcp)
-		
 		self.vbox = gtk.VBox()
 		self.add(self.vbox)
 		self.vbox.pack_start(self.timelinebar, False, False)
@@ -181,6 +164,22 @@ class RecordingView(gtk.Frame):
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 			event -- reserved for GTK callbacks, don't use it explicitly.
 		"""
+		st = self.rc_get_style().bg[gtk.STATE_NORMAL]
+		
+		## Set the new color components
+		st.red -= 3000
+		st.green -= 3000
+		st.blue -= 3000
+		
+		cmap = self.get_colormap()
+		
+		## allocate new colors
+		col = cmap.alloc_color(st.red, st.green, st.blue)
+		stcp = self.get_style().copy()
+		stcp.bg[gtk.STATE_NORMAL] = col
+		
+		## use the new colormap
+		self.eventBox.set_style(stcp)
 		
 		# calculate scrollable width - allow 4 pixels for borders
 		self.scrollRange.page_size = (self.allocation.width - Globals.INSTRUMENT_HEADER_WIDTH - 4) / self.project.viewScale
