@@ -212,6 +212,9 @@ class EventLaneViewer(gtk.EventBox):
 
 		self.mouseDownPos = [mouse.x, mouse.y]
 		
+		if mouse.type == gtk.gdk._2BUTTON_PRESS:
+			self.mainview.OnAddAudioFile()
+			
 		if self.popupIsActive:
 			self.OnMenuDone()
 		# Create context menu on RMB 

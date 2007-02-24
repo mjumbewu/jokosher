@@ -1835,7 +1835,7 @@ class MainApp:
 
 	#_____________________________________________________________________
 
-	def OnAddAudioFile(self, widget):
+	def OnAddAudioFile(self, widget=None):
 		"""
 		Called when the "Add Audio File Instrument" in the project menu is clicked.
 		

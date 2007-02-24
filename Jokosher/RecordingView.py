@@ -75,7 +75,7 @@ class RecordingView(gtk.Frame):
 		
 		## create darker workspace box
 		self.eventBox = gtk.EventBox()
-		self.eventBox.connect("button-press-event", self.EmptySpaceDoubleClicked)
+		self.eventBox.connect("button-press-event", self.OnEmptySpaceDoubleClicked)
 		
 		self.vbox = gtk.VBox()
 		self.add(self.vbox)
@@ -423,7 +423,7 @@ class RecordingView(gtk.Frame):
 		
 	#_____________________________________________________________________
 	
-	def EmptySpaceDoubleClicked(self, widget, mouse):
+	def OnEmptySpaceDoubleClicked(self, widget, mouse):
 		"""
 		Callback for "button_press_event" (not catered for, by any
 		button presses or other mouse handlers).
