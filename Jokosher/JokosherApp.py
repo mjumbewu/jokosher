@@ -81,7 +81,7 @@ class MainApp:
 			"on_AddInstrument_clicked" : self.OnShowAddInstrumentDialog,
 			"on_About_activate" : self.About,
 			"on_Record_toggled" : self.Record, 
-			"on_Play_toggled" : self.Play,
+			"on_Play_clicked" : self.Play,
 			"on_Stop_clicked" : self.Stop,
 			"on_Recording_toggled" : self.OnRecordingView,
 			"on_CompactMix_toggled" : self.OnCompactMixView,
@@ -514,6 +514,20 @@ class MainApp:
 
 	#_____________________________________________________________________
 	
+	def TogglePlayIcon(self):
+		"""
+		Changes the play button icon/tooltip from play to pause and viceversa.
+		"""
+		if not self.isPlaying:
+			self.play.set_stock_id(gtk.STOCK_MEDIA_PLAY)
+		else:
+			self.play.set_stock_id(gtk.STOCK_MEDIA_PAUSE)
+		
+		# TODO: change the tooltips in 1.0
+		#self.contextTooltips.set_tip(play, tooltip)
+		
+	#_____________________________________________________________________
+	
 	def Play(self, widget=None):
 		"""
 		Toggles playback.
@@ -525,6 +539,7 @@ class MainApp:
 		if self.settingButtons == True:
 			return 
 
+		self.TogglePlayIcon()
 		if not self.isPlaying:
 			self.project.Play()
 		else:
@@ -970,7 +985,7 @@ class MainApp:
 			
 			self.settingButtons = True
 			self.record.set_active(self.isRecording)
-			self.play.set_active(self.isPlaying)
+			self.TogglePlayIcon()
 			self.settingButtons = False
 			
 			# update the tooltips depending on the current recording state
