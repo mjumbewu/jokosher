@@ -251,7 +251,7 @@ class Instrument(Monitored):
 		ins.setAttribute("id", str(self.id))
 		
 		items = ["name", "isArmed", 
-				"isMuted", "isSolo", "input", "output",
+				"isMuted", "isSolo", "input", "output", "volume",
 				"isSelected", "isVisible", "inTrack", "instrType", "pan"]
 		
 		params = doc.createElement("Parameters")
@@ -733,6 +733,7 @@ class Instrument(Monitored):
 		if self.volume != volume:
 			self.volume = volume
 			self.UpdateVolume()
+			self.project.unsavedChanges = True
 			self.StateChanged("volume")
 
 	#_____________________________________________________________________

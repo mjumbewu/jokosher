@@ -545,6 +545,8 @@ class _LoadZPNFile:
 		instr.panElement.set_property("panorama", instr.pan)
 		#check if instrument is muted and setup accordingly
 		instr.OnMute()
+		#update the volume element with the newly loaded value
+		instr.UpdateVolume()
 		
 	#_____________________________________________________________________
 		
