@@ -131,14 +131,8 @@ class TimeLine(gtk.DrawingArea):
 		area = event.area
 		cache = self.cachedDrawArea
 		
-		# TODO: remove this prints
-		#print "Area - x: %d, y: %d" % (area.x, area.y)
-		#print "Cache - x: %d, y: %d" % (cache.x, cache.y)
-		
 		#check if the expose area is within the already cached rectangle
 		if area.x < cache.x or (area.x + area.width > cache.x + cache.width):
-			# TODO: remove this print
-			#print "**Redraw**"
 			self.DrawLine()
 		
 		# Get a cairo surface for this drawing op
@@ -221,7 +215,7 @@ class TimeLine(gtk.DrawingArea):
 				# Set x to the position in pixels of the last beat 
 				x -= offset * ((self.project.viewScale * 60.) / self.project.bpm)
 				
-				# (pixels/minute) / ( beats/minute) * 1 beat = pixels
+				# (pixels/minute) / (beats/minute) * 1 beat = pixels
 				# Add the length of one beat, in pixels
 				x += (self.project.viewScale * 60.) / self.project.bpm
 				
@@ -258,7 +252,7 @@ class TimeLine(gtk.DrawingArea):
 					
 				beat += 1
 				
-				x += (60. / self.project.bpm ) * self.project.viewScale
+				x += (60. / self.project.bpm) * self.project.viewScale
 		else:
 			# Working in milliseconds here. Using seconds gives modulus problems because they're floats
 			viewScale = self.project.viewScale / 1000.
