@@ -34,10 +34,8 @@ except OSError:
 	pass
 else:
 	#Obtain the OMF repository directory to install and register the help files
-	#This step only makes sense if run as root
-	if os.geteuid() == 0:
-		omfdir = os.path.join(process.stdout.read().strip(), "jokosher")
-		OMFFILES.append((omfdir, glob.glob("help/jokosher/*.omf")))
+	omfdir = os.path.join(process.stdout.read().strip(), "jokosher")
+	OMFFILES.append((omfdir, glob.glob("help/jokosher/*.omf")))
 		
 dist = setup(name='jokosher',
 	version='0.9',
@@ -67,11 +65,21 @@ dist = setup(name='jokosher',
 		]+I18NFILES+HELPDOCS+HELPIMAGES+OMFFILES
 )
 
-#Update the real URL attribute inside the OMF files and then
-#register the docs with scrollkeeper. Also update the mime types.
-if omfdir != None and os.geteuid() == 0 and dist != None:
-	#Non-documented way of getting the final directory prefix
-	installdir = dist.get_command_obj(command="install_data").install_dir
+#Non-documented way of getting the final directory prefix
+installCmd = dist.get_command_obj(command="install_data")
+installdir = installCmd.install_dir
+installroot = installCmd.root
+
+if not installroot:
+	installroot = ""
+
+if installdir:
+	installdir = os.path.join(os.path.sep,
+			installdir.replace(installroot, ""))
+
+# Update the real URL attribute inside the OMF files
+# and register them with scrollkeeper
+if omfdir != None and installdir != None and dist != None:
 	
 	#Create an array with the docbook file locations
 	HELPURI = []
@@ -79,22 +87,24 @@ if omfdir != None and os.geteuid() == 0 and dist != None:
 		targeturi = os.path.join(installdir, "share/gnome/", filepath)
 		HELPURI.append(targeturi)
 	
-	#Replace the URL placeholder inside the OMF files using sed
-	#We assume that the locale order between omf/docbook will stay the same
-	i = 0
-	for filepath in glob.glob(omfdir+"/*.omf"):
-		expression = "s|PATH_PLACEHOLDER|%s|" % HELPURI[i]
-		call(["sed", "-e", expression, filepath, "-i"])
-		i += 1
+	#Replace the URL placeholder inside the OMF files
+	installedOmfFiles = glob.glob(installroot + omfdir + "/*.omf")
+	for fileNum in range(0, len(installedOmfFiles)):
+		call(["scrollkeeper-preinstall", HELPURI[fileNum],
+			installedOmfFiles[fileNum], installedOmfFiles[fileNum]])
 		
-	#Update the scrollkeeper catalog and mime types
-	print "Updating the scrollkeeper index and mime types..."
-	call(["scrollkeeper-update", "-o", omfdir])
+	#Update the scrollkeeper catalog
+	if os.geteuid() == 0:
+		print "Updating the scrollkeeper index..."
+		call(["scrollkeeper-update", "-o", installroot + omfdir])
 
-
+# Update the mime types
 if os.geteuid() == 0 and dist != None:
+	print "Updating the mime-types...."
+	
 	#update the mimetypes database
 	call(["update-mime-database", "/usr/share/mime/"])
+	
 	#update the .desktop file database
 	call(["update-desktop-database"])
 
