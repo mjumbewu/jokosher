@@ -174,43 +174,49 @@
 		</para>
 		<itemizedlist>
 			<listitem>
-			<para>
-				Easy to use interface, designed from the ground up. &app; uses concepts
-				and language familiar to musicians, and is a breeze to use.
-			</para>
+				<para>
+					Easy to use interface, designed from the ground up. &app; uses concepts
+					and language familiar to musicians, and is a breeze to use.
+				</para>
 			</listitem>
 			<listitem>
-			<para>
-				Simple editing with splitting, trimming and moving tools.
-			</para>
+				<para>
+					Simple editing with splitting, trimming and moving tools.
+				</para>
 			</listitem>
 			<listitem>
-			<para>
-				Multi-track volume mixing with VU sliders.
-			</para>
+				<para>
+					Multi-track volume mixing with VU sliders.
+				</para>
 			</listitem>
 			<listitem>
-			<para>
-				Import audio (Ogg Vorbis, MP3, FLAC, WAV and anything else supported by
-				GStreamer) into your projects.
-			</para>
+				<para>
+					Import audio (Ogg Vorbis, MP3, FLAC, WAV and anything else supported by
+					GStreamer) into your projects.
+				</para>
 			</listitem>
 			<listitem>
-			<para>
-				A range of instruments can be added to a project, and instruments can be renamed.
-				Instruments can also be muted and soloed easily.
-			</para>
+				<para>
+					A range of instruments can be added to a project, and instruments can be renamed.
+					Instruments can also be muted and soloed easily.
+				</para>
 			</listitem>
 			<listitem>
-			<para>
-				Export to MP3, Ogg Vorbis, FLAC, WAV and anything else GStreamer supports.
-			</para>
+				<para>
+					Export to MP3, Ogg Vorbis, FLAC, WAV and anything else GStreamer supports.
+				</para>
 			</listitem>
 			<listitem>
-			<para>
-				Mixdown profiles allow you to quickly automate post-mixing processes like podcasts,
-				uploading files to a server, creating playlists and so on.
-			</para>
+				<para>
+					Mixdown profiles allow you to quickly automate post-mixing processes, like running
+					a script to upload the files to a remote server.
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					Powerful extension system that allows &app; to provide functionality beyond what is
+					commonly possible, in audio editing software.
+				</para>
 			</listitem>
 			<listitem>
 			<para>
@@ -231,30 +237,30 @@
 				<varlistentry>
 					<term><guimenu>Applications</guimenu> menu</term>
 					<listitem>
-					<para>
-						Choose
-						<menuchoice>
-							<guisubmenu>Sound &amp; Video </guisubmenu>
-							<guimenuitem>&app;</guimenuitem>
-						</menuchoice>
-					</para>
+						<para>
+							Choose
+							<menuchoice>
+								<guisubmenu>Sound &amp; Video </guisubmenu>
+								<guimenuitem>&app;</guimenuitem>
+							</menuchoice>
+						</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>Command line</term>
 					<listitem>
-					<para>
-						To start <application>&app;</application> from a command line, type the
-						following command, then press <keycap>Return</keycap>:
-					</para>
-					<para>
-						<command>jokosher</command>
-						<replaceable>filename.jokosher</replaceable>
-					</para>
-					<para>
-						where <replaceable>filename.jokosher</replaceable> is the name of the file
-						you want to open.
-					</para>
+						<para>
+							To start <application>&app;</application> from a command line, type the
+							following command, then press <keycap>Return</keycap>:
+						</para>
+						<para>
+							<command>jokosher</command>
+							<replaceable>filename.jokosher</replaceable>
+						</para>
+						<para>
+							where <replaceable>filename.jokosher</replaceable> is the name of the file
+							you want to open.
+						</para>
 					</listitem>
 				</varlistentry>
 			</variablelist>
@@ -274,11 +280,11 @@
 						<imagedata fileref="figures/welcome_dialog.png" format="PNG"/>
 					</imageobject>
 					<textobject>
-					<phrase>
-						Shows &app; Welcome dialog. Contains Recent Projects
-						dialog, Create a New Project, Browse for an Existing
-						Project, Preferences and Quit.
-					</phrase>
+						<phrase>
+							Shows &app; Welcome dialog. Contains Recent Projects
+							dialog, Create a New Project, Browse for an Existing
+							Project, Preferences and Quit.
+						</phrase>
 					</textobject>
 				</mediaobject>
 				</screenshot>
@@ -528,6 +534,12 @@
 						output format. &app; will then mix the project and
 						save it as a single audio file in your chosen format.
 					</para>
+					<para>
+						Optionally, you can add additional mixdown steps to further
+						customize what happens during the mixdown operation. For example,
+						you can run a script that gets executed after mixing the files down,
+						uploading them to a remote server.
+					</para>
 					</listitem>
 					<listitem>
 					<para>
@@ -597,30 +609,85 @@
 				<title>Project</title>
 				<itemizedlist>
 					<listitem>
-					<para>
-						<guimenuitem>Add Instrument</guimenuitem>
-						&mdash; see <xref linkend="jokosher-views-recording-addinstrument"/>
-						for more information.
-					</para>
+						<para>
+							<guimenuitem>Add Instrument</guimenuitem>
+							&mdash; See <xref linkend="jokosher-views-recording-addinstrument"/>
+							for more information.
+						</para>
 					</listitem>
 					<listitem>
-					<para>
-						<guimenuitem>Instrument Connections</guimenuitem>
-						&mdash; This dialog lists each instrument in the project
-						and shows which input from your sound card is connected
-						to it. For each instrument, you can change
-						its connection by clicking the drop-down box and
-						choosing an input to connect.
-					</para>
+						<para>
+							<guimenuitem>Add Audio File</guimenuitem>
+							&mdash; Imports a given audio file into a new Audio file
+							instrument. This is equivalent to adding a new instrument,
+							then importing an audio file into it.
+						</para>
 					</listitem>
 					<listitem>
-					<para>
-						<guimenuitem>Time Format</guimenuitem> &mdash;
-						Selects how time is displayed on the <guilabel>Time
-						Line</guilabel>. The options are <guilabel>Show as
-						Bars, Beats, Ticks</guilabel> or <guilabel>Show as
-						Hours, Minutes, Seconds</guilabel>.
-					</para>
+						<para>
+							<guimenuitem>Recording Inputs</guimenuitem>
+							&mdash; This dialog lists each instrument in the project
+							and shows which input from your sound card is connected
+							to it. For each instrument, you can change
+							its connection by clicking the drop-down box and
+							choosing an input to connect.
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							<guimenuitem>Time Format</guimenuitem> &mdash;
+							Selects how time is displayed on the <guilabel>Time
+							Line</guilabel>. The options are <guilabel>Show as
+							Bars, Beats, Ticks</guilabel> or <guilabel>Show as
+							Hours, Minutes, Seconds</guilabel>.
+						</para>
+					</listitem>
+				</itemizedlist>
+			</sect3>
+			
+			<sect3 id="jokosher-main-menu-instrument">
+				<title>Instrument</title>
+				<itemizedlist>
+					<listitem>
+						<para>
+							<guimenuitem>Add Audio File</guimenuitem>
+							&mdash; Adds an audio file to an already existing instrument.
+							This is very similar to the Project &mdash; Add Audio File function,
+							but it doesn't create a new instrument to place the imported audio into.
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							<guimenuitem>Change Instrument Type</guimenuitem>
+							&mdash; Changes the type of the selected instrument.
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							<guimenuitem>Remove Selected Instrument</guimenuitem>
+							&mdash; Removes the currently selected instrument from the project.
+						</para>
+					</listitem>
+				</itemizedlist>
+			</sect3>
+			
+			<sect3 id="jokosher-main-menu-extensions">
+				<title>Extensions</title>
+				<itemizedlist>
+					<listitem>
+						<para>
+							<guimenuitem>Extension Menu*</guimenuitem>
+							&mdash; This menu section is variable since it lists all the available
+							extensions. Each entry opens the corresponding extension.
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							<guimenuitem>Manage Extensions</guimenuitem>
+							&mdash; Opens the extension manager dialog. It allows adding, removing and
+							disabling extensions. See <xref linkend="jokosher-extensions"/>
+							for more information.
+						</para>
 					</listitem>
 				</itemizedlist>
 			</sect3>
@@ -629,46 +696,52 @@
 				<title>Help</title>
 				<itemizedlist>
 					<listitem>
-					<para>
-						<guimenuitem>Help</guimenuitem> &mdash;
-						Opens the &app; user manual you are currently reading.
-					</para>
+						<para>
+							<guimenuitem>Help</guimenuitem> &mdash;
+							Opens the &app; user manual you are currently reading.
+						</para>
 					</listitem>
 					<listitem>
-					<para>
-						<guimenuitem>Online Forums</guimenuitem> &mdash;
-						Opens the &app; online forums website on your preferred web browser.
-					</para>
+						<para>
+							<guimenuitem>Report Bug...</guimenuitem> &mdash;
+							Opens the &app; Launchpad site to report bugs.
+						</para>
 					</listitem>
 					<listitem>
-					<para>
-						<guimenuitem>Contributing to &app;</guimenuitem>
-						&mdash; Lists the different ways you can
-						contribute to &app;. &app; is still in development and
-						can always use your help.
-					</para>
+						<para>
+							<guimenuitem>Online Forums</guimenuitem> &mdash;
+							Opens the &app; online forums website on your preferred web browser.
+						</para>
 					</listitem>
 					<listitem>
-					<para>
-						<guimenuitem>About</guimenuitem>
-						<itemizedlist> 
-							<listitem>
-							<para>
-								<guimenuitem>Credits</guimenuitem>
-								&mdash; Opens a dialog box that lists
-								the many people who have worked to
-								bring you &app;.
-							</para>
-							</listitem> 
-							<listitem>
-							<para>
-								<guimenuitem>License</guimenuitem>
-								&mdash; The complete license for
-								&app;.
-							</para>
-							</listitem> 
-						</itemizedlist>
-					</para>
+						<para>
+							<guimenuitem>Contributing to &app;</guimenuitem>
+							&mdash; Lists the different ways you can
+							contribute to &app;. &app; is still in development and
+							can always use your help.
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							<guimenuitem>About</guimenuitem>
+							<itemizedlist> 
+								<listitem>
+								<para>
+									<guimenuitem>Credits</guimenuitem>
+									&mdash; Opens a dialog box that lists
+									the many people who have worked to
+									bring you &app;.
+								</para>
+								</listitem> 
+								<listitem>
+								<para>
+									<guimenuitem>License</guimenuitem>
+									&mdash; The complete license for
+									&app;.
+								</para>
+								</listitem> 
+							</itemizedlist>
+						</para>
 					</listitem>
 				</itemizedlist>
 			</sect3>
@@ -691,6 +764,15 @@
 						for more information.
 					</para>
 				</listitem>
+				<listitem>
+					<para>
+						<guimenuitem>Add Audio File</guimenuitem> &mdash;
+						Same as
+						<menuchoice>
+							<guisubmenu>Project</guisubmenu><guimenuitem>Add Audio File</guimenuitem>.
+						</menuchoice>
+					</para>
+					</listitem>
 				<listitem>
 					<para>
 						<guibutton>Rewind, Play, Forward,
@@ -719,8 +801,7 @@
 						<guibutton>Click Track</guibutton> &mdash; this
 						feature generates a click that you can play along with.
 						You can set its speed in beats per minute and change 
-						its time signature. *TODO* (This feature is not currently
-						implemented.)
+						its time signature.
 					</para>
 				</listitem>
 				<listitem>
@@ -761,61 +842,78 @@
 			</para>
 			<itemizedlist>
 				<listitem>
-				<para>
-					<guilabel>Application Start-up</guilabel>
-					&mdash; Chooses how &app; will act when it
-					first starts. The available options are:
+					<para>
+						<guilabel>Application Start-up</guilabel>
+						&mdash; Chooses how &app; will act when it
+						first starts. The available options are:
+					</para>
 					<itemizedlist>
 						<listitem>
-						<para>
-							<guimenuitem>Show
-							welcome dialog</guimenuitem>
-							&mdash; the default.  Choose this
-							option if you'd like to pick a project
-							everytime &app; starts.
-						</para>
+							<para>
+								<guimenuitem>Show welcome dialog</guimenuitem>
+								&mdash; the default.  Choose this
+								option if you'd like to pick a project
+								everytime &app; starts.
+							</para>
 						</listitem>
 						<listitem>
-						<para>
-							<guimenuitem>Open most
-							recent project</guimenuitem>
-							&mdash; Choose this option if you'd
-							like to skip the welcome dialog and
-							jump to the project you had open the
-							last time you used
-							&app;.
-						</para>
+							<para>
+								<guimenuitem>Open most recent project</guimenuitem>
+								&mdash; Choose this option if you'd
+								like to skip the welcome dialog and
+								jump to the project you had open the
+								last time you used
+								&app;.
+							</para>
 						</listitem> 
 						<listitem>
-						<para>
-							<guimenuitem>Don't open
-							anything</guimenuitem> &mdash; Choose
-							this option if you want total control.
-							You can open a project later from the
-							<guimenu>File</guimenu> menu.
-						</para>
+							<para>
+								<guimenuitem>Don't open	anything</guimenuitem> &mdash; Choose
+								this option if you want total control.
+								You can open a project later from the
+								<guimenu>File</guimenu> menu.
+							</para>
 						</listitem>
 					</itemizedlist>
-				</para>
 				</listitem>
 				<listitem>
-				<para>
-					<guilabel>Recorded Audio Format</guilabel> &mdash;
-					Choose the format in which &app;
-					will save the audio during recordings.
-				</para>
+					<para>
+						<guilabel>Recorded Audio Format</guilabel> &mdash;
+						Choose the format in which &app;
+						will save the audio during recordings.
+					</para>
 				</listitem>
 				<listitem>
-				<para>
-					<guilabel>Recording Sample Rate</guilabel> &mdash;
-					Choose the sample rate used for recording audio in &app;.
-				</para>
+					<para>
+						<guilabel>Recording Sample Rate</guilabel> &mdash;
+						Choose the sample rate used for recording audio in &app;.
+					</para>
 				</listitem>
 				<listitem>
-				<para>
-					<guilabel>Audio Playback Device</guilabel> &mdash;
-					Choose the audio hardware used for playback.
-				</para>
+					<para>
+						<guilabel>Audio Output Plugin</guilabel> &mdash;
+						Choose the audio hardware and Gstreamer pipeline used for playback.
+					</para>
+					<itemizedlist>
+						<listitem>
+							<para>
+								<guimenuitem>Output</guimenuitem> &mdash;
+								Sets the output profile for &app;.
+							</para>
+						</listitem>
+						<listitem>
+							<para>
+								<guimenuitem>Pipeline</guimenuitem> &mdash; 
+								Sets the custom pipeline to use for Gstreamer.
+							</para>
+						</listitem> 
+						<listitem>
+							<para>
+								<guimenuitem>Device</guimenuitem> &mdash;
+								Sets the ALSA device to use with &app;.
+							</para>
+						</listitem>
+					</itemizedlist>
 				</listitem>
 			</itemizedlist>
 			<note>
@@ -977,28 +1075,32 @@
 					</para>
 					</listitem>
 					<listitem>
-					<para>
-						<emphasis>Record</emphasis> &mdash;
-						at this	point you are ready to record this instrument.
-						If it's a live instrument, plug it in, press
-						the <guibutton>Record</guibutton> button on the
-						instrument to arm it, then hit the
-						<guibutton>Record</guibutton> button on the
-						main Toolbar. When done recording, click
-						<guibutton>Stop</guibutton>.
-					</para>
-					
-					<para>
-						To import an
-						existing audio file, right-click on the
-						instrument <guilabel>Recording Lane</guilabel> then click
-						<guimenuitem>Import Audio File</guimenuitem>.
-						Select the file you'd like to import, then click
-						<guibutton>Open</guibutton>. Notice that the
-						audio is now in the recording lane for that
-						instrument. The waveform shows you the volume
-						level at any point in the recording.
-					</para>
+						<para>
+							<emphasis>Record</emphasis> &mdash;
+							at this	point you are ready to record this instrument.
+							If it's a live instrument, plug it in, press
+							the <guibutton>Record</guibutton> button on the
+							instrument to arm it, then hit the
+							<guibutton>Record</guibutton> button on the
+							main Toolbar. When done recording, click
+							<guibutton>Stop</guibutton>.
+						</para>
+						
+						<para>
+							To import an existing audio file, right-click on the
+							instrument <guilabel>Recording Lane</guilabel> then click
+							<guimenuitem>Import Audio File</guimenuitem>.
+							Select the file you'd like to import, then click
+							<guibutton>Open</guibutton>. Notice that the
+							audio is now in the recording lane for that
+							instrument. The waveform shows you the volume
+							level at any point in the recording.
+						</para>
+						
+						<para>
+							Alternatively, you can use the <guibutton>Add Audio File</guibutton>
+							button in the main toolbar, or drag and drop the audio file.
+						</para>
 					</listitem>
 					<listitem>
 					<para>
@@ -1022,156 +1124,156 @@
 				
 				<itemizedlist>
 					<listitem>
-					<para>
-						<emphasis>Move</emphasis> &mdash; this function
-						shifts a piece of audio in time. To
-						<emphasis>Move</emphasis> a piece of audio,
-						click it and drag it left or right until it is
-						in the desired position. When recording
-						Instruments separately, this function can be
-						used to get Instruments in <abbrev>sync</abbrev> with each
-						other.
-					</para>
+						<para>
+							<emphasis>Move</emphasis> &mdash; this function
+							shifts a piece of audio in time. To
+							<emphasis>Move</emphasis> a piece of audio,
+							click it and drag it left or right until it is
+							in the desired position. When recording
+							Instruments separately, this function can be
+							used to get Instruments in <abbrev>sync</abbrev> with each
+							other.
+						</para>
 					</listitem>
 					<listitem>
-					<para>
-						In order to edit audio, a recording often needs
-						to be divided into pieces. &app; offers two
-						main tools to do this:
-						
-						<itemizedlist>
-							<listitem>
-							<para>
-								<emphasis>Split</emphasis> &mdash; this
-								function divides the audio in an
-								instrument into two sections. Use
-								<emphasis>Split</emphasis> when you
-								want to keep the entire recording, but
-								need to separate it into pieces. To split,
-								double-click in the instrument lane at
-								the point where the audio should be
-								divided.
-							</para>
-							</listitem>
-							<listitem>
-							<para>
-								<emphasis>Trim</emphasis> &mdash; this
-								function deletes the non-selected portion
-								of the instrument audio. To
-								<guibutton>Trim</guibutton>, hold down
-								the <keycap>Shift</keycap> key, click
-								with the mouse at the beginning of the
-								section you'd like to
-								<guibutton>Trim</guibutton>, drag the
-								mouse to the right to the end of the
-								desired section, and release both the
-								<keycap>Shift</keycap> key and the
-								mouse button. A	<guibutton>Trim</guibutton>
-								tab will appear below the selected section.
-								Click this tab to <guibutton>Trim</guibutton>
-								the non-selected portion of audio.
-							</para>
-							</listitem>
-						</itemizedlist>
-					</para>
+						<para>
+							In order to edit audio, a recording often needs
+							to be divided into pieces. &app; offers two
+							main tools to do this:
+							
+							<itemizedlist>
+								<listitem>
+									<para>
+										<emphasis>Split</emphasis> &mdash; this
+										function divides the audio in an
+										instrument into two sections. Use
+										<emphasis>Split</emphasis> when you
+										want to keep the entire recording, but
+										need to separate it into pieces. To split,
+										double-click in the instrument lane at
+										the point where the audio should be
+										divided.
+									</para>
+								</listitem>
+								<listitem>
+									<para>
+										<emphasis>Trim</emphasis> &mdash; this
+										function deletes the non-selected portion
+										of the instrument audio. To
+										<guibutton>Trim</guibutton>, hold down
+										the <keycap>Shift</keycap> key, click
+										with the mouse at the beginning of the
+										section you'd like to
+										<guibutton>Trim</guibutton>, drag the
+										mouse to the right to the end of the
+										desired section, and release both the
+										<keycap>Shift</keycap> key and the
+										mouse button. A	<guibutton>Trim</guibutton>
+										tab will appear below the selected section.
+										Click this tab to <guibutton>Trim</guibutton>
+										the non-selected portion of audio.
+									</para>
+								</listitem>
+							</itemizedlist>
+						</para>
 					</listitem> 
 					<listitem>
-					<para>
-						<emphasis>Volume fades</emphasis> &mdash; volume levels can be edited
-						for sections of audio. Select a section of an instrument by pressing
-						<keycap>Shift</keycap>, then clicking and dragging. You see a selection
-						as in the figure below. Notice the red fade points, which will
-						initially be labeled <quote>100%</quote>. Grab the corresponding
-						fade point and drag it up or down to adjust volume at that point.
-						
 						<para>
-							<!-- ==== Volume Fades Figure ==== -->
-							<figure id="jokosher-FIG-volumefades"> 
-								<title>Volume Fades</title>
-								<screenshot> 
-									<mediaobject> 
-										<imageobject>
-											<imagedata
-											fileref="figures/volume_fades.png"
-											format="PNG"/> 
-										</imageobject> 
-										<textobject> 
-										<phrase>
-											Image describing the use of fade
-											points for volume levels.
-										</phrase> 
-										</textobject>
-									</mediaobject>
-								</screenshot>
-							</figure>
+							<emphasis>Volume fades</emphasis> &mdash; volume levels can be edited
+							for sections of audio. Select a section of an instrument by pressing
+							<keycap>Shift</keycap>, then clicking and dragging. You see a selection
+							as in the figure below. Notice the red fade points, which will
+							initially be labeled <quote>100%</quote>. Grab the corresponding
+							fade point and drag it up or down to adjust volume at that point.
+							
+							<para>
+								<!-- ==== Volume Fades Figure ==== -->
+								<figure id="jokosher-FIG-volumefades"> 
+									<title>Volume Fades</title>
+									<screenshot> 
+										<mediaobject> 
+											<imageobject>
+												<imagedata
+												fileref="figures/volume_fades.png"
+												format="PNG"/> 
+											</imageobject> 
+											<textobject> 
+											<phrase>
+												Image describing the use of fade
+												points for volume levels.
+											</phrase> 
+											</textobject>
+										</mediaobject>
+									</screenshot>
+								</figure>
+							</para>
 						</para>
-					</para>
 					</listitem>
 					<listitem>
-					<para>
-						<emphasis>Cut and Paste</emphasis> &mdash; this
-						process moves sections of audio from one place to another. If
-						you don't want to <guilabel>Cut</guilabel> a complete
-						recording, <guilabel>Split</guilabel> it into pieces or
-						<guibutton>Trim</guibutton> as above, to separate the piece
-						you'd like to work with.  Next, click on the piece you'd like
-						to <guilabel>Cut</guilabel> and select 
-						<menuchoice> 
-							<shortcut>
-								<keycombo>
-									<keycap>Ctrl</keycap><keycap>X</keycap>
-								</keycombo> 
-							</shortcut>
-							<guisubmenu>Edit</guisubmenu><guimenuitem>Cut</guimenuitem>
-						</menuchoice>
-						. Finally, click
-						<menuchoice>
-							<shortcut>
-								<keycombo>
-									<keycap>Ctrl</keycap><keycap>V</keycap>
-								</keycombo> 
-							</shortcut>
-							<guisubmenu>Edit</guisubmenu><guimenuitem>Paste</guimenuitem>
-						</menuchoice>
-						in the spot where the section should go.
-					</para>
+						<para>
+							<emphasis>Cut and Paste</emphasis> &mdash; this
+							process moves sections of audio from one place to another. If
+							you don't want to <guilabel>Cut</guilabel> a complete
+							recording, <guilabel>Split</guilabel> it into pieces or
+							<guibutton>Trim</guibutton> as above, to separate the piece
+							you'd like to work with.  Next, click on the piece you'd like
+							to <guilabel>Cut</guilabel> and select 
+							<menuchoice> 
+								<shortcut>
+									<keycombo>
+										<keycap>Ctrl</keycap><keycap>X</keycap>
+									</keycombo> 
+								</shortcut>
+								<guisubmenu>Edit</guisubmenu><guimenuitem>Cut</guimenuitem>
+							</menuchoice>
+							. Finally, click
+							<menuchoice>
+								<shortcut>
+									<keycombo>
+										<keycap>Ctrl</keycap><keycap>V</keycap>
+									</keycombo> 
+								</shortcut>
+								<guisubmenu>Edit</guisubmenu><guimenuitem>Paste</guimenuitem>
+							</menuchoice>
+							in the spot where the section should go.
+						</para>
 					</listitem>
 					<listitem>
-					<para>
-						<emphasis>Copy and Paste</emphasis> &mdash; this process is used to make
-						copies of the same audio in more than one place. It is similar
-						to <emphasis>Cut and Paste</emphasis> above. First select a piece of audio
-						and click 
-						<menuchoice>
-							<shortcut>
-								<keycombo>
-									<keycap>Ctrl</keycap><keycap>C</keycap>
-								</keycombo> 
-							</shortcut>
-							<guisubmenu>Edit</guisubmenu><guimenuitem>Copy</guimenuitem>
-						</menuchoice>
-						. Then click in the spot where this piece should go and select
-						<menuchoice>
-							<shortcut>
-								<keycombo>
-									<keycap>Ctrl</keycap><keycap>V</keycap>
-								</keycombo> 
-							</shortcut>
-							<guisubmenu>Edit</guisubmenu><guimenuitem>Paste</guimenuitem>
-						</menuchoice>
-						to complete the operation.
-					</para>
+						<para>
+							<emphasis>Copy and Paste</emphasis> &mdash; this process is used to make
+							copies of the same audio in more than one place. It is similar
+							to <emphasis>Cut and Paste</emphasis> above. First select a piece of audio
+							and click 
+							<menuchoice>
+								<shortcut>
+									<keycombo>
+										<keycap>Ctrl</keycap><keycap>C</keycap>
+									</keycombo> 
+								</shortcut>
+								<guisubmenu>Edit</guisubmenu><guimenuitem>Copy</guimenuitem>
+							</menuchoice>
+							. Then click in the spot where this piece should go and select
+							<menuchoice>
+								<shortcut>
+									<keycombo>
+										<keycap>Ctrl</keycap><keycap>V</keycap>
+									</keycombo> 
+								</shortcut>
+								<guisubmenu>Edit</guisubmenu><guimenuitem>Paste</guimenuitem>
+							</menuchoice>
+							to complete the operation.
+						</para>
 					</listitem>
 					<listitem>
-					<para>
-						<emphasis>Delete</emphasis> &mdash; this removes a piece of audio completely
-						from the current project. Select the section you want to delete and then
-						click
-						<menuchoice> 
-							<guisubmenu>Edit</guisubmenu><guimenuitem>Delete</guimenuitem>
-						</menuchoice>
-						or hit the <keycap>Delete</keycap> key on the keyboard.
-					</para>
+						<para>
+							<emphasis>Delete</emphasis> &mdash; this removes a piece of audio completely
+							from the current project. Select the section you want to delete and then
+							click
+							<menuchoice> 
+								<guisubmenu>Edit</guisubmenu><guimenuitem>Delete</guimenuitem>
+							</menuchoice>
+							or hit the <keycap>Delete</keycap> key on the keyboard.
+						</para>
 					</listitem>
 					<listitem>
 						<para>
@@ -1216,14 +1318,32 @@
 	<!-- This section explains the detailed use and capabilities of the mixing workspace. -->
 	<sect1 id="jokosher-workspaces-mixing">
 		<title>The Mixing Workspace</title>
+		
+		<para>
+			This is the main mixing view. This view displays smaller versions of your instrument tracks
+			as well as mixing sliders for adjusting instrument volume levels. This is where you mix your
+			final project.
+		</para>
+		<!-- ==== Mixingd Window Figure ==== -->
+		<figure id="jokosher-FIG-mixingwindow">
+			<title>&app; Mixing Window</title>
+			<screenshot>
+				<mediaobject>
+					<imageobject>
+						<imagedata fileref="figures/mixing_window.png" format="PNG"/> 
+					</imageobject>
+					<textobject>
+						<phrase>
+							Shows &app; Mixing Window. Contains the instruments and
+							volume and pan sliders.
+						</phrase>
+					</textobject>
+				</mediaobject>
+			</screenshot>
+		</figure>
+		
 		<sect2 id="jokosher-views-mixing">
 			<title>Mixing View</title>
-			<para>
-				This is the main mixing view. This view displays smaller versions of your instrument tracks
-				as well as mixing sliders for adjusting instrument volume levels. This is where you mix your
-				final project.
-			</para>
-			
 			<para>
 				Much of the functionality of the <xref linkend="jokosher-workspaces-recording"/>
 				is still available. The emphasis, though, is on getting the balance right between the
@@ -1235,7 +1355,7 @@
 				<para>
 					<guibutton>Volume Slider</guibutton> &mdash; each Instrument has a corresponding
 					slider. These sliders control the overall volume in the mix of that Instrument.
-					Volume is displayed on the slider as a range from 0 to 1.00. Notice that
+					Volume is displayed on the slider as a range from 0% to 100%. Notice that
 					as the slider is moved, the volume level changes audibly and visually.
 				</para>
 				</listitem>
@@ -1243,9 +1363,9 @@
 				<para>
 					<guibutton>Instrument Hide</guibutton> &mdash; at the top of each slider is
 					an icon that can be clicked to hide that instrument. It's still there, 
-					just out of the way. At the bottom of the screen just above the status bar
+					just hidden out of view. At the bottom of the screen just above the status bar
 					is an <emphasis>Instruments Not Shown</emphasis> list. Click on an instrument
-					in the list to display it normally.
+					in the list to display it normally again.
 				</para>
 				<para>
 					Hiding Instruments is useful when you have many instruments and only want to
@@ -1269,6 +1389,16 @@
 				Once your project is ready to be mixed down, the <emphasis>Mixdown Profiles</emphasis>
 				allow you to automate post-mixing processes like podcasts, uploading files to a server,
 				creating playlists and so on.
+			</para>
+			
+			<para>
+				To access them, go to
+				<menuchoice>
+					<guisubmenu>File</guisubmenu><guimenuitem>Mixdown Project</guimenuitem>.
+				</menuchoice>
+				In there, you'll be able to customize your mixing down process. By default, an export
+				to ogg action is added automatically. You can change the its file format if you wish
+				to do so.
 			</para>
 		</sect2>
 	</sect1>
@@ -1395,47 +1525,110 @@
 				</screenshot>
 			</figure>
 			
+			<para>
+				The following actions are available through this window:
+			</para>
+			
 			<itemizedlist>
 				<listitem>
-				<para>
-					<guibutton>Add effects</guibutton> &mdash; the dropdown box on the left will list all the
-					effects you have installed on your system. From this list select the effect you would like to
-					use. Click on the <guibutton>Add</guibutton> button and that effect will be added to the
-					Instrument. In the same way you can add as many effects as needed.
-				</para>
+					<para>
+						<guibutton>Activate Effects</guibutton> &mdash; The list on the left will list all the
+						effects you have installed on your system, under the chosen category, indicated by
+						the left combobox.
+						From this list select the effect you would like to use, then click on the <guibutton>Activate</guibutton>
+						button (the arrow pointing right), double click on the effect or right click on it
+						and select <guilabel>Activate Effect</guilabel>.
+						In the same way you can add as many effects as needed.
+					</para>
 				</listitem>
 				<listitem>
-				<para>
-					<guibutton>Adjust effect settings</guibutton> &mdash; once an effect is added, double click the
-					orange box for an effect to pull up the effect settings dialog. Settings available will depend
-					on the specific effect. In this dialog you can tweak all the settings for a particular effect.
-					Click <guibutton>OK</guibutton> when done.
-				</para>
+					<para>
+						<guibutton>Adjust Effect Settings</guibutton> &mdash; Once an effect is activated, double click
+						on it inside the right list to display the effect settings dialog. Settings available will depend
+						on the specific effect. In this dialog you can tweak all the settings for a particular effect.
+						Click <guibutton>Close</guibutton> when done.
+					</para>
+					
+					<para>
+						You can also access the settings dialog right clicking the effect and selecting <guilabel>Settings</guilabel>,
+						or selecting the effect and then clicking on the <guibutton>Settings</guibutton> button beneath the active effects
+						list.
+					</para>
 				</listitem>
 				<listitem>
-				<para>
-					<guibutton>Preview effects</guibutton> &mdash; Click the <guibutton>Play</guibutton> button at
-					the bottom of the <emphasis>Effects Window</emphasis> and the Instrument will be played back
-					with the effects so you can hear the changes.
-				</para>
+					<para>
+						<guibutton>Preview Effects</guibutton> &mdash; Click the <guibutton>Play</guibutton> button at
+						the bottom of the <emphasis>Effects Window</emphasis> and the Instrument will be played back
+						with the effects so you can hear the changes.
+					</para>
 				</listitem>
 				<listitem>
-				<para>
-					<guibutton>Effects Presets</guibutton> &mdash; when you've configured a group of effects that
-					you'd like to keep, they can be saved together as a preset. In the text box labeled
-					<guilabel>Presets</guilabel> type the name for this preset (whatever you'd like to call it),
-					then click <guibutton>Save</guibutton>. The next time you add effects to an Instrument, this
-					preset will be available in the drop down list for you to use again.
-				</para>
+					<para>
+						<guibutton>Effects Presets</guibutton> &mdash; When you've configured a group of effects that
+						you'd like to keep, they can be saved together as a preset. In the text box labeled
+						<guilabel>Presets</guilabel> type the name for this preset (whatever you'd like to call it),
+						then click <guibutton>Save</guibutton>. The next time you add effects to an Instrument, this
+						preset will be available in the drop down list for you to use again.
+					</para>
 				</listitem>
 				<listitem>
-				<para>
-					<guibutton>Delete effects</guibutton> &mdash; to remove an unwanted effect, click the red
-					circle on the upper right corner of the orange box for that effect. The effect will be removed.
-					No confirmation is requested, so be careful when deleting effects.
-				</para>
+					<para>
+						<guibutton>Rearrange Effects</guibutton> &mdash; To rearrange active effects, use the <guibutton>Up</guibutton>
+						and <guibutton>Down</guibutton> buttons under the active effects list. You can also
+						right click the effect and click <guilabel>Up</guilabel> or <guilabel>Down</guilabel>
+						accordingly.
+						This is very useful because effects sound different, if placed in other positions inside the
+						effects chain.
+					</para>
+				</listitem>
+				<listitem>
+					<para>
+						<guibutton>Delete Effects</guibutton> &mdash; To remove an unwanted effect, select it and then
+						click on the <guibutton>Delete</guibutton> button under the active effects list. You can also
+						right click the effect and select <guilabel>Delete</guilabel>.
+						No confirmation is requested, so be careful when deleting effects.
+					</para>
 				</listitem>
 			</itemizedlist>
+		</sect2>
+		
+		<sect2>
+			<title>Instrument and Effect Presets</title>
+			
+			<para>
+				It is important to realize that there are two kind of effect related presets in Jokosher. The next section will explain
+				them in detail.
+			</para>
+			
+			<sect3>
+				<title>Instrument Presets</title>
+				
+				<para>
+					These presets are meant for common effect combinations, or chains, used in instruments. They are listed in the main
+					effects window described in the earlier section <xref linkend="jokosher-instrumenteffects"/>.
+				</para>
+				
+				<para>
+					For example, a combination of reverb, compression and a delay is normally used in lead guitars. With
+					instrument presets, you can save that effect chain under the guitar instrument and quickly apply it to
+					future recordings, without having to search for the effects you like.
+				</para>
+			</sect3>
+			
+			<sect3>
+				<title>Effect Presets</title>
+				
+				<para>
+					Effect presets save a particular effect configuration. These are listed inside the settings window
+					for each individual effect.
+				</para>
+				
+				<para>
+					As an example, you could think of several effect presets for a delay called: "5ms delay", "10ms delay",
+					"Hall delay" and "Grand Canyon delay". These presets are useful for storing those perfect settings you
+					just found, for	a given effect.
+				</para>
+			</sect3>
 		</sect2>
 	</sect1>
 </article>
