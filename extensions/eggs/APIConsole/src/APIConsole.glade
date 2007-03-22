@@ -78,6 +78,7 @@
 	  <property name="invisible_char">●</property>
 	  <property name="activates_default">True</property>
 	  <signal name="activate" handler="on_Activate"/>
+	  <signal name="key_press_event" handler="on_entryCommand_key_press_event" last_modification_time="Thu, 22 Mar 2007 17:05:05 GMT"/>
 	</widget>
 	<packing>
 	  <property name="padding">0</property>

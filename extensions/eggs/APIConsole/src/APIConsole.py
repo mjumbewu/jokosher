@@ -38,6 +38,8 @@ class APIConsole:
 			api -- reference to the Jokosher extension API.
 		"""
 		self.api = api
+		self.history = []
+		self.historyIndex = 0
 		self.menu_item = self.api.add_menu_item("API Console", self.OnMenuItemClick)
 		self.defaultOutput = "dir - a list of api functions\n" + \
 					"help <function> - show documentation for a function\n" + \
@@ -66,7 +68,8 @@ class APIConsole:
 		wTree = gtk.glade.xml_new_from_buffer(xmlString, len(xmlString),"APITestDialog")
 		
 		signals = 	{
-					"on_Activate" : self.Execute
+					"on_Activate" : self.Execute,
+					"on_entryCommand_key_press_event" : self.OnKeyPressCommand
 					}
 		wTree.signal_autoconnect(signals)
 		
@@ -87,14 +90,53 @@ class APIConsole:
 	
 	#_____________________________________________________________________
 	
+	def OnKeyPressCommand(self, widget, event):
+		"""
+		Called when the user presses a key in the command entry.
+		Used for manipulating the command history.
+		
+		Parameters:
+			widget -- GTK widget firing this event.
+			event -- keyboard event fired.
+			
+		Returns:
+			True -- stop GTK signal propagation.
+			False -- continue GTK signal propagation.
+		"""
+		if event.keyval == 65362:		# up arrow: show the previous command in the history
+			if len(self.history) > 0 and self.historyIndex+1 < len(self.history):
+				self.historyIndex += 1
+				self.command.set_text(self.history[self.historyIndex])
+			return True
+		
+		elif event.keyval == 65364:		# down arrow: show the next command in the history
+			if len(self.history) > 0 and self.historyIndex-1 >= -1:
+				self.historyIndex -= 1
+				
+				if self.historyIndex >= 0:
+					self.command.set_text(self.history[self.historyIndex])
+				else:
+					self.command.set_text("")
+			return True
+		
+		elif event.keyval == 65293:		# enter key: create a new history entry and reset the index
+			self.historyIndex = -1
+			self.history.insert(0, self.command.get_text())
+			return False
+		
+		else:
+			return False
+	
+	#_____________________________________________________________________
+	
 	def Execute(self, entry):
 		"""
 		Executes the command given by the user.
 		
 		Parameters:
-			entry -- reserved for GTK callbacks. Don't use it explicitly.
+			entry -- GTK callback parameter.
 		"""
-		self.output_text.insert_at_cursor(">>>>%s\n" % self.command.get_text())
+		self.output_text.insert_at_cursor(">%s\n" % self.command.get_text())
 		
 		if self.command.get_text() == "dir" or self.command.get_text() == "ls":
 			outputList = []
