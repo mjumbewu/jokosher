@@ -394,9 +394,8 @@ if not HELP_PATH:
 	USE_LOCAL_HELP = True
 	
 	# change the local help file to match the current locale
-	if locale.getlocale()[0].startswith("en", 0, 2):
-		current_locale = "C"
-	else:
+	current_locale = "C"
+	if locale.getlocale()[0] and not locale.getlocale()[0].startswith("en", 0, 2):
 		current_locale = locale.getlocale()[0][:2]
 		
 	HELP_PATH = os.path.join(data_path, "..", "help/jokosher",
