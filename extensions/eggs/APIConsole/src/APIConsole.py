@@ -163,8 +163,8 @@ class APIConsole:
 				rvalue = eval("self.api.%s" % self.command.get_text())
 				if rvalue:
 					self.output_text.insert_at_cursor(str(rvalue) + "\n\n")
-			except:
-				self.output_text.insert_at_cursor("Malformed function call, unimplimented function, or some random exception!\n\n")
+			except Exception, e:
+				self.output_text.insert_at_cursor("Exception caught:\n%s\n\n" % e)
 		
 		self.command.set_text("")
 		self.output.set_buffer(self.output_text)
