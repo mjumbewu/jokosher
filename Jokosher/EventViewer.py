@@ -980,8 +980,10 @@ class EventViewer(gtk.DrawingArea):
 		"""
 		if pos == 0.0:
 			return
+			
 		pos /= float(self.project.viewScale)
-		self.event.Split(pos)
+		self.event.SplitEvent(pos)
+
 		self.lane.Update()
 		
 	#_____________________________________________________________________

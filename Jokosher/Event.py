@@ -237,88 +237,51 @@ class Event(Monitored):
 	
 	#_____________________________________________________________________
 	
-	@UndoSystem.UndoCommand("Join", "temp")
 	def Split(self, split_point, id=-1):
+		"""
+		Dummy function kept for compatibility with 0.2 project files.
+		Parameters are the same as SplitEvent().
+		"""
+		self.SplitEvent(split_point)
+	
+	#_____________________________________________________________________
+	
+	def Join(self, joinEventID):
+		"""
+		Dummy function kept for compatibility with 0.2 project files.
+		Parameters are the same as JoinEvent().
+		"""
+		self.JoinEvent(joinEventID)
+	
+	#_____________________________________________________________________
+	
+	@UndoSystem.UndoCommand("JoinEvent", "temp", "temp2")
+	def SplitEvent(self, split_point, cutRightSide=True, eventID=-1):
 		"""
 		Splits this Event.
 		
 		Parameters:
 			split_point -- time offset split_point in seconds to start the split.
-			id -- if specified, then the created event will be pulled from the
-					graveyard (for undo/redo compatibility).
+			cutRightSide -- if True, a new event will be created to represent
+					the piece on the right which was split. This instance
+					will be the one on the left.
+					if False, this instance is the one on the right.
+			eventID -- the ID of an event that was previously used for the same
+					split. This should only be used by the undo stack and will
+					help prevent the creation of multiple garbage copies of the
+					same event each time a split is undone and redone.
 					
 		Returns:
-			the newly created event, which is the one on the right
-			(after the splitpoint).
-		"""
-		if id == -1:
-			e = self.split_event(split_point)
-			e.SetProperties()
-			self.instrument.events.append(e)
-			self.temp = e.id
-			self.SetProperties()
-			self.StateChanged(self.LENGTH)
-			
-			return e
-		else:
-			d = self.duration
-			self.duration = split_point
-			
-			event = [x for x in self.instrument.graveyard if x.id == id][0]
-			self.instrument.events.append(event)
-			
-			nl = int(len(self.levels) * (split_point / d))
-			self.levels = self.levels[:nl]
-			
-			self.temp = event.id
-			
-			self.StateChanged(self.LENGTH)
-		
-	#_____________________________________________________________________
-	
-	@UndoSystem.UndoCommand("Split", "temp", "temp2")
-	def Join(self, joinEventID):
-		"""
-		Joins two Events together.
-		
-		Parameters:
-			joinEventID -- the ID of the Event to join to this one.
-		"""
-		event = [x for x in self.instrument.events if x.id == joinEventID][0]
-
-		self.temp = self.duration
-		self.temp2 = event.id
-		
-		self.join_event(event)
-		# Now that they're joined, move rightEvent to the graveyard
-		self.instrument.events.remove(event)
-		self.instrument.graveyard.append(event)
-		
-		self.StateChanged(self.LENGTH)
-
-	#_____________________________________________________________________
-	
-	def split_event(self, split_point, cutRightSide=True):
-		"""
-		Helper function for Split() and Trim(). 
-		
-		Considerations:
-			All other methods and classes should not invoke this function 
-			directly since there is no undo for it.
-		
-		Parameters:
-			split_point --
-			cutRightSide -- if True, a new event will be created to represent
-							the piece on the right which was split. This instance
-							will be the one on the left.
-							if False, this instance is the one on the right.
-							
-		Returns:
-			the newly created Event.
+			the newly created event.
 		"""
 		dur = self.duration
 		
-		e = Event(self.instrument, self.file)
+		#if we were given an event ID, reuse that event instead of creating a new one
+		if eventID >= 0:
+			e = [x for x in self.instrument.graveyard if x.id == eventID][0]
+			self.instrument.graveyard.remove(e)
+		else:
+			e = Event(self.instrument, self.file)
 		e.name = self.name
 		
 		dictLeft = {}
@@ -345,8 +308,6 @@ class Event(Monitored):
 			
 			self.__fadePointsDict = dictLeft
 			e.__fadePointsDict = dictRight
-			self.__UpdateAudioFadePoints()
-			e.__UpdateAudioFadePoints()
 		else:
 			e.start = self.start
 			e.offset = self.offset
@@ -362,30 +323,39 @@ class Event(Monitored):
 			
 			self.__fadePointsDict = dictRight
 			e.__fadePointsDict = dictLeft
-			self.__UpdateAudioFadePoints()
-			e.__UpdateAudioFadePoints()
+			
+		self.__UpdateAudioFadePoints()
+		e.__UpdateAudioFadePoints()
+		e.SetProperties()
+		self.instrument.events.append(e)
+		self.SetProperties()
+		self.StateChanged(self.LENGTH)
+		self.StateChanged(self.MOVE)
+		
+		#undo parameters
+		self.temp = e.id
+		self.temp2 = cutRightSide
 		
 		return e
-	
+		
 	#_____________________________________________________________________
 	
-	def join_event(self, joinEvent, joinToRight=True):
+	@UndoSystem.UndoCommand("SplitEvent", "temp", "temp2", "temp3")
+	def JoinEvent(self, joinEvent, joinToRight=True):
 		"""
-		Helper function for Join() and Trim(). After joining the events on
-		either side, this method will not remove the Event from the instrument lane.
-		This must be done from the calling function.
-		
-		Considerations:
-			All other methods and classes should not invoke this function 
-			directly since there is no undo for it.
+		Joins two Events together.
 		
 		Parameters:
-			joinEvent -- Event to join with elf.
-			joinToRight --	if True, the joinEvent will be merged to the right
-							side of self.
-							if False, the joinEvent will be to the left of self.
+			joinEvent -- the ID of the Event, or the Event object to join to this one.
+			joinToRight -- True if the event will be joined on the right side
 		"""
+		eventObjectList = [x for x in self.instrument.events if x.id == joinEvent]
+		if eventObjectList:
+			joinEvent = eventObjectList[0]
+		
 		if joinToRight:
+			self.temp = self.duration
+			
 			for key, value in joinEvent.__fadePointsDict.iteritems():
 				self.__fadePointsDict[key + self.duration] = value
 			#remove the point on either edge that was created when they were split
@@ -397,6 +367,8 @@ class Event(Monitored):
 			#update the fade point list after the level, and duration because it depends on them
 			self.__UpdateAudioFadePoints()
 		else:
+			self.temp = joinEvent.duration
+		
 			self.start = joinEvent.start
 			self.offset = joinEvent.offset
 			self.duration += joinEvent.duration
@@ -410,10 +382,21 @@ class Event(Monitored):
 				del newDict[joinEvent.duration]
 			self.__fadePointsDict = newDict
 			self.__UpdateAudioFadePoints()
+			
+		# Now that they're joined, move delete the rightEvent
+		if joinEvent in self.instrument.events:
+			self.instrument.events.remove(joinEvent)
+		if not joinEvent in self.instrument.graveyard:
+			self.instrument.graveyard.append(joinEvent)
 		
+		self.StateChanged(self.LENGTH)
+		self.StateChanged(self.MOVE)
+		
+		self.temp2 = joinToRight
+		self.temp3 = joinEvent.id
+
 	#_____________________________________________________________________
 	
-	@UndoSystem.UndoCommand("UndoTrim", "temp", "temp2")
 	def Trim(self, start_split, end_split):
 		"""
 		Splits the Event and then deletes the first and last sections,
@@ -423,48 +406,51 @@ class Event(Monitored):
 			start_split -- the time for the start of the trim.
 			end_split -- the time for the end of the trim.
 		"""
-		# Split off the left section of the event, then put it in the graveyard for undo
-		leftSplit = self.split_event(start_split, False)
-		self.instrument.graveyard.append(leftSplit)
-		self.temp = leftSplit.id
+		
+		if start_split > end_split or (start_split <= 0 and end_split >= self.duration):
+			#both points must not be right at the edges, or there is nothing to split
+			return
+			
+		undoAction = UndoSystem.AtomicUndoAction()
+		
+		if 0 < start_split < self.duration:
+			# Split off the left section of the event
+			leftSplit = self.SplitEvent(start_split, False, _undoAction_=undoAction)
+			self.instrument.DeleteEvent(leftSplit.id, _undoAction_=undoAction)
 		
 		#Adjust the end_split value since splitting the left has changed self.duration
 		end_split = end_split - start_split
 		
-		# Split off the right section of the event, then put it in the graveyard for undo
-		rightSplit = self.split_event(end_split)
-		self.instrument.graveyard.append(rightSplit)
-		self.temp2 = rightSplit.id
+		if 0 < end_split < self.duration:
+			# Split off the right section of the event
+			rightSplit = self.SplitEvent(end_split, _undoAction_=undoAction)
+			self.instrument.DeleteEvent(rightSplit.id, _undoAction_=undoAction)
 		
 		self.SetProperties()
 		self.StateChanged(self.LENGTH)
 		
 	#_____________________________________________________________________
 	
-	@UndoSystem.UndoCommand("Trim", "temp", "temp2")
 	def UndoTrim(self, leftID, rightID):
 		"""
 		Resurrects two pieces from the graveyard and joins them to
 		either side of this Event.
 		
+		Considerations: 
+			This method is kept here for undo compatibility with Jokosher
+			version 0.2 project files, and is never called when a 0.9 or
+			greater project is being used.
+		
 		Parameters:
 			leftID -- id of the left Event to be resurrected.
 			rightID -- id of the right Event to be resurrected.
 		"""
-		leftEvent = [x for x in self.instrument.graveyard if x.id == leftID][0]
-		rightEvent = [x for x in self.instrument.graveyard if x.id == rightID][0]
+		undoAction = UndoSystem.AtomicUndoAction()
 		
-		self.temp = leftEvent.duration
-		self.temp2 = leftEvent.duration + self.duration
-		
-		self.join_event(leftEvent, False)
-		self.join_event(rightEvent)
-		
-		self.instrument.graveyard.remove(leftEvent)
-		self.instrument.graveyard.remove(rightEvent)
-		
-		self.SetProperties()
-		self.StateChanged(self.LENGTH)
+		self.instrument.ResurrectEvent(leftID, _undoAction_=undoAction)
+		self.JoinEvent(leftID, False, _undoAction_=undoAction)
+		self.instrument.ResurrectEvent(rightID, _undoAction_=undoAction)
+		self.JoinEvent(rightID, _undoAction_=undoAction)
 		
 	#_____________________________________________________________________
 	

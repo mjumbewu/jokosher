@@ -1030,10 +1030,10 @@ class Instrument(Monitored):
 				rightTrimEvent = event
 		
 		if leftTrimEvent:
-			leftPiece = leftTrimEvent.Split(start - leftTrimEvent.start, _undoAction_=undoAction)
+			leftPiece = leftTrimEvent.SplitEvent(start - leftTrimEvent.start, _undoAction_=undoAction)
 			self.DeleteEvent(leftPiece.id, _undoAction_=undoAction)
 		if rightTrimEvent:
-			rightTrimEvent.Split(stop - rightTrimEvent.start, _undoAction_=undoAction)
+			rightTrimEvent.SplitEvent(stop - rightTrimEvent.start, _undoAction_=undoAction)
 			self.DeleteEvent(rightTrimEvent.id, _undoAction_=undoAction)
 	
 	#_____________________________________________________________________
