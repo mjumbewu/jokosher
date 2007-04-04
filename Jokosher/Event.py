@@ -468,15 +468,15 @@ class Event(Monitored):
 		
 	#_____________________________________________________________________
 	
-	def Delete(self):
+	def Delete(self, _undoAction_=None):
 		"""
 		Deletes this Event and sends it to the graveyard.
 		"""
-		self.instrument.DeleteEvent(self.id)
+		self.instrument.DeleteEvent(self.id, _undoAction_=_undoAction_)
 
 	#_____________________________________________________________________
 	
-	def Resurrect(self):
+	def Resurrect(self, _undoAction_=None):
 		"""
 		Brings this event back from the graveyard.
 		
@@ -484,7 +484,7 @@ class Event(Monitored):
 			This method is made obsolete by instrument.ResurrectEvent(),
 			but is still kept here for 0.2 undo history compatibility.
 		"""
-		self.instrument.ResurrectEvent(self.id)
+		self.instrument.ResurrectEvent(self.id, _undoAction_=_undoAction_)
 
 	#_____________________________________________________________________
 	
