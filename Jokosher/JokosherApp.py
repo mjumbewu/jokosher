@@ -78,6 +78,7 @@ class MainApp:
 		#Connect event handlers
 		signals = {
 			"on_MainWindow_destroy" : self.OnDestroy,
+			"on_MainWindow_configure_event" : self.OnResize,
 			"on_AddInstrument_clicked" : self.OnShowAddInstrumentDialog,
 			"on_About_activate" : self.About,
 			"on_Record_toggled" : self.Record, 
@@ -178,6 +179,11 @@ class MainApp:
 		self.contextTooltips.set_tip(self.recordingButton, self.recordingViewEnabledTip, None)
 		self.contextTooltips.set_tip(self.compactMixButton, self.mixingViewDisabledTip, None)
 		
+		# set the window size to the last saved value
+		x = int(Globals.settings.general["windowwidth"])
+		y = int(Globals.settings.general["windowheight"])
+		self.window.resize(x, y)
+		
 		# set sensitivity
 		self.SetGUIProjectLoaded()
 
@@ -208,6 +214,7 @@ class MainApp:
 		
 		audioimg = gtk.Image()
 		audioimg.set_from_pixbuf(self.audioFilePixbuf)
+		
 		# set the add audio menu item icon
 		self.addAudioMenuItem.set_image(audioimg)
 		
@@ -344,6 +351,23 @@ class MainApp:
 				
 	#_____________________________________________________________________
 	
+	def OnResize(self, widget, event):
+		"""
+		Called when the main window gets resized.
+		
+		Parameters:
+			widget -- GTK callback parameter.
+			event -- GTK callback parameter.
+			
+		Returns:
+			False -- continue GTK signal propagation.
+		"""
+		(self.width, self.height) = widget.get_size()
+		
+		return False
+	
+	#_____________________________________________________________________
+	
 	def OnDestroy(self, widget=None, event=None):
 		"""
 		Called when the main window is destroyed.
@@ -356,6 +380,11 @@ class MainApp:
 			True -- the current project can't be properly closed.
 					This stops signal propagation.
 		"""
+		# save the current window size
+		Globals.settings.general["windowwidth"] = self.width
+		Globals.settings.general["windowheight"] = self.height
+		Globals.settings.write()
+		
 		if self.CloseProject() == 0:
 			gtk.main_quit()
 		else:

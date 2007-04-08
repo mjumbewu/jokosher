@@ -30,7 +30,9 @@ class Settings:
 				"mixdownformat": "value", 
 				"recentprojects": "value", 
 				"startupaction" : "value",
-				"projectfolder" : ""
+				"projectfolder" : "",
+				"windowheight" : 550,
+				"windowwidth" : 900
 				}
 	
 	recording = {
