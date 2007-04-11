@@ -1737,15 +1737,19 @@ class MainApp:
 		if not parent:
 			parent = self.window
 
-		if error.errno==1:
-			message = _("The URI scheme '%s' is either invalid or not supported.") %error.info
-		elif error.errno==2:
-			message = _("Unable to unzip the project file %s") %error.info
-		elif error.errno==3:		
+		if error.errno == 1:
+			message = _("The URI scheme '%s' is either invalid or not supported.") % error.info
+		elif error.errno == 2:
+			message = _("Unable to unzip the project file %s") % error.info
+		elif error.errno == 3:		
 			message = _("The project file was created with version \"%s\" of Jokosher.\n") % error.info + \
 					  _("Projects from version \"%s\" are incompatible with this release.\n") % error.info
-		elif error.errno==4:
+		elif error.errno == 4:
 			message = _("The project:\n%s\n\ndoes not exist.\n") % error.info
+		elif error.errno == 5:
+			first = _("The project file could not be opened.\n")
+			second = _("It is recommended that you report this to the Jokosher developers or get help at http://www.jokosher.org/forums/")
+			message = "%s\n%s\n\n%s" % (first, second, error.info)
 		else:
 			message = _("The project file could not be opened.\n")
 

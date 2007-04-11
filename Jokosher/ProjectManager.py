@@ -13,6 +13,7 @@ import urlparse, os, gzip, shutil, gst
 import Globals, Utils, UndoSystem
 import Project, Instrument, Event
 import xml.dom.minidom as xml
+import traceback
 
 """ (Singleton) Unique reference to the currently active Project object. """
 GlobalProjectObject = None
@@ -141,11 +142,20 @@ def LoadProjectFile(uri):
 	project.projectfile = projectfile
 	
 	#only open projects with the proper version number
-	version = doc.firstChild.getAttribute("version")
+	version = None
+	if doc and doc.firstChild:
+		version = doc.firstChild.getAttribute("version")
+
 	if JOKOSHER_VERSION_FUNCTIONS.has_key(version):
 		loaderClass = JOKOSHER_VERSION_FUNCTIONS[version]
 		Globals.debug("Loading project file version", version)
-		loaderClass(project, doc)
+		try:
+			loaderClass(project, doc)
+		except:
+			tb = traceback.format_exc()
+			Globals.debug("Loading project failed", tb)
+			raise OpenProjectError(5, tb)
+			
 		if version != Globals.VERSION:
 			#if we're loading an old version copy the project so that it is not overwritten when the user clicks save
 			withoutExt = os.path.splitext(projectfile)[0]
@@ -632,8 +642,10 @@ class OpenProjectError(EnvironmentError):
 					2 = unable to unzip the Project.
 					3 = Project created by a different version of Jokosher.
 					4 = Project file doesn't exist.
+					5 = Loading process faild with traceback
 			info -- version of Jokosher that created the Project.
 					Will be present only along with error #3.
+				OR traceback of thrown exception, which will be present with #5
 		"""
 		EnvironmentError.__init__(self)
 		self.info = info
