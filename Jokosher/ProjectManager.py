@@ -34,7 +34,7 @@ def CreateNewProject(projecturi, name, author):
 	if name == "" or author == "" or projecturi == "":
 		raise CreateProjectError(4)
 
-	(scheme, domain,folder, params, query, fragment) = urlparse.urlparse(projecturi, "file")
+	(scheme, domain,folder, params, query, fragment) = urlparse.urlparse(projecturi, "file", False)
 
 	if scheme != "file":
 		# raise "The URI scheme used is invalid." message
@@ -120,7 +120,7 @@ def LoadProjectFile(uri):
 		the loaded Project object.
 	"""
 	
-	(scheme, domain, projectfile, params, query, fragment) = urlparse.urlparse(uri, "file")
+	(scheme, domain, projectfile, params, query, fragment) = urlparse.urlparse(uri, "file", False)
 	if scheme != "file":
 		# raise "The URI scheme used is invalid." message
 		raise OpenProjectError(1, scheme)

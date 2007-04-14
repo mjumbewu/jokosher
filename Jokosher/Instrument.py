@@ -519,7 +519,7 @@ class Instrument(Monitored):
 			
 		for uri in fileList:
 			# Parse the uri, and continue only if it is pointing to a local file
-			(scheme, domain, file, params, query, fragment) = urlparse.urlparse(uri, "file")
+			(scheme, domain, file, params, query, fragment) = urlparse.urlparse(uri, "file", False)
 			if scheme == "file":
 				event = self.addEventFromFile(start, file, copyFile, _undoAction_=undoAction)
 			else:
