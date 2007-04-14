@@ -1481,8 +1481,8 @@ class MainApp:
 						if ev.isSelected:
 							eventSelected = True
 		
-		self.cut.set_sensitive(instrSelected or eventSelected)
-		self.copy.set_sensitive(instrSelected or eventSelected)
+		self.cut.set_sensitive(eventSelected)
+		self.copy.set_sensitive(eventSelected)
 		self.paste.set_sensitive(instrSelected and bool(self.project.clipboardList))
 		self.delete.set_sensitive(instrSelected or eventSelected)
 	

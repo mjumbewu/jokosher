@@ -458,8 +458,11 @@ class Event(Monitored):
 		"""
 		Deletes this Event and sends it to the graveyard.
 		"""
-		self.instrument.DeleteEvent(self.id, _undoAction_=_undoAction_)
-
+		if _undoAction_:
+			self.instrument.DeleteEvent(self.id, _undoAction_=_undoAction_)
+		else:
+			self.instrument.DeleteEvent(self.id)
+			
 	#_____________________________________________________________________
 	
 	def Resurrect(self, _undoAction_=None):
@@ -470,8 +473,11 @@ class Event(Monitored):
 			This method is made obsolete by instrument.ResurrectEvent(),
 			but is still kept here for 0.2 undo history compatibility.
 		"""
-		self.instrument.ResurrectEvent(self.id, _undoAction_=_undoAction_)
-
+		if _undoAction_:
+			self.instrument.ResurrectEvent(self.id, _undoAction_=_undoAction_)
+		else:
+			self.instrument.ResurrectEvent(self.id)
+			
 	#_____________________________________________________________________
 	
 	def bus_message(self, bus, message):
