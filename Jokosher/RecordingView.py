@@ -13,7 +13,7 @@ import gtk
 import InstrumentViewer
 import TimeLineBar
 import Globals
-import gettext
+from gettext import gettext as _
 import urllib
 
 #=========================================================================
@@ -113,7 +113,7 @@ class RecordingView(gtk.Frame):
 			self.zoomSlider.set_draw_value(False)
 			self.zoomSlider.set_value(self.project.viewScale)
 			self.zoomtip = gtk.Tooltips()
-			self.zoomtip.set_tip(self.zoomSlider, gettext.gettext("Zoom the timeline"),None)
+			self.zoomtip.set_tip(self.zoomSlider, _("Zoom the timeline"),None)
 			
 			self.zoomSlider.connect("value-changed", self.OnZoom)
 			

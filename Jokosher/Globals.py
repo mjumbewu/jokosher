@@ -233,7 +233,7 @@ def _cacheInstrumentsGenerator(alreadyLoadedTypes=[]):
 				name = config.get('i18n', lang.split("_")[0])
 			elif config.has_option('i18n', 'en'):
 				#fall back on english (or a PO translation, if there is any)
-				name = gettext.gettext(config.get( 'i18n', 'en'))
+				name = _(config.get( 'i18n', 'en'))
 			else:
 				continue
 			name = unicode(name, "UTF-8")
