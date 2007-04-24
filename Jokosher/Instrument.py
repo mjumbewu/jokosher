@@ -492,7 +492,7 @@ class Instrument(Monitored):
 			event -- Event object that has finished being recorded.
 		"""
 		#create our undo action to make everything atomic
-		undoAction = UndoSystem.AtomicUndoAction()
+		undoAction = self.project.NewAtomicUndoAction()
 		#make sure the event will act mormally (like a loaded file) now
 		self.FinishRecordingEvent(event, _undoAction_=undoAction)
 		# remove all the events behind the recorded event (because we can't have overlapping events.
@@ -515,7 +515,7 @@ class Instrument(Monitored):
 			return
 			
 		if not undoAction:
-			undoAction = UndoSystem.AtomicUndoAction()
+			undoAction = self.project.NewAtomicUndoAction()
 			
 		for uri in fileList:
 			# Parse the uri, and continue only if it is pointing to a local file
@@ -1008,7 +1008,7 @@ class Instrument(Monitored):
 		"""
 		if not undoAction:
 			#init our own undo action so everything is nice and atomic
-			undoAction = UndoSystem.AtomicUndoAction()
+			undoAction = self.project.NewAtomicUndoAction()
 		
 		start = mainEvent.start
 		stop = mainEvent.start + max(mainEvent.duration, mainEvent.loadingLength)

@@ -739,6 +739,20 @@ class Project(Monitored):
 	
 	#_____________________________________________________________________
 	
+	def NewAtomicUndoAction(self):
+		"""
+		Creates a new AtomicUndoAction and adds to the
+		appropriate undo/redo stack for this project.
+		
+		Return:
+			The newly created AtomicUndoAction instance.
+		"""
+		undoAction = UndoSystem.AtomicUndoAction()
+		self.AppendToCurrentStack(undoAction)
+		return undoAction
+		
+	#_____________________________________________________________________
+	
 	def CheckUnsavedChanges(self):
 		"""
 		Uses boolean self.unsavedChanges and Undo/Redo to 
@@ -786,7 +800,7 @@ class Project(Monitored):
 		Parameters:
 			undoAction -- the instance of AtomicUndoAction to be executed.
 		"""
-		newUndoAction = UndoSystem.AtomicUndoAction()
+		newUndoAction = self.NewAtomicUndoAction()
 		for cmdList in reversed(undoAction.GetUndoCommands()):
 			obj = cmdList[0]
 			target_object = None
@@ -806,7 +820,7 @@ class Project(Monitored):
 					if n:
 						target_object = n[0]
 						break
-			#TODO: ask more about the x,n variables
+			
 			getattr(target_object, cmdList[1])(_undoAction_=newUndoAction, *cmdList[2])
 
 	#_____________________________________________________________________
@@ -865,7 +879,7 @@ class Project(Monitored):
 			A list of IDs of the added Instruments.
 		"""
 		
-		undoAction = UndoSystem.AtomicUndoAction()
+		undoAction = self.NewAtomicUndoAction()
 		for name, type, pixbuf, path in instrTuples:
 			self.AddInstrument(name, type, pixbuf, _undoAction_=undoAction)
 	
@@ -878,7 +892,7 @@ class Project(Monitored):
 		Parameters:
 			instrumentList -- a list of Instrument instances to be removed.
 		"""
-		undoAction = UndoSystem.AtomicUndoAction()
+		undoAction = self.NewAtomicUndoAction()
 		for instrOrEvent in instrumentOrEventList:
 			if isinstance(instrOrEvent, Instrument.Instrument):
 				self.DeleteInstrument(instrOrEvent.id, _undoAction_=undoAction)
@@ -1010,7 +1024,7 @@ class Project(Monitored):
 					False = don't copy the files to the Project's audio directory.
 		"""
 		if not undoAction:
-			undoAction = UndoSystem.AtomicUndoAction()
+			undoAction = self.NewAtomicUndoAction()
 		
 		name, type, pixbuf, path = [x for x in Globals.getCachedInstruments() if x[1] == "audiofile"][0]
 		instr = self.AddInstrument(name, type, pixbuf, _undoAction_=undoAction)

@@ -949,9 +949,8 @@ class MainApp:
 				pass
 			elif response == gtk.RESPONSE_CANCEL or response == gtk.RESPONSE_DELETE_EVENT:
 				return 1
-				
-		ProjectManager.CloseProject()
 		
+		self.project.CloseProject()
 		self.project = None
 		self.mode = None
 		return 0
@@ -1573,8 +1572,6 @@ class MainApp:
 		self.OnStateChanged(change="transport-mode")
 		self.InsertRecentProject(project.projectfile, project.name)
 		self.project.PrepareClick()
-		
-		ProjectManager.GlobalProjectObject = project
 
 		# make various buttons and menu items enabled now we have a project
 		self.SetGUIProjectLoaded()

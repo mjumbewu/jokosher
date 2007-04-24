@@ -66,30 +66,38 @@ def UndoCommand(*command):
 				atomicUndoObject = kwargs["_undoAction_"]
 				del kwargs["_undoAction_"]
 			else:
-				atomicUndoObject = AtomicUndoAction()
+				atomicUndoObject = None
 			
 			try:
 				result = func(funcSelf, *args, **kwargs)
 			except CancelUndoCommand, e:
 				return e.result
 			
+			project = None
 			if isinstance(funcSelf, Project.Project):
+				project = funcSelf
 				objectString = "P"
 			elif isinstance(funcSelf, Instrument.Instrument):
+				project = funcSelf.project
 				objectString = "I%d" % funcSelf.id
 			elif isinstance(funcSelf, Event.Event):
+				project = funcSelf.instrument.project
 				objectString = "E%d" % funcSelf.id
 			
-			paramList = []
-			for param in command[1:]:
-				try:
-					value = getattr(funcSelf, param)
-				except:
-					continue
-				else:
-					paramList.append(value)
-			
-			atomicUndoObject.AddUndoCommand(objectString, command[0], paramList)
+			if not atomicUndoObject and project:
+				atomicUndoObject = project.NewAtomicUndoAction()
+				
+			if atomicUndoObject:
+				paramList = []
+				for param in command[1:]:
+					try:
+						value = getattr(funcSelf, param)
+					except:
+						continue
+					else:
+						paramList.append(value)
+				
+				atomicUndoObject.AddUndoCommand(objectString, command[0], paramList)
 			
 			return result
 		
@@ -154,19 +162,11 @@ class AtomicUndoAction:
 	
 	#_____________________________________________________________________
 	
-	def __init__(self, addToStack=True):
+	def __init__(self):
 		"""
-		Creates a new AtomicUndoAction instance and optionally adds it to the
-		undo stack.
-		
-		Parameters:
-			addToStack -- if True, this instance will be added to the currently
-						active Project's undo/redo stack.
+		Creates a new AtomicUndoAction instance.
 		"""
 		self.commandList = []
-		if addToStack:
-			# add ourselves to the undo stack for the current Project.
-			ProjectManager.GlobalProjectObject.AppendToCurrentStack(self)
 	
 	#_____________________________________________________________________
 	

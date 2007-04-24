@@ -411,8 +411,8 @@ class Event(Monitored):
 			#both points must not be right at the edges, or there is nothing to split
 			return
 			
-		undoAction = UndoSystem.AtomicUndoAction()
-		
+		undoAction = self.instrument.project.NewAtomicUndoAction()
+
 		if 0 < start_split < self.duration:
 			# Split off the left section of the event
 			leftSplit = self.SplitEvent(start_split, False, _undoAction_=undoAction)
@@ -445,7 +445,7 @@ class Event(Monitored):
 			leftID -- id of the left Event to be resurrected.
 			rightID -- id of the right Event to be resurrected.
 		"""
-		undoAction = UndoSystem.AtomicUndoAction()
+		undoAction = self.instrument.project.NewAtomicUndoAction()
 		
 		self.instrument.ResurrectEvent(leftID, _undoAction_=undoAction)
 		self.JoinEvent(leftID, False, _undoAction_=undoAction)

@@ -15,9 +15,6 @@ import Project, Instrument, Event
 import xml.dom.minidom as xml
 import traceback
 
-""" (Singleton) Unique reference to the currently active Project object. """
-GlobalProjectObject = None
-
 def CreateNewProject(projecturi, name, author):
 	"""
 	Creates a new Project.
@@ -95,16 +92,6 @@ def ValidateProject(project):
 		raise InvalidProjectError(unknownfiles,unknownimages)
 
 	return True
-	
-#_____________________________________________________________________
-
-def CloseProject():
-	"""
-	Close the current project.
-	"""
-	global GlobalProjectObject
-	GlobalProjectObject.CloseProject()
-	GlobalProjectObject = None
 	
 #_____________________________________________________________________
 
@@ -309,7 +296,7 @@ class _LoadZPTFile:
 						functionString = str(cmdNode.getAttribute("function"))  
 						paramList = Utils.LoadListFromXML(cmdNode)  
 					
-						undoAction = UndoSystem.AtomicUndoAction(addToStack=False)  
+						undoAction = UndoSystem.AtomicUndoAction()  
 						undoAction.AddUndoCommand(objectString, functionString, paramList)  
 						stack.append(undoAction)  
 		
@@ -469,8 +456,7 @@ class _LoadZPNFile:
 			else:
 				for actionNode in undo.childNodes:
 					if actionNode.nodeName == "Action":
-						# Don't add to the undo stack because the it will go to the wrong stack
-						action = UndoSystem.AtomicUndoAction(addToStack=False)
+						action = UndoSystem.AtomicUndoAction()
 						self.LoadUndoAction(action, actionNode)
 						stack.append(action)
 		
