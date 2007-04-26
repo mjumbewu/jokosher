@@ -124,7 +124,12 @@ class EventViewer(gtk.DrawingArea):
 
 		# Monitor the things this object cares about
 		self.project.AddListener(self)
-		self.event.AddListener(self)
+		self.event.connect("waveform", self.OnEventWaveform)
+		self.event.connect("position", self.OnEventPosition)
+		self.event.connect("length", self.OnEventLength)
+		self.event.connect("corrupt", self.OnEventCorrupt)
+		self.event.connect("loading", self.OnEventLoading)
+		self.event.connect("selected", self.OnEventSelected)
 
 		# This defines where the blue cursor indicator should be drawn (in pixels)
 		self.highlightCursor = None
@@ -436,7 +441,12 @@ class EventViewer(gtk.DrawingArea):
 		listening objects via Monitored.
 		"""
 		self.project.RemoveListener(self)
-		self.event.RemoveListener(self)
+		self.event.disconnect_by_func(self.OnEventSelected)
+		self.event.disconnect_by_func(self.OnEventCorrupt)
+		self.event.disconnect_by_func(self.OnEventLength)
+		self.event.disconnect_by_func(self.OnEventLoading)
+		self.event.disconnect_by_func(self.OnEventPosition)
+		self.event.disconnect_by_func(self.OnEventWaveform)
 		
 		#delete the cached images
 		del self.source
@@ -1078,6 +1088,73 @@ class EventViewer(gtk.DrawingArea):
 
 	#_____________________________________________________________________
 	
+	def OnEventPosition(self, event):
+		"""
+		Callback function for when the position of the event changes.
+		"""
+		self.SetAccessibleName()
+		self.lane.Update(self)
+	
+	#_____________________________________________________________________
+	
+	def OnEventWaveform(self, event):
+		"""
+		Callback function for when the waveform of the event changes.
+		"""
+		self.redrawWaveform = True
+		self.UpdateFadeMarkers()
+		self.queue_draw()
+		
+	#_____________________________________________________________________
+	
+	def OnEventLoading(self, event):
+		"""
+		Callback function for when the loading status of the event changes.
+		"""
+		self.drawer.set_sensitive(not self.event.isLoading)
+		self.queue_draw()
+		
+	#_____________________________________________________________________
+	
+	def OnEventLength(self, event):
+		"""
+		Callback function for when the length of the event changes.
+		"""
+		self.redrawWaveform = True
+		self.SetAccessibleName()
+		self.queue_resize()
+		self.queue_draw()
+		
+	#_____________________________________________________________________
+	
+	def OnEventSelected(self, event):
+		"""
+		Callback function for when the event is selected or de-selected.
+		"""
+		self.queue_draw()
+		
+	#_____________________________________________________________________
+	
+	def OnEventCorrupt(self, event, error, details):
+		"""
+		Callback function for when the event's file is found to be corrupt.
+		"""
+		message="%s %s\n\n%s" % (_("Error loading file:"), self.event.filelabel, 
+					_("Please make sure the file exists, and the appropriate plugin is installed."))
+			
+		outputtext = "\n\n".join((message, error, details))
+		
+		dlg = gtk.MessageDialog(None,
+			gtk.DIALOG_MODAL,
+			gtk.MESSAGE_ERROR,
+			gtk.BUTTONS_CLOSE,
+			outputtext)
+		dlg.connect('response', lambda dlg, response: dlg.destroy())
+		dlg.show()
+		self.OnDelete()
+		
+	#_____________________________________________________________________
+	
 	def OnStateChanged(self, obj, change=None, *extra):
 		"""
 		Called when a change of state is signalled by any of the
@@ -1089,45 +1166,12 @@ class EventViewer(gtk.DrawingArea):
 			change -- the change which has occured.
 			extra -- extra parameters passed by the caller.
 		"""
-		if change == self.event.WAVEFORM:
-			self.redrawWaveform = True
-			self.UpdateFadeMarkers()
-		
-		elif change == self.event.MOVE:
-			self.lane.Update(self)
-		
-		elif change == self.event.LENGTH:
-			self.redrawWaveform = True
-			self.queue_resize()
-			
-		elif change == self.event.LOADING:
-			self.drawer.set_sensitive(not self.event.isLoading)
-		
-		elif change == self.event.CORRUPT and self.small==False:
-			message="%s %s\n\n%s" % (_("Error loading file:"), self.event.filelabel, 
-					_("Please make sure the file exists, and the appropriate plugin is installed."))
-			
-			outputtext = "\n\n".join(extra)
-			outputtext = "\n\n".join((message, outputtext))
-			
-			dlg = gtk.MessageDialog(None,
-				gtk.DIALOG_MODAL,
-				gtk.MESSAGE_ERROR,
-				gtk.BUTTONS_CLOSE,
-				outputtext)
-			dlg.connect('response', lambda dlg, response: dlg.destroy())
-			dlg.show()
-			self.OnDelete()
-	
-		elif obj.__class__ == Project and self.currentScale != self.project.viewScale:
+		if obj.__class__ == Project and self.currentScale != self.project.viewScale:
 			self.redrawWaveform = True
 			self.queue_resize()
 			self.last_num_levels = len(self.event.levels)
 			self.currentScale = self.project.viewScale
-
-		self.SetAccessibleName()
-		
-		self.queue_draw()
+			self.queue_draw()
 
 	#_____________________________________________________________________
 

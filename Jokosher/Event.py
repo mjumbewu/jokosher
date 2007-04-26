@@ -16,8 +16,7 @@ import xml.dom.minidom as xml
 import os
 import pygst
 pygst.require("0.10")
-import gst
-from Monitored import Monitored
+import gst, gobject
 import Utils
 import UndoSystem
 import Globals
@@ -27,14 +26,30 @@ _ = gettext.gettext
 
 #=========================================================================
 
-class Event(Monitored):
+class Event(gobject.GObject):
 	"""
 	This class handles maintaing the information for a single audio 
 	event, normally, a fragment of a recorded file.
+
+	Signals:
+		"waveform" -- The waveform date for this event has changed.
+		"position" -- The starting position of this event has changed.
+		"length" -- The length of this event has changed.
+		"corrupt" -- The audio file for this event is not playable. Two strings with detailed information are sent.
+		"loading" -- Loading has started or completed.
+
 	"""
-	
+	__gsignals__ = {
+		"waveform" 	: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () ),
+		"position" 	: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () ),
+		"length" 		: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () ),
+		"corrupt" 	: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, (gobject.TYPE_STRING, gobject.TYPE_STRING)),
+		"loading" 	: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () ),
+		"selected" 	: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () )
+	}
+
 	""" State changed types (to be sent through the Monitored class) """
-	WAVEFORM, MOVE, LENGTH, CORRUPT, LOADING = range(5)
+	CORRUPT, LOADING = range(2)
 	
 	""" The level sample interval in seconds """
 	LEVEL_INTERVAL = 0.01
@@ -52,7 +67,7 @@ class Event(Monitored):
 			filelabel -- label to print in error messages.
 						It can be different	from the file parameter.
 		"""
-		Monitored.__init__(self)
+		gobject.GObject.__init__(self)
 		
 		self.start = 0.0			# Time in seconds at which the event begins
 		self.duration = 0.0			# Duration in seconds of the event
@@ -329,8 +344,8 @@ class Event(Monitored):
 		e.SetProperties()
 		self.instrument.events.append(e)
 		self.SetProperties()
-		self.StateChanged(self.LENGTH)
-		self.StateChanged(self.MOVE)
+		self.emit("length")
+		self.emit("position")
 		
 		#undo parameters
 		self.temp = e.id
@@ -389,8 +404,8 @@ class Event(Monitored):
 		if not joinEvent in self.instrument.graveyard:
 			self.instrument.graveyard.append(joinEvent)
 		
-		self.StateChanged(self.LENGTH)
-		self.StateChanged(self.MOVE)
+		self.emit("length")
+		self.emit("position")
 		
 		self.temp2 = joinToRight
 		self.temp3 = joinEvent.id
@@ -427,7 +442,7 @@ class Event(Monitored):
 			self.instrument.DeleteEvent(rightSplit.id, _undoAction_=undoAction)
 		
 		self.SetProperties()
-		self.StateChanged(self.LENGTH)
+		self.emit("length")
 		
 	#_____________________________________________________________________
 	
@@ -509,7 +524,7 @@ class Event(Monitored):
 				# Only send events every second processed to reduce GUI load
 				if self.loadingLength != self.lastEnd:
 					self.lastEnd = self.loadingLength 
-					self.StateChanged(self.LENGTH) # tell the GUI
+					self.emit("length") # tell the GUI
 		return True
 		
 	#_____________________________________________________________________
@@ -550,7 +565,7 @@ class Event(Monitored):
 			self.StopGenerateWaveform()
 			
 			# Signal to interested objects that we've changed
-			self.StateChanged(self.WAVEFORM)
+			self.emit("waveform")
 			return False
 			
 	#_____________________________________________________________________
@@ -572,8 +587,8 @@ class Event(Monitored):
 				#update position with proper duration
 				self.MoveButDoNotOverlap(self.start)
 				self.SetProperties()
-				self.StateChanged(self.MOVE)
-				self.StateChanged(self.LENGTH)
+				self.emit("length")
+				self.emit("position")
 		except:
 			# no size available yet
 			pass
@@ -733,7 +748,7 @@ class Event(Monitored):
 			# Only send events every second processed to reduce GUI load
 			if self.loadingLength != self.lastEnd:
 				self.lastEnd = self.loadingLength 
-				self.StateChanged(self.LENGTH) # tell the GUI
+				self.emit("length") # tell the GUI
 		return True
 		
 	#_____________________________________________________________________
@@ -781,7 +796,7 @@ class Event(Monitored):
 		# No need to call StateChanged when there is no change in selection state
 		if self.isSelected is not sel:
 			self.isSelected = sel
-			self.StateChanged()
+			self.emit("selected")
 	
 	#_____________________________________________________________________
 	
@@ -958,7 +973,7 @@ class Event(Monitored):
 				self.audioFadePoints.append(last)
 			
 		self.__UpdateFadeLevels()
-		self.StateChanged(self.WAVEFORM)
+		self.emit("waveform")
 	
 	#_____________________________________________________________________
 	
