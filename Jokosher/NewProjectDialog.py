@@ -16,6 +16,8 @@ import pwd
 import Globals
 import gettext
 _ = gettext.gettext
+import ProjectTemplate
+import ProjectTemplateDialog
 
 class NewProjectDialog:
 	"""
@@ -39,6 +41,9 @@ class NewProjectDialog:
 		self.signals = {
 			"on_OK_clicked" : self.OnOK,
 			"on_Cancel_clicked" : self.OnCancel,
+			"on_editbutton_clicked" : self.OnEdit,
+			"on_notemplate_radio_toggled" : self.NoTemplateRadioToggled,
+			"on_template_radio_toggled" : self.TemplateRadioToggled
 		}
 		
 		self.res.signal_autoconnect(self.signals)
@@ -53,6 +58,25 @@ class NewProjectDialog:
 		self.folder = self.res.get_widget("folder")
 		self.author = self.res.get_widget("author")
 		self.author.set_activates_default(True)
+		
+		self.template = ProjectTemplate.ProjectTemplate()
+		self.notemplateradio = self.res.get_widget("notemplate_radio")
+		self.templateradio = self.res.get_widget("template_radio")
+		self.templatehbox = self.res.get_widget("template_hbox")
+		self.templatehbox.set_sensitive(False)
+		self.templatecombo = self.res.get_widget("template_combo")
+		self.templatecombo.clear()
+		
+		self.templatemodel = gtk.ListStore(str)
+		for files in self.template.LoadDictionaryOfInstrumentsFromTemplateFile().keys():
+			self.templatemodel.append((files,))
+		self.templatecombo.set_model(self.templatemodel)
+		
+		text = gtk.CellRendererText()
+		self.templatecombo.pack_start(text)
+		self.templatecombo.add_attribute(text, "text", 0)
+		
+		self.templatecombo.set_active(0)
 		
 		# Default author to name of currently logged in user
 		try:
@@ -75,7 +99,31 @@ class NewProjectDialog:
 		self.dlg.resize(350, 300)
 		self.dlg.set_icon(self.parent.icon)
 		self.dlg.set_transient_for(self.parent.window)
+
+	#_____________________________________________________________________
+		
+	def NoTemplateRadioToggled(self, widget):
+		"""
+		Called when the no template radio button is activated.
+		The template hbox becomes active if the no template radio button is activated.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly. 
+		"""
+		self.templatehbox.set_sensitive(False)
+		
+	#_____________________________________________________________________
 	
+	def TemplateRadioToggled(self, widget):
+		"""
+		Called when the template radio button is activated.
+		The template hbox becomes inactive if the template radio button is activated.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly. 
+		"""
+		self.templatehbox.set_sensitive(True)
+		
 	#_____________________________________________________________________	
 		
 	def OnOK(self, button):
@@ -101,9 +149,9 @@ class NewProjectDialog:
 		Globals.settings.write()
 		if not folder:
 			folder = "~"
-		
+								
 		try:
-			project = ProjectManager.CreateNewProject(folder,name, author)
+			project = ProjectManager.CreateNewProject(folder, name, author)
 		except ProjectManager.CreateProjectError, e:
 			if e.errno == 1:
 				message = _("Could not initialize project.")
@@ -129,6 +177,8 @@ class NewProjectDialog:
 		else:
 			self.parent.SetProject(project)
 			self.dlg.destroy()
+			
+		self.AddProjectTemplate()
 		
 	#_____________________________________________________________________	
 	
@@ -141,4 +191,48 @@ class NewProjectDialog:
 		"""
 		self.dlg.destroy()
 
-	#_____________________________________________________________________	
+	#_____________________________________________________________________
+	
+	def OnEdit(self, button):
+		"""
+		Displays the ProjectTemplate dialog, allowing the user to create, delete and modify project
+		templates.
+		
+		Parameters:
+			button -- reserved for GTK callbacks, don't use it explicitly.
+		"""
+		ProjectTemplateDialog.ProjectTemplateDialog(self, self.template)
+		
+	#_____________________________________________________________________
+	
+	def ReturnProjectInstrumentTuples(self, name):
+		"""
+		Ths method will return a tuple containing the name, type and pixbuf of the instruments in a given template file.
+		
+		Parameters:
+			name -- the name of the template to use.
+		
+		Returns:
+			instruments -- a list of instruments containing tuples required for project.AddInstruments()
+		"""
+		instruments = []
+		for i in self.template.LoadDictionaryOfInstrumentsFromTemplateFile()[name]:
+			items = ((i[1], i[0], gtk.gdk.pixbuf_new_from_file(i[2]), i[2]))
+			instruments.append(items)
+		return instruments
+		
+	#_____________________________________________________________________
+	
+	def AddProjectTemplate(self):
+		"""
+		Adds template instruments to the user's project.
+		"""
+		if self.templateradio.get_active():
+			if self.parent.project:
+				active = self.templatecombo.get_model()[self.templatecombo.get_active()][0]
+				self.parent.project.AddInstruments(self.ReturnProjectInstrumentTuples(active))
+				self.parent.UpdateDisplay()
+				
+	#_____________________________________________________________________
+	
+#=========================================================================

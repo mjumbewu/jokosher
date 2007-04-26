@@ -372,7 +372,7 @@ if os.path.isfile(os.path.expanduser("~/.jokosher")):
 # create a couple dirs to avoid having problems creating a non-existing
 # directory inside another non-existing directory
 for directory in ['extensions', 'instruments', 'instruments/images', 
-		'presets', 'presets/effects', 'presets/mixdown', 'mixdownprofiles']:
+		'presets', 'presets/effects', 'presets/mixdown', 'mixdownprofiles', 'templates']:
 	new_dir = os.path.join(os.path.expanduser("~/.jokosher/"), directory)
 	if not os.path.isdir(new_dir):
 		try:
@@ -382,6 +382,7 @@ for directory in ['extensions', 'instruments', 'instruments/images',
 
 #TODO: make this a list with the system path and home directory path
 EFFECT_PRESETS_PATH = os.path.expanduser("~/.jokosher/presets/effects")
+TEMPLATES_PATH = os.path.expanduser("~/.jokosher/templates/")
 
 IMAGE_PATH = os.getenv("JOKOSHER_IMAGE_PATH")
 if not IMAGE_PATH:
