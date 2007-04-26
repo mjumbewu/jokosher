@@ -121,12 +121,14 @@ class RecordingView(gtk.Frame):
 			inimg = gtk.image_new_from_stock(gtk.STOCK_ZOOM_IN, gtk.ICON_SIZE_BUTTON)
 			inbutton.set_image(inimg)
 			inbutton.set_relief(gtk.RELIEF_NONE)
+			self.zoomtip.set_tip(inbutton, _("Zoom in timeline"), None)
 			inbutton.connect("clicked", self.OnZoomIn)
 			
 			outbutton = gtk.Button()
 			outimg = gtk.image_new_from_stock(gtk.STOCK_ZOOM_OUT, gtk.ICON_SIZE_BUTTON)
 			outbutton.set_image(outimg)
 			outbutton.set_relief(gtk.RELIEF_NONE)
+			self.zoomtip.set_tip(outbutton, _("Zoom out timeline"), None)
 			outbutton.connect("clicked", self.OnZoomOut)
 
 			self.hb.pack_start( outbutton, False, False)

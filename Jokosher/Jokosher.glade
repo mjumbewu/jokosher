@@ -54,9 +54,21 @@
 		    <widget class="GtkImageMenuItem" id="new1">
 		      <property name="visible">True</property>
 		      <property name="tooltip" translatable="yes">Create a new project</property>
-		      <property name="label">gtk-new</property>
-		      <property name="use_stock">True</property>
+		      <property name="label">New...</property>
 		      <signal name="activate" handler="on_new_activate"/>
+		      <accelerator key="N" modifiers="GDK_CONTROL_MASK" signal="activate"/>		
+
+                      <child internal-child="image">
+                        <widget class="GtkImage" id="image400">
+                          <property name="visible">True</property>
+                          <property name="stock">gtk-new</property>
+                          <property name="icon_size">1</property>
+                          <property name="xalign">0.5</property>
+                          <property name="yalign">0.5</property>
+                          <property name="xpad">0</property>
+                          <property name="ypad">0</property>
+                        </widget>
+                      </child>
 		    </widget>
 		  </child>
 
@@ -64,9 +76,21 @@
 		    <widget class="GtkImageMenuItem" id="open">
 		      <property name="visible">True</property>
 		      <property name="tooltip" translatable="yes">Open an existing project</property>
-		      <property name="label">gtk-open</property>
-		      <property name="use_stock">True</property>
+		      <property name="label">Open...</property>
 		      <signal name="activate" handler="on_open_activate"/>
+		      <accelerator key="O" modifiers="GDK_CONTROL_MASK" signal="activate"/>
+
+                      <child internal-child="image">
+                        <widget class="GtkImage" id="image401">
+                          <property name="visible">True</property>
+                          <property name="stock">gtk-open</property>
+                          <property name="icon_size">1</property>
+                          <property name="xalign">0.5</property>
+                          <property name="yalign">0.5</property>
+                          <property name="xpad">0</property>
+                          <property name="ypad">0</property>
+                        </widget>
+                      </child>
 		    </widget>
 		  </child>
 
@@ -84,9 +108,20 @@
 		    <widget class="GtkImageMenuItem" id="save_as">
 		      <property name="visible">True</property>
 		      <property name="tooltip" translatable="yes">Save a copy of the current project</property>
-		      <property name="label">gtk-save-as</property>
-		      <property name="use_stock">True</property>
+		      <property name="label">Save As...</property>
 		      <signal name="activate" handler="on_save_as_activate"/>
+
+                      <child internal-child="image">
+                        <widget class="GtkImage" id="image402">
+                          <property name="visible">True</property>
+                          <property name="stock">gtk-save-as</property>
+                          <property name="icon_size">1</property>
+                          <property name="xalign">0.5</property>
+                          <property name="yalign">0.5</property>
+                          <property name="xpad">0</property>
+                          <property name="ypad">0</property>
+                        </widget>
+                      </child>
 		    </widget>
 		  </child>
 
@@ -119,7 +154,7 @@
 		    <widget class="GtkImageMenuItem" id="export">
 		      <property name="visible">True</property>
 		      <property name="tooltip" translatable="yes">Export current project to an audio file</property>
-		      <property name="label" translatable="yes">_Mixdown Project</property>
+		      <property name="label" translatable="yes">_Mixdown Project...</property>
 		      <property name="use_underline">True</property>
 		      <signal name="activate" handler="on_export_activate"/>
 
@@ -293,7 +328,7 @@
 		    <widget class="GtkImageMenuItem" id="add_instrument1">
 		      <property name="visible">True</property>
 		      <property name="tooltip" translatable="yes">Add an instrument to the project</property>
-		      <property name="label" translatable="yes">_Add Instrument</property>
+		      <property name="label" translatable="yes">_Add Instrument...</property>
 		      <property name="use_underline">True</property>
 		      <signal name="activate" handler="on_AddInstrument_clicked"/>
 
@@ -315,7 +350,7 @@
 		    <widget class="GtkImageMenuItem" id="add_audio_file_project_menu">
 		      <property name="visible">True</property>
 		      <property name="tooltip" translatable="yes">Add an audio file to the project</property>
-		      <property name="label" translatable="yes">Add Audio File</property>
+		      <property name="label" translatable="yes">Add Audio _File...</property>
 		      <property name="use_underline">True</property>
 		      <signal name="activate" handler="on_project_add_audio" last_modification_time="Tue, 26 Dec 2006 18:58:33 GMT"/>
 
@@ -337,7 +372,7 @@
 		    <widget class="GtkImageMenuItem" id="instrument_connections1">
 		      <property name="visible">True</property>
 		      <property name="tooltip" translatable="yes">Manage instrument recording inputs</property>
-		      <property name="label" translatable="yes">_Recording Inputs</property>
+		      <property name="label" translatable="yes">_Recording Inputs...</property>
 		      <property name="use_underline">True</property>
 		      <signal name="activate" handler="on_instrumentconnections_activate"/>
 
@@ -410,7 +445,7 @@
 		    <widget class="GtkImageMenuItem" id="add_audio_file_instrument_menu">
 		      <property name="visible">True</property>
 		      <property name="tooltip" translatable="yes">Add an audio file to the selected instrument</property>
-		      <property name="label" translatable="yes">Add Audio File</property>
+		      <property name="label" translatable="yes">Add Audio _File...</property>
 		      <property name="use_underline">True</property>
 		      <signal name="activate" handler="on_instrMenu_add_audio" last_modification_time="Tue, 26 Dec 2006 18:58:33 GMT"/>
 		    </widget>
@@ -420,7 +455,7 @@
 		    <widget class="GtkMenuItem" id="change_instrument_type">
 		      <property name="visible">True</property>
 		      <property name="tooltip" translatable="yes">Change type of the selected instrument</property>
-		      <property name="label" translatable="yes">Change Instrument Type</property>
+		      <property name="label" translatable="yes">_Change Instrument Type...</property>
 		      <property name="use_underline">True</property>
 		      <signal name="activate" handler="on_change_instr_type_activate" last_modification_time="Tue, 26 Dec 2006 18:59:24 GMT"/>
 		    </widget>
@@ -430,7 +465,7 @@
 		    <widget class="GtkImageMenuItem" id="remove_selected_instrument">
 		      <property name="visible">True</property>
 		      <property name="tooltip" translatable="yes">Remove the selected instrument</property>
-		      <property name="label" translatable="yes">Remove Selected Instrument</property>
+		      <property name="label" translatable="yes">_Remove Selected Instrument</property>
 		      <property name="use_underline">True</property>
 		      <signal name="activate" handler="on_remove_instr_activate" last_modification_time="Tue, 26 Dec 2006 18:59:48 GMT"/>
 
@@ -471,7 +506,7 @@
 		    <widget class="GtkMenuItem" id="manage_extensions1">
 		      <property name="visible">True</property>
 		      <property name="tooltip" translatable="yes">Open the extension manager</property>
-		      <property name="label" translatable="yes">_Manage Extensions</property>
+		      <property name="label" translatable="yes">_Manage Extensions...</property>
 		      <property name="use_underline">True</property>
 		      <signal name="activate" handler="on_ExtensionManager_activate"/>
 		    </widget>
@@ -592,7 +627,7 @@
 	      <child>
 		<widget class="GtkToolButton" id="AddInstrument">
 		  <property name="visible">True</property>
-		  <property name="tooltip" translatable="yes">Add a new instrument</property>
+		  <property name="tooltip" translatable="yes">Add an instrument to the project</property>
 		  <property name="label">Add Instrument</property>
 		  <property name="use_underline">True</property>
 		  <property name="stock_id">gtk-add</property>
@@ -614,6 +649,7 @@
 	      <child>
 		<widget class="GtkToolButton" id="addAudioFileButton">
 		  <property name="visible">True</property>
+                  <property name="tooltip" translatable="yes">Add an audio file to the project</property>
 		  <property name="label" translatable="yes">Add Audio File</property>
 		  <property name="use_underline">True</property>
 		  <property name="stock_id">gtk-open</property>
@@ -726,7 +762,7 @@
 	      <child>
 		<widget class="GtkToggleToolButton" id="Record">
 		  <property name="visible">True</property>
-		  <property name="tooltip" translatable="yes">Arm an instrument, then click here to begin recording</property>
+		  <property name="tooltip" translatable="yes">Arm an instrument then click here to begin recording</property>
 		  <property name="stock_id">gtk-media-record</property>
 		  <property name="visible_horizontal">True</property>
 		  <property name="visible_vertical">True</property>
