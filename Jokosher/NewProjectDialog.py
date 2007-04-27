@@ -216,8 +216,8 @@ class NewProjectDialog:
 			instruments -- a list of instruments containing tuples required for project.AddInstruments()
 		"""
 		instruments = []
-		for i in self.template.LoadDictionaryOfInstrumentsFromTemplateFile()[name]:
-			items = ((i[1], i[0], gtk.gdk.pixbuf_new_from_file(i[2]), i[2]))
+		for type, name, pixbufPath in self.template.LoadDictionaryOfInstrumentsFromTemplateFile()[name]:
+			items = ((name, type, gtk.gdk.pixbuf_new_from_file(pixbufPath)) )
 			instruments.append(items)
 		return instruments
 		

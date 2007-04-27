@@ -880,7 +880,7 @@ class Project(Monitored):
 		"""
 		
 		undoAction = self.NewAtomicUndoAction()
-		for name, type, pixbuf, path in instrTuples:
+		for name, type, pixbuf in instrTuples:
 			self.AddInstrument(name, type, pixbuf, _undoAction_=undoAction)
 	
 	#_____________________________________________________________________

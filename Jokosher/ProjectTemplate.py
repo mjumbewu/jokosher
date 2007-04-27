@@ -14,8 +14,6 @@ import Globals
 import xml.dom.minidom as xml
 from Utils import LoadListFromXML, StoreListToXML
 from Monitored import Monitored
-import gettext
-_ = gettext.gettext
 
 #=========================================================================
 
@@ -62,7 +60,7 @@ class ProjectTemplate(Monitored):
 				filename = open(Globals.TEMPLATES_PATH + name, "w")
 				filename.write(doc.toprettyxml())
 			except IOError, e:
-				raise _("The template %s does not exist") % Globals.TEMPLATES_PATH + name
+				Globals.debug("The template %s%s does not exist" % (Globals.TEMPLATES_PATH, name))
 		finally:
 			filename.close()
 			
@@ -79,16 +77,16 @@ class ProjectTemplate(Monitored):
 		"""
 		if not name.endswith(".template"):
 			name += ".template"
-		 
+		
 		try:
 			os.remove(Globals.TEMPLATES_PATH + name)
 		except OSError, e:
-			raise _("Cannot remove template %s") % Globals.TEMPLATES_PATH + name
+			Globals.debug("Cannot remove template %s%s" % (Globals.TEMPLATES_PATH, name))
 			
 		self.StateChanged("template-update")
 
 	#_____________________________________________________________________
-			
+	
 	def __LoadInstrumentsFromTemplateFile(self, name):
 		"""
 		This method will return a list containing a list of instruments which are in the given template filename.
@@ -110,8 +108,8 @@ class ProjectTemplate(Monitored):
 				instrlist.append(LoadListFromXML(item))
 			return instrlist
 		else:
-			raise OSError, _("The template %s does not exist") % Globals.TEMPLATES_PATH + name
-				
+			Globals.debug("The template %s%s does not exist" % (Globals.TEMPLATES_PATH, name))
+	
 	#_____________________________________________________________________
 	
 	def __GetTemplateList(self):

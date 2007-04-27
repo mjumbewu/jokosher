@@ -117,15 +117,16 @@ class ProjectTemplateDialog:
 		Called when the template combo entry contents change.
 		Loads instruments from a template file and appends them to the template instruments model.
 		"""
-		for i in self.template.LoadDictionaryOfInstrumentsFromTemplateFile().keys():
-			if i == self.tempcombo.child.get_text():
+		for key, value in self.template.LoadDictionaryOfInstrumentsFromTemplateFile().iteritems():
+			if key == self.tempcombo.child.get_text():
 				self.temptreemodel.clear()
-				for instr in self.template.LoadDictionaryOfInstrumentsFromTemplateFile()[i]:
+				for instr in value:
 					items = (gtk.gdk.pixbuf_new_from_file(instr[2]).scale_simple(22, 22, gtk.gdk.INTERP_BILINEAR), instr[0], instr[1], instr[2])
 					self.temptreemodel.append(items)
-				
+				break
+	
 	#_____________________________________________________________________
-			
+	
 	def OnAddButtonClicked(self, widget):
 		"""
 		Called when the add button is clicked.
@@ -144,7 +145,7 @@ class ProjectTemplateDialog:
 			return
 
 	#_____________________________________________________________________
-			
+	
 	def OnRemoveButtonClicked(self, widget):
 		"""
 		Called when the remove button is clicked.
