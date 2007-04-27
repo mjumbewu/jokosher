@@ -42,8 +42,7 @@ class NewProjectDialog:
 			"on_OK_clicked" : self.OnOK,
 			"on_Cancel_clicked" : self.OnCancel,
 			"on_editbutton_clicked" : self.OnEdit,
-			"on_notemplate_radio_toggled" : self.NoTemplateRadioToggled,
-			"on_template_radio_toggled" : self.TemplateRadioToggled
+			"on_Template_toggled" : self.TemplateCheckboxToggled
 		}
 		
 		self.res.signal_autoconnect(self.signals)
@@ -60,8 +59,7 @@ class NewProjectDialog:
 		self.author.set_activates_default(True)
 		
 		self.template = ProjectTemplate.ProjectTemplate()
-		self.notemplateradio = self.res.get_widget("notemplate_radio")
-		self.templateradio = self.res.get_widget("template_radio")
+		self.template_checkbox = self.res.get_widget("template_checkbox")
 		self.templatehbox = self.res.get_widget("template_hbox")
 		self.templatehbox.set_sensitive(False)
 		self.templatecombo = self.res.get_widget("template_combo")
@@ -101,28 +99,16 @@ class NewProjectDialog:
 		self.dlg.set_transient_for(self.parent.window)
 
 	#_____________________________________________________________________
-		
-	def NoTemplateRadioToggled(self, widget):
-		"""
-		Called when the no template radio button is activated.
-		The template hbox becomes active if the no template radio button is activated.
-		
-		Parameters:
-			widget -- reserved for GTK callbacks, don't use it explicitly. 
-		"""
-		self.templatehbox.set_sensitive(False)
-		
-	#_____________________________________________________________________
 	
-	def TemplateRadioToggled(self, widget):
+	def TemplateCheckboxToggled(self, widget):
 		"""
-		Called when the template radio button is activated.
-		The template hbox becomes inactive if the template radio button is activated.
+		Called when the template checkbox is activated.
+		The template hbox becomes inactive if the template checkbox is activated.
 		
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly. 
 		"""
-		self.templatehbox.set_sensitive(True)
+		self.templatehbox.set_sensitive(self.template_checkbox.get_active())
 		
 	#_____________________________________________________________________	
 		
@@ -149,7 +135,7 @@ class NewProjectDialog:
 		Globals.settings.write()
 		if not folder:
 			folder = "~"
-								
+		
 		try:
 			project = ProjectManager.CreateNewProject(folder, name, author)
 		except ProjectManager.CreateProjectError, e:
@@ -175,10 +161,9 @@ class NewProjectDialog:
 			dlg.run()
 			dlg.destroy()
 		else:
+			self.AddTemplateToProject(project)
 			self.parent.SetProject(project)
 			self.dlg.destroy()
-			
-		self.AddProjectTemplate()
 		
 	#_____________________________________________________________________	
 	
@@ -219,16 +204,14 @@ class NewProjectDialog:
 		
 	#_____________________________________________________________________
 	
-	def AddProjectTemplate(self):
+	def AddTemplateToProject(self, project):
 		"""
 		Adds template instruments to the user's project.
 		"""
-		if self.templateradio.get_active():
-			if self.parent.project:
-				active = self.templatecombo.get_model()[self.templatecombo.get_active()][0]
-				self.parent.project.AddInstruments(self.ReturnProjectInstrumentTuples(active))
-				self.parent.UpdateDisplay()
-				
+		if self.template_checkbox.get_active():
+			active = self.templatecombo.get_model()[self.templatecombo.get_active()][0]
+			project.AddInstruments(self.ReturnProjectInstrumentTuples(active))
+	
 	#_____________________________________________________________________
 	
 #=========================================================================
