@@ -65,8 +65,8 @@ class ProjectTemplateDialog:
 		self.savebtn.grab_default()
 		self.deletebtn = self.wTree.get_widget("delete_button")
 		
-		self.temptreemodel = gtk.ListStore(gtk.gdk.Pixbuf, str, str, str)
-		self.instrtreemodel = gtk.ListStore(gtk.gdk.Pixbuf, str, str, str)
+		self.temptreemodel = gtk.ListStore(gtk.gdk.Pixbuf, str, str)
+		self.instrtreemodel = gtk.ListStore(gtk.gdk.Pixbuf, str, str)
 		
 		# the template combo entry uses the same model as the template combo in new project dialog
 		self.tempcombo.set_model(self.newprojectdlg.templatemodel)
@@ -120,9 +120,9 @@ class ProjectTemplateDialog:
 		for key, value in self.template.LoadDictionaryOfInstrumentsFromTemplateFile().iteritems():
 			if key == self.tempcombo.child.get_text():
 				self.temptreemodel.clear()
-				for instr in value:
-					items = (gtk.gdk.pixbuf_new_from_file(instr[2]).scale_simple(22, 22, gtk.gdk.INTERP_BILINEAR), instr[0], instr[1], instr[2])
-					self.temptreemodel.append(items)
+				for name, type, pixbuf in value:
+					pixbuf = pixbuf.scale_simple(22, 22, gtk.gdk.INTERP_BILINEAR)
+					self.temptreemodel.append( (pixbuf, type, name) )
 				break
 	
 	#_____________________________________________________________________
@@ -140,7 +140,7 @@ class ProjectTemplateDialog:
 			model, selected = selection.get_selected_rows()
 			iters = [model.get_iter(path) for path in selected]
 			for iter in iters:
-				self.temptreemodel.append((model[iter][0], model[iter][1], model[iter][2], model[iter][3]))
+				self.temptreemodel.append( (model[iter][0], model[iter][1], model[iter][2]) )
 		else:
 			return
 
@@ -175,7 +175,7 @@ class ProjectTemplateDialog:
 		"""
 		instruments = []
 		for row in self.temptreemodel:
-			instruments.append([row[1], row[2], row[3]])
+			instruments.append(row[1])
 		self.template.SaveTemplateFile(self.tempcombo.child.get_text(), instruments)
 		
 	#_____________________________________________________________________
@@ -223,9 +223,10 @@ class ProjectTemplateDialog:
 		"""
 		Called when the jokosher instruments model needs to be populated.
 		"""
-		instrlist = [(x[0], x[1], x[2].copy(), x[3]) for x in Globals.getCachedInstruments()]
-		for instr in instrlist:
-			self.instrtreemodel.append((instr[2].scale_simple(22, 22, gtk.gdk.INTERP_BILINEAR), instr[1], instr[0], instr[3]))	
+		instrlist = [(x[0], x[1], x[2]) for x in Globals.getCachedInstruments()]
+		for name, type, pixbuf in instrlist:
+			pixbuf = pixbuf.scale_simple(22, 22, gtk.gdk.INTERP_BILINEAR)
+			self.instrtreemodel.append( (pixbuf, type, name) )	
 		
 	#_____________________________________________________________________
 	

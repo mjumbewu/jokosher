@@ -22,6 +22,9 @@ class ProjectTemplate(Monitored):
 	This class saves and loads templates and template information to disk.
 	"""
 
+	#the extension put on the end of template files
+	TEMPLATE_EXT = "template"
+	
 	#_____________________________________________________________________
 
 	def __init__(self):
@@ -35,32 +38,32 @@ class ProjectTemplate(Monitored):
 	def SaveTemplateFile(self, name, instrlist):
 		""" 
 		This method will write a template file to ~/.jokosher/templates/.
-		instrlist is a list containing a list of instruments e.g. [["audiofile", "Audio File", "path_to_image"], 
-		["acousticguitar", "Acoustic Guitar", "path_to_image"]].
+		instrlist is a list containing type strings corresponding to each instrument.
+		e.g. ["audiofile", "acousticguitar"].
 	
 		Parameters:
 			name -- the name of the template file.
-			instrlist -- a list containing a list of instruments
+			instrlist -- a list containing the instrument type strings
 		"""
 		doc = xml.Document()
-		head = doc.createElement("template")
+		head = doc.createElement("JokosherProjectTemplate")
 		doc.appendChild(head)
 		
-		for items in instrlist:
+		for typeString in instrlist:
 			# create instrument tags for every instrument in the list
-			instrtag = doc.createElement("instrument")
+			instrtag = doc.createElement("Instrument")
+			instrtag.setAttribute("type", typeString)
 			head.appendChild(instrtag)
-			StoreListToXML(doc, instrtag, items, "item")
 		
-		if not name.endswith(".template"):
-			name += ".template"
-
+		if not name.endswith("." + self.TEMPLATE_EXT):
+			name += "." + self.TEMPLATE_EXT
+		namePath = os.path.join(Globals.TEMPLATES_PATH, name)
 		try:
 			try:
-				filename = open(Globals.TEMPLATES_PATH + name, "w")
+				filename = open(namePath, "w")
 				filename.write(doc.toprettyxml())
 			except IOError, e:
-				Globals.debug("The template %s%s does not exist" % (Globals.TEMPLATES_PATH, name))
+				Globals.debug("The template %s does not exist" % namePath)
 		finally:
 			filename.close()
 			
@@ -75,13 +78,13 @@ class ProjectTemplate(Monitored):
 		Parameters:
 			name -- the name of the template file which will be deleted.
 		"""
-		if not name.endswith(".template"):
-			name += ".template"
-		
+		if not name.endswith("." + self.TEMPLATE_EXT):
+			name += "." + self.TEMPLATE_EXT
+		namePath = os.path.join(Globals.TEMPLATES_PATH, name)
 		try:
-			os.remove(Globals.TEMPLATES_PATH + name)
+			os.remove(namePath)
 		except OSError, e:
-			Globals.debug("Cannot remove template %s%s" % (Globals.TEMPLATES_PATH, name))
+			Globals.debug("Cannot remove template %s" % namePath)
 			
 		self.StateChanged("template-update")
 
@@ -97,18 +100,19 @@ class ProjectTemplate(Monitored):
 		Returns:
 			instrlist -- a list containing a list of instruments, e.g. [["audiofile", "Audio File", "path_to_image"]].
 		"""
-		if not name.endswith(".template"):
-			name += ".template"
-		
-		if os.path.exists(Globals.TEMPLATES_PATH + name):
-			filename = open(Globals.TEMPLATES_PATH + name, "r")
-			doc = xml.parse(filename)
+		if not name.endswith("." + self.TEMPLATE_EXT):
+			name += "." + self.TEMPLATE_EXT
+		namePath = os.path.join(Globals.TEMPLATES_PATH, name)
+		if os.path.exists(namePath):
+			file = open(namePath, "r")
+			doc = xml.parse(file)
 			instrlist = []
-			for item in doc.getElementsByTagName("instrument"):
-				instrlist.append(LoadListFromXML(item))
+			for node in doc.getElementsByTagName("Instrument"):
+				typeString = str(node.getAttribute("type"))
+				instrlist.append(typeString)
 			return instrlist
 		else:
-			Globals.debug("The template %s%s does not exist" % (Globals.TEMPLATES_PATH, name))
+			Globals.debug("The template %s does not exist" % namePath)
 	
 	#_____________________________________________________________________
 	
@@ -129,13 +133,23 @@ class ProjectTemplate(Monitored):
 
 	def LoadDictionaryOfInstrumentsFromTemplateFile(self):
 		"""
-		This method will return a dictionary containing the the template file name (key) and their
-		associated instruments (value).
-		e.g. {"Rock" : [["electricguitar", "Electric Guitar", "path_to_image"]]}
+		This method will return a dictionary containing the the template file name (key) and a list
+		of the associated instrument tupels.
+		e.g. {"Rock" : [ ("electricguitar", "Electric Guitar", pixbufImage) ]}
 		"""
 		instrdict = {}
-		for i in self.__GetTemplateList():
-			instrdict[i] = self.__LoadInstrumentsFromTemplateFile(i)
+		cached = Globals.getCachedInstruments()
+		for filename in self.__GetTemplateList():
+			instrTuples = []
+			typeStringList = self.__LoadInstrumentsFromTemplateFile(filename)
+			for type in typeStringList:
+				tuple_ = [x for x in cached if x[1] == type]
+				if tuple_:
+					name, type, pixbuf, path = tuple_[0]
+					instrTuples.append( (name, type, pixbuf) )
+					
+			instrdict[filename] = instrTuples
+		
 		return instrdict
 	
 #=========================================================================	

@@ -215,11 +215,7 @@ class NewProjectDialog:
 		Returns:
 			instruments -- a list of instruments containing tuples required for project.AddInstruments()
 		"""
-		instruments = []
-		for type, name, pixbufPath in self.template.LoadDictionaryOfInstrumentsFromTemplateFile()[name]:
-			items = ((name, type, gtk.gdk.pixbuf_new_from_file(pixbufPath)) )
-			instruments.append(items)
-		return instruments
+		return self.template.LoadDictionaryOfInstrumentsFromTemplateFile()[name]
 		
 	#_____________________________________________________________________
 	
