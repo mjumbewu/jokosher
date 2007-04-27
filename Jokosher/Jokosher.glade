@@ -54,13 +54,13 @@
 		    <widget class="GtkImageMenuItem" id="new1">
 		      <property name="visible">True</property>
 		      <property name="tooltip" translatable="yes">Create a new project</property>
-		      <property name="label">New...</property>
+		      <property name="label" translatable="yes">New...</property>
 		      <property name="use_underline">True</property>
 		      <signal name="activate" handler="on_new_activate"/>
 		      <accelerator key="N" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image400">
+			<widget class="GtkImage" id="image3548">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-new</property>
 			  <property name="icon_size">1</property>
@@ -77,13 +77,13 @@
 		    <widget class="GtkImageMenuItem" id="open">
 		      <property name="visible">True</property>
 		      <property name="tooltip" translatable="yes">Open an existing project</property>
-		      <property name="label">Open...</property>
+		      <property name="label" translatable="yes">Open...</property>
 		      <property name="use_underline">True</property>
 		      <signal name="activate" handler="on_open_activate"/>
 		      <accelerator key="O" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image401">
+			<widget class="GtkImage" id="image3549">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-open</property>
 			  <property name="icon_size">1</property>
@@ -110,12 +110,12 @@
 		    <widget class="GtkImageMenuItem" id="save_as">
 		      <property name="visible">True</property>
 		      <property name="tooltip" translatable="yes">Save a copy of the current project</property>
-		      <property name="label">Save As...</property>
+		      <property name="label" translatable="yes">Save As...</property>
 		      <property name="use_underline">True</property>
 		      <signal name="activate" handler="on_save_as_activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image402">
+			<widget class="GtkImage" id="image3550">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-save-as</property>
 			  <property name="icon_size">1</property>
@@ -162,7 +162,7 @@
 		      <signal name="activate" handler="on_export_activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image335">
+			<widget class="GtkImage" id="image3551">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-jump-to</property>
 			  <property name="icon_size">1</property>
@@ -215,7 +215,7 @@
 		      <accelerator key="Z" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image336">
+			<widget class="GtkImage" id="image3552">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-undo</property>
 			  <property name="icon_size">1</property>
@@ -238,7 +238,7 @@
 		      <accelerator key="Z" modifiers="GDK_CONTROL_MASK | GDK_SHIFT_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image337">
+			<widget class="GtkImage" id="image3553">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-redo</property>
 			  <property name="icon_size">1</property>
@@ -336,7 +336,7 @@
 		      <signal name="activate" handler="on_AddInstrument_clicked"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image338">
+			<widget class="GtkImage" id="image3554">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-add</property>
 			  <property name="icon_size">1</property>
@@ -358,7 +358,7 @@
 		      <signal name="activate" handler="on_project_add_audio" last_modification_time="Tue, 26 Dec 2006 18:58:33 GMT"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image3384">
+			<widget class="GtkImage" id="image3555">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-open</property>
 			  <property name="icon_size">1</property>
@@ -380,7 +380,7 @@
 		      <signal name="activate" handler="on_instrumentconnections_activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image339">
+			<widget class="GtkImage" id="image3556">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-preferences</property>
 			  <property name="icon_size">1</property>
@@ -410,7 +410,7 @@
 			      <property name="label" translatable="yes">Show as _Bars, Beats, Ticks</property>
 			      <property name="use_underline">True</property>
 			      <property name="active">True</property>
-			      <signal name="toggled" handler="on_show_as_bars_beats_ticks_toggled"/>
+			      <signal name="toggled" handler="on_show_as_bars_beats_ticks_toggled" last_modification_time="Fri, 27 Apr 2007 20:38:50 GMT"/>
 			    </widget>
 			  </child>
 
@@ -422,11 +422,27 @@
 			      <property name="use_underline">True</property>
 			      <property name="active">True</property>
 			      <property name="group">show_as_bars_beats_ticks</property>
-			      <signal name="toggled" handler="on_show_as_hours_minutes_seconds_toggled"/>
+			      <signal name="toggled" handler="on_show_as_hours_minutes_seconds_toggled" last_modification_time="Fri, 27 Apr 2007 20:39:20 GMT"/>
 			    </widget>
 			  </child>
 			</widget>
 		      </child>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkSeparatorMenuItem" id="separator5">
+		      <property name="visible">True</property>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="create_project_template">
+		      <property name="visible">True</property>
+                      <property name="tooltip" translatable="yes">Create project template from instruments in current project</property>
+		      <property name="label" translatable="yes">_Create Project Template</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_create_project_template" last_modification_time="Fri, 27 Apr 2007 19:13:25 GMT"/>
 		    </widget>
 		  </child>
 		</widget>
@@ -473,7 +489,7 @@
 		      <signal name="activate" handler="on_remove_instr_activate" last_modification_time="Tue, 26 Dec 2006 18:59:48 GMT"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image340">
+			<widget class="GtkImage" id="image3558">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-remove</property>
 			  <property name="icon_size">1</property>
@@ -557,7 +573,7 @@
 		      <signal name="activate" handler="on_forums_activate" last_modification_time="Sat, 16 Dec 2006 07:53:08 GMT"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image341">
+			<widget class="GtkImage" id="image3559">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-info</property>
 			  <property name="icon_size">1</property>
@@ -579,7 +595,7 @@
 		      <signal name="activate" handler="on_contributing_activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image342">
+			<widget class="GtkImage" id="image3560">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-index</property>
 			  <property name="icon_size">1</property>

@@ -26,7 +26,7 @@ import PreferencesDialog, ExtensionManagerDialog, RecordingView, NewProjectDialo
 import ProjectManager, Globals, WelcomeDialog, AlsaDevices
 import InstrumentConnectionsDialog, StatusBar
 import EffectPresets, Extension, ExtensionManager
-import Utils, AudioPreview, MixdownProfileDialog
+import Utils, AudioPreview, MixdownProfileDialog, ProjectTemplate
 
 #=========================================================================
 
@@ -114,7 +114,8 @@ class MainApp:
 			"on_change_instr_type_activate" : self.OnChangeInstrument,
 			"on_remove_instr_activate" : self.OnRemoveInstrument,
 			"on_report_bug_activate" : self.OnReportBug,
-			"on_project_add_audio" : self.OnAddAudioFile
+			"on_project_add_audio" : self.OnAddAudioFile,
+			"on_create_project_template" : self.ShowCreateProjectTemplateDialog
 		}
 		self.wTree.signal_autoconnect(signals)
 		
@@ -1919,6 +1920,74 @@ class MainApp:
 			counter += 1
 		if insert_position:
 			self.filemenu.get_submenu().insert(self.mixdown_as_header,insert_position + 1)
+		
+	#_____________________________________________________________________
+	
+	def ShowCreateProjectTemplateDialog(self, widget):
+		"""
+		Called when the user wishes to save current project instruments as
+		a project template.
+		Saves current project instruments in a template file.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks. Don't use explicitly.
+		"""
+		template = ProjectTemplate.ProjectTemplate()
+		
+		buttons = (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, gtk.STOCK_OK, gtk.RESPONSE_OK)
+		entry = gtk.Entry()
+		hbox = gtk.HBox()
+		hbox.set_spacing(12)
+		hbox.set_border_width(12)
+		templateLabel = gtk.Label(_("_Template Name"))
+		templateLabel.set_use_underline(True)
+		hbox.pack_start(templateLabel, False, False)
+		hbox.pack_start(entry, True, True)
+		
+		dlg = gtk.Dialog(_("Create Project Template"), self.window, gtk.DIALOG_DESTROY_WITH_PARENT, buttons)
+		dlg.set_default_size(350, 150)
+		
+		dlg.vbox.set_spacing(12)
+		dlg.vbox.pack_start(gtk.Label(_("Please enter the name of the template you wish to create.")), False, False)
+		dlg.vbox.pack_start(hbox, False, False)
+		dlg.vbox.show_all()
+		response = dlg.run()
+		
+		if response == gtk.RESPONSE_OK:
+			if entry.get_text() and len(self.project.instruments) != 0:
+				instrlist = []
+				for instr in self.project.instruments:
+					instrlist.append(instr.instrType)	
+				template.SaveTemplateFile(entry.get_text(), instrlist)
+				
+				msgdlg = self.ShowTemplateNotifcationDialog(gtk.MESSAGE_INFO, \
+					_("Your project instruments have been saved to <b>%s.template</b>") % ( Globals.TEMPLATES_PATH + entry.get_text() ))
+
+			else:
+				msgdlg = self.ShowTemplateNotifcationDialog(gtk.MESSAGE_ERROR, \
+					_("Cannot create project template. Please make sure you have specified a template name and make sure there are instruments in the project."))
+				
+		dlg.destroy()
+				
+	#_____________________________________________________________________
+	
+	def ShowTemplateNotifcationDialog(self, type, message):
+		"""
+		Called when the user clicks the ok button in the Add Project Template dialog.
+		Returns a gtk.MessageDialog notifying the user of the success or failure regarding the saving of project templates.
+		
+		Parameters:
+			type -- the type of the gtk.MessageDialog.
+			message -- the message that will be displayed in the message dialog.
+		"""
+		msgdlg = gtk.MessageDialog(self.window,
+			gtk.DIALOG_DESTROY_WITH_PARENT,
+			type,
+			gtk.BUTTONS_CLOSE)
+		msgdlg.set_markup(message)
+		msgdlg.run()
+		msgdlg.destroy()
+		return msgdlg
 		
 	#_____________________________________________________________________
 	
