@@ -48,9 +48,6 @@ class Event(gobject.GObject):
 		"selected" 	: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () )
 	}
 
-	""" State changed types (to be sent through the Monitored class) """
-	CORRUPT, LOADING = range(2)
-	
 	""" The level sample interval in seconds """
 	LEVEL_INTERVAL = 0.01
 	
@@ -606,7 +603,7 @@ class Event(gobject.GObject):
 		error, debug = message.parse_error()
 		
 		Globals.debug("Event bus error:", str(error), str(debug))
-		self.StateChanged(self.CORRUPT, str(error), str(debug))
+		self.emit("corrupt", str(error), str(debug))
 	
 	#_____________________________________________________________________
 	
@@ -653,7 +650,7 @@ class Event(gobject.GObject):
 
 		self.levels = []
 		self.isLoading = True
-		self.StateChanged(self.LOADING)
+		self.emit("loading")
 
 		self.loadingPipeline.set_state(gst.STATE_PLAYING)
 
@@ -683,7 +680,7 @@ class Event(gobject.GObject):
 
 		self.levels = []
 		self.isLoading = True
-		self.StateChanged(self.LOADING)
+		self.emit("loading")
 
 		self.loadingPipeline.set_state(gst.STATE_PLAYING)
 		
@@ -715,7 +712,7 @@ class Event(gobject.GObject):
 			
 			self.loadingPipeline = None
 			self.loadingLength = 0
-			self.StateChanged(self.LOADING)
+			self.emit("loading")
 	
 	#_____________________________________________________________________
 
