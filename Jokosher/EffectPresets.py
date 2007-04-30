@@ -20,22 +20,31 @@
 import pygst
 pygst.require("0.10")
 import gst
+import gobject
 import xml.dom.minidom as xml
 import os
 import Globals
 from Utils import *
 import glob
 import string
-from Monitored import Monitored
 
 #=========================================================================
 
-class EffectPresets(Monitored):
+class EffectPresets(gobject.GObject):
 	"""
 	This class implements support for effects presets. These presets are used
 	to store settings for single effects and multiple effects strung together
 	(called a 'chain').
+
+	Signals:
+		"single-preset" -- The waveform date for this event has changed.
+		"chain-preset" -- The starting position of this event has changed.
+
 	"""
+	__gsignals__ = {
+		"single-preset" 	: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () ),
+		"chain-preset" 	: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () )
+	}
 	
 	#_____________________________________________________________________	
 	
@@ -44,7 +53,7 @@ class EffectPresets(Monitored):
 		Creates a new instance of EffectsPresets. If needed, it populates the
 		LADSPA and effect presets registries.
 		"""
-		Monitored.__init__(self)
+		gobject.GObject.__init__(self)
 		
 		# Version of the preset files xml format
 		Globals.EFFECT_PRESETS_VERSION = "0.2"
@@ -177,7 +186,7 @@ class EffectPresets(Monitored):
 		file.write(doc.toprettyxml())
 		file.close()
 		
-		self.StateChanged("singlePreset")
+		self.emit("single-preset")
 	#_____________________________________________________________________
 
 	def SaveEffectChain(self, label, effectlist, instrumenttype):
@@ -240,7 +249,7 @@ class EffectPresets(Monitored):
 		presetfile.write(doc.toprettyxml())
 		presetfile.close()
 		
-		self.StateChanged("chainPreset")
+		self.emit("chain-preset")
 		
 	#_____________________________________________________________________
 	
@@ -334,7 +343,7 @@ class EffectPresets(Monitored):
 							belongs to.
 		"""
 		self._DeletePresetFile(self._PresetFilename(effectName, presetName))
-		self.StateChanged("singlePreset")
+		self.emit("single-preset")
 	
 	#_____________________________________________________________________
 	
@@ -347,7 +356,7 @@ class EffectPresets(Monitored):
 			instrType -- type of the Instrument the preset belongs to.
 		"""
 		self._DeletePresetFile(self._PresetFilename(instrType, presetName))
-		self.StateChanged("chainPreset")
+		self.emit("chain-preset")
 	
 	#_____________________________________________________________________
 	

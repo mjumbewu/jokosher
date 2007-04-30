@@ -219,7 +219,8 @@ class InstrumentEffectsDialog:
 		# listen to the Project, Instrument and Preset changes
 		self.instrument.project.AddListener(self)
 		self.instrument.AddListener(self)
-		self.presets.AddListener(self)
+		self.presets.connect("single-preset", self.OnSinglePreset)
+		self.presets.connect("chain-preset", self.OnChainPreset)
 
 		self.updatinggui = True
 		if self.instrument.currentchainpreset is not None:
@@ -323,6 +324,22 @@ class InstrumentEffectsDialog:
 
 	#_____________________________________________________________________
 	
+	def OnSinglePreset(self, effectPresets):
+		"""
+		Callback function for when the a the list of single effects is modified.
+		"""
+		self._LoadEffectPresets()
+	
+	#_____________________________________________________________________
+	
+	def OnChainPreset(self, effectPresets):
+		"""
+		Callback function for when the a the list of chain effects is modified.
+		"""
+		self._LoadInstrumentPresets()
+	
+	#_____________________________________________________________________
+	
 	def OnStateChanged(self, obj, change=None, *extra):
 		"""
 		Called when a change of state is signalled by any of the
@@ -357,14 +374,6 @@ class InstrumentEffectsDialog:
 			
 		elif change == "record":
 			self.window.set_sensitive(False)
-			
-		elif change == "singlePreset":
-			# update the effect presets model
-			self._LoadEffectPresets()
-			
-		elif change == "chainPreset":
-			# update the Instrument presets model
-			self._LoadInstrumentPresets()
 		
 	#_____________________________________________________________________
 	
