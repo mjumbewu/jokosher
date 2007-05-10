@@ -103,13 +103,17 @@ class APIConsole:
 			True -- stop GTK signal propagation.
 			False -- continue GTK signal propagation.
 		"""
-		if event.keyval == 65362:		# up arrow: show the previous command in the history
+		key = gtk.gdk.keyval_name(event.keyval)
+		
+		print key
+		
+		if key == "Up":		# up arrow: show the previous command in the history
 			if len(self.history) > 0 and self.historyIndex+1 < len(self.history):
 				self.historyIndex += 1
 				self.command.set_text(self.history[self.historyIndex])
 			return True
 		
-		elif event.keyval == 65364:		# down arrow: show the next command in the history
+		elif key == "Down":		# down arrow: show the next command in the history
 			if len(self.history) > 0 and self.historyIndex-1 >= -1:
 				self.historyIndex -= 1
 				
@@ -119,7 +123,7 @@ class APIConsole:
 					self.command.set_text("")
 			return True
 		
-		elif event.keyval == 65293:		# enter key: create a new history entry and reset the index
+		elif key == "Return":		# enter key: create a new history entry and reset the index
 			self.historyIndex = -1
 			self.history.insert(0, self.command.get_text())
 			return False
