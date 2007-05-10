@@ -105,8 +105,6 @@ class APIConsole:
 		"""
 		key = gtk.gdk.keyval_name(event.keyval)
 		
-		print key
-		
 		if key == "Up":		# up arrow: show the previous command in the history
 			if len(self.history) > 0 and self.historyIndex+1 < len(self.history):
 				self.historyIndex += 1
