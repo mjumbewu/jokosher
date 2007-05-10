@@ -240,7 +240,7 @@ class MainApp:
 		sys.path.append("Instruments")
 		
 		self.window.add_events(gtk.gdk.KEY_PRESS_MASK)
-		self.window.connect_after("key-press-event", self.OnKeyPress)
+		self.window.connect("key-press-event", self.OnKeyPress)
 		self.window.connect("button_press_event", self.OnMouseDown)
 
 		self.CheckGstreamerVersions()
@@ -1404,23 +1404,33 @@ class MainApp:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 			event -- reserved for GTK callbacks, don't use it explicitly.
 		"""
+		key = gtk.gdk.keyval_name(event.keyval)
+		
 		if 'GDK_CONTROL_MASK' in event.state.value_names:
 			keysdict = {
-				120:self.OnCut, # Ctrl-X
-				99: self.OnCopy, # Ctrl-C
-				118:self.OnPaste, # Ctrl-V
+				"x"	: self.OnCut, # Ctrl-X
+				"c"	: self.OnCopy, # Ctrl-C
+				"v"	: self.OnPaste, # Ctrl-V
 			}
 		else:
 			keysdict = {
-				65470:self.OnHelpContentsMenu, # F1 - Help Contents
-				65471:self.OnRecordingView, # F2 - Recording View
-				65472:self.OnCompactMixView, # F3 - Compact Mix View
-				65535:self.OnDelete, # delete key - remove selected item
-				65288:self.OnDelete, # backspace key
+				"F1"			: self.OnHelpContentsMenu, # F1 - Help Contents
+				"F2"			: self.OnRecordingView, # F2 - Recording View
+				"F3"			: self.OnCompactMixView, # F3 - Compact Mix View
+				"Delete"		: self.OnDelete, # delete key - remove selected item
+				"BackSpace" 	: self.OnDelete, # backspace key
+				"space"		: self.Play,
+				"p"			: self.Play,
+				"r"			: self.Record
 			}	
 		
-		if event.keyval in keysdict:
-			keysdict[event.keyval]()
+		if key in keysdict:
+			keysdict[key]()
+			#very important; return True if we successfully handled the key press
+			#so that someone else doesn't handle it afterwards as well.
+			return True
+		else:
+			return False
 		
 	#_____________________________________________________________________
 	
