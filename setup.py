@@ -103,10 +103,16 @@ if os.geteuid() == 0 and dist != None:
 	print "Updating the mime-types...."
 	
 	#update the mimetypes database
-	call(["update-mime-database", "/usr/share/mime/"])
+	try:
+	    call(["update-mime-database", "/usr/share/mime/"])
+	except:
+	    pass
 	
 	#update the .desktop file database
-	call(["update-desktop-database"])
+	try:
+	   call(["update-desktop-database"])
+	except:
+	    pass
 
 print "\nInstallation finished! You can now run Jokosher by typing 'jokosher' or through your applications menu icon."
 	
