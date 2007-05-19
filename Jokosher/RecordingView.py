@@ -113,9 +113,10 @@ class RecordingView(gtk.Frame):
 			self.zoomSlider.set_draw_value(False)
 			self.zoomSlider.set_value(self.project.viewScale)
 			self.zoomtip = gtk.Tooltips()
-			self.zoomtip.set_tip(self.zoomSlider, _("Zoom the timeline"),None)
+			self.zoomtip.set_tip(self.zoomSlider, _("Zoom the timeline - Right-Click to reset to the default level"), None)
 			
 			self.zoomSlider.connect("value-changed", self.OnZoom)
+			self.zoomSlider.connect("button-press-event", self.OnZoomReset)
 			
 			inbutton = gtk.Button()
 			inimg = gtk.image_new_from_stock(gtk.STOCK_ZOOM_IN, gtk.ICON_SIZE_BUTTON)
@@ -360,7 +361,7 @@ class RecordingView(gtk.Frame):
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		tmp = self.project.viewScale * 4. / 5.
-		#setting the value will trigger the gtk event and call OnZoom for us.
+		#setting the value will trigger the "value-changed" signal and call OnZoom for us.
 		self.zoomSlider.set_value(tmp)
 		
 	#_____________________________________________________________________
@@ -385,8 +386,24 @@ class RecordingView(gtk.Frame):
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		tmp = self.project.viewScale * 1.25
-		#setting the value will trigger the gtk event and call OnZoom for us.
+		#setting the value will trigger the "value-changed" signal and call OnZoom for us.
 		self.zoomSlider.set_value(tmp)
+
+	#_____________________________________________________________________
+		
+	def OnZoomReset(self, widget, mouse):
+		"""
+		Calls OnZoom when the user resets the zoom to the default by right-clicking.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+			mouse -- reserved for GTK callbacks, don't use it explicitly.
+		"""
+		if mouse.button == 3:
+			tmp = (self.ZOOM_MAX_SCALE - self.ZOOM_MIN_SCALE) / 2
+			#setting the value will trigger the "value-changed" signal and call OnZoom for us.
+			self.zoomSlider.set_value(tmp)
+			return True
 		
 	#_____________________________________________________________________
 

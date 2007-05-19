@@ -114,6 +114,12 @@ class VUWidget(gtk.DrawingArea):
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 			mouse -- reserved for GTK callbacks, don't use it explicitly.
 		"""
+		#If the slider is right-clicked then set the volume to 100%
+		if mouse.button == 3:
+			self.mixerstrip.SetVolume(1.0)
+			self.queue_draw()
+			return True
+
 		if self.__YPosOverVolumeHandle(mouse.y):
 			response = gtk.gdk.pointer_grab(self.window, False, self._POINTER_GRAB_EVENTS, None, None, mouse.time)
 			self.fader_active = (response == gtk.gdk.GRAB_SUCCESS)
@@ -137,7 +143,7 @@ class VUWidget(gtk.DrawingArea):
 			mouse -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		if not self.message_id:
-			self.message_id = self.mainview.SetStatusBar(_("<b>Drag</b> the <b>slider</b> to alter volume levels"))
+			self.message_id = self.mainview.SetStatusBar(_("<b>Drag</b> the <b>slider</b> to alter volume levels - <b>Right-Click</b> to set the <b>slider</b> to 100%"))
 		
 		oldHover = self.fader_hover
 		self.fader_hover = (0 < mouse.x < self.get_allocation().width) and self.__YPosOverVolumeHandle(mouse.y)
