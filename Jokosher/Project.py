@@ -664,7 +664,6 @@ class Project(Monitored):
 		self.deleteOnCloseAudioFiles = []
 		
 		self.ClearListeners()
-		self.transport.ClearListeners()
 		self.mainpipeline.set_state(gst.STATE_NULL)
 		
 	#_____________________________________________________________________

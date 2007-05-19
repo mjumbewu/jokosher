@@ -72,7 +72,8 @@ class TimeLine(gtk.DrawingArea):
 		self.mainview = mainview
 		
 		# Listen for changes in the project and the TransportManager
-		self.project.transport.AddListener(self)
+		self.project.transport.connect("transport-mode", self.OnTransportMode)
+		self.project.transport.connect("position", self.OnTransportPosition)
 		self.project.AddListener(self)
 		
 		self.height = 44
@@ -347,7 +348,7 @@ class TimeLine(gtk.DrawingArea):
 			return
 		
 		#redraw timeline if needed
-		if change in ("transport-mode", "bpm", "time-signature", "zoom", "view-start"):
+		if change in ("bpm", "time-signature", "zoom", "view-start"):
 			# delete the cached image so that it will be redrawn
 			self.savedLine = None
 			self.timelinebar.Update()
@@ -355,35 +356,67 @@ class TimeLine(gtk.DrawingArea):
 			if change == "bpm":
 				self.timelinebar.projectview.UpdateSize()
 		
-		# The next section is the autoscroll when the position goes off the screen
-		elif change == "position":
-			# The left and right sides of the viewable area
-			rightPos = self.project.viewStart + self.timelinebar.projectview.scrollRange.page_size
-			leftPos = self.project.viewStart
-			currentPos = self.project.transport.GetPosition()
-			
-			# Check if the playhead was recently viewable (don't force it in view if it wasn't previously in view)
-			# Don't autoscroll if "stop-action" is send in extra because that means the 
-			# user just hit stop and did not purposely change the position.
-			if not "stop-action" in extra:
-				if leftPos < self.project.transport.PrevPosition < rightPos:
-					if currentPos > rightPos:
-						# now the playhead has moved off to the right, so force the scroll in that direction
-						self.timelinebar.projectview.SetViewPosition(rightPos)
-				
-					elif currentPos < leftPos:
-						#if playhead is beyond leftmost position then force scroll and quit
-						leftPos = max(0, leftPos - self.timelinebar.projectview.scrollRange.page_size)
-						self.timelinebar.projectview.SetViewPosition(leftPos)
-		
-			x1 = round((self.project.transport.PrevPosition - self.project.viewStart) * self.project.viewScale)
-			x2 = round((self.project.transport.position - self.project.viewStart) * self.project.viewScale)
-		
-			self.queue_draw_area(int(x1)-1, 0, 3, self.get_allocation().height)
-			self.queue_draw_area(int(x2)-1, 0, 3, self.get_allocation().height)
-		
 	#_____________________________________________________________________
+	
+	def OnTransportMode(self, transportManager, mode):
+		"""
+		Callback for signal when the transport mode changes.
 		
+		Parameters:
+			transportManager -- the TransportManager instance that send the signal.
+			mode -- the mode type that the transport changed to.
+		"""
+		#if the timeline is not currently on screen then quit
+		if not self.window:
+			return
+		
+		# delete the cached image so that it will be redrawn
+		self.savedLine = None
+		self.timelinebar.Update()
+	
+	#_____________________________________________________________________
+	
+	def OnTransportPosition(self, transportManager, extraString):
+		"""
+		Callback for signal when the transport position changes.
+		
+		Parameters:
+			transportManager -- the TransportManager instance that send the signal.
+			extraString -- a string specifying the extra action details. i.e. "stop-action"
+					means that the position changed because the user hit stop.
+		"""
+	
+		#if the timeline is not currently on screen then quit
+		if not self.window:
+			return
+		
+		# The left and right sides of the viewable area
+		rightPos = self.project.viewStart + self.timelinebar.projectview.scrollRange.page_size
+		leftPos = self.project.viewStart
+		currentPos = self.project.transport.GetPosition()
+		
+		# Check if the playhead was recently viewable (don't force it in view if it wasn't previously in view)
+		# Don't autoscroll if "stop-action" is send in extra because that means the 
+		# user just hit stop and did not purposely change the position.
+		if "stop-action" != extraString:
+			if leftPos < self.project.transport.PrevPosition < rightPos:
+				if currentPos > rightPos:
+					# now the playhead has moved off to the right, so force the scroll in that direction
+					self.timelinebar.projectview.SetViewPosition(rightPos)
+			
+				elif currentPos < leftPos:
+					#if playhead is beyond leftmost position then force scroll and quit
+					leftPos = max(0, leftPos - self.timelinebar.projectview.scrollRange.page_size)
+					self.timelinebar.projectview.SetViewPosition(leftPos)
+	
+		x1 = round((self.project.transport.PrevPosition - self.project.viewStart) * self.project.viewScale)
+		x2 = round((self.project.transport.position - self.project.viewStart) * self.project.viewScale)
+	
+		self.queue_draw_area(int(x1)-1, 0, 3, self.get_allocation().height)
+		self.queue_draw_area(int(x2)-1, 0, 3, self.get_allocation().height)
+	
+	#_____________________________________________________________________
+	
 	def onMouseDown(self, widget, event):
 		"""
 		Called when a mouse button is clicked.

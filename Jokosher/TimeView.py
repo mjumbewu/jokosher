@@ -40,8 +40,10 @@ class TimeView(gtk.EventBox):
 		self.project = project
 		# Listen for bpm and time sig changes
 		self.project.AddListener(self)
-		# Listen for playback position changes
-		self.project.transport.AddListener(self)
+		# Listen for playback position and mode changes
+		self.project.transport.connect("transport-mode", self.OnTransportMode)
+		self.project.transport.connect("position", self.OnTransportPosition)
+		
 		self.UpdateTime()
 		self.tmtip = gtk.Tooltips()
 		self.tmtip.set_tip(self, _("Double click to change the time format"), None)
@@ -75,8 +77,33 @@ class TimeView(gtk.EventBox):
 			change -- the change which has occured.
 			extra -- extra parameters passed by the caller.
 		"""
-		if change in ("position", "transport-mode", "bpm", "time-signature"):
+		if change in ("bpm", "time-signature"):
 			self.UpdateTime()
+	
+	#_____________________________________________________________________
+	
+	def OnTransportMode(self, transportManager, mode):
+		"""
+		Callback for signal when the transport mode changes.
+		
+		Parameters:
+			transportManager -- the TransportManager instance that send the signal.
+			mode -- the mode type that the transport changed to.
+		"""
+		self.UpdateTime()
+	
+	#_____________________________________________________________________
+	
+	def OnTransportPosition(self, transportManager, extraString):
+		"""
+		Callback for signal when the transport position changes.
+		
+		Parameters:
+			transportManager -- the TransportManager instance that send the signal.
+			extraString -- a string specifying the extra action details. i.e. "stop-action"
+					means that the position changed because the user hit stop.
+		"""
+		self.UpdateTime()
 	
 	#_____________________________________________________________________
 

@@ -995,7 +995,6 @@ class MainApp:
 					pause = playback paused.
 					record = recording started.
 					stop = playback or recording was stopped.
-					transport-mode = the transport mode display was changed.
 					undo = an undo operation was performed.
 			*extra -- parameters of additional information depending on the change parameter.
 		"""
@@ -1068,19 +1067,28 @@ class MainApp:
 				outputtext)
 			dlg.connect('response', lambda dlg, response: dlg.destroy())
 			dlg.show()
-			
-		elif change == "transport-mode":
-			if self.settingButtons:
-				return
-			self.settingButtons = True
-			modeBars = self.wTree.get_widget("show_as_bars_beats_ticks")
-			modeHours = self.wTree.get_widget("show_as_hours_minutes_seconds")
-			transport = self.project.transport
-			
-			modeBars.set_active(transport.mode == transport.MODE_BARS_BEATS)
-			modeHours.set_active(transport.mode == transport.MODE_HOURS_MINS_SECS)
-			
-			self.settingButtons = False
+		
+	#_____________________________________________________________________
+	
+	def OnTransportMode(self, transportManager=None, mode=None):
+		"""
+		Callback for signal when the transport mode changes.
+		
+		Parameters:
+			transportManager -- the TransportManager instance that send the signal.
+			mode -- the mode type that the transport changed to.
+		"""
+		if self.settingButtons:
+			return
+		self.settingButtons = True
+		modeBars = self.wTree.get_widget("show_as_bars_beats_ticks")
+		modeHours = self.wTree.get_widget("show_as_hours_minutes_seconds")
+		transport = self.project.transport
+		
+		modeBars.set_active(transport.mode == transport.MODE_BARS_BEATS)
+		modeHours.set_active(transport.mode == transport.MODE_HOURS_MINS_SECS)
+		
+		self.settingButtons = False
 		
 	#_____________________________________________________________________
 
@@ -1579,8 +1587,8 @@ class MainApp:
 			
 		self.project = project
 		self.project.AddListener(self)
-		self.project.transport.AddListener(self)
-		self.OnStateChanged(change="transport-mode")
+		self.project.transport.connect("transport-mode", self.OnTransportMode)
+		self.OnTransportMode()
 		self.InsertRecentProject(project.projectfile, project.name)
 		self.project.PrepareClick()
 

@@ -68,7 +68,7 @@ class EventLaneViewer(gtk.EventBox):
 			
 		self.project = project
 		self.instrument = instrument
-		self.project.transport.AddListener(self)
+		self.project.transport.connect("position", self.OnTransportPosition)
 		self.project.AddListener(self)
 		self.instrument.AddListener(self)
 		
@@ -383,12 +383,25 @@ class EventLaneViewer(gtk.EventBox):
 		"""
 		if obj is self.project or obj is self.instrument:
 			self.Update()
-		else:
-			x1 = round((self.project.transport.PrevPosition - self.project.viewStart) * self.project.viewScale)
-			x2 = round((self.project.transport.position - self.project.viewStart) * self.project.viewScale)
-			self.queue_draw_area(int(x1)-1, 0, 3, self.allocation.height)
-			self.queue_draw_area(int(x2)-1, 0, 3, self.allocation.height)
+			
 		
+	#_____________________________________________________________________
+	
+	def OnTransportPosition(self, transportManager, extraString):
+		"""
+		Callback for signal when the transport position changes.
+		Here we just redraw the playhead.
+		
+		Parameters:
+			transportManager -- the TransportManager instance that send the signal.
+			extraString -- a string specifying the extra action details. i.e. "stop-action"
+					means that the position changed because the user hit stop.
+		"""
+		x1 = round((self.project.transport.PrevPosition - self.project.viewStart) * self.project.viewScale)
+		x2 = round((self.project.transport.position - self.project.viewStart) * self.project.viewScale)
+		self.queue_draw_area(int(x1)-1, 0, 3, self.allocation.height)
+		self.queue_draw_area(int(x2)-1, 0, 3, self.allocation.height)
+	
 	#_____________________________________________________________________
 	
 	def OnDragDataReceived(self, widget, context, x, y, selection, targetType, time):

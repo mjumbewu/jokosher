@@ -14,11 +14,10 @@ import pygst
 pygst.require("0.10")
 import gst
 import gobject
-from Monitored import *
 
 #=========================================================================
 
-class TransportManager(Monitored):
+class TransportManager(gobject.GObject):
 	"""
 	This class handles the current cursor position and the gstreamer
 	bits for rewinding, fast forwarding and seeking.
@@ -38,6 +37,18 @@ class TransportManager(Monitored):
 	
 	""" Display mode in bars, beats and ticks. """
 	MODE_BARS_BEATS = 2
+	
+	"""
+	Signals:
+		"position" -- The playhead position of the project has changed.
+				An optional string is also send which details why the position was changed.
+		"transport-mode" -- The mode of measurement for the transport time has changed.
+	"""
+	
+	__gsignals__ = {
+		"position"		: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, (gobject.TYPE_STRING,) ),
+		"transport-mode"	: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, (gobject.TYPE_INT,) )
+	}
 
 	#_____________________________________________________________________
 
@@ -52,7 +63,7 @@ class TransportManager(Monitored):
 						MODE_BARS_BEATS
 			project -- reference to the current Project.
 		"""
-		Monitored.__init__(self)
+		gobject.GObject.__init__(self)
 		
 		self.project = project
 		self.pipeline = self.project.mainpipeline
@@ -203,9 +214,9 @@ class TransportManager(Monitored):
 			self.PrevPosition = self.position
 			self.position = pos
 			if stopAction:
-				self.StateChanged("position", "stop-action")
+				self.emit("position", "stop-action")
 			else:
-				self.StateChanged("position")
+				self.emit("position", "")
 
 	#_____________________________________________________________________
 
@@ -218,7 +229,7 @@ class TransportManager(Monitored):
 		"""
 		if self.mode != mode:
 			self.mode = mode
-			self.StateChanged("transport-mode", mode)
+			self.emit("transport-mode", mode)
 		
 	#_____________________________________________________________________
 	
