@@ -202,8 +202,8 @@ class TransportManager(gobject.GObject):
 		Change the current position variable.
 		
 		Considerations:
-			Calls StateChanged to trigger response on all classes
-			that are listening to this object.
+			Calls emit to trigger response on all classes
+			that are connected to this object.
 		
 		Parameters:
 			pos -- new playhead cursor position.

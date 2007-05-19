@@ -184,7 +184,7 @@ class EventLaneViewer(gtk.EventBox):
 		It also destroys any child widget and disconnects itself from any
 		listening objects via Monitored.
 		"""
-		self.project.transport.RemoveListener(self)
+		self.project.transport.disconnect_by_func(self.OnTransportPosition)
 		self.project.RemoveListener(self)
 		self.instrument.RemoveListener(self)
 		
