@@ -254,9 +254,8 @@ class RecordingView(gtk.Frame):
 				# if this is mix view then add parent (CompactMixView) as listener
 				# otherwise add self
 				if self.mixView:
-					instr.AddListener(self.mixView)
-				else:
-					instr.AddListener(self)
+					self.mixView.ConnectToInstrument(instr)
+				
 				#Add it to the views
 				self.views.append((instr.id, iv))
 				iv.headerAlign.connect("size-allocate", self.UpdateSize)
@@ -457,22 +456,6 @@ class RecordingView(gtk.Frame):
 		if mouse.type == gtk.gdk._2BUTTON_PRESS:
 			self.mainview.OnShowAddInstrumentDialog()
 			
-	#_____________________________________________________________________
-	
-	def OnStateChanged(self, obj, change=None, *extra):
-		"""
-		Called when a change of state is signalled by any of the
-		objects this view is 'listening' to.
-		
-		Parameters:
-			obj -- object changing state. *CHECK*
-			change -- the change which has occured.
-			extra -- extra parameters passed by the caller.
-		"""
-		#don't update on volume change because it happens very often
-		if change != "volume":
-			self.Update()
-		
 	#_____________________________________________________________________
 	
 	def OnDragDataReceived(self, widget, context, x, y, selection, targetType, time):

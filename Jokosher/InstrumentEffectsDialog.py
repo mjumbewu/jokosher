@@ -218,7 +218,7 @@ class InstrumentEffectsDialog:
 
 		# listen to the Project, Instrument and Preset changes
 		self.instrument.project.AddListener(self)
-		self.instrument.AddListener(self)
+		self.instrument.connect("effect", self.OnInstrumentEffect)
 		self.presets.connect("single-preset", self.OnSinglePreset)
 		self.presets.connect("chain-preset", self.OnChainPreset)
 
@@ -298,7 +298,7 @@ class InstrumentEffectsDialog:
 			button -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		self.instrument.project.RemoveListener(self)
-		self.instrument.RemoveListener(self)
+		self.instrument.disconnect_by_func(self.OnInstrumentEffect)
 		self.window.destroy()
 		
 	#_____________________________________________________________________	
@@ -350,11 +350,9 @@ class InstrumentEffectsDialog:
 			change -- the change which has occured.
 			extra -- extra parameters passed by the caller.
 		"""
-		if obj is self.instrument and change == "effects":
-			self.Update()
 		
 		# check self.isPlaying to see if the project is playing already
-		elif change == "play":
+		if change == "play":
 			# things to do if the project is not already playing, and hence
 			# needs to start playing
 			self.buttonPlay.set_use_stock(True)
@@ -375,6 +373,17 @@ class InstrumentEffectsDialog:
 		elif change == "record":
 			self.window.set_sensitive(False)
 		
+	#_____________________________________________________________________
+	
+	def OnInstrumentEffect(self, instrument):
+		"""
+		Callback for when the effects on the instrument change.
+		
+		Parameters:
+			instrument -- the instrument instance that send the signal.
+		"""
+		self.Update()
+	
 	#_____________________________________________________________________
 	
 	def OnCategoryChanged(self, combo):

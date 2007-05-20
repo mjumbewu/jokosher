@@ -70,7 +70,11 @@ class EventLaneViewer(gtk.EventBox):
 		self.instrument = instrument
 		self.project.transport.connect("position", self.OnTransportPosition)
 		self.project.AddListener(self)
-		self.instrument.AddListener(self)
+		self.instrument.connect("event", self.OnInstrumentSignal)
+		self.instrument.connect("recording-done", self.OnInstrumentSignal)
+		self.instrument.connect("selected", self.OnInstrumentSignal)
+		self.instrument.connect("visible", self.OnInstrumentSignal)
+		
 		
 		# This defines where the blue cursor indicator should be drawn (in pixels)
 		self.highlightCursor = None
@@ -186,7 +190,7 @@ class EventLaneViewer(gtk.EventBox):
 		"""
 		self.project.transport.disconnect_by_func(self.OnTransportPosition)
 		self.project.RemoveListener(self)
-		self.instrument.RemoveListener(self)
+		self.instrument.disconnect_by_func(self.OnInstrumentSignal)
 		
 		for widget in self.fixed.get_children():
 			#Check that it is EventViewer (could be a button drawer)
@@ -384,6 +388,18 @@ class EventLaneViewer(gtk.EventBox):
 		if obj is self.project or obj is self.instrument:
 			self.Update()
 			
+		
+	#_____________________________________________________________________
+	
+	def OnInstrumentSignal(self, instrument, extra=None):
+		"""
+		Callback for any change signal from instrument.
+		
+		Parameters:
+			instrument -- the instrument instance that send the signal.
+			extra -- extra optional parameters passed by the caller.
+		"""
+		self.Update()
 		
 	#_____________________________________________________________________
 	

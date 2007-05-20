@@ -62,7 +62,7 @@ class InstrumentViewer(gtk.EventBox):
 		self.small = small
 		self.projectview = projectview
 		self.mainview = mainview
-		self.instrument.AddListener(self)
+		self.instrument.connect("image", self.OnInstrumentImage)
 		self.effectsDialog = None		#the instrument effects dialog (to make sure more than one is never opened)
 		
 		self.Updating = False
@@ -319,7 +319,7 @@ class InstrumentViewer(gtk.EventBox):
 		Called when the InstrumentViewer is closed
 		This method also destroys the corresponding EventLaneViewer.
 		"""
-		self.instrument.RemoveListener(self)
+		self.instrument.disconnect_by_func(self.OnInstrumentImage)
 		self.eventLane.Destroy()
 		self.destroy()
 	
@@ -555,20 +555,16 @@ class InstrumentViewer(gtk.EventBox):
 	
 	#_____________________________________________________________________
 	
-	def OnStateChanged(self, obj, change=None, *extra):
+	def OnInstrumentImage(self, instrument):
 		"""
-		Called when a change of state is signalled by any of the
-		objects this view is 'listening' to.
+		Callback for when the instrument's image changes.
 		
 		Parameters:
-			obj -- object changing state. *CHECK*
-			change -- the change which has occured.
-			extra -- extra parameters passed by the caller.
+			instrument -- the instrument instance that send the signal.
 		"""
-		if change == "image":
-			self.image.clear()
-			self.image.set_from_pixbuf(self.instrument.pixbuf)
-	
+		self.image.clear()
+		self.image.set_from_pixbuf(self.instrument.pixbuf)
+		
 	#______________________________________________________________________
 
 	def OnChangeInstrumentType(self, widget, event):

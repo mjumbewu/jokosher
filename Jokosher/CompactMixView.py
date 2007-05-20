@@ -174,25 +174,28 @@ class CompactMixView(gtk.Frame):
 		instr.SetVisible(True)
 	#_____________________________________________________________________
 	
-	def OnStateChanged(self, obj, change=None, *extra):
+	def OnInstrumentSignal(self, instrument, extra=None):
 		"""
-		Called when a change of state is signalled by any of the
-		objects this view is 'listening' to.
+		Callback for when a signal is emitted by instrument.
 		
 		Parameters:
-			obj -- object changing state. *CHECK*
-			change -- the change which has occured.
+			instrument -- the instrument instance that send the signal.
 			extra -- extra parameters passed by the caller.
-			
-		Considerations:
-			The actual AddListener call is in RecordingView.py,
-			as this is where the InstrumentViewer objects are created
-			when instruments are added.
 		"""
-		#don't update on volume change because it happens very often
-		if change != "volume":
-			self.Update()
+		self.Update()
 		
+	#_____________________________________________________________________
+	
+	def ConnectToInstrument(self, instrument):
+		"""
+		Connect the signal handlers in this class to the signals
+		emitted by the given instrument instance.
+		
+		Parameters:
+			instrument -- the instrument instance to connect to.
+		"""
+		instrument.connect("visible", self.OnInstrumentSignal)
+	
 	#_____________________________________________________________________
 	
 	def OnUpdateTimeout(self):

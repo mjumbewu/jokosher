@@ -30,7 +30,7 @@ _ = gettext.gettext
 
 #=========================================================================	
 
-class Instrument(Monitored):
+class Instrument(gobject.GObject):
 	"""
 	This module is the non-gui class the represents Instruments. Instruments
 	represent a track of audio that can contain many different sources in sequence.
@@ -48,6 +48,27 @@ class Instrument(Monitored):
 	"""
 	LADSPA_ELEMENT_CAPS = "audio/x-raw-float, width=(int)32, rate=(int)[ 1, 2147483647 ], channels=(int)1, endianness=(int)1234"
 	
+	"""
+	Signals:
+		"position" -- The playhead position of the project has changed.
+				An optional string is also send which details why the position was changed.
+		"transport-mode" -- The mode of measurement for the transport time has changed.
+	"""
+	
+	__gsignals__ = {
+		"arm"		: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () ),
+		"effect"		: ( gobject.SIGNAL_RUN_LAST | gobject.SIGNAL_DETAILED, gobject.TYPE_NONE, () ),
+		"event"		: ( gobject.SIGNAL_RUN_LAST | gobject.SIGNAL_DETAILED, gobject.TYPE_NONE, (gobject.TYPE_INT,) ),
+		"image"		: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () ),
+		"mute"		: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () ),
+		"name"		: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () ),
+		"recording-done"	: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () ),
+		"selected"	: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () ),
+		"solo"		: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () ),
+		"visible"	: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () ),
+		"volume"		: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () )
+	}
+	
 	def __init__(self, project, name, type, pixbuf, id=None):
 		"""
 		Creates a new instance of Instrument.
@@ -59,7 +80,7 @@ class Instrument(Monitored):
 			pixbuf -- image of the Instrument resource object.
 			id -- unique ID value for the Instrument.
 		"""
-		Monitored.__init__(self)
+		gobject.GObject.__init__(self)
 		
 		self.project = project
 		
@@ -316,7 +337,7 @@ class Instrument(Monitored):
 		#give it a lambda for a callback that does nothing, so we don't have to wait
 		startSrcPad.set_blocked_async(False, lambda x,y: False)
 		
-		self.StateChanged("effects")
+		self.emit("effect::added")
 		
 		return effectElement
 	
@@ -363,7 +384,7 @@ class Instrument(Monitored):
 		#give it a lambda for a callback that does nothing, so we don't have to wait
 		startSrcPad.set_blocked_async(False, lambda x,y: False)
 		
-		self.StateChanged("effects")
+		self.emit("effect::removed")
 	
 	#_____________________________________________________________________
 	
@@ -447,7 +468,7 @@ class Instrument(Monitored):
 		#give it a lambda for a callback that does nothing, so we don't have to wait
 		startSrcPad.set_blocked_async(False, lambda x,y: False)
 		
-		self.StateChanged("effects")
+		self.emit("effect:reordered")
 	
 	#_____________________________________________________________________
 	
@@ -480,7 +501,7 @@ class Instrument(Monitored):
 		event.isRecording = False
 		event.GenerateWaveform()
 		self.temp = event.id
-		self.StateChanged()
+		self.emit("recording-done")
 	
 	#_____________________________________________________________________
 	
@@ -578,7 +599,7 @@ class Instrument(Monitored):
 
 		self.temp = ev.id
 		
-		self.StateChanged()
+		self.emit("event::added")
 		
 		return ev
 		
@@ -621,7 +642,7 @@ class Instrument(Monitored):
 			raise UndoSystem.CancelUndoCommand()
 		
 		self.temp = ev.id
-		self.StateChanged()
+		self.emit("event::added")
 		
 		return ev
 	
@@ -650,7 +671,7 @@ class Instrument(Monitored):
 		ev.MoveButDoNotOverlap(ev.start)
 		
 		self.temp = ev.id
-		self.StateChanged()
+		self.emit("event::added")
 	
 	#_____________________________________________________________________
 	
@@ -670,6 +691,7 @@ class Instrument(Monitored):
 		event.StopGenerateWaveform(False)
 		
 		self.temp = eventid
+		self.emit("event::removed")
 	
 	#_____________________________________________________________________
 	
@@ -734,7 +756,7 @@ class Instrument(Monitored):
 			self.volume = volume
 			self.UpdateVolume()
 			self.project.unsavedChanges = True
-			self.StateChanged("volume")
+			self.emit("volume")
 
 	#_____________________________________________________________________
 	
@@ -759,7 +781,7 @@ class Instrument(Monitored):
 		if self.name != name:
 			self.temp = self.name
 			self.name = name
-			self.StateChanged()
+			self.emit("name")
 	
 	#_____________________________________________________________________
 	
@@ -769,7 +791,7 @@ class Instrument(Monitored):
 		Arms/Disarms the Instrument for recording.
 		"""
 		self.isArmed = not self.isArmed
-		self.StateChanged()
+		self.emit("arm")
 		
 	#_____________________________________________________________________
 	
@@ -795,7 +817,7 @@ class Instrument(Monitored):
 		else:
 			self.OnMute()
 			
-		self.StateChanged()
+		self.emit("mute")
 	
 	#_____________________________________________________________________
 	
@@ -819,7 +841,7 @@ class Instrument(Monitored):
 			self.project.soloInstrCount += 1
 		
 		self.project.OnAllInstrumentsMute()
-		self.StateChanged()
+		self.emit("solo")
 	
 	#_____________________________________________________________________
 	
@@ -836,7 +858,7 @@ class Instrument(Monitored):
 		if self.isVisible != visible:
 			self.temp = self.isVisible
 			self.isVisible = visible
-			self.StateChanged()
+			self.emit("visible")
 	
 	#_____________________________________________________________________
 	
@@ -848,10 +870,10 @@ class Instrument(Monitored):
 			sel -- 	True = the Instrument is currently selected.
 					False = the Instrument is not currently selected.
 		"""
-		# No need to call StateChanged when there is no change in selection state
+		# No need to emit signal when there is no change in selection state
 		if self.isSelected is not sel:
 			self.isSelected = sel
-			self.StateChanged()
+			self.emit("selected")
 	
 	#_____________________________________________________________________
 	
@@ -959,7 +981,7 @@ class Instrument(Monitored):
 		self.instrType = type
 		self.pixbuf = pixbuf
 
-		self.StateChanged("image")
+		self.emit("image")
 
 	#_____________________________________________________________________
 
