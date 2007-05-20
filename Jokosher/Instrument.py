@@ -50,9 +50,21 @@ class Instrument(gobject.GObject):
 	
 	"""
 	Signals:
-		"position" -- The playhead position of the project has changed.
-				An optional string is also send which details why the position was changed.
-		"transport-mode" -- The mode of measurement for the transport time has changed.
+		"arm" -- This instrument has been armed or dis-armed for recording.
+		"effect" -- The effects for this instrument have changed. See below:
+			"effect::added" -- An effect was added to this instrument.
+			"effect::removed" -- An effect was removed from this instrument.
+			"effect::reordered" -- An effect on this instrument has changed its position.
+		"event" -- The events for this instrument have changed. See below:
+			"event::added" -- An event was added to this instrument.
+			"event::removed" -- An event was removed from this instrument.
+		"image" -- The image for this instrument has changed.
+		"mute" -- This instrument has been muted or unmuted.
+		"name" -- The name of this instrument has changed.
+		"recording-done" -- The event recording on this instrument has finished recording.
+		"selected" -- This instrument has been selected or deselected.
+		"visible" -- This instrument has been maximised or minimized in the mix view.
+		"volume" -- The volume value for this instrument has changed.
 	"""
 	
 	__gsignals__ = {
