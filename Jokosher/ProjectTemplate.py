@@ -10,14 +10,14 @@
 #-------------------------------------------------------------------------------
 
 import os
+import gobject
 import Globals
 import xml.dom.minidom as xml
 from Utils import LoadListFromXML, StoreListToXML
-from Monitored import Monitored
 
 #=========================================================================
 
-class ProjectTemplate(Monitored):
+class ProjectTemplate(gobject.GObject):
 	"""
 	This class saves and loads templates and template information to disk.
 	"""
@@ -25,13 +25,22 @@ class ProjectTemplate(Monitored):
 	#the extension put on the end of template files
 	TEMPLATE_EXT = "template"
 	
+	"""
+	Signals:
+		"template-update" -- This template has changed.
+	"""
+	
+	__gsignals__ = {
+		"template-update" : ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () )
+	}
+	
 	#_____________________________________________________________________
 
 	def __init__(self):
 		""" 
 		Creates a new instance of ProjectTemplate.
 		"""
-		Monitored.__init__(self)
+		gobject.GObject.__init__(self)
 
 	#_____________________________________________________________________
 
@@ -67,7 +76,7 @@ class ProjectTemplate(Monitored):
 		finally:
 			filename.close()
 			
-		self.StateChanged("template-update")
+		self.emit("template-update")
 
 	#_____________________________________________________________________
 	
@@ -86,7 +95,7 @@ class ProjectTemplate(Monitored):
 		except OSError, e:
 			Globals.debug("Cannot remove template %s" % namePath)
 			
-		self.StateChanged("template-update")
+		self.emit("template-update")
 
 	#_____________________________________________________________________
 	

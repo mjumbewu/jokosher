@@ -90,7 +90,7 @@ class ProjectTemplateDialog:
 
 		self.PopulateJokosherInstrumentsModel()
 		self.tempcombo.set_active(self.newprojectdlg.templatecombo.get_active())
-		self.template.AddListener(self)
+		self.template.connect("template-update", self.OnTemplateUpdate)
 		self.window.show_all()
 		
 	#_____________________________________________________________________		
@@ -203,22 +203,19 @@ class ProjectTemplateDialog:
 		self.window.destroy()
 		
 	#_____________________________________________________________________
-			
-	def OnStateChanged(self, obj, change=None, *extra):
+	
+	def OnTemplateUpdate(self, projectTemplate):
 		"""
-		Called when a change of state is signalled by any of the
-		objects this view is 'listening' to.
+		Callback for when the ProjectTemplate instance for this dialog
+		sends a signal to update.
 		
 		Parameters:
-			obj -- object changing state. *CHECK*
-			change -- the change which has occured.
-			extra -- extra parameters passed by the caller.
+			projectTemplate -- The ProjectTemplate instance that send the signal.
 		"""
-		if change == "template-update":
-			self.UpdateTemplateModel()
-			
+		self.UpdateTemplateModel()
+	
 	#_____________________________________________________________________
-			
+	
 	def PopulateJokosherInstrumentsModel(self):
 		"""
 		Called when the jokosher instruments model needs to be populated.
