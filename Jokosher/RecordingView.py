@@ -436,6 +436,8 @@ class RecordingView(gtk.Frame):
 		"""
 		# If we're here then we're out of bounds of anything else
 		# So we should clear any selected events
+		if mouse.type == gtk.gdk._2BUTTON_PRESS or mouse.type == gtk.gdk._3BUTTON_PRESS:
+			return True
 		self.project.ClearEventSelections()
 		self.project.SelectInstrument(None)
 		self.Update()
