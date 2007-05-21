@@ -790,7 +790,7 @@ class Event(gobject.GObject):
 					True = the Event has been selected.
 					False = the Event has been deselected.
 		"""
-		# No need to call StateChanged when there is no change in selection state
+		# No need to emit a signal when there is no change in selection state
 		if self.isSelected is not sel:
 			self.isSelected = sel
 			self.emit("selected")

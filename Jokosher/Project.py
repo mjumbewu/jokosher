@@ -14,6 +14,7 @@
 import pygst
 pygst.require("0.10")
 import gst
+import gobject
 import os
 import gzip
 import re
@@ -29,7 +30,7 @@ import AlsaDevices
 
 #=========================================================================
 
-class Project(Monitored):
+class Project(gobject.GObject):
 	"""
 	This class maintains all of the information required about single Project. It also
 	saves and loads Project files.
@@ -40,6 +41,40 @@ class Project(Monitored):
 	
 	""" The audio playback state enum values """
 	AUDIO_STOPPED, AUDIO_RECORDING, AUDIO_PLAYING, AUDIO_PAUSED, AUDIO_EXPORTING = range(5)
+	
+	"""
+	Signals:
+		"audio-state" -- The status of the audio system has changed. See below:
+			"audio-state::play" -- The audio started playing.
+			"audio-state::pause" -- The audio is paused.
+			"audio-state::record" -- The audio started recording.
+			"audio-state::stop" -- The playback or recording was stopped.
+			"audio-state::export-start" -- The audio is being played to a file.
+			"audio-state::export-stop" -- The export to a file has completed.
+		"bpm" -- The beats per minute value was changed.
+		"gst-bus-error" -- An error message was posted to the pipeline. Two strings are also send with the error details.
+		"instrument" -- The instruments for this project have changed. See below:
+			"instrument::added" -- An instrument was added to this project.
+			"instrument::removed" -- An instrument was removed from this project.
+			"instrument::reordered" -- The order of the instruments for this project changed.
+		"time-signature" -- The time signature values were changed.
+		"undo" -- The undo or redo stacks for this project have been changed.
+		"view-start" -- The starting position of the view of this project's timeline has changed.
+		"volume" -- This master volume value for this project has changed.
+		"zoom" -- The zoom level of this project's timeline has changed.
+	"""
+	
+	__gsignals__ = {
+		"audio-state"		: ( gobject.SIGNAL_RUN_LAST | gobject.SIGNAL_DETAILED, gobject.TYPE_NONE, () ),
+		"bpm"			: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () ),
+		"gst-bus-error"	: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, (gobject.TYPE_STRING, gobject.TYPE_STRING) ),
+		"instrument"		: ( gobject.SIGNAL_RUN_LAST | gobject.SIGNAL_DETAILED, gobject.TYPE_NONE, () ),
+		"time-signature"	: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () ),
+		"undo"			: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () ),
+		"view-start"		: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () ),
+		"volume"			: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () ),
+		"zoom"			: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () )
+	}
 
 	#_____________________________________________________________________
 
@@ -47,7 +82,7 @@ class Project(Monitored):
 		"""
 		Creates a new instance of Project with default values.
 		"""
-		Monitored.__init__(self)
+		gobject.GObject.__init__(self)
 		
 		self.author = ""			#the author of this project
 		self.name = ""				#the name of this project
@@ -145,8 +180,6 @@ class Project(Monitored):
 		self.transportMode = TransportManager.TransportManager.MODE_BARS_BEATS
 		self.transport = TransportManager.TransportManager(self.transportMode, self)
 
-		self.EOShandlers = [] #extension functions needing EOS notifications
-
 		self.PrepareClick()
 	
 	#_____________________________________________________________________
@@ -211,11 +244,6 @@ class Project(Monitored):
 			self.bus.disconnect(handle)
 
 		self.TerminateRecording()
-
-		#If this is due to end of stream then notify those interested
-		if bus:
-			for function in self.EOShandlers:
-				function()
 		
 		Globals.PrintPipelineDebug("PIPELINE AFTER STOP:", self.mainpipeline)
 		
@@ -363,7 +391,7 @@ class Project(Monitored):
 		self.exportFilename = filename
 		#start the pipeline!
 		self.Play(newAudioState=self.AUDIO_EXPORTING)
-		self.StateChanged("export-start")
+		self.emit("audio-state::export-start")
 
 	#_____________________________________________________________________
 	
@@ -401,7 +429,7 @@ class Project(Monitored):
 		self.levelElementCaps.link(self.levelElement)
 		self.levelElement.link(self.masterSink)
 		
-		self.StateChanged("export-stop")
+		self.emit("audio-state::export-stop")
 	
 	#_____________________________________________________________________
 	
@@ -462,13 +490,13 @@ class Project(Monitored):
 		"""
 		self.audioState = newState
 		if newState == self.AUDIO_PAUSED:
-			self.StateChanged("pause")
+			self.emit("audio-state::pause")
 		elif newState == self.AUDIO_PLAYING:
-			self.StateChanged("play")
+			self.emit("audio-state::play")
 		elif newState == self.AUDIO_STOPPED:
-			self.StateChanged("stop")
+			self.emit("audio-state::stop")
 		elif newState == self.AUDIO_RECORDING:
-			self.StateChanged("record")
+			self.emit("audio-state::record")
 		elif newState == self.AUDIO_EXPORTING:
 			self.exportPending = False
 		
@@ -573,7 +601,7 @@ class Project(Monitored):
 		error, debug = message.parse_error()
 		
 		Globals.debug("Gstreamer bus error:", str(error), str(debug))
-		self.StateChanged("gst-bus-error", str(error), str(debug))
+		self.emit("gst-bus-error", str(error), str(debug))
 
 	#_____________________________________________________________________
 	
@@ -649,7 +677,7 @@ class Project(Monitored):
 			#if the saving doesn't fail, move it to the proper location
 			os.rename(path + "~", path)		
 		
-		self.StateChanged("undo")
+		self.emit("undo")
 	
 	#_____________________________________________________________________
 
@@ -663,7 +691,6 @@ class Project(Monitored):
 				os.remove(file)
 		self.deleteOnCloseAudioFiles = []
 		
-		self.ClearListeners()
 		self.mainpipeline.set_state(gst.STATE_NULL)
 		
 	#_____________________________________________________________________
@@ -734,7 +761,7 @@ class Project(Monitored):
 				#since there is no other record that something has 
 				#changed after savedRedoStack is purged
 				self.unsavedChanges = True
-		self.StateChanged("undo")
+		self.emit("undo")
 	
 	#_____________________________________________________________________
 	
@@ -835,7 +862,7 @@ class Project(Monitored):
 		self.temp = self.bpm
 		if self.bpm != bpm:
 			self.bpm = bpm
-			self.StateChanged("bpm")
+			self.emit("bpm")
 	
 	#_____________________________________________________________________
 
@@ -861,7 +888,7 @@ class Project(Monitored):
 		if self.meter_nom != nom or self.meter_denom != denom:
 			self.meter_nom = nom
 			self.meter_denom = denom
-			self.StateChanged("time-signature")
+			self.emit("time-signature")
 			
 	#_____________________________________________________________________
 	
@@ -929,6 +956,7 @@ class Project(Monitored):
 		self.instruments.append(instr)
 		
 		return instr
+		self.emit("instrument::added")
 		
 	#_____________________________________________________________________	
 	
@@ -962,6 +990,7 @@ class Project(Monitored):
 			event.StopGenerateWaveform(False)
 			
 		self.temp = id
+		self.emit("instrument::removed")
 	
 	#_____________________________________________________________________
 	
@@ -989,6 +1018,7 @@ class Project(Monitored):
 		instr.isVisible = True
 		self.graveyard.remove(instr)
 		self.temp = id
+		self.emit("instrument::added")
 		
 	#_____________________________________________________________________
 	
@@ -1008,7 +1038,8 @@ class Project(Monitored):
 		self.temp1 = self.instruments.index(instr)
 		
 		self.instruments.remove(instr)
-		self.instruments.insert(position, instr)		
+		self.instruments.insert(position, instr)
+		self.emit("instrument::reordered")
 	
 	#_____________________________________________________________________
 	
@@ -1066,7 +1097,7 @@ class Project(Monitored):
 		start = max(0, min(self.GetProjectLength(), start))
 		if self.viewStart != start:
 			self.viewStart = start
-			self.StateChanged("view-start")
+			self.emit("view-start")
 		
 	#_____________________________________________________________________
 	
@@ -1078,7 +1109,7 @@ class Project(Monitored):
 			scale -- view scale in pixels per second.
 		"""
 		self.viewScale = scale
-		self.StateChanged("zoom")
+		self.emit("zoom")
 		
 	#_____________________________________________________________________
 
@@ -1143,7 +1174,7 @@ class Project(Monitored):
 		self.volume = volume
 		for instr in self.instruments:
 			instr.UpdateVolume()
-		self.StateChanged("volume")
+		self.emit("volume")
 
 	#_____________________________________________________________________
 
@@ -1296,32 +1327,9 @@ class Project(Monitored):
 			Globals.debug("Using autoaudiosink for audio output")
 			
 		return sinkElement
-	
-	#_____________________________________________________________________
-	
-	def AddEndOfStreamHandler(self, function):
-		"""
-		Adds a function to the list of functions that need notification of 
-		end-of-stream messages from gstreamer
-		
-		Parameters:
-			function -- the function to be added
-		"""
-		self.EOShandlers.append(function)
-		
-	#_____________________________________________________________________
-	
-	def RemoveEndOfStreamHandler(self, function):
-		"""
-		Removes a function from the list of functions that need notification of 
-		end-of-stream messages from gstreamer
-		
-		Parameters:
-			function -- the function to be removed
-		"""
-		self.EOShandlers.remove(function)
 		
 	#____________________________________________________________________	
+	
 	def GetInputFilenames(self):
 		"""
 		Obtains a list of  all filenames that are to be input to

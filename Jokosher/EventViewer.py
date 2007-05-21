@@ -123,7 +123,7 @@ class EventViewer(gtk.DrawingArea):
 		self.cachedDrawArea = gtk.gdk.Rectangle(0, 0, 0, 0)
 
 		# Monitor the things this object cares about
-		self.project.AddListener(self)
+		self.project.connect("zoom", self.OnProjectZoom)
 		self.event.connect("waveform", self.OnEventWaveform)
 		self.event.connect("position", self.OnEventPosition)
 		self.event.connect("length", self.OnEventLength)
@@ -438,9 +438,9 @@ class EventViewer(gtk.DrawingArea):
 		"""
 		Called when the EventViewer gets destroyed.
 		It also destroys any child widget and disconnects itself from any
-		listening objects via Monitored.
+		gobject signals.
 		"""
-		self.project.RemoveListener(self)
+		self.project.disconnect_by_func(self.OnProjectZoom)
 		self.event.disconnect_by_func(self.OnEventSelected)
 		self.event.disconnect_by_func(self.OnEventCorrupt)
 		self.event.disconnect_by_func(self.OnEventLength)
@@ -1155,18 +1155,14 @@ class EventViewer(gtk.DrawingArea):
 		
 	#_____________________________________________________________________
 	
-	def OnStateChanged(self, obj, change=None, *extra):
+	def OnProjectZoom(self, project):
 		"""
-		Called when a change of state is signalled by any of the
-		objects this view is 'listening' to.
-		Redraws the Event if any of its audio has been modified.
+		Callback for when the zoom level of the project changes.
 		
 		Parameters:
-			obj -- object changing state.
-			change -- the change which has occured.
-			extra -- extra parameters passed by the caller.
+			project -- The project instance that send the signal.
 		"""
-		if obj.__class__ == Project and self.currentScale != self.project.viewScale:
+		if self.currentScale != self.project.viewScale:
 			self.redrawWaveform = True
 			self.queue_resize()
 			self.last_num_levels = len(self.event.levels)

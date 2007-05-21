@@ -69,12 +69,11 @@ class EventLaneViewer(gtk.EventBox):
 		self.project = project
 		self.instrument = instrument
 		self.project.transport.connect("position", self.OnTransportPosition)
-		self.project.AddListener(self)
+		self.project.connect("view-start", self.OnProjectViewChange)
+		self.project.connect("zoom", self.OnProjectViewChange)
 		self.instrument.connect("event", self.OnInstrumentSignal)
 		self.instrument.connect("recording-done", self.OnInstrumentSignal)
 		self.instrument.connect("selected", self.OnInstrumentSignal)
-		self.instrument.connect("visible", self.OnInstrumentSignal)
-		
 		
 		# This defines where the blue cursor indicator should be drawn (in pixels)
 		self.highlightCursor = None
@@ -142,7 +141,7 @@ class EventLaneViewer(gtk.EventBox):
 		
 	def Update(self, child=None):
 		"""
-		Updates the complete view when requested by OnStateChanged or __init__.
+		Updates the complete view when requested by a signal from project or instrument or __init__.
 		
 		Parameters:
 			child -- a particular child widget to be updated. If provided, only this 
@@ -186,10 +185,10 @@ class EventLaneViewer(gtk.EventBox):
 		"""
 		Called when the EventLaneViewer gets destroyed.
 		It also destroys any child widget and disconnects itself from any
-		listening objects via Monitored.
+		gobject signals.
 		"""
 		self.project.transport.disconnect_by_func(self.OnTransportPosition)
-		self.project.RemoveListener(self)
+		self.project.disconnect_by_func(self.OnProjectViewChange)
 		self.instrument.disconnect_by_func(self.OnInstrumentSignal)
 		
 		for widget in self.fixed.get_children():
@@ -373,21 +372,16 @@ class EventLaneViewer(gtk.EventBox):
 	
 	#_____________________________________________________________________
 	
-	def OnStateChanged(self, obj, change=None, *extra):
+	def OnProjectViewChange(self, project):
 		"""
-		Called when a change of state is signalled by any of the
-		objects this view is 'listening' to.
-		If there's a Project or Instrument change, then redraw everything,
-		otherwise just redraw the playhead.
+		Callback function for when the project view changes,
+		and the "view-start" or the "zoom" signal is send, and we
+		need to update.
 		
 		Parameters:
-			obj -- object changing state.
-			change -- the change which has occured.
-			extra -- extra parameters passed by the caller.
+			project -- The project instance that send the signal.
 		"""
-		if obj is self.project or obj is self.instrument:
-			self.Update()
-			
+		self.Update()
 		
 	#_____________________________________________________________________
 	

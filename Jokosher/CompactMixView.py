@@ -73,7 +73,7 @@ class CompactMixView(gtk.Frame):
 		
 	def Update(self):
 		"""
-		Updates the mix view when requested by OnStateChanged or __init__
+		Updates the mix view when requested by signal from project or __init__
 		
 		Returns:
 			False -- indicates the GTK signal to:

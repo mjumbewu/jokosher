@@ -39,7 +39,8 @@ class TimeView(gtk.EventBox):
 		self.add(self.timeViewLabel)
 		self.project = project
 		# Listen for bpm and time sig changes
-		self.project.AddListener(self)
+		self.project.connect("bpm", self.OnProjectTime)
+		self.project.connect("time-signature", self.OnProjectTime)
 		# Listen for playback position and mode changes
 		self.project.transport.connect("transport-mode", self.OnTransportMode)
 		self.project.transport.connect("position", self.OnTransportPosition)
@@ -66,19 +67,15 @@ class TimeView(gtk.EventBox):
 			
 	#_____________________________________________________________________
 	
-	def OnStateChanged(self, obj, change=None, *extra):
+	def OnProjectTime(self, project):
 		"""
-		Called when a change of state is signalled by any of the
-		objects this view is 'listening' to.
-		Updates the time label.
+		Callback for when the project's time related properties
+		(bpm and time signature) change.
 		
 		Parameters:
-			obj -- object changing state.
-			change -- the change which has occured.
-			extra -- extra parameters passed by the caller.
+			project -- The project instance that send the signal.
 		"""
-		if change in ("bpm", "time-signature"):
-			self.UpdateTime()
+		self.UpdateTime()
 	
 	#_____________________________________________________________________
 	

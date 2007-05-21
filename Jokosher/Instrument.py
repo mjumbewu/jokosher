@@ -20,7 +20,6 @@ import urlparse # To split up URI's
 import gobject
 import Event
 import UndoSystem
-from Monitored import Monitored
 import Utils
 
 import Globals
@@ -724,6 +723,7 @@ class Instrument(gobject.GObject):
 			event.GenerateWaveform()
 		
 		self.temp = eventid
+		self.emit("event::added")
 	
 	#_____________________________________________________________________
 

@@ -230,9 +230,6 @@ class RecordingView(gtk.Frame):
 		"""
 		Updates the GUI to reflect changes on the instruments, timeline and
 		scrollbars.
-		Called either directly from OnStateChanged(), or via the owning
-		CompactMixView.update()(depending on which view we are in) when
-		there is a change of state in an instrument being listened to.
 		
 		Considerations:
 			InstrumentViews MUST have the order that the instruments have in

@@ -74,7 +74,10 @@ class TimeLine(gtk.DrawingArea):
 		# Listen for changes in the project and the TransportManager
 		self.project.transport.connect("transport-mode", self.OnTransportMode)
 		self.project.transport.connect("position", self.OnTransportPosition)
-		self.project.AddListener(self)
+		self.project.connect("bpm", self.OnProjectTimelineChange)
+		self.project.connect("time-signature", self.OnProjectTimelineChange)
+		self.project.connect("view-start", self.OnProjectTimelineChange)
+		self.project.connect("zoom", self.OnProjectTimelineChange)
 		
 		self.height = 44
 		self.buttonDown = False
@@ -328,33 +331,24 @@ class TimeLine(gtk.DrawingArea):
 		
 	#_____________________________________________________________________
 	
-	def OnStateChanged(self, obj, change=None, *extra):
-		""" 
-		Called when there is a change of state in transport	manager or project. 
-		Could be one of
-			*  Mode changed from bars/beats to minutes or vice versa
-			(requires a complete redraw of timeline)
-			*  Change in playing position -only needs partial redraw
-			*  Project change e.g. a scroll or zoom change
-			(requires a complete redraw of timeline)
-				
+	def OnProjectTimelineChange(self, project):
+		"""
+		Callback for signal when time signature, zoom level,
+		bpm or view start of the project change. All of these things
+		effect the way that the timeline is drawn.
+		
 		Parameters:
-			obj -- an object to inform when this method is called.
-			change -- the change which has occured.
-			extra -- the extra parameters to be passed.
+			project -- the project instance that send the signal.
 		"""
 		#if the timeline is not currently on screen then quit
 		if not self.window:
 			return
 		
-		#redraw timeline if needed
-		if change in ("bpm", "time-signature", "zoom", "view-start"):
-			# delete the cached image so that it will be redrawn
-			self.savedLine = None
-			self.timelinebar.Update()
-			#for bpm change re-align timeline with event lane
-			if change == "bpm":
-				self.timelinebar.projectview.UpdateSize()
+		# delete the cached image so that it will be redrawn
+		self.savedLine = None
+		self.timelinebar.Update()
+		#for bpm change re-align timeline with event lane
+		self.timelinebar.projectview.UpdateSize()
 		
 	#_____________________________________________________________________
 	

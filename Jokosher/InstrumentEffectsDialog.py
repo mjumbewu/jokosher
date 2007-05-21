@@ -217,7 +217,9 @@ class InstrumentEffectsDialog:
 			self.buttonPlay.set_label(gtk.STOCK_MEDIA_STOP)
 
 		# listen to the Project, Instrument and Preset changes
-		self.instrument.project.AddListener(self)
+		self.instrument.project.connect("audio-state::play", self.OnProjectPlay)
+		self.instrument.project.connect("audio-state::record", self.OnProjectRecord)
+		self.instrument.project.connect("audio-state::stop", self.OnProjectStop)
 		self.instrument.connect("effect", self.OnInstrumentEffect)
 		self.presets.connect("single-preset", self.OnSinglePreset)
 		self.presets.connect("chain-preset", self.OnChainPreset)
@@ -297,7 +299,9 @@ class InstrumentEffectsDialog:
 		Parameters:
 			button -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-		self.instrument.project.RemoveListener(self)
+		self.instrument.project.disconnect_by_func(self.OnProjectPlay)
+		self.instrument.project.disconnect_by_func(self.OnProjectRecord)
+		self.instrument.project.disconnect_by_func(self.OnProjectStop)
 		self.instrument.disconnect_by_func(self.OnInstrumentEffect)
 		self.window.destroy()
 		
@@ -340,39 +344,49 @@ class InstrumentEffectsDialog:
 	
 	#_____________________________________________________________________
 	
-	def OnStateChanged(self, obj, change=None, *extra):
+	def OnProjectRecord(self, project):
 		"""
-		Called when a change of state is signalled by any of the
-		objects this view is 'listening' to.
+		Callback for when the project starts recording.
 		
 		Parameters:
-			obj -- object changing state. *CHECK*
-			change -- the change which has occured.
-			extra -- extra parameters passed by the caller.
+			project -- The project instance that send the signal.
 		"""
+		self.window.set_sensitive(False)
+	
+	#_____________________________________________________________________
+	
+	def OnProjectPlay(self, project):
+		"""
+		Callback for when the project starts playing.
 		
-		# check self.isPlaying to see if the project is playing already
-		if change == "play":
-			# things to do if the project is not already playing, and hence
-			# needs to start playing
-			self.buttonPlay.set_use_stock(True)
-			self.buttonPlay.set_label(gtk.STOCK_MEDIA_STOP)
-			
-			# set this to True to show we are now playing
-			self.isPlaying = True
-
-		elif change == "stop":
-			self.window.set_sensitive(True)
-			# things to do when the stop button is pressed to stop playback
-			self.buttonPlay.set_use_stock(True)
-			self.buttonPlay.set_label(gtk.STOCK_MEDIA_PLAY)
-			
-			# set this to False to show we are no longer playing
-			self.isPlaying = False
-			
-		elif change == "record":
-			self.window.set_sensitive(False)
+		Parameters:
+			project -- The project instance that send the signal.
+		"""
+		# things to do if the project is not already playing, and hence
+		# needs to start playing
+		self.buttonPlay.set_use_stock(True)
+		self.buttonPlay.set_label(gtk.STOCK_MEDIA_STOP)
 		
+		# set this to True to show we are now playing
+		self.isPlaying = True
+	
+	#_____________________________________________________________________
+	
+	def OnProjectStop(self, project):
+		"""
+		Callback for when the project stops playing or recording.
+		
+		Parameters:
+			project -- The project instance that send the signal.
+		"""
+		self.window.set_sensitive(True)
+		# things to do when the stop button is pressed to stop playback
+		self.buttonPlay.set_use_stock(True)
+		self.buttonPlay.set_label(gtk.STOCK_MEDIA_PLAY)
+		
+		# set this to False to show we are no longer playing
+		self.isPlaying = False
+	
 	#_____________________________________________________________________
 	
 	def OnInstrumentEffect(self, instrument):

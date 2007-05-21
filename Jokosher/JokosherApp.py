@@ -982,91 +982,119 @@ class MainApp:
 
 	#_____________________________________________________________________
 	
-	def OnStateChanged(self, obj=None, change=None, *extra):
+	def OnProjectAudioState(self, project):
 		"""
-		Updates internal flags, views and the user interface to reflect a given
-		change in the project.
+		Callback for when the project starts playing or recording, or when it is
+		paused or stopped.
 		
 		Parameters:
-			obj -- object calling the method.
-			change -- string indicating the change which fired this function:
-					gst-bus-error = a serious core engine error occurred.
-					play = playback started.
-					pause = playback paused.
-					record = recording started.
-					stop = playback or recording was stopped.
-					undo = an undo operation was performed.
-			*extra -- parameters of additional information depending on the change parameter.
+			project -- The project instance that send the signal.
 		"""
-		if change == "play" or change == "pause" or change == "record" or change == "stop":
-			self.isPlaying = (self.project.audioState == self.project.AUDIO_PLAYING)
-			self.isPaused = (self.project.audioState == self.project.AUDIO_PAUSED)
-			self.isRecording = (self.project.audioState == self.project.AUDIO_RECORDING)
-			self.stop.set_sensitive(True)	#stop should always be clickable
-			self.record.set_sensitive(not self.isPlaying)
-			
-			controls = (self.play, self.reverse, self.forward, self.editmenu, self.projectMenu, self.instrumentMenu, 
-					self.recording.timelinebar.headerhbox, self.compactmix.projectview.timelinebar.headerhbox, 
-					self.addInstrumentButton, self.addAudioFileButton)
-			for widget in controls:
-				widget.set_sensitive(not self.isRecording)
-			
-			self.settingButtons = True
-			self.record.set_active(self.isRecording)
-			self.TogglePlayIcon()
-			self.settingButtons = False
-			
-			# update the tooltips depending on the current recording state
-			if self.isRecording:
-				self.record.set_tooltip(self.contextTooltips, self.recTipEnabled, None)
-				self.stop.set_tooltip(self.contextTooltips, self.recStopTipEnabled, None)
-			else:
-				self.record.set_tooltip(self.contextTooltips, self.recTipDisabled, None)
-				self.stop.set_tooltip(self.contextTooltips, self.recStopTipDisabled, None)
-			
-			self.compactmix.StartUpdateTimeout()
-			
-		elif change == "export-start":
-			export = gtk.glade.XML (Globals.GLADE_PATH, "ProgressDialog")
-			export.signal_connect("on_cancel_clicked", self.OnExportCancel)
-			
-			self.exportdlg = export.get_widget("ProgressDialog")
-			self.exportdlg.set_icon(self.icon)
-			self.exportdlg.set_transient_for(self.window)
-			
-			label = export.get_widget("progressLabel")
-			label.set_text(_("Mixing project to file: %s") % self.project.exportFilename)
-			
-			self.exportprogress = export.get_widget("progressBar")
-			
-			gobject.timeout_add(100, self.UpdateExportDialog)
-			
-		elif change == "export-stop":
+		self.isPlaying = (self.project.audioState == self.project.AUDIO_PLAYING)
+		self.isPaused = (self.project.audioState == self.project.AUDIO_PAUSED)
+		self.isRecording = (self.project.audioState == self.project.AUDIO_RECORDING)
+		self.stop.set_sensitive(True)	#stop should always be clickable
+		self.record.set_sensitive(not self.isPlaying)
+		
+		controls = (self.play, self.reverse, self.forward, self.editmenu, self.projectMenu, self.instrumentMenu, 
+				self.recording.timelinebar.headerhbox, self.compactmix.projectview.timelinebar.headerhbox, 
+				self.addInstrumentButton, self.addAudioFileButton)
+		for widget in controls:
+			widget.set_sensitive(not self.isRecording)
+		
+		self.settingButtons = True
+		self.record.set_active(self.isRecording)
+		self.TogglePlayIcon()
+		self.settingButtons = False
+		
+		# update the tooltips depending on the current recording state
+		if self.isRecording:
+			self.record.set_tooltip(self.contextTooltips, self.recTipEnabled, None)
+			self.stop.set_tooltip(self.contextTooltips, self.recStopTipEnabled, None)
+		else:
+			self.record.set_tooltip(self.contextTooltips, self.recTipDisabled, None)
+			self.stop.set_tooltip(self.contextTooltips, self.recStopTipDisabled, None)
+		
+		self.compactmix.StartUpdateTimeout()
+	
+	#_____________________________________________________________________
+	
+	def OnProjectExportStart(self, project):
+		"""
+		Callback for when the project starts exporting audio to a file.
+		
+		Parameters:
+			project -- The project instance that send the signal.
+		"""
+		export = gtk.glade.XML (Globals.GLADE_PATH, "ProgressDialog")
+		export.signal_connect("on_cancel_clicked", self.OnExportCancel)
+		
+		self.exportdlg = export.get_widget("ProgressDialog")
+		self.exportdlg.set_icon(self.icon)
+		self.exportdlg.set_transient_for(self.window)
+		
+		label = export.get_widget("progressLabel")
+		label.set_text(_("Mixing project to file: %s") % self.project.exportFilename)
+		
+		self.exportprogress = export.get_widget("progressBar")
+		
+		gobject.timeout_add(100, self.UpdateExportDialog)
+		
+	#_____________________________________________________________________
+	
+	
+	def OnProjectExportStop(self, project):
+		"""
+		Callback for when the project has finished exporting audio to a file.
+		
+		Parameters:
+			project -- The project instance that send the signal.
+		"""
+		if self.exportdlg:
 			self.exportdlg.destroy()
+	
+	#_____________________________________________________________________
+	
+	def OnProjectGstError(self, project, error, details):
+		"""
+		Callback for when the project sends a gstreamer error message
+		from the pipeline.
 		
-		elif change == "undo":
-			self.undo.set_sensitive(self.project.CanPerformUndo())
-			self.redo.set_sensitive(self.project.CanPerformRedo())
+		Parameters:
+			project -- The project instance that send the signal.
+			error -- The type of error that occurred as a string.
+			details -- A string with more information about the error.
+		"""
+		introstring = _("Argh! Something went wrong and a serious error occurred:")
+		outrostring = _("It is recommended that you report this to the Jokosher developers or get help at http://www.jokosher.org/forums/")
+	
+		outputtext = "\n\n".join(extra)
+		outputtext = "\n\n".join((introstring, outputtext, outrostring))
 		
-			if self.project.CheckUnsavedChanges():
-				self.window.set_title(_('*%s - Jokosher') % self.project.name)
-			else:
-				self.window.set_title(_('%s - Jokosher') % self.project.name)
-				
-		elif change == "gst-bus-error":
-			introstring = _("Argh! Something went wrong and a serious error occurred:")
-			outrostring = _("It is recommended that you report this to the Jokosher developers or get help at http://www.jokosher.org/forums/")
+		dlg = gtk.MessageDialog(self.window,
+			gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
+			gtk.MESSAGE_ERROR,
+			gtk.BUTTONS_CLOSE,
+			outputtext)
+		dlg.connect('response', lambda dlg, response: dlg.destroy())
+		dlg.show()
 		
-			outputtext = "\n\n".join(extra)
-			outputtext = "\n\n".join((introstring, outputtext, outrostring))
-			
-			dlg = gtk.MessageDialog(self.window,
-				gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
-				gtk.MESSAGE_ERROR,
-				gtk.BUTTONS_CLOSE,
-				outputtext)
-			dlg.connect('response', lambda dlg, response: dlg.destroy())
-			dlg.show()
+	#_____________________________________________________________________
+	
+	def OnProjectUndo(self, project=None):
+		"""
+		Callback for when the project's undo or redo stacks change.
+		
+		Parameters:
+			project -- The project instance that send the signal.
+		"""
+		self.undo.set_sensitive(self.project.CanPerformUndo())
+		self.redo.set_sensitive(self.project.CanPerformRedo())
+	
+		if self.project.CheckUnsavedChanges():
+			self.window.set_title(_('*%s - Jokosher') % self.project.name)
+		else:
+			self.window.set_title(_('%s - Jokosher') % self.project.name)
 		
 	#_____________________________________________________________________
 	
@@ -1361,7 +1389,7 @@ class MainApp:
 				c.set_sensitive(True)
 			
 			#set undo/redo if there is saved undo history
-			self.OnStateChanged(change="undo")
+			self.OnProjectUndo()
 				
 			# Create our custom widgets
 			self.timeview = TimeView.TimeView(self.project)
@@ -1586,7 +1614,16 @@ class MainApp:
 				return
 			
 		self.project = project
-		self.project.AddListener(self)
+		
+		self.project.connect("gst-bus-error", self.OnProjectGstError)
+		self.project.connect("audio-state::play", self.OnProjectAudioState)
+		self.project.connect("audio-state::pause", self.OnProjectAudioState)
+		self.project.connect("audio-state::record", self.OnProjectAudioState)
+		self.project.connect("audio-state::stop", self.OnProjectAudioState)
+		self.project.connect("audio-state::export-start", self.OnProjectExportStart)
+		self.project.connect("audio-state::export-stop", self.OnProjectExportStop)
+		self.project.connect("undo", self.OnProjectUndo)
+		
 		self.project.transport.connect("transport-mode", self.OnTransportMode)
 		self.OnTransportMode()
 		self.InsertRecentProject(project.projectfile, project.name)
