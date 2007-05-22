@@ -54,7 +54,7 @@ class Instrument(gobject.GObject):
 			"effect::added" -- An effect was added to this instrument.
 			"effect::removed" -- An effect was removed from this instrument.
 			"effect::reordered" -- An effect on this instrument has changed its position.
-		"event" -- The events for this instrument have changed. See below:
+		"event" -- The events for this instrument have changed. The event ID will be passed as a parameter. See below:
 			"event::added" -- An event was added to this instrument.
 			"event::removed" -- An event was removed from this instrument.
 		"image" -- The image for this instrument has changed.
@@ -610,7 +610,7 @@ class Instrument(gobject.GObject):
 
 		self.temp = ev.id
 		
-		self.emit("event::added")
+		self.emit("event::added", ev.id)
 		
 		return ev
 		
@@ -653,7 +653,7 @@ class Instrument(gobject.GObject):
 			raise UndoSystem.CancelUndoCommand()
 		
 		self.temp = ev.id
-		self.emit("event::added")
+		self.emit("event::added", ev.id)
 		
 		return ev
 	
@@ -682,7 +682,7 @@ class Instrument(gobject.GObject):
 		ev.MoveButDoNotOverlap(ev.start)
 		
 		self.temp = ev.id
-		self.emit("event::added")
+		self.emit("event::added", ev.id)
 	
 	#_____________________________________________________________________
 	
@@ -702,7 +702,7 @@ class Instrument(gobject.GObject):
 		event.StopGenerateWaveform(False)
 		
 		self.temp = eventid
-		self.emit("event::removed")
+		self.emit("event::removed", eventid)
 	
 	#_____________________________________________________________________
 	
@@ -723,7 +723,7 @@ class Instrument(gobject.GObject):
 			event.GenerateWaveform()
 		
 		self.temp = eventid
-		self.emit("event::added")
+		self.emit("event::added", eventid)
 	
 	#_____________________________________________________________________
 
