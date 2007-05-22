@@ -63,6 +63,7 @@ class InstrumentViewer(gtk.EventBox):
 		self.projectview = projectview
 		self.mainview = mainview
 		self.instrument.connect("image", self.OnInstrumentImage)
+		self.instrument.connect("selected", self.OnInstrumentSelected)
 		self.effectsDialog = None		#the instrument effects dialog (to make sure more than one is never opened)
 		
 		self.Updating = False
@@ -184,6 +185,8 @@ class InstrumentViewer(gtk.EventBox):
 		self.headerEventBox.connect('drag_begin', self.OnDragBegin)
 		self.headerEventBox.connect('drag_drop', self.OnDragDrop)
 		
+		#set the appropriate colour if the instrument it already selected.
+		self.OnInstrumentSelected()
 		self.Update()
 
 	#_____________________________________________________________________
@@ -372,9 +375,25 @@ class InstrumentViewer(gtk.EventBox):
 				image.set_from_pixbuf(self.soloImgDisabled)
 				self.soloButton.set_image(image)
 				self.soloTip.set_tip(self.soloButton, self.soloTipDisabled, None)
+
+		self.instrlabel.set_text(self.instrument.name)
+		if self.editlabelPacked:
+			self.OnAcceptEditLabel()
+		self.eventLane.Update()
+		self.Updating = False
+
+	#______________________________________________________________________
+	
+	def OnInstrumentSelected(self, instrument=None):
+		"""
+		Callback for when the instrument's selected status changes.
 		
+		Parameters:
+			instrument -- the instrument instance that send the signal.
+		"""
 		if self.instrument.isSelected:
 			#For some reason, putting self.style.base[3] in __init__ makes it return the wrong colour.
+			# This is probably because the widget is not realised yet.
 			self.SELECTED_COLOUR = self.get_style().base[3]
 			
 			self.modify_bg(gtk.STATE_NORMAL, self.SELECTED_COLOUR)
@@ -387,13 +406,7 @@ class InstrumentViewer(gtk.EventBox):
 			self.headerEventBox.modify_bg(gtk.STATE_NORMAL, self.UNSELECTED_COLOUR)
 			self.labeleventbox.modify_bg(gtk.STATE_NORMAL, self.UNSELECTED_COLOUR)
 			self.eventLane.modify_bg(gtk.STATE_NORMAL, self.UNSELECTED_COLOUR)
-
-		self.instrlabel.set_text(self.instrument.name)
-		if self.editlabelPacked:
-			self.OnAcceptEditLabel()
-		self.eventLane.Update()
-		self.Updating = False
-
+	
 	#______________________________________________________________________
 
 	def OnMouseMove(self, widget, event):
