@@ -252,6 +252,8 @@ class RecordingView(gtk.Frame):
 				# otherwise add self
 				if self.mixView:
 					self.mixView.ConnectToInstrument(instr)
+				# also need to update view when an instrument is selected
+				instr.connect("selected", self.OnInstrumentSignal)
 				
 				#Add it to the views
 				self.views.append((instr.id, iv))
@@ -501,5 +503,17 @@ class RecordingView(gtk.Frame):
 		context.drag_status(gtk.gdk.ACTION_COPY, time)
 		return True
 	
+	#_____________________________________________________________________
+	
+	def OnInstrumentSignal(self, instrument, extra=None):
+		"""
+		Callback for when a signal is emitted by instrument.
+		
+		Parameters:
+			instrument -- the instrument instance that send the signal.
+			extra -- extra parameters passed by the caller.
+		"""
+		self.Update()
+		
 	#_____________________________________________________________________
 #=========================================================================
