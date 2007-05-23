@@ -240,7 +240,7 @@ class MainApp:
 		sys.path.append("Instruments")
 		
 		self.window.add_events(gtk.gdk.KEY_PRESS_MASK)
-		self.window.connect("key-press-event", self.OnKeyPress)
+		self.window.connect_after("key-press-event", self.OnKeyPress)
 		self.window.connect("button_press_event", self.OnMouseDown)
 
 		self.CheckGstreamerVersions()

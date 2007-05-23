@@ -160,7 +160,7 @@ class InstrumentViewer(gtk.EventBox):
 			procimg.set_from_file(os.path.join(Globals.IMAGE_PATH, "icon_effectsapply.png"))
 			self.propsButton.set_image(procimg)
 
-			self.propsButton.connect("button_press_event", self.OnInstrumentEffects)
+			self.propsButton.connect("clicked", self.OnInstrumentEffects)
 			self.propsTip = gtk.Tooltips()
 			self.propsTip.set_tip(self.propsButton, _("Instrument Effects"), None)
 			
@@ -445,7 +445,7 @@ class InstrumentViewer(gtk.EventBox):
 
 	#______________________________________________________________________
 
-	def OnInstrumentEffects(self, widget, mouse):
+	def OnInstrumentEffects(self, widget, mouse=None):
 		"""
 		Creates and shows the instrument effects dialog
 		
@@ -453,7 +453,6 @@ class InstrumentViewer(gtk.EventBox):
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 			mouse -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-		Globals.debug("props button pressed")
 		if not self.effectsDialog:
 			self.effectsDialog = InstrumentEffectsDialog.InstrumentEffectsDialog(
 					self.instrument,
