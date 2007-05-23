@@ -24,7 +24,6 @@ import UndoSystem
 import Globals
 import xml.dom.minidom as xml
 import Instrument, Event
-from Monitored import Monitored
 import Utils
 import AlsaDevices
 
