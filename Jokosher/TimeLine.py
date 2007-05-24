@@ -225,19 +225,29 @@ class TimeLine(gtk.DrawingArea):
 				
 				# x is now at the pixel-position of the first beat after the viewStart
 				beat += 1
+
+			spacing = (60. / self.project.bpm) * self.project.viewScale
+
+			if self.project.meter_denom == 8 and (self.project.meter_nom % 3) == 0 and self.project.meter_nom != 3:
+				# Compound time signature, so beats are really 1 dotted note (3 1/8 notes)
+				beats_per_bar = self.project.meter_nom / 3
+				spacing *= 3
+			else:
+				# Simple meter
+				beats_per_bar = self.project.meter_nom
 		
 			while x < self.get_allocation().width:
 				# Draw the beat/bar divisions
 				ix = int(x)
-				
-				if beat % self.project.meter_nom:
+
+				if beat % beats_per_bar:
 					lineHeight = int(self.get_allocation().height/1.2)
 				else:
 					lineHeight = int(self.get_allocation().height/2)
 					
 					# Draw the bar number
 					context.set_source_rgb(*self._TEXT_RGB)
-					number = (beat / self.project.meter_nom)+1
+					number = (beat / beats_per_bar)+1
 					
 					# TODO: small hack to fix a problem with the numbers not being
 					#       properly centered
@@ -255,8 +265,8 @@ class TimeLine(gtk.DrawingArea):
 				context.stroke()
 					
 				beat += 1
-				
-				x += (60. / self.project.bpm) * self.project.viewScale
+
+				x += spacing
 		else:
 			# Working in milliseconds here. Using seconds gives modulus problems because they're floats
 			viewScale = self.project.viewScale / 1000.

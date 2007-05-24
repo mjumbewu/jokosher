@@ -241,10 +241,17 @@ class TransportManager(gobject.GObject):
 			tuple of the current position as (bar, beats, ticks).
 		"""
 		mins = self.position / 60.
-		beats = int(mins * self.project.bpm)
+		if self.project.meter_denom == 8 and (self.project.meter_nom % 3) == 0 and self.project.meter_nom != 3:
+			# Compound time
+			beats_per_bar = self.project.meter_nom / 3
+			beats = int(mins * self.project.bpm / 3)
+		else:
+			# Simple meter
+			beats_per_bar = self.project.meter_nom
+			beats = int(mins * self.project.bpm)
 		ticks = ((mins - (beats / float(self.project.bpm))) * self.project.bpm) * self.TICKS_PER_BEAT
-		bars = int(beats / self.project.meter_nom)
-		beats -= bars * self.project.meter_nom
+		bars = int(beats / beats_per_bar)
+		beats -= bars * beats_per_bar
 		return (bars+1, beats+1, ticks)
 		
 	#_____________________________________________________________________
