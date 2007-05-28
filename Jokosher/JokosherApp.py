@@ -708,7 +708,7 @@ class MainApp:
 			return False
 		else:
 			self.exportprogress.set_fraction(progress[0]/progress[1])
-			self.exportprogress.set_text(_("%(progress)d of %(total)d seconds completed") % {"progress":progress[0], "total":progress[1] } )
+			self.exportprogress.set_text(_("%(progress)d%% of %(total)d seconds completed") % {"progress":(progress[0]/progress[1]*100), "total":progress[1] } )
 			
 		return True
 	
