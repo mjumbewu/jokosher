@@ -117,7 +117,7 @@ class TimeLineBar(gtk.Frame):
 		self.alignment.add(self.headerhbox)
 		self.hbox.pack_start(self.alignment, False, False)
 		self.add(self.hbox)
-		self.headerhbox.connect("check-resize", self.projectview.Update)
+		self.headerhbox.connect("check-resize", self.projectview.ForceUpdateSize)
 		self.connect("size-allocate", self.OnAllocate)
 		self.hbox.pack_start(self.timeline)	
 

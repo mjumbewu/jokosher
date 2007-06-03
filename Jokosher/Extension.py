@@ -325,7 +325,6 @@ class ExtensionAPI:
 					#instr[0] is the default Instrument name
 					#instr[1] is the Instrument type
 					#instr[2] is the Instrument icon in the .instr file
-				self.mainapp.UpdateDisplay()
 				return newInstr.id
 		return -1
 	
@@ -354,7 +353,6 @@ class ExtensionAPI:
 			instrumentID -- ID of the Instrument to be removed.
 		"""
 		self.mainapp.project.DeleteInstrument(instrumentID)
-		self.mainapp.UpdateDisplay()
 		
 		#time for a Newfie Joke: 
 		#How many Newfies does it take to go ice fishing?

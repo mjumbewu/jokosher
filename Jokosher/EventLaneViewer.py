@@ -368,7 +368,6 @@ class EventLaneViewer(gtk.EventBox):
 			event -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		self.project.DeleteInstrument(self.instrument.id)
-		self.mainview.UpdateDisplay()
 	
 	#_____________________________________________________________________
 	

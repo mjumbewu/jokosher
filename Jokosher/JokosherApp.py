@@ -320,7 +320,6 @@ class MainApp:
 				else:
 					view.timelinebar.timeline.DrawLine()
 				self.window.show_all()
-				self.UpdateCurrentDisplay()
 
 	#_____________________________________________________________________
 	
@@ -769,33 +768,6 @@ class MainApp:
 			self.project.SetTransportMode(self.project.transport.MODE_HOURS_MINS_SECS)
 		
 	#_____________________________________________________________________
-	
-	def UpdateCurrentDisplay(self):
-		"""
-		Updates the current display, Recording or Mixing, depending on which one
-		is active.
-		"""
-		if self.mode == self.MODE_RECORDING:
-			self.recording.Update()
-		elif self.mode == self.MODE_COMPACT_MIX:
-			self.compactmix.Update()
-	
-	#_____________________________________________________________________
-	
-	def UpdateDisplay(self):
-		"""
-		Updates the current display, Recording or Mixing, depending on which one
-		is active. Additionally, when idle, it'll update the view hidden in the
-		background.
-		"""
-		if self.mode == self.MODE_RECORDING:
-			self.recording.Update()
-			gobject.idle_add(self.compactmix.Update)
-		elif self.mode == self.MODE_COMPACT_MIX:
-			self.compactmix.Update()
-			gobject.idle_add(self.recording.Update)
-		
-	#_____________________________________________________________________
 
 	def OnOpenProject(self, widget, destroyCallback=None):
 		"""
@@ -966,7 +938,6 @@ class MainApp:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		self.project.Undo()
-		self.UpdateDisplay()
 		
 	#_____________________________________________________________________
 	
@@ -978,7 +949,6 @@ class MainApp:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		self.project.Redo()
-		self.UpdateDisplay()
 
 	#_____________________________________________________________________
 	
@@ -1272,8 +1242,6 @@ class MainApp:
 					if cut:
 						#if we are cutting (as opposed to copying)
 						event.Delete()
-
-		self.UpdateDisplay()
 	
 	#______________________________________________________________________
 	
@@ -1306,8 +1274,6 @@ class MainApp:
 				for event in self.project.clipboardList:
 					instr.addEventFromEvent(0, event)
 				break
-		
-		self.UpdateDisplay()
 	
 	#______________________________________________________________________
 	
@@ -1339,14 +1305,11 @@ class MainApp:
 		if instrOrEventList:
 			self.project.DeleteInstrumentsOrEvents(instrOrEventList)
 	
-		self.UpdateDisplay()
-	
 	#______________________________________________________________________
 
 	def OnMouseDown(self, widget, mouse):
 		"""
-		If there's a project open, clears event and instrument selections. It also
-		updates the current display.
+		If there's a project open, clears event and instrument selections.
 		
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
@@ -1355,7 +1318,6 @@ class MainApp:
 		if self.project:
 			self.project.ClearEventSelections()
 			self.project.SelectInstrument(None)
-		self.UpdateCurrentDisplay()
 		
 	#______________________________________________________________________
 	
@@ -1865,8 +1827,6 @@ class MainApp:
 		
 		if instrList:
 			self.project.DeleteInstrumentsOrEvents(instrList)
-		
-		self.UpdateDisplay()
 	
 	#_____________________________________________________________________
 	
@@ -1933,7 +1893,6 @@ class MainApp:
 		#check if None in case the user click cancel on the dialog.
 		if filenames:
 			self.project.AddInstrumentAndEvents(filenames, copyfile)
-			self.UpdateDisplay()
 		
 	#_____________________________________________________________________
 

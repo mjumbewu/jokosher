@@ -130,7 +130,6 @@ class AddInstrumentDialog:
 			instrItem = [x for x in Globals.getCachedInstruments() if x[1] == item[1]][0]
 			self.instr.ChangeType(instrItem[1], instrItem[0])
 
-		self.parent.UpdateDisplay()
 		self.dlg.destroy()
 		
 	#_____________________________________________________________________

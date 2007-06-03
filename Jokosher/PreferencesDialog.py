@@ -211,8 +211,6 @@ class PreferencesDialog:
 			Globals.settings.general["startupaction"] = STARTUP_NOTHING
 			
 		Globals.settings.write()
-		
-		self.mainwindow.UpdateDisplay()
 
 	#_____________________________________________________________________
 

@@ -149,13 +149,21 @@ class RecordingView(gtk.Frame):
 		self.connect("button_press_event", self.OnMouseDown)
 		self.connect("size-allocate", self.OnAllocate)
 		
+		#connect to the project signals
+		self.project.connect("instrument::added", self.OnInstrumentAdded)
+		self.project.connect("instrument::removed", self.OnInstrumentRemoved)
+		
 		self.vbox.drag_dest_set(	gtk.DEST_DEFAULT_DROP,
 									self.DRAG_TARGETS, 
 									gtk.gdk.ACTION_COPY)
 		self.vbox.connect("drag_data_received", self.OnDragDataReceived)
 		self.vbox.connect("drag_motion", self.OnDragMotion)
 		
-		self.Update()
+		#add the instruments that were loaded from the project file already
+		for instr in self.project.instruments:
+			self.OnInstrumentAdded(project, instr)
+			
+		self.show_all()
 	#_____________________________________________________________________
 
 	def OnExpose(self, widget, event):
@@ -225,75 +233,61 @@ class RecordingView(gtk.Frame):
 		
 	#_____________________________________________________________________
 	
-
-	def Update(self):
+	def OnInstrumentAdded(self, project, instrument):
 		"""
-		Updates the GUI to reflect changes on the instruments, timeline and
-		scrollbars.
+		Callback for when an instrument is added to the project.
 		
-		Considerations:
-			InstrumentViews MUST have the order that the instruments have in
-			Project.instruments, to keep the drag and drop of InstrumentViews
-			consistent.
+		Parameters:
+			project -- The project that the instrument was added to.
+			instrument -- The instrument that was added.
 		"""
-		children = self.instrumentBox.get_children()
-		orderCounter = 0
-		for instr in self.project.instruments:
-			#Find the InstrumentView that matches instr:
-			iv = None
-			for ident, instrV in self.views:
-				if instrV.instrument is instr:
-					iv = instrV
-					break
-			#If there is no InstrumentView for instr, create one:
-			if not iv:
-				iv = InstrumentViewer.InstrumentViewer(self.project, instr, self, self.mainview, self.small)
-				# if this is mix view then add parent (CompactMixView) as listener
-				# otherwise add self
-				if self.mixView:
-					self.mixView.ConnectToInstrument(instr)
-				
-				#Add it to the views
-				self.views.append((instr.id, iv))
-				iv.headerAlign.connect("size-allocate", self.UpdateSize)
+		instrViewer = InstrumentViewer.InstrumentViewer(project, instrument, self, self.mainview, self.small)
+		# if this is mix view then add parent (CompactMixView) as listener
+		if self.mixView:
+			self.mixView.ConnectToInstrument(instrument)
 			
-			if iv not in children:
-				#Add the InstrumentView to the VBox
-				self.instrumentBox.pack_start(iv, False, False)
-			else:
-				#If the InstrumentView has already been added, just move it
-				self.instrumentBox.reorder_child(iv, orderCounter)
+		#Add it to the views
+		self.views.append((instrument.id, instrViewer))
+		instrViewer.headerAlign.connect("size-allocate", self.UpdateSize)
+		
+		self.instrumentBox.pack_start(instrViewer, False, False)
+		instrViewer.show_all()
+		
+		self.ForceUpdateSize()
+	
+	#_____________________________________________________________________
+	
+	def OnInstrumentRemoved(self, project, instrument):
+		"""
+		Callback for when an instrument is removed from the project.
+		
+		Parameters:
+			project -- The project that the instrument was removed from.
+			instrument -- The instrument that was removed.
+		"""
+		for ID, instrViewer in self.views:
+			if ID == instrument.id:
+				if instrViewer.parent:
+					self.instrumentBox.remove(instrViewer)
+				instrViewer.Destroy()
+				self.views.remove((ID, instrViewer))
+				break
 				
-			#Make sure the InstrumentView is visible:
-			iv.show()
-			
-			orderCounter += 1
-		
-		removeList = []
-		#self.views is up to date now
-		for ident, iv in self.views:
-			#check if instrument has been deleted
-			if not iv.instrument in self.project.instruments:
-				if iv in children:
-					self.instrumentBox.remove(iv)
-				iv.Destroy()
-				removeList.append((ident, iv))
-			else:
-				iv.Update() #Update non-deleted instruments
-		
-		#remove all the unused ones so the garbage collector can clean then up
-		for tuple_ in removeList:
-			self.views.remove(tuple_)
-		del removeList
-		
-		if len(self.views) > 0:
+		self.ForceUpdateSize()
+	
+	#_____________________________________________________________________
+	
+	def ForceUpdateSize(self):
+		"""
+		Force and update of a header size to match the size of the first instrument viewer.
+		"""
+		if self.views:
 			self.UpdateSize(None, self.views[0][1].headerAlign.get_allocation())
 		else:
 			self.UpdateSize(None, None)
-		self.show_all()
 	
 	#_____________________________________________________________________
-		
+	
 	def UpdateSize(self, widget=None, size=None):
 		"""
 		Called during update() to re-align the timeline and scrollbars

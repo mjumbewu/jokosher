@@ -70,7 +70,9 @@ class CompactMixView(gtk.Frame):
 		toollab.add(lab)
 		toollab.set_is_important(True)
 		self.instrbar.insert(toollab, 0)
-		
+	
+	#_____________________________________________________________________
+	
 	def Update(self):
 		"""
 		Updates the mix view when requested by signal from project or __init__
@@ -84,7 +86,6 @@ class CompactMixView(gtk.Frame):
 			return
 		
 		self.Updating = True
-		self.projectview.Update()
 		
 		# remove all the mixer strips and then add the visible ones
 		for strip in self.hbox.get_children():

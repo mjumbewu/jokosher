@@ -52,7 +52,7 @@ class Project(gobject.GObject):
 			"audio-state::export-stop" -- The export to a file has completed.
 		"bpm" -- The beats per minute value was changed.
 		"gst-bus-error" -- An error message was posted to the pipeline. Two strings are also send with the error details.
-		"instrument" -- The instruments for this project have changed. The instrument ID will be passed as a parameter. See below:
+		"instrument" -- The instruments for this project have changed. The instrument instance will be passed as a parameter. See below:
 			"instrument::added" -- An instrument was added to this project.
 			"instrument::removed" -- An instrument was removed from this project.
 			"instrument::reordered" -- The order of the instruments for this project changed.
@@ -67,7 +67,7 @@ class Project(gobject.GObject):
 		"audio-state"		: ( gobject.SIGNAL_RUN_LAST | gobject.SIGNAL_DETAILED, gobject.TYPE_NONE, () ),
 		"bpm"			: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () ),
 		"gst-bus-error"	: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, (gobject.TYPE_STRING, gobject.TYPE_STRING) ),
-		"instrument"		: ( gobject.SIGNAL_RUN_LAST | gobject.SIGNAL_DETAILED, gobject.TYPE_NONE, (gobject.TYPE_INT,) ),
+		"instrument"		: ( gobject.SIGNAL_RUN_LAST | gobject.SIGNAL_DETAILED, gobject.TYPE_NONE, (gobject.TYPE_PYOBJECT,) ),
 		"time-signature"	: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () ),
 		"undo"			: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () ),
 		"view-start"		: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () ),
@@ -954,7 +954,7 @@ class Project(gobject.GObject):
 		self.temp = instr.id
 		self.instruments.append(instr)
 		
-		self.emit("instrument::added", instr.id)
+		self.emit("instrument::added", instr)
 		return instr
 		
 	#_____________________________________________________________________	
@@ -989,7 +989,7 @@ class Project(gobject.GObject):
 			event.StopGenerateWaveform(False)
 			
 		self.temp = id
-		self.emit("instrument::removed", id)
+		self.emit("instrument::removed", instr)
 	
 	#_____________________________________________________________________
 	
@@ -1017,7 +1017,7 @@ class Project(gobject.GObject):
 		instr.isVisible = True
 		self.graveyard.remove(instr)
 		self.temp = id
-		self.emit("instrument::added", id)
+		self.emit("instrument::added", instr)
 		
 	#_____________________________________________________________________
 	
@@ -1038,7 +1038,7 @@ class Project(gobject.GObject):
 		
 		self.instruments.remove(instr)
 		self.instruments.insert(position, instr)
-		self.emit("instrument::reordered", id)
+		self.emit("instrument::reordered", instr)
 	
 	#_____________________________________________________________________
 	
