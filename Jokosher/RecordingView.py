@@ -430,7 +430,6 @@ class RecordingView(gtk.Frame):
 			return True
 		self.project.ClearEventSelections()
 		self.project.SelectInstrument(None)
-		self.Update()
 		
 	#_____________________________________________________________________
 	
@@ -473,7 +472,6 @@ class RecordingView(gtk.Frame):
 		self.project.AddInstrumentAndEvents(uris, True) # True: copy
 		
 		context.finish(True, False, time)
-		self.Update()
 		return True
 	
 	#_____________________________________________________________________

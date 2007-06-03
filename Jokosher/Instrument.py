@@ -815,6 +815,10 @@ class Instrument(gobject.GObject):
 		Parameters:
 			wasSolo --	True = the Instrument had solo mode enabled.
 						False = the Instrument was not in solo mode.
+						
+		Considerations:
+			The signal "mute" is not emitted here because it is emitted in
+			the OnMute() function.
 		"""
 		self.temp = self.isSolo
 		self.isMuted = not self.isMuted
@@ -828,8 +832,6 @@ class Instrument(gobject.GObject):
 			self.project.OnAllInstrumentsMute()
 		else:
 			self.OnMute()
-			
-		self.emit("mute")
 	
 	#_____________________________________________________________________
 	
@@ -898,6 +900,8 @@ class Instrument(gobject.GObject):
 			self.volumeElement.set_property("mute", True)
 		else:
 			self.volumeElement.set_property("mute", False)
+		
+		self.emit("mute")
 	
 	#_____________________________________________________________________
 	

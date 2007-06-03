@@ -64,6 +64,7 @@ class InstrumentViewer(gtk.EventBox):
 		self.mainview = mainview
 		self.instrument.connect("image", self.OnInstrumentImage)
 		self.instrument.connect("selected", self.OnInstrumentSelected)
+		
 		self.effectsDialog = None		#the instrument effects dialog (to make sure more than one is never opened)
 		
 		self.Updating = False
@@ -168,6 +169,14 @@ class InstrumentViewer(gtk.EventBox):
 			self.controlsBox.add(self.muteButton)
 			self.controlsBox.add(self.soloButton)
 			self.controlsBox.add(self.propsButton)
+			
+			self.instrument.connect("solo", self.OnInstrumentSolo)
+			self.instrument.connect("arm", self.OnInstrumentArm)
+			self.instrument.connect("mute", self.OnInstrumentMute)
+			
+			#initialize the images on the buttons
+			for i in (self.OnInstrumentArm, self.OnInstrumentMute, self.OnInstrumentSolo):
+				i(self.instrument)
 		else:
 			self.separator = gtk.HSeparator()
 			self.headerBox.pack_end(self.separator, False, True)
@@ -336,50 +345,11 @@ class InstrumentViewer(gtk.EventBox):
 		"""
 		self.Updating = True
 
-		if not self.small:
-			self.recButton.set_active(self.instrument.isArmed)
-			self.recTip.enable()
-			self.muteButton.set_active(self.instrument.actuallyIsMuted)
-			self.soloButton.set_active(self.instrument.isSolo)
-			self.soloTip.enable()
-
-			# update the mute button image and tooltip
-			image = gtk.Image()
-			if self.instrument.actuallyIsMuted:
-				image.set_from_pixbuf(self.muteImgEnabled)
-				self.muteButton.set_image(image)
-				self.muteTip.set_tip(self.muteButton, self.muteTipEnabled, None)
-			else:
-				image.set_from_pixbuf(self.muteImgDisabled)
-				self.muteButton.set_image(image)
-				self.muteTip.set_tip(self.muteButton, self.muteTipDisabled, None)
-			
-			# update the arm button image and tooltip	
-			image = gtk.Image()
-			if self.instrument.isArmed:
-				image.set_from_pixbuf(self.recImgEnabled)
-				self.recButton.set_image(image)
-				self.recTip.set_tip(self.recButton, self.recTipEnabled, None)
-			else:
-				image.set_from_pixbuf(self.recImgDisabled)
-				self.recButton.set_image(image)
-				self.recTip.set_tip(self.recButton, self.recTipDisabled, None)
-				
-			# update the solo button image and tooltip
-			image = gtk.Image()
-			if self.instrument.isSolo:
-				image.set_from_pixbuf(self.soloImgEnabled)
-				self.soloButton.set_image(image)
-				self.soloTip.set_tip(self.soloButton, self.soloTipEnabled, None)
-			else:
-				image.set_from_pixbuf(self.soloImgDisabled)
-				self.soloButton.set_image(image)
-				self.soloTip.set_tip(self.soloButton, self.soloTipDisabled, None)
-
 		self.instrlabel.set_text(self.instrument.name)
 		if self.editlabelPacked:
 			self.OnAcceptEditLabel()
 		self.eventLane.Update()
+		
 		self.Updating = False
 
 	#______________________________________________________________________
@@ -408,6 +378,80 @@ class InstrumentViewer(gtk.EventBox):
 			self.eventLane.modify_bg(gtk.STATE_NORMAL, self.UNSELECTED_COLOUR)
 	
 	#______________________________________________________________________
+	
+	def OnInstrumentSolo(self, instrument=None):
+		"""
+		Callback for when the instrument's solo status changes.
+		
+		Parameters:
+			instrument -- the instrument instance that send the signal.
+		"""
+		self.Updating = True
+		self.soloButton.set_active(self.instrument.isSolo)
+		self.Updating = False
+		self.soloTip.enable()
+		
+		# update the solo button image and tooltip
+		image = gtk.Image()
+		if self.instrument.isSolo:
+			image.set_from_pixbuf(self.soloImgEnabled)
+			self.soloButton.set_image(image)
+			self.soloTip.set_tip(self.soloButton, self.soloTipEnabled, None)
+		else:
+			image.set_from_pixbuf(self.soloImgDisabled)
+			self.soloButton.set_image(image)
+			self.soloTip.set_tip(self.soloButton, self.soloTipDisabled, None)
+
+	#_____________________________________________________________________
+	
+	def OnInstrumentArm(self, instrument=None):
+		"""
+		Callback for when the instrument's armed status changes.
+		
+		Parameters:
+			instrument -- the instrument instance that send the signal.
+		"""
+		self.Updating = True
+		self.recButton.set_active(self.instrument.isArmed)
+		self.Updating = False
+		self.recTip.enable()
+		
+		# update the arm button image and tooltip	
+		image = gtk.Image()
+		if self.instrument.isArmed:
+			image.set_from_pixbuf(self.recImgEnabled)
+			self.recButton.set_image(image)
+			self.recTip.set_tip(self.recButton, self.recTipEnabled, None)
+		else:
+			image.set_from_pixbuf(self.recImgDisabled)
+			self.recButton.set_image(image)
+			self.recTip.set_tip(self.recButton, self.recTipDisabled, None)
+	
+	#_____________________________________________________________________
+	
+	def OnInstrumentMute(self, instrument=None):
+		"""
+		Callback for when the instrument's muted status changes.
+		
+		Parameters:
+			instrument -- the instrument instance that send the signal.
+		"""
+		self.Updating = True
+		self.muteButton.set_active(self.instrument.actuallyIsMuted)
+		self.Updating = False
+		
+		# update the mute button image and tooltip
+		image = gtk.Image()
+		if self.instrument.actuallyIsMuted:
+			image.set_from_pixbuf(self.muteImgEnabled)
+			self.muteButton.set_image(image)
+			self.muteTip.set_tip(self.muteButton, self.muteTipEnabled, None)
+		else:
+			image.set_from_pixbuf(self.muteImgDisabled)
+			self.muteButton.set_image(image)
+			self.muteTip.set_tip(self.muteButton, self.muteTipDisabled, None)
+		
+	#_____________________________________________________________________
 
 	def OnMouseMove(self, widget, event):
 		"""
