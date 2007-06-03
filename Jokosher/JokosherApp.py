@@ -1068,8 +1068,7 @@ class MainApp:
 		introstring = _("Argh! Something went wrong and a serious error occurred:")
 		outrostring = _("It is recommended that you report this to the Jokosher developers or get help at http://www.jokosher.org/forums/")
 	
-		outputtext = "\n\n".join(extra)
-		outputtext = "\n\n".join((introstring, outputtext, outrostring))
+		outputtext = "\n\n".join((introstring, error, details, outrostring))
 		
 		dlg = gtk.MessageDialog(self.window,
 			gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
