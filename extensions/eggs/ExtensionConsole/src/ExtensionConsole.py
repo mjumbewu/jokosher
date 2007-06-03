@@ -52,6 +52,7 @@ class ExtensionConsole:
 		
 		self.swin.add(self.console)
 		self.window.set_default_size(500, 400)
+		self.window.connect("delete_event", self.OnClose)
 		self.window.hide()
 
 	#_____________________________________________________________________
@@ -74,6 +75,20 @@ class ExtensionConsole:
 		
 		self.window.show_all()
 	
+	#_____________________________________________________________________
+	
+	def OnClose(self, window, event):
+		"""
+		Called when the user clicks on this extension's menu item.
+		
+		Parameters:
+			window -- reserved for GTK callbacks. Don't use it explicitly.
+			event -- reserved for GTK callbacks. Don't use it explicitly.
+		"""
+		
+		self.window.hide()
+		return True
+		
 	#_____________________________________________________________________
 
 #=========================================================================
