@@ -496,6 +496,7 @@ class Instrument(gobject.GObject):
 		event.file = "%s_%d_%d.ogg" % (os.path.join(self.path, Globals.FAT32SafeFilename(self.name)), self.id, int(time.time()))
 		#must add it to the instrument's list so that an update of the event lane will not remove the widget
 		self.events.append(event)
+		self.emit("event::added", event.id)
 		return event
 
 	#_____________________________________________________________________
