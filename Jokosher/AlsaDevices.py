@@ -45,6 +45,8 @@ def GetAlsaList(type):
 		cardnum = "hw:" + str(properties["alsa.card"]) #FIXME: This may cause problems with plughw devices
 		if "alsa.device_id" in properties:
 			name = properties["alsa.device_id"]
+		elif "alsa.card_id" in properties:
+			name = properties["alsa.card_id"]
 		else:
 			name = cardnum
 		#Avoid duplicate entries
@@ -52,38 +54,6 @@ def GetAlsaList(type):
 			found[cardnum] = name
 		
 	return found
-
-#_____________________________________________________________________
-
-def GetRecordingMixers(device):
-	"""
-	Looks for channels enabled for recording.
-
-	Parameters:
-		device -- ALSA device (i.e. hw:0) to poll for values.
-		
-	Returns:
-		a list containing all the channels which have recording enabled.
-	"""
-	recmixers = []
-	alsamixer = gst.element_factory_make('alsamixer')
-	alsamixer.set_property('device', device)
-	alsamixer.set_state(gst.STATE_PAUSED)
-	
-	if alsamixer.implements_interface(gst.interfaces.Mixer):
-		for track in alsamixer.list_tracks():
-			#Check for recordinging status
-			if track.flags & gst.interfaces.MIXER_TRACK_INPUT and track.flags & gst.interfaces.MIXER_TRACK_RECORD:
-				# Ignore 'Capture' channel due to it being a requirement for recording on most low-end cards
-				if (track.label != 'Capture'): #FIXME: Can't use the word "Capture" explicitly, this string gets translated in non-english locales
-					recmixers.append(track)
-	else:
-		Globals.debug('Could not get the mixer for ALSA device %s, check your permissions' % device) #TODO: Raise an exception here and have a GUI dialog displayed
-		recmixers = []
-	
-	alsamixer.set_state(gst.STATE_NULL)
-	
-	return recmixers
 
 #_____________________________________________________________________
 
