@@ -62,15 +62,15 @@ class InstrumentViewer(gtk.EventBox):
 		self.small = small
 		self.projectview = projectview
 		self.mainview = mainview
-		self.instrument.connect("image", self.OnInstrumentImage)
-		self.instrument.connect("selected", self.OnInstrumentSelected)
 		
 		self.effectsDialog = None		#the instrument effects dialog (to make sure more than one is never opened)
 		
 		self.Updating = False
 		
 		#get the default colour for the current theme
-		self.UNSELECTED_COLOR = self.get_style().bg[0]
+		self.UNSELECTED_COLOR = self.rc_get_style().bg[gtk.STATE_NORMAL]
+		#use base instead of bg colours so that we get the lighter colour that is used for list items in TreeView.
+		self.SELECTED_COLOUR = self.rc_get_style().base[gtk.STATE_SELECTED]
 		
 		self.mainBox = gtk.HBox()
 		self.add(self.mainBox)
@@ -195,9 +195,12 @@ class InstrumentViewer(gtk.EventBox):
 		self.headerEventBox.connect('drag_drop', self.OnDragDrop)
 		self.headerEventBox.connect('drag_end', self.OnDragEnd)
 		
+		self.instrument.connect("name", self.OnInstrumentName)
+		self.instrument.connect("image", self.OnInstrumentImage)
+		self.instrument.connect("selected", self.OnInstrumentSelected)
+		
 		#set the appropriate colour if the instrument it already selected.
 		self.OnInstrumentSelected()
-		self.Update()
 
 	#_____________________________________________________________________
 
@@ -338,23 +341,6 @@ class InstrumentViewer(gtk.EventBox):
 	
 	#_____________________________________________________________________
 	
-	def Update(self):
-		"""
-		Called when requested by projectview.Update() to update	the display,
-		in response to a change in state in any object is it listening to.
-		In turn calls EventLaneViewer.Update() for its EventLaneViewer.
-		"""
-		self.Updating = True
-
-		self.instrlabel.set_text(self.instrument.name)
-		if self.editlabelPacked:
-			self.OnAcceptEditLabel()
-		self.eventLane.Update()
-		
-		self.Updating = False
-
-	#______________________________________________________________________
-	
 	def OnInstrumentSelected(self, instrument=None):
 		"""
 		Callback for when the instrument's selected status changes.
@@ -363,10 +349,6 @@ class InstrumentViewer(gtk.EventBox):
 			instrument -- the instrument instance that send the signal.
 		"""
 		if self.instrument.isSelected:
-			#For some reason, putting self.style.base[3] in __init__ makes it return the wrong colour.
-			# This is probably because the widget is not realised yet.
-			self.SELECTED_COLOUR = self.get_style().base[3]
-			
 			self.modify_bg(gtk.STATE_NORMAL, self.SELECTED_COLOUR)
 			self.headerEventBox.modify_bg(gtk.STATE_NORMAL, self.SELECTED_COLOUR)
 			self.labeleventbox.modify_bg(gtk.STATE_NORMAL, self.SELECTED_COLOUR)
@@ -454,6 +436,17 @@ class InstrumentViewer(gtk.EventBox):
 		
 	#_____________________________________________________________________
 
+	def OnInstrumentName(self, instrument=None):
+		"""
+		Callback for when the instrument's name changes.
+		
+		Parameters:
+			instrument -- the instrument instance that send the signal.
+		"""
+		self.instrlabel.set_text(self.instrument.name)
+	
+	#_____________________________________________________________________
+	
 	def OnMouseMove(self, widget, event):
 		"""
 		Called when the mouse cursor enters or leaves the instrument name label area.
