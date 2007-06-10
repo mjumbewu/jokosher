@@ -242,10 +242,7 @@ class RecordingView(gtk.Frame):
 			instrument -- The instrument that was added.
 		"""
 		instrViewer = InstrumentViewer.InstrumentViewer(project, instrument, self, self.mainview, self.small)
-		# if this is mix view then add parent (CompactMixView) as listener
-		if self.mixView:
-			self.mixView.ConnectToInstrument(instrument)
-			
+		
 		#Add it to the views
 		self.views.append((instrument.id, instrViewer))
 		instrViewer.headerAlign.connect("size-allocate", self.UpdateSize)

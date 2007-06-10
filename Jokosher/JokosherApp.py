@@ -1364,7 +1364,6 @@ class MainApp:
 			self.tvtoolitem.add(self.timeview)
 			self.wTree.get_widget("MainToolbar").insert(self.tvtoolitem, -1)
 			
-			self.compactmix.Update()
 			self.OnRecordingView()
 			
 		else:

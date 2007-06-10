@@ -39,10 +39,11 @@ class CompactMixView(gtk.Frame):
 		gtk.Frame.__init__(self)
 		self.project = project
 		self.mainview = mainview
-		self.channels = []
+		self.mixerStripList = []
+		self.minimisedButtonList = []
 		self.lanes = []
 		self.Updating = False
-		self.CreateInstrBar()
+		self.CreateInstrumentBar()
 		
 		self.vbox = gtk.VBox()
 		self.add(self.vbox)
@@ -54,102 +55,32 @@ class CompactMixView(gtk.Frame):
 		self.vpaned.add(self.hbox)
 		
 		self.mastermixer = MasterMixerStrip(self.project, self, self.mainview)
+		self.hbox.pack_end(self.mastermixer, False, False)
 		
 		self.show_all()
 		self.UpdateTimeout = False
-		self.Update()
+		
+		self.project.connect("instrument::added", self.OnInstrumentAdded)
+		self.project.connect("instrument::reordered", self.OnInstrumentReordered)
+		self.project.connect("instrument::removed", self.OnInstrumentRemoved)
+		
+		#initialize the instrument widgets
+		for instr in self.project.instruments:
+			self.OnInstrumentAdded(self.project, instr)
+		
 	#_____________________________________________________________________
 
-	def CreateInstrBar(self):
-		self.instrbar = gtk.Toolbar()
-		self.instrbar.set_show_arrow(True)
-		self.instrbar.set_style(gtk.TOOLBAR_BOTH_HORIZ)
+	def CreateInstrumentBar(self):
+		self.instrumentBar = gtk.Toolbar()
+		self.instrumentBar.set_show_arrow(True)
+		self.instrumentBar.set_style(gtk.TOOLBAR_BOTH_HORIZ)
 		toollab = gtk.ToolItem()
 		lab = gtk.Label()
 		lab.set_markup(_("<b>Instruments Not Shown:</b>"))
 		toollab.add(lab)
 		toollab.set_is_important(True)
-		self.instrbar.insert(toollab, 0)
+		self.instrumentBar.insert(toollab, 0)
 	
-	#_____________________________________________________________________
-	
-	def Update(self):
-		"""
-		Updates the mix view when requested by signal from project or __init__
-		
-		Returns:
-			False -- indicates the GTK signal to:
-					1) continue propagating the regular signal.
-					2) stop calling the callback on a timeout_add.
-		"""
-		if self.Updating:
-			return
-		
-		self.Updating = True
-		
-		# remove all the mixer strips and then add the visible ones
-		for strip in self.hbox.get_children():
-			self.hbox.remove(strip)
-		
-		for instr in self.project.instruments:
-			if instr.isVisible:
-				strip = None
-				for channel in self.channels:
-					if channel.instrument is instr:
-						strip = channel
-						strip.Update()
-						break
-				
-				if not strip:
-					strip = MixerStrip(self.project, instr, self, self.mainview)
-					strip.connect("minimise", self.OnMinimiseTrack, instr)
-					self.channels.append(strip)
-					
-				self.hbox.pack_start(strip, False, False)
-		
-		removeList = []
-		for strip in self.channels:
-			if not strip.instrument in self.project.instruments:
-				strip.Destroy()
-				removeList.append(strip)
-		for item in removeList:
-			self.channels.remove(item)
-		del removeList
-		
-		#Pack the master vuwidget  
-		self.hbox.pack_end(self.mastermixer, False, False)  			
-		
-		# Remove all minimized instruments from the toolbar
-		for child in self.instrbar.get_children()[1:]:
-			self.instrbar.remove(child)
-
-		# add the minimised instruments to the minimised bar
-		minimisedInstrs = [x for x in self.project.instruments if not x.isVisible]
-		for instr in minimisedInstrs:
-			toolbutt = gtk.ToolButton()
-			
-			imgsize = gtk.icon_size_lookup(gtk.ICON_SIZE_MENU)[0]
-			pixbuf = instr.pixbuf.scale_simple(imgsize, imgsize, gtk.gdk.INTERP_BILINEAR)
-			image = gtk.Image()
-			image.set_from_pixbuf(pixbuf)
-			
-			toolbutt.set_label(instr.name)
-			toolbutt.set_icon_widget(image)
-			toolbutt.set_is_important(True)
-			toolbutt.connect("clicked", self.OnMaximiseTrack, instr)
-			
-			self.instrbar.insert(toolbutt, -1)
-		
-		# Only show this toolbar if there is something minimized
-		if minimisedInstrs and not self.instrbar.parent:
-			self.vbox.pack_end(self.instrbar, False, True)
-		elif not minimisedInstrs and self.instrbar.parent:
-			self.vbox.remove(self.instrbar)
-		
-		self.show_all()
-		self.Updating = False
-		#for when being called from gobject thread
-		return False
 	#_____________________________________________________________________
 
 	def OnMinimiseTrack(self, widget, instr):
@@ -173,29 +104,118 @@ class CompactMixView(gtk.Frame):
 			instr -- the Instrument to be shown.
 		"""
 		instr.SetVisible(True)
+	
 	#_____________________________________________________________________
 	
-	def OnInstrumentSignal(self, instrument, extra=None):
+	def OnInstrumentVisible(self, instrument):
 		"""
-		Callback for when a signal is emitted by instrument.
+		Callback for when the visible status of an instrument changes.
 		
 		Parameters:
 			instrument -- the instrument instance that send the signal.
-			extra -- extra parameters passed by the caller.
 		"""
-		self.Update()
+		
+		visib = instrument.isVisible
+		for strip in self.mixerStripList:
+			if not strip.instrument is instrument:
+				continue
+			
+			if visib and not strip.parent:
+				self.hbox.pack_start(strip, False, False)
+				strip.show_all()
+			elif not visib and strip.parent:
+				self.hbox.remove(strip)
+			
+			break
+		
+		for instr, toolButton in self.minimisedButtonList:
+			if not instr is instrument:
+				continue
+				
+			if not visib and not toolButton.parent:
+				self.instrumentBar.insert(toolButton, -1)
+				toolButton.show_all()
+			elif visib and toolButton.parent:
+				self.instrumentBar.remove(toolButton)
+			
+			break
+		
+		# Only show the instrument bar if there is something minimized
+		minimisedInstrs = [x for x in self.project.instruments if not x.isVisible]
+		if minimisedInstrs and not self.instrumentBar.parent:
+			self.vbox.pack_end(self.instrumentBar, False, True)
+			self.instrumentBar.show_all()
+		elif not minimisedInstrs and self.instrumentBar.parent:
+			self.vbox.remove(self.instrumentBar)
 		
 	#_____________________________________________________________________
 	
-	def ConnectToInstrument(self, instrument):
+	def OnInstrumentAdded(self, project, instrument):
 		"""
-		Connect the signal handlers in this class to the signals
-		emitted by the given instrument instance.
+		Callback for when an instrument is added to the project.
 		
 		Parameters:
-			instrument -- the instrument instance to connect to.
+			project -- The project that the instrument was added to.
+			instrument -- The instrument that was added.
 		"""
-		instrument.connect("visible", self.OnInstrumentSignal)
+		
+		strip = MixerStrip(self.project, instrument, self, self.mainview)
+		strip.connect("minimise", self.OnMinimiseTrack, instrument)
+		self.mixerStripList.append(strip)
+		
+		#create the toolbar button that will be shown when the instrument is minimised
+		imgsize = gtk.icon_size_lookup(gtk.ICON_SIZE_MENU)[0]
+		pixbuf = instrument.pixbuf.scale_simple(imgsize, imgsize, gtk.gdk.INTERP_BILINEAR)
+		image = gtk.Image()
+		image.set_from_pixbuf(pixbuf)
+		toolButton = gtk.ToolButton()
+		toolButton.set_label(instrument.name)
+		toolButton.set_icon_widget(image)
+		toolButton.set_is_important(True)
+		toolButton.connect("clicked", self.OnMaximiseTrack, instrument)
+		
+		self.minimisedButtonList.append( (instrument, toolButton) )
+		
+		instrument.connect("visible", self.OnInstrumentVisible)
+		#check if the instrument is currently visible and show the widgets
+		self.OnInstrumentVisible(instrument)
+	
+	#_____________________________________________________________________
+	
+	def OnInstrumentRemoved(self, project, instrument):
+		"""
+		Callback for when an instrument is removed from the project.
+		
+		Parameters:
+			project -- The project that the instrument was removed from.
+			instrument -- The instrument that was removed.
+		"""
+		
+		for strip in self.mixerStripList:
+			if strip.instrument is instrument:
+				if strip.parent:
+					self.hbox.remove(strip)
+				strip.Destroy()
+				self.mixerStripList.remove(item)
+				break
+				
+		for instr, toolButton in self.minimisedButtonList:
+			if instr is instrument:
+				if toolButton.parent:
+					self.instrumentBar.remove(toolButton)
+				self.minimisedButtonList.remove( (instr, toolButton) )
+				break
+	
+	#_____________________________________________________________________
+	
+	def OnInstrumentReordered(self, project, instrument):
+		"""
+		Callback for when an instrument's position in the project has changed.
+		
+		Parameters:
+			project -- The project that the instrument was changed on.
+			instrument -- The instrument that was reordered.
+		"""
 	
 	#_____________________________________________________________________
 	
@@ -211,7 +231,7 @@ class CompactMixView(gtk.Frame):
 			self.mastermixer.vu.queue_draw()
 			
 			# redraw VU widgets for each instrument
-			for mix in self.channels:
+			for mix in self.mixerStripList:
 				mix.vu.queue_draw()
 			
 			return True
@@ -219,6 +239,7 @@ class CompactMixView(gtk.Frame):
 			# kill timeout when playback has stopped
 			self.UpdateTimeout = False
 			return False
+	
 	#_____________________________________________________________________
 		
 	def StartUpdateTimeout(self):
