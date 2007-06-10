@@ -193,6 +193,7 @@ class InstrumentViewer(gtk.EventBox):
 		# Connect to drag_begin to add a custom icon
 		self.headerEventBox.connect('drag_begin', self.OnDragBegin)
 		self.headerEventBox.connect('drag_drop', self.OnDragDrop)
+		self.headerEventBox.connect('drag_end', self.OnDragEnd)
 		
 		#set the appropriate colour if the instrument it already selected.
 		self.OnInstrumentSelected()
@@ -569,7 +570,36 @@ class InstrumentViewer(gtk.EventBox):
 	def OnDragDrop(self, widget, context, x, y, time):
 		"""
 		Called when the user releases MOUSE1, finishing a drag and drop
-		procedure.
+		procedure. This callback will only be called if the drag is dropped
+		on a widget that can handle the drop event. Otherwise only the
+		"drag_end" signal will be emitted, This is why the MoveInstrument()
+		function is called in OnDragEnd().
+			
+		Parameters:
+			widget -- InstrumentViewer being dragged.
+			context -- reserved for GTK callbacks, don't use it explicitly.
+			x -- reserved for GTK callbacks, don't use it explicitly.
+			y -- reserved for GTK callbacks, don't use it explicitly.
+			time -- reserved for GTK callbacks, don't use it explicitly.
+		"""
+		box = self.GetInstrumentViewVBox()
+		position = box.get_children().index(self)
+		
+		if self.project.instruments.index(self.instrument) == position:
+			#there is no change in position
+			context.finish(False, False, time)
+		else:
+			context.finish(True, False, time)
+	
+	#______________________________________________________________________
+	
+	def OnDragEnd(self, widget, context):
+		"""
+		Called when the user releases MOUSE1, finishing a drag and drop
+		procedure. This callback will only be called if the drag is dropped
+		on a widget that can handle the drop event. Otherwise only the
+		"drag_end" signal will be emitted, This is why the MoveInstrument()
+		function is called in OnDragEnd().
 		Calls MoveInstrument, which moves the dragged instrument to
 		the end position in the self.project.instruments array.
 		
@@ -583,17 +613,15 @@ class InstrumentViewer(gtk.EventBox):
 			y -- reserved for GTK callbacks, don't use it explicitly.
 			time -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-		id = self.instrument.id
+		
 		box = self.GetInstrumentViewVBox()
 		position = box.get_children().index(self)
 		
-		if self.project.instruments.index(self.instrument) == position:
-			#there is no change in position
-			return
+		if self.project.instruments.index(self.instrument) != position:
+			#there was a change in position
+			id = self.instrument.id
+			self.project.MoveInstrument(id, position)
 		
-		self.project.MoveInstrument(id, position)
-		context.finish(True, False, time)
-	
 	#______________________________________________________________________
 
 	def GetInstrumentViewVBox(self):

@@ -151,6 +151,7 @@ class RecordingView(gtk.Frame):
 		
 		#connect to the project signals
 		self.project.connect("instrument::added", self.OnInstrumentAdded)
+		self.project.connect("instrument::reordered", self.OnInstrumentReordered)
 		self.project.connect("instrument::removed", self.OnInstrumentRemoved)
 		
 		self.vbox.drag_dest_set(	gtk.DEST_DEFAULT_DROP,
@@ -271,6 +272,25 @@ class RecordingView(gtk.Frame):
 				break
 				
 		self.ForceUpdateSize()
+	
+	#_____________________________________________________________________
+	
+	def OnInstrumentReordered(self, project, instrument):
+		"""
+		Callback for when an instrument's position in the project has changed.
+		
+		Parameters:
+			project -- The project that the instrument was changed on.
+			instrument -- The instrument that was reordered.
+		"""
+		for ID, instrViewer in self.views:
+			if ID == instrument.id:
+				if instrViewer.parent:
+					pos = self.project.instruments.index(instrument)
+					self.instrumentBox.reorder_child(instrViewer, pos)
+					instrViewer.show_all()
+				break
+		
 	
 	#_____________________________________________________________________
 	

@@ -216,7 +216,17 @@ class CompactMixView(gtk.Frame):
 			project -- The project that the instrument was changed on.
 			instrument -- The instrument that was reordered.
 		"""
-	
+		if not instrument.isVisible:
+			return
+		
+		visibleInstrs = [x for x in self.project.instruments if x.isVisible]
+		for strip in self.mixerStripList:
+			if strip.instrument is instrument:
+				if strip.parent:
+					pos = visibleInstrs.index(instrument)
+					self.hbox.reorder_child(strip, pos + 1)
+				break
+		
 	#_____________________________________________________________________
 	
 	def OnUpdateTimeout(self):
