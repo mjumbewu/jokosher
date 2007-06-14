@@ -10,6 +10,7 @@ import Jokosher.Extension
 import pyconsole
 import pango
 import gtk
+import sys
 
 #=========================================================================
 
@@ -32,6 +33,9 @@ class ExtensionConsole:
 		"""
 		self.api = api
 		self.menuItem = self.api.add_menu_item("Extension Console", self.OnMenuItemClick)
+		
+		self.savedStdin = sys.stdin
+		sys.stdin = StdinWrapper()
 		
 		#the default namespace for the console
 		self.namespace = {
@@ -62,6 +66,7 @@ class ExtensionConsole:
 		Destroys any object created by the extension when it is disabled.
 		"""
 		self.window.destroy()
+		sys.stdin = self.savedStdin
 
 	#_____________________________________________________________________
 	
@@ -90,5 +95,20 @@ class ExtensionConsole:
 		return True
 		
 	#_____________________________________________________________________
+
+#=========================================================================
+
+class StdinWrapper:
+	alreadyRead = False
+	ERROR_STRING = "Jokosher does not allow reading from stdin.\n"
+	def read(self):
+		if self.alreadyRead:
+			self.alreadyRead = False
+			raise IOError(self.ERROR_STRING)
+		else:
+			self.alreadyRead = True
+			return self.ERROR_STRING
+	def readline(self):
+		return self.read()
 
 #=========================================================================
