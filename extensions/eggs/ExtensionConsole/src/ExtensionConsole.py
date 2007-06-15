@@ -99,16 +99,7 @@ class ExtensionConsole:
 #=========================================================================
 
 class StdinWrapper:
-	alreadyRead = False
-	ERROR_STRING = "Jokosher does not allow reading from stdin.\n"
-	def read(self):
-		if self.alreadyRead:
-			self.alreadyRead = False
-			raise IOError(self.ERROR_STRING)
-		else:
-			self.alreadyRead = True
-			return self.ERROR_STRING
-	def readline(self):
-		return self.read()
-
+	def __getattr__(self, attr):
+		raise pyconsole.StdinError
+		
 #=========================================================================

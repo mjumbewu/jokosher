@@ -43,6 +43,9 @@ import sys
 import keyword
 import re
 
+class StdinError(Exception):
+	pass
+
 # commonprefix() from posixpath
 def _commonprefix(m):
     "Given a list of pathnames, returns the longest common leading component"
@@ -513,6 +516,8 @@ class _Console(_ReadLine, code.InteractiveInterpreter):
             eval(code, self.locals)
         except SystemExit:
             raise
+        except StdinError:
+            self._stderr.write("Jokosher does not allow reading from stdin.\n")
         except:
             self.showtraceback()
 
