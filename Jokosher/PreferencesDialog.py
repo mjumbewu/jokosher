@@ -91,7 +91,7 @@ class PreferencesDialog:
 		sample_values = AlsaDevices.GetRecordingSampleRate()
 		i18nText = "%(sample rate)d Hz"
 		#add tuple of (display string, rate value)
-		self.sampleRateList = [("Autodetect", 0)]
+		self.sampleRateList = [( _("Autodetect"), 0)]
 		if type(sample_values) == int:
 			text = i18nText % {"sample rate" : sample_values}
 			self.sampleRateList.append( (text, sample_values) )
