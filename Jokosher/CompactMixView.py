@@ -196,7 +196,7 @@ class CompactMixView(gtk.Frame):
 				if strip.parent:
 					self.hbox.remove(strip)
 				strip.Destroy()
-				self.mixerStripList.remove(item)
+				self.mixerStripList.remove(strip)
 				break
 				
 		for instr, toolButton in self.minimisedButtonList:
