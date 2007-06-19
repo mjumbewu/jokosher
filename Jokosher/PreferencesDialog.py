@@ -89,40 +89,44 @@ class PreferencesDialog:
 			
 		#Get available sample rates from ALSA
 		sample_values = AlsaDevices.GetRecordingSampleRate()
-		sampleRateSetting = Globals.settings.recording["samplerate"]
-		sampleRateSettingIndex = 0
+		i18nText = "%(sample rate)d Hz"
+		#add tuple of (display string, rate value)
+		self.sampleRateList = [("Autodetect", 0)]
 		if type(sample_values) == int:
-			self.samplingRate.append_text("%d %s" % (sample_values, _("Hz")))
+			text = i18nText % {"sample rate" : sample_values}
+			self.sampleRateList.append( (text, sample_values) )
 		elif type(sample_values) == list:
 			for i, rate in enumerate (sample_values):
-				self.samplingRate.append_text("%d %s" % (rate, _("Hz")))
-				if str(rate) == sampleRateSetting:
-					sampleRateSettingIndex = i
-				
+				text = i18nText % {"sample rate" : rate}
+				self.sampleRateList.append( (text, rate) )
+		#check if it is an IntRange
 		elif hasattr(sample_values, "low") and hasattr(sample_values, "high"):
-			try:
-				#try to convert the setting string to an int
-				rate = int(sampleRateSetting)
-			except ValueError:
-				pass
-			else:
-				#since the card supports a range of samples rates, the saved preference
-				#might not be in Globals.SAMPLE_RATES
-				if rate not in Globals.SAMPLE_RATES:
-					if sample_values.low <= rate <= sample_values.high:
-						self.samplingRate.append_text("%d %s" % (rate, _("Hz")))
-
-			#add the rest of the default sample rates if they are within the supported range
-			index = 0
+			#add the default sample rates if they are within the supported range
 			for rate in Globals.SAMPLE_RATES:
 				if sample_values.low <= rate <= sample_values.high:
-					self.samplingRate.append_text("%d %s" % (rate, _("Hz")))
-					if str(rate) == sampleRateSetting:
-						sampleRateSettingIndex = index
-					index += 1
+					text = i18nText % {"sample rate" : rate}
+					self.sampleRateList.append( (text, rate) )
 					
+		sampleRateSetting = 0
+		sampleRateSettingIndex = 0
+		try:
+			#try to convert the setting string to an int
+			sampleRateSetting = int( Globals.settings.recording["samplerate"] )
+		except ValueError:
+			pass
+		else:
+			#if they have put in a custom preference which is not ordinarily detected, add it to the list
+			if rate not in [y for x,y in self.sampleRateList]:
+				text = i18nText % {"sample rate" : rate}
+				self.sampleRateList.append( (text, rate) )
+		
+		for text, value in self.sampleRateList:
+			self.samplingRate.append_text(text)
+			if value == sampleRateSetting:
+				sampleRateSettingIndex = self.sampleRateList.index( (text, value) )
 		self.samplingRate.set_active(sampleRateSettingIndex)
-
+		
+		
 		fileFormatSetting = Globals.settings.recording["fileformat"]
 		fileFormatSettingIndex = 0
 		#get all the encoders from Globals
@@ -199,7 +203,8 @@ class PreferencesDialog:
 		exportDict = Globals.EXPORT_FORMATS[self.recordingFileFormat.get_active()]
 		Globals.settings.recording["fileformat"] = exportDict["pipeline"]
 		#only get the number from "44100 Hz", not the whole string
-		Globals.settings.recording["samplerate"] = self.samplingRate.get_active_text().split(" ")[0]
+		sampleRateIndex = self.samplingRate.get_active()
+		Globals.settings.recording["samplerate"] = self.sampleRateList[sampleRateIndex][1]
 		Globals.settings.playback["device"] = self.playbackDevice.get_active_text()
 		Globals.settings.playback["devicecardnum"] = self.playbacks[self.playbackDevice.get_active()]
 		

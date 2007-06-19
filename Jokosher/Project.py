@@ -305,18 +305,27 @@ class Project(gobject.GObject):
 				src = gst.element_factory_make("alsasrc")
 				src.set_property("device", device)
 				
-				capsfilter = gst.element_factory_make("capsfilter")
-				capsString = "audio/x-raw-int,rate=%s" % Globals.settings.recording["samplerate"]
-				caps = gst.caps_from_string(capsString)
-				capsfilter.set_property("caps", caps)
+				capsfilter = None
+				sampleRate = Globals.settings.recording["samplerate"]
+				# 0 means for "autodetect", or more technically "don't use any caps".
+				if sampleRate > 0:
+					gst.element_factory_make("capsfilter")
+					capsString = "audio/x-raw-int,rate=%s" % sampleRate
+					caps = gst.caps_from_string(capsString)
+					capsfilter.set_property("caps", caps)
 				
 				split = gst.element_factory_make("chansplit")
 				
 				recordingbin.add(src)
-				recordingbin.add(capsfilter)
+				if capsfilter:
+					recordingbin.add(capsfilter)
 				recordingbin.add(split)
-				src.link(capsfilter)
-				capsfilter.link(split)
+				
+				if capsfilter:
+					src.link(capsfilter)
+					capsfilter.link(split)
+				else:
+					src.link(split)
 				
 				split.connect("pad-added", self.__RecordingPadAddedCb, recInstruments, recordingbin)
 				Globals.debug("Recording in multi-input mode")
@@ -327,8 +336,19 @@ class Project(gobject.GObject):
 				event = instr.GetRecordingEvent()
 				
 				encodeString = Globals.settings.recording["fileformat"]
-				capsString = "audio/x-raw-int,rate=%s" % Globals.settings.recording["samplerate"]
-				pipe = "alsasrc device=%s ! %s ! audioconvert ! level name=recordlevel interval=%d" +\
+				
+				sampleRate = 0
+				try:
+					sampleRate = int( Globals.settings.recording["samplerate"] )
+				except ValueError:
+					pass
+				# 0 means for "autodetect", or more technically "don't use any caps".
+				if sampleRate > 0:
+					capsString = "audio/x-raw-int,rate=%s ! audioconvert" % sampleRate
+				else:
+					capsString = "audioconvert"
+					
+				pipe = "alsasrc device=%s ! %s ! level name=recordlevel interval=%d" +\
 							" ! audioconvert ! %s ! filesink location=%s"
 				pipe %= (device, capsString, event.LEVEL_INTERVAL * gst.SECOND, encodeString, event.file.replace(" ", "\ "))
 				
