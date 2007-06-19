@@ -116,9 +116,9 @@ class PreferencesDialog:
 			pass
 		else:
 			#if they have put in a custom preference which is not ordinarily detected, add it to the list
-			if rate not in [y for x,y in self.sampleRateList]:
-				text = i18nText % {"sample rate" : rate}
-				self.sampleRateList.append( (text, rate) )
+			if sampleRateSetting not in [y for x,y in self.sampleRateList]:
+				text = i18nText % {"sample rate" : sampleRateSetting}
+				self.sampleRateList.append( (text, sampleRateSetting) )
 		
 		for text, value in self.sampleRateList:
 			self.samplingRate.append_text(text)
