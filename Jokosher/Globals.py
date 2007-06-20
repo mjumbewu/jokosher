@@ -37,7 +37,7 @@ class Settings:
 	
 	recording = {
 				"fileformat": "vorbisenc ! oggmux",
-				"samplerate": "44100"
+				"samplerate": "0" # zero means, autodetect sample rate (ie use any available)
 				}
 	
 	playback = 	{
