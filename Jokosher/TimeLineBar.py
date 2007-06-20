@@ -145,10 +145,8 @@ class TimeLineBar(gtk.Frame):
 		"""
 		if not self.Updating:
 			instrumentviews=[]
-			if self.mainview.recording:
-				instrumentviews+=self.mainview.recording.views
-			if self.mainview.compactmix:
-				instrumentviews+=self.mainview.compactmix.projectview.views
+			if self.mainview.workspace:
+				instrumentviews+=self.mainview.workspace.recordingView.views
 
 			self.Updating = True
 			maxwidth=self.headerhbox.size_request()[0]

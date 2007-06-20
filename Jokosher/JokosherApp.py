@@ -21,7 +21,7 @@ from subprocess import Popen
 import gettext
 _ = gettext.gettext
 
-import AddInstrumentDialog, TimeView, CompactMixView
+import AddInstrumentDialog, TimeView, Workspace
 import PreferencesDialog, ExtensionManagerDialog, RecordingView, NewProjectDialog
 import ProjectManager, Globals, WelcomeDialog, AlsaDevices
 import InstrumentConnectionsDialog, StatusBar
@@ -62,10 +62,10 @@ class MainApp:
 		self.recTipDisabled = _("Arm an instrument, then click here to begin recording")
 		self.recStopTipEnabled = _("Stop recording")
 		self.recStopTipDisabled = _("Stop playback")
-		self.recordingViewEnabledTip = _("Currently working in the Recording workspace")
-		self.recordingViewDisabledTip = _("Switch to the Recording workspace")
-		self.mixingViewEnabledTip = _("Currently working in the Mixing workspace")
-		self.mixingViewDisabledTip = _("Switch to the Mixing workspace")
+		self.recordingViewEnabledTip = _("Hide Recording workspace")
+		self.recordingViewDisabledTip = _("Show Recording workspace")
+		self.mixingViewEnabledTip = _("Hide Mixing workspace")
+		self.mixingViewDisabledTip = _("Show Mixing workspace")
 		
 		gtk.glade.bindtextdomain(Globals.LOCALE_APP, Globals.LOCALE_PATH)
 		gtk.glade.textdomain(Globals.LOCALE_APP)
@@ -156,11 +156,10 @@ class MainApp:
 		self.lastopenedproject = None
 		
 		self.project = None
-		self.recording = None
 		self.headerhbox = None
 		self.timeview = None
 		self.tvtoolitem = None #wrapper for putting timeview in toolbar
-		self.compactmix = None
+		self.workspace = None
 		self.instrNameEntry = None #the gtk.Entry when editing an instrument name
 		self.main_vbox = self.wTree.get_widget("main_vbox")
 		
@@ -170,7 +169,10 @@ class MainApp:
 		# Initialise some useful vars
 		self.mode = None
 		self.settingButtons = True
-		self.recordingButton.set_active(True)
+		if not self.recordingButton.get_active():
+			self.recordingButton.set_active(True)
+		if self.compactMixButton.get_active():
+			self.compactMixButton.set_active(False)
 		self.settingButtons = False
 		self.isRecording = False
 		self.isPlaying = False
@@ -280,47 +282,6 @@ class MainApp:
 		if self.project == None:
 			WelcomeDialog.WelcomeDialog(self)
 
-	#_____________________________________________________________________	
-
-	def OnChangeView(self, view, mode):
-		"""
-		Updates the state of the recording and the compact mix buttons. It also might 
-		need to force a redraw of the timeline when changing views as it may have been
-		zoomed or scrolled while hidden.
-		
-		Parameters:
-			view -- reference to the view the main window has changed to.
-			mode -- mode corresponding to the view the main window has changed to:
-					MainApp.MODE_RECORDING = recording view
-					MainApp.MODE_COMPACT_MIX = mixing view
-		"""
-		if not self.settingButtons:
-			self.settingButtons = True
-			self.recordingButton.set_active(mode == self.MODE_RECORDING)
-			self.compactMixButton.set_active(mode == self.MODE_COMPACT_MIX)
-			self.settingButtons = False
-			
-			if view:
-				children = self.main_vbox.get_children()
-				if self.recording in children:
-					self.main_vbox.remove(self.recording)
-					# synchronise scrollbars
-					self.compactmix.projectview.scrollRange.value = self.recording.scrollRange.value
-				elif self.compactmix in children:
-					self.main_vbox.remove(self.compactmix)
-					# synchronise scrollbars
-					self.recording.scrollRange.value = self.compactmix.projectview.scrollRange.value
-				
-				self.main_vbox.pack_end(view, True, True)
-				self.mode = mode
-				# need to force a redraw of timeline when changing
-				# views (may have been zoom or scroll while hidden)
-				if mode == self.MODE_COMPACT_MIX:
-					view.projectview.timelinebar.timeline.DrawLine()
-				else:
-					view.timelinebar.timeline.DrawLine()
-				self.window.show_all()
-
 	#_____________________________________________________________________
 	
 	def OnRecordingView(self, window=None):
@@ -330,10 +291,8 @@ class MainApp:
 		Parameters:
 			window -- Window object calling this method.
 		"""
-		if hasattr(self, "recording"):
-			self.OnChangeView(self.recording, self.MODE_RECORDING)
-			self.contextTooltips.set_tip(self.recordingButton, self.recordingViewEnabledTip, None)
-			self.contextTooltips.set_tip(self.compactMixButton, self.mixingViewDisabledTip, None)
+		if self.workspace:
+			self.workspace.ToggleRecording()
 
 	#_____________________________________________________________________
 	
@@ -344,10 +303,8 @@ class MainApp:
 		Parameters:
 			window -- Window object calling this method.
 		"""
-		if hasattr(self, "compactmix"):
-			self.OnChangeView(self.compactmix, self.MODE_COMPACT_MIX)
-			self.contextTooltips.set_tip(self.recordingButton, self.recordingViewDisabledTip, None)
-			self.contextTooltips.set_tip(self.compactMixButton, self.mixingViewEnabledTip, None)		
+		if self.workspace:
+			self.workspace.ToggleCompactMix()
 				
 	#_____________________________________________________________________
 	
@@ -967,7 +924,7 @@ class MainApp:
 		self.record.set_sensitive(not self.isPlaying)
 		
 		controls = (self.play, self.reverse, self.forward, self.editmenu, self.projectMenu, self.instrumentMenu, 
-				self.recording.timelinebar.headerhbox, self.compactmix.projectview.timelinebar.headerhbox, 
+				self.workspace.recordingView.timelinebar.headerhbox, 
 				self.addInstrumentButton, self.addAudioFileButton)
 		for widget in controls:
 			widget.set_sensitive(not self.isRecording)
@@ -985,7 +942,7 @@ class MainApp:
 			self.record.set_tooltip(self.contextTooltips, self.recTipDisabled, None)
 			self.stop.set_tooltip(self.contextTooltips, self.recStopTipDisabled, None)
 		
-		self.compactmix.StartUpdateTimeout()
+		self.workspace.mixView.StartUpdateTimeout()
 	
 	#_____________________________________________________________________
 	
@@ -1327,10 +1284,8 @@ class MainApp:
 		For example, buttons are enabled/disabled whether there's a project currently open or not. 
 		"""
 		children = self.main_vbox.get_children()
-		if self.recording in children:
-			self.main_vbox.remove(self.recording)
-		elif self.compactmix in children:
-			self.main_vbox.remove(self.compactmix)
+		if self.workspace in children:
+			self.main_vbox.remove(self.workspace)
 		
 		if self.headerhbox in children:
 			self.main_vbox.remove(self.headerhbox)
@@ -1349,43 +1304,47 @@ class MainApp:
 			for c in ctrls:
 				c.set_sensitive(True)
 			
+			
 			#set undo/redo if there is saved undo history
 			self.OnProjectUndo()
 				
 			# Create our custom widgets
 			self.timeview = TimeView.TimeView(self.project)
-			self.compactmix = CompactMixView.CompactMixView(self.project, self)
-			self.recording = RecordingView.RecordingView(self.project, self)
+			self.workspace = Workspace.Workspace(self.project, self)
 			
 			# Add them to the main window
-			self.main_vbox.pack_start(self.recording, True, True)
+			self.main_vbox.pack_start(self.workspace, True, True)
 			
 			self.tvtoolitem = gtk.ToolItem()
 			self.tvtoolitem.add(self.timeview)
 			self.wTree.get_widget("MainToolbar").insert(self.tvtoolitem, -1)
 			
-			self.OnRecordingView()
+			#reset toggle buttons
+			self.settingButtons = True
+			self.recordingButton.set_active(True)
+			self.compactMixButton.set_active(False)
+			self.settingButtons = False
 			
 		else:
+			#reset toggle buttons when the project is unloaded
+			self.settingButtons = True
+			if not self.recordingButton.get_active():
+				self.recordingButton.set_active(True)
+			if self.compactMixButton.get_active():
+				self.compactMixButton.set_active(False)
+			self.settingButtons = False
+
 			for c in ctrls:
 				c.set_sensitive(False)
 			
-			#untoggle all toggle buttons when the project is unloaded
-			self.settingButtons = True
-			for t in (self.recordingButton, self.compactMixButton):
-				t.set_active(False)
-			self.settingButtons = False
-				
+			
 			# Set window title with no project name
 			self.window.set_title(_('Jokosher'))
 			
 			# Destroy our custom widgets
-			if self.recording:
-				self.recording.destroy()
-				self.recording = None
-			if self.compactmix:
-				self.compactmix.destroy()
-				self.compactmix = None
+			if self.workspace:
+				self.workspace.destroy()
+				self.workspace = None
 			if self.tvtoolitem:
 				self.tvtoolitem.destroy()
 				self.tvtoolitem = None
@@ -1803,7 +1762,7 @@ class MainApp:
 				break
 		
 		if instrID != None:
-			for id, instrViewer in self.recording.views:
+			for id, instrViewer in self.workspace.recordingView.views:
 				if instrID == id:
 					instrViewer.eventLane.CreateEventFromFile()
 		

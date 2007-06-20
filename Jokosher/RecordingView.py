@@ -22,9 +22,6 @@ class RecordingView(gtk.Frame):
 	"""
 	This class encapsulates a visual layout of a project comprising
 	instrument tracks, timeline, and horizontal scrollbars.
-	Despite its name, it also appears under the mixing view contained
-	in a CompactMixView object, where it represents the same
-	information with shorter instrument tracks.
 	"""
 	
 	""" GTK widget name """
@@ -51,25 +48,19 @@ class RecordingView(gtk.Frame):
 
 	#_____________________________________________________________________
 
-	def __init__(self, project, mainview, mixView=None, small=False):
+	def __init__(self, project, mainview, small=False):
 		"""
 		Creates a new instance of RecordingView.
 		
 		Parameters:
 			project -- the currently active Project.
 			mainview -- the main Jokosher window (MainApp).
-			mixView -- the CompactMixView object that holds this instance of
-						RecordingView, if the mixing view is the currently 
-						active one.
-						If the recording view is the active one, then this
-						should be set to None.
 			small -- set to True if we want small edit views (i.e. for the mixing view).
 		"""
 		gtk.Frame.__init__(self)
 
 		self.project = project
 		self.mainview = mainview
-		self.mixView = mixView
 		self.small = small
 		self.timelinebar = TimeLineBar.TimeLineBar(self.project, self, mainview)
 		
@@ -103,38 +94,36 @@ class RecordingView(gtk.Frame):
 		
 		self.lastzoom = 0
 		
-		#recording view contains zoom buttons
-		if not self.mixView:
-			self.zoomSlider = gtk.HScale()
-			self.zoomSlider.set_size_request(70, -1)
-			
-			self.zoomSlider.set_range(self.ZOOM_MIN_SCALE, self.ZOOM_MAX_SCALE)
-			self.zoomSlider.set_increments(0.2, 0.2)
-			self.zoomSlider.set_draw_value(False)
-			self.zoomSlider.set_value(self.project.viewScale)
-			self.zoomtip = gtk.Tooltips()
-			self.zoomtip.set_tip(self.zoomSlider, _("Zoom the timeline - Right-Click to reset to the default level"), None)
-			
-			self.zoomSlider.connect("value-changed", self.OnZoom)
-			self.zoomSlider.connect("button-press-event", self.OnZoomReset)
-			
-			inbutton = gtk.Button()
-			inimg = gtk.image_new_from_stock(gtk.STOCK_ZOOM_IN, gtk.ICON_SIZE_BUTTON)
-			inbutton.set_image(inimg)
-			inbutton.set_relief(gtk.RELIEF_NONE)
-			self.zoomtip.set_tip(inbutton, _("Zoom in timeline"), None)
-			inbutton.connect("clicked", self.OnZoomIn)
-			
-			outbutton = gtk.Button()
-			outimg = gtk.image_new_from_stock(gtk.STOCK_ZOOM_OUT, gtk.ICON_SIZE_BUTTON)
-			outbutton.set_image(outimg)
-			outbutton.set_relief(gtk.RELIEF_NONE)
-			self.zoomtip.set_tip(outbutton, _("Zoom out timeline"), None)
-			outbutton.connect("clicked", self.OnZoomOut)
+		self.zoomSlider = gtk.HScale()
+		self.zoomSlider.set_size_request(70, -1)
+		
+		self.zoomSlider.set_range(self.ZOOM_MIN_SCALE, self.ZOOM_MAX_SCALE)
+		self.zoomSlider.set_increments(0.2, 0.2)
+		self.zoomSlider.set_draw_value(False)
+		self.zoomSlider.set_value(self.project.viewScale)
+		self.zoomtip = gtk.Tooltips()
+		self.zoomtip.set_tip(self.zoomSlider, _("Zoom the timeline - Right-Click to reset to the default level"), None)
+		
+		self.zoomSlider.connect("value-changed", self.OnZoom)
+		self.zoomSlider.connect("button-press-event", self.OnZoomReset)
+		
+		self.inbutton = gtk.Button()
+		inimg = gtk.image_new_from_stock(gtk.STOCK_ZOOM_IN, gtk.ICON_SIZE_BUTTON)
+		self.inbutton.set_image(inimg)
+		self.inbutton.set_relief(gtk.RELIEF_NONE)
+		self.zoomtip.set_tip(self.inbutton, _("Zoom in timeline"), None)
+		self.inbutton.connect("clicked", self.OnZoomIn)
+		
+		self.outbutton = gtk.Button()
+		outimg = gtk.image_new_from_stock(gtk.STOCK_ZOOM_OUT, gtk.ICON_SIZE_BUTTON)
+		self.outbutton.set_image(outimg)
+		self.outbutton.set_relief(gtk.RELIEF_NONE)
+		self.zoomtip.set_tip(self.outbutton, _("Zoom out timeline"), None)
+		self.outbutton.connect("clicked", self.OnZoomOut)
 
-			self.hb.pack_start( outbutton, False, False)
-			self.hb.pack_start( self.zoomSlider, False, False)
-			self.hb.pack_start( inbutton, False, False)
+		self.hb.pack_start( self.outbutton, False, False)
+		self.hb.pack_start( self.zoomSlider, False, False)
+		self.hb.pack_start( self.inbutton, False, False)
 		
 		self.extraScrollTime = 25
 		self.centreViewOnPosition = False
@@ -165,6 +154,12 @@ class RecordingView(gtk.Frame):
 			self.OnInstrumentAdded(project, instr)
 			
 		self.show_all()
+		self.show_all()
+		if self.small:
+			self.inbutton.hide()
+			self.outbutton.hide()
+			self.zoomSlider.hide()
+		
 	#_____________________________________________________________________
 
 	def OnExpose(self, widget, event):
@@ -212,13 +207,12 @@ class RecordingView(gtk.Frame):
 		elif self.project.viewStart + self.scrollRange.page_size > length:
 			self.SetViewPosition(length - self.scrollRange.page_size)
 		
-		if not self.mixView:
-			#check the min zoom value (based on project length)
-			pixelSize = self.allocation.width - Globals.INSTRUMENT_HEADER_WIDTH - 4	# four pixels to account for borders
-			minScale = pixelSize / length
-			self.zoomSlider.set_range(minScale, self.ZOOM_MAX_SCALE)
-			if self.zoomSlider.get_value() < minScale:
-				self.zoomSlider.set_value(minScale)
+		#check the min zoom value (based on project length)
+		pixelSize = self.allocation.width - Globals.INSTRUMENT_HEADER_WIDTH - 4	# four pixels to account for borders
+		minScale = pixelSize / length
+		self.zoomSlider.set_range(minScale, self.ZOOM_MAX_SCALE)
+		if self.zoomSlider.get_value() < minScale:
+			self.zoomSlider.set_value(minScale)
 		
 	#_____________________________________________________________________
 
@@ -511,4 +505,30 @@ class RecordingView(gtk.Frame):
 		return True
 	
 	#_____________________________________________________________________
+	
+	def ChangeSize(self, small):
+		"""
+		Alters the size of the instrument lanes and removes the zoom buttons.
+		
+		Parameters:
+			small -- True if changing to small. Otherwise False.
+		"""
+		#if the requested size has not changed then quit
+		if small == self.small:
+			return
+		self.small = small
+		children = self.instrumentBox.get_children()
+		for instrView in children:
+			instrView.ChangeSize(small)
+		if self.small:
+			self.inbutton.hide()
+			self.outbutton.hide()
+			self.zoomSlider.hide()
+		else:
+			self.inbutton.show()
+			self.outbutton.show()
+			self.zoomSlider.show()
+			
+	#____________________________________________________________________	
+
 #=========================================================================

@@ -116,11 +116,13 @@ class EventViewer(gtk.DrawingArea):
 		self.SetAccessibleName()
 		self.set_property("can-focus", True)
 		
-		# source is an offscreen canvas to hold our waveform image
-		self.source = cairo.ImageSurface(cairo.FORMAT_ARGB32, 0, 0)
+		# sourceSmall/Large are offscreen canvases to hold our waveform images
+		self.sourceSmall = cairo.ImageSurface(cairo.FORMAT_ARGB32, 0, 0)
+		self.sourceLarge = cairo.ImageSurface(cairo.FORMAT_ARGB32, 0, 0)
 		
-		# rectangle of cached draw area
-		self.cachedDrawArea = gtk.gdk.Rectangle(0, 0, 0, 0)
+		# rectangle of cached draw areas
+		self.cachedDrawAreaSmall = gtk.gdk.Rectangle(0, 0, 0, 0)
+		self.cachedDrawAreaLarge = gtk.gdk.Rectangle(0, 0, 0, 0)
 
 		# Monitor the things this object cares about
 		self.project.connect("zoom", self.OnProjectZoom)
@@ -187,18 +189,29 @@ class EventViewer(gtk.DrawingArea):
 		Returns:
 			False -- stop propagating the GTK signal. *CHECK*
 		"""
-		cache = self.cachedDrawArea
+		if self.small:
+			cache = self.cachedDrawAreaSmall
+			source = self.sourceSmall
+		else:
+			cache = self.cachedDrawAreaLarge
+			source = self.sourceLarge
 		area = event.area
 		
 		#check if the expose area is within the already cached rectangle
 		if area.x < cache.x or (area.x + area.width > cache.x + cache.width) or self.redrawWaveform:
 			self.DrawWaveform(event.area)
+			if self.small:
+				cache = self.cachedDrawAreaSmall
+				source = self.sourceSmall
+			else:
+				cache = self.cachedDrawAreaLarge
+				source = self.sourceLarge
 		
 		# Get a cairo surface for this drawing op
 		context = widget.window.cairo_create()
 
 		# Give it our waveform image as a source
-		context.set_source_surface(self.source, self.cachedDrawArea.x, self.cachedDrawArea.y)	
+		context.set_source_surface(source, cache.x, cache.y)	
 
 		# Blit our waveform across
 		context.paint()
@@ -318,9 +331,18 @@ class EventViewer(gtk.DrawingArea):
 		if rect.x + rect.width > allocArea.width:
 			rect.width = allocArea.width - rect.x
 			
-		self.source = cairo.ImageSurface(cairo.FORMAT_ARGB32, rect.width, rect.height)
+		#set area to record where the cached surface goes
+		if self.small:
+			self.cachedDrawAreaSmall = rect
+			self.sourceSmall = cairo.ImageSurface(cairo.FORMAT_ARGB32, 
+												rect.width, rect.height)
+			context = cairo.Context(self.sourceSmall)
+		else:
+			self.cachedDrawAreaLarge = rect
+			self.sourceLarge = cairo.ImageSurface(cairo.FORMAT_ARGB32, 
+												rect.width, rect.height)
+			context = cairo.Context(self.sourceLarge)
 		
-		context = cairo.Context(self.source)
 		context.set_line_width(2)
 		context.set_antialias(cairo.ANTIALIAS_SUBPIXEL)
 
@@ -428,8 +450,6 @@ class EventViewer(gtk.DrawingArea):
 				#Draw event name
 				context.show_text(self.event.name)
 		
-		#set area to record where the cached surface goes
-		self.cachedDrawArea = rect
 		self.redrawWaveform = False
 
 	#_____________________________________________________________________
@@ -449,7 +469,8 @@ class EventViewer(gtk.DrawingArea):
 		self.event.disconnect_by_func(self.OnEventWaveform)
 		
 		#delete the cached images
-		del self.source
+		del self.sourceSmall
+		del self.sourceLarge
 		del self.cancelImg
 		self.destroy()
 	
@@ -1079,12 +1100,13 @@ class EventViewer(gtk.DrawingArea):
 		if not (self.small):
 			requisition.height = 77
 		else:
-			rect = self.get_allocation()
-			
-			if rect.height < 30:
-				requisition.height = 30
-			else:
-				requisition.height = rect.height
+			requisition.height = 30
+#			rect = self.get_allocation()
+#			
+#			if rect.height < 30:
+#				requisition.height = 30
+#			else:
+#				requisition.height = rect.height
 
 	#_____________________________________________________________________
 	
@@ -1120,6 +1142,7 @@ class EventViewer(gtk.DrawingArea):
 		"""
 		Callback function for when the length of the event changes.
 		"""
+		print "eventlength"
 		self.redrawWaveform = True
 		self.SetAccessibleName()
 		self.queue_resize()
@@ -1366,5 +1389,19 @@ class EventViewer(gtk.DrawingArea):
 				% {"name":self.event.name, "dur":self.event.duration, "start":self.event.start})
 		
 	#_____________________________________________________________________
+
+	def ChangeSize(self, small):
+		"""
+		Changes size of event viewer.
+		
+		Parameters:
+			small -- True if the event viewer is to change to small
+		"""
+		self.small = small
+		self.queue_resize()
+		self.queue_draw()
+			
+	#____________________________________________________________________	
+
 
 #=========================================================================

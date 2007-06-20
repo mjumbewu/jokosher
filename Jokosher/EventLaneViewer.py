@@ -477,5 +477,20 @@ class EventLaneViewer(gtk.EventBox):
 		"""
 		self.highlightCursor = None
 		self.queue_draw()
+		
+	#_____________________________________________________________________
 	
+	def ChangeSize(self, small):
+		"""
+		Changes the size of the event lane.
+		
+		Parameters:
+			small - True if the event lane is to be small.
+		"""
+		self.small = small
+		for eventViewer in self.fixed.get_children():
+			eventViewer.ChangeSize(small)
+			
+	#____________________________________________________________________	
+
 #=========================================================================

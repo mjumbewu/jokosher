@@ -140,46 +140,44 @@ class InstrumentViewer(gtk.EventBox):
 		self.muteImgDisabled = Utils.GetIconThatMayBeMissing("stock_volume", gtk.ICON_SIZE_BUTTON, False)
 		self.muteImgEnabled = Utils.GetIconThatMayBeMissing("stock_volume-mute", gtk.ICON_SIZE_BUTTON, False)
 		
-		if not (self.small):
-			self.recTip = gtk.Tooltips()
-			self.recButton = gtk.ToggleButton("")
-			self.recTip.set_tip(self.recButton, self.recTipEnabled, None)
-			self.recButton.connect("toggled", self.OnArm)
-			
-			self.muteButton = gtk.ToggleButton("")
-			self.muteButton.connect("toggled", self.OnMute)
-			self.muteTip = gtk.Tooltips()
-			self.muteTip.set_tip(self.muteButton, self.muteTipDisabled, None)
-			
-			self.soloButton = gtk.ToggleButton("")
-			self.soloTip = gtk.Tooltips()
-			self.soloTip.set_tip(self.soloButton, self.soloTipDisabled, None)
-			self.soloButton.connect("toggled", self.OnSolo)
-			
-			self.propsButton = gtk.Button()
-			procimg = gtk.Image()
-			procimg.set_from_file(os.path.join(Globals.IMAGE_PATH, "icon_effectsapply.png"))
-			self.propsButton.set_image(procimg)
+		self.recTip = gtk.Tooltips()
+		self.recButton = gtk.ToggleButton("")
+		self.recTip.set_tip(self.recButton, self.recTipEnabled, None)
+		self.recButton.connect("toggled", self.OnArm)
+		
+		self.muteButton = gtk.ToggleButton("")
+		self.muteButton.connect("toggled", self.OnMute)
+		self.muteTip = gtk.Tooltips()
+		self.muteTip.set_tip(self.muteButton, self.muteTipDisabled, None)
+		
+		self.soloButton = gtk.ToggleButton("")
+		self.soloTip = gtk.Tooltips()
+		self.soloTip.set_tip(self.soloButton, self.soloTipDisabled, None)
+		self.soloButton.connect("toggled", self.OnSolo)
+		
+		self.propsButton = gtk.Button()
+		procimg = gtk.Image()
+		procimg.set_from_file(os.path.join(Globals.IMAGE_PATH, "icon_effectsapply.png"))
+		self.propsButton.set_image(procimg)
 
-			self.propsButton.connect("clicked", self.OnInstrumentEffects)
-			self.propsTip = gtk.Tooltips()
-			self.propsTip.set_tip(self.propsButton, _("Instrument Effects"), None)
-			
-			self.controlsBox.add(self.recButton)
-			self.controlsBox.add(self.muteButton)
-			self.controlsBox.add(self.soloButton)
-			self.controlsBox.add(self.propsButton)
-			
-			self.instrument.connect("solo", self.OnInstrumentSolo)
-			self.instrument.connect("arm", self.OnInstrumentArm)
-			self.instrument.connect("mute", self.OnInstrumentMute)
-			
-			#initialize the images on the buttons
-			for i in (self.OnInstrumentArm, self.OnInstrumentMute, self.OnInstrumentSolo):
-				i(self.instrument)
-		else:
-			self.separator = gtk.HSeparator()
-			self.headerBox.pack_end(self.separator, False, True)
+		self.propsButton.connect("clicked", self.OnInstrumentEffects)
+		self.propsTip = gtk.Tooltips()
+		self.propsTip.set_tip(self.propsButton, _("Instrument Effects"), None)
+		
+		self.controlsBox.add(self.recButton)
+		self.controlsBox.add(self.muteButton)
+		self.controlsBox.add(self.soloButton)
+		self.controlsBox.add(self.propsButton)
+		
+		self.instrument.connect("solo", self.OnInstrumentSolo)
+		self.instrument.connect("arm", self.OnInstrumentArm)
+		self.instrument.connect("mute", self.OnInstrumentMute)
+		
+		#initialize the images on the buttons
+		for i in (self.OnInstrumentArm, self.OnInstrumentMute, self.OnInstrumentSolo):
+			i(self.instrument)
+		self.separator = gtk.HSeparator()
+		self.headerBox.pack_end(self.separator, False, True)
 		self.instrument.isSelected = False
 		
 		# Begin Drag and Drop code
@@ -201,6 +199,10 @@ class InstrumentViewer(gtk.EventBox):
 		
 		#set the appropriate colour if the instrument it already selected.
 		self.OnInstrumentSelected()
+		self.show_all()
+		self.labelbox.show()
+		if self.small:
+			self.controlsBox.hide()
 
 	#_____________________________________________________________________
 
@@ -483,7 +485,7 @@ class InstrumentViewer(gtk.EventBox):
 
 	#______________________________________________________________________
 
-	def OnInstrumentEffects(self, widget, mouse=None):
+	def OnInstrumentEffects(self, widget, mouse):
 		"""
 		Creates and shows the instrument effects dialog
 		
@@ -491,6 +493,7 @@ class InstrumentViewer(gtk.EventBox):
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 			mouse -- reserved for GTK callbacks, don't use it explicitly.
 		"""
+		Globals.debug("props button pressed")
 		if not self.effectsDialog:
 			self.effectsDialog = InstrumentEffectsDialog.InstrumentEffectsDialog(
 					self.instrument,
@@ -666,6 +669,27 @@ class InstrumentViewer(gtk.EventBox):
 		AddInstrumentDialog.AddInstrumentDialog(self.project, self.mainview, self.instrument)
 		    
 	#______________________________________________________________________
+
+	def ChangeSize(self, small):
+		"""
+		Changes the size of the instrument viewer
+		
+		Parameters:
+			small -- True if the instrument viewer is to be small.
+		"""
+		self.small = small
+		self.eventLane.ChangeSize(small)
+		if self.small:
+			pb = self.instrument.pixbuf.scale_simple(20, 20, gtk.gdk.INTERP_BILINEAR)
+			self.image.set_from_pixbuf(pb)
+			self.controlsBox.hide()
+			self.separator.show()
+		else:
+			self.image.set_from_pixbuf(self.instrument.pixbuf)
+			self.controlsBox.show()
+			self.separator.hide()
+
+	#____________________________________________________________________	
 
 
 	#=========================================================================	

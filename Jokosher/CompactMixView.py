@@ -39,6 +39,8 @@ class CompactMixView(gtk.Frame):
 		gtk.Frame.__init__(self)
 		self.project = project
 		self.mainview = mainview
+		self.small = True
+		self.mix = False
 		self.mixerStripList = []
 		self.minimisedButtonList = []
 		self.lanes = []
@@ -47,19 +49,12 @@ class CompactMixView(gtk.Frame):
 		
 		self.vbox = gtk.VBox()
 		self.add(self.vbox)
-		self.vpaned = gtk.VPaned()
-		self.vbox.pack_start(self.vpaned, True, True)
-		self.projectview = RecordingView.RecordingView(project, mainview, self, True)
-		self.vpaned.add(self.projectview)
 		self.hbox = gtk.HBox()
-		self.vpaned.add(self.hbox)
+		self.vbox.pack_start(self.hbox, True, True)
 		
 		self.mastermixer = MasterMixerStrip(self.project, self, self.mainview)
 		self.hbox.pack_end(self.mastermixer, False, False)
-		
-		self.show_all()
-		self.UpdateTimeout = False
-		
+
 		self.project.connect("instrument::added", self.OnInstrumentAdded)
 		self.project.connect("instrument::reordered", self.OnInstrumentReordered)
 		self.project.connect("instrument::removed", self.OnInstrumentRemoved)
@@ -67,6 +62,8 @@ class CompactMixView(gtk.Frame):
 		#initialize the instrument widgets
 		for instr in self.project.instruments:
 			self.OnInstrumentAdded(self.project, instr)
+		self.show_all()
+		self.UpdateTimeout = False
 		
 	#_____________________________________________________________________
 
@@ -251,7 +248,7 @@ class CompactMixView(gtk.Frame):
 			return False
 	
 	#_____________________________________________________________________
-		
+	
 	def StartUpdateTimeout(self):
 		""" 
 		Initiates the OnUpdateTimeout - called from MainApp.play()
