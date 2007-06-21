@@ -160,7 +160,7 @@ class InstrumentViewer(gtk.EventBox):
 		procimg.set_from_file(os.path.join(Globals.IMAGE_PATH, "icon_effectsapply.png"))
 		self.propsButton.set_image(procimg)
 
-		self.propsButton.connect("clicked", self.OnInstrumentEffects)
+		self.propsButton.connect("clicked", self.OnEffectsButtonClicked)
 		self.propsTip = gtk.Tooltips()
 		self.propsTip.set_tip(self.propsButton, _("Instrument Effects"), None)
 		
@@ -485,7 +485,7 @@ class InstrumentViewer(gtk.EventBox):
 
 	#______________________________________________________________________
 
-	def OnInstrumentEffects(self, widget, mouse):
+	def OnEffectsButtonClicked(self, widget):
 		"""
 		Creates and shows the instrument effects dialog
 		
@@ -497,14 +497,14 @@ class InstrumentViewer(gtk.EventBox):
 		if not self.effectsDialog:
 			self.effectsDialog = InstrumentEffectsDialog.InstrumentEffectsDialog(
 					self.instrument,
-					self.OnInstrumentEffectsDestroyed,
+					self.OnEffectsDialogDestroyed,
 					self.mainview.icon)
 		else:
 			self.effectsDialog.BringWindowToFront()
 
 	#______________________________________________________________________
 	
-	def OnInstrumentEffectsDestroyed(self, window):
+	def OnEffectsDialogDestroyed(self, window):
 		"""
 		Called when the InstrumentEffectsDialog is destroyed.
 		
