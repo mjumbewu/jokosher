@@ -1142,7 +1142,6 @@ class EventViewer(gtk.DrawingArea):
 		"""
 		Callback function for when the length of the event changes.
 		"""
-		print "eventlength"
 		self.redrawWaveform = True
 		self.SetAccessibleName()
 		self.queue_resize()
