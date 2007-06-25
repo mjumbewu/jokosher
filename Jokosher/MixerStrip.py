@@ -114,7 +114,7 @@ class MixerStrip(gtk.Frame):
 		self.label.set_max_width_chars(6)
 		hb.pack_start(self.label, True, True)
 
-		self.instrument.connect("name",self.OnInstrumentName)
+		self.instrument.connect("name", self.OnInstrumentName)
 		
 		self.vbox.pack_end(hb, False, False)
 		self.vbox.show_all()
