@@ -12,8 +12,8 @@ import gtk
 import pango
 from EventLaneViewer import *
 import Globals
-import InstrumentEffectsDialog
 import AddInstrumentDialog
+import ControlsBox
 import Utils
 import gettext
 _ = gettext.gettext
@@ -62,8 +62,6 @@ class InstrumentViewer(gtk.EventBox):
 		self.small = small
 		self.projectview = projectview
 		self.mainview = mainview
-		
-		self.effectsDialog = None		#the instrument effects dialog (to make sure more than one is never opened)
 		
 		self.Updating = False
 		
@@ -122,60 +120,9 @@ class InstrumentViewer(gtk.EventBox):
 		self.labelbox.pack_start(self.image, False)
 		self.labelbox.pack_end(self.labeleventbox)
 		self.headerBox.pack_start(self.labelbox)
-		self.controlsBox = gtk.HBox()
+		self.controlsBox = ControlsBox.ControlsBox(project,mainview,instrument,includeEffects=True)
 		self.headerBox.pack_start(self.controlsBox, False)
 		
-		# define the tooltip messages and images for buttons that change states
-		self.recTipDisabled = _("Enable this instrument for recording")
-		self.recTipEnabled = _("Disable this instrument for recording")
-		self.muteTipDisabled = _("Mute - silence this instrument")
-		self.muteTipEnabled = _("Unmute - hear this instrument")
-		self.soloTipDisabled = _("Activate Solo - silence all other instruments")
-		self.soloTipEnabled = _("Deactivate Solo - hear all the instruments")
-		
-		self.recImgDisabled = gtk.gdk.pixbuf_new_from_file(os.path.join(Globals.IMAGE_PATH, "icon_arm.png"))
-		self.recImgEnabled = gtk.gdk.pixbuf_new_from_file(os.path.join(Globals.IMAGE_PATH, "icon_disarm.png"))
-		self.soloImgDisabled = gtk.gdk.pixbuf_new_from_file(os.path.join(Globals.IMAGE_PATH, "icon_solo.png"))
-		self.soloImgEnabled = gtk.gdk.pixbuf_new_from_file(os.path.join(Globals.IMAGE_PATH, "icon_group.png"))
-		self.muteImgDisabled = Utils.GetIconThatMayBeMissing("stock_volume", gtk.ICON_SIZE_BUTTON, False)
-		self.muteImgEnabled = Utils.GetIconThatMayBeMissing("stock_volume-mute", gtk.ICON_SIZE_BUTTON, False)
-		
-		self.recTip = gtk.Tooltips()
-		self.recButton = gtk.ToggleButton("")
-		self.recTip.set_tip(self.recButton, self.recTipEnabled, None)
-		self.recButton.connect("toggled", self.OnArm)
-		
-		self.muteButton = gtk.ToggleButton("")
-		self.muteButton.connect("toggled", self.OnMute)
-		self.muteTip = gtk.Tooltips()
-		self.muteTip.set_tip(self.muteButton, self.muteTipDisabled, None)
-		
-		self.soloButton = gtk.ToggleButton("")
-		self.soloTip = gtk.Tooltips()
-		self.soloTip.set_tip(self.soloButton, self.soloTipDisabled, None)
-		self.soloButton.connect("toggled", self.OnSolo)
-		
-		self.propsButton = gtk.Button()
-		procimg = gtk.Image()
-		procimg.set_from_file(os.path.join(Globals.IMAGE_PATH, "icon_effectsapply.png"))
-		self.propsButton.set_image(procimg)
-
-		self.propsButton.connect("clicked", self.OnEffectsButtonClicked)
-		self.propsTip = gtk.Tooltips()
-		self.propsTip.set_tip(self.propsButton, _("Instrument Effects"), None)
-		
-		self.controlsBox.add(self.recButton)
-		self.controlsBox.add(self.muteButton)
-		self.controlsBox.add(self.soloButton)
-		self.controlsBox.add(self.propsButton)
-		
-		self.instrument.connect("solo", self.OnInstrumentSolo)
-		self.instrument.connect("arm", self.OnInstrumentArm)
-		self.instrument.connect("mute", self.OnInstrumentMute)
-		
-		#initialize the images on the buttons
-		for i in (self.OnInstrumentArm, self.OnInstrumentMute, self.OnInstrumentSolo):
-			i(self.instrument)
 		self.separator = gtk.HSeparator()
 		self.headerBox.pack_end(self.separator, False, True)
 		self.instrument.isSelected = False
@@ -196,7 +143,7 @@ class InstrumentViewer(gtk.EventBox):
 		self.instrument.connect("name", self.OnInstrumentName)
 		self.instrument.connect("image", self.OnInstrumentImage)
 		self.instrument.connect("selected", self.OnInstrumentSelected)
-		
+
 		#set the appropriate colour if the instrument it already selected.
 		self.OnInstrumentSelected()
 		self.show_all()
@@ -204,42 +151,6 @@ class InstrumentViewer(gtk.EventBox):
 		if self.small:
 			self.controlsBox.hide()
 
-	#_____________________________________________________________________
-
-	def OnMute(self, widget):
-		"""
-		Toggles muting the instrument on/off.
-		It will also update the pressed in/out look of the button.
-		
-		Parameters:
-			widget -- reserved for GTK callbacks, don't use it explicitly.
-		"""
-		if not self.Updating:
-			self.instrument.ToggleMuted(wasSolo=False)
-	
-	#_____________________________________________________________________
-
-	def OnArm(self, widget):
-		"""
-		Toggles arming the instrument on/off.
-		It will also update the pressed in/out look of the button.
-		
-		Parameters:
-			widget -- reserved for GTK callbacks, don't use it explicitly.
-		"""
-		if not self.Updating:
-			self.instrument.ToggleArmed()
-		
-	#_____________________________________________________________________
-	
-	def OnSolo(self, widget):
-		"""
-		Toggles soloing the instrument on/off.
-		It will also update the pressed in/out look of the button.
-		"""
-		if not self.Updating:
-			self.instrument.ToggleSolo(False)
-		
 	#_____________________________________________________________________
 
 	def OnSelect(self, widget, event):
@@ -445,6 +356,7 @@ class InstrumentViewer(gtk.EventBox):
 		Parameters:
 			instrument -- the instrument instance that send the signal.
 		"""
+
 		self.instrlabel.set_text(self.instrument.name)
 	
 	#_____________________________________________________________________
@@ -485,36 +397,7 @@ class InstrumentViewer(gtk.EventBox):
 
 	#______________________________________________________________________
 
-	def OnEffectsButtonClicked(self, widget):
-		"""
-		Creates and shows the instrument effects dialog
-		
-		Parameters:
-			widget -- reserved for GTK callbacks, don't use it explicitly.
-			mouse -- reserved for GTK callbacks, don't use it explicitly.
-		"""
-		Globals.debug("props button pressed")
-		if not self.effectsDialog:
-			self.effectsDialog = InstrumentEffectsDialog.InstrumentEffectsDialog(
-					self.instrument,
-					self.OnEffectsDialogDestroyed,
-					self.mainview.icon)
-		else:
-			self.effectsDialog.BringWindowToFront()
 
-	#______________________________________________________________________
-	
-	def OnEffectsDialogDestroyed(self, window):
-		"""
-		Called when the InstrumentEffectsDialog is destroyed.
-		
-		Parameters:
-			window -- reserved for GTK callbacks, don't use it explicitly.
-		"""
-		self.effectsDialog = None
-		
-	#______________________________________________________________________
-	
 	def OnDragMotion(self, widget, context, x, y, time):
 		"""
 		Called each time the user moves the mouse while dragging.

@@ -16,6 +16,7 @@ import gobject
 import os
 import Globals
 import Utils
+import ControlsBox
 
 import gettext
 _ = gettext.gettext
@@ -98,44 +99,8 @@ class MixerStrip(gtk.Frame):
 		self.vbox.pack_start(self.vu, True, True)
 		
 		#Control Buttons
-		hb = gtk.HBox()
-		
-		# define the tooltip messages and images for buttons that change states
-		self.recTipDisabled = _("Enable this instrument for recording")
-		self.recTipEnabled = _("Disable this instrument for recording")
-		self.muteTipDisabled = _("Mute - silence this instrument")
-		self.muteTipEnabled = _("Unmute - hear this instrument")
-		self.soloTipDisabled = _("Activate Solo - silence all other instruments")
-		self.soloTipEnabled = _("Deactivate Solo - hear all the instruments")
-		
-		self.recImgDisabled = gtk.gdk.pixbuf_new_from_file(os.path.join(Globals.IMAGE_PATH, "icon_arm.png"))
-		self.recImgEnabled = gtk.gdk.pixbuf_new_from_file(os.path.join(Globals.IMAGE_PATH, "icon_disarm.png"))
-		self.soloImgDisabled = gtk.gdk.pixbuf_new_from_file(os.path.join(Globals.IMAGE_PATH, "icon_solo.png"))
-		self.soloImgEnabled = gtk.gdk.pixbuf_new_from_file(os.path.join(Globals.IMAGE_PATH, "icon_group.png"))
-		self.muteImgDisabled = Utils.GetIconThatMayBeMissing("stock_volume", gtk.ICON_SIZE_BUTTON, False)
-		self.muteImgEnabled = Utils.GetIconThatMayBeMissing("stock_volume-mute", gtk.ICON_SIZE_BUTTON, False)
-		
-		# create the actual buttons and set their initial properties
-		self.recButton = gtk.ToggleButton("")
-		self.recButton.connect("toggled", self.OnArm)
-		self.recTip = gtk.Tooltips()
-		self.recTip.set_tip(self.recButton, self.recTipDisabled, None)
-
-		self.muteButton = gtk.ToggleButton("")
-		self.muteButton.connect("toggled", self.OnMute)
-		self.muteTip = gtk.Tooltips()
-		self.muteTip.set_tip(self.muteButton, self.muteTipDisabled, None)
-		
-		self.soloButton = gtk.ToggleButton("")
-		self.soloTip = gtk.Tooltips()
-		self.soloTip.set_tip(self.soloButton, self.soloTipDisabled, None)
-		self.soloButton.connect("toggled", self.OnSolo)
-		
-		# add the buttons to the hbox
-		hb.add(self.recButton)
-		hb.add(self.muteButton)
-		hb.add(self.soloButton)
-		self.vbox.pack_start(hb, False, False)
+		controlsBox = ControlsBox.ControlsBox(project, mainview,instrument,includeEffects=False)
+		self.vbox.pack_start(controlsBox, False, False)
 		
 		# Label and icon
 		hb = gtk.HBox()
@@ -148,51 +113,15 @@ class MixerStrip(gtk.Frame):
 		self.label = gtk.Label(instrument.name)
 		self.label.set_max_width_chars(6)
 		hb.pack_start(self.label, True, True)
+
+		self.instrument.connect("name",self.OnInstrumentName)
 		
 		self.vbox.pack_end(hb, False, False)
 		self.vbox.show_all()
 		self.show_all()
 		
-		self.Update()
-		
 	#_____________________________________________________________________
 
-	def OnMute(self, widget):
-		"""
-		Toggles muting the instrument on/off.
-		
-		Parameters:
-			widget -- reserved for GTK callbacks, don't use it explicitly.
-		"""
-		if not self.Updating:
-			self.instrument.ToggleMuted(False)
-	
-	#_____________________________________________________________________
-
-	def OnArm(self, widget):
-		"""
-		Toggles arming the instrument on/off.
-		
-		Parameters:
-			widget -- reserved for GTK callbacks, don't use it explicitly.
-		"""
-		if not self.Updating:
-			self.instrument.ToggleArmed()
-		
-	#_____________________________________________________________________
-	
-	def OnSolo(self, widget):
-		"""
-		Toggles soloing the instrument on/off.
-		
-		Parameters:
-			widget -- reserved for GTK callbacks, don't use it explicitly.
-		"""
-		if not self.Updating:
-			self.instrument.ToggleSolo(False)
-		
-	#_____________________________________________________________________
-	
 	def EmitMinimise(self, widget):
 		"""
 		Minimizes the Instrument to the StatusBar.
@@ -204,53 +133,17 @@ class MixerStrip(gtk.Frame):
 	
 	#_____________________________________________________________________
 	
-	def Update(self):
+	def OnInstrumentName(self, instrument=None):
 		"""
-		Updates the MixerStrip interface elements according to the actual
-		instrument state (i.e. muted/not muted).
-		"""
-		self.Updating = True
+		Callback for when the instrument's name changes.
 		
-		self.mintip.enable()
+		Parameters:
+			instrument -- the instrument instance that send the signal.
+		"""
 		self.label.set_text(self.instrument.name)
 		
-		# update the mute button image and tooltip
-		image = gtk.Image()
-		if self.instrument.actuallyIsMuted:
-			image.set_from_pixbuf(self.muteImgEnabled)
-			self.muteButton.set_image(image)
-			self.muteTip.set_tip(self.muteButton, self.muteTipEnabled, None)
-		else:
-			image.set_from_pixbuf(self.muteImgDisabled)
-			self.muteButton.set_image(image)
-			self.muteTip.set_tip(self.muteButton, self.muteTipDisabled, None)
-		
-		# update the arm button image and tooltip	
-		image = gtk.Image()
-		if self.instrument.isArmed:
-			image.set_from_pixbuf(self.recImgEnabled)
-			self.recButton.set_image(image)
-			self.recTip.set_tip(self.recButton, self.recTipEnabled, None)
-		else:
-			image.set_from_pixbuf(self.recImgDisabled)
-			self.recButton.set_image(image)
-			self.recTip.set_tip(self.recButton, self.recTipDisabled, None)
-			
-		# update the solo button image and tooltip
-		image = gtk.Image()
-		if self.instrument.isSolo:
-			image.set_from_pixbuf(self.soloImgEnabled)
-			self.soloButton.set_image(image)
-			self.soloTip.set_tip(self.soloButton, self.soloTipEnabled, None)
-		else:
-			image.set_from_pixbuf(self.soloImgDisabled)
-			self.soloButton.set_image(image)
-			self.soloTip.set_tip(self.soloButton, self.soloTipDisabled, None)
-		
-		self.Updating = False
-	
 	#_____________________________________________________________________
-	
+
 	def Destroy(self):
 		"""
 		Called when the MixerStrip is destroyed. It also emits the
