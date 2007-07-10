@@ -15,7 +15,7 @@ setup(name="ExtensionConsole",
 	  platforms='linux',
 	  packages=["ExtensionConsole"],
 	  package_dir={"ExtensionConsole":"src"},
-	  package_data={"":["pyconsole.py"]},
+	  package_data={"":["pyconsole.py", "ExtensionConsole.glade"]},
 	  entry_points="""
 		[jokosher.extensions]
 		extension = ExtensionConsole:ExtensionConsole

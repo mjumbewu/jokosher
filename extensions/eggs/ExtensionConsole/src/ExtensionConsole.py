@@ -7,7 +7,8 @@
 #-------------------------------------------------------------------------------
 
 import Jokosher.Extension
-import pyconsole
+import pyconsole, SearchDialog
+import pkg_resources
 import pango
 import gtk
 import sys
@@ -34,8 +35,18 @@ class ExtensionConsole:
 		self.api = api
 		self.menuItem = self.api.add_menu_item("Extension Console", self.OnMenuItemClick)
 		
+		xmlString = pkg_resources.resource_string(__name__, "ExtensionConsole.glade")
+		self.wTree = gtk.glade.xml_new_from_buffer(xmlString, len(xmlString), "ConsoleDialog")
+		
 		self.savedStdin = sys.stdin
 		sys.stdin = StdinWrapper()
+		
+		self.signals = {
+			"OnClose" : self.OnClose,
+			"OnSearch" : self.OnSearch,
+		}
+		
+		self.wTree.signal_autoconnect(self.signals)
 		
 		#the default namespace for the console
 		self.namespace = {
@@ -43,11 +54,12 @@ class ExtensionConsole:
 				"api": self.api
 		}
 		
-		self.window = gtk.Window()
-		self.window.set_title("Jokosher Extension Console")
+		self.window = self.wTree.get_widget("ConsoleDialog")
+		self.vbox = self.wTree.get_widget("ConsoleVBox")
+		self.search = None
 		self.swin = gtk.ScrolledWindow()
 		self.swin.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
-		self.window.add(self.swin)
+		self.vbox.pack_start(self.swin)
 		
 		self.console = pyconsole.Console(banner=self.CONSOLE_BANNER,
 				use_rlcompleter=False,
@@ -55,8 +67,6 @@ class ExtensionConsole:
 		self.console.modify_font(pango.FontDescription("Monospace"))
 		
 		self.swin.add(self.console)
-		self.window.set_default_size(500, 400)
-		self.window.connect("delete_event", self.OnClose)
 		self.window.hide()
 
 	#_____________________________________________________________________
@@ -82,18 +92,35 @@ class ExtensionConsole:
 	
 	#_____________________________________________________________________
 	
-	def OnClose(self, window, event):
+	def OnClose(self, widget, event=None):
 		"""
-		Called when the user clicks on this extension's menu item.
+		Called when the user clicks on the close button either in the
+		dialog, or on the window decorations.
 		
 		Parameters:
-			window -- reserved for GTK callbacks. Don't use it explicitly.
+			widget -- reserved for GTK callbacks. Don't use it explicitly.
 			event -- reserved for GTK callbacks. Don't use it explicitly.
 		"""
 		
 		self.window.hide()
 		return True
 		
+	#_____________________________________________________________________
+	
+	def OnSearch(self, widget, event=None):
+		"""
+		Called when the user clicks on the search button.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks. Don't use it explicitly.
+			event -- reserved for GTK callbacks. Don't use it explicitly.
+		"""
+		
+		if self.search:
+			self.search.dlg.present()
+		else:
+			self.search = SearchDialog.SearchDialog(self.window, self.console.get_buffer().insert_at_cursor)
+		return True
 	#_____________________________________________________________________
 
 #=========================================================================
