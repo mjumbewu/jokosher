@@ -102,7 +102,8 @@ def UndoCommand(*command):
 			return result
 		
 			#_____________________________________________________________________
-			
+		
+		UndoWrapper.wrapped_func = func
 		return UndoWrapper
 	
 		#_____________________________________________________________________

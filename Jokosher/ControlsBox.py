@@ -15,6 +15,8 @@ import os.path
 import Globals
 import Utils
 import InstrumentEffectsDialog
+import gettext
+_ = gettext.gettext
 
 #=========================================================================
 

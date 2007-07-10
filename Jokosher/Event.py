@@ -246,6 +246,7 @@ class Event(gobject.GObject):
 		self.temp = frm
 		self.start = to
 		self.SetProperties()
+		self.emit("position")
 	
 	#_____________________________________________________________________
 	
@@ -343,6 +344,7 @@ class Event(gobject.GObject):
 		self.SetProperties()
 		self.emit("length")
 		self.emit("position")
+		self.instrument.emit("event::added", e.id)
 		
 		#undo parameters
 		self.temp = e.id
