@@ -253,8 +253,7 @@ class Event(gobject.GObject):
 	
 	#_____________________________________________________________________
 	
-	@UndoSystem.UndoCommand("Move", "temp")
-	def _Compat09_Move(self, frm, to):
+	def _Compat09_Move(self, frm, to, _undoAction_):
 		"""
 		Moves this Event in time.
 		
@@ -267,10 +266,7 @@ class Event(gobject.GObject):
 			frm -- the time the Event's moving from.
 			to -- the time the Event's moving to.
 		"""
-		self.temp = frm
-		self.start = to
-		self.SetProperties()
-		self.emit("position")
+		self.Move(to, frm, _undoAction_=_undoAction_)
 	
 	#_____________________________________________________________________
 	
