@@ -157,7 +157,7 @@ class AtomicUndoAction:
 		When deleting several Instruments at once, an AtomicUndoAction
 		containing the commands to resurrect the Instruments will be created.
 		When the user requests an undo operation, all of the commands stored
-		in this	object will be rolled back, making the operation appear	to be
+		in this object will be rolled back, making the operation appear to be
 		atomic from the user's perspective.
 	"""
 	

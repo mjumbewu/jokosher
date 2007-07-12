@@ -949,7 +949,7 @@ class EventViewer(gtk.DrawingArea):
 			if self.isDragging:		
 				self.isDragging = False
 				if (self.eventStart != self.event.start):
-					self.event.Move(self.eventStart, self.event.start)
+					self.event.Move(self.event.start, self.eventStart)
 					return False #need to pass this button release up to RecordingView
 			elif self.isDraggingFade:
 				self.isDraggingFade = False

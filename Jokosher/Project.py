@@ -36,7 +36,7 @@ class Project(gobject.GObject):
 	"""
 	
 	""" The Project structure version. Will be useful for handling old save files. """
-	Globals.VERSION = "0.9"
+	Globals.VERSION = "1.0"
 	
 	""" The audio playback state enum values """
 	AUDIO_STOPPED, AUDIO_RECORDING, AUDIO_PLAYING, AUDIO_PAUSED, AUDIO_EXPORTING = range(5)

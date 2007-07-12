@@ -234,11 +234,35 @@ class Event(gobject.GObject):
 	
 	#_____________________________________________________________________
 	
-	@UndoSystem.UndoCommand("Move", "start", "temp")
-	def Move(self, frm, to):
+	@UndoSystem.UndoCommand("Move", "temp")
+	def Move(self, to, frm=None):
 		"""
 		Moves this Event in time.
 
+		Parameters:
+			to -- the time the Event's moving to.
+			frm -- the time the Event's moving from.
+		"""
+		if frm is None:
+			self.temp = self.start
+		else:
+			self.temp = frm
+		self.start = to
+		self.SetProperties()
+		self.emit("position")
+	
+	#_____________________________________________________________________
+	
+	@UndoSystem.UndoCommand("Move", "temp")
+	def _Compat09_Move(self, frm, to):
+		"""
+		Moves this Event in time.
+		
+		Considerations:
+			A compatibility method for undo functions from 
+			0.1, 0.2 and 0.9 project files. It should not be called
+			explicitly by anyone.
+		
 		Parameters:
 			frm -- the time the Event's moving from.
 			to -- the time the Event's moving to.
