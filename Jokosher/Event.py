@@ -270,18 +270,18 @@ class Event(gobject.GObject):
 	
 	#_____________________________________________________________________
 	
-	def Split(self, split_point, id=-1):
+	def _Compat02_Split(self, split_point, id=-1):
 		"""
-		Dummy function kept for compatibility with 0.2 project files.
+		Function kept for compatibility with 0.2 project files.
 		Parameters are the same as SplitEvent().
 		"""
 		self.SplitEvent(split_point)
 	
 	#_____________________________________________________________________
 	
-	def Join(self, joinEventID):
+	def _Compat02_Join(self, joinEventID):
 		"""
-		Dummy function kept for compatibility with 0.2 project files.
+		Function kept for compatibility with 0.2 project files.
 		Parameters are the same as JoinEvent().
 		"""
 		self.JoinEvent(joinEventID)
@@ -465,7 +465,7 @@ class Event(gobject.GObject):
 		
 	#_____________________________________________________________________
 	
-	def UndoTrim(self, leftID, rightID):
+	def _Compat02_UndoTrim(self, leftID, rightID):
 		"""
 		Resurrects two pieces from the graveyard and joins them to
 		either side of this Event.

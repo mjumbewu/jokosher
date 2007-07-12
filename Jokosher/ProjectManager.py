@@ -928,11 +928,16 @@ JOKOSHER_VERSION_FUNCTIONS = {
 }
 
 zero_nine_compat = {("E", "Move") : "_Compat09_Move"}
-zero_two_compat = {}
+zero_two_compat = {
+	("E", "Split") : "_Compat02_Split",
+	("E", "Join") : "_Compat02_Join",
+	("E", "UndoTrim") : "_Compat02_UndoTrim",
+}
 #we can't import undo from 0.1 because the storage of undo was revamped for version 0.2
 
 #all the compat info from newer versions, also applies to older versions
-zero_two_compat.update(zero_nine_compat)
+for key, value in zero_nine_compat.iteritems():
+	zero_two_compat.setdefault(key, value)
 
 UNDO_COMPAT_DICT = {"0.2" : zero_two_compat, "0.9" : zero_nine_compat}
 
