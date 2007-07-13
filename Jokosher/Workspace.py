@@ -41,27 +41,6 @@ class Workspace(gtk.VPaned):
 		self.mixView.hide()
 		self.show()
 	#_____________________________________________________________________
-
-	def ToggleRecording(self):
-		"""
-		Toggles the recording view on/off.
-		"""
-		if self.mainview.recordingButton.get_active():
-			self.recordingView.show()
-			self.mainview.contextTooltips.set_tip(
-						self.mainview.recordingButton,
-						self.mainview.recordingViewEnabledTip)
-		else:
-			#don't hide the recording view if the mix view is also hidden
-			if not self.mainview.compactMixButton.get_active():
-				self.mainview.recordingButton.set_active(True)
-				return
-			self.recordingView.hide()
-			self.mainview.contextTooltips.set_tip(
-						self.mainview.recordingButton,
-						self.mainview.recordingViewDisabledTip)
-#____________________________________________________________________	
-
 	
 	def ToggleCompactMix(self):
 		"""
@@ -74,15 +53,12 @@ class Workspace(gtk.VPaned):
 						self.mainview.compactMixButton,
 						self.mainview.mixingViewEnabledTip)
 		else:
-			#don't hide the mix view if the recording view is also hidden
-			if not self.mainview.recordingButton.get_active():
-				self.mainview.compactMixButton.set_active(True)
-				return
 			self.recordingView.ChangeSize(False)
 			self.mixView.hide()
 			self.mainview.contextTooltips.set_tip(
 						self.mainview.compactMixButton,
 						self.mainview.mixingViewDisabledTip)
+	
 	#____________________________________________________________________	
 
 #=========================================================================

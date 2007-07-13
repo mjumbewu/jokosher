@@ -62,10 +62,8 @@ class MainApp:
 		self.recTipDisabled = _("Arm an instrument, then click here to begin recording")
 		self.recStopTipEnabled = _("Stop recording")
 		self.recStopTipDisabled = _("Stop playback")
-		self.recordingViewEnabledTip = _("Hide Recording workspace")
-		self.recordingViewDisabledTip = _("Show Recording workspace")
-		self.mixingViewEnabledTip = _("Hide Mixing workspace")
-		self.mixingViewDisabledTip = _("Show Mixing workspace")
+		self.mixingViewEnabledTip = _("Hide the audio level mixers")
+		self.mixingViewDisabledTip = _("Show the audio level mixers")
 		
 		gtk.glade.bindtextdomain(Globals.LOCALE_APP, Globals.LOCALE_PATH)
 		gtk.glade.textdomain(Globals.LOCALE_APP)
@@ -84,7 +82,6 @@ class MainApp:
 			"on_Record_toggled" : self.Record, 
 			"on_Play_clicked" : self.Play,
 			"on_Stop_clicked" : self.Stop,
-			"on_Recording_toggled" : self.OnRecordingView,
 			"on_CompactMix_toggled" : self.OnCompactMixView,
 			"on_export_activate" : self.OnExport,
 			"on_preferences_activate" : self.OnPreferences,
@@ -130,7 +127,6 @@ class MainApp:
 		self.reverse = self.wTree.get_widget("Rewind")
 		self.forward = self.wTree.get_widget("Forward")
 		self.addInstrumentButton = self.wTree.get_widget("AddInstrument")
-		self.recordingButton = self.wTree.get_widget("Recording")
 		self.compactMixButton = self.wTree.get_widget("CompactMix")
 		self.editmenu = self.wTree.get_widget("editmenu")
 		self.filemenu = self.wTree.get_widget("filemenu")
@@ -146,6 +142,7 @@ class MainApp:
 		self.recentprojects = self.wTree.get_widget("recentprojects")
 		self.recentprojectsmenu = self.wTree.get_widget("recentprojects_menu")
 		self.menubar = self.wTree.get_widget("menubar")
+		self.toolbar = self.wTree.get_widget("MainToolbar")
 		self.addAudioMenuItem = self.wTree.get_widget("add_audio_file_instrument_menu")
 		self.changeInstrMenuItem = self.wTree.get_widget("change_instrument_type")
 		self.removeInstrMenuItem = self.wTree.get_widget("remove_selected_instrument")
@@ -169,17 +166,13 @@ class MainApp:
 		# Initialise some useful vars
 		self.mode = None
 		self.settingButtons = True
-		if not self.recordingButton.get_active():
-			self.recordingButton.set_active(True)
-		if self.compactMixButton.get_active():
-			self.compactMixButton.set_active(False)
+		self.compactMixButton.set_active(False)
 		self.settingButtons = False
 		self.isRecording = False
 		self.isPlaying = False
 		self.isPaused = False
 
 		# Intialise context sensitive tooltips for workspace buttons
-		self.contextTooltips.set_tip(self.recordingButton, self.recordingViewEnabledTip, None)
 		self.contextTooltips.set_tip(self.compactMixButton, self.mixingViewDisabledTip, None)
 		
 		# set the window size to the last saved value
@@ -201,25 +194,29 @@ class MainApp:
 		
 		miximg = gtk.Image()
 		miximg.set_from_file(os.path.join(Globals.IMAGE_PATH, "icon_mix.png"))	
-		self.compactMixButton.set_image(miximg)
-
-		recimg = gtk.Image()
-		recimg.set_from_file(os.path.join(Globals.IMAGE_PATH, "icon_record.png"))	
-		self.recordingButton.set_image(recimg)
+		self.compactMixButton.set_icon_widget(miximg)
+		miximg.show()
 		
 		#get the audiofile image from Globals
 		self.audioFilePixbuf = None
 		for name, type, pixbuf, path in Globals.getCachedInstruments():
 			if type == "audiofile":
-				size = gtk.icon_size_lookup(gtk.ICON_SIZE_MENU)
-				self.audioFilePixbuf = pixbuf.scale_simple(size[0], size[1], gtk.gdk.INTERP_BILINEAR)
+				self.audioFilePixbuf = pixbuf
 				break
 		
 		audioimg = gtk.Image()
-		audioimg.set_from_pixbuf(self.audioFilePixbuf)
-		
+		size = gtk.icon_size_lookup(gtk.ICON_SIZE_MENU)
+		pixbuf = self.audioFilePixbuf.scale_simple(size[0], size[1], gtk.gdk.INTERP_BILINEAR)
+		audioimg.set_from_pixbuf(pixbuf)
 		# set the add audio menu item icon
 		self.addAudioMenuItem.set_image(audioimg)
+		
+		size = gtk.icon_size_lookup(self.toolbar.get_icon_size())
+		pixbuf = self.audioFilePixbuf.scale_simple(size[0], size[1], gtk.gdk.INTERP_BILINEAR)
+		audioimg = gtk.Image()
+		audioimg.set_from_pixbuf(pixbuf)	
+		self.addAudioFileButton.set_icon_widget(audioimg)
+		audioimg.show()
 		
 		# populate the Recent Projects menu
 		self.OpenRecentProjects()
@@ -281,18 +278,6 @@ class MainApp:
 		#if everything else bombs out resort to the welcome dialog
 		if self.project == None:
 			WelcomeDialog.WelcomeDialog(self)
-
-	#_____________________________________________________________________
-	
-	def OnRecordingView(self, window=None):
-		"""
-		Updates the main window after switching to the recording mode.
-		
-		Parameters:
-			window -- Window object calling this method.
-		"""
-		if self.workspace:
-			self.workspace.ToggleRecording()
 
 	#_____________________________________________________________________
 	
@@ -1289,15 +1274,13 @@ class MainApp:
 		
 		if self.headerhbox in children:
 			self.main_vbox.remove(self.headerhbox)
-		if self.tvtoolitem in self.wTree.get_widget("MainToolbar").get_children():
-			self.wTree.get_widget("MainToolbar").remove(self.tvtoolitem)
+		if self.tvtoolitem in self.toolbar.get_children():
+			self.toolbar.remove(self.tvtoolitem)
 		
 		ctrls = (self.save, self.save_as, self.close, self.addInstrumentButton, self.addAudioFileButton,
 			self.reverse, self.forward, self.play, self.stop, self.record,
 			self.projectMenu, self.instrumentMenu, self.export, self.cut, self.copy, self.paste,
-			self.undo, self.redo, self.delete,
-			self.recordingButton,self.compactMixButton,
-			self.wTree.get_widget("WorkspacesLabel"))
+			self.undo, self.redo, self.delete, self.compactMixButton)
 		
 		if self.project:
 			# make various buttons and menu items enabled now we have a project option
@@ -1317,21 +1300,17 @@ class MainApp:
 			
 			self.tvtoolitem = gtk.ToolItem()
 			self.tvtoolitem.add(self.timeview)
-			self.wTree.get_widget("MainToolbar").insert(self.tvtoolitem, -1)
+			self.toolbar.insert(self.tvtoolitem, -1)
 			
 			#reset toggle buttons
 			self.settingButtons = True
-			self.recordingButton.set_active(True)
 			self.compactMixButton.set_active(False)
 			self.settingButtons = False
 			
 		else:
 			#reset toggle buttons when the project is unloaded
 			self.settingButtons = True
-			if not self.recordingButton.get_active():
-				self.recordingButton.set_active(True)
-			if self.compactMixButton.get_active():
-				self.compactMixButton.set_active(False)
+			self.compactMixButton.set_active(False)
 			self.settingButtons = False
 
 			for c in ctrls:
@@ -1370,7 +1349,6 @@ class MainApp:
 		else:
 			keysdict = {
 				"F1"			: self.OnHelpContentsMenu, # F1 - Help Contents
-				"F2"			: self.OnRecordingView, # F2 - Recording View
 				"F3"			: self.OnCompactMixView, # F3 - Compact Mix View
 				"Delete"		: self.OnDelete, # delete key - remove selected item
 				"BackSpace" 	: self.OnDelete, # backspace key

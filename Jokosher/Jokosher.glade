@@ -671,14 +671,13 @@
 		  <property name="tooltip" translatable="yes">Add an audio file to the project</property>
 		  <property name="label" translatable="yes">Add Audio File</property>
 		  <property name="use_underline">True</property>
-		  <property name="stock_id">gtk-open</property>
 		  <property name="visible_horizontal">True</property>
 		  <property name="visible_vertical">True</property>
 		  <property name="is_important">True</property>
 		  <accessibility>
 		    <atkproperty name="AtkObject::accessible_name" translatable="yes">Add Audio File</atkproperty>
-		    <atkrelation target="AddInstrument" type="flows-from"/>
 		    <atkrelation target="Rewind" type="flows-to"/>
+		    <atkrelation target="AddInstrument" type="flows-from"/>
 		  </accessibility>
 		  <signal name="clicked" handler="on_project_add_audio" last_modification_time="Mon, 22 Jan 2007 19:04:35 GMT"/>
 		</widget>
@@ -708,7 +707,7 @@
 		  <property name="stock_id">gtk-media-rewind</property>
 		  <property name="visible_horizontal">True</property>
 		  <property name="visible_vertical">True</property>
-		  <property name="is_important">True</property>
+		  <property name="is_important">False</property>
 		  <accessibility>
 		    <atkproperty name="AtkObject::accessible_name" translatable="yes">Rewind</atkproperty>
 		    <atkrelation target="addAudioFileButton" type="flows-from"/>
@@ -728,7 +727,7 @@
 		  <property name="stock_id">gtk-media-play</property>
 		  <property name="visible_horizontal">True</property>
 		  <property name="visible_vertical">True</property>
-		  <property name="is_important">True</property>
+		  <property name="is_important">False</property>
 		  <signal name="clicked" handler="on_Play_clicked" last_modification_time="Sat, 24 Feb 2007 00:17:32 GMT"/>
 		</widget>
 		<packing>
@@ -744,7 +743,7 @@
 		  <property name="stock_id">gtk-media-stop</property>
 		  <property name="visible_horizontal">True</property>
 		  <property name="visible_vertical">True</property>
-		  <property name="is_important">True</property>
+		  <property name="is_important">False</property>
 		  <accessibility>
 		    <atkproperty name="AtkObject::accessible_name" translatable="yes">Stop</atkproperty>
 		    <atkrelation target="Forward" type="flows-to"/>
@@ -764,11 +763,11 @@
 		  <property name="stock_id">gtk-media-forward</property>
 		  <property name="visible_horizontal">True</property>
 		  <property name="visible_vertical">True</property>
-		  <property name="is_important">True</property>
+		  <property name="is_important">False</property>
 		  <accessibility>
 		    <atkproperty name="AtkObject::accessible_name" translatable="yes">FastForward</atkproperty>
-		    <atkrelation target="Record" type="flows-to"/>
 		    <atkrelation target="Stop" type="flows-from"/>
+		    <atkrelation target="Record" type="flows-to"/>
 		  </accessibility>
 		  <signal name="clicked" handler="on_Forward_clicked"/>
 		</widget>
@@ -785,12 +784,12 @@
 		  <property name="stock_id">gtk-media-record</property>
 		  <property name="visible_horizontal">True</property>
 		  <property name="visible_vertical">True</property>
-		  <property name="is_important">True</property>
+		  <property name="is_important">False</property>
 		  <property name="active">False</property>
 		  <accessibility>
 		    <atkproperty name="AtkObject::accessible_name" translatable="yes">Record</atkproperty>
-		    <atkrelation target="Recording" type="flows-to"/>
 		    <atkrelation target="Forward" type="flows-from"/>
+		    <atkrelation target="Recording" type="flows-to"/>
 		  </accessibility>
 		  <signal name="toggled" handler="on_Record_toggled"/>
 		</widget>
@@ -812,141 +811,28 @@
 		  <property name="homogeneous">False</property>
 		</packing>
 	      </child>
+
+	      <child>
+		<widget class="GtkToggleToolButton" id="CompactMix">
+		  <property name="visible">True</property>
+		  <property name="label" translatable="yes">Show Mixers</property>
+		  <property name="use_underline">True</property>
+		  <property name="visible_horizontal">True</property>
+		  <property name="visible_vertical">True</property>
+		  <property name="is_important">True</property>
+		  <property name="active">False</property>
+		  <signal name="toggled" handler="on_CompactMix_toggled" last_modification_time="Fri, 13 Jul 2007 02:11:00 GMT"/>
+		</widget>
+		<packing>
+		  <property name="expand">False</property>
+		  <property name="homogeneous">True</property>
+		</packing>
+	      </child>
 	    </widget>
 	    <packing>
 	      <property name="padding">0</property>
 	      <property name="expand">True</property>
 	      <property name="fill">True</property>
-	    </packing>
-	  </child>
-
-	  <child>
-	    <widget class="GtkHBox" id="hbox2">
-	      <property name="border_width">3</property>
-	      <property name="visible">True</property>
-	      <property name="homogeneous">False</property>
-	      <property name="spacing">0</property>
-
-	      <child>
-		<widget class="GtkHBox" id="TimeViewBox">
-		  <property name="visible">True</property>
-		  <property name="homogeneous">False</property>
-		  <property name="spacing">0</property>
-
-		  <child>
-		    <placeholder/>
-		  </child>
-		</widget>
-		<packing>
-		  <property name="padding">3</property>
-		  <property name="expand">False</property>
-		  <property name="fill">False</property>
-		</packing>
-	      </child>
-
-	      <child>
-		<widget class="GtkVBox" id="vbox1">
-		  <property name="visible">True</property>
-		  <property name="homogeneous">False</property>
-		  <property name="spacing">0</property>
-
-		  <child>
-		    <widget class="GtkLabel" id="WorkspacesLabel">
-		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">Workspaces</property>
-		      <property name="use_underline">False</property>
-		      <property name="use_markup">False</property>
-		      <property name="justify">GTK_JUSTIFY_LEFT</property>
-		      <property name="wrap">False</property>
-		      <property name="selectable">False</property>
-		      <property name="xalign">0.5</property>
-		      <property name="yalign">0.5</property>
-		      <property name="xpad">0</property>
-		      <property name="ypad">0</property>
-		      <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
-		      <property name="width_chars">-1</property>
-		      <property name="single_line_mode">False</property>
-		      <property name="angle">0</property>
-		    </widget>
-		    <packing>
-		      <property name="padding">0</property>
-		      <property name="expand">False</property>
-		      <property name="fill">False</property>
-		    </packing>
-		  </child>
-
-		  <child>
-		    <widget class="GtkHBox" id="hbox3">
-		      <property name="visible">True</property>
-		      <property name="homogeneous">False</property>
-		      <property name="spacing">0</property>
-
-		      <child>
-			<widget class="GtkToggleButton" id="Recording">
-			  <property name="visible">True</property>
-			  <property name="tooltip" translatable="yes">Switch to the Recording workspace</property>
-			  <property name="can_focus">True</property>
-			  <property name="label" translatable="yes">Recording</property>
-			  <property name="use_underline">True</property>
-			  <property name="relief">GTK_RELIEF_NORMAL</property>
-			  <property name="focus_on_click">True</property>
-			  <property name="active">False</property>
-			  <property name="inconsistent">False</property>
-			  <accessibility>
-			    <atkproperty name="AtkObject::accessible_name" translatable="yes">Recording Workspace</atkproperty>
-			    <atkrelation target="Record" type="flows-from"/>
-			    <atkrelation target="CompactMix" type="flows-to"/>
-			  </accessibility>
-			  <signal name="toggled" handler="on_Recording_toggled"/>
-			</widget>
-			<packing>
-			  <property name="padding">0</property>
-			  <property name="expand">False</property>
-			  <property name="fill">False</property>
-			</packing>
-		      </child>
-
-		      <child>
-			<widget class="GtkToggleButton" id="CompactMix">
-			  <property name="visible">True</property>
-			  <property name="tooltip" translatable="yes">Switch to the Mixing workspace</property>
-			  <property name="can_focus">True</property>
-			  <property name="label" translatable="yes">Mixing</property>
-			  <property name="use_underline">True</property>
-			  <property name="relief">GTK_RELIEF_NORMAL</property>
-			  <property name="focus_on_click">True</property>
-			  <property name="active">False</property>
-			  <property name="inconsistent">False</property>
-			  <accessibility>
-			    <atkproperty name="AtkObject::accessible_name" translatable="yes">Mixing Workspace</atkproperty>
-			  </accessibility>
-			  <signal name="toggled" handler="on_CompactMix_toggled"/>
-			</widget>
-			<packing>
-			  <property name="padding">0</property>
-			  <property name="expand">False</property>
-			  <property name="fill">False</property>
-			</packing>
-		      </child>
-		    </widget>
-		    <packing>
-		      <property name="padding">0</property>
-		      <property name="expand">True</property>
-		      <property name="fill">True</property>
-		    </packing>
-		  </child>
-		</widget>
-		<packing>
-		  <property name="padding">0</property>
-		  <property name="expand">True</property>
-		  <property name="fill">True</property>
-		</packing>
-	      </child>
-	    </widget>
-	    <packing>
-	      <property name="padding">3</property>
-	      <property name="expand">False</property>
-	      <property name="fill">False</property>
 	    </packing>
 	  </child>
 	</widget>
