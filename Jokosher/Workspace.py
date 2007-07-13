@@ -36,7 +36,6 @@ class Workspace(gtk.VPaned):
 		self.project = project
 		self.mainview = mainview
 		self.small = False
-		self.showMixers = True
 		self.recordingView = RecordingView.RecordingView(project, mainview, self.small)
 		self.mixView = CompactMixView.CompactMixView(project, mainview)
 		self.add(self.recordingView)
@@ -49,8 +48,7 @@ class Workspace(gtk.VPaned):
 		"""
 		Toggles compact mix view on/off.
 		"""
-		if self.showMixers:
-			self.showMixers = False
+		if self.mainview.compactMixButton.get_active():
 			self.recordingView.ChangeSize(True)
 			self.mixView.show()
 			self.mainview.compactMixButton.set_tooltip(
@@ -63,7 +61,6 @@ class Workspace(gtk.VPaned):
 			miximg.show()
 			
 		else:
-			self.showMixers = True
 			self.recordingView.ChangeSize(False)
 			self.mixView.hide()
 			self.mainview.compactMixButton.set_tooltip(

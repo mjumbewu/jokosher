@@ -82,7 +82,7 @@ class MainApp:
 			"on_Record_toggled" : self.Record, 
 			"on_Play_clicked" : self.Play,
 			"on_Stop_clicked" : self.Stop,
-			"on_CompactMix_clicked" : self.OnCompactMixView,
+			"on_CompactMix_toggled" : self.OnCompactMixView,
 			"on_export_activate" : self.OnExport,
 			"on_preferences_activate" : self.OnPreferences,
 			"on_open_activate" : self.OnOpenProject,
@@ -166,6 +166,7 @@ class MainApp:
 		# Initialise some useful vars
 		self.mode = None
 		self.settingButtons = True
+		self.compactMixButton.set_active(False)
 		self.settingButtons = False
 		self.isRecording = False
 		self.isPlaying = False
@@ -1304,11 +1305,13 @@ class MainApp:
 			
 			#reset toggle buttons
 			self.settingButtons = True
+			self.compactMixButton.set_active(False)
 			self.settingButtons = False
 			
 		else:
 			#reset toggle buttons when the project is unloaded
 			self.settingButtons = True
+			self.compactMixButton.set_active(False)
 			self.settingButtons = False
 
 			for c in ctrls:

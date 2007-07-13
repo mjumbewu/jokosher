@@ -780,15 +780,15 @@
 	  </child>
 
 	  <child>
-	    <widget class="GtkToolButton" id="CompactMix">
+	    <widget class="GtkToggleToolButton" id="CompactMix">
 	      <property name="visible">True</property>
-	      <property name="tooltip" translatable="yes">Show the audio level mixers</property>
 	      <property name="label" translatable="yes">Show Mixers</property>
 	      <property name="use_underline">True</property>
 	      <property name="visible_horizontal">True</property>
 	      <property name="visible_vertical">True</property>
-	      <property name="is_important">False</property>
-	      <signal name="clicked" handler="on_CompactMix_clicked" last_modification_time="Fri, 13 Jul 2007 20:23:49 GMT"/>
+	      <property name="is_important">True</property>
+	      <property name="active">False</property>
+	      <signal name="toggled" handler="on_CompactMix_toggled" last_modification_time="Fri, 13 Jul 2007 02:11:00 GMT"/>
 	    </widget>
 	    <packing>
 	      <property name="expand">False</property>
