@@ -630,209 +630,182 @@
       </child>
 
       <child>
-	<widget class="GtkHBox" id="ToolbarHbox">
+	<widget class="GtkToolbar" id="MainToolbar">
 	  <property name="visible">True</property>
-	  <property name="homogeneous">False</property>
-	  <property name="spacing">0</property>
+	  <property name="orientation">GTK_ORIENTATION_HORIZONTAL</property>
+	  <property name="toolbar_style">GTK_TOOLBAR_BOTH</property>
+	  <property name="tooltips">True</property>
+	  <property name="show_arrow">True</property>
 
 	  <child>
-	    <widget class="GtkToolbar" id="MainToolbar">
+	    <widget class="GtkToolButton" id="AddInstrument">
 	      <property name="visible">True</property>
-	      <property name="orientation">GTK_ORIENTATION_HORIZONTAL</property>
-	      <property name="toolbar_style">GTK_TOOLBAR_BOTH</property>
-	      <property name="tooltips">True</property>
-	      <property name="show_arrow">True</property>
-
-	      <child>
-		<widget class="GtkToolButton" id="AddInstrument">
-		  <property name="visible">True</property>
-		  <property name="tooltip" translatable="yes">Add an instrument to the project</property>
-		  <property name="label">Add Instrument</property>
-		  <property name="use_underline">True</property>
-		  <property name="stock_id">gtk-add</property>
-		  <property name="visible_horizontal">True</property>
-		  <property name="visible_vertical">True</property>
-		  <property name="is_important">True</property>
-		  <accessibility>
-		    <atkproperty name="AtkObject::accessible_name" translatable="yes">Add Instrument</atkproperty>
-		    <atkrelation target="addAudioFileButton" type="flows-to"/>
-		  </accessibility>
-		  <signal name="clicked" handler="on_AddInstrument_clicked"/>
-		</widget>
-		<packing>
-		  <property name="expand">False</property>
-		  <property name="homogeneous">True</property>
-		</packing>
-	      </child>
-
-	      <child>
-		<widget class="GtkToolButton" id="addAudioFileButton">
-		  <property name="visible">True</property>
-		  <property name="tooltip" translatable="yes">Add an audio file to the project</property>
-		  <property name="label" translatable="yes">Add Audio File</property>
-		  <property name="use_underline">True</property>
-		  <property name="visible_horizontal">True</property>
-		  <property name="visible_vertical">True</property>
-		  <property name="is_important">True</property>
-		  <accessibility>
-		    <atkproperty name="AtkObject::accessible_name" translatable="yes">Add Audio File</atkproperty>
-		    <atkrelation target="Rewind" type="flows-to"/>
-		    <atkrelation target="AddInstrument" type="flows-from"/>
-		  </accessibility>
-		  <signal name="clicked" handler="on_project_add_audio" last_modification_time="Mon, 22 Jan 2007 19:04:35 GMT"/>
-		</widget>
-		<packing>
-		  <property name="expand">False</property>
-		  <property name="homogeneous">True</property>
-		</packing>
-	      </child>
-
-	      <child>
-		<widget class="GtkSeparatorToolItem" id="separatortoolitem1">
-		  <property name="visible">True</property>
-		  <property name="draw">True</property>
-		  <property name="visible_horizontal">True</property>
-		  <property name="visible_vertical">True</property>
-		</widget>
-		<packing>
-		  <property name="expand">False</property>
-		  <property name="homogeneous">False</property>
-		</packing>
-	      </child>
-
-	      <child>
-		<widget class="GtkToolButton" id="Rewind">
-		  <property name="visible">True</property>
-		  <property name="tooltip" translatable="yes">Click and hold to rewind</property>
-		  <property name="stock_id">gtk-media-rewind</property>
-		  <property name="visible_horizontal">True</property>
-		  <property name="visible_vertical">True</property>
-		  <property name="is_important">False</property>
-		  <accessibility>
-		    <atkproperty name="AtkObject::accessible_name" translatable="yes">Rewind</atkproperty>
-		    <atkrelation target="addAudioFileButton" type="flows-from"/>
-		  </accessibility>
-		  <signal name="clicked" handler="on_Rewind_clicked"/>
-		</widget>
-		<packing>
-		  <property name="expand">False</property>
-		  <property name="homogeneous">True</property>
-		</packing>
-	      </child>
-
-	      <child>
-		<widget class="GtkToolButton" id="Play">
-		  <property name="visible">True</property>
-		  <property name="tooltip" translatable="yes">Start playback</property>
-		  <property name="stock_id">gtk-media-play</property>
-		  <property name="visible_horizontal">True</property>
-		  <property name="visible_vertical">True</property>
-		  <property name="is_important">False</property>
-		  <signal name="clicked" handler="on_Play_clicked" last_modification_time="Sat, 24 Feb 2007 00:17:32 GMT"/>
-		</widget>
-		<packing>
-		  <property name="expand">False</property>
-		  <property name="homogeneous">True</property>
-		</packing>
-	      </child>
-
-	      <child>
-		<widget class="GtkToolButton" id="Stop">
-		  <property name="visible">True</property>
-		  <property name="tooltip" translatable="yes">Stop playback</property>
-		  <property name="stock_id">gtk-media-stop</property>
-		  <property name="visible_horizontal">True</property>
-		  <property name="visible_vertical">True</property>
-		  <property name="is_important">False</property>
-		  <accessibility>
-		    <atkproperty name="AtkObject::accessible_name" translatable="yes">Stop</atkproperty>
-		    <atkrelation target="Forward" type="flows-to"/>
-		  </accessibility>
-		  <signal name="clicked" handler="on_Stop_clicked"/>
-		</widget>
-		<packing>
-		  <property name="expand">False</property>
-		  <property name="homogeneous">True</property>
-		</packing>
-	      </child>
-
-	      <child>
-		<widget class="GtkToolButton" id="Forward">
-		  <property name="visible">True</property>
-		  <property name="tooltip" translatable="yes">Click and hold to fast forward</property>
-		  <property name="stock_id">gtk-media-forward</property>
-		  <property name="visible_horizontal">True</property>
-		  <property name="visible_vertical">True</property>
-		  <property name="is_important">False</property>
-		  <accessibility>
-		    <atkproperty name="AtkObject::accessible_name" translatable="yes">FastForward</atkproperty>
-		    <atkrelation target="Stop" type="flows-from"/>
-		    <atkrelation target="Record" type="flows-to"/>
-		  </accessibility>
-		  <signal name="clicked" handler="on_Forward_clicked"/>
-		</widget>
-		<packing>
-		  <property name="expand">False</property>
-		  <property name="homogeneous">True</property>
-		</packing>
-	      </child>
-
-	      <child>
-		<widget class="GtkToggleToolButton" id="Record">
-		  <property name="visible">True</property>
-		  <property name="tooltip" translatable="yes">Arm an instrument then click here to begin recording</property>
-		  <property name="stock_id">gtk-media-record</property>
-		  <property name="visible_horizontal">True</property>
-		  <property name="visible_vertical">True</property>
-		  <property name="is_important">False</property>
-		  <property name="active">False</property>
-		  <accessibility>
-		    <atkproperty name="AtkObject::accessible_name" translatable="yes">Record</atkproperty>
-		    <atkrelation target="Forward" type="flows-from"/>
-		    <atkrelation target="Recording" type="flows-to"/>
-		  </accessibility>
-		  <signal name="toggled" handler="on_Record_toggled"/>
-		</widget>
-		<packing>
-		  <property name="expand">False</property>
-		  <property name="homogeneous">True</property>
-		</packing>
-	      </child>
-
-	      <child>
-		<widget class="GtkSeparatorToolItem" id="separatortoolitem2">
-		  <property name="visible">True</property>
-		  <property name="draw">True</property>
-		  <property name="visible_horizontal">True</property>
-		  <property name="visible_vertical">True</property>
-		</widget>
-		<packing>
-		  <property name="expand">False</property>
-		  <property name="homogeneous">False</property>
-		</packing>
-	      </child>
-
-	      <child>
-		<widget class="GtkToggleToolButton" id="CompactMix">
-		  <property name="visible">True</property>
-		  <property name="label" translatable="yes">Show Mixers</property>
-		  <property name="use_underline">True</property>
-		  <property name="visible_horizontal">True</property>
-		  <property name="visible_vertical">True</property>
-		  <property name="is_important">True</property>
-		  <property name="active">False</property>
-		  <signal name="toggled" handler="on_CompactMix_toggled" last_modification_time="Fri, 13 Jul 2007 02:11:00 GMT"/>
-		</widget>
-		<packing>
-		  <property name="expand">False</property>
-		  <property name="homogeneous">True</property>
-		</packing>
-	      </child>
+	      <property name="tooltip" translatable="yes">Add an instrument to the project</property>
+	      <property name="label">Add Instrument</property>
+	      <property name="use_underline">True</property>
+	      <property name="stock_id">gtk-add</property>
+	      <property name="visible_horizontal">True</property>
+	      <property name="visible_vertical">True</property>
+	      <property name="is_important">True</property>
+	      <signal name="clicked" handler="on_AddInstrument_clicked"/>
 	    </widget>
 	    <packing>
-	      <property name="padding">0</property>
-	      <property name="expand">True</property>
-	      <property name="fill">True</property>
+	      <property name="expand">False</property>
+	      <property name="homogeneous">True</property>
+	    </packing>
+	  </child>
+
+	  <child>
+	    <widget class="GtkToolButton" id="addAudioFileButton">
+	      <property name="visible">True</property>
+	      <property name="tooltip" translatable="yes">Add an audio file to the project</property>
+	      <property name="label" translatable="yes">Add Audio File</property>
+	      <property name="use_underline">True</property>
+	      <property name="visible_horizontal">True</property>
+	      <property name="visible_vertical">True</property>
+	      <property name="is_important">True</property>
+	      <signal name="clicked" handler="on_project_add_audio" last_modification_time="Mon, 22 Jan 2007 19:04:35 GMT"/>
+	    </widget>
+	    <packing>
+	      <property name="expand">False</property>
+	      <property name="homogeneous">True</property>
+	    </packing>
+	  </child>
+
+	  <child>
+	    <widget class="GtkSeparatorToolItem" id="separatortoolitem1">
+	      <property name="visible">True</property>
+	      <property name="draw">True</property>
+	      <property name="visible_horizontal">True</property>
+	      <property name="visible_vertical">True</property>
+	    </widget>
+	    <packing>
+	      <property name="expand">False</property>
+	      <property name="homogeneous">False</property>
+	    </packing>
+	  </child>
+
+	  <child>
+	    <widget class="GtkToolButton" id="Rewind">
+	      <property name="visible">True</property>
+	      <property name="tooltip" translatable="yes">Click and hold to rewind</property>
+	      <property name="stock_id">gtk-media-rewind</property>
+	      <property name="visible_horizontal">True</property>
+	      <property name="visible_vertical">True</property>
+	      <property name="is_important">False</property>
+	      <signal name="clicked" handler="on_Rewind_clicked"/>
+	    </widget>
+	    <packing>
+	      <property name="expand">False</property>
+	      <property name="homogeneous">True</property>
+	    </packing>
+	  </child>
+
+	  <child>
+	    <widget class="GtkToolButton" id="Play">
+	      <property name="visible">True</property>
+	      <property name="tooltip" translatable="yes">Start playback</property>
+	      <property name="stock_id">gtk-media-play</property>
+	      <property name="visible_horizontal">True</property>
+	      <property name="visible_vertical">True</property>
+	      <property name="is_important">False</property>
+	      <signal name="clicked" handler="on_Play_clicked" last_modification_time="Sat, 24 Feb 2007 00:17:32 GMT"/>
+	    </widget>
+	    <packing>
+	      <property name="expand">False</property>
+	      <property name="homogeneous">True</property>
+	    </packing>
+	  </child>
+
+	  <child>
+	    <widget class="GtkToolButton" id="Stop">
+	      <property name="visible">True</property>
+	      <property name="tooltip" translatable="yes">Stop playback</property>
+	      <property name="stock_id">gtk-media-stop</property>
+	      <property name="visible_horizontal">True</property>
+	      <property name="visible_vertical">True</property>
+	      <property name="is_important">False</property>
+	      <signal name="clicked" handler="on_Stop_clicked"/>
+	    </widget>
+	    <packing>
+	      <property name="expand">False</property>
+	      <property name="homogeneous">True</property>
+	    </packing>
+	  </child>
+
+	  <child>
+	    <widget class="GtkToolButton" id="Forward">
+	      <property name="visible">True</property>
+	      <property name="tooltip" translatable="yes">Click and hold to fast forward</property>
+	      <property name="stock_id">gtk-media-forward</property>
+	      <property name="visible_horizontal">True</property>
+	      <property name="visible_vertical">True</property>
+	      <property name="is_important">False</property>
+	      <signal name="clicked" handler="on_Forward_clicked"/>
+	    </widget>
+	    <packing>
+	      <property name="expand">False</property>
+	      <property name="homogeneous">True</property>
+	    </packing>
+	  </child>
+
+	  <child>
+	    <widget class="GtkToggleToolButton" id="Record">
+	      <property name="visible">True</property>
+	      <property name="tooltip" translatable="yes">Arm an instrument then click here to begin recording</property>
+	      <property name="stock_id">gtk-media-record</property>
+	      <property name="visible_horizontal">True</property>
+	      <property name="visible_vertical">True</property>
+	      <property name="is_important">False</property>
+	      <property name="active">False</property>
+	      <signal name="toggled" handler="on_Record_toggled"/>
+	    </widget>
+	    <packing>
+	      <property name="expand">False</property>
+	      <property name="homogeneous">True</property>
+	    </packing>
+	  </child>
+
+	  <child>
+	    <widget class="GtkSeparatorToolItem" id="separatortoolitem2">
+	      <property name="visible">True</property>
+	      <property name="draw">True</property>
+	      <property name="visible_horizontal">True</property>
+	      <property name="visible_vertical">True</property>
+	    </widget>
+	    <packing>
+	      <property name="expand">False</property>
+	      <property name="homogeneous">False</property>
+	    </packing>
+	  </child>
+
+	  <child>
+	    <widget class="GtkToggleToolButton" id="CompactMix">
+	      <property name="visible">True</property>
+	      <property name="label" translatable="yes">Show Mixers</property>
+	      <property name="use_underline">True</property>
+	      <property name="visible_horizontal">True</property>
+	      <property name="visible_vertical">True</property>
+	      <property name="is_important">True</property>
+	      <property name="active">False</property>
+	      <signal name="toggled" handler="on_CompactMix_toggled" last_modification_time="Fri, 13 Jul 2007 02:11:00 GMT"/>
+	    </widget>
+	    <packing>
+	      <property name="expand">False</property>
+	      <property name="homogeneous">True</property>
+	    </packing>
+	  </child>
+
+	  <child>
+	    <widget class="GtkSeparatorToolItem" id="separatortoolitem3">
+	      <property name="visible">True</property>
+	      <property name="draw">True</property>
+	      <property name="visible_horizontal">True</property>
+	      <property name="visible_vertical">True</property>
+	    </widget>
+	    <packing>
+	      <property name="expand">False</property>
+	      <property name="homogeneous">False</property>
 	    </packing>
 	  </child>
 	</widget>

@@ -1301,6 +1301,7 @@ class MainApp:
 			self.tvtoolitem = gtk.ToolItem()
 			self.tvtoolitem.add(self.timeview)
 			self.toolbar.insert(self.tvtoolitem, -1)
+			self.tvtoolitem.show_all()
 			
 			#reset toggle buttons
 			self.settingButtons = True
