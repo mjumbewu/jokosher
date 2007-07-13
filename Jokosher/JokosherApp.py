@@ -173,7 +173,7 @@ class MainApp:
 		self.isPaused = False
 
 		# Intialise context sensitive tooltips for workspace buttons
-		self.contextTooltips.set_tip(self.compactMixButton, self.mixingViewDisabledTip, None)
+		self.compactMixButton.set_tooltip(self.contextTooltips, self.mixingViewDisabledTip, None)
 		
 		# set the window size to the last saved value
 		x = int(Globals.settings.general["windowwidth"])

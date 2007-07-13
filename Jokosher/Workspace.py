@@ -49,14 +49,14 @@ class Workspace(gtk.VPaned):
 		if self.mainview.compactMixButton.get_active():
 			self.recordingView.ChangeSize(True)
 			self.mixView.show()
-			self.mainview.contextTooltips.set_tip(
-						self.mainview.compactMixButton,
+			self.mainview.compactMixButton.set_tooltip(
+						self.mainview.contextTooltips,
 						self.mainview.mixingViewEnabledTip)
 		else:
 			self.recordingView.ChangeSize(False)
 			self.mixView.hide()
-			self.mainview.contextTooltips.set_tip(
-						self.mainview.compactMixButton,
+			self.mainview.compactMixButton.set_tooltip(
+						self.mainview.contextTooltips,
 						self.mainview.mixingViewDisabledTip)
 	
 	#____________________________________________________________________	
