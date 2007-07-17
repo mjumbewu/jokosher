@@ -54,23 +54,12 @@ class Workspace(gtk.VPaned):
 			self.mainview.compactMixButton.set_tooltip(
 						self.mainview.contextTooltips,
 						self.mainview.mixingViewEnabledTip)
-			self.mainview.compactMixButton.set_label(_("Hide Mixers"))
-			miximg = gtk.Image()
-			miximg.set_from_file(os.path.join(Globals.IMAGE_PATH, "icon_record.png"))	
-			self.mainview.compactMixButton.set_icon_widget(miximg)
-			miximg.show()
-			
 		else:
 			self.recordingView.ChangeSize(False)
 			self.mixView.hide()
 			self.mainview.compactMixButton.set_tooltip(
 						self.mainview.contextTooltips,
 						self.mainview.mixingViewDisabledTip)
-			self.mainview.compactMixButton.set_label(_("Show Mixers"))
-			miximg = gtk.Image()
-			miximg.set_from_file(os.path.join(Globals.IMAGE_PATH, "icon_mix.png"))	
-			self.mainview.compactMixButton.set_icon_widget(miximg)
-			miximg.show()
 	#____________________________________________________________________	
 
 #=========================================================================

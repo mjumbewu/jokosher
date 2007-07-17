@@ -781,7 +781,7 @@
 	  <child>
 	    <widget class="GtkToggleToolButton" id="CompactMix">
 	      <property name="visible">True</property>
-	      <property name="label" translatable="yes">Show Mixers</property>
+	      <property name="label" translatable="yes">Audio Mixers</property>
 	      <property name="use_underline">True</property>
 	      <property name="visible_horizontal">True</property>
 	      <property name="visible_vertical">True</property>
