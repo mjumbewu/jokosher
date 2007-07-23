@@ -35,7 +35,7 @@ def localFileImport(importName):
 			if not ourpath in sys.path:
 				#make sure Jokosher.Extension is in the python path, so extensions can import it.
 				#ourpath is something like .../jokosher/JonoEdit/trunk/Jokosher
-				sys.path.append(ourpath)
+				sys.path.insert(0, ourpath)
 	else:
 		print "Cannot find local file %s.py." % importName
 		sys.exit()
