@@ -69,7 +69,7 @@ class Instrument(gobject.GObject):
 	__gsignals__ = {
 		"arm"		: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () ),
 		"effect"		: ( gobject.SIGNAL_RUN_LAST | gobject.SIGNAL_DETAILED, gobject.TYPE_NONE, () ),
-		"event"		: ( gobject.SIGNAL_RUN_LAST | gobject.SIGNAL_DETAILED, gobject.TYPE_NONE, (gobject.TYPE_INT,) ),
+		"event"		: ( gobject.SIGNAL_RUN_LAST | gobject.SIGNAL_DETAILED, gobject.TYPE_NONE, (gobject.TYPE_PYOBJECT,) ),
 		"image"		: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () ),
 		"mute"		: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () ),
 		"name"		: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () ),
@@ -496,7 +496,7 @@ class Instrument(gobject.GObject):
 		event.file = "%s_%d_%d.ogg" % (os.path.join(self.path, Globals.FAT32SafeFilename(self.name)), self.id, int(time.time()))
 		#must add it to the instrument's list so that an update of the event lane will not remove the widget
 		self.events.append(event)
-		self.emit("event::added", event.id)
+		self.emit("event::added", event)
 		return event
 
 	#_____________________________________________________________________
@@ -611,7 +611,7 @@ class Instrument(gobject.GObject):
 
 		self.temp = ev.id
 		
-		self.emit("event::added", ev.id)
+		self.emit("event::added", ev)
 		
 		return ev
 		
@@ -654,7 +654,7 @@ class Instrument(gobject.GObject):
 			raise UndoSystem.CancelUndoCommand()
 		
 		self.temp = ev.id
-		self.emit("event::added", ev.id)
+		self.emit("event::added", ev)
 		
 		return ev
 	
@@ -683,7 +683,7 @@ class Instrument(gobject.GObject):
 		ev.MoveButDoNotOverlap(ev.start)
 		
 		self.temp = ev.id
-		self.emit("event::added", ev.id)
+		self.emit("event::added", ev)
 	
 	#_____________________________________________________________________
 	
@@ -703,7 +703,7 @@ class Instrument(gobject.GObject):
 		event.StopGenerateWaveform(False)
 		
 		self.temp = eventid
-		self.emit("event::removed", eventid)
+		self.emit("event::removed", event)
 	
 	#_____________________________________________________________________
 	
@@ -724,7 +724,7 @@ class Instrument(gobject.GObject):
 			event.GenerateWaveform()
 		
 		self.temp = eventid
-		self.emit("event::added", eventid)
+		self.emit("event::added", event)
 	
 	#_____________________________________________________________________
 
