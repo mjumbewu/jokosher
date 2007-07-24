@@ -71,9 +71,8 @@ class EventLaneViewer(gtk.EventBox):
 		self.project.transport.connect("position", self.OnTransportPosition)
 		self.project.connect("view-start", self.OnProjectViewChange)
 		self.project.connect("zoom", self.OnProjectViewChange)
-		self.instrument.connect("event", self.OnInstrumentSignal)
-		self.instrument.connect("recording-done", self.OnInstrumentSignal)
-		self.instrument.connect("selected", self.OnInstrumentSignal)
+		self.instrument.connect("event::added", self.OnEventAdded)
+		self.instrument.connect("event::removed", self.OnEventRemoved)
 		
 		# This defines where the blue cursor indicator should be drawn (in pixels)
 		self.highlightCursor = None
@@ -83,6 +82,9 @@ class EventLaneViewer(gtk.EventBox):
 		
 		#The position where the last mouse click was
 		self.mouseDownPos = [0,0]
+		
+		#the list of all the EventViewer widgets
+		self.eventViewerList = []
 		
 		self.set_events(	gtk.gdk.POINTER_MOTION_MASK |
 							gtk.gdk.BUTTON_RELEASE_MASK |
@@ -100,7 +102,9 @@ class EventLaneViewer(gtk.EventBox):
 		self.fixed.connect("expose-event", self.OnDraw)
 		
 		self.messageID = None
-		self.Update()
+		
+		for event in self.instrument.events:
+			self.OnEventAdded(self.instrument, event)
 		
 	#_____________________________________________________________________
 		
@@ -139,45 +143,18 @@ class EventLaneViewer(gtk.EventBox):
 		
 	#_____________________________________________________________________
 		
-	def Update(self, child=None):
+	def UpdatePosition(self, eventViewer):
 		"""
-		Updates the complete view when requested by a signal from project or instrument or __init__.
+		Moves the given EventViewer widget to the appropriate position.
 		
 		Parameters:
-			child -- a particular child widget to be updated. If provided, only this 
-					one will be updated, and all other children will be left alone.
+			eventViewer -- the widget that has needs to be moved to a new position.
 		"""
-		if child and child in self.fixed.get_children():
-			x = int(round((child.event.start - self.project.viewStart) * self.project.viewScale))
-			self.fixed.move( child, x, 0 )
-			child.UpdateDrawerPosition()
-		else:			
-			# Move them to the correct positions
-			for widget in self.fixed.get_children():
-				#Check that it is EventViewer (could be a button drawer)
-				if type(widget) == EventViewer:
-					if widget.event not in self.instrument.events:
-						# Check if any events have been deleted
-						self.fixed.remove(widget)
-						# remove the event's drawer if it's showing
-						if widget.drawer.parent == self.fixed:
-							self.fixed.remove(widget.drawer)
-						#destroy the object
-						widget.Destroy()
-					else:
-						x = int(round((widget.event.start - self.project.viewStart) * self.project.viewScale))
-						self.fixed.move(widget, x, 0)
-						widget.UpdateDrawerPosition()
-
-			# Check if any events have been added
-			widget_events = [widget.event for widget in self.fixed.get_children()]
-			for ev in self.instrument.events:
-				if ev not in widget_events:
-					x = int(round((ev.start - self.project.viewStart) * self.project.viewScale))
-					child = EventViewer(self, self.project, ev, self.allocation.height, self.mainview, self.small)
-					self.fixed.put(child, x, 0)
-			self.fixed.show_all()
-		self.queue_draw()
+		if eventViewer in self.fixed.get_children():
+			x = int(round((eventViewer.event.start - self.project.viewStart) * self.project.viewScale))
+			self.fixed.move( eventViewer, x, 0 )
+			
+			self.queue_draw()
 			
 	#_____________________________________________________________________
 	
@@ -396,6 +373,43 @@ class EventLaneViewer(gtk.EventBox):
 		
 	#_____________________________________________________________________
 	
+	def OnEventAdded(self, instrument, event):
+		"""
+		Callback for when an event is added to our instrument.
+		
+		Parameters:
+			instrument -- the instrument instance that send the signal.
+			event -- the event instance that was added.
+		"""
+		x = int(round((event.start - self.project.viewStart) * self.project.viewScale))
+		child = EventViewer(self, self.project, event, self.allocation.height, self.mainview, self.small)
+		self.fixed.put(child, x, 0)
+		child.show()
+		self.eventViewerList.append(child)
+	
+	#_____________________________________________________________________
+	
+	def OnEventRemoved(self, instrument, event):
+		"""
+		Callback for when an event is removed from our instrument.
+		
+		Parameters:
+			instrument -- the instrument instance that send the signal.
+			event -- the event instance that was removed.
+		"""
+		for widget in self.eventViewerList:
+			if widget.event is event:
+				self.fixed.remove(widget)
+				# remove the event's drawer if it's showing
+				if widget.drawer.parent == self.fixed:
+					self.fixed.remove(widget.drawer)
+				#destroy the object
+				widget.Destroy()
+				self.eventViewerList.remove(widget)
+				break
+	
+	#_____________________________________________________________________
+	
 	def OnTransportPosition(self, transportManager, extraString):
 		"""
 		Callback for signal when the transport position changes.
@@ -492,5 +506,35 @@ class EventLaneViewer(gtk.EventBox):
 			eventViewer.ChangeSize(small)
 			
 	#____________________________________________________________________	
+	
+	def PutDrawer(self, drawer, xvalue=1):
+		"""
+		Places the drawer below in the event lane and makes it visible.
+		
+		Parameters:
+			drawer -- the widget to show.
+			xvalue -- the horizontal position of the drawer in pixels
+		"""
+		if not drawer.parent:
+			self.fixed.put(drawer, xvalue, 75)
+		elif drawer.parent == self.fixed:
+			self.fixed.move(drawer, xvalue, 75)
+		
+		drawer.show_all()
+	
+	#____________________________________________________________________
+	
+	def RemoveDrawer(self, drawer):
+		"""
+		Removes the drawer from below in the event. This function does
+		nothing if the given drawer is not currenly shown.
+		
+		Parameters:
+			drawer -- the widget to remove.
+		"""
+		if drawer.parent == self.fixed:
+			self.fixed.remove(drawer)
+			
+	#____________________________________________________________________
 
 #=========================================================================

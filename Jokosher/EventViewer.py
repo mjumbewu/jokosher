@@ -526,12 +526,12 @@ class EventViewer(gtk.DrawingArea):
 			
 			if self.event.MayPlace(time):
 				self.event.start = time
-				self.lane.Update(self)
+				self.lane.UpdatePosition(self)
 				self.mouseAnchor = [x, y]
 			else:
 				temp = self.event.start
 				self.event.MoveButDoNotOverlap(time)
-				self.lane.Update(self)
+				self.lane.UpdatePosition(self)
 				
 				#MoveButDoNotOverlap() moves the event out of sync with the mouse
 				#and the mouseAnchor must be updated manually.
@@ -550,12 +550,6 @@ class EventViewer(gtk.DrawingArea):
 			if selection[0] > selection[1]:
 				selection_direction = "rtol"
 				self.fadeMarkers.reverse()
-			
-			if self.drawer.parent != self.lane.fixed:
-				#the drawer is not in the lane, we must add it
-				self.lane.fixed.put(self.drawer,1,75)
-				#update the lane so the drawer is shown
-				self.lane.Update()
 			
 			#set the drawer align position
 			self.drawerAlignToLeft = (selection_direction == "rtol")
@@ -845,7 +839,7 @@ class EventViewer(gtk.DrawingArea):
 		if self.event.selection == [0, 0]:
 			self.HideDrawer()
 
-		self.lane.Update(self)
+		self.lane.UpdatePosition(self)
 			
 		return True
 
@@ -970,18 +964,12 @@ class EventViewer(gtk.DrawingArea):
 		if selection[0] > selection[1]:
 			self.event.selection = [selection[1], selection[0]]
 			selection_direction = "rtol"
-				
-		if self.drawer.parent != self.lane.fixed:
-			#the drawer is not in the lane, we must add it
-			self.lane.fixed.put(self.drawer,1,75)
-			
-			#set the drawer align position
-			self.drawerAlignToLeft = (selection_direction == "rtol")
-			#move the drawer to its proper position
-			self.UpdateDrawerPosition()
-			#update the lane so the drawer is shown
-			self.lane.Update()
-
+		
+		#set the drawer align position
+		self.drawerAlignToLeft = (selection_direction == "rtol")
+		#move the drawer to its proper position
+		self.UpdateDrawerPosition()
+		
 	#_____________________________________________________________________
 		
 	def OnMouseLeave(self, widget, event):
@@ -1014,8 +1002,6 @@ class EventViewer(gtk.DrawingArea):
 			
 		pos /= float(self.project.viewScale)
 		self.event.SplitEvent(pos)
-
-		self.lane.Update()
 		
 	#_____________________________________________________________________
 	
@@ -1050,10 +1036,7 @@ class EventViewer(gtk.DrawingArea):
 		Parameters:
 			event -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-		# delete event
 		self.event.Delete()
-		self.HideDrawer()
-		self.lane.Update()
 	
 	#_____________________________________________________________________
 		
@@ -1079,9 +1062,10 @@ class EventViewer(gtk.DrawingArea):
 		"""
 		Hide the drawer.
 		"""
-		if self.drawer.parent == self.lane.fixed:
-			self.lane.fixed.remove(self.drawer)
+		
+		self.lane.RemoveDrawer(self.drawer)
 
+	#_____________________________________________________________________
 	
 	def do_size_request(self, requisition):
 		"""
@@ -1115,7 +1099,7 @@ class EventViewer(gtk.DrawingArea):
 		Callback function for when the position of the event changes.
 		"""
 		self.SetAccessibleName()
-		self.lane.Update(self)
+		self.lane.UpdatePosition(self)
 	
 	#_____________________________________________________________________
 	
@@ -1284,9 +1268,6 @@ class EventViewer(gtk.DrawingArea):
 			reverseSelectionPoints -- True if the selection points should
 										be reversed.
 		"""
-		if self.drawer.parent != self.lane.fixed:
-			#drawer is not in lane
-			return
 		
 		if reverseSelectionPoints:
 			selection = [self.event.selection[1], self.event.selection[0]]
@@ -1308,7 +1289,7 @@ class EventViewer(gtk.DrawingArea):
 				width = 40 # fudge it because it has no width initially
 			x = int(self.PixXFromSec(selection[1]) - width)
 		
-		self.lane.fixed.move(self.drawer,eventx + x,75)
+		self.lane.PutDrawer(self.drawer, eventx + x)
 		#don't update the lane because it calls us and that might cause infinite loop
 
 	#_____________________________________________________________________
