@@ -988,12 +988,15 @@ class Instrument(gobject.GObject):
 		if type != self.instrType and pixbufList:
 			pixbuf = pixbufList[0]
 		else:
-			return
+			raise UndoSystem.CancelUndoCommand()
 
-		oldname = self.name.lower().replace(" ","")
-		#if the instrument name has not been modified by the user, we can replace it.
-		if oldname == self.instrType:
-			self.name = name
+		for tuple_ in Globals.getCachedInstruments():
+			if tuple_[1] == self.instrType:
+				if tuple_[0] == self.name:
+					#if the instrument name has not been modified by the user, we can replace it.
+					self.name = name
+					self.emit("name")
+				break
 
 		self.instrType = type
 		self.pixbuf = pixbuf
