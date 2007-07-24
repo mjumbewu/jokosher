@@ -364,7 +364,7 @@ class Event(gobject.GObject):
 		self.SetProperties()
 		self.emit("length")
 		self.emit("position")
-		self.instrument.emit("event::added", e.id)
+		self.instrument.emit("event::added", e)
 		
 		#undo parameters
 		self.temp = e.id
