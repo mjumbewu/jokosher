@@ -104,17 +104,17 @@ class MixerStrip(gtk.Frame):
 		
 		# Label and icon
 		hb = gtk.HBox()
-		imgsize = gtk.icon_size_lookup(gtk.ICON_SIZE_MENU)[0]
-		pixbuf = self.instrument.pixbuf.scale_simple(imgsize, imgsize, gtk.gdk.INTERP_BILINEAR)
-		image = gtk.Image()
-		image.set_from_pixbuf(pixbuf)
-		hb.pack_start(image, False, False)
+		self.instrImage = gtk.Image()
+		#initalize the image from the instrument's pixbuf
+		self.OnInstrumentImage()
+		hb.pack_start(self.instrImage, False, False)
 		
 		self.label = gtk.Label(instrument.name)
 		self.label.set_max_width_chars(6)
 		hb.pack_start(self.label, True, True)
 
 		self.instrument.connect("name", self.OnInstrumentName)
+		self.instrument.connect("image", self.OnInstrumentImage)
 		
 		self.vbox.pack_end(hb, False, False)
 		self.vbox.show_all()
@@ -143,12 +143,27 @@ class MixerStrip(gtk.Frame):
 		self.label.set_text(self.instrument.name)
 		
 	#_____________________________________________________________________
+	
+	def OnInstrumentImage(self, instrument=None):
+		"""
+		Callback for when the instrument's image changes.
+		
+		Parameters:
+			instrument -- the instrument instance that send the signal.
+		"""
+		imgsize = gtk.icon_size_lookup(gtk.ICON_SIZE_MENU)[0]
+		pixbuf = self.instrument.pixbuf.scale_simple(imgsize, imgsize, gtk.gdk.INTERP_BILINEAR)
+		self.instrImage.set_from_pixbuf(pixbuf)
+		
+	#_____________________________________________________________________
 
 	def Destroy(self):
 		"""
 		Called when the MixerStrip is destroyed. It also emits the
 		destroy signal to the VUMixer widget.
 		"""
+		self.instrument.disconnect_by_func(self.OnInstrumentImage)
+		self.instrument.disconnect_by_func(self.OnInstrumentName)
 		self.vu.Destroy()
 		self.destroy()
 	
