@@ -112,7 +112,6 @@ class MainApp:
 			"on_remove_instr_activate" : self.OnRemoveInstrument,
 			"on_report_bug_activate" : self.OnReportBug,
 			"on_project_add_audio" : self.OnAddAudioFile,
-			"on_create_project_template" : self.ShowCreateProjectTemplateDialog
 		}
 		self.wTree.signal_autoconnect(signals)
 		
@@ -222,9 +221,6 @@ class MainApp:
 		self.OpenRecentProjects()
 		self.PopulateRecentProjects()
 		
-		# populate the Mixdown As menu, if we need to
-		self.PopulateMixdownAsMenu()
-		
 		# set window icon
 		icon_theme = gtk.icon_theme_get_default()
 		try:
@@ -252,13 +248,11 @@ class MainApp:
 			# Load extensions -- this should probably go somewhere more appropriate
 			self.extensionManager = ExtensionManager.ExtensionManager(self)
 
-
 		## Setup is complete so start up the GUI and perhaps load a project
 		## any new setup code needs to go above here
 
 		# Show the main window
 		self.window.show_all()
-
 
 		# command line options override preferences so check for them first,
 		# then preferences, then default to the welcome dialog
@@ -585,7 +579,7 @@ class MainApp:
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-		MixdownProfileDialog.MixdownProfileDialog(self.project, self, profile)
+		MixdownProfileDialog.MixdownProfileDialog(self, self.project, profile)
 		
 	#_____________________________________________________________________
 		
@@ -979,7 +973,7 @@ class MainApp:
 		"""
 		introstring = _("Argh! Something went wrong and a serious error occurred:")
 		outrostring = _("It is recommended that you report this to the Jokosher developers or get help at http://www.jokosher.org/forums/")
-	
+		
 		outputtext = "\n\n".join((introstring, error, details, outrostring))
 		
 		dlg = gtk.MessageDialog(self.window,
@@ -1387,6 +1381,7 @@ class MainApp:
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
+		self.PopulateMixdownAsMenu()
 		if self.isRecording:
 			self.export.set_sensitive(False)
 			if self.mixdown_as_header:
@@ -1399,9 +1394,10 @@ class MainApp:
 				if instr.events:
 					eventList = True
 					break
-		self.export.set_sensitive(eventList)			
+		self.export.set_sensitive(eventList)
 		if self.mixdown_as_header:
 			self.mixdown_as_header.set_sensitive(eventList)
+			
 	#_____________________________________________________________________
 	
 	def OnEditMenu(self, widget):
@@ -1673,7 +1669,8 @@ class MainApp:
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-		Utils.OpenExternalURL(url="http://www.jokosher.org/contribute", message=_("<big>Couldn't launch the contributing website automatically.</big>\n\nPlease visit %s to access it."), parent=self.window)
+		Utils.OpenExternalURL(url="http://www.jokosher.org/contribute", 
+			message=_("<big>Couldn't launch the contributing website automatically.</big>\n\nPlease visit %s to access it."), parent=self.window)
 	
 	#_____________________________________________________________________
 	
@@ -1837,19 +1834,25 @@ class MainApp:
 		"""
 		If there are any saved mixdown profiles, create a Mixdown As submenu in
 		the file menu and add links to them.
-		
 		"""
-		
 		self.mixdown_as_header = None
 		savefolder = os.path.expanduser('~/.jokosher/mixdownprofiles') # created by Globals
 		profiles = os.listdir(savefolder)
 		if not profiles: return
 		
+		# remove any old mixdown profiles
+		for item in profiles:
+			if not item.endswith(".profile"):
+				path = os.path.join(Globals.MIXDOWN_PROFILES_PATH, item)
+				os.remove(path)
+				break
+		profiles = os.listdir(savefolder)
+			
 		filemenulist = self.filemenu.get_submenu()
 		# If there's already a Mixdown As submenu, delete it and recreate it
 		for i in filemenulist.get_children():
 			if i.get_children():
-				if i.get_children()[0].get_label() == _("_Mixdown as"):
+				if i.get_children()[0].get_label() == _("Mixdown as"):
 					filemenulist.remove(i)
 					i.destroy()
 		
@@ -1857,8 +1860,9 @@ class MainApp:
 		self.mixdown_as_header = gtk.MenuItem(label=_("Mixdown as"))
 		submenu = gtk.Menu()
 		for p in profiles:
-			menuitem = gtk.MenuItem(label=p)
-			menuitem.connect("activate", self.OnExport, p)
+			profilenames = p.split(".")[0]
+			menuitem = gtk.MenuItem(label=profilenames)
+			menuitem.connect("activate", self.OnExport, profilenames)
 			submenu.append(menuitem)
 		self.mixdown_as_header.set_submenu(submenu)
 		# insert it after Mixdown Project
@@ -1866,79 +1870,13 @@ class MainApp:
 		insert_position = None
 		for i in filemenulist.get_children():
 			if i.get_children():
-				if i.get_children()[0].get_label() == _("_Mixdown Project"):
+				if i.get_children()[0].get_label() == _("_Mixdown Project..."):
 					insert_position = counter
 			counter += 1
 		if insert_position:
 			self.filemenu.get_submenu().insert(self.mixdown_as_header,insert_position + 1)
-		
-	#_____________________________________________________________________
-	
-	def ShowCreateProjectTemplateDialog(self, widget):
-		"""
-		Called when the user wishes to save current project instruments as
-		a project template.
-		Saves current project instruments in a template file.
-		
-		Parameters:
-			widget -- reserved for GTK callbacks. Don't use explicitly.
-		"""
-		template = ProjectTemplate.ProjectTemplate()
-		
-		buttons = (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, gtk.STOCK_OK, gtk.RESPONSE_OK)
-		entry = gtk.Entry()
-		hbox = gtk.HBox()
-		hbox.set_spacing(12)
-		hbox.set_border_width(12)
-		templateLabel = gtk.Label(_("_Template Name"))
-		templateLabel.set_use_underline(True)
-		hbox.pack_start(templateLabel, False, False)
-		hbox.pack_start(entry, True, True)
-		
-		dlg = gtk.Dialog(_("Create Project Template"), self.window, gtk.DIALOG_DESTROY_WITH_PARENT, buttons)
-		dlg.set_default_size(350, 150)
-		
-		dlg.vbox.set_spacing(12)
-		dlg.vbox.pack_start(gtk.Label(_("Please enter the name of the template you wish to create.")), False, False)
-		dlg.vbox.pack_start(hbox, False, False)
-		dlg.vbox.show_all()
-		response = dlg.run()
-		
-		if response == gtk.RESPONSE_OK:
-			if entry.get_text() and len(self.project.instruments) != 0:
-				instrlist = []
-				for instr in self.project.instruments:
-					instrlist.append(instr.instrType)	
-				template.SaveTemplateFile(entry.get_text(), instrlist)
-				
-				msgdlg = self.ShowTemplateNotifcationDialog(gtk.MESSAGE_INFO, \
-					_("Your project instruments have been saved to <b>%s.template</b>") % ( Globals.TEMPLATES_PATH + entry.get_text() ))
-
-			else:
-				msgdlg = self.ShowTemplateNotifcationDialog(gtk.MESSAGE_ERROR, \
-					_("Cannot create project template. Please make sure you have specified a template name and make sure there are instruments in the project."))
-				
-		dlg.destroy()
-				
-	#_____________________________________________________________________
-	
-	def ShowTemplateNotifcationDialog(self, type, message):
-		"""
-		Called when the user clicks the ok button in the Add Project Template dialog.
-		Returns a gtk.MessageDialog notifying the user of the success or failure regarding the saving of project templates.
-		
-		Parameters:
-			type -- the type of the gtk.MessageDialog.
-			message -- the message that will be displayed in the message dialog.
-		"""
-		msgdlg = gtk.MessageDialog(self.window,
-			gtk.DIALOG_DESTROY_WITH_PARENT,
-			type,
-			gtk.BUTTONS_CLOSE)
-		msgdlg.set_markup(message)
-		msgdlg.run()
-		msgdlg.destroy()
-		return msgdlg
+			
+		self.filemenu.show_all()
 		
 	#_____________________________________________________________________
 	

@@ -383,6 +383,7 @@ for directory in ['extensions', 'instruments', 'instruments/images',
 #TODO: make this a list with the system path and home directory path
 EFFECT_PRESETS_PATH = os.path.expanduser("~/.jokosher/presets/effects")
 TEMPLATES_PATH = os.path.expanduser("~/.jokosher/templates/")
+MIXDOWN_PROFILES_PATH = os.path.expanduser("~/.jokosher/mixdownprofiles/")
 
 IMAGE_PATH = os.getenv("JOKOSHER_IMAGE_PATH")
 if not IMAGE_PATH:

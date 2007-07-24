@@ -2,16 +2,16 @@
 #	THIS FILE IS PART OF THE JOKOSHER PROJECT AND LICENSED UNDER THE GPL. SEE
 #	THE 'COPYING' FILE FOR DETAILS
 #
-#	This class handles all of the processing associated with the
-#	Mixdown Profile dialog.
+#	This module is used to present a dialog which allows the user to create, modify and
+#	remove mixdown profiles.
 #
 #-------------------------------------------------------------------------------
 
 import gtk.glade
 import gobject
+
 import Globals
-import os
-import MixdownProfiles
+import MixdownProfileManager
 
 import gettext
 _ = gettext.gettext
@@ -20,340 +20,583 @@ _ = gettext.gettext
 
 class MixdownProfileDialog:
 	"""
-	Handles all of the processing associated with the Mixdown Profile dialog.
+	This class allows the user to create, modify and remove mixdown profiles.
 	"""
 	
 	#_____________________________________________________________________
 
-	def __init__(self, project, parent, profile=None):
+	def __init__(self, mainapp, project, profile=None):
 		"""
 		Creates a new instance of MixdownProfileDialog.
 		
 		Parameters:
 			project -- the currently active Project.
-			parent -- reference to the MainApp Jokosher window.
-			profile -- a profile name, as saved by SaveSettings.
+			mainapp -- reference to the MainApp Jokosher window.
 		"""
-		if project:
-			self.project = project
+		if profile:
+			self.profile = profile
 		else:
-			return
+			self.profile = None
+			
+		self.mainapp = mainapp
+		self.project = project
 		
 		self.res = gtk.glade.XML(Globals.GLADE_PATH, "MixdownProfileDialog")
 
 		self.signals = {
-			"on_mixdownbutton_clicked" : self.OnMixdown,
-			"on_savesettingsbutton_clicked" : self.OnSaveSettings,
-			"on_addstepbutton_clicked" : self.OnAddStep,
-			"on_cancelbutton_clicked" : self.OnClose
+			"on_add_profile_button_clicked" : self.OnAddProfile,
+			"on_remove_profile_button_clicked" : self.OnRemoveProfile,
+			"on_configure_action_button_clicked" : self.OnConfigureAction,
+			"on_add_action_button_clicked" : self.OnAddAction,
+			"on_remove_action_button_clicked" : self.OnRemoveAction,
+			"on_cancel_button_clicked" : self.OnDestroy,
+			"on_mixdown_button_clicked" : self.OnMixdown
 		}
-		
+
 		self.res.signal_autoconnect(self.signals)
 
 		self.window = self.res.get_widget("MixdownProfileDialog")
-		self.scrolledSteps = self.res.get_widget("scrolledwindow")
+		self.window.set_default_size(450, 400)
+		self.window.set_icon(self.mainapp.icon)
 
-		self.parent = parent
-		self.window.set_icon(self.parent.icon)
-		self.actionstable = gtk.Table(rows=1, columns=2)
+		self.profileCombo = self.res.get_widget("profile_combo")
+		self.treeView = self.res.get_widget("actions_treeview")
+		self.mixdownButton = self.res.get_widget("mixdown_button")
+		self.configureLabel = self.res.get_widget("action_configured_label")
 		
-		# set up the table for displaying the results
-		self.actionstable.set_row_spacings(6)
-		self.actionstable.set_col_spacings(6)
-		self.actionstable.set_border_width(6)
-		self.scrolledSteps.add_with_viewport(self.actionstable)
+		self.manager = MixdownProfileManager.MixdownProfileManager(self)
 		
-		# centre the MixdownProfileDialog on the main jokosher window
-		self.window.set_transient_for(self.parent.window)
+		self.treeViewModel = gtk.ListStore(gtk.gdk.Pixbuf, str, object) # pixbuf, details, class instance
+		self.profileComboModel = gtk.ListStore(str)
 		
-		# replace $PROJECTNAME with the project name in the window label
-		projectnamelabel = self.res.get_widget("lbl_projectname")
-		txt = _("<b>Steps to mixdown %(projectname)s</b>") % {"projectname":self.project.name}
-		projectnamelabel.set_markup(txt)
-
-		# populate actions list
-		self.possible_action_classes = [
-			MixdownProfiles.ExportAsFileType,
-			MixdownProfiles.RunAScript
-		] # eventually allow extensions to add to this, but not yet
-
-		self.combo_newstep = self.res.get_widget("newstep")
-		self.combo_newstep_model = self.combo_newstep.get_model()
-		for action in self.possible_action_classes:
-			self.combo_newstep_model.append([action.create_name()])
-		self.combo_newstep.set_active(0)
-
-		self.actions = []
-		if profile:
-			self.RestoreProfile(profile)
-		else:		
-			# create a "export as Ogg" button by default
-			# specialcase ExportAsFileType
-			export_action = MixdownProfiles.ExportAsFileType(self.project)
-			self.AddAction(export_action)
+		self.treeView.set_model(self.treeViewModel)
+		self.profileCombo.set_model(self.profileComboModel)
+		
+		iconCell = gtk.CellRendererPixbuf()
+		iconColumn = gtk.TreeViewColumn()
+		iconColumn.pack_start(iconCell, False)
+		iconColumn.add_attribute(iconCell, "pixbuf", 0)
+		
+		detailsCell = gtk.CellRendererText()
+		detailsColumn = gtk.TreeViewColumn()
+		detailsColumn.pack_start(detailsCell, False)
+		detailsColumn.add_attribute(detailsCell, "markup", 1)
+		
+		self.treeView.append_column(iconColumn)
+		self.treeView.append_column(detailsColumn)
+		
+		self.profileCombo.clear()
+		textrend = gtk.CellRendererText()
+		self.profileCombo.pack_start(textrend)
+		self.profileCombo.add_attribute(textrend, "text", 0)
+		self.profileCombo.connect("changed", self.OnProfileComboBoxChanged)
+		
+		self.treeViewSelection = self.treeView.get_selection()
+		self.treeViewSelection.connect("changed", self.OnSelectionChanged)
+		self.treeViewSelection.set_mode(gtk.SELECTION_SINGLE)
+		
+		self.PopulateProfileComboBoxModel()
+		
+		if self.profile:
+			self.SetActiveProfileItem(self.profile)
+		else:
+			self.profileCombo.set_active(0)
 			
-		# TODO: if a profile was supplied, show a delete button for it
-		
 		self.window.show_all()
-
+		
 	#_____________________________________________________________________
-
-	def AddAction(self, action):
+	
+	def SetActiveProfileItem(self, profileName):
 		"""
-		Adds a MixdownAction to this mixdown profile.
+		Called when an item in the profile combo (self.profileCombo) should be made
+		the active item.
+		Sets the active item in profile combo by the profile name specified
 		
 		Parameters:
-			action -- a MixdownProfiles.MixdownAction subclass.
+			profileName -- name of the profile which should be active.
 		"""
-		rows = self.actionstable.get_property("n-rows")
-		cols = self.actionstable.get_property("n-columns")
+		active = -1
+		for item in self.profileComboModel:
+			active += 1
+			if item[0] == self.profile:
+				self.profileCombo.set_active(active)
+				break
+			
+	#_____________________________________________________________________
+	
+	def OnSelectionChanged(self, widget):
+		"""
+		Called when a treeview (self.treeView) selection has been made.
 		
-		if rows == 1 and len(self.actions) == 0:
-			pass
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly..
+		"""
+		if self.treeViewSelection.count_selected_rows() > 0:
+			self.OnCheckActionConfigured()
 		else:
-			rows += 1
-			self.actionstable.resize(rows, cols)
+			return
+			
+	#_____________________________________________________________________
+	
+	def OnCheckActionConfigured(self):
+		"""
+		Called to check if a MixdownAction has been configured.
+		Checks to see if the selected action is configured and updates
+		the configure label accordingly.
 		
-		tooltips = gtk.Tooltips()
-		button = gtk.Button()
-		button.mixdownaction = action
-		action.button = button
-		action.update_button()
-		tooltips.set_tip(button, _("Edit this mixdown step settings"))
-		button.connect("clicked", self.ConfigureButton)
-		self.actionstable.attach(button, 0, 1, rows-1, rows, xoptions=gtk.FILL|gtk.EXPAND, yoptions=gtk.FILL|gtk.SHRINK)
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+		"""
+		if self.treeViewSelection.count_selected_rows() > 0:
+			profileName = self.profileComboModel[self.profileCombo.get_active()][0]
+			selected = self.treeViewSelection.get_selected()
+			action = self.treeViewModel [selected[1]] [2]
+			if action:
+				if action.isConfigured:
+					self.configureLabel.set_markup(_("<b>%s is configured</b>" % action.name))
+				else:
+					self.configureLabel.set_markup(_("<b>%s is not configured</b>" % action.name))
+		else:
+			self.configureLabel.set_text("")
+			
+	#_____________________________________________________________________
+	
+	def AddActionToActionModel(self, profileName, action):
+		"""
+		Called when a MixdownAction needs to be added to the action model (self.treeViewModel).
+		Adds the information associated with the MixdownAction to the action model.
 		
-		buttondel = gtk.Button(stock=gtk.STOCK_DELETE)
-		buttondel.mixdownaction = action
-		tooltips.set_tip(buttondel, _("Remove this mixdown step"))
-		buttondel.connect("clicked", self.DeleteButton)
-		buttondel.actionbutton = button
-		if rows == 1:
-			buttondel.set_sensitive(False) # you can't delete the first export	
-		self.actionstable.attach(buttondel, 1, 2, rows-1, rows, xoptions=gtk.FILL|gtk.EXPAND, yoptions=gtk.FILL|gtk.SHRINK)
+		Parameters:
+			profileName -- name of the mixdown profile to add the action to.
+			action -- the MixdownAction instance which will be added to the action model.
+		"""
+		self.treeViewModel.append( self.ReturnActionDisplayDetails(action) )
+		profileName = self.profileComboModel[self.profileCombo.get_active()][0]
+		self.SaveProfileActions(profileName)
 		
-		self.actionstable.show_all()
-		self.actions.append(action)
+	#_____________________________________________________________________
+	
+	def ReturnActionDisplayDetails(self, action):
+		"""
+		Called when action details need to be displayed in the action model (self.treeViewModel).
+		Returns the details needed for the action to be added to the treeview (self.treeView).
+		
+		Parameters:
+			action -- the MixdownAction instance which will be added to the action model.
+		"""
+		pixbuf = self.ReturnActionPixbuf(action)
+		
+		detailsText = "<span size='medium' weight='bold'>%s</span>\n" % action.name  \
+		+ "<span size='small' foreground='dim grey'>%s</span>" % action.description
+		
+		return (pixbuf, detailsText, action)
+		
+	#_____________________________________________________________________
+	
+	def UpdateProfileModel(self, signalDetails):
+		"""
+		Called when the profile combo model (self.profileComboModel) needs updating.
+		Updates the combo box model with the files that reside in the mixdownprofiles directory
+		(~/.jokosher/mixdownprofiles/).
+		
+		Parameters:
+			signalName -- the signal details which are passed to this method.
+		"""
+		if signalDetails == "saveProfile":
+			active = self.profileCombo.get_active()
+		elif signalDetails == "deleteProfile":
+			active = 0
+		
+		self.profileComboModel.clear()
+		for item in self.manager.GetMixdownProfileList():
+			self.profileComboModel.append((item,))
+			self.profileCombo.show_all()
+			self.profileCombo.set_active(active)
+			
+	#_____________________________________________________________________
+		
+	def UpdateActionTreeViewModel(self, profileName):
+		"""
+		Called when the action treeview (self.treeView) needs updating.
+		Updates the MixdownActions in the treeview.
+		
+		Parameters:
+			profileName -- the name of the profile to use to retrieve MixdownActions from.
+		"""
+		self.treeViewModel.clear()
+		actions = self.manager.ReturnAllActionsFromMixdownProfile(profileName)
+		if actions:
+			for action in actions:
+				action.connect("action-configured", self.ActionIsConfigured)
+				self.treeViewModel.append( self.ReturnActionDisplayDetails(action) )
+		else:
+			return
+		
+	#_____________________________________________________________________
+	
+	def ActionIsConfigured(self, action):
+		"""
+		Called when a MixdownAction has been configured.
+		Saves the MixdownActions present in the action treeview (self.treeView)
+		to the currently selected profile (self.profileCombo).
+		
+		Parameters:
+			action -- the MixdownAction instance which has just been configured.
+		"""
+		profileName = self.profileCombo.get_model()[self.profileCombo.get_active()][0]
+		self.SaveProfileActions(profileName)
+		
+	#_____________________________________________________________________
+	
+	def ReturnActionPixbuf(self, action):
+		"""
+		Called when the action treeview (self.treeView) needs to insert a
+		pixbuf associated with a MixdownAction.
+		Returns a pixbuf from the icon path specified by the MixdownAction.
+		
+		Parameters:
+			action -- the MixdownAction instance from which a pixbuf will be returned.
+			
+		Returns:
+			pixbuf -- A gtk.gdk.Pixbuf associated with the MixdownAction.
+		"""
+		if action.iconPath.startswith("gtk"):
+			pixbuf = self.treeView.render_icon(action.iconPath, gtk.ICON_SIZE_DIALOG)
+		else:
+			pixbuf = gtk.gdk.pixbuf_new_from_file(action.iconPath)
+	
+		# there is a problem with this, i would like to use the current icon theme dialog size
+		# instead of using 48x48 for the pixbuf size.
+		if pixbuf.get_property("width") and pixbuf.get_property("height") != 48:
+			scaled = pixbuf.scale_simple(48, 48, gtk.gdk.INTERP_BILINEAR)
+			return scaled
+		else:
+			return pixbuf
 	
 	#_____________________________________________________________________
 
-	def ConfigureButton(self, button):
+	def PopulateProfileComboBoxModel(self):
 		"""
-		Called when the user clicks the button for an action, which
-		pops its config window.
+		Populates the profile combo model (self.profileComboModel) with profiles
+		in ~/.jokosher/mixdownprofiles/
+		"""
+		for profile in self.manager.GetMixdownProfileList():
+			self.profileComboModel.append((profile,))
+			
+	#_____________________________________________________________________
+	
+	def OnProfileComboBoxChanged(self, widget):
+		"""
+		Called when the profile combo box (self.profileCombo) contents change.
+		Updates the action treeview (self.treeView) with the MixdownActions in
+		the newly selected profile.
 		
 		Parameters:
-			button -- reserved for GTK callbacks, don't use it explicitly.
+			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-		button.mixdownaction.configure()
-
+		profileName = self.profileCombo.get_model()[self.profileCombo.get_active()][0]
+		self.UpdateActionTreeViewModel(profileName)
+		
 	#_____________________________________________________________________
 
-	def DeleteButton(self, button):
+	def OnAddProfile(self, widget):
 		"""
-		Called when the user clicks the delete button for an action, which
-		removes that action.
+		Called when the Add Mixdown Profile button is clicked.
+		Shows a dialog allowing the user to add MixdownActions
+		to the currently selected profile (self.profileCombo).
 		
 		Parameters:
-			button -- reserved for GTK callbacks, don't use it explicitly.
+			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-		# remove the action from the list
-		self.actions.remove(button.mixdownaction)
+		self.ShowAddProfileDialog()
 		
-		# delete the action
-		del(button.mixdownaction)
+	#_____________________________________________________________________
+	
+	def ShowAddProfileDialog(self):
+		"""
+		Shows the Add Mixdown Profile dialog, allowing the user to create a MixdownProfile.
+		"""
+		buttons = (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, gtk.STOCK_OK, gtk.RESPONSE_OK)
 		
-		# delete the buttons
-		table = button.get_parent()
-		actionbutton = button.actionbutton
+		iconBox = gtk.HBox()
+		iconBox.set_border_width(12)
+		iconBox.set_spacing(12)
+		iconImage = gtk.Image()
+		iconImage.set_from_stock(gtk.STOCK_DIALOG_QUESTION, gtk.ICON_SIZE_DIALOG)
+		iconLabel = gtk.Label(_("Please enter the name of the mixdown profile you wish to create."))
+		iconLabel.set_line_wrap(True)
 		
-		# walk through the table; when we find our button, delete it and
-		# its associated action button, and then move everything up a row;
-		# finally, resize the table to be one row smaller
-		our_row = table.child_get_property(button, "top-attach")
+		iconBox.pack_start(iconImage, False, False)
+		iconBox.pack_start(iconLabel, False, False)
 		
-		table.remove(button)
-		table.remove(actionbutton)
+		entryBox = gtk.HBox()
+		entryBox.set_spacing(12)
+		entryBox.set_border_width(6)
+		profileEntry = gtk.Entry()
+		entryBox.pack_start(gtk.Label(_("Profile name:")), False, False)
+		entryBox.pack_start(profileEntry, True, True)
 		
-		# move everything up a row
-		# we do this by finding all the table's children which are in a row greater
-		# than the buttons we've removed, and removing them too while stashing them
-		# in a list. Then sort the list into incrementing row order, and finally
-		# walk through the list readding them. We have to do this stupid dance
-		# so that we read them all in increasing row order, otherwise it'll 
-		# possibly break by putting two things in a table cell, etc.
-		removed_buttons_to_readd = []
-		for child in table.get_children():
-			this_child_row = table.child_get_property(child, "top-attach")
-			this_child_col = table.child_get_property(child, "left-attach")
-			if this_child_row > our_row:
-				removed_buttons_to_readd.append((this_child_row - 1, this_child_col, child))
-				table.remove(child)
+		dlg = gtk.Dialog(_("Create Mixdown Profile"), self.window, gtk.DIALOG_DESTROY_WITH_PARENT, buttons)
+		dlg.set_default_size(375, 200)
+		dlg.set_has_separator(False)
 		
-		removed_buttons_to_readd.sort(cmp=lambda a,b: cmp(a[0], b[0]))
+		dlg.vbox.set_spacing(6)
+		dlg.vbox.pack_start(iconBox, False, False)
+		dlg.vbox.pack_start(entryBox, False, False)
+		dlg.vbox.show_all()
+		response = dlg.run()
 		
-		for row_to_readd_to, col_to_readd_to, widget in removed_buttons_to_readd:
-			table.attach(widget, col_to_readd_to, col_to_readd_to + 1,
-													 row_to_readd_to, row_to_readd_to + 1,
-													 xoptions=gtk.FILL|gtk.EXPAND, yoptions=gtk.FILL|gtk.SHRINK)
-		
-		# finally resize the table down by one row
-		rows = self.actionstable.get_property("n-rows")
-		cols = self.actionstable.get_property("n-columns")
-		rows -= 1
-		self.actionstable.resize(rows, cols)
-
+		if response == gtk.RESPONSE_OK:
+			msgdlg = gtk.MessageDialog(self.window,
+					gtk.DIALOG_DESTROY_WITH_PARENT,
+					gtk.MESSAGE_INFO,
+					gtk.BUTTONS_CLOSE)
+			if profileEntry.get_text():
+				self.manager.SaveMixdownProfile(profileEntry.get_text())
+				msgdlg.set_markup(_("Mixdown profile <b>%s.profile</b> have now been saved") % profileEntry.get_text())
+				msgdlg.run()
+				msgdlg.destroy()
+			else:
+				msgdlg.set_markup(_("Cannot create mixdown profile. Please make sure you have specified a profile name."))
+				msgdlg.set_property("message-type", gtk.MESSAGE_ERROR)
+				msgdlg.run()
+				msgdlg.destroy()
+		dlg.destroy()
 	#_____________________________________________________________________
 
-	def OnAddStep(self, button):
+	def OnRemoveProfile(self, widget):
 		"""
-		Called when the user clicks the "Add step" button to add a step.
+		Called when the Remove Mixdown Profile button is clicked.
+		Removes the currently selected profile in the profile
+		combo box (self.profileCombo).
 		
 		Parameters:
-			button -- reserved for GTK callbacks, don't use it explicitly.
+			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-		active = self.combo_newstep.get_active()
+		profileName = self.profileCombo.get_model()[self.profileCombo.get_active()][0]
+		self.manager.DeleteMixdownProfile(profileName)
+	
+	#_____________________________________________________________________
+
+	def OnConfigureAction(self, widget):
+		"""
+		Called when the Configure Mixdown Action button is clicked.
+		Calls the selected MixdownAction's ConfigureAction method.
 		
-		if active == -1:
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+		"""
+		if self.treeViewSelection.count_selected_rows() > 0:
+			selected = self.treeViewSelection.get_selected()
+			action = self.treeView.get_model() [selected[1]] [2]
+			action.ConfigureAction()
+		else:
 			return
 		
-		action_class = self.possible_action_classes[active]
+	#_____________________________________________________________________
+
+	def OnAddAction(self, widget):
+		"""
+		Called when the Add Mixdown Action button is clicked.
+		Shows the Add Mixdown Action dialog, allowing the user to add a MixdownAction
+		to the currently selected profile (self.profileCombo).
 		
-		# specialcase ExportAsFileType
-		if action_class == MixdownProfiles.ExportAsFileType: 
-			new_action = action_class(self.project)
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+		"""
+		self.ShowAddActionDialog()
+	
+	#_____________________________________________________________________
+
+	def OnRemoveAction(self, widget):
+		"""
+		Called when the Remove Action button is clicked.
+		Removes the currently selected action from the action
+		treeview (self.treeView)
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+		"""
+		if self.treeViewSelection.count_selected_rows() > 0:
+			profileName = self.profileCombo.get_model()[self.profileCombo.get_active()][0]
+			iterpos = self.treeViewSelection.get_selected()[1]
+			self.treeView.get_model().remove(iterpos)
+			self.SaveProfileActions(profileName)
 		else:
-			new_action = action_class()
-		self.AddAction(new_action)
+			return
+	
+	#_____________________________________________________________________
+	
+	def ShowAddActionDialog(self):
+		"""
+		Called when the Add Mixdown Action button is clicked.
+		Shows a dialog which allows the user to add a MixdownAction
+		to the currently selected profile (self.profileCombo)
+		"""
+		AddMixdownActionDialog(self)
+	
+	#_____________________________________________________________________
+
+	def SaveProfileActions(self, name):
+		"""
+		Called when MixdownActions in a profile need to be saved.
+		Saves MixdownActions to the profile specified.
+		
+		Parameters:
+			name -- name of the profile which the mixdown actions will be saved to.
+		"""
+		actions = []
+		for row in self.treeView.get_model():
+			actions.append(row[2])
+		self.manager.SaveMixdownProfile(name, actions)
 		
 	#_____________________________________________________________________
 
-	def OnClose(self, button):
+	def OnDestroy(self, widget):
 		"""
-		Called when the dialog gets closed.
+		Called when the window is closed. Destroys the window.
 		
 		Parameters:
-			button -- reserved for GTK callbacks, don't use it explicitly.
+			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		self.window.destroy()
 	
 	#_____________________________________________________________________
 	
-	def OnMixdown(self, button):
+	def OnMixdown(self, widget):
 		"""
-		Called when the user clicks the Mix down button.
+		Called when the user clicks the Mixdown button.
+		Calls the RunAction method on the MixdownActions
+		in the action treeview (self.treeView). See RunAction in MixdownActions.py
+		for more details.
 		
 		Parameters:
-			button -- reserved for GTK callbacks, don't use it explicitly.
+			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-		# TODO: show a progress bar in a window for these steps
-		data = {}
-		for action in self.actions:
-			# TODO: trap errors and abort if you find any
-			action.run(data)
+		for row in self.treeView.get_model():
+			if row:
+				row[2].RunAction() # class instances :: RunAction
+			else:
+				break
+
+	#_____________________________________________________________________
+
+#=========================================================================
+
+class AddMixdownActionDialog:
+	"""
+	This class allows the user to add a MixdownAction to the list of MixdownActions in
+	the MixdownProfileDialog.
+	"""
+	
+	#_____________________________________________________________________
+	
+	def __init__(self, profileDialog):
+		"""
+		Creates a new instance of MixdownProfileDialog.
+		
+		Parameters:
+			profileDialog -- reference to the MixdownProfileDialog object which calls this class.
+		"""
+		self.profileDialog = profileDialog
+		self.addActionDialogTree = gtk.glade.XML(Globals.GLADE_PATH, "AddMixdownActionDialog")
+		
+		signals = {
+			"on_cancel_button_clicked" : self.OnCancelAction,
+			"on_add_action_button_clicked" : self.OnAddAction,
+		}
 			
+		self.addActionDialogTree.signal_autoconnect(signals)
+	
+		self.addActionDialog = self.addActionDialogTree.get_widget("AddMixdownActionDialog")
+		self.treeView = self.addActionDialogTree.get_widget("treeview")
+		self.actionLabel = self.addActionDialogTree.get_widget("action_label")
+		self.addActionButton = self.addActionDialogTree.get_widget("add_action_button")
+		
+		self.treeModel = gtk.ListStore(gtk.gdk.Pixbuf, str, object) # pixbuf, details, class instance
+		self.treeView.set_model(self.treeModel)
+		
+		self.treeView.append_column(gtk.TreeViewColumn(_("Icon"), gtk.CellRendererPixbuf(), pixbuf=0))
+		self.treeView.append_column(gtk.TreeViewColumn(_("Name"), gtk.CellRendererText(), markup=1))
+		
+		self.treeViewSelection = self.treeView.get_selection()
+		self.treeViewSelection.set_mode(gtk.SELECTION_SINGLE)
+		
+		self.profileName = self.profileDialog.profileComboModel[self.profileDialog.profileCombo.get_active()][0]
+		
+		# set some properties for the widgets
+		self.addActionDialog.set_transient_for(self.profileDialog.window)
+		self.addActionDialog.set_icon(self.profileDialog.window.get_icon())
+		self.actionLabel.set_markup(_("Please select the mixdown actions you would like to add to mixdown profile <b>%s.</b>") % self.profileName)
+	
+		self.PopulateActionModel()
+	
 	#_____________________________________________________________________
 	
-	def OnSaveSettings(self, button):
+	def ReturnAllActions(self):
 		"""
-		Called when the user clicks the Save these settings button.
+		Returns all actions in MixdownActions.py, excluding the MixdownAction class.
 		
-		Parameters:
-			button -- reserved for GTK callbacks, don't use it explicitly.
+		Returns:
+			actionList -- list of MixdownAction instances
 		"""
-		# create a window to ask for a title to save it as
-		window = gtk.Window()
-		vb = gtk.VBox()
-		entry = gtk.Entry()
-		buttonBox = gtk.HButtonBox()
-		saveButton = gtk.Button(stock=gtk.STOCK_SAVE)
-		cancelButton = gtk.Button(stock=gtk.STOCK_CANCEL)
-		tooltips = gtk.Tooltips()
-		
-		window.set_transient_for(self.window)
-		window.set_property("window-position", gtk.WIN_POS_CENTER)
-		window.set_border_width(12)
-		vb.set_spacing(6)
-		buttonBox.set_layout(gtk.BUTTONBOX_END)
-		buttonBox.set_spacing(6)
-		tooltips.set_tip(saveButton, _("Save these mixdown settings"))
-		tooltips.set_tip(cancelButton, _("Don't save these mixdown settings"))
-		
-		window.add(vb)
-		vb.add(gtk.Label(_("Choose a name for this profile")))
-		vb.add(entry)
-		
-		saveButton.connect("clicked", self.SaveProfile, entry, window)
-		cancelButton.connect("clicked", lambda x:window.destroy())
-		buttonBox.add(saveButton)
-		buttonBox.add(cancelButton)
-		vb.add(buttonBox)
-		
-		window.connect("delete_event", window.destroy)
-		window.show_all()
+		# is there a better way to do this?
+		import MixdownActions
+		import inspect
+		actionList = []
+		actions = inspect.getmembers(MixdownActions, inspect.isclass)
+		for action in actions:
+			# we don't want the MixdownAction class
+			if not action[0] == "MixdownAction":
+				# we have to pass Project to ExportAsFileType for it to work
+				if action[0] == "ExportAsFileType":
+					actionList.append( action[1](self.profileDialog.project) )
+				else:
+					actionList.append( action[1]() )
+		# a list of MixdownAction instances should be returned
+		return actionList
+
+	#_____________________________________________________________________
+
+	def PopulateActionModel(self):
+		"""
+		Called when the action model (self.treeModel) needs to be populated.
+		"""
+		for action in self.ReturnAllActions():
+			self.treeModel.append( self.profileDialog.ReturnActionDisplayDetails(action) )
 		
 	#_____________________________________________________________________
-	
-	def SaveProfile(self, button, entry, window):
+
+	def OnAddAction(self, widget):
 		"""
-		Called when the user clicks the Save button when naming the profile.
+		Called when the Add Action button is clicked.
+		Adds the selected MixdownAction to the profile dialog's action
+		model (self.profileDialog.treeViewModel).
 		
 		Parameters:
-			button -- reserved for GTK callbacks, don't use it explicitly.
-			entry -- the entry in the save window.
-			window -- the save window
+			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
+		if self.treeViewSelection.count_selected_rows() > 0:
+			selected = self.treeViewSelection.get_selected()
+			action = self.treeModel [selected[1]] [2]
+			self.profileDialog.AddActionToActionModel(self.profileName, action)
+		else:
+			return
 		
-		profile_title = entry.get_text()
-		outputxmlitems = [a.serialise() for a in self.actions]
-		outputxml = "<mixdownprofile>\n%s\n</mixdownprofile>" % '\n'.join(outputxmlitems)
+		self.addActionDialog.destroy()
+	
+	#_____________________________________________________________________
+	
+	def OnCancelAction(self, widget):
+		"""
+		Called when the Cancel button is clicked.
+		Destroys the Add Mixdown Action dialog
 		
-		savefolder = os.path.expanduser('~/.jokosher/mixdownprofiles') # created by Globals
-		profile_file = os.path.join(savefolder, profile_title)
-		fp = open(profile_file, "w")
-		fp.write(outputxml)
-		fp.close()
-		
-		window.destroy()
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+		"""
+		self.addActionDialog.destroy()
 	
 	#_____________________________________________________________________
 
-	def RestoreProfile(self, profile_title):
-		"""
-		Loads a previously saved profile.
-		
-		Parameters:
-			profile_title -- a profile name
-		"""
-		savefolder = os.path.expanduser('~/.jokosher/mixdownprofiles') # created by Globals
-		profile_file = os.path.join(savefolder, profile_title)
-		
-		from xml.dom import minidom
-		dom = minidom.parse(profile_file)
-		
-		for element in dom.documentElement.childNodes:
-			if element.nodeType == 1: # an element, not a text node
-				action_name = element.nodeName
-				action_obj = getattr(MixdownProfiles,action_name)
-				
-				# specialcase ExportAsFileType
-				if action_obj == MixdownProfiles.ExportAsFileType:
-					action = action_obj(self.project)
-				else:
-					action = action_obj()
-					
-				# now get all its saved properties
-				for subel in element.childNodes:
-					if subel.nodeType == 1:
-						name = subel.nodeName
-						if subel.childNodes:
-							value = subel.firstChild.nodeValue
-						else:
-							value = ""
-						action.config[name] = value
-				# and add the action to this profile
-				self.AddAction(action)
-				
-	#_____________________________________________________________________
-	
 #=========================================================================
