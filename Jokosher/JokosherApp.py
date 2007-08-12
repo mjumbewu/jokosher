@@ -26,7 +26,7 @@ import PreferencesDialog, ExtensionManagerDialog, RecordingView, NewProjectDialo
 import ProjectManager, Globals, WelcomeDialog, AlsaDevices
 import InstrumentConnectionsDialog, StatusBar
 import EffectPresets, Extension, ExtensionManager
-import Utils, AudioPreview, MixdownProfileDialog, ProjectTemplate
+import Utils, AudioPreview, MixdownProfileDialog, MixdownActions
 
 #=========================================================================
 
@@ -243,7 +243,15 @@ class MainApp:
 		# set up presets registry - this should probably be removed here	
 		EffectPresets.EffectPresets()
 		Globals.PopulateEncoders()
-
+		
+		# seems like this is the best place to instantiate RegisterMixdownActionAPI
+		# as extensions and the mixdown profile dialog can use it through mainapp
+		self.registerMixdownActionAPI = MixdownActions.RegisterMixdownActionAPI()
+		
+		# register the default MixdownActions
+		self.registerMixdownActionAPI.RegisterMixdownAction(MixdownActions.RunAScript)
+		self.registerMixdownActionAPI.RegisterMixdownAction(MixdownActions.ExportAsFileType)
+		
 		if loadExtensions:
 			# Load extensions -- this should probably go somewhere more appropriate
 			self.extensionManager = ExtensionManager.ExtensionManager(self)

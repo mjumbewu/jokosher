@@ -27,7 +27,7 @@ class MixdownProfiles(gobject.GObject):
 	
 	"""
 	Signals:
-		"profile-update" -- A MixdownAction(s) have been added to a MixdownProfile.
+		"profile-update" -- MixdownActions have been added to a MixdownProfile.
 	"""
 	
 	__gsignals__ = {
@@ -180,7 +180,27 @@ class MixdownProfiles(gobject.GObject):
 		Parameters:
 			actionName -- the name of the action which should be instantiated.
 		"""
-		actionObject = getattr(MixdownActions, actionName)
-		return actionObject
+		# This code is extremely ugly and should be changed, we have to detect if the action 
+		# name given is either a core MixdownAction or a MixdownAction registered through an extension.
+		# there is probably a better way to load mixdown actions from extensions but this will do for now.
+		import inspect
+		action = None
+		actionList = None
+		mod = None
+		for extension in self.manager.parent.mainapp.extensionManager.loadedExtensions:
+			try:
+				mod = __import__(extension["extension"].__module__)
+			except AttributeError:
+				Globals.debug(_("An error occurred while loading Mixdown Actions."))
+			actionList = inspect.getmembers(mod, inspect.isclass)
+			for item in actionList:
+				if item[0] == actionName:
+					action = item[1]
+					break
+		if not action:
+			action = getattr(MixdownActions, actionName)
+		return action
+
+	#_____________________________________________________________________
 
 #=========================================================================

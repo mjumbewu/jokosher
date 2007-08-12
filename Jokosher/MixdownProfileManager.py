@@ -42,7 +42,6 @@ class MixdownProfileManager:
 			signalDetails -- determines whether the profile was saved or deleted.
 		"""
 		self.parent.UpdateProfileModel(signalDetails)
-		self.parent.OnCheckActionConfigured()
 		
 	#_____________________________________________________________________
 	

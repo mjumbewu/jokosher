@@ -27,7 +27,6 @@ class Settings:
 
 	# the different settings in each config block
 	general = 	{
-				"mixdownformat": "value", 
 				"recentprojects": "value", 
 				"startupaction" : "value",
 				"projectfolder" : "",
@@ -640,7 +639,7 @@ _export_formats = 	[
 EXPORT_FORMATS = []
 
 SAMPLE_RATES = [8000, 11025, 22050, 32000, 44100, 48000, 96000, 192000]
-	
+
 """ Default Instruments """
 DEFAULT_INSTRUMENTS = []
 """ init Settings """

@@ -97,11 +97,16 @@ class MixdownProfileDialog:
 		
 		self.PopulateProfileComboBoxModel()
 		
+		# the previously selected item in the treeview
+		self.lastSelected = None
+		self.lastAction = None
+		
 		if self.profile:
 			self.SetActiveProfileItem(self.profile)
-		else:
+		elif self.CountRowsInTreeModel(self.profileComboModel) > 0:
 			self.profileCombo.set_active(0)
 			
+
 		self.window.show_all()
 		
 	#_____________________________________________________________________
@@ -129,13 +134,38 @@ class MixdownProfileDialog:
 		Called when a treeview (self.treeView) selection has been made.
 		
 		Parameters:
-			widget -- reserved for GTK callbacks, don't use it explicitly..
+			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		if self.treeViewSelection.count_selected_rows() > 0:
 			self.OnCheckActionConfigured()
+			self.UpdateSelectedActionAppearence()
 		else:
 			return
-			
+		
+	#_____________________________________________________________________
+	
+	def UpdateSelectedActionAppearence(self):
+		"""
+		Called when a MixdownAction is selected in the action treeview (self.treeView).
+		Changes the appearence of the selected action.
+		"""
+		selected = self.treeViewSelection.get_selected()
+		action = self.treeViewModel [selected[1]] [2]
+		
+		# set the foreground colour of the text to white
+		newText = "<span size='larger' weight='bold'>%s</span>\n" % action.name  \
+		+ "<span size='smaller' foreground='white'>%s</span>" % action.description
+		self.treeViewModel [selected[1]] [1] = newText
+		
+		# modify the last selected item in the model to use the default colour grey
+		if self.lastSelected:
+			oldText = "<span size='larger' weight='bold'>%s</span>\n" % self.lastAction.name  \
+			+ "<span size='smaller' foreground='dim grey'>%s</span>" % self.lastAction.description
+			self.treeViewModel [self.lastSelected[1]] [1] = oldText
+		
+		self.lastAction = action
+		self.lastSelected = selected
+		
 	#_____________________________________________________________________
 	
 	def OnCheckActionConfigured(self):
@@ -186,8 +216,8 @@ class MixdownProfileDialog:
 		"""
 		pixbuf = self.ReturnActionPixbuf(action)
 		
-		detailsText = "<span size='medium' weight='bold'>%s</span>\n" % action.name  \
-		+ "<span size='small' foreground='dim grey'>%s</span>" % action.description
+		detailsText = "<span size='larger' weight='bold'>%s</span>\n" % action.name  \
+		+ "<span size='smaller' foreground='dim grey'>%s</span>" % action.description
 		
 		return (pixbuf, detailsText, action)
 		
@@ -213,6 +243,10 @@ class MixdownProfileDialog:
 			self.profileCombo.show_all()
 			self.profileCombo.set_active(active)
 			
+		# unfortunately, a "changed" signal isn't emitted on the combo when we re-populate it
+		# we'll have to emit it now.
+		self.profileCombo.emit("changed")
+			
 	#_____________________________________________________________________
 		
 	def UpdateActionTreeViewModel(self, profileName):
@@ -229,9 +263,8 @@ class MixdownProfileDialog:
 			for action in actions:
 				action.connect("action-configured", self.ActionIsConfigured)
 				self.treeViewModel.append( self.ReturnActionDisplayDetails(action) )
-		else:
-			return
-		
+		self.OnCheckActionConfigured()
+
 	#_____________________________________________________________________
 	
 	def ActionIsConfigured(self, action):
@@ -243,7 +276,7 @@ class MixdownProfileDialog:
 		Parameters:
 			action -- the MixdownAction instance which has just been configured.
 		"""
-		profileName = self.profileCombo.get_model()[self.profileCombo.get_active()][0]
+		profileName = self.profileComboModel[self.profileCombo.get_active()][0]
 		self.SaveProfileActions(profileName)
 		
 	#_____________________________________________________________________
@@ -294,9 +327,14 @@ class MixdownProfileDialog:
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-		profileName = self.profileCombo.get_model()[self.profileCombo.get_active()][0]
-		self.UpdateActionTreeViewModel(profileName)
-		
+		if self.CountRowsInTreeModel(self.profileComboModel) > 0:
+			profileName = self.profileComboModel[self.profileCombo.get_active()][0]
+			self.UpdateActionTreeViewModel(profileName)
+		else:
+			# if there is nothing in the combo model, then clear any actions that may be
+			# remaining in the action treeview
+			self.treeViewModel.clear()
+			
 	#_____________________________________________________________________
 
 	def OnAddProfile(self, widget):
@@ -353,7 +391,7 @@ class MixdownProfileDialog:
 					gtk.BUTTONS_CLOSE)
 			if profileEntry.get_text():
 				self.manager.SaveMixdownProfile(profileEntry.get_text())
-				msgdlg.set_markup(_("Mixdown profile <b>%s.profile</b> have now been saved") % profileEntry.get_text())
+				msgdlg.set_markup(_("Successfully created mixdown profile <b>%s.profile</b>.") % profileEntry.get_text())
 				msgdlg.run()
 				msgdlg.destroy()
 			else:
@@ -373,8 +411,11 @@ class MixdownProfileDialog:
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-		profileName = self.profileCombo.get_model()[self.profileCombo.get_active()][0]
-		self.manager.DeleteMixdownProfile(profileName)
+		if self.CountRowsInTreeModel(self.profileComboModel) > 0:
+			profileName = self.profileComboModel[self.profileCombo.get_active()][0]
+			self.manager.DeleteMixdownProfile(profileName)
+		else:
+			return
 	
 	#_____________________________________________________________________
 
@@ -404,8 +445,11 @@ class MixdownProfileDialog:
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-		self.ShowAddActionDialog()
-	
+		if self.CountRowsInTreeModel(self.profileComboModel) > 0:
+			self.ShowAddActionDialog()
+		else:
+			return
+
 	#_____________________________________________________________________
 
 	def OnRemoveAction(self, widget):
@@ -418,7 +462,7 @@ class MixdownProfileDialog:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		if self.treeViewSelection.count_selected_rows() > 0:
-			profileName = self.profileCombo.get_model()[self.profileCombo.get_active()][0]
+			profileName = self.profileComboModel[self.profileCombo.get_active()][0]
 			iterpos = self.treeViewSelection.get_selected()[1]
 			self.treeView.get_model().remove(iterpos)
 			self.SaveProfileActions(profileName)
@@ -473,13 +517,27 @@ class MixdownProfileDialog:
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-		for row in self.treeView.get_model():
-			if row:
-				row[2].RunAction() # class instances :: RunAction
-			else:
-				break
-
+		if self.CountRowsInTreeModel(self.treeViewModel) > 0:
+			for action in [x[2] for x in self.treeViewModel]:
+				action.RunAction()
+	
 	#_____________________________________________________________________
+	
+	def CountRowsInTreeModel(self, treeModel):
+		"""
+		Called when the number of rows in the action treeview (self.treeView) is needed.
+
+		Parameters:
+			treeModel -- the model to use when counting the number of rows.
+
+		Returns:
+			rows -- number of rows in the action treeview.
+		"""
+		rows = treeModel.iter_n_children(None)
+		return rows
+	
+	#_____________________________________________________________________
+
 
 #=========================================================================
 
@@ -520,9 +578,13 @@ class AddMixdownActionDialog:
 		self.treeView.append_column(gtk.TreeViewColumn(_("Name"), gtk.CellRendererText(), markup=1))
 		
 		self.treeViewSelection = self.treeView.get_selection()
+		self.treeViewSelection.connect("changed", self.UpdateSelectedActionAppearence)
 		self.treeViewSelection.set_mode(gtk.SELECTION_SINGLE)
 		
 		self.profileName = self.profileDialog.profileComboModel[self.profileDialog.profileCombo.get_active()][0]
+		
+		self.lastAction = None
+		self.lastSelected = None
 		
 		# set some properties for the widgets
 		self.addActionDialog.set_transient_for(self.profileDialog.window)
@@ -533,6 +595,33 @@ class AddMixdownActionDialog:
 	
 	#_____________________________________________________________________
 	
+	def UpdateSelectedActionAppearence(self, widget):
+		"""
+		Called when a MixdownAction is selected in the add action treeview (self.treeView).
+		Changes the appearence of the selected action.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+		"""
+		selected = self.treeViewSelection.get_selected()
+		action = self.treeModel [selected[1]] [2]
+		
+		# set the foreground colour of the text to white
+		newText = "<span size='larger' weight='bold'>%s</span>\n" % action.name  \
+		+ "<span size='smaller' foreground='white'>%s</span>" % action.description
+		self.treeModel [selected[1]] [1] = newText
+		
+		# modify the last selected item in the model to use the default colour grey
+		if self.lastSelected:
+			oldText = "<span size='larger' weight='bold'>%s</span>\n" % self.lastAction.name  \
+			+ "<span size='smaller' foreground='dim grey'>%s</span>" % self.lastAction.description
+			self.treeModel [self.lastSelected[1]] [1] = oldText
+		
+		self.lastAction = action
+		self.lastSelected = selected
+	
+	#_____________________________________________________________________
+
 	def ReturnAllActions(self):
 		"""
 		Returns all actions in MixdownActions.py, excluding the MixdownAction class.
@@ -540,19 +629,13 @@ class AddMixdownActionDialog:
 		Returns:
 			actionList -- list of MixdownAction instances
 		"""
-		# is there a better way to do this?
-		import MixdownActions
-		import inspect
 		actionList = []
-		actions = inspect.getmembers(MixdownActions, inspect.isclass)
-		for action in actions:
-			# we don't want the MixdownAction class
-			if not action[0] == "MixdownAction":
-				# we have to pass Project to ExportAsFileType for it to work
-				if action[0] == "ExportAsFileType":
-					actionList.append( action[1](self.profileDialog.project) )
-				else:
-					actionList.append( action[1]() )
+		for action in self.profileDialog.mainapp.registerMixdownActionAPI.ReturnAllActions():
+			# we have to pass Project to ExportAsFileType for it to work
+			if action.__name__ == "ExportAsFileType":
+				actionList.append( action(self.profileDialog.project) )
+			else:
+				actionList.append( action() )
 		# a list of MixdownAction instances should be returned
 		return actionList
 
@@ -582,9 +665,8 @@ class AddMixdownActionDialog:
 			self.profileDialog.AddActionToActionModel(self.profileName, action)
 		else:
 			return
-		
 		self.addActionDialog.destroy()
-	
+			
 	#_____________________________________________________________________
 	
 	def OnCancelAction(self, widget):

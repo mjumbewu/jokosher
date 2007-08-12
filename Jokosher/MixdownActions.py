@@ -16,6 +16,56 @@ import Globals
 import gettext
 _ = gettext.gettext
 
+
+#=========================================================================
+
+class RegisterMixdownActionAPI:
+	"""
+	This class handles the registering and deregistering of MixdownActions.
+	"""
+	
+	#_____________________________________________________________________
+	
+	def __init__(self):
+		"""
+		Creates a new instance of RegisterMixdownActionAPI.
+		"""
+		self.registeredActions = []
+		
+	#_____________________________________________________________________
+	
+	def RegisterMixdownAction(self, mixdownAction):
+		"""
+		Called when a MixdownAction needs to be registered.
+		Appends the MixdownAction specified to the registered mixdown action list (self.registeredActions)
+	
+		Parameters:
+			mixdownAction -- reference to a MixdownAction object
+		"""
+		self.registeredActions.append(mixdownAction)
+		
+	#_____________________________________________________________________
+
+	def DeregisterMixdownAction(self, mixdownAction):
+		"""
+		Called when a MixdownAction needs to be deregistered.
+		Removes the MixdownAction specified from the registered mixdown action list (self.registeredActions)
+	
+		Parameters:
+			mixdownAction -- reference to a MixdownAction object
+		"""
+		self.registeredActions.remove(mixdownAction)
+	
+	#_____________________________________________________________________
+	
+	def ReturnAllActions(self):
+		"""
+		Returns all MixdownActions in the registered mixdown action list (self.registeredActions)
+		"""
+		return self.registeredActions
+	
+	#_____________________________________________________________________
+
 #=========================================================================
 
 class MixdownAction(gobject.GObject):
@@ -47,6 +97,10 @@ class MixdownAction(gobject.GObject):
 		
 		self.config = {}
 		self.isConfigured = None
+		
+		# to be used by the configuration window in MixdownAction sublcasses.
+		self.dialogIcon = gtk.gdk.pixbuf_new_from_file( os.path.join(Globals.IMAGE_PATH, "jokosher-icon.png") )
+
 	
 	#_____________________________________________________________________
 	
@@ -89,7 +143,7 @@ class ExportAsFileType(MixdownAction):
 			project -- the current Jokosher Project.
 		"""
 		MixdownAction.__init__(self)
-		self.name = _("Export file")
+		self.name = _("Export File")
 		self.description = _("Export a file to the destination of your choosing.")
 		# stock gtk icon
 		self.iconPath = gtk.STOCK_JUMP_TO
@@ -97,7 +151,6 @@ class ExportAsFileType(MixdownAction):
 		self.project = project # note: this is special to this action, and needs
 		                       # to be passed, so this action needs special handling
 		                       # in the core.
-		self.isConfigured = None
 	
 	#_____________________________________________________________________
 	
@@ -123,9 +176,7 @@ class ExportAsFileType(MixdownAction):
 		self.detailsVBox = self.configureExportTree.get_widget("details_vbox")
 		
 		self.formatModel = gtk.ListStore(str, str, str) # description, extension, pipeline
-		
-		self.dialogIcon = gtk.gdk.pixbuf_new_from_file( os.path.join(Globals.IMAGE_PATH, "jokosher-icon.png") )
-		
+			
 		# set some properties
 		self.configureExportWindow.set_icon(self.dialogIcon)
 		self.formatCombo.set_model(self.formatModel)
@@ -412,12 +463,10 @@ class RunAScript(MixdownAction):
 		See MixdownAction.__init__
 		"""
 		MixdownAction.__init__(self)
-		self.name = _("Run an external script")
-		self.description = _("Run an external python script from the destination of your choosing.")
+		self.name = _("Run External Script")
+		self.description = _("Run an external script from the destination of your choosing.")
 		self.iconPath = os.path.join(Globals.IMAGE_PATH, "effect_miscellaneous.png")
-		self.dialogIcon = gtk.gdk.pixbuf_new_from_file( os.path.join(Globals.IMAGE_PATH, "jokosher-icon.png") )
-		self.isConfigured = None
-		
+
 	#_____________________________________________________________________
 
 	def ConfigureAction(self):
@@ -443,7 +492,6 @@ class RunAScript(MixdownAction):
 		"""
 		See MixdownAction.RunAction.
 		"""
-			
 		import subprocess
 		import os.path
 		# Interestingly when you use shell=True Popen doesn't raise an OSError if the script doesn't exist
