@@ -101,6 +101,31 @@ class EventLaneViewer(gtk.EventBox):
 		self.fixed.connect("drag_leave", self.OnDragLeave)
 		self.fixed.connect("expose-event", self.OnDraw)
 		
+		#create the context menu
+		self.contextMenu = gtk.Menu()
+		
+		audioimg = gtk.Image()
+		if self.mainview.audioFilePixbuf:
+			size = gtk.icon_size_lookup(gtk.ICON_SIZE_MENU)
+			pixbuf = self.mainview.audioFilePixbuf.scale_simple(size[0], size[1], gtk.gdk.INTERP_BILINEAR)
+			audioimg.set_from_pixbuf(pixbuf)
+		
+		menuItem = gtk.ImageMenuItem(_("_Add Audio File..."), True)
+		menuItem.set_image(audioimg)
+		menuItem.connect("activate", self.CreateEventFromFile)
+		self.contextMenu.append(menuItem)
+		
+		menuItem = gtk.SeparatorMenuItem()
+		self.contextMenu.append(menuItem)
+		
+		self.pasteContextMenuItem = gtk.ImageMenuItem(gtk.STOCK_PASTE)
+		self.pasteContextMenuItem.connect("activate", self.OnPaste)
+		self.contextMenu.append(self.pasteContextMenuItem)
+		
+		menuItem = gtk.ImageMenuItem(gtk.STOCK_DELETE)
+		menuItem.connect("activate", self.OnDelete)
+		self.contextMenu.append(menuItem)
+		
 		self.messageID = None
 		
 		for event in self.instrument.events:
@@ -199,38 +224,14 @@ class EventLaneViewer(gtk.EventBox):
 			self.OnMenuDone()
 		# Create context menu on RMB 
 		elif mouse.button == 3:
-			menu = gtk.Menu()
+			self.pasteContextMenuItem.set_sensitive( bool(self.project.clipboardList) )
 		
-			audioimg = None
-			if self.mainview.audioFilePixbuf:
-				audioimg = gtk.Image()
-				audioimg.set_from_pixbuf(self.mainview.audioFilePixbuf)
-			
-			items = [	(_("_Add Audio File..."), self.CreateEventFromFile, True, audioimg),
-					("---", None, None, None),
-					(_("_Paste"), self.OnPaste, self.project.clipboardList, gtk.image_new_from_stock(gtk.STOCK_PASTE, gtk.ICON_SIZE_MENU)),
-					(_("_Delete"), self.OnDelete, True, gtk.image_new_from_stock(gtk.STOCK_DELETE, gtk.ICON_SIZE_MENU))
-					]
-
-			for label, callback, sensitive, image in items:
-				if label == "---":
-					menuItem = gtk.SeparatorMenuItem()
-				elif image:
-					menuItem = gtk.ImageMenuItem(label, True)
-					menuItem.set_image(image)
-				else:
-					menuItem = gtk.MenuItem(label=label)
-					
-				menuItem.set_sensitive(bool(sensitive))
-				menuItem.show()
-				menu.append(menuItem)
-				if callback:
-					menuItem.connect("activate", callback)
 			self.highlightCursor = mouse.x
 			self.popupIsActive = True
-
-			menu.popup(None, None, None, mouse.button, mouse.time)
-			menu.connect("selection-done", self.OnMenuDone)
+			
+			self.contextMenu.connect("selection-done", self.OnMenuDone)
+			self.contextMenu.show_all()
+			self.contextMenu.popup(None, None, None, mouse.button, mouse.time)
 		
 		if 'GDK_CONTROL_MASK' in mouse.state.value_names:
 			self.instrument.SetSelected(True)
