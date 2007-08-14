@@ -22,13 +22,7 @@ class TimeLine(gtk.DrawingArea):
 	This class handles drawing the time line display. The time line is part of the
 	TimeLineBar. TimeLine displays the time in minutes/seconds (MODE_HOURS_MINS_SECS)
 	or bars and beats (MODE_BARS_BEATS). These modes are set in project.transport.
-		
-	To improve performance, the line isn't being constructed on each call of OnDraw. It
-	is saved into self.savedLine as a gtk.gdk.Image. A new savedLine is constructed when
-		- there is no savedLine
-		- or project.transport.RedrawTimeLine is True
-		- or project.RedrawTimeLine is True
-		
+	
 	When the time line is constructed in MODE_HOURS_MINS_SECS, it dynamically adjusts
 	its scale to the project.viewScale. MODE_BARS_BEATS does not support this (yet).
 	"""
@@ -350,15 +344,7 @@ class TimeLine(gtk.DrawingArea):
 		Parameters:
 			project -- the project instance that send the signal.
 		"""
-		#if the timeline is not currently on screen then quit
-		if not self.window:
-			return
-		
-		# delete the cached image so that it will be redrawn
-		self.savedLine = None
-		self.timelinebar.Update()
-		#for bpm change re-align timeline with event lane
-		self.timelinebar.projectview.UpdateSize()
+		self.queue_draw()
 		
 	#_____________________________________________________________________
 	
@@ -370,13 +356,7 @@ class TimeLine(gtk.DrawingArea):
 			transportManager -- the TransportManager instance that send the signal.
 			mode -- the mode type that the transport changed to.
 		"""
-		#if the timeline is not currently on screen then quit
-		if not self.window:
-			return
-		
-		# delete the cached image so that it will be redrawn
-		self.savedLine = None
-		self.timelinebar.Update()
+		self.queue_draw()
 	
 	#_____________________________________________________________________
 	

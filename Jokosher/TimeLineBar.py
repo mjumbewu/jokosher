@@ -72,7 +72,6 @@ class TimeLineBar(gtk.Frame):
 		self.bpmlabel.set_padding(5, 5)
 		self.bpmeventbox.add(self.bpmlabel)
 		self.bpmframe.add(self.bpmeventbox)
-		self.bpmeditPacked = False
 		
 		self.bpmedit = gtk.SpinButton()
 		self.bpmedit.set_range(1, 400)
@@ -106,6 +105,9 @@ class TimeLineBar(gtk.Frame):
 		self.sigeventbox.connect("button_press_event", self.OnEditSig)
 		self.sigeventbox.connect("enter_notify_event", self.OnMouseMoveTimeSig)
 		self.sigeventbox.connect("leave_notify_event", self.OnMouseMoveTimeSig)
+		
+		self.project.connect("bpm", self.OnProjectBPMChange)
+		self.project.connect("time-signature", self.OnProjectSigChange)
 
 		self.sigDialog = None
 		
@@ -171,12 +173,41 @@ class TimeLineBar(gtk.Frame):
 			self.alignment.set_padding(0, 0, 0, maxwidth - self.headerhbox.size_request()[0])
 
 			self.clickbutton.set_active(self.project.clickEnabled)
-			self.OnAcceptEditBPM()
-			self.UpdateSigLabel()
 			self.timeline.queue_draw()
 			
 			self.Updating = False
 			
+	#_____________________________________________________________________
+	
+	def OnProjectBPMChange(self, project):
+		"""
+		Callback for when the BPM of the project changes. This method 
+		will update the contents of the beats per minute box.
+		
+		Parameters:
+			project -- The project that send the signal.
+		"""
+		#Do this outside the if statement so that it gets updated if someone else changes the bpm
+		self.bpmlabel.set_use_markup(True)
+		self.bpmlabel.set_markup("<span foreground='%s'><b>%d</b></span>" % (self.fontColor, self.project.bpm))
+		self.bpmeventbox.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.bgColor))
+		
+		self.projectview.UpdateSize()
+		
+	#_____________________________________________________________________
+	
+	def OnProjectSigChange(self, project):
+		"""
+		Callback for when the BPM of the project changes. This method 
+		will update the contents of the time signature label.
+		
+		Parameters:
+			project -- The project that send the signal.
+		"""
+		self.siglabel.set_use_markup(True)
+		self.siglabel.set_markup("<span foreground='%s'><b>%d/%d</b></span>" % (self.fontColor, self.project.meter_nom, self.project.meter_denom))
+		self.projectview.UpdateSize()
+		
 	#_____________________________________________________________________
 	
 	def OnEditBPM(self, widget, event):
@@ -191,18 +222,38 @@ class TimeLineBar(gtk.Frame):
 		if event.type == gtk.gdk.BUTTON_PRESS:
 			startWidth = self.headerhbox.size_request()[0]
 			
-			if not self.bpmeditPacked:
+			if self.bpmeventbox.parent:
 				self.bpmframe.remove(self.bpmeventbox)
 				self.bpmframe.add(self.bpmedit)
 				self.bpmedit.show()
 				self.bpmedit.grab_focus()
-				self.bpmeditPacked = True
 			
 			#adjust padding so that the timeline event lanes still line up
 			newWidth = self.headerhbox.size_request()[0]
 			padding = self.alignment.get_padding()
 			self.alignment.set_padding(0, 0, 0, padding[3] - (newWidth -startWidth))
 
+	#_____________________________________________________________________
+	
+	def OnAcceptEditBPM(self, widget=None):
+		"""
+		Called when the user finishes editing the beats per minute box.
+		This method then updates the beats per minute value to the value the user 
+		enters.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+		"""
+		
+		if self.bpmedit.parent:
+			self.bpmframe.remove(self.bpmedit)
+			self.bpmframe.add(self.bpmeventbox)
+			self.bpmframe.show_all()
+			
+			newbpm = self.bpmedit.get_value_as_int()
+			self.project.SetBPM(float(newbpm))
+			self.bpmeventbox.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.bgColor))
+		
 	#_____________________________________________________________________
 
 	def OnEditSig(self, widget, event):
@@ -237,7 +288,7 @@ class TimeLineBar(gtk.Frame):
 				self.comboValue.set_active(int(log(self.project.meter_denom, 2)))
 			else:
 				self.sigDialog.present()
-							
+			
 	#_____________________________________________________________________
 	
 	def OnNomValueChange(self, spinButton):
@@ -275,50 +326,6 @@ class TimeLineBar(gtk.Frame):
 		self.sigDialog.destroy()
 		self.sigDialog = None
 
-	#_____________________________________________________________________
-	
-	def UpdateSigLabel(self):
-		"""
-		Updates the time signature label in the main Jokosher window.
-		"""
-		self.siglabel.set_use_markup(True)
-		self.siglabel.set_markup("<span foreground='%s'><b>%d/%d</b></span>" % (self.fontColor, self.project.meter_nom, self.project.meter_denom))
-		self.projectview.UpdateSize()
-		
-	#_____________________________________________________________________
-	
-	def OnAcceptEditBPM(self, widget=None):
-		"""
-		Called when the user finishes editing the beats per minute box.
-		This method then updates the beats per minute value to the value the user 
-		enters and then writes that change to disk if the user saves the project. 
-		If anything but OnEditBPM calls this method, it will update the contents of the beats per minute box.
-		
-		Parameters:
-			widget -- reserved for GTK callbacks, don't use it explicitly.
-		"""
-		
-		if self.bpmeditPacked:
-			print self.bpmframe.get_children()
-			self.bpmframe.remove(self.bpmedit)
-			self.bpmeditPacked = False
-			
-			self.bpmframe.add(self.bpmeventbox)
-			self.bpmframe.show_all()
-			
-			#FIXME: find a better way to do project.PrepareClick() it doesn't take a really long time with large bpm
-			newbpm = self.bpmedit.get_value_as_int()
-			#do the SetBPM after the removing and adding the widgets because it will cause an update
-			self.project.SetBPM(float(newbpm))
-			self.project.PrepareClick()
-		
-		#Do this outside the if statement so that it gets updated if someone else changes the bpm
-		self.bpmlabel.set_use_markup(True)
-		self.bpmlabel.set_markup("<span foreground='%s'><b>%d</b></span>" % (self.fontColor, self.project.bpm))
-		self.bpmeventbox.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.bgColor))
-			
-		self.projectview.UpdateSize()
-		
 	#_____________________________________________________________________
 	
 	def OnMouseMoveBPM(self, widget, event):

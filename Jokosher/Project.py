@@ -881,6 +881,8 @@ class Project(gobject.GObject):
 		self.temp = self.bpm
 		if self.bpm != bpm:
 			self.bpm = bpm
+			#FIXME: find a better way to do project.PrepareClick() it doesn't take a really long time with large bpm
+			self.PrepareClick()
 			self.emit("bpm")
 	
 	#_____________________________________________________________________

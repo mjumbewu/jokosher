@@ -914,7 +914,6 @@ class ExtensionAPI:
 			bpm -- the beats per minute to set.
 		"""
 		self.mainapp.project.SetBPM(float(bpm))
-		self.mainapp.project.PrepareClick()
 		
 	#_____________________________________________________________________
 	
