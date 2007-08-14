@@ -301,9 +301,9 @@ class RecordingView(gtk.Frame):
 	
 	def UpdateSize(self, widget=None, size=None):
 		"""
-		Called during update() to re-align the timeline and scrollbars
-		with the start of the event lane since the instrument width may
-		have been altered.
+		This method will re-align the timeline and scrollbars
+		with the start of the event lane since the instrument 
+		width may have been altered.
 		"""
 		#find the width of the instrument headers (they should all be the same size)
 		if size:
@@ -315,7 +315,7 @@ class RecordingView(gtk.Frame):
 		Globals.INSTRUMENT_HEADER_WIDTH = tempWidth
 		
 		#align timeline and scrollbar
-		self.timelinebar.Update()
+		self.timelinebar.UpdateSize()
 		self.al.set_padding(0, 0, tempWidth, 0)
 	
 	#_____________________________________________________________________

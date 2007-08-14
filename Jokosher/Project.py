@@ -51,6 +51,7 @@ class Project(gobject.GObject):
 			"audio-state::export-start" -- The audio is being played to a file.
 			"audio-state::export-stop" -- The export to a file has completed.
 		"bpm" -- The beats per minute value was changed.
+		"click-track" -- The click track was turned on or off.
 		"gst-bus-error" -- An error message was posted to the pipeline. Two strings are also send with the error details.
 		"instrument" -- The instruments for this project have changed. The instrument instance will be passed as a parameter. See below:
 			"instrument::added" -- An instrument was added to this project.
@@ -66,6 +67,7 @@ class Project(gobject.GObject):
 	__gsignals__ = {
 		"audio-state"		: ( gobject.SIGNAL_RUN_LAST | gobject.SIGNAL_DETAILED, gobject.TYPE_NONE, () ),
 		"bpm"			: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () ),
+		"click-track"		: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () ),
 		"gst-bus-error"	: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, (gobject.TYPE_STRING, gobject.TYPE_STRING) ),
 		"instrument"		: ( gobject.SIGNAL_RUN_LAST | gobject.SIGNAL_DETAILED, gobject.TYPE_NONE, (gobject.TYPE_PYOBJECT,) ),
 		"time-signature"	: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () ),
@@ -1251,23 +1253,17 @@ class Project(gobject.GObject):
 
 	#_____________________________________________________________________
 
-	def EnableClick(self):
+	def SetClickEnabled(self, active):
 		"""
 		Unmutes and enables the click track.
+		
+		Parameters:
+			active -- If True, the click track will be activated, otherwise it will be disabled.
 		"""
-	
-		self.clickTrackVolume.set_property("mute", False)
-		self.clickEnabled = True
-
-	#_____________________________________________________________________
-
-	def DisableClick(self):
-		"""
-		Mutes and disables the click track.
-		"""
-	
-		self.clickTrackVolume.set_property("mute", True)
-		self.clickEnabled = False
+		if self.clickEnabled != active:
+			self.clickTrackVolume.set_property("mute", not active)
+			self.clickEnabled = active
+			self.emit("click-track")
 
 	#_____________________________________________________________________
 

@@ -108,6 +108,7 @@ class TimeLineBar(gtk.Frame):
 		
 		self.project.connect("bpm", self.OnProjectBPMChange)
 		self.project.connect("time-signature", self.OnProjectSigChange)
+		self.project.connect("click-track", self.OnProjectClickTrackChange)
 
 		self.sigDialog = None
 		
@@ -145,38 +146,35 @@ class TimeLineBar(gtk.Frame):
 
 	#_____________________________________________________________________
 	
-	def Update(self):
+	def UpdateSize(self):
 		""" 
-		Updates the contents TimeLineBar, updating the values in the beats per
+		Updates the size of the header box contents TimeLineBar, updating the values in the beats per
 		minute box and time signature box, as well as updating the click button
 		sensitivity and instrument header width.
 		"""
-		if not self.Updating:
-			instrumentviews=[]
-			if self.mainview.workspace:
-				instrumentviews+=self.mainview.workspace.recordingView.views
+		if self.Updating or not self.mainview.workspace:
+			return
+		
+		instrumentViews = self.mainview.workspace.recordingView.views
 
-			self.Updating = True
-			maxwidth=self.headerhbox.size_request()[0]
-	
-			for ident, iv in instrumentviews:  #self.mainview.recording.views:
-				if iv.instrument in iv.mainview.project.instruments:
-					if iv.headerBox.size_request()[0] > maxwidth:
-						maxwidth = iv.headerBox.size_request()[0]
+		self.Updating = True
+		maxwidth = self.headerhbox.size_request()[0]
 
-			for ident, iv in instrumentviews:  #self.mainview.recording.views:
-				if iv.headerAlign.size_request()[0] != (maxwidth+2):
-					iv.ResizeHeader(maxwidth+2)
-			
-			Globals.INSTRUMENT_HEADER_WIDTH = maxwidth + 2
-			
-			self.alignment.set_padding(0, 0, 0, maxwidth - self.headerhbox.size_request()[0])
+		for ident, iv in instrumentViews:  #self.mainview.recording.views:
+			if iv.instrument in iv.mainview.project.instruments:
+				if iv.headerBox.size_request()[0] > maxwidth:
+					maxwidth = iv.headerBox.size_request()[0]
 
-			self.clickbutton.set_active(self.project.clickEnabled)
-			self.timeline.queue_draw()
-			
-			self.Updating = False
-			
+		for ident, iv in instrumentViews:  #self.mainview.recording.views:
+			if iv.headerAlign.size_request()[0] != (maxwidth+2):
+				iv.ResizeHeader(maxwidth+2)
+		
+		Globals.INSTRUMENT_HEADER_WIDTH = maxwidth + 2
+		
+		self.alignment.set_padding(0, 0, 0, maxwidth - self.headerhbox.size_request()[0])
+		
+		self.Updating = False
+		
 	#_____________________________________________________________________
 	
 	def OnProjectBPMChange(self, project):
@@ -207,6 +205,27 @@ class TimeLineBar(gtk.Frame):
 		self.siglabel.set_use_markup(True)
 		self.siglabel.set_markup("<span foreground='%s'><b>%d/%d</b></span>" % (self.fontColor, self.project.meter_nom, self.project.meter_denom))
 		self.projectview.UpdateSize()
+		
+	#_____________________________________________________________________
+	
+	def OnProjectClickTrackChange(self, project):
+		"""
+		Callback for when the click track of the project it turned on
+		or shut off. This method will update the button and tooltip state.
+		
+		Parameters:
+			project -- The project that send the signal.
+		"""
+		self.Updating = True
+		self.clickbutton.set_active(self.project.clickEnabled)
+		self.Updating = False
+		
+		if self.project.clickEnabled:
+			tooltip = _("Turn click track off")
+		else:
+			tooltip = _("Turn click track on")
+		
+		self.clicktip.set_tip(self.clickbutton, tooltip, None)
 		
 	#_____________________________________________________________________
 	
@@ -370,17 +389,12 @@ class TimeLineBar(gtk.Frame):
 
 	def OnClick(self, widget):
 		"""
-		Called when the click button is clicked.
-		This method will also set the clicked button to appear pressed in if clicked.
-		If the click button is clicked while in a 'pressed in' state. It will appear as it did originally.
+		Called when the click button is clicked. This method will call the project
+		to turn on or shut off the click track.
 		""" 
-		if widget.get_active() == True:
-			self.project.EnableClick()
-			self.clicktip.set_tip(self.clickbutton, _("Turn click track off"), None)
-		if widget.get_active() == False:
-			self.project.DisableClick()
-			self.clicktip.set_tip(self.clickbutton, _("Turn click track on"), None)
+		if not self.Updating:
+			self.project.SetClickEnabled(widget.get_active())
 			
 	#_____________________________________________________________________
-		
+	
 #=========================================================================
