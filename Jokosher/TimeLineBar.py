@@ -73,6 +73,12 @@ class TimeLineBar(gtk.Frame):
 		self.bpmeventbox.add(self.bpmlabel)
 		self.bpmframe.add(self.bpmeventbox)
 		self.bpmeditPacked = False
+		
+		self.bpmedit = gtk.SpinButton()
+		self.bpmedit.set_range(1, 400)
+		self.bpmedit.set_increments(1, 5)
+		self.bpmedit.set_value(self.project.bpm)
+		self.bpmedit.connect("activate", self.OnAcceptEditBPM)
 
 		self.sigeventbox = gtk.EventBox()
 		self.sigeventbox.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.bgColor))
@@ -184,18 +190,14 @@ class TimeLineBar(gtk.Frame):
 		"""
 		if event.type == gtk.gdk.BUTTON_PRESS:
 			startWidth = self.headerhbox.size_request()[0]
-			self.bpmframe.remove(self.bpmeventbox)
-						
-			self.bpmedit = gtk.SpinButton()
-			self.bpmedit.set_range(1, 400)
-			self.bpmedit.set_increments(1, 5)
-			self.bpmedit.set_value(self.project.bpm)
-			self.bpmedit.connect("activate", self.OnAcceptEditBPM)
-
-			self.bpmframe.add(self.bpmedit)
-			self.bpmedit.show()
-			self.bpmedit.grab_focus()
-			self.bpmeditPacked = True
+			
+			if not self.bpmeditPacked:
+				self.bpmframe.remove(self.bpmeventbox)
+				self.bpmframe.add(self.bpmedit)
+				self.bpmedit.show()
+				self.bpmedit.grab_focus()
+				self.bpmeditPacked = True
+			
 			#adjust padding so that the timeline event lanes still line up
 			newWidth = self.headerhbox.size_request()[0]
 			padding = self.alignment.get_padding()
@@ -295,18 +297,20 @@ class TimeLineBar(gtk.Frame):
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
+		
 		if self.bpmeditPacked:
+			print self.bpmframe.get_children()
 			self.bpmframe.remove(self.bpmedit)
-			#FIXME: find a better way to do project.PrepareClick() it doesn't take a really long time with large bpm
-			newbpm = self.bpmedit.get_value_as_int()
-			
-			self.project.SetBPM(float(newbpm))
-			self.project.PrepareClick()
+			self.bpmeditPacked = False
 			
 			self.bpmframe.add(self.bpmeventbox)
-			self.bpmedit.destroy()
 			self.bpmframe.show_all()
-			self.bpmeditPacked = False
+			
+			#FIXME: find a better way to do project.PrepareClick() it doesn't take a really long time with large bpm
+			newbpm = self.bpmedit.get_value_as_int()
+			#do the SetBPM after the removing and adding the widgets because it will cause an update
+			self.project.SetBPM(float(newbpm))
+			self.project.PrepareClick()
 		
 		#Do this outside the if statement so that it gets updated if someone else changes the bpm
 		self.bpmlabel.set_use_markup(True)
