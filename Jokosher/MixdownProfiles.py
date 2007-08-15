@@ -165,7 +165,7 @@ class MixdownProfiles(gobject.GObject):
 		"""
 		actionObject = self.ReturnActionObjects(actionName)
 		if actionObject == MixdownActions.ExportAsFileType:
-			action = actionObject(self.manager.parent.project)
+			action = actionObject(self.manager.mixdownProfileDialog.project)
 		else:
 			action = actionObject()
 		return action
@@ -180,27 +180,28 @@ class MixdownProfiles(gobject.GObject):
 		Parameters:
 			actionName -- the name of the action which should be instantiated.
 		"""
-		# This code is extremely ugly and should be changed, we have to detect if the action 
-		# name given is either a core MixdownAction or a MixdownAction registered through an extension.
-		# there is probably a better way to load mixdown actions from extensions but this will do for now.
-		import inspect
+		# This code is still not very pretty but it does work well.
 		action = None
-		actionList = None
-		mod = None
-		for extension in self.manager.parent.mainapp.extensionManager.loadedExtensions:
+		count = -1
+		for extension in self.manager.mixdownProfileDialog.mainapp.extensionManager.loadedExtensions:
+			# extension["extension"] should return extension class instances but this isn't the
+			# case for extensions such as GnomeAudioProfiles and JokosherDbus which return module objects
+			# we have to have a try/except block as extension["extension"].mixdownActions raises
+			# an AttributeError exception if extension["extension"] is anything but a class instance.
 			try:
-				mod = __import__(extension["extension"].__module__)
+				if extension["extension"].mixdownActions:
+					for item in extension["extension"].mixdownActions:
+						count += 1
+						if actionName == item.__name__:
+							action = extension["extension"].mixdownActions[count]
+							break
 			except AttributeError:
-				Globals.debug(_("An error occurred while loading Mixdown Actions."))
-			actionList = inspect.getmembers(mod, inspect.isclass)
-			for item in actionList:
-				if item[0] == actionName:
-					action = item[1]
-					break
+				pass
+					
+		# if there is no action set by the code above, then the action to be returned should be a core MixdownAction.
 		if not action:
 			action = getattr(MixdownActions, actionName)
 		return action
-
 	#_____________________________________________________________________
 
 #=========================================================================

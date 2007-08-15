@@ -249,8 +249,7 @@ class MainApp:
 		self.registerMixdownActionAPI = MixdownActions.RegisterMixdownActionAPI()
 		
 		# register the default MixdownActions
-		self.registerMixdownActionAPI.RegisterMixdownAction(MixdownActions.RunAScript)
-		self.registerMixdownActionAPI.RegisterMixdownAction(MixdownActions.ExportAsFileType)
+		self.registerMixdownActionAPI.RegisterMixdownActions((MixdownActions.RunAScript, MixdownActions.ExportAsFileType))
 		
 		if loadExtensions:
 			# Load extensions -- this should probably go somewhere more appropriate

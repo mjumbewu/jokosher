@@ -233,7 +233,8 @@ class PidginExtension:
 			api -- a reference to the Extension API
 		"""
 		self.API = api
-		self.API.mainapp.registerMixdownActionAPI.RegisterMixdownAction(StatusAction)
+		self.mixdownActions = (StatusAction,)
+		self.API.mainapp.registerMixdownActionAPI.RegisterMixdownActions(self.mixdownActions)
 		
 	#_____________________________________________________________________
 	
@@ -242,7 +243,7 @@ class PidginExtension:
 		Called by the extension manager when the extension is
 		disabled or deleted.
 		"""
-		self.API.mainapp.registerMixdownActionAPI.DeregisterMixdownAction(StatusAction)
+		self.API.mainapp.registerMixdownActionAPI.DeregisterMixdownActions(self.mixdownActions)
 		
 	#_____________________________________________________________________
 

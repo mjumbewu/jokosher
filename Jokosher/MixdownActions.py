@@ -34,27 +34,29 @@ class RegisterMixdownActionAPI:
 		
 	#_____________________________________________________________________
 	
-	def RegisterMixdownAction(self, mixdownAction):
+	def RegisterMixdownActions(self, mixdownActions):
 		"""
-		Called when a MixdownAction needs to be registered.
-		Appends the MixdownAction specified to the registered mixdown action list (self.registeredActions)
+		Called when MixdownActions needs to be registered.
+		Appends the MixdownActions specified to the registered mixdown action list (self.registeredActions)
 	
 		Parameters:
-			mixdownAction -- reference to a MixdownAction object
+			mixdownActions -- reference to a tuple containing MixdownAction objects
 		"""
-		self.registeredActions.append(mixdownAction)
+		for action in mixdownActions:
+			self.registeredActions.append(action)
 		
 	#_____________________________________________________________________
 
-	def DeregisterMixdownAction(self, mixdownAction):
+	def DeregisterMixdownActions(self, mixdownActions):
 		"""
-		Called when a MixdownAction needs to be deregistered.
-		Removes the MixdownAction specified from the registered mixdown action list (self.registeredActions)
+		Called when MixdownActions needs to be deregistered.
+		Removes the MixdownActions specified from the registered mixdown action list (self.registeredActions)
 	
 		Parameters:
-			mixdownAction -- reference to a MixdownAction object
+			mixdownAction -- reference to a tuple containing MixdownAction objects
 		"""
-		self.registeredActions.remove(mixdownAction)
+		for action in mixdownActions:
+			self.registeredActions.remove(action)
 	
 	#_____________________________________________________________________
 	

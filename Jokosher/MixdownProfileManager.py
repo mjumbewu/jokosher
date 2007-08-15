@@ -19,14 +19,14 @@ class MixdownProfileManager:
 	
 	#_____________________________________________________________________
 
-	def __init__(self, parent):
+	def __init__(self, mixdownProfileDialog):
 		"""
 		Creates a new instance of MixdownProfileManager
 		
 		Parameters:
 			parent -- reference to MixdownProfileDialog
 		"""
-		self.parent = parent
+		self.mixdownProfileDialog = mixdownProfileDialog
 		self.profiles = MixdownProfiles.MixdownProfiles(self)
 		self.profiles.connect("profile-update", self.MixdownProfileUpdate)
 	
@@ -41,7 +41,7 @@ class MixdownProfileManager:
 			mixdownProfile -- the MixdownProfiles instance that sent the signal
 			signalDetails -- determines whether the profile was saved or deleted.
 		"""
-		self.parent.UpdateProfileModel(signalDetails)
+		self.mixdownProfileDialog.UpdateProfileModel(signalDetails)
 		
 	#_____________________________________________________________________
 	

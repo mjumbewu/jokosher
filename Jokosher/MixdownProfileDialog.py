@@ -106,7 +106,6 @@ class MixdownProfileDialog:
 		elif self.CountRowsInTreeModel(self.profileComboModel) > 0:
 			self.profileCombo.set_active(0)
 			
-
 		self.window.show_all()
 		
 	#_____________________________________________________________________
