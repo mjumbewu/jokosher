@@ -41,11 +41,12 @@ class ExtensionManagerDialog:
 		
 		self.dlg = self.wTree.get_widget("ExtensionManagerDialog")
 		self.tree = self.wTree.get_widget("treeviewExtensions")
+		self.eb = self.wTree.get_widget("descriptionEventBox")
+		self.description = self.wTree.get_widget("ExtensionDescription")
 		self.prefs_button = self.wTree.get_widget("buttonPreferences")
 		
 		self.AddColumn("Enabled", 0, 'toggle')
-		self.AddColumn("Name", 1, 'text', 25)
-		self.AddColumn("Description", 2, 'text', 25)
+		self.AddColumn("Name", 1, 'text', 30)
 		self.AddColumn("Version", 3, 'text', 7)
 
 		self.model = gtk.ListStore(bool, str, str, str, str, bool)
@@ -53,6 +54,7 @@ class ExtensionManagerDialog:
 
 		for extension in self.parent.extensionManager.GetExtensions():
 			self.model.append((extension["enabled"], extension["name"], extension["description"], extension["version"], extension["filename"], extension["preferences"]))
+
 
 		self.dlg.set_transient_for(self.parent.window)
 		self.dlg.show()
@@ -137,7 +139,8 @@ class ExtensionManagerDialog:
 	def OnSelect(self, tree):
 		"""
 		When an Extension is selected, enables/disables the preferences button
-		according to the reported Extension capabilities.
+		according to the reported Extension capabilities and updates the
+		description label.
 		
 		Parameters:
 			tree -- GTKTreeView holding the Extensions's representation.
@@ -149,6 +152,8 @@ class ExtensionManagerDialog:
 		else:
 			self.prefs_button.set_sensitive(False)
 		
+		descr_text = self.model.get_value(selection, 2)
+		self.description.set_text(descr_text)
 	#_____________________________________________________________________
 	
 	def OnAdd(self, button):
