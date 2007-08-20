@@ -29,6 +29,7 @@ class MixdownProfileManager:
 		self.mixdownProfileDialog = mixdownProfileDialog
 		self.profiles = MixdownProfiles.MixdownProfiles(self)
 		self.profiles.connect("profile-update", self.MixdownProfileUpdate)
+		self.profiles.connect("error-occurred", self.LoadingMixdownActionError)
 	
 	#_____________________________________________________________________
 	
@@ -42,6 +43,20 @@ class MixdownProfileManager:
 			signalDetails -- determines whether the profile was saved or deleted.
 		"""
 		self.mixdownProfileDialog.UpdateProfileModel(signalDetails)
+		
+	#_____________________________________________________________________
+	
+	def LoadingMixdownActionError(self, mixdownProfile, actionName, extensionName):
+		"""
+		Called when an error has occurred while loading MixdownActions.
+		This method will call the ShowActionErrorDialog in MixdownProfileDialog,
+		informing the user that a MixdownAction cannot be loaded.
+		
+		Parameters:
+			actionName -- the name of the MixdownAction which cannot be loaded.
+			extensionName -- the name of the extension that the MixdownAction can't be loaded from.
+		"""
+		self.mixdownProfileDialog.ShowActionErrorDialog(actionName, extensionName)
 		
 	#_____________________________________________________________________
 	
@@ -91,7 +106,7 @@ class MixdownProfileManager:
 		Parameters:
 			profileName -- the name of the MixdownProfile to load all MixdownActions from.
 		"""
-		actions = self.profiles.LoadProfileActions(profileName)
+		actions = self.profiles.LoadMixdownActionsFromProfile(profileName)
 		return actions
 		
 	#_____________________________________________________________________

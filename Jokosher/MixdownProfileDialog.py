@@ -99,6 +99,7 @@ class MixdownProfileDialog:
 		
 		# the previously selected item in the treeview
 		self.lastSelected = None
+		# the previously selected action instance in the treeview
 		self.lastAction = None
 		
 		if self.profile:
@@ -180,11 +181,10 @@ class MixdownProfileDialog:
 			profileName = self.profileComboModel[self.profileCombo.get_active()][0]
 			selected = self.treeViewSelection.get_selected()
 			action = self.treeViewModel [selected[1]] [2]
-			if action:
-				if action.isConfigured:
-					self.configureLabel.set_markup(_("<b>%s is configured</b>" % action.name))
-				else:
-					self.configureLabel.set_markup(_("<b>%s is not configured</b>" % action.name))
+			if action.isConfigured:
+				self.configureLabel.set_markup(_("<b>%s is configured</b>" % action.name))
+			else:
+				self.configureLabel.set_markup(_("<b>%s is not configured</b>" % action.name))
 		else:
 			self.configureLabel.set_text("")
 			
@@ -200,7 +200,6 @@ class MixdownProfileDialog:
 			action -- the MixdownAction instance which will be added to the action model.
 		"""
 		self.treeViewModel.append( self.ReturnActionDisplayDetails(action) )
-		profileName = self.profileComboModel[self.profileCombo.get_active()][0]
 		self.SaveProfileActions(profileName)
 		
 	#_____________________________________________________________________
@@ -231,20 +230,25 @@ class MixdownProfileDialog:
 		Parameters:
 			signalName -- the signal details which are passed to this method.
 		"""
-		if signalDetails == "saveProfile":
-			active = self.profileCombo.get_active()
-		elif signalDetails == "deleteProfile":
-			active = 0
+		profileName = None
+		active = self.profileCombo.get_active()
+
+		if signalDetails == "deleteProfile":
+			if active:
+				active -= 1
 		
 		self.profileComboModel.clear()
 		for item in self.manager.GetMixdownProfileList():
 			self.profileComboModel.append((item,))
 			self.profileCombo.show_all()
-			self.profileCombo.set_active(active)
-			
-		# unfortunately, a "changed" signal isn't emitted on the combo when we re-populate it
-		# we'll have to emit it now.
-		self.profileCombo.emit("changed")
+			if active > 0:
+				self.profileCombo.set_active(active)
+			else:
+				self.profileCombo.set_active(0)
+		
+		if self.CountRowsInTreeModel(self.profileComboModel) > 0:
+			profileName = self.profileComboModel[self.profileCombo.get_active()][0]
+		self.UpdateActionTreeViewModel(profileName)
 			
 	#_____________________________________________________________________
 		
@@ -257,11 +261,12 @@ class MixdownProfileDialog:
 			profileName -- the name of the profile to use to retrieve MixdownActions from.
 		"""
 		self.treeViewModel.clear()
-		actions = self.manager.ReturnAllActionsFromMixdownProfile(profileName)
-		if actions:
-			for action in actions:
-				action.connect("action-configured", self.ActionIsConfigured)
-				self.treeViewModel.append( self.ReturnActionDisplayDetails(action) )
+		if profileName:
+			actions = self.manager.ReturnAllActionsFromMixdownProfile(profileName)
+			if actions:
+				for action in actions:
+					action.connect("action-configured", self.ActionIsConfigured)
+					self.treeViewModel.append( self.ReturnActionDisplayDetails(action) )
 		self.OnCheckActionConfigured()
 
 	#_____________________________________________________________________
@@ -297,8 +302,6 @@ class MixdownProfileDialog:
 		else:
 			pixbuf = gtk.gdk.pixbuf_new_from_file(action.iconPath)
 	
-		# there is a problem with this, i would like to use the current icon theme dialog size
-		# instead of using 48x48 for the pixbuf size.
 		if pixbuf.get_property("width") and pixbuf.get_property("height") != 48:
 			scaled = pixbuf.scale_simple(48, 48, gtk.gdk.INTERP_BILINEAR)
 			return scaled
@@ -376,6 +379,7 @@ class MixdownProfileDialog:
 		dlg = gtk.Dialog(_("Create Mixdown Profile"), self.window, gtk.DIALOG_DESTROY_WITH_PARENT, buttons)
 		dlg.set_default_size(375, 200)
 		dlg.set_has_separator(False)
+		dlg.set_default_response(gtk.RESPONSE_OK)
 		
 		dlg.vbox.set_spacing(6)
 		dlg.vbox.pack_start(iconBox, False, False)
@@ -399,6 +403,27 @@ class MixdownProfileDialog:
 				msgdlg.run()
 				msgdlg.destroy()
 		dlg.destroy()
+		
+	#_____________________________________________________________________
+	
+	def ShowActionErrorDialog(self, actionName, extensionName):
+		"""
+		Called when an error has occured while loading MixdownActions.
+		Shows a dialog informing the user that a MixdownAction has failed to load.
+		
+		Parameters:
+			actionName -- the name of the MixdownAction which cannot be loaded.
+			extensionName -- the name of the extension that the MixdownAction can't be loaded from.
+		"""
+		msgdlg = gtk.MessageDialog(self.window,
+				gtk.DIALOG_DESTROY_WITH_PARENT,
+				gtk.MESSAGE_ERROR,
+				gtk.BUTTONS_CLOSE)
+		message = _("Please make sure the extension <b>%s</b> is enabled." % extensionName)
+		msgdlg.set_markup(_("<big><b>Cannot load mixdown action %s.</b></big>\n\n%s" % (actionName, message)))
+		msgdlg.run()
+		msgdlg.destroy()
+		
 	#_____________________________________________________________________
 
 	def OnRemoveProfile(self, widget):
@@ -445,7 +470,8 @@ class MixdownProfileDialog:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		if self.CountRowsInTreeModel(self.profileComboModel) > 0:
-			self.ShowAddActionDialog()
+			if self.profileComboModel[self.profileCombo.get_active()][0]:
+				self.ShowAddActionDialog()
 		else:
 			return
 

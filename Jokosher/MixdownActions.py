@@ -162,10 +162,10 @@ class ExportAsFileType(MixdownAction):
 		"""
 		self.configureExportTree = gtk.glade.XML(Globals.GLADE_PATH, "ConfigureExportFileAction")
 		signals = {
-			"on_cancel_button_clicked" : self.OnCancel,
-			"on_ok_button_clicked" : self.OnOK,
-			"on_local_radio_toggled" : self.OnLocalRadioToggled,
-			"on_server_radio_toggled" : self.OnServerRadioToggled
+			"on_cancel_button_clicked" : self.__OnCancel,
+			"on_ok_button_clicked" : self.__OnOK,
+			"on_local_radio_toggled" : self.__OnLocalRadioToggled,
+			"on_server_radio_toggled" : self.__OnServerRadioToggled
 		}
 			
 		self.configureExportTree.signal_autoconnect(signals)
@@ -285,7 +285,7 @@ class ExportAsFileType(MixdownAction):
 		self.localHBox.set_spacing(6)
 		self.localEntry = gtk.Entry()
 		self.localButton = gtk.Button()
-		self.localButton.connect("clicked", self.ShowDirectoryChooserDialog)
+		self.localButton.connect("clicked", self.__ShowDirectoryChooserDialog)
 		self.openImage = gtk.Image()
 		self.openImage.set_from_stock(gtk.STOCK_OPEN, gtk.ICON_SIZE_BUTTON)
 		self.localButton.set_image(self.openImage)
@@ -339,7 +339,7 @@ class ExportAsFileType(MixdownAction):
 		fullPath = os.path.join( self.config["location"], "%s.%s" % ( self.config["filename"], self.config["filetype"] ) )
 		
 		if fullPath in self.project.GetInputFilenames():
-			directory, fileName, ext = self.MakeUniqueFilename(fullPath)
+			directory, fileName, ext = self.__MakeUniqueFilename(fullPath)
 			self.config["filename"] = fileName
 			self.config["location"] = directory
 			self.config["filetype"] = ext.split(".")[1]
@@ -349,7 +349,7 @@ class ExportAsFileType(MixdownAction):
 
 	#_____________________________________________________________________
 	
-	def ShowDirectoryChooserDialog(self, widget):
+	def __ShowDirectoryChooserDialog(self, widget):
 		"""
 		Shows a gtk.FileChooserDialog, allowing the user
 		to select which directory their audio should be exported to.
@@ -372,7 +372,7 @@ class ExportAsFileType(MixdownAction):
 		
 	#_____________________________________________________________________
 	
-	def OnCancel(self, widget):
+	def __OnCancel(self, widget):
 		"""
 		Called when the Cancel Button is clicked.
 		Destroys the configuration window.
@@ -384,7 +384,7 @@ class ExportAsFileType(MixdownAction):
 		
 	#_____________________________________________________________________
 		
-	def OnOK(self, widget):
+	def __OnOK(self, widget):
 		"""
 		Called when the OK Button is clicked.
 		Finishes the mixdown action's configuration.
@@ -402,7 +402,7 @@ class ExportAsFileType(MixdownAction):
 	
 	#_____________________________________________________________________
 	
-	def OnLocalRadioToggled(self, widget):
+	def __OnLocalRadioToggled(self, widget):
 		"""
 		Called when the local directory radio button is activated.
 		Shows the location hbox.
@@ -417,7 +417,7 @@ class ExportAsFileType(MixdownAction):
 
 	#_____________________________________________________________________
 
-	def OnServerRadioToggled(self, widget):
+	def __OnServerRadioToggled(self, widget):
 		"""
 		Called when the server radio button is activated.
 		Shows the server table.
@@ -432,7 +432,7 @@ class ExportAsFileType(MixdownAction):
 		
 	#_____________________________________________________________________
 	
-	def MakeUniqueFilename(self, filename):
+	def __MakeUniqueFilename(self, filename):
 		"""
 		From a given filename generates a name which doesn't exist
 		by appending increasing numbers to it as necessary.
