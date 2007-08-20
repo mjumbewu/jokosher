@@ -191,7 +191,8 @@ class EventLaneViewer(gtk.EventBox):
 		"""
 		self.project.transport.disconnect_by_func(self.OnTransportPosition)
 		self.project.disconnect_by_func(self.OnProjectViewChange)
-		self.instrument.disconnect_by_func(self.OnInstrumentSignal)
+		self.instrument.disconnect_by_func(self.OnEventAdded)
+		self.instrument.disconnect_by_func(self.OnEventRemoved)
 		
 		for widget in self.fixed.get_children():
 			#Check that it is EventViewer (could be a button drawer)
@@ -358,19 +359,8 @@ class EventLaneViewer(gtk.EventBox):
 		Parameters:
 			project -- The project instance that send the signal.
 		"""
-		self.Update()
-		
-	#_____________________________________________________________________
-	
-	def OnInstrumentSignal(self, instrument, extra=None):
-		"""
-		Callback for any change signal from instrument.
-		
-		Parameters:
-			instrument -- the instrument instance that send the signal.
-			extra -- extra optional parameters passed by the caller.
-		"""
-		self.Update()
+		for event in self.eventViewerList:
+			self.UpdatePosition(event)
 		
 	#_____________________________________________________________________
 	
