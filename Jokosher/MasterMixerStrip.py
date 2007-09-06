@@ -44,7 +44,8 @@ class MasterMixerStrip(gtk.Frame):
 		self.add(self.vbox)
 
 		self.label = gtk.Label(_("Master Volume:"))
-				
+		self.label.set_padding(3, 3)
+
 		self.vbox.pack_start(self.label, False)
 		
 		# VU Meter

@@ -66,11 +66,16 @@ class MixerStrip(gtk.Frame):
 				
 		self.vbox.pack_start(self.minbutt, False)
 		
+		self.panvbox = gtk.VBox()
+		self.panvbox.set_border_width(3)
+		self.vbox.pack_start(self.panvbox, False)
+
 		# the slider label
 		balanceLabel = gtk.Label(_("Balance:"))
-		self.vbox.pack_start(balanceLabel, False)
+		self.panvbox.pack_start(balanceLabel, False)
 		# add the panning slider
-		self.panbox = gtk.HBox()
+		self.panhbox = gtk.HBox()
+		self.panhbox.set_spacing(3)
 		self.leftlab = gtk.Label(_("L"))
 		self.rightlab = gtk.Label(_("R"))
 		self.pan = gtk.HScale()
@@ -85,14 +90,15 @@ class MixerStrip(gtk.Frame):
 		
 		self.pan.connect("value-changed", self.OnPanChanged)
 		self.pan.connect("button-press-event", self.OnPanClicked)
-		self.panbox.pack_start(self.leftlab, False)
-		self.panbox.pack_start(self.pan, True)
-		self.panbox.pack_start(self.rightlab, False)
+		self.panhbox.pack_start(self.leftlab, False)
+		self.panhbox.pack_start(self.pan, True)
+		self.panhbox.pack_start(self.rightlab, False)
 		
-		self.vbox.pack_start(self.panbox, False)
+		self.panvbox.pack_start(self.panhbox, False)
 
 		#volume label
 		volumeLabel = gtk.Label(_("Volume:"))
+		volumeLabel.set_padding(3, 3)
 		self.vbox.pack_start(volumeLabel, False)
 		# VU Meter
 		self.vu = VUWidget(self, self.mainview)
