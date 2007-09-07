@@ -493,9 +493,13 @@ class EventLaneViewer(gtk.EventBox):
 			small - True if the event lane is to be small.
 		"""
 		self.small = small
-		for eventViewer in self.fixed.get_children():
-			eventViewer.ChangeSize(small)
-			
+		for widget in self.fixed.get_children():
+			if type(widget) == EventViewer:
+				widget.ChangeSize(small)
+
+				if widget.drawer in self.fixed.get_children():
+					widget.ShowDrawer()
+	
 	#____________________________________________________________________	
 	
 	def PutDrawer(self, drawer, xvalue=1):
@@ -506,10 +510,15 @@ class EventLaneViewer(gtk.EventBox):
 			drawer -- the widget to show.
 			xvalue -- the horizontal position of the drawer in pixels
 		"""
+		if self.small:
+		    yvalue = 30
+		else:
+		    yvalue = 75
+
 		if not drawer.parent:
-			self.fixed.put(drawer, xvalue, 75)
+			self.fixed.put(drawer, xvalue, yvalue)
 		elif drawer.parent == self.fixed:
-			self.fixed.move(drawer, xvalue, 75)
+			self.fixed.move(drawer, xvalue, yvalue)
 		
 		drawer.show_all()
 	
