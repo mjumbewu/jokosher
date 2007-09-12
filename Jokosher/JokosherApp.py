@@ -1700,7 +1700,7 @@ class MainApp:
 		sysInfoCloseButton = self.sysInfoTree.get_widget("closeButton")
 	
 		#connect the close button
-		sysInfoCloseButton.connect("clicked", self.OnCloseSystemInformation)
+		sysInfoCloseButton.connect("clicked", lambda dialog: self.sysInfoDialog.destroy())
 	
 		#set the version strings to the appropriate value
 		gstVersion = "%s.%s.%s.%s" % gst.version()
@@ -1714,17 +1714,6 @@ class MainApp:
 			message += _("Gnonlin is missing!")
 			
 		self.gnonlinVersionStr.set_text(message)
-	
-	#_____________________________________________________________________
-	
-	def OnCloseSystemInformation(self, widget):
-		"""
-		Closes the system information dialog.
-		
-		Parameters:
-			widget -- Gtk callback parameter.
-		"""
-		self.sysInfoDialog.destroy()
 	
 	#_____________________________________________________________________
 	
