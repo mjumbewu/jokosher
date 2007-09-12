@@ -1700,7 +1700,7 @@ class MainApp:
 			output = Popen(args=["lsb_release", "-r"], stdout=PIPE).stdout.read()
 			versionStr += " " + output[output.find("\t")+1:len(output)-1]
 		except OSError:
-			versionStr = "Error!"
+			versionStr = None
 	
 		return versionStr
 	
@@ -1735,10 +1735,13 @@ class MainApp:
 			message = "%s.%s" % (gnlMajor, gnlMinor)
 		elif not gnl:
 			message += _("Gnonlin is missing!")
-			
 		self.gnonlinVersionStr.set_text(message)
 		
-		self.distroVersionStr.set_text(self.GetDistroVersion())
+		distroVersion = self.GetDistroVersion()
+		if distroVersion is not None:
+			self.distroVersionStr.set_text(distroVersion)
+		else:
+			self.distroVersionStr.set_text(_("Unknown"))
 	
 	#_____________________________________________________________________
 	
