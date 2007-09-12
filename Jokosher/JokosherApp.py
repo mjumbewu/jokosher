@@ -16,7 +16,7 @@ import os.path
 import pygst
 pygst.require("0.10")
 import gst
-from subprocess import Popen
+from subprocess import Popen, PIPE
 
 import gettext
 _ = gettext.gettext
@@ -1683,6 +1683,29 @@ class MainApp:
 	
 	#_____________________________________________________________________
 	
+	def GetDistroVersion(self):
+		"""
+		Obtain a string with the distribution name and version.
+		
+		Returns:
+			A string with the distribution name and version.
+		"""
+		versionStr = ""
+		try:
+			#distro name
+			output = Popen(args=["lsb_release", "-i"], stdout=PIPE).stdout.read()
+			versionStr += output[output.find("\t")+1:len(output)-1]
+			
+			#distro version
+			output = Popen(args=["lsb_release", "-r"], stdout=PIPE).stdout.read()
+			versionStr += " " + output[output.find("\t")+1:len(output)-1]
+		except OSError:
+			versionStr = "Error!"
+	
+		return versionStr
+	
+	#_____________________________________________________________________
+	
 	def OnSystemInformation(self, widget):
 		"""
 		Displays a small window with the system information.
@@ -1714,6 +1737,8 @@ class MainApp:
 			message += _("Gnonlin is missing!")
 			
 		self.gnonlinVersionStr.set_text(message)
+		
+		self.distroVersionStr.set_text(self.GetDistroVersion())
 	
 	#_____________________________________________________________________
 	
