@@ -112,6 +112,7 @@ class MainApp:
 			"on_remove_instr_activate" : self.OnRemoveInstrument,
 			"on_report_bug_activate" : self.OnReportBug,
 			"on_project_add_audio" : self.OnAddAudioFile,
+			"on_system_information_activate" : self.OnSystemInformation
 		}
 		self.wTree.signal_autoconnect(signals)
 		
@@ -1671,13 +1672,59 @@ class MainApp:
 	#_____________________________________________________________________
 
 	def OnContributingLinkButtonClicked(self, widget):
-		""" Opens the Jokosher contributing website in the user's default web browser.
+		"""
+		Opens the Jokosher contributing website in the user's default web browser.
 		
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		Utils.OpenExternalURL(url="http://www.jokosher.org/contribute", 
 			message=_("<big>Couldn't launch the contributing website automatically.</big>\n\nPlease visit %s to access it."), parent=self.window)
+	
+	#_____________________________________________________________________
+	
+	def OnSystemInformation(self, widget):
+		"""
+		Displays a small window with the system information.
+		
+		Parameters:
+			widget -- Gtk callback parameter.
+		"""
+		self.sysInfoTree = gtk.glade.XML(Globals.GLADE_PATH, "SystemInformationDialog")
+		
+		# grab references to the SystemInformationDialog window and vbox
+		self.sysInfoDialog = self.sysInfoTree.get_widget("SystemInformationDialog")
+		self.gstVersionStr = self.sysInfoTree.get_widget("labelGStreamerVersion")
+		self.gnonlinVersionStr = self.sysInfoTree.get_widget("labelGnonlinVersion")
+		self.distroVersionStr = self.sysInfoTree.get_widget("labelDistributionVersion")
+		sysInfoCloseButton = self.sysInfoTree.get_widget("closeButton")
+	
+		#connect the close button
+		sysInfoCloseButton.connect("clicked", self.OnCloseSystemInformation)
+	
+		#set the version strings to the appropriate value
+		gstVersion = "%s.%s.%s.%s" % gst.version()
+		self.gstVersionStr.set_text(gstVersion)
+		
+		gnlVersion = gst.registry_get_default().find_plugin("gnonlin")
+		if gnlVersion:
+			ignored, gnlMajor, gnlMinor = gnlVersion.get_version().split(".", 2)		
+			message = "%s.%s" % (gnlMajor, gnlMinor)
+		elif not gnl:
+			message += _("Gnonlin is missing!")
+			
+		self.gnonlinVersionStr.set_text(message)
+	
+	#_____________________________________________________________________
+	
+	def OnCloseSystemInformation(self, widget):
+		"""
+		Closes the system information dialog.
+		
+		Parameters:
+			widget -- Gtk callback parameter.
+		"""
+		self.sysInfoDialog.destroy()
 	
 	#_____________________________________________________________________
 	
