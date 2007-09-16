@@ -233,8 +233,18 @@ class PidginExtension:
 			api -- a reference to the Extension API
 		"""
 		self.API = api
+		self.loaded = False
 		self.mixdownActions = (StatusAction,)
-		self.API.mainapp.registerMixdownActionAPI.RegisterMixdownActions(self.mixdownActions)
+		
+		# See if the purple object is available
+		# TODO: this process should be part of a pre-initialization hook,
+		#		done by all extensions before allowing them to load.
+		try:
+			self.obj = self.bus.get_object("im.pidgin.purple.PurpleService", "/im/pidgin/purple/PurpleObject")
+			self.API.mainapp.registerMixdownActionAPI.RegisterMixdownActions(self.mixdownActions)
+			self.loaded = True
+		except Exception:
+			print "Couldn't connect to the pidgin dbus interface. Disabling the extension."
 		
 	#_____________________________________________________________________
 	
@@ -243,7 +253,8 @@ class PidginExtension:
 		Called by the extension manager when the extension is
 		disabled or deleted.
 		"""
-		self.API.mainapp.registerMixdownActionAPI.DeregisterMixdownActions(self.mixdownActions)
+		if self.loaded:
+			self.API.mainapp.registerMixdownActionAPI.DeregisterMixdownActions(self.mixdownActions)
 		
 	#_____________________________________________________________________
 
