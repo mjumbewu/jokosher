@@ -224,6 +224,30 @@ class PidginExtension:
 	
 	#_____________________________________________________________________
 	
+	def check_dependencies(self):
+		"""
+		Called by the extension manager to assure that everything this extension
+		needs is provided by the system.
+		
+		For the Pidgin extension, the existence of the purple dbus object is checked.
+		
+		Returns:
+			A tuple in the following format:
+				(True, "") if all requirements are met.
+				(False, (Error1, Error2, ..., ErrorN)) if there's errors.
+					The errors are strings that describe the problem.
+		"""
+		test = None
+		error = "Couldn't connect to the pidgin dbus interface. Is pidgin running?"
+		
+		try:
+			test = self.bus.get_object("im.pidgin.purple.PurpleService", "/im/pidgin/purple/PurpleObject")
+			return (True, "")
+		except Exception:
+			return (False, (error))
+		
+	#_____________________________________________________________________
+	
 	def startup(self, api):
 		"""
 		Called by the extension manager during Jokosher startup
@@ -233,18 +257,9 @@ class PidginExtension:
 			api -- a reference to the Extension API
 		"""
 		self.API = api
-		self.loaded = False
 		self.mixdownActions = (StatusAction,)
-		
-		# See if the purple object is available
-		# TODO: this process should be part of a pre-initialization hook,
-		#		done by all extensions before allowing them to load.
-		try:
-			self.obj = self.bus.get_object("im.pidgin.purple.PurpleService", "/im/pidgin/purple/PurpleObject")
-			self.API.mainapp.registerMixdownActionAPI.RegisterMixdownActions(self.mixdownActions)
-			self.loaded = True
-		except Exception:
-			print "Couldn't connect to the pidgin dbus interface. Disabling the extension."
+		self.obj = self.bus.get_object("im.pidgin.purple.PurpleService", "/im/pidgin/purple/PurpleObject")
+		self.API.mainapp.registerMixdownActionAPI.RegisterMixdownActions(self.mixdownActions)
 		
 	#_____________________________________________________________________
 	
@@ -253,8 +268,7 @@ class PidginExtension:
 		Called by the extension manager when the extension is
 		disabled or deleted.
 		"""
-		if self.loaded:
-			self.API.mainapp.registerMixdownActionAPI.DeregisterMixdownActions(self.mixdownActions)
+		self.API.mainapp.registerMixdownActionAPI.DeregisterMixdownActions(self.mixdownActions)
 		
 	#_____________________________________________________________________
 

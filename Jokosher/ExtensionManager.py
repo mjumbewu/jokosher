@@ -43,10 +43,10 @@ class ExtensionManager:
 		"""
 		Called from Extension.LoadAllExtensions afer the Extensions
 		module has been imported (and the class instantiated in the case
-		of extensions that are oggs). 
+		of extensions that are eggs). 
 		
 		Parameters:	
-			extension -- a reference to the Extension (either a module 
+			extension -- a reference to the Extension. Either a module 
 						or in the case of an Extension imported from an
 						egg, an instance object.
 			filename -- the name of the file containing the Extension.
@@ -84,13 +84,15 @@ class ExtensionManager:
 		if hasattr(extension, "preferences"):
 			preferences = True
 
-			# check extension is not already loaded
+		# check extension is not already loaded
 		for testExtension in self.loadedExtensions:
 			if testExtension["name"] == name:
 				Globals.debug(filename + " extension '" + name + "' already present")
 				return False
+			
 		# find full file name of extension
 		extensionFile = os.path.join(directory, filename)
+		
 		# if we are installing locally first check the file doesn't exist and
 		# then try and copy it 
 		if local:
@@ -105,6 +107,24 @@ class ExtensionManager:
 					Globals.debug(filename + "Failed copying file: " + str(e))
 					return False
 		
+		# check if extension's requirements are met (only if the extension requires it)
+		testResults = (True, "")
+		try:
+			if hasattr(extension, "check_dependencies"):
+				testResults = extension.check_dependencies()
+		except Exception, e:
+			Globals.debug(name + " extension could not check its dependencies")
+			Globals.debug(e)
+			return False
+		
+		# if the system doesn't provide what the extension needs,
+		# fail loading this plugin and set the error message
+		if testResults[0] == False:
+			#TODO: inform the user of the error
+			Globals.debug(name + ": "+testResults[1])
+			return False
+		
+		# check if the extension is blacklisted, if so, mark it as disabled
 		enabled = True
 		if name in Globals.settings.extensions['extensions_blacklist']:
 			enabled = False
@@ -188,6 +208,7 @@ class ExtensionManager:
 			# any other file extension is wrong
 			Globals.debug("Invalid extension file suffix for", filename)
 			return False
+		
 		# try and register the extension - quit if failed
 		if not self.register(extension, filename, directory, local):
 			return False
