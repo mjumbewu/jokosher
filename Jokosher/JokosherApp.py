@@ -601,7 +601,10 @@ class MainApp:
 		"""
 		buttons = (gtk.STOCK_CANCEL,gtk.RESPONSE_CANCEL,gtk.STOCK_SAVE,gtk.RESPONSE_OK)
 		chooser = gtk.FileChooserDialog(_("Mixdown Project"), self.window, gtk.FILE_CHOOSER_ACTION_SAVE, buttons)
-		chooser.set_current_folder(Globals.settings.general["projectfolder"])
+		if os.path.exists(Globals.settings.general["projectfolder"]):
+			chooser.set_current_folder(Globals.settings.general["projectfolder"])
+		else:
+			chooser.set_current_folder(os.path.expanduser("~"))
 		chooser.set_do_overwrite_confirmation(True)
 		chooser.set_default_response(gtk.RESPONSE_OK)
 		chooser.set_current_name(self.project.name)
@@ -724,7 +727,10 @@ class MainApp:
 								dialog gets destroyed.
 		"""
 		chooser = gtk.FileChooserDialog((_('Choose a Jokosher project file')), None, gtk.FILE_CHOOSER_ACTION_OPEN, (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, gtk.STOCK_OPEN, gtk.RESPONSE_OK))
-		chooser.set_current_folder(Globals.settings.general["projectfolder"])
+		if os.path.exists(Globals.settings.general["projectfolder"]):
+			chooser.set_current_folder(Globals.settings.general["projectfolder"])
+		else:
+			chooser.set_current_folder(os.path.expanduser("~"))
 
 		chooser.set_default_response(gtk.RESPONSE_OK)
 		chooser.set_transient_for(self.window)
@@ -787,7 +793,11 @@ class MainApp:
 		chooser.set_do_overwrite_confirmation(True)
 		chooser.set_current_name(self.project.name)
 		chooser.set_default_response(gtk.RESPONSE_OK)
-		chooser.set_current_folder(Globals.settings.general["projectfolder"])
+		if os.path.exists(Globals.settings.general["projectfolder"]):
+			chooser.set_current_folder(Globals.settings.general["projectfolder"])
+		else:
+			chooser.set_current_folder(os.path.expanduser("~"))
+
 
 		response = chooser.run()
 		if response == gtk.RESPONSE_OK:
@@ -1855,7 +1865,10 @@ class MainApp:
 		dlg = gtk.FileChooserDialog(_("Add Audio File..."), action=gtk.FILE_CHOOSER_ACTION_OPEN, buttons=buttons)
 		dlg.set_default_response(gtk.RESPONSE_OK)
 		dlg.set_icon(self.icon)
-		dlg.set_current_folder(Globals.settings.general["projectfolder"])
+		if os.path.exists(Globals.settings.general["projectfolder"]):
+			dlg.set_current_folder(Globals.settings.general["projectfolder"])
+		else:
+			dlg.set_current_folder(os.path.expanduser("~"))
 		dlg.set_extra_widget(copyfile)
 		dlg.set_select_multiple(True)
 		

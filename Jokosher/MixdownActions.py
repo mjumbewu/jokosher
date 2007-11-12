@@ -358,7 +358,10 @@ class ExportAsFileType(MixdownAction):
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		chooser = gtk.FileChooserDialog((_('Select Export Location')), None, gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER, (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, gtk.STOCK_OPEN, gtk.RESPONSE_OK))
-		chooser.set_current_folder(Globals.settings.general["projectfolder"])
+		if os.path.exists(Globals.settings.general["projectfolder"]):
+			chooser.set_current_folder(Globals.settings.general["projectfolder"])
+		else:
+			chooser.set_current_folder(os.path.expanduser("~"))
 		chooser.set_icon(self.dialogIcon)
 
 		chooser.set_default_response(gtk.RESPONSE_OK)
@@ -476,7 +479,10 @@ class RunAScript(MixdownAction):
 		See MixdownAction.ConfigureAction.
 		"""
 		chooser = gtk.FileChooserDialog((_("Run External Script")), None, gtk.FILE_CHOOSER_ACTION_OPEN, (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, gtk.STOCK_OPEN, gtk.RESPONSE_OK))
-		chooser.set_current_folder(Globals.settings.general["projectfolder"])
+		if os.path.exists(Globals.settings.general["projectfolder"]):
+			chooser.set_current_folder(Globals.settings.general["projectfolder"])
+		else:
+			chooser.set_current_folder(os.path.expanduser("~"))
 		chooser.set_icon(self.dialogIcon)
 
 		chooser.set_default_response(gtk.RESPONSE_OK)
@@ -514,3 +520,4 @@ class RunAScript(MixdownAction):
 	#_____________________________________________________________________
 	
 #=========================================================================
+
