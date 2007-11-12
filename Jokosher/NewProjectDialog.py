@@ -92,7 +92,10 @@ class NewProjectDialog:
 		self.okbutton.grab_default()
 		
 		# Set the default folder of 'folder' (a FileChooserButton)
-		self.folder.set_current_folder(Globals.settings.general["projectfolder"])
+		if os.path.exists(Globals.settings.general["projectfolder"]):
+			self.folder.set_current_folder(Globals.settings.general["projectfolder"])
+		else:
+			self.folder.set_current_folder(os.path.expanduser("~"))
 
 		self.dlg.resize(350, 300)
 		self.dlg.set_icon(self.parent.icon)
