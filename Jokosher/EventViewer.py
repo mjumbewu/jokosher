@@ -584,8 +584,8 @@ class EventViewer(gtk.DrawingArea):
 		Returns:
 			True -- continue GTK signal propagation. *CHECK*
 		"""		
-		#Don't allow moving, etc while recording!
-		if self.event.instrument.project.GetIsRecording():
+		#Don't allow moving, etc while recording or playing back!
+		if self.event.instrument.project.GetIsRecording() or self.mainview.isPlaying:
 			return True #don't let the instrument viewer handle this click
 
 		self.grab_focus()
