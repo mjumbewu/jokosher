@@ -185,8 +185,8 @@ class InstrumentViewer(gtk.EventBox):
 		of the correspondent Instrument
 		
 		Parameters:
-			widget -- reserved for GTK callbacks, don't use it explicitly.
-			event -- reserved for GTK callbacks, don't use it explicitly.
+			widget -- GTK callback.
+			event -- GTK callback.
 			
 		Returns:
 			True -- continue GTK signal propagation. *CHECK*
@@ -207,14 +207,33 @@ class InstrumentViewer(gtk.EventBox):
 			#set the entry to the same width as the label so that the header doesnt resize
 			self.editlabel.set_size_request(width, -1)
 			self.editlabel.connect("activate", self.OnAcceptEditLabel)
+			self.editlabel.connect("key_press_event", self.OnEditLabelKey)
 			self.editlabel.show()
 			
 			self.labelbox.pack_end(self.editlabel)
 			self.editlabel.grab_focus()
 			self.editlabelPacked = True
 			self.mainview.instrNameEntry = self.editlabel
+			
 			return True
 	
+	#_____________________________________________________________________
+
+	def OnEditLabelKey(self, widget, event):
+		"""
+		Handles the key presses while editing the instrument name label.
+		Used to make the escape key save the name and then return to normal mode.
+		
+		Parameters:
+			widget -- GTK callback.
+			event -- GTK callback.
+		"""
+		key = gtk.gdk.keyval_name(event.keyval)
+		
+		if key == "Escape":
+			self.editlabel.set_text("")
+			self.OnAcceptEditLabel()
+
 	#_____________________________________________________________________
 
 	def OnAcceptEditLabel(self, widget=None):
@@ -223,10 +242,10 @@ class InstrumentViewer(gtk.EventBox):
 		This method updates the instrument label with the label the user entered.
 		
 		Parameters:
-			widget -- reserved for GTK callbacks, don't use it explicitly.
+			widget -- GTK callback.
 		"""
-		# change instrument name then replace edit label with normak label
-		if self.editlabelPacked:	
+		# change instrument name then replace edit label with normal label
+		if self.editlabelPacked:
 			name = self.editlabel.get_text()
 			if name != "":
 				self.instrlabel.set_text(name)
@@ -282,7 +301,6 @@ class InstrumentViewer(gtk.EventBox):
 		Parameters:
 			instrument -- the instrument instance that send the signal.
 		"""
-
 		self.instrlabel.set_text(self.instrument.name)
 	
 	#_____________________________________________________________________
