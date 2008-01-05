@@ -584,8 +584,8 @@ class EventViewer(gtk.DrawingArea):
 		Returns:
 			True -- continue GTK signal propagation. *CHECK*
 		"""		
-		#Don't allow moving, etc while recording or playing back!
-		if self.event.instrument.project.GetIsRecording() or self.mainview.isPlaying:
+		#Don't allow moving, etc while recording!
+		if self.event.instrument.project.GetIsRecording():
 			return True #don't let the instrument viewer handle this click
 
 		self.grab_focus()
@@ -596,6 +596,11 @@ class EventViewer(gtk.DrawingArea):
 			self.project.ClearEventSelections()
 			self.project.SelectInstrument(None)
 		self.event.SetSelected(True)
+		
+		#Don't allow editing while playing back.
+		#It must be here to avoid afecting the selection behavior
+		if self.mainview.isPlaying:
+			return True
 		
 		# RMB: context menu
 		if mouse.button == 3:
