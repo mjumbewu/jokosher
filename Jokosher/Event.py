@@ -624,6 +624,11 @@ class Event(gobject.GObject):
 		"""
 		error, debug = message.parse_error()
 		
+		#FIXME: remove these prints!
+		print "*Event Error*"
+		print ("Code: %s, Domain: %s")%(error.code, error.domain)
+		print "Message: "+error.message
+		
 		Globals.debug("Event bus error:", str(error), str(debug))
 		self.emit("corrupt", str(error), str(debug))
 	

@@ -621,6 +621,11 @@ class Project(gobject.GObject):
 		"""
 		error, debug = message.parse_error()
 		
+		#FIXME: remove these prints!
+		print "*Project Error*"
+		print ("Code: %s, Domain: %s")%(error.code, error.domain)
+		print "Message: "+error.message
+		
 		Globals.debug("Gstreamer bus error:", str(error), str(debug))
 		self.emit("gst-bus-error", str(error), str(debug))
 
