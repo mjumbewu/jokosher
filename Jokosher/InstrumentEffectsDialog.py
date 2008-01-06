@@ -1036,7 +1036,7 @@ class CairoDialogHeaderImage(gtk.DrawingArea):
 		self.connect("configure_event", self.OnSizeChanged)
 		self.connect("expose-event", self.OnDraw)
 		
-		self.logo = cairo.ImageSurface.create_from_png(os.path.join(Globals.IMAGE_PATH, "jokosher-icon.png"))
+		self.logo = cairo.ImageSurface.create_from_png(os.path.join(Globals.IMAGE_PATH, "jokosher.png"))
 		self.source = cairo.ImageSurface(cairo.FORMAT_ARGB32, self.allocation.width, self.allocation.height)
 		self.GenerateCachedImage()
 		

@@ -101,7 +101,7 @@ class MixdownAction(gobject.GObject):
 		self.isConfigured = None
 		
 		# to be used by the configuration window in MixdownAction sublcasses.
-		self.dialogIcon = gtk.gdk.pixbuf_new_from_file( os.path.join(Globals.IMAGE_PATH, "jokosher-icon.png") )
+		self.dialogIcon = gtk.gdk.pixbuf_new_from_file( os.path.join(Globals.IMAGE_PATH, "jokosher.png") )
 
 	
 	#_____________________________________________________________________

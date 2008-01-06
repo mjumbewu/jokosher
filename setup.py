@@ -56,8 +56,8 @@ dist = setup(name='jokosher',
 		('share/jokosher/', ["Jokosher/jokosher-logo.png"]),
 		('share/jokosher/Instruments', glob.glob("Instruments/*.instr")),
 		('share/jokosher/Instruments/images', glob.glob('Instruments/images/*.png')),
-		('share/icons/hicolor/48x48/apps', ['images/jokosher-icon.png']),
-		('share/pixmaps', ['images/jokosher-icon.png']),
+		('share/icons/hicolor/48x48/apps', ['images/jokosher.png']),
+		('share/pixmaps', ['images/jokosher.png']),
 		('share/jokosher/pixmaps', glob.glob("images/*.png")),
 		('share/applications', ['bin/jokosher.desktop']),
 		('share/mime/packages',	['bin/jokosher.xml']),
@@ -120,9 +120,9 @@ print "\nInstallation finished! You can now run Jokosher by typing 'jokosher' or
 ## /usr/bin/jokosher
 ## /usr/share/jokosher/
 ## /usr/share/gnome/help/jokosher/
-## /usr/icons/hicolor/48x48/apps/jokosher-icon.png
+## /usr/icons/hicolor/48x48/apps/jokosher.png
 ## /usr/share/locale/*/LC_MESSAGES/jokosher.mo
-## /usr/share/pixmaps/jokosher-icon.png
+## /usr/share/pixmaps/jokosher.png
 ## /usr/share/applications/jokosher.desktop
 ## /usr/lib/python2.X/site-packages/Jokosher/
 ## omfdir/jokosher/*.omf

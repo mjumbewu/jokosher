@@ -225,10 +225,10 @@ class MainApp:
 		# set window icon
 		icon_theme = gtk.icon_theme_get_default()
 		try:
-			pixbuf = icon_theme.load_icon("jokosher-icon", 48, 0)
+			pixbuf = icon_theme.load_icon("jokosher", 48, 0)
 			self.window.set_icon(pixbuf)
 		except gobject.GError, exc:
-			self.window.set_icon_from_file(os.path.join(Globals.IMAGE_PATH, "jokosher-icon.png"))
+			self.window.set_icon_from_file(os.path.join(Globals.IMAGE_PATH, "jokosher.png"))
 		# make icon available to others
 		self.icon = self.window.get_icon()
 		
