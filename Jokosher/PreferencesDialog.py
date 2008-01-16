@@ -247,7 +247,8 @@ class PreferencesDialog:
 			Globals.settings.playback["audiosink"] = self.customSink.get_text()
 			
 		Globals.settings.write()
-		self.project.SetProjectSink()
+		if self.project:
+			self.project.SetProjectSink()
 	
 	#_____________________________________________________________________
 	
