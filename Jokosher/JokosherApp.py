@@ -1178,7 +1178,7 @@ class MainApp:
 					True = perform a cut operation.
 					False = perform a copy operation.
 		"""
-		if self.isPlaying:
+		if self.isPlaying or self.isPaused:
 			return
 		
 		if self.instrNameEntry:
@@ -1221,7 +1221,7 @@ class MainApp:
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-		if self.isPlaying:
+		if self.isPlaying or self.isPaused:
 			return
 		
 		if self.instrNameEntry:
@@ -1244,7 +1244,7 @@ class MainApp:
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-		if self.project.GetIsRecording() or self.isPlaying:
+		if self.project.GetIsRecording() or self.isPlaying or self.isPaused:
 			return
 		
 		# list to store instruments to delete, so we don't modify the list while we are iterating

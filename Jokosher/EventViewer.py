@@ -599,7 +599,7 @@ class EventViewer(gtk.DrawingArea):
 		
 		#Don't allow editing while playing back.
 		#It must be here to avoid afecting the selection behavior
-		if self.mainview.isPlaying:
+		if self.mainview.isPlaying or self.mainview.isPaused:
 			return True
 		
 		# RMB: context menu
