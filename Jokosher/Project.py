@@ -398,7 +398,7 @@ class Project(gobject.GObject):
 		self.playbackbin.add(self.outfile)
 		
 		#create encoder/muxer
-		self.encodebin = gst.gst_parse_bin_from_description("audioconvert ! %s" % encodeBin, True)
+		self.encodebin = gst.parse_bin_from_description("audioconvert ! %s" % encodeBin, True)
 		self.playbackbin.add(self.encodebin)
 		self.levelElementCaps.link(self.encodebin)
 		self.encodebin.link(self.outfile)
@@ -548,7 +548,7 @@ class Project(gobject.GObject):
 							"audioconvert ! %s ! filesink location=%s"
 				pipe %= (event.LEVEL_INTERVAL, encodeString, event.file.replace(" ", "\ "))
 				
-				encodeBin = gst.gst_parse_bin_from_description(pipe, True)
+				encodeBin = gst.parse_bin_from_description(pipe, True)
 				bin.add(encodeBin)
 				pad.link(encodeBin.get_pad("sink"))
 				
@@ -1337,7 +1337,7 @@ class Project(gobject.GObject):
 		
 		elif sinkString != "autoaudiosink":
 			try:
-				sinkElement = gst.gst_parse_bin_from_description(sinkString, True)
+				sinkElement = gst.parse_bin_from_description(sinkString, True)
 			except gobject.GError:
 				Globals.debug("Parsing failed: %s" % sinkString)
 			else:

@@ -769,7 +769,7 @@ class ExtensionAPI:
 		Parameters:
 			description -- string for the drop down box. i.e: 'Ogg Vorbis (.ogg)'.
 			extension -- string of the file extension without a '.'. i.e: 'ogg'.
-			encodeBin -- string used by gst_parse_bin_from_description to create
+			encodeBin -- string used by gst.parse_bin_from_description to create
 						a bin that can encode and mux the audio when added to a
 						pipeline. i.e: 'vorbisenc ! oggmux'.
 			checkIfValid -- If True, Jokosher will check if the encodeBin string is valid before adding
@@ -786,7 +786,7 @@ class ExtensionAPI:
 			
 		if checkIfValid:
 			try:
-				bin = gst.gst_parse_bin_from_description("audioconvert ! %s" % encodeBin, True)
+				bin = gst.parse_bin_from_description("audioconvert ! %s" % encodeBin, True)
 				del bin
 			except gobject.GError:
 				return 3
@@ -809,7 +809,7 @@ class ExtensionAPI:
 		Parameters:
 			description -- string for the drop down box. i.e: 'Ogg Vorbis (.ogg)'.
 			extension -- string of the file extension without a '.'. i.e: 'ogg'.
-			encodeBin -- string used by gst_parse_bin_from_description to create
+			encodeBin -- string used by gst.parse_bin_from_description to create
 						a bin that can encode and mux the audio when added to a
 						pipeline. i.e: 'vorbisenc ! oggmux'.
 		Returns:
