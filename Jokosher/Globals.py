@@ -322,17 +322,20 @@ def PopulateEncoders():
 	import gst
 	
 	for type in _export_formats:
+		all_elements_exist = True
 		for element in type[2].split("!"):
 			exists = gst.default_registry_check_feature_version(element.strip(), 0, 10, 0)
 			if not exists:
+				all_elements_exist = False
 				debug('Cannot find "%s" plugin, disabling encoder: "%s"' % (element.strip(), type[2]))
 				# we know at least one of the elements doesnt exist, so skip this encode format.
-				continue
-				
-		#create a dictionary using _export_template as the keys
-		#and the current item from _export_formats as the values.
-		d = dict(zip(_export_template, type))
-		EXPORT_FORMATS.append(d)
+				break
+		
+		if all_elements_exist:
+			#create a dictionary using _export_template as the keys
+			#and the current item from _export_formats as the values.
+			d = dict(zip(_export_template, type))
+			EXPORT_FORMATS.append(d)
 
 #_____________________________________________________________________
 
