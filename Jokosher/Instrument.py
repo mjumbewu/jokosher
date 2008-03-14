@@ -720,7 +720,7 @@ class Instrument(gobject.GObject):
 		self.events.append(event)
 		self.graveyard.remove(event)
 		event.CreateFilesource()
-		if event.isLoading:
+		if event.isLoading or not event.levels:
 			event.GenerateWaveform()
 		
 		self.temp = eventid
