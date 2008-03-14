@@ -366,10 +366,8 @@ class _LoadZPTFile:
 			except ValueError:  
 				id = None  
 			event = Event.Event(instr, None, id)  
-			self.LoadEvent(event, ev)
+			self.LoadEvent(event, ev, True)
 			instr.graveyard.append(event)  
-			#remove it from the composition so it doesnt play  
-			instr.composition.remove(event.filesrc) 
 
 		#load image from file based on unique type
 		for instrTuple in Globals.getCachedInstruments():
@@ -386,7 +384,7 @@ class _LoadZPTFile:
 		
 	#_____________________________________________________________________
 		
-	def LoadEvent(self, event, xmlNode):
+	def LoadEvent(self, event, xmlNode, isDead=False):
 		"""
 		Restores an Event from its version 0.2 XML representation.
 		
@@ -419,11 +417,11 @@ class _LoadZPTFile:
 				value = str(levelsXML.getAttribute("value"))
 				event.levels = map(float, value.split(","))
 
-		if event.isLoading or event.isRecording:
-			event.GenerateWaveform()
-
-		event._Event__UpdateAudioFadePoints()
-		event.CreateFilesource()
+		if not isDead:
+			if event.isLoading or event.isRecording:
+				event.GenerateWaveform()
+			event._Event__UpdateAudioFadePoints()
+			event.CreateFilesource()
 	
 	#_____________________________________________________________________
 #=========================================================================
@@ -526,10 +524,8 @@ class _LoadZPNFile:
 			except ValueError:
 				id = None
 			event = Event.Event(instr, None, id)
-			self.LoadEvent(event, ev)
+			self.LoadEvent(event, ev, True)
 			instr.graveyard.append(event)
-			#remove it from the composition so it doesnt play
-			instr.composition.remove(event.filesrc)
 		
 		#load image from file based on unique type
 		for instrTuple in Globals.getCachedInstruments():
@@ -548,7 +544,7 @@ class _LoadZPNFile:
 		
 	#_____________________________________________________________________
 		
-	def LoadEvent(self, event, xmlNode):
+	def LoadEvent(self, event, xmlNode, isDead=False):
 		"""
 		Restores an Event from its version 0.9 XML representation.
 		
@@ -581,11 +577,11 @@ class _LoadZPNFile:
 				value = str(levelsXML.getAttribute("value"))
 				event.levels = map(float, value.split(","))
 
-		if event.isLoading or event.isRecording:
-			event.GenerateWaveform()
-
-		event._Event__UpdateAudioFadePoints()
-		event.CreateFilesource()
+		if not isDead:
+			if event.isLoading or event.isRecording:
+				event.GenerateWaveform()
+			event._Event__UpdateAudioFadePoints()
+			event.CreateFilesource()
 	
 	#_____________________________________________________________________
 	
@@ -712,10 +708,8 @@ class _LoadOPZFile:
 			except ValueError:
 				id = None
 			event = Event.Event(instr, None, id)
-			self.LoadEvent(event, ev)
+			self.LoadEvent(event, ev, True)
 			instr.graveyard.append(event)
-			#remove it from the composition so it doesnt play
-			instr.composition.remove(event.filesrc)
 		
 		#load image from file based on unique type
 		for instrTuple in Globals.getCachedInstruments():
@@ -734,7 +728,7 @@ class _LoadOPZFile:
 		
 	#_____________________________________________________________________
 		
-	def LoadEvent(self, event, xmlNode):
+	def LoadEvent(self, event, xmlNode, isDead=False):
 		"""
 		Restores an Event from its version 0.9 XML representation.
 		
@@ -767,11 +761,11 @@ class _LoadOPZFile:
 				value = str(levelsXML.getAttribute("value"))
 				event.levels = map(float, value.split(","))
 
-		if event.isLoading or event.isRecording:
-			event.GenerateWaveform()
-
-		event._Event__UpdateAudioFadePoints()
-		event.CreateFilesource()
+		if not isDead:
+			if event.isLoading or event.isRecording:
+				event.GenerateWaveform()
+			event._Event__UpdateAudioFadePoints()
+			event.CreateFilesource()
 	
 	#_____________________________________________________________________
 	
