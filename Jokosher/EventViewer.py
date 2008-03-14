@@ -1146,14 +1146,14 @@ class EventViewer(gtk.DrawingArea):
 		
 	#_____________________________________________________________________
 	
-	def OnEventCorrupt(self, event, error, details):
+	def OnEventCorrupt(self, event, error):
 		"""
 		Callback function for when the event's file is found to be corrupt.
 		"""
 		message="%s %s\n\n%s" % (_("Error loading file:"), self.event.filelabel, 
 					_("Please make sure the file exists, and the appropriate plugin is installed."))
 			
-		outputtext = "\n\n".join((message, error, details))
+		outputtext = "\n\n".join((message, error))
 		
 		dlg = gtk.MessageDialog(None,
 			gtk.DIALOG_MODAL,

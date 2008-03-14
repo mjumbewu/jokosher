@@ -15,6 +15,10 @@ import gtk, gobject
 from subprocess import call
 import Globals
 
+import gst
+if gst.pygst_version >= (0, 10, 10):
+    import gst.pbutils
+
 #_____________________________________________________________________
 
 def OpenExternalURL(url, message, parent):
@@ -333,3 +337,22 @@ def StoreVariableToNode(value, node, typeAttr="type", valueAttr="value"):
 	node.setAttribute(valueAttr, str(value))
 
 #_____________________________________________________________________
+
+def HandleGstPbutilsMissingMessage(message, callback, x_window_id=0):
+	# pbutils was wrapped in 0.10.10
+	if gst.pygst_version < (0, 10, 10):
+		return False
+
+	#self._installing_plugins = True
+	
+	detail = gst.pbutils.missing_plugin_message_get_installer_detail(message)
+	ctx = gst.pbutils.InstallPluginsContext()
+	Globals.debug(detail)
+	if x_window_id:
+		ctx.set_x_id(x_window_id)
+	
+	ret = gst.pbutils.install_plugins_async([detail], ctx, callback)
+	return True
+
+#_____________________________________________________________________
+

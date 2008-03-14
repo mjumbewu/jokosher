@@ -43,7 +43,7 @@ class Event(gobject.GObject):
 		"waveform" 	: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () ),
 		"position" 	: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () ),
 		"length" 		: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () ),
-		"corrupt" 	: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, (gobject.TYPE_STRING, gobject.TYPE_STRING)),
+		"corrupt" 	: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, (gobject.TYPE_STRING,)),
 		"loading" 	: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () ),
 		"selected" 	: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () )
 	}
@@ -175,7 +175,7 @@ class Event(gobject.GObject):
 		ev.appendChild(params)
 		
 		items = ["start", "duration", "isSelected", 
-				  "name", "offset", "file", "isLoading", "isRecording"
+				  "name", "offset", "file", "filelabel", "isLoading", "isRecording"
 				]
 				
 		#Since we are saving the path to the project file, don't delete it on exit
@@ -513,6 +513,19 @@ class Event(gobject.GObject):
 			self.instrument.ResurrectEvent(self.id)
 			
 	#_____________________________________________________________________
+
+	def install_plugin_cb(self, result):
+		self._installing_plugins = False
+		if result == gst.pbutils.INSTALL_PLUGINS_SUCCESS:
+			gst.update_registry()
+			self.GenerateWaveform()
+			return
+
+		# FIXME: send a better error
+		msg = "failed to install plugins: %s" % result
+		self.emit("corrupt", msg)
+
+	#_____________________________________________________________________
 	
 	def bus_message(self, bus, message):
 		"""
@@ -532,18 +545,24 @@ class Event(gobject.GObject):
 			return False
 
 		st = message.structure
-		if st:
-			if st.get_name() == "level":
-				newLevel = self.__CalculateAudioLevel(st["peak"])
-				self.levels.append(newLevel)
-				
-				end = st["endtime"] / float(gst.SECOND)
-				self.loadingLength = int(end)
-				
-				# Only send events every second processed to reduce GUI load
-				if self.loadingLength != self.lastEnd:
-					self.lastEnd = self.loadingLength 
-					self.emit("length") # tell the GUI
+		if not st:
+			return False
+		
+		if st.get_name().startswith('missing-'):
+			self.loadingPipeline.set_state(gst.STATE_NULL)
+			Utils.HandleGstPbutilsMissingMessage(message, self.install_plugin_cb)
+
+		elif st.get_name() == "level":
+			newLevel = self.__CalculateAudioLevel(st["peak"])
+			self.levels.append(newLevel)
+			
+			end = st["endtime"] / float(gst.SECOND)
+			self.loadingLength = int(end)
+			
+			# Only send events every second processed to reduce GUI load
+			if self.loadingLength != self.lastEnd:
+				self.lastEnd = self.loadingLength 
+				self.emit("length") # tell the GUI
 		return True
 		
 	#_____________________________________________________________________
@@ -624,10 +643,10 @@ class Event(gobject.GObject):
 		"""
 		error, debug = message.parse_error()
 		
-		#FIXME: remove these prints!
-		print "*Event Error*"
-		print ("Code: %s, Domain: %s")%(error.code, error.domain)
-		print "Message: "+error.message
+		Globals.debug("Event Bus Error Message:")
+		Globals.debug("\tCode:", error.code)
+		Globals.debug("\tDomain:", error.domain)
+		Globals.debug("\tMessage:", error.message)
 		
 		Globals.debug("Event bus error:", str(error), str(debug))
 		self.emit("corrupt", str(error), str(debug))
@@ -663,7 +682,8 @@ class Event(gobject.GObject):
 		"""
 		Renders the level information for the GUI.
 		"""
-		pipe = """filesrc name=src location=%s ! decodebin ! audioconvert ! level interval=%d message=true ! fakesink""" 
+		pipe = """filesrc name=src location=%s ! decodebin ! audioconvert ! level interval=%d message=true ! fakesink"""
+		
 		pipe = pipe % (self.file.replace(" ", "\ "), self.LEVEL_INTERVAL * gst.SECOND)
 		self.loadingPipeline = gst.parse_launch(pipe)
 
