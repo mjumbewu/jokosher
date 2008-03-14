@@ -411,7 +411,8 @@ class _LoadZPTFile:
 			levelsXML = xmlNode.getElementsByTagName("Levels")[0]
 		except IndexError:
 			Globals.debug("No event levels in project file")
-			event.GenerateWaveform()
+			if not isDead:
+				event.GenerateWaveform()
 		else: 
 			if levelsXML.nodeType == xml.Node.ELEMENT_NODE:
 				value = str(levelsXML.getAttribute("value"))
@@ -571,7 +572,8 @@ class _LoadZPNFile:
 			levelsXML = xmlNode.getElementsByTagName("Levels")[0]
 		except IndexError:
 			Globals.debug("No event levels in project file")
-			event.GenerateWaveform()
+			if not isDead:
+				event.GenerateWaveform()
 		else: 
 			if levelsXML.nodeType == xml.Node.ELEMENT_NODE:
 				value = str(levelsXML.getAttribute("value"))
@@ -755,7 +757,8 @@ class _LoadOPZFile:
 			levelsXML = xmlNode.getElementsByTagName("Levels")[0]
 		except IndexError:
 			Globals.debug("No event levels in project file")
-			event.GenerateWaveform()
+			if not isDead:
+				event.GenerateWaveform()
 		else: 
 			if levelsXML.nodeType == xml.Node.ELEMENT_NODE:
 				value = str(levelsXML.getAttribute("value"))
