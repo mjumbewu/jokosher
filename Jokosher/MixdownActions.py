@@ -12,10 +12,19 @@ import gtk
 import gobject
 
 import Globals
+import ProjectManager
 
 import gettext
 _ = gettext.gettext
 
+
+class MixdownActionException(Exception):
+	"""
+	An exception that occurs when there is a problem when the RunAction() method
+	in a MixdownAction. The 'message' attribute is a string to display to the user.
+	"""
+	def __init__(self, message):
+		Exception.__init__(self, message)
 
 #=========================================================================
 
@@ -208,7 +217,16 @@ class ExportAsFileType(MixdownAction):
 		See MixdownAction.RunAction
 		"""
 		filePath = os.path.join( self.config["location"], "%s.%s" % ( self.config["filename"], self.config["filetype"] ) )
-		self.project.Export(filePath, self.config["pipeline"])
+		try:
+			self.project.Export(filePath, self.config["pipeline"])
+		except ProjectManager.ProjectExportException, e:
+			msg = "%s"
+			if e.errno == ProjectManager.ProjectExportException.MISSING_ELEMENT:
+				msg = _("An encoding plugin could not be found: %s.\nPlease make sure all the plugins required for the specified format are installed.")
+			elif e.errno == ProjectManager.ProjectExportException.INVALID_ENCODE_BIN:
+				msg = _("The encoding bin description is invalid: %s")
+			msg %= e.message
+			raise MixdownActionException(msg)
 		
 	#_____________________________________________________________________
 	

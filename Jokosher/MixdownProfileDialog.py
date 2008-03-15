@@ -12,6 +12,7 @@ import gobject
 
 import Globals
 import MixdownProfileManager
+import MixdownActions
 
 import gettext
 _ = gettext.gettext
@@ -542,9 +543,23 @@ class MixdownProfileDialog:
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-		if self.CountRowsInTreeModel(self.treeViewModel) > 0:
-			for action in [x[2] for x in self.treeViewModel]:
+
+		for row in self.treeViewModel:
+			action = row[2]
+			try:
 				action.RunAction()
+			except MixdownActions.MixdownActionException, e:
+				text = _("An error occured while running the mixdown action: %s") % action.name
+				text = "%s\n\n%s" % (text, e.message)
+				dlg = gtk.MessageDialog(self.window,
+				          gtk.DIALOG_DESTROY_WITH_PARENT,
+				          gtk.MESSAGE_ERROR,
+				          gtk.BUTTONS_CLOSE,
+				          text)
+				dlg.connect('response', lambda dlg, response: dlg.destroy())
+				dlg.show()
+				return
+			
 	
 	#_____________________________________________________________________
 	

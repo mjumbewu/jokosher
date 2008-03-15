@@ -26,6 +26,7 @@ import xml.dom.minidom as xml
 import Instrument, Event
 import Utils
 import AlsaDevices
+import ProjectManager
 
 #=========================================================================
 
@@ -300,7 +301,7 @@ class Project(gobject.GObject):
 
 			if channelsNeeded > 1 and not gst.registry_get_default().find_plugin("chansplit"):
 				Globals.debug("Channel splitting element not found when trying to record from multi-input device.")
-				raise AudioInputsError(2)
+				raise ProjectManager.AudioInputsError(2)
 
 			if channelsNeeded > 1: #We're recording from a multi-input device
 				recordingbin = gst.Bin()
@@ -384,6 +385,16 @@ class Project(gobject.GObject):
 					for mp3: "lame"
 					for wav: "wavenc"
 		"""
+		#try to create encoder/muxer first, before modifying the main pipeline.
+		try:
+			self.encodebin = gst.parse_bin_from_description("audioconvert ! %s" % encodeBin, True)
+		except gobject.GError, e:
+			if e.code == gst.PARSE_ERROR_NO_SUCH_ELEMENT:
+				error_no = ProjectManager.ProjectExportException.MISSING_ELEMENT
+			else:
+				error_no = ProjectManager.ProjectExportException.INVALID_ENCODE_BIN
+			raise ProjectManager.ProjectExportException(error_no, e.message)
+
 		#stop playback because some elements will be removed from the pipeline
 		self.Stop()
 		
@@ -396,9 +407,7 @@ class Project(gobject.GObject):
 		self.outfile = gst.element_factory_make("filesink", "export_file")
 		self.outfile.set_property("location", filename)
 		self.playbackbin.add(self.outfile)
-		
-		#create encoder/muxer
-		self.encodebin = gst.parse_bin_from_description("audioconvert ! %s" % encodeBin, True)
+
 		self.playbackbin.add(self.encodebin)
 		self.levelElementCaps.link(self.encodebin)
 		self.encodebin.link(self.outfile)

@@ -906,6 +906,34 @@ class InvalidProjectError(Exception):
 
 #=========================================================================
 
+class ProjectExportException(Exception):
+	"""
+	This class will get created when there are problems with the soundcard inputs.
+	It's used for handling errors.
+
+	Error Codes:
+	MISSING_ELEMENT - incorrect element name or element not installed.
+	INVALID_ENCODE_BIN - invalid bin description; invalid syntax, invalid properties, incompatible caps, etc.
+	"""
+	MISSING_ELEMENT, INVALID_ENCODE_BIN = range(2)
+	
+	#_____________________________________________________________________
+	
+	def __init__(self, errno, message):
+		"""
+		Creates a new instance of AudioInputsError.
+		
+		Parameters:
+			errno -- number indicating the type of error. See error codes above.
+		"""
+		Exception.__init__(self)
+		self.errno = errno
+		self.message = message
+		
+	#_____________________________________________________________________
+
+#=========================================================================
+
 def ApplyUndoCompat(objectString, functionString, version):
 	if UNDO_COMPAT_DICT.has_key(version):
 		compact_dict = UNDO_COMPAT_DICT[version]
