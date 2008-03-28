@@ -85,4 +85,5 @@ import Jokosher.JokosherApp as JokosherApp
 
 #Launch the program
 JokosherApp.MainApp(openproject, loadExtensions, startupType)
+gobject.threads_init()
 JokosherApp.gtk.main()

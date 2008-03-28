@@ -1977,6 +1977,7 @@ def main():
 	Main entry point for Jokosher.
 	"""	
 	MainApp()
+	gobject.threads_init()
 	gtk.main()
 
 if __name__ == "__main__":

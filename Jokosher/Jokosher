@@ -101,4 +101,5 @@ if options.noextensions:
 localFileImport("JokosherApp")
 #Launching the program
 JokosherApp.MainApp(openproject, loadExtensions, startupType)
+JokosherApp.gobject.threads_init()
 JokosherApp.gtk.main()
