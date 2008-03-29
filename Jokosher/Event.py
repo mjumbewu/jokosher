@@ -155,10 +155,12 @@ class Event(gobject.GObject):
 
 			Globals.debug("creating SingleDecodeBin")
 			caps = gst.caps_from_string("audio/x-raw-int;audio/x-raw-float")
-			self.single_decode_bin = SingleDecodeBin(caps=caps, uri=self.file)
+			f = "file://" + self.file
+			self.single_decode_bin = SingleDecodeBin(caps=caps, uri=f)
+			Globals.debug("file uri is:", f)
 			self.gnlsrc.add(self.single_decode_bin)
 			Globals.debug("setting event properties:")
-			propsDict = {#"location" : self.file,
+			propsDict = {
 					"caps" : caps,
 					"start" : long(self.start * gst.SECOND),
 					"duration" : long(self.duration * gst.SECOND),
