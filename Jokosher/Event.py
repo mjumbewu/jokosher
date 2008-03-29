@@ -22,6 +22,8 @@ import UndoSystem
 import Globals
 import gettext
 import urllib
+
+from elements.singledecodebin import SingleDecodeBin
 _ = gettext.gettext
 
 #=========================================================================
@@ -88,7 +90,8 @@ class Event(gobject.GObject):
 		
 		self.id = instrument.project.GenerateUniqueID(id)  #check is id is already taken, then set it.
 		self.instrument = instrument	# The parent instrument
-		self.filesrc = None 			# The gstreamer gnlfilesource object.
+		self.gnlsrc = None 			# The gstreamer gnlsource object.
+		self.single_decode_bin = None		# The gstreamer file decoder element.
 		
 		self.offset = 0.0			# Offset through the file in seconds
 		self.isLoading = False		# True if the event is currently loading level data
@@ -124,12 +127,21 @@ class Event(gobject.GObject):
 		properties.
 		"""
 		Globals.debug("create file source")
-		if not self.filesrc:
-			self.filesrc = gst.element_factory_make("gnlfilesource", "Event_%d"%self.id)
-		if not self.filesrc in list(self.instrument.composition.elements()):
-			self.instrument.composition.add(self.filesrc)
+		if not self.gnlsrc:
+			self.gnlsrc = gst.element_factory_make("gnlsource", "Event_%d"%self.id)
+		if not self.gnlsrc in list(self.instrument.composition.elements()):
+			self.instrument.composition.add(self.gnlsrc)
 		
 		self.SetProperties()
+
+	#_____________________________________________________________________
+
+	def DestroyFilesource(self):
+		"""
+		Removes the Gstreamer file source from the instrument's composition.
+		"""
+		if self.gnlsrc in list(self.instrument.composition.elements()):
+			self.instrument.composition.remove(self.gnlsrc)
 		
 	#_____________________________________________________________________
 		
@@ -138,8 +150,16 @@ class Event(gobject.GObject):
 		Sets basic Event properties like location, start, duration, etc.
 		"""
 		if self.file:
+			if self.single_decode_bin:
+				self.gnlsrc.remove(self.single_decode_bin)
+
+			Globals.debug("creating SingleDecodeBin")
+			caps = gst.caps_from_string("audio/x-raw-int;audio/x-raw-float")
+			self.single_decode_bin = SingleDecodeBin(caps=caps, uri=self.file)
+			self.gnlsrc.add(self.single_decode_bin)
 			Globals.debug("setting event properties:")
-			propsDict = {"location" : self.file,
+			propsDict = {#"location" : self.file,
+					"caps" : caps,
 					"start" : long(self.start * gst.SECOND),
 					"duration" : long(self.duration * gst.SECOND),
 					"media-start" : long(self.offset * gst.SECOND),
@@ -148,7 +168,7 @@ class Event(gobject.GObject):
 					}
 					
 			for prop, value in propsDict.iteritems():
-				self.filesrc.set_property(prop, value)
+				self.gnlsrc.set_property(prop, value)
 				Globals.debug("\t", prop, "=", value)
 
 	#_____________________________________________________________________

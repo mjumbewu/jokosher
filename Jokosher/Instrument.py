@@ -699,7 +699,7 @@ class Instrument(gobject.GObject):
 		
 		self.graveyard.append(event)
 		self.events.remove(event)
-		self.composition.remove(event.filesrc)
+		event.DestroyFilesource()
 		event.StopGenerateWaveform(False)
 		
 		self.temp = eventid
