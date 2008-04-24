@@ -145,14 +145,16 @@ class ExtensionManagerDialog:
 		Parameters:
 			tree -- GTKTreeView holding the Extensions's representation.
 		"""
+		descr_text = ""
 		selection = self.tree.get_selection().get_selected()[1]
-		preferences = self.model.get_value(selection, 5)
-		if preferences:
-			self.prefs_button.set_sensitive(True)
-		else:
-			self.prefs_button.set_sensitive(False)
+		if selection:
+			preferences = self.model.get_value(selection, 5)
+			if preferences:
+				self.prefs_button.set_sensitive(True)
+			else:
+				self.prefs_button.set_sensitive(False)
 		
-		descr_text = self.model.get_value(selection, 2)
+			descr_text = self.model.get_value(selection, 2)
 		self.description.set_text(descr_text)
 	#_____________________________________________________________________
 	
