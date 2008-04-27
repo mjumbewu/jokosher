@@ -1,7 +1,18 @@
 import os.path
 import urllib2, urllib
 from xml.dom import minidom
-from xml.xpath import Evaluate
+
+# PyXML is deprecated for 2.5, in favour of the built-in (almost identical) xml module
+# This doesn't implement xml.xpath however, so we fall back to ElementTree's xpath 
+# (built-in to 2.5)
+useXpath = False
+useElementTree = False
+try:
+	from xml.xpath import Evaluate
+	useXpath = True
+except:
+	from xml.etree import ElementTree
+	useElementTree = True
 
 # First, set up cookie handling!
 # from http://www.voidspace.org.uk/python/articles/cookielib.shtml
@@ -111,14 +122,24 @@ class Sample:
 			handle = urlopen(req)
 		except:
 			# TODO: handle URL problems
-			pass
+			return
 		data = handle.read()
-		dom = minidom.parseString(data)
 		for attribute, xpath in SAMPLE_ATTRIBUTES.items():
-			try:
-				setattr(self, attribute, Evaluate(xpath, dom)[0].firstChild.nodeValue)
-			except:
-				setattr(self, attribute, None)
+			if useXpath:
+				try:
+					dom = minidom.parseString(data)
+					xpathResult = Evaluate(xpath, dom)[0].firstChild.nodeValue
+				except:
+					xpathResult = None
+			elif useElementTree:
+				try:
+					doc = ElementTree.fromstring(data)
+					# Needs relative path since "freesound" is the root element
+					xpathResult = doc.findall(xpath.replace("/freesound/", ""))[0].text
+				except:
+					xpathResult = None
+
+			setattr(self, attribute, xpathResult)
 				
 	#_____________________________________________________________________
 

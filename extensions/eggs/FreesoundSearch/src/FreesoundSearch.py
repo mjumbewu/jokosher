@@ -707,7 +707,7 @@ class SearchFreesoundThread(threading.Thread):
 			imgfile = urllib.urlretrieve(sample.image, tmpnam)
 		except:
 			# TODO: handle the url problems
-			pass
+			return
 		
 		image = gtk.Image()
 		image.set_from_pixbuf(gtk.gdk.pixbuf_new_from_file_at_size(tmpnam, 50, 50))
