@@ -360,14 +360,14 @@ class _LoadZPTFile:
 			self.LoadEvent(event, ev)
 			instr.events.append(event)
 		
-		for ev in xmlNode.getElementsByTagName("DeadEvent"):  
-			try:  
-				id = int(ev.getAttribute("id"))  
-			except ValueError:  
-				id = None  
-			event = Event.Event(instr, None, id)  
+		for ev in xmlNode.getElementsByTagName("DeadEvent"):
+			try:
+				id = int(ev.getAttribute("id"))
+			except ValueError:
+				id = None
+			event = Event.Event(instr, None, id)
 			self.LoadEvent(event, ev, True)
-			instr.graveyard.append(event)  
+			instr.graveyard.append(event)
 
 		#load image from file based on unique type
 		for instrTuple in Globals.getCachedInstruments():
@@ -381,6 +381,8 @@ class _LoadZPTFile:
 		instr.panElement.set_property("panorama", instr.pan)
 		#check if instrument is muted and setup accordingly
 		instr.OnMute()
+		#update the volume element with the newly loaded value
+		instr.UpdateVolume()
 		
 	#_____________________________________________________________________
 		
@@ -406,17 +408,6 @@ class _LoadZPTFile:
 			Globals.debug("Missing FadePoints in Event XML")
 		else:
 			event._Event__fadePointsDict = Utils.LoadDictionaryFromXML(xmlPoints)
-		
-		try:	
-			levelsXML = xmlNode.getElementsByTagName("Levels")[0]
-		except IndexError:
-			Globals.debug("No event levels in project file")
-			if not isDead:
-				event.GenerateWaveform()
-		else: 
-			if levelsXML.nodeType == xml.Node.ELEMENT_NODE:
-				value = str(levelsXML.getAttribute("value"))
-				event.levels = map(float, value.split(","))
 
 		if not isDead:
 			if event.isLoading or event.isRecording:
@@ -427,7 +418,9 @@ class _LoadZPTFile:
 	#_____________________________________________________________________
 #=========================================================================
 
-class _LoadZPNFile:
+class _LoadZPNFile(_LoadZPTFile):
+	LOADING_VERSION = "0.9"
+	
 	def __init__(self, project, xmlDoc):
 		"""
 		Loads a Jokosher version 0.9 (Zero Point Nine) Project file into
@@ -483,110 +476,7 @@ class _LoadZPNFile:
 			instr.RemoveAndUnlinkPlaybackbin()
 	
 	#_____________________________________________________________________
-	
-	def LoadInstrument(self, instr, xmlNode):
-		"""
-		Restores an Instrument from version 0.9 XML representation.
-		
-		Parameters:
-			instr -- the Instrument instance to apply loaded properties to.
-			xmlNode -- the XML node to retreive data from.
-		"""
-		params = xmlNode.getElementsByTagName("Parameters")[0]
-		
-		Utils.LoadParametersFromXML(instr, params)
-		
-		#figure out the instrument's path based on the location of the projectfile
-		instr.path = os.path.join(os.path.dirname(self.project.projectfile), "audio")
-		
-		globaleffect = xmlNode.getElementsByTagName("GlobalEffect")
-		
-		for effect in globaleffect:
-			elementname = str(effect.getAttribute("element"))
-			Globals.debug("Loading effect:", elementname)
-			gstElement = instr.AddEffect(elementname)
-			
-			propsdict = Utils.LoadDictionaryFromXML(effect)
-			for key, value in propsdict.iteritems():
-				gstElement.set_property(key, value)		
-			
-		for ev in xmlNode.getElementsByTagName("Event"):
-			try:
-				id = int(ev.getAttribute("id"))
-			except ValueError:
-				id = None
-			event = Event.Event(instr, None, id)
-			self.LoadEvent(event, ev)
-			instr.events.append(event)
-	
-		for ev in xmlNode.getElementsByTagName("DeadEvent"):
-			try:
-				id = int(ev.getAttribute("id"))
-			except ValueError:
-				id = None
-			event = Event.Event(instr, None, id)
-			self.LoadEvent(event, ev, True)
-			instr.graveyard.append(event)
-		
-		#load image from file based on unique type
-		for instrTuple in Globals.getCachedInstruments():
-			if instr.instrType == instrTuple[1]:
-				instr.pixbuf = instrTuple[2]
-				break
-		if not instr.pixbuf:
-			Globals.debug("Error, could not load image:", instr.instrType)
-		
-		# load pan level
-		instr.panElement.set_property("panorama", instr.pan)
-		#check if instrument is muted and setup accordingly
-		instr.OnMute()
-		#update the volume element with the newly loaded value
-		instr.UpdateVolume()
-		
-	#_____________________________________________________________________
-		
-	def LoadEvent(self, event, xmlNode, isDead=False):
-		"""
-		Restores an Event from its version 0.9 XML representation.
-		
-		Parameters:
-			event -- the Event instance to apply loaded properties to.
-			xmlNode -- the XML node to retreive data from.
-		"""
-		params = xmlNode.getElementsByTagName("Parameters")[0]
-		
-		Utils.LoadParametersFromXML(event, params)
-		
-		if not os.path.isabs(event.file):
-			# If there is a relative path for event.file, assume it is in the audio dir
-			event.file = os.path.join(event.instrument.path, event.file)
-		
-		try:
-			xmlPoints = xmlNode.getElementsByTagName("FadePoints")[0]
-		except IndexError:
-			Globals.debug("Missing FadePoints in Event XML")
-		else:
-			event._Event__fadePointsDict = Utils.LoadDictionaryFromXML(xmlPoints)
-		
-		try:	
-			levelsXML = xmlNode.getElementsByTagName("Levels")[0]
-		except IndexError:
-			Globals.debug("No event levels in project file")
-			if not isDead:
-				event.GenerateWaveform()
-		else: 
-			if levelsXML.nodeType == xml.Node.ELEMENT_NODE:
-				value = str(levelsXML.getAttribute("value"))
-				event.levels = map(float, value.split(","))
 
-		if not isDead:
-			if event.isLoading or event.isRecording:
-				event.GenerateWaveform()
-			event._Event__UpdateAudioFadePoints()
-			event.CreateFilesource()
-	
-	#_____________________________________________________________________
-	
 	def LoadUndoAction(self, undoAction, xmlNode):
 		"""
 		Loads an AtomicUndoAction from an XML node.
@@ -605,194 +495,15 @@ class _LoadZPNFile:
 				functionString = str(cmdNode.getAttribute("function"))
 				paramList = Utils.LoadListFromXML(cmdNode)
 				
-				functionString = ApplyUndoCompat(objectString, functionString, "0.9")
+				functionString = ApplyUndoCompat(objectString, functionString, self.LOADING_VERSION)
 				
 				undoAction.AddUndoCommand(objectString, functionString, paramList)
 		
 	#_____________________________________________________________________
 #=========================================================================
 
-class _LoadOPZFile:
-	def __init__(self, project, xmlDoc):
-		"""
-		Loads a Jokosher version 0.9 (Zero Point Nine) Project file into
-		the given Project object using the given XML document.
-		
-		Parameters:
-			project -- the Project instance to apply loaded properties to.
-			xmlDoc -- the XML file document to read data from.
-		"""
-		self.project = project
-		self.xmlDoc = xmlDoc
-		
-		params = self.xmlDoc.getElementsByTagName("Parameters")[0]
-		
-		Utils.LoadParametersFromXML(self.project, params)
-		
-		# Hack to set the transport mode
-		self.project.transport.SetMode(self.project.transportMode)
-		
-		undoRedo = (("Undo", self.project._Project__savedUndoStack),
-				("Redo", self.project._Project__redoStack))
-		for tagName, stack in undoRedo:
-			try:
-				undo = self.xmlDoc.getElementsByTagName(tagName)[0]
-			except IndexError:
-				Globals.debug("No saved %s in project file" % tagName)
-			else:
-				for actionNode in undo.childNodes:
-					if actionNode.nodeName == "Action":
-						action = UndoSystem.AtomicUndoAction()
-						self.LoadUndoAction(action, actionNode)
-						stack.append(action)
-		
-		for instrElement in self.xmlDoc.getElementsByTagName("Instrument"):
-			try:
-				id = int(instrElement.getAttribute("id"))
-			except ValueError:
-				id = None
-			instr = Instrument.Instrument(self.project, None, None, None, id)
-			self.LoadInstrument(instr, instrElement)
-			self.project.instruments.append(instr)
-			if instr.isSolo:
-				self.project.soloInstrCount += 1
-		
-		for instrElement in self.xmlDoc.getElementsByTagName("DeadInstrument"):
-			try:
-				id = int(instrElement.getAttribute("id"))
-			except ValueError:
-				id = None
-			instr = Instrument.Instrument(self.project, None, None, None, id)
-			self.LoadInstrument(instr, instrElement)
-			self.project.graveyard.append(instr)
-			instr.RemoveAndUnlinkPlaybackbin()
-	
-	#_____________________________________________________________________
-	
-	def LoadInstrument(self, instr, xmlNode):
-		"""
-		Restores an Instrument from version 0.9 XML representation.
-		
-		Parameters:
-			instr -- the Instrument instance to apply loaded properties to.
-			xmlNode -- the XML node to retreive data from.
-		"""
-		params = xmlNode.getElementsByTagName("Parameters")[0]
-		
-		Utils.LoadParametersFromXML(instr, params)
-		
-		#figure out the instrument's path based on the location of the projectfile
-		instr.path = os.path.join(os.path.dirname(self.project.projectfile), "audio")
-		
-		globaleffect = xmlNode.getElementsByTagName("GlobalEffect")
-		
-		for effect in globaleffect:
-			elementname = str(effect.getAttribute("element"))
-			Globals.debug("Loading effect:", elementname)
-			gstElement = instr.AddEffect(elementname)
-			
-			propsdict = Utils.LoadDictionaryFromXML(effect)
-			for key, value in propsdict.iteritems():
-				gstElement.set_property(key, value)		
-			
-		for ev in xmlNode.getElementsByTagName("Event"):
-			try:
-				id = int(ev.getAttribute("id"))
-			except ValueError:
-				id = None
-			event = Event.Event(instr, None, id)
-			self.LoadEvent(event, ev)
-			instr.events.append(event)
-	
-		for ev in xmlNode.getElementsByTagName("DeadEvent"):
-			try:
-				id = int(ev.getAttribute("id"))
-			except ValueError:
-				id = None
-			event = Event.Event(instr, None, id)
-			self.LoadEvent(event, ev, True)
-			instr.graveyard.append(event)
-		
-		#load image from file based on unique type
-		for instrTuple in Globals.getCachedInstruments():
-			if instr.instrType == instrTuple[1]:
-				instr.pixbuf = instrTuple[2]
-				break
-		if not instr.pixbuf:
-			Globals.debug("Error, could not load image:", instr.instrType)
-		
-		# load pan level
-		instr.panElement.set_property("panorama", instr.pan)
-		#check if instrument is muted and setup accordingly
-		instr.OnMute()
-		#update the volume element with the newly loaded value
-		instr.UpdateVolume()
-		
-	#_____________________________________________________________________
-		
-	def LoadEvent(self, event, xmlNode, isDead=False):
-		"""
-		Restores an Event from its version 0.9 XML representation.
-		
-		Parameters:
-			event -- the Event instance to apply loaded properties to.
-			xmlNode -- the XML node to retreive data from.
-		"""
-		params = xmlNode.getElementsByTagName("Parameters")[0]
-		
-		Utils.LoadParametersFromXML(event, params)
-		
-		if not os.path.isabs(event.file):
-			# If there is a relative path for event.file, assume it is in the audio dir
-			event.file = os.path.join(event.instrument.path, event.file)
-		
-		try:
-			xmlPoints = xmlNode.getElementsByTagName("FadePoints")[0]
-		except IndexError:
-			Globals.debug("Missing FadePoints in Event XML")
-		else:
-			event._Event__fadePointsDict = Utils.LoadDictionaryFromXML(xmlPoints)
-		
-		try:	
-			levelsXML = xmlNode.getElementsByTagName("Levels")[0]
-		except IndexError:
-			Globals.debug("No event levels in project file")
-			if not isDead:
-				event.GenerateWaveform()
-		else: 
-			if levelsXML.nodeType == xml.Node.ELEMENT_NODE:
-				value = str(levelsXML.getAttribute("value"))
-				event.levels = map(float, value.split(","))
-
-		if not isDead:
-			if event.isLoading or event.isRecording:
-				event.GenerateWaveform()
-			event._Event__UpdateAudioFadePoints()
-			event.CreateFilesource()
-	
-	#_____________________________________________________________________
-	
-	def LoadUndoAction(self, undoAction, xmlNode):
-		"""
-		Loads an AtomicUndoAction from an XML node.
-		
-		Parameters:
-			undoAction -- the AtomicUndoAction instance to save the loaded commands to.
-			node -- XML node from which the AtomicUndoAction is loaded.
-					Should be an "<Action>" node.
-			
-		Returns:
-			the loaded AtomicUndoAction object.
-		"""
-		for cmdNode in xmlNode.childNodes:
-			if cmdNode.nodeName == "Command":
-				objectString = str(cmdNode.getAttribute("object"))
-				functionString = str(cmdNode.getAttribute("function"))
-				paramList = Utils.LoadListFromXML(cmdNode)
-				
-				undoAction.AddUndoCommand(objectString, functionString, paramList)
-		
-	#_____________________________________________________________________
+class _LoadZPTenFile(_LoadZPNFile):
+	LOADING_VERSION = "0.10"
 
 #=========================================================================
 
@@ -949,7 +660,8 @@ JOKOSHER_VERSION_FUNCTIONS = {
 	"0.1" : _LoadZPOFile, 
 	"0.2" : _LoadZPTFile, 
 	"0.9" : _LoadZPNFile,
-	"1.0" : _LoadOPZFile,
+	"1.0" : _LoadZPNFile,  # 1.0 was never used in a release, and it identical to 0.9
+	"0.10" : _LoadZPTenFile,
 }
 
 zero_nine_compat = {("E", "Move") : "_Compat09_Move"}
