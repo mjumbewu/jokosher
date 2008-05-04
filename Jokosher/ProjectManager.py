@@ -52,6 +52,8 @@ def CreateNewProject(projecturi, name, author):
 	project.name = name
 	project.author = author
 	project.projectfile = os.path.join(projectdir, filename)
+	project.audio_path = os.path.join(projectdir, "audio")
+	project.levels_path = os.path.join(projectdir, "levels")
 
 	if os.path.exists(projectdir):
 		raise CreateProjectError(2)
@@ -127,6 +129,9 @@ def LoadProjectFile(uri):
 	
 	project = Project.Project()
 	project.projectfile = projectfile
+	projectdir = os.path.split(projectfile)[0]
+	project.audio_path = os.path.join(projectdir, "audio")
+	project.levels_path = os.path.join(projectdir, "levels")
 	
 	#only open projects with the proper version number
 	version = None
@@ -200,8 +205,9 @@ class _LoadZPOFile:
 				id = int(ev.getAttribute("id"))
 			except ValueError:
 				id = None
-			e = Event.Event(instr, None, id)
+			e = Event.Event(instr, None, None,  id)
 			self.LoadEvent(e, ev)
+			e.levels_file = os.path.basename(e.file + Event.Event.LEVELS_FILE_EXTENSION)
 			instr.events.append(e)
 		
 		pixbufFilename = os.path.basename(instr.pixbufPath)
@@ -337,9 +343,6 @@ class _LoadZPTFile:
 		
 		Utils.LoadParametersFromXML(instr, params)
 		
-		#figure out the instrument's path based on the location of the projectfile
-		instr.path = os.path.join(os.path.dirname(self.project.projectfile), "audio")
-		
 		globaleffect = xmlNode.getElementsByTagName("GlobalEffect")
 		
 		for effect in globaleffect:
@@ -356,8 +359,9 @@ class _LoadZPTFile:
 				id = int(ev.getAttribute("id"))
 			except ValueError:
 				id = None
-			event = Event.Event(instr, None, id)
+			event = Event.Event(instr, None, None,  id)
 			self.LoadEvent(event, ev)
+			event.levels_file = os.path.basename(event.file + Event.Event.LEVELS_FILE_EXTENSION)
 			instr.events.append(event)
 		
 		for ev in xmlNode.getElementsByTagName("DeadEvent"):
@@ -365,8 +369,9 @@ class _LoadZPTFile:
 				id = int(ev.getAttribute("id"))
 			except ValueError:
 				id = None
-			event = Event.Event(instr, None, id)
+			event = Event.Event(instr, None, None,  id)
 			self.LoadEvent(event, ev, True)
+			event.levels_file = os.path.basename(event.file + Event.Event.LEVELS_FILE_EXTENSION)
 			instr.graveyard.append(event)
 
 		#load image from file based on unique type
@@ -400,7 +405,7 @@ class _LoadZPTFile:
 		
 		if not os.path.isabs(event.file):
 			# If there is a relative path for event.file, assume it is in the audio dir
-			event.file = os.path.join(event.instrument.path, event.file)
+			event.file = os.path.join(event.instrument.project.audio_path, event.file)
 		
 		try:
 			xmlPoints = xmlNode.getElementsByTagName("FadePoints")[0]

@@ -52,16 +52,18 @@ class Event(gobject.GObject):
 
 	""" The level sample interval in seconds """
 	LEVEL_INTERVAL = 0.01
+	LEVELS_FILE_EXTENSION = ".leveldata"
 	
 	#_____________________________________________________________________
 	
-	def __init__(self, instrument, file=None, id=None, filelabel=None):
+	def __init__(self, instrument, file=None, levels_file=None,  id=None, filelabel=None):
 		"""
 		Creates a new instance of Event.
 		
 		Parameters:
 			instrument -- Instrument associated with this Event.
 			file -- the file this Event should play.
+			levels_file -- the file name (not directory path!) where the event's levels data will be stored
 			id -- unique ID for this Event. If it's taken, a new one will be generated.
 			filelabel -- label to print in error messages.
 						It can be different	from the file parameter.
@@ -74,6 +76,7 @@ class Event(gobject.GObject):
 		# If you need characters escaped, please do self.file.replace(" ", "\ ") 
 		# but **do not** assign it to this variable.
 		self.file = file
+		self.levels_file = levels_file		# a filename only, no directory information for levels here.
 
 		# the label is the filename to print in error messages
 		# if it differs from the real filename (i.e its been copied into the project)
@@ -197,7 +200,8 @@ class Event(gobject.GObject):
 		ev.appendChild(params)
 		
 		items = ["start", "duration", "isSelected", 
-				  "name", "offset", "file", "filelabel", "isLoading", "isRecording"
+				  "name", "offset", "file", "filelabel", "levels_file",
+				  "isLoading", "isRecording"
 				]
 				
 		#Since we are saving the path to the project file, don't delete it on exit
@@ -205,7 +209,7 @@ class Event(gobject.GObject):
 			self.instrument.project.deleteOnCloseAudioFiles.remove(self.file)
 		
 		self.temp = self.file
-		if os.path.samefile(self.instrument.path, os.path.dirname(self.file)):
+		if os.path.samefile(self.instrument.project.audio_path, os.path.dirname(self.file)):
 			# If the file is in the audio dir, just include the filename, not the absolute path
 			self.file = os.path.basename(self.file)
 		
@@ -336,7 +340,7 @@ class Event(gobject.GObject):
 			e = [x for x in self.instrument.graveyard if x.id == eventID][0]
 			self.instrument.graveyard.remove(e)
 		else:
-			e = Event(self.instrument, self.file)
+			e = Event(self.instrument, self.file,  self.levels_file)
 		e.name = self.name
 		
 		dictLeft = {}

@@ -95,7 +95,6 @@ class Instrument(gobject.GObject):
 		
 		self.project = project
 		
-		self.path = ""				# The 'audio' directory for this instrument
 		self.events = []				# List of events attached to this instrument
 		self.graveyard = []			# List of events that have been deleted (kept for undo)
 		self.effects = []				# List of GStreamer effect elements
@@ -485,7 +484,7 @@ class Instrument(gobject.GObject):
 	
 	def GetRecordingEvent(self):
 		"""
-		Obtain an Event suitable for recording. *CHECK*
+		Obtain an Event suitable for recording.
 		Returns:
 			an Event suitable for recording.
 		"""
@@ -493,7 +492,11 @@ class Instrument(gobject.GObject):
 		event.start = self.project.transport.GetPosition()
 		event.isRecording = True
 		event.name = _("Recorded audio")
-		event.file = "%s_%d_%d.ogg" % (os.path.join(self.path, Globals.FAT32SafeFilename(self.name)), self.id, int(time.time()))
+		
+		filename = "%s_%d.ogg" % (Globals.FAT32SafeFilename(self.name), event.id)
+		event.file = os.path.join(self.project.audio_path, filename)
+		event.levels_file = filename + Event.Event.LEVELS_FILE_EXTENSION
+		
 		#must add it to the instrument's list so that an update of the event lane will not remove the widget
 		self.events.append(event)
 		self.emit("event::added", event)
@@ -580,16 +583,19 @@ class Instrument(gobject.GObject):
 			the added Event.
 		"""
 		filelabel=file
+		event_id = self.project.GenerateUniqueID(None,  reserve=False)
+		name = os.path.basename(file)
+		root,  extension = os.path.splitext(name.replace(" ", "_"))
+		
+		if extension:
+			newfile = "%s_%d.%s" % (root, event_id, extension)
+		else:
+			newfile = "%s_%d" % (root, event_id)
+		
+		levels_file = newfile + Event.Event.LEVELS_FILE_EXTENSION
 
 		if copyfile:
-			basename = os.path.split(file.replace(" ", "_"))[1]
-			basecomp = basename.rsplit('.', 1)
-			if len(basecomp) > 1:
-				newfile = "%s_%d_%d.%s" % (basecomp[0], self.id, int(time.time()), basecomp[len(basecomp)-1])
-			else:
-				newfile = "%s_%d_%d" % (basecomp[0], self.id, int(time.time()))
-
-			audio_file = os.path.join(self.path, newfile)
+			audio_file = os.path.join(self.project.audio_path, newfile)
 			
 			try:
 				shutil.copyfile(file, audio_file)
@@ -599,11 +605,8 @@ class Instrument(gobject.GObject):
 			self.project.deleteOnCloseAudioFiles.append(audio_file)
 			
 			file = audio_file
-			name = basename
-		else:
-			name = file.split(os.sep)[-1]
 
-		ev = Event.Event(self, file, None, filelabel)
+		ev = Event.Event(self, file, levels_file, event_id, filelabel)
 		ev.start = start
 		ev.name = name
 		self.events.append(ev)
@@ -633,14 +636,16 @@ class Instrument(gobject.GObject):
 		Returns:
 			the added Event.
 		"""
+		event_id = self.project.GenerateUniqueID(None,  reserve=False)
 		# no way of knowing whether there's a filename, so make one up
-		newfile = "%d_%d" % (self.id, int(time.time()))
-
-		audio_file = os.path.join(self.path, newfile)
+		newfile = str(event_id)
+		levels_file = newfile + Event.Event.LEVELS_FILE_EXTENSION
+		
+		audio_file = os.path.join(self.project.audio_path, newfile)
 		self.project.deleteOnCloseAudioFiles.append(audio_file)
 		
 		# Create the event now so we can return it, and fill in the file later
-		ev = Event.Event(self, audio_file, None, url)
+		ev = Event.Event(self, audio_file, levels_file, event_id, url)
 		ev.start = start
 		ev.name = os.path.split(audio_file)[1]
 		ev.isDownloading = True
@@ -670,7 +675,7 @@ class Instrument(gobject.GObject):
 			start - the offset time in seconds for the new Event.
 			event - the Event to be cloned on this instrument.
 		"""
-		ev = Event.Event(self, event.file)
+		ev = Event.Event(self, event.file,  event.levels_file)
 		ev.start = start
 		for i in ["duration", "name", "offset"]:
 			setattr(ev, i, getattr(event, i))

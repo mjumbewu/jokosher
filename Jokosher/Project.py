@@ -89,6 +89,8 @@ class Project(gobject.GObject):
 		self.author = ""			#the author of this project
 		self.name = ""				#the name of this project
 		self.projectfile = ""		#the name of the project file, complete with path
+		self.audio_path = ""
+		self.levels_path = ""
 		self.___id_list = []		#the list of IDs that have already been used, to avoid collisions
 		self.instruments = []		#the list of instruments held by this project
 		self.graveyard = []			# The place where deleted instruments are kept, to later be retrieved by undo functions
@@ -677,7 +679,8 @@ class Project(gobject.GObject):
 		params = doc.createElement("Parameters")
 		head.appendChild(params)
 		
-		items = ["viewScale", "viewStart", "name", "author", "transportMode", "bpm", "meter_nom", "meter_denom"]
+		items = ["viewScale", "viewStart", "name", "author", "project_audio_path",  "project_levels_path",
+		              "transportMode", "bpm", "meter_nom", "meter_denom"]
 		
 		Utils.StoreParametersToXML(self, doc, params, items)
 			
@@ -986,8 +989,6 @@ class Project(gobject.GObject):
 		if len(self.instruments) == 0:
 			#If this is the first instrument, arm it by default
 			instr.isArmed = True
-		audio_dir = os.path.join(os.path.split(self.projectfile)[0], "audio")
-		instr.path = os.path.join(audio_dir)
 		
 		self.temp = instr.id
 		self.instruments.append(instr)
@@ -1175,12 +1176,13 @@ class Project(gobject.GObject):
 			
 	#_____________________________________________________________________
 	
-	def GenerateUniqueID(self, id = None):
+	def GenerateUniqueID(self, id = None,  reserve=True):
 		"""
 		Creates a new unique ID which can be assigned to an new Project object.
 		
 		Parameters:
 			id -- an unique ID proposal. If it's already taken, a new one is generated.
+			reserve -- if True, the ID will be recorded and never returned again.
 			
 		Returns:
 			an unique ID suitable for a new Project.
