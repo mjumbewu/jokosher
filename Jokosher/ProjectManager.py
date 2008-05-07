@@ -10,7 +10,7 @@
 #=========================================================================
 
 import urlparse, os, gzip, shutil, gst
-import Globals, Utils, UndoSystem
+import Globals, Utils, UndoSystem, LevelsList
 import Project, Instrument, Event
 import xml.dom.minidom as xml
 import traceback
@@ -58,10 +58,10 @@ def CreateNewProject(projecturi, name, author):
 	if os.path.exists(projectdir):
 		raise CreateProjectError(2)
 	else: 
-		audio_dir = os.path.join(projectdir, "audio")
 		try:
 			os.mkdir(projectdir)
-			os.mkdir(audio_dir)
+			os.mkdir(project.audio_path)
+			os.mkdir(project.levels_path)
 		except:
 			raise CreateProjectError(3)
 
@@ -248,19 +248,7 @@ class _LoadZPOFile:
 					value = float(n.getAttribute("fade"))
 					event._Event__fadePointsDict[pos] = value
 		
-		try:	
-			levelsXML = xmlNode.getElementsByTagName("Levels")[0]
-		except IndexError:
-			Globals.debug("No event levels in project file")
-			event.GenerateWaveform()
-		else: 
-			if levelsXML.nodeType == xml.Node.ELEMENT_NODE:
-				value = str(levelsXML.getAttribute("value"))
-				event.levels = map(float, value.split(","))
-		
-		if event.isLoading:
-			event.GenerateWaveform()
-
+		event.GenerateWaveform()
 		event._Event__UpdateAudioFadePoints()
 		event.CreateFilesource()
 	
@@ -415,8 +403,9 @@ class _LoadZPTFile:
 			event._Event__fadePointsDict = Utils.LoadDictionaryFromXML(xmlPoints)
 
 		if not isDead:
-			if event.isLoading or event.isRecording:
-				event.GenerateWaveform()
+			#if event.isLoading or event.isRecording:
+			# we have to always generate waveform because 0.10 uses different levels format
+			event.GenerateWaveform()
 			event._Event__UpdateAudioFadePoints()
 			event.CreateFilesource()
 	
@@ -509,6 +498,42 @@ class _LoadZPNFile(_LoadZPTFile):
 
 class _LoadZPTenFile(_LoadZPNFile):
 	LOADING_VERSION = "0.10"
+	
+	def LoadEvent(self, event, xmlNode, isDead=False):
+		"""
+		Restores an Event from its version 0.10 XML representation.
+		
+		Parameters:
+			event -- the Event instance to apply loaded properties to.
+			xmlNode -- the XML node to retreive data from.
+		"""
+		params = xmlNode.getElementsByTagName("Parameters")[0]
+		
+		Utils.LoadParametersFromXML(event, params)
+		
+		if not os.path.isabs(event.file):
+			# If there is a relative path for event.file, assume it is in the audio dir
+			event.file = os.path.join(self.project.audio_path, event.file)
+		
+		try:
+			xmlPoints = xmlNode.getElementsByTagName("FadePoints")[0]
+		except IndexError:
+			Globals.debug("Missing FadePoints in Event XML")
+		else:
+			event._Event__fadePointsDict = Utils.LoadDictionaryFromXML(xmlPoints)
+
+		if not isDead:
+			levels_path = os.path.join(self.project.levels_path, event.levels_file)
+			try:
+				event.levels_list.fromfile(levels_path)
+			except LevelsList.CorruptFileError:
+				Globals.debug("Cannot load levels from file", levels_path)
+			if not event.levels_list:
+				event.GenerateWaveform()
+			event._Event__UpdateAudioFadePoints()
+			event.CreateFilesource()
+	
+	#_____________________________________________________________________
 
 #=========================================================================
 

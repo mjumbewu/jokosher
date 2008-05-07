@@ -37,7 +37,7 @@ class Project(gobject.GObject):
 	"""
 	
 	""" The Project structure version. Will be useful for handling old save files. """
-	Globals.VERSION = "1.0"
+	Globals.VERSION = "0.10"
 	
 	""" The audio playback state enum values """
 	AUDIO_STOPPED, AUDIO_RECORDING, AUDIO_PLAYING, AUDIO_PAUSED, AUDIO_EXPORTING = range(5)
@@ -655,7 +655,24 @@ class Project(gobject.GObject):
 			if not self.projectfile:
 				raise "No save path specified!"
 			path = self.projectfile
+		
+		if not self.audio_path:
+			self.audio_path = os.path.join(os.path.dirname(path), "audio")
+		if not self.levels_path:
+			self.levels_path = os.path.join(os.path.dirname(path), "levels")
 			
+		if os.path.exists(self.audio_path):
+			if not os.path.isdir(self.audio_path):
+				raise "Audio save location is not a directory"
+		else:
+			os.mkdir(self.audio_path)
+		
+		if os.path.exists(self.levels_path):
+			if not os.path.isdir(self.levels_path):
+				raise "Levels save location is not a directory"
+		else:
+			os.mkdir(self.levels_path)
+		
 		if not path.endswith(".jokosher"):
 			path = path + ".jokosher"
 			
@@ -679,7 +696,7 @@ class Project(gobject.GObject):
 		params = doc.createElement("Parameters")
 		head.appendChild(params)
 		
-		items = ["viewScale", "viewStart", "name", "author", "project_audio_path",  "project_levels_path",
+		items = ["viewScale", "viewStart", "name", "author", "audio_path",  "levels_path",
 		              "transportMode", "bpm", "meter_nom", "meter_denom"]
 		
 		Utils.StoreParametersToXML(self, doc, params, items)

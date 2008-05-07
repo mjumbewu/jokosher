@@ -15,10 +15,11 @@ import gtk
 import cairo
 from Project import Project
 import Utils
-import os
+import os, sys
 import gettext
 _ = gettext.gettext
 import Globals
+import itertools
 
 #=========================================================================
 
@@ -351,29 +352,42 @@ class EventViewer(gtk.DrawingArea):
 		context.set_source_rgb(*self._BACKGROUND_RGB)
 		context.fill()
 		
-		if self.event.levels and (self.event.duration or self.event.loadingLength):
+		if self.event.levels_list and (self.event.duration or self.event.loadingLength):
 			if self.event.loadingLength:
-				scale = (self.event.loadingLength * self.project.viewScale) / float(len(self.event.levels))
+				duration = self.event.loadingLength
 			else:
-				scale = (self.event.duration * self.project.viewScale) / float(len(self.event.levels))
+				duration = self.event.duration
 			
-			# Draw waveform
-			x_pos = int(rect.x/scale)
-			x = 0
-			skipFactor = max(int(self._MIN_POINT_SEPARATION / scale), 1)
 			context.move_to(0,rect.height)
-					
-			# get levels list
-			fadedLevels = self.event.GetFadeLevels()
 			
-			for peak in fadedLevels[x_pos::skipFactor]:
-				x = (x_pos * scale) - rect.x
-				peakOnScreen = int(peak * rect.height)
+			# get levels list
+			#fadedLevels = self.event.GetFadeLevels()
+			
+			levels = self.event.levels_list
+			length = len(levels)
+			
+			# time offset of the start of the drawing area in milliseconds
+			starting_time = int(rect.x / self.project.viewScale * 1000)
+			starting_index = levels.find_endtime_index(starting_time)
+
+			last_x = -2
+			skip_list = []
+			iterator = itertools.islice(levels, starting_index, length)
+			for endtime, peak in iterator:
+				x = int((endtime - starting_time) * self.project.viewScale / 1000)
+				
+				peakOnScreen = int(peak * rect.height / sys.maxint)
+				skip_list.append(peakOnScreen)
+				if (x - last_x) < self._MIN_POINT_SEPARATION:
+					continue
+				
+				peakOnScreen = sum(skip_list) / len(skip_list)
 				context.line_to(x, rect.height - peakOnScreen)
 				
+				skip_list = []
+				last_x = x
 				if x > rect.width:
 					break
-				x_pos += skipFactor
 			
 			context.line_to(x, rect.height)
 			
@@ -1176,7 +1190,6 @@ class EventViewer(gtk.DrawingArea):
 		if self.currentScale != self.project.viewScale:
 			self.redrawWaveform = True
 			self.queue_resize()
-			self.last_num_levels = len(self.event.levels)
 			self.currentScale = self.project.viewScale
 			self.queue_draw()
 

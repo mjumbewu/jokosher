@@ -17,7 +17,7 @@ import os
 import pygst
 pygst.require("0.10")
 import gst, gobject
-import Utils
+import Utils, LevelsList
 import UndoSystem
 import Globals
 import gettext
@@ -89,7 +89,7 @@ class Event(gobject.GObject):
 		self.name = "New Event"		# Name of this event
 		
 		self.selection  = [0, 0]	# List start and end of selection (for fades, etc) measured in seconds 
-		self.levels = []			# Array of audio levels to be drawn for this event
+		self.levels_list = LevelsList.LevelsList()	# LevelsList class containing array of audio levels to be drawn for this event
 		
 		self.id = instrument.project.GenerateUniqueID(id)  #check is id is already taken, then set it.
 		self.instrument = instrument	# The parent instrument
@@ -223,11 +223,8 @@ class Event(gobject.GObject):
 		ev.appendChild(xmlPoints)
 		Utils.StoreDictionaryToXML(doc, xmlPoints, self.__fadePointsDict, "FadePoint")
 		
-		if self.levels:
-			levelsXML = doc.createElement("Levels")
-			ev.appendChild(levelsXML)
-			stringList = map(str, self.levels)
-			levelsXML.setAttribute("value", ",".join(stringList))
+		if self.levels_list:
+			self.levels_list.tofile(os.path.join(self.instrument.project.levels_path, self.levels_file))
 		
 	#_____________________________________________________________________
 		
@@ -579,11 +576,9 @@ class Event(gobject.GObject):
 			Utils.HandleGstPbutilsMissingMessage(message, self.install_plugin_cb)
 
 		elif st.get_name() == "level":
-			newLevel = self.__CalculateAudioLevel(st["peak"])
-			self.levels.append(newLevel)
-			
-			end = st["endtime"] / float(gst.SECOND)
-			self.loadingLength = int(end)
+			end = st["endtime"]
+			self.levels_list.append(end, st["peak"])
+			self.loadingLength = int(end / gst.SECOND)
 			
 			# Only send events every second processed to reduce GUI load
 			if self.loadingLength != self.lastEnd:
@@ -721,7 +716,7 @@ class Event(gobject.GObject):
 		self.bus.connect("message::eos", self.bus_eos)
 		self.bus.connect("message::error", self.bus_error)
 
-		self.levels = []
+		self.levels_list = LevelsList.LevelsList()
 		self.isLoading = True
 		self.emit("loading")
 
@@ -751,7 +746,7 @@ class Event(gobject.GObject):
 		self.bus.connect("message::eos", self.bus_eos)
 		self.bus.connect("message::error", self.bus_error)
 
-		self.levels = []
+		self.levels_list = LevelsList.LevelsList()
 		self.isLoading = True
 		self.emit("loading")
 
@@ -808,8 +803,7 @@ class Event(gobject.GObject):
 		
 		st = message.structure
 		if st and message.src.get_name() == "recordlevel":
-			newLevel = self.__CalculateAudioLevel(st["peak"])
-			self.levels.append(newLevel)
+			self.levels_list.append(st["endtime"],  st["peak"])
 			
 			end = st["endtime"] / float(gst.SECOND)
 			#Round to one decimal place so it updates 10 times per second
@@ -820,37 +814,6 @@ class Event(gobject.GObject):
 				self.lastEnd = self.loadingLength 
 				self.emit("length") # tell the GUI
 		return True
-		
-	#_____________________________________________________________________
-	
-	def __CalculateAudioLevel(self, channelLevels):
-		"""
-		Calculates an average for all channel levels.
-		
-		Parameters:
-			channelLevels -- list of levels from each channel.
-			
-		Returns:
-			an average level, also taking into account negative infinity numbers,
-			which will be discarded in the average.
-		"""
-		negInf = float("-inf")
-		peaktotal = 0
-		peakcount = 0
-		for peak in channelLevels:
-			#don't add -inf values cause 500 + -inf is still -inf
-			if peak != negInf:
-				peaktotal += peak
-				peakcount += 1
-		#avoid a divide by zero here
-		if peakcount > 0:
-			peaktotal /= peakcount
-		#it must be put back to -inf if nothing has been added to it, so that the DbToFloat conversion will work
-		elif peakcount == 0:
-			peaktotal = negInf
-		
-		#convert to 0...1 float, and return
-		return Utils.DbToFloat(peaktotal)
 		
 	#_____________________________________________________________________
 	
