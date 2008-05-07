@@ -523,13 +523,16 @@ class _LoadZPTenFile(_LoadZPNFile):
 			event._Event__fadePointsDict = Utils.LoadDictionaryFromXML(xmlPoints)
 
 		if not isDead:
-			levels_path = os.path.join(self.project.levels_path, event.levels_file)
-			try:
-				event.levels_list.fromfile(levels_path)
-			except LevelsList.CorruptFileError:
-				Globals.debug("Cannot load levels from file", levels_path)
-			if not event.levels_list:
+			if event.isLoading or event.isRecording:  
 				event.GenerateWaveform()
+			else:
+				levels_path = os.path.join(self.project.levels_path, event.levels_file)
+				try:
+					event.levels_list.fromfile(levels_path)
+				except LevelsList.CorruptFileError:
+					Globals.debug("Cannot load levels from file", levels_path)
+				if not event.levels_list:
+					event.GenerateWaveform()
 			event._Event__UpdateAudioFadePoints()
 			event.CreateFilesource()
 	
