@@ -18,6 +18,7 @@ import gst
 import itertools
 import sys
 import bisect
+import copy
 
 class LevelsList:
 	MAGIC_NUMBER = 0x00011011	# an integer with 4 unique bytes used to check endianness
@@ -36,6 +37,17 @@ class LevelsList:
 		for i in xrange(num_channels):
 			self.channels.append(array(self.ARRAY_TYPE))
 	
+	#_____________________________________________________________________
+	
+	def copy(self):
+		levelslist = LevelsList()
+		levelslist.times = copy.copy(self.times)
+		levelslist.channels = []
+		for chan in self.channels:
+			levelslist.channels.append(copy.copy(chan))
+	
+		return levelslist
+
 	#_____________________________________________________________________
 	
 	def append(self, endtime,  levels):
@@ -58,6 +70,22 @@ class LevelsList:
 		for level,  chan in itertools.izip(levels,  self.channels):
 			chan.append(level)
 			assert len(self.times) == len(chan)
+	
+	#_____________________________________________________________________
+	
+	def extend(self, basetime, levelslist):
+		old_length = len(self.times)
+		self.times.extend(levelslist.times)
+		
+		# shift the new endtimes to match the length of the original audio clip
+		for idx in xrange(old_length, len(self.times)):
+			time = self.times[idx]
+			self.times[idx] = time + basetime
+		
+		assert len(self.channels) == len(levelslist.channels)
+		for chan, lchan in itertools.izip(self.channels, levelslist.channels):
+			chan.extend(lchan)
+	
 	
 	#_____________________________________________________________________
 	
@@ -124,6 +152,29 @@ class LevelsList:
 	
 	#_____________________________________________________________________
 	
+	def slice_by_endtime(self, starttime, stoptime=None):
+		assert starttime < stoptime
+		if stoptime is None:
+			stop_idx = len(self.times)
+		else:
+			stop_idx = self.find_endtime_index(stoptime)
+			
+		start_idx = self.find_endtime_index(starttime)
+		levelslist = LevelsList()
+		levelslist.times = self.times[start_idx:stop_idx]
+		
+		# adjust the endtimes so they are relative to the new start time.
+		for idx, time in enumerate(levelslist.times):
+			levelslist.times[idx] = time - startime
+		
+		levelslist.channels = []
+		for chan in self.channels:
+			levelslist.channels.append(chan[start_idx:stop_idx])
+		
+		return levelslist
+	
+	#_____________________________________________________________________
+	
 	def __iter__(self):
 		# FIXME: hard coded single channel
 		return itertools.izip(self.times,  self.channels[0])
@@ -139,6 +190,13 @@ class LevelsList:
 	def __len__(self):
 		return len(self.times)
 	#_____________________________________________________________________
+
+#=========================================================================
+
+def add(list_one, list_two):
+	levelslist = list_one.copy()
+	levelslist.extend(list_two)
+	return levelslist
 
 #=========================================================================
 
