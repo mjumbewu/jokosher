@@ -153,10 +153,10 @@ class LevelsList:
 	#_____________________________________________________________________
 	
 	def slice_by_endtime(self, starttime, stoptime=None):
-		assert starttime < stoptime
 		if stoptime is None:
 			stop_idx = len(self.times)
 		else:
+			assert starttime < stoptime
 			stop_idx = self.find_endtime_index(stoptime)
 			
 		start_idx = self.find_endtime_index(starttime)
@@ -165,7 +165,7 @@ class LevelsList:
 		
 		# adjust the endtimes so they are relative to the new start time.
 		for idx, time in enumerate(levelslist.times):
-			levelslist.times[idx] = time - startime
+			levelslist.times[idx] = time - starttime
 		
 		levelslist.channels = []
 		for chan in self.channels:
