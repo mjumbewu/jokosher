@@ -679,7 +679,7 @@ class Instrument(gobject.GObject):
 		ev.start = start
 		for i in ["duration", "name", "offset"]:
 			setattr(ev, i, getattr(event, i))
-		ev.levels = event.levels[:]
+		ev.levels_list = event.levels_list.copy()
 		ev._Event__fadePointsDict = event._Event__fadePointsDict.copy()
 		ev._Event__UpdateAudioFadePoints()
 		
@@ -725,7 +725,7 @@ class Instrument(gobject.GObject):
 		self.events.append(event)
 		self.graveyard.remove(event)
 		event.CreateFilesource()
-		if event.isLoading or not event.levels:
+		if event.isLoading or not event.levels_list:
 			event.GenerateWaveform()
 		
 		self.temp = eventid

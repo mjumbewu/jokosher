@@ -358,9 +358,9 @@ class Event(gobject.GObject):
 			e.duration = dur - split_point
 			self.duration = split_point
 			
-			nl = int(len(self.levels) * (split_point / dur))
-			e.levels = self.levels[nl:]
-			self.levels = self.levels[:nl]
+			millis = int(split_point * 1000)
+			e.levels_list = self.levels_list.slice_by_endtime(millis)
+			self.levels_list = self.levels_list.slice_by_endtime(0, millis)
 			
 			self.__fadePointsDict = dictLeft
 			e.__fadePointsDict = dictRight
@@ -373,9 +373,9 @@ class Event(gobject.GObject):
 			self.offset = self.offset + split_point
 			self.duration = dur - split_point
 			
-			nl = int(len(self.levels) * (split_point / dur))
-			e.levels = self.levels[:nl]
-			self.levels = self.levels[nl:]
+			millis = int(split_point * 1000)
+			e.levels_list = self.levels_list.slice_by_endtime(0, millis)
+			self.levels_list = self.levels_list.slice_by_endtime(millis)
 			
 			self.__fadePointsDict = dictRight
 			e.__fadePointsDict = dictLeft
@@ -419,8 +419,9 @@ class Event(gobject.GObject):
 			if self.__fadePointsDict.has_key(self.duration):
 				del self.__fadePointsDict[self.duration]
 			
+			old_duration = int(self.duration * 1000)
 			self.duration += joinEvent.duration
-			self.levels.extend(joinEvent.levels)
+			self.levels_list.extend(old_duration, joinEvent.levels_list)
 			#update the fade point list after the level, and duration because it depends on them
 			self.__UpdateAudioFadePoints()
 		else:
@@ -428,8 +429,10 @@ class Event(gobject.GObject):
 		
 			self.start = joinEvent.start
 			self.offset = joinEvent.offset
+			
+			old_duration = int(self.duration * 1000)
 			self.duration += joinEvent.duration
-			self.levels = joinEvent.levels + self.levels
+			self.levels_list = LevelsList.add(old_duration, joinEvent.levels_list, self.levels_list)
 			
 			newDict = joinEvent.__fadePointsDict.copy()
 			for key, value in self.__fadePointsDict.iteritems():
@@ -616,10 +619,10 @@ class Event(gobject.GObject):
 					self.duration = self.loadingLength
 			
 			if length and (self.offset > 0 or self.duration != length):
-				dt = int(self.duration * len(self.levels) / length)
-				start = int(self.offset * len(self.levels) / length)
-				self.levels = self.levels[start:start+dt]
-			
+				starttime = int(self.offset * 1000)
+				stoptime = int((self.offset + self.duration) * 1000)
+				self.levels_list = self.levels_list.slice_by_endtime(starttime, stoptime)
+				
 			# We're done with the bin so release it
 			self.StopGenerateWaveform()
 			
