@@ -120,8 +120,16 @@ def LoadProjectFile(uri):
 		raise OpenProjectError(4, projectfile)
 
 	try:
-		gzipfile = gzip.GzipFile(projectfile, "r")
-		doc = xml.parse(gzipfile)
+		try:
+			gzipfile = gzip.GzipFile(projectfile, "r")
+			doc = xml.parse(gzipfile)
+		except IOError, e:
+			if e.message == "Not a gzipped file":
+				# starting from 0.10, we accept both gzipped xml and plain xml
+				file_ = open(projectfile, "r")
+				doc = xml.parse(file_)
+			else:
+				raise e
 	except Exception, e:
 		Globals.debug(e.__class__, e)
 		# raise "This file doesn't unzip" message
