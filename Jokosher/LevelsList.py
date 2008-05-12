@@ -14,7 +14,6 @@
 import Utils
 
 from array import array
-import gst
 import itertools
 import sys
 import bisect
@@ -22,7 +21,6 @@ import copy
 
 class LevelsList:
 	MAGIC_NUMBER = 0x00011011	# an integer with 4 unique bytes used to check endianness
-	ENDTIME_MULTIPLIER = gst.SECOND / 1000
 	VERSION = 1
 	ARRAY_TYPE = 'l'
 	
@@ -50,22 +48,17 @@ class LevelsList:
 
 	#_____________________________________________________________________
 	
-	def append(self, endtime,  levels):
+	def append(self, endtime, levels):
 		"""
 		Append a set of waveforms to the current list,
 		and associates them with the given end time.
 		"""
-		# FIXME: currently everything is being averaged to a single channel
-		levels = [CalculateAudioLevel(levels)]
-		
 		if not self.channels:
 			self.CreateChannels(len(levels))
 		
 		assert len(self.channels) == len(levels)
 		
-		#convert number from gst.SECOND (i.e. nanoseconds) to milliseconds
-		end = int(endtime / self.ENDTIME_MULTIPLIER)
-		self.times.append(end)
+		self.times.append(endtime)
 		
 		for level,  chan in itertools.izip(levels,  self.channels):
 			chan.append(level)

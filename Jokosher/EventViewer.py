@@ -360,10 +360,7 @@ class EventViewer(gtk.DrawingArea):
 			
 			context.move_to(0,rect.height)
 			
-			# get levels list
-			#fadedLevels = self.event.GetFadeLevels()
-			
-			levels = self.event.levels_list
+			levels = self.event.GetFadeLevels()
 			length = len(levels)
 			
 			# time offset of the start of the drawing area in milliseconds

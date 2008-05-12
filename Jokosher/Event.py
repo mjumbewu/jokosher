@@ -13,7 +13,7 @@
 #-------------------------------------------------------------------------------
 
 import xml.dom.minidom as xml
-import os
+import os, sys
 import pygst
 pygst.require("0.10")
 import gst, gobject
@@ -53,6 +53,7 @@ class Event(gobject.GObject):
 	""" The level sample interval in seconds """
 	LEVEL_INTERVAL = 0.01
 	LEVELS_FILE_EXTENSION = ".leveldata"
+	NANO_TO_MILLI_DIVISOR = gst.SECOND / 1000
 	
 	#_____________________________________________________________________
 	
@@ -117,9 +118,9 @@ class Event(gobject.GObject):
 		# The list *must* be ordered by time-in-seconds, so when you update it from
 		# the dictionary using dict.items(), be sure to sort it again.
 		self.audioFadePoints = []
-		#Just like self.levels except with all the levels scaled according to the
+		#Just like self.levels_list except with all the levels scaled according to the
 		#points in self.audioFadePoints.
-		self.fadeLevels = []
+		self.fadeLevels = LevelsList.LevelsList()
 
 	#_____________________________________________________________________
 	
@@ -579,9 +580,14 @@ class Event(gobject.GObject):
 			Utils.HandleGstPbutilsMissingMessage(message, self.install_plugin_cb)
 
 		elif st.get_name() == "level":
-			end = st["endtime"]
-			self.levels_list.append(end, st["peak"])
-			self.loadingLength = int(end / gst.SECOND)
+			# FIXME: currently everything is being averaged to a single channel
+			peak = LevelsList.CalculateAudioLevel(st["peak"])
+			#convert number from gst.SECOND (i.e. nanoseconds) to milliseconds
+			end = int(st["endtime"] / self.NANO_TO_MILLI_DIVISOR)
+			self.levels_list.append(end,  [peak])
+			
+			#Truncate at 1000 milliseconds so it updates once per second
+			self.loadingLength = end / 1000
 			
 			# Only send events every second processed to reduce GUI load
 			if self.loadingLength != self.lastEnd:
@@ -806,9 +812,13 @@ class Event(gobject.GObject):
 		
 		st = message.structure
 		if st and message.src.get_name() == "recordlevel":
-			self.levels_list.append(st["endtime"],  st["peak"])
+			# FIXME: currently everything is being averaged to a single channel
+			peak = LevelsList.CalculateAudioLevel(st["peak"])
+			#convert number from gst.SECOND (i.e. nanoseconds) to milliseconds
+			end = int(st["endtime"] / self.NANO_TO_MILLI_DIVISOR)
+			self.levels_list.append(end,  [peak])
 			
-			end = st["endtime"] / float(gst.SECOND)
+			end = end / 1000.0	#convert to float representing seconds 
 			#Round to one decimal place so it updates 10 times per second
 			self.loadingLength = round(end, 1)
 			
@@ -1024,36 +1034,41 @@ class Event(gobject.GObject):
 			#there are no fade points for us to use
 			return
 			
-		fadePercents = []
-		oneSecondInLevels = len(self.levels) / self.duration
+		#fadePercents = []
+		#oneSecondInLevels = len(self.levels) / self.duration
 		
-		previousFade = self.audioFadePoints[0]
-		for fade in self.audioFadePoints[1:]:
-			#calculate the number of levels that should be in the list between the two points
-			levelsInThisSection = int(round((fade[0] - previousFade[0]) * oneSecondInLevels))
-			if fade[1] == previousFade[1]:
-				# not actually a fade, just two points at the same volume
-				fadePercents.extend([ fade[1] ] * levelsInThisSection)
-			else:
-				step = (fade[1] - previousFade[1]) / levelsInThisSection
-				floatList = Utils.floatRange(previousFade[1], fade[1], step)
-				#make sure the list of levels does not exceed the calculated length
-				floatList = floatList[:levelsInThisSection]
-				fadePercents.extend(floatList)
-			previousFade = fade
+		self.fadeLevels = LevelsList.LevelsList()
 		
-		if len(fadePercents) != len(self.levels):
-			#make sure its not longer than the levels list
-			fadePercents = fadePercents[:len(self.levels)]
-			#make sure its not shorter than the levels list
-			#by copying the last level over again
-			lastLevel = fadePercents[-1]
-			while len(fadePercents) < len(self.levels):
-				fadePercents.append(lastLevel)
+		iterFadePoints = iter(self.audioFadePoints)
+		firstFadeTime, firstFadeValue = iterFadePoints.next()
+		firstFadeTime = int(firstFadeTime * 1000)	#convert to milliseconds
+		secondFadeTime, secondFadeValue = iterFadePoints.next()
+		secondFadeTime = int(secondFadeTime * 1000)	#convert to milliseconds
+		# if less than one percent difference, assume they are the same
+		sameValues = abs(firstFadeValue - secondFadeValue) < 0.01
+		
+		for endtime, peak in self.levels_list:
+			if endtime > secondFadeTime:	# we have moved into the next fade point pair
+				firstFadeTime = secondFadeTime
+				firstFadeValue = secondFadeValue
+				secondFadeTime, secondFadeValue = iterFadePoints.next()
+				secondFadeTime = int(secondFadeTime * 1000)	#convert to milliseconds
 				
-		self.fadeLevels = []
-		for i in range(len(self.levels)):
-			self.fadeLevels.append(fadePercents[i] * self.levels[i])
+				# if less than one percent difference, assume they are the same
+				sameValues = abs(firstFadeValue - secondFadeValue) < 0.01
+				if not sameValues:
+					# the fade line is not flat, so calculate the slope of it
+					slope = (secondFadeValue - firstFadeValue) / secondFadeTime - firstFadeTime
+			
+			if sameValues:
+				#no fade here, the same volume continues across
+				self.fadeLevels.append(endtime, [int(peak * firstFadeValue)])
+			else:
+				rel_time = endtime - firstFadeTime
+				peak_delta = slope * rel_time
+				peak = int(peak * (firstFadeValue + peak_delta))
+				
+				self.fadeLevels.append(endtime, [peak])
 		
 	#_____________________________________________________________________
 	
@@ -1069,10 +1084,11 @@ class Event(gobject.GObject):
 		"""
 		# no fades registered
 		if not self.audioFadePoints:
-			return self.levels[:]
+			return self.levels_list
 			
-		if len(self.fadeLevels) != len(self.levels):
+		if len(self.fadeLevels) != len(self.levels_list):
 			self.__UpdateFadeLevels()
+			assert len(self.fadeLevels) == len(self.levels_list)
 			
 		return self.fadeLevels
 		
