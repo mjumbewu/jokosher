@@ -1058,7 +1058,7 @@ class Event(gobject.GObject):
 				sameValues = abs(firstFadeValue - secondFadeValue) < 0.01
 				if not sameValues:
 					# the fade line is not flat, so calculate the slope of it
-					slope = (secondFadeValue - firstFadeValue) / secondFadeTime - firstFadeTime
+					slope = (secondFadeValue - firstFadeValue) / (secondFadeTime - firstFadeTime)
 			
 			if sameValues:
 				#no fade here, the same volume continues across
@@ -1066,7 +1066,9 @@ class Event(gobject.GObject):
 			else:
 				rel_time = endtime - firstFadeTime
 				peak_delta = slope * rel_time
-				peak = int(peak * (firstFadeValue + peak_delta))
+				new_fade_value = firstFadeValue + peak_delta
+				assert new_fade_value <= 1.0		# a fade cannot be more than 100%
+				peak = int(peak * new_fade_value)
 				
 				self.fadeLevels.append(endtime, [peak])
 		
