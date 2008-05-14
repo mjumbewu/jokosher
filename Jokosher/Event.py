@@ -581,7 +581,7 @@ class Event(gobject.GObject):
 
 		elif st.get_name() == "level":
 			# FIXME: currently everything is being averaged to a single channel
-			peak = Utils.CalculateAudioLevel(st["peak"])
+			peak = Utils.CalculateAudioLevel(st["rms"])
 			#convert number from gst.SECOND (i.e. nanoseconds) to milliseconds
 			end = int(st["endtime"] / self.NANO_TO_MILLI_DIVISOR)
 			self.levels_list.append(end,  [peak])
@@ -813,7 +813,7 @@ class Event(gobject.GObject):
 		st = message.structure
 		if st and message.src.get_name() == "recordlevel":
 			# FIXME: currently everything is being averaged to a single channel
-			peak = Utils.CalculateAudioLevel(st["peak"])
+			peak = Utils.CalculateAudioLevel(st["rms"])
 			#convert number from gst.SECOND (i.e. nanoseconds) to milliseconds
 			end = int(st["endtime"] / self.NANO_TO_MILLI_DIVISOR)
 			self.levels_list.append(end,  [peak])

@@ -19,6 +19,9 @@ import gst
 if gst.pygst_version >= (0, 10, 10):
     import gst.pbutils
 
+# the highest range in decibels there can be between any two levels
+DECIBEL_RANGE = 80
+
 #_____________________________________________________________________
 
 def OpenExternalURL(url, message, parent):
@@ -119,25 +122,28 @@ def CalculateAudioLevel(channelLevels):
 		an average level, also taking into account negative infinity numbers,
 		which will be discarded in the average.
 	"""
+	if not channelLevels:
+		return 0
+
 	negInf = float("-inf")
 	peaktotal = 0
-	peakcount = 0
 	for peak in channelLevels:
+		if peak > 0.001:
+			print channelLevels
 		#don't add -inf values cause 500 + -inf is still -inf
 		if peak != negInf:
 			peaktotal += peak
-			peakcount += 1
-	#avoid a divide by zero here
-	if peakcount > 0:
-		peaktotal /= peakcount
-	#it must be put back to -inf if nothing has been added to it, so that the DbToFloat conversion will work
-	elif peakcount == 0:
-		peaktotal = negInf
+		else:
+			peaktotal -= DECIBEL_RANGE
 	
-	#convert to 0...1 float
-	peakfloat = DbToFloat(peaktotal)
+	peaktotal /= len(channelLevels)
+	
+	peaktotal += DECIBEL_RANGE
 	#convert to an integer
-	peakint = int(peakfloat * sys.maxint)
+	peaktotal = min(peaktotal, DECIBEL_RANGE)
+	peaktotal = max(peaktotal, -DECIBEL_RANGE)
+	peakint = int((peaktotal / DECIBEL_RANGE) * sys.maxint)
+
 	return peakint
 
 
