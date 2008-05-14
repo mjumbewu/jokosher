@@ -192,40 +192,9 @@ def add(list_one, list_two):
 	return levelslist
 
 #=========================================================================
-
-def CalculateAudioLevel(channelLevels):
-	"""
-	Calculates an average for all channel levels.
-	
-	Parameters:
-		channelLevels -- list of levels from each channel.
-		
-	Returns:
-		an average level, also taking into account negative infinity numbers,
-		which will be discarded in the average.
-	"""
-	negInf = float("-inf")
-	peaktotal = 0
-	peakcount = 0
-	for peak in channelLevels:
-		#don't add -inf values cause 500 + -inf is still -inf
-		if peak != negInf:
-			peaktotal += peak
-			peakcount += 1
-	#avoid a divide by zero here
-	if peakcount > 0:
-		peaktotal /= peakcount
-	#it must be put back to -inf if nothing has been added to it, so that the DbToFloat conversion will work
-	elif peakcount == 0:
-		peaktotal = negInf
-	
-	#convert to 0...1 float
-	peakfloat = Utils.DbToFloat(peaktotal)
-	#convert to an integer
-	peakint = int(peakfloat * sys.maxint)
-	return peakint
-	
-#=========================================================================
 	
 class CorruptFileError(EnvironmentError):
 	pass
+
+#=========================================================================
+
