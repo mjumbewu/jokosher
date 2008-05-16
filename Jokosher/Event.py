@@ -1048,7 +1048,8 @@ class Event(gobject.GObject):
 		sameValues = abs(firstFadeValue - secondFadeValue) < 0.01
 		
 		for endtime, peak in self.levels_list:
-			if endtime > secondFadeTime:	# we have moved into the next fade point pair
+			# check if we have moved into the next fade point pair
+			if (endtime - secondFadeTime) > 1:  # don't care about 1 millisecond difference, its rounding error
 				firstFadeTime = secondFadeTime
 				firstFadeValue = secondFadeValue
 				secondFadeTime, secondFadeValue = iterFadePoints.next()
