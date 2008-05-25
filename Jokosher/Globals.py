@@ -31,7 +31,8 @@ class Settings:
 				"startupaction" : "value",
 				"projectfolder" : "",
 				"windowheight" : 550,
-				"windowwidth" : 900
+				"windowwidth" : 900,
+				"backupsavetime" : 30000
 				}
 	
 	recording = {
@@ -48,7 +49,7 @@ class Settings:
 	extensions = {
 				 "extensions_blacklist": ""
 				 }
-	
+
 	#_____________________________________________________________________
 	
 	def __init__(self, filename = None):

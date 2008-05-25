@@ -642,7 +642,7 @@ class Project(gobject.GObject):
 
 	#_____________________________________________________________________
 	
-	def SaveProjectFile(self, path=None):
+	def SaveProjectFile(self, path=None, backup=False):
 		"""
 		Saves the Project and its children as an XML file
 		to the path specified by file.
@@ -679,13 +679,14 @@ class Project(gobject.GObject):
 		#sync the transport's mode with the one which will be saved
 		self.transportMode = self.transport.mode
 		
-		self.unsavedChanges = False
-		#purge main undo stack so that it will not prompt to save on exit
-		self.__savedUndoStack.extend(self.__undoStack)
-		self.__undoStack = []
-		#purge savedRedoStack so that it will not prompt to save on exit
-		self.__redoStack.extend(self.__savedRedoStack)
-		self.__savedRedoStack = []
+		if not backup:
+			self.unsavedChanges = False
+			#purge main undo stack so that it will not prompt to save on exit
+			self.__savedUndoStack.extend(self.__undoStack)
+			self.__undoStack = []
+			#purge savedRedoStack so that it will not prompt to save on exit
+			self.__redoStack.extend(self.__savedRedoStack)
+			self.__savedRedoStack = []
 		
 		doc = xml.Document()
 		head = doc.createElement("JokosherProject")
@@ -697,7 +698,7 @@ class Project(gobject.GObject):
 		head.appendChild(params)
 		
 		items = ["viewScale", "viewStart", "name", "author", "audio_path",  "levels_path",
-		              "transportMode", "bpm", "meter_nom", "meter_denom"]
+		              "transportMode", "bpm", "meter_nom", "meter_denom", "projectfile"]
 		
 		Utils.StoreParametersToXML(self, doc, params, items)
 			

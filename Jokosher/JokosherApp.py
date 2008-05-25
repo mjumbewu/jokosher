@@ -256,12 +256,42 @@ class MainApp:
 			# Load extensions -- this should probably go somewhere more appropriate
 			self.extensionManager = ExtensionManager.ExtensionManager(self)
 
+
+		# Backup saving
+		self.backupProject = os.path.join(os.path.expanduser("~"), ".jokosher", "backupsave")
+		gobject.timeout_add(int(Globals.settings.general["backupsavetime"]), self.BackupSave)
+
+
 		## Setup is complete so start up the GUI and perhaps load a project
 		## any new setup code needs to go above here
-
+		
 		# Show the main window
 		self.window.show_all()
 
+		# Check for crash and offer recovery
+		if os.path.exists("%s.jokosher" % self.backupProject):
+			# We didn't shutdown cleanly last time, offer recovery
+			message = _("Jokosher did not shutdown correctly the last time it was used. Would you like to recover your project from the last backup?")
+
+			dlg = gtk.MessageDialog(self.window,
+				gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
+				gtk.MESSAGE_INFO,
+				gtk.BUTTONS_NONE,
+				message)
+			dlg.add_button(gtk.STOCK_NO, gtk.RESPONSE_NO)
+			defaultAction = dlg.add_button(gtk.STOCK_YES, gtk.RESPONSE_YES)
+			dlg.set_default(defaultAction)
+			dlg.set_title("Jokosher - Crash Recovery")
+			response = dlg.run()
+			dlg.destroy()
+
+			if response == gtk.RESPONSE_YES:
+				Globals.debug("Restoring previous project.")
+				self.OpenProjectFromPath("%s.jokosher" % self.backupProject)
+				# Save backup to original project file location
+				self.project.SaveProjectFile() 
+				return
+	
 		# command line options override preferences so check for them first,
 		# then preferences, then default to the welcome dialog
 		if startuptype == 2: # welcomedialog cmdline switch
@@ -811,6 +841,18 @@ class MainApp:
 		
 	#_____________________________________________________________________
 
+	def BackupSave(self):
+		"""
+		Saves the project file to a backup in case of crashes.
+		"""
+		if self.project:
+			Globals.debug("Making automatic backup")
+			self.project.SaveProjectFile(self.backupProject, True)
+
+		gobject.timeout_add(int(Globals.settings.general["backupsavetime"]), self.BackupSave)
+
+	#_____________________________________________________________________
+
 	def OnNewProject(self, widget, destroyCallback=None):
 		"""
 		Creates and shows the "New Project" dialog.
@@ -878,6 +920,12 @@ class MainApp:
 				return 1
 		
 		self.project.CloseProject()
+
+		#Remove backup
+		if os.path.exists("%s.jokosher" % self.backupProject):
+			Globals.debug("Removing backup file.")
+			os.remove("%s.jokosher" % self.backupProject)
+
 		self.project = None
 		self.mode = None
 		return 0
