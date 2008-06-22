@@ -315,6 +315,55 @@ class Event(gobject.GObject):
 	
 	#_____________________________________________________________________
 	
+	def CopySelection(self, eventID=-1):
+		"""
+		Only for use with a 2-point selection.
+		Essentially performs a 'fake split' and returns a new event
+		which would be the result of splitting an event at the 2 points.
+		
+		This is used when the user shift-drags an event to create a selection,
+		then chooses 'copy' from the context menu. The new event can be placed
+		wherever the user wishes by right-clicking and choosing 'paste'.
+		"""
+		if eventID >= 0:
+			e = [x for x in self.instrument.graveyard if x.id == eventID][0]
+			self.instrument.graveyard.remove(e)
+		else:
+			e = Event(self.instrument, self.file)
+		e.name = self.name
+		
+		dur = self.selection[1] - self.selection[0]
+		
+		e.start = self.start + self.selection[0]
+		e.offset = self.selection[0] #+self.offset
+		e.duration = dur
+		
+		dictLeft = {}
+		dictRight = {}
+		for key, value in self.__fadePointsDict.iteritems():
+			if key < self.selection[0]:
+				dictLeft[key] = value
+			if key > self.selection[0]:
+				dictRight[key - self.selection[0]] = value
+		#in case there is a fade passing through the split point, recreate half of it on either side
+		splitFadeLevel = self.GetFadeLevelAtPoint(self.selection[0])
+		dictLeft[self.selection[0]] = splitFadeLevel
+		dictRight[0.0] = splitFadeLevel
+		
+		millis = int(self.selection[0] * 1000)
+		e.levels_list = self.levels_list.slice_by_endtime(millis)
+		e.__fadePointsDict = dictRight
+			
+		e.__UpdateAudioFadePoints()
+		e.SetProperties()
+		self.instrument.events.append(e)
+		e.emit("length")
+		e.emit("position")
+		
+		return e
+		
+
+	
 	@UndoSystem.UndoCommand("JoinEvent", "temp", "temp2")
 	def SplitEvent(self, split_point, cutRightSide=True, eventID=-1):
 		"""
@@ -1078,7 +1127,6 @@ class Event(gobject.GObject):
 				peak = int(peak * new_fade_value)
 				
 				self.fadeLevels.append(endtime, [peak])
-		
 	#_____________________________________________________________________
 	
 	def GetFadeLevels(self):

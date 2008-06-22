@@ -997,7 +997,7 @@ class EventViewer(gtk.DrawingArea):
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 			mouse -- GTK mouse event that fired this method call.
 		"""
-		if self.messageID:   #clesr status bar if not already clear
+		if self.messageID:   #clear status bar if not already clear
 			self.mainview.ClearStatusBar(self.messageID)
 			self.messageID = None
 		self.highlightCursor = None
@@ -1013,11 +1013,17 @@ class EventViewer(gtk.DrawingArea):
 			gtkevent -- reserved for GTK callbacks, don't use it explicitly.
 			position -- The position in the event to split
 		"""
-		if pos == 0.0:
-			return
-			
-		pos /= float(self.project.viewScale)
-		self.event.SplitEvent(pos)
+		if self.event.selection != [0,0]:
+			self.event.SplitEvent(self.event.selection[1])
+			self.event.SplitEvent(self.event.selection[0])
+			self.event.selection = [0,0]
+			self.HideDrawer()
+		else:
+			if pos == 0.0:
+				return
+			else:
+				pos /= float(self.project.viewScale)
+				self.event.SplitEvent(pos)
 		
 	#_____________________________________________________________________
 	
@@ -1028,8 +1034,16 @@ class EventViewer(gtk.DrawingArea):
 		Parameters:
 			gtkevent -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-		self.project.clipboardList = [self.event]
-		self.OnDelete()
+		if self.event.selection != [0,0]:
+			self.event.SplitEvent(self.event.selection[1])
+			e = self.event.SplitEvent(self.event.selection[0])
+			self.project.clipboardList = [e]
+			e.Delete()
+			self.event.selection = [0,0]
+			self.HideDrawer()
+		else:
+			self.project.clipboardList = [self.event]
+			self.OnDelete()
 	
 	#_____________________________________________________________________
 	
@@ -1040,7 +1054,12 @@ class EventViewer(gtk.DrawingArea):
 		Parameters:
 			gtkevent -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-		self.project.clipboardList = [self.event]
+		if self.event.selection != [0,0]:
+			e = self.event.CopySelection()
+			self.project.clipboardList = [e]
+			#We shouldn't hide the drawer here, unfriendly behaviour
+		else:
+			self.project.clipboardList = [self.event]
 	
 	#_____________________________________________________________________
 
@@ -1052,7 +1071,14 @@ class EventViewer(gtk.DrawingArea):
 		Parameters:
 			event -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-		self.event.Delete()
+		if self.event.selection != [0,0]:
+			self.event.SplitEvent(self.event.selection[1])
+			e = self.event.SplitEvent(self.event.selection[0])
+			e.Delete()
+			self.event.selection = [0,0]
+			self.HideDrawer()
+		else:
+			self.event.Delete()
 	
 	#_____________________________________________________________________
 		
