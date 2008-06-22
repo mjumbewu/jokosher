@@ -496,11 +496,11 @@ class Event(gobject.GObject):
 			self.__fadePointsDict = newDict
 			self.__UpdateAudioFadePoints()
 			
+		#create an undo action that is not attached to the project so that
+		# the following delete will not be undone (it will be re-split not resurrected)
+		nullAction = UndoSystem.AtomicUndoAction()
 		# Now that they're joined, move delete the rightEvent
-		if joinEvent in self.instrument.events:
-			self.instrument.events.remove(joinEvent)
-		if not joinEvent in self.instrument.graveyard:
-			self.instrument.graveyard.append(joinEvent)
+		joinEvent.Delete(_undoAction_=nullAction)
 		
 		self.emit("length")
 		self.emit("position")
