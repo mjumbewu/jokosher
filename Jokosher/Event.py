@@ -13,7 +13,7 @@
 #-------------------------------------------------------------------------------
 
 import xml.dom.minidom as xml
-import os, sys
+import os, sys, os.path
 import pygst
 pygst.require("0.10")
 import gst, gobject
@@ -57,7 +57,7 @@ class Event(gobject.GObject):
 	
 	#_____________________________________________________________________
 	
-	def __init__(self, instrument, file=None, levels_file=None,  id=None, filelabel=None):
+	def __init__(self, instrument, file=None, id=None, filelabel=None):
 		"""
 		Creates a new instance of Event.
 		
@@ -71,14 +71,18 @@ class Event(gobject.GObject):
 		"""
 		gobject.GObject.__init__(self)
 		
+		self.id = instrument.project.GenerateUniqueID(id)  #check is id is already taken, then set it.
 		self.start = 0.0			# Time in seconds at which the event begins
 		self.duration = 0.0			# Duration in seconds of the event
 		# The file this event should play (without escaped characters)
 		# If you need characters escaped, please do self.file.replace(" ", "\ ") 
 		# but **do not** assign it to this variable.
 		self.file = file
-		self.levels_file = levels_file		# a filename only, no directory information for levels here.
-
+		
+		# levels_file is a filename only, no directory information for levels here.
+		basename = os.path.basename(self.file or "Unknown")
+		self.levels_file = "%s_%d%s" % (basename, self.id, self.LEVELS_FILE_EXTENSION)
+		
 		# the label is the filename to print in error messages
 		# if it differs from the real filename (i.e its been copied into the project)
 		if filelabel != None:
@@ -92,7 +96,6 @@ class Event(gobject.GObject):
 		self.selection  = [0, 0]	# List start and end of selection (for fades, etc) measured in seconds 
 		self.levels_list = LevelsList.LevelsList()	# LevelsList class containing array of audio levels to be drawn for this event
 		
-		self.id = instrument.project.GenerateUniqueID(id)  #check is id is already taken, then set it.
 		self.instrument = instrument	# The parent instrument
 		self.gnlsrc = None 			# The gstreamer gnlsource object.
 		self.single_decode_bin = None		# The gstreamer file decoder element.
@@ -338,7 +341,7 @@ class Event(gobject.GObject):
 			e = [x for x in self.instrument.graveyard if x.id == eventID][0]
 			self.instrument.graveyard.remove(e)
 		else:
-			e = Event(self.instrument, self.file,  self.levels_file)
+			e = Event(self.instrument, self.file)
 		e.name = self.name
 		
 		dictLeft = {}

@@ -591,8 +591,6 @@ class Instrument(gobject.GObject):
 			newfile = "%s_%d.%s" % (root, event_id, extension)
 		else:
 			newfile = "%s_%d" % (root, event_id)
-		
-		levels_file = newfile + Event.Event.LEVELS_FILE_EXTENSION
 
 		if copyfile:
 			audio_file = os.path.join(self.project.audio_path, newfile)
@@ -606,7 +604,7 @@ class Instrument(gobject.GObject):
 			
 			file = audio_file
 
-		ev = Event.Event(self, file, levels_file, event_id, filelabel)
+		ev = Event.Event(self, file, event_id, filelabel)
 		ev.start = start
 		ev.name = name
 		self.events.append(ev)
@@ -639,13 +637,12 @@ class Instrument(gobject.GObject):
 		event_id = self.project.GenerateUniqueID(None,  reserve=False)
 		# no way of knowing whether there's a filename, so make one up
 		newfile = str(event_id)
-		levels_file = newfile + Event.Event.LEVELS_FILE_EXTENSION
 		
 		audio_file = os.path.join(self.project.audio_path, newfile)
 		self.project.deleteOnCloseAudioFiles.append(audio_file)
 		
 		# Create the event now so we can return it, and fill in the file later
-		ev = Event.Event(self, audio_file, levels_file, event_id, url)
+		ev = Event.Event(self, audio_file, event_id, url)
 		ev.start = start
 		ev.name = os.path.split(audio_file)[1]
 		ev.isDownloading = True
@@ -675,7 +672,7 @@ class Instrument(gobject.GObject):
 			start - the offset time in seconds for the new Event.
 			event - the Event to be cloned on this instrument.
 		"""
-		ev = Event.Event(self, event.file,  event.levels_file)
+		ev = Event.Event(self, event.file)
 		ev.start = start
 		for i in ["duration", "name", "offset"]:
 			setattr(ev, i, getattr(event, i))

@@ -85,7 +85,7 @@ class LevelsList:
 	def fromfile(self,  path):
 		try:
 			self.__fromfile(path)
-		except EOFError:
+		except (EOFError, IOError):
 			# on error delete all partially loaded data
 			self.channels = []
 			self.times = array(self.ARRAY_TYPE)
@@ -170,6 +170,8 @@ class LevelsList:
 	
 	def __iter__(self):
 		# FIXME: hard coded single channel
+		if not self.channels:
+			self.CreateChannels(1)
 		return itertools.izip(self.times,  self.channels[0])
 	
 	#_____________________________________________________________________

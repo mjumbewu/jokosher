@@ -213,7 +213,7 @@ class _LoadZPOFile:
 				id = int(ev.getAttribute("id"))
 			except ValueError:
 				id = None
-			e = Event.Event(instr, None, None,  id)
+			e = Event.Event(instr, None, id)
 			self.LoadEvent(e, ev)
 			e.levels_file = os.path.basename(e.file + Event.Event.LEVELS_FILE_EXTENSION)
 			instr.events.append(e)
@@ -355,7 +355,7 @@ class _LoadZPTFile:
 				id = int(ev.getAttribute("id"))
 			except ValueError:
 				id = None
-			event = Event.Event(instr, None, None,  id)
+			event = Event.Event(instr, None, id)
 			self.LoadEvent(event, ev)
 			event.levels_file = os.path.basename(event.file + Event.Event.LEVELS_FILE_EXTENSION)
 			instr.events.append(event)
@@ -365,7 +365,7 @@ class _LoadZPTFile:
 				id = int(ev.getAttribute("id"))
 			except ValueError:
 				id = None
-			event = Event.Event(instr, None, None,  id)
+			event = Event.Event(instr, None, id)
 			self.LoadEvent(event, ev, True)
 			event.levels_file = os.path.basename(event.file + Event.Event.LEVELS_FILE_EXTENSION)
 			instr.graveyard.append(event)
