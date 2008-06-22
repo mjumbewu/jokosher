@@ -1050,6 +1050,9 @@ class Event(gobject.GObject):
 		# if less than one percent difference, assume they are the same
 		sameValues = abs(firstFadeValue - secondFadeValue) < 0.01
 		
+		if not sameValues:
+			slope = (secondFadeValue - firstFadeValue) / (secondFadeTime - firstFadeTime)
+		
 		for endtime, peak in self.levels_list:
 			# check if we have moved into the next fade point pair
 			if (endtime - secondFadeTime) > 1:  # don't care about 1 millisecond difference, its rounding error
