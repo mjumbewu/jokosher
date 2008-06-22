@@ -82,12 +82,12 @@ class EventViewer(gtk.DrawingArea):
 		
 		gtk.DrawingArea.__init__(self)
 
-		self.set_events(	gtk.gdk.POINTER_MOTION_MASK |
-							gtk.gdk.BUTTON_RELEASE_MASK |
-							gtk.gdk.BUTTON_PRESS_MASK |
-							gtk.gdk.LEAVE_NOTIFY_MASK |
-							gtk.gdk.KEY_PRESS_MASK)
-							
+		self.set_events(gtk.gdk.POINTER_MOTION_MASK |
+		                gtk.gdk.BUTTON_RELEASE_MASK |
+		                gtk.gdk.BUTTON_PRESS_MASK |
+		                gtk.gdk.LEAVE_NOTIFY_MASK |
+		                gtk.gdk.KEY_PRESS_MASK)
+		
 		self.connect("expose_event",self.OnDraw)
 		self.connect("motion_notify_event", self.OnMouseMove)
 		self.connect("leave_notify_event", self.OnMouseLeave)
@@ -109,8 +109,10 @@ class EventViewer(gtk.DrawingArea):
 		self.lane = lane				# The parent lane for this object
 		self.currentScale = 0			# Tracks if the project viewScale has changed
 		self.redrawWaveform = False		# Force redraw the cached waveform on next expose event
-		self.drawerAlignToLeft = True		#boolean; if the drawer should be at the left of current selection
-									#otherwise it will be put on the right
+		#boolean; if the drawer should be at the left of current selection
+		#otherwise it will be put on the right
+		self.drawerAlignToLeft = True		
+		
 		self.fadeMarkers = [100,100]		#the values of the right and left fade markers on the selection
 
 		# Set accessibility helpers
@@ -282,7 +284,7 @@ class EventViewer(gtk.DrawingArea):
 				pixxFM_left -= self._PIXX_FADEMARKER_WIDTH
 			pixyFM_left = int(padded_height * (100-self.fadeMarkers[0]) / 100.0)
 			context.rectangle(pixxFM_left, pixyFM_left,
-							self._PIXX_FADEMARKER_WIDTH , self._PIXY_FADEMARKER_HEIGHT)
+			                  self._PIXX_FADEMARKER_WIDTH , self._PIXY_FADEMARKER_HEIGHT)
 			
 			pixxFM_right = x2
 			
@@ -292,7 +294,7 @@ class EventViewer(gtk.DrawingArea):
 				pixxFM_right -= self._PIXX_FADEMARKER_WIDTH
 			pixyFM_right = int(padded_height * (100-self.fadeMarkers[1]) / 100.0)
 			context.rectangle(pixxFM_right, pixyFM_right,
-							self._PIXX_FADEMARKER_WIDTH, self._PIXY_FADEMARKER_HEIGHT)
+			                  self._PIXX_FADEMARKER_WIDTH, self._PIXY_FADEMARKER_HEIGHT)
 			
 			context.fill()
 			
@@ -305,9 +307,9 @@ class EventViewer(gtk.DrawingArea):
 			
 			# redo the rectangles so they're the path and we can in_fill() check later
 			context.rectangle(pixxFM_left, pixyFM_left,
-							self._PIXX_FADEMARKER_WIDTH, self._PIXY_FADEMARKER_HEIGHT)
+			                  self._PIXX_FADEMARKER_WIDTH, self._PIXY_FADEMARKER_HEIGHT)
 			context.rectangle(pixxFM_right, pixyFM_right,
-							self._PIXX_FADEMARKER_WIDTH, self._PIXY_FADEMARKER_HEIGHT)
+					          self._PIXX_FADEMARKER_WIDTH, self._PIXY_FADEMARKER_HEIGHT)
 			self.fadeMarkersContext = context
 
 		return False
@@ -324,7 +326,7 @@ class EventViewer(gtk.DrawingArea):
 		allocArea = self.get_allocation()
 		
 		rect = gtk.gdk.Rectangle(exposeArea.x - exposeArea.width, exposeArea.y,
-						exposeArea.width*3, exposeArea.height)
+		                         exposeArea.width*3, exposeArea.height)
 		
 		#Check if our area to cache is outside the allocated area
 		if rect.x < 0:
@@ -336,12 +338,12 @@ class EventViewer(gtk.DrawingArea):
 		if self.small:
 			self.cachedDrawAreaSmall = rect
 			self.sourceSmall = cairo.ImageSurface(cairo.FORMAT_ARGB32, 
-												rect.width, rect.height)
+			                                      rect.width, rect.height)
 			context = cairo.Context(self.sourceSmall)
 		else:
 			self.cachedDrawAreaLarge = rect
 			self.sourceLarge = cairo.ImageSurface(cairo.FORMAT_ARGB32, 
-												rect.width, rect.height)
+			                                      rect.width, rect.height)
 			context = cairo.Context(self.sourceLarge)
 		
 		context.set_line_width(2)
