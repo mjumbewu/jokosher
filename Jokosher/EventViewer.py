@@ -1016,8 +1016,9 @@ class EventViewer(gtk.DrawingArea):
 			position -- The position in the event to split
 		"""
 		if self.event.selection != [0,0]:
-			self.event.SplitEvent(self.event.selection[1])
-			self.event.SplitEvent(self.event.selection[0])
+			undoAction = self.project.NewAtomicUndoAction()
+			self.event.SplitEvent(self.event.selection[1], _undoAction_=undoAction)
+			self.event.SplitEvent(self.event.selection[0], _undoAction_=undoAction)
 			self.event.selection = [0,0]
 			self.HideDrawer()
 		else:
@@ -1037,10 +1038,11 @@ class EventViewer(gtk.DrawingArea):
 			gtkevent -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		if self.event.selection != [0,0]:
-			self.event.SplitEvent(self.event.selection[1])
-			e = self.event.SplitEvent(self.event.selection[0])
+			undoAction = self.project.NewAtomicUndoAction()
+			self.event.SplitEvent(self.event.selection[1], _undoAction_=undoAction)
+			e = self.event.SplitEvent(self.event.selection[0], _undoAction_=undoAction)
 			self.project.clipboardList = [e]
-			e.Delete()
+			e.Delete(_undoAction_=undoAction)
 			self.event.selection = [0,0]
 			self.HideDrawer()
 		else:
@@ -1074,9 +1076,10 @@ class EventViewer(gtk.DrawingArea):
 			event -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		if self.event.selection != [0,0]:
-			self.event.SplitEvent(self.event.selection[1])
-			e = self.event.SplitEvent(self.event.selection[0])
-			e.Delete()
+			undoAction = self.project.NewAtomicUndoAction()
+			self.event.SplitEvent(self.event.selection[1], _undoAction_=undoAction)
+			e = self.event.SplitEvent(self.event.selection[0], _undoAction_=undoAction)
+			e.Delete(_undoAction_=undoAction)
 			self.event.selection = [0,0]
 			self.HideDrawer()
 		else:
