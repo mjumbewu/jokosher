@@ -731,7 +731,7 @@ class Event(gobject.GObject):
 		Globals.debug("\tMessage:", error.message)
 		
 		Globals.debug("Event bus error:", str(error), str(debug))
-		self.emit("corrupt", str(error), str(debug))
+		self.emit("corrupt", "%s\n%s" % (error, debug))
 	
 	#_____________________________________________________________________
 	
