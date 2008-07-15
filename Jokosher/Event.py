@@ -743,7 +743,7 @@ class Event(gobject.GObject):
 			bus -- GStreamer bus sending the message.
 			message -- GStreamer message.
 		"""
-		Globals.debug("recieved group of tags")
+		Globals.debug("received group of tags")
 		st = message.structure
 		
 		title, artist = None, None
