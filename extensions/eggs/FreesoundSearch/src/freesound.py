@@ -117,7 +117,7 @@ class Sample:
 		"""
 		Fetches the sample's meta data from the Freesound service.
 		"""
-		req = Request("http://freesound.iua.upf.edu/samplesViewSingleXML.php?id=%s" % self.sid)
+		req = Request("http://www.freesound.org/samplesViewSingleXML.php?id=%s" % self.sid)
 		try:
 			handle = urlopen(req)
 		except:
@@ -186,7 +186,7 @@ class Freesound:
 			"password": password,
 			"login": "1",
 			"redirect": "../tests/login.php"}
-		req = Request("http://freesound.iua.upf.edu/forum/login.php", 
+		req = Request("http://www.freesound.org/forum/login.php", 
 				urllib.urlencode(data))
 		try:
 			handle = urlopen(req)
@@ -226,7 +226,7 @@ class Freesound:
 		Returns:
 			the matching sample(s) list.
 		"""
-		req = Request("http://freesound.iua.upf.edu/searchTextXML.php", 
+		req = Request("http://www.freesound.org/searchTextXML.php", 
 				urllib.urlencode(query))
 		try:
 			handle = urlopen(req)
