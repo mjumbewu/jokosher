@@ -112,7 +112,8 @@ class MainApp:
 			"on_remove_instr_activate" : self.OnRemoveInstrument,
 			"on_report_bug_activate" : self.OnReportBug,
 			"on_project_add_audio" : self.OnAddAudioFile,
-			"on_system_information_activate" : self.OnSystemInformation
+			"on_system_information_activate" : self.OnSystemInformation,
+			"on_restore_crashed_project_activate" : self.OnRestoreCrashedProject,
 		}
 		self.wTree.signal_autoconnect(signals)
 		
@@ -1808,7 +1809,26 @@ class MainApp:
 			self.distroVersionStr.set_text(_("Unknown"))
 	
 	#_____________________________________________________________________
-	
+
+	def OnRestoreCrashedProject(self, widget):
+		"""
+		Displays a dialog allowing the user to either select a previously crashed 
+		project for restoration or to delete a crash file.
+
+		Parameters:
+			widget -- GTK callback parameter.
+		"""
+
+		self.crashedProjectTree = gtk.glade.XML(Globals.GLADE_PATH, "CrashedProjectDialog")
+
+		self.crashedProjectDialog = self.crashedProjectTree.get_widget("CrashedProjectDialog")
+
+		closeButton = self.crashedProjectTree.get_widget("CrashDialogCloseButton")	
+		closeButton.connect("clicked", lambda dialog: self.crashedProjectDialog.destroy())
+
+
+	#_____________________________________________________________________
+
 	def ShowOpenProjectErrorDialog(self, error, parent=None):
 		"""
 		Creates and shows a dialog to inform the user about an error that has ocurred.
