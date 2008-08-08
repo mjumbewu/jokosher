@@ -12,7 +12,8 @@ import pygtk
 pygtk.require("2.0")
 import gtk.glade, gobject
 import sys
-import os.path
+import os, os.path
+import time
 import pygst
 pygst.require("0.10")
 import gst
@@ -27,6 +28,7 @@ import ProjectManager, Globals, WelcomeDialog, AlsaDevices
 import InstrumentConnectionsDialog, StatusBar
 import EffectPresets, Extension, ExtensionManager
 import Utils, AudioPreview, MixdownProfileDialog, MixdownActions
+import CrashProtectionDialog
 
 #=========================================================================
 
@@ -259,9 +261,7 @@ class MainApp:
 
 
 		# Backup saving
-		self.backupProject = os.path.join(os.path.expanduser("~"), ".jokosher", "backupsave")
-		gobject.timeout_add(int(Globals.settings.general["backupsavetime"]), self.BackupSave)
-
+		self.SetupBackup()
 
 		## Setup is complete so start up the GUI and perhaps load a project
 		## any new setup code needs to go above here
@@ -1819,12 +1819,7 @@ class MainApp:
 			widget -- GTK callback parameter.
 		"""
 
-		self.crashedProjectTree = gtk.glade.XML(Globals.GLADE_PATH, "CrashedProjectDialog")
-
-		self.crashedProjectDialog = self.crashedProjectTree.get_widget("CrashedProjectDialog")
-
-		closeButton = self.crashedProjectTree.get_widget("CrashDialogCloseButton")	
-		closeButton.connect("clicked", lambda dialog: self.crashedProjectDialog.destroy())
+		self.crashDialog = CrashProtectionDialog.CrashProtectionDialog()
 
 
 	#_____________________________________________________________________
@@ -2037,6 +2032,33 @@ class MainApp:
 		self.filemenu.show_all()
 		
 	#_____________________________________________________________________
+
+	def SetupBackup(self, num=0):
+		"""
+		Sets up the backup system for crash protection. Stores all backups in 
+		~/.jokosher/backups in the format timestamp-num.jokosher. Backups will
+		occur at an interval specified in the "backupsavetime" config option.
+
+		Parameters:
+			num -- Number appended to the timestamp to allow for multiple
+			copies of Jokosher being launched at the same time.
+		"""
+
+		backupDir = os.path.join(os.path.expanduser("~"), ".jokosher", "backups")
+		if not os.path.exists(backupDir):
+			os.mkdir(backupDir)
+		backupFile = "%d-%d.jokosher" % (int(time.time()), num)
+		self.backupProject = os.path.join(backupDir, backupFile)
+		if os.path.exists(self.backupProject):
+			#Multiple copies of Jokosher have been opened simultaneously, so increment
+			#num to avoid conflicts
+			self.SetupBackup(num+1)
+		else:
+			#Open the file quickly so other instances can see it (still potential for 
+			#a race condition, but chances are greatly reduced)
+			open(self.backupProject, "w")
+			gobject.timeout_add(int(Globals.settings.general["backupsavetime"]), self.BackupSave)
+
 	
 #=========================================================================
 
