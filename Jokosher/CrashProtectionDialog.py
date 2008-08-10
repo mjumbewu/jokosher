@@ -148,17 +148,13 @@ class CrashProtectionDialog:
 			self.parent.OnSaveProject()
 			#Close the project
 			self.parent.CloseProject()
-			#Keep a version of the project file we're overwriting (just in case)
-			os.rename(projectFile, projectFile + ".old")
-			#Restore the backup
-			os.rename(backup, projectFile)
-			#Reopen project
-			self.parent.OpenProjectFromPath(projectFile)
-		else:
-			#Just restore the backup
-			os.rename(projectFile, projectFile + ".old")
-			os.rename(backup, projectFile)
-		#Regenerate list of projects
-		self.crashTable.foreach(self.crashTable.remove)
-		self.populate()
+
+		#Keep a version of the project file we're overwriting (just in case)
+		os.rename(projectFile, projectFile + ".old")
+		#Restore the backup
+		os.rename(backup, projectFile)
+		#Reopen project
+		self.parent.OpenProjectFromPath(projectFile)
+		self.crashedProjectDialog.destroy()
+		self.parent.restoredProject = True
 

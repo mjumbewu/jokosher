@@ -266,6 +266,7 @@ class MainApp:
 		self.window.show_all()
 
 		self.backupProject = None
+		self.restoredProject = False
 
 		# Check for crash and offer recovery
 		backupDir = os.path.join(os.path.expanduser("~"), ".jokosher", "backups")
@@ -281,6 +282,10 @@ class MainApp:
 
 		# Backup saving
 		self.SetupBackup()
+
+		if self.restoredProject:
+			#Don't display the welcome dialog if we've just restored a project (since it'll have been opened)
+			return
 
 		# command line options override preferences so check for them first,
 		# then preferences, then default to the welcome dialog
