@@ -73,7 +73,7 @@ class CrashProtectionDialog:
 				projectFile = backupDict["projectfile"]
 				hbox = gtk.HBox(3)
 				self.crashTable.attach(gtk.Label(name), 0, 1, row, row+1)
-				self.crashTable.attach(gtk.Label(time.ctime(saveTime)), 1, 2, row, row+1)
+				self.crashTable.attach(gtk.Label(time.strftime("%c", time.gmtime(saveTime))), 1, 2, row, row+1)
 				restoreButton = gtk.Button(_("Restore"))
 				restoreImage = gtk.Image()
 				restoreImage.set_from_stock(gtk.STOCK_REVERT_TO_SAVED, gtk.ICON_SIZE_BUTTON)
