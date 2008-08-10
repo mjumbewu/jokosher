@@ -91,6 +91,12 @@ class CrashProtectionDialog:
 				row+=1
 			except Exception, e:
 				Globals.debug("Couldn't read backup file: %s, reason: %s" % (backup, e.message))
+
+		if row == 1:
+			#No projects to restore
+			noProjectsLabel = gtk.Label(_("There are currently no crashed projects to restore."))
+			self.crashTable.attach(noProjectsLabel, 0, 1, row, row+1)
+
 		self.crashTable.show_all()
 
 	#_____________________________________________________________________
@@ -137,8 +143,9 @@ class CrashProtectionDialog:
 			self.parent.OnSaveProject()
 			#Close the project
 			self.parent.CloseProject()
-			#Restore the backup
+			#Keep a version of the project file we're overwriting (just in case)
 			os.rename(projectFile, projectFile + ".old")
+			#Restore the backup
 			os.rename(backup, projectFile)
 			#Reopen project
 			self.parent.OpenProjectFromPath(projectFile)
