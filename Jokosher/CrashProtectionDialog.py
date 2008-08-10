@@ -8,7 +8,7 @@
 
 import gtk.glade
 import gobject
-import os, time
+import os, time, datetime
 import xml.dom.minidom as xml
 import gzip
 import Utils
@@ -73,8 +73,9 @@ class CrashProtectionDialog:
 				name = backupDict["name"]
 				projectFile = backupDict["projectfile"]
 				hbox = gtk.HBox(3)
+				localSaveTime = datetime.datetime.fromtimestamp(saveTime)
 				self.crashTable.attach(gtk.Label(name), 0, 1, row, row+1)
-				self.crashTable.attach(gtk.Label(time.strftime("%c", time.gmtime(saveTime))), 1, 2, row, row+1)
+				self.crashTable.attach(gtk.Label(localSaveTime.strftime("%c")), 1, 2, row, row+1)
 				restoreButton = gtk.Button(_("Restore"))
 				restoreImage = gtk.Image()
 				restoreImage.set_from_stock(gtk.STOCK_REVERT_TO_SAVED, gtk.ICON_SIZE_BUTTON)
