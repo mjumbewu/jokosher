@@ -137,11 +137,9 @@ class CrashProtectionDialog:
 			dlg.add_buttons(_("Restore"), gtk.RESPONSE_APPLY,
 					gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL)
 			response = dlg.run()
+			dlg.destroy()
 			if response == gtk.RESPONSE_CANCEL:
-				dlg.destroy()
 				return
-			else:
-				dlg.destroy()
 		
 		if self.parent.project and self.parent.project.projectfile == projectFile:
 			#We're restoring the currently open project
