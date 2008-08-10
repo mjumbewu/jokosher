@@ -269,6 +269,9 @@ class MainApp:
 
 		# Check for crash and offer recovery
 		backupDir = os.path.join(os.path.expanduser("~"), ".jokosher", "backups")
+		if not os.path.exists(backupDir):
+			os.mkdir(backupDir)
+
 		for backupFile in os.listdir(backupDir):
 			backup = os.path.join(backupDir, backupFile)
 			if os.stat(backup).st_size > 0 and os.stat(backup).st_mtime > float(Globals.settings.general["lastbackup"]):
@@ -794,6 +797,11 @@ class MainApp:
 			self.project.SelectInstrument(None)
 			self.project.ClearEventSelections()
 			self.project.SaveProjectFile()
+			#Remove backup
+			if os.path.exists(self.backupProject):
+				Globals.debug("Removing backup file.")
+				os.remove(self.backupProject)
+
 			
 	#_____________________________________________________________________
 	
@@ -2031,8 +2039,6 @@ class MainApp:
 		"""
 
 		backupDir = os.path.join(os.path.expanduser("~"), ".jokosher", "backups")
-		if not os.path.exists(backupDir):
-			os.mkdir(backupDir)
 		backupFile = "%d-%d.jokosher" % (int(time.time()), num)
 		self.backupProject = os.path.join(backupDir, backupFile)
 		if os.path.exists(self.backupProject):
