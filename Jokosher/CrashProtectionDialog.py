@@ -32,6 +32,7 @@ class CrashProtectionDialog:
 		
 		self.crashedProjectTree = gtk.glade.XML(Globals.GLADE_PATH, "CrashedProjectDialog")
 		self.crashedProjectDialog = self.crashedProjectTree.get_widget("CrashedProjectDialog")
+		self.crashedProjectDialog.set_icon(self.parent.icon)
 
 		crashMessage = self.crashedProjectTree.get_widget("crashMessage")
 		if not crashed:
@@ -94,6 +95,8 @@ class CrashProtectionDialog:
 
 		if row == 1:
 			#No projects to restore
+			#Remove headings
+			self.crashTable.foreach(self.crashTable.remove)
 			noProjectsLabel = gtk.Label(_("There are currently no crashed projects to restore."))
 			self.crashTable.attach(noProjectsLabel, 0, 1, row, row+1)
 
@@ -136,6 +139,9 @@ class CrashProtectionDialog:
 			response = dlg.run()
 			if response == gtk.RESPONSE_CANCEL:
 				dlg.destroy()
+				return
+			else:
+				dlg.destroy()
 		
 		if self.parent.project and self.parent.project.projectfile == projectFile:
 			#We're restoring the currently open project
@@ -156,5 +162,4 @@ class CrashProtectionDialog:
 		#Regenerate list of projects
 		self.crashTable.foreach(self.crashTable.remove)
 		self.populate()
-		dlg.destroy()
 
