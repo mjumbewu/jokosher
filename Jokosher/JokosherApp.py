@@ -12,7 +12,8 @@ import pygtk
 pygtk.require("2.0")
 import gtk.glade, gobject
 import sys
-import os.path
+import os, os.path
+import time
 import pygst
 pygst.require("0.10")
 import gst
@@ -27,6 +28,7 @@ import ProjectManager, Globals, WelcomeDialog, AlsaDevices
 import InstrumentConnectionsDialog, StatusBar
 import EffectPresets, Extension, ExtensionManager
 import Utils, AudioPreview, MixdownProfileDialog, MixdownActions
+import CrashProtectionDialog
 
 #=========================================================================
 
@@ -112,7 +114,8 @@ class MainApp:
 			"on_remove_instr_activate" : self.OnRemoveInstrument,
 			"on_report_bug_activate" : self.OnReportBug,
 			"on_project_add_audio" : self.OnAddAudioFile,
-			"on_system_information_activate" : self.OnSystemInformation
+			"on_system_information_activate" : self.OnSystemInformation,
+			"on_restore_crashed_project_activate" : self.OnRestoreCrashedProject,
 		}
 		self.wTree.signal_autoconnect(signals)
 		
@@ -256,42 +259,34 @@ class MainApp:
 			# Load extensions -- this should probably go somewhere more appropriate
 			self.extensionManager = ExtensionManager.ExtensionManager(self)
 
-
-		# Backup saving
-		self.backupProject = os.path.join(os.path.expanduser("~"), ".jokosher", "backupsave")
-		gobject.timeout_add(int(Globals.settings.general["backupsavetime"]), self.BackupSave)
-
-
 		## Setup is complete so start up the GUI and perhaps load a project
 		## any new setup code needs to go above here
 		
 		# Show the main window
 		self.window.show_all()
 
+		self.backupProject = None
+		self.restoredProject = False
+
 		# Check for crash and offer recovery
-		if os.path.exists("%s.jokosher" % self.backupProject):
-			# We didn't shutdown cleanly last time, offer recovery
-			message = _("Jokosher did not shutdown correctly the last time it was used. Would you like to recover your project from the last backup?")
+		backupDir = os.path.join(os.path.expanduser("~"), ".jokosher", "backups")
+		if not os.path.exists(backupDir):
+			os.mkdir(backupDir)
 
-			dlg = gtk.MessageDialog(self.window,
-				gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
-				gtk.MESSAGE_INFO,
-				gtk.BUTTONS_NONE,
-				message)
-			dlg.add_button(gtk.STOCK_NO, gtk.RESPONSE_NO)
-			defaultAction = dlg.add_button(gtk.STOCK_YES, gtk.RESPONSE_YES)
-			dlg.set_default(defaultAction)
-			dlg.set_title("Jokosher - Crash Recovery")
-			response = dlg.run()
-			dlg.destroy()
+		for backupFile in os.listdir(backupDir):
+			backup = os.path.join(backupDir, backupFile)
+			if os.stat(backup).st_size > 0 and os.stat(backup).st_mtime > float(Globals.settings.general["lastbackup"]):
+				# We didn't shutdown cleanly last time, offer recovery
+				CrashProtectionDialog.CrashProtectionDialog(self, True)
+				break
 
-			if response == gtk.RESPONSE_YES:
-				Globals.debug("Restoring previous project.")
-				self.OpenProjectFromPath("%s.jokosher" % self.backupProject)
-				# Save backup to original project file location
-				self.project.SaveProjectFile() 
-				return
-	
+		# Backup saving
+		self.SetupBackup()
+
+		if self.restoredProject:
+			#Don't display the welcome dialog if we've just restored a project (since it'll have been opened)
+			return
+
 		# command line options override preferences so check for them first,
 		# then preferences, then default to the welcome dialog
 		if startuptype == 2: # welcomedialog cmdline switch
@@ -807,6 +802,11 @@ class MainApp:
 			self.project.SelectInstrument(None)
 			self.project.ClearEventSelections()
 			self.project.SaveProjectFile()
+			#Remove backup
+			if os.path.exists(self.backupProject):
+				Globals.debug("Removing backup file.")
+				os.remove(self.backupProject)
+
 			
 	#_____________________________________________________________________
 	
@@ -922,9 +922,9 @@ class MainApp:
 		self.project.CloseProject()
 
 		#Remove backup
-		if os.path.exists("%s.jokosher" % self.backupProject):
+		if os.path.exists(self.backupProject):
 			Globals.debug("Removing backup file.")
-			os.remove("%s.jokosher" % self.backupProject)
+			os.remove(self.backupProject)
 
 		self.project = None
 		self.mode = None
@@ -1808,7 +1808,21 @@ class MainApp:
 			self.distroVersionStr.set_text(_("Unknown"))
 	
 	#_____________________________________________________________________
-	
+
+	def OnRestoreCrashedProject(self, widget):
+		"""
+		Displays a dialog allowing the user to either select a previously crashed 
+		project for restoration or to delete a crash file.
+
+		Parameters:
+			widget -- GTK callback parameter.
+		"""
+
+		self.crashDialog = CrashProtectionDialog.CrashProtectionDialog(self)
+
+
+	#_____________________________________________________________________
+
 	def ShowOpenProjectErrorDialog(self, error, parent=None):
 		"""
 		Creates and shows a dialog to inform the user about an error that has ocurred.
@@ -2017,6 +2031,31 @@ class MainApp:
 		self.filemenu.show_all()
 		
 	#_____________________________________________________________________
+
+	def SetupBackup(self, num=0):
+		"""
+		Sets up the backup system for crash protection. Stores all backups in 
+		~/.jokosher/backups in the format timestamp-num.jokosher. Backups will
+		occur at an interval specified in the "backupsavetime" config option.
+
+		Parameters:
+			num -- Number appended to the timestamp to allow for multiple
+			copies of Jokosher being launched at the same time.
+		"""
+
+		backupDir = os.path.join(os.path.expanduser("~"), ".jokosher", "backups")
+		backupFile = "%d-%d.jokosher" % (int(time.time()), num)
+		self.backupProject = os.path.join(backupDir, backupFile)
+		if os.path.exists(self.backupProject):
+			#Multiple copies of Jokosher have been opened simultaneously, so increment
+			#num to avoid conflicts
+			self.SetupBackup(num+1)
+		else:
+			#Open the file quickly so other instances can see it (still potential for 
+			#a race condition, but chances are greatly reduced)
+			open(self.backupProject, "w")
+			gobject.timeout_add(int(Globals.settings.general["backupsavetime"]), self.BackupSave)
+
 	
 #=========================================================================
 
