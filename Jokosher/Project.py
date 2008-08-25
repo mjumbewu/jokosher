@@ -697,8 +697,8 @@ class Project(gobject.GObject):
 		params = doc.createElement("Parameters")
 		head.appendChild(params)
 		
-		items = ["viewScale", "viewStart", "name", "author", "audio_path",  "levels_path",
-		              "transportMode", "bpm", "meter_nom", "meter_denom", "projectfile"]
+		items = ["viewScale", "viewStart", "name", "author",
+		         "transportMode", "bpm", "meter_nom", "meter_denom", "projectfile"]
 		
 		Utils.StoreParametersToXML(self, doc, params, items)
 			
