@@ -50,7 +50,7 @@ dist = setup(name='jokosher',
 	license='GNU GPL',
 	platforms='linux',
 	scripts=['bin/jokosher'],
-	packages=['Jokosher'],
+	packages=['Jokosher', 'Jokosher/elements'],
 	data_files=[
 		('share/jokosher/', glob.glob("Jokosher/*.glade")),
 		('share/jokosher/', ["Jokosher/jokosher-logo.png"]),
