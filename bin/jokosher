@@ -34,10 +34,10 @@ _ = gettext.gettext
 try:
 	locale.setlocale(locale.LC_ALL, '')
 	gettext.bindtextdomain(Globals.LOCALE_APP, Globals.LOCALE_PATH)
-	gettext.bind_textdomain_codeset(Globals.LOCALE_APP, "UTF-8");
+	gettext.bind_textdomain_codeset(Globals.LOCALE_APP, "UTF-8")
 	gettext.textdomain(Globals.LOCALE_APP)
 except locale.Error:
-	print "Locale unsupported, defaulting to english for all Jokosher specific text"
+	print "Locale unsupported, defaulting to english for all Jokosher specific text."
 	
 # parse command line
 openproject = None
@@ -85,5 +85,5 @@ import Jokosher.JokosherApp as JokosherApp
 
 #Launch the program
 JokosherApp.MainApp(openproject, loadExtensions, startupType)
-gobject.threads_init()
+JokosherApp.gobject.threads_init()
 JokosherApp.gtk.main()
