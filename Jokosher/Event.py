@@ -676,6 +676,14 @@ class Event(gobject.GObject):
 				else:
 					self.duration = self.loadingLength
 			
+			if self.levels_list:
+				final_endtime = self.levels_list[-1][0]
+				if final_endtime > int(self.duration * 1000):
+					Globals.debug("Event %d: duration (%f) is less than last level endtime (%d)."
+					              % (self.id, self.duration, final_endtime))
+					self.duration = final_endtime / 1000.0
+					Globals.debug("\tduration has been increased to", self.duration)
+			
 			if length and (self.offset > 0 or self.duration != length):
 				starttime = int(self.offset * 1000)
 				stoptime = int((self.offset + self.duration) * 1000)
@@ -1082,7 +1090,8 @@ class Event(gobject.GObject):
 		list is a cache of faded levels as they will be shown on the screen
 		so that we don't have to calculate them everytime we draw.
 		"""
-		if not self.audioFadePoints:
+		if not self.audioFadePoints or len(self.audioFadePoints) < 2:
+			Globals.debug("Event", self.id, ": no fade points to use")
 			#there are no fade points for us to use
 			return
 			
@@ -1104,10 +1113,16 @@ class Event(gobject.GObject):
 		
 		for endtime, peak in self.levels_list:
 			# check if we have moved into the next fade point pair
-			if (endtime - secondFadeTime) > 1:  # don't care about 1 millisecond difference, its rounding error
+			# don't care about 1 millisecond difference, its rounding error
+			if endtime > (secondFadeTime + 1):  
 				firstFadeTime = secondFadeTime
 				firstFadeValue = secondFadeValue
-				secondFadeTime, secondFadeValue = iterFadePoints.next()
+				try:
+					secondFadeTime, secondFadeValue = iterFadePoints.next()
+				except StopIteration:
+					Globals.debug("Event %d: endtime (%d) is after last fade point (%d,%d)"
+					              % (self.id, endtime, secondFadeTime, secondFadeValue))
+				
 				secondFadeTime = int(secondFadeTime * 1000)	#convert to milliseconds
 				
 				# if less than one percent difference, assume they are the same
