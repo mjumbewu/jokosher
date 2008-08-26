@@ -160,6 +160,7 @@ def LoadProjectFile(uri):
 			#if we're loading an old version copy the project so that it is not overwritten when the user clicks save
 			withoutExt = os.path.splitext(projectfile)[0]
 			shutil.copy(projectfile, "%s.%s.jokosher" % (withoutExt, version))
+		project.projectfile = projectfile
 		return project
 	else:
 		# raise a "this project was created in an incompatible version of Jokosher" message
