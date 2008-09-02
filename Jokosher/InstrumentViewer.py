@@ -194,12 +194,12 @@ class InstrumentViewer(gtk.EventBox):
 			event -- GTK callback.
 			
 		Returns:
-			True -- continue GTK signal propagation. *CHECK*
+			True -- continue GTK signal propagation.
 		"""
 		if not self.instrument.isSelected:
-			self.OnSelect(widget, event)
 			# Don't edit label unless the user clicks while we are already selected
-			return True
+			# return false so that the event is handled by the parent widget.
+			return False
 			
 		# replace label with gtk.Entry in order to edit it
 		if event.type == gtk.gdk.BUTTON_PRESS:
