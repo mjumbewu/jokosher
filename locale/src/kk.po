@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: jokosher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-24 16:18-0400\n"
+"POT-Creation-Date: 2008-09-03 13:33-0400\n"
 "PO-Revision-Date: 2007-04-07 07:23+0000\n"
 "Last-Translator: arruah <arruah@gmail.com>\n"
 "Language-Team: Kazakh <kk@li.org>\n"
@@ -943,7 +943,7 @@ msgid ""
 "certain you wish to restore it?"
 msgstr ""
 
-#: ../../Jokosher/Event.py:757
+#: ../../Jokosher/Event.py:765
 #, python-format
 msgid "%(title)s by %(artist)s"
 msgstr ""
@@ -968,71 +968,71 @@ msgstr ""
 msgid "Snap To Fade Points"
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:442
+#: ../../Jokosher/EventViewer.py:443
 msgid "Downloading..."
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:444
+#: ../../Jokosher/EventViewer.py:445
 msgid "Loading..."
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:448
+#: ../../Jokosher/EventViewer.py:449
 #, python-format
 msgid "Downloading (%d%%)..."
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:450
+#: ../../Jokosher/EventViewer.py:451
 #, python-format
 msgid "Loading (%d%%)..."
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:461
+#: ../../Jokosher/EventViewer.py:462
 msgid "Recording..."
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:509
+#: ../../Jokosher/EventViewer.py:510
 msgid ""
 "To <b>Split, Double-Click</b> the wave - To <b>Select, Shift-Click</b> and "
 "drag the mouse"
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:523
+#: ../../Jokosher/EventViewer.py:524
 msgid "<b>Drag</b> the red sliders to modify the volume fade."
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:636
+#: ../../Jokosher/EventViewer.py:637
 msgid ""
 "<b>Click</b> the buttons below the selection to do something to that portion "
 "of audio."
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:901
+#: ../../Jokosher/EventViewer.py:902
 msgid "_Split"
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:903
+#: ../../Jokosher/EventViewer.py:904
 msgid "Cu_t"
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:904
+#: ../../Jokosher/EventViewer.py:905
 msgid "_Copy"
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:905
+#: ../../Jokosher/EventViewer.py:906
 #: ../../Jokosher/InstrumentEffectsDialog.py:442
 msgid "_Delete"
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:1195
+#: ../../Jokosher/EventViewer.py:1196
 msgid "Error loading file:"
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:1196
+#: ../../Jokosher/EventViewer.py:1197
 msgid ""
 "Please make sure the file exists, and the appropriate plugin is installed."
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:1414
+#: ../../Jokosher/EventViewer.py:1415
 #, python-format
 msgid ""
 "Event, %(name)s, %(dur)0.2f seconds long, starting at %(start)0.2f seconds."
@@ -1095,67 +1095,67 @@ msgid ""
 "An error occurred when trying to launch the preferences for the extension"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:441
+#: ../../Jokosher/Globals.py:442
 msgid "Broken"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:442
+#: ../../Jokosher/Globals.py:443
 msgid "Unclassified"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:443
+#: ../../Jokosher/Globals.py:444
 msgid "Amplifiers"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:444
+#: ../../Jokosher/Globals.py:445
 msgid "Chorus"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:445
+#: ../../Jokosher/Globals.py:446
 msgid "Compressors"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:446
+#: ../../Jokosher/Globals.py:447
 msgid "Delays"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:447
+#: ../../Jokosher/Globals.py:448
 msgid "Distortions"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:448
+#: ../../Jokosher/Globals.py:449
 msgid "Equalizers"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:449
+#: ../../Jokosher/Globals.py:450
 msgid "Filters"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:450
+#: ../../Jokosher/Globals.py:451
 msgid "Flangers"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:451
+#: ../../Jokosher/Globals.py:452
 msgid "Miscellaneous"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:452
+#: ../../Jokosher/Globals.py:453
 msgid "Modulators"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:453
+#: ../../Jokosher/Globals.py:454
 msgid "Oscillators"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:454
+#: ../../Jokosher/Globals.py:455
 msgid "Phasers"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:455
+#: ../../Jokosher/Globals.py:456
 msgid "Reverbs"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:456
+#: ../../Jokosher/Globals.py:457
 msgid "Simulators"
 msgstr ""
 

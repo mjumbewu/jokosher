@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: jokosher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-24 16:18-0400\n"
+"POT-Creation-Date: 2008-09-03 13:33-0400\n"
 "PO-Revision-Date: 2007-03-10 16:19+0000\n"
 "Last-Translator: Iestyn Pryce <dylunio@gmail.com>\n"
 "Language-Team: Welsh <cy@li.org>\n"
@@ -1008,7 +1008,7 @@ msgid ""
 "certain you wish to restore it?"
 msgstr ""
 
-#: ../../Jokosher/Event.py:757
+#: ../../Jokosher/Event.py:765
 #, python-format
 msgid "%(title)s by %(artist)s"
 msgstr "%(title)s gan %(artist)s"
@@ -1033,29 +1033,29 @@ msgstr "Dileu Pwyntiau Pylu"
 msgid "Snap To Fade Points"
 msgstr "Snapio I'r Pwyntiau Pylu"
 
-#: ../../Jokosher/EventViewer.py:442
+#: ../../Jokosher/EventViewer.py:443
 msgid "Downloading..."
 msgstr "Lawrlwytho..."
 
-#: ../../Jokosher/EventViewer.py:444
+#: ../../Jokosher/EventViewer.py:445
 msgid "Loading..."
 msgstr "Llwytho..."
 
-#: ../../Jokosher/EventViewer.py:448
+#: ../../Jokosher/EventViewer.py:449
 #, python-format
 msgid "Downloading (%d%%)..."
 msgstr "Lawrlwytho (%d%%)..."
 
-#: ../../Jokosher/EventViewer.py:450
+#: ../../Jokosher/EventViewer.py:451
 #, python-format
 msgid "Loading (%d%%)..."
 msgstr "Llwytho (%d%%)..."
 
-#: ../../Jokosher/EventViewer.py:461
+#: ../../Jokosher/EventViewer.py:462
 msgid "Recording..."
 msgstr "Recordio..."
 
-#: ../../Jokosher/EventViewer.py:509
+#: ../../Jokosher/EventViewer.py:510
 msgid ""
 "To <b>Split, Double-Click</b> the wave - To <b>Select, Shift-Click</b> and "
 "drag the mouse"
@@ -1063,11 +1063,11 @@ msgstr ""
 "I <b>Hollti, Glic-Dwbwl</b> ar y don - I <b>Ddewis, Shift-Glicio</b> a "
 "llusgo'r llygoden."
 
-#: ../../Jokosher/EventViewer.py:523
+#: ../../Jokosher/EventViewer.py:524
 msgid "<b>Drag</b> the red sliders to modify the volume fade."
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:636
+#: ../../Jokosher/EventViewer.py:637
 msgid ""
 "<b>Click</b> the buttons below the selection to do something to that portion "
 "of audio."
@@ -1075,34 +1075,34 @@ msgstr ""
 "<b>Cliciwch</b> y bytymau islaw'r dewisiad i gwneud rywbeth i'r darn yna o'r "
 "sain."
 
-#: ../../Jokosher/EventViewer.py:901
+#: ../../Jokosher/EventViewer.py:902
 msgid "_Split"
 msgstr "_Hollti"
 
-#: ../../Jokosher/EventViewer.py:903
+#: ../../Jokosher/EventViewer.py:904
 msgid "Cu_t"
 msgstr "_Torri"
 
-#: ../../Jokosher/EventViewer.py:904
+#: ../../Jokosher/EventViewer.py:905
 msgid "_Copy"
 msgstr "_Copïo"
 
-#: ../../Jokosher/EventViewer.py:905
+#: ../../Jokosher/EventViewer.py:906
 #: ../../Jokosher/InstrumentEffectsDialog.py:442
 msgid "_Delete"
 msgstr "_Dileu"
 
-#: ../../Jokosher/EventViewer.py:1195
+#: ../../Jokosher/EventViewer.py:1196
 msgid "Error loading file:"
 msgstr "Gwall yn llwytho feil:"
 
-#: ../../Jokosher/EventViewer.py:1196
+#: ../../Jokosher/EventViewer.py:1197
 msgid ""
 "Please make sure the file exists, and the appropriate plugin is installed."
 msgstr ""
 "Gwnewch yn sicir fod y ffeil yn bodoli a fod y atodyn addas wedi'i osod."
 
-#: ../../Jokosher/EventViewer.py:1414
+#: ../../Jokosher/EventViewer.py:1415
 #, python-format
 msgid ""
 "Event, %(name)s, %(dur)0.2f seconds long, starting at %(start)0.2f seconds."
@@ -1173,67 +1173,67 @@ msgid ""
 "An error occurred when trying to launch the preferences for the extension"
 msgstr "Mi fuodd gwall ddigwydd pan yn ceisio lawnsio gosodiadau i'r estyniad"
 
-#: ../../Jokosher/Globals.py:441
+#: ../../Jokosher/Globals.py:442
 msgid "Broken"
 msgstr "Wedi Torri"
 
-#: ../../Jokosher/Globals.py:442
+#: ../../Jokosher/Globals.py:443
 msgid "Unclassified"
 msgstr "Annosbarthedig"
 
-#: ../../Jokosher/Globals.py:443
+#: ../../Jokosher/Globals.py:444
 msgid "Amplifiers"
 msgstr "Mwyhaduron"
 
-#: ../../Jokosher/Globals.py:444
+#: ../../Jokosher/Globals.py:445
 msgid "Chorus"
 msgstr "Corws"
 
-#: ../../Jokosher/Globals.py:445
+#: ../../Jokosher/Globals.py:446
 msgid "Compressors"
 msgstr "Cywasgyddion"
 
-#: ../../Jokosher/Globals.py:446
+#: ../../Jokosher/Globals.py:447
 msgid "Delays"
 msgstr "Oediadau"
 
-#: ../../Jokosher/Globals.py:447
+#: ../../Jokosher/Globals.py:448
 msgid "Distortions"
 msgstr "Afluniadau"
 
-#: ../../Jokosher/Globals.py:448
+#: ../../Jokosher/Globals.py:449
 msgid "Equalizers"
 msgstr "Hafalyddion"
 
-#: ../../Jokosher/Globals.py:449
+#: ../../Jokosher/Globals.py:450
 msgid "Filters"
 msgstr "Hidlyddion"
 
-#: ../../Jokosher/Globals.py:450
+#: ../../Jokosher/Globals.py:451
 msgid "Flangers"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:451
+#: ../../Jokosher/Globals.py:452
 msgid "Miscellaneous"
 msgstr "Amrywiol"
 
-#: ../../Jokosher/Globals.py:452
+#: ../../Jokosher/Globals.py:453
 msgid "Modulators"
 msgstr "Trosiaduron"
 
-#: ../../Jokosher/Globals.py:453
+#: ../../Jokosher/Globals.py:454
 msgid "Oscillators"
 msgstr "Osgilyddion"
 
-#: ../../Jokosher/Globals.py:454
+#: ../../Jokosher/Globals.py:455
 msgid "Phasers"
 msgstr "Ffasors"
 
-#: ../../Jokosher/Globals.py:455
+#: ../../Jokosher/Globals.py:456
 msgid "Reverbs"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:456
+#: ../../Jokosher/Globals.py:457
 msgid "Simulators"
 msgstr ""
 
