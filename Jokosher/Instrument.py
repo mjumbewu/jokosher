@@ -23,7 +23,6 @@ import UndoSystem
 import Utils
 
 import Globals
-import AlsaDevices
 import gettext
 _ = gettext.gettext
 
@@ -119,12 +118,7 @@ class Instrument(gobject.GObject):
 		self.recordingbin = None
 		self.id = project.GenerateUniqueID(id)	#check is id is already being used before setting
 		
-		# Select first input device as default to avoid a GStreamer bug which causes
-		# large amounts of latency with the ALSA 'default' device.
-		try:
-			self.input = AlsaDevices.GetAlsaList("capture").keys()[1]
-		except: 
-			self.input = "default"
+		self.input = "default"	# the device to use for recording on this instrument.
 	
 		# CREATE GSTREAMER ELEMENTS #
 		self.playbackbin = gst.element_factory_make("bin", "Instrument_%d"%self.id)
