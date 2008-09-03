@@ -10,7 +10,7 @@
 
 import gtk.glade
 import Globals
-import AlsaDevices
+import AudioBackend
 import pygst
 pygst.require("0.10")
 import gst
@@ -82,13 +82,13 @@ class PreferencesDialog:
 		
 		#Find all ALSA devices
 		self.playbacks = [] #Map combobox entries to ALSA devices
-		for device, playback in AlsaDevices.GetAlsaList("playback").items():
+		for device, playback in AudioBackend.GetAlsaList("playback").items():
 			self.playbacks.append(device)
 			self.playbackDevice.append_text(playback)
 		self.LoadSetting(self.playbackDevice, Globals.settings.playback, "device")
 			
 		#Get available sample rates from ALSA
-		sample_values = AlsaDevices.GetRecordingSampleRate()
+		sample_values = AudioBackend.GetRecordingSampleRate()
 		i18nText = "%(sample rate)d Hz"
 		#add tuple of (display string, rate value)
 		self.sampleRateList = [( _("Autodetect"), 0)]

@@ -13,7 +13,7 @@ import pygst
 pygst.require("0.10")
 import gst
 import Globals
-import AlsaDevices
+import AudioBackend
 import gettext
 _ = gettext.gettext
 
@@ -82,13 +82,13 @@ class InstrumentConnectionsDialog:
 		self.inputs = {}
 	
 		#Find out how many channels a device offers
-		for device, deviceName in AlsaDevices.GetAlsaList("capture").items():
+		for device, deviceName in AudioBackend.GetAlsaList("capture").items():
 
 			#Don't want the default device twice (once as 'default' and once as its actual hw ref)
 			if device == "default":
 				continue
 
-			self.inputs[device] = (deviceName, AlsaDevices.GetChannelsOffered(device))
+			self.inputs[device] = (deviceName, AudioBackend.GetChannelsOffered(device))
 		
 		for instr in self.project.instruments:		
 			instrument = instr

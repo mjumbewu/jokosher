@@ -25,7 +25,7 @@ import Globals
 import xml.dom.minidom as xml
 import Instrument, Event
 import Utils
-import AlsaDevices
+import AudioBackend
 import ProjectManager
 
 #=========================================================================
@@ -287,7 +287,7 @@ class Project(gobject.GObject):
 		#Add all instruments to the pipeline
 		self.recordingEvents = {}
 		devices = {}
-		for device in AlsaDevices.GetAlsaList("capture").keys():
+		for device in AudioBackend.GetAlsaList("capture").keys():
 			devices[device] = []
 			for instr in self.instruments:
 				if instr.isArmed and instr.input == device:
@@ -299,7 +299,7 @@ class Project(gobject.GObject):
 				#Nothing to record on this device
 				continue
 
-			channelsNeeded = AlsaDevices.GetChannelsOffered(device)
+			channelsNeeded = AudioBackend.GetChannelsOffered(device)
 
 			if channelsNeeded > 1 and not gst.registry_get_default().find_plugin("chansplit"):
 				Globals.debug("Channel splitting element not found when trying to record from multi-input device.")
@@ -1357,7 +1357,7 @@ class Project(gobject.GObject):
 				try:
 					# Select first output device as default to avoid a GStreamer bug which causes
 					# large amounts of latency with the ALSA 'default' device.
-					outdevice = AlsaDevices.GetAlsaList("playback").keys()[1]
+					outdevice = AudioBackend.GetAlsaList("playback").keys()[1]
 				except:
 					pass
 			Globals.debug("Output device: %s" % outdevice)

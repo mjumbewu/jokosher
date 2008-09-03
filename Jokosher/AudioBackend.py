@@ -2,9 +2,11 @@
 #		THIS FILE IS PART OF THE JOKOSHER PROJECT AND LICENSED UNDER THE GPL. SEE
 #		THE 'COPYING' FILE FOR DETAILS
 #
-#		AlsaDevices.py
+#		AudioBackend.py
 #
-#		This file offers ALSA specific helper functions.
+#		This file offers functions to retrieve information about the
+#		audio devices available with the current audio backend, and
+#		the capabilities that those devices support.
 #
 #-------------------------------------------------------------------------------
 

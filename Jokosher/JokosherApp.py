@@ -24,7 +24,7 @@ _ = gettext.gettext
 
 import AddInstrumentDialog, TimeView, Workspace
 import PreferencesDialog, ExtensionManagerDialog, RecordingView, NewProjectDialog
-import ProjectManager, Globals, WelcomeDialog, AlsaDevices
+import ProjectManager, Globals, WelcomeDialog
 import InstrumentConnectionsDialog, StatusBar
 import EffectPresets, Extension, ExtensionManager
 import Utils, AudioPreview, MixdownProfileDialog, MixdownActions
