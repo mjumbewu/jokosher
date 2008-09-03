@@ -82,7 +82,7 @@ class InstrumentConnectionsDialog:
 		self.inputs = {}
 	
 		#Find out how many channels a device offers
-		for device, deviceName in AudioBackend.GetAlsaList("capture").items():
+		for device, deviceName in AudioBackend.ListCaptureDevices():
 
 			#Don't want the default device twice (once as 'default' and once as its actual hw ref)
 			if device == "default":

@@ -287,7 +287,7 @@ class Project(gobject.GObject):
 		#Add all instruments to the pipeline
 		self.recordingEvents = {}
 		devices = {}
-		for device in AudioBackend.GetAlsaList("capture").keys():
+		for device, deviceName in AudioBackend.ListCaptureDevices(probe_name=False):
 			devices[device] = []
 			for instr in self.instruments:
 				if instr.isArmed and instr.input == device:
@@ -1353,13 +1353,7 @@ class Project(gobject.GObject):
 			sinkElement = gst.element_factory_make("alsasink")
 			#Set the alsa device for audio output
 			outdevice = Globals.settings.playback["devicecardnum"]
-			if outdevice == "default":
-				try:
-					# Select first output device as default to avoid a GStreamer bug which causes
-					# large amounts of latency with the ALSA 'default' device.
-					outdevice = AudioBackend.GetAlsaList("playback").keys()[1]
-				except:
-					pass
+			
 			Globals.debug("Output device: %s" % outdevice)
 			sinkElement.set_property("device", outdevice)
 			Globals.debug("Using alsasink for audio output")

@@ -17,6 +17,12 @@ import Globals
 
 #=========================================================================
 
+def ListPlaybackDevices(sink=None, probe_name=True):
+	pass
+	
+def ListCaptureDevices(src=None, probe_name=True):
+	pass
+
 def GetAlsaList(type):
 	"""
 	Returns a dictionary containing ALSA device names and their 

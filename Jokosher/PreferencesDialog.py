@@ -82,9 +82,9 @@ class PreferencesDialog:
 		
 		#Find all ALSA devices
 		self.playbacks = [] #Map combobox entries to ALSA devices
-		for device, playback in AudioBackend.GetAlsaList("playback").items():
+		for device, deviceName in AudioBackend.ListPlaybackDevices():
 			self.playbacks.append(device)
-			self.playbackDevice.append_text(playback)
+			self.playbackDevice.append_text(deviceName)
 		self.LoadSetting(self.playbackDevice, Globals.settings.playback, "device")
 			
 		#Get available sample rates from ALSA
