@@ -162,13 +162,14 @@ msgstr ""
 "ALSA\n"
 "Пользовательский"
 
+
 #: ../../Jokosher/Jokosher.glade.h:38
 msgid "Beat _value"
-msgstr ""
+msgstr "Длительность _доли"
 
 #: ../../Jokosher/Jokosher.glade.h:39
 msgid "Beats per _measure"
-msgstr ""
+msgstr "Долей в _такте"
 
 #: ../../Jokosher/Jokosher.glade.h:40
 msgid "Cancel the mixdown"
@@ -755,7 +756,7 @@ msgstr "_Открыть недавний проект"
 
 #: ../../Jokosher/Jokosher.glade.h:228
 msgid "_Pipeline:"
-msgstr ""
+msgstr "_Конвейер:"
 
 #: ../../Jokosher/Jokosher.glade.h:229
 msgid "_Preferences"
