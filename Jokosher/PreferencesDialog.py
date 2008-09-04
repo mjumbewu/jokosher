@@ -277,7 +277,7 @@ class PreferencesDialog:
 		self.playbacks = [] # Map combobox entries to property names instead of human readable names).
 		self.playbackDevice.get_model().clear() # clear combo box
 		for device, deviceName in AudioBackend.ListPlaybackDevices():
-			if device == "default" and not deviceName:
+			if len(self.playbacks) == 0 and not deviceName:
 				deviceName = _("Default")
 			self.playbacks.append(device)
 			self.playbackDevice.append_text(deviceName)

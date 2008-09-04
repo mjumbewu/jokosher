@@ -60,22 +60,25 @@ def ListDeviceProbe(element, probe_name):
 	
 	element.set_state(gst.STATE_READY)
 	
-	if gobject.type_is_a(element, gst.interfaces.PropertyProbe) and hasattr(element.props, "device"):
-		element.probe_property_name("device")
-		devices = element.probe_get_values_name("device")
-		
-		if not "default" in devices:
-			# assume default device is "default"
-			dev_info_list.append(("default", ""))
-		
-		if probe_name and hasattr(element.props, "device-name"):
-			for dev in devices:
-				element.set_property("device", dev)
-				name = element.get_property("device-name")
-				dev_info_list.append((dev,name))
+	if hasattr(element.props, "device"):
+		default_device = element.__class__.props.device.default_value
+		if gobject.type_is_a(element, gst.interfaces.PropertyProbe):
+			element.probe_property_name("device")
+			devices = element.probe_get_values_name("device")
+			
+			if not default_device in devices:
+				dev_info_list.append((default_device, ""))
+			
+			if probe_name and hasattr(element.props, "device-name"):
+				for dev in devices:
+					element.set_property("device", dev)
+					name = element.get_property("device-name")
+					dev_info_list.append((dev,name))
+			else:
+				for dev in devices:
+					dev_info_list.append((dev,""))
 		else:
-			for dev in devices:
-				dev_info_list.append((dev,""))
+			dev_info_list.append((default_device, ""))
 	else:
 		Globals.debug("Cannot list devices: property probe not supported on", element_name)
 		
