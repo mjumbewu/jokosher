@@ -247,6 +247,7 @@ class MainApp:
 		# set up presets registry - this should probably be removed here	
 		EffectPresets.EffectPresets()
 		Globals.PopulateEncoders()
+		Globals.PopulateAudioBackends()
 		
 		# seems like this is the best place to instantiate RegisterMixdownActionAPI
 		# as extensions and the mixdown profile dialog can use it through mainapp

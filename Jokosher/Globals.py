@@ -319,27 +319,50 @@ def PopulateEncoders():
 	"""
 	Check if the hardcoded list of encoders is available on the system.
 	"""
+	for type in _export_formats:
+		if VerifyAllElements(type[2]):
+			#create a dictionary using _export_template as the keys
+			#and the current item from _export_formats as the values.
+			d = dict(zip(_export_template, type))
+			EXPORT_FORMATS.append(d)
+
+#_____________________________________________________________________
+
+def VerifyAllElements(bin_desc):
 	#HACK: we can't import gst at the top of Globals.py because
 	#if we do, gstreamer will get to the sys.args and print it's own
 	#message instead of ours. This will be fixed once we can use
 	#GOption when we depend on pygobject 2.12.
 	import gst
 	
-	for type in _export_formats:
-		all_elements_exist = True
-		for element in type[2].split("!"):
-			exists = gst.default_registry_check_feature_version(element.strip(), 0, 10, 0)
-			if not exists:
-				all_elements_exist = False
-				debug('Cannot find "%s" plugin, disabling encoder: "%s"' % (element.strip(), type[2]))
-				# we know at least one of the elements doesnt exist, so skip this encode format.
-				break
-		
-		if all_elements_exist:
-			#create a dictionary using _export_template as the keys
-			#and the current item from _export_formats as the values.
-			d = dict(zip(_export_template, type))
-			EXPORT_FORMATS.append(d)
+	all_elements_exist = True
+	for element in bin_desc.split("!"):
+		exists = gst.default_registry_check_feature_version(element.strip(), 0, 10, 0)
+		if not exists:
+			all_elements_exist = False
+			debug('Cannot find "%s" plugin, disabling: "%s"' % (element.strip(), bin_desc))
+			# we know at least one of the elements doesnt exist, so skip this encode format.
+			break
+	
+	return all_elements_exist
+	
+#_____________________________________________________________________
+
+def PopulateAudioBackends():
+	CheckBackendList(PLAYBACK_BACKENDS)
+	CheckBackendList(CAPTURE_BACKENDS)
+	
+#_____________________________________________________________________
+	
+def CheckBackendList(backend_list):
+	remove_list = []
+	for tuple_ in backend_list:
+		bin_desc = tuple_[1]
+		if not VerifyAllElements(bin_desc):
+			remove_list.append(tuple_)
+	
+	for tuple_ in remove_list:
+		backend_list.remove(tuple_)
 
 #_____________________________________________________________________
 
