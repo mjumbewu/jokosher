@@ -1352,7 +1352,7 @@ class Project(gobject.GObject):
 		if sinkString == "alsasink":
 			sinkElement = gst.element_factory_make("alsasink")
 			#Set the alsa device for audio output
-			outdevice = Globals.settings.playback["devicecardnum"]
+			outdevice = Globals.settings.playback["device"]
 			
 			Globals.debug("Output device: %s" % outdevice)
 			sinkElement.set_property("device", outdevice)

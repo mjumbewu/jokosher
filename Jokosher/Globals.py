@@ -44,8 +44,8 @@ class Settings:
 				}
 	
 	playback = 	{
+				"devicename": "default",
 				"device": "default",
-				"devicecardnum": "default",
 				"audiosink":"autoaudiosink"
 				}
 	

@@ -91,7 +91,7 @@ class PreferencesDialog:
 		if not self.playbacks:
 			self.playbackDevice.set_sensitive(False)
 		else:
-			self.LoadSetting(self.playbackDevice, Globals.settings.playback, "device")
+			self.LoadSetting(self.playbackDevice, Globals.settings.playback, "devicename")
 			
 		#Get available sample rates from ALSA
 		sample_values = AudioBackend.GetRecordingSampleRate()
@@ -211,8 +211,8 @@ class PreferencesDialog:
 		#only get the number from "44100 Hz", not the whole string
 		sampleRateIndex = self.samplingRate.get_active()
 		Globals.settings.recording["samplerate"] = self.sampleRateList[sampleRateIndex][1]
-		Globals.settings.playback["device"] = self.playbackDevice.get_active_text()
-		Globals.settings.playback["devicecardnum"] = self.playbacks[self.playbackDevice.get_active()]
+		Globals.settings.playback["devicename"] = self.playbackDevice.get_active_text()
+		Globals.settings.playback["device"] = self.playbacks[self.playbackDevice.get_active()]
 		
 		if self.radioWelcome.get_active():
 			Globals.settings.general["startupaction"] = STARTUP_WELCOME_DIALOG
