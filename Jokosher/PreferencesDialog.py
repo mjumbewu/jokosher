@@ -78,7 +78,7 @@ class PreferencesDialog:
 			self.playbackSink.set_active(2)
 			self.customSink.set_sensitive(True)
 			self.customSink.set_text(audioSinkSetting)
-			self.playbackDevice.set_sensitive(False)
+			self.playbackDevice.set_sensitive(True)
 		
 		#Find all ALSA devices
 		self.playbacks = [] #Map combobox entries to ALSA devices
@@ -87,7 +87,11 @@ class PreferencesDialog:
 				deviceName = _("Default")
 			self.playbacks.append(device)
 			self.playbackDevice.append_text(deviceName)
-		self.LoadSetting(self.playbackDevice, Globals.settings.playback, "device")
+			
+		if not self.playbacks:
+			self.playbackDevice.set_sensitive(False)
+		else:
+			self.LoadSetting(self.playbackDevice, Globals.settings.playback, "device")
 			
 		#Get available sample rates from ALSA
 		sample_values = AudioBackend.GetRecordingSampleRate()

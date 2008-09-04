@@ -23,13 +23,13 @@ def ListPlaybackDevices(sink=None, probe_name=True):
 	try:
 		bin = gst.parse_bin_from_description(sink, False)
 	except gobject.GError, gst.ElementNotFoundError:
-		Globals.debug("Cannot list playback devices: cannot parse bin", src)
+		Globals.debug("Cannot list playback devices: cannot parse bin", sink)
 		return list()
 	
 	try:
 		element = bin.sinks().next()
 	except StopIteration:
-		Globals.debug("Cannot list playback devices: no sink device in the bin", src)
+		Globals.debug("Cannot list playback devices: no sink device in the bin", sink)
 		
 	return ListDeviceProbe(element, probe_name)
 	
@@ -56,13 +56,17 @@ def ListCaptureDevices(src=None, probe_name=True):
 
 def ListDeviceProbe(element, probe_name):
 	element_name = element.get_factory().get_property("name")
-	dev_info_list = [("default", "")]
+	dev_info_list = []
 	
 	element.set_state(gst.STATE_READY)
 	
 	if gobject.type_is_a(element, gst.interfaces.PropertyProbe) and hasattr(element.props, "device"):
 		element.probe_property_name("device")
 		devices = element.probe_get_values_name("device")
+		
+		if not "default" in devices:
+			# assume default device is "default"
+			dev_info_list.append(("default", ""))
 		
 		if probe_name and hasattr(element.props, "device-name"):
 			for dev in devices:
