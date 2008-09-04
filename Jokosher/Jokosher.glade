@@ -1834,9 +1834,7 @@ daave &lt;fan.d.liu@gmail.com&gt;
 		  <child>
 		    <widget class="GtkComboBox" id="playbackSink">
 		      <property name="visible">True</property>
-		      <property name="items" translatable="yes">Autodetect
-ALSA
-Custom</property>
+		      <property name="items"></property>
 		      <property name="add_tearoffs">False</property>
 		      <property name="focus_on_click">True</property>
 		      <signal name="changed" handler="on_playbackSink_changed" last_modification_time="Sat, 23 Dec 2006 19:28:18 GMT"/>

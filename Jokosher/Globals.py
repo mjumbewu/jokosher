@@ -647,6 +647,23 @@ EXPORT_FORMATS = []
 
 SAMPLE_RATES = [8000, 11025, 22050, 32000, 44100, 48000, 96000, 192000]
 
+PLAYBACK_BACKENDS = [
+	(_("Autodetect"), "autoaudiosink"),
+	(_("Use GNOME Settings"), "gconfaudiosink"),
+	("ALSA", "alsasink"),
+	("OSS", "osssink"),
+	("JACK", "jacksink"),
+	("PulseAudio", "pulsesink"),
+]
+
+CAPTURE_BACKENDS = [
+	(_("Use GNOME Settings"), "gconfaudiosrc"),
+	("ALSA", "alsasrc"),
+	("OSS", "osssrc"),
+	("JACK", "jacksrc"),
+	("PulseAudio", "pulsesrc"),
+]
+
 """ Default Instruments """
 DEFAULT_INSTRUMENTS = []
 """ init Settings """

@@ -66,32 +66,23 @@ class PreferencesDialog:
 		self.loadingSettings = True
 		
 		audioSinkSetting = Globals.settings.playback["audiosink"]
-		if audioSinkSetting == "autoaudiosink":
-			self.playbackSink.set_active(0)
-			self.customSink.set_sensitive(False)
-			self.playbackDevice.set_sensitive(False)
-		elif audioSinkSetting == "alsasink":
-			self.playbackSink.set_active(1)
-			self.customSink.set_sensitive(False)
-			self.playbackDevice.set_sensitive(True)
-		else:
-			self.playbackSink.set_active(2)
-			self.customSink.set_sensitive(True)
-			self.customSink.set_text(audioSinkSetting)
-			self.playbackDevice.set_sensitive(True)
+		self.customSink.set_text(audioSinkSetting)
 		
-		#Find all ALSA devices
-		self.playbacks = [] #Map combobox entries to ALSA devices
-		for device, deviceName in AudioBackend.ListPlaybackDevices():
-			if device == "default" and not deviceName:
-				deviceName = _("Default")
-			self.playbacks.append(device)
-			self.playbackDevice.append_text(deviceName)
-			
-		if not self.playbacks:
-			self.playbackDevice.set_sensitive(False)
+		self.playbackSink.append_text(_("Custom"))
+		self.playbackSink.set_active(0)
+		
+		for name, element in Globals.PLAYBACK_BACKENDS:
+			self.playbackSink.append_text(name)
+			if audioSinkSetting == element:
+				index = len(self.playbackSink.get_model()) - 1
+				self.playbackSink.set_active(index)
+				
+		if self.playbackSink.get_active() == 0:
+			self.customSink.set_sensitive(True)
 		else:
-			self.LoadSetting(self.playbackDevice, Globals.settings.playback, "devicename")
+			self.customSink.set_sensitive(False)
+		
+		self.ProbeBackendDevices()
 			
 		#Get available sample rates from ALSA
 		sample_values = AudioBackend.GetRecordingSampleRate()
@@ -211,8 +202,9 @@ class PreferencesDialog:
 		#only get the number from "44100 Hz", not the whole string
 		sampleRateIndex = self.samplingRate.get_active()
 		Globals.settings.recording["samplerate"] = self.sampleRateList[sampleRateIndex][1]
-		Globals.settings.playback["devicename"] = self.playbackDevice.get_active_text()
-		Globals.settings.playback["device"] = self.playbacks[self.playbackDevice.get_active()]
+		if self.playbackDevice.get_active() >= 0:
+			Globals.settings.playback["devicename"] = self.playbackDevice.get_active_text()
+			Globals.settings.playback["device"] = self.playbacks[self.playbackDevice.get_active()]
 		
 		if self.radioWelcome.get_active():
 			Globals.settings.general["startupaction"] = STARTUP_WELCOME_DIALOG
@@ -236,21 +228,17 @@ class PreferencesDialog:
 		if self.loadingSettings:
 			return
 	
-		# First in the list is Autodetect
 		if self.playbackSink.get_active() == 0:
-			self.customSink.set_sensitive(False)
-			self.playbackDevice.set_sensitive(False)
-			Globals.settings.playback["audiosink"] = "autoaudiosink"
-		# Second is ALSA
-		elif self.playbackSink.get_active() == 1:
-			self.customSink.set_sensitive(False)
-			self.playbackDevice.set_sensitive(True)
-			Globals.settings.playback["audiosink"] = "alsasink"
-		# Third is Custom
-		elif self.playbackSink.get_active() == 2:
 			self.customSink.set_sensitive(True)
-			self.playbackDevice.set_sensitive(False)
 			Globals.settings.playback["audiosink"] = self.customSink.get_text()
+		else:
+			self.customSink.set_sensitive(False)
+			index = self.playbackSink.get_active() - 1
+			name, element = Globals.PLAYBACK_BACKENDS[index]
+			Globals.settings.playback["audiosink"] = element
+			self.customSink.set_text(element)
+			
+		self.ProbeBackendDevices()
 			
 		Globals.settings.write()
 		if self.project:
@@ -278,5 +266,23 @@ class PreferencesDialog:
 		
 		for enc in encoders:
 			self.mixdownFormat.append_text(enc.get_longname())
+	
+	#_____________________________________________________________________
+
+	def ProbeBackendDevices(self):
+		#Find all playback devices
+		self.playbacks = [] # Map combobox entries to property names instead of human readable names).
+		self.playbackDevice.get_model().clear() # clear combo box
+		for device, deviceName in AudioBackend.ListPlaybackDevices():
+			if device == "default" and not deviceName:
+				deviceName = _("Default")
+			self.playbacks.append(device)
+			self.playbackDevice.append_text(deviceName)
+			
+		if not self.playbacks:
+			self.playbackDevice.set_sensitive(False)
+		else:
+			self.playbackDevice.set_sensitive(True)
+			self.LoadSetting(self.playbackDevice, Globals.settings.playback, "devicename")
 	
 	#_____________________________________________________________________
