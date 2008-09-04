@@ -20,7 +20,18 @@ def ListPlaybackDevices(sink=None, probe_name=True):
 		# get preference from Globals
 		sink = Globals.settings.playback["audiosink"]
 		
-	return ListDeviceProbe(sink, probe_name)
+	try:
+		bin = gst.parse_bin_from_description(sink, False)
+	except gobject.GError, gst.ElementNotFoundError:
+		Globals.debug("Cannot list playback devices: cannot parse bin", src)
+		return list()
+	
+	try:
+		element = bin.sinks().next()
+	except StopIteration:
+		Globals.debug("Cannot list playback devices: no sink device in the bin", src)
+		
+	return ListDeviceProbe(element, probe_name)
 	
 #_____________________________________________________________________
 	
@@ -28,21 +39,26 @@ def ListCaptureDevices(src=None, probe_name=True):
 	if not src:
 		# get preference from Globals
 		src = Globals.settings.recording["audiosrc"]
+	try:
+		bin = gst.parse_bin_from_description(src, False)
+	except gst.ElementNotFoundError:
+		Globals.debug("Cannot list capture devices: cannot parse bin", src)
+		return list()
+	
+	try:
+		element = bin.iterate_sources().next()
+	except StopIteration:
+		Globals.debug("Cannot list capture devices: no source device in the bin", src)
 		
-	return ListDeviceProbe(src, probe_name)
+	return ListDeviceProbe(element, probe_name)
 	
 #_____________________________________________________________________
 
-def ListDeviceProbe(element_name, probe_name):
-	try:
-		element = gst.element_factory_make(element_name)
-	except gst.ElementNotFoundError:
-		Globals.debug("Cannot list playback devices: cannot find element", element_name)
-		return list()
+def ListDeviceProbe(element, probe_name):
+	element_name = element.get_factory().get_property("name")
+	dev_info_list = [("default", "")]
 	
 	element.set_state(gst.STATE_READY)
-	
-	dev_info_list = []
 	
 	if gobject.type_is_a(element, gst.interfaces.PropertyProbe) and hasattr(element.props, "device"):
 		element.probe_property_name("device")
@@ -57,7 +73,7 @@ def ListDeviceProbe(element_name, probe_name):
 			for dev in devices:
 				dev_info_list.append((dev,""))
 	else:
-		Globals.debug("Cannot list playback devices: property probe not supported on", element_name)
+		Globals.debug("Cannot list devices: property probe not supported on", element_name)
 		
 	element.set_state(gst.STATE_NULL)
 	

@@ -83,6 +83,8 @@ class PreferencesDialog:
 		#Find all ALSA devices
 		self.playbacks = [] #Map combobox entries to ALSA devices
 		for device, deviceName in AudioBackend.ListPlaybackDevices():
+			if device == "default" and not deviceName:
+				deviceName = _("Default")
 			self.playbacks.append(device)
 			self.playbackDevice.append_text(deviceName)
 		self.LoadSetting(self.playbackDevice, Globals.settings.playback, "device")
