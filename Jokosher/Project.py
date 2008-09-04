@@ -1347,31 +1347,25 @@ class Project(gobject.GObject):
 			return self.masterSink
 		
 		self.currentSinkString = sinkString
-		sinkElement = None
+		sinkBin = None
 		
-		if sinkString == "alsasink":
-			sinkElement = gst.element_factory_make("alsasink")
-			#Set the alsa device for audio output
-			outdevice = Globals.settings.playback["device"]
-			
-			Globals.debug("Output device: %s" % outdevice)
-			sinkElement.set_property("device", outdevice)
-			Globals.debug("Using alsasink for audio output")
-		
-		elif sinkString != "autoaudiosink":
-			try:
-				sinkElement = gst.parse_bin_from_description(sinkString, True)
-			except gobject.GError:
-				Globals.debug("Parsing failed: %s" % sinkString)
-			else:
-				Globals.debug("Using custom pipeline for audio sink: %s" % sinkString)
-		
-		if not sinkElement:
-			# if a sink element has not yet been created, autoaudiosink is our last resort
-			sinkElement = gst.element_factory_make("autoaudiosink")
+		try:
+			sinkBin = gst.parse_bin_from_description(sinkString, True)
+		except gobject.GError:
+			Globals.debug("Parsing failed: %s" % sinkString)
+			# autoaudiosink is our last resort
+			sinkBin = gst.element_factory_make("autoaudiosink")
 			Globals.debug("Using autoaudiosink for audio output")
+		else:
+			Globals.debug("Using custom pipeline for audio sink: %s" % sinkString)
 			
-		return sinkElement
+			sinkElement = sinkBin.sinks().next()
+			if hasattr(sinkElement.props, "device"):
+				outdevice = Globals.settings.playback["device"]
+				Globals.debug("Output device: %s" % outdevice)
+				sinkElement.set_property("device", outdevice)
+		
+		return sinkBin
 		
 	#____________________________________________________________________	
 	
