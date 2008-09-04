@@ -205,6 +205,9 @@ class PreferencesDialog:
 		if self.playbackDevice.get_active() >= 0:
 			Globals.settings.playback["devicename"] = self.playbackDevice.get_active_text()
 			Globals.settings.playback["device"] = self.playbacks[self.playbackDevice.get_active()]
+		else:
+			Globals.settings.playback["devicename"] = ""
+			Globals.settings.playback["device"] = ""
 		
 		if self.radioWelcome.get_active():
 			Globals.settings.general["startupaction"] = STARTUP_WELCOME_DIALOG
