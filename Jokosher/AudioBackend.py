@@ -10,58 +10,56 @@
 #
 #-------------------------------------------------------------------------------
 
-
-import dbus
-import gst
+import gst, gobject
 import Globals
 
 #=========================================================================
 
 def ListPlaybackDevices(sink=None, probe_name=True):
-	pass
+	if not sink:
+		# get preference from Globals
+		sink = Globals.settings.playback["audiosink"]
+		
+	return ListDeviceProbe(sink, probe_name)
+	
+#_____________________________________________________________________
 	
 def ListCaptureDevices(src=None, probe_name=True):
-	pass
-
-def GetAlsaList(type):
-	"""
-	Returns a dictionary containing ALSA device names and their 
-	correspoding ALSA id's (i.e. hw:0).
-
-	Parameters:
-		type -- string specifying the type of ALSA device needed:
-				"playback"
-				"capture"
-
-	Returns:
-		a dictionary containing all the matching devices found.
-	"""
-	#Get HAL Manager
-	bus = dbus.SystemBus()
-	object = bus.get_object("org.freedesktop.Hal", "/org/freedesktop/Hal/Manager")
-	manager = dbus.Interface(object, "org.freedesktop.Hal.Manager")
-	
-	found = {}
-	#Find all alsa devices of the requested type
-	devices = manager.FindDeviceStringMatch("alsa.type", type)
-	#Add the ALSA default card to the list
-	found["default"] = "Default"
-	for device in devices:
-		#Iterate through all the ALSA devices found and insert them in to a dictionary
-		device_object = bus.get_object("org.freedesktop.Hal", device)
-		properties = device_object.GetAllProperties(dbus_interface="org.freedesktop.Hal.Device")
-		cardnum = "hw:" + str(properties["alsa.card"]) #FIXME: This may cause problems with plughw devices
-		if "alsa.device_id" in properties:
-			name = properties["alsa.device_id"]
-		elif "alsa.card_id" in properties:
-			name = properties["alsa.card_id"]
-		else:
-			name = cardnum
-		#Avoid duplicate entries
-		if cardnum not in found.items():
-			found[cardnum] = name
+	if not src:
+		# get preference from Globals
+		src = Globals.settings.recording["audiosrc"]
 		
-	return found
+	return ListDeviceProbe(src, probe_name)
+	
+#_____________________________________________________________________
+
+def ListDeviceProbe(element_name, probe_name):
+	try:
+		gstsink = gst.element_factory_make(element_name)
+	except gst.ElementNotFoundError:
+		Globals.debug("Cannot list playback devices: cannot find element", element_name)
+		return list()
+	
+	a.set_state(gst.STATE_READY)
+	
+	dev_info_list = []
+	
+	if gobject.type_is_a(a, gst.interfaces.PropertyProbe) and hasattr(a.props, "device"):
+		a.probe_property_name("device")
+		devices = a.probe_get_values_name("device")
+		
+		if probe_name and hasattr(a.props, "device-name"):
+			for dev in devices:
+				a.set_property("device", dev)
+				name = a.get_property("device-name")
+				dev_info_list.append((dev,name))
+		else:
+			for dev in devices:
+				dev_info_list.append((dev,""))
+	else:
+		Globals.debug("Cannot list playback devices: property probe not supported on", element_name)
+		
+	return dev_info_list
 
 #_____________________________________________________________________
 
