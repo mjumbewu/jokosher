@@ -35,23 +35,23 @@ def ListCaptureDevices(src=None, probe_name=True):
 
 def ListDeviceProbe(element_name, probe_name):
 	try:
-		gstsink = gst.element_factory_make(element_name)
+		element = gst.element_factory_make(element_name)
 	except gst.ElementNotFoundError:
 		Globals.debug("Cannot list playback devices: cannot find element", element_name)
 		return list()
 	
-	a.set_state(gst.STATE_READY)
+	element.set_state(gst.STATE_READY)
 	
 	dev_info_list = []
 	
-	if gobject.type_is_a(a, gst.interfaces.PropertyProbe) and hasattr(a.props, "device"):
-		a.probe_property_name("device")
-		devices = a.probe_get_values_name("device")
+	if gobject.type_is_a(element, gst.interfaces.PropertyProbe) and hasattr(element.props, "device"):
+		element.probe_property_name("device")
+		devices = element.probe_get_values_name("device")
 		
-		if probe_name and hasattr(a.props, "device-name"):
+		if probe_name and hasattr(element.props, "device-name"):
 			for dev in devices:
-				a.set_property("device", dev)
-				name = a.get_property("device-name")
+				element.set_property("device", dev)
+				name = element.get_property("device-name")
 				dev_info_list.append((dev,name))
 		else:
 			for dev in devices:
@@ -59,6 +59,8 @@ def ListDeviceProbe(element_name, probe_name):
 	else:
 		Globals.debug("Cannot list playback devices: property probe not supported on", element_name)
 		
+	element.set_state(gst.STATE_NULL)
+	
 	return dev_info_list
 
 #_____________________________________________________________________
