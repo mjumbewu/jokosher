@@ -88,12 +88,12 @@ def ListDeviceProbe(element, probe_name):
 
 #_____________________________________________________________________
 
-def GetRecordingSampleRate(device="hw:0"):
+def GetRecordingSampleRate(device=None):
 	""" 
 	Checks for available recording sample rates.
 	
 	Parameters:
-		device -- ALSA device to poll for values. "hw:0" by default.
+		device -- Backend dependent device to poll for values.
 	
 	Returns:
 		any of the following depending on the sound card:
@@ -101,42 +101,35 @@ def GetRecordingSampleRate(device="hw:0"):
 		2) an IntRange class with IntRange.low and IntRange.high being the min and max sample rates.
 		3) a list of ints representing all the supported sample rates.
 	"""
-	return GetGstElementSampleRate("alsasrc", "src", device=device)
 	
-#_____________________________________________________________________
-
-def GetGstElementSampleRate(elementName, padName, **properties):
-	"""
-	Checks for available sample rates for the given GStreamer element.
+	src = Globals.settings.recording["audiosrc"]
+	try:
+		bin = gst.parse_bin_from_description(src, False)
+	except gobject.GError, gst.ElementNotFoundError:
+		Globals.debug("Cannot get sample rate: cannot parse bin", src)
+		return list()
 	
-	Parameters:
-		elementName -- the name of the gstreamer element (ie "alsasrc").
-		padName -- the name of the pad to query ("src" or "sink").
-		properties -- and properties to set on the element.
-		
-	Returns:
-		any of the following depending on the gstreamer element:
-		1) an int representing the only supported sample rate.
-		2) an IntRange class with IntRange.low and IntRange.high being the min and max sample rates.
-		3) a list of ints representing all the supported sample rates.
-	"""
-	element = gst.element_factory_make(elementName)
-
-	for key, value in properties.iteritems():
-		element.set_property(key, value)
+	try:
+		element = bin.iterate_sources().next()
+	except StopIteration:
+		Globals.debug("Cannot get sample rate: no source device in the bin", src)
+	
+	if device:
+		element.set_property("device", device)
 
 	# open device (so caps are probed)
-	element.set_state(gst.STATE_READY)
+	bin.set_state(gst.STATE_READY)
 
 	try:
-		caps = element.get_pad(padName).get_caps()
+		pad = element.src_pads().next()
+		caps = pad.get_caps()
 		val = caps[0]["rate"]
 	except:
 		val = None
 		
 	# clean up
-	element.set_state(gst.STATE_NULL)
-	del element
+	bin.set_state(gst.STATE_NULL)
+	del element, bin
 	
 	return val
 
