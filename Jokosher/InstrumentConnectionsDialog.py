@@ -85,7 +85,6 @@ class InstrumentConnectionsDialog:
 	
 		#Find out how many channels a device offers
 		for device, deviceName in AudioBackend.ListCaptureDevices():
-			print device, deviceName
 			#Don't want the default device twice (once as 'default' and once as its actual hw ref)
 			# Default will always be the first one, and have no name.
 			if not self.devices_list and not deviceName:
@@ -95,7 +94,11 @@ class InstrumentConnectionsDialog:
 			else:			
 				num_channels = AudioBackend.GetChannelsOffered(device)
 				for input in xrange(num_channels):
-					display = _("%(device)s input %(input)d") % {"device":deviceName, "input":input}
+					if num_channels > 1:
+						s = _("%(device)s, input %(input)d")
+						display = s % {"device":deviceName, "input":input}
+					else:
+						display = deviceName
 					self.devices_list.append((device, deviceName, input))
 					liststore.append((display,))
 		

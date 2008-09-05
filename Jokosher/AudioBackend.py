@@ -41,7 +41,7 @@ def ListCaptureDevices(src=None, probe_name=True):
 		src = Globals.settings.recording["audiosrc"]
 	try:
 		bin = gst.parse_bin_from_description(src, False)
-	except gst.ElementNotFoundError:
+	except gobject.GError, gst.ElementNotFoundError:
 		Globals.debug("Cannot list capture devices: cannot parse bin", src)
 		return list()
 	
@@ -152,8 +152,18 @@ def GetChannelsOffered(device):
 	Returns:
 		the number of channels available on a device.
 	"""
-	#TODO: Quite a few assumptions here...
-	src = gst.element_factory_make('alsasrc')
+	src_desc = Globals.settings.recording["audiosrc"]
+	try:
+		bin = gst.parse_bin_from_description(src_desc, False)
+	except gobject.GError, gst.ElementNotFoundError:
+		Globals.debug("Cannot get number of channels: cannot parse bin", src_desc)
+		return 0
+	
+	try:
+		src = bin.iterate_sources().next()
+	except StopIteration:
+		Globals.debug("Cannot list capture devices: no source device in the bin", src_desc)
+		
 	src.set_property("device", device)
 	src.set_state(gst.STATE_READY)
 	
