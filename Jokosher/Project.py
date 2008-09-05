@@ -305,6 +305,7 @@ class Project(gobject.GObject):
 				Globals.debug("Channel splitting element not found when trying to record from multi-input device.")
 				raise ProjectManager.AudioInputsError(2)
 
+			"""
 			if channelsNeeded > 1: #We're recording from a multi-input device
 				recordingbin = gst.Bin()
 				src = gst.element_factory_make("alsasrc")
@@ -336,11 +337,13 @@ class Project(gobject.GObject):
 				Globals.debug("Recording in multi-input mode")
 				Globals.debug("adding recordingbin")
 				self.mainpipeline.add(recordingbin)
-			else:
+			"""
+			if True:
 				instr = recInstruments[0]
 				event = instr.GetRecordingEvent()
 				
 				encodeString = Globals.settings.recording["fileformat"]
+				recordString = Globals.settings.recording["audiosrc"]
 				
 				sampleRate = 0
 				try:
@@ -353,15 +356,23 @@ class Project(gobject.GObject):
 				else:
 					capsString = "audioconvert"
 					
-				pipe = "alsasrc device=%s ! %s ! level name=recordlevel interval=%d" +\
+				pipe = "%s ! %s ! level name=recordlevel interval=%d" +\
 							" ! audioconvert ! %s ! filesink location=%s"
-				pipe %= (device, capsString, event.LEVEL_INTERVAL * gst.SECOND, encodeString, event.file.replace(" ", "\ "))
+				pipe %= (recordString, capsString, event.LEVEL_INTERVAL * gst.SECOND, encodeString, event.file.replace(" ", "\ "))
 				
 				Globals.debug("Using pipeline: %s" % pipe)
 				
 				recordingbin = gst.parse_launch("bin.( %s )" % pipe)
 				#update the levels in real time
 				handle = self.bus.connect("message::element", event.recording_bus_level)
+				
+				try:
+					src_element = recordingbin.iterate_sources().next()
+				except StopIteration:
+					pass
+				else:
+					if hasattr(src_element.props, "device"):
+						src_element.set_property("device", device)
 				
 				self.recordingEvents[instr] = (event, recordingbin, handle)
 				
