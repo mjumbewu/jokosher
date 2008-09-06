@@ -137,7 +137,9 @@ class Project(gobject.GObject):
 		
 		#Restrict adder's output caps due to adder bug
 		self.levelElementCaps = gst.element_factory_make("capsfilter", "levelcaps")
-		caps = gst.caps_from_string("audio/x-raw-int,rate=44100,channels=2,width=16,depth=16,signed=(boolean)true")
+		capsString = "audio/x-raw-int,rate=44100,channels=2,width=16,depth=16,signed=(boolean)true"
+		capsString += ";audio/x-raw-float,rate=44100,channels=2"
+		caps = gst.caps_from_string(capsString)
 		self.levelElementCaps.set_property("caps", caps)
 		
 		# ADD ELEMENTS TO THE PIPELINE AND/OR THEIR BINS #
