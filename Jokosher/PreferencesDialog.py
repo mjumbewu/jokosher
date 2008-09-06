@@ -47,6 +47,7 @@ class PreferencesDialog:
 		self.signals = {
 			"on_Setting_changed" : self.OnSettingChanged,
 			"on_playbackSink_changed" : self.OnPlaybackSinkChanged,
+			"on_recordingSoundSystem_changed" : self.OnRecordingSystemChanged,
 			"on_Close_clicked" : self.OnClose,
 		}
 
@@ -54,6 +55,8 @@ class PreferencesDialog:
 		self.dlg = self.res.get_widget("PreferencesDialog")
 		self.dlg.set_icon(icon)
 		self.recordingFileFormat = self.res.get_widget("recordingFileFormat")
+		self.recordingCustomPipeline = self.res.get_widget("recordingCustomPipeline")
+		self.recordingSoundSystem = self.res.get_widget("recordingSoundSystem")
 		self.samplingRate = self.res.get_widget("samplingRate")
 		self.playbackDevice = self.res.get_widget("playbackDevice")
 		self.playbackSink = self.res.get_widget("playbackSink")
@@ -65,6 +68,25 @@ class PreferencesDialog:
 		#Load settings - set to True to make sure data isn't saved to file until everything is loaded
 		self.loadingSettings = True
 		
+		## Load recording sound system
+		audioSrcSetting = Globals.settings.recording["audiosrc"]
+		self.recordingCustomPipeline.set_text(audioSrcSetting)
+		
+		self.recordingSoundSystem.append_text(_("Custom"))
+		self.recordingSoundSystem.set_active(0)
+		
+		for name, element in Globals.CAPTURE_BACKENDS:
+			self.recordingSoundSystem.append_text(name)
+			if audioSrcSetting == element:
+				index = len(self.playbackSink.get_model()) - 1
+				self.playbackSink.set_active(index)
+				
+		if self.recordingSoundSystem.get_active() == 0:
+			self.recordingCustomPipeline.set_sensitive(True)
+		else:
+			self.recordingCustomPipeline.set_sensitive(False)
+		
+		## Load playback sound system
 		audioSinkSetting = Globals.settings.playback["audiosink"]
 		self.customSink.set_text(audioSinkSetting)
 		
@@ -246,6 +268,31 @@ class PreferencesDialog:
 		Globals.settings.write()
 		if self.project:
 			self.project.SetProjectSink()
+	
+	#_____________________________________________________________________
+	
+	def OnRecordingSystemChanged(self, widget=None, event=None):
+		"""
+		Updates the selected playback audio device from the comboBox selection.
+		It then writes an updated settings file.
+		
+		Parameters:
+			comboBox -- reserved for GTK callbacks, don't use it explicitly.
+		"""
+		if self.loadingSettings:
+			return
+	
+		if self.recordingSoundSystem.get_active() == 0:
+			self.recordingCustomPipeline.set_sensitive(True)
+			Globals.settings.recording["audiosrc"] = self.recordingCustomPipeline.get_text()
+		else:
+			self.recordingCustomPipeline.set_sensitive(False)
+			index = self.recordingSoundSystem.get_active() - 1
+			name, element = Globals.CAPTURE_BACKENDS[index]
+			Globals.settings.recording["audiosrc"] = element
+			self.recordingCustomPipeline.set_text(element)
+			
+		Globals.settings.write()
 	
 	#_____________________________________________________________________
 	
