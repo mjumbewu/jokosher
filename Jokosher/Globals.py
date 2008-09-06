@@ -668,7 +668,7 @@ PLAYBACK_BACKENDS = [
 	(_("Use GNOME Settings"), "gconfaudiosink"),
 	("ALSA", "alsasink"),
 	("OSS", "osssink"),
-	("JACK", "jacksink"),
+	("JACK", "jackaudiosink"),
 	("PulseAudio", "pulsesink"),
 ]
 
@@ -676,7 +676,7 @@ CAPTURE_BACKENDS = [
 	(_("Use GNOME Settings"), "gconfaudiosrc"),
 	("ALSA", "alsasrc"),
 	("OSS", "osssrc"),
-	("JACK", "jacksrc"),
+	("JACK", "jackaudiosrc"),
 	("PulseAudio", "pulsesrc"),
 ]
 
