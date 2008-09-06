@@ -88,7 +88,10 @@ class InstrumentConnectionsDialog:
 			#Don't want the default device twice (once as 'default' and once as its actual hw ref)
 			# Default will always be the first one, and have no name.
 			if not self.devices_list and not deviceName:
-				display = _("Default")
+				if device == "default":
+					display = _("Default")
+				else:
+					display = _("Default (%s)") % device
 				self.devices_list.append((device, display, 0))
 				liststore.append((display,))
 			else:			
