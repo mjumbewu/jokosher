@@ -78,8 +78,8 @@ class PreferencesDialog:
 		for name, element in Globals.CAPTURE_BACKENDS:
 			self.recordingSoundSystem.append_text(name)
 			if audioSrcSetting == element:
-				index = len(self.playbackSink.get_model()) - 1
-				self.playbackSink.set_active(index)
+				index = len(self.recordingSoundSystem.get_model()) - 1
+				self.recordingSoundSystem.set_active(index)
 				
 		if self.recordingSoundSystem.get_active() == 0:
 			self.recordingCustomPipeline.set_sensitive(True)
