@@ -119,11 +119,15 @@ class InstrumentConnectionsDialog:
 				combobox.pack_start(cell, True)
 				combobox.add_attribute(cell, 'text', 0)
 				
-				currentItem = 1
-				for device, deviceName, input in self.devices_list:
-					if instr.input == device and input == instr.inTrack:
-						combobox.set_active(currentItem)
-					currentItem += 1
+				if instr.input is None:
+					# None means default; default is first in combobox
+					combobox.set_active(0)
+				else:
+					currentItem = 1
+					for device, deviceName, input in self.devices_list:
+						if instr.input == device and input == instr.inTrack:
+							combobox.set_active(currentItem)
+						currentItem += 1
 				
 				combobox.connect("changed", self.OnSelected, instr)
 				row.pack_start(combobox, False, False)

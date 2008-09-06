@@ -293,6 +293,8 @@ class PreferencesDialog:
 			self.recordingCustomPipeline.set_text(element)
 			
 		Globals.settings.write()
+		if self.project:
+			self.project.OnCaptureBackendChange()
 	
 	#_____________________________________________________________________
 	

@@ -293,12 +293,17 @@ class Project(gobject.GObject):
 		if not capture_devices:
 			capture_devices = ((None,None),)
 		
+		default_device = capture_devices[0][0]
+		
 		for device, deviceName in capture_devices:
 			devices[device] = []
 			for instr in self.instruments:
 				if instr.isArmed and (instr.input == device or device is None):
 					instr.RemoveAndUnlinkPlaybackbin()
 					devices[device].append(instr)
+				elif instr.isArmed and instr.input is None:
+					instr.RemoveAndUnlinkPlaybackbin()
+					devices[default_device].append(instr)
 		
 
 		for device, recInstruments in devices.items():
@@ -1390,6 +1395,13 @@ class Project(gobject.GObject):
 		
 		return sinkBin
 		
+	#____________________________________________________________________	
+	
+	def OnCaptureBackendChange(self):
+		for instr in self.instruments:
+			instr.input = None
+			instr.inTrack = 0
+	
 	#____________________________________________________________________	
 	
 	def GetInputFilenames(self):
