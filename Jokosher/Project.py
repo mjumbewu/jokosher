@@ -289,19 +289,29 @@ class Project(gobject.GObject):
 		#Add all instruments to the pipeline
 		self.recordingEvents = {}
 		devices = {}
-		for device, deviceName in AudioBackend.ListCaptureDevices(probe_name=False):
+		capture_devices = AudioBackend.ListCaptureDevices(probe_name=False)
+		if not capture_devices:
+			capture_devices = ((None,None),)
+		
+		for device, deviceName in capture_devices:
 			devices[device] = []
 			for instr in self.instruments:
-				if instr.isArmed and instr.input == device:
+				if instr.isArmed and (instr.input == device or device is None):
 					instr.RemoveAndUnlinkPlaybackbin()
 					devices[device].append(instr)
+		
 
 		for device, recInstruments in devices.items():
 			if len(recInstruments) == 0:
 				#Nothing to record on this device
 				continue
 
-			channelsNeeded = AudioBackend.GetChannelsOffered(device)
+			if device is None:
+				# assume we are using a backend like JACK which does not allow
+				#us to do device selection.
+				channelsNeeded = len(recInstruments)
+			else:
+				channelsNeeded = AudioBackend.GetChannelsOffered(device)
 
 			if channelsNeeded > 1 and not gst.registry_get_default().find_plugin("chansplit"):
 				Globals.debug("Channel splitting element not found when trying to record from multi-input device.")
