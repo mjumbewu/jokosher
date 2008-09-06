@@ -105,31 +105,47 @@ class InstrumentConnectionsDialog:
 					self.devices_list.append((device, deviceName, input))
 					liststore.append((display,))
 		
-		for instr in self.project.instruments:		
-			instrument = instr
-			row = gtk.HBox()
-			row.set_spacing(10)
-			image = gtk.Image()
-			image.set_from_pixbuf(instrument.pixbuf)
-			label = gtk.Label(instrument.name)
+		if self.devices_list:
+			for instr in self.project.instruments:		
+				instrument = instr
+				row = gtk.HBox()
+				row.set_spacing(10)
+				image = gtk.Image()
+				image.set_from_pixbuf(instrument.pixbuf)
+				label = gtk.Label(instrument.name)
+				
+				combobox = gtk.ComboBox(liststore)
+				cell = gtk.CellRendererText()
+				combobox.pack_start(cell, True)
+				combobox.add_attribute(cell, 'text', 0)
+				
+				currentItem = 1
+				for device, deviceName, input in self.devices_list:
+					if instr.input == device and input == instr.inTrack:
+						combobox.set_active(currentItem)
+					currentItem += 1
+				
+				combobox.connect("changed", self.OnSelected, instr)
+				row.pack_start(combobox, False, False)
+				row.pack_start(image, False, False)
+				row.pack_start(label, False, False)
+				
+				self.vbox.add(row)
+		else:
+			audiosrc = Globals.settings.recording["audiosrc"]
+			sound_system = None
+			for name, element in Globals.CAPTURE_BACKENDS:
+				if element == audiosrc:
+					sound_system = name
 			
-			combobox = gtk.ComboBox(liststore)
-			cell = gtk.CellRendererText()
-			combobox.pack_start(cell, True)
-			combobox.add_attribute(cell, 'text', 0)
-			
-			currentItem = 1
-			for device, deviceName, input in self.devices_list:
-				if instr.input == device and input == instr.inTrack:
-					combobox.set_active(currentItem)
-				currentItem += 1
-			
-			combobox.connect("changed", self.OnSelected, instr)
-			row.pack_start(combobox, False, False)
-			row.pack_start(image, False, False)
-			row.pack_start(label, False, False)
-			
-			self.vbox.add(row)
+			if sound_system:
+				msg = _("The %(sound-system-name)s sound system does not support device selection.")
+				msg %= {"sound-system-name" : sound_system}
+			else:
+				msg = _('The "%(custom-pipeline)s" sound system does not support device selection.')
+				msg %= {"custom-pipeline" : audiosrc}
+			self.res.get_widget("explainLabel").set_text(msg)
+			self.vbox.hide()
 	
 	#_____________________________________________________________________
 			
