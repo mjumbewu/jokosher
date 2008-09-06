@@ -52,6 +52,13 @@ class Settings:
 	extensions = {
 				 "extensions_blacklist": ""
 				 }
+				 
+	sections = {
+				"General" : general,
+				"Recording" : recording,
+				"Playback" : playback,
+				"Extensions" : extensions
+				}
 
 	#_____________________________________________________________________
 	
@@ -80,38 +87,24 @@ class Settings:
 		"""
 		self.config.read(self.filename)
 	
-		if not self.config.has_section("General"):
-			self.config.add_section("General")
-		if not self.config.has_section("Recording"):
-			self.config.add_section("Recording")
-		if not self.config.has_section("Playback"):
-			self.config.add_section("Playback")
-		if not self.config.has_section("Extensions"):
-			self.config.add_section("Extensions")
+		for section in self.sections:
+			if not self.config.has_section(section):
+				self.config.add_section(section)
 	
-		for key, value in self.config.items("General"):
-			self.general[key] = value
-		for key, value in self.config.items("Recording"):
-			self.recording[key] = value
-		for key, value in self.config.items("Playback"):
-			self.playback[key] = value
-		for key, value in self.config.items("Extensions"):
-			self.extensions[key] = value
+		for section, section_dict in self.sections.iteritems():
+			for key, value in self.config.items(section):
+				section_dict[key] = value
 	
 	#_____________________________________________________________________
 		
 	def write(self):
 		"""
 		Writes configuration settings to the Settings config file.
-		"""		
-		for key in self.general:
-			self.config.set("General", key, self.general[key])
-		for key in self.recording:
-			self.config.set("Recording", key, self.recording[key])
-		for key in self.playback:
-			self.config.set("Playback", key, self.playback[key])
-		for key in self.extensions:
-			self.config.set("Extensions", key, self.extensions[key])
+		"""
+		
+		for section, section_dict in self.sections.iteritems():
+			for key, value in section_dict.iteritems():
+				self.config.set(section, key, value)
 			
 		# delete a .jokosher file if it exists, because that's old-fashioned
 		old_jokosher_file = os.path.expanduser("~/.jokosher")
