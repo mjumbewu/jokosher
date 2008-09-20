@@ -318,44 +318,45 @@ class Project(gobject.GObject):
 			else:
 				channelsNeeded = AudioBackend.GetChannelsOffered(device)
 
-			if channelsNeeded > 1 and not gst.registry_get_default().find_plugin("chansplit"):
-				Globals.debug("Channel splitting element not found when trying to record from multi-input device.")
-				raise ProjectManager.AudioInputsError(2)
-
-			"""
+			
 			if channelsNeeded > 1: #We're recording from a multi-input device
 				recordingbin = gst.Bin()
-				src = gst.element_factory_make("alsasrc")
-				src.set_property("device", device)
+				recordString = Globals.settings.recording["audiosrc"]
+				srcBin = gst.parse_bin_from_description(recordString, True)
+				try:
+					src_element = recordingbin.iterate_sources().next()
+				except StopIteration:
+					pass
+				else:
+					if hasattr(src_element.props, "device"):
+						src_element.set_property("device", device)
 				
 				capsfilter = None
 				sampleRate = Globals.settings.recording["samplerate"]
 				# 0 means for "autodetect", or more technically "don't use any caps".
 				if sampleRate > 0:
 					gst.element_factory_make("capsfilter")
-					capsString = "audio/x-raw-int,rate=%s" % sampleRate
+					capsString = "audio/x-raw-int,rate=%s;audio/x-raw-float,rate=%s" % (sampleRate, sampleRate)
 					caps = gst.caps_from_string(capsString)
 					capsfilter.set_property("caps", caps)
 				
-				split = gst.element_factory_make("chansplit")
+				split = gst.element_factory_make("deinterleave")
 				
-				recordingbin.add(src)
+				recordingbin.add(srcBin, split)
 				if capsfilter:
 					recordingbin.add(capsfilter)
-				recordingbin.add(split)
 				
 				if capsfilter:
-					src.link(capsfilter)
+					srcBin.link(capsfilter)
 					capsfilter.link(split)
 				else:
-					src.link(split)
+					srcBin.link(split)
 				
 				split.connect("pad-added", self.__RecordingPadAddedCb, recInstruments, recordingbin)
 				Globals.debug("Recording in multi-input mode")
 				Globals.debug("adding recordingbin")
 				self.mainpipeline.add(recordingbin)
-			"""
-			if True:
+			else:
 				instr = recInstruments[0]
 				event = instr.GetRecordingEvent()
 				
@@ -574,18 +575,22 @@ class Project(gobject.GObject):
 			recInstruments -- list with all Instruments currently recording.
 			bin -- the bin that stores all the recording elements.
 		"""
-		match = re.search("(\d+)$", pad.get_name())
-		if not match:
+		# SRC template: 'src%d'
+		padname = pad.get_name()
+		try:
+			index = int(padname[3:])
+		except ValueError:
+			Globals.debug("Cannot start multichannel record: pad name does not match 'src%d':", padname)
 			return
-		index = int(match.groups()[0])
+
 		for instr in recInstruments:
 			if instr.inTrack == index:
 				event = instr.GetRecordingEvent()
 				
 				encodeString = Globals.settings.recording["fileformat"]
-				pipe = "audioconvert ! level name=eventlevel interval=%d message=true !" +\
+				pipe = "audioconvert ! level name=eventlevel interval=%d !" +\
 							"audioconvert ! %s ! filesink location=%s"
-				pipe %= (event.LEVEL_INTERVAL, encodeString, event.file.replace(" ", "\ "))
+				pipe %= (event.LEVEL_INTERVAL * gst.SECOND, encodeString, event.file.replace(" ", "\ "))
 				
 				encodeBin = gst.parse_bin_from_description(pipe, True)
 				bin.add(encodeBin)
