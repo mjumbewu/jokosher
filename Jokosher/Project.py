@@ -320,7 +320,7 @@ class Project(gobject.GObject):
 
 			
 			if channelsNeeded > 1: #We're recording from a multi-input device
-				recordingbin = gst.Bin()
+				recordingbin = gst.Bin("recording bin")
 				recordString = Globals.settings.recording["audiosrc"]
 				srcBin = gst.parse_bin_from_description(recordString, True)
 				try:
@@ -333,24 +333,32 @@ class Project(gobject.GObject):
 				
 				capsfilter = None
 				sampleRate = Globals.settings.recording["samplerate"]
+				try:
+					sampleRate = int(sampleRate)
+				except ValueError:
+					sampleRate = 0
 				# 0 means for "autodetect", or more technically "don't use any caps".
 				if sampleRate > 0:
-					gst.element_factory_make("capsfilter")
+					capsfilter = gst.element_factory_make("capsfilter")
 					capsString = "audio/x-raw-int,rate=%s;audio/x-raw-float,rate=%s" % (sampleRate, sampleRate)
+					Globals.debug("recording with capsfilter for rate:", capsString)
 					caps = gst.caps_from_string(capsString)
 					capsfilter.set_property("caps", caps)
 				
 				split = gst.element_factory_make("deinterleave")
+				convert = gst.element_factory_make("audioconvert")
 				
-				recordingbin.add(srcBin, split)
+				recordingbin.add(srcBin, split, convert)
 				if capsfilter:
 					recordingbin.add(capsfilter)
 				
 				if capsfilter:
 					srcBin.link(capsfilter)
-					capsfilter.link(split)
+					capsfilter.link(convert)
+					convet.link(split)
 				else:
-					srcBin.link(split)
+					srcBin.link(convert)
+					convert.link(split)
 				
 				split.connect("pad-added", self.__RecordingPadAddedCb, recInstruments, recordingbin)
 				Globals.debug("Recording in multi-input mode")

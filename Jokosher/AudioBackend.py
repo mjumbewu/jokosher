@@ -178,9 +178,9 @@ def GetChannelsOffered(device):
 			#Otherwise take the high number
 			numChannels = numChannels.high
 
-	if numChannels == 2:
+	#if numChannels == 2:
 		#Assume one stereo input
-		numChannels = 1
+	#	numChannels = 1
 
 	src.set_state(gst.STATE_NULL)
 	return numChannels
