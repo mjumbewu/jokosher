@@ -380,7 +380,7 @@ class Project(gobject.GObject):
 				
 				Globals.debug("Using pipeline: %s" % pipe)
 				
-				recordingbin = gst.parse_launch("bin.( %s )" % pipe)
+				recordingbin = gst.parse_bin_from_description(pipe, False)
 				#update the levels in real time
 				handle = self.bus.connect("message::element", event.recording_bus_level)
 				
