@@ -3,23 +3,23 @@
 # This file is distributed under the same license as the jokosher package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2007.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: jokosher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-24 16:18-0400\n"
-"PO-Revision-Date: 2007-04-06 12:38+0000\n"
-"Last-Translator: Thomas Martin Klein <kleintamasmarton@gmail.com>\n"
+"POT-Creation-Date: 2008-09-03 13:33-0400\n"
+"PO-Revision-Date: 2007-10-21 18:10+0000\n"
+"Last-Translator: Gergely Máté <gerymate@gmail.com>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Rosetta-Export-Date: 2007-04-27 17:18:31+0000\n"
+"X-Launchpad-Export-Date: 2008-09-03 14:41+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
 
 #: ../../Jokosher/Jokosher.glade.h:1
 msgid "<b>Active effects for: </b>"
-msgstr "<b>Aktív efektek ehhez:</b>"
+msgstr "<b>Aktív effektek ehhez:</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:2
 msgid "<b>Application Start-up</b>"
@@ -80,7 +80,7 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:15
 msgid "<b>Recent Projects</b>"
-msgstr ""
+msgstr "<b>Legutóbbi projektek</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:16
 msgid "<b>Recorded Audio Format</b>"
@@ -88,7 +88,7 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:17
 msgid "<b>Recording Sample Rate</b>"
-msgstr ""
+msgstr "<b>Mintavételezési Frekvencia a Felvételhez</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:18
 msgid "<b>Save Time</b>"
@@ -100,7 +100,7 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:20
 msgid "<b>Testing</b>"
-msgstr ""
+msgstr "<b>Tesztelés</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:21
 msgid "<b>Time Signature</b>"
@@ -126,7 +126,7 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:26
 msgid "Activate the selected effect"
-msgstr ""
+msgstr "Kiválasztott effekt bekapcsolása"
 
 #: ../../Jokosher/Jokosher.glade.h:27
 msgid "Add Action"
@@ -134,7 +134,7 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:28
 msgid "Add Audio File"
-msgstr ""
+msgstr "Hangfájl hozzáadása"
 
 #: ../../Jokosher/Jokosher.glade.h:29
 msgid "Add Audio _File..."
@@ -146,27 +146,27 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:31
 msgid "Add an audio file to the project"
-msgstr ""
+msgstr "Hangfájl hozzáadása a projekthez"
 
 #: ../../Jokosher/Jokosher.glade.h:32
 msgid "Add an audio file to the selected instrument"
-msgstr ""
+msgstr "Hangfájl hozzáadása a kiválasztott hangszerhez"
 
 #: ../../Jokosher/Jokosher.glade.h:33
 msgid "Add an extension"
-msgstr ""
+msgstr "Kiegészítő hozzáadása"
 
 #: ../../Jokosher/Jokosher.glade.h:34
 msgid "Add an instrument"
-msgstr ""
+msgstr "Hangszer hozzáadása"
 
 #: ../../Jokosher/Jokosher.glade.h:35
 msgid "Add an instrument to the project"
-msgstr ""
+msgstr "Hangszer hozzáadása a projekthez"
 
 #: ../../Jokosher/Jokosher.glade.h:36
 msgid "Add the selected instrument"
-msgstr ""
+msgstr "Kiválasztott hangszer hozzáadása"
 
 #: ../../Jokosher/Jokosher.glade.h:37
 msgid "Add the selected jokosher instrument"
@@ -178,7 +178,7 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:39
 msgid "Adjust the settings for the currently selected active effect"
-msgstr ""
+msgstr "Kiválasztott aktív effekt beállításai"
 
 #: ../../Jokosher/Jokosher.glade.h:40
 msgid "Arm an instrument then click here to begin recording"
@@ -200,6 +200,9 @@ msgid ""
 "ALSA\n"
 "Custom"
 msgstr ""
+"Automatikus\n"
+"ALSA\n"
+"Egyéni"
 
 #: ../../Jokosher/Jokosher.glade.h:47
 msgid "Beat _value"
@@ -215,11 +218,11 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:50
 msgid "Change Jokosher preferences"
-msgstr ""
+msgstr "A Jokosher beállításainak megváltoztatása"
 
 #: ../../Jokosher/Jokosher.glade.h:51
 msgid "Change the timeline"
-msgstr ""
+msgstr "Idővonal megváltoztatása"
 
 #: ../../Jokosher/Jokosher.glade.h:52
 msgid "Change the timeline to show bars, beats and ticks"
@@ -231,7 +234,7 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:54
 msgid "Change type of the selected instrument"
-msgstr ""
+msgstr "A kiválasztott hangszer típusának megváltoztatása"
 
 #: ../../Jokosher/Jokosher.glade.h:55
 msgid "Choose a chain effects preset."
@@ -243,27 +246,27 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:57
 msgid "Choose an effect preset."
-msgstr ""
+msgstr "Válasszunk ki egy alapbeállítást az effekthez"
 
 #: ../../Jokosher/Jokosher.glade.h:58
 msgid "Choose one or more instruments to add to your project."
-msgstr ""
+msgstr "Válasszunk ki egy vagy több hangszert, hogy a projekthez adjuk"
 
 #: ../../Jokosher/Jokosher.glade.h:59
 msgid "Click and hold to fast forward"
-msgstr ""
+msgstr "Lenyomva tartva gyorsan előreteker"
 
 #: ../../Jokosher/Jokosher.glade.h:60
 msgid "Click and hold to rewind"
-msgstr ""
+msgstr "Lenyomva tartva gyorsan visszateker"
 
 #: ../../Jokosher/Jokosher.glade.h:61
 msgid "Close the current project"
-msgstr ""
+msgstr "A jelenlegi projekt bezárása"
 
 #: ../../Jokosher/Jokosher.glade.h:62
 msgid "Close the extension manager"
-msgstr ""
+msgstr "A kiterjesztéskezelő bezárása"
 
 #: ../../Jokosher/Jokosher.glade.h:63
 msgid "Close this window"
@@ -275,15 +278,15 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:65
 msgid "Configure Instrument Effects"
-msgstr ""
+msgstr "Hangszer Effektjeinek Beállítása"
 
 #: ../../Jokosher/Jokosher.glade.h:66
 msgid "Copy the current selection"
-msgstr ""
+msgstr "Kijelölés másolása"
 
 #: ../../Jokosher/Jokosher.glade.h:67
 msgid "Create a new project"
-msgstr ""
+msgstr "Új projekt készítése"
 
 #: ../../Jokosher/Jokosher.glade.h:68
 msgid "Create project template from instruments in current project"
@@ -291,11 +294,11 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:69
 msgid "Create the project"
-msgstr ""
+msgstr "Projekt létrehozása"
 
 #: ../../Jokosher/Jokosher.glade.h:70
 msgid "Cut the current selection"
-msgstr ""
+msgstr "A jelenlegi kijelölés kivágása"
 
 #: ../../Jokosher/Jokosher.glade.h:71
 msgid "D_evice:"
@@ -303,19 +306,21 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:72
 msgid "Deactivate the currently selected active effect"
-msgstr ""
+msgstr "Kikapcsolja a kijelölt aktív effektet"
 
 #: ../../Jokosher/Jokosher.glade.h:73
 msgid "Delete the current selection"
-msgstr ""
+msgstr "A jelenlegi kijelölés törlése"
 
 #: ../../Jokosher/Jokosher.glade.h:74
+#, fuzzy
 msgid "Delete the currently active effects preset"
-msgstr ""
+msgstr "Aktuális effekt alapbeállítás törlése"
 
 #: ../../Jokosher/Jokosher.glade.h:75
+#, fuzzy
 msgid "Delete the currently active preset"
-msgstr ""
+msgstr "Aktuális alapbeállítás törlése"
 
 #: ../../Jokosher/Jokosher.glade.h:76
 msgid "Delete the selected project template"
@@ -327,31 +332,31 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:78
 msgid "Don't add an instrument"
-msgstr ""
+msgstr "Ne adjon hozzá hangszert"
 
 #: ../../Jokosher/Jokosher.glade.h:79
 msgid "Don't create the project"
-msgstr ""
+msgstr "Ne készítsen projektet"
 
 #: ../../Jokosher/Jokosher.glade.h:80
 msgid "Double-click an active effect to adjust its settings"
-msgstr ""
+msgstr "Kattintsunk duplán egy működő effektre a beállításainak módosításához"
 
 #: ../../Jokosher/Jokosher.glade.h:81
 msgid "Double-click an effect to activate it"
-msgstr ""
+msgstr "Kattintsunk duplán egy effektre az aktiválásához"
 
 #: ../../Jokosher/Jokosher.glade.h:82
 msgid "Double-click on a recent project to open"
-msgstr ""
+msgstr "Kattintsunk duplán egy korábbi projektre a megnyitásához"
 
 #: ../../Jokosher/Jokosher.glade.h:83
 msgid "Drawing icons, images and other art."
-msgstr ""
+msgstr "Ikonok, képek és más grafika rajzolása."
 
 #: ../../Jokosher/Jokosher.glade.h:84
 msgid "Edit Jokosher preferences"
-msgstr ""
+msgstr "A Jokosher beállításainak szerkesztése"
 
 #: ../../Jokosher/Jokosher.glade.h:85
 msgid "Edit project templates"
@@ -361,22 +366,24 @@ msgstr ""
 msgid ""
 "Enter a name for your project and select a folder to store the project in:"
 msgstr ""
+"Írjunk be egy nevet a projektnek és válasszunk ki egy mappát amibe a projekt "
+"fájljai kerülnek:"
 
 #: ../../Jokosher/Jokosher.glade.h:87
 msgid "Enter the author's name"
-msgstr ""
+msgstr "Írjuk be a szerző nevét"
 
 #: ../../Jokosher/Jokosher.glade.h:88
 msgid "Enter the project's name"
-msgstr ""
+msgstr "Írjuk be a projekt nevét"
 
 #: ../../Jokosher/Jokosher.glade.h:89
 msgid "Ex_tensions"
-msgstr ""
+msgstr "Kiegészí_tők"
 
 #: ../../Jokosher/Jokosher.glade.h:90
 msgid "Export current project to an audio file"
-msgstr ""
+msgstr "Aktuális projekt exportálása hangfájlba"
 
 #: ../../Jokosher/Jokosher.glade.h:91
 msgid "Export to local directory"
@@ -392,11 +399,11 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:94
 msgid "Find and open an existing project"
-msgstr ""
+msgstr "Létező projekt keresése és megnyitása"
 
 #: ../../Jokosher/Jokosher.glade.h:95
 msgid "Find out how you can help"
-msgstr ""
+msgstr "Hogyan tud segíteni"
 
 #: ../../Jokosher/Jokosher.glade.h:96
 msgid "GStreamer version:"
@@ -407,6 +414,7 @@ msgid "Gnonlin version:"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:99
+#, fuzzy
 msgid ""
 "Iestyn Pryce <dylunio@gmail.com>\n"
 "Jerome S. Gotangco <jgotangco@ubuntu.com>\n"
@@ -468,18 +476,77 @@ msgid ""
 "David Nielsen <david@lovesunix.net>\n"
 "daave <fan.d.liu@gmail.com>\n"
 msgstr ""
+"Iestyn Pryce <dylunio@gmail.com>\n"
+"Jerome S. Gotangco <jgotangco@ubuntu.com>\n"
+"torb <torrb@musiker.nu>\n"
+"Robert Renling Berencreuz <berencreuz@gmail.com>\n"
+"Ola Jeppsson <ola.jeppsson@gmail.com>\n"
+"Daniel Nylander <po@danielnylander.se>\n"
+"aruiz <aruiz@synaptia.net>\n"
+"Manuel Duran Moyano <mduran@ubiobio.cl>\n"
+"Laszlo Pandy <laszlok2@gmail.com>\n"
+"Iván Edgardo Vázquez Santos \n"
+"David Corrales <corrales.david@gmail.com>\n"
+"Benjamin A'Lee <bma@bmalee.eu>\n"
+"Peter Baričič <pbaricic@gmail.com>\n"
+"Артём Попов <artfwo@gmail.com>\n"
+"deepred <psalmos@swissinfo.org>\n"
+"KeepYourMind <keepyourmind@gmail.com>\n"
+"Georgy Faradzhev <georgy.faradzhev@gmail.com>\n"
+"Gendolf <pr-baukalo@rambler.ru>\n"
+"Rodrigo NSH <rodrigo.nsh@gmail.com>\n"
+"Christian Reis <kiko@async.com.br>\n"
+"Lourabe Multimédia \n"
+"Tomasz Dominikowski <dominikowski@gmail.com>\n"
+"Konrad Adamczyk <konrad@svx.pl>\n"
+"Hender <simsalabimladen@gmail.com>\n"
+"sklp\n"
+"Bård Aase <base@kvarteret.no>\n"
+"Pecisk <pecisk@gmail.com>\n"
+"Luca Ferretti <elle.uca@libero.it>\n"
+"Daniele Medri <daniele@medri.org>\n"
+"Igor Khanin \n"
+"Tobias Frederick <me@tbfr.org>\n"
+"Tim Fuchs <tim.fuchs@gmail.com>\n"
+"Ramona Barte \n"
+"Marcus Hochstadt\n"
+"Lebowski\n"
+"Julian Turner\n"
+"Dennis Lichtenthäler <dennis.lichtenthaeler@episode-iv.de>\n"
+"dyphil <dyphil@wanadoo.fr>\n"
+"XioNoX \n"
+"Stemp <StempUbuntu@gmail.com>\n"
+"Signez\n"
+"Pierre Slamich <pierre.slamich@gmail.com>\n"
+"Nicolas Velin <nsv@fr.st>\n"
+"Jean-Francois Arseneau <jf.arseneau@gmail.com>\n"
+"Guillaume Hoffmann \n"
+"Gabriel de Perthuis <gabriel.de-perthuis@laposte.net>\n"
+"Bruno Bord <bruno@jehaisleprintemps.net>\n"
+"Mikko Virkkilä <mvirkkil@cc.hut.fi>\n"
+"Boyd Timothy\n"
+"William Anderson<neuro@well.com>\n"
+"Sridhar Dhanapalan <sridhar@dhanapalan.com>\n"
+"Roger Light <roger@atchoo.org>\n"
+"Malcolm Parsons\n"
+"Peturrr <peterdekraker@planet.nl>\n"
+"jerven Bolleman <ik@jerven.eu>\n"
+"Mathias-K <mathias@computergeil.dk>\n"
+"Niels Kjøller Hansen <niels.k.h@gmail.com>\n"
+"David Nielsen <david@lovesunix.net>\n"
+"daave <fan.d.liu@gmail.com>\n"
 
 #: ../../Jokosher/Jokosher.glade.h:159 ../../Jokosher/JokosherApp.py:1388
 msgid "Jokosher"
-msgstr ""
+msgstr "Jokosher"
 
 #: ../../Jokosher/Jokosher.glade.h:160
 msgid "Listen to these effects"
-msgstr ""
+msgstr "Kijelölt effektek meghallgatása"
 
 #: ../../Jokosher/Jokosher.glade.h:161
 msgid "Manage instrument recording inputs"
-msgstr ""
+msgstr "Hangszerek felvételi bemenetének kezelése"
 
 #: ../../Jokosher/Jokosher.glade.h:162
 msgid "Mixdown Profile:"
@@ -495,19 +562,19 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:165
 msgid "Mixing Project"
-msgstr ""
+msgstr "Projekt Keverése"
 
 #: ../../Jokosher/Jokosher.glade.h:166
 msgid "Move the selected active effect down on the effects chain"
-msgstr ""
+msgstr "A kiválasztott effekt hátrébbmozgatása az effektek láncolatában"
 
 #: ../../Jokosher/Jokosher.glade.h:167
 msgid "Move the selected active effect up on the effects chain"
-msgstr ""
+msgstr "A kiválasztott effekt előrébbmozgatása az effektek láncolatában"
 
 #: ../../Jokosher/Jokosher.glade.h:168 ../../Jokosher/NewProjectDialog.py:129
 msgid "New Project"
-msgstr ""
+msgstr "Új Projekt"
 
 #: ../../Jokosher/Jokosher.glade.h:169
 msgid "New..."
@@ -519,15 +586,15 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:171
 msgid "Open a recent project"
-msgstr ""
+msgstr "Nemrég használt projekt megnyitása"
 
 #: ../../Jokosher/Jokosher.glade.h:172
 msgid "Open an existing project"
-msgstr ""
+msgstr "Létező projekt megnyitása"
 
 #: ../../Jokosher/Jokosher.glade.h:173
 msgid "Open the extension manager"
-msgstr ""
+msgstr "Kiterjesztéskezelő megnyitása"
 
 #: ../../Jokosher/Jokosher.glade.h:174
 msgid "Open..."
@@ -535,7 +602,7 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:175
 msgid "Paste the contents of the clipboard"
-msgstr ""
+msgstr "A vágólap tartalmának beillesztése"
 
 #: ../../Jokosher/Jokosher.glade.h:176
 msgid ""
@@ -565,27 +632,27 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:182
 msgid "Quit Jokosher"
-msgstr ""
+msgstr "Kilépés a Jokosherből"
 
 #: ../../Jokosher/Jokosher.glade.h:183
 msgid "Redo"
-msgstr ""
+msgstr "Megismétlés"
 
 #: ../../Jokosher/Jokosher.glade.h:184
 msgid "Redo the previous edit"
-msgstr ""
+msgstr "Előző szerkesztési művelet megismétlése"
 
 #: ../../Jokosher/Jokosher.glade.h:185
 msgid "Remove the currently selected extension"
-msgstr ""
+msgstr "A kijelölt kiegészítő eltávolítása"
 
 #: ../../Jokosher/Jokosher.glade.h:186
 msgid "Remove the selected instrument"
-msgstr ""
+msgstr "A kijelölt hangszer eltávolítása"
 
 #: ../../Jokosher/Jokosher.glade.h:187
 msgid "Report a bug in Jokosher"
-msgstr ""
+msgstr "A Jokosher hibájának jelentése a fejlesztőknek"
 
 #: ../../Jokosher/Jokosher.glade.h:188
 msgid "Restore Crashed Project"
@@ -597,7 +664,7 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:190
 msgid "Save a copy of the current project"
-msgstr ""
+msgstr "Másolat mentése az aktuális projektről"
 
 #: ../../Jokosher/Jokosher.glade.h:191 ../../Jokosher/JokosherApp.py:637
 msgid "Save as file type:"
@@ -605,11 +672,11 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:192
 msgid "Save preferences and close"
-msgstr ""
+msgstr "Beállítások mentése és bezárás"
 
 #: ../../Jokosher/Jokosher.glade.h:193
 msgid "Save the current project"
-msgstr ""
+msgstr "A jelenlegi projekt mentése"
 
 #: ../../Jokosher/Jokosher.glade.h:194
 msgid "Save the current settings as a preset"
@@ -625,7 +692,7 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:197
 msgid "Save your selections and close this window"
-msgstr ""
+msgstr "A kijelölések mentése és az ablak becsukása"
 
 #: ../../Jokosher/Jokosher.glade.h:198
 msgid "See your system information"
@@ -633,15 +700,15 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:199
 msgid "Select A Folder"
-msgstr ""
+msgstr "Válasszon egy mappát"
 
 #: ../../Jokosher/Jokosher.glade.h:200
 msgid "Select a project to open from the list"
-msgstr ""
+msgstr "Válassza ki a megnyitandó projektet"
 
 #: ../../Jokosher/Jokosher.glade.h:201
 msgid "Select the audio input to use with each instrument."
-msgstr ""
+msgstr "Válasszunk ki minden hangszerhez audiobemenetet"
 
 #: ../../Jokosher/Jokosher.glade.h:202
 msgid "Set Time Signature"
@@ -649,7 +716,7 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:203
 msgid "Settings"
-msgstr ""
+msgstr "Beállítások"
 
 #: ../../Jokosher/Jokosher.glade.h:204
 msgid "Show as _Bars, Beats, Ticks"
@@ -661,19 +728,19 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:206
 msgid "Start Jokosher with an empty project"
-msgstr ""
+msgstr "A Jokosher egy üres projekttel induljon"
 
 #: ../../Jokosher/Jokosher.glade.h:207
 msgid "Start playback"
-msgstr ""
+msgstr "Lejátszás indítása"
 
 #: ../../Jokosher/Jokosher.glade.h:208
 msgid "Stop mixing the project"
-msgstr ""
+msgstr "A projekt keverésének leállítása"
 
 #: ../../Jokosher/Jokosher.glade.h:209 ../../Jokosher/JokosherApp.py:66
 msgid "Stop playback"
-msgstr ""
+msgstr "Lejátszás leállítása"
 
 #: ../../Jokosher/Jokosher.glade.h:210
 msgid "System Information"
@@ -681,55 +748,58 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:211
 msgid "Testing Jokosher, and submitting bugs."
-msgstr ""
+msgstr "A Jokosher tesztelése és hibák jelentése"
 
 #: ../../Jokosher/Jokosher.glade.h:212
 msgid "Type here to search for an instrument"
-msgstr ""
+msgstr "Írjunk ide a hangszerek közötti kereséshez"
 
 #: ../../Jokosher/Jokosher.glade.h:213
 msgid "Undo"
-msgstr ""
+msgstr "Visszavonás"
 
 #: ../../Jokosher/Jokosher.glade.h:214
 msgid "Undo the last edit"
-msgstr ""
+msgstr "Az utolsó szerkesztés visszavonása"
 
 #: ../../Jokosher/Jokosher.glade.h:215
+#, fuzzy
 msgid "Use these effect settings"
-msgstr ""
+msgstr "Effektbeállítások elfogadása"
 
 #: ../../Jokosher/Jokosher.glade.h:216
+#, fuzzy
 msgid "Use these effects"
-msgstr ""
+msgstr "Effektek használata"
 
 #: ../../Jokosher/Jokosher.glade.h:217
 msgid "Use these settings"
-msgstr ""
+msgstr "Beállítások elfogadása"
 
 #: ../../Jokosher/Jokosher.glade.h:218
 msgid "User manual contents"
-msgstr ""
+msgstr "Kézikönyv tartalomjegyzéke"
 
 #: ../../Jokosher/Jokosher.glade.h:219
 msgid "Version information, credits and licence"
-msgstr ""
+msgstr "Verzióinformáció, készítők és licensz"
 
 #: ../../Jokosher/Jokosher.glade.h:220
 msgid "Visit Jokosher's online forums"
-msgstr ""
+msgstr "Látogassunk el a Jokosher fórumaira"
 
 #: ../../Jokosher/Jokosher.glade.h:221
+#, fuzzy
 msgid "Welcome to Jokosher!"
-msgstr ""
+msgstr "Jó napot!"
 
 #: ../../Jokosher/Jokosher.glade.h:222
 msgid "Writing code and features in Python."
-msgstr ""
+msgstr "Kód és funkcionalitás írása Pythonban."
 
 #: ../../Jokosher/Jokosher.glade.h:223
 msgid "Writing simple to read documentation."
-msgstr ""
+msgstr "Egyszerű és érthető dokumentáció készítése."
 
 #: ../../Jokosher/Jokosher.glade.h:224
 msgid "Your music file is being mixed. This can take some seconds."
@@ -752,8 +822,9 @@ msgid "_Change Instrument Type..."
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:229
+#, fuzzy
 msgid "_Contributing to Jokosher"
-msgstr ""
+msgstr "_Csatlakozom a Jokosherhez"
 
 #: ../../Jokosher/Jokosher.glade.h:230
 msgid "_Create Project Template"
@@ -773,11 +844,11 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:234
 msgid "_Edit"
-msgstr ""
+msgstr "Sz_erkesztés"
 
 #: ../../Jokosher/Jokosher.glade.h:235
 msgid "_File"
-msgstr ""
+msgstr "_Fájl"
 
 #: ../../Jokosher/Jokosher.glade.h:236
 msgid "_Folder:"
@@ -785,11 +856,11 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:237
 msgid "_Help"
-msgstr ""
+msgstr "Súgó (_H)"
 
 #: ../../Jokosher/Jokosher.glade.h:238
 msgid "_Instrument"
-msgstr ""
+msgstr "Hangszer (_I)"
 
 #: ../../Jokosher/Jokosher.glade.h:239
 msgid "_Manage Extensions..."
@@ -805,7 +876,7 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:242
 msgid "_Online Forums"
-msgstr ""
+msgstr "Internetes Fórum_ok"
 
 #: ../../Jokosher/Jokosher.glade.h:243
 msgid "_Open Selected Project"
@@ -825,7 +896,7 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:247
 msgid "_Project"
-msgstr ""
+msgstr "_Projekt"
 
 #: ../../Jokosher/Jokosher.glade.h:248
 msgid "_Project Name:"
@@ -833,7 +904,7 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:249
 msgid "_Recent Projects"
-msgstr ""
+msgstr "Nem_rég Használt Projektek"
 
 #: ../../Jokosher/Jokosher.glade.h:250
 msgid "_Recording Inputs..."
@@ -845,7 +916,7 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:252
 msgid "_Report Bug..."
-msgstr ""
+msgstr "Hibajelentés Küldése (_R)"
 
 #: ../../Jokosher/Jokosher.glade.h:253
 msgid "_Restore Crashed Project..."
@@ -869,7 +940,7 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:258
 msgid "_Time Format"
-msgstr ""
+msgstr "Időformá_tum"
 
 #: ../../Jokosher/Jokosher.glade.h:259
 msgid "_Use project template"
@@ -885,20 +956,21 @@ msgstr ""
 
 #: ../../Jokosher/AddInstrumentDialog.py:61
 msgid "Change Instrument Type"
-msgstr ""
+msgstr "Hangszer típusának megváltoztatása"
 
 #: ../../Jokosher/AddInstrumentDialog.py:63
-#, python-format
+#, fuzzy, python-format
 msgid "Choose the new instrument type for %s"
-msgstr ""
+msgstr "Válasszunk ki új hangszertípust %s-nek"
 
 #: ../../Jokosher/CompactMixView.py:76
 msgid "<b>Instruments Not Shown:</b>"
-msgstr ""
+msgstr "<b>Nem Látszó Hangszerek:</b>"
 
 #: ../../Jokosher/ControlsBox.py:42
+#, fuzzy
 msgid "Enable this instrument for recording"
-msgstr ""
+msgstr "Hangszer élesítése felvételhez"
 
 #: ../../Jokosher/ControlsBox.py:43
 msgid "Disable this instrument for recording"
@@ -906,24 +978,24 @@ msgstr ""
 
 #: ../../Jokosher/ControlsBox.py:44
 msgid "Mute - silence this instrument"
-msgstr ""
+msgstr "Hangszer elnémítása"
 
 #: ../../Jokosher/ControlsBox.py:45
 msgid "Unmute - hear this instrument"
-msgstr ""
+msgstr "Hangszer hallhatóvá tétele"
 
 #: ../../Jokosher/ControlsBox.py:46
 msgid "Activate Solo - silence all other instruments"
-msgstr ""
+msgstr "Szóló - minden más hangszer elnémítása"
 
 #: ../../Jokosher/ControlsBox.py:47
 msgid "Deactivate Solo - hear all the instruments"
-msgstr ""
+msgstr "Nem Szóló - minden hangszer hallhatóvá tétele"
 
 #: ../../Jokosher/ControlsBox.py:84
 #: ../../Jokosher/InstrumentEffectsDialog.py:114
 msgid "Instrument Effects"
-msgstr ""
+msgstr "Hangszer Effektek"
 
 #: ../../Jokosher/CrashProtectionDialog.py:79
 #: ../../Jokosher/CrashProtectionDialog.py:138
@@ -946,22 +1018,22 @@ msgid ""
 "certain you wish to restore it?"
 msgstr ""
 
-#: ../../Jokosher/Event.py:757
+#: ../../Jokosher/Event.py:765
 #, python-format
 msgid "%(title)s by %(artist)s"
 msgstr ""
 
 #: ../../Jokosher/EventLaneViewer.py:113
 msgid "_Add Audio File..."
-msgstr ""
+msgstr "Hangfájl Hozzá_adása..."
 
 #: ../../Jokosher/EventLaneViewer.py:274
 msgid "<b>Right-click</b> for more options."
-msgstr ""
+msgstr "A <b>jobb egérgombbal</b> további opciók érhetők el."
 
 #: ../../Jokosher/EventViewer.py:153
 msgid "Trim"
-msgstr ""
+msgstr "Levágás"
 
 #: ../../Jokosher/EventViewer.py:164
 msgid "Delete Fade Points"
@@ -971,71 +1043,76 @@ msgstr ""
 msgid "Snap To Fade Points"
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:442
+#: ../../Jokosher/EventViewer.py:443
 msgid "Downloading..."
-msgstr ""
+msgstr "Letöltés..."
 
-#: ../../Jokosher/EventViewer.py:444
+#: ../../Jokosher/EventViewer.py:445
 msgid "Loading..."
-msgstr ""
+msgstr "Betöltés..."
 
-#: ../../Jokosher/EventViewer.py:448
+#: ../../Jokosher/EventViewer.py:449
 #, python-format
 msgid "Downloading (%d%%)..."
-msgstr ""
+msgstr "Letöltés (%d%%)..."
 
-#: ../../Jokosher/EventViewer.py:450
+#: ../../Jokosher/EventViewer.py:451
 #, python-format
 msgid "Loading (%d%%)..."
-msgstr ""
+msgstr "Betöltés (%d%%)..."
 
-#: ../../Jokosher/EventViewer.py:461
+#: ../../Jokosher/EventViewer.py:462
 msgid "Recording..."
-msgstr ""
+msgstr "Felvétel..."
 
-#: ../../Jokosher/EventViewer.py:509
+#: ../../Jokosher/EventViewer.py:510
 msgid ""
 "To <b>Split, Double-Click</b> the wave - To <b>Select, Shift-Click</b> and "
 "drag the mouse"
 msgstr ""
+"<b>Kattintsunk duplán a Szétvágáshoz</b> a hullámra - <b>kattintsunk a "
+"shiftet nyomva tartva és mozgassuk ez egeret a Kijelöléshez</b>"
 
-#: ../../Jokosher/EventViewer.py:523
+#: ../../Jokosher/EventViewer.py:524
 msgid "<b>Drag</b> the red sliders to modify the volume fade."
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:636
+#: ../../Jokosher/EventViewer.py:637
 msgid ""
 "<b>Click</b> the buttons below the selection to do something to that portion "
 "of audio."
 msgstr ""
+"<b>Kattintsunk</b> a kijelölés alatti gombokra, hogy valamit tegyünk a "
+"kijelölt hanggal."
 
-#: ../../Jokosher/EventViewer.py:901
+#: ../../Jokosher/EventViewer.py:902
 msgid "_Split"
-msgstr ""
-
-#: ../../Jokosher/EventViewer.py:903
-msgid "Cu_t"
-msgstr ""
+msgstr "_Szétvágás"
 
 #: ../../Jokosher/EventViewer.py:904
-msgid "_Copy"
-msgstr ""
+msgid "Cu_t"
+msgstr "Kivágás (_T)"
 
 #: ../../Jokosher/EventViewer.py:905
+msgid "_Copy"
+msgstr "Másolás (_C)"
+
+#: ../../Jokosher/EventViewer.py:906
 #: ../../Jokosher/InstrumentEffectsDialog.py:442
 msgid "_Delete"
-msgstr ""
-
-#: ../../Jokosher/EventViewer.py:1195
-msgid "Error loading file:"
-msgstr ""
+msgstr "Törlés (_D)"
 
 #: ../../Jokosher/EventViewer.py:1196
+msgid "Error loading file:"
+msgstr "Nem sikerült a fájlt betölteni:"
+
+#: ../../Jokosher/EventViewer.py:1197
 msgid ""
 "Please make sure the file exists, and the appropriate plugin is installed."
 msgstr ""
+"Kérem ellenőrizze, hogy a fájl létezik, és a megfelelő plugin telepítve van."
 
-#: ../../Jokosher/EventViewer.py:1414
+#: ../../Jokosher/EventViewer.py:1415
 #, python-format
 msgid ""
 "Event, %(name)s, %(dur)0.2f seconds long, starting at %(start)0.2f seconds."
@@ -1043,7 +1120,7 @@ msgstr ""
 
 #: ../../Jokosher/Extension.py:50
 msgid "This is a Jokosher extension; it is not meant to be run directly."
-msgstr ""
+msgstr "Ez egy kiegészítő a Jokosher-hez; önmagában nem működik."
 
 #: ../../Jokosher/Extension.py:51
 #, python-format
@@ -1051,128 +1128,132 @@ msgid ""
 "To install it, move it to the directory %s\n"
 "and run Jokosher."
 msgstr ""
+"A telepítéséhez másoljuk a %s könyvtárba\n"
+"és indítsuk el a Jokosher-t."
 
 #: ../../Jokosher/Extension.py:54
 msgid ""
 "This is a Jokosher extension, which needs to be installed. Would you like to "
 "install it?"
 msgstr ""
+"Ez egy kiegészítő a Jokosher-hez, amit telepíteni kell a működéshez. "
+"Szeretné telepíteni?"
 
 #: ../../Jokosher/Extension.py:56
 msgid "Install"
-msgstr ""
+msgstr "Telepítés"
 
 #: ../../Jokosher/Extension.py:66
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "You already have a extension with the name %s installed; would you like to "
 "replace it?"
-msgstr ""
+msgstr "Már van egy %s nevű kiegészítő telepítve; kicseréljük erre?"
 
 #: ../../Jokosher/Extension.py:69
 msgid "Replace"
-msgstr ""
+msgstr "Kicserél"
 
 #: ../../Jokosher/Extension.py:82
 msgid "Your new extension is now available in Jokosher!"
-msgstr ""
+msgstr "Az új kiegészítő most már elérhető a Jokosherben!"
 
 #: ../../Jokosher/ExtensionManagerDialog.py:169
 msgid "Choose a Jokosher Extension file"
-msgstr ""
+msgstr "Válasszunk ki egy Jokosher Kiegészítőt tartalmazó fájlt"
 
 #: ../../Jokosher/ExtensionManagerDialog.py:175
 msgid "Jokosher Extension Files (*.py *.egg)"
-msgstr ""
+msgstr "Jokosher Kiegészítők (*.py *.egg)"
 
 #: ../../Jokosher/ExtensionManagerDialog.py:197
 msgid "There was a problem loading the extension"
-msgstr ""
+msgstr "Probléma merült fel a kiegészítő betöltésekor"
 
 #: ../../Jokosher/ExtensionManagerDialog.py:235
 msgid "There was a problem removing the extension"
-msgstr ""
+msgstr "Probléma merült fel a kiegészítő eltávolításakor"
 
 #: ../../Jokosher/ExtensionManagerDialog.py:272
 msgid ""
 "An error occurred when trying to launch the preferences for the extension"
-msgstr ""
-
-#: ../../Jokosher/Globals.py:441
-msgid "Broken"
-msgstr ""
+msgstr "Hiba merült fel a kiegészítő beállításainak megjelenítése közben"
 
 #: ../../Jokosher/Globals.py:442
-msgid "Unclassified"
-msgstr ""
+msgid "Broken"
+msgstr "Törött"
 
 #: ../../Jokosher/Globals.py:443
-msgid "Amplifiers"
-msgstr ""
+msgid "Unclassified"
+msgstr "Nem-besorolt"
 
 #: ../../Jokosher/Globals.py:444
-msgid "Chorus"
-msgstr ""
+msgid "Amplifiers"
+msgstr "Erősítők"
 
 #: ../../Jokosher/Globals.py:445
-msgid "Compressors"
-msgstr ""
+msgid "Chorus"
+msgstr "Kórus"
 
 #: ../../Jokosher/Globals.py:446
-msgid "Delays"
-msgstr ""
+msgid "Compressors"
+msgstr "Kompresszorok"
 
 #: ../../Jokosher/Globals.py:447
-msgid "Distortions"
-msgstr ""
+msgid "Delays"
+msgstr "Késleltetők"
 
 #: ../../Jokosher/Globals.py:448
+msgid "Distortions"
+msgstr "Torzítók"
+
+#: ../../Jokosher/Globals.py:449
 msgid "Equalizers"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:449
-msgid "Filters"
-msgstr ""
-
 #: ../../Jokosher/Globals.py:450
+msgid "Filters"
+msgstr "Szűrők"
+
+#: ../../Jokosher/Globals.py:451
 msgid "Flangers"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:451
-msgid "Miscellaneous"
-msgstr ""
-
 #: ../../Jokosher/Globals.py:452
-msgid "Modulators"
-msgstr ""
+msgid "Miscellaneous"
+msgstr "Egyebek"
 
 #: ../../Jokosher/Globals.py:453
-msgid "Oscillators"
-msgstr ""
+msgid "Modulators"
+msgstr "Modulátorok"
 
 #: ../../Jokosher/Globals.py:454
+msgid "Oscillators"
+msgstr "Oszcillátorok"
+
+#: ../../Jokosher/Globals.py:455
 msgid "Phasers"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:455
-msgid "Reverbs"
-msgstr ""
-
 #: ../../Jokosher/Globals.py:456
+msgid "Reverbs"
+msgstr "Zengetők"
+
+#: ../../Jokosher/Globals.py:457
 msgid "Simulators"
-msgstr ""
+msgstr "Szimulátorok"
 
 #: ../../Jokosher/Instrument.py:494
 msgid "Recorded audio"
-msgstr ""
+msgstr "Rögzített hangfelvétel"
 
 #: ../../Jokosher/InstrumentConnectionsDialog.py:56
 msgid "There are no instruments to connect"
-msgstr ""
+msgstr "Nincs csatlakoztatható hangszer"
 
 #: ../../Jokosher/InstrumentConnectionsDialog.py:110
 msgid "Default"
-msgstr ""
+msgstr "Alapértelmezett"
 
 #: ../../Jokosher/InstrumentConnectionsDialog.py:118
 #, python-format
@@ -1183,45 +1264,45 @@ msgstr ""
 #: ../../Jokosher/InstrumentEffectsDialog.py:142
 #: ../../Jokosher/MixdownProfileDialog.py:618
 msgid "Name"
-msgstr ""
+msgstr "Név"
 
 #: ../../Jokosher/InstrumentEffectsDialog.py:141
 #: ../../Jokosher/ProjectTemplateDialog.py:82
 #: ../../Jokosher/ProjectTemplateDialog.py:86
 msgid "Type"
-msgstr ""
+msgstr "Típus"
 
 #: ../../Jokosher/InstrumentEffectsDialog.py:439
 msgid "_Move up..."
-msgstr ""
+msgstr "_Mozgatás fel..."
 
 #: ../../Jokosher/InstrumentEffectsDialog.py:440
 msgid "M_ove down..."
-msgstr ""
+msgstr "M_ozgatás le..."
 
 #: ../../Jokosher/InstrumentEffectsDialog.py:443
 msgid "_Settings"
-msgstr ""
+msgstr "Beállítások (_S)"
 
 #: ../../Jokosher/InstrumentEffectsDialog.py:484
 msgid "_Activate effect"
-msgstr ""
+msgstr "Effekt _Aktiválása"
 
 #: ../../Jokosher/InstrumentEffectsDialog.py:666
 msgid "Effect Settings"
-msgstr ""
+msgstr "Effekt Beállításai"
 
 #: ../../Jokosher/InstrumentEffectsDialog.py:700
 msgid "-parameter not readable-"
-msgstr ""
+msgstr "-nem olvasható paraméter-"
 
 #: ../../Jokosher/JokosherApp.py:63 ../../Jokosher/JokosherApp.py:65
 msgid "Stop recording"
-msgstr ""
+msgstr "Felvétel leállítása"
 
 #: ../../Jokosher/JokosherApp.py:64
 msgid "Arm an instrument, then click here to begin recording"
-msgstr ""
+msgstr "Élesítsen be egy hangszert, és kattintson ide a felvétel megkezdéséhez"
 
 #: ../../Jokosher/JokosherApp.py:67
 msgid "Hide the audio level mixers"
@@ -1238,6 +1319,9 @@ msgid ""
 "\n"
 "Please visit %s to access it."
 msgstr ""
+"<big>Nem sikerült a Jokosher honlap automatikus megnyitása.</big>\n"
+"\n"
+"Kérjük látogasson el a %s webcímre."
 
 #: ../../Jokosher/JokosherApp.py:425
 #, python-format
@@ -1289,15 +1373,15 @@ msgstr ""
 
 #: ../../Jokosher/JokosherApp.py:763
 msgid "All Files"
-msgstr ""
+msgstr "Minden Fájl"
 
 #: ../../Jokosher/JokosherApp.py:767
 msgid "Jokosher Project File (*.jokosher)"
-msgstr ""
+msgstr "Jokosher Projekt Fájl (*.jokosher)"
 
 #: ../../Jokosher/JokosherApp.py:822
 msgid "Choose a location to save the project"
-msgstr ""
+msgstr "Válasszunk mappát a projekt mentéséhez"
 
 #: ../../Jokosher/JokosherApp.py:896
 #, python-format
@@ -1310,22 +1394,25 @@ msgstr ""
 
 #: ../../Jokosher/JokosherApp.py:905
 msgid "Close _Without Saving"
-msgstr ""
+msgstr "Bezárás Mentés Nélkül (_W)"
 
 #: ../../Jokosher/JokosherApp.py:1009
 #, python-format
 msgid "Mixing project to file: %s"
-msgstr ""
+msgstr "Projekt lekeverése a %s fájlba"
 
 #: ../../Jokosher/JokosherApp.py:1040
 msgid "Argh! Something went wrong and a serious error occurred:"
-msgstr ""
+msgstr "Hű! Valami elromlott és komoly hiba merült fel:"
 
 #: ../../Jokosher/JokosherApp.py:1041 ../../Jokosher/JokosherApp.py:1848
 msgid ""
 "It is recommended that you report this to the Jokosher developers or get "
 "help at http://www.jokosher.org/forums/"
 msgstr ""
+"Azt javasoljuk, hogy jelentse ezt a Jokosher fejlesztőinek vagy kérjen "
+"segítséget itt:\r\n"
+"http://www.jokosher.org/forums/"
 
 #: ../../Jokosher/JokosherApp.py:1066
 #, python-format
@@ -1335,21 +1422,23 @@ msgstr ""
 #: ../../Jokosher/JokosherApp.py:1068
 #, python-format
 msgid "%s - Jokosher"
-msgstr ""
+msgstr "%s - Jokosher"
 
 #: ../../Jokosher/JokosherApp.py:1147
 msgid "Clear the list of recent projects"
-msgstr ""
+msgstr "Nemrég használt projektek listájának törlése"
 
 #: ../../Jokosher/JokosherApp.py:1561
 msgid "The project references non-existant files:\n"
-msgstr ""
+msgstr "A projekt nem létező fájlokra hivatkozik:\n"
 
 #: ../../Jokosher/JokosherApp.py:1565
 msgid ""
 "\n"
 "The project references non-existant images:\n"
 msgstr ""
+"\n"
+"A projekt nem létező képekre hivatkozik:\n"
 
 #: ../../Jokosher/JokosherApp.py:1573
 #, python-format
@@ -1357,24 +1446,31 @@ msgid ""
 "%s\n"
 " Invalid or corrupt project file, will not open."
 msgstr ""
+"%s\n"
+" Nem megfelelő vagy hibás projekt fájl, nem nyitható meg."
 
 #: ../../Jokosher/JokosherApp.py:1612
 msgid "You must have Gstreamer version 0.10.9 or higher.\n"
-msgstr ""
+msgstr "Szükség van a Gstreamer 0.10.9 vagy magasabb verziójára.\n"
 
 #: ../../Jokosher/JokosherApp.py:1620
 msgid "You must have Gstreamer plugin gnonlin version 0.10.4.2 or later.\n"
 msgstr ""
+"Szükség van a Gstreamer gnonlin pluginjának 0.10.4.2 vagy magasabb "
+"verziójára.\n"
 
 #: ../../Jokosher/JokosherApp.py:1622
 msgid "Gstreamer plugin gnonlin is not installed."
-msgstr ""
+msgstr "A gnonlin nevű Gstreamer plugin nincs telepítve."
 
 #: ../../Jokosher/JokosherApp.py:1623
 msgid ""
 "\n"
 "See http://doc.jokosher.org/Installation for more details.\n"
 msgstr ""
+"\n"
+"Látogasson el a http://doc.jokosher.org/Installation webcímre további "
+"információért.\n"
 
 #: ../../Jokosher/JokosherApp.py:1626
 msgid ""
@@ -1392,7 +1488,7 @@ msgstr ""
 
 #: ../../Jokosher/JokosherApp.py:1682
 msgid "<big>Couldn't launch the Yelp help browser.</big>"
-msgstr ""
+msgstr "<big>Nem tudtam elindítani a Yelp súgóböngészőt.</big>"
 
 #: ../../Jokosher/JokosherApp.py:1695
 #, python-format
@@ -1404,7 +1500,7 @@ msgstr ""
 
 #: ../../Jokosher/JokosherApp.py:1723
 msgid "<b>To find out more, visit:</b>"
-msgstr ""
+msgstr "<b>További információért látogassa meg:</b>"
 
 #: ../../Jokosher/JokosherApp.py:1746
 #, python-format
@@ -1430,17 +1526,18 @@ msgstr ""
 #: ../../Jokosher/JokosherApp.py:1840
 #, python-format
 msgid "Unable to unzip the project file %s"
-msgstr ""
+msgstr "Nem tudtam kitömöríteni a %s projektfájlt"
 
 #: ../../Jokosher/JokosherApp.py:1842
 #, python-format
 msgid "The project file was created with version \"%s\" of Jokosher.\n"
-msgstr ""
+msgstr "A projektfájl a Jokosher \"%s\" verziójával készült.\n"
 
 #: ../../Jokosher/JokosherApp.py:1843
 #, python-format
 msgid "Projects from version \"%s\" are incompatible with this release.\n"
 msgstr ""
+"A \"%s\" verzió projektjei sajnos nem kompatibilisek ezzel a verzióval.\n"
 
 #: ../../Jokosher/JokosherApp.py:1845
 #, python-format
@@ -1450,26 +1547,31 @@ msgid ""
 "\n"
 "does not exist.\n"
 msgstr ""
+"A projekt:\n"
+"%s\n"
+"\n"
+"nem létezik.\n"
 
 #: ../../Jokosher/JokosherApp.py:1847 ../../Jokosher/JokosherApp.py:1851
 msgid "The project file could not be opened.\n"
-msgstr ""
+msgstr "A projektfájlt nem lehetett megnyitni.\n"
 
 #: ../../Jokosher/JokosherApp.py:1928
 msgid "Copy file to project"
-msgstr ""
+msgstr "Fájl másolása a projektbe"
 
 #: ../../Jokosher/JokosherApp.py:1933
 msgid "Add Audio File..."
-msgstr ""
+msgstr "Hangfájl Hozzáadása..."
 
 #: ../../Jokosher/JokosherApp.py:2007 ../../Jokosher/JokosherApp.py:2012
+#, fuzzy
 msgid "Mixdown as"
-msgstr ""
+msgstr "Lekeverés mint"
 
 #: ../../Jokosher/MasterMixerStrip.py:46
 msgid "Master Volume:"
-msgstr ""
+msgstr "Mester Hangerő"
 
 #: ../../Jokosher/MixdownActions.py:157
 msgid "Export File"
@@ -1532,7 +1634,7 @@ msgstr ""
 #: ../../Jokosher/MixdownActions.py:533
 #, python-format
 msgid "Error in script %s"
-msgstr ""
+msgstr "Hiba a %s szkriptben"
 
 #: ../../Jokosher/MixdownActions.py:536
 #, python-format
@@ -1613,63 +1715,65 @@ msgstr ""
 
 #: ../../Jokosher/MixerStrip.py:64
 msgid "Minimize instrument"
-msgstr ""
+msgstr "Hangszer lekicsinyítése"
 
 #: ../../Jokosher/MixerStrip.py:74
 msgid "Balance:"
-msgstr ""
+msgstr "Balansz:"
 
 #: ../../Jokosher/MixerStrip.py:79
 msgid "L"
-msgstr ""
+msgstr "B"
 
 #: ../../Jokosher/MixerStrip.py:80
 msgid "R"
-msgstr ""
+msgstr "J"
 
 #: ../../Jokosher/MixerStrip.py:86
 msgid "Adjust instrument balance. Right-click to center"
-msgstr ""
+msgstr "Hangszer balanszának állítása. Jobb-kattintás a középre igazításhoz"
 
 #: ../../Jokosher/MixerStrip.py:100
 msgid "Volume:"
-msgstr ""
+msgstr "Hangerő:"
 
 #: ../../Jokosher/MixerStrip.py:228
 #, python-format
 msgid "Current balance is <b>%d%%</b> left"
-msgstr ""
+msgstr "Balansz <b>%d%%</b> balra"
 
 #: ../../Jokosher/MixerStrip.py:230
 msgid "Current balance is <b>centered</b>"
-msgstr ""
+msgstr "Balansz <b>középen</b>"
 
 #: ../../Jokosher/MixerStrip.py:232
 #, python-format
 msgid "Current balance is <b>%d%%</b> right"
-msgstr ""
+msgstr "Balansz <b>%d%%</b> jobbra"
 
 #: ../../Jokosher/NewProjectDialog.py:133
 msgid "Unknown Author"
-msgstr ""
+msgstr "Ismeretlen Szerző"
 
 #: ../../Jokosher/NewProjectDialog.py:146
 msgid "Could not initialize project."
-msgstr ""
+msgstr "Nem sikerült a projektet elindítani."
 
 #: ../../Jokosher/NewProjectDialog.py:148
 msgid ""
 "A file or folder with this name already exists. Please choose a different "
 "project name and try again."
 msgstr ""
+"Már van ilyen nevű fájl vagy mappa. Válasszunk másik nevet a projektnek és "
+"próbáljuk újra."
 
 #: ../../Jokosher/NewProjectDialog.py:150
 msgid "The file or folder location is write-protected."
-msgstr ""
+msgstr "A fájl vagy mappa írásvédett."
 
 #: ../../Jokosher/NewProjectDialog.py:152
 msgid "Invalid name or author."
-msgstr ""
+msgstr "Hibás név vagy szerző."
 
 #: ../../Jokosher/NewProjectDialog.py:154
 msgid "The URI scheme given is either invalid or not supported"
@@ -1677,7 +1781,7 @@ msgstr ""
 
 #: ../../Jokosher/NewProjectDialog.py:156
 msgid "Unable to load required Gstreamer plugin:"
-msgstr ""
+msgstr "Nem sikerült betölteni a szükséges Gstreamer plugint:"
 
 #: ../../Jokosher/NewProjectDialog.py:163
 #, python-format
@@ -1686,6 +1790,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Nem sikerült létrehozni a projektet.\n"
+"\n"
+"%s"
 
 #: ../../Jokosher/PreferencesDialog.py:94
 msgid "Autodetect"
@@ -1725,8 +1832,9 @@ msgid "Turn click track on"
 msgstr ""
 
 #: ../../Jokosher/TimeLineBar.py:65
+#, fuzzy
 msgid "Beats per minute"
-msgstr ""
+msgstr "Ritmus per perc"
 
 #: ../../Jokosher/TimeLineBar.py:85
 msgid "Time signature"
@@ -1738,7 +1846,7 @@ msgstr ""
 
 #: ../../Jokosher/TimeView.py:50
 msgid "Double click to change the time format"
-msgstr ""
+msgstr "Kattintsunk duplán az időformátum megváltoztatásához"
 
 #: ../../Jokosher/VUWidget.py:146
 msgid ""
@@ -1747,100 +1855,265 @@ msgid ""
 msgstr ""
 
 #: ../../Jokosher/Jokosher:66
+#, fuzzy
 msgid "Print debug output to stdout"
-msgstr ""
+msgstr "Hibainformáció kiírása terminálba"
 
 #: ../../Jokosher/Jokosher:68
 msgid "Sent debug output to Gstreamer's debug system"
-msgstr ""
+msgstr "Hibainformáció küldése a Gstreamer hibajavító rendszerének"
 
 #: ../../Jokosher/Jokosher:70
 msgid "Don't load extensions or last project on startup (same as -ne)"
 msgstr ""
+"Ne töltsön be kiegészítőket vagy legutolsó projektet indításkor (ugyanaz "
+"mint a -ne)"
 
 #: ../../Jokosher/Jokosher:72
 msgid "Force the welcome dialog to show on startup"
-msgstr ""
+msgstr "Jelenítse meg az üdvözlőképernyőt indításkor"
 
 #: ../../Jokosher/Jokosher:74
 msgid "Force Jokosher to load without a welcome dialog or project"
-msgstr ""
+msgstr "Induljon a Jokosher üdvözlőképernyő vagy projekt nélkül"
 
 #: ../../Jokosher/Jokosher:76
 msgid "Do not load extensions on startup"
-msgstr ""
+msgstr "Ne töltsön be kiegészítőket induláskor"
 
 #: i18n.instr.h:1
 msgid "Acoustic Guitar"
-msgstr ""
+msgstr "Akusztikus Gitár"
 
 #: i18n.instr.h:2
 msgid "Audio File"
-msgstr ""
+msgstr "Hangfájl"
 
 #: i18n.instr.h:3
 msgid "Bass Drum"
-msgstr ""
+msgstr "Lábdob"
 
 #: i18n.instr.h:4
 msgid "Bass Guitar"
-msgstr ""
+msgstr "Basszusgitár"
 
 #: i18n.instr.h:5
 msgid "Cello"
-msgstr ""
+msgstr "Cselló"
 
 #: i18n.instr.h:6
 msgid "Cymbal"
-msgstr ""
+msgstr "Cintányér"
 
 #: i18n.instr.h:7
 msgid "Drum Kit"
-msgstr ""
+msgstr "Dobkészlet"
 
 #: i18n.instr.h:8
 msgid "Effect"
-msgstr ""
+msgstr "Effekt"
 
 #: i18n.instr.h:9
 msgid "Electric Guitar"
-msgstr ""
+msgstr "Elektromos Gitár"
 
 #: i18n.instr.h:10
 msgid "Harmonica"
-msgstr ""
+msgstr "Harmónika"
 
 #: i18n.instr.h:11
+#, fuzzy
 msgid "Keyboard"
-msgstr ""
+msgstr "Szintetizátor"
 
 #: i18n.instr.h:12
 msgid "Other"
-msgstr ""
+msgstr "Egyéb"
 
 #: i18n.instr.h:13
 msgid "Saxophone"
-msgstr ""
+msgstr "Szaxofon"
 
 #: i18n.instr.h:14
 msgid "Snare"
-msgstr ""
+msgstr "Pergő"
 
 #: i18n.instr.h:15
 msgid "Tom Tom"
-msgstr ""
+msgstr "Tam Tam"
 
 #: i18n.instr.h:16
 msgid "Trumpet"
-msgstr ""
+msgstr "Trombita"
 
 #: i18n.instr.h:17
 msgid "Violin"
-msgstr ""
+msgstr "Hegedű"
 
 #: i18n.instr.h:18
 msgid "Vocal"
-msgstr ""
+msgstr "Vokál"
 
 #~ msgid "<b>Presets for:</b>"
 #~ msgstr "<b>Előre elkészített beállítások ehhez:</b>"
+
+#~ msgid "Add Instrument"
+#~ msgstr "Hangszer hozzáadása"
+
+#~ msgid "Add a new instrument"
+#~ msgstr "Új hangszer hozzáadása"
+
+#~ msgid "Add a new step:"
+#~ msgstr "Új lépés hozzáadása:"
+
+#~ msgid "Audio production made simple."
+#~ msgstr "Hangstúdió egyszerűen"
+
+#~ msgid "Author"
+#~ msgstr "Szerző"
+
+#~ msgid "Beat value"
+#~ msgstr "Ritmus érték"
+
+#~ msgid "Browse for an Existing Project"
+#~ msgstr "Meglévő projekt tallózása"
+
+#~ msgid "Create a New Project"
+#~ msgstr "Új Projekt"
+
+#~ msgid "Device:"
+#~ msgstr "Eszköz:"
+
+#~ msgid "Don't open anything"
+#~ msgstr "Ne nyisson meg semmit"
+
+#~ msgid "Don't show this on start-up"
+#~ msgstr "Ne mutassa ezt indításkor"
+
+#~ msgid "FastForward"
+#~ msgstr "Gyors Előretekerés"
+
+#~ msgid "Folder"
+#~ msgstr "Mappa"
+
+#~ msgid "Mixing"
+#~ msgstr "Keverés"
+
+#, fuzzy
+#~ msgid "Mixing Workspace"
+#~ msgstr "Keverő"
+
+#~ msgid "Open Selected Project"
+#~ msgstr "Kijelölt projekt megnyitása"
+
+#~ msgid "Open most recent project"
+#~ msgstr "Legutolsó projekt megnyitása"
+
+#~ msgid "Output:"
+#~ msgstr "Kimenet"
+
+#, fuzzy
+#~ msgid "Pipeline:"
+#~ msgstr "Láncolat"
+
+#~ msgid "Preferences"
+#~ msgstr "Beállítások"
+
+#~ msgid "Project Name"
+#~ msgstr "Projekt Neve"
+
+#~ msgid "Record"
+#~ msgstr "Felvétel"
+
+#, fuzzy
+#~ msgid "Recording"
+#~ msgstr "Felvétel..."
+
+#, fuzzy
+#~ msgid "Recording Workspace"
+#~ msgstr "Felvételi Munkaterület"
+
+#~ msgid "Remove Selected Instrument"
+#~ msgstr "Kiválasztott Hangszer Eltávolítása"
+
+#~ msgid "Rewind"
+#~ msgstr "Visszatekerés"
+
+#~ msgid "Search:"
+#~ msgstr "Keresés:"
+
+#~ msgid "Show welcome dialog"
+#~ msgstr "Üdvözlőképernyő megjelenítése"
+
+#~ msgid "Stop"
+#~ msgstr "Stop"
+
+#~ msgid "Switch to the Mixing workspace"
+#~ msgstr "Váltás a keverőpultra"
+
+#~ msgid "Switch to the Recording workspace"
+#~ msgstr "Váltás a felvételi eszközökhöz"
+
+#~ msgid "Workspaces"
+#~ msgstr "Munkaterületek"
+
+#~ msgid "_Add Instrument"
+#~ msgstr "Hangszer Hozzá_adása"
+
+#~ msgid "_Manage Extensions"
+#~ msgstr "Kiegészítők Kezelése (_M)"
+
+#~ msgid "_Mixdown Project"
+#~ msgstr "Projekt Lekeverése (_M)"
+
+#~ msgid "_Mixdown the project"
+#~ msgstr "Projekt lekeverése (_M)"
+
+#~ msgid "_Recording Inputs"
+#~ msgstr "Felvételi Bemenetek (_R)"
+
+#~ msgid "_Save these settings"
+#~ msgstr "Beállítá_sok mentése"
+
+#~ msgid "version 0.9"
+#~ msgstr "0.9 verzió"
+
+#~ msgid "_Paste"
+#~ msgstr "Beillesztés (_P)"
+
+#~ msgid "Currently working in the Recording workspace"
+#~ msgstr "Jelenleg a Felvételi Munkaterületen dolgozunk"
+
+#~ msgid "Currently working in the Mixing workspace"
+#~ msgstr "Jelenleg a Keverőpulton dolgozunk"
+
+#, fuzzy
+#~ msgid "_Mixdown as"
+#~ msgstr "Lekeverés _mint"
+
+#~ msgid "Choose a name for this profile"
+#~ msgstr "Válasszunk egy nevet a profilnak"
+
+#~ msgid "Export file"
+#~ msgstr "Fájl exportálása"
+
+#~ msgid "Export as"
+#~ msgstr "Exportálás mint"
+
+#~ msgid "Run script %s"
+#~ msgstr "%s szkript futtatása"
+
+#~ msgid "Run external script"
+#~ msgstr "Külső szkript futtatása"
+
+#~ msgid "No such script %s"
+#~ msgstr "Nincs %s szkript"
+
+#~ msgid "Hz"
+#~ msgstr "Hz"
+
+#~ msgid "Zoom the timeline"
+#~ msgstr "Idővonal nagyítása"
+
+#~ msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"
+#~ msgstr "<b>Állítsuk</b> a <b>csúszkát</b> a hangerőszintek változtatásához"

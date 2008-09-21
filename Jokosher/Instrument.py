@@ -493,7 +493,8 @@ class Instrument(gobject.GObject):
 		event.isRecording = True
 		event.name = _("Recorded audio")
 		
-		filename = "%s_%d.ogg" % (Globals.FAT32SafeFilename(self.name), event.id)
+		ext = Globals.settings.recording["file_extension"]
+		filename = "%s_%d.%s" % (Globals.FAT32SafeFilename(self.name), event.id, ext)
 		event.file = os.path.join(self.project.audio_path, filename)
 		event.levels_file = filename + Event.Event.LEVELS_FILE_EXTENSION
 		

@@ -3,23 +3,23 @@
 # This file is distributed under the same license as the jokosher package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2006.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: jokosher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-24 16:18-0400\n"
-"PO-Revision-Date: 2007-01-24 19:49+0000\n"
-"Last-Translator: yman <s.y.schwarz@gmail.com>\n"
+"POT-Creation-Date: 2008-09-03 13:33-0400\n"
+"PO-Revision-Date: 2007-10-14 09:19+0000\n"
+"Last-Translator: Yaron <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <he@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Rosetta-Export-Date: 2007-02-12 21:28+0000\n"
+"X-Launchpad-Export-Date: 2008-09-03 14:40+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
 
 #: ../../Jokosher/Jokosher.glade.h:1
 msgid "<b>Active effects for: </b>"
-msgstr ""
+msgstr "<b>אפקטים פעילים עבור: </b>"
 
 #: ../../Jokosher/Jokosher.glade.h:2
 #, fuzzy
@@ -44,11 +44,11 @@ msgstr "<b>תיעוד</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:7
 msgid "<b>Effect Name</b>"
-msgstr ""
+msgstr "<b>שם האפקט</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:8
 msgid "<b>Effects</b>"
-msgstr ""
+msgstr "<b>אפקטים</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:9
 msgid "<b>File Details</b>"
@@ -81,15 +81,15 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:15
 msgid "<b>Recent Projects</b>"
-msgstr ""
+msgstr "<b>מייזמים אחרונים</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:16
 msgid "<b>Recorded Audio Format</b>"
-msgstr ""
+msgstr "<b>סוג קובץ לשמע מוקלט</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:17
 msgid "<b>Recording Sample Rate</b>"
-msgstr ""
+msgstr "<b>קצב דגימת ההקלטה</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:18
 msgid "<b>Save Time</b>"
@@ -101,11 +101,11 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:20
 msgid "<b>Testing</b>"
-msgstr ""
+msgstr "<b>בודק</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:21
 msgid "<b>Time Signature</b>"
-msgstr ""
+msgstr "<b>חתימת זמן</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:22
 msgid "<b>_Presets for:</b>"
@@ -127,7 +127,7 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:26
 msgid "Activate the selected effect"
-msgstr ""
+msgstr "הפעל את האפקט הנבחר"
 
 #: ../../Jokosher/Jokosher.glade.h:27
 msgid "Add Action"
@@ -135,7 +135,7 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:28
 msgid "Add Audio File"
-msgstr ""
+msgstr "הוסף קובץ שמע"
 
 #: ../../Jokosher/Jokosher.glade.h:29
 msgid "Add Audio _File..."
@@ -147,11 +147,11 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:31
 msgid "Add an audio file to the project"
-msgstr ""
+msgstr "הוסף קובץ שמע למייזם"
 
 #: ../../Jokosher/Jokosher.glade.h:32
 msgid "Add an audio file to the selected instrument"
-msgstr ""
+msgstr "הוסף קובץ שמע לכלי הנבחר"
 
 #: ../../Jokosher/Jokosher.glade.h:33
 msgid "Add an extension"
@@ -163,11 +163,11 @@ msgstr "הוסף כלי"
 
 #: ../../Jokosher/Jokosher.glade.h:35
 msgid "Add an instrument to the project"
-msgstr ""
+msgstr "הוסף כלי למייזם"
 
 #: ../../Jokosher/Jokosher.glade.h:36
 msgid "Add the selected instrument"
-msgstr ""
+msgstr "הוסף את הכלי הנבחר"
 
 #: ../../Jokosher/Jokosher.glade.h:37
 msgid "Add the selected jokosher instrument"
@@ -175,7 +175,7 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:38
 msgid "Adjust the amount of beats per measure"
-msgstr ""
+msgstr "הגדר את מספר הדפיקות למדידה"
 
 #: ../../Jokosher/Jokosher.glade.h:39
 msgid "Adjust the settings for the currently selected active effect"
@@ -201,6 +201,9 @@ msgid ""
 "ALSA\n"
 "Custom"
 msgstr ""
+"זיהוי אוטומטי\n"
+"ALSA\n"
+"מותאם אישית"
 
 #: ../../Jokosher/Jokosher.glade.h:47
 msgid "Beat _value"
@@ -948,7 +951,7 @@ msgid ""
 "certain you wish to restore it?"
 msgstr ""
 
-#: ../../Jokosher/Event.py:757
+#: ../../Jokosher/Event.py:765
 #, python-format
 msgid "%(title)s by %(artist)s"
 msgstr ""
@@ -974,71 +977,71 @@ msgstr ""
 msgid "Snap To Fade Points"
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:442
+#: ../../Jokosher/EventViewer.py:443
 msgid "Downloading..."
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:444
+#: ../../Jokosher/EventViewer.py:445
 msgid "Loading..."
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:448
+#: ../../Jokosher/EventViewer.py:449
 #, python-format
 msgid "Downloading (%d%%)..."
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:450
+#: ../../Jokosher/EventViewer.py:451
 #, python-format
 msgid "Loading (%d%%)..."
 msgstr "טוען (%%%d)..."
 
-#: ../../Jokosher/EventViewer.py:461
+#: ../../Jokosher/EventViewer.py:462
 msgid "Recording..."
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:509
+#: ../../Jokosher/EventViewer.py:510
 msgid ""
 "To <b>Split, Double-Click</b> the wave - To <b>Select, Shift-Click</b> and "
 "drag the mouse"
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:523
+#: ../../Jokosher/EventViewer.py:524
 msgid "<b>Drag</b> the red sliders to modify the volume fade."
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:636
+#: ../../Jokosher/EventViewer.py:637
 msgid ""
 "<b>Click</b> the buttons below the selection to do something to that portion "
 "of audio."
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:901
+#: ../../Jokosher/EventViewer.py:902
 msgid "_Split"
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:903
+#: ../../Jokosher/EventViewer.py:904
 msgid "Cu_t"
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:904
+#: ../../Jokosher/EventViewer.py:905
 msgid "_Copy"
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:905
+#: ../../Jokosher/EventViewer.py:906
 #: ../../Jokosher/InstrumentEffectsDialog.py:442
 msgid "_Delete"
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:1195
+#: ../../Jokosher/EventViewer.py:1196
 msgid "Error loading file:"
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:1196
+#: ../../Jokosher/EventViewer.py:1197
 msgid ""
 "Please make sure the file exists, and the appropriate plugin is installed."
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:1414
+#: ../../Jokosher/EventViewer.py:1415
 #, python-format
 msgid ""
 "Event, %(name)s, %(dur)0.2f seconds long, starting at %(start)0.2f seconds."
@@ -1101,67 +1104,67 @@ msgid ""
 "An error occurred when trying to launch the preferences for the extension"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:441
+#: ../../Jokosher/Globals.py:442
 msgid "Broken"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:442
+#: ../../Jokosher/Globals.py:443
 msgid "Unclassified"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:443
+#: ../../Jokosher/Globals.py:444
 msgid "Amplifiers"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:444
+#: ../../Jokosher/Globals.py:445
 msgid "Chorus"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:445
+#: ../../Jokosher/Globals.py:446
 msgid "Compressors"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:446
+#: ../../Jokosher/Globals.py:447
 msgid "Delays"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:447
+#: ../../Jokosher/Globals.py:448
 msgid "Distortions"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:448
+#: ../../Jokosher/Globals.py:449
 msgid "Equalizers"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:449
+#: ../../Jokosher/Globals.py:450
 msgid "Filters"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:450
+#: ../../Jokosher/Globals.py:451
 msgid "Flangers"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:451
+#: ../../Jokosher/Globals.py:452
 msgid "Miscellaneous"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:452
+#: ../../Jokosher/Globals.py:453
 msgid "Modulators"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:453
+#: ../../Jokosher/Globals.py:454
 msgid "Oscillators"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:454
+#: ../../Jokosher/Globals.py:455
 msgid "Phasers"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:455
+#: ../../Jokosher/Globals.py:456
 msgid "Reverbs"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:456
+#: ../../Jokosher/Globals.py:457
 msgid "Simulators"
 msgstr ""
 
@@ -1846,56 +1849,6 @@ msgstr ""
 msgid "Vocal"
 msgstr ""
 
-#~ msgid "Add Instrument"
-#~ msgstr "הוסף כלי"
-
-#, fuzzy
-#~ msgid "Mixing"
-#~ msgstr "ערבול"
-
-#~ msgid "Recording"
-#~ msgstr "הקלטה"
-
-#~ msgid "Workspaces"
-#~ msgstr "סביבות עבודה"
-
-#~ msgid "Add a new instrument"
-#~ msgstr "הוסף כלי נגינה חדש"
-
-#~ msgid "Author"
-#~ msgstr "מחבר"
-
-#~ msgid "Create a New Project"
-#~ msgstr "צור פרויקט חדש"
-
-#~ msgid "Don't open anything"
-#~ msgstr "אל תפתח כלום"
-
-#, fuzzy
-#~ msgid "Don't show this on start-up"
-#~ msgstr "אל תציג תיבת דו-שיח זאת בעת הפעלת התכנית"
-
-#~ msgid "Folder"
-#~ msgstr "תיקייה"
-
-#~ msgid "Open Selected Project"
-#~ msgstr "פתח פרויקט נבחר"
-
-#~ msgid "Open most recent project"
-#~ msgstr "פתח את הפרויקט האחרון"
-
-#~ msgid "Preferences"
-#~ msgstr "העדפות"
-
-#~ msgid "Project Name"
-#~ msgstr "שם הפרויקט"
-
-#~ msgid "Search:"
-#~ msgstr "חיפוש:"
-
-#~ msgid "Show welcome dialog"
-#~ msgstr "הצג תיבת פתיחה"
-
 #~ msgid ""
 #~ "16 bit\n"
 #~ "24 bit\n"
@@ -1935,6 +1888,9 @@ msgstr ""
 
 #~ msgid "Device"
 #~ msgstr "התקן"
+
+#~ msgid "Files Saves As"
+#~ msgstr "שמור קבצים כ"
 
 #~ msgid "General"
 #~ msgstr "כללי"
@@ -1996,5 +1952,58 @@ msgstr ""
 #~ msgid "Copy"
 #~ msgstr "העתק"
 
-#~ msgid "Files Saves As"
-#~ msgstr "שמור קבצים כ"
+#~ msgid "<b>Presets for:</b>"
+#~ msgstr "<b>ערכות עבור:</b>"
+
+#~ msgid "Add Instrument"
+#~ msgstr "הוסף כלי"
+
+#~ msgid "Add a new instrument"
+#~ msgstr "הוסף כלי נגינה חדש"
+
+#~ msgid "Add a new step:"
+#~ msgstr "הוסף שלב חדש:"
+
+#~ msgid "Author"
+#~ msgstr "מחבר"
+
+#~ msgid "Create a New Project"
+#~ msgstr "צור פרויקט חדש"
+
+#~ msgid "Don't open anything"
+#~ msgstr "אל תפתח כלום"
+
+#, fuzzy
+#~ msgid "Don't show this on start-up"
+#~ msgstr "אל תציג תיבת דו-שיח זאת בעת הפעלת התכנית"
+
+#~ msgid "Folder"
+#~ msgstr "תיקייה"
+
+#, fuzzy
+#~ msgid "Mixing"
+#~ msgstr "ערבול"
+
+#~ msgid "Open Selected Project"
+#~ msgstr "פתח פרויקט נבחר"
+
+#~ msgid "Open most recent project"
+#~ msgstr "פתח את הפרויקט האחרון"
+
+#~ msgid "Preferences"
+#~ msgstr "העדפות"
+
+#~ msgid "Project Name"
+#~ msgstr "שם הפרויקט"
+
+#~ msgid "Recording"
+#~ msgstr "הקלטה"
+
+#~ msgid "Search:"
+#~ msgstr "חיפוש:"
+
+#~ msgid "Show welcome dialog"
+#~ msgstr "הצג תיבת פתיחה"
+
+#~ msgid "Workspaces"
+#~ msgstr "סביבות עבודה"
