@@ -37,8 +37,8 @@ class Settings:
 				}
 	
 	recording = {
-				"fileformat": "vorbisenc ! oggmux",
-				"file_extension": "ogg",
+				"fileformat": "flacenc",
+				"file_extension": "flac",
 				"samplerate": "0" # zero means, autodetect sample rate (ie use any available)
 				}
 	
