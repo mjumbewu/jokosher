@@ -682,6 +682,7 @@ class Event(gobject.GObject):
 					Globals.debug("Event %d: duration (%f) is less than last level endtime (%d)."
 					              % (self.id, self.duration, final_endtime))
 					self.duration = final_endtime / 1000.0
+					self.SetProperties()
 					Globals.debug("\tduration has been increased to", self.duration)
 			
 			if length and (self.offset > 0 or self.duration != length):
