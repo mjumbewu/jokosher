@@ -436,7 +436,7 @@ class EventViewer(gtk.DrawingArea):
 			
 			if self.event.isLoading:
 				# Write "Loading..." or "Downloading..."
-				if self.event.duration == 0:
+				if self.event.duration <= 0:
 					# for some file types gstreamer doesn't give us a duration
 					# so don't display the percentage
 					if self.event.isDownloading:
