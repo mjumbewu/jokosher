@@ -331,34 +331,35 @@ class Project(gobject.GObject):
 					if hasattr(src_element.props, "device"):
 						src_element.set_property("device", device)
 				
-				capsfilter = None
+				
+				capsString = "audio/x-raw-int;audio/x-raw-float"
+				caps = gst.caps_from_string(capsString)
+
 				sampleRate = Globals.settings.recording["samplerate"]
 				try:
 					sampleRate = int(sampleRate)
 				except ValueError:
 					sampleRate = 0
-				# 0 means for "autodetect", or more technically "don't use any caps".
+				# 0 means for "autodetect", or more technically "don't use any rate caps".
 				if sampleRate > 0:
-					capsfilter = gst.element_factory_make("capsfilter")
-					capsString = "audio/x-raw-int,rate=%s;audio/x-raw-float,rate=%s" % (sampleRate, sampleRate)
-					Globals.debug("recording with capsfilter for rate:", capsString)
-					caps = gst.caps_from_string(capsString)
-					capsfilter.set_property("caps", caps)
+					for struct in caps:
+						struct.set_value("rate", sampleRate)
+
+				for struct in caps:
+					struct.set_value("channels", channelsNeeded)
+
+				Globals.debug("recording with capsfilter:", caps.to_string())
+				capsfilter = gst.element_factory_make("capsfilter")
+				capsfilter.set_property("caps", caps)
 				
 				split = gst.element_factory_make("deinterleave")
 				convert = gst.element_factory_make("audioconvert")
 				
-				recordingbin.add(srcBin, split, convert)
-				if capsfilter:
-					recordingbin.add(capsfilter)
+				recordingbin.add(srcBin, split, convert, capsfilter)
 				
-				if capsfilter:
-					srcBin.link(capsfilter)
-					capsfilter.link(convert)
-					convet.link(split)
-				else:
-					srcBin.link(convert)
-					convert.link(split)
+				srcBin.link(convert) 
+				convert.link(capsfilter)
+				capsfilter.link(split)
 				
 				split.connect("pad-added", self.__RecordingPadAddedCb, recInstruments, recordingbin)
 				Globals.debug("Recording in multi-input mode")
@@ -596,7 +597,7 @@ class Project(gobject.GObject):
 				event = instr.GetRecordingEvent()
 				
 				encodeString = Globals.settings.recording["fileformat"]
-				pipe = "audioconvert ! level name=eventlevel interval=%d !" +\
+				pipe = "queue ! audioconvert ! level name=eventlevel interval=%d !" +\
 							"audioconvert ! %s ! filesink location=%s"
 				pipe %= (event.LEVEL_INTERVAL * gst.SECOND, encodeString, event.file.replace(" ", "\ "))
 				
