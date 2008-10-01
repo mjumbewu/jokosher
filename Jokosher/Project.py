@@ -1414,7 +1414,7 @@ class Project(gobject.GObject):
 	def OnCaptureBackendChange(self):
 		for instr in self.instruments:
 			instr.input = None
-			instr.inTrack = 0
+			instr.inTrack = -1
 	
 	#____________________________________________________________________	
 	

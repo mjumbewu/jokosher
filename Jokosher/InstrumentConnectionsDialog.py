@@ -92,7 +92,7 @@ class InstrumentConnectionsDialog:
 					display = _("Default")
 				else:
 					display = _("Default (%s)") % device
-				self.devices_list.append((device, display, 0))
+				self.devices_list.append((device, display, -1))
 				liststore.append((display,))
 			else:			
 				num_channels = AudioBackend.GetChannelsOffered(device)
@@ -106,7 +106,7 @@ class InstrumentConnectionsDialog:
 					liststore.append((display,))
 		
 		if self.devices_list:
-			for instr in self.project.instruments:		
+			for instr in self.project.instruments:
 				instrument = instr
 				row = gtk.HBox()
 				row.set_spacing(10)

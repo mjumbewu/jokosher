@@ -113,12 +113,12 @@ class Instrument(gobject.GObject):
 		self.volume = 1.0			# Gain of the current instrument in range 0..1
 		self.pan = 0.0				# pan number (between -100 and 100)
 		self.currentchainpreset = None	# current instrument wide chain preset
-		self.inTrack = 0			# Input track to record from
 		self.output = ""
 		self.recordingbin = None
 		self.id = project.GenerateUniqueID(id)	#check is id is already being used before setting
 		
 		self.input = None	# the device to use for recording on this instrument.
+		self.inTrack = -1	# Input track to record from if device is multichannel.
 	
 		# CREATE GSTREAMER ELEMENTS #
 		self.playbackbin = gst.element_factory_make("bin", "Instrument_%d"%self.id)
