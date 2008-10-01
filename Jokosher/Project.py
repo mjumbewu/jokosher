@@ -331,9 +331,7 @@ class Project(gobject.GObject):
 					if hasattr(src_element.props, "device"):
 						src_element.set_property("device", device)
 				
-				
-				capsString = "audio/x-raw-int;audio/x-raw-float"
-				caps = gst.caps_from_string(capsString)
+				caps = gst.caps_from_string("audio/x-raw-int;audio/x-raw-float")
 
 				sampleRate = Globals.settings.recording["samplerate"]
 				try:
@@ -608,6 +606,8 @@ class Project(gobject.GObject):
 				handle = self.bus.connect("message::element", event.recording_bus_level)
 				
 				self.recordingEvents[instr] = (event, bin, handle)
+				Globals.debug("Linked recording channel: instrument (%s), track %d" % (instr.name, instr.inTrack))
+				break
 
 	#_____________________________________________________________________
 	
