@@ -123,7 +123,7 @@ class InstrumentConnectionsDialog:
 					# None means default; default is first in combobox
 					combobox.set_active(0)
 				else:
-					currentItem = 1
+					currentItem = 0
 					for device, deviceName, input in self.devices_list:
 						if instr.input == device and input == instr.inTrack:
 							combobox.set_active(currentItem)
