@@ -605,6 +605,9 @@ class Project(gobject.GObject):
 				
 				handle = self.bus.connect("message::element", event.recording_bus_level)
 				
+				# since we are adding the encodebin to an already playing pipeline, sync up there states
+				encodeBin.set_state(gst.STATE_PLAYING)
+
 				self.recordingEvents[instr] = (event, bin, handle)
 				Globals.debug("Linked recording channel: instrument (%s), track %d" % (instr.name, instr.inTrack))
 				break
