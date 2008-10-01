@@ -595,7 +595,7 @@ class Project(gobject.GObject):
 				event = instr.GetRecordingEvent()
 				
 				encodeString = Globals.settings.recording["fileformat"]
-				pipe = "queue ! audioconvert ! level name=eventlevel interval=%d !" +\
+				pipe = "queue ! audioconvert ! level name=recordlevel interval=%d !" +\
 							"audioconvert ! %s ! filesink location=%s"
 				pipe %= (event.LEVEL_INTERVAL * gst.SECOND, encodeString, event.file.replace(" ", "\ "))
 				
