@@ -3,23 +3,24 @@
 # This file is distributed under the same license as the jokosher package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2006.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: jokosher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-24 16:18-0400\n"
-"PO-Revision-Date: 2006-12-31 15:09+0000\n"
-"Last-Translator: Milhouse <milhouse@mujweb.cz>\n"
+"POT-Creation-Date: 2008-09-03 13:33-0400\n"
+"PO-Revision-Date: 2008-02-03 11:11+0000\n"
+"Last-Translator: Petr Široký <siroky.petr@gmail.com>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Rosetta-Export-Date: 2007-02-12 21:28+0000\n"
+"X-Launchpad-Export-Date: 2008-09-03 14:40+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
 
 #: ../../Jokosher/Jokosher.glade.h:1
+#, fuzzy
 msgid "<b>Active effects for: </b>"
-msgstr ""
+msgstr "<b>Aktivní efekty pro: </b>"
 
 #: ../../Jokosher/Jokosher.glade.h:2
 msgid "<b>Application Start-up</b>"
@@ -43,11 +44,11 @@ msgstr "<b>Dokumentace</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:7
 msgid "<b>Effect Name</b>"
-msgstr ""
+msgstr "Název efektu:"
 
 #: ../../Jokosher/Jokosher.glade.h:8
 msgid "<b>Effects</b>"
-msgstr ""
+msgstr "<b>Efekty</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:9
 msgid "<b>File Details</b>"
@@ -126,7 +127,7 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:26
 msgid "Activate the selected effect"
-msgstr ""
+msgstr "Aktivovat zvolený efekt"
 
 #: ../../Jokosher/Jokosher.glade.h:27
 msgid "Add Action"
@@ -134,7 +135,7 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:28
 msgid "Add Audio File"
-msgstr ""
+msgstr "Přidat zvukový soubor"
 
 #: ../../Jokosher/Jokosher.glade.h:29
 msgid "Add Audio _File..."
@@ -145,12 +146,13 @@ msgid "Add Mixdown Action"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:31
+#, fuzzy
 msgid "Add an audio file to the project"
-msgstr ""
+msgstr "Přidat zvukový soubor k projektu"
 
 #: ../../Jokosher/Jokosher.glade.h:32
 msgid "Add an audio file to the selected instrument"
-msgstr ""
+msgstr "Přídat zvukový soubor k vybranému nástroji"
 
 #: ../../Jokosher/Jokosher.glade.h:33
 msgid "Add an extension"
@@ -177,8 +179,9 @@ msgid "Adjust the amount of beats per measure"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:39
+#, fuzzy
 msgid "Adjust the settings for the currently selected active effect"
-msgstr ""
+msgstr "Přizpůsobit nastavení pro aktuálně vybraný efekt"
 
 #: ../../Jokosher/Jokosher.glade.h:40
 msgid "Arm an instrument then click here to begin recording"
@@ -233,8 +236,9 @@ msgid "Change the timeline to show hours, minutes and seconds"
 msgstr "Změna časového pohledu hodin, minut, sekund"
 
 #: ../../Jokosher/Jokosher.glade.h:54
+#, fuzzy
 msgid "Change type of the selected instrument"
-msgstr ""
+msgstr "Změnit typ zvoleného nástroje"
 
 #: ../../Jokosher/Jokosher.glade.h:55
 msgid "Choose a chain effects preset."
@@ -312,8 +316,9 @@ msgid "D_evice:"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:72
+#, fuzzy
 msgid "Deactivate the currently selected active effect"
-msgstr ""
+msgstr "Deaktivovat aktuálně zvolený efekt"
 
 #: ../../Jokosher/Jokosher.glade.h:73
 msgid "Delete the current selection"
@@ -512,8 +517,9 @@ msgid "Mixdown Project"
 msgstr "Zmixovat projekt"
 
 #: ../../Jokosher/Jokosher.glade.h:164
+#, fuzzy
 msgid "Mixdown the project using these settings"
-msgstr ""
+msgstr "Zmixovat projekt s tímto nastavením"
 
 #: ../../Jokosher/Jokosher.glade.h:165
 #, fuzzy
@@ -604,16 +610,19 @@ msgid "Redo the previous edit"
 msgstr "Vrátit předchozí změnu"
 
 #: ../../Jokosher/Jokosher.glade.h:185
+#, fuzzy
 msgid "Remove the currently selected extension"
-msgstr ""
+msgstr "Odstranit aktuálně vybrané rozsíření"
 
 #: ../../Jokosher/Jokosher.glade.h:186
+#, fuzzy
 msgid "Remove the selected instrument"
-msgstr ""
+msgstr "Odstranit vybraný nástroj"
 
 #: ../../Jokosher/Jokosher.glade.h:187
+#, fuzzy
 msgid "Report a bug in Jokosher"
-msgstr ""
+msgstr "Oznámit chybu v Jokosher"
 
 #: ../../Jokosher/Jokosher.glade.h:188
 msgid "Restore Crashed Project"
@@ -643,8 +652,9 @@ msgid "Save the current project"
 msgstr "Uložit aktuální projekt"
 
 #: ../../Jokosher/Jokosher.glade.h:194
+#, fuzzy
 msgid "Save the current settings as a preset"
-msgstr ""
+msgstr "Uložit aktuální nastavení jako předvolbu"
 
 #: ../../Jokosher/Jokosher.glade.h:195
 msgid "Save the currently active effects as a preset"
@@ -655,8 +665,9 @@ msgid "Save the selected project template"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:197
+#, fuzzy
 msgid "Save your selections and close this window"
-msgstr ""
+msgstr "Uložit vaše volby a zavřít toto okno"
 
 #: ../../Jokosher/Jokosher.glade.h:198
 msgid "See your system information"
@@ -737,7 +748,7 @@ msgstr "Vrátit poslední změnu"
 
 #: ../../Jokosher/Jokosher.glade.h:215
 msgid "Use these effect settings"
-msgstr ""
+msgstr "Použít toto nastavení efektů"
 
 #: ../../Jokosher/Jokosher.glade.h:216
 #, fuzzy
@@ -746,7 +757,7 @@ msgstr "Používat tyto efekty"
 
 #: ../../Jokosher/Jokosher.glade.h:217
 msgid "Use these settings"
-msgstr ""
+msgstr "Použít toto nastavení"
 
 #: ../../Jokosher/Jokosher.glade.h:218
 msgid "User manual contents"
@@ -758,8 +769,9 @@ msgid "Version information, credits and licence"
 msgstr "Info o verzi, příspěvkách a licenci"
 
 #: ../../Jokosher/Jokosher.glade.h:220
+#, fuzzy
 msgid "Visit Jokosher's online forums"
-msgstr ""
+msgstr "Navštivte online fóra Jokosher"
 
 #: ../../Jokosher/Jokosher.glade.h:221
 msgid "Welcome to Jokosher!"
@@ -831,7 +843,7 @@ msgstr "_Pomoc"
 
 #: ../../Jokosher/Jokosher.glade.h:238
 msgid "_Instrument"
-msgstr ""
+msgstr "_Nástroj"
 
 #: ../../Jokosher/Jokosher.glade.h:239
 msgid "_Manage Extensions..."
@@ -847,7 +859,7 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:242
 msgid "_Online Forums"
-msgstr ""
+msgstr "_Online fóra"
 
 #: ../../Jokosher/Jokosher.glade.h:243
 msgid "_Open Selected Project"
@@ -874,8 +886,9 @@ msgid "_Project Name:"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:249
+#, fuzzy
 msgid "_Recent Projects"
-msgstr ""
+msgstr "_Nedávné projekty"
 
 #: ../../Jokosher/Jokosher.glade.h:250
 msgid "_Recording Inputs..."
@@ -887,7 +900,7 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:252
 msgid "_Report Bug..."
-msgstr ""
+msgstr "_Oznámit chybu..."
 
 #: ../../Jokosher/Jokosher.glade.h:253
 msgid "_Restore Crashed Project..."
@@ -910,8 +923,9 @@ msgid "_Template Name:"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:258
+#, fuzzy
 msgid "_Time Format"
-msgstr ""
+msgstr "_Formát času"
 
 #: ../../Jokosher/Jokosher.glade.h:259
 msgid "_Use project template"
@@ -991,14 +1005,14 @@ msgid ""
 "certain you wish to restore it?"
 msgstr ""
 
-#: ../../Jokosher/Event.py:757
+#: ../../Jokosher/Event.py:765
 #, python-format
 msgid "%(title)s by %(artist)s"
 msgstr ""
 
 #: ../../Jokosher/EventLaneViewer.py:113
 msgid "_Add Audio File..."
-msgstr ""
+msgstr "_Přidat zvukový soubor..."
 
 #: ../../Jokosher/EventLaneViewer.py:274
 #, fuzzy
@@ -1017,39 +1031,39 @@ msgstr "Smazat body dozvuku"
 msgid "Snap To Fade Points"
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:442
+#: ../../Jokosher/EventViewer.py:443
 msgid "Downloading..."
-msgstr ""
+msgstr "Stahuji..."
 
-#: ../../Jokosher/EventViewer.py:444
+#: ../../Jokosher/EventViewer.py:445
 msgid "Loading..."
-msgstr ""
+msgstr "Nahrávám..."
 
-#: ../../Jokosher/EventViewer.py:448
+#: ../../Jokosher/EventViewer.py:449
 #, python-format
 msgid "Downloading (%d%%)..."
-msgstr ""
+msgstr "Stahuji (%d%%)..."
 
-#: ../../Jokosher/EventViewer.py:450
+#: ../../Jokosher/EventViewer.py:451
 #, python-format
 msgid "Loading (%d%%)..."
 msgstr "Nahrávám (%d%%)..."
 
-#: ../../Jokosher/EventViewer.py:461
+#: ../../Jokosher/EventViewer.py:462
 msgid "Recording..."
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:509
+#: ../../Jokosher/EventViewer.py:510
 msgid ""
 "To <b>Split, Double-Click</b> the wave - To <b>Select, Shift-Click</b> and "
 "drag the mouse"
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:523
+#: ../../Jokosher/EventViewer.py:524
 msgid "<b>Drag</b> the red sliders to modify the volume fade."
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:636
+#: ../../Jokosher/EventViewer.py:637
 msgid ""
 "<b>Click</b> the buttons below the selection to do something to that portion "
 "of audio."
@@ -1057,33 +1071,37 @@ msgstr ""
 "<b>Klikni</b> na tlačítka pod výběrem pro vykonání činnosti s tou částí "
 "zvuku."
 
-#: ../../Jokosher/EventViewer.py:901
+#: ../../Jokosher/EventViewer.py:902
+#, fuzzy
 msgid "_Split"
-msgstr ""
+msgstr "_Rozdělit"
 
-#: ../../Jokosher/EventViewer.py:903
+#: ../../Jokosher/EventViewer.py:904
 msgid "Cu_t"
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:904
-msgid "_Copy"
-msgstr ""
-
 #: ../../Jokosher/EventViewer.py:905
+msgid "_Copy"
+msgstr "_Kopírovat"
+
+#: ../../Jokosher/EventViewer.py:906
 #: ../../Jokosher/InstrumentEffectsDialog.py:442
 msgid "_Delete"
-msgstr ""
-
-#: ../../Jokosher/EventViewer.py:1195
-msgid "Error loading file:"
-msgstr ""
+msgstr "_Odstranit"
 
 #: ../../Jokosher/EventViewer.py:1196
+#, fuzzy
+msgid "Error loading file:"
+msgstr "Chyba při načítání souboru:"
+
+#: ../../Jokosher/EventViewer.py:1197
+#, fuzzy
 msgid ""
 "Please make sure the file exists, and the appropriate plugin is installed."
 msgstr ""
+"Ujistěte se, prosím, že soubor existuje, a je nainstalován příslušný plugin."
 
-#: ../../Jokosher/EventViewer.py:1414
+#: ../../Jokosher/EventViewer.py:1415
 #, python-format
 msgid ""
 "Event, %(name)s, %(dur)0.2f seconds long, starting at %(start)0.2f seconds."
@@ -1155,67 +1173,68 @@ msgid ""
 "An error occurred when trying to launch the preferences for the extension"
 msgstr "Chyba ve spouštění vlastností pro dané rozšíření"
 
-#: ../../Jokosher/Globals.py:441
+#: ../../Jokosher/Globals.py:442
 msgid "Broken"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:442
+#: ../../Jokosher/Globals.py:443
 msgid "Unclassified"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:443
-msgid "Amplifiers"
-msgstr ""
-
 #: ../../Jokosher/Globals.py:444
-msgid "Chorus"
-msgstr ""
+#, fuzzy
+msgid "Amplifiers"
+msgstr "Zesilovače"
 
 #: ../../Jokosher/Globals.py:445
+msgid "Chorus"
+msgstr "Sbor"
+
+#: ../../Jokosher/Globals.py:446
 msgid "Compressors"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:446
+#: ../../Jokosher/Globals.py:447
 msgid "Delays"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:447
+#: ../../Jokosher/Globals.py:448
 msgid "Distortions"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:448
+#: ../../Jokosher/Globals.py:449
 msgid "Equalizers"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:449
+#: ../../Jokosher/Globals.py:450
 msgid "Filters"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:450
+#: ../../Jokosher/Globals.py:451
 msgid "Flangers"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:451
+#: ../../Jokosher/Globals.py:452
 msgid "Miscellaneous"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:452
+#: ../../Jokosher/Globals.py:453
 msgid "Modulators"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:453
+#: ../../Jokosher/Globals.py:454
 msgid "Oscillators"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:454
+#: ../../Jokosher/Globals.py:455
 msgid "Phasers"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:455
+#: ../../Jokosher/Globals.py:456
 msgid "Reverbs"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:456
+#: ../../Jokosher/Globals.py:457
 msgid "Simulators"
 msgstr ""
 
@@ -1258,7 +1277,7 @@ msgstr ""
 
 #: ../../Jokosher/InstrumentEffectsDialog.py:443
 msgid "_Settings"
-msgstr ""
+msgstr "_Nastavení"
 
 #: ../../Jokosher/InstrumentEffectsDialog.py:484
 msgid "_Activate effect"
@@ -1539,7 +1558,7 @@ msgstr "Zkopírovat soubor do projektu"
 
 #: ../../Jokosher/JokosherApp.py:1933
 msgid "Add Audio File..."
-msgstr ""
+msgstr "Přídat zvukový soubor..."
 
 #: ../../Jokosher/JokosherApp.py:2007 ../../Jokosher/JokosherApp.py:2012
 msgid "Mixdown as"
@@ -1711,7 +1730,7 @@ msgstr ""
 
 #: ../../Jokosher/MixerStrip.py:100
 msgid "Volume:"
-msgstr ""
+msgstr "Hlasitost:"
 
 #: ../../Jokosher/MixerStrip.py:228
 #, python-format
@@ -1851,8 +1870,9 @@ msgid "Force Jokosher to load without a welcome dialog or project"
 msgstr ""
 
 #: ../../Jokosher/Jokosher:76
+#, fuzzy
 msgid "Do not load extensions on startup"
-msgstr ""
+msgstr "Při spouštění nenačítat rozšíření"
 
 #: i18n.instr.h:1
 msgid "Acoustic Guitar"
@@ -1931,39 +1951,12 @@ msgstr "Hlas"
 #~ msgid "Add Instrument"
 #~ msgstr "Přidat instrument"
 
+#~ msgid "Add a new instrument"
+#~ msgstr "Přidat nový instrument"
+
 #, fuzzy
 #~ msgid "Audio production made simple."
 #~ msgstr "Jednoduché vytváření hudby"
-
-#~ msgid "Mixing"
-#~ msgstr "Mixování"
-
-#~ msgid "Recording"
-#~ msgstr "Nahrávání"
-
-#, fuzzy
-#~ msgid "Switch to the Mixing workspace"
-#~ msgstr "Přepnout na mixážní plochu"
-
-#, fuzzy
-#~ msgid "Switch to the Recording workspace"
-#~ msgstr "Přepnout na nahrávací plochu"
-
-#, fuzzy
-#~ msgid "Workspaces"
-#~ msgstr "Pracovní plochy"
-
-#~ msgid "_Mixdown Project"
-#~ msgstr "_Zmixování projektu"
-
-#~ msgid "Zoom the timeline"
-#~ msgstr "Přiblížit časovou osu"
-
-#~ msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"
-#~ msgstr "<b>Posun lištou</b> pro úpravu hlasitosti"
-
-#~ msgid "Add a new instrument"
-#~ msgstr "Přidat nový instrument"
 
 #~ msgid "Author"
 #~ msgstr "Autor"
@@ -1987,11 +1980,17 @@ msgstr "Hlas"
 #~ msgid "Folder"
 #~ msgstr "Adresář"
 
+#~ msgid "Mixing"
+#~ msgstr "Mixování"
+
 #~ msgid "Open Selected Project"
 #~ msgstr "Otevřít vybraný projekt"
 
 #~ msgid "Open most recent project"
 #~ msgstr "Otevřít poslední projekt"
+
+#~ msgid "Output:"
+#~ msgstr "Výstup:"
 
 #, fuzzy
 #~ msgid "Preferences"
@@ -2000,6 +1999,12 @@ msgstr "Hlas"
 #~ msgid "Project Name"
 #~ msgstr "Název projektu"
 
+#~ msgid "Recording"
+#~ msgstr "Nahrávání"
+
+#~ msgid "Remove Selected Instrument"
+#~ msgstr "Odstranit vybraný nástroj"
+
 #~ msgid "Search:"
 #~ msgstr "Najít:"
 
@@ -2007,5 +2012,58 @@ msgstr "Hlas"
 #~ msgid "Show welcome dialog"
 #~ msgstr "Ukázat uvítací obrazovku"
 
+#~ msgid "Stop"
+#~ msgstr "Zastavit"
+
+#, fuzzy
+#~ msgid "Switch to the Mixing workspace"
+#~ msgstr "Přepnout na mixážní plochu"
+
+#, fuzzy
+#~ msgid "Switch to the Recording workspace"
+#~ msgstr "Přepnout na nahrávací plochu"
+
+#, fuzzy
+#~ msgid "Workspaces"
+#~ msgstr "Pracovní plochy"
+
+#~ msgid "_Add Instrument"
+#~ msgstr "_Přidat nástroj"
+
 #~ msgid "_Manage Extensions"
 #~ msgstr "_Správa rozšíření"
+
+#~ msgid "_Mixdown Project"
+#~ msgstr "_Zmixování projektu"
+
+#~ msgid "_Mixdown the project"
+#~ msgstr "_Zmixovat projekt"
+
+#, fuzzy
+#~ msgid "_Save these settings"
+#~ msgstr "_Uložit tato nastavení"
+
+#~ msgid "version 0.9"
+#~ msgstr "verze 0.9"
+
+#~ msgid "_Paste"
+#~ msgstr "_Vložit"
+
+#~ msgid "Export file"
+#~ msgstr "Exportovat soubor"
+
+#~ msgid "Run script %s"
+#~ msgstr "Spustit skript %s"
+
+#, fuzzy
+#~ msgid "Run external script"
+#~ msgstr "Spustit externí skript"
+
+#~ msgid "Hz"
+#~ msgstr "Hz"
+
+#~ msgid "Zoom the timeline"
+#~ msgstr "Přiblížit časovou osu"
+
+#~ msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"
+#~ msgstr "<b>Posun lištou</b> pro úpravu hlasitosti"

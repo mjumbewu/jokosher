@@ -90,8 +90,12 @@ class InstrumentViewer(gtk.EventBox):
 		self.instrlabel = gtk.Label(self.instrument.name)
 		self.instrlabel.set_ellipsize(pango.ELLIPSIZE_END)
 		self.instrlabel.set_width_chars(self.LABEL_WIDTH_CHARS)
+		
 		self.editlabel = gtk.Entry()
 		self.editlabel.set_text(self.instrument.name)
+		self.editlabel.connect("activate", self.OnAcceptEditLabel)
+		self.editlabel.connect("key_press_event", self.OnEditLabelKey)
+		self.editlabel_pointer_grab_time = 0
 		self.editlabelPacked = False
 
 		# add the label to the event box
@@ -165,6 +169,7 @@ class InstrumentViewer(gtk.EventBox):
 		Returns:
 			True -- continue GTK signal propagation. *CHECK*
 		"""
+		
 		if self.instrument.project.GetIsRecording():
 			return
 		
@@ -189,12 +194,12 @@ class InstrumentViewer(gtk.EventBox):
 			event -- GTK callback.
 			
 		Returns:
-			True -- continue GTK signal propagation. *CHECK*
+			True -- continue GTK signal propagation.
 		"""
 		if not self.instrument.isSelected:
-			self.OnSelect(widget, event)
 			# Don't edit label unless the user clicks while we are already selected
-			return True
+			# return false so that the event is handled by the parent widget.
+			return False
 			
 		# replace label with gtk.Entry in order to edit it
 		if event.type == gtk.gdk.BUTTON_PRESS:
@@ -202,16 +207,13 @@ class InstrumentViewer(gtk.EventBox):
 			width = self.labeleventbox.size_request()[0]
 			self.labeleventbox.hide_all()
 			
-			self.editlabel = gtk.Entry()
 			self.editlabel.set_text(self.instrument.name)
 			#set the entry to the same width as the label so that the header doesnt resize
 			self.editlabel.set_size_request(width, -1)
-			self.editlabel.connect("activate", self.OnAcceptEditLabel)
-			self.editlabel.connect("key_press_event", self.OnEditLabelKey)
 			self.editlabel.show()
 			
 			self.labelbox.pack_end(self.editlabel)
-			self.editlabel.grab_focus()
+			
 			self.editlabelPacked = True
 			self.mainview.instrNameEntry = self.editlabel
 			
@@ -252,8 +254,6 @@ class InstrumentViewer(gtk.EventBox):
 			self.labelbox.remove(self.editlabel)
 			self.editlabelPacked = False
 			self.mainview.instrNameEntry = None
-			if self.editlabel:
-				self.editlabel.destroy()
 			self.labeleventbox.show_all()
 			
 			if name != "" and name != self.instrument.name:

@@ -221,6 +221,7 @@ class PreferencesDialog:
 		
 		exportDict = Globals.EXPORT_FORMATS[self.recordingFileFormat.get_active()]
 		Globals.settings.recording["fileformat"] = exportDict["pipeline"]
+		Globals.settings.recording["file_extension"] = exportDict["extension"]
 		#only get the number from "44100 Hz", not the whole string
 		sampleRateIndex = self.samplingRate.get_active()
 		Globals.settings.recording["samplerate"] = self.sampleRateList[sampleRateIndex][1]

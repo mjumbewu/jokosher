@@ -3,23 +3,23 @@
 # This file is distributed under the same license as the jokosher package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2006.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: jokosher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-24 16:18-0400\n"
-"PO-Revision-Date: 2006-11-17 05:21+0000\n"
-"Last-Translator: Laszlo Pandy <laszlok2@gmail.com>\n"
+"POT-Creation-Date: 2008-09-03 13:33-0400\n"
+"PO-Revision-Date: 2007-07-10 11:03+0000\n"
+"Last-Translator: Anthony <cguru@nerdshack.com>\n"
 "Language-Team: Esperanto <eo@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Rosetta-Export-Date: 2007-02-12 21:28+0000\n"
+"X-Launchpad-Export-Date: 2008-09-03 14:40+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
 
 #: ../../Jokosher/Jokosher.glade.h:1
 msgid "<b>Active effects for: </b>"
-msgstr ""
+msgstr "Aktivaj efikoj por"
 
 #: ../../Jokosher/Jokosher.glade.h:2
 msgid "<b>Application Start-up</b>"
@@ -31,7 +31,7 @@ msgstr "<b>Arto</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:4
 msgid "<b>Audio Output Plugin</b>"
-msgstr ""
+msgstr "Aŭdelmeto konekto"
 
 #: ../../Jokosher/Jokosher.glade.h:5
 msgid "<b>Coding</b>"
@@ -945,7 +945,7 @@ msgid ""
 "certain you wish to restore it?"
 msgstr ""
 
-#: ../../Jokosher/Event.py:757
+#: ../../Jokosher/Event.py:765
 #, python-format
 msgid "%(title)s by %(artist)s"
 msgstr ""
@@ -970,71 +970,71 @@ msgstr "Forigu volumpunkton"
 msgid "Snap To Fade Points"
 msgstr "Gluiĝu al volumpunkton"
 
-#: ../../Jokosher/EventViewer.py:442
+#: ../../Jokosher/EventViewer.py:443
 msgid "Downloading..."
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:444
+#: ../../Jokosher/EventViewer.py:445
 msgid "Loading..."
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:448
+#: ../../Jokosher/EventViewer.py:449
 #, python-format
 msgid "Downloading (%d%%)..."
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:450
+#: ../../Jokosher/EventViewer.py:451
 #, python-format
 msgid "Loading (%d%%)..."
 msgstr "Alŝutado (%d%%)..."
 
-#: ../../Jokosher/EventViewer.py:461
+#: ../../Jokosher/EventViewer.py:462
 msgid "Recording..."
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:509
+#: ../../Jokosher/EventViewer.py:510
 msgid ""
 "To <b>Split, Double-Click</b> the wave - To <b>Select, Shift-Click</b> and "
 "drag the mouse"
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:523
+#: ../../Jokosher/EventViewer.py:524
 msgid "<b>Drag</b> the red sliders to modify the volume fade."
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:636
+#: ../../Jokosher/EventViewer.py:637
 msgid ""
 "<b>Click</b> the buttons below the selection to do something to that portion "
 "of audio."
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:901
+#: ../../Jokosher/EventViewer.py:902
 msgid "_Split"
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:903
+#: ../../Jokosher/EventViewer.py:904
 msgid "Cu_t"
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:904
+#: ../../Jokosher/EventViewer.py:905
 msgid "_Copy"
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:905
+#: ../../Jokosher/EventViewer.py:906
 #: ../../Jokosher/InstrumentEffectsDialog.py:442
 msgid "_Delete"
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:1195
+#: ../../Jokosher/EventViewer.py:1196
 msgid "Error loading file:"
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:1196
+#: ../../Jokosher/EventViewer.py:1197
 msgid ""
 "Please make sure the file exists, and the appropriate plugin is installed."
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:1414
+#: ../../Jokosher/EventViewer.py:1415
 #, python-format
 msgid ""
 "Event, %(name)s, %(dur)0.2f seconds long, starting at %(start)0.2f seconds."
@@ -1102,67 +1102,67 @@ msgid ""
 "An error occurred when trying to launch the preferences for the extension"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:441
+#: ../../Jokosher/Globals.py:442
 msgid "Broken"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:442
+#: ../../Jokosher/Globals.py:443
 msgid "Unclassified"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:443
+#: ../../Jokosher/Globals.py:444
 msgid "Amplifiers"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:444
+#: ../../Jokosher/Globals.py:445
 msgid "Chorus"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:445
+#: ../../Jokosher/Globals.py:446
 msgid "Compressors"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:446
+#: ../../Jokosher/Globals.py:447
 msgid "Delays"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:447
+#: ../../Jokosher/Globals.py:448
 msgid "Distortions"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:448
+#: ../../Jokosher/Globals.py:449
 msgid "Equalizers"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:449
+#: ../../Jokosher/Globals.py:450
 msgid "Filters"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:450
+#: ../../Jokosher/Globals.py:451
 msgid "Flangers"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:451
+#: ../../Jokosher/Globals.py:452
 msgid "Miscellaneous"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:452
+#: ../../Jokosher/Globals.py:453
 msgid "Modulators"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:453
+#: ../../Jokosher/Globals.py:454
 msgid "Oscillators"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:454
+#: ../../Jokosher/Globals.py:455
 msgid "Phasers"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:455
+#: ../../Jokosher/Globals.py:456
 msgid "Reverbs"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:456
+#: ../../Jokosher/Globals.py:457
 msgid "Simulators"
 msgstr ""
 
@@ -1858,78 +1858,6 @@ msgstr "Violono"
 msgid "Vocal"
 msgstr "Kantado"
 
-#~ msgid "Add Instrument"
-#~ msgstr "Aldonu instrumenton"
-
-#~ msgid "Audio production made simple."
-#~ msgstr "Muzikproduktado simpligas."
-
-#~ msgid "Mixing"
-#~ msgstr "Miksado"
-
-#~ msgid "Recording"
-#~ msgstr "Rekordado"
-
-#~ msgid "Switch to the Mixing workspace"
-#~ msgstr "Iru je la miksejo"
-
-#~ msgid "Switch to the Recording workspace"
-#~ msgstr "Iru je la rekordejo"
-
-#~ msgid "Workspaces"
-#~ msgstr "Ejoj"
-
-#~ msgid "Currently working in the Recording workspace"
-#~ msgstr "Je la rekordejo"
-
-#~ msgid "Currently working in the Mixing workspace"
-#~ msgstr "Je la miksejo"
-
-#~ msgid "_Mixdown Project"
-#~ msgstr "_Miksado de Projekto"
-
-#~ msgid "Add a new instrument"
-#~ msgstr "Aldonu novan instrumenton"
-
-#~ msgid "Author"
-#~ msgstr "Aŭtoro"
-
-#~ msgid "Browse for an Existing Project"
-#~ msgstr "Foliumilu por projekton"
-
-#~ msgid "Create a New Project"
-#~ msgstr "Kreu Novan Projekton"
-
-#~ msgid "Don't open anything"
-#~ msgstr "Malfermu nenion"
-
-#~ msgid "Don't show this on start-up"
-#~ msgstr "Ne vidigu ĉi tion dum ekado"
-
-#~ msgid "Folder"
-#~ msgstr "Dosierujo"
-
-#~ msgid "Open Selected Project"
-#~ msgstr "Malfermu elektan projekton"
-
-#~ msgid "Open most recent project"
-#~ msgstr "Malfermu la plej freŝan projekton"
-
-#~ msgid "Preferences"
-#~ msgstr "Preferoj"
-
-#~ msgid "Project Name"
-#~ msgstr "Projekta Nomo"
-
-#~ msgid "Search:"
-#~ msgstr "Serĉu:"
-
-#~ msgid "Show welcome dialog"
-#~ msgstr "Vidigu ekadan dialogon"
-
-#~ msgid "_Manage Extensions"
-#~ msgstr "_Manaĝu Etendaĵojn"
-
 #~ msgid ""
 #~ "16 bit\n"
 #~ "24 bit\n"
@@ -2000,9 +1928,6 @@ msgstr "Kantado"
 #~ msgid "Recent Projects"
 #~ msgstr "Freŝprojektoj"
 
-#~ msgid "Remove curently selected extension"
-#~ msgstr "Elprenu elektan etendaĵon"
-
 #~ msgid "Select an effect"
 #~ msgstr "Elektu efikon"
 
@@ -2027,8 +1952,22 @@ msgstr "Kantado"
 #~ "FLAC\n"
 #~ "Ogg Vorbis"
 
-#~ msgid "_Extensions"
-#~ msgstr "_Etendaĵoj"
+#~ msgid ""
+#~ "No instruments are armed for recording. You need to arm an instrument "
+#~ "before you can begin recording."
+#~ msgstr ""
+#~ "Nenia instrumentoj estas aktiviga por rekordado. Bezonu aktivigi "
+#~ "instrumento antaŭ komenci rekordadon."
+
+#~ msgid "%d of %d seconds completed"
+#~ msgstr "%d de %d sekundo kompleta"
+
+#~ msgid ""
+#~ "\n"
+#~ "See http://jokosher.org/trac/wiki/GettingJokosher for more details.\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Visitu http://jokosher.org/trac/wiki/GettingJokosher por detalo.\n"
 
 #~ msgid "Import Audio File..."
 #~ msgstr "Importu sondosieron..."
@@ -2051,6 +1990,18 @@ msgstr "Kantado"
 #~ msgid "Copy"
 #~ msgstr "Kopiu"
 
+#~ msgid "Instrument Effects..."
+#~ msgstr "Instrumentaj Efikoj..."
+
+#~ msgid "Master Volume"
+#~ msgstr "Mastra laŭteco"
+
+#~ msgid "Volume: %.2f"
+#~ msgstr "Volumeno: %.2f"
+
+#~ msgid "_Extensions"
+#~ msgstr "_Etendaĵoj"
+
 #~ msgid "Solo - silence all other instruments"
 #~ msgstr "Sola - silentigu tutajn aliajn instrumentojn"
 
@@ -2060,28 +2011,77 @@ msgstr "Kantado"
 #~ msgid "Unmuted"
 #~ msgstr "Malmuta"
 
-#~ msgid "Instrument Effects..."
-#~ msgstr "Instrumentaj Efikoj..."
+#~ msgid "Remove curently selected extension"
+#~ msgstr "Elprenu elektan etendaĵon"
 
-#~ msgid ""
-#~ "No instruments are armed for recording. You need to arm an instrument "
-#~ "before you can begin recording."
-#~ msgstr ""
-#~ "Nenia instrumentoj estas aktiviga por rekordado. Bezonu aktivigi "
-#~ "instrumento antaŭ komenci rekordadon."
+#~ msgid "Add Instrument"
+#~ msgstr "Aldonu instrumenton"
 
-#~ msgid "%d of %d seconds completed"
-#~ msgstr "%d de %d sekundo kompleta"
+#~ msgid "Add a new instrument"
+#~ msgstr "Aldonu novan instrumenton"
 
-#~ msgid ""
-#~ "\n"
-#~ "See http://jokosher.org/trac/wiki/GettingJokosher for more details.\n"
-#~ msgstr ""
-#~ "\n"
-#~ "Visitu http://jokosher.org/trac/wiki/GettingJokosher por detalo.\n"
+#~ msgid "Audio production made simple."
+#~ msgstr "Muzikproduktado simpligas."
 
-#~ msgid "Master Volume"
-#~ msgstr "Mastra laŭteco"
+#~ msgid "Author"
+#~ msgstr "Aŭtoro"
 
-#~ msgid "Volume: %.2f"
-#~ msgstr "Volumeno: %.2f"
+#~ msgid "Browse for an Existing Project"
+#~ msgstr "Foliumilu por projekton"
+
+#~ msgid "Create a New Project"
+#~ msgstr "Kreu Novan Projekton"
+
+#~ msgid "Don't open anything"
+#~ msgstr "Malfermu nenion"
+
+#~ msgid "Don't show this on start-up"
+#~ msgstr "Ne vidigu ĉi tion dum ekado"
+
+#~ msgid "Folder"
+#~ msgstr "Dosierujo"
+
+#~ msgid "Mixing"
+#~ msgstr "Miksado"
+
+#~ msgid "Open Selected Project"
+#~ msgstr "Malfermu elektan projekton"
+
+#~ msgid "Open most recent project"
+#~ msgstr "Malfermu la plej freŝan projekton"
+
+#~ msgid "Preferences"
+#~ msgstr "Preferoj"
+
+#~ msgid "Project Name"
+#~ msgstr "Projekta Nomo"
+
+#~ msgid "Recording"
+#~ msgstr "Rekordado"
+
+#~ msgid "Search:"
+#~ msgstr "Serĉu:"
+
+#~ msgid "Show welcome dialog"
+#~ msgstr "Vidigu ekadan dialogon"
+
+#~ msgid "Switch to the Mixing workspace"
+#~ msgstr "Iru je la miksejo"
+
+#~ msgid "Switch to the Recording workspace"
+#~ msgstr "Iru je la rekordejo"
+
+#~ msgid "Workspaces"
+#~ msgstr "Ejoj"
+
+#~ msgid "_Manage Extensions"
+#~ msgstr "_Manaĝu Etendaĵojn"
+
+#~ msgid "_Mixdown Project"
+#~ msgstr "_Miksado de Projekto"
+
+#~ msgid "Currently working in the Recording workspace"
+#~ msgstr "Je la rekordejo"
+
+#~ msgid "Currently working in the Mixing workspace"
+#~ msgstr "Je la miksejo"

@@ -38,6 +38,7 @@ class Settings:
 	
 	recording = {
 				"fileformat": "vorbisenc ! oggmux",
+				"file_extension": "ogg",
 				"samplerate": "0", # zero means, autodetect sample rate (ie use any available)
 				"audiosrc" : "alsasrc",
 				"device" : "default"

@@ -3,19 +3,19 @@
 # This file is distributed under the same license as the jokosher package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2007.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: jokosher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-24 16:18-0400\n"
-"PO-Revision-Date: 2007-04-17 15:22+0000\n"
+"POT-Creation-Date: 2008-09-03 13:33-0400\n"
+"PO-Revision-Date: 2007-09-15 20:12+0000\n"
 "Last-Translator: Oscar Lage <r0sk@userlinux.net>\n"
 "Language-Team: Galician <gl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Rosetta-Export-Date: 2007-04-27 17:18:34+0000\n"
+"X-Launchpad-Export-Date: 2008-09-03 14:41+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
 
 #: ../../Jokosher/Jokosher.glade.h:1
 msgid "<b>Active effects for: </b>"
@@ -31,7 +31,7 @@ msgstr "<b>Arte</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:4
 msgid "<b>Audio Output Plugin</b>"
-msgstr "<b>Salida do Plugin de Audio</b>"
+msgstr "<b>Saída do Plugin de Audio</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:5
 msgid "<b>Coding</b>"
@@ -63,7 +63,7 @@ msgid ""
 "contributors. To make Jokosher rock, we need your help!</b>"
 msgstr ""
 "<b>Jokosher é un proxecto de Software Libre escrito pola Comunidade. Para "
-"mellorar Jokosher, ¡necesitámo-la túa axuda!</b>"
+"mellorar Jokosher, precisámo-la túa axuda!</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:12
 msgid "<b>Location Details</b>"
@@ -83,11 +83,11 @@ msgstr "<b>Proxectos recentes</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:16
 msgid "<b>Recorded Audio Format</b>"
-msgstr "<b>Formato de Audio Grabado</b>"
+msgstr "<b>Formato de Audio Gravado</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:17
 msgid "<b>Recording Sample Rate</b>"
-msgstr ""
+msgstr "<b> Valor da mostra de gravación</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:18
 msgid "<b>Save Time</b>"
@@ -99,11 +99,11 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:20
 msgid "<b>Testing</b>"
-msgstr ""
+msgstr "<b>probando</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:21
 msgid "<b>Time Signature</b>"
-msgstr ""
+msgstr "<b>Valor de Compás</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:22
 msgid "<b>_Presets for:</b>"
@@ -125,7 +125,7 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:26
 msgid "Activate the selected effect"
-msgstr "Activar o efecto seleccionado"
+msgstr "Activa o efecto seleccionado"
 
 #: ../../Jokosher/Jokosher.glade.h:27
 msgid "Add Action"
@@ -133,7 +133,7 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:28
 msgid "Add Audio File"
-msgstr "Engadir arquivo de audio"
+msgstr "Engade arquivo de audio"
 
 #: ../../Jokosher/Jokosher.glade.h:29
 msgid "Add Audio _File..."
@@ -145,27 +145,27 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:31
 msgid "Add an audio file to the project"
-msgstr "Engadir un arquivo de sonido ó proxecto"
+msgstr "Engade un arquivo de son ao proxecto"
 
 #: ../../Jokosher/Jokosher.glade.h:32
 msgid "Add an audio file to the selected instrument"
-msgstr "Engadir un arquivo de sonido ó instrumento seleccionado"
+msgstr "Engade un arquivo de son ao instrumento seleccionado"
 
 #: ../../Jokosher/Jokosher.glade.h:33
 msgid "Add an extension"
-msgstr "Engadir unha extensión"
+msgstr "Engade unha extensión"
 
 #: ../../Jokosher/Jokosher.glade.h:34
 msgid "Add an instrument"
-msgstr "Engadir un instrumento"
+msgstr "Engade un instrumento"
 
 #: ../../Jokosher/Jokosher.glade.h:35
 msgid "Add an instrument to the project"
-msgstr "Engadir un instrumento ó proxecto"
+msgstr "Engade un instrumento ao proxecto"
 
 #: ../../Jokosher/Jokosher.glade.h:36
 msgid "Add the selected instrument"
-msgstr "Engadir o instrumento seleccionado"
+msgstr "Engade o instrumento seleccionado"
 
 #: ../../Jokosher/Jokosher.glade.h:37
 msgid "Add the selected jokosher instrument"
@@ -173,11 +173,11 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:38
 msgid "Adjust the amount of beats per measure"
-msgstr ""
+msgstr "Axusta os pulsos a un compás"
 
 #: ../../Jokosher/Jokosher.glade.h:39
 msgid "Adjust the settings for the currently selected active effect"
-msgstr "Axustar as características do efecto activo"
+msgstr "Axusta as características do efecto en activo seleccionado"
 
 #: ../../Jokosher/Jokosher.glade.h:40
 msgid "Arm an instrument then click here to begin recording"
@@ -213,31 +213,32 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:49
 msgid "Cancel the mixdown"
-msgstr ""
+msgstr "Cancela a mestura"
 
 #: ../../Jokosher/Jokosher.glade.h:50
 msgid "Change Jokosher preferences"
-msgstr "Cambiar as preferencias de Jokosher"
+msgstr "Cambia as preferencias de Jokosher"
 
 #: ../../Jokosher/Jokosher.glade.h:51
 msgid "Change the timeline"
-msgstr "Cambiar a liña de tempos"
+msgstr "Modifica a liña de progreso"
 
 #: ../../Jokosher/Jokosher.glade.h:52
 msgid "Change the timeline to show bars, beats and ticks"
 msgstr ""
+"Modifica a liña de progreso para amosar liñas divisorias, pulsos e acentos"
 
 #: ../../Jokosher/Jokosher.glade.h:53
 msgid "Change the timeline to show hours, minutes and seconds"
-msgstr "Cambiar a liña de tempos para mostrar horas, minutos e segundos"
+msgstr "Modifica a liña de progreso para amosar horas, minutos e segundos"
 
 #: ../../Jokosher/Jokosher.glade.h:54
 msgid "Change type of the selected instrument"
-msgstr ""
+msgstr "Modifica o tipo de instrumento seleccionado"
 
 #: ../../Jokosher/Jokosher.glade.h:55
 msgid "Choose a chain effects preset."
-msgstr ""
+msgstr "escolle unha cadea de efectos preestablecida"
 
 #: ../../Jokosher/Jokosher.glade.h:56
 msgid "Choose a project template"
@@ -245,19 +246,19 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:57
 msgid "Choose an effect preset."
-msgstr ""
+msgstr "Escolle un efecto preestablecido"
 
 #: ../../Jokosher/Jokosher.glade.h:58
 msgid "Choose one or more instruments to add to your project."
-msgstr "Elexir un ou máis instrumentos para engadir ó proxecto"
+msgstr "Elixe un ou máis instrumentos para engadir ao proxecto"
 
 #: ../../Jokosher/Jokosher.glade.h:59
 msgid "Click and hold to fast forward"
-msgstr ""
+msgstr "Pincha e mantén o rato pulsado para avanzar rápido"
 
 #: ../../Jokosher/Jokosher.glade.h:60
 msgid "Click and hold to rewind"
-msgstr ""
+msgstr "pincha e mantén pulsado para retroceder"
 
 #: ../../Jokosher/Jokosher.glade.h:61
 msgid "Close the current project"
@@ -887,7 +888,7 @@ msgstr ""
 
 #: ../../Jokosher/AddInstrumentDialog.py:61
 msgid "Change Instrument Type"
-msgstr "Cambiar o tipo de instrumento"
+msgstr "Cambia o tipo de instrumento"
 
 #: ../../Jokosher/AddInstrumentDialog.py:63
 #, python-format
@@ -948,7 +949,7 @@ msgid ""
 "certain you wish to restore it?"
 msgstr ""
 
-#: ../../Jokosher/Event.py:757
+#: ../../Jokosher/Event.py:765
 #, python-format
 msgid "%(title)s by %(artist)s"
 msgstr ""
@@ -973,71 +974,71 @@ msgstr ""
 msgid "Snap To Fade Points"
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:442
+#: ../../Jokosher/EventViewer.py:443
 msgid "Downloading..."
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:444
+#: ../../Jokosher/EventViewer.py:445
 msgid "Loading..."
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:448
+#: ../../Jokosher/EventViewer.py:449
 #, python-format
 msgid "Downloading (%d%%)..."
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:450
+#: ../../Jokosher/EventViewer.py:451
 #, python-format
 msgid "Loading (%d%%)..."
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:461
+#: ../../Jokosher/EventViewer.py:462
 msgid "Recording..."
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:509
+#: ../../Jokosher/EventViewer.py:510
 msgid ""
 "To <b>Split, Double-Click</b> the wave - To <b>Select, Shift-Click</b> and "
 "drag the mouse"
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:523
+#: ../../Jokosher/EventViewer.py:524
 msgid "<b>Drag</b> the red sliders to modify the volume fade."
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:636
+#: ../../Jokosher/EventViewer.py:637
 msgid ""
 "<b>Click</b> the buttons below the selection to do something to that portion "
 "of audio."
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:901
+#: ../../Jokosher/EventViewer.py:902
 msgid "_Split"
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:903
+#: ../../Jokosher/EventViewer.py:904
 msgid "Cu_t"
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:904
+#: ../../Jokosher/EventViewer.py:905
 msgid "_Copy"
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:905
+#: ../../Jokosher/EventViewer.py:906
 #: ../../Jokosher/InstrumentEffectsDialog.py:442
 msgid "_Delete"
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:1195
+#: ../../Jokosher/EventViewer.py:1196
 msgid "Error loading file:"
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:1196
+#: ../../Jokosher/EventViewer.py:1197
 msgid ""
 "Please make sure the file exists, and the appropriate plugin is installed."
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:1414
+#: ../../Jokosher/EventViewer.py:1415
 #, python-format
 msgid ""
 "Event, %(name)s, %(dur)0.2f seconds long, starting at %(start)0.2f seconds."
@@ -1100,67 +1101,67 @@ msgid ""
 "An error occurred when trying to launch the preferences for the extension"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:441
+#: ../../Jokosher/Globals.py:442
 msgid "Broken"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:442
+#: ../../Jokosher/Globals.py:443
 msgid "Unclassified"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:443
+#: ../../Jokosher/Globals.py:444
 msgid "Amplifiers"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:444
+#: ../../Jokosher/Globals.py:445
 msgid "Chorus"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:445
+#: ../../Jokosher/Globals.py:446
 msgid "Compressors"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:446
+#: ../../Jokosher/Globals.py:447
 msgid "Delays"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:447
+#: ../../Jokosher/Globals.py:448
 msgid "Distortions"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:448
+#: ../../Jokosher/Globals.py:449
 msgid "Equalizers"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:449
+#: ../../Jokosher/Globals.py:450
 msgid "Filters"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:450
+#: ../../Jokosher/Globals.py:451
 msgid "Flangers"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:451
+#: ../../Jokosher/Globals.py:452
 msgid "Miscellaneous"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:452
+#: ../../Jokosher/Globals.py:453
 msgid "Modulators"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:453
+#: ../../Jokosher/Globals.py:454
 msgid "Oscillators"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:454
+#: ../../Jokosher/Globals.py:455
 msgid "Phasers"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:455
+#: ../../Jokosher/Globals.py:456
 msgid "Reverbs"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:456
+#: ../../Jokosher/Globals.py:457
 msgid "Simulators"
 msgstr ""
 
@@ -1224,6 +1225,7 @@ msgstr ""
 #: ../../Jokosher/JokosherApp.py:64
 msgid "Arm an instrument, then click here to begin recording"
 msgstr ""
+"Monta un instrumento, a continuación pulsa aquí para dar comezo á gravación"
 
 #: ../../Jokosher/JokosherApp.py:67
 msgid "Hide the audio level mixers"
@@ -1845,16 +1847,31 @@ msgid "Vocal"
 msgstr ""
 
 #~ msgid "Add Instrument"
-#~ msgstr "Engadir instrumento"
-
-#~ msgid "Add a new step:"
-#~ msgstr "Engadir un novo paso"
+#~ msgstr "Engade instrumento"
 
 #~ msgid "Add a new instrument"
-#~ msgstr "Engadir un novo instrumento"
+#~ msgstr "Engade un novo instrumento"
+
+#~ msgid "Add a new step:"
+#~ msgstr "Engade un novo grao"
+
+#~ msgid "Add this step to the current mixdown"
+#~ msgstr "engade este grao á mestura en uso"
+
+#~ msgid "Audio production made simple."
+#~ msgstr "Producción de audio facilitada"
 
 #~ msgid "Author"
-#~ msgstr "Autor"
+#~ msgstr "Autor/a"
+
+#~ msgid "Beat value"
+#~ msgstr "tempo"
+
+#~ msgid "Beats per measure"
+#~ msgstr "Pulsos por compás"
+
+#~ msgid "Browse for an Existing Project"
+#~ msgstr "Bota un vistazo a un proxecto xa existente"
 
 #~ msgid "Create a New Project"
 #~ msgstr "Crear un novo proxecto"

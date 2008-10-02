@@ -3,19 +3,19 @@
 # This file is distributed under the same license as the jokosher package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2006.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: jokosher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-24 16:18-0400\n"
-"PO-Revision-Date: 2007-02-10 17:01+0000\n"
-"Last-Translator: David Corrales <corrales.david@gmail.com>\n"
+"POT-Creation-Date: 2008-09-03 13:33-0400\n"
+"PO-Revision-Date: 2008-05-03 20:15+0000\n"
+"Last-Translator: Eduardo Ruiz <eduardo.ruizcarrillo@gmail.com>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Rosetta-Export-Date: 2007-02-12 21:28+0000\n"
+"X-Launchpad-Export-Date: 2008-09-03 14:40+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
 
 #: ../../Jokosher/Jokosher.glade.h:1
 msgid "<b>Active effects for: </b>"
@@ -31,7 +31,7 @@ msgstr "<b>Arte</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:4
 msgid "<b>Audio Output Plugin</b>"
-msgstr "<b>Plugin de Salida de Audio</b>"
+msgstr "<b>Plugin de salida de audio</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:5
 msgid "<b>Coding</b>"
@@ -43,7 +43,7 @@ msgstr "<b>Documentación</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:7
 msgid "<b>Effect Name</b>"
-msgstr "<b>Nombre del Efecto</b>"
+msgstr "<b>Nombre del efecto</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:8
 msgid "<b>Effects</b>"
@@ -83,11 +83,11 @@ msgstr "<b>Proyectos recientes</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:16
 msgid "<b>Recorded Audio Format</b>"
-msgstr "<b>Formato de Grabación del Audio</b>"
+msgstr "<b>Formato de grabación del audio</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:17
 msgid "<b>Recording Sample Rate</b>"
-msgstr "<b>Tasa de Muestras para Grabación</b>"
+msgstr "<b>Tasa de muestras para grabación</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:18
 msgid "<b>Save Time</b>"
@@ -103,7 +103,7 @@ msgstr "<b>Probando</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:21
 msgid "<b>Time Signature</b>"
-msgstr "<b>Marca de Tiempo</b>"
+msgstr "<b>Marca de tiempo</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:22
 msgid "<b>_Presets for:</b>"
@@ -133,7 +133,7 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:28
 msgid "Add Audio File"
-msgstr "Añadir un Archivo de Audio"
+msgstr "Añadir un archivo de audio"
 
 #: ../../Jokosher/Jokosher.glade.h:29
 msgid "Add Audio _File..."
@@ -218,7 +218,7 @@ msgstr "Cancelar la mezcla"
 
 #: ../../Jokosher/Jokosher.glade.h:50
 msgid "Change Jokosher preferences"
-msgstr "Cambiar las Preferencias de Jokosher"
+msgstr "Cambiar las preferencias de Jokosher"
 
 #: ../../Jokosher/Jokosher.glade.h:51
 msgid "Change the timeline"
@@ -278,7 +278,7 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:65
 msgid "Configure Instrument Effects"
-msgstr "Configurar los Efectos del Instrumento"
+msgstr "Configurar los efectos del instrumento"
 
 #: ../../Jokosher/Jokosher.glade.h:66
 msgid "Copy the current selection"
@@ -551,7 +551,7 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:163 ../../Jokosher/JokosherApp.py:628
 msgid "Mixdown Project"
-msgstr "Mezclar el Proyecto"
+msgstr "Mezclar el proyecto"
 
 #: ../../Jokosher/Jokosher.glade.h:164
 msgid "Mixdown the project using these settings"
@@ -559,7 +559,7 @@ msgstr "Mezclar el proyecto utilizando esta configuración"
 
 #: ../../Jokosher/Jokosher.glade.h:165
 msgid "Mixing Project"
-msgstr "Mezclando el Proyecto"
+msgstr "Mezclando el proyecto"
 
 #: ../../Jokosher/Jokosher.glade.h:166
 msgid "Move the selected active effect down on the effects chain"
@@ -573,7 +573,7 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:168 ../../Jokosher/NewProjectDialog.py:129
 msgid "New Project"
-msgstr "Nuevo Proyecto"
+msgstr "Nuevo proyecto"
 
 #: ../../Jokosher/Jokosher.glade.h:169
 msgid "New..."
@@ -699,7 +699,7 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:199
 msgid "Select A Folder"
-msgstr "Seleccione una Carpeta"
+msgstr "Seleccione una carpeta"
 
 #: ../../Jokosher/Jokosher.glade.h:200
 msgid "Select a project to open from the list"
@@ -711,7 +711,7 @@ msgstr "Seleccione la entrada de audio a utilizar con cada instrumento."
 
 #: ../../Jokosher/Jokosher.glade.h:202
 msgid "Set Time Signature"
-msgstr "Establecer la Marca de Tiempo"
+msgstr "Establecer la marca de tiempo"
 
 #: ../../Jokosher/Jokosher.glade.h:203
 msgid "Settings"
@@ -719,11 +719,11 @@ msgstr "Configuración"
 
 #: ../../Jokosher/Jokosher.glade.h:204
 msgid "Show as _Bars, Beats, Ticks"
-msgstr "Mostrar como _Compases, Pulsos y Pasos"
+msgstr "Mostrar como _compases, pulsos y pasos"
 
 #: ../../Jokosher/Jokosher.glade.h:205
 msgid "Show as _Hours, Minutes, Seconds"
-msgstr "Mostrar como _Horas, Minutos y Segundos"
+msgstr "Mostrar como _horas, minutos y segundos"
 
 #: ../../Jokosher/Jokosher.glade.h:206
 msgid "Start Jokosher with an empty project"
@@ -871,7 +871,7 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:242
 msgid "_Online Forums"
-msgstr "_Foros en Línea"
+msgstr "_Foros en línea"
 
 #: ../../Jokosher/Jokosher.glade.h:243
 msgid "_Open Selected Project"
@@ -899,7 +899,7 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:249
 msgid "_Recent Projects"
-msgstr "Proyectos _Recientes"
+msgstr "Proyectos _recientes"
 
 #: ../../Jokosher/Jokosher.glade.h:250
 msgid "_Recording Inputs..."
@@ -935,7 +935,7 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:258
 msgid "_Time Format"
-msgstr "Formato del _Tiempo"
+msgstr "Formato del _tiempo"
 
 #: ../../Jokosher/Jokosher.glade.h:259
 msgid "_Use project template"
@@ -951,7 +951,7 @@ msgstr ""
 
 #: ../../Jokosher/AddInstrumentDialog.py:61
 msgid "Change Instrument Type"
-msgstr "Cambiar el Tipo de Instrumento"
+msgstr "Cambiar el tipo de instrumento"
 
 #: ../../Jokosher/AddInstrumentDialog.py:63
 #, python-format
@@ -960,7 +960,7 @@ msgstr "Escoja el nuevo tipo de instrumento para %s"
 
 #: ../../Jokosher/CompactMixView.py:76
 msgid "<b>Instruments Not Shown:</b>"
-msgstr "<b>Instrumentos Ocultos:</b>"
+msgstr "<b>Instrumentos ocultos:</b>"
 
 #: ../../Jokosher/ControlsBox.py:42
 msgid "Enable this instrument for recording"
@@ -980,16 +980,16 @@ msgstr "Escuchar - escuchar este instrumento"
 
 #: ../../Jokosher/ControlsBox.py:46
 msgid "Activate Solo - silence all other instruments"
-msgstr "Activar Solo - silenciar todos los otros instrumentos"
+msgstr "Activar solo - silenciar todos los otros instrumentos"
 
 #: ../../Jokosher/ControlsBox.py:47
 msgid "Deactivate Solo - hear all the instruments"
-msgstr "Desactivar Solo - escuchar todos los instrumentos"
+msgstr "Desactivar solo - escuchar todos los instrumentos"
 
 #: ../../Jokosher/ControlsBox.py:84
 #: ../../Jokosher/InstrumentEffectsDialog.py:114
 msgid "Instrument Effects"
-msgstr "Efectos del Instrumento"
+msgstr "Efectos del instrumento"
 
 #: ../../Jokosher/CrashProtectionDialog.py:79
 #: ../../Jokosher/CrashProtectionDialog.py:138
@@ -1012,14 +1012,14 @@ msgid ""
 "certain you wish to restore it?"
 msgstr ""
 
-#: ../../Jokosher/Event.py:757
+#: ../../Jokosher/Event.py:765
 #, python-format
 msgid "%(title)s by %(artist)s"
 msgstr "%(title)s por %(artist)s"
 
 #: ../../Jokosher/EventLaneViewer.py:113
 msgid "_Add Audio File..."
-msgstr "_Añadir un Archivo de Audio..."
+msgstr "_Añadir un archivo de audio..."
 
 #: ../../Jokosher/EventLaneViewer.py:274
 msgid "<b>Right-click</b> for more options."
@@ -1030,84 +1030,86 @@ msgid "Trim"
 msgstr "Recortar"
 
 #: ../../Jokosher/EventViewer.py:164
+#, fuzzy
 msgid "Delete Fade Points"
-msgstr "Eliminar los Puntos del Fade"
+msgstr "Eliminar los puntos del Fade"
 
 #: ../../Jokosher/EventViewer.py:172
+#, fuzzy
 msgid "Snap To Fade Points"
-msgstr "Fijar a los Puntos del Fade"
+msgstr "Fijar a los puntos del Fade"
 
-#: ../../Jokosher/EventViewer.py:442
+#: ../../Jokosher/EventViewer.py:443
 msgid "Downloading..."
 msgstr "Descargando..."
 
-#: ../../Jokosher/EventViewer.py:444
+#: ../../Jokosher/EventViewer.py:445
 msgid "Loading..."
 msgstr "Cargando..."
 
-#: ../../Jokosher/EventViewer.py:448
+#: ../../Jokosher/EventViewer.py:449
 #, python-format
 msgid "Downloading (%d%%)..."
 msgstr "Descargando (%d%%)..."
 
-#: ../../Jokosher/EventViewer.py:450
+#: ../../Jokosher/EventViewer.py:451
 #, python-format
 msgid "Loading (%d%%)..."
 msgstr "Cargando (%d%%)..."
 
-#: ../../Jokosher/EventViewer.py:461
+#: ../../Jokosher/EventViewer.py:462
 msgid "Recording..."
 msgstr "Grabando..."
 
-#: ../../Jokosher/EventViewer.py:509
+#: ../../Jokosher/EventViewer.py:510
 msgid ""
 "To <b>Split, Double-Click</b> the wave - To <b>Select, Shift-Click</b> and "
 "drag the mouse"
 msgstr ""
-"Para <b> Dividir, dar Doble Click</b> sobre la onda - Para <b>Seleccionar, "
-"Shift-Click</b> y arrastrar el ratón."
+"Para <b>dividir, dar doble click</b> sobre la onda - Para <b>seleccionar, "
+"shift-click</b> y arrastrar el ratón."
 
-#: ../../Jokosher/EventViewer.py:523
+#: ../../Jokosher/EventViewer.py:524
 msgid "<b>Drag</b> the red sliders to modify the volume fade."
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:636
+#: ../../Jokosher/EventViewer.py:637
 msgid ""
 "<b>Click</b> the buttons below the selection to do something to that portion "
 "of audio."
 msgstr ""
-"Dar <b>Click</b> en los botones bajo la selección para hacer algo en esa "
+"Dar <b>click</b> en los botones bajo la selección para hacer algo en esa "
 "porción de audio."
 
-#: ../../Jokosher/EventViewer.py:901
+#: ../../Jokosher/EventViewer.py:902
 msgid "_Split"
 msgstr "_Dividir"
 
-#: ../../Jokosher/EventViewer.py:903
+#: ../../Jokosher/EventViewer.py:904
 msgid "Cu_t"
 msgstr "Cor_tar"
 
-#: ../../Jokosher/EventViewer.py:904
+#: ../../Jokosher/EventViewer.py:905
 msgid "_Copy"
 msgstr "_Copiar"
 
-#: ../../Jokosher/EventViewer.py:905
+#: ../../Jokosher/EventViewer.py:906
 #: ../../Jokosher/InstrumentEffectsDialog.py:442
 msgid "_Delete"
 msgstr "_Eliminar"
 
-#: ../../Jokosher/EventViewer.py:1195
+#: ../../Jokosher/EventViewer.py:1196
 msgid "Error loading file:"
 msgstr "Error cargando el archivo:"
 
-#: ../../Jokosher/EventViewer.py:1196
+#: ../../Jokosher/EventViewer.py:1197
 msgid ""
 "Please make sure the file exists, and the appropriate plugin is installed."
 msgstr ""
 "Por favor asegúrese que el archivo existe, y el plugin apropiado está "
 "instalado."
 
-#: ../../Jokosher/EventViewer.py:1414
+#: ../../Jokosher/EventViewer.py:1415
 #, python-format
 msgid ""
 "Event, %(name)s, %(dur)0.2f seconds long, starting at %(start)0.2f seconds."
@@ -1133,7 +1135,7 @@ msgid ""
 "This is a Jokosher extension, which needs to be installed. Would you like to "
 "install it?"
 msgstr ""
-"Esta es una extensión de Jokosher que necesita ser instalada. Desea "
+"Esta es una extensión de Jokosher que necesita ser instalada. ¿Desea "
 "instalarla?"
 
 #: ../../Jokosher/Extension.py:56
@@ -1145,7 +1147,7 @@ msgstr "Instalar"
 msgid ""
 "You already have a extension with the name %s installed; would you like to "
 "replace it?"
-msgstr "Existe una extensión con el nombre %s instalada; desea reemplazarla?"
+msgstr "Existe una extensión con el nombre %s instalada; ¿desea reemplazarla?"
 
 #: ../../Jokosher/Extension.py:69
 msgid "Replace"
@@ -1157,11 +1159,11 @@ msgstr "La nueva extensión está disponible en Jokosher!"
 
 #: ../../Jokosher/ExtensionManagerDialog.py:169
 msgid "Choose a Jokosher Extension file"
-msgstr "Escoger un archivo de Extensión Jokosher"
+msgstr "Escoger un archivo de extensión Jokosher"
 
 #: ../../Jokosher/ExtensionManagerDialog.py:175
 msgid "Jokosher Extension Files (*.py *.egg)"
-msgstr "Archivos de Extensión Jokosher (*.py *.egg)"
+msgstr "Archivos de extensión Jokosher (*.py *.egg)"
 
 #: ../../Jokosher/ExtensionManagerDialog.py:197
 msgid "There was a problem loading the extension"
@@ -1177,67 +1179,67 @@ msgid ""
 msgstr ""
 "Ocurrió un error al tratar de ejecutar la configuración de la extensión"
 
-#: ../../Jokosher/Globals.py:441
+#: ../../Jokosher/Globals.py:442
 msgid "Broken"
 msgstr "Defectuosos"
 
-#: ../../Jokosher/Globals.py:442
+#: ../../Jokosher/Globals.py:443
 msgid "Unclassified"
 msgstr "No Clasificados"
 
-#: ../../Jokosher/Globals.py:443
+#: ../../Jokosher/Globals.py:444
 msgid "Amplifiers"
 msgstr "Amplificadores"
 
-#: ../../Jokosher/Globals.py:444
+#: ../../Jokosher/Globals.py:445
 msgid "Chorus"
 msgstr "Chorus"
 
-#: ../../Jokosher/Globals.py:445
+#: ../../Jokosher/Globals.py:446
 msgid "Compressors"
 msgstr "Compresores"
 
-#: ../../Jokosher/Globals.py:446
+#: ../../Jokosher/Globals.py:447
 msgid "Delays"
 msgstr "Ecos"
 
-#: ../../Jokosher/Globals.py:447
+#: ../../Jokosher/Globals.py:448
 msgid "Distortions"
 msgstr "Distorciones"
 
-#: ../../Jokosher/Globals.py:448
+#: ../../Jokosher/Globals.py:449
 msgid "Equalizers"
 msgstr "Ecualizadores"
 
-#: ../../Jokosher/Globals.py:449
+#: ../../Jokosher/Globals.py:450
 msgid "Filters"
 msgstr "Filtros"
 
-#: ../../Jokosher/Globals.py:450
+#: ../../Jokosher/Globals.py:451
 msgid "Flangers"
 msgstr "Flangers"
 
-#: ../../Jokosher/Globals.py:451
+#: ../../Jokosher/Globals.py:452
 msgid "Miscellaneous"
 msgstr "Misceláneos"
 
-#: ../../Jokosher/Globals.py:452
+#: ../../Jokosher/Globals.py:453
 msgid "Modulators"
 msgstr "Moduladores"
 
-#: ../../Jokosher/Globals.py:453
+#: ../../Jokosher/Globals.py:454
 msgid "Oscillators"
 msgstr "Osciladores"
 
-#: ../../Jokosher/Globals.py:454
+#: ../../Jokosher/Globals.py:455
 msgid "Phasers"
 msgstr "Phasers"
 
-#: ../../Jokosher/Globals.py:455
+#: ../../Jokosher/Globals.py:456
 msgid "Reverbs"
 msgstr "Reverberación"
 
-#: ../../Jokosher/Globals.py:456
+#: ../../Jokosher/Globals.py:457
 msgid "Simulators"
 msgstr "Simuladores"
 
@@ -1251,14 +1253,12 @@ msgstr "No hay instrumentos para conectar"
 
 #: ../../Jokosher/InstrumentConnectionsDialog.py:110
 msgid "Default"
-msgstr "Entrada por Defecto"
+msgstr "Entrada por defecto"
 
 #: ../../Jokosher/InstrumentConnectionsDialog.py:118
 #, python-format
 msgid "%(device)s input %(input)d"
-msgstr ""
-"Copy text   \t\r\n"
-"%(device)s entrada %(input)d"
+msgstr "%(device)s entrada %(input)d"
 
 #: ../../Jokosher/InstrumentEffectsDialog.py:140
 #: ../../Jokosher/InstrumentEffectsDialog.py:142
@@ -1290,7 +1290,7 @@ msgstr "_Activar efecto"
 
 #: ../../Jokosher/InstrumentEffectsDialog.py:666
 msgid "Effect Settings"
-msgstr "Configuración del Efecto"
+msgstr "Configuración del efecto"
 
 #: ../../Jokosher/InstrumentEffectsDialog.py:700
 msgid "-parameter not readable-"
@@ -1390,7 +1390,7 @@ msgstr "Todos los archivos"
 
 #: ../../Jokosher/JokosherApp.py:767
 msgid "Jokosher Project File (*.jokosher)"
-msgstr "Archivo de Proyecto Jokosher (*.jokosher)"
+msgstr "Archivo de proyecto Jokosher (*.jokosher)"
 
 #: ../../Jokosher/JokosherApp.py:822
 msgid "Choose a location to save the project"
@@ -1411,7 +1411,7 @@ msgstr ""
 
 #: ../../Jokosher/JokosherApp.py:905
 msgid "Close _Without Saving"
-msgstr "Cerrar _Sin Guardar"
+msgstr "Cerrar _sin guardar"
 
 #: ../../Jokosher/JokosherApp.py:1009
 #, python-format
@@ -1462,12 +1462,13 @@ msgid ""
 "%s\n"
 " Invalid or corrupt project file, will not open."
 msgstr ""
-"%s↵\n"
+"%s\n"
+"\n"
 " Archivo de proyecto inválido o corrupto, no será abierto."
 
 #: ../../Jokosher/JokosherApp.py:1612
 msgid "You must have Gstreamer version 0.10.9 or higher.\n"
-msgstr "Se requiere GStreamer version 0.10.9 o superior.\n"
+msgstr "Se requiere GStreamer versión 0.10.9 o superior.\n"
 
 #: ../../Jokosher/JokosherApp.py:1620
 msgid "You must have Gstreamer plugin gnonlin version 0.10.4.2 or later.\n"
@@ -1975,196 +1976,6 @@ msgstr "Violín"
 msgid "Vocal"
 msgstr "Vocal"
 
-#~ msgid "Add Instrument"
-#~ msgstr "Añadir un Instrumento"
-
-#~ msgid "Add a new step:"
-#~ msgstr "Añadir un nuevo paso:"
-
-#~ msgid "Add this step to the current mixdown"
-#~ msgstr "Añadir este paso a la mezcla actual"
-
-#~ msgid "Audio production made simple."
-#~ msgstr "Facilitando la producción de audio."
-
-#~ msgid "FastForward"
-#~ msgstr "Adelantar Rápidamente"
-
-#~ msgid "Mixing"
-#~ msgstr "Mezclar"
-
-#~ msgid "Mixing Workspace"
-#~ msgstr "Vista de Mezclas"
-
-#~ msgid "Record"
-#~ msgstr "Grabar"
-
-#~ msgid "Recording"
-#~ msgstr "Grabando"
-
-#~ msgid "Recording Workspace"
-#~ msgstr "Vista de Grabación"
-
-#~ msgid "Rewind"
-#~ msgstr "Retroceder"
-
-#~ msgid "Save these mixdown settings"
-#~ msgstr "Guardar esta configuración de mezcla"
-
-#~ msgid "Stop"
-#~ msgstr "Detener"
-
-#~ msgid "Switch to the Mixing workspace"
-#~ msgstr "Cambiar a la Vista de Mezclas"
-
-#~ msgid "Switch to the Recording workspace"
-#~ msgstr "Cambiar a la Vista de Grabación"
-
-#~ msgid "Workspaces"
-#~ msgstr "Vistas"
-
-#~ msgid "_Mixdown the project"
-#~ msgstr "_Mezclar el proyecto"
-
-#~ msgid "_Save these settings"
-#~ msgstr "_Guardar esta configuración"
-
-#~ msgid "version 0.10"
-#~ msgstr "versión 0.10"
-
-#~ msgid "_Paste"
-#~ msgstr "_Pegar"
-
-#~ msgid "Currently working in the Recording workspace"
-#~ msgstr "Actualmente trabajando en la Vista de Grabación"
-
-#~ msgid "Currently working in the Mixing workspace"
-#~ msgstr "Actualmente trabajando en la Vista de Mezclas"
-
-#~ msgid "%(progress)d of %(total)d seconds completed"
-#~ msgstr "%(progress)d of %(total)d segundos completados"
-
-#~ msgid "_Mixdown as"
-#~ msgstr "_Mezclar como"
-
-#~ msgid "_Mixdown Project"
-#~ msgstr "_Mezclar Proyecto"
-
-#~ msgid "<b>Steps to mixdown %(projectname)s</b>"
-#~ msgstr "<b>Pasos para mezclar %(projectname)s</b>"
-
-#~ msgid "Edit this mixdown step settings"
-#~ msgstr "Editar la configuración de este paso de mezcla"
-
-#~ msgid "Remove this mixdown step"
-#~ msgstr "Eliminar este paso de mezcla"
-
-#~ msgid "Don't save these mixdown settings"
-#~ msgstr "No guardar esta configuración de mezcla"
-
-#~ msgid "Choose a name for this profile"
-#~ msgstr "Escoja un nombre para este perfil"
-
-#~ msgid "Export file"
-#~ msgstr "Exportar archivo"
-
-#~ msgid "An unspecified MixdownAction"
-#~ msgstr "Una acción de mezcla no especificada"
-
-#~ msgid "Export to %(file)s as %(desc)s"
-#~ msgstr "Exportar a %(file)s como %(desc)s"
-
-#~ msgid "Export as"
-#~ msgstr "Exportar como"
-
-#~ msgid "Run script %s"
-#~ msgstr "Correr el script %s"
-
-#~ msgid "Run external script"
-#~ msgstr "Correr un script externo"
-
-#~ msgid "Hz"
-#~ msgstr "Hz"
-
-#~ msgid "Zoom the timeline"
-#~ msgstr "Acercar la línea de tiempo"
-
-#~ msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"
-#~ msgstr ""
-#~ "<b>Arrastre</b> la <b>barra</b> para modificar los niveles de volumen"
-
-#~ msgid "<b>Presets for:</b>"
-#~ msgstr "<b>Plantillas para:</b>"
-
-#~ msgid "Add a new instrument"
-#~ msgstr "Añadir un nuevo instrumento"
-
-#~ msgid "Author"
-#~ msgstr "Autor"
-
-#~ msgid "Beat value"
-#~ msgstr "Valor de los pulsos"
-
-#~ msgid "Beats per measure"
-#~ msgstr "Pulsos por compás"
-
-#~ msgid "Browse for an Existing Project"
-#~ msgstr "Buscar Proyectos Existentes"
-
-#~ msgid "Create a New Project"
-#~ msgstr "Crear un Nuevo Proyecto"
-
-#~ msgid "Device:"
-#~ msgstr "Dispositivo:"
-
-#~ msgid "Don't open anything"
-#~ msgstr "No abrir nada"
-
-#~ msgid "Don't show this on start-up"
-#~ msgstr "No mostrar esta ventana al inicio"
-
-#~ msgid "Folder"
-#~ msgstr "Carpeta"
-
-#~ msgid "Open Selected Project"
-#~ msgstr "Abrir el Proyecto Seleccionado"
-
-#~ msgid "Open most recent project"
-#~ msgstr "Abrir el proyecto más reciente"
-
-#~ msgid "Output:"
-#~ msgstr "Salida:"
-
-#~ msgid "Pipeline:"
-#~ msgstr "Pipeline:"
-
-#~ msgid "Preferences"
-#~ msgstr "Preferencias"
-
-#~ msgid "Project Name"
-#~ msgstr "Nombre del proyecto"
-
-#~ msgid "Remove Selected Instrument"
-#~ msgstr "Eliminar el Instrumento Seleccionado"
-
-#~ msgid "Search:"
-#~ msgstr "Buscar:"
-
-#~ msgid "Show welcome dialog"
-#~ msgstr "Mostrar el diálogo de bienvenida"
-
-#~ msgid "_Add Instrument"
-#~ msgstr "_Agregar un Instrumento"
-
-#~ msgid "_Manage Extensions"
-#~ msgstr "_Administrar Extensiones"
-
-#~ msgid "_Recording Inputs"
-#~ msgstr "_Entradas de Grabación"
-
-#~ msgid "No such script %s"
-#~ msgstr "No existe el script %s"
-
 #~ msgid ""
 #~ "16 bit\n"
 #~ "24 bit\n"
@@ -2219,6 +2030,9 @@ msgstr "Vocal"
 #~ msgid "Device"
 #~ msgstr "Dispositivo"
 
+#~ msgid "Files Saves As"
+#~ msgstr "Ficheros Guardados Como"
+
 #~ msgid "General"
 #~ msgstr "General"
 
@@ -2243,17 +2057,11 @@ msgstr "Vocal"
 #~ msgid "Recent Projects"
 #~ msgstr "Proyectos recientes"
 
-#~ msgid "Remove curently selected extension"
-#~ msgstr "Remover la extensión actualmente seleccionada"
-
 #~ msgid "Sample Format"
 #~ msgstr "Formato de muestra"
 
 #~ msgid "Sample Rate (Hz)"
 #~ msgstr "Muestreo (Hz)"
-
-#~ msgid "Save Files As"
-#~ msgstr "Guardar archivo como"
 
 #~ msgid "Select an effect"
 #~ msgstr "Seleccione un efecto"
@@ -2291,58 +2099,20 @@ msgstr "Vocal"
 #~ "FLAC\n"
 #~ "Ogg Vorbis"
 
-#~ msgid "_Extensions"
-#~ msgstr "_Extensiones"
-
-#~ msgid "Import Audio File..."
-#~ msgstr "Importar Archivo de Audio..."
-
-#~ msgid "Paste"
-#~ msgstr "Pegar"
-
-#~ msgid "Delete"
-#~ msgstr "Eliminar"
-
-#~ msgid "Import file..."
-#~ msgstr "Importar archivo..."
-
-#~ msgid ""
-#~ "<b>NOTE</b>: The volume sliders in this pre-release version of Jokosher "
-#~ "do not affect the audio."
+#~ msgid "translator-credits"
 #~ msgstr ""
-#~ "<b>NOTA</b>: Los controles de volumen en esta versión de pre-producción "
-#~ "de Jokosher no afectan el audio."
-
-#~ msgid "Split"
-#~ msgstr "Dividir"
-
-#~ msgid "Cut"
-#~ msgstr "Cortar"
-
-#~ msgid "Copy"
-#~ msgstr "Copiar"
-
-#~ msgid ""
-#~ "%s\n"
+#~ "créditos traducción\n"
 #~ "\n"
-#~ "File is corrupt, not an audio file, or the associated plugin is not "
-#~ "installed"
-#~ msgstr ""
-#~ "%s\n"
-#~ "El archivo está dañado, no es un archivo de audio, o el plugin asociado "
-#~ "no está instalado"
-
-#~ msgid "Solo - silence all other instruments"
-#~ msgstr "Solo - silenciar todos los otros instrumentos"
-
-#~ msgid "Muted"
-#~ msgstr "Silenciado"
-
-#~ msgid "Unmuted"
-#~ msgstr "No silenciado"
-
-#~ msgid "Instrument Effects..."
-#~ msgstr "Efectos del instrumento"
+#~ "Launchpad Contributions:\n"
+#~ "  Benjamin A'Lee https://launchpad.net/~bmalee\n"
+#~ "  David Corrales https://launchpad.net/~davidcorrales\n"
+#~ "  Emilio Pozuelo Monfort https://launchpad.net/~pochu\n"
+#~ "  Ignacio Soto Reveco https://launchpad.net/~sotoporoto\n"
+#~ "  Iván Edgardo Vázquez Santos https://launchpad.net/~ievazquez2002\n"
+#~ "  Laszlo Pandy https://launchpad.net/~laszlok2\n"
+#~ "  Manuel Duran Moyano https://launchpad.net/~mduran\n"
+#~ "  Marcos Escalier https://launchpad.net/~mescalier\n"
+#~ "  aruiz https://launchpad.net/~alberto.ruiz"
 
 #~ msgid ""
 #~ "The instruments '%s' and '%s' both have the same input selected (%s). "
@@ -2384,11 +2154,257 @@ msgstr "Vocal"
 #~ "en realidad, nuestra primer liberación.  Por lo que puedes encontrar "
 #~ "algunos errores y funcionalidad no presente."
 
+#~ msgid "Import Audio File..."
+#~ msgstr "Importar Archivo de Audio..."
+
+#~ msgid "Paste"
+#~ msgstr "Pegar"
+
+#~ msgid "Delete"
+#~ msgstr "Eliminar"
+
+#~ msgid "Import file..."
+#~ msgstr "Importar archivo..."
+
+#~ msgid ""
+#~ "<b>NOTE</b>: The volume sliders in this pre-release version of Jokosher "
+#~ "do not affect the audio."
+#~ msgstr ""
+#~ "<b>NOTA</b>: Los controles de volumen en esta versión de pre-producción "
+#~ "de Jokosher no afectan el audio."
+
+#~ msgid "Split"
+#~ msgstr "Dividir"
+
+#~ msgid "Cut"
+#~ msgstr "Cortar"
+
+#~ msgid "Copy"
+#~ msgstr "Copiar"
+
+#~ msgid "Instrument Effects..."
+#~ msgstr "Efectos del instrumento"
+
 #~ msgid "Master Volume"
 #~ msgstr "Volumen Maestro"
 
 #~ msgid "Volume: %.2f"
 #~ msgstr "Volumen: %.2f"
 
-#~ msgid "translator-credits"
-#~ msgstr "créditos traducción"
+#~ msgid "Save Files As"
+#~ msgstr "Guardar archivo como"
+
+#~ msgid "_Extensions"
+#~ msgstr "_Extensiones"
+
+#~ msgid ""
+#~ "%s\n"
+#~ "\n"
+#~ "File is corrupt, not an audio file, or the associated plugin is not "
+#~ "installed"
+#~ msgstr ""
+#~ "%s\n"
+#~ "El archivo está dañado, no es un archivo de audio, o el plugin asociado "
+#~ "no está instalado"
+
+#~ msgid "Solo - silence all other instruments"
+#~ msgstr "Solo - silenciar todos los otros instrumentos"
+
+#~ msgid "Muted"
+#~ msgstr "Silenciado"
+
+#~ msgid "Unmuted"
+#~ msgstr "No silenciado"
+
+#~ msgid "Remove curently selected extension"
+#~ msgstr "Remover la extensión actualmente seleccionada"
+
+#~ msgid "<b>Presets for:</b>"
+#~ msgstr "<b>Plantillas para:</b>"
+
+#~ msgid "Add Instrument"
+#~ msgstr "Añadir un instrumento"
+
+#~ msgid "Add a new instrument"
+#~ msgstr "Añadir un nuevo instrumento"
+
+#~ msgid "Add a new step:"
+#~ msgstr "Añadir un nuevo paso:"
+
+#~ msgid "Add this step to the current mixdown"
+#~ msgstr "Añadir este paso a la mezcla actual"
+
+#~ msgid "Audio production made simple."
+#~ msgstr "Facilitando la producción de audio."
+
+#~ msgid "Author"
+#~ msgstr "Autor"
+
+#~ msgid "Beat value"
+#~ msgstr "Valor de los pulsos"
+
+#~ msgid "Beats per measure"
+#~ msgstr "Pulsos por compás"
+
+#~ msgid "Browse for an Existing Project"
+#~ msgstr "Buscar proyectos existentes"
+
+#~ msgid "Create a New Project"
+#~ msgstr "Crear un nuevo proyecto"
+
+#~ msgid "Device:"
+#~ msgstr "Dispositivo:"
+
+#~ msgid "Don't open anything"
+#~ msgstr "No abrir nada"
+
+#~ msgid "Don't show this on start-up"
+#~ msgstr "No mostrar esta ventana al inicio"
+
+#~ msgid "FastForward"
+#~ msgstr "Adelantar rápidamente"
+
+#~ msgid "Folder"
+#~ msgstr "Carpeta"
+
+#~ msgid "Mixing"
+#~ msgstr "Mezclar"
+
+#~ msgid "Mixing Workspace"
+#~ msgstr "Vista de mezclas"
+
+#~ msgid "Open Selected Project"
+#~ msgstr "Abrir el proyecto seleccionado"
+
+#~ msgid "Open most recent project"
+#~ msgstr "Abrir el proyecto más reciente"
+
+#~ msgid "Output:"
+#~ msgstr "Salida:"
+
+#~ msgid "Pipeline:"
+#~ msgstr "Pipeline:"
+
+#~ msgid "Preferences"
+#~ msgstr "Preferencias"
+
+#~ msgid "Project Name"
+#~ msgstr "Nombre del proyecto"
+
+#~ msgid "Record"
+#~ msgstr "Grabar"
+
+#~ msgid "Recording"
+#~ msgstr "Grabando"
+
+#~ msgid "Recording Workspace"
+#~ msgstr "Vista de grabación"
+
+#~ msgid "Remove Selected Instrument"
+#~ msgstr "Eliminar el instrumento seleccionado"
+
+#~ msgid "Rewind"
+#~ msgstr "Retroceder"
+
+#~ msgid "Save these mixdown settings"
+#~ msgstr "Guardar esta configuración de mezcla"
+
+#~ msgid "Search:"
+#~ msgstr "Búsqueda:"
+
+#~ msgid "Show welcome dialog"
+#~ msgstr "Mostrar el diálogo de bienvenida"
+
+#~ msgid "Stop"
+#~ msgstr "Detener"
+
+#~ msgid "Switch to the Mixing workspace"
+#~ msgstr "Cambiar a la vista de mezclas"
+
+#~ msgid "Switch to the Recording workspace"
+#~ msgstr "Cambiar a la vista de grabación"
+
+#~ msgid "Workspaces"
+#~ msgstr "Vistas"
+
+#~ msgid "_Add Instrument"
+#~ msgstr "_Agregar un instrumento"
+
+#~ msgid "_Manage Extensions"
+#~ msgstr "_Administrar extensiones"
+
+#~ msgid "_Mixdown Project"
+#~ msgstr "_Mezclar proyecto"
+
+#~ msgid "_Mixdown the project"
+#~ msgstr "_Mezclar el proyecto"
+
+#~ msgid "_Recording Inputs"
+#~ msgstr "_Entradas de grabación"
+
+#~ msgid "_Save these settings"
+#~ msgstr "_Guardar esta configuración"
+
+#~ msgid "version 0.9"
+#~ msgstr "versión 0.9"
+
+#~ msgid "_Paste"
+#~ msgstr "_Pegar"
+
+#~ msgid "Currently working in the Recording workspace"
+#~ msgstr "Actualmente trabajando en la vista de grabación"
+
+#~ msgid "Currently working in the Mixing workspace"
+#~ msgstr "Actualmente trabajando en la vista de mezclas"
+
+#~ msgid "%(progress)d of %(total)d seconds completed"
+#~ msgstr "%(progress)d of %(total)d segundos completados"
+
+#~ msgid "_Mixdown as"
+#~ msgstr "_Mezclar como"
+
+#~ msgid "<b>Steps to mixdown %(projectname)s</b>"
+#~ msgstr "<b>Pasos para mezclar %(projectname)s</b>"
+
+#~ msgid "Edit this mixdown step settings"
+#~ msgstr "Editar la configuración de este paso de mezcla"
+
+#~ msgid "Remove this mixdown step"
+#~ msgstr "Eliminar este paso de mezcla"
+
+#~ msgid "Don't save these mixdown settings"
+#~ msgstr "No guardar esta configuración de mezcla"
+
+#~ msgid "Choose a name for this profile"
+#~ msgstr "Escoja un nombre para este perfil"
+
+#~ msgid "Export file"
+#~ msgstr "Exportar archivo"
+
+#~ msgid "An unspecified MixdownAction"
+#~ msgstr "Una acción de mezcla no especificada"
+
+#~ msgid "Export to %(file)s as %(desc)s"
+#~ msgstr "Exportar a %(file)s como %(desc)s"
+
+#~ msgid "Export as"
+#~ msgstr "Exportar como"
+
+#~ msgid "Run script %s"
+#~ msgstr "Correr el script %s"
+
+#~ msgid "Run external script"
+#~ msgstr "Correr un script externo"
+
+#~ msgid "No such script %s"
+#~ msgstr "No existe el script %s"
+
+#~ msgid "Hz"
+#~ msgstr "Hz"
+
+#~ msgid "Zoom the timeline"
+#~ msgstr "Acercar la línea de tiempo"
+
+#~ msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"
+#~ msgstr ""
+#~ "<b>Arrastre</b> la <b>barra</b> para modificar los niveles de volumen"

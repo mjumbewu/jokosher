@@ -369,6 +369,7 @@ class EventViewer(gtk.DrawingArea):
 			starting_time = int(rect.x / self.project.viewScale * 1000)
 			starting_index = levels.find_endtime_index(starting_time)
 
+			x = 0
 			last_x = -2
 			skip_list = []
 			iterator = itertools.islice(levels, starting_index, length)
