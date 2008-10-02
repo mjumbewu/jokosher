@@ -168,15 +168,22 @@ def GetChannelsOffered(device):
 		Globals.debug("Couldn't get source pad for %s"%device)
 		src.set_state(gst.STATE_NULL)
 		return 0
-
-	numChannels = caps[0]["channels"]
-	if isinstance(numChannels, gst.IntRange):
-		if numChannels.high > 20000:
-			#Assume we're being given the max number of channels for gstreamer, so take low number
-			numChannels = numChannels.low
+	
+	nums = []
+	for struct in caps:
+		channels = caps[0]["channels"]
+		if isinstance(channels, gst.IntRange):
+			if channels.high > 20000:
+				#Assume we're being given the max number of channels for gstreamer, so take low number
+				nums.append(channels.low)
+			else:
+				#Otherwise take the high number
+				nums.append(numChannels.high)
 		else:
-			#Otherwise take the high number
-			numChannels = numChannels.high
+			nums.append(channels)
+
+	numChannels = max(nums)
+	Globals.debug("Detected channels = %s from caps:" % numChannels, caps.to_string())
 
 	#if numChannels == 2:
 		#Assume one stereo input
