@@ -158,7 +158,7 @@ def GetChannelsOffered(device):
 		Globals.debug("Cannot list capture devices: no source device in the bin", src_desc)
 		
 	src.set_property("device", device)
-	src.set_state(gst.STATE_READY)
+	src.set_state(gst.STATE_PAUSED)
 	
 	try:
 		#Assume the card only offers one src (we can't handle more anyway)
@@ -178,7 +178,7 @@ def GetChannelsOffered(device):
 				nums.append(channels.low)
 			else:
 				#Otherwise take the high number
-				nums.append(numChannels.high)
+				nums.append(channels.high)
 		else:
 			nums.append(channels)
 
