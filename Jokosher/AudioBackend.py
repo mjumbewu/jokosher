@@ -185,6 +185,10 @@ def GetChannelsOffered(device):
 	numChannels = max(nums)
 	Globals.debug("Detected channels = %s from caps:" % numChannels, caps.to_string())
 
+	if numChannels > 8:
+		# audioconvert can't handle more than 8 channels
+		numChannels = 8
+
 	#if numChannels == 2:
 		#Assume one stereo input
 	#	numChannels = 1
