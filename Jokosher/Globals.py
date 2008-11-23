@@ -39,18 +39,27 @@ class Settings:
 	recording = {
 				"fileformat": "vorbisenc ! oggmux",
 				"file_extension": "ogg",
-				"samplerate": "0" # zero means, autodetect sample rate (ie use any available)
+				"samplerate": "0", # zero means, autodetect sample rate (ie use any available)
+				"audiosrc" : "alsasrc",
+				"device" : "default"
 				}
 	
 	playback = 	{
+				"devicename": "default",
 				"device": "default",
-				"devicecardnum": "default",
 				"audiosink":"autoaudiosink"
 				}
 	
 	extensions = {
 				 "extensions_blacklist": ""
 				 }
+				 
+	sections = {
+				"General" : general,
+				"Recording" : recording,
+				"Playback" : playback,
+				"Extensions" : extensions
+				}
 
 	#_____________________________________________________________________
 	
@@ -79,38 +88,24 @@ class Settings:
 		"""
 		self.config.read(self.filename)
 	
-		if not self.config.has_section("General"):
-			self.config.add_section("General")
-		if not self.config.has_section("Recording"):
-			self.config.add_section("Recording")
-		if not self.config.has_section("Playback"):
-			self.config.add_section("Playback")
-		if not self.config.has_section("Extensions"):
-			self.config.add_section("Extensions")
+		for section in self.sections:
+			if not self.config.has_section(section):
+				self.config.add_section(section)
 	
-		for key, value in self.config.items("General"):
-			self.general[key] = value
-		for key, value in self.config.items("Recording"):
-			self.recording[key] = value
-		for key, value in self.config.items("Playback"):
-			self.playback[key] = value
-		for key, value in self.config.items("Extensions"):
-			self.extensions[key] = value
+		for section, section_dict in self.sections.iteritems():
+			for key, value in self.config.items(section):
+				section_dict[key] = value
 	
 	#_____________________________________________________________________
 		
 	def write(self):
 		"""
 		Writes configuration settings to the Settings config file.
-		"""		
-		for key in self.general:
-			self.config.set("General", key, self.general[key])
-		for key in self.recording:
-			self.config.set("Recording", key, self.recording[key])
-		for key in self.playback:
-			self.config.set("Playback", key, self.playback[key])
-		for key in self.extensions:
-			self.config.set("Extensions", key, self.extensions[key])
+		"""
+		
+		for section, section_dict in self.sections.iteritems():
+			for key, value in section_dict.iteritems():
+				self.config.set(section, key, value)
 			
 		# delete a .jokosher file if it exists, because that's old-fashioned
 		old_jokosher_file = os.path.expanduser("~/.jokosher")
@@ -318,27 +313,50 @@ def PopulateEncoders():
 	"""
 	Check if the hardcoded list of encoders is available on the system.
 	"""
+	for type in _export_formats:
+		if VerifyAllElements(type[2]):
+			#create a dictionary using _export_template as the keys
+			#and the current item from _export_formats as the values.
+			d = dict(zip(_export_template, type))
+			EXPORT_FORMATS.append(d)
+
+#_____________________________________________________________________
+
+def VerifyAllElements(bin_desc):
 	#HACK: we can't import gst at the top of Globals.py because
 	#if we do, gstreamer will get to the sys.args and print it's own
 	#message instead of ours. This will be fixed once we can use
 	#GOption when we depend on pygobject 2.12.
 	import gst
 	
-	for type in _export_formats:
-		all_elements_exist = True
-		for element in type[2].split("!"):
-			exists = gst.default_registry_check_feature_version(element.strip(), 0, 10, 0)
-			if not exists:
-				all_elements_exist = False
-				debug('Cannot find "%s" plugin, disabling encoder: "%s"' % (element.strip(), type[2]))
-				# we know at least one of the elements doesnt exist, so skip this encode format.
-				break
-		
-		if all_elements_exist:
-			#create a dictionary using _export_template as the keys
-			#and the current item from _export_formats as the values.
-			d = dict(zip(_export_template, type))
-			EXPORT_FORMATS.append(d)
+	all_elements_exist = True
+	for element in bin_desc.split("!"):
+		exists = gst.default_registry_check_feature_version(element.strip(), 0, 10, 0)
+		if not exists:
+			all_elements_exist = False
+			debug('Cannot find "%s" plugin, disabling: "%s"' % (element.strip(), bin_desc))
+			# we know at least one of the elements doesnt exist, so skip this encode format.
+			break
+	
+	return all_elements_exist
+	
+#_____________________________________________________________________
+
+def PopulateAudioBackends():
+	CheckBackendList(PLAYBACK_BACKENDS)
+	CheckBackendList(CAPTURE_BACKENDS)
+	
+#_____________________________________________________________________
+	
+def CheckBackendList(backend_list):
+	remove_list = []
+	for tuple_ in backend_list:
+		bin_desc = tuple_[1]
+		if not VerifyAllElements(bin_desc):
+			remove_list.append(tuple_)
+	
+	for tuple_ in remove_list:
+		backend_list.remove(tuple_)
 
 #_____________________________________________________________________
 
@@ -645,6 +663,23 @@ _export_formats = 	[
 EXPORT_FORMATS = []
 
 SAMPLE_RATES = [8000, 11025, 22050, 32000, 44100, 48000, 96000, 192000]
+
+PLAYBACK_BACKENDS = [
+	(_("Autodetect"), "autoaudiosink"),
+	(_("Use GNOME Settings"), "gconfaudiosink"),
+	("ALSA", "alsasink"),
+	("OSS", "osssink"),
+	("JACK", "jackaudiosink"),
+	("PulseAudio", "pulsesink"),
+]
+
+CAPTURE_BACKENDS = [
+	(_("Use GNOME Settings"), "gconfaudiosrc"),
+	("ALSA", "alsasrc"),
+	("OSS", "osssrc"),
+	("JACK", "jackaudiosrc"),
+	("PulseAudio", "pulsesrc"),
+]
 
 """ Default Instruments """
 DEFAULT_INSTRUMENTS = []
