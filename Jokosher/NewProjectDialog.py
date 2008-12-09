@@ -12,7 +12,7 @@
 import gtk.glade
 import os
 import ProjectManager
-import pwd
+import OSSpecific
 import Globals
 import gettext
 _ = gettext.gettext
@@ -75,17 +75,9 @@ class NewProjectDialog:
 		self.templatecombo.add_attribute(text, "text", 0)
 		
 		self.templatecombo.set_active(0)
-		
+
 		# Default author to name of currently logged in user
-		try:
-			# Try to get the full name if it exists
-			fullname = pwd.getpwuid(os.getuid())[4].split(",")[0]
-			if fullname == "":
-				fullname = pwd.getpwuid(os.getuid())[0]
-			self.author.set_text(fullname)
-		except:
-			# If we can't get the fullname, then just use the login
-			self.author.set_text(pwd.getpwuid(os.getuid())[0])
+		self.author.set_text(OSSpecific.getFullName())
 		
 		self.okbutton = self.res.get_widget("okButton")
 		self.okbutton.set_flags(gtk.CAN_DEFAULT)
