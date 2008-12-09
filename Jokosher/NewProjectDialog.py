@@ -124,13 +124,14 @@ class NewProjectDialog:
 		if not author:
 			author = _("Unknown Author")
 			
-		folder = self.folder.get_current_folder()
+		# CreateNewProject expects a URI, so append file://	
+		folder = "file://%s" % self.folder.get_current_folder()
 		# Save the selected folder as the default folder
 		Globals.settings.general["projectfolder"] = folder
 		Globals.settings.write()
 		if not folder:
 			folder = "~"
-		
+
 		try:
 			project = ProjectManager.CreateNewProject(folder, name, author)
 		except ProjectManager.CreateProjectError, e:
