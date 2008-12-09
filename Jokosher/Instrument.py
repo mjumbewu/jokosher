@@ -124,7 +124,12 @@ class Instrument(gobject.GObject):
 		self.playbackbin = gst.element_factory_make("bin", "Instrument_%d"%self.id)
 		self.volumeElement = gst.element_factory_make("volume", "Instrument_Volume_%d"%self.id)
 		self.levelElement = gst.element_factory_make("level", "Instrument_Level_%d"%self.id)
-		self.panElement = gst.element_factory_make("audiopanorama", "Instrument_Pan_%d"%self.id)
+		# audiopanorma isn't available under Windows
+		try:
+			self.panElement = gst.element_factory_make("audiopanorama", "Instrument_Pan_%d"%self.id)
+		except:
+			self.panElement = None
+			Globals.debug("Audio panorama element is unavailable")
 		self.resample = gst.element_factory_make("audioresample")
 		
 		self.composition = gst.element_factory_make("gnlcomposition")
@@ -165,7 +170,8 @@ class Instrument(gobject.GObject):
 		self.levelElement.set_property("peak-ttl", 0)
 		self.levelElement.set_property("peak-falloff", 20)
 		
-		self.panElement.set_property("panorama", 0)
+		if self.panElement:
+			self.panElement.set_property("panorama", 0)
 
 		self.silenceAudioSource.set_property("wave", 4)	#4 is silence
 		
@@ -182,7 +188,9 @@ class Instrument(gobject.GObject):
 		self.volumeFadeController.set_interpolation_mode("volume", gst.INTERPOLATE_LINEAR)
 		
 		# ADD ELEMENTS TO THE PIPELINE AND/OR THEIR BINS #
-		self.playbackbin.add(self.volumeElement, self.levelElement, self.panElement, self.resample)
+		self.playbackbin.add(self.volumeElement, self.levelElement, self.resample)
+		if self.panElement:
+			self.playbackbin.add(self.panElement)
 		self.playbackbin.add(self.composition)
 		self.playbackbin.add(self.effectsBin)
 		
@@ -197,9 +205,12 @@ class Instrument(gobject.GObject):
 		
 		self.effectsBin.link(self.volumeElement)
 		self.volumeElement.link(self.levelElement)
-		self.levelElement.link(self.panElement)	
-		self.panElement.link(self.resample)
-		
+		if self.panElement:
+			self.levelElement.link(self.panElement)	
+			self.panElement.link(self.resample)
+		else:
+			self.levelElement.link(self.resample)
+
 		self.playghostpad = gst.GhostPad("src", self.resample.get_pad("src"))
 		self.playbackbin.add_pad(self.playghostpad)
 		

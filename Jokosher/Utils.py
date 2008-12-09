@@ -128,7 +128,7 @@ def CalculateAudioLevel(channelLevels):
 	if not channelLevels:
 		return 0
 
-	negInf = float("-inf")
+	negInf = -1E+5000
 	peaktotal = 0
 	for peak in channelLevels:
 		#if peak > 0.001:

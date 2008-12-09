@@ -380,7 +380,8 @@ class _LoadZPTFile:
 			Globals.debug("Error, could not load image:", instr.instrType)
 		
 		# load pan level
-		instr.panElement.set_property("panorama", instr.pan)
+		if instr.panElement:
+			instr.panElement.set_property("panorama", instr.pan)
 		#check if instrument is muted and setup accordingly
 		instr.OnMute()
 		#update the volume element with the newly loaded value
