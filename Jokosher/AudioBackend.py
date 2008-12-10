@@ -200,4 +200,4 @@ def GetChannelsOffered(device):
 The following function, is meant for testing this file independantly from the rest.
 """
 if __name__ == "__main__":
-	print GetRecordingSampleRate()
+	print(GetRecordingSampleRate())

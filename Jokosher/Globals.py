@@ -139,7 +139,7 @@ def debug(*listToPrint):
 	message = " ".join( [ str(x) for x in listToPrint ] )
 	
 	if DEBUG_STDOUT:
-		print message
+		print(message)
 	if DEBUG_GST:
 		gst.debug(message)
 		
