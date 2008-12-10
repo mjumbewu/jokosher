@@ -22,6 +22,7 @@ import UndoSystem
 import Globals
 import gettext
 import urllib
+import OSSpecific
 
 from elements.singledecodebin import SingleDecodeBin
 _ = gettext.gettext
@@ -213,7 +214,7 @@ class Event(gobject.GObject):
 			self.instrument.project.deleteOnCloseAudioFiles.remove(self.file)
 		
 		self.temp = self.file
-		if os.path.samefile(self.instrument.project.audio_path, os.path.dirname(self.file)):
+		if OSSpecific.samefile(self.instrument.project.audio_path, os.path.dirname(self.file)):
 			# If the file is in the audio dir, just include the filename, not the absolute path
 			self.file = os.path.basename(self.file)
 		

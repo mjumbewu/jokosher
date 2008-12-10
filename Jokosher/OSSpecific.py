@@ -1,4 +1,4 @@
-import platform, os
+import platform, os, os.path
 
 system = platform.system()
 
@@ -30,3 +30,18 @@ def __UNIX_getFullName():
 def __WINDOWS_getFullName():
 	#TODO: Work out how to get the fullname in windows
 	return ""
+
+
+def samefile(path1, path2):
+	if system == "Windows":
+		return __WINDOWS_samefile(path1, path2)
+	else:
+		return __UNIX_samefile(path1, path2)
+
+
+def __WINDOWS_samefile(path1, path2):
+	return path1 == path2
+
+
+def __UNIX_samefile(path1, path2):
+	return os.path.samefile(path1, path2)
