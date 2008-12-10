@@ -235,8 +235,7 @@ class MixerStrip(gtk.Frame):
 		self.OnTimedStatusBarClear()
 		
 		self.instrument.pan = value
-		if self.instrument.panElement:
-			self.instrument.panElement.set_property("panorama", value)
+		self.instrument.panElement.set_property("panorama", value)
 		
 	#_____________________________________________________________________
 	
