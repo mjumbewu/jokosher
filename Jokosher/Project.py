@@ -776,6 +776,7 @@ class Project(gobject.GObject):
 			os.remove(path + "~")
 		else:
 			#if the saving doesn't fail, move it to the proper location
+			os.remove(path)
 			os.rename(path + "~", path)		
 		
 		self.emit("undo")
