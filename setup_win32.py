@@ -17,7 +17,6 @@ dist = setup(name='jokosher',
 	url='http://www.jokosher.org/',
 	download_url='http://www.jokosher.org/download',
 	license='GNU GPL',
-	scripts=['bin/jokosher'],
 	packages=['Jokosher', 'Jokosher/elements'],
 	windows = [
 			{
@@ -26,7 +25,7 @@ dist = setup(name='jokosher',
 		],
 	options = {
 			'py2exe': {
-				'packages' : 'encodings',
+				'packages' : 'encodings, Jokosher, Jokosher.elements',
 				'includes' : 'cairo, gtk, gtk.glade, gobject, pango, pangocairo, atk, gst, pygst'
 			}
 	},

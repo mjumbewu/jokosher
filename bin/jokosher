@@ -11,9 +11,16 @@
 #	This script is also responsible for parsing comment line arguments.
 #
 #-------------------------------------------------------------------------------
-import os, sys
+import os, sys, platform
 
-ENV_PATHS = {"JOKOSHER_DATA_PATH" : "/usr/share/jokosher/",
+if platform.system() == "Windows":
+	ENV_PATHS = {"JOKOSHER_DATA_PATH" : ".\\",
+			"JOKOSHER_IMAGE_PATH" : ".\\pixmaps\\",
+			"JOKOSHER_LOCALE_PATH" : ".\\locale\\",
+			"JOKOSHER_HELP_PATH" : ".\\help\\"
+			}
+else:	
+	ENV_PATHS = {"JOKOSHER_DATA_PATH" : "/usr/share/jokosher/",
 			"JOKOSHER_IMAGE_PATH" : "/usr/share/jokosher/pixmaps/",
 			"JOKOSHER_LOCALE_PATH" : "/usr/share/locale/",
 			"JOKOSHER_HELP_PATH" : "/usr/share/gnome/jokosher/"
