@@ -698,7 +698,7 @@ class Project(gobject.GObject):
 		
 		if not path:
 			if not self.projectfile:
-				raise "No save path specified!"
+				raise Exception("No save path specified!")
 			path = self.projectfile
 		
 		if not self.audio_path:
@@ -708,13 +708,13 @@ class Project(gobject.GObject):
 			
 		if os.path.exists(self.audio_path):
 			if not os.path.isdir(self.audio_path):
-				raise "Audio save location is not a directory"
+				raise Exception("Audio save location is not a directory")
 		else:
 			os.mkdir(self.audio_path)
 		
 		if os.path.exists(self.levels_path):
 			if not os.path.isdir(self.levels_path):
-				raise "Levels save location is not a directory"
+				raise Exception("Levels save location is not a directory")
 		else:
 			os.mkdir(self.levels_path)
 		

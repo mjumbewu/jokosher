@@ -156,7 +156,7 @@ class EffectPresets(gobject.GObject):
 		self.effecttype = effecttype
 	
 		if not Globals.EFFECT_PRESETS_PATH:
-			raise "No preset save path specified!"
+			raise Exception("No preset save path specified!")
 		
 		doc = xml.Document()
 		head = doc.createElement("JokosherPreset")
@@ -202,7 +202,7 @@ class EffectPresets(gobject.GObject):
 		self.effecttype = None
 		
 		if not Globals.EFFECT_PRESETS_PATH:
-			raise "No effect chain preset save path specified!"
+			raise Exception("No effect chain preset save path specified!")
 		
 		doc = xml.Document()
 		head = doc.createElement("JokosherPreset")
