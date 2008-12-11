@@ -15,7 +15,7 @@ import pygst
 pygst.require("0.10")
 import gst
 import gobject
-import os
+import os, os.path
 import gzip
 import re
 
@@ -776,7 +776,8 @@ class Project(gobject.GObject):
 			os.remove(path + "~")
 		else:
 			#if the saving doesn't fail, move it to the proper location
-			os.remove(path)
+			if os.path.exists(path):
+				os.remove(path)
 			os.rename(path + "~", path)		
 		
 		self.emit("undo")
