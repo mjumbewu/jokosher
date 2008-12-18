@@ -383,7 +383,7 @@ class Project(gobject.GObject):
 					
 				pipe = "%s ! %s ! level name=recordlevel interval=%d" +\
 							" ! audioconvert ! %s ! filesink location=%s"
-				pipe %= (recordString, capsString, event.LEVEL_INTERVAL * gst.SECOND, encodeString, event.file.replace(" ", "\ "))
+				pipe %= (recordString, capsString, event.LEVEL_INTERVAL * gst.SECOND, encodeString, event.file.replace("\\", "\\\\").replace(" ", "\ "))
 				
 				Globals.debug("Using pipeline: %s" % pipe)
 				

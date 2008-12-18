@@ -55,7 +55,7 @@ def url2pathname(url):
 
 
 def __WINDOWS_url2pathname(url):
-	return urllib.url2pathname(url).replace("\\", "\\\\")
+	return urllib.url2pathname(url)
 
 
 def __UNIX_url2pathname(url):
