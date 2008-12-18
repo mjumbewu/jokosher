@@ -27,6 +27,7 @@ class Settings:
 
 	# the different settings in each config block
 	general = 	{
+				"version" : "", # set in project.py, loaded into dict in write()
 				"recentprojects": "value", 
 				"startupaction" : "value",
 				"projectfolder" : "",
@@ -102,7 +103,7 @@ class Settings:
 		"""
 		Writes configuration settings to the Settings config file.
 		"""
-		
+		self.general["version"] = VERSION
 		for section, section_dict in self.sections.iteritems():
 			for key, value in section_dict.iteritems():
 				self.config.set(section, key, value)
