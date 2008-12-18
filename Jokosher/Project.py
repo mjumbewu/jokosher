@@ -597,7 +597,7 @@ class Project(gobject.GObject):
 				encodeString = Globals.settings.recording["fileformat"]
 				pipe = "queue ! audioconvert ! level name=recordlevel interval=%d !" +\
 							"audioconvert ! %s ! filesink location=%s"
-				pipe %= (event.LEVEL_INTERVAL * gst.SECOND, encodeString, event.file.replace(" ", "\ "))
+				pipe %= (event.LEVEL_INTERVAL * gst.SECOND, encodeString, event.file.replace("\\","\\\\").replace(" ", "\ "))
 				
 				encodeBin = gst.parse_bin_from_description(pipe, True)
 				bin.add(encodeBin)
