@@ -16,6 +16,9 @@ import locale, gettext
 import pygtk
 pygtk.require("2.0")
 import gobject, gtk
+import pygst
+pygst.require("0.10")
+import gst
 
 import gettext
 _ = gettext.gettext
@@ -664,6 +667,20 @@ EXPORT_FORMATS = []
 
 SAMPLE_RATES = [8000, 11025, 22050, 32000, 44100, 48000, 96000, 192000]
 
+
+def haveBackend(backend):
+	"""Tests to see if a backend is available on this system.
+
+	Parameters:
+		backend -- Tuple of form (display name, element name)
+
+	Returns:
+		Boolean -- True if the element exists, False otherwise
+	"""	
+	elem = backend[1]
+	test = gst.element_factory_find(elem)
+	return test != None
+
 PLAYBACK_BACKENDS = [
 	(_("Autodetect"), "autoaudiosink"),
 	(_("Use GNOME Settings"), "gconfaudiosink"),
@@ -671,6 +688,8 @@ PLAYBACK_BACKENDS = [
 	("OSS", "osssink"),
 	("JACK", "jackaudiosink"),
 	("PulseAudio", "pulsesink"),
+	("Direct Sound", "directsoundsink"),
+	("Core Audio", "osxaudiosink")
 ]
 
 CAPTURE_BACKENDS = [
@@ -679,7 +698,13 @@ CAPTURE_BACKENDS = [
 	("OSS", "osssrc"),
 	("JACK", "jackaudiosrc"),
 	("PulseAudio", "pulsesrc"),
+	("Direct Sound", "dshowaudiosrc"),
+	("Core Audio", "osxaudiosrc")
 ]
+
+#Filter backends so that only those available on this system are displayed
+PLAYBACK_BACKENDS = filter(haveBackend, PLAYBACK_BACKENDS)
+CAPTURE_BACKENDS = filter(haveBackend, CAPTURE_BACKENDS)
 
 """ Default Instruments """
 DEFAULT_INSTRUMENTS = []
