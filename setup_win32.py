@@ -20,7 +20,8 @@ dist = setup(name='jokosher',
 	packages=['Jokosher', 'Jokosher/elements'],
 	windows = [
 			{
-				'script' : 'bin/jokosher'
+				'script' : 'bin/jokosher',
+				'icon_resources' : [(1, 'images/jokosher.ico')]
 			}
 		],
 	options = {
