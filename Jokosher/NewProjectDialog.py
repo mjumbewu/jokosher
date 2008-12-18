@@ -213,7 +213,11 @@ class NewProjectDialog:
 		"""
 		if self.template_checkbox.get_active():
 			active = self.templatecombo.get_model()[self.templatecombo.get_active()][0]
-			project.AddInstruments(self.ReturnProjectInstrumentTuples(active))
+			tuples = self.ReturnProjectInstrumentTuples(active)
+			instrList = []
+			for name, type, pixbuf in tuples:
+				instrList.append( (name, type))
+			project.AddInstruments(instrList)
 	
 	#_____________________________________________________________________
 	

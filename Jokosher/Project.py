@@ -998,16 +998,19 @@ class Project(gobject.GObject):
 		they are all appended to the undo stack as a single atomic action.
 		
 		Parameters:
-			instrTuples -- a list of tuples containing name, type and pixbuf
+			instrTuples -- a list of tuples containing name and type
 					that will be passed to AddInstrument().
 			
 		Returns:
-			A list of IDs of the added Instruments.
+			A list of the added Instruments.
 		"""
 		
 		undoAction = self.NewAtomicUndoAction()
-		for name, type, pixbuf in instrTuples:
-			self.AddInstrument(name, type, pixbuf, _undoAction_=undoAction)
+		instrList = []
+		for name, type in instrTuples:
+			instr = self.AddInstrument(name, type, _undoAction_=undoAction)
+			instrList.append(instr)
+		return isntrList
 	
 	#_____________________________________________________________________
 	
@@ -1028,7 +1031,7 @@ class Project(gobject.GObject):
 	#_____________________________________________________________________
 	
 	@UndoSystem.UndoCommand("DeleteInstrument", "temp")
-	def AddInstrument(self, name, type, pixbuf):
+	def AddInstrument(self, name, type):
 		"""
 		Adds a new instrument to the Project and returns the ID for that instrument.
 		
@@ -1039,12 +1042,11 @@ class Project(gobject.GObject):
 		Parameters:
 			name -- name of the instrument.
 			type -- type of the instrument.
-			pixbuf -- image object corresponding to the instrument.
 			
 		Returns:
-			ID of the added Instrument.
+			The created Instrument object.
 		"""
-			
+		pixbuf = Globals.getCachedInstruments(type)
 		instr = Instrument.Instrument(self, name, type, pixbuf)
 		if len(self.instruments) == 0:
 			#If this is the first instrument, arm it by default
@@ -1155,7 +1157,7 @@ class Project(gobject.GObject):
 			undoAction = self.NewAtomicUndoAction()
 		
 		name, type, pixbuf, path = [x for x in Globals.getCachedInstruments() if x[1] == "audiofile"][0]
-		instr = self.AddInstrument(name, type, pixbuf, _undoAction_=undoAction)
+		instr = self.AddInstrument(name, type, _undoAction_=undoAction)
 		instr.AddEventsFromList(0, fileList, copyFile, undoAction)
 	
 	#_____________________________________________________________________
