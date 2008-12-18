@@ -15,6 +15,7 @@ import gtk
 from EventViewer import *
 import os.path
 import gettext
+import OSSpecific
 import urllib # To decode URI's
 import Globals # To get projectfolder
 _ = gettext.gettext
@@ -311,8 +312,11 @@ class EventLaneViewer(gtk.EventBox):
 			if event:
 				#if we we're called from a mouse click, use the mouse position as the start
 				start = (self.mouseDownPos[0]/self.project.viewScale) + self.project.viewStart
-			
-			self.instrument.AddEventsFromList(start, filenames)
+	
+			uris = []
+			for filename in filenames:
+				uris.append(OSSpecific.pathname2url(filename))
+			self.instrument.AddEventsFromList(start, uris)
 
 	#_____________________________________________________________________
 	

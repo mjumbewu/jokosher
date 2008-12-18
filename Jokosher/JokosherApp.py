@@ -28,7 +28,7 @@ import ProjectManager, Globals, WelcomeDialog
 import InstrumentConnectionsDialog, StatusBar
 import EffectPresets, Extension, ExtensionManager
 import Utils, AudioPreview, MixdownProfileDialog, MixdownActions
-import CrashProtectionDialog
+import CrashProtectionDialog, OSSpecific
 
 #=========================================================================
 
@@ -1534,7 +1534,8 @@ class MainApp:
 					displayed to user detailing the error.
 		"""
 		try:
-			self.SetProject(ProjectManager.LoadProjectFile(path))
+			uri = OSSpecific.pathname2url(path)
+			self.SetProject(ProjectManager.LoadProjectFile(uri))
 			return True
 		except ProjectManager.OpenProjectError, e:
 			self.ShowOpenProjectErrorDialog(e,parent)

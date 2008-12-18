@@ -15,6 +15,7 @@
 import pygst
 pygst.require("0.10")
 import gst
+import OSSpecific
 import os, time, shutil
 import urlparse # To split up URI's
 import gobject
@@ -552,6 +553,7 @@ class Instrument(gobject.GObject):
 			# Parse the uri, and continue only if it is pointing to a local file
 			(scheme, domain, file, params, query, fragment) = urlparse.urlparse(uri, "file", False)
 			if scheme == "file":
+				file = OSSpecific.url2pathname(file)
 				event = self.addEventFromFile(start, file, copyFile, _undoAction_=undoAction)
 			else:
 				event = self.addEventFromURL(start, uri, _undoAction_=undoAction)

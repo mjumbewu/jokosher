@@ -163,9 +163,9 @@ class Event(gobject.GObject):
 
 			Globals.debug("creating SingleDecodeBin")
 			caps = gst.caps_from_string("audio/x-raw-int;audio/x-raw-float")
-			f = "file://" + self.file
-			self.single_decode_bin = SingleDecodeBin(caps=caps, uri=f)
+			f = OSSpecific.pathname2url(self.file)
 			Globals.debug("file uri is:", f)
+			self.single_decode_bin = SingleDecodeBin(caps=caps, uri=f)
 			self.gnlsrc.add(self.single_decode_bin)
 			Globals.debug("setting event properties:")
 			propsDict = {
