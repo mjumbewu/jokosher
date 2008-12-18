@@ -201,11 +201,7 @@ class MainApp:
 		miximg.show()
 		
 		#get the audiofile image from Globals
-		self.audioFilePixbuf = None
-		for name, type, pixbuf, path in Globals.getCachedInstruments():
-			if type == "audiofile":
-				self.audioFilePixbuf = pixbuf
-				break
+		self.audioFilePixbuf = Globals.getCachedInstrumentPixbuf("audiofile")
 		
 		audioimg = gtk.Image()
 		size = gtk.icon_size_lookup(gtk.ICON_SIZE_MENU)

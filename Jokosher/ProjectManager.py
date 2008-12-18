@@ -222,10 +222,7 @@ class _LoadZPOFile:
 		pixbufFilename = os.path.basename(instr.pixbufPath)
 		instr.instrType = os.path.splitext(pixbufFilename)[0]
 			
-		for i in Globals.getCachedInstruments():
-			if instr.instrType == i[1]:
-				instr.pixbuf = i[2]
-				break
+		instr.pixbuf = Globals.getCachedInstrumentPixbuf(instr.instrType)
 		if not instr.pixbuf:
 			Globals.debug("Error, could not load image:", instr.instrType)
 			
@@ -371,11 +368,9 @@ class _LoadZPTFile:
 			event.levels_file = os.path.basename(event.file + Event.Event.LEVELS_FILE_EXTENSION)
 			instr.graveyard.append(event)
 
+
 		#load image from file based on unique type
-		for instrTuple in Globals.getCachedInstruments():
-			if instr.instrType == instrTuple[1]:
-				instr.pixbuf = instrTuple[2]
-				break
+		instr.pixbuf = Globals.getCachedInstrumentPixbuf(instr.instrType)
 		if not instr.pixbuf:
 			Globals.debug("Error, could not load image:", instr.instrType)
 		

@@ -278,6 +278,14 @@ def getCachedInstruments(checkForNew=False):
 
 #_____________________________________________________________________
 
+def getCachedInstrumentPixbuf(get_type):
+	for (name, type, pixbuf, pixbufPath) in getCachedInstruments():
+		if type == get_type:
+			return pixbuf
+	return None
+
+#_____________________________________________________________________
+
 def idleCacheInstruments():
 	"""
 	Loads the Instruments 'lazily' to avoid blocking the GUI.

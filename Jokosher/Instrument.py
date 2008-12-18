@@ -981,10 +981,8 @@ class Instrument(gobject.GObject):
 		self.temp = self.instrType
 		self.temp2 = self.name
 		
-		pixbufList = [x[2] for x in Globals.getCachedInstruments() if x[1] == type]
-		if type != self.instrType and pixbufList:
-			pixbuf = pixbufList[0]
-		else:
+		pixbuf = Globals.getCachedInstrumentPixbuf(type)
+		if type == self.instrType or not pixbuf:
 			raise UndoSystem.CancelUndoCommand()
 
 		for tuple_ in Globals.getCachedInstruments():
