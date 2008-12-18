@@ -68,6 +68,9 @@ def UndoCommand(*command):
 			else:
 				atomicUndoObject = None
 			
+			inc = IncrementalSaveAction(funcSelf, func.__name__, args, kwargs)
+			#print inc.StoreToString()
+			
 			try:
 				result = func(funcSelf, *args, **kwargs)
 			except CancelUndoCommand, e:
@@ -123,6 +126,7 @@ dependency will stop the program before it even starts.
 """
 import ProjectManager, Globals, Utils
 import Project, Event, Instrument
+import xml.dom.minidom as xml
 
 #=========================================================================
 
@@ -231,4 +235,49 @@ class AtomicUndoAction:
 		
 	#_____________________________________________________________________
 	
+#=========================================================================
+
+class IncrementalSaveAction:
+	def __init__(self, object_, func_name, args, kwargs):
+		if isinstance(object_, Project.Project):
+			self.objectString = "P"
+		elif isinstance(object_, Instrument.Instrument):
+			self.objectString = "I%d" % object_.id
+		elif isinstance(object_, Event.Event):
+			self.objectString = "E%d" % object_.id
+			
+		self.func_name = func_name
+		self.args = args
+		self.kwargs = kwargs
+			
+	def StoreToString(self):
+		doc = xml.Document()
+		action = doc.createElement("Action")
+		doc.appendChild(action)
+		
+		action.setAttribute("object", self.objectString)
+		action.setAttribute("function", self.func_name)
+		
+		for arg in self.args:
+			node = doc.createElement("Argument")
+			action.appendChild(node)
+			if isinstance(arg, Event.Event):
+				node.setAttribute("type", "Event")
+				node.setAttribute("value", str(arg.id))
+			else:
+				Utils.StoreVariableToNode(arg, node, "type", "value")
+				
+		for key, value in self.kwargs:
+			node = doc.createElement("NamedArgument")
+			action.appendChild(node)
+			node.setAttribute("name", key)
+			
+			if isinstance(arg, Event.Event):
+				node.setAttribute("type", "Event")
+				node.setAttribute("value", str(arg.id))
+			else:
+				Utils.StoreVariableToNode(arg, node, "type", "value")
+				
+		return doc.toxml()
+
 #=========================================================================
