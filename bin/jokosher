@@ -17,7 +17,8 @@ if platform.system() == "Windows":
 	ENV_PATHS = {"JOKOSHER_DATA_PATH" : ".\\",
 			"JOKOSHER_IMAGE_PATH" : ".\\pixmaps\\",
 			"JOKOSHER_LOCALE_PATH" : ".\\locale\\",
-			"JOKOSHER_HELP_PATH" : ".\\help\\"
+			"JOKOSHER_HELP_PATH" : ".\\help\\",
+			"GST_PLUGIN_PATH" : ".\\"
 			}
 else:	
 	ENV_PATHS = {"JOKOSHER_DATA_PATH" : "/usr/share/jokosher/",
