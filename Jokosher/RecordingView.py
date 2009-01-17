@@ -84,13 +84,18 @@ class RecordingView(gtk.Frame):
 		
 		self.hb = gtk.HBox()
 		self.hb.set_spacing(6)
+		self.hb.set_border_width(6)
 		self.vbox.pack_end(self.hb, False, False)
-		self.al = gtk.Alignment(0, 0, 1, 1)
+		
+		self.zoom_hb = gtk.HBox()
+		self.zoom_hb.set_spacing(6)
+		self.zoom_hb.set_border_width(0)
+		
 		self.scrollRange = gtk.Adjustment()
-		sb = gtk.HScrollbar(self.scrollRange)
-		self.al.add(sb)
-		self.al.set_padding(0, 0, 0, 0)
-		self.hb.pack_start(self.al)
+		self.scrollBar = gtk.HScrollbar(self.scrollRange)
+		
+		self.hb.pack_start(self.zoom_hb, False, False)
+		self.hb.pack_start(self.scrollBar, True, True)
 		
 		self.lastzoom = 0
 		
@@ -121,9 +126,9 @@ class RecordingView(gtk.Frame):
 		self.zoomtip.set_tip(self.outbutton, _("Zoom out timeline"), None)
 		self.outbutton.connect("clicked", self.OnZoomOut)
 
-		self.hb.pack_start( self.outbutton, False, False)
-		self.hb.pack_start( self.zoomSlider, False, False)
-		self.hb.pack_start( self.inbutton, False, False)
+		self.zoom_hb.pack_start( self.outbutton, False, False)
+		self.zoom_hb.pack_start( self.zoomSlider, False, False)
+		self.zoom_hb.pack_start( self.inbutton, False, False)
 		
 		self.extraScrollTime = 25
 		self.centreViewOnPosition = False
@@ -132,7 +137,7 @@ class RecordingView(gtk.Frame):
 		self.scrollRange.value = 0
 		self.scrollRange.step_increment = 1
 		
-		sb.connect("value-changed", self.OnScroll)
+		self.scrollBar.connect("value-changed", self.OnScroll)
 		self.connect("expose-event", self.OnExpose)
 		self.connect("button_release_event", self.OnExpose)
 		self.connect("button_press_event", self.OnMouseDown)
@@ -316,7 +321,6 @@ class RecordingView(gtk.Frame):
 		
 		#align timeline and scrollbar
 		self.timelinebar.UpdateSize()
-		self.al.set_padding(0, 0, tempWidth, 0)
 	
 	#_____________________________________________________________________
 	
