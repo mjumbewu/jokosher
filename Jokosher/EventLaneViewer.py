@@ -148,23 +148,11 @@ class EventLaneViewer(gtk.EventBox):
 		
 		transport = self.project.transport
 		
-		# Draw lane edges
-		col = gc.get_colormap().alloc_color("#666666")
-		gc.set_foreground(col)
-		wnd.draw_line(gc, 0, self.allocation.height-1, self.allocation.width-1, self.allocation.height-1)
-		
 		# Draw play cursor position
 		col = gc.get_colormap().alloc_color("#FF0000")
 		gc.set_foreground(col)
-		
 		x = int(round((transport.position - self.project.viewStart) * self.project.viewScale))
 		wnd.draw_line(gc, x, 0, x, self.allocation.height)
-		
-		# Draw edit position
-		if self.highlightCursor:
-			col = gc.get_colormap().alloc_color("#0000FF")
-			gc.set_foreground(col)
-			wnd.draw_line(gc, int(self.highlightCursor), 0, int(self.highlightCursor), self.allocation.height)
 		
 	#_____________________________________________________________________
 		
