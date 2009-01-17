@@ -143,7 +143,6 @@ class RecordingView(gtk.Frame):
 		self.connect("expose-event", self.OnExpose)
 		self.connect("button_release_event", self.OnExpose)
 		self.connect("button_press_event", self.OnMouseDown)
-		self.connect("size-allocate", self.OnAllocate)
 		
 		#connect to the project signals
 		self.project.connect("instrument::added", self.OnInstrumentAdded)
@@ -195,9 +194,8 @@ class RecordingView(gtk.Frame):
 		## use the new colormap
 		self.eventBox.set_style(stcp)
 		
-		# calculate scrollable width - allow 4 pixels for borders
-		# TODO: calculate the size properly
-		self.scrollRange.page_size = (self.allocation.width) / self.project.viewScale
+		# calculate scrollable width (scroll bar should always be same width as viewable area)
+		self.scrollRange.page_size = (self.scrollBar.allocation.width) / self.project.viewScale
 		self.scrollRange.page_increment = self.scrollRange.page_size
 		# add EXTRA_SCROLL_TIME extra seconds
 		length = self.project.GetProjectLength() + self.extraScrollTime
@@ -216,24 +214,12 @@ class RecordingView(gtk.Frame):
 			self.SetViewPosition(length - self.scrollRange.page_size)
 		
 		#check the min zoom value (based on project length)
-		# TODO: get real width here
-		pixelSize = self.allocation.width
+		# (scroll bar should always be same width as viewable area)
+		pixelSize = self.scrollBar.allocation.width 
 		minScale = pixelSize / length
 		self.zoomSlider.set_range(minScale, self.ZOOM_MAX_SCALE)
 		if self.zoomSlider.get_value() < minScale:
 			self.zoomSlider.set_value(minScale)
-		
-	#_____________________________________________________________________
-
-	def OnAllocate(self, widget, allocation):
-		"""
-		Callback for "size-allocate" signal.
-		
-		Parameters:
-			widget -- reserved for GTK callbacks, don't use it explicitly.
-			allocation -- new allocation value to be set.
-		"""
-		self.allocation = allocation
 		
 	#_____________________________________________________________________
 	
