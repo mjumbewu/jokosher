@@ -145,10 +145,10 @@ class TimeLine(gtk.DrawingArea):
 		context.paint()
 		
 		# Draw play cursor position (add 1 so it lines up correctly)
-		x = int(round((self.project.transport.position - self.project.viewStart) * self.project.viewScale))+1
-		context.move_to(x, 0)
+		x = int(round((self.project.transport.position - self.project.viewStart) * self.project.viewScale))
 		context.set_line_width(1)
-		context.line_to(x, self.allocation.height)
+		context.move_to(x+0.5, 0)
+		context.line_to(x+0.5, self.allocation.height)
 		context.set_antialias(cairo.ANTIALIAS_NONE)
 		context.set_source_rgb(*self._PLAY_CURSOR_RGB)
 		context.stroke()

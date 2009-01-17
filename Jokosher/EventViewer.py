@@ -242,8 +242,8 @@ class EventViewer(gtk.DrawingArea):
 		x = int(round((self.project.transport.position - self.event.start) * self.project.viewScale))
 		context.set_line_width(1)
 		context.set_antialias(cairo.ANTIALIAS_NONE)
-		context.move_to(x+1, 0)
-		context.line_to(x+1, self.allocation.height)
+		context.move_to(x+0.5, 0)
+		context.line_to(x+0.5, self.allocation.height)
 		context.set_source_rgb(*self._PLAY_POSITION_RGB)
 		context.stroke()
 		
