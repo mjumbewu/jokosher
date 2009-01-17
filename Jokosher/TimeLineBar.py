@@ -39,7 +39,6 @@ class TimeLineBar(gtk.Frame):
 		gtk.Frame.__init__(self)
 		
 		self.project = project
-		self.projectview = projectview
 		self.mainview = mainview
 		self.timeline = TimeLine.TimeLine(self.project, self, mainview)
 		self.Updating = False
@@ -126,10 +125,17 @@ class TimeLineBar(gtk.Frame):
 		self.alignment.add(self.headerhbox)
 		self.hbox.pack_start(self.alignment, False, False)
 		self.add(self.hbox)
-		self.headerhbox.connect("check-resize", self.projectview.ForceUpdateSize)
 		self.connect("size-allocate", self.OnAllocate)
 		self.hbox.pack_start(self.timeline)	
 
+	#_____________________________________________________________________
+	
+	def GetHeaderWidget(self):
+		"""
+			Returns the widget which is required to be aligned with the instrument headers.
+		"""
+		return self.headerhbox
+	
 	#_____________________________________________________________________
 
 	def OnAllocate(self, widget, allocation):
@@ -146,37 +152,6 @@ class TimeLineBar(gtk.Frame):
 
 	#_____________________________________________________________________
 	
-	def UpdateSize(self):
-		""" 
-		Updates the size of the header box contents TimeLineBar, updating the values in the beats per
-		minute box and time signature box, as well as updating the click button
-		sensitivity and instrument header width.
-		"""
-		if self.Updating or not self.mainview.workspace:
-			return
-		
-		instrumentViews = self.mainview.workspace.recordingView.views
-
-		self.Updating = True
-		maxwidth = self.headerhbox.size_request()[0]
-
-		for ident, iv in instrumentViews:  #self.mainview.recording.views:
-			if iv.instrument in iv.mainview.project.instruments:
-				if iv.headerBox.size_request()[0] > maxwidth:
-					maxwidth = iv.headerBox.size_request()[0]
-
-		for ident, iv in instrumentViews:  #self.mainview.recording.views:
-			if iv.headerAlign.size_request()[0] != (maxwidth+2):
-				iv.ResizeHeader(maxwidth+2)
-		
-		Globals.INSTRUMENT_HEADER_WIDTH = maxwidth + 2
-		
-		self.alignment.set_padding(0, 0, 0, maxwidth - self.headerhbox.size_request()[0])
-		
-		self.Updating = False
-		
-	#_____________________________________________________________________
-	
 	def OnProjectBPMChange(self, project):
 		"""
 		Callback for when the BPM of the project changes. This method 
@@ -190,8 +165,6 @@ class TimeLineBar(gtk.Frame):
 		self.bpmlabel.set_markup("<span foreground='%s'><b>%d</b></span>" % (self.fontColor, self.project.bpm))
 		self.bpmeventbox.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.bgColor))
 		
-		self.projectview.UpdateSize()
-		
 	#_____________________________________________________________________
 	
 	def OnProjectSigChange(self, project):
@@ -204,7 +177,6 @@ class TimeLineBar(gtk.Frame):
 		"""
 		self.siglabel.set_use_markup(True)
 		self.siglabel.set_markup("<span foreground='%s'><b>%d/%d</b></span>" % (self.fontColor, self.project.meter_nom, self.project.meter_denom))
-		self.projectview.UpdateSize()
 		
 	#_____________________________________________________________________
 	
@@ -331,7 +303,6 @@ class TimeLineBar(gtk.Frame):
 		"""
 		self.project.SetMeter(self.project.meter_nom,
 							  int(combobox.get_active_text()))
-		self.projectview.UpdateSize()
 	
 	#_____________________________________________________________________
 	

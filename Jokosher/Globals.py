@@ -439,7 +439,6 @@ if __extra_ext_dirs:
 
 """ ExtensionManager data """
 AVAILABLE_EXTENSIONS = []
-INSTRUMENT_HEADER_WIDTH = 0
 
 """ Locale constant """
 LOCALE_APP = "jokosher"
