@@ -39,6 +39,7 @@ class TimeLineBar(gtk.Frame):
 		gtk.Frame.__init__(self)
 		
 		self.project = project
+		self.projectview = projectview
 		self.mainview = mainview
 		self.timeline = TimeLine.TimeLine(self.project, self, mainview)
 		self.Updating = False
@@ -123,7 +124,6 @@ class TimeLineBar(gtk.Frame):
 		self.hbox = gtk.HBox()
 		self.hbox.pack_start(self.headerhbox, False, False)
 		self.add(self.hbox)
-		self.connect("size-allocate", self.OnAllocate)
 		self.hbox.pack_start(self.timeline)	
 
 	#_____________________________________________________________________
@@ -134,20 +134,6 @@ class TimeLineBar(gtk.Frame):
 		"""
 		return self.headerhbox
 	
-	#_____________________________________________________________________
-
-	def OnAllocate(self, widget, allocation):
-		"""
-		From:
-		http://www.moeraki.com/pygtkreference/pygtk2reference/class-gtkwidget.html#signal-gtkwidget--size-allocate
-		The "size-allocate" signal is emitted when widget is given a new space allocation.
-		
-		Parameters:
-			widget -- reserved for GTK callbacks, don't use it explicitly. 
-			allocation -- the position and size to be allocated to the widget.
-		"""
-		self.allocation = allocation
-
 	#_____________________________________________________________________
 	
 	def OnProjectBPMChange(self, project):
