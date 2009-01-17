@@ -21,7 +21,7 @@ from math import log
 
 _=gettext.gettext
 
-class TimeLineBar(gtk.Frame):
+class TimeLineBar(gtk.HBox):
 	"""
 	This class contains the TimeLine widget as well as the click track button and the bpm label in a gtk.Frame widget.
 	"""
@@ -36,7 +36,7 @@ class TimeLineBar(gtk.Frame):
 			projectview -- reference to RecordingView (RecordingView.py).
 			mainview -- reference to MainApp (JokosherApp.py).
 		"""
-		gtk.Frame.__init__(self)
+		gtk.HBox.__init__(self)
 		
 		self.project = project
 		self.projectview = projectview
@@ -121,10 +121,8 @@ class TimeLineBar(gtk.Frame):
 		self.headerhbox.pack_start(self.bpmframe, True, True)
 		self.headerhbox.pack_start(self.sigframe, True, True)
 		
-		self.hbox = gtk.HBox()
-		self.hbox.pack_start(self.headerhbox, False, False)
-		self.add(self.hbox)
-		self.hbox.pack_start(self.timeline)	
+		self.pack_start(self.headerhbox, False, False)
+		self.pack_start(self.timeline)	
 
 	#_____________________________________________________________________
 	
