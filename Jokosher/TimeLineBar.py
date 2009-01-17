@@ -121,9 +121,7 @@ class TimeLineBar(gtk.Frame):
 		self.headerhbox.pack_start(self.sigframe, True, True)
 		
 		self.hbox = gtk.HBox()
-		self.alignment = gtk.Alignment(0, 0, 1.0, 1.0)
-		self.alignment.add(self.headerhbox)
-		self.hbox.pack_start(self.alignment, False, False)
+		self.hbox.pack_start(self.headerhbox, False, False)
 		self.add(self.hbox)
 		self.connect("size-allocate", self.OnAllocate)
 		self.hbox.pack_start(self.timeline)	
@@ -218,11 +216,6 @@ class TimeLineBar(gtk.Frame):
 				self.bpmframe.add(self.bpmedit)
 				self.bpmedit.show()
 				self.bpmedit.grab_focus()
-			
-			#adjust padding so that the timeline event lanes still line up
-			newWidth = self.headerhbox.size_request()[0]
-			padding = self.alignment.get_padding()
-			self.alignment.set_padding(0, 0, 0, padding[3] - (newWidth -startWidth))
 
 	#_____________________________________________________________________
 	
