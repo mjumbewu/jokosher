@@ -239,7 +239,7 @@ class EventViewer(gtk.DrawingArea):
 		context.set_line_width(2)
 		
 		#Draw play position
-		x = int(round((self.project.transport.position - self.event.start) * self.project.viewScale))
+		x = self.project.transport.GetPixelPosition()
 		context.set_line_width(1)
 		context.set_antialias(cairo.ANTIALIAS_NONE)
 		context.move_to(x+0.5, 0)
@@ -832,7 +832,7 @@ class EventViewer(gtk.DrawingArea):
 				self.OnSplit(None, self.highlightCursor)
 			else:
 				# Otherwise, stop playing and cut at the play position (if it's over this event)
-				play_pos = int(round((self.project.transport.position - self.event.start) * self.project.viewScale))
+				play_pos = self.project.transport.GetPixelPosition()
 				if play_pos > 0 and play_pos < self.allocation.width:
 					self.project.Stop()
 					self.OnSplit(None, play_pos)

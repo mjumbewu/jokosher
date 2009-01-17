@@ -151,7 +151,7 @@ class EventLaneViewer(gtk.EventBox):
 		# Draw play cursor position
 		col = gc.get_colormap().alloc_color("#FF0000")
 		gc.set_foreground(col)
-		x = int(round((transport.position - self.project.viewStart) * self.project.viewScale))
+		x = transport.GetPixelPosition()
 		wnd.draw_line(gc, x, 0, x, self.allocation.height)
 		
 	#_____________________________________________________________________
@@ -399,10 +399,10 @@ class EventLaneViewer(gtk.EventBox):
 			extraString -- a string specifying the extra action details. i.e. "stop-action"
 					means that the position changed because the user hit stop.
 		"""
-		x1 = round((self.project.transport.PrevPosition - self.project.viewStart) * self.project.viewScale)
-		x2 = round((self.project.transport.position - self.project.viewStart) * self.project.viewScale)
-		self.queue_draw_area(int(x1)-1, 0, 3, self.allocation.height)
-		self.queue_draw_area(int(x2)-1, 0, 3, self.allocation.height)
+		prev_pos = self.project.transport.GetPreviousPixelPosition()
+		new_pos = self.project.transport.GetPixelPosition()
+		self.queue_draw_area(prev_pos - 1, 0, 3, self.allocation.height)
+		self.queue_draw_area(new_pos - 1, 0, 3, self.allocation.height)
 	
 	#_____________________________________________________________________
 	
