@@ -38,7 +38,7 @@ class Settings:
 	
 	recording = {
 				"fileformat": "flacenc",
--				"file_extension": "flac",
+				"file_extension": "flac",
 				"samplerate": "0", # zero means, autodetect sample rate (ie use any available)
 				"audiosrc" : "alsasrc",
 				"device" : "default"
