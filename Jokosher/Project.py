@@ -25,7 +25,7 @@ import Globals
 import xml.dom.minidom as xml
 import Instrument, Event
 import Utils
-import AlsaDevices
+import AudioBackend
 import ProjectManager
 
 #=========================================================================
@@ -137,7 +137,9 @@ class Project(gobject.GObject):
 		
 		#Restrict adder's output caps due to adder bug
 		self.levelElementCaps = gst.element_factory_make("capsfilter", "levelcaps")
-		caps = gst.caps_from_string("audio/x-raw-int,rate=44100,channels=2,width=16,depth=16,signed=(boolean)true")
+		capsString = "audio/x-raw-int,rate=44100,channels=2,width=16,depth=16,signed=(boolean)true"
+		capsString += ";audio/x-raw-float,rate=44100,channels=2"
+		caps = gst.caps_from_string(capsString)
 		self.levelElementCaps.set_property("caps", caps)
 		
 		# ADD ELEMENTS TO THE PIPELINE AND/OR THEIR BINS #
@@ -243,7 +245,7 @@ class Project(gobject.GObject):
 		Globals.debug("current state:", self.mainpipeline.get_state(0)[1].value_name)
 		
 		#If we've been recording then add new events to instruments
-		for instr, (event, bin, handle) in self.recordingEvents.items():
+		for instr, (event, bin, handle) in self.recordingEvents.iteritems():
 			instr.FinalizeRecording(event)
 			self.bus.disconnect(handle)
 
@@ -263,7 +265,7 @@ class Project(gobject.GObject):
 		Globals.debug("State just set to READY")
 		
 		#Relink instruments and stop their recording bins
-		for instr, (event, bin, handle) in self.recordingEvents.items():
+		for instr, (event, bin, handle) in self.recordingEvents.iteritems():
 			try:
 				Globals.debug("Removing recordingEvents bin")
 				self.mainpipeline.remove(bin)
@@ -287,50 +289,75 @@ class Project(gobject.GObject):
 		#Add all instruments to the pipeline
 		self.recordingEvents = {}
 		devices = {}
-		for device in AlsaDevices.GetAlsaList("capture").keys():
+		capture_devices = AudioBackend.ListCaptureDevices(probe_name=False)
+		if not capture_devices:
+			capture_devices = ((None,None),)
+		
+		default_device = capture_devices[0][0]
+		
+		for device, deviceName in capture_devices:
 			devices[device] = []
 			for instr in self.instruments:
-				if instr.isArmed and instr.input == device:
+				if instr.isArmed and (instr.input == device or device is None):
 					instr.RemoveAndUnlinkPlaybackbin()
 					devices[device].append(instr)
+				elif instr.isArmed and instr.input is None:
+					instr.RemoveAndUnlinkPlaybackbin()
+					devices[default_device].append(instr)
+		
 
-		for device, recInstruments in devices.items():
+		for device, recInstruments in devices.iteritems():
 			if len(recInstruments) == 0:
 				#Nothing to record on this device
 				continue
 
-			channelsNeeded = AlsaDevices.GetChannelsOffered(device)
+			if device is None:
+				# assume we are using a backend like JACK which does not allow
+				#us to do device selection.
+				channelsNeeded = len(recInstruments)
+			else:
+				channelsNeeded = AudioBackend.GetChannelsOffered(device)
 
-			if channelsNeeded > 1 and not gst.registry_get_default().find_plugin("chansplit"):
-				Globals.debug("Channel splitting element not found when trying to record from multi-input device.")
-				raise ProjectManager.AudioInputsError(2)
-
+			
 			if channelsNeeded > 1: #We're recording from a multi-input device
-				recordingbin = gst.Bin()
-				src = gst.element_factory_make("alsasrc")
-				src.set_property("device", device)
-				
-				capsfilter = None
-				sampleRate = Globals.settings.recording["samplerate"]
-				# 0 means for "autodetect", or more technically "don't use any caps".
-				if sampleRate > 0:
-					gst.element_factory_make("capsfilter")
-					capsString = "audio/x-raw-int,rate=%s" % sampleRate
-					caps = gst.caps_from_string(capsString)
-					capsfilter.set_property("caps", caps)
-				
-				split = gst.element_factory_make("chansplit")
-				
-				recordingbin.add(src)
-				if capsfilter:
-					recordingbin.add(capsfilter)
-				recordingbin.add(split)
-				
-				if capsfilter:
-					src.link(capsfilter)
-					capsfilter.link(split)
+				recordingbin = gst.Bin("recording bin")
+				recordString = Globals.settings.recording["audiosrc"]
+				srcBin = gst.parse_bin_from_description(recordString, True)
+				try:
+					src_element = recordingbin.iterate_sources().next()
+				except StopIteration:
+					pass
 				else:
-					src.link(split)
+					if hasattr(src_element.props, "device"):
+						src_element.set_property("device", device)
+				
+				caps = gst.caps_from_string("audio/x-raw-int;audio/x-raw-float")
+
+				sampleRate = Globals.settings.recording["samplerate"]
+				try:
+					sampleRate = int(sampleRate)
+				except ValueError:
+					sampleRate = 0
+				# 0 means for "autodetect", or more technically "don't use any rate caps".
+				if sampleRate > 0:
+					for struct in caps:
+						struct.set_value("rate", sampleRate)
+
+				for struct in caps:
+					struct.set_value("channels", channelsNeeded)
+
+				Globals.debug("recording with capsfilter:", caps.to_string())
+				capsfilter = gst.element_factory_make("capsfilter")
+				capsfilter.set_property("caps", caps)
+				
+				split = gst.element_factory_make("deinterleave")
+				convert = gst.element_factory_make("audioconvert")
+				
+				recordingbin.add(srcBin, split, convert, capsfilter)
+				
+				srcBin.link(convert) 
+				convert.link(capsfilter)
+				capsfilter.link(split)
 				
 				split.connect("pad-added", self.__RecordingPadAddedCb, recInstruments, recordingbin)
 				Globals.debug("Recording in multi-input mode")
@@ -341,6 +368,7 @@ class Project(gobject.GObject):
 				event = instr.GetRecordingEvent()
 				
 				encodeString = Globals.settings.recording["fileformat"]
+				recordString = Globals.settings.recording["audiosrc"]
 				
 				sampleRate = 0
 				try:
@@ -353,15 +381,23 @@ class Project(gobject.GObject):
 				else:
 					capsString = "audioconvert"
 					
-				pipe = "alsasrc device=%s ! %s ! level name=recordlevel interval=%d" +\
+				pipe = "%s ! %s ! level name=recordlevel interval=%d" +\
 							" ! audioconvert ! %s ! filesink location=%s"
-				pipe %= (device, capsString, event.LEVEL_INTERVAL * gst.SECOND, encodeString, event.file.replace(" ", "\ "))
+				pipe %= (recordString, capsString, event.LEVEL_INTERVAL * gst.SECOND, encodeString, event.file.replace(" ", "\ "))
 				
 				Globals.debug("Using pipeline: %s" % pipe)
 				
-				recordingbin = gst.parse_launch("bin.( %s )" % pipe)
+				recordingbin = gst.parse_bin_from_description(pipe, False)
 				#update the levels in real time
 				handle = self.bus.connect("message::element", event.recording_bus_level)
+				
+				try:
+					src_element = recordingbin.iterate_sources().next()
+				except StopIteration:
+					pass
+				else:
+					if hasattr(src_element.props, "device"):
+						src_element.set_property("device", device)
 				
 				self.recordingEvents[instr] = (event, recordingbin, handle)
 				
@@ -546,18 +582,22 @@ class Project(gobject.GObject):
 			recInstruments -- list with all Instruments currently recording.
 			bin -- the bin that stores all the recording elements.
 		"""
-		match = re.search("(\d+)$", pad.get_name())
-		if not match:
+		# SRC template: 'src%d'
+		padname = pad.get_name()
+		try:
+			index = int(padname[3:])
+		except ValueError:
+			Globals.debug("Cannot start multichannel record: pad name does not match 'src%d':", padname)
 			return
-		index = int(match.groups()[0])
+
 		for instr in recInstruments:
 			if instr.inTrack == index:
 				event = instr.GetRecordingEvent()
 				
 				encodeString = Globals.settings.recording["fileformat"]
-				pipe = "audioconvert ! level name=eventlevel interval=%d message=true !" +\
+				pipe = "queue ! audioconvert ! level name=recordlevel interval=%d !" +\
 							"audioconvert ! %s ! filesink location=%s"
-				pipe %= (event.LEVEL_INTERVAL, encodeString, event.file.replace(" ", "\ "))
+				pipe %= (event.LEVEL_INTERVAL * gst.SECOND, encodeString, event.file.replace(" ", "\ "))
 				
 				encodeBin = gst.parse_bin_from_description(pipe, True)
 				bin.add(encodeBin)
@@ -565,7 +605,12 @@ class Project(gobject.GObject):
 				
 				handle = self.bus.connect("message::element", event.recording_bus_level)
 				
+				# since we are adding the encodebin to an already playing pipeline, sync up there states
+				encodeBin.set_state(gst.STATE_PLAYING)
+
 				self.recordingEvents[instr] = (event, bin, handle)
+				Globals.debug("Linked recording channel: instrument (%s), track %d" % (instr.name, instr.inTrack))
+				break
 
 	#_____________________________________________________________________
 	
@@ -632,12 +677,9 @@ class Project(gobject.GObject):
 		"""
 		error, debug = message.parse_error()
 		
-		#FIXME: remove these prints!
-		print "*Project Error*"
-		print ("Code: %s, Domain: %s")%(error.code, error.domain)
-		print "Message: "+error.message
-		
 		Globals.debug("Gstreamer bus error:", str(error), str(debug))
+		Globals.debug("Code: %s, Domain: %s" % (error.code, error.domain))
+		Globals.debug("Message:", error.message)
 		self.emit("gst-bus-error", str(error), str(debug))
 
 	#_____________________________________________________________________
@@ -653,7 +695,7 @@ class Project(gobject.GObject):
 		
 		if not path:
 			if not self.projectfile:
-				raise "No save path specified!"
+				raise Exception("No save path specified!")
 			path = self.projectfile
 		
 		if not self.audio_path:
@@ -663,13 +705,13 @@ class Project(gobject.GObject):
 			
 		if os.path.exists(self.audio_path):
 			if not os.path.isdir(self.audio_path):
-				raise "Audio save location is not a directory"
+				raise Exception("Audio save location is not a directory")
 		else:
 			os.mkdir(self.audio_path)
 		
 		if os.path.exists(self.levels_path):
 			if not os.path.isdir(self.levels_path):
-				raise "Levels save location is not a directory"
+				raise Exception("Levels save location is not a directory")
 		else:
 			os.mkdir(self.levels_path)
 		
@@ -1347,38 +1389,33 @@ class Project(gobject.GObject):
 			return self.masterSink
 		
 		self.currentSinkString = sinkString
-		sinkElement = None
+		sinkBin = None
 		
-		if sinkString == "alsasink":
-			sinkElement = gst.element_factory_make("alsasink")
-			#Set the alsa device for audio output
-			outdevice = Globals.settings.playback["devicecardnum"]
-			if outdevice == "default":
-				try:
-					# Select first output device as default to avoid a GStreamer bug which causes
-					# large amounts of latency with the ALSA 'default' device.
-					outdevice = AlsaDevices.GetAlsaList("playback").keys()[1]
-				except:
-					pass
-			Globals.debug("Output device: %s" % outdevice)
-			sinkElement.set_property("device", outdevice)
-			Globals.debug("Using alsasink for audio output")
-		
-		elif sinkString != "autoaudiosink":
-			try:
-				sinkElement = gst.parse_bin_from_description(sinkString, True)
-			except gobject.GError:
-				Globals.debug("Parsing failed: %s" % sinkString)
-			else:
-				Globals.debug("Using custom pipeline for audio sink: %s" % sinkString)
-		
-		if not sinkElement:
-			# if a sink element has not yet been created, autoaudiosink is our last resort
-			sinkElement = gst.element_factory_make("autoaudiosink")
+		try:
+			sinkBin = gst.parse_bin_from_description(sinkString, True)
+		except gobject.GError:
+			Globals.debug("Parsing failed: %s" % sinkString)
+			# autoaudiosink is our last resort
+			sinkBin = gst.element_factory_make("autoaudiosink")
 			Globals.debug("Using autoaudiosink for audio output")
+		else:
+			Globals.debug("Using custom pipeline for audio sink: %s" % sinkString)
 			
-		return sinkElement
+			sinkElement = sinkBin.sinks().next()
+			if hasattr(sinkElement.props, "device"):
+				outdevice = Globals.settings.playback["device"]
+				Globals.debug("Output device: %s" % outdevice)
+				sinkElement.set_property("device", outdevice)
 		
+		return sinkBin
+		
+	#____________________________________________________________________	
+	
+	def OnCaptureBackendChange(self):
+		for instr in self.instruments:
+			instr.input = None
+			instr.inTrack = -1
+	
 	#____________________________________________________________________	
 	
 	def GetInputFilenames(self):

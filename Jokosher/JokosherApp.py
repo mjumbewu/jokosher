@@ -24,7 +24,7 @@ _ = gettext.gettext
 
 import AddInstrumentDialog, TimeView, Workspace
 import PreferencesDialog, ExtensionManagerDialog, RecordingView, NewProjectDialog
-import ProjectManager, Globals, WelcomeDialog, AlsaDevices
+import ProjectManager, Globals, WelcomeDialog
 import InstrumentConnectionsDialog, StatusBar
 import EffectPresets, Extension, ExtensionManager
 import Utils, AudioPreview, MixdownProfileDialog, MixdownActions
@@ -247,6 +247,7 @@ class MainApp:
 		# set up presets registry - this should probably be removed here	
 		EffectPresets.EffectPresets()
 		Globals.PopulateEncoders()
+		Globals.PopulateAudioBackends()
 		
 		# seems like this is the best place to instantiate RegisterMixdownActionAPI
 		# as extensions and the mixdown profile dialog can use it through mainapp
@@ -449,29 +450,25 @@ class MainApp:
 				canRecord = True
 
 		#Check to see if any instruments are trying to use the same input channel
-		usedChannels = {}
-		for instr in self.project.instruments:
-			if instr.isArmed:
-				if usedChannels.has_key(instr.input):
-					if usedChannels[instr.input].has_key(instr.inTrack):
-						string = _("The instruments '%(name1)s' and '%(name2)s' both have the same input selected (%(track)s). Please either disarm one, or connect it to a different input through 'Project -> Recording Inputs'")
-						message = string % {"name1":usedChannels[instr.input][instr.inTrack], "name2":instr.name, "track":instr.inTrack}
-						dlg = gtk.MessageDialog(self.window,
-							gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
-							gtk.MESSAGE_INFO,
-							gtk.BUTTONS_CLOSE,
-							message)
-						dlg.connect('response', lambda dlg, response: dlg.destroy())
-						dlg.run()
-						self.settingButtons = True
-						widget.set_active(False)
-						self.settingButtons = False
-						return
-					else:
-						usedChannels[instr.input][instr.inTrack] = instr.name
-				else:
-					usedChannels[instr.input] = {instr.inTrack : instr.name}
-				
+		usedChannels = []
+		armed_instrs = [x for x in self.project.instruments if x.isArmed]
+		for instrA in armed_instrs:
+			for instrB in armed_instrs:
+				if instrA is not instrB and instrA.input == instrB.input and instrA.inTrack == instrB.inTrack:
+					string = _("The instruments '%(name1)s' and '%(name2)s' both have the same input selected. Please either disarm one, or connect it to a different input through 'Project -> Recording Inputs'")
+					message = string % {"name1" : instrA.name, "name2" : instrB.name}
+					dlg = gtk.MessageDialog(self.window,
+						gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
+						gtk.MESSAGE_INFO,
+						gtk.BUTTONS_CLOSE,
+						message)
+					dlg.connect('response', lambda dlg, response: dlg.destroy())
+					dlg.run()
+					self.settingButtons = True
+					widget.set_active(False)
+					self.settingButtons = False
+					return
+
 		if not canRecord:
 			Globals.debug("can not record")
 			if self.project.instruments:
@@ -849,7 +846,7 @@ class MainApp:
 			Globals.debug("Making automatic backup")
 			self.project.SaveProjectFile(self.backupProject, True)
 
-		gobject.timeout_add(int(Globals.settings.general["backupsavetime"]), self.BackupSave)
+		gobject.timeout_add_seconds(int(Globals.settings.general["backupsavetime"]) / 1000, self.BackupSave)
 
 	#_____________________________________________________________________
 
@@ -2054,7 +2051,7 @@ class MainApp:
 			#Open the file quickly so other instances can see it (still potential for 
 			#a race condition, but chances are greatly reduced)
 			open(self.backupProject, "w")
-			gobject.timeout_add(int(Globals.settings.general["backupsavetime"]), self.BackupSave)
+			gobject.timeout_add_seconds(int(Globals.settings.general["backupsavetime"]) / 1000, self.BackupSave)
 
 	
 #=========================================================================

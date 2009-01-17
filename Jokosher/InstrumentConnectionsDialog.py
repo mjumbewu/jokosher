@@ -13,7 +13,7 @@ import pygst
 pygst.require("0.10")
 import gst
 import Globals
-import AlsaDevices
+import AudioBackend
 import gettext
 _ = gettext.gettext
 
@@ -79,54 +79,77 @@ class InstrumentConnectionsDialog:
 		Creates all the widgets for intruments and devices that compose the
 		InstrumentConnectionsDialog and then adds them to the dialog.
 		"""
-		self.inputs = {}
+		
+		self.devices_list = []
+		liststore = gtk.ListStore(gobject.TYPE_STRING)
 	
 		#Find out how many channels a device offers
-		for device, deviceName in AlsaDevices.GetAlsaList("capture").items():
-
+		for device, deviceName in AudioBackend.ListCaptureDevices():
 			#Don't want the default device twice (once as 'default' and once as its actual hw ref)
-			if device == "default":
-				continue
-
-			self.inputs[device] = (deviceName, AlsaDevices.GetChannelsOffered(device))
+			# Default will always be the first one, and have no name.
+			if not self.devices_list and not deviceName:
+				if device == "default":
+					display = _("Default")
+				else:
+					display = _("Default (%s)") % device
+				self.devices_list.append((device, display, -1))
+				liststore.append((display,))
+			else:			
+				num_channels = AudioBackend.GetChannelsOffered(device)
+				for input in xrange(num_channels):
+					if num_channels > 1:
+						s = _("%(device)s, input %(input)d")
+						display = s % {"device":deviceName, "input":input}
+					else:
+						display = deviceName
+					self.devices_list.append((device, deviceName, input))
+					liststore.append((display,))
 		
-		for instr in self.project.instruments:		
-			instrument = instr
-			row = gtk.HBox()
-			row.set_spacing(10)
-			image = gtk.Image()
-			image.set_from_pixbuf(instrument.pixbuf)
-			label = gtk.Label(instrument.name)
+		if self.devices_list:
+			for instr in self.project.instruments:
+				instrument = instr
+				row = gtk.HBox()
+				row.set_spacing(10)
+				image = gtk.Image()
+				image.set_from_pixbuf(instrument.pixbuf)
+				label = gtk.Label(instrument.name)
+				
+				combobox = gtk.ComboBox(liststore)
+				cell = gtk.CellRendererText()
+				combobox.pack_start(cell, True)
+				combobox.add_attribute(cell, 'text', 0)
+				
+				if instr.input is None:
+					# None means default; default is first in combobox
+					combobox.set_active(0)
+				else:
+					currentItem = 0
+					for device, deviceName, input in self.devices_list:
+						if instr.input == device and input == instr.inTrack:
+							combobox.set_active(currentItem)
+						currentItem += 1
+				
+				combobox.connect("changed", self.OnSelected, instr)
+				row.pack_start(combobox, False, False)
+				row.pack_start(image, False, False)
+				row.pack_start(label, False, False)
+				
+				self.vbox.add(row)
+		else:
+			audiosrc = Globals.settings.recording["audiosrc"]
+			sound_system = None
+			for name, element in Globals.CAPTURE_BACKENDS:
+				if element == audiosrc:
+					sound_system = name
 			
-			liststore = gtk.ListStore(gobject.TYPE_STRING)
-			combobox = gtk.ComboBox(liststore)
-			cell = gtk.CellRendererText()
-			combobox.pack_start(cell, True)
-			combobox.add_attribute(cell, 'text', 0)
-
-			self.AlsaID = []
-			
-			# put in a none option just in case
-			combobox.append_text(_("Default"))
-			if instr.input == "default" and instr.inTrack == 0:
-				combobox.set_active(0)
-			self.AlsaID.append(("default", 0))
-			
-			currentItem = 1
-			for device, (deviceName, numInputs) in self.inputs.items():
-				for input in range(0, numInputs):
-					combobox.append_text(_("%(device)s input %(input)d") % {"device":deviceName, "input":input})
-					if instr.input == device and input == instr.inTrack:
-						combobox.set_active(currentItem)
-					self.AlsaID.append((device, input))
-					currentItem += 1
-			
-			combobox.connect("changed", self.OnSelected, instr)
-			row.pack_start(combobox, False, False)
-			row.pack_start(image, False, False)
-			row.pack_start(label, False, False)
-			
-			self.vbox.add(row)
+			if sound_system:
+				msg = _("The %(sound-system-name)s sound system does not support device selection.")
+				msg %= {"sound-system-name" : sound_system}
+			else:
+				msg = _('The "%(custom-pipeline)s" sound system does not support device selection.')
+				msg %= {"custom-pipeline" : audiosrc}
+			self.res.get_widget("explainLabel").set_text(msg)
+			self.vbox.hide()
 	
 	#_____________________________________________________________________
 			
@@ -138,7 +161,7 @@ class InstrumentConnectionsDialog:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 			instr -- Instrument to change the input device to.
 		"""
-		device, inTrack = self.AlsaID[widget.get_active()]
+		device, deviceName, inTrack = self.devices_list[widget.get_active()]
 		if device != instr.input or inTrack != instr.inTrack:
 			instr.input = device
 			instr.inTrack = inTrack

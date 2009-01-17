@@ -10,7 +10,7 @@
 
 import gtk.glade
 import Globals
-import AlsaDevices
+import AudioBackend
 import pygst
 pygst.require("0.10")
 import gst
@@ -47,6 +47,7 @@ class PreferencesDialog:
 		self.signals = {
 			"on_Setting_changed" : self.OnSettingChanged,
 			"on_playbackSink_changed" : self.OnPlaybackSinkChanged,
+			"on_recordingSoundSystem_changed" : self.OnRecordingSystemChanged,
 			"on_Close_clicked" : self.OnClose,
 		}
 
@@ -54,6 +55,8 @@ class PreferencesDialog:
 		self.dlg = self.res.get_widget("PreferencesDialog")
 		self.dlg.set_icon(icon)
 		self.recordingFileFormat = self.res.get_widget("recordingFileFormat")
+		self.recordingCustomPipeline = self.res.get_widget("recordingCustomPipeline")
+		self.recordingSoundSystem = self.res.get_widget("recordingSoundSystem")
 		self.samplingRate = self.res.get_widget("samplingRate")
 		self.playbackDevice = self.res.get_widget("playbackDevice")
 		self.playbackSink = self.res.get_widget("playbackSink")
@@ -65,30 +68,46 @@ class PreferencesDialog:
 		#Load settings - set to True to make sure data isn't saved to file until everything is loaded
 		self.loadingSettings = True
 		
-		audioSinkSetting = Globals.settings.playback["audiosink"]
-		if audioSinkSetting == "autoaudiosink":
-			self.playbackSink.set_active(0)
-			self.customSink.set_sensitive(False)
-			self.playbackDevice.set_sensitive(False)
-		elif audioSinkSetting == "alsasink":
-			self.playbackSink.set_active(1)
-			self.customSink.set_sensitive(False)
-			self.playbackDevice.set_sensitive(True)
-		else:
-			self.playbackSink.set_active(2)
-			self.customSink.set_sensitive(True)
-			self.customSink.set_text(audioSinkSetting)
-			self.playbackDevice.set_sensitive(False)
+		## Load recording sound system
+		audioSrcSetting = Globals.settings.recording["audiosrc"]
+		self.recordingCustomPipeline.set_text(audioSrcSetting)
 		
-		#Find all ALSA devices
-		self.playbacks = [] #Map combobox entries to ALSA devices
-		for device, playback in AlsaDevices.GetAlsaList("playback").items():
-			self.playbacks.append(device)
-			self.playbackDevice.append_text(playback)
-		self.LoadSetting(self.playbackDevice, Globals.settings.playback, "device")
+		self.recordingSoundSystem.append_text(_("Custom"))
+		self.recordingSoundSystem.set_active(0)
+		
+		for name, element in Globals.CAPTURE_BACKENDS:
+			self.recordingSoundSystem.append_text(name)
+			if audioSrcSetting == element:
+				index = len(self.recordingSoundSystem.get_model()) - 1
+				self.recordingSoundSystem.set_active(index)
+				
+		if self.recordingSoundSystem.get_active() == 0:
+			self.recordingCustomPipeline.set_sensitive(True)
+		else:
+			self.recordingCustomPipeline.set_sensitive(False)
+		
+		## Load playback sound system
+		audioSinkSetting = Globals.settings.playback["audiosink"]
+		self.customSink.set_text(audioSinkSetting)
+		
+		self.playbackSink.append_text(_("Custom"))
+		self.playbackSink.set_active(0)
+		
+		for name, element in Globals.PLAYBACK_BACKENDS:
+			self.playbackSink.append_text(name)
+			if audioSinkSetting == element:
+				index = len(self.playbackSink.get_model()) - 1
+				self.playbackSink.set_active(index)
+				
+		if self.playbackSink.get_active() == 0:
+			self.customSink.set_sensitive(True)
+		else:
+			self.customSink.set_sensitive(False)
+		
+		self.ProbeBackendDevices()
 			
 		#Get available sample rates from ALSA
-		sample_values = AlsaDevices.GetRecordingSampleRate()
+		sample_values = AudioBackend.GetRecordingSampleRate()
 		i18nText = "%(sample rate)d Hz"
 		#add tuple of (display string, rate value)
 		self.sampleRateList = [( _("Autodetect"), 0)]
@@ -206,8 +225,12 @@ class PreferencesDialog:
 		#only get the number from "44100 Hz", not the whole string
 		sampleRateIndex = self.samplingRate.get_active()
 		Globals.settings.recording["samplerate"] = self.sampleRateList[sampleRateIndex][1]
-		Globals.settings.playback["device"] = self.playbackDevice.get_active_text()
-		Globals.settings.playback["devicecardnum"] = self.playbacks[self.playbackDevice.get_active()]
+		if self.playbackDevice.get_active() >= 0:
+			Globals.settings.playback["devicename"] = self.playbackDevice.get_active_text()
+			Globals.settings.playback["device"] = self.playbacks[self.playbackDevice.get_active()]
+		else:
+			Globals.settings.playback["devicename"] = ""
+			Globals.settings.playback["device"] = ""
 		
 		if self.radioWelcome.get_active():
 			Globals.settings.general["startupaction"] = STARTUP_WELCOME_DIALOG
@@ -231,25 +254,48 @@ class PreferencesDialog:
 		if self.loadingSettings:
 			return
 	
-		# First in the list is Autodetect
 		if self.playbackSink.get_active() == 0:
-			self.customSink.set_sensitive(False)
-			self.playbackDevice.set_sensitive(False)
-			Globals.settings.playback["audiosink"] = "autoaudiosink"
-		# Second is ALSA
-		elif self.playbackSink.get_active() == 1:
-			self.customSink.set_sensitive(False)
-			self.playbackDevice.set_sensitive(True)
-			Globals.settings.playback["audiosink"] = "alsasink"
-		# Third is Custom
-		elif self.playbackSink.get_active() == 2:
 			self.customSink.set_sensitive(True)
-			self.playbackDevice.set_sensitive(False)
 			Globals.settings.playback["audiosink"] = self.customSink.get_text()
+		else:
+			self.customSink.set_sensitive(False)
+			index = self.playbackSink.get_active() - 1
+			name, element = Globals.PLAYBACK_BACKENDS[index]
+			Globals.settings.playback["audiosink"] = element
+			self.customSink.set_text(element)
+			
+		self.ProbeBackendDevices()
 			
 		Globals.settings.write()
 		if self.project:
 			self.project.SetProjectSink()
+	
+	#_____________________________________________________________________
+	
+	def OnRecordingSystemChanged(self, widget=None, event=None):
+		"""
+		Updates the selected playback audio device from the comboBox selection.
+		It then writes an updated settings file.
+		
+		Parameters:
+			comboBox -- reserved for GTK callbacks, don't use it explicitly.
+		"""
+		if self.loadingSettings:
+			return
+	
+		if self.recordingSoundSystem.get_active() == 0:
+			self.recordingCustomPipeline.set_sensitive(True)
+			Globals.settings.recording["audiosrc"] = self.recordingCustomPipeline.get_text()
+		else:
+			self.recordingCustomPipeline.set_sensitive(False)
+			index = self.recordingSoundSystem.get_active() - 1
+			name, element = Globals.CAPTURE_BACKENDS[index]
+			Globals.settings.recording["audiosrc"] = element
+			self.recordingCustomPipeline.set_text(element)
+			
+		Globals.settings.write()
+		if self.project:
+			self.project.OnCaptureBackendChange()
 	
 	#_____________________________________________________________________
 	
@@ -273,5 +319,23 @@ class PreferencesDialog:
 		
 		for enc in encoders:
 			self.mixdownFormat.append_text(enc.get_longname())
+	
+	#_____________________________________________________________________
+
+	def ProbeBackendDevices(self):
+		#Find all playback devices
+		self.playbacks = [] # Map combobox entries to property names instead of human readable names).
+		self.playbackDevice.get_model().clear() # clear combo box
+		for device, deviceName in AudioBackend.ListPlaybackDevices():
+			if len(self.playbacks) == 0 and not deviceName:
+				deviceName = _("Default")
+			self.playbacks.append(device)
+			self.playbackDevice.append_text(deviceName)
+			
+		if not self.playbacks:
+			self.playbackDevice.set_sensitive(False)
+		else:
+			self.playbackDevice.set_sensitive(True)
+			self.LoadSetting(self.playbackDevice, Globals.settings.playback, "devicename")
 	
 	#_____________________________________________________________________
