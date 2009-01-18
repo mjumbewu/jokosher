@@ -13,6 +13,7 @@ import gtk
 import InstrumentViewer
 import TimeLineBar
 import Globals
+import ui.MessageArea as MessageArea
 from gettext import gettext as _
 import urllib
 
@@ -146,6 +147,7 @@ class RecordingView(gtk.Frame):
 		self.connect("button_press_event", self.OnMouseDown)
 		
 		#connect to the project signals
+		self.project.connect("gst-bus-error", self.OnProjectGstError)
 		self.project.connect("instrument::added", self.OnInstrumentAdded)
 		self.project.connect("instrument::reordered", self.OnInstrumentReordered)
 		self.project.connect("instrument::removed", self.OnInstrumentRemoved)
@@ -277,6 +279,43 @@ class RecordingView(gtk.Frame):
 					instrViewer.show_all()
 				break
 		
+	
+	#_____________________________________________________________________
+	
+	def OnProjectGstError(self, project, error, details):
+		"""
+		Callback for when the project sends a gstreamer error message
+		from the pipeline.
+		
+		Parameters:
+			project -- The project instance that send the signal.
+			error -- The type of error that occurred as a string.
+			details -- A string with more information about the error.
+		"""
+		if not error:
+			error = _("A Gstreamer error has occurred")
+		#outrostring = _("Please report this error to the Jokosher developers at:\nhttps://bugs.launchpad.net/jokosher\nYou can also get help from:\nhttp://www.jokosher.org/forums/")
+		
+		msg_area = MessageArea.MessageArea()
+		msg_area.add_button(gtk.STOCK_CLOSE, gtk.RESPONSE_CLOSE)
+		msg_area.set_text_and_icon(gtk.STOCK_DIALOG_ERROR, error, details)
+		
+		msg_area.connect("response", self.OnMessageAreaReponse, msg_area)
+		msg_area.connect("close", self.OnMessageAreaClose, msg_area)
+		
+		self.vbox.pack_end(msg_area, False, False)
+		msg_area.show()
+		
+	#_____________________________________________________________________
+	
+	def OnMessageAreaClose(self, widget, message_area):
+		self.vbox.remove(message_area)
+		
+	#_____________________________________________________________________
+	
+	def OnMessageAreaReponse(self, widget, response_id, message_area):
+		if response_id == gtk.RESPONSE_CLOSE:
+			self.vbox.remove(message_area)
 	
 	#_____________________________________________________________________
 	
