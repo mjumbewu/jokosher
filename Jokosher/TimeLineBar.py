@@ -10,11 +10,12 @@
 #-------------------------------------------------------------------------------
 
 import gtk
-import TimeLine
+import gobject
 import gettext
 import os
+import TimeLine
 import Globals
-import gobject
+import EventLaneHSeparator
 
 # for the time signature combo
 from math import log
@@ -127,7 +128,8 @@ class TimeLineBar(gtk.HBox):
 		
 		self.timelineVBox = gtk.VBox()
 		self.timelineVBox.pack_start(self.timeline, True, True)
-		self.timelineVBox.pack_start(gtk.HSeparator(), False, False)
+		separator = EventLaneHSeparator.EventLaneHSeparator(self.project.transport)
+		self.timelineVBox.pack_start(separator, False, False)
 		
 		self.pack_start(self.headerVBox, False, False)
 		self.pack_start(self.timelineVBox)	
