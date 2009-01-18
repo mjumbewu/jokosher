@@ -37,8 +37,8 @@ class Settings:
 				}
 	
 	recording = {
-				"fileformat": "vorbisenc ! oggmux",
-				"file_extension": "ogg",
+				"fileformat": "flacenc",
+				"file_extension": "flac",
 				"samplerate": "0", # zero means, autodetect sample rate (ie use any available)
 				"audiosrc" : "alsasrc",
 				"device" : "default"
@@ -439,7 +439,6 @@ if __extra_ext_dirs:
 
 """ ExtensionManager data """
 AVAILABLE_EXTENSIONS = []
-INSTRUMENT_HEADER_WIDTH = 0
 
 """ Locale constant """
 LOCALE_APP = "jokosher"

@@ -27,8 +27,6 @@ class RecordingView(gtk.Frame):
 	""" GTK widget name """
 	__gtype_name__ = 'RecordingView'
 	
-	""" Width, in pixel, for the instrument headers """
-	INSTRUMENT_HEADER_WIDTH = 150
 	""" How far in you are allowed to zoom. """
 	ZOOM_MAX_SCALE = 100.0
 	""" How for out you are allowed to zoom. 
@@ -82,15 +80,25 @@ class RecordingView(gtk.Frame):
 		self.instrumentWindow.child.set_shadow_type(gtk.SHADOW_NONE)
 		self.views = []	
 		
+		self.header_size_group = gtk.SizeGroup(gtk.SIZE_GROUP_HORIZONTAL)
+		self.header_size_group.add_widget(self.timelinebar.GetHeaderWidget())
+		
 		self.hb = gtk.HBox()
 		self.hb.set_spacing(6)
+		self.hb.set_border_width(6)
 		self.vbox.pack_end(self.hb, False, False)
-		self.al = gtk.Alignment(0, 0, 1, 1)
+		self.vbox.pack_end(gtk.HSeparator(), False, False)
+		
+		self.zoom_hb = gtk.HBox()
+		self.zoom_hb.set_spacing(6)
+		self.zoom_hb.set_border_width(0)
+		self.header_size_group.add_widget(self.zoom_hb)
+		
 		self.scrollRange = gtk.Adjustment()
-		sb = gtk.HScrollbar(self.scrollRange)
-		self.al.add(sb)
-		self.al.set_padding(0, 0, 0, 0)
-		self.hb.pack_start(self.al)
+		self.scrollBar = gtk.HScrollbar(self.scrollRange)
+		
+		self.hb.pack_start(self.zoom_hb, False, False)
+		self.hb.pack_start(self.scrollBar, True, True)
 		
 		self.lastzoom = 0
 		
@@ -121,9 +129,9 @@ class RecordingView(gtk.Frame):
 		self.zoomtip.set_tip(self.outbutton, _("Zoom out timeline"), None)
 		self.outbutton.connect("clicked", self.OnZoomOut)
 
-		self.hb.pack_start( self.outbutton, False, False)
-		self.hb.pack_start( self.zoomSlider, False, False)
-		self.hb.pack_start( self.inbutton, False, False)
+		self.zoom_hb.pack_start( self.outbutton, False, False)
+		self.zoom_hb.pack_start( self.zoomSlider, False, False)
+		self.zoom_hb.pack_start( self.inbutton, False, False)
 		
 		self.extraScrollTime = 25
 		self.centreViewOnPosition = False
@@ -132,11 +140,10 @@ class RecordingView(gtk.Frame):
 		self.scrollRange.value = 0
 		self.scrollRange.step_increment = 1
 		
-		sb.connect("value-changed", self.OnScroll)
+		self.scrollBar.connect("value-changed", self.OnScroll)
 		self.connect("expose-event", self.OnExpose)
 		self.connect("button_release_event", self.OnExpose)
 		self.connect("button_press_event", self.OnMouseDown)
-		self.connect("size-allocate", self.OnAllocate)
 		
 		#connect to the project signals
 		self.project.connect("instrument::added", self.OnInstrumentAdded)
@@ -188,8 +195,8 @@ class RecordingView(gtk.Frame):
 		## use the new colormap
 		self.eventBox.set_style(stcp)
 		
-		# calculate scrollable width - allow 4 pixels for borders
-		self.scrollRange.page_size = (self.allocation.width - Globals.INSTRUMENT_HEADER_WIDTH - 4) / self.project.viewScale
+		# calculate scrollable width (scroll bar should always be same width as viewable area)
+		self.scrollRange.page_size = (self.scrollBar.allocation.width) / self.project.viewScale
 		self.scrollRange.page_increment = self.scrollRange.page_size
 		# add EXTRA_SCROLL_TIME extra seconds
 		length = self.project.GetProjectLength() + self.extraScrollTime
@@ -208,23 +215,12 @@ class RecordingView(gtk.Frame):
 			self.SetViewPosition(length - self.scrollRange.page_size)
 		
 		#check the min zoom value (based on project length)
-		pixelSize = self.allocation.width - Globals.INSTRUMENT_HEADER_WIDTH - 4	# four pixels to account for borders
+		# (scroll bar should always be same width as viewable area)
+		pixelSize = self.scrollBar.allocation.width 
 		minScale = pixelSize / length
 		self.zoomSlider.set_range(minScale, self.ZOOM_MAX_SCALE)
 		if self.zoomSlider.get_value() < minScale:
 			self.zoomSlider.set_value(minScale)
-		
-	#_____________________________________________________________________
-
-	def OnAllocate(self, widget, allocation):
-		"""
-		Callback for "size-allocate" signal.
-		
-		Parameters:
-			widget -- reserved for GTK callbacks, don't use it explicitly.
-			allocation -- new allocation value to be set.
-		"""
-		self.allocation = allocation
 		
 	#_____________________________________________________________________
 	
@@ -240,12 +236,10 @@ class RecordingView(gtk.Frame):
 		
 		#Add it to the views
 		self.views.append((instrument.id, instrViewer))
-		instrViewer.headerAlign.connect("size-allocate", self.UpdateSize)
+		self.header_size_group.add_widget(instrViewer.GetHeaderWidget())
 		
 		self.instrumentBox.pack_start(instrViewer, False, False)
 		instrViewer.show_all()
-		
-		self.ForceUpdateSize()
 	
 	#_____________________________________________________________________
 	
@@ -264,8 +258,6 @@ class RecordingView(gtk.Frame):
 				instrViewer.Destroy()
 				self.views.remove((ID, instrViewer))
 				break
-				
-		self.ForceUpdateSize()
 	
 	#_____________________________________________________________________
 	
@@ -285,38 +277,6 @@ class RecordingView(gtk.Frame):
 					instrViewer.show_all()
 				break
 		
-	
-	#_____________________________________________________________________
-	
-	def ForceUpdateSize(self):
-		"""
-		Force and update of a header size to match the size of the first instrument viewer.
-		"""
-		if self.views:
-			self.UpdateSize(None, self.views[0][1].headerAlign.get_allocation())
-		else:
-			self.UpdateSize(None, None)
-	
-	#_____________________________________________________________________
-	
-	def UpdateSize(self, widget=None, size=None):
-		"""
-		This method will re-align the timeline and scrollbars
-		with the start of the event lane since the instrument 
-		width may have been altered.
-		"""
-		#find the width of the instrument headers (they should all be the same size)
-		if size:
-			tempWidth = size.width
-		else:
-			tempWidth = self.INSTRUMENT_HEADER_WIDTH
-		
-		#set it to the globals class
-		Globals.INSTRUMENT_HEADER_WIDTH = tempWidth
-		
-		#align timeline and scrollbar
-		self.timelinebar.UpdateSize()
-		self.al.set_padding(0, 0, tempWidth, 0)
 	
 	#_____________________________________________________________________
 	

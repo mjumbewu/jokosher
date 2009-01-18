@@ -682,6 +682,7 @@ class Event(gobject.GObject):
 					Globals.debug("Event %d: duration (%f) is less than last level endtime (%d)."
 					              % (self.id, self.duration, final_endtime))
 					self.duration = final_endtime / 1000.0
+					self.SetProperties()
 					Globals.debug("\tduration has been increased to", self.duration)
 			
 			if length and (self.offset > 0 or self.duration != length):
@@ -709,7 +710,7 @@ class Event(gobject.GObject):
 		# state has changed
 		try:
 			time = self.loadingPipeline.query_duration(gst.FORMAT_TIME)
-			if self.duration == 0 and time[0] != 0:
+			if self.duration == 0 and time[0] > 0:
 				self.duration = float(time[0] / float(gst.SECOND))
 				
 				#update position with proper duration

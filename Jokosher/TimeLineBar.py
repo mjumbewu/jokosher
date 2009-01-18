@@ -10,18 +10,19 @@
 #-------------------------------------------------------------------------------
 
 import gtk
-import TimeLine
+import gobject
 import gettext
 import os
+import TimeLine
 import Globals
-import gobject
+import EventLaneHSeparator
 
 # for the time signature combo
 from math import log
 
 _=gettext.gettext
 
-class TimeLineBar(gtk.Frame):
+class TimeLineBar(gtk.HBox):
 	"""
 	This class contains the TimeLine widget as well as the click track button and the bpm label in a gtk.Frame widget.
 	"""
@@ -36,7 +37,7 @@ class TimeLineBar(gtk.Frame):
 			projectview -- reference to RecordingView (RecordingView.py).
 			mainview -- reference to MainApp (JokosherApp.py).
 		"""
-		gtk.Frame.__init__(self)
+		gtk.HBox.__init__(self)
 		
 		self.project = project
 		self.projectview = projectview
@@ -121,60 +122,26 @@ class TimeLineBar(gtk.Frame):
 		self.headerhbox.pack_start(self.bpmframe, True, True)
 		self.headerhbox.pack_start(self.sigframe, True, True)
 		
-		self.hbox = gtk.HBox()
-		self.alignment = gtk.Alignment(0, 0, 1.0, 1.0)
-		self.alignment.add(self.headerhbox)
-		self.hbox.pack_start(self.alignment, False, False)
-		self.add(self.hbox)
-		self.headerhbox.connect("check-resize", self.projectview.ForceUpdateSize)
-		self.connect("size-allocate", self.OnAllocate)
-		self.hbox.pack_start(self.timeline)	
-
-	#_____________________________________________________________________
-
-	def OnAllocate(self, widget, allocation):
-		"""
-		From:
-		http://www.moeraki.com/pygtkreference/pygtk2reference/class-gtkwidget.html#signal-gtkwidget--size-allocate
-		The "size-allocate" signal is emitted when widget is given a new space allocation.
+		self.headerVBox = gtk.VBox()
+		self.headerVBox.pack_start(self.headerhbox, True, True)
+		self.headerVBox.pack_start(gtk.HSeparator(), False, False)
 		
-		Parameters:
-			widget -- reserved for GTK callbacks, don't use it explicitly. 
-			allocation -- the position and size to be allocated to the widget.
-		"""
-		self.allocation = allocation
+		self.timelineVBox = gtk.VBox()
+		self.timelineVBox.pack_start(self.timeline, True, True)
+		separator = EventLaneHSeparator.EventLaneHSeparator(self.project.transport)
+		self.timelineVBox.pack_start(separator, False, False)
+		
+		self.pack_start(self.headerVBox, False, False)
+		self.pack_start(self.timelineVBox)	
 
 	#_____________________________________________________________________
 	
-	def UpdateSize(self):
-		""" 
-		Updates the size of the header box contents TimeLineBar, updating the values in the beats per
-		minute box and time signature box, as well as updating the click button
-		sensitivity and instrument header width.
+	def GetHeaderWidget(self):
 		"""
-		if self.Updating or not self.mainview.workspace:
-			return
-		
-		instrumentViews = self.mainview.workspace.recordingView.views
-
-		self.Updating = True
-		maxwidth = self.headerhbox.size_request()[0]
-
-		for ident, iv in instrumentViews:  #self.mainview.recording.views:
-			if iv.instrument in iv.mainview.project.instruments:
-				if iv.headerBox.size_request()[0] > maxwidth:
-					maxwidth = iv.headerBox.size_request()[0]
-
-		for ident, iv in instrumentViews:  #self.mainview.recording.views:
-			if iv.headerAlign.size_request()[0] != (maxwidth+2):
-				iv.ResizeHeader(maxwidth+2)
-		
-		Globals.INSTRUMENT_HEADER_WIDTH = maxwidth + 2
-		
-		self.alignment.set_padding(0, 0, 0, maxwidth - self.headerhbox.size_request()[0])
-		
-		self.Updating = False
-		
+			Returns the widget which is required to be aligned with the instrument headers.
+		"""
+		return self.headerVBox
+	
 	#_____________________________________________________________________
 	
 	def OnProjectBPMChange(self, project):
@@ -190,8 +157,6 @@ class TimeLineBar(gtk.Frame):
 		self.bpmlabel.set_markup("<span foreground='%s'><b>%d</b></span>" % (self.fontColor, self.project.bpm))
 		self.bpmeventbox.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.bgColor))
 		
-		self.projectview.UpdateSize()
-		
 	#_____________________________________________________________________
 	
 	def OnProjectSigChange(self, project):
@@ -204,7 +169,6 @@ class TimeLineBar(gtk.Frame):
 		"""
 		self.siglabel.set_use_markup(True)
 		self.siglabel.set_markup("<span foreground='%s'><b>%d/%d</b></span>" % (self.fontColor, self.project.meter_nom, self.project.meter_denom))
-		self.projectview.UpdateSize()
 		
 	#_____________________________________________________________________
 	
@@ -246,11 +210,6 @@ class TimeLineBar(gtk.Frame):
 				self.bpmframe.add(self.bpmedit)
 				self.bpmedit.show()
 				self.bpmedit.grab_focus()
-			
-			#adjust padding so that the timeline event lanes still line up
-			newWidth = self.headerhbox.size_request()[0]
-			padding = self.alignment.get_padding()
-			self.alignment.set_padding(0, 0, 0, padding[3] - (newWidth -startWidth))
 
 	#_____________________________________________________________________
 	
@@ -331,7 +290,6 @@ class TimeLineBar(gtk.Frame):
 		"""
 		self.project.SetMeter(self.project.meter_nom,
 							  int(combobox.get_active_text()))
-		self.projectview.UpdateSize()
 	
 	#_____________________________________________________________________
 	

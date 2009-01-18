@@ -239,11 +239,13 @@ class EventViewer(gtk.DrawingArea):
 		context.set_line_width(2)
 		
 		#Draw play position
-		x = int(round((self.project.transport.position - self.event.start) * self.project.viewScale))
+		# TODO: don't calculate pixel position based on self.event.start, it will have rounding errros
+		# instead determine the pixel position of the start of our widget and subtract that from GetPixelPosition().
+		x = self.project.transport.GetPixelPosition(self.event.start)
 		context.set_line_width(1)
 		context.set_antialias(cairo.ANTIALIAS_NONE)
-		context.move_to(x+1, 0)
-		context.line_to(x+1, self.allocation.height)
+		context.move_to(x+0.5, 0)
+		context.line_to(x+0.5, self.allocation.height)
 		context.set_source_rgb(*self._PLAY_POSITION_RGB)
 		context.stroke()
 		
@@ -436,7 +438,7 @@ class EventViewer(gtk.DrawingArea):
 			
 			if self.event.isLoading:
 				# Write "Loading..." or "Downloading..."
-				if self.event.duration == 0:
+				if self.event.duration <= 0:
 					# for some file types gstreamer doesn't give us a duration
 					# so don't display the percentage
 					if self.event.isDownloading:
@@ -832,7 +834,7 @@ class EventViewer(gtk.DrawingArea):
 				self.OnSplit(None, self.highlightCursor)
 			else:
 				# Otherwise, stop playing and cut at the play position (if it's over this event)
-				play_pos = int(round((self.project.transport.position - self.event.start) * self.project.viewScale))
+				play_pos = self.project.transport.GetPixelPosition(self.event.start)
 				if play_pos > 0 and play_pos < self.allocation.width:
 					self.project.Stop()
 					self.OnSplit(None, play_pos)
