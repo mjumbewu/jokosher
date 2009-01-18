@@ -3,13 +3,7 @@ import gtk
 import gobject
 
 class MessageArea(gtk.HBox):
-	
-	def do_finalize_event(self):
-		pass
-	
-	def do_close(self):
-		pass
-	
+
 	__gsignals__ = {
 		"response" 	: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, (gobject.TYPE_INT,) ),
 		"close" 	: ( gobject.SIGNAL_RUN_LAST | gobject.SIGNAL_ACTION, gobject.TYPE_NONE, () )
@@ -89,7 +83,9 @@ class MessageArea(gtk.HBox):
 		except ValueError:
 			signal = None
 			
-		if signal:
+		if isinstance(child, gtk.Button):
+			child.connect("clicked", self.action_widget_activated)
+		elif signal:
 			child.connect(signal, self.action_widget_activated)
 		else:
 			pass
