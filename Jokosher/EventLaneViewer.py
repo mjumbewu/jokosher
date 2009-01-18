@@ -17,7 +17,7 @@ import os.path
 import gettext
 import urllib # To decode URI's
 import Globals # To get projectfolder
-import EventLaneHSeparator
+import ui.EventLaneHSeparator as EventLaneHSeparator
 _ = gettext.gettext
 
 #=========================================================================
