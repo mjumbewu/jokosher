@@ -87,6 +87,7 @@ class RecordingView(gtk.Frame):
 		self.hb.set_spacing(6)
 		self.hb.set_border_width(6)
 		self.vbox.pack_end(self.hb, False, False)
+		self.vbox.pack_end(gtk.HSeparator(), False, False)
 		
 		self.zoom_hb = gtk.HBox()
 		self.zoom_hb.set_spacing(6)
