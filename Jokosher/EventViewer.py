@@ -239,6 +239,8 @@ class EventViewer(gtk.DrawingArea):
 		context.set_line_width(2)
 		
 		#Draw play position
+		# TODO: don't calculate pixel position based on self.event.start, it will have rounding errros
+		# instead determine the pixel position of the start of our widget and subtract that from GetPixelPosition().
 		x = self.project.transport.GetPixelPosition(self.event.start)
 		context.set_line_width(1)
 		context.set_antialias(cairo.ANTIALIAS_NONE)
