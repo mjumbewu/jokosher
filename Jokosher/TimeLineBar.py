@@ -121,8 +121,16 @@ class TimeLineBar(gtk.HBox):
 		self.headerhbox.pack_start(self.bpmframe, True, True)
 		self.headerhbox.pack_start(self.sigframe, True, True)
 		
-		self.pack_start(self.headerhbox, False, False)
-		self.pack_start(self.timeline)	
+		self.headerVBox = gtk.VBox()
+		self.headerVBox.pack_start(self.headerhbox, True, True)
+		self.headerVBox.pack_start(gtk.HSeparator(), False, False)
+		
+		self.timelineVBox = gtk.VBox()
+		self.timelineVBox.pack_start(self.timeline, True, True)
+		self.timelineVBox.pack_start(gtk.HSeparator(), False, False)
+		
+		self.pack_start(self.headerVBox, False, False)
+		self.pack_start(self.timelineVBox)	
 
 	#_____________________________________________________________________
 	
@@ -130,7 +138,7 @@ class TimeLineBar(gtk.HBox):
 		"""
 			Returns the widget which is required to be aligned with the instrument headers.
 		"""
-		return self.headerhbox
+		return self.headerVBox
 	
 	#_____________________________________________________________________
 	
