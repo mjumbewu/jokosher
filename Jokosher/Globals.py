@@ -6,7 +6,7 @@
 #	
 #	This module contains variable definitions that can be used across the code
 #	base and also includes methods for reading and writing these settings to
-#	the Jokosher configuration in ~/.jokosher/config.
+#	the Jokosher configuration in JOKOSHER_CONFIG_HOME/config.
 #
 #-------------------------------------------------------------------------------
 
@@ -69,10 +69,10 @@ class Settings:
 		
 		Parameters:
 			filename -- path to the settings file.
-						If None, the default ~/.jokosher/config will be used.
+						If None, the default JOKOSHER_CONFIG_HOME/config will be used.
 		"""
 		if not filename:
-			self.filename = os.path.expanduser("~/.jokosher/config")
+			self.filename = os.path.join(JOKOSHER_CONFIG_HOME, "config")
 		else:
 			self.filename = filename
 		self.config = ConfigParser.ConfigParser()
@@ -374,15 +374,18 @@ Global paths, so all methods can access them.
 If JOKOSHER_DATA_PATH is not set, that is, Jokosher is running locally,
 use paths relative to the current running directory instead of /usr ones.
 """
+JOKOSHER_DATA_HOME = os.path.expanduser("~/.jokosher")
+JOKOSHER_CONFIG_HOME = os.path.expanduser("~/.jokosher")
+
 data_path = os.getenv("JOKOSHER_DATA_PATH")
 if data_path:
-	INSTR_PATHS = (os.path.join(data_path, "Instruments"), os.path.expanduser("~/.jokosher/instruments"))
-	EXTENSION_PATHS = (os.path.join(data_path, "extensions"), os.path.expanduser("~/.jokosher/extensions/"))
+	INSTR_PATHS = (os.path.join(data_path, "Instruments"), os.path.join(JOKOSHER_DATA_HOME, "instruments"))
+	EXTENSION_PATHS = (os.path.join(data_path, "extensions"), os.path.join(JOKOSHER_DATA_HOME, "extensions"))
 	GLADE_PATH = os.path.join(data_path, "Jokosher.glade")
 else:
 	data_path = os.path.dirname(os.path.abspath(__file__))
-	INSTR_PATHS = (os.path.join(data_path, "..", "Instruments"), os.path.expanduser("~/.jokosher/instruments"))
-	EXTENSION_PATHS = (os.path.join(data_path, "..", "extensions"), os.path.expanduser("~/.jokosher/extensions/"))
+	INSTR_PATHS = (os.path.join(data_path, "..", "Instruments"), os.path.join(JOKOSHER_DATA_HOME, "instruments"))
+	EXTENSION_PATHS = (os.path.join(data_path, "..", "extensions"), os.path.join(JOKOSHER_DATA_HOME, "extensions"))
 	GLADE_PATH = os.path.join(data_path, "Jokosher.glade")
 	LOCALE_PATH = os.path.join(data_path, "..", "locale")
 
@@ -394,9 +397,15 @@ if os.path.isfile(os.path.expanduser("~/.jokosher")):
 		raise "Failed to delete old user config file %s" % new_dir
 # create a couple dirs to avoid having problems creating a non-existing
 # directory inside another non-existing directory
-for directory in ['extensions', 'instruments', 'instruments/images', 
-		'presets', 'presets/effects', 'presets/mixdown', 'mixdownprofiles', 'templates']:
-	new_dir = os.path.join(os.path.expanduser("~/.jokosher/"), directory)
+create_dirs = ['extensions', 'instruments', ('instruments', 'images'),
+               'presets', ('presets', 'effects'), ('presets', 'mixdown'), 
+               'mixdownprofiles', 'templates']
+for dirs in create_dirs:
+	if isinstance(dirs, str):
+		new_dir = os.path.join(JOKOSHER_DATA_HOME, dirs)
+	else:
+		new_dir = os.path.join(JOKOSHER_DATA_HOME, *dirs)
+		
 	if not os.path.isdir(new_dir):
 		try:
 			os.makedirs(new_dir)
@@ -404,9 +413,9 @@ for directory in ['extensions', 'instruments', 'instruments/images',
 			raise "Failed to create user config directory %s" % new_dir
 
 #TODO: make this a list with the system path and home directory path
-EFFECT_PRESETS_PATH = os.path.expanduser("~/.jokosher/presets/effects")
-TEMPLATES_PATH = os.path.expanduser("~/.jokosher/templates/")
-MIXDOWN_PROFILES_PATH = os.path.expanduser("~/.jokosher/mixdownprofiles/")
+EFFECT_PRESETS_PATH = os.path.join(JOKOSHER_DATA_HOME, "presets", "effects")
+TEMPLATES_PATH = os.path.join(JOKOSHER_DATA_HOME, "templates")
+MIXDOWN_PROFILES_PATH = os.path.join(JOKOSHER_DATA_HOME, "mixdownprofiles")
 
 IMAGE_PATH = os.getenv("JOKOSHER_IMAGE_PATH")
 if not IMAGE_PATH:

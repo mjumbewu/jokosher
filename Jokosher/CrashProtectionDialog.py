@@ -53,7 +53,7 @@ class CrashProtectionDialog:
 
 
 	def populate(self):
-		backupDir = os.path.join(os.path.expanduser("~"), ".jokosher", "backups")
+		backupDir = os.path.join(Globals.JOKOSHER_DATA_HOME, "backups")
 		row = 1
 		for backupFile in os.listdir(backupDir):
 			backup = os.path.join(backupDir, backupFile)
