@@ -253,6 +253,7 @@ class InstrumentViewer(gtk.EventBox):
 		"""
 		if event.type == gtk.gdk.BUTTON_PRESS:
 			self.editlabel_is_mouse_down = True
+			return True
 		elif event.type == gtk.gdk.BUTTON_RELEASE and self.editlabel_is_mouse_down:
 			self.OnAcceptEditLabel()
 			return True
