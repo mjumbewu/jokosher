@@ -16,6 +16,7 @@ import locale, gettext
 import pygtk
 pygtk.require("2.0")
 import gobject, gtk
+import xdg.BaseDirectory
 
 import gettext
 _ = gettext.gettext
@@ -63,20 +64,10 @@ class Settings:
 
 	#_____________________________________________________________________
 	
-	def __init__(self, filename = None):
-		"""
-		Creates a new instance of Settings.
+	def __init__(self):
+		self.filename = os.path.join(JOKOSHER_CONFIG_HOME, "config")
 		
-		Parameters:
-			filename -- path to the settings file.
-						If None, the default JOKOSHER_CONFIG_HOME/config will be used.
-		"""
-		if not filename:
-			self.filename = os.path.join(JOKOSHER_CONFIG_HOME, "config")
-		else:
-			self.filename = filename
 		self.config = ConfigParser.ConfigParser()
-
 		self.read()
 
 	#_____________________________________________________________________
@@ -106,16 +97,7 @@ class Settings:
 		for section, section_dict in self.sections.iteritems():
 			for key, value in section_dict.iteritems():
 				self.config.set(section, key, value)
-			
-		# delete a .jokosher file if it exists, because that's old-fashioned
-		old_jokosher_file = os.path.expanduser("~/.jokosher")
-		if os.path.isfile(old_jokosher_file):
-			os.unlink(old_jokosher_file)
 		
-		# make sure that the directory that the config file is in exists
-		new_jokosher_file_dir = os.path.split(self.filename)[0]
-		if not os.path.isdir(new_jokosher_file_dir): 
-			os.makedirs(new_jokosher_file_dir)
 		file = open(self.filename, 'w')
 		self.config.write(file)
 		file.close()
@@ -374,8 +356,10 @@ Global paths, so all methods can access them.
 If JOKOSHER_DATA_PATH is not set, that is, Jokosher is running locally,
 use paths relative to the current running directory instead of /usr ones.
 """
-JOKOSHER_DATA_HOME = os.path.expanduser("~/.jokosher")
-JOKOSHER_CONFIG_HOME = os.path.expanduser("~/.jokosher")
+
+XDG_RESOURCE_NAME = "jokosher"
+JOKOSHER_CONFIG_HOME = xdg.BaseDirectory.save_config_path(XDG_RESOURCE_NAME)
+JOKOSHER_DATA_HOME =   xdg.BaseDirectory.save_data_path(XDG_RESOURCE_NAME)
 
 data_path = os.getenv("JOKOSHER_DATA_PATH")
 if data_path:
@@ -389,12 +373,6 @@ else:
 	GLADE_PATH = os.path.join(data_path, "Jokosher.glade")
 	LOCALE_PATH = os.path.join(data_path, "..", "locale")
 
-#delete the 0.1 jokosher config file
-if os.path.isfile(os.path.expanduser("~/.jokosher")):
-	try:
-		os.remove(os.path.expanduser("~/.jokosher"))
-	except:
-		raise "Failed to delete old user config file %s" % new_dir
 # create a couple dirs to avoid having problems creating a non-existing
 # directory inside another non-existing directory
 create_dirs = ['extensions', 'instruments', ('instruments', 'images'),
