@@ -41,7 +41,7 @@ class Settings:
 				"fileformat": "flacenc",
 				"file_extension": "flac",
 				"samplerate": "0", # zero means, autodetect sample rate (ie use any available)
-				"audiosrc" : "alsasrc",
+				"audiosrc" : "gconfaudiosrc",
 				"device" : "default"
 				}
 	
