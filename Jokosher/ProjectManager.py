@@ -610,31 +610,6 @@ class CreateProjectError(Exception):
 
 #=========================================================================
 
-class AudioInputsError(Exception):
-	"""
-	This class will get created when there are problems with the soundcard inputs.
-	It's used for handling errors.
-	"""
-	
-	#_____________________________________________________________________
-	
-	def __init__(self, errno):
-		"""
-		Creates a new instance of AudioInputsError.
-		
-		Parameters:
-			errno -- number indicating the type of error:
-					1 = no recording channels found.
-					2 = sound card is not capable of multiple simultaneous inputs.
-					3 = channel splitting element not found.
-		"""
-		Exception.__init__(self)
-		self.errno = errno
-		
-	#_____________________________________________________________________
-
-#=========================================================================
-
 class InvalidProjectError(Exception):
 	"""
 	This class will get created when there's an invalid Project.
@@ -674,8 +649,6 @@ class ProjectExportException(Exception):
 	
 	def __init__(self, errno, message):
 		"""
-		Creates a new instance of AudioInputsError.
-		
 		Parameters:
 			errno -- number indicating the type of error. See error codes above.
 		"""

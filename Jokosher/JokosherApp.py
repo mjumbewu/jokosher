@@ -487,25 +487,7 @@ class MainApp:
 			self.settingButtons = False
 		else:
 			Globals.debug("can record")
-			
-			try:
-				self.project.Record()
-			except ProjectManager.AudioInputsError, e:
-				if e.errno==0:
-					message=_("No channels capable of recording have been found, please attach a device and try again.")
-				elif e.errno==1:
-					message=_("Your sound card isn't capable of recording from multiple sources at the same time. Please disarm all but one instrument.")
-				elif e.errno==2:
-					message=_("You require the GStreamer channel splitting element to be able to record from multiple input devices. This can be downloaded from http://www.jokosher.org/download.")
-
-				dlg = gtk.MessageDialog(self.window,
-					gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
-					gtk.MESSAGE_INFO,
-					gtk.BUTTONS_CLOSE,
-					message)
-				dlg.connect('response', lambda dlg, response: dlg.destroy())
-				dlg.run()
-				self.project.TerminateRecording()
+			self.project.Record()
 
 	#_____________________________________________________________________
 	
