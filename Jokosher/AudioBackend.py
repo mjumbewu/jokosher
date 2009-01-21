@@ -22,7 +22,7 @@ def ListPlaybackDevices(sink=None, probe_name=True):
 		
 	try:
 		bin = gst.parse_bin_from_description(sink, False)
-	except gobject.GError, gst.ElementNotFoundError:
+	except (gobject.GError, gst.ElementNotFoundError):
 		Globals.debug("Cannot list playback devices: cannot parse bin", sink)
 		return list()
 	
@@ -41,7 +41,7 @@ def ListCaptureDevices(src=None, probe_name=True):
 		src = Globals.settings.recording["audiosrc"]
 	try:
 		bin = gst.parse_bin_from_description(src, False)
-	except gobject.GError, gst.ElementNotFoundError:
+	except (gobject.GError, gst.ElementNotFoundError):
 		Globals.debug("Cannot list capture devices: cannot parse bin", src)
 		return list()
 	
@@ -105,7 +105,7 @@ def GetRecordingSampleRate(device=None):
 	src = Globals.settings.recording["audiosrc"]
 	try:
 		bin = gst.parse_bin_from_description(src, False)
-	except gobject.GError, gst.ElementNotFoundError:
+	except (gobject.GError, gst.ElementNotFoundError):
 		Globals.debug("Cannot get sample rate: cannot parse bin", src)
 		return list()
 	
@@ -148,7 +148,7 @@ def GetChannelsOffered(device):
 	src_desc = Globals.settings.recording["audiosrc"]
 	try:
 		bin = gst.parse_bin_from_description(src_desc, False)
-	except gobject.GError, gst.ElementNotFoundError:
+	except (gobject.GError, gst.ElementNotFoundError):
 		Globals.debug("Cannot get number of channels: cannot parse bin", src_desc)
 		return 0
 	
@@ -200,4 +200,4 @@ def GetChannelsOffered(device):
 The following function, is meant for testing this file independantly from the rest.
 """
 if __name__ == "__main__":
-	print GetRecordingSampleRate()
+	print(GetRecordingSampleRate())

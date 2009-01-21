@@ -66,7 +66,7 @@ class NewProjectDialog:
 		self.templatecombo.clear()
 		
 		self.templatemodel = gtk.ListStore(str)
-		for files in self.template.LoadDictionaryOfInstrumentsFromTemplateFile().keys():
+		for files in self.template.LoadDictionaryOfInstrumentsFromTemplateFile().iterkeys():
 			self.templatemodel.append((files,))
 		self.templatecombo.set_model(self.templatemodel)
 		

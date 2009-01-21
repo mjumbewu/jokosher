@@ -245,7 +245,7 @@ class Project(gobject.GObject):
 		Globals.debug("current state:", self.mainpipeline.get_state(0)[1].value_name)
 		
 		#If we've been recording then add new events to instruments
-		for instr, (event, bin, handle) in self.recordingEvents.items():
+		for instr, (event, bin, handle) in self.recordingEvents.iteritems():
 			instr.FinalizeRecording(event)
 			self.bus.disconnect(handle)
 
@@ -265,7 +265,7 @@ class Project(gobject.GObject):
 		Globals.debug("State just set to READY")
 		
 		#Relink instruments and stop their recording bins
-		for instr, (event, bin, handle) in self.recordingEvents.items():
+		for instr, (event, bin, handle) in self.recordingEvents.iteritems():
 			try:
 				Globals.debug("Removing recordingEvents bin")
 				self.mainpipeline.remove(bin)
@@ -306,7 +306,7 @@ class Project(gobject.GObject):
 					devices[default_device].append(instr)
 		
 
-		for device, recInstruments in devices.items():
+		for device, recInstruments in devices.iteritems():
 			if len(recInstruments) == 0:
 				#Nothing to record on this device
 				continue
@@ -677,12 +677,9 @@ class Project(gobject.GObject):
 		"""
 		error, debug = message.parse_error()
 		
-		#FIXME: remove these prints!
-		print "*Project Error*"
-		print ("Code: %s, Domain: %s")%(error.code, error.domain)
-		print "Message: "+error.message
-		
 		Globals.debug("Gstreamer bus error:", str(error), str(debug))
+		Globals.debug("Code: %s, Domain: %s" % (error.code, error.domain))
+		Globals.debug("Message:", error.message)
 		self.emit("gst-bus-error", str(error), str(debug))
 
 	#_____________________________________________________________________
@@ -698,7 +695,7 @@ class Project(gobject.GObject):
 		
 		if not path:
 			if not self.projectfile:
-				raise "No save path specified!"
+				raise Exception("No save path specified!")
 			path = self.projectfile
 		
 		if not self.audio_path:
@@ -708,13 +705,13 @@ class Project(gobject.GObject):
 			
 		if os.path.exists(self.audio_path):
 			if not os.path.isdir(self.audio_path):
-				raise "Audio save location is not a directory"
+				raise Exception("Audio save location is not a directory")
 		else:
 			os.mkdir(self.audio_path)
 		
 		if os.path.exists(self.levels_path):
 			if not os.path.isdir(self.levels_path):
-				raise "Levels save location is not a directory"
+				raise Exception("Levels save location is not a directory")
 		else:
 			os.mkdir(self.levels_path)
 		

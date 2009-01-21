@@ -197,6 +197,45 @@ class TransportManager(gobject.GObject):
 	
 	#_____________________________________________________________________
 	
+	def GetPreviousPosition(self):
+		"""
+		Returns the previous playhead cursor position.
+		ie. The value of GetPosition() before the last position update.
+		"""
+		return self.PrevPosition
+	
+	#_____________________________________________________________________
+	
+	def GetPixelPosition(self, offset=None):
+		return self._ConvertPositionToPixels(self.position, offset)
+	
+	#_____________________________________________________________________
+	
+	def GetPreviousPixelPosition(self, offset=None):
+		return self._ConvertPositionToPixels(self.PrevPosition, offset)
+	
+	#_____________________________________________________________________
+	
+	def _ConvertPositionToPixels(self, position, offset=None):
+		"""
+		Parameters:
+			position - The play position in seconds.
+			offset - The start time in seconds to measure from.
+			
+		Return:
+			the playhead position, measured in pixels from the beginning
+			of the visible area (where the view is scrolled to).
+		"""
+		if offset is None:
+			offset = self.project.viewStart
+		
+		rel_pos = position - offset
+		abs_pos = rel_pos * self.project.viewScale
+		
+		return int(round(abs_pos))
+	
+	#_____________________________________________________________________
+	
 	def SetPosition(self, pos, stopAction=False):
 		"""
 		Change the current position variable.

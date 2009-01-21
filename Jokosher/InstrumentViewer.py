@@ -76,11 +76,9 @@ class InstrumentViewer(gtk.EventBox):
 		self.headerBox = gtk.VBox()
 		self.headerEventBox = gtk.EventBox()
 		self.headerEventBox.add(self.headerBox)
-		self.headerAlign = gtk.Alignment(0, 0, 1.0, 1.0)
-		self.headerAlign.add(self.headerEventBox)
 		self.eventLane = EventLaneViewer(project, instrument, self, mainview, self.small)
 		
-		self.mainBox.pack_start(self.headerAlign, False, False)
+		self.mainBox.pack_start(self.headerEventBox, False, False)
 		self.mainBox.pack_end(self.eventLane, True, True)
 
 		# create track header bits
@@ -155,6 +153,14 @@ class InstrumentViewer(gtk.EventBox):
 		if self.small:
 			self.controlsBox.hide()
 
+	#_____________________________________________________________________
+	
+	def GetHeaderWidget(self):
+		"""
+			Returns the widget which is required to be aligned with the instrument headers.
+		"""
+		return self.headerBox
+	
 	#_____________________________________________________________________
 
 	def OnSelect(self, widget, event):
@@ -323,23 +329,6 @@ class InstrumentViewer(gtk.EventBox):
 			self.window.set_cursor(None)
 			
 	#______________________________________________________________________
-
-	def ResizeHeader(self, width):
-		"""
-		Changes the padding space of the header box in order to line
-		up correctly with the timeline display.
-		
-		Considerations:
-			This method should be called from TimeLineBar.
-			
-		Parameters:
-			width -- new size of the header box.
-		"""
-		padding = width - self.headerBox.size_request()[0]
-		self.headerAlign.set_padding(0, 0, 0, padding)
-
-	#______________________________________________________________________
-
 
 	def OnDragMotion(self, widget, context, x, y, time):
 		"""

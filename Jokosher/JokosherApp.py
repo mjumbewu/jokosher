@@ -846,7 +846,7 @@ class MainApp:
 			Globals.debug("Making automatic backup")
 			self.project.SaveProjectFile(self.backupProject, True)
 
-		gobject.timeout_add(int(Globals.settings.general["backupsavetime"]), self.BackupSave)
+		gobject.timeout_add_seconds(int(Globals.settings.general["backupsavetime"]) / 1000, self.BackupSave)
 
 	#_____________________________________________________________________
 
@@ -2052,7 +2052,7 @@ class MainApp:
 			#Open the file quickly so other instances can see it (still potential for 
 			#a race condition, but chances are greatly reduced)
 			open(self.backupProject, "w")
-			gobject.timeout_add(int(Globals.settings.general["backupsavetime"]), self.BackupSave)
+			gobject.timeout_add_seconds(int(Globals.settings.general["backupsavetime"]) / 1000, self.BackupSave)
 
 	
 #=========================================================================

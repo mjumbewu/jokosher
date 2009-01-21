@@ -232,7 +232,7 @@ class ProjectTemplateDialog:
 		Called when the template model needs updating.
 		"""
 		self.newprojectdlg.templatemodel.clear()
-		for item in self.template.LoadDictionaryOfInstrumentsFromTemplateFile().keys():
+		for item in self.template.LoadDictionaryOfInstrumentsFromTemplateFile().iterkeys():
 			self.newprojectdlg.templatemodel.append((item,))
 			self.newprojectdlg.templatecombo.show_all()
 			self.newprojectdlg.templatecombo.set_active(0)
