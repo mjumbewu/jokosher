@@ -19,7 +19,7 @@ class MessageArea(gtk.HBox):
 		self.main_hbox.show()
 		self.main_hbox.set_border_width(8) # FIXME: use style properties
 	
-		self.action_area = gtk.VBox(True, 10) # FIXME: use style properties */
+		self.action_area = gtk.VBox(True, 3) # FIXME: use style properties */
 		self.action_area.show()
 		
 		self.main_hbox.pack_end(self.action_area, False, True)
@@ -145,7 +145,7 @@ class MessageArea(gtk.HBox):
 		image = gtk.image_new_from_stock(icon_stock_id, gtk.ICON_SIZE_DIALOG)
 		image.show()
 		hbox_content.pack_start(image, False, False)
-		image.set_alignment(0.5, 0)
+		image.set_alignment(0.5, 0.5)
 		
 		vbox = gtk.VBox(False, 6)
 		vbox.show()
