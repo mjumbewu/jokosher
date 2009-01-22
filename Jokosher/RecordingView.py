@@ -301,50 +301,50 @@ class RecordingView(gtk.Frame):
 		#outrostring = _("Please report this error to the Jokosher developers at:\nhttps://bugs.launchpad.net/jokosher\nYou can also get help from:\nhttp://www.jokosher.org/forums/")
 		
 		self.gstreamerErrorMessages.append((error, details))
+		# invalidate the second error pane since the number it displays has changed
+		if self.moreErrorsMessageArea:
+			self.vbox.remove(self.moreErrorsMessageArea)
+			self.moreErrorsMessageArea = None
 		self.ReloadErrorMessages()
 		
 	#_____________________________________________________________________
+	
+	def CreateDefaultErrorPane(self, error, details):
+		msg_area = MessageArea.MessageArea()
+		msg_area.add_button(gtk.STOCK_CLOSE, gtk.RESPONSE_CLOSE)
+		msg_area.set_text_and_icon(gtk.STOCK_DIALOG_ERROR, error, details)
+		
+		msg_area.connect("response", self.OnMessageAreaReponse, msg_area)
+		msg_area.connect("close", self.OnMessageAreaClose, msg_area)
+		
+		return msg_area
+	
+	#_____________________________________________________________________
 		
 	def ReloadErrorMessages(self):
-		if not self.errorMessageArea and len(self.gstreamerErrorMessages) > 0:
-			error, details = self.gstreamerErrorMessages[0]
-			
-			msg_area = MessageArea.MessageArea()
-			msg_area.add_button(gtk.STOCK_CLOSE, gtk.RESPONSE_CLOSE)
-			msg_area.set_text_and_icon(gtk.STOCK_DIALOG_ERROR, error, details)
-			
-			msg_area.connect("response", self.OnMessageAreaReponse, msg_area)
-			msg_area.connect("close", self.OnMessageAreaClose, msg_area)
-			
-			self.vbox.pack_end(msg_area, False, False)
-			msg_area.show()
-			
-			self.errorMessageArea = msg_area
-			
-		if len(self.gstreamerErrorMessages) == 2:
-			error, details = self.gstreamerErrorMessages[1]
-			
-			msg_area = MessageArea.MessageArea()
-			msg_area.add_button(gtk.STOCK_CLOSE, gtk.RESPONSE_CLOSE)
-			msg_area.set_text_and_icon(gtk.STOCK_DIALOG_ERROR, error, details)
-			
-			msg_area.connect("response", self.OnMessageAreaReponse, msg_area)
-			msg_area.connect("close", self.OnMessageAreaClose, msg_area)
-			
+		num_errors = len(self.gstreamerErrorMessages)
+		
+		if self.errorMessageArea:
 			self.vbox.remove(self.errorMessageArea)
-			self.vbox.pack_end(msg_area, False, False)
-			self.vbox.pack_end(self.errorMessageArea, False, False)
+		if self.moreErrorsMessageArea:
+			self.vbox.remove(self.moreErrorsMessageArea)
+		
+		if num_errors == 0:
+			return
+		
+		
+		if not self.errorMessageArea:
+			error, details = self.gstreamerErrorMessages[0]
+			self.errorMessageArea = self.CreateDefaultErrorPane(error, details)
+		
+		
+		if num_errors == 2 and not self.moreErrorsMessageArea:
+			error, details = self.gstreamerErrorMessages[1]
+			self.moreErrorsMessageArea = self.CreateDefaultErrorPane(error, details)
 			
-			msg_area.show()
-			self.errorMessageArea.show()
-			
-			self.moreErrorsMessageArea = msg_area
-			
-		elif len(self.gstreamerErrorMessages) > 2:
+		elif num_errors > 2 and not self.moreErrorsMessageArea:
 			multi_error = _("There are %(number)d more errors not shown.")
-			multi_error %= {"number" : len(self.gstreamerErrorMessages) - 1 }
-			
-			details = "\n".join([x[0] for x in self.gstreamerErrorMessages])
+			multi_error %= {"number" : num_errors - 1 }
 			
 			msg_area = MessageArea.MessageArea()
 			msg_area.add_stock_button_with_text(_("_Close All"), gtk.STOCK_CLOSE, gtk.RESPONSE_CLOSE)
@@ -354,16 +354,15 @@ class RecordingView(gtk.Frame):
 			msg_area.connect("response", self.OnMessageAreaReponse, msg_area)
 			msg_area.connect("close", self.OnMessageAreaClose, msg_area)
 			
-			self.vbox.remove(self.errorMessageArea)
-			if self.moreErrorsMessageArea:
-				self.vbox.remove(self.moreErrorsMessageArea)
-			# repack in right order
-			self.vbox.pack_end(msg_area, False, False)
-			self.vbox.pack_end(self.errorMessageArea, False, False)
-			msg_area.show()
-			self.errorMessageArea.show()
-			
 			self.moreErrorsMessageArea = msg_area
+		
+		# now repack them in the correct order
+		if self.moreErrorsMessageArea:
+			self.vbox.pack_end(self.moreErrorsMessageArea, False, False)
+			self.moreErrorsMessageArea.show()
+			
+		self.vbox.pack_end(self.errorMessageArea, False, False)
+		self.errorMessageArea.show()
 		
 	#_____________________________________________________________________
 	
