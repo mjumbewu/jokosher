@@ -28,12 +28,18 @@ class MessageArea(gtk.HBox):
 		self.set_app_paintable(True)
 	
 		self.connect("expose-event", self.paint_message_area)
+		self.connect("size-allocate", self.on_size_allocate)
 	
 		# Note that we connect to style-set on one of the internal
 		# widgets, not on the message area itself, since gtk does
 		# not deliver any further style-set signals for a widget on
 		# which the style has been forced with gtk_widget_set_style() 
 		self.main_hbox.connect("style-set", self.style_set)
+		
+	def on_size_allocate(self, widget, rectangle):
+		# force a _complete_ redraw here or else in certain cases after resizing
+		# some border lines are left painted on top of the main content area.
+		self.queue_draw()
 	
 	def style_set (self, widget, prev_style):
 		if self.changing_style:
