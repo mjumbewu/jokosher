@@ -63,6 +63,10 @@ class RecordingView(gtk.Frame):
 		self.small = small
 		self.timelinebar = TimeLineBar.TimeLineBar(self.project, self, mainview)
 		
+		self.gstreamerErrorMessages = []
+		self.errorMessageArea = None
+		self.moreErrorsMessageArea = None
+		
 		## create darker workspace box
 		self.eventBox = gtk.EventBox()
 		self.eventBox.connect("button-press-event", self.OnEmptySpaceDoubleClicked)
@@ -296,26 +300,107 @@ class RecordingView(gtk.Frame):
 			error = _("A Gstreamer error has occurred")
 		#outrostring = _("Please report this error to the Jokosher developers at:\nhttps://bugs.launchpad.net/jokosher\nYou can also get help from:\nhttp://www.jokosher.org/forums/")
 		
-		msg_area = MessageArea.MessageArea()
-		msg_area.add_button(gtk.STOCK_CLOSE, gtk.RESPONSE_CLOSE)
-		msg_area.set_text_and_icon(gtk.STOCK_DIALOG_ERROR, error, details)
+		self.gstreamerErrorMessages.append((error, details))
+		self.ReloadErrorMessages()
 		
-		msg_area.connect("response", self.OnMessageAreaReponse, msg_area)
-		msg_area.connect("close", self.OnMessageAreaClose, msg_area)
+	#_____________________________________________________________________
 		
-		self.vbox.pack_end(msg_area, False, False)
-		msg_area.show()
+	def ReloadErrorMessages(self):
+		if not self.errorMessageArea and len(self.gstreamerErrorMessages) > 0:
+			error, details = self.gstreamerErrorMessages[0]
+			
+			msg_area = MessageArea.MessageArea()
+			msg_area.add_button(gtk.STOCK_CLOSE, gtk.RESPONSE_CLOSE)
+			msg_area.set_text_and_icon(gtk.STOCK_DIALOG_ERROR, error, details)
+			
+			msg_area.connect("response", self.OnMessageAreaReponse, msg_area)
+			msg_area.connect("close", self.OnMessageAreaClose, msg_area)
+			
+			self.vbox.pack_end(msg_area, False, False)
+			msg_area.show()
+			
+			self.errorMessageArea = msg_area
+			
+		if len(self.gstreamerErrorMessages) == 2:
+			error, details = self.gstreamerErrorMessages[1]
+			
+			msg_area = MessageArea.MessageArea()
+			msg_area.add_button(gtk.STOCK_CLOSE, gtk.RESPONSE_CLOSE)
+			msg_area.set_text_and_icon(gtk.STOCK_DIALOG_ERROR, error, details)
+			
+			msg_area.connect("response", self.OnMessageAreaReponse, msg_area)
+			msg_area.connect("close", self.OnMessageAreaClose, msg_area)
+			
+			self.vbox.remove(self.errorMessageArea)
+			self.vbox.pack_end(msg_area, False, False)
+			self.vbox.pack_end(self.errorMessageArea, False, False)
+			
+			msg_area.show()
+			self.errorMessageArea.show()
+			
+			self.moreErrorsMessageArea = msg_area
+			
+		elif len(self.gstreamerErrorMessages) > 2:
+			multi_error = _("There are %(number)d more errors not shown.")
+			multi_error %= {"number" : len(self.gstreamerErrorMessages) - 1 }
+			
+			details = "\n".join([x[0] for x in self.gstreamerErrorMessages])
+			
+			msg_area = MessageArea.MessageArea()
+			msg_area.add_stock_button_with_text(_("_Close All"), gtk.STOCK_CLOSE, gtk.RESPONSE_CLOSE)
+			msg_area.add_button(_("_Show All"), gtk.RESPONSE_YES)
+			msg_area.set_text_and_icon(gtk.STOCK_DIALOG_ERROR, multi_error, "")
+			
+			msg_area.connect("response", self.OnMessageAreaReponse, msg_area)
+			msg_area.connect("close", self.OnMessageAreaClose, msg_area)
+			
+			self.vbox.remove(self.errorMessageArea)
+			if self.moreErrorsMessageArea:
+				self.vbox.remove(self.moreErrorsMessageArea)
+			# repack in right order
+			self.vbox.pack_end(msg_area, False, False)
+			self.vbox.pack_end(self.errorMessageArea, False, False)
+			msg_area.show()
+			self.errorMessageArea.show()
+			
+			self.moreErrorsMessageArea = msg_area
 		
 	#_____________________________________________________________________
 	
 	def OnMessageAreaClose(self, widget, message_area):
-		self.vbox.remove(message_area)
-		
+		if message_area is self.errorMessageArea:
+			self.gstreamerErrorMessages.pop(0)
+		elif message_area is self.moreErrorsMessageArea:
+			self.gstreamerErrorMessages = []
+			
+		if self.errorMessageArea:
+			self.vbox.remove(self.errorMessageArea)
+			self.errorMessageArea = None
+		if self.moreErrorsMessageArea:
+			self.vbox.remove(self.moreErrorsMessageArea)
+			self.moreErrorsMessageArea = None
+			
+		self.ReloadErrorMessages()
+				
 	#_____________________________________________________________________
 	
 	def OnMessageAreaReponse(self, widget, response_id, message_area):
 		if response_id == gtk.RESPONSE_CLOSE:
-			self.vbox.remove(message_area)
+			self.OnMessageAreaClose(widget, message_area)
+		if response_id == gtk.RESPONSE_YES:
+			# this is the response for Show All button
+			self.res = gtk.glade.XML(Globals.GLADE_PATH, "ErrorPaneDialog")
+			dialog = self.res.get_widget("ErrorPaneDialog")
+			main_vbox = self.res.get_widget("MainVBox")
+			for error, details in self.gstreamerErrorMessages:
+				msg_area = MessageArea.MessageArea()
+				#msg_area.add_button(gtk.STOCK_CLOSE, gtk.RESPONSE_CLOSE)
+				msg_area.set_text_and_icon(gtk.STOCK_DIALOG_ERROR, error, details)
+				main_vbox.pack_start(msg_area, False, False)
+				
+			dialog.connect("response", lambda dlg, resp: dlg.destroy())
+			dialog.show_all()
+			
 	
 	#_____________________________________________________________________
 	
