@@ -50,14 +50,24 @@ class TimeLineBar(gtk.HBox):
 		self.fontColor = "#0b410b"
 		
 		# add click / bpm / signature box
-		self.clickbutton = gtk.ToggleButton()
+		self.clickbutton = gtk.VolumeButton()
+		self.clickbutton.set_value(0)
+		self.clickbutton.set_relief(gtk.RELIEF_NORMAL)
+		self.clickbutton.set_property("size", gtk.ICON_SIZE_BUTTON)
+		
+		self.clickbutton_metronome_image = gtk.Image()
+		self.clickbutton_metronome_image.set_from_file(os.path.join(Globals.IMAGE_PATH, "icon_click.png"))
+		# use get_child() not get_image here because GtkScaleButton
+		# uses gtk_container_add() in its internal implementation
+		self.clickbutton_volume_image = self.clickbutton.get_child()
+		self.clickbutton.set_image(self.clickbutton_metronome_image)
+		
+		image_size_group = gtk.SizeGroup(gtk.SIZE_GROUP_BOTH)
+		image_size_group.add_widget(self.clickbutton_metronome_image)
+		image_size_group.add_widget(self.clickbutton_volume_image)
+		
 		self.clicktip = gtk.Tooltips()
-		clickimg = gtk.Image()
-		clickimg.set_from_file(os.path.join(Globals.IMAGE_PATH, "icon_click.png"))
-		self.clickbutton.set_image(clickimg)
-
-		self.clicktip.set_tip(self.clickbutton, _("Turn click track on"), None)
-		self.clickbutton.connect("toggled", self.OnClick)
+		self.clicktip.set_tip(self.clickbutton, _("Adjust volume of click track"), None)
 					
 		self.bpmeventbox = gtk.EventBox()
 		self.bpmeventbox.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.bgColor))
@@ -97,6 +107,10 @@ class TimeLineBar(gtk.HBox):
 		self.sigeditPacked = False
 
 		# set events
+		self.clickbutton.connect("value-changed", self.OnClickTrackVolume)
+		self.clickbutton.connect("enter_notify_event", self.OnClickButtonEnter)
+		self.clickbutton.connect("leave_notify_event", self.OnClickButtonEnter)
+		
 		self.bpmeventbox.set_events(gtk.gdk.BUTTON_PRESS_MASK)
 		self.bpmeventbox.connect("button_press_event", self.OnEditBPM)
 		self.bpmeventbox.connect("enter_notify_event", self.OnMouseMoveBPM)
@@ -172,24 +186,18 @@ class TimeLineBar(gtk.HBox):
 		
 	#_____________________________________________________________________
 	
-	def OnProjectClickTrackChange(self, project):
+	def OnProjectClickTrackChange(self, project, value):
 		"""
 		Callback for when the click track of the project it turned on
 		or shut off. This method will update the button and tooltip state.
 		
 		Parameters:
 			project -- The project that send the signal.
+			value -- The new value of the click track volume.
 		"""
 		self.Updating = True
-		self.clickbutton.set_active(self.project.clickEnabled)
+		self.clickbutton.set_value(value)
 		self.Updating = False
-		
-		if self.project.clickEnabled:
-			tooltip = _("Turn click track off")
-		else:
-			tooltip = _("Turn click track on")
-		
-		self.clicktip.set_tip(self.clickbutton, tooltip, None)
 		
 	#_____________________________________________________________________
 	
@@ -345,14 +353,22 @@ class TimeLineBar(gtk.HBox):
 			
 	#_____________________________________________________________________
 
-	def OnClick(self, widget):
+	def OnClickTrackVolume(self, widget, value):
 		"""
 		Called when the click button is clicked. This method will call the project
-		to turn on or shut off the click track.
+		to set the volume of the click track.
 		""" 
 		if not self.Updating:
-			self.project.SetClickEnabled(widget.get_active())
+			self.project.SetClickTrackVolume(value)
 			
+	#_____________________________________________________________________
+	
+	def OnClickButtonEnter(self, widget, event):
+		if event.type == gtk.gdk.ENTER_NOTIFY:
+			self.clickbutton.set_image(self.clickbutton_volume_image)
+		elif event.type == gtk.gdk.LEAVE_NOTIFY:
+			self.clickbutton.set_image(self.clickbutton_metronome_image)
+		
 	#_____________________________________________________________________
 	
 #=========================================================================

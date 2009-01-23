@@ -96,7 +96,7 @@ class ExtensionManager:
 		# if we are installing locally first check the file doesn't exist and
 		# then try and copy it 
 		if local:
-			extensionFile = os.path.expanduser(os.path.join("~/.jokosher/extensions/", filename))
+			extensionFile = os.path.join(Globals.JOKOSHER_DATA_HOME, "extensions", filename)
 			if os.path.exists(extensionFile):
 				Globals.debug("Filename " + extensionFile + " already exists")
 				return False

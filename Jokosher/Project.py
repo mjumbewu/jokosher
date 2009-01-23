@@ -52,7 +52,7 @@ class Project(gobject.GObject):
 			"audio-state::export-start" -- The audio is being played to a file.
 			"audio-state::export-stop" -- The export to a file has completed.
 		"bpm" -- The beats per minute value was changed.
-		"click-track" -- The click track was turned on or off.
+		"click-track" -- The volume of the click track changed.
 		"gst-bus-error" -- An error message was posted to the pipeline. Two strings are also send with the error details.
 		"instrument" -- The instruments for this project have changed. The instrument instance will be passed as a parameter. See below:
 			"instrument::added" -- An instrument was added to this project.
@@ -68,7 +68,7 @@ class Project(gobject.GObject):
 	__gsignals__ = {
 		"audio-state"		: ( gobject.SIGNAL_RUN_LAST | gobject.SIGNAL_DETAILED, gobject.TYPE_NONE, () ),
 		"bpm"			: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () ),
-		"click-track"		: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () ),
+		"click-track"		: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, (gobject.TYPE_DOUBLE,) ),
 		"gst-bus-error"	: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, (gobject.TYPE_STRING, gobject.TYPE_STRING) ),
 		"instrument"		: ( gobject.SIGNAL_RUN_LAST | gobject.SIGNAL_DETAILED, gobject.TYPE_NONE, (gobject.TYPE_PYOBJECT,) ),
 		"time-signature"	: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () ),
@@ -107,7 +107,7 @@ class Project(gobject.GObject):
 		self.meter_nom = 4		# time signature numerator
 		self.meter_denom = 4		# time signature denominator
 		self.clickbpm = 120			#the number of beats per minute that the click track will play
-		self.clickEnabled = False	#True is the click track is currently enabled
+		self.clickVolumeValue = 0	#The value of the click track volume between 0.0 and 1.0
 		#Keys are instruments which are recording; values are 3-tuples of the event being recorded, the recording bin and bus handler id
 		self.recordingEvents = {}	#Dict containing recording information for each recording instrument
 		self.volume = 1.0			#The volume setting for the entire project
@@ -1329,17 +1329,19 @@ class Project(gobject.GObject):
 
 	#_____________________________________________________________________
 
-	def SetClickEnabled(self, active):
+	def SetClickTrackVolume(self, value):
 		"""
 		Unmutes and enables the click track.
 		
 		Parameters:
-			active -- If True, the click track will be activated, otherwise it will be disabled.
+			value -- The volume of the click track between 0.0 and 1.0
 		"""
-		if self.clickEnabled != active:
-			self.clickTrackVolume.set_property("mute", not active)
-			self.clickEnabled = active
-			self.emit("click-track")
+		if self.clickVolumeValue != value:
+			self.clickTrackVolume.set_property("mute", (value < 0.01))
+			# convert the 0.0 to 1.0 range to 0.0 to 2.0 range (to let the user make it twice as loud)
+			self.clickTrackVolume.set_property("volume", value * 2)
+			self.clickVolumeValue = value
+			self.emit("click-track", value)
 
 	#_____________________________________________________________________
 
