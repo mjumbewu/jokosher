@@ -310,9 +310,13 @@ class RecordingView(gtk.Frame):
 	#_____________________________________________________________________
 	
 	def CreateDefaultErrorPane(self, error, details):
+		message = _("A GStreamer error has occurred.")
+		
+		details = "\n".join((error, details))
+		
 		msg_area = MessageArea.MessageArea()
 		msg_area.add_button(gtk.STOCK_CLOSE, gtk.RESPONSE_CLOSE)
-		msg_area.set_text_and_icon(gtk.STOCK_DIALOG_ERROR, error, details)
+		msg_area.set_text_and_icon(gtk.STOCK_DIALOG_ERROR, message, details)
 		
 		msg_area.connect("response", self.OnMessageAreaReponse, msg_area)
 		msg_area.connect("close", self.OnMessageAreaClose, msg_area)
@@ -346,10 +350,12 @@ class RecordingView(gtk.Frame):
 			multi_error = _("There are %(number)d more errors not shown.")
 			multi_error %= {"number" : num_errors - 1 }
 			
+			info = _("If this problem persists consider reporting a bug using the link in the help menu.")
+			
 			msg_area = MessageArea.MessageArea()
 			msg_area.add_stock_button_with_text(_("_Close All"), gtk.STOCK_CLOSE, gtk.RESPONSE_CLOSE)
 			msg_area.add_button(_("_Show All"), gtk.RESPONSE_YES)
-			msg_area.set_text_and_icon(gtk.STOCK_DIALOG_ERROR, multi_error, "")
+			msg_area.set_text_and_icon(gtk.STOCK_DIALOG_ERROR, multi_error, info)
 			
 			msg_area.connect("response", self.OnMessageAreaReponse, msg_area)
 			msg_area.connect("close", self.OnMessageAreaClose, msg_area)
