@@ -40,7 +40,7 @@ class Settings:
 				"fileformat": "flacenc",
 				"file_extension": "flac",
 				"samplerate": "0", # zero means, autodetect sample rate (ie use any available)
-				"audiosrc" : "alsasrc",
+				"audiosrc" : "gconfaudiosrc",
 				"device" : "default"
 				}
 	
@@ -374,15 +374,18 @@ Global paths, so all methods can access them.
 If JOKOSHER_DATA_PATH is not set, that is, Jokosher is running locally,
 use paths relative to the current running directory instead of /usr ones.
 """
+
+JOKOSHER_DATA_HOME = os.path.expanduser("~/.jokosher/")
+
 data_path = os.getenv("JOKOSHER_DATA_PATH")
 if data_path:
-	INSTR_PATHS = (os.path.join(data_path, "Instruments"), os.path.expanduser("~/.jokosher/instruments"))
-	EXTENSION_PATHS = (os.path.join(data_path, "extensions"), os.path.expanduser("~/.jokosher/extensions/"))
+	INSTR_PATHS = (os.path.join(data_path, "Instruments"), os.path.join(JOKOSHER_DATA_HOME, "instruments"))
+	EXTENSION_PATHS = (os.path.join(data_path, "extensions"), os.path.join(JOKOSHER_DATA_HOME, "extensions"))
 	GLADE_PATH = os.path.join(data_path, "Jokosher.glade")
 else:
 	data_path = os.path.dirname(os.path.abspath(__file__))
-	INSTR_PATHS = (os.path.join(data_path, "..", "Instruments"), os.path.expanduser("~/.jokosher/instruments"))
-	EXTENSION_PATHS = (os.path.join(data_path, "..", "extensions"), os.path.expanduser("~/.jokosher/extensions/"))
+	INSTR_PATHS = (os.path.join(data_path, "..", "Instruments"), os.path.join(JOKOSHER_DATA_HOME, "instruments"))
+	EXTENSION_PATHS = (os.path.join(data_path, "..", "extensions"), os.path.join(JOKOSHER_DATA_HOME, "extensions"))
 	GLADE_PATH = os.path.join(data_path, "Jokosher.glade")
 	LOCALE_PATH = os.path.join(data_path, "..", "locale")
 
