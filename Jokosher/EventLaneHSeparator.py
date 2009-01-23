@@ -6,20 +6,26 @@ import cairo
 #=========================================================================
 
 class EventLaneHSeparator(gtk.HSeparator):
-	def __init__(self, transport):
+	def __init__(self, project, transport):
 		gtk.HSeparator.__init__(self)
 		
 		self.x_pos = 0
+		self.prev_x_pos = 0
 		transport.connect("position", self.OnTransportPosition)
+		project.connect("view-start", self.OnProjectViewStart)
 	
-	def OnTransportPosition(self, transportManager, extraString):
+	def OnProjectViewStart(self, project):
+		self.OnTransportPosition(project.transport)
+	
+	def OnTransportPosition(self, transportManager, extraString=None):
 		self.x_pos = transportManager.GetPixelPosition()
-		prev_pos = transportManager.GetPreviousPixelPosition()
 		
 		a = self.get_allocation()
 		
-		self.queue_draw_area(a.x + prev_pos  , a.y, 1, a.height)
-		self.queue_draw_area(a.x + self.x_pos, a.y, 1, a.height)
+		self.queue_draw_area(a.x + self.prev_x_pos, a.y, 1, a.height)
+		self.queue_draw_area(a.x + self.x_pos     , a.y, 1, a.height)
+		
+		self.prev_x_pos = self.x_pos
 		
 	def do_expose_event(self, event):
 		retval = gtk.HSeparator.do_expose_event(self, event)
