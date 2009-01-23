@@ -61,7 +61,7 @@ class MixdownProfiles(gobject.GObject):
 	
 	def SaveProfile(self, name, actionlist=None):
 		"""
-		This method will write a mixdown profile to ~/.jokosher/mixdownprofiles/.
+		This method will write a mixdown profile to JOKOSHER_DATA_HOME/mixdownprofiles/.
 		actionlist is a list containing MixdownAction instances, e.g.
 		[ExportAsFileType object instance, RunAScript object instance].
 	

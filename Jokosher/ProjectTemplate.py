@@ -46,7 +46,7 @@ class ProjectTemplate(gobject.GObject):
 
 	def SaveTemplateFile(self, name, instrlist):
 		""" 
-		This method will write a template file to ~/.jokosher/templates/.
+		This method will write a template file to JOKOSHER_DATA_HOME/templates/.
 		instrlist is a list containing type strings corresponding to each instrument.
 		e.g. ["audiofile", "acousticguitar"].
 	
@@ -127,7 +127,7 @@ class ProjectTemplate(gobject.GObject):
 	
 	def __GetTemplateList(self):
 		"""
-		This method will return a list of template files in the template directory (~/.jokosher/templates/")
+		This method will return a list of template files in the template directory (JOKOSHER_DATA_HOME/templates/")
 		
 		Returns:
 			filenames -- a list containing the names of file in the template directory.

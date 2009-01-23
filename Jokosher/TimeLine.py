@@ -145,10 +145,10 @@ class TimeLine(gtk.DrawingArea):
 		context.paint()
 		
 		# Draw play cursor position (add 1 so it lines up correctly)
-		x = int(round((self.project.transport.position - self.project.viewStart) * self.project.viewScale))+1
-		context.move_to(x, 0)
+		x = self.project.transport.GetPixelPosition()
 		context.set_line_width(1)
-		context.line_to(x, self.allocation.height)
+		context.move_to(x+0.5, 0)
+		context.line_to(x+0.5, self.allocation.height)
 		context.set_antialias(cairo.ANTIALIAS_NONE)
 		context.set_source_rgb(*self._PLAY_CURSOR_RGB)
 		context.stroke()
@@ -383,7 +383,7 @@ class TimeLine(gtk.DrawingArea):
 		# Don't autoscroll if "stop-action" is send in extra because that means the 
 		# user just hit stop and did not purposely change the position.
 		if "stop-action" != extraString:
-			if leftPos < self.project.transport.PrevPosition < rightPos:
+			if leftPos < self.project.transport.GetPreviousPosition() < rightPos:
 				if currentPos > rightPos:
 					# now the playhead has moved off to the right, so force the scroll in that direction
 					self.timelinebar.projectview.SetViewPosition(rightPos)
@@ -393,11 +393,11 @@ class TimeLine(gtk.DrawingArea):
 					leftPos = max(0, leftPos - self.timelinebar.projectview.scrollRange.page_size)
 					self.timelinebar.projectview.SetViewPosition(leftPos)
 	
-		x1 = round((self.project.transport.PrevPosition - self.project.viewStart) * self.project.viewScale)
-		x2 = round((self.project.transport.position - self.project.viewStart) * self.project.viewScale)
+		prev_pos = self.project.transport.GetPreviousPixelPosition()
+		new_pos = self.project.transport.GetPixelPosition()
 	
-		self.queue_draw_area(int(x1)-1, 0, 3, self.get_allocation().height)
-		self.queue_draw_area(int(x2)-1, 0, 3, self.get_allocation().height)
+		self.queue_draw_area(prev_pos - 1, 0, 3, self.get_allocation().height)
+		self.queue_draw_area(new_pos - 1, 0, 3, self.get_allocation().height)
 	
 	#_____________________________________________________________________
 	

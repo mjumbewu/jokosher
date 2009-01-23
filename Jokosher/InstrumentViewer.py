@@ -42,6 +42,14 @@ class InstrumentViewer(gtk.EventBox):
 					   gtk.TARGET_SAME_APP,		# Only move inside Jo
 					   INSTR_DRAG_TYPE )]		# Use the custom number
 	
+	"""
+	   The events we wish to receive after we grab the mouse (and it is no longer above this widget)
+	   If events other than mouse event are put in here, it may cause the program to crash.
+	"""
+	_POINTER_GRAB_EVENTS = (
+			gtk.gdk.BUTTON_RELEASE_MASK |
+			gtk.gdk.BUTTON_PRESS_MASK)
+	
 	#_____________________________________________________________________
 	
 	def __init__(self, project, instrument, projectview, mainview, small = False):
@@ -76,11 +84,9 @@ class InstrumentViewer(gtk.EventBox):
 		self.headerBox = gtk.VBox()
 		self.headerEventBox = gtk.EventBox()
 		self.headerEventBox.add(self.headerBox)
-		self.headerAlign = gtk.Alignment(0, 0, 1.0, 1.0)
-		self.headerAlign.add(self.headerEventBox)
 		self.eventLane = EventLaneViewer(project, instrument, self, mainview, self.small)
 		
-		self.mainBox.pack_start(self.headerAlign, False, False)
+		self.mainBox.pack_start(self.headerEventBox, False, False)
 		self.mainBox.pack_end(self.eventLane, True, True)
 
 		# create track header bits
@@ -95,7 +101,10 @@ class InstrumentViewer(gtk.EventBox):
 		self.editlabel.set_text(self.instrument.name)
 		self.editlabel.connect("activate", self.OnAcceptEditLabel)
 		self.editlabel.connect("key_press_event", self.OnEditLabelKey)
-		self.editlabel_pointer_grab_time = 0
+		self.editlabel.connect_after("button-press-event", self.OnEditLabelClick)
+		self.editlabel.connect_after("button-release-event", self.OnEditLabelClick)
+		self.editlabel_pointer_grab_time = 0L
+		self.editlabel_is_mouse_down = False
 		self.editlabelPacked = False
 
 		# add the label to the event box
@@ -156,6 +165,14 @@ class InstrumentViewer(gtk.EventBox):
 			self.controlsBox.hide()
 
 	#_____________________________________________________________________
+	
+	def GetHeaderWidget(self):
+		"""
+			Returns the widget which is required to be aligned with the instrument headers.
+		"""
+		return self.headerBox
+	
+	#_____________________________________________________________________
 
 	def OnSelect(self, widget, event):
 		"""
@@ -205,20 +222,42 @@ class InstrumentViewer(gtk.EventBox):
 		if event.type == gtk.gdk.BUTTON_PRESS:
 			#save width of label because when its hidden, width == 0
 			width = self.labeleventbox.size_request()[0]
-			self.labeleventbox.hide_all()
 			
 			self.editlabel.set_text(self.instrument.name)
 			#set the entry to the same width as the label so that the header doesnt resize
 			self.editlabel.set_size_request(width, -1)
 			self.editlabel.show()
 			
+			self.labelbox.remove(self.labeleventbox)
 			self.labelbox.pack_end(self.editlabel)
 			
+			self.editlabel.grab_add()
+			self.editlabel.grab_focus()
+			
 			self.editlabelPacked = True
+			self.editlabel_pointer_grab_time = event.time
+			self.editlabel_is_mouse_down = False
 			self.mainview.instrNameEntry = self.editlabel
 			
 			return True
 	
+	#_____________________________________________________________________
+	
+	def OnEditLabelClick(self, widget, event):
+		"""
+		Handles the button presses while doing a grab on the editing label.
+		We need to keep track of both BUTTON_PRESS and BUTTON_RELEASE because:
+			1) if the mouse click is on the gtk.Entry, release will be forwarded, press will not.
+			2) if the mouse is outside the gtk.Entry, both press and release will be forwarded.
+		Therefore if we get both press and release together, we accept the changed and remove the edit dialog.
+		"""
+		if event.type == gtk.gdk.BUTTON_PRESS:
+			self.editlabel_is_mouse_down = True
+			return True
+		elif event.type == gtk.gdk.BUTTON_RELEASE and self.editlabel_is_mouse_down:
+			self.OnAcceptEditLabel()
+			return True
+
 	#_____________________________________________________________________
 
 	def OnEditLabelKey(self, widget, event):
@@ -235,6 +274,7 @@ class InstrumentViewer(gtk.EventBox):
 		if key == "Escape":
 			self.editlabel.set_text("")
 			self.OnAcceptEditLabel()
+			return True
 
 	#_____________________________________________________________________
 
@@ -246,6 +286,7 @@ class InstrumentViewer(gtk.EventBox):
 		Parameters:
 			widget -- GTK callback.
 		"""
+		self.editlabel.grab_remove()
 		# change instrument name then replace edit label with normal label
 		if self.editlabelPacked:
 			name = self.editlabel.get_text()
@@ -254,7 +295,7 @@ class InstrumentViewer(gtk.EventBox):
 			self.labelbox.remove(self.editlabel)
 			self.editlabelPacked = False
 			self.mainview.instrNameEntry = None
-			self.labeleventbox.show_all()
+			self.labelbox.pack_end(self.labeleventbox)
 			
 			if name != "" and name != self.instrument.name:
 				#this must be done last because it triggers update
@@ -323,23 +364,6 @@ class InstrumentViewer(gtk.EventBox):
 			self.window.set_cursor(None)
 			
 	#______________________________________________________________________
-
-	def ResizeHeader(self, width):
-		"""
-		Changes the padding space of the header box in order to line
-		up correctly with the timeline display.
-		
-		Considerations:
-			This method should be called from TimeLineBar.
-			
-		Parameters:
-			width -- new size of the header box.
-		"""
-		padding = width - self.headerBox.size_request()[0]
-		self.headerAlign.set_padding(0, 0, 0, padding)
-
-	#______________________________________________________________________
-
 
 	def OnDragMotion(self, widget, context, x, y, time):
 		"""
