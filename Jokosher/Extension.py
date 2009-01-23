@@ -30,7 +30,7 @@ Work out whether this Extension is being imported by an file that's being
 run directly, or whether it's being imported by a Jokosher session.
 If this Extension is being run directly, which isn't right and probably means
 that the user has just clicked on an extension in the file manager, offer the
-user the possibility to install the extension in their JOKOSHER_DATA_DIR folder.
+user the possibility to install the extension in their home folder.
 """
 import inspect
 extension_that_imported_me = inspect.currentframe().f_back
@@ -650,7 +650,7 @@ class ExtensionAPI:
 	@exported_function
 	def create_new_instrument_type(self, defaultName, typeString, imagePath):
 		"""
-		Creates a new Instrument type in the user's JOKOSHER_DATA_DIR/instruments folder.
+		Creates a new Instrument type in the user's JOKOSHER_DATA_HOME/instruments folder.
 		It will then be automatically loaded on startup.
 		
 		Parameters:
@@ -662,7 +662,7 @@ class ExtensionAPI:
 			0 = the new Instrument type was successfully created.
 			1 = file already exists or defaultName is already used by a loaded Instrument.
 			2 = cannot load image file.
-			3 = cannot write to JOKOSHER_DATA_DIR/instruments or JOKOSHER_DATA_DIR/instruments/images.
+			3 = cannot write to JOKOSHER_DATA_HOME/instruments or JOKOSHER_DATA_HOME/instruments/images.
 		"""
 		typeList = [x[1] for x in Globals.getCachedInstruments()]
 		if typeString in typeList:
@@ -720,7 +720,7 @@ class ExtensionAPI:
 	@exported_function
 	def delete_instrument_type(self, typeString):
 		"""
-		Deletes an instrument type from the user's JOKOSHER_DATA_DIR/instruments 
+		Deletes an instrument type from the user's JOKOSHER_DATA_HOME/instruments 
 		directory (deleting default instruments isn't allowed)
 		
 		Parameters:
