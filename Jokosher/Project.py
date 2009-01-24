@@ -733,7 +733,10 @@ class Project(gobject.GObject):
 			# delete the incremental file since its all safe on disk now
 			path, ext = os.path.splitext(self.projectfile)
 			filename = path + ".incremental"
-			os.remove(filename)
+			try:
+				os.remove(filename)
+			except OSError:
+				pass
 		
 		doc = xml.Document()
 		head = doc.createElement("JokosherProject")
@@ -801,6 +804,15 @@ class Project(gobject.GObject):
 		"""
 		Closes down this Project.
 		"""
+		
+		# when closing the file, the user chooses to either save, or discard
+		# in either case, we don't need the incremental save file anymore
+		path, ext = os.path.splitext(self.projectfile)
+		filename = path + ".incremental"
+		try:
+			os.remove(filename)
+		except OSError:
+			pass
 		
 		for file in self.deleteOnCloseAudioFiles:
 			if os.path.exists(file):

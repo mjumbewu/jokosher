@@ -84,7 +84,7 @@ def UndoCommand(*command):
 				project = funcSelf.instrument.project
 				objectString = "E%d" % funcSelf.id
 				
-			inc = IncrementalSaveAction(funcSelf, func.__name__, args, kwargs)
+			inc = IncrementalSaveAction(objectString, func.__name__, args, kwargs)
 			string = inc.StoreToString()
 			project.SaveIncrementalString(string)
 			# testing: make sure loading produces an identical result
@@ -241,15 +241,8 @@ class AtomicUndoAction:
 #=========================================================================
 
 class IncrementalSaveAction:
-	def __init__(self, object_, func_name, args, kwargs):
-		if isinstance(object_, Project.Project):
-			self.objectString = "P"
-		elif isinstance(object_, Instrument.Instrument):
-			self.objectString = "I%d" % object_.id
-		elif isinstance(object_, Event.Event):
-			self.objectString = "E%d" % object_.id
-		
-		self.object = object_
+	def __init__(self, objectString, func_name, args, kwargs):
+		self.objectString = objectString
 		self.func_name = func_name
 		self.args = args
 		self.kwargs = kwargs
@@ -305,31 +298,15 @@ class IncrementalSaveAction:
 				
 	@staticmethod
 	def LoadFromString(string, project):
-		argsList = []
-		kwArgsDict = {}
-		
 		doc = xml.parseString(string)
 		actionNode = doc.firstChild
 		assert actionNode.nodeName == "Action"
 		
 		function_name = actionNode.getAttribute("function")
 		object_string = actionNode.getAttribute("object")
-		type_char = object_string[0]
-		object_ = None
 		
-		if type_char == 'P':
-			object_ = project
-		elif type_char == 'I':
-			instr_id = int(object_string[1:])
-			for instr in project.instruments:
-				if instr.id == instr_id:
-					object_ = instr
-		elif type_char == 'E':
-			event_id = int(object_string[1:])
-			object_ = IncrementalSaveAction.FindEvent(project, event_id)
-		else:
-			assert False
-		
+		argsList = []
+		kwArgsDict = {}
 		
 		for argNode in actionNode.childNodes:
 			value = IncrementalSaveAction.ReadFromXMLAttributes(argNode)
@@ -339,7 +316,7 @@ class IncrementalSaveAction:
 				key = str(argNode.getAttribute("key"))
 				kwArgsDict[key] = value
 
-		return IncrementalSaveAction(object_, function_name, argsList, kwArgsDict)
+		return IncrementalSaveAction(object_string, function_name, argsList, kwArgsDict)
 		
 
 #=========================================================================
