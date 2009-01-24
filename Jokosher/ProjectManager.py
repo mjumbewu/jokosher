@@ -440,6 +440,13 @@ class _LoadZPNFile(_LoadZPTFile):
 		
 		Utils.LoadParametersFromXML(self.project, params)
 		
+		noteNodes = self.xmlDoc.getElementsByTagName("Note")
+		notesList = []
+		for node in noteNodes:
+			string = node.getAttribute("text")
+			notesList.append(string)
+		self.project.notes = "\n".join(notesList)
+		
 		# Hack to set the transport mode
 		self.project.transport.SetMode(self.project.transportMode)
 		

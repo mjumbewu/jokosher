@@ -86,8 +86,9 @@ class Project(gobject.GObject):
 		"""
 		gobject.GObject.__init__(self)
 		
-		self.author = ""			#the author of this project
+		self.author = ""			#user specified author of this project
 		self.name = ""				#the name of this project
+		self.notes = ""				#user specified notes for the project
 		self.projectfile = ""		#the name of the project file, complete with path
 		self.audio_path = ""
 		self.levels_path = ""
@@ -743,6 +744,14 @@ class Project(gobject.GObject):
 		         "transportMode", "bpm", "meter_nom", "meter_denom", "projectfile"]
 		
 		Utils.StoreParametersToXML(self, doc, params, items)
+		
+		notesNode = doc.createElement("Notes")
+		head.appendChild(notesNode)
+		
+		for line in self.notes.split("\n"):
+			noteNode = doc.createElement("Note")
+			noteNode.setAttribute("text", line)
+			notesNode.appendChild(noteNode)
 			
 		undo = doc.createElement("Undo")
 		head.appendChild(undo)
