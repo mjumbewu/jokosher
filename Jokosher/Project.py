@@ -729,6 +729,11 @@ class Project(gobject.GObject):
 			#purge savedRedoStack so that it will not prompt to save on exit
 			self.__redoStack.extend(self.__savedRedoStack)
 			self.__savedRedoStack = []
+			
+			# delete the incremental file since its all safe on disk now
+			path, ext = os.path.splitext(self.projectfile)
+			filename = path + ".incremental"
+			os.remove(filename)
 		
 		doc = xml.Document()
 		head = doc.createElement("JokosherProject")
@@ -778,11 +783,25 @@ class Project(gobject.GObject):
 		self.emit("undo")
 	
 	#_____________________________________________________________________
+	
+	def SaveIncrementalString(self, string):
+			path, ext = os.path.splitext(self.projectfile)
+			filename = path + ".incremental"
+			incr_file = open(filename, "a")
+			
+			incr_file.write(string)
+			# write end of line and delimiter
+			incr_file.write("\n<<>>\n")
+			
+			incr_file.close()
+	
+	#_____________________________________________________________________
 
 	def CloseProject(self):
 		"""
 		Closes down this Project.
 		"""
+		
 		for file in self.deleteOnCloseAudioFiles:
 			if os.path.exists(file):
 				Globals.debug("Deleting copied audio file:", file)

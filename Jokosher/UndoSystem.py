@@ -68,9 +68,6 @@ def UndoCommand(*command):
 			else:
 				atomicUndoObject = None
 			
-			inc = IncrementalSaveAction(funcSelf, func.__name__, args, kwargs)
-			#print inc.StoreToString()
-			
 			try:
 				result = func(funcSelf, *args, **kwargs)
 			except CancelUndoCommand, e:
@@ -86,6 +83,12 @@ def UndoCommand(*command):
 			elif isinstance(funcSelf, Event.Event):
 				project = funcSelf.instrument.project
 				objectString = "E%d" % funcSelf.id
+				
+			inc = IncrementalSaveAction(funcSelf, func.__name__, args, kwargs)
+			string = inc.StoreToString()
+			project.SaveIncrementalString(string)
+			# testing: make sure loading produces an identical result
+			assert string == IncrementalSaveAction.LoadFromString(string, project).StoreToString()
 			
 			if not atomicUndoObject and project:
 				atomicUndoObject = project.NewAtomicUndoAction()
@@ -245,7 +248,8 @@ class IncrementalSaveAction:
 			self.objectString = "I%d" % object_.id
 		elif isinstance(object_, Event.Event):
 			self.objectString = "E%d" % object_.id
-			
+		
+		self.object = object_
 		self.func_name = func_name
 		self.args = args
 		self.kwargs = kwargs
@@ -261,23 +265,81 @@ class IncrementalSaveAction:
 		for arg in self.args:
 			node = doc.createElement("Argument")
 			action.appendChild(node)
-			if isinstance(arg, Event.Event):
-				node.setAttribute("type", "Event")
-				node.setAttribute("value", str(arg.id))
-			else:
-				Utils.StoreVariableToNode(arg, node, "type", "value")
+			self.WriteToXMLAttributes(None, arg, node)
 				
 		for key, value in self.kwargs:
 			node = doc.createElement("NamedArgument")
 			action.appendChild(node)
-			node.setAttribute("name", key)
-			
-			if isinstance(arg, Event.Event):
-				node.setAttribute("type", "Event")
-				node.setAttribute("value", str(arg.id))
-			else:
-				Utils.StoreVariableToNode(arg, node, "type", "value")
+			self.WriteToXMLAttributes(key, value, node)
 				
 		return doc.toxml()
+	
+	def WriteToXMLAttributes(self, key, value, node):
+		if key:
+			node.setAttribute("key", key)
+		
+		if isinstance(value, Event.Event):
+			node.setAttribute("type", "Event")
+			node.setAttribute("value", str(value.id))
+		else:
+			Utils.StoreVariableToNode(value, node, "type", "value")
+	
+	@staticmethod
+	def ReadFromXMLAttributes(node):
+		type = node.getAttribute("type")
+		if type == "Event":
+			event_id = int(node.getAttribute("value"))
+			value = IncrementalSaveAction.FindEvent(project, event_id)
+			assert value is not None
+		else:
+			value = Utils.LoadVariableFromNode(node, "type", "value")
+			
+		return value
+	
+	@staticmethod
+	def FindEvent(project, event_id):
+		for instr in project.instruments:
+			for event in instr.events:
+				if event.id == event_id:
+					return event
+				
+	@staticmethod
+	def LoadFromString(string, project):
+		argsList = []
+		kwArgsDict = {}
+		
+		doc = xml.parseString(string)
+		actionNode = doc.firstChild
+		assert actionNode.nodeName == "Action"
+		
+		function_name = actionNode.getAttribute("function")
+		object_string = actionNode.getAttribute("object")
+		type_char = object_string[0]
+		object_ = None
+		
+		if type_char == 'P':
+			object_ = project
+		elif type_char == 'I':
+			instr_id = int(object_string[1:])
+			for instr in project.instruments:
+				if instr.id == instr_id:
+					object_ = instr
+		elif type_char == 'E':
+			event_id = int(object_string[1:])
+			object_ = IncrementalSaveAction.FindEvent(project, event_id)
+		else:
+			assert False
+		
+		
+		for argNode in actionNode.childNodes:
+			value = IncrementalSaveAction.ReadFromXMLAttributes(argNode)
+			if argNode.nodeName == "Argument":
+				argsList.append(value)
+			elif argNode.nodeName == "NamedArgument":
+				key = str(argNode.getAttribute("key"))
+				kwArgsDict[key] = value
+
+		return IncrementalSaveAction(object_, function_name, argsList, kwArgsDict)
+		
 
 #=========================================================================
