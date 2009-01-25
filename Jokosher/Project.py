@@ -958,26 +958,37 @@ class Project(gobject.GObject):
 		newUndoAction = self.NewAtomicUndoAction()
 		for cmdList in reversed(undoAction.GetUndoCommands()):
 			obj = cmdList[0]
-			target_object = None
-			if obj[0] == "P":		# Check if the object is a Project
-				target_object = self
-			elif obj[0] == "I":		# Check if the object is an Instrument
-				id = int(obj[1:])
-				target_object = [x for x in self.instruments if x.id==id][0]
-			elif obj[0] == "E":		# Check if the object is an Event
-				id = int(obj[1:])
-				for instr in self.instruments:
-					# First of all see if it's alive on an instrument
-					n = [x for x in instr.events if x.id==id]
-					if not n:
-						# If not, check the graveyard on each instrument
-						n = [x for x in instr.graveyard if x.id==id]
-					if n:
-						target_object = n[0]
-						break
+			target_object = self.JokosherObjectFromString(obj)
 			
 			getattr(target_object, cmdList[1])(_undoAction_=newUndoAction, *cmdList[2])
 
+	#_____________________________________________________________________
+	
+	def ExecuteIncrementalSaveAction(self, saveAction):
+		target_object = self.JokosherObjectFromString(saveAction.objectString)
+		
+		getattr(target_object, saveAction.func_name)(*saveAction.args, **saveAction.kwargs)
+	
+	#_____________________________________________________________________
+	
+	def JokosherObjectFromString(self, string):
+		if string[0] == "P":		# Check if the object is a Project
+			return self
+		elif string[0] == "I":		# Check if the object is an Instrument
+			id = int(string[1:])
+			for instr in self.instruments:
+				if instr.id == id:
+					return instr
+		elif string[0] == "E":		# Check if the object is an Event
+			id = int(string[1:])
+			for instr in self.instruments:
+				for event in instr.events:
+					if event.id == id:
+						return event
+				for event in instr.graveyard:
+					if event.id == id:
+						return event
+				
 	#_____________________________________________________________________
 	
 	@UndoSystem.UndoCommand("SetBPM", "temp")
