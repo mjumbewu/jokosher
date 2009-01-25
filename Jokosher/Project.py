@@ -973,7 +973,23 @@ class Project(gobject.GObject):
 		"""
 		target_object = self.JokosherObjectFromString(saveAction.objectString)
 		
-		getattr(target_object, saveAction.func_name)(*saveAction.args, **saveAction.kwargs)
+		args = []
+		kwargs = {}
+		
+		for obj in saveAction.args:
+			if isinstance(obj, UndoSystem.MockEvent):
+				obj = self.JokosherObjectFromString(obj.event_string)
+			args.append(obj)
+			
+		for key, value in saveAction.kwargs.iteritems():
+			if isinstance(value, UndoSystem.MockEvent):
+				value = self.JokosherObjectFromString(value.event_string)
+			kwargs[key] = value
+		
+		# tell the incremental system not to log these actions; they are already in the incremental file
+		kwargs["_incrementalRestore_"] = True
+		
+		getattr(target_object, saveAction.func_name)(*args, **kwargs)
 	
 	#_____________________________________________________________________
 	

@@ -68,6 +68,11 @@ def UndoCommand(*command):
 			else:
 				atomicUndoObject = None
 			
+			do_incremental_save = True
+			if kwargs.has_key("_incrementalRestore_"):
+				do_incremental_save = False
+				del kwargs["_incrementalRestore_"]
+			
 			try:
 				result = func(funcSelf, *args, **kwargs)
 			except CancelUndoCommand, e:
@@ -83,12 +88,13 @@ def UndoCommand(*command):
 			elif isinstance(funcSelf, Event.Event):
 				project = funcSelf.instrument.project
 				objectString = "E%d" % funcSelf.id
-				
-			inc = IncrementalSaveAction(objectString, func.__name__, args, kwargs)
-			string = inc.StoreToString()
-			project.SaveIncrementalString(string)
-			# testing: make sure loading produces an identical result
-			assert string == IncrementalSaveAction.LoadFromString(string).StoreToString()
+			
+			if do_incremental_save:
+				inc = IncrementalSaveAction(objectString, func.__name__, args, kwargs)
+				string = inc.StoreToString()
+				project.SaveIncrementalString(string)
+				# testing: make sure loading produces an identical result
+				assert string == IncrementalSaveAction.LoadFromString(string).StoreToString()
 			
 			if not atomicUndoObject and project:
 				atomicUndoObject = project.NewAtomicUndoAction()

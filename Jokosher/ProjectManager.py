@@ -160,6 +160,21 @@ def LoadProjectFile(uri):
 			#if we're loading an old version copy the project so that it is not overwritten when the user clicks save
 			withoutExt = os.path.splitext(projectfile)[0]
 			shutil.copy(projectfile, "%s.%s.jokosher" % (withoutExt, version))
+			
+		path, ext = os.path.splitext(projectfile)
+		incr_filename = path + ".incremental"
+		if os.path.isfile(incr_filename):
+			incr_file = open(incr_filename, "r")
+			filetext = incr_file.read()
+			incr_file.close()
+			for incr_xml in filetext.split("\n<<>>\n"):
+				incr_xml = incr_xml.strip()
+				if not incr_xml:
+					continue
+				
+				incr_action = UndoSystem.IncrementalSaveAction.LoadFromString(incr_xml)
+				project.ExecuteIncrementalSaveAction(incr_action)
+		
 		project.projectfile = projectfile
 		return project
 	else:
