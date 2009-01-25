@@ -965,6 +965,12 @@ class Project(gobject.GObject):
 	#_____________________________________________________________________
 	
 	def ExecuteIncrementalSaveAction(self, saveAction):
+		"""
+		Executes an IncrementalSaveAction object.
+		
+		Parameters:
+			saveAction -- the IncrementalSaveAction instance which stores the function name and parameters.
+		"""
 		target_object = self.JokosherObjectFromString(saveAction.objectString)
 		
 		getattr(target_object, saveAction.func_name)(*saveAction.args, **saveAction.kwargs)
@@ -972,6 +978,13 @@ class Project(gobject.GObject):
 	#_____________________________________________________________________
 	
 	def JokosherObjectFromString(self, string):
+		"""
+		Converts a string used to serialize references to Project, Instrument
+		and Event instances into a reference to the actual object.
+		
+		Parameters:
+			string -- The string to convert such as "P" for project or "I2" for instrument with ID equal to 2.
+		"""
 		if string[0] == "P":		# Check if the object is a Project
 			return self
 		elif string[0] == "I":		# Check if the object is an Instrument
