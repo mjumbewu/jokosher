@@ -88,7 +88,7 @@ def UndoCommand(*command):
 			string = inc.StoreToString()
 			project.SaveIncrementalString(string)
 			# testing: make sure loading produces an identical result
-			assert string == IncrementalSaveAction.LoadFromString(string, project).StoreToString()
+			assert string == IncrementalSaveAction.LoadFromString(string).StoreToString()
 			
 			if not atomicUndoObject and project:
 				atomicUndoObject = project.NewAtomicUndoAction()
@@ -281,23 +281,16 @@ class IncrementalSaveAction:
 	def ReadFromXMLAttributes(node):
 		type = node.getAttribute("type")
 		if type == "Event":
-			event_id = int(node.getAttribute("value"))
-			value = IncrementalSaveAction.FindEvent(project, event_id)
+			event_id = node.getAttribute("value")
+			value = MockEvent("E" + event_id)
 			assert value is not None
 		else:
 			value = Utils.LoadVariableFromNode(node, "type", "value")
 			
 		return value
-	
-	@staticmethod
-	def FindEvent(project, event_id):
-		for instr in project.instruments:
-			for event in instr.events:
-				if event.id == event_id:
-					return event
 				
 	@staticmethod
-	def LoadFromString(string, project):
+	def LoadFromString(string):
 		doc = xml.parseString(string)
 		actionNode = doc.firstChild
 		assert actionNode.nodeName == "Action"
@@ -318,5 +311,12 @@ class IncrementalSaveAction:
 
 		return IncrementalSaveAction(object_string, function_name, argsList, kwArgsDict)
 		
+
+#=========================================================================
+
+class MockEvent:
+	def __init__(self, string):
+		self.event_string = string
+
 
 #=========================================================================
