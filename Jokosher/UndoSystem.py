@@ -277,7 +277,7 @@ class IncrementalSaveAction:
 		if key:
 			node.setAttribute("key", key)
 		
-		if isinstance(value, Event.Event):
+		if isinstance(value, Event.Event) or isinstance(value, MockEvent):
 			node.setAttribute("type", "Event")
 			node.setAttribute("value", str(value.id))
 		else:
@@ -322,6 +322,7 @@ class IncrementalSaveAction:
 
 class MockEvent:
 	def __init__(self, string):
+		self.id = int(string[1:])
 		self.event_string = string
 
 
