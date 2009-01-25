@@ -1081,7 +1081,7 @@ class Project(gobject.GObject):
 		for name, type in instrTuples:
 			instr = self.AddInstrument(name, type, _undoAction_=undoAction)
 			instrList.append(instr)
-		return isntrList
+		return instrList
 	
 	#_____________________________________________________________________
 	
@@ -1117,7 +1117,7 @@ class Project(gobject.GObject):
 		Returns:
 			The created Instrument object.
 		"""
-		pixbuf = Globals.getCachedInstruments(type)
+		pixbuf = Globals.getCachedInstrumentPixbuf(type)
 		instr = Instrument.Instrument(self, name, type, pixbuf)
 		if len(self.instruments) == 0:
 			#If this is the first instrument, arm it by default
