@@ -165,7 +165,7 @@ class InstrumentConnectionsDialog:
 		if device != instr.input or inTrack != instr.inTrack:
 			instr.input = device
 			instr.inTrack = inTrack
-			self.project.unsavedChanges = True
+			self.project.SetUnsavedChanges()
 			
 	#_____________________________________________________________________
 	

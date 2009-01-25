@@ -2087,7 +2087,7 @@ class MainApp:
 				self.project.author = author
 				self.project.name = name
 				self.project.notes = notes
-				self.project.unsavedChanges = True
+				self.project.SetUnsavedChanges()
 				
 		dialog.destroy()
 				

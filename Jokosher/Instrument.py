@@ -765,7 +765,7 @@ class Instrument(gobject.GObject):
 		if self.volume != volume:
 			self.volume = volume
 			self.UpdateVolume()
-			self.project.unsavedChanges = True
+			self.project.SetUnsavedChanges()
 			self.emit("volume")
 
 	#_____________________________________________________________________
