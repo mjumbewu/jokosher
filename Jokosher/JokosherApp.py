@@ -270,7 +270,7 @@ class MainApp:
 		self.restoredProject = False
 
 		# Check for crash and offer recovery
-		backupDir = os.path.join(os.path.expanduser("~"), ".jokosher", "backups")
+		backupDir = os.path.join(Globals.JOKOSHER_DATA_HOME, "backups")
 		if not os.path.exists(backupDir):
 			os.mkdir(backupDir)
 
@@ -487,25 +487,7 @@ class MainApp:
 			self.settingButtons = False
 		else:
 			Globals.debug("can record")
-			
-			try:
-				self.project.Record()
-			except ProjectManager.AudioInputsError, e:
-				if e.errno==0:
-					message=_("No channels capable of recording have been found, please attach a device and try again.")
-				elif e.errno==1:
-					message=_("Your sound card isn't capable of recording from multiple sources at the same time. Please disarm all but one instrument.")
-				elif e.errno==2:
-					message=_("You require the GStreamer channel splitting element to be able to record from multiple input devices. This can be downloaded from http://www.jokosher.org/download.")
-
-				dlg = gtk.MessageDialog(self.window,
-					gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
-					gtk.MESSAGE_INFO,
-					gtk.BUTTONS_CLOSE,
-					message)
-				dlg.connect('response', lambda dlg, response: dlg.destroy())
-				dlg.run()
-				self.project.TerminateRecording()
+			self.project.Record()
 
 	#_____________________________________________________________________
 	
@@ -1986,7 +1968,7 @@ class MainApp:
 		the file menu and add links to them.
 		"""
 		self.mixdown_as_header = None
-		savefolder = os.path.expanduser('~/.jokosher/mixdownprofiles') # created by Globals
+		savefolder = os.path.join(Globals.JOKOSHER_DATA_HOME, 'mixdownprofiles') # created by Globals
 		profiles = os.listdir(savefolder)
 		if not profiles: return
 		
@@ -2033,7 +2015,7 @@ class MainApp:
 	def SetupBackup(self, num=0):
 		"""
 		Sets up the backup system for crash protection. Stores all backups in 
-		~/.jokosher/backups in the format timestamp-num.jokosher. Backups will
+		JOKOSHER_DATA_HOME/backups in the format timestamp-num.jokosher. Backups will
 		occur at an interval specified in the "backupsavetime" config option.
 
 		Parameters:
@@ -2041,7 +2023,7 @@ class MainApp:
 			copies of Jokosher being launched at the same time.
 		"""
 
-		backupDir = os.path.join(os.path.expanduser("~"), ".jokosher", "backups")
+		backupDir = os.path.join(Globals.JOKOSHER_DATA_HOME, "backups")
 		backupFile = "%d-%d.jokosher" % (int(time.time()), num)
 		self.backupProject = os.path.join(backupDir, backupFile)
 		if os.path.exists(self.backupProject):

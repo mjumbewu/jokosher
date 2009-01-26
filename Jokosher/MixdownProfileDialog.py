@@ -226,7 +226,7 @@ class MixdownProfileDialog:
 		"""
 		Called when the profile combo model (self.profileComboModel) needs updating.
 		Updates the combo box model with the files that reside in the mixdownprofiles directory
-		(~/.jokosher/mixdownprofiles/).
+		(JOKOSHER_DATA_HOME/mixdownprofiles/).
 		
 		Parameters:
 			signalName -- the signal details which are passed to this method.
@@ -314,7 +314,7 @@ class MixdownProfileDialog:
 	def PopulateProfileComboBoxModel(self):
 		"""
 		Populates the profile combo model (self.profileComboModel) with profiles
-		in ~/.jokosher/mixdownprofiles/
+		in JOKOSHER_DATA_HOME/mixdownprofiles/
 		"""
 		for profile in self.manager.GetMixdownProfileList():
 			self.profileComboModel.append((profile,))
