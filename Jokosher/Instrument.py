@@ -681,6 +681,7 @@ class Instrument(gobject.GObject):
 		
 		self.temp = ev.id
 		self.emit("event::added", ev)
+		return ev
 	
 	#_____________________________________________________________________
 	
