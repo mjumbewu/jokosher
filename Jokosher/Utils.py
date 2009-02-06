@@ -17,7 +17,7 @@ import Globals
 
 import gst
 if gst.pygst_version >= (0, 10, 10):
-    import gst.pbutils
+	import gst.pbutils
 
 # the highest range in decibels there can be between any two levels
 DECIBEL_RANGE = 80
@@ -362,7 +362,7 @@ def StoreVariableToNode(value, node, typeAttr="type", valueAttr="value"):
 		value -- the value of the variable.
 		node -- node to save the variable value to.
 		typeAttr -- type of the variable to be saved.
-		valueAttr -- value of the variable to be loaded. TODO
+		valueAttr -- value of the variable to be loaded.
 	"""
 	if type(value) == int:
 		node.setAttribute(typeAttr, "int")
