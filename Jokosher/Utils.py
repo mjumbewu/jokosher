@@ -414,13 +414,13 @@ def StringUnRepr(s):
 	           .replace("\\n", "\n") \
 	           .replace("\\r", "\r") \
 	           .replace("\\" + quote, quote)
-
+	
 	strings = s.split("\\x")
 	replace = strings[0]
 	for string in strings[1:]:
-		hex_str = s[:2]
+		hex_str = string[:2]
 		char = chr(int(hex_str, 16))
-		replace += char + s[2:]
+		replace += char + string[2:]
 
 	return replace
 
