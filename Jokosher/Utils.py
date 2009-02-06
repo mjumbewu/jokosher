@@ -397,3 +397,31 @@ def HandleGstPbutilsMissingMessage(message, callback, x_window_id=0):
 
 #_____________________________________________________________________
 
+def StringUnRepr(s):
+	if sys.version > (2, 6, 0):
+		import ast
+		try:
+			return ast.literal_eval(s)
+		except ValueError, e:
+			return ""
+	
+	if len(s) < 2:
+		return ""
+
+	quote = s[0]
+	s = s[1:-1].replace("\\\\", "\\") \
+	           .replace("\\t", "\t") \
+	           .replace("\\n", "\n") \
+	           .replace("\\r", "\r") \
+	           .replace("\\" + quote, quote)
+
+	strings = s.split("\\x")
+	replace = strings[0]
+	for string in strings[1:]:
+		hex_str = s[:2]
+		char = chr(int(hex_str, 16))
+		replace += char + s[2:]
+
+	return replace
+
+#_____________________________________________________________________

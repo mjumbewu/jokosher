@@ -748,10 +748,8 @@ class Project(gobject.GObject):
 		notesNode = doc.createElement("Notes")
 		head.appendChild(notesNode)
 		
-		for line in self.notes.split("\n"):
-			noteNode = doc.createElement("Note")
-			noteNode.setAttribute("text", line)
-			notesNode.appendChild(noteNode)
+		# use repr() because XML will not preserve whitespace charaters such as \n and \t.
+		notesNode.setAttribute("text", repr(self.notes))
 			
 		undo = doc.createElement("Undo")
 		head.appendChild(undo)
