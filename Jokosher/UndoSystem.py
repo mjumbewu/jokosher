@@ -364,6 +364,18 @@ class IncrementalSaveAction:
 
 #=========================================================================
 
+def LoadFromString(string):
+	doc = xml.parseString(string)
+	node = doc.firstChild
+	if node == "Action":
+		return IncrementalSaveAction.LoadFromString(string)
+	elif node == "NewEvent":
+		return IncrementalNewEvent.LoadFromString(string)
+	
+	return None
+	
+#=========================================================================
+
 class MockEvent:
 	def __init__(self, string):
 		self.id = int(string[1:])
