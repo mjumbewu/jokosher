@@ -251,7 +251,8 @@ class AtomicUndoAction:
 #=========================================================================
 
 class IncrementalNewEvent:
-	def __init__(self, filename, event_start, event_id):
+	def __init__(self, instr_id, filename, event_start, event_id):
+		self.instr_id = instr_id
 		self.filename = filename
 		self.event_start = event_start
 		self.event_id = event_id
@@ -261,6 +262,7 @@ class IncrementalNewEvent:
 		node = doc.createElement("NewEvent")
 		doc.appendChild(node)
 		
+		node.setAttribute("instrument_id", str(self.instr_id))
 		node.setAttribute("file", self.filename)
 		node.setAttribute("start", str(self.event_start))
 		node.setAttribute("event_id", str(self.event_id))
@@ -273,11 +275,12 @@ class IncrementalNewEvent:
 		node = doc.firstChild
 		assert node.nodeName == "NewEvent"
 		
+		instr_id = int(node.getAttribute("instrument_id"))
 		filename = node.getAttribute("file")
 		event_start = float(node.getAttribute("start"))
 		event_id = int(node.getAttribute("event_id"))
 		
-		return IncrementalNewEvent(filename, event_start, event_id)
+		return IncrementalNewEvent(instr_id, filename, event_start, event_id)
 
 #=========================================================================
 
