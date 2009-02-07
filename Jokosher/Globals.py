@@ -359,6 +359,8 @@ def CopyAllFiles(src_dir, dest_dir, only_these_files=None):
 			except IOError:
 				print "Unable to copy from old ~/.jokosher directory:", src_path
 
+#_____________________________________________________________________
+
 """
 Used for launching the correct help file:
 	True -- Jokosher's running locally by the user. Use the help file from
