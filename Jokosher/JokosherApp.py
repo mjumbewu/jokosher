@@ -273,8 +273,6 @@ class MainApp:
 
 		# Check for crash and offer recovery
 		backupDir = os.path.join(Globals.JOKOSHER_DATA_HOME, "backups")
-		if not os.path.exists(backupDir):
-			os.mkdir(backupDir)
 
 		for backupFile in os.listdir(backupDir):
 			backup = os.path.join(backupDir, backupFile)

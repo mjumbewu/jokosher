@@ -17,6 +17,7 @@ import pygtk
 pygtk.require("2.0")
 import gobject, gtk
 import xdg.BaseDirectory
+import shutil
 
 import gettext
 _ = gettext.gettext
@@ -28,6 +29,8 @@ class Settings:
 
 	# the different settings in each config block
 	general = 	{
+				# increment each time there is an incompatible change with the config file
+				"version" : "1",
 				"recentprojects": "value", 
 				"startupaction" : "value",
 				"projectfolder" : "",
@@ -342,6 +345,20 @@ def CheckBackendList(backend_list):
 
 #_____________________________________________________________________
 
+def CopyAllFiles(src_dir, dest_dir, only_these_files=None):
+	""" Copies all the files, but only the files from one directory to another."""
+	for file in os.listdir(src_dir):
+		if only_these_files and file not in only_these_files:
+			continue
+		
+		src_path = os.path.join(src_dir, file)
+		dest_path = os.path.join(dest_dir, file)
+		if os.path.isfile(src_path):
+			try:
+				shutil.copy2(src_path, dest_path)
+			except IOError:
+				print "Unable to copy from old ~/.jokosher directory:", src_path
+
 """
 Used for launching the correct help file:
 	True -- Jokosher's running locally by the user. Use the help file from
@@ -375,20 +392,43 @@ else:
 
 # create a couple dirs to avoid having problems creating a non-existing
 # directory inside another non-existing directory
-create_dirs = ['extensions', 'instruments', ('instruments', 'images'),
-               'presets', ('presets', 'effects'), ('presets', 'mixdown'), 
-               'mixdownprofiles', 'templates']
+create_dirs = [
+	'extensions',
+	'instruments',
+	('instruments', 'images'),
+	'presets',
+	('presets', 'effects'),
+	('presets', 'mixdown'),
+	'mixdownprofiles',
+	'templates',
+	'backups'
+]
+
+# do a listing before we create the dirs so we know if it was empty (ie first run)
+jokosher_dir_empty = (len(os.listdir(JOKOSHER_DATA_HOME)) == 0)
+_HOME_DOT_JOKOSHER = os.path.expanduser("~/.jokosher")
+
+if jokosher_dir_empty:
+	# Copying old config file from ~/.jokosher.
+	CopyAllFiles(_HOME_DOT_JOKOSHER, JOKOSHER_CONFIG_HOME, ["config"])
+
 for dirs in create_dirs:
 	if isinstance(dirs, str):
 		new_dir = os.path.join(JOKOSHER_DATA_HOME, dirs)
+		old_dir = os.path.join(_HOME_DOT_JOKOSHER, dirs)
 	else:
 		new_dir = os.path.join(JOKOSHER_DATA_HOME, *dirs)
+		old_dir = os.path.join(_HOME_DOT_JOKOSHER, *dirs)
 		
 	if not os.path.isdir(new_dir):
 		try:
 			os.makedirs(new_dir)
 		except:
 			raise "Failed to create user config directory %s" % new_dir
+	
+	if jokosher_dir_empty and os.path.isdir(old_dir) and os.path.isdir(new_dir):
+		CopyAllFiles(old_dir, new_dir)
+			
 
 #TODO: make this a list with the system path and home directory path
 EFFECT_PRESETS_PATH = os.path.join(JOKOSHER_DATA_HOME, "presets", "effects")
