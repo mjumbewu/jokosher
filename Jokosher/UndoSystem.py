@@ -246,6 +246,35 @@ class AtomicUndoAction:
 	
 #=========================================================================
 
+class IncrementalNewEvent:
+	def __init__(self, filename, event_start, event_id):
+		self.filename = filename
+		self.event_start = event_start
+		self.event_id = event_id
+		
+	def StoreToString(self):
+		doc = xml.Document()
+		node = doc.createElement("NewEvent")
+		node.setAttribute("file", self.filename)
+		node.setAttribute("start", str(self.event_start))
+		node.setAttribute("event_id", str(self.event_id))
+				
+		return doc.toxml()
+	
+	@staticmethod
+	def LoadFromString(string):
+		doc = xml.parseString(string)
+		node = doc.firstChild
+		assert node.nodeName == "NewEvent"
+		
+		filename = node.getAttribute("file")
+		event_start = float(node.getAttribute("start"))
+		event_id = int(node.getAttribute("event_id"))
+		
+		return IncrementalNewEvent(filename, event_start, event_id)
+
+#=========================================================================
+
 class IncrementalSaveAction:
 	def __init__(self, objectString, func_name, args, kwargs, retval_event=None):
 		self.objectString = objectString
