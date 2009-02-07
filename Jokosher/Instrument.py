@@ -563,7 +563,7 @@ class Instrument(gobject.GObject):
 	
 	#_____________________________________________________________________
 
-	@UndoSystem.UndoCommand("DeleteEvent", "temp")
+	@UndoSystem.UndoCommand("DeleteEvent", "temp", incremental_save=False)
 	def addEventFromFile(self, start, file, copyfile=False):
 		"""
 		Adds an Event from a file to this Instrument.
@@ -596,8 +596,13 @@ class Instrument(gobject.GObject):
 				raise UndoSystem.CancelUndoCommand()
 				
 			self.project.deleteOnCloseAudioFiles.append(audio_file)
+			inc = UndoSystem.IncrementalNewEvent(newfile, start, event_id)
+			self.project.SaveIncrementalAction(inc)
 			
 			file = audio_file
+		else:
+			inc = UndoSystem.IncrementalNewEvent(file, start, event_id)
+			self.project.SaveIncrementalAction(inc)
 
 		ev = Event.Event(self, file, event_id, filelabel)
 		ev.start = start
@@ -657,7 +662,7 @@ class Instrument(gobject.GObject):
 	
 	#_____________________________________________________________________
 	
-	@UndoSystem.UndoCommand("DeleteEvent", "temp")
+	@UndoSystem.UndoCommand("DeleteEvent", "temp", incremental_save=False)
 	def addEventFromEvent(self, start, event):
 		"""
 		Creates a new Event instance identical to the given Event object
@@ -678,6 +683,9 @@ class Instrument(gobject.GObject):
 		self.events.append(ev)
 		ev.SetProperties()
 		ev.MoveButDoNotOverlap(ev.start)
+		
+		inc = UndoSystem.IncrementalNewEvent(event.file, start, ev.id)
+		self.project.SaveIncrementalAction(inc)
 		
 		self.temp = ev.id
 		self.emit("event::added", ev)

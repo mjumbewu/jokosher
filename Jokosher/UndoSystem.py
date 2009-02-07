@@ -9,13 +9,14 @@
 #
 #=========================================================================
 
-def UndoCommand(*command):
+def UndoCommand(*command, **command_options):
 	"""
 	Decorates functions, enabling them to be logged in the undo stack.
 	The decorating process is transparent to the clients.
 	
 	Parameters:
 		command -- the undo command list of strings.
+		command_options -- key-value parameters to change options.
 		
 	Returns:
 		an UndoFunction which decorates the original function.
@@ -69,9 +70,13 @@ def UndoCommand(*command):
 				atomicUndoObject = None
 			
 			do_incremental_save = True
+			if command_options.has_key("incremental_save"):
+				do_incremental_save = command_options["incremental_save"]
+			
 			if kwargs.has_key("_incrementalRestore_"):
 				do_incremental_save = False
 				del kwargs["_incrementalRestore_"]
+				
 			
 			try:
 				result = func(funcSelf, *args, **kwargs)
@@ -91,10 +96,9 @@ def UndoCommand(*command):
 			
 			if do_incremental_save:
 				inc = IncrementalSaveAction(objectString, func.__name__, args, kwargs, result)
-				string = inc.StoreToString()
-				project.SaveIncrementalString(string)
+				project.SaveIncrementalAction(inc)
 				# testing: make sure loading produces an identical result
-				assert string == IncrementalSaveAction.LoadFromString(string).StoreToString()
+				assert inc.StoreToString() == IncrementalSaveAction.LoadFromString(inc.StoreToString()).StoreToString()
 			
 			if not atomicUndoObject and project:
 				atomicUndoObject = project.NewAtomicUndoAction()
@@ -255,6 +259,8 @@ class IncrementalNewEvent:
 	def StoreToString(self):
 		doc = xml.Document()
 		node = doc.createElement("NewEvent")
+		doc.appendChild(node)
+		
 		node.setAttribute("file", self.filename)
 		node.setAttribute("start", str(self.event_start))
 		node.setAttribute("event_id", str(self.event_id))
@@ -345,6 +351,8 @@ class IncrementalSaveAction:
 		retval_string = actionNode.getAttribute("retval")
 		if retval_string.startswith("E"):
 			retval = MockEvent(retval_string)
+		else:
+			retval = None
 			
 		
 		argsList = []

@@ -787,12 +787,12 @@ class Project(gobject.GObject):
 	
 	#_____________________________________________________________________
 	
-	def SaveIncrementalString(self, string):
+	def SaveIncrementalAction(self, action):
 			path, ext = os.path.splitext(self.projectfile)
 			filename = path + ".incremental"
 			incr_file = open(filename, "a")
 			
-			incr_file.write(string)
+			incr_file.write(action.StoreToString())
 			# write end of line and delimiter
 			incr_file.write("\n<<>>\n")
 			
