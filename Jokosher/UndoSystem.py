@@ -90,7 +90,7 @@ def UndoCommand(*command):
 				objectString = "E%d" % funcSelf.id
 			
 			if do_incremental_save:
-				inc = IncrementalSaveAction(objectString, func.__name__, args, kwargs)
+				inc = IncrementalSaveAction(objectString, func.__name__, args, kwargs, result)
 				string = inc.StoreToString()
 				project.SaveIncrementalString(string)
 				# testing: make sure loading produces an identical result
@@ -247,12 +247,20 @@ class AtomicUndoAction:
 #=========================================================================
 
 class IncrementalSaveAction:
-	def __init__(self, objectString, func_name, args, kwargs):
+	def __init__(self, objectString, func_name, args, kwargs, retval_event=None):
 		self.objectString = objectString
 		self.func_name = func_name
 		self.args = args
 		self.kwargs = kwargs
-			
+		
+		# retval is either None or a MockEvent. We don't care about
+		# the return value of functions which don't create Events.
+		self.retval = None
+		if isinstance(retval_event, Event.Event):
+			self.retval = MockEvent("E" + str(retval_event.id))
+		elif isinstance(retval_event, MockEvent):
+			self.retval = retval_event
+
 	def StoreToString(self):
 		doc = xml.Document()
 		action = doc.createElement("Action")
@@ -260,6 +268,8 @@ class IncrementalSaveAction:
 		
 		action.setAttribute("object", self.objectString)
 		action.setAttribute("function", self.func_name)
+		if self.retval:
+			action.setAttribute("retval", self.retval.event_string)
 		
 		for arg in self.args:
 			node = doc.createElement("Argument")
@@ -303,6 +313,10 @@ class IncrementalSaveAction:
 		
 		function_name = actionNode.getAttribute("function")
 		object_string = actionNode.getAttribute("object")
+		retval_string = actionNode.getAttribute("retval")
+		if retval_string.startswith("E"):
+			retval = MockEvent(retval_string)
+			
 		
 		argsList = []
 		kwArgsDict = {}
@@ -315,7 +329,8 @@ class IncrementalSaveAction:
 				key = str(argNode.getAttribute("key"))
 				kwArgsDict[key] = value
 
-		return IncrementalSaveAction(object_string, function_name, argsList, kwArgsDict)
+		return IncrementalSaveAction(object_string, function_name, 
+		                             argsList, kwArgsDict, retval_event=retval)
 		
 
 #=========================================================================
