@@ -1,6 +1,7 @@
 
 import Event
 import Utils
+import os.path
 import xml.dom.minidom as xml
 
 #=========================================================================
@@ -13,8 +14,13 @@ class NewEvent:
 		
 	def Execute(self, project):
 		instr = project.JokosherObjectFromString("I" + self.instr_id)
-		# TODO: if filename is not absolute path, prepend project-folder/audio/ to it
-		instr.addEventFromFile(self.event_start, self.filename, copyfile=False)
+		
+		filename = self.filename
+		if not os.path.isabs(filename):
+			# If there is a relative path for filename, this means it is in the project's audio dir
+			filename = os.path.join(project.audio_path, filename)
+			
+		instr.addEventFromFile(self.event_start, filename, copyfile=False)
 		
 	def StoreToString(self):
 		doc = xml.Document()
