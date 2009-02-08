@@ -58,8 +58,6 @@ def ListDeviceProbe(element, probe_name):
 	element_name = element.get_factory().get_property("name")
 	dev_info_list = []
 	
-	element.set_state(gst.STATE_READY)
-	
 	if hasattr(element.props, "device"):
 		default_device = element.__class__.props.device.default_value
 		if gobject.type_is_a(element, gst.interfaces.PropertyProbe):
@@ -72,7 +70,12 @@ def ListDeviceProbe(element, probe_name):
 			if probe_name and hasattr(element.props, "device-name"):
 				for dev in devices:
 					element.set_property("device", dev)
+					
+					element.set_state(gst.STATE_READY)
+					# certain elements like pulsesrc won't load the device-name until STATE_READY
 					name = element.get_property("device-name")
+					element.set_state(gst.STATE_NULL)
+					
 					dev_info_list.append((dev,name))
 			else:
 				for dev in devices:
@@ -82,8 +85,6 @@ def ListDeviceProbe(element, probe_name):
 	else:
 		Globals.debug("Cannot list devices: property probe not supported on", element_name)
 		
-	element.set_state(gst.STATE_NULL)
-	
 	return dev_info_list
 
 #_____________________________________________________________________
