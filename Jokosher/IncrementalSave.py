@@ -6,11 +6,10 @@ import xml.dom.minidom as xml
 #=========================================================================
 
 class NewEvent:
-	def __init__(self, instr_id, filename, event_start, event_id):
+	def __init__(self, instr_id, filename, event_start):
 		self.instr_id = instr_id
 		self.filename = filename
 		self.event_start = event_start
-		self.event_id = event_id
 		
 	def Execute(self, project):
 		instr = project.JokosherObjectFromString("I" + self.instr_id)
@@ -25,7 +24,6 @@ class NewEvent:
 		node.setAttribute("instrument_id", str(self.instr_id))
 		node.setAttribute("file", self.filename)
 		node.setAttribute("start", str(self.event_start))
-		node.setAttribute("event_id", str(self.event_id))
 				
 		return doc.toxml()
 	
@@ -38,26 +36,17 @@ class NewEvent:
 		instr_id = int(node.getAttribute("instrument_id"))
 		filename = node.getAttribute("file")
 		event_start = float(node.getAttribute("start"))
-		event_id = int(node.getAttribute("event_id"))
 		
-		return NewEvent(instr_id, filename, event_start, event_id)
+		return NewEvent(instr_id, filename, event_start)
 
 #=========================================================================
 
 class Action:
-	def __init__(self, objectString, func_name, args, kwargs, retval_event=None):
+	def __init__(self, objectString, func_name, args, kwargs):
 		self.objectString = objectString
 		self.func_name = func_name
 		self.args = args
 		self.kwargs = kwargs
-		
-		# retval is either None or a MockEvent. We don't care about
-		# the return value of functions which don't create Events.
-		self.retval = None
-		if isinstance(retval_event, Event.Event):
-			self.retval = MockEvent("E" + str(retval_event.id))
-		elif isinstance(retval_event, MockEvent):
-			self.retval = retval_event
 			
 	def Execute(self, project):
 		target_object = project.JokosherObjectFromString(self.objectString)
@@ -87,8 +76,6 @@ class Action:
 		
 		action.setAttribute("object", self.objectString)
 		action.setAttribute("function", self.func_name)
-		if self.retval:
-			action.setAttribute("retval", self.retval.event_string)
 		
 		for arg in self.args:
 			node = doc.createElement("Argument")
@@ -132,12 +119,6 @@ class Action:
 		
 		function_name = actionNode.getAttribute("function")
 		object_string = actionNode.getAttribute("object")
-		retval_string = actionNode.getAttribute("retval")
-		if retval_string.startswith("E"):
-			retval = MockEvent(retval_string)
-		else:
-			retval = None
-			
 		
 		argsList = []
 		kwArgsDict = {}
@@ -150,8 +131,7 @@ class Action:
 				key = str(argNode.getAttribute("key"))
 				kwArgsDict[key] = value
 
-		return Action(object_string, function_name, 
-		              argsList, kwArgsDict, retval_event=retval)
+		return Action(object_string, function_name, argsList, kwArgsDict)
 		
 
 #=========================================================================

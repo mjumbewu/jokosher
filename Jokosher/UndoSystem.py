@@ -95,7 +95,7 @@ def UndoCommand(*command, **command_options):
 				objectString = "E%d" % funcSelf.id
 			
 			if do_incremental_save:
-				inc = IncrementalSave.Action(objectString, func.__name__, args, kwargs, result)
+				inc = IncrementalSave.Action(objectString, func.__name__, args, kwargs)
 				project.SaveIncrementalAction(inc)
 				# testing: make sure loading produces an identical result
 				assert inc.StoreToString() == IncrementalSave.Action.LoadFromString(inc.StoreToString()).StoreToString()
