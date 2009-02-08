@@ -583,7 +583,7 @@ class Instrument(gobject.GObject):
 		root,  extension = os.path.splitext(name.replace(" ", "_"))
 		
 		if extension:
-			newfile = "%s_%d.%s" % (root, event_id, extension)
+			newfile = "%s_%d%s" % (root, event_id, extension)
 		else:
 			newfile = "%s_%d" % (root, event_id)
 
