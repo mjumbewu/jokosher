@@ -13,7 +13,7 @@ class NewEvent:
 		self.event_start = event_start
 		
 	def Execute(self, project):
-		instr = project.JokosherObjectFromString("I" + self.instr_id)
+		instr = project.JokosherObjectFromString("I" + str(self.instr_id))
 		
 		filename = self.filename
 		if not os.path.isabs(filename):
@@ -56,7 +56,7 @@ class StartDownload:
 		self.id = id
 		
 	def Execute(self, project):
-		instr = project.JokosherObjectFromString("I" + self.instr_id)
+		instr = project.JokosherObjectFromString("I" + str(self.instr_id))
 		instr.addEventFromURL(self.event_start, self.url)
 		
 	def GetNewEventAction(self):
@@ -215,7 +215,7 @@ class Action:
 
 def LoadFromString(string):
 	doc = xml.parseString(string)
-	node = doc.firstChild
+	node = doc.firstChild.nodeName
 	if node == "Action":
 		return Action.LoadFromString(string)
 	elif node == "NewEvent":
@@ -225,7 +225,7 @@ def LoadFromString(string):
 	elif node == "CompleteDownload":
 		return CompleteDownload.LoadFromString(string)
 	
-	return None
+	raise AssertionError("Unknown IncrementalSave node " + node)
 	
 #=========================================================================
 
