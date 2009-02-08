@@ -59,6 +59,9 @@ class StartDownload:
 		instr = project.JokosherObjectFromString("I" + self.instr_id)
 		instr.addEventFromURL(self.event_start, self.url)
 		
+	def GetNewEventAction(self):
+		return NewEvent(self.instr_id, self.save_file, self.event_start)
+		
 	def StoreToString(self):
 		doc = xml.Document()
 		node = doc.createElement("StartDownload")
@@ -227,8 +230,17 @@ def LoadFromString(string):
 #=========================================================================
 
 def FilterAndExecuteAll(save_action_list, project):
-	pass
-
+	complete_download_ids = [x.id for x in save_action_list if isinstance(x, CompleteDownload)]
+	
+	for action in save_action_list:
+		if isinstance(action, StartDownload) \
+				and action.id in complete_download_ids:
+			# download has completed. Instead of re-downloading just restore
+			# as a standard new event action
+			action = action.GetNewEventAction()
+			
+		action.Execute(project)
+			
 #=========================================================================
 
 class MockEvent:

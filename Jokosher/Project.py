@@ -824,6 +824,11 @@ class Project(gobject.GObject):
 		Loads all the actions from the .incremental file and executes them
 		to restore the project's state.
 		"""
+		
+		if self.hasDoneIncrementalSave:
+			Globals.debug("Cannot do incremental restore after incremental save.")
+			return False
+		
 		path, ext = os.path.splitext(projectfile)
 		filename = path + self.INCREMENTAL_SAVE_EXT
 		
@@ -835,14 +840,13 @@ class Project(gobject.GObject):
 			incr_file.close()
 			for incr_xml in filetext.split(self.INCREMENTAL_SAVE_DELIMITER):
 				incr_xml = incr_xml.strip()
-				if not incr_xml:
-					continue
-				
-				incr_action = IncrementalSave.LoadFromString(incr_xml)
-				save_action_list.append(incr_action)
+				if incr_xml:
+					incr_action = IncrementalSave.LoadFromString(incr_xml)
+					save_action_list.append(incr_action)
 		
 		IncrementalSave.FilterAndExecuteAll(save_action_list, self)
-			
+		return True
+		
 	#_____________________________________________________________________
 
 	def CloseProject(self):
