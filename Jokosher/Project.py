@@ -1359,13 +1359,15 @@ class Project(gobject.GObject):
 			if id in self.___id_list:
 				Globals.debug("Error: id", id, "already taken")
 			else:
-				self.___id_list.append(id)
+				if reserve:
+					self.___id_list.append(id)
 				return id
 				
 		counter = 0
 		while True:
 			if not counter in self.___id_list:
-				self.___id_list.append(counter)
+				if reserve:
+					self.___id_list.append(counter)
 				return counter
 			counter += 1
 	

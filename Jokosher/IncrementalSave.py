@@ -51,7 +51,7 @@ class StartDownload:
 	def __init__(self, instr_id, url, save_file, event_start, id):
 		self.instr_id = instr_id
 		self.url = url
-		self.save_file
+		self.save_file = save_file
 		self.event_start = event_start
 		self.id = id
 		
