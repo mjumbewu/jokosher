@@ -20,7 +20,7 @@ import gzip
 import re
 
 import TransportManager
-import UndoSystem
+import UndoSystem, IncrementalSave
 import Globals
 import xml.dom.minidom as xml
 import Instrument, Event
@@ -41,6 +41,10 @@ class Project(gobject.GObject):
 	
 	""" The audio playback state enum values """
 	AUDIO_STOPPED, AUDIO_RECORDING, AUDIO_PLAYING, AUDIO_PAUSED, AUDIO_EXPORTING = range(5)
+	
+	""" String constants for incremental save """
+	INCREMENTAL_SAVE_EXT = ".incremental"
+	INCREMENTAL_SAVE_DELIMITER = "\n<<delimiter>>\n"
 	
 	"""
 	Signals:
@@ -113,6 +117,8 @@ class Project(gobject.GObject):
 		self.volume = 1.0			#The volume setting for the entire project
 		self.level = 0.0			#The level of the entire project as reported by the gstreamer element
 		self.currentSinkString = None	#to keep track if the sink changes or not
+
+		self.hasDoneIncrementalSave = False	# True if we have already written to the .incremental file from this project.
 
 		# Variables for the undo/redo command system
 		self.unsavedChanges = False		#This boolean is to indicate if something which is not on the undo/redo stack needs to be saved
@@ -732,11 +738,11 @@ class Project(gobject.GObject):
 			
 			# delete the incremental file since its all safe on disk now
 			path, ext = os.path.splitext(self.projectfile)
-			filename = path + ".incremental"
+			filename = path + self.INCREMENTAL_SAVE_EXT
 			try:
 				os.remove(filename)
 			except OSError:
-				pass
+				Globals.debug("Removal of .incremental failed! Next load we will try to restore unrestorable state!")
 		
 		doc = xml.Document()
 		head = doc.createElement("JokosherProject")
@@ -788,16 +794,56 @@ class Project(gobject.GObject):
 	#_____________________________________________________________________
 	
 	def SaveIncrementalAction(self, action):
-			path, ext = os.path.splitext(self.projectfile)
-			filename = path + ".incremental"
+		path, ext = os.path.splitext(self.projectfile)
+		filename = path + self.INCREMENTAL_SAVE_EXT
+		
+		if self.hasDoneIncrementalSave:
 			incr_file = open(filename, "a")
-			
-			incr_file.write(action.StoreToString())
-			# write end of line and delimiter
-			incr_file.write("\n<<>>\n")
-			
-			incr_file.close()
+		else:
+			# if we haven't performed an incremental save yet,
+			# the existing .incremental file is old, so overwrite it.
+			incr_file = open(filename, "w")
+			self.hasDoneIncrementalSave = True
+		
+		incr_file.write(action.StoreToString())
+		incr_file.write(self.INCREMENTAL_SAVE_DELIMITER)
+		
+		incr_file.close()
 	
+	#_____________________________________________________________________
+	
+	def CanDoIncrementalRestore(self):
+		path, ext = os.path.splitext(self.projectfile)
+		filename = path + self.INCREMENTAL_SAVE_EXT
+		return os.path.exists(filename)	
+	
+	#_____________________________________________________________________
+	
+	
+	def DoIncrementalRestore(self):
+		"""
+		Loads all the actions from the .incremental file and executes them
+		to restore the project's state.
+		"""
+		path, ext = os.path.splitext(projectfile)
+		filename = path + self.INCREMENTAL_SAVE_EXT
+		
+		save_action_list = []
+		
+		if os.path.isfile(incr_filename):
+			incr_file = open(incr_filename, "r")
+			filetext = incr_file.read()
+			incr_file.close()
+			for incr_xml in filetext.split(self.INCREMENTAL_SAVE_DELIMITER):
+				incr_xml = incr_xml.strip()
+				if not incr_xml:
+					continue
+				
+				incr_action = IncrementalSave.LoadFromString(incr_xml)
+				save_action_list.append(incr_action)
+		
+		IncrementalSave.FilterAndExecuteAll(save_action_list, self)
+			
 	#_____________________________________________________________________
 
 	def CloseProject(self):
@@ -808,11 +854,11 @@ class Project(gobject.GObject):
 		# when closing the file, the user chooses to either save, or discard
 		# in either case, we don't need the incremental save file anymore
 		path, ext = os.path.splitext(self.projectfile)
-		filename = path + ".incremental"
+		filename = path + self.INCREMENTAL_SAVE_EXT
 		try:
 			os.remove(filename)
 		except OSError:
-			pass
+			Globals.debug("Removal of .incremental failed! Next load we will try to restore unrestorable state!")
 		
 		for file in self.deleteOnCloseAudioFiles:
 			if os.path.exists(file):
@@ -962,18 +1008,6 @@ class Project(gobject.GObject):
 			
 			getattr(target_object, cmdList[1])(_undoAction_=newUndoAction, *cmdList[2])
 
-	#_____________________________________________________________________
-	
-	def ExecuteIncrementalSaveAction(self, saveAction):
-		"""
-		Executes an IncrementalSaveAction object.
-		
-		Parameters:
-			saveAction -- the IncrementalSave.Action instance which stores the function name and parameters.
-		"""
-		
-		saveAction.Execute(self)
-			
 	#_____________________________________________________________________
 	
 	def JokosherObjectFromString(self, string):

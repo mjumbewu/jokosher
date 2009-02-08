@@ -226,6 +226,11 @@ def LoadFromString(string):
 	
 #=========================================================================
 
+def FilterAndExecuteAll(save_action_list, project):
+	pass
+
+#=========================================================================
+
 class MockEvent:
 	def __init__(self, string):
 		self.id = int(string[1:])
