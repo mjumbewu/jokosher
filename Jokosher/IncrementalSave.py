@@ -1,0 +1,151 @@
+
+import Event
+import Utils
+import xml.dom.minidom as xml
+
+#=========================================================================
+
+class NewEvent:
+	def __init__(self, instr_id, filename, event_start, event_id):
+		self.instr_id = instr_id
+		self.filename = filename
+		self.event_start = event_start
+		self.event_id = event_id
+		
+	def StoreToString(self):
+		doc = xml.Document()
+		node = doc.createElement("NewEvent")
+		doc.appendChild(node)
+		
+		node.setAttribute("instrument_id", str(self.instr_id))
+		node.setAttribute("file", self.filename)
+		node.setAttribute("start", str(self.event_start))
+		node.setAttribute("event_id", str(self.event_id))
+				
+		return doc.toxml()
+	
+	@staticmethod
+	def LoadFromString(string):
+		doc = xml.parseString(string)
+		node = doc.firstChild
+		assert node.nodeName == "NewEvent"
+		
+		instr_id = int(node.getAttribute("instrument_id"))
+		filename = node.getAttribute("file")
+		event_start = float(node.getAttribute("start"))
+		event_id = int(node.getAttribute("event_id"))
+		
+		return NewEvent(instr_id, filename, event_start, event_id)
+
+#=========================================================================
+
+class Action:
+	def __init__(self, objectString, func_name, args, kwargs, retval_event=None):
+		self.objectString = objectString
+		self.func_name = func_name
+		self.args = args
+		self.kwargs = kwargs
+		
+		# retval is either None or a MockEvent. We don't care about
+		# the return value of functions which don't create Events.
+		self.retval = None
+		if isinstance(retval_event, Event.Event):
+			self.retval = MockEvent("E" + str(retval_event.id))
+		elif isinstance(retval_event, MockEvent):
+			self.retval = retval_event
+
+	def StoreToString(self):
+		doc = xml.Document()
+		action = doc.createElement("Action")
+		doc.appendChild(action)
+		
+		action.setAttribute("object", self.objectString)
+		action.setAttribute("function", self.func_name)
+		if self.retval:
+			action.setAttribute("retval", self.retval.event_string)
+		
+		for arg in self.args:
+			node = doc.createElement("Argument")
+			action.appendChild(node)
+			self.WriteToXMLAttributes(None, arg, node)
+				
+		for key, value in self.kwargs:
+			node = doc.createElement("NamedArgument")
+			action.appendChild(node)
+			self.WriteToXMLAttributes(key, value, node)
+				
+		return doc.toxml()
+	
+	def WriteToXMLAttributes(self, key, value, node):
+		if key:
+			node.setAttribute("key", key)
+		
+		if isinstance(value, Event.Event) or isinstance(value, MockEvent):
+			node.setAttribute("type", "Event")
+			node.setAttribute("value", str(value.id))
+		else:
+			Utils.StoreVariableToNode(value, node, "type", "value")
+	
+	@staticmethod
+	def ReadFromXMLAttributes(node):
+		type = node.getAttribute("type")
+		if type == "Event":
+			event_id = node.getAttribute("value")
+			value = MockEvent("E" + event_id)
+			assert value is not None
+		else:
+			value = Utils.LoadVariableFromNode(node, "type", "value")
+			
+		return value
+				
+	@staticmethod
+	def LoadFromString(string):
+		doc = xml.parseString(string)
+		actionNode = doc.firstChild
+		assert actionNode.nodeName == "Action"
+		
+		function_name = actionNode.getAttribute("function")
+		object_string = actionNode.getAttribute("object")
+		retval_string = actionNode.getAttribute("retval")
+		if retval_string.startswith("E"):
+			retval = MockEvent(retval_string)
+		else:
+			retval = None
+			
+		
+		argsList = []
+		kwArgsDict = {}
+		
+		for argNode in actionNode.childNodes:
+			value = Action.ReadFromXMLAttributes(argNode)
+			if argNode.nodeName == "Argument":
+				argsList.append(value)
+			elif argNode.nodeName == "NamedArgument":
+				key = str(argNode.getAttribute("key"))
+				kwArgsDict[key] = value
+
+		return Action(object_string, function_name, 
+		              argsList, kwArgsDict, retval_event=retval)
+		
+
+#=========================================================================
+
+def LoadFromString(string):
+	doc = xml.parseString(string)
+	node = doc.firstChild
+	if node == "Action":
+		return Action.LoadFromString(string)
+	elif node == "NewEvent":
+		return NewEvent.LoadFromString(string)
+	
+	return None
+	
+#=========================================================================
+
+class MockEvent:
+	def __init__(self, string):
+		self.id = int(string[1:])
+		self.event_string = string
+
+
+#=========================================================================

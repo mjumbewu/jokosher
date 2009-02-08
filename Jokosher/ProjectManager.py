@@ -10,7 +10,7 @@
 #=========================================================================
 
 import urlparse, os, gzip, shutil, gst
-import Globals, Utils, UndoSystem, LevelsList
+import Globals, Utils, UndoSystem, LevelsList, IncrementalSave
 import Project, Instrument, Event
 import xml.dom.minidom as xml
 import traceback
@@ -172,7 +172,7 @@ def LoadProjectFile(uri):
 				if not incr_xml:
 					continue
 				
-				incr_action = UndoSystem.IncrementalSaveAction.LoadFromString(incr_xml)
+				incr_action = IncrementalSave.Action.LoadFromString(incr_xml)
 				project.ExecuteIncrementalSaveAction(incr_action)
 		
 		project.projectfile = projectfile

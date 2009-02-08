@@ -19,7 +19,7 @@ import os, time, shutil
 import urlparse # To split up URI's
 import gobject
 import Event
-import UndoSystem
+import UndoSystem, IncrementalSave
 import Utils
 
 import Globals
@@ -596,12 +596,12 @@ class Instrument(gobject.GObject):
 				raise UndoSystem.CancelUndoCommand()
 				
 			self.project.deleteOnCloseAudioFiles.append(audio_file)
-			inc = UndoSystem.IncrementalNewEvent(self.id, newfile, start, event_id)
+			inc = IncrementalSave.NewEvent(self.id, newfile, start, event_id)
 			self.project.SaveIncrementalAction(inc)
 			
 			file = audio_file
 		else:
-			inc = UndoSystem.IncrementalNewEvent(self.id, file, start, event_id)
+			inc = IncrementalSave.NewEvent(self.id, file, start, event_id)
 			self.project.SaveIncrementalAction(inc)
 
 		ev = Event.Event(self, file, event_id, filelabel)
@@ -684,7 +684,7 @@ class Instrument(gobject.GObject):
 		ev.SetProperties()
 		ev.MoveButDoNotOverlap(ev.start)
 		
-		inc = UndoSystem.IncrementalNewEvent(self.id, event.file, start, ev.id)
+		inc = IncrementalSave.NewEvent(self.id, event.file, start, ev.id)
 		self.project.SaveIncrementalAction(inc)
 		
 		self.temp = ev.id

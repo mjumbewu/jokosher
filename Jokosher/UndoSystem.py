@@ -95,10 +95,10 @@ def UndoCommand(*command, **command_options):
 				objectString = "E%d" % funcSelf.id
 			
 			if do_incremental_save:
-				inc = IncrementalSaveAction(objectString, func.__name__, args, kwargs, result)
+				inc = IncrementalSave.Action(objectString, func.__name__, args, kwargs, result)
 				project.SaveIncrementalAction(inc)
 				# testing: make sure loading produces an identical result
-				assert inc.StoreToString() == IncrementalSaveAction.LoadFromString(inc.StoreToString()).StoreToString()
+				assert inc.StoreToString() == IncrementalSave.Action.LoadFromString(inc.StoreToString()).StoreToString()
 			
 			if not atomicUndoObject and project:
 				atomicUndoObject = project.NewAtomicUndoAction()
@@ -139,6 +139,7 @@ dependency will stop the program before it even starts.
 """
 import ProjectManager, Globals, Utils
 import Project, Event, Instrument
+import IncrementalSave
 import xml.dom.minidom as xml
 
 #=========================================================================
@@ -248,149 +249,4 @@ class AtomicUndoAction:
 		
 	#_____________________________________________________________________
 	
-#=========================================================================
-
-class IncrementalNewEvent:
-	def __init__(self, instr_id, filename, event_start, event_id):
-		self.instr_id = instr_id
-		self.filename = filename
-		self.event_start = event_start
-		self.event_id = event_id
-		
-	def StoreToString(self):
-		doc = xml.Document()
-		node = doc.createElement("NewEvent")
-		doc.appendChild(node)
-		
-		node.setAttribute("instrument_id", str(self.instr_id))
-		node.setAttribute("file", self.filename)
-		node.setAttribute("start", str(self.event_start))
-		node.setAttribute("event_id", str(self.event_id))
-				
-		return doc.toxml()
-	
-	@staticmethod
-	def LoadFromString(string):
-		doc = xml.parseString(string)
-		node = doc.firstChild
-		assert node.nodeName == "NewEvent"
-		
-		instr_id = int(node.getAttribute("instrument_id"))
-		filename = node.getAttribute("file")
-		event_start = float(node.getAttribute("start"))
-		event_id = int(node.getAttribute("event_id"))
-		
-		return IncrementalNewEvent(instr_id, filename, event_start, event_id)
-
-#=========================================================================
-
-class IncrementalSaveAction:
-	def __init__(self, objectString, func_name, args, kwargs, retval_event=None):
-		self.objectString = objectString
-		self.func_name = func_name
-		self.args = args
-		self.kwargs = kwargs
-		
-		# retval is either None or a MockEvent. We don't care about
-		# the return value of functions which don't create Events.
-		self.retval = None
-		if isinstance(retval_event, Event.Event):
-			self.retval = MockEvent("E" + str(retval_event.id))
-		elif isinstance(retval_event, MockEvent):
-			self.retval = retval_event
-
-	def StoreToString(self):
-		doc = xml.Document()
-		action = doc.createElement("Action")
-		doc.appendChild(action)
-		
-		action.setAttribute("object", self.objectString)
-		action.setAttribute("function", self.func_name)
-		if self.retval:
-			action.setAttribute("retval", self.retval.event_string)
-		
-		for arg in self.args:
-			node = doc.createElement("Argument")
-			action.appendChild(node)
-			self.WriteToXMLAttributes(None, arg, node)
-				
-		for key, value in self.kwargs:
-			node = doc.createElement("NamedArgument")
-			action.appendChild(node)
-			self.WriteToXMLAttributes(key, value, node)
-				
-		return doc.toxml()
-	
-	def WriteToXMLAttributes(self, key, value, node):
-		if key:
-			node.setAttribute("key", key)
-		
-		if isinstance(value, Event.Event) or isinstance(value, MockEvent):
-			node.setAttribute("type", "Event")
-			node.setAttribute("value", str(value.id))
-		else:
-			Utils.StoreVariableToNode(value, node, "type", "value")
-	
-	@staticmethod
-	def ReadFromXMLAttributes(node):
-		type = node.getAttribute("type")
-		if type == "Event":
-			event_id = node.getAttribute("value")
-			value = MockEvent("E" + event_id)
-			assert value is not None
-		else:
-			value = Utils.LoadVariableFromNode(node, "type", "value")
-			
-		return value
-				
-	@staticmethod
-	def LoadFromString(string):
-		doc = xml.parseString(string)
-		actionNode = doc.firstChild
-		assert actionNode.nodeName == "Action"
-		
-		function_name = actionNode.getAttribute("function")
-		object_string = actionNode.getAttribute("object")
-		retval_string = actionNode.getAttribute("retval")
-		if retval_string.startswith("E"):
-			retval = MockEvent(retval_string)
-		else:
-			retval = None
-			
-		
-		argsList = []
-		kwArgsDict = {}
-		
-		for argNode in actionNode.childNodes:
-			value = IncrementalSaveAction.ReadFromXMLAttributes(argNode)
-			if argNode.nodeName == "Argument":
-				argsList.append(value)
-			elif argNode.nodeName == "NamedArgument":
-				key = str(argNode.getAttribute("key"))
-				kwArgsDict[key] = value
-
-		return IncrementalSaveAction(object_string, function_name, 
-		                             argsList, kwArgsDict, retval_event=retval)
-		
-
-#=========================================================================
-
-def LoadFromString(string):
-	doc = xml.parseString(string)
-	node = doc.firstChild
-	if node == "Action":
-		return IncrementalSaveAction.LoadFromString(string)
-	elif node == "NewEvent":
-		return IncrementalNewEvent.LoadFromString(string)
-	
-	return None
-	
-#=========================================================================
-
-class MockEvent:
-	def __init__(self, string):
-		self.id = int(string[1:])
-		self.event_string = string
-
-
 #=========================================================================

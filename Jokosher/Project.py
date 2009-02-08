@@ -20,7 +20,7 @@ import gzip
 import re
 
 import TransportManager
-import UndoSystem
+import UndoSystem, IncrementalSave
 import Globals
 import xml.dom.minidom as xml
 import Instrument, Event
@@ -969,7 +969,7 @@ class Project(gobject.GObject):
 		Executes an IncrementalSaveAction object.
 		
 		Parameters:
-			saveAction -- the IncrementalSaveAction instance which stores the function name and parameters.
+			saveAction -- the IncrementalSave.Action instance which stores the function name and parameters.
 		"""
 		target_object = self.JokosherObjectFromString(saveAction.objectString)
 		
@@ -977,12 +977,12 @@ class Project(gobject.GObject):
 		kwargs = {}
 		
 		for obj in saveAction.args:
-			if isinstance(obj, UndoSystem.MockEvent):
+			if isinstance(obj, IncrementalSave.MockEvent):
 				obj = self.JokosherObjectFromString(obj.event_string)
 			args.append(obj)
 			
 		for key, value in saveAction.kwargs.iteritems():
-			if isinstance(value, UndoSystem.MockEvent):
+			if isinstance(value, IncrementalSave.MockEvent):
 				value = self.JokosherObjectFromString(value.event_string)
 			kwargs[key] = value
 		
