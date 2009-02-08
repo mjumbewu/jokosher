@@ -702,7 +702,7 @@ PLAYBACK_BACKENDS = [
 ]
 
 CAPTURE_BACKENDS = [
-	(_("Use GNOME Settings"), "gconfaudiosrc"),
+	(_("GNOME Settings"), "gconfaudiosrc"),
 	("ALSA", "alsasrc"),
 	("OSS", "osssrc"),
 	("JACK", "jackaudiosrc"),
