@@ -119,6 +119,7 @@ class Project(gobject.GObject):
 		self.currentSinkString = None	#to keep track if the sink changes or not
 
 		self.hasDoneIncrementalSave = False	# True if we have already written to the .incremental file from this project.
+		self.isDoingIncrementalRestore = False # If we are currently restoring incremental save actions
 
 		# Variables for the undo/redo command system
 		self.unsavedChanges = False		#This boolean is to indicate if something which is not on the undo/redo stack needs to be saved
@@ -794,6 +795,9 @@ class Project(gobject.GObject):
 	#_____________________________________________________________________
 	
 	def SaveIncrementalAction(self, action):
+		if self.isDoingIncrementalRestore:
+			return
+		
 		path, ext = os.path.splitext(self.projectfile)
 		filename = path + self.INCREMENTAL_SAVE_EXT
 		
@@ -829,13 +833,13 @@ class Project(gobject.GObject):
 			Globals.debug("Cannot do incremental restore after incremental save.")
 			return False
 		
-		path, ext = os.path.splitext(projectfile)
+		path, ext = os.path.splitext(self.projectfile)
 		filename = path + self.INCREMENTAL_SAVE_EXT
 		
 		save_action_list = []
 		
-		if os.path.isfile(incr_filename):
-			incr_file = open(incr_filename, "r")
+		if os.path.isfile(filename):
+			incr_file = open(filename, "r")
 			filetext = incr_file.read()
 			incr_file.close()
 			for incr_xml in filetext.split(self.INCREMENTAL_SAVE_DELIMITER):
@@ -844,7 +848,18 @@ class Project(gobject.GObject):
 					incr_action = IncrementalSave.LoadFromString(incr_xml)
 					save_action_list.append(incr_action)
 		
-		IncrementalSave.FilterAndExecuteAll(save_action_list, self)
+		self.isDoingIncrementalRestore = True
+		try:
+			IncrementalSave.FilterAndExecuteAll(save_action_list, self)
+		except:
+			Globals.debug("Exception while restoring incremental save.",
+						"Project state is surely out of sync with .incremental file")
+			raise
+		
+		# set hasDoneIncrementSave to True because project is now in sync with .incremental file
+		# i.e. we don't have to destory the .incremental file because the states match up.
+		self.hasDoneIncrementalSave = True
+		self.isDoingIncrementalRestore = False
 		return True
 		
 	#_____________________________________________________________________
