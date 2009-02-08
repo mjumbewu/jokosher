@@ -819,7 +819,6 @@ class Project(gobject.GObject):
 	
 	#_____________________________________________________________________
 	
-	
 	def DoIncrementalRestore(self):
 		"""
 		Loads all the actions from the .incremental file and executes them
