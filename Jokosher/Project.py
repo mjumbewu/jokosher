@@ -20,7 +20,7 @@ import gzip
 import re
 
 import TransportManager
-import UndoSystem, IncrementalSave
+import UndoSystem
 import Globals
 import xml.dom.minidom as xml
 import Instrument, Event
@@ -971,26 +971,9 @@ class Project(gobject.GObject):
 		Parameters:
 			saveAction -- the IncrementalSave.Action instance which stores the function name and parameters.
 		"""
-		target_object = self.JokosherObjectFromString(saveAction.objectString)
 		
-		args = []
-		kwargs = {}
-		
-		for obj in saveAction.args:
-			if isinstance(obj, IncrementalSave.MockEvent):
-				obj = self.JokosherObjectFromString(obj.event_string)
-			args.append(obj)
+		saveAction.Execute(self)
 			
-		for key, value in saveAction.kwargs.iteritems():
-			if isinstance(value, IncrementalSave.MockEvent):
-				value = self.JokosherObjectFromString(value.event_string)
-			kwargs[key] = value
-		
-		# tell the incremental system not to log these actions; they are already in the incremental file
-		kwargs["_incrementalRestore_"] = True
-		
-		getattr(target_object, saveAction.func_name)(*args, **kwargs)
-	
 	#_____________________________________________________________________
 	
 	def JokosherObjectFromString(self, string):

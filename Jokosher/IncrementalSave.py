@@ -12,6 +12,11 @@ class NewEvent:
 		self.event_start = event_start
 		self.event_id = event_id
 		
+	def Execute(self, project):
+		instr = project.JokosherObjectFromString("I" + self.instr_id)
+		# TODO: if filename is not absolute path, prepend project-folder/audio/ to it
+		instr.addEventFromFile(self.event_start, self.filename, copyfile=False)
+		
 	def StoreToString(self):
 		doc = xml.Document()
 		node = doc.createElement("NewEvent")
@@ -53,7 +58,28 @@ class Action:
 			self.retval = MockEvent("E" + str(retval_event.id))
 		elif isinstance(retval_event, MockEvent):
 			self.retval = retval_event
+			
+	def Execute(self, project):
+		target_object = project.JokosherObjectFromString(self.objectString)
+		args = []
+		kwargs = {}
+		
+		for obj in self.args:
+			if isinstance(obj, MockEvent):
+				obj = project.JokosherObjectFromString(obj.event_string)
+			args.append(obj)
+			
+		for key, value in self.kwargs.iteritems():
+			if isinstance(value, MockEvent):
+				value = project.JokosherObjectFromString(value.event_string)
+			kwargs[key] = value
+		
+		# tell the incremental system not to log these actions; they are already in the incremental file
+		kwargs["_incrementalRestore_"] = True
+		
+		getattr(target_object, self.func_name)(*args, **kwargs)
 
+		
 	def StoreToString(self):
 		doc = xml.Document()
 		action = doc.createElement("Action")
