@@ -618,7 +618,7 @@ class Instrument(gobject.GObject):
 		
 	#_____________________________________________________________________
 	
-	@UndoSystem.UndoCommand("DeleteEvent", "temp")
+	@UndoSystem.UndoCommand("DeleteEvent", "temp", incremental_save=False)
 	def addEventFromURL(self, start, url):
 		"""
 		Adds an Event from a URL to this Instrument.
