@@ -18,7 +18,7 @@ import pygst
 pygst.require("0.10")
 import gst, gobject
 import Utils, LevelsList
-import UndoSystem
+import UndoSystem, IncrementalSave
 import Globals
 import gettext
 import urllib
@@ -840,6 +840,10 @@ class Event(gobject.GObject):
 		if self.loadingPipeline:
 			self.loadingPipeline.set_state(gst.STATE_NULL)
 			
+			if self.isDownloading and finishedLoading:
+				inc = IncrementalSave.CompleteDownload(self.id)
+				self.instrument.project.SaveIncrementalAction(inc)
+			
 			if self.isDownloading:
 				# If we are currently downloading, we can't restart later, 
 				# so cancel regardless of the finishedLoading boolean's value.
@@ -847,6 +851,7 @@ class Event(gobject.GObject):
 				self.isLoading = False
 			else:
 				self.isLoading = not finishedLoading
+			
 			
 			self.loadingPipeline = None
 			self.loadingLength = 0

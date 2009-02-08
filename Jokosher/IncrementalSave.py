@@ -48,9 +48,10 @@ class NewEvent:
 #=========================================================================
 
 class StartDownload:
-	def __init__(self, instr_id, url, event_start, id):
+	def __init__(self, instr_id, url, save_file, event_start, id):
 		self.instr_id = instr_id
 		self.url = url
+		self.save_file
 		self.event_start = event_start
 		self.id = id
 		
@@ -65,6 +66,7 @@ class StartDownload:
 		
 		node.setAttribute("instrument_id", str(self.instr_id))
 		node.setAttribute("url", self.url)
+		node.setAttribute("save_file", self.save_file)
 		node.setAttribute("start", str(self.event_start))
 		node.setAttribute("action_id", str(self.id))
 				
@@ -78,10 +80,11 @@ class StartDownload:
 		
 		instr_id = int(node.getAttribute("instrument_id"))
 		url = node.getAttribute("url")
+		save_file = node.getAttribute("save_file")
 		event_start = float(node.getAttribute("start"))
 		id = int(node.getAttribute("action_id"))
 		
-		return StartDownload(instr_id, url, event_start, id)
+		return StartDownload(instr_id, url, save_file, event_start, id)
 
 #=========================================================================
 

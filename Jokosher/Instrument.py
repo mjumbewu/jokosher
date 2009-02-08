@@ -655,6 +655,9 @@ class Instrument(gobject.GObject):
 			self.events.remove(ev)
 			raise UndoSystem.CancelUndoCommand()
 		
+		inc = IncrementalSave.StartDownload(self.id, url, new_file, start, event_id)
+		self.project.SaveIncrementalAction(inc)
+		
 		self.temp = ev.id
 		self.emit("event::added", ev)
 		
