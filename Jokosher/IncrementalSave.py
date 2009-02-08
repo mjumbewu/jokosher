@@ -41,6 +41,71 @@ class NewEvent:
 
 #=========================================================================
 
+class StartDownload:
+	def __init__(self, instr_id, url, event_start, id):
+		self.instr_id = instr_id
+		self.url = url
+		self.event_start = event_start
+		self.id = id
+		
+	def Execute(self, project):
+		instr = project.JokosherObjectFromString("I" + self.instr_id)
+		instr.addEventFromURL(self.event_start, self.url)
+		
+	def StoreToString(self):
+		doc = xml.Document()
+		node = doc.createElement("StartDownload")
+		doc.appendChild(node)
+		
+		node.setAttribute("instrument_id", str(self.instr_id))
+		node.setAttribute("url", self.url)
+		node.setAttribute("start", str(self.event_start))
+		node.setAttribute("action_id", str(self.id))
+				
+		return doc.toxml()
+	
+	@staticmethod
+	def LoadFromString(string):
+		doc = xml.parseString(string)
+		node = doc.firstChild
+		assert node.nodeName == "StartDownload"
+		
+		instr_id = int(node.getAttribute("instrument_id"))
+		url = node.getAttribute("url")
+		event_start = float(node.getAttribute("start"))
+		id = int(node.getAttribute("action_id"))
+		
+		return StartDownload(instr_id, url, event_start, id)
+
+#=========================================================================
+
+class CompleteDownload:
+	def __init__(self, id):
+		self.id = id
+		
+	def Execute(self, project):
+		pass
+		
+	def StoreToString(self):
+		doc = xml.Document()
+		node = doc.createElement("CompleteDownload")
+		doc.appendChild(node)
+		node.setAttribute("action_id", str(self.id))
+				
+		return doc.toxml()
+	
+	@staticmethod
+	def LoadFromString(string):
+		doc = xml.parseString(string)
+		node = doc.firstChild
+		assert node.nodeName == "CompleteDownload"
+		
+		id = int(node.getAttribute("action_id"))
+		
+		return CompleteDownload(id)
+
+#=========================================================================
+
 class Action:
 	def __init__(self, objectString, func_name, args, kwargs):
 		self.objectString = objectString
@@ -143,6 +208,10 @@ def LoadFromString(string):
 		return Action.LoadFromString(string)
 	elif node == "NewEvent":
 		return NewEvent.LoadFromString(string)
+	elif node == "StartDownload":
+		return StartDownload.LoadFromString(string)
+	elif node == "CompleteDownload":
+		return CompleteDownload.LoadFromString(string)
 	
 	return None
 	
