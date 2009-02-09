@@ -1509,6 +1509,17 @@ class MainApp:
 			
 		self.project = project
 		
+		if self.project.CanDoIncrementalRestore():
+			dlg = gtk.MessageDialog(self.window,
+					gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
+					gtk.MESSAGE_QUESTION,
+					gtk.BUTTONS_OK_CANCEL,
+					"Do you want to restore from backup?")
+			response = dlg.run()
+			dlg.destroy()
+			if response == gtk.RESPONSE_OK:
+				self.project.DoIncrementalRestore()
+		
 		self.project.connect("gst-bus-error", self.OnProjectGstError)
 		self.project.connect("audio-state::play", self.OnProjectAudioState)
 		self.project.connect("audio-state::pause", self.OnProjectAudioState)
