@@ -33,8 +33,6 @@ class Settings:
 				"projectfolder" : "",
 				"windowheight" : 550,
 				"windowwidth" : 900,
-				"backupsavetime" : 30000,
-				"lastbackup" : 0
 				}
 	
 	recording = {

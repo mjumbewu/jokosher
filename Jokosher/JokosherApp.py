@@ -12,8 +12,7 @@ import pygtk
 pygtk.require("2.0")
 import gtk.glade, gobject
 import sys
-import os, os.path
-import time
+import os.path
 import pygst
 pygst.require("0.10")
 import gst
@@ -28,7 +27,6 @@ import ProjectManager, Globals, WelcomeDialog
 import InstrumentConnectionsDialog, StatusBar
 import EffectPresets, Extension, ExtensionManager
 import Utils, AudioPreview, MixdownProfileDialog, MixdownActions
-import CrashProtectionDialog
 
 #=========================================================================
 
@@ -115,7 +113,6 @@ class MainApp:
 			"on_report_bug_activate" : self.OnReportBug,
 			"on_project_add_audio" : self.OnAddAudioFile,
 			"on_system_information_activate" : self.OnSystemInformation,
-			"on_restore_crashed_project_activate" : self.OnRestoreCrashedProject,
 		}
 		self.wTree.signal_autoconnect(signals)
 		
@@ -261,28 +258,6 @@ class MainApp:
 		
 		# Show the main window
 		self.window.show_all()
-
-		self.backupProject = None
-		self.restoredProject = False
-
-		# Check for crash and offer recovery
-		backupDir = os.path.join(Globals.JOKOSHER_DATA_HOME, "backups")
-		if not os.path.exists(backupDir):
-			os.mkdir(backupDir)
-
-		for backupFile in os.listdir(backupDir):
-			backup = os.path.join(backupDir, backupFile)
-			if os.stat(backup).st_size > 0 and os.stat(backup).st_mtime > float(Globals.settings.general["lastbackup"]):
-				# We didn't shutdown cleanly last time, offer recovery
-				CrashProtectionDialog.CrashProtectionDialog(self, True)
-				break
-
-		# Backup saving
-		self.SetupBackup()
-
-		if self.restoredProject:
-			#Don't display the welcome dialog if we've just restored a project (since it'll have been opened)
-			return
 
 		# command line options override preferences so check for them first,
 		# then preferences, then default to the welcome dialog
@@ -777,11 +752,6 @@ class MainApp:
 			self.project.SelectInstrument(None)
 			self.project.ClearEventSelections()
 			self.project.SaveProjectFile()
-			#Remove backup
-			if os.path.exists(self.backupProject):
-				Globals.debug("Removing backup file.")
-				os.remove(self.backupProject)
-
 			
 	#_____________________________________________________________________
 	
@@ -814,18 +784,6 @@ class MainApp:
 			self.project.SaveProjectFile(filename)
 		chooser.destroy()
 		
-	#_____________________________________________________________________
-
-	def BackupSave(self):
-		"""
-		Saves the project file to a backup in case of crashes.
-		"""
-		if self.project:
-			Globals.debug("Making automatic backup")
-			self.project.SaveProjectFile(self.backupProject, True)
-
-		gobject.timeout_add_seconds(int(Globals.settings.general["backupsavetime"]) / 1000, self.BackupSave)
-
 	#_____________________________________________________________________
 
 	def OnNewProject(self, widget, destroyCallback=None):
@@ -895,11 +853,6 @@ class MainApp:
 				return 1
 		
 		self.project.CloseProject()
-
-		#Remove backup
-		if os.path.exists(self.backupProject):
-			Globals.debug("Removing backup file.")
-			os.remove(self.backupProject)
 
 		self.project = None
 		self.mode = None
@@ -1784,20 +1737,6 @@ class MainApp:
 	
 	#_____________________________________________________________________
 
-	def OnRestoreCrashedProject(self, widget):
-		"""
-		Displays a dialog allowing the user to either select a previously crashed 
-		project for restoration or to delete a crash file.
-
-		Parameters:
-			widget -- GTK callback parameter.
-		"""
-
-		self.crashDialog = CrashProtectionDialog.CrashProtectionDialog(self)
-
-
-	#_____________________________________________________________________
-
 	def ShowOpenProjectErrorDialog(self, error, parent=None):
 		"""
 		Creates and shows a dialog to inform the user about an error that has ocurred.
@@ -2006,31 +1945,6 @@ class MainApp:
 		self.filemenu.show_all()
 		
 	#_____________________________________________________________________
-
-	def SetupBackup(self, num=0):
-		"""
-		Sets up the backup system for crash protection. Stores all backups in 
-		JOKOSHER_DATA_HOME/backups in the format timestamp-num.jokosher. Backups will
-		occur at an interval specified in the "backupsavetime" config option.
-
-		Parameters:
-			num -- Number appended to the timestamp to allow for multiple
-			copies of Jokosher being launched at the same time.
-		"""
-
-		backupDir = os.path.join(Globals.JOKOSHER_DATA_HOME, "backups")
-		backupFile = "%d-%d.jokosher" % (int(time.time()), num)
-		self.backupProject = os.path.join(backupDir, backupFile)
-		if os.path.exists(self.backupProject):
-			#Multiple copies of Jokosher have been opened simultaneously, so increment
-			#num to avoid conflicts
-			self.SetupBackup(num+1)
-		else:
-			#Open the file quickly so other instances can see it (still potential for 
-			#a race condition, but chances are greatly reduced)
-			open(self.backupProject, "w")
-			gobject.timeout_add_seconds(int(Globals.settings.general["backupsavetime"]) / 1000, self.BackupSave)
-
 	
 #=========================================================================
 
