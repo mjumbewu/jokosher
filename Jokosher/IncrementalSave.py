@@ -7,10 +7,11 @@ import xml.dom.minidom as xml
 #=========================================================================
 
 class NewEvent:
-	def __init__(self, instr_id, filename, event_start):
+	def __init__(self, instr_id, filename, event_start, recording=False):
 		self.instr_id = instr_id
 		self.filename = filename
 		self.event_start = event_start
+		self.recording = recording
 		
 	def Execute(self, project):
 		instr = project.JokosherObjectFromString("I" + str(self.instr_id))
@@ -19,8 +20,13 @@ class NewEvent:
 		if not os.path.isabs(filename):
 			# If there is a relative path for filename, this means it is in the project's audio dir
 			filename = os.path.join(project.audio_path, filename)
+		
+		if self.recording:
+			event_name = _("Recorded audio")
+		else:
+			event_name = None
 			
-		instr.addEventFromFile(self.event_start, filename, copyfile=False)
+		instr.addEventFromFile(self.event_start, filename, copyfile=False, name=event_name)
 		
 	def StoreToString(self):
 		doc = xml.Document()
@@ -30,6 +36,7 @@ class NewEvent:
 		node.setAttribute("instrument_id", str(self.instr_id))
 		node.setAttribute("file", self.filename)
 		node.setAttribute("start", str(self.event_start))
+		node.setAttribute("recording", str(self.recording))
 				
 		return doc.toxml()
 	
@@ -42,8 +49,9 @@ class NewEvent:
 		instr_id = int(node.getAttribute("instrument_id"))
 		filename = node.getAttribute("file")
 		event_start = float(node.getAttribute("start"))
+		recording = (node.getAttribute("recording").lower() == "true")
 		
-		return NewEvent(instr_id, filename, event_start)
+		return NewEvent(instr_id, filename, event_start, recording)
 
 #=========================================================================
 

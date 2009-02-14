@@ -492,6 +492,9 @@ class Instrument(gobject.GObject):
 		event.file = os.path.join(self.project.audio_path, filename)
 		event.levels_file = filename + Event.Event.LEVELS_FILE_EXTENSION
 		
+		inc = IncrementalSave.NewEvent(self.id, filename, event.start, recording=True)
+		self.project.SaveIncrementalAction(inc)
+		
 		#must add it to the instrument's list so that an update of the event lane will not remove the widget
 		self.events.append(event)
 		self.emit("event::added", event)
@@ -499,7 +502,7 @@ class Instrument(gobject.GObject):
 
 	#_____________________________________________________________________
 
-	@UndoSystem.UndoCommand("DeleteEvent", "temp")
+	@UndoSystem.UndoCommand("DeleteEvent", "temp", incremental_save=False)
 	def FinishRecordingEvent(self, event):
 		"""
 		Called to log the adding of this event on the undo stack
@@ -564,7 +567,7 @@ class Instrument(gobject.GObject):
 	#_____________________________________________________________________
 
 	@UndoSystem.UndoCommand("DeleteEvent", "temp", incremental_save=False)
-	def addEventFromFile(self, start, file, copyfile=False):
+	def addEventFromFile(self, start, file, copyfile=False, name=None):
 		"""
 		Adds an Event from a file to this Instrument.
 		
@@ -573,13 +576,15 @@ class Instrument(gobject.GObject):
 			file -- path to the Event file.
 			copyfile --	True = copy the file to Project's audio directory.
 						False = don't copy the file to the Project's audio directory.
+			name -- An optional user visible name. The filename will be used if None.
 						
 		Returns:
 			the added Event.
 		"""
 		filelabel=file
 		event_id = self.project.GenerateUniqueID(None,  reserve=False)
-		name = os.path.basename(file)
+		if not name:
+			name = os.path.basename(file)
 		root,  extension = os.path.splitext(name.replace(" ", "_"))
 		
 		if extension:
