@@ -798,6 +798,9 @@ class Project(gobject.GObject):
 		if self.isDoingIncrementalRestore:
 			return
 		
+		if self.__performingUndo or self.__performingRedo:
+			return
+		
 		path, ext = os.path.splitext(self.projectfile)
 		filename = path + self.INCREMENTAL_SAVE_EXT
 		
@@ -906,6 +909,10 @@ class Project(gobject.GObject):
 			self.__savedUndo = False
 			
 		self.__performingUndo = False
+		
+		# __performingUndo must be False for project to log
+		inc = IncrementalSave.Undo()
+		self.SaveIncrementalAction(inc)
 	
 	#_____________________________________________________________________
 	
@@ -926,6 +933,10 @@ class Project(gobject.GObject):
 			self.ExecuteAction(cmd)
 			
 		self.__performingRedo = False
+		
+		# __performingRedo must be False for project to log
+		inc = IncrementalSave.Redo()
+		self.SaveIncrementalAction(inc)
 
 	#_____________________________________________________________________
 	

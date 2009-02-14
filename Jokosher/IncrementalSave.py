@@ -126,6 +126,46 @@ class CompleteDownload:
 
 #=========================================================================
 
+class Undo:
+	def Execute(self, project):
+		project.Undo()
+		
+	def StoreToString(self):
+		doc = xml.Document()
+		node = doc.createElement("Undo")
+		doc.appendChild(node)
+				
+		return doc.toxml()
+	
+	@staticmethod
+	def LoadFromString(string):
+		doc = xml.parseString(string)
+		node = doc.firstChild
+		assert node.nodeName == "Undo"
+		return Undo()
+
+#=========================================================================
+
+class Redo:
+	def Execute(self, project):
+		project.Redo()
+		
+	def StoreToString(self):
+		doc = xml.Document()
+		node = doc.createElement("Redo")
+		doc.appendChild(node)
+				
+		return doc.toxml()
+	
+	@staticmethod
+	def LoadFromString(string):
+		doc = xml.parseString(string)
+		node = doc.firstChild
+		assert node.nodeName == "Redo"
+		return Redo()
+
+#=========================================================================
+
 class Action:
 	def __init__(self, objectString, func_name, args, kwargs):
 		self.objectString = objectString
@@ -224,14 +264,18 @@ class Action:
 def LoadFromString(string):
 	doc = xml.parseString(string)
 	node = doc.firstChild.nodeName
-	if node == "Action":
-		return Action.LoadFromString(string)
-	elif node == "NewEvent":
-		return NewEvent.LoadFromString(string)
-	elif node == "StartDownload":
-		return StartDownload.LoadFromString(string)
-	elif node == "CompleteDownload":
-		return CompleteDownload.LoadFromString(string)
+	
+	action_dict = {
+		"Action" : Action,
+		"NewEvent" : NewEvent,
+		"StartDownload" : StartDownload,
+		"CompleteDownload" : CompleteDownload,
+		"Undo" : Undo,
+		"Redo" : Redo,
+	}
+	
+	if node in action_dict:
+		return action_dict[node].LoadFromString(string)
 	
 	raise AssertionError("Unknown IncrementalSave node " + node)
 	
