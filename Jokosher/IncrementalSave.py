@@ -4,6 +4,9 @@ import Utils
 import os.path
 import xml.dom.minidom as xml
 
+import gettext
+_ = gettext.gettext
+
 #=========================================================================
 
 class NewEvent:
