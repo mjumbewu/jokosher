@@ -71,8 +71,8 @@ def ListDeviceProbe(element, probe_name):
 				for dev in devices:
 					element.set_property("device", dev)
 					
-					element.set_state(gst.STATE_READY)
-					# certain elements like pulsesrc won't load the device-name until STATE_READY
+					element.set_state(gst.STATE_PAUSED)
+					# certain elements like pulsesrc won't load the device-name until STATE_PAUSED
 					name = element.get_property("device-name")
 					element.set_state(gst.STATE_NULL)
 					
@@ -119,7 +119,7 @@ def GetRecordingSampleRate(device=None):
 		element.set_property("device", device)
 
 	# open device (so caps are probed)
-	bin.set_state(gst.STATE_READY)
+	bin.set_state(gst.STATE_PAUSED)
 
 	try:
 		pad = element.src_pads().next()
