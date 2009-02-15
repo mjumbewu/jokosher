@@ -905,6 +905,17 @@ class Instrument(gobject.GObject):
 	
 	#_____________________________________________________________________
 	
+	def SetInput(self, device, inTrack):
+		if device != self.input or inTrack != self.inTrack:
+			instr.input = device
+			instr.inTrack = inTrack
+			self.project.unsavedChanges = True
+			
+			inc = IncrementalSave.InstrumentSetInput(self.id, device, inTrack)
+			self.project.SaveIncrementalAction(inc)
+			
+	#_____________________________________________________________________
+	
 	def OnMute(self):
 		"""
 		Updates the GStreamer volume element to reflect the mute status.

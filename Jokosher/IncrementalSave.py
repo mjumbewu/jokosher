@@ -227,6 +227,9 @@ def Undo():
 def Redo():
 	return Action("P", "Redo", tuple(), dict())
 
+def InstrumentSetInput(id, device, inTrack):
+	return Action("I" + str(id), "SetInput", (device, inTrack), dict())
+
 #=========================================================================
 
 def LoadFromString(string):
