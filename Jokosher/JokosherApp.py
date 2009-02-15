@@ -1973,6 +1973,60 @@ class MainApp:
 				self.project.SetUnsavedChanges()
 				
 		dialog.destroy()
+				
+	#_____________________________________________________________________
+	
+	def OnProjectProperties(self, widget=None):
+		"""
+		Called when the "Properties..." in the project menu is clicked.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+		"""
+		if not self.project:
+			return
+		
+		propertiesTree = gtk.glade.XML(Globals.GLADE_PATH, "ProjectPropertiesDialog")
+		dlg = propertiesTree.get_widget("ProjectPropertiesDialog")
+		nameEntry = propertiesTree.get_widget("nameEntry")
+		authorEntry = propertiesTree.get_widget("authorEntry")
+		notesTextView = propertiesTree.get_widget("notesTextView")
+		
+		nameEntry.set_text(self.project.name)
+		authorEntry.set_text(self.project.author)
+		buffer = gtk.TextBuffer()
+		buffer.set_text(self.project.notes)
+		notesTextView.set_buffer(buffer)
+		
+		dlg.connect("response", self.OnProjectPropertiesClose, nameEntry, authorEntry, notesTextView)
+		dlg.show_all()
+		
+	#_____________________________________________________________________
+		
+	def OnProjectPropertiesClose(self, dialog, response, nameEntry, authorEntry, notesTextView):
+		"""
+		Called when the "Project Properties" windows is closed.
+		
+		Parameters:
+			dialog -- reserved for GTK callbacks, don't use it explicitly.
+		"""
+		
+		if self.project and response == gtk.RESPONSE_CLOSE:
+			author = authorEntry.get_text()
+			name = nameEntry.get_text()
+			buffer = notesTextView.get_buffer()
+			notes = buffer.get_text(*buffer.get_bounds())
+			
+			has_changed = (author != self.project.author) or \
+			              (name != self.project.name) or \
+			              (notes != self.project.notes)
+			if has_changed:
+				self.project.author = author
+				self.project.name = name
+				self.project.notes = notes
+				self.project.SetUnsavedChanges()
+				
+		dialog.destroy()
 
 	#_____________________________________________________________________
 #=========================================================================
