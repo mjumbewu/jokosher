@@ -436,6 +436,12 @@ class _LoadZPNFile(_LoadZPTFile):
 		
 		Utils.LoadParametersFromXML(self.project, params)
 		
+		notesNode = self.xmlDoc.getElementsByTagName("Notes")
+		if notesNode:
+			notes = notesNode[0].getAttribute("text")
+			# notes are encoded using repr() to preserver \n and \t.
+			self.project.notes = Utils.StringUnRepr(notes)
+		
 		# Hack to set the transport mode
 		self.project.transport.SetMode(self.project.transportMode)
 		

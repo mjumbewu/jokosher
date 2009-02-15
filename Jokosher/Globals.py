@@ -6,7 +6,7 @@
 #	
 #	This module contains variable definitions that can be used across the code
 #	base and also includes methods for reading and writing these settings to
-#	the Jokosher configuration in ~/.jokosher/config.
+#	the Jokosher configuration in JOKOSHER_CONFIG_HOME/config.
 #
 #-------------------------------------------------------------------------------
 
@@ -16,6 +16,8 @@ import locale, gettext
 import pygtk
 pygtk.require("2.0")
 import gobject, gtk
+import xdg.BaseDirectory
+import shutil
 
 import gettext
 _ = gettext.gettext
@@ -27,7 +29,8 @@ class Settings:
 
 	# the different settings in each config block
 	general = 	{
-				"version" : "", # set in project.py, loaded into dict in write()
+				# increment each time there is an incompatible change with the config file
+				"version" : "1",
 				"recentprojects": "value", 
 				"startupaction" : "value",
 				"projectfolder" : "",
@@ -62,20 +65,10 @@ class Settings:
 
 	#_____________________________________________________________________
 	
-	def __init__(self, filename = None):
-		"""
-		Creates a new instance of Settings.
+	def __init__(self):
+		self.filename = os.path.join(JOKOSHER_CONFIG_HOME, "config")
 		
-		Parameters:
-			filename -- path to the settings file.
-						If None, the default ~/.jokosher/config will be used.
-		"""
-		if not filename:
-			self.filename = os.path.expanduser("~/.jokosher/config")
-		else:
-			self.filename = filename
 		self.config = ConfigParser.ConfigParser()
-
 		self.read()
 
 	#_____________________________________________________________________
@@ -101,20 +94,11 @@ class Settings:
 		"""
 		Writes configuration settings to the Settings config file.
 		"""
-		self.general["version"] = VERSION
+
 		for section, section_dict in self.sections.iteritems():
 			for key, value in section_dict.iteritems():
 				self.config.set(section, key, value)
-			
-		# delete a .jokosher file if it exists, because that's old-fashioned
-		old_jokosher_file = os.path.expanduser("~/.jokosher")
-		if os.path.isfile(old_jokosher_file):
-			os.unlink(old_jokosher_file)
 		
-		# make sure that the directory that the config file is in exists
-		new_jokosher_file_dir = os.path.split(self.filename)[0]
-		if not os.path.isdir(new_jokosher_file_dir): 
-			os.makedirs(new_jokosher_file_dir)
 		file = open(self.filename, 'w')
 		self.config.write(file)
 		file.close()
@@ -367,6 +351,22 @@ def CheckBackendList(backend_list):
 
 #_____________________________________________________________________
 
+def CopyAllFiles(src_dir, dest_dir, only_these_files=None):
+	""" Copies all the files, but only the files from one directory to another."""
+	for file in os.listdir(src_dir):
+		if only_these_files and file not in only_these_files:
+			continue
+		
+		src_path = os.path.join(src_dir, file)
+		dest_path = os.path.join(dest_dir, file)
+		if os.path.isfile(src_path):
+			try:
+				shutil.copy2(src_path, dest_path)
+			except IOError:
+				print "Unable to copy from old ~/.jokosher directory:", src_path
+
+#_____________________________________________________________________
+
 """
 Used for launching the correct help file:
 	True -- Jokosher's running locally by the user. Use the help file from
@@ -382,7 +382,9 @@ If JOKOSHER_DATA_PATH is not set, that is, Jokosher is running locally,
 use paths relative to the current running directory instead of /usr ones.
 """
 
-JOKOSHER_DATA_HOME = os.path.expanduser("~/.jokosher/")
+XDG_RESOURCE_NAME = "jokosher"
+JOKOSHER_CONFIG_HOME = xdg.BaseDirectory.save_config_path(XDG_RESOURCE_NAME)
+JOKOSHER_DATA_HOME =   xdg.BaseDirectory.save_data_path(XDG_RESOURCE_NAME)
 
 data_path = os.getenv("JOKOSHER_DATA_PATH")
 if data_path:
@@ -396,27 +398,49 @@ else:
 	GLADE_PATH = os.path.join(data_path, "Jokosher.glade")
 	LOCALE_PATH = os.path.join(data_path, "..", "locale")
 
-#delete the 0.1 jokosher config file
-if os.path.isfile(os.path.expanduser("~/.jokosher")):
-	try:
-		os.remove(os.path.expanduser("~/.jokosher"))
-	except:
-		raise "Failed to delete old user config file %s" % new_dir
 # create a couple dirs to avoid having problems creating a non-existing
 # directory inside another non-existing directory
-for directory in ['extensions', 'instruments', 'instruments/images', 
-		'presets', 'presets/effects', 'presets/mixdown', 'mixdownprofiles', 'templates']:
-	new_dir = os.path.join(os.path.expanduser("~/.jokosher/"), directory)
+create_dirs = [
+	'extensions',
+	'instruments',
+	('instruments', 'images'),
+	'presets',
+	('presets', 'effects'),
+	('presets', 'mixdown'),
+	'mixdownprofiles',
+	'templates',
+]
+
+# do a listing before we create the dirs so we know if it was empty (ie first run)
+jokosher_dir_empty = (len(os.listdir(JOKOSHER_DATA_HOME)) == 0)
+_HOME_DOT_JOKOSHER = os.path.expanduser("~/.jokosher")
+
+if jokosher_dir_empty:
+	# Copying old config file from ~/.jokosher.
+	CopyAllFiles(_HOME_DOT_JOKOSHER, JOKOSHER_CONFIG_HOME, ["config"])
+
+for dirs in create_dirs:
+	if isinstance(dirs, str):
+		new_dir = os.path.join(JOKOSHER_DATA_HOME, dirs)
+		old_dir = os.path.join(_HOME_DOT_JOKOSHER, dirs)
+	else:
+		new_dir = os.path.join(JOKOSHER_DATA_HOME, *dirs)
+		old_dir = os.path.join(_HOME_DOT_JOKOSHER, *dirs)
+		
 	if not os.path.isdir(new_dir):
 		try:
 			os.makedirs(new_dir)
 		except:
 			raise "Failed to create user config directory %s" % new_dir
+	
+	if jokosher_dir_empty and os.path.isdir(old_dir) and os.path.isdir(new_dir):
+		CopyAllFiles(old_dir, new_dir)
+			
 
 #TODO: make this a list with the system path and home directory path
-EFFECT_PRESETS_PATH = os.path.expanduser("~/.jokosher/presets/effects")
-TEMPLATES_PATH = os.path.expanduser("~/.jokosher/templates/")
-MIXDOWN_PROFILES_PATH = os.path.expanduser("~/.jokosher/mixdownprofiles/")
+EFFECT_PRESETS_PATH = os.path.join(JOKOSHER_DATA_HOME, "presets", "effects")
+TEMPLATES_PATH = os.path.join(JOKOSHER_DATA_HOME, "templates")
+MIXDOWN_PROFILES_PATH = os.path.join(JOKOSHER_DATA_HOME, "mixdownprofiles")
 
 IMAGE_PATH = os.getenv("JOKOSHER_IMAGE_PATH")
 if not IMAGE_PATH:
@@ -683,7 +707,7 @@ PLAYBACK_BACKENDS = [
 ]
 
 CAPTURE_BACKENDS = [
-	(_("Use GNOME Settings"), "gconfaudiosrc"),
+	(_("GNOME Settings"), "gconfaudiosrc"),
 	("ALSA", "alsasrc"),
 	("OSS", "osssrc"),
 	("JACK", "jackaudiosrc"),

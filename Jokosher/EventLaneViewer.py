@@ -59,7 +59,7 @@ class EventLaneViewer(gtk.EventBox):
 		self.vbox = gtk.VBox()
 		self.fixed = gtk.Fixed()
 
-		self.separator = EventLaneHSeparator.EventLaneHSeparator(project.transport)
+		self.separator = EventLaneHSeparator.EventLaneHSeparator(project, project.transport)
 		self.vbox.pack_start(self.fixed, True, True)
 		self.vbox.pack_start(self.separator, False, False)
 

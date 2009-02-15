@@ -697,6 +697,7 @@ class Instrument(gobject.GObject):
 		
 		self.temp = ev.id
 		self.emit("event::added", ev)
+		return ev
 	
 	#_____________________________________________________________________
 	
@@ -781,8 +782,6 @@ class Instrument(gobject.GObject):
 		if self.volume != volume:
 			self.volume = volume
 			self.UpdateVolume()
-			self.project.unsavedChanges = True
-			
 			self.emit("volume")
 
 	#_____________________________________________________________________
@@ -921,7 +920,6 @@ class Instrument(gobject.GObject):
 		if device != self.input or inTrack != self.inTrack:
 			self.input = device
 			self.inTrack = inTrack
-			self.project.unsavedChanges = True
 			
 			inc = IncrementalSave.InstrumentSetInput(self.id, device, inTrack)
 			self.project.SaveIncrementalAction(inc)
