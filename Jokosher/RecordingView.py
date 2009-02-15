@@ -264,7 +264,7 @@ class RecordingView(gtk.Frame):
 		self.header_size_group.add_widget(instrViewer.GetHeaderWidget())
 		
 		self.instrumentBox.pack_start(instrViewer, False, False)
-		instrViewer.show_all()
+		instrViewer.show()
 	
 	#_____________________________________________________________________
 	
