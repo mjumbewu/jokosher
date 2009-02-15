@@ -1484,12 +1484,6 @@ class MainApp:
 			
 		self.project = project
 		
-		if self.project.CanDoIncrementalRestore():
-			# TODO: connect message area
-			#if response == gtk.RESPONSE_OK:
-			#	self.project.DoIncrementalRestore()
-			pass
-		
 		self.project.connect("audio-state::play", self.OnProjectAudioState)
 		self.project.connect("audio-state::pause", self.OnProjectAudioState)
 		self.project.connect("audio-state::record", self.OnProjectAudioState)
