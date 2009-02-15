@@ -681,6 +681,7 @@ class Instrument(gobject.GObject):
 		
 		self.temp = ev.id
 		self.emit("event::added", ev)
+		return ev
 	
 	#_____________________________________________________________________
 	
@@ -765,7 +766,7 @@ class Instrument(gobject.GObject):
 		if self.volume != volume:
 			self.volume = volume
 			self.UpdateVolume()
-			self.project.unsavedChanges = True
+			self.project.SetUnsavedChanges()
 			self.emit("volume")
 
 	#_____________________________________________________________________

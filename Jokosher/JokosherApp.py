@@ -116,6 +116,7 @@ class MainApp:
 			"on_project_add_audio" : self.OnAddAudioFile,
 			"on_system_information_activate" : self.OnSystemInformation,
 			"on_restore_crashed_project_activate" : self.OnRestoreCrashedProject,
+			"on_properties_activate" : self.OnProjectProperties,
 		}
 		self.wTree.signal_autoconnect(signals)
 		
@@ -151,6 +152,7 @@ class MainApp:
 		self.removeInstrMenuItem = self.wTree.get_widget("remove_selected_instrument")
 		self.addAudioFileButton = self.wTree.get_widget("addAudioFileButton")
 		self.addAudioFileMenuItem = self.wTree.get_widget("add_audio_file_project_menu")
+		self.properties_menu_item = self.wTree.get_widget("project_properties")
 		
 		self.recentprojectitems = []
 		self.lastopenedproject = None
@@ -271,8 +273,6 @@ class MainApp:
 
 		# Check for crash and offer recovery
 		backupDir = os.path.join(Globals.JOKOSHER_DATA_HOME, "backups")
-		if not os.path.exists(backupDir):
-			os.mkdir(backupDir)
 
 		for backupFile in os.listdir(backupDir):
 			backup = os.path.join(backupDir, backupFile)
@@ -1300,7 +1300,7 @@ class MainApp:
 		ctrls = (self.save, self.save_as, self.close, self.addInstrumentButton, self.addAudioFileButton,
 			self.reverse, self.forward, self.play, self.stop, self.record,
 			self.projectMenu, self.instrumentMenu, self.export, self.cut, self.copy, self.paste,
-			self.undo, self.redo, self.delete, self.compactMixButton)
+			self.undo, self.redo, self.delete, self.compactMixButton, self.properties_menu_item)
 		
 		if self.project:
 			# make various buttons and menu items enabled now we have a project option
@@ -2008,7 +2008,61 @@ class MainApp:
 			#a race condition, but chances are greatly reduced)
 			open(self.backupProject, "w")
 			gobject.timeout_add_seconds(int(Globals.settings.general["backupsavetime"]) / 1000, self.BackupSave)
-
+			
+	#_____________________________________________________________________
+	
+	def OnProjectProperties(self, widget=None):
+		"""
+		Called when the "Properties..." in the project menu is clicked.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+		"""
+		if not self.project:
+			return
+		
+		propertiesTree = gtk.glade.XML(Globals.GLADE_PATH, "ProjectPropertiesDialog")
+		dlg = propertiesTree.get_widget("ProjectPropertiesDialog")
+		nameEntry = propertiesTree.get_widget("nameEntry")
+		authorEntry = propertiesTree.get_widget("authorEntry")
+		notesTextView = propertiesTree.get_widget("notesTextView")
+		
+		nameEntry.set_text(self.project.name)
+		authorEntry.set_text(self.project.author)
+		buffer = gtk.TextBuffer()
+		buffer.set_text(self.project.notes)
+		notesTextView.set_buffer(buffer)
+		
+		dlg.connect("response", self.OnProjectPropertiesClose, nameEntry, authorEntry, notesTextView)
+		dlg.show_all()
+		
+	#_____________________________________________________________________
+		
+	def OnProjectPropertiesClose(self, dialog, response, nameEntry, authorEntry, notesTextView):
+		"""
+		Called when the "Project Properties" windows is closed.
+		
+		Parameters:
+			dialog -- reserved for GTK callbacks, don't use it explicitly.
+		"""
+		
+		if self.project and response == gtk.RESPONSE_CLOSE:
+			author = authorEntry.get_text()
+			name = nameEntry.get_text()
+			buffer = notesTextView.get_buffer()
+			notes = buffer.get_text(*buffer.get_bounds())
+			
+			has_changed = (author != self.project.author) or \
+			              (name != self.project.name) or \
+			              (notes != self.project.notes)
+			if has_changed:
+				self.project.author = author
+				self.project.name = name
+				self.project.notes = notes
+				self.project.SetUnsavedChanges()
+				
+		dialog.destroy()
+				
 	
 #=========================================================================
 
