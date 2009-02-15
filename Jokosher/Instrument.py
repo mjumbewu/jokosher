@@ -783,11 +783,19 @@ class Instrument(gobject.GObject):
 			self.UpdateVolume()
 			self.project.unsavedChanges = True
 			
-			inc = IncrementalSave.InstrumentSetVolume(self.id, volume)
-			self.project.SaveIncrementalAction(inc)
-			
 			self.emit("volume")
 
+	#_____________________________________________________________________
+	
+	def CommitVolume(self):
+		"""
+		Signal that the volume is no longer volatile. This means we can incrementally save,
+		which we didn't do before because the volume was rapidly changing as the user
+		moved the mouse.
+		"""
+		inc = IncrementalSave.InstrumentSetVolume(self.id, self.volume)
+		self.project.SaveIncrementalAction(inc)
+		
 	#_____________________________________________________________________
 	
 	def UpdateVolume(self):
@@ -911,8 +919,8 @@ class Instrument(gobject.GObject):
 	
 	def SetInput(self, device, inTrack):
 		if device != self.input or inTrack != self.inTrack:
-			instr.input = device
-			instr.inTrack = inTrack
+			self.input = device
+			self.inTrack = inTrack
 			self.project.unsavedChanges = True
 			
 			inc = IncrementalSave.InstrumentSetInput(self.id, device, inTrack)
