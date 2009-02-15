@@ -129,46 +129,6 @@ class CompleteDownload:
 
 #=========================================================================
 
-class Undo:
-	def Execute(self, project):
-		project.Undo()
-		
-	def StoreToString(self):
-		doc = xml.Document()
-		node = doc.createElement("Undo")
-		doc.appendChild(node)
-				
-		return doc.toxml()
-	
-	@staticmethod
-	def LoadFromString(string):
-		doc = xml.parseString(string)
-		node = doc.firstChild
-		assert node.nodeName == "Undo"
-		return Undo()
-
-#=========================================================================
-
-class Redo:
-	def Execute(self, project):
-		project.Redo()
-		
-	def StoreToString(self):
-		doc = xml.Document()
-		node = doc.createElement("Redo")
-		doc.appendChild(node)
-				
-		return doc.toxml()
-	
-	@staticmethod
-	def LoadFromString(string):
-		doc = xml.parseString(string)
-		node = doc.firstChild
-		assert node.nodeName == "Redo"
-		return Redo()
-
-#=========================================================================
-
 class Action:
 	def __init__(self, objectString, func_name, args, kwargs):
 		self.objectString = objectString
@@ -190,9 +150,6 @@ class Action:
 			if isinstance(value, MockEvent):
 				value = project.JokosherObjectFromString(value.event_string)
 			kwargs[key] = value
-		
-		# tell the incremental system not to log these actions; they are already in the incremental file
-		kwargs["_incrementalRestore_"] = True
 		
 		getattr(target_object, self.func_name)(*args, **kwargs)
 
@@ -260,7 +217,15 @@ class Action:
 				kwArgsDict[key] = value
 
 		return Action(object_string, function_name, argsList, kwArgsDict)
-		
+
+#=========================================================================
+# Helper functions for Project related Actions
+
+def Undo():
+	return Action("P", "Undo", tuple(), dict())
+
+def Redo():
+	return Action("P", "Redo", tuple(), dict())
 
 #=========================================================================
 
@@ -273,8 +238,6 @@ def LoadFromString(string):
 		"NewEvent" : NewEvent,
 		"StartDownload" : StartDownload,
 		"CompleteDownload" : CompleteDownload,
-		"Undo" : Undo,
-		"Redo" : Redo,
 	}
 	
 	if node in action_dict:

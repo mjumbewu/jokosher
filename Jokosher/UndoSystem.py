@@ -73,10 +73,6 @@ def UndoCommand(*command, **command_options):
 			if command_options.has_key("incremental_save"):
 				do_incremental_save = command_options["incremental_save"]
 			
-			if kwargs.has_key("_incrementalRestore_"):
-				do_incremental_save = False
-				del kwargs["_incrementalRestore_"]
-				
 			
 			try:
 				result = func(funcSelf, *args, **kwargs)
