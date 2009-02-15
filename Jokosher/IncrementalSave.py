@@ -230,6 +230,9 @@ def Redo():
 def InstrumentSetInput(id, device, inTrack):
 	return Action("I" + str(id), "SetInput", (device, inTrack), dict())
 
+def InstrumentSetVolume(id, volume):
+	return Action("I" + str(id), "SetVolume", (volume,), dict())
+
 #=========================================================================
 
 def LoadFromString(string):

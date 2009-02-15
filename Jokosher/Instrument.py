@@ -782,6 +782,10 @@ class Instrument(gobject.GObject):
 			self.volume = volume
 			self.UpdateVolume()
 			self.project.unsavedChanges = True
+			
+			inc = IncrementalSave.InstrumentSetVolume(self.id, volume)
+			self.project.SaveIncrementalAction(inc)
+			
 			self.emit("volume")
 
 	#_____________________________________________________________________
