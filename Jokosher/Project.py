@@ -86,8 +86,9 @@ class Project(gobject.GObject):
 		"""
 		gobject.GObject.__init__(self)
 		
-		self.author = ""			#the author of this project
+		self.author = ""			#user specified author of this project
 		self.name = ""				#the name of this project
+		self.notes = ""				#user specified notes for the project
 		self.projectfile = ""		#the name of the project file, complete with path
 		self.audio_path = ""
 		self.levels_path = ""
@@ -115,7 +116,7 @@ class Project(gobject.GObject):
 		self.currentSinkString = None	#to keep track if the sink changes or not
 
 		# Variables for the undo/redo command system
-		self.unsavedChanges = False		#This boolean is to indicate if something which is not on the undo/redo stack needs to be saved
+		self.__unsavedChanges = False	#This boolean is to indicate if something which is not on the undo/redo stack needs to be saved
 		self.__undoStack = []			#not yet saved undo commands
 		self.__redoStack = []			#not yet saved actions that we're undone
 		self.__savedUndoStack = []		#undo commands that have already been saved in the project file
@@ -722,7 +723,7 @@ class Project(gobject.GObject):
 		self.transportMode = self.transport.mode
 		
 		if not backup:
-			self.unsavedChanges = False
+			self.__unsavedChanges = False
 			#purge main undo stack so that it will not prompt to save on exit
 			self.__savedUndoStack.extend(self.__undoStack)
 			self.__undoStack = []
@@ -743,6 +744,12 @@ class Project(gobject.GObject):
 		         "transportMode", "bpm", "meter_nom", "meter_denom", "projectfile"]
 		
 		Utils.StoreParametersToXML(self, doc, params, items)
+		
+		notesNode = doc.createElement("Notes")
+		head.appendChild(notesNode)
+		
+		# use repr() because XML will not preserve whitespace charaters such as \n and \t.
+		notesNode.setAttribute("text", repr(self.notes))
 			
 		undo = doc.createElement("Undo")
 		head.appendChild(undo)
@@ -858,7 +865,7 @@ class Project(gobject.GObject):
 				self.__savedRedoStack = []
 				#since there is no other record that something has 
 				#changed after savedRedoStack is purged
-				self.unsavedChanges = True
+				self.__unsavedChanges = True
 		self.emit("undo")
 	
 	#_____________________________________________________________________
@@ -879,17 +886,23 @@ class Project(gobject.GObject):
 	
 	def CheckUnsavedChanges(self):
 		"""
-		Uses boolean self.unsavedChanges and Undo/Redo to 
+		Uses boolean self.__unsavedChanges and Undo/Redo to 
 		determine if the program needs to save anything on exit.
 		
 		Return:
 			True -- there's unsaved changes, undoes or redoes
 			False -- the Project can be safely closed.
 		"""
-		return self.unsavedChanges or \
+		return self.__unsavedChanges or \
 			len(self.__undoStack) > 0 or \
 			len(self.__savedRedoStack) > 0
 	
+	#_____________________________________________________________________
+	
+	def SetUnsavedChanges(self):
+		self.__unsavedChanges = True
+		self.emit("undo") 
+		
 	#_____________________________________________________________________
 	
 	def CanPerformUndo(self):

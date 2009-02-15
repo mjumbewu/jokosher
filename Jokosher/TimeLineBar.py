@@ -142,7 +142,7 @@ class TimeLineBar(gtk.HBox):
 		
 		self.timelineVBox = gtk.VBox()
 		self.timelineVBox.pack_start(self.timeline, True, True)
-		separator = EventLaneHSeparator.EventLaneHSeparator(self.project.transport)
+		separator = EventLaneHSeparator.EventLaneHSeparator(self.project, self.project.transport)
 		self.timelineVBox.pack_start(separator, False, False)
 		
 		self.pack_start(self.headerVBox, False, False)
