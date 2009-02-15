@@ -177,8 +177,8 @@ class RecordingView(gtk.Frame):
 			self.zoomSlider.hide()
 		
 		if self.project.CanDoIncrementalRestore():
-			message = _("Attempt to recover project from backup?")
-			details = _("Jokosher detected a crash")
+			message = _("Would you like to restore the current project?")
+			details = _("A crash was detected and changes to your project were not saved.\nIf you would like, you can attempt to recover these lost changes.")
 			
 			msg_area = MessageArea.MessageArea()
 			msg_area.add_button(gtk.STOCK_CLOSE, gtk.RESPONSE_CLOSE)
