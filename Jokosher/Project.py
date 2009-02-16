@@ -741,10 +741,11 @@ class Project(gobject.GObject):
 			self.__savedRedoStack = []
 			
 			# delete the incremental file since its all safe on disk now
-			path, ext = os.path.splitext(self.projectfile)
-			filename = path + self.INCREMENTAL_SAVE_EXT
+			basepath, ext = os.path.splitext(self.projectfile)
+			incr_path = basepath + self.INCREMENTAL_SAVE_EXT
 			try:
-				os.remove(filename)
+				if os.path.exists(incr_path):
+					os.remove(incr_path)
 			except OSError:
 				Globals.debug("Removal of .incremental failed! Next load we will try to restore unrestorable state!")
 		
@@ -889,7 +890,8 @@ class Project(gobject.GObject):
 		path, ext = os.path.splitext(self.projectfile)
 		filename = path + self.INCREMENTAL_SAVE_EXT
 		try:
-			os.remove(filename)
+			if os.path.exists(filename):
+				os.remove(filename)
 		except OSError:
 			Globals.debug("Removal of .incremental failed! Next load we will try to restore unrestorable state!")
 		
