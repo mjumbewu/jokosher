@@ -219,6 +219,34 @@ class Action:
 		return Action(object_string, function_name, argsList, kwArgsDict)
 
 #=========================================================================
+
+class SetNotes:
+	def __init__(self, notes):
+		self.notes = notes
+		
+	def Execute(self, project):
+		project.SetNotes(self.notes)
+		
+	def StoreToString(self):
+		doc = xml.Document()
+		node = doc.createElement("SetNotes")
+		doc.appendChild(node)
+		
+		node.setAttribute("notes", repr(self.notes))
+				
+		return doc.toxml()
+	
+	@staticmethod
+	def LoadFromString(string):
+		doc = xml.parseString(string)
+		node = doc.firstChild
+		assert node.nodeName == "SetNotes"
+		
+		notes = Utils.StringUnRepr(node.getAttribute("notes"))
+		
+		return SetNotes(notes)
+
+#=========================================================================
 # Helper functions for Project related Actions
 
 def Undo():
@@ -226,6 +254,12 @@ def Undo():
 
 def Redo():
 	return Action("P", "Redo", tuple(), dict())
+
+def SetName(name):
+	return Action("P", "SetName", (name,), dict())
+
+def SetAuthor(author):
+	return Action("P", "SetAuthor", (author,), dict())
 
 def InstrumentSetInput(id, device, inTrack):
 	return Action("I" + str(id), "SetInput", (device, inTrack), dict())
@@ -244,6 +278,7 @@ def LoadFromString(string):
 		"NewEvent" : NewEvent,
 		"StartDownload" : StartDownload,
 		"CompleteDownload" : CompleteDownload,
+		"SetNotes" : SetNotes,
 	}
 	
 	if node in action_dict:

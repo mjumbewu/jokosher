@@ -1575,5 +1575,27 @@ class Project(gobject.GObject):
 		
 	#____________________________________________________________________	
 
+	def SetName(self, name):
+		if self.name != name:
+			self.name = name
+			inc = IncrementalSave.SetName(name)
+			self.SaveIncrementalAction(inc)
+				
+	#____________________________________________________________________	
 	
+	def SetAuthor(self, author):
+		if self.author != author:
+			self.author = author
+			inc = IncrementalSave.SetAuthor(author)
+			self.SaveIncrementalAction(inc)
+	
+	#____________________________________________________________________	
+	
+	def SetNotes(self, notes):
+		if self.notes != notes:
+			self.notes = notes
+			inc = IncrementalSave.SetNotes(notes)
+			self.SaveIncrementalAction(inc)
+	
+	#____________________________________________________________________		
 #=========================================================================

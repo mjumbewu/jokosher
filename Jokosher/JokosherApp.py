@@ -1958,19 +1958,14 @@ class MainApp:
 		"""
 		
 		if self.project and response == gtk.RESPONSE_CLOSE:
-			author = authorEntry.get_text()
 			name = nameEntry.get_text()
+			author = authorEntry.get_text()
 			buffer = notesTextView.get_buffer()
 			notes = buffer.get_text(*buffer.get_bounds())
 			
-			has_changed = (author != self.project.author) or \
-			              (name != self.project.name) or \
-			              (notes != self.project.notes)
-			if has_changed:
-				self.project.author = author
-				self.project.name = name
-				self.project.notes = notes
-				self.project.SetUnsavedChanges()
+			self.project.SetName(name)
+			self.project.SetAuthor(author)
+			self.project.SetNotes(notes)
 				
 		dialog.destroy()
 
