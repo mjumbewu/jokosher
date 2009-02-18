@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: jokosher\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-09-03 13:33-0400\n"
-"PO-Revision-Date: 2007-12-12 03:35+0000\n"
-"Last-Translator: André Gondim <andregondim@ubuntu.com>\n"
+"PO-Revision-Date: 2008-12-28 16:31+0000\n"
+"Last-Translator: danielrmt <Unknown>\n"
 "Language-Team: Portuguese (Brazil) <pt_BR@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2008-09-03 14:41+0000\n"
+"X-Launchpad-Export-Date: 2009-02-18 04:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../../Jokosher/Jokosher.glade.h:1
@@ -1534,7 +1534,7 @@ msgstr ""
 
 #: ../../Jokosher/JokosherApp.py:1808
 msgid "Unknown"
-msgstr ""
+msgstr "Desconhecido"
 
 #: ../../Jokosher/JokosherApp.py:1838
 #, python-format
@@ -1970,6 +1970,27 @@ msgstr "Violino"
 msgid "Vocal"
 msgstr "Vocal"
 
+#, fuzzy
+msgid "Sample Rate (Hz)"
+msgstr "Taxa da Amostra (Hz)"
+
+#, fuzzy
+msgid "translator-credits"
+msgstr ""
+"Rodrigo Nishino <rodrigo.nsh@gmail.com>, Christian Reis <kiko@async.com.br>\n"
+"\n"
+"Launchpad Contributions:\n"
+"  André Gondim https://launchpad.net/~andregondim\n"
+"  Bruno Depizzol https://launchpad.net/~bdepizzol\n"
+"  Christian Reis https://launchpad.net/~kiko\n"
+"  Christian Reis (test account) https://launchpad.net/~kiko-bichodomato\n"
+"  Goedson Teixeira Paixão https://launchpad.net/~goedson\n"
+"  Lucas Alberto Santos https://launchpad.net/~lucasa\n"
+"  Rafael Proença https://launchpad.net/~cypherbios\n"
+"  Ricardo A. Staudt https://launchpad.net/~ricardost\n"
+"  Rodrigo NSH https://launchpad.net/~rodrigo-nishino\n"
+"  Vinicius Depizzol https://launchpad.net/~vdepizzol"
+
 #~ msgid ""
 #~ "16 bit\n"
 #~ "24 bit\n"
@@ -2051,11 +2072,7 @@ msgstr "Vocal"
 
 #, fuzzy
 #~ msgid "Sample Format"
-#~ msgstr "Formato da Amostra"
-
-#, fuzzy
-#~ msgid "Sample Rate (Hz)"
-#~ msgstr "Taxa da Amostra (Hz)"
+#~ msgstr "Formato do Tempo"
 
 #~ msgid "Select an effect"
 #~ msgstr "Selecione um efeito"
@@ -2068,7 +2085,7 @@ msgstr "Vocal"
 
 #, fuzzy
 #~ msgid "Show as Bars, Beats, Ticks"
-#~ msgstr "Mostrar como Barras, Batidas, Ticks"
+#~ msgstr "Mostrar como _Barras, Batidas, Ticks"
 
 #~ msgid "Show as Hours, Minutes, Seconds"
 #~ msgstr "Mostrar como Horas, Minutos, Segundos"
@@ -2091,24 +2108,6 @@ msgstr "Vocal"
 #~ "Wave\n"
 #~ "FLAC\n"
 #~ "Ogg Vorbis"
-
-#, fuzzy
-#~ msgid "translator-credits"
-#~ msgstr ""
-#~ "Rodrigo Nishino <rodrigo.nsh@gmail.com>, Christian Reis <kiko@async.com."
-#~ "br>\n"
-#~ "\n"
-#~ "Launchpad Contributions:\n"
-#~ "  André Gondim https://launchpad.net/~andregondim\n"
-#~ "  Bruno Depizzol https://launchpad.net/~bdepizzol\n"
-#~ "  Christian Reis https://launchpad.net/~kiko\n"
-#~ "  Christian Reis (test account) https://launchpad.net/~kiko-bichodomato\n"
-#~ "  Goedson Teixeira Paixão https://launchpad.net/~goedson\n"
-#~ "  Lucas Alberto Santos https://launchpad.net/~lucasa\n"
-#~ "  Rafael Proença https://launchpad.net/~cypherbios\n"
-#~ "  Ricardo A. Staudt https://launchpad.net/~ricardost\n"
-#~ "  Rodrigo NSH https://launchpad.net/~rodrigo-nishino\n"
-#~ "  Vinicius Depizzol https://launchpad.net/~vdepizzol"
 
 #~ msgid ""
 #~ "The instruments '%s' and '%s' both have the same input selected (%s). "

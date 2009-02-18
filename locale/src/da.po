@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: jokosher\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-09-03 13:33-0400\n"
-"PO-Revision-Date: 2007-09-09 21:29+0000\n"
-"Last-Translator: Hans Harhoff Andersen <hansharhoff@gmail.com>\n"
+"PO-Revision-Date: 2008-10-12 20:02+0000\n"
+"Last-Translator: Niels Kjøller Hansen <niels.k.h@gmail.com>\n"
 "Language-Team: Danish <da@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2008-09-03 14:41+0000\n"
+"X-Launchpad-Export-Date: 2009-02-18 04:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../../Jokosher/Jokosher.glade.h:1
@@ -51,11 +51,11 @@ msgstr "<b>Effekter</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:9
 msgid "<b>File Details</b>"
-msgstr ""
+msgstr "<b>Fildetaljer</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:10
 msgid "<b>Jokosher Instruments</b>"
-msgstr ""
+msgstr "<b>Jokosherinstrumenter</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:11
 msgid ""
@@ -75,7 +75,7 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:14
 msgid "<b>Project Name</b>"
-msgstr ""
+msgstr "<b>Projektnavn</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:15
 msgid "<b>Recent Projects</b>"
@@ -95,7 +95,7 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:19
 msgid "<b>Template Instruments</b>"
-msgstr ""
+msgstr "<b>Skabeloninstrumenter</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:20
 msgid "<b>Testing</b>"
@@ -111,11 +111,11 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:23
 msgid "<big><b>Mixing the project...</b></big>"
-msgstr ""
+msgstr "<big><b>Mikser projektet...</b></big>"
 
 #: ../../Jokosher/Jokosher.glade.h:24
 msgid "<big>System Information</big>"
-msgstr ""
+msgstr "<big>Systeminformation</big>"
 
 #: ../../Jokosher/Jokosher.glade.h:25
 msgid ""
@@ -129,7 +129,7 @@ msgstr "Aktiver den valgte effekt"
 
 #: ../../Jokosher/Jokosher.glade.h:27
 msgid "Add Action"
-msgstr ""
+msgstr "Tilføj handling"
 
 #: ../../Jokosher/Jokosher.glade.h:28
 msgid "Add Audio File"
@@ -137,7 +137,7 @@ msgstr "Tilføj lydfil"
 
 #: ../../Jokosher/Jokosher.glade.h:29
 msgid "Add Audio _File..."
-msgstr ""
+msgstr "Tilføj lyd_fil"
 
 #: ../../Jokosher/Jokosher.glade.h:30
 msgid "Add Mixdown Action"
@@ -169,7 +169,7 @@ msgstr "Tilføj det valgte instrument"
 
 #: ../../Jokosher/Jokosher.glade.h:37
 msgid "Add the selected jokosher instrument"
-msgstr ""
+msgstr "Tilføj det valgte jokosherinstrument"
 
 #: ../../Jokosher/Jokosher.glade.h:38
 msgid "Adjust the amount of beats per measure"
@@ -192,6 +192,8 @@ msgid ""
 "Audio production made simple.\n"
 "Version 0.10"
 msgstr ""
+"Lydproduktion gjort simpel.\n"
+"Version 0.10"
 
 #: ../../Jokosher/Jokosher.glade.h:44
 msgid ""
@@ -241,7 +243,7 @@ msgstr "Vælg en kædeeffekts-forudindstilling"
 
 #: ../../Jokosher/Jokosher.glade.h:56
 msgid "Choose a project template"
-msgstr ""
+msgstr "Vælg en projektskabelon"
 
 #: ../../Jokosher/Jokosher.glade.h:57
 msgid "Choose an effect preset."
@@ -269,11 +271,11 @@ msgstr "Luk udvidelseshåndteringen"
 
 #: ../../Jokosher/Jokosher.glade.h:63
 msgid "Close this window"
-msgstr ""
+msgstr "Luk dette vindue"
 
 #: ../../Jokosher/Jokosher.glade.h:64
 msgid "Configure Export File Action"
-msgstr ""
+msgstr "Konfigurer fileksporthandling"
 
 #: ../../Jokosher/Jokosher.glade.h:65
 msgid "Configure Instrument Effects"
@@ -301,7 +303,7 @@ msgstr "Klip den nuværende markering"
 
 #: ../../Jokosher/Jokosher.glade.h:71
 msgid "D_evice:"
-msgstr ""
+msgstr "_Enhed:"
 
 #: ../../Jokosher/Jokosher.glade.h:72
 msgid "Deactivate the currently selected active effect"
@@ -321,11 +323,11 @@ msgstr "Slet den aktive indstilling"
 
 #: ../../Jokosher/Jokosher.glade.h:76
 msgid "Delete the selected project template"
-msgstr ""
+msgstr "Slet den valgte projektskabelon"
 
 #: ../../Jokosher/Jokosher.glade.h:77
 msgid "Distribution:"
-msgstr ""
+msgstr "Distribution:"
 
 #: ../../Jokosher/Jokosher.glade.h:78
 msgid "Don't add an instrument"
@@ -357,7 +359,7 @@ msgstr "Redigér Jokoshers indstillinger"
 
 #: ../../Jokosher/Jokosher.glade.h:85
 msgid "Edit project templates"
-msgstr ""
+msgstr "Rediger projektskabeloner"
 
 #: ../../Jokosher/Jokosher.glade.h:86
 msgid ""
@@ -382,7 +384,7 @@ msgstr "Eksporter nuværende projekt til en lydfil"
 
 #: ../../Jokosher/Jokosher.glade.h:91
 msgid "Export to local directory"
-msgstr ""
+msgstr "Eksporter til lokal mappe"
 
 #: ../../Jokosher/Jokosher.glade.h:92
 msgid "Export to remote server"
@@ -390,7 +392,7 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:93
 msgid "File name:"
-msgstr ""
+msgstr "Filnavn:"
 
 #: ../../Jokosher/Jokosher.glade.h:94
 msgid "Find and open an existing project"
@@ -402,11 +404,11 @@ msgstr "Find ud af hvordan du kan hjælpe"
 
 #: ../../Jokosher/Jokosher.glade.h:96
 msgid "GStreamer version:"
-msgstr ""
+msgstr "GStreamer version:"
 
 #: ../../Jokosher/Jokosher.glade.h:97
 msgid "Gnonlin version:"
-msgstr ""
+msgstr "Gnonlin version:"
 
 #: ../../Jokosher/Jokosher.glade.h:99
 msgid ""
@@ -572,7 +574,7 @@ msgstr "Nyt projekt"
 
 #: ../../Jokosher/Jokosher.glade.h:169
 msgid "New..."
-msgstr ""
+msgstr "Ny..."
 
 #: ../../Jokosher/Jokosher.glade.h:170
 msgid "O_utput:"
@@ -592,7 +594,7 @@ msgstr "Åbn udvidelseshåndteringen"
 
 #: ../../Jokosher/Jokosher.glade.h:174
 msgid "Open..."
-msgstr ""
+msgstr "Åbn..."
 
 #: ../../Jokosher/Jokosher.glade.h:175
 msgid "Paste the contents of the clipboard"
@@ -603,6 +605,8 @@ msgid ""
 "Please enter the filename of the audio you wish to export. The audio will be "
 "exported to the location specified."
 msgstr ""
+"Skriv venligst filnavnet på den lyd du vil eksportere. Lydfilen bliver "
+"eksporteret på det valgte sted."
 
 #: ../../Jokosher/Jokosher.glade.h:177
 msgid ""
@@ -622,7 +626,7 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:181
 msgid "Project Templates"
-msgstr ""
+msgstr "Projektskabeloner"
 
 #: ../../Jokosher/Jokosher.glade.h:182
 msgid "Quit Jokosher"
@@ -650,11 +654,11 @@ msgstr "Rapporter en fejl i Jokosher"
 
 #: ../../Jokosher/Jokosher.glade.h:188
 msgid "Restore Crashed Project"
-msgstr ""
+msgstr "Genskab nedbrudt projekt"
 
 #: ../../Jokosher/Jokosher.glade.h:189
 msgid "Save As..."
-msgstr ""
+msgstr "Gem som..."
 
 #: ../../Jokosher/Jokosher.glade.h:190
 msgid "Save a copy of the current project"
@@ -682,7 +686,7 @@ msgstr "Gem de aktive effekter som en forudindstilling"
 
 #: ../../Jokosher/Jokosher.glade.h:196
 msgid "Save the selected project template"
-msgstr ""
+msgstr "Gem den valgte projektskabelon"
 
 #: ../../Jokosher/Jokosher.glade.h:197
 msgid "Save your selections and close this window"
@@ -690,7 +694,7 @@ msgstr "Gem det valgte og luk vindue"
 
 #: ../../Jokosher/Jokosher.glade.h:198
 msgid "See your system information"
-msgstr ""
+msgstr "Se information om dit system."
 
 #: ../../Jokosher/Jokosher.glade.h:199
 msgid "Select A Folder"
@@ -738,7 +742,7 @@ msgstr "Stop afpilning"
 
 #: ../../Jokosher/Jokosher.glade.h:210
 msgid "System Information"
-msgstr ""
+msgstr "Systeminformation"
 
 #: ../../Jokosher/Jokosher.glade.h:211
 msgid "Testing Jokosher, and submitting bugs."
@@ -794,7 +798,7 @@ msgstr "Skriv let læselig dokumentation"
 
 #: ../../Jokosher/Jokosher.glade.h:224
 msgid "Your music file is being mixed. This can take some seconds."
-msgstr ""
+msgstr "Din musikfil bliver mikset. Det kan tage nogle sekunder."
 
 #: ../../Jokosher/Jokosher.glade.h:225
 msgid "_Add Instrument..."
@@ -806,7 +810,7 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:227
 msgid "_Browse for an Existing Project"
-msgstr ""
+msgstr "Find et eksisterende projekt."
 
 #: ../../Jokosher/Jokosher.glade.h:228
 msgid "_Change Instrument Type..."
@@ -858,7 +862,7 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:240
 msgid "_Mixdown"
-msgstr ""
+msgstr "_Mixdown"
 
 #: ../../Jokosher/Jokosher.glade.h:241 ../../Jokosher/JokosherApp.py:2025
 msgid "_Mixdown Project..."

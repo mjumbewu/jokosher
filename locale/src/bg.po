@@ -1346,8 +1346,8 @@ msgstr ""
 #: ../../Jokosher/JokosherApp.py:502
 msgid ""
 "You require the GStreamer channel splitting element to be able to record "
-"from multiple input devices. This can be downloaded from "
-"http://www.jokosher.org/download."
+"from multiple input devices. This can be downloaded from http://www.jokosher."
+"org/download."
 msgstr ""
 
 #: ../../Jokosher/JokosherApp.py:676
@@ -1481,8 +1481,8 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"<big>Някои функционалности ще работят неправилно или няма да работят "
-"въобще.</big>\n"
+"<big>Някои функционалности ще работят неправилно или няма да работят въобще."
+"</big>\n"
 "\n"
 "%s"
 
@@ -1955,168 +1955,202 @@ msgstr "Цигулка"
 msgid "Vocal"
 msgstr "Глас"
 
+msgid "Add this step to the current mixdown"
+msgstr "Добавяне на тази стъпка към смесването"
+
+msgid "Audio production made simple."
+msgstr "Звукова обработка по лесен начин"
+
+msgid "Don't open anything"
+msgstr "Да не се отваря нищо"
+
+msgid "FastForward"
+msgstr "Напред"
+
+msgid "Recording Workspace"
+msgstr "Пулт за запис"
+
+msgid "Show welcome dialog"
+msgstr "Показване на начален екран"
+
+msgid "Stop"
+msgstr "Спиране"
+
+msgid "Switch to the Mixing workspace"
+msgstr "Превключване към пулт за смесване"
+
+msgid "Switch to the Recording workspace"
+msgstr "Превключване към пулт за запис"
+
+msgid "Workspaces"
+msgstr "Пултове"
+
+msgid "version 0.9"
+msgstr "версия 0.9"
+
+msgid "_Paste"
+msgstr "П_оставяне"
+
+msgid "Currently working in the Recording workspace"
+msgstr "В момента работите на пулта за запис"
+
+msgid "Currently working in the Mixing workspace"
+msgstr "В момента работите на пулта за смесване"
+
+msgid "Edit this mixdown step settings"
+msgstr "Редактиране настройките на тази стъпка от смесването"
+
+msgid "Remove this mixdown step"
+msgstr "Премахване на тази стъпка от смесването"
+
+msgid "Export to %(file)s as %(desc)s"
+msgstr "Инасяне в %(file)s като %(desc)s"
+
+msgid "Run external script"
+msgstr "Изпълнение на външен скрипт"
+
+msgid "Hz"
+msgstr "Хц"
+
+msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"
+msgstr "<b>Влачете</b> <b>плъзгача</b> за промяна силата на звука"
+
+#, fuzzy
 #~ msgid "Add Instrument"
+#~ msgstr "_Добавяне на инструмент..."
+
+#, fuzzy
+#~ msgid "Add a new instrument"
 #~ msgstr "Добавяне на инструмент"
 
-#~ msgid "Add a new instrument"
-#~ msgstr "Добавяне на нов инструмент"
-
+#, fuzzy
 #~ msgid "Add a new step:"
-#~ msgstr "Добавяне на нова стъпка:"
+#~ msgstr "Добавяне на инструмент"
 
-#~ msgid "Add this step to the current mixdown"
-#~ msgstr "Добавяне на тази стъпка към смесването"
-
-#~ msgid "Audio production made simple."
-#~ msgstr "Звукова обработка по лесен начин"
-
+#, fuzzy
 #~ msgid "Author"
-#~ msgstr "Автор"
+#~ msgstr "_Автор:"
 
+#, fuzzy
 #~ msgid "Browse for an Existing Project"
-#~ msgstr "Преглед за съществуващ проект"
+#~ msgstr "Отваряне на съществуващ проект"
 
+#, fuzzy
 #~ msgid "Create a New Project"
-#~ msgstr "Създаване на нов проект"
+#~ msgstr "_Създаване на нов проект"
 
+#, fuzzy
 #~ msgid "Device:"
-#~ msgstr "Устройство"
+#~ msgstr "_Устройство:"
 
-#~ msgid "Don't open anything"
-#~ msgstr "Да не се отваря нищо"
-
+#, fuzzy
 #~ msgid "Don't show this on start-up"
-#~ msgstr "Да не се показва при зареждане"
+#~ msgstr "Да не се включват разширения при зареждане"
 
-#~ msgid "FastForward"
-#~ msgstr "Напред"
-
+#, fuzzy
 #~ msgid "Folder"
-#~ msgstr "Папка"
+#~ msgstr "_Папка:"
 
+#, fuzzy
 #~ msgid "Mixing"
-#~ msgstr "Смесване"
+#~ msgstr "Смесване на проекта"
 
+#, fuzzy
 #~ msgid "Mixing Workspace"
-#~ msgstr "Смесителен пулт"
+#~ msgstr "Смесване на проекта"
 
+#, fuzzy
 #~ msgid "Open Selected Project"
-#~ msgstr "Отваряне на избрания проект"
+#~ msgstr "Отваряне на скорошен проект"
 
+#, fuzzy
 #~ msgid "Open most recent project"
-#~ msgstr "Отваряне на най-скорошния проект"
+#~ msgstr "Отваряне на скорошен проект"
 
+#, fuzzy
 #~ msgid "Output:"
-#~ msgstr "Изход:"
+#~ msgstr "_Изход:"
 
+#, fuzzy
 #~ msgid "Preferences"
-#~ msgstr "Настройки"
+#~ msgstr "_Настройки"
 
+#, fuzzy
 #~ msgid "Project Name"
-#~ msgstr "Име на проекта"
+#~ msgstr "Про_ект"
 
+#, fuzzy
 #~ msgid "Record"
-#~ msgstr "Запис"
+#~ msgstr "Запис..."
 
+#, fuzzy
 #~ msgid "Recording"
-#~ msgstr "Запис"
+#~ msgstr "Запис..."
 
-#~ msgid "Recording Workspace"
-#~ msgstr "Пулт за запис"
-
+#, fuzzy
 #~ msgid "Remove Selected Instrument"
 #~ msgstr "Премахване на избрания инструмент"
 
+#, fuzzy
 #~ msgid "Rewind"
-#~ msgstr "Назад"
+#~ msgstr "Повтаряне"
 
+#, fuzzy
 #~ msgid "Save these mixdown settings"
-#~ msgstr "Запазване на тези настройки на смесването"
+#~ msgstr "Ползване на тези настройки"
 
+#, fuzzy
 #~ msgid "Search:"
-#~ msgstr "Търсене:"
+#~ msgstr "_Търсене:"
 
-#~ msgid "Show welcome dialog"
-#~ msgstr "Показване на начален екран"
-
-#~ msgid "Stop"
-#~ msgstr "Спиране"
-
-#~ msgid "Switch to the Mixing workspace"
-#~ msgstr "Превключване към пулт за смесване"
-
-#~ msgid "Switch to the Recording workspace"
-#~ msgstr "Превключване към пулт за запис"
-
-#~ msgid "Workspaces"
-#~ msgstr "Пултове"
-
+#, fuzzy
 #~ msgid "_Add Instrument"
-#~ msgstr "Добавяне на _инструмент"
+#~ msgstr "_Добавяне на инструмент..."
 
+#, fuzzy
 #~ msgid "_Manage Extensions"
-#~ msgstr "_Управление на разширенията"
+#~ msgstr "Раз_ширения"
 
+#, fuzzy
 #~ msgid "_Mixdown Project"
-#~ msgstr "_Смесване на проекта"
+#~ msgstr "Смесване на проекта"
 
+#, fuzzy
 #~ msgid "_Mixdown the project"
-#~ msgstr "_Смесване на проекта"
+#~ msgstr "Смесване на проекта"
 
+#, fuzzy
 #~ msgid "_Recording Inputs"
-#~ msgstr "Входове за _запис"
+#~ msgstr "Запис..."
 
+#, fuzzy
 #~ msgid "_Save these settings"
-#~ msgstr "_Запазване на тези настройки"
+#~ msgstr "Ползване на тези настройки"
 
-#~ msgid "version 0.9"
-#~ msgstr "версия 0.9"
-
-#~ msgid "_Paste"
-#~ msgstr "П_оставяне"
-
-#~ msgid "Currently working in the Recording workspace"
-#~ msgstr "В момента работите на пулта за запис"
-
-#~ msgid "Currently working in the Mixing workspace"
-#~ msgstr "В момента работите на пулта за смесване"
-
+#, fuzzy
 #~ msgid "_Mixdown as"
-#~ msgstr "_Смесване като"
+#~ msgstr "Смесване като"
 
+#, fuzzy
 #~ msgid "<b>Steps to mixdown %(projectname)s</b>"
-#~ msgstr "<b>Стъпки за смесването на %(projectname)s</b>"
+#~ msgstr "Подготовка за смесване на проекта"
 
-#~ msgid "Edit this mixdown step settings"
-#~ msgstr "Редактиране настройките на тази стъпка от смесването"
-
-#~ msgid "Remove this mixdown step"
-#~ msgstr "Премахване на тази стъпка от смесването"
-
+#, fuzzy
 #~ msgid "Don't save these mixdown settings"
-#~ msgstr "Да не се запазват тези стъпки на смесването"
+#~ msgstr "Ползване на тези настройки"
 
+#, fuzzy
 #~ msgid "Choose a name for this profile"
-#~ msgstr "Избор на име за профила"
+#~ msgstr "Изберете файл на Jokosher-проект"
 
-#~ msgid "Export to %(file)s as %(desc)s"
-#~ msgstr "Инасяне в %(file)s като %(desc)s"
-
+#, fuzzy
 #~ msgid "Export as"
-#~ msgstr "Изнасяне като"
+#~ msgstr "Изнасяне на файл"
 
+#, fuzzy
 #~ msgid "Run script %s"
-#~ msgstr "Изпълнение на скрипт %s"
+#~ msgstr "Грешка в скрипта %s"
 
-#~ msgid "Run external script"
-#~ msgstr "Изпълнение на външен скрипт"
-
+#, fuzzy
 #~ msgid "No such script %s"
-#~ msgstr "Няма такъв скрипт: %s"
-
-#~ msgid "Hz"
-#~ msgstr "Хц"
-
-#~ msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"
-#~ msgstr "<b>Влачете</b> <b>плъзгача</b> за промяна силата на звука"
-
+#~ msgstr "Грешка в скрипта %s"

@@ -1326,9 +1326,9 @@ msgid ""
 "selected (%(track)s). Please either disarm one, or connect it to a different "
 "input through 'Project -> Recording Inputs'"
 msgstr ""
-"الآلات '%(name1)s' و '%(name2)s' كلتاهما لديهما نفس الدخل المحدد "
-"(%(track)s).  إما أن تقوم بتسريح احدهما أو توصيله إلى دخل أخر من خلال 'مشروع "
-"-> دخل التسجيل'"
+"الآلات '%(name1)s' و '%(name2)s' كلتاهما لديهما نفس الدخل المحدد (%(track)"
+"s).  إما أن تقوم بتسريح احدهما أو توصيله إلى دخل أخر من خلال 'مشروع -> دخل "
+"التسجيل'"
 
 #: ../../Jokosher/JokosherApp.py:498
 msgid ""
@@ -1345,8 +1345,8 @@ msgstr ""
 #: ../../Jokosher/JokosherApp.py:502
 msgid ""
 "You require the GStreamer channel splitting element to be able to record "
-"from multiple input devices. This can be downloaded from "
-"http://www.jokosher.org/download."
+"from multiple input devices. This can be downloaded from http://www.jokosher."
+"org/download."
 msgstr ""
 
 #: ../../Jokosher/JokosherApp.py:676
@@ -1917,141 +1917,165 @@ msgstr "كمان"
 msgid "Vocal"
 msgstr "صوتي"
 
-#~ msgid "<b>Presets for:</b>"
-#~ msgstr "<b>تجهيز مسبق ل:</b>"
+msgid "Add this step to the current mixdown"
+msgstr "أضف هذه الخطوة للدمج الحالي"
 
+msgid "Audio production made simple."
+msgstr "الإنتاج الصوتي أصبح بسيطا."
+
+msgid "Author"
+msgstr "مؤلف"
+
+msgid "Beat value"
+msgstr "قيمة الدق"
+
+msgid "Beats per measure"
+msgstr "الدقات لكل إجراء"
+
+msgid "Device:"
+msgstr "العتاد:"
+
+msgid "Don't open anything"
+msgstr "لا تفتح أي شيء"
+
+msgid "FastForward"
+msgstr "تقديم سريع"
+
+msgid "Output:"
+msgstr "خرج:"
+
+msgid "Pipeline:"
+msgstr "خط الأنابيب:"
+
+msgid "Preferences"
+msgstr "تفضيلات"
+
+msgid "Recording Workspace"
+msgstr "تسجيل مساحة العمل"
+
+msgid "Search:"
+msgstr "بحث:"
+
+msgid "Show welcome dialog"
+msgstr "اظهر حوار الترحيب"
+
+msgid "Stop"
+msgstr "إيقاف"
+
+msgid "Switch to the Mixing workspace"
+msgstr "تبديل إلى مساحة عمل الدمج"
+
+msgid "Switch to the Recording workspace"
+msgstr "تبديل إلى مساحة عمل التسجيل"
+
+msgid "Workspaces"
+msgstr "مساحات العمل"
+
+msgid "version 0.9"
+msgstr "الإصدار 0.9"
+
+msgid "Currently working in the Recording workspace"
+msgstr "حاليا تعمل في مساحة عمل التسجيل"
+
+msgid "Currently working in the Mixing workspace"
+msgstr "حاليا تعمل في مساحة عمل الدمج"
+
+#, fuzzy
+#~ msgid "<b>Presets for:</b>"
+#~ msgstr "<b>التأثيرات النشطة ل :</b>"
+
+#, fuzzy
 #~ msgid "Add Instrument"
 #~ msgstr "أضف آله"
 
+#, fuzzy
 #~ msgid "Add a new instrument"
-#~ msgstr "أضف آله جديدة"
+#~ msgstr "أضف آله"
 
+#, fuzzy
 #~ msgid "Add a new step:"
-#~ msgstr "أضف خطوة جديدة:"
+#~ msgstr "أضف آله"
 
-#~ msgid "Add this step to the current mixdown"
-#~ msgstr "أضف هذه الخطوة للدمج الحالي"
-
-#~ msgid "Audio production made simple."
-#~ msgstr "الإنتاج الصوتي أصبح بسيطا."
-
-#~ msgid "Author"
-#~ msgstr "مؤلف"
-
-#~ msgid "Beat value"
-#~ msgstr "قيمة الدق"
-
-#~ msgid "Beats per measure"
-#~ msgstr "الدقات لكل إجراء"
-
+#, fuzzy
 #~ msgid "Browse for an Existing Project"
-#~ msgstr "استعراض مشروع مسبق"
+#~ msgstr "فتح مشروع موجود"
 
+#, fuzzy
 #~ msgid "Create a New Project"
 #~ msgstr "إنشاء مشروع جديد"
 
-#~ msgid "Device:"
-#~ msgstr "العتاد:"
-
-#~ msgid "Don't open anything"
-#~ msgstr "لا تفتح أي شيء"
-
+#, fuzzy
 #~ msgid "Don't show this on start-up"
-#~ msgstr "لا تظهرها عند بدء التشغيل"
+#~ msgstr "لا تحمل الإمتدادات مع بدء التشغيل"
 
-#~ msgid "FastForward"
-#~ msgstr "تقديم سريع"
-
+#, fuzzy
 #~ msgid "Folder"
-#~ msgstr "مجلد"
+#~ msgstr "مرشحات"
 
+#, fuzzy
 #~ msgid "Mixing"
-#~ msgstr "دمج"
+#~ msgstr "دمج مشروع"
 
+#, fuzzy
 #~ msgid "Mixing Workspace"
-#~ msgstr "دمج مساحة العمل"
+#~ msgstr "دمج مشروع"
 
+#, fuzzy
 #~ msgid "Open Selected Project"
-#~ msgstr "فتح مشروع مختار"
+#~ msgstr "فتح مشروع سابق"
 
+#, fuzzy
 #~ msgid "Open most recent project"
-#~ msgstr "فتح أخر مشروع سابق"
+#~ msgstr "فتح مشروع سابق"
 
-#~ msgid "Output:"
-#~ msgstr "خرج:"
-
-#~ msgid "Pipeline:"
-#~ msgstr "خط الأنابيب:"
-
-#~ msgid "Preferences"
-#~ msgstr "تفضيلات"
-
+#, fuzzy
 #~ msgid "Project Name"
-#~ msgstr "اسم المشروع"
+#~ msgstr "_مشروع"
 
+#, fuzzy
 #~ msgid "Record"
-#~ msgstr "سجل"
+#~ msgstr "تسجيل..."
 
+#, fuzzy
 #~ msgid "Recording"
-#~ msgstr "تسجيل"
+#~ msgstr "تسجيل..."
 
-#~ msgid "Recording Workspace"
-#~ msgstr "تسجيل مساحة العمل"
-
+#, fuzzy
 #~ msgid "Remove Selected Instrument"
 #~ msgstr "حذف الآله المختاره"
 
+#, fuzzy
 #~ msgid "Rewind"
-#~ msgstr "ترجيع سريع"
+#~ msgstr "أعد"
 
+#, fuzzy
 #~ msgid "Save these mixdown settings"
-#~ msgstr "حفظ إعدادت الدمج هذه"
+#~ msgstr "استخدم هذه الإعدادات"
 
-#~ msgid "Search:"
-#~ msgstr "بحث:"
-
-#~ msgid "Show welcome dialog"
-#~ msgstr "اظهر حوار الترحيب"
-
-#~ msgid "Stop"
-#~ msgstr "إيقاف"
-
-#~ msgid "Switch to the Mixing workspace"
-#~ msgstr "تبديل إلى مساحة عمل الدمج"
-
-#~ msgid "Switch to the Recording workspace"
-#~ msgstr "تبديل إلى مساحة عمل التسجيل"
-
-#~ msgid "Workspaces"
-#~ msgstr "مساحات العمل"
-
+#, fuzzy
 #~ msgid "_Add Instrument"
-#~ msgstr "أ_ضف آله"
+#~ msgstr "آل_ه"
 
+#, fuzzy
 #~ msgid "_Manage Extensions"
-#~ msgstr "_إدارة الإمتدادات"
+#~ msgstr "ام_تدادات"
 
+#, fuzzy
 #~ msgid "_Mixdown Project"
-#~ msgstr "_دمج مشروع"
+#~ msgstr "دمج المشروع"
 
+#, fuzzy
 #~ msgid "_Mixdown the project"
-#~ msgstr "_دمج المشروع"
+#~ msgstr "دمج المشروع"
 
+#, fuzzy
 #~ msgid "_Recording Inputs"
-#~ msgstr "_مداخل التسجيل"
+#~ msgstr "تسجيل..."
 
+#, fuzzy
 #~ msgid "_Save these settings"
-#~ msgstr "_حفظ هذه الإعدادات"
+#~ msgstr "استخدم هذه الإعدادات"
 
-#~ msgid "version 0.9"
-#~ msgstr "الإصدار 0.9"
-
+#, fuzzy
 #~ msgid "_Paste"
-#~ msgstr "_لصق"
-
-#~ msgid "Currently working in the Recording workspace"
-#~ msgstr "حاليا تعمل في مساحة عمل التسجيل"
-
-#~ msgid "Currently working in the Mixing workspace"
-#~ msgstr "حاليا تعمل في مساحة عمل الدمج"
-
+#~ msgstr "إشارة الكترونية سمعية"

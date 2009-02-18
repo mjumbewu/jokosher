@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: jokosher\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-09-03 13:33-0400\n"
-"PO-Revision-Date: 2008-03-04 03:56+0000\n"
-"Last-Translator: Jean-Francois Arseneau <jf.arseneau@gmail.com>\n"
+"PO-Revision-Date: 2008-11-03 09:59+0000\n"
+"Last-Translator: Nazo <lovesyao@gmail.com>\n"
 "Language-Team: Japanese <ja@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2008-09-03 14:40+0000\n"
+"X-Launchpad-Export-Date: 2009-02-18 04:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../../Jokosher/Jokosher.glade.h:1
@@ -255,9 +255,8 @@ msgid "Click and hold to rewind"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:61
-#, fuzzy
 msgid "Close the current project"
-msgstr "現在のプロジェクトを閉じる"
+msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:62
 msgid "Close the extension manager"
@@ -280,9 +279,8 @@ msgid "Copy the current selection"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:67
-#, fuzzy
 msgid "Create a new project"
-msgstr "新規プロジェクトを作成"
+msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:68
 msgid "Create project template from instruments in current project"
@@ -505,9 +503,8 @@ msgid "Move the selected active effect up on the effects chain"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:168 ../../Jokosher/NewProjectDialog.py:129
-#, fuzzy
 msgid "New Project"
-msgstr "新しいプロジェクト"
+msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:169
 msgid "New..."
@@ -518,14 +515,12 @@ msgid "O_utput:"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:171
-#, fuzzy
 msgid "Open a recent project"
-msgstr "最近のプロジェクトを開く"
+msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:172
-#, fuzzy
 msgid "Open an existing project"
-msgstr "既存のプロジェクトを開く"
+msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:173
 msgid "Open the extension manager"
@@ -570,9 +565,8 @@ msgid "Quit Jokosher"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:183
-#, fuzzy
 msgid "Redo"
-msgstr "やり直します"
+msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:184
 msgid "Redo the previous edit"
@@ -611,9 +605,8 @@ msgid "Save preferences and close"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:193
-#, fuzzy
 msgid "Save the current project"
-msgstr "現在編集中のプロジェクトを保存します"
+msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:194
 msgid "Save the current settings as a preset"
@@ -636,9 +629,8 @@ msgid "See your system information"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:199
-#, fuzzy
 msgid "Select A Folder"
-msgstr "フォルダの選択"
+msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:200
 msgid "Select a project to open from the list"
@@ -677,9 +669,8 @@ msgid "Stop mixing the project"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:209 ../../Jokosher/JokosherApp.py:66
-#, fuzzy
 msgid "Stop playback"
-msgstr "再生を停止"
+msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:210
 msgid "System Information"
@@ -726,9 +717,8 @@ msgid "Visit Jokosher's online forums"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:221
-#, fuzzy
 msgid "Welcome to Jokosher!"
-msgstr "Jokosherでようこそ！"
+msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:222
 msgid "Writing code and features in Python."
@@ -779,9 +769,8 @@ msgid "_Don't show this on start-up"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:234
-#, fuzzy
 msgid "_Edit"
-msgstr "編集 (_E)"
+msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:235
 msgid "_File"
@@ -793,12 +782,11 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:237
 msgid "_Help"
-msgstr "ヘルプ (_H)"
+msgstr "ヘルプ(_H)"
 
 #: ../../Jokosher/Jokosher.glade.h:238
-#, fuzzy
 msgid "_Instrument"
-msgstr "楽器 (_I)"
+msgstr "楽器(_I)"
 
 #: ../../Jokosher/Jokosher.glade.h:239
 msgid "_Manage Extensions..."
@@ -985,9 +973,8 @@ msgid "Downloading..."
 msgstr "ダウンロード中..."
 
 #: ../../Jokosher/EventViewer.py:445
-#, fuzzy
 msgid "Loading..."
-msgstr "読み込み..."
+msgstr ""
 
 #: ../../Jokosher/EventViewer.py:449
 #, python-format
@@ -1000,9 +987,8 @@ msgid "Loading (%d%%)..."
 msgstr ""
 
 #: ../../Jokosher/EventViewer.py:462
-#, fuzzy
 msgid "Recording..."
-msgstr "録音中..."
+msgstr ""
 
 #: ../../Jokosher/EventViewer.py:510
 msgid ""
@@ -1021,25 +1007,21 @@ msgid ""
 msgstr ""
 
 #: ../../Jokosher/EventViewer.py:902
-#, fuzzy
 msgid "_Split"
-msgstr "分割 (_S)"
+msgstr ""
 
 #: ../../Jokosher/EventViewer.py:904
-#, fuzzy
 msgid "Cu_t"
-msgstr "切取り (_T)"
+msgstr ""
 
 #: ../../Jokosher/EventViewer.py:905
-#, fuzzy
 msgid "_Copy"
-msgstr "コピー (_C)"
+msgstr ""
 
 #: ../../Jokosher/EventViewer.py:906
 #: ../../Jokosher/InstrumentEffectsDialog.py:442
-#, fuzzy
 msgid "_Delete"
-msgstr "削除する (_D)"
+msgstr ""
 
 #: ../../Jokosher/EventViewer.py:1196
 msgid "Error loading file:"
@@ -1186,9 +1168,8 @@ msgid "There are no instruments to connect"
 msgstr ""
 
 #: ../../Jokosher/InstrumentConnectionsDialog.py:110
-#, fuzzy
 msgid "Default"
-msgstr "デフォルト"
+msgstr ""
 
 #: ../../Jokosher/InstrumentConnectionsDialog.py:118
 #, python-format
@@ -1204,9 +1185,8 @@ msgstr "名前"
 #: ../../Jokosher/InstrumentEffectsDialog.py:141
 #: ../../Jokosher/ProjectTemplateDialog.py:82
 #: ../../Jokosher/ProjectTemplateDialog.py:86
-#, fuzzy
 msgid "Type"
-msgstr "タイプ"
+msgstr ""
 
 #: ../../Jokosher/InstrumentEffectsDialog.py:439
 msgid "_Move up..."
@@ -1859,40 +1839,42 @@ msgstr "バイオリン"
 msgid "Vocal"
 msgstr "ボーカル"
 
-#~ msgid "Author"
-#~ msgstr "著者"
+msgid "Author"
+msgstr "著者"
 
-#~ msgid "Device:"
-#~ msgstr "デバイス："
+msgid "Device:"
+msgstr "デバイス："
 
+#, fuzzy
+msgid "Output:"
+msgstr "出力:"
+
+msgid "Record"
+msgstr "レコード"
+
+#, fuzzy
+msgid "Recording"
+msgstr "録音中"
+
+#, fuzzy
+msgid "Search:"
+msgstr "検索:"
+
+#, fuzzy
+msgid "Stop"
+msgstr "停止します"
+
+msgid "Workspaces"
+msgstr "ワークスペース"
+
+#, fuzzy
+msgid "_Paste"
+msgstr "貼付 (_P)"
+
+#, fuzzy
 #~ msgid "Folder"
-#~ msgstr "フォルダ"
+#~ msgstr "フィルター"
 
 #, fuzzy
-#~ msgid "Output:"
-#~ msgstr "出力:"
-
 #~ msgid "Project Name"
-#~ msgstr "プロジェクト名前"
-
-#~ msgid "Record"
-#~ msgstr "レコード"
-
-#, fuzzy
-#~ msgid "Recording"
-#~ msgstr "録音中"
-
-#, fuzzy
-#~ msgid "Search:"
-#~ msgstr "検索:"
-
-#, fuzzy
-#~ msgid "Stop"
-#~ msgstr "停止します"
-
-#~ msgid "Workspaces"
-#~ msgstr "ワークスペース"
-
-#, fuzzy
-#~ msgid "_Paste"
-#~ msgstr "貼付 (_P)"
+#~ msgstr "プロジェクト (_P)"

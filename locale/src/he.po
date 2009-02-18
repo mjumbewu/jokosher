@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2008-09-03 14:40+0000\n"
+"X-Launchpad-Export-Date: 2009-02-18 04:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../../Jokosher/Jokosher.glade.h:1
@@ -22,9 +22,8 @@ msgid "<b>Active effects for: </b>"
 msgstr "<b>אפקטים פעילים עבור: </b>"
 
 #: ../../Jokosher/Jokosher.glade.h:2
-#, fuzzy
 msgid "<b>Application Start-up</b>"
-msgstr "<b>אתחול תוכנית</b>"
+msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:3
 msgid "<b>Art</b>"
@@ -59,13 +58,10 @@ msgid "<b>Jokosher Instruments</b>"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:11
-#, fuzzy
 msgid ""
 "<b>Jokosher is an Open Source project that is driven by a community of "
 "contributors. To make Jokosher rock, we need your help!</b>"
 msgstr ""
-"<b>Jokosher הוא פרויקט קוד פתוח המונע על יד קהילה של תורמים. כדי לשפר את "
-"Jokosher, אנו זקוקים לעזרתך!</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:12
 msgid "<b>Location Details</b>"
@@ -498,9 +494,8 @@ msgid "Mixdown the project using these settings"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:165
-#, fuzzy
 msgid "Mixing Project"
-msgstr "פרויקט ערבול"
+msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:166
 msgid "Move the selected active effect down on the effects chain"
@@ -965,9 +960,8 @@ msgid "<b>Right-click</b> for more options."
 msgstr ""
 
 #: ../../Jokosher/EventViewer.py:153
-#, fuzzy
 msgid "Trim"
-msgstr "גזום"
+msgstr ""
 
 #: ../../Jokosher/EventViewer.py:164
 msgid "Delete Fade Points"
@@ -1298,9 +1292,8 @@ msgid "All Files"
 msgstr "כל הקבצים"
 
 #: ../../Jokosher/JokosherApp.py:767
-#, fuzzy
 msgid "Jokosher Project File (*.jokosher)"
-msgstr "קובץ פרויקט של Jokosher (*.jokosher)"
+msgstr ""
 
 #: ../../Jokosher/JokosherApp.py:822
 msgid "Choose a location to save the project"
@@ -1849,6 +1842,36 @@ msgstr ""
 msgid "Vocal"
 msgstr ""
 
+#, fuzzy
+msgid ""
+"96000\n"
+"48000\n"
+"44100\n"
+"32000\n"
+"24000\n"
+"22050\n"
+"16000\n"
+"11025\n"
+"8000"
+msgstr ""
+"96000\n"
+"48000\n"
+"44100\n"
+"32000\n"
+"24000\n"
+"22050\n"
+"16000\n"
+"11025\n"
+"8000"
+
+#, fuzzy
+msgid "Don't show this on start-up"
+msgstr "אל תציג תיבת דו-שיח זאת בעת הפעלת התכנית"
+
+#, fuzzy
+msgid "Mixing"
+msgstr "ערבול"
+
 #~ msgid ""
 #~ "16 bit\n"
 #~ "24 bit\n"
@@ -1857,28 +1880,6 @@ msgstr ""
 #~ "16 סיביות\n"
 #~ "24 סיביות\n"
 #~ "32 סיביות"
-
-#, fuzzy
-#~ msgid ""
-#~ "96000\n"
-#~ "48000\n"
-#~ "44100\n"
-#~ "32000\n"
-#~ "24000\n"
-#~ "22050\n"
-#~ "16000\n"
-#~ "11025\n"
-#~ "8000"
-#~ msgstr ""
-#~ "96000\n"
-#~ "48000\n"
-#~ "44100\n"
-#~ "32000\n"
-#~ "24000\n"
-#~ "22050\n"
-#~ "16000\n"
-#~ "11025\n"
-#~ "8000"
 
 #~ msgid "<b>Audio Quality</b>"
 #~ msgstr "<b>איכות קול</b>"
@@ -1952,8 +1953,9 @@ msgstr ""
 #~ msgid "Copy"
 #~ msgstr "העתק"
 
+#, fuzzy
 #~ msgid "<b>Presets for:</b>"
-#~ msgstr "<b>ערכות עבור:</b>"
+#~ msgstr "<b>אפקטים פעילים עבור: </b>"
 
 #~ msgid "Add Instrument"
 #~ msgstr "הוסף כלי"
@@ -1961,8 +1963,9 @@ msgstr ""
 #~ msgid "Add a new instrument"
 #~ msgstr "הוסף כלי נגינה חדש"
 
+#, fuzzy
 #~ msgid "Add a new step:"
-#~ msgstr "הוסף שלב חדש:"
+#~ msgstr "הוסף כלי נגינה חדש"
 
 #~ msgid "Author"
 #~ msgstr "מחבר"
@@ -1973,16 +1976,8 @@ msgstr ""
 #~ msgid "Don't open anything"
 #~ msgstr "אל תפתח כלום"
 
-#, fuzzy
-#~ msgid "Don't show this on start-up"
-#~ msgstr "אל תציג תיבת דו-שיח זאת בעת הפעלת התכנית"
-
 #~ msgid "Folder"
 #~ msgstr "תיקייה"
-
-#, fuzzy
-#~ msgid "Mixing"
-#~ msgstr "ערבול"
 
 #~ msgid "Open Selected Project"
 #~ msgstr "פתח פרויקט נבחר"

@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2008-09-03 14:40+0000\n"
+"X-Launchpad-Export-Date: 2009-02-18 04:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../../Jokosher/Jokosher.glade.h:1
@@ -861,7 +861,7 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:240
 msgid "_Mixdown"
-msgstr ""
+msgstr "_Mixdown"
 
 #: ../../Jokosher/Jokosher.glade.h:241 ../../Jokosher/JokosherApp.py:2025
 msgid "_Mixdown Project..."
@@ -2004,8 +2004,9 @@ msgstr "Vocal"
 #~ msgid "Beats per measure"
 #~ msgstr "Beats per measure"
 
+#, fuzzy
 #~ msgid "Browse for an Existing Project"
-#~ msgstr "Browse for an Existing Project"
+#~ msgstr "Open an existing project"
 
 #~ msgid "Create a New Project"
 #~ msgstr "Create a New Project"
@@ -2094,16 +2095,16 @@ msgstr "Vocal"
 #~ msgid "_Mixdown Project"
 #~ msgstr "_Mixdown Project"
 
+#, fuzzy
 #~ msgid "_Mixdown the project"
-#~ msgstr "_Mixdown the project"
+#~ msgstr "_Mixdown Project"
 
 #~ msgid "_Recording Inputs"
 #~ msgstr "_Recording Inputs"
 
+#, fuzzy
 #~ msgid "_Save these settings"
-#~ msgstr ""
-#~ "Copy text   \t\r\n"
-#~ "_Save these settings"
+#~ msgstr "Use these settings"
 
 #~ msgid "version 0.9"
 #~ msgstr "version 0.9"
@@ -2123,14 +2124,17 @@ msgstr "Vocal"
 #~ msgid "_Mixdown as"
 #~ msgstr "_Mixdown as"
 
+#, fuzzy
 #~ msgid "<b>Steps to mixdown %(projectname)s</b>"
-#~ msgstr "<b>Steps to mixdown %(projectname)s</b>"
+#~ msgstr "Preparing to mixdown project"
 
+#, fuzzy
 #~ msgid "Edit this mixdown step settings"
-#~ msgstr "Edit this mixdown step settings"
+#~ msgstr "Save these mixdown settings"
 
+#, fuzzy
 #~ msgid "Remove this mixdown step"
-#~ msgstr "Remove this mixdown step"
+#~ msgstr "Save these mixdown settings"
 
 #~ msgid "Don't save these mixdown settings"
 #~ msgstr "Don't save these mixdown settings"

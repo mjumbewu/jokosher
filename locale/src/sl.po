@@ -9,12 +9,12 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-09-03 13:33-0400\n"
 "PO-Revision-Date: 2008-03-30 21:54+0000\n"
-"Last-Translator: Martin <martin.bozic@gmail.com>\n"
+"Last-Translator: Martin Božič <martin.bozic@gmail.com>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2008-09-03 14:41+0000\n"
+"X-Launchpad-Export-Date: 2009-02-18 04:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../../Jokosher/Jokosher.glade.h:1
@@ -1962,8 +1962,78 @@ msgstr "Violina"
 msgid "Vocal"
 msgstr "Vokal"
 
+msgid "Add this step to the current mixdown"
+msgstr "Dodaj ta korak h trenutnemu izvozu"
+
+msgid "Audio production made simple."
+msgstr "Avdio produkcija na preprost način."
+
+msgid "Device:"
+msgstr "Naprava:"
+
+msgid "Output:"
+msgstr "Izhod:"
+
+msgid "Pipeline:"
+msgstr "Vod:"
+
+msgid "Search:"
+msgstr "Iskanje:"
+
+msgid "Stop"
+msgstr "Ustavi"
+
+msgid "Switch to the Mixing workspace"
+msgstr "Preklopi v mešalni delovni prostor"
+
+msgid "Switch to the Recording workspace"
+msgstr "Preklopi v snemalni delovni prostor"
+
+msgid "Workspaces"
+msgstr "Delovni prostori"
+
+msgid "version 0.9"
+msgstr "različica 0.9"
+
+msgid "Currently working in the Recording workspace"
+msgstr "Sedaj delaš na snemalni delovni plošči"
+
+msgid "Currently working in the Mixing workspace"
+msgstr "Trenutno delo na mešalni delovni površini"
+
+msgid "%(progress)d of %(total)d seconds completed"
+msgstr "Dokončanih %(progress)d od %(total)d sekund"
+
+msgid "Edit this mixdown step settings"
+msgstr "Uredi te nastavitve izvoznih korakov"
+
+msgid "Remove this mixdown step"
+msgstr "Odstrani ta izvozni korak"
+
+msgid "Export file"
+msgstr "Izvozi datoteko"
+
+msgid "An unspecified MixdownAction"
+msgstr "Nedoločljiva akcija končnega miksa"
+
+msgid "Export to %(file)s as %(desc)s"
+msgstr "Izvozi v %(file)s kot %(desc)s"
+
+msgid "Export as"
+msgstr "izvozi kot"
+
+msgid "Run external script"
+msgstr "Poženi zunanjo skripto"
+
+msgid "Hz"
+msgstr "Hz"
+
+msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"
+msgstr "Za spremembo glasnosti <b>povleči drsnik</b>."
+
+#, fuzzy
 #~ msgid "<b>Presets for:</b>"
-#~ msgstr "<b>Prednastavitve za:</b>"
+#~ msgstr "<b>Aktivni učinki za: </b>"
 
 #~ msgid "Add Instrument"
 #~ msgstr "Dodaj glasbilo"
@@ -1971,14 +2041,9 @@ msgstr "Vokal"
 #~ msgid "Add a new instrument"
 #~ msgstr "Dodaj novo glasbilo"
 
+#, fuzzy
 #~ msgid "Add a new step:"
-#~ msgstr "Dodaj nov korak:"
-
-#~ msgid "Add this step to the current mixdown"
-#~ msgstr "Dodaj ta korak h trenutnemu izvozu"
-
-#~ msgid "Audio production made simple."
-#~ msgstr "Avdio produkcija na preprost način."
+#~ msgstr "Dodaj novo glasbilo"
 
 #~ msgid "Author"
 #~ msgstr "Avtor"
@@ -1995,9 +2060,6 @@ msgstr "Vokal"
 #~ msgid "Create a New Project"
 #~ msgstr "Ustvari nov projekt"
 
-#~ msgid "Device:"
-#~ msgstr "Naprava:"
-
 #~ msgid "Don't open anything"
 #~ msgstr "Ne odpri ničesar"
 
@@ -2013,20 +2075,16 @@ msgstr "Vokal"
 #~ msgid "Mixing"
 #~ msgstr "Mešanje"
 
+#, fuzzy
 #~ msgid "Mixing Workspace"
-#~ msgstr "Mešalna delovna površina"
+#~ msgstr "Mešanje projekta"
 
 #~ msgid "Open Selected Project"
 #~ msgstr "Odpri izbrani projekt"
 
+#, fuzzy
 #~ msgid "Open most recent project"
-#~ msgstr "Odpri najbolj nedaven projekt"
-
-#~ msgid "Output:"
-#~ msgstr "Izhod:"
-
-#~ msgid "Pipeline:"
-#~ msgstr "Vod:"
+#~ msgstr "Odpri nedaven projekt"
 
 #~ msgid "Preferences"
 #~ msgstr "Nastavitve"
@@ -2034,119 +2092,84 @@ msgstr "Vokal"
 #~ msgid "Project Name"
 #~ msgstr "Ime projekta"
 
+#, fuzzy
 #~ msgid "Record"
-#~ msgstr "Snemaj"
+#~ msgstr "Snemanje"
 
 #~ msgid "Recording"
 #~ msgstr "Snemanje"
 
+#, fuzzy
 #~ msgid "Recording Workspace"
-#~ msgstr "Snemalni delovni prostor"
+#~ msgstr "Snemanje"
 
+#, fuzzy
 #~ msgid "Remove Selected Instrument"
 #~ msgstr "Odstrani izbrano glasbilo"
 
+#, fuzzy
 #~ msgid "Rewind"
-#~ msgstr "Prevrti"
+#~ msgstr "Uveljavi"
 
+#, fuzzy
 #~ msgid "Save these mixdown settings"
-#~ msgstr "Shrani te izvozne nastavitve"
-
-#~ msgid "Search:"
-#~ msgstr "Iskanje:"
+#~ msgstr "Uporabi te nastavitve"
 
 #~ msgid "Show welcome dialog"
 #~ msgstr "Prikaži okno \"Dobrodošli!\""
 
-#~ msgid "Stop"
-#~ msgstr "Ustavi"
-
-#~ msgid "Switch to the Mixing workspace"
-#~ msgstr "Preklopi v mešalni delovni prostor"
-
-#~ msgid "Switch to the Recording workspace"
-#~ msgstr "Preklopi v snemalni delovni prostor"
-
-#~ msgid "Workspaces"
-#~ msgstr "Delovni prostori"
-
+#, fuzzy
 #~ msgid "_Add Instrument"
 #~ msgstr "Dodaj glasbilo"
 
+#, fuzzy
 #~ msgid "_Manage Extensions"
-#~ msgstr "_Upravljaj podaljške"
+#~ msgstr "Po_daljški"
 
+#, fuzzy
 #~ msgid "_Mixdown Project"
-#~ msgstr "_Izvozi projekt"
+#~ msgstr "Končni miks projekta"
 
+#, fuzzy
 #~ msgid "_Mixdown the project"
-#~ msgstr "_Izvozi projekt"
+#~ msgstr "Končni miks projekta"
 
+#, fuzzy
 #~ msgid "_Recording Inputs"
-#~ msgstr "_Snemalni vhodi"
+#~ msgstr "Snemanje"
 
+#, fuzzy
 #~ msgid "_Save these settings"
-#~ msgstr "_Shrani te nastavitve"
+#~ msgstr "Uporabi te nastavitve"
 
-#~ msgid "version 0.9"
-#~ msgstr "različica 0.9"
-
+#, fuzzy
 #~ msgid "_Paste"
-#~ msgstr "_Prilepi"
+#~ msgstr "Fazerji"
 
-#~ msgid "Currently working in the Recording workspace"
-#~ msgstr "Sedaj delaš na snemalni delovni plošči"
-
-#~ msgid "Currently working in the Mixing workspace"
-#~ msgstr "Trenutno delo na mešalni delovni površini"
-
-#~ msgid "%(progress)d of %(total)d seconds completed"
-#~ msgstr "Dokončanih %(progress)d od %(total)d sekund"
-
+#, fuzzy
 #~ msgid "_Mixdown as"
-#~ msgstr "_Izvozi kot"
+#~ msgstr "Izvozi kot"
 
+#, fuzzy
 #~ msgid "<b>Steps to mixdown %(projectname)s</b>"
-#~ msgstr "<b>Koraki za izvoz %(projectname)s</b>"
+#~ msgstr "Pripravljam se na izvoz projekta"
 
-#~ msgid "Edit this mixdown step settings"
-#~ msgstr "Uredi te nastavitve izvoznih korakov"
-
-#~ msgid "Remove this mixdown step"
-#~ msgstr "Odstrani ta izvozni korak"
-
+#, fuzzy
 #~ msgid "Don't save these mixdown settings"
-#~ msgstr "Ne shrani teh izvoznih nastavitev"
+#~ msgstr "Uporabi te nastavitve"
 
+#, fuzzy
 #~ msgid "Choose a name for this profile"
-#~ msgstr "Izberi ime za ta profil"
+#~ msgstr "Izberi Jokosher projektno datoteko"
 
-#~ msgid "Export file"
-#~ msgstr "Izvozi datoteko"
-
-#~ msgid "An unspecified MixdownAction"
-#~ msgstr "Nedoločljiva akcija končnega miksa"
-
-#~ msgid "Export to %(file)s as %(desc)s"
-#~ msgstr "Izvozi v %(file)s kot %(desc)s"
-
-#~ msgid "Export as"
-#~ msgstr "izvozi kot"
-
+#, fuzzy
 #~ msgid "Run script %s"
-#~ msgstr "Poženi skripto %s"
+#~ msgstr "Napaka v skripti %s"
 
-#~ msgid "Run external script"
-#~ msgstr "Poženi zunanjo skripto"
-
+#, fuzzy
 #~ msgid "No such script %s"
-#~ msgstr "Skripta %s ne obstaja"
+#~ msgstr "Napaka v skripti %s"
 
-#~ msgid "Hz"
-#~ msgstr "Hz"
-
+#, fuzzy
 #~ msgid "Zoom the timeline"
-#~ msgstr "Približaj časovni trak"
-
-#~ msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"
-#~ msgstr "Za spremembo glasnosti <b>povleči drsnik</b>."
+#~ msgstr "Spremeni časovni trak"

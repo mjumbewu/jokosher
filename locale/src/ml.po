@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2008-09-03 14:40+0000\n"
+"X-Launchpad-Export-Date: 2009-02-18 04:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../../Jokosher/Jokosher.glade.h:1
@@ -1898,53 +1898,61 @@ msgstr ""
 msgid "Vocal"
 msgstr ""
 
+msgid "Audio production made simple."
+msgstr "ശബ്ദ നി‍ര്‍മ്മാണം വളരെ ലഘുവാക്കി."
+
+msgid "Author"
+msgstr "ലേഖകന്‍"
+
+msgid "Don't open anything"
+msgstr "ഒന്നും തന്നെ തുറക്കരുത്"
+
+msgid "Folder"
+msgstr "ഫോള്‍ഡര്‍"
+
+msgid "Preferences"
+msgstr "ഇഷ്ടാനിഷ്ടങ്ങള്‍ (Preferences)"
+
+msgid "Recording"
+msgstr "ആലേഖനം ചെയ്യുന്നു"
+
+msgid "Search:"
+msgstr "തിരയുക:"
+
+msgid "Show welcome dialog"
+msgstr "സ്വാഗതം കാണിക്കുക"
+
+msgid "Stop"
+msgstr "നിര്‍ത്തുക"
+
+#, fuzzy
 #~ msgid "Add Instrument"
-#~ msgstr "ഉപകരണം ചേര്‍ക്കുക"
+#~ msgstr "ഒരു ഉപകരണം ചേര്‍ക്കുക"
 
+#, fuzzy
 #~ msgid "Add a new instrument"
-#~ msgstr "പുതിയ ഉപകരണം ചേര്‍ക്കുക"
+#~ msgstr "ഒരു ഉപകരണം ചേര്‍ക്കുക"
 
+#, fuzzy
 #~ msgid "Add a new step:"
-#~ msgstr "പുതിയ പടി (step) ചേര്‍ക്കുക:"
+#~ msgstr "ഒരു ഉപകരണം ചേര്‍ക്കുക"
 
-#~ msgid "Audio production made simple."
-#~ msgstr "ശബ്ദ നി‍ര്‍മ്മാണം വളരെ ലഘുവാക്കി."
-
-#~ msgid "Author"
-#~ msgstr "ലേഖകന്‍"
-
+#, fuzzy
 #~ msgid "Create a New Project"
 #~ msgstr "പുതിയൊരു പദ്ധതി ഉണ്ടാക്കുക"
 
-#~ msgid "Don't open anything"
-#~ msgstr "ഒന്നും തന്നെ തുറക്കരുത്"
-
-#~ msgid "Folder"
-#~ msgstr "ഫോള്‍ഡര്‍"
-
+#, fuzzy
 #~ msgid "Open Selected Project"
-#~ msgstr "തിരഞ്ഞെടുത്ത പദ്ധതി തുറക്കുക"
+#~ msgstr "അവസാനം തുറന്ന പദ്ധതി എടുക്കുക"
 
-#~ msgid "Preferences"
-#~ msgstr "ഇഷ്ടാനിഷ്ടങ്ങള്‍ (Preferences)"
-
+#, fuzzy
 #~ msgid "Project Name"
-#~ msgstr "പദ്ധതിയുടെ പേര്"
+#~ msgstr "പുതിയ പദ്ധതി"
 
+#, fuzzy
 #~ msgid "Record"
-#~ msgstr "ആലേഖനം ചെയ്യുക"
+#~ msgstr "മാറ്റങ്ങള്‍ വീണ്ടും ചെയ്യുക"
 
-#~ msgid "Recording"
-#~ msgstr "ആലേഖനം ചെയ്യുന്നു"
-
+#, fuzzy
 #~ msgid "Rewind"
-#~ msgstr "പുറകോട്ടടിക്കുക"
-
-#~ msgid "Search:"
-#~ msgstr "തിരയുക:"
-
-#~ msgid "Show welcome dialog"
-#~ msgstr "സ്വാഗതം കാണിക്കുക"
-
-#~ msgid "Stop"
-#~ msgstr "നിര്‍ത്തുക"
+#~ msgstr "മാറ്റങ്ങള്‍ വീണ്ടും ചെയ്യുക"
