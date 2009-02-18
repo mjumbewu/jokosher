@@ -107,8 +107,8 @@ class StartDownload:
 #=========================================================================
 
 class CompleteLoading:
-	def __init__(self, id, duration, levels_file):
-		self.id = id
+	def __init__(self, event_id, duration, levels_file):
+		self.id = event_id
 		self.duration = duration
 		self.levels_file = levels_file
 		
@@ -119,7 +119,7 @@ class CompleteLoading:
 		doc = xml.Document()
 		node = doc.createElement("CompleteLoading")
 		doc.appendChild(node)
-		node.setAttribute("action_id", str(self.id))
+		node.setAttribute("event_id", str(self.id))
 		node.setAttribute("duration", str(self.duration))
 		node.setAttribute("levels_file", self.levels_file)
 				
@@ -131,7 +131,7 @@ class CompleteLoading:
 		node = doc.firstChild
 		assert node.nodeName == "CompleteLoading"
 		
-		id = int(node.getAttribute("action_id"))
+		id = int(node.getAttribute("event_id"))
 		duration = float(node.getAttribute("duration"))
 		levels_file = node.getAttribute("levels_file")
 		
