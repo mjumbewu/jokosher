@@ -368,7 +368,6 @@ msgstr ""
 #: ../../Jokosher/Jokosher.glade.h:87
 msgid "Enter the author's name"
 msgstr ""
-"Copy text   \t\r\n"
 "Enter the author's name"
 
 #: ../../Jokosher/Jokosher.glade.h:88
@@ -1051,9 +1050,7 @@ msgstr "Downloading (%d%%)..."
 #: ../../Jokosher/EventViewer.py:451
 #, python-format
 msgid "Loading (%d%%)..."
-msgstr ""
-"Copy text   \t\r\n"
-"Loading (%d%%)..."
+msgstr "Loading (%d%%)..."
 
 #: ../../Jokosher/EventViewer.py:462
 msgid "Recording..."
@@ -1081,9 +1078,7 @@ msgstr ""
 
 #: ../../Jokosher/EventViewer.py:902
 msgid "_Split"
-msgstr ""
-"Copy text   \t\r\n"
-"_Split"
+msgstr "_Split"
 
 #: ../../Jokosher/EventViewer.py:904
 msgid "Cu_t"
@@ -1416,9 +1411,7 @@ msgstr "Close _Without Saving"
 #: ../../Jokosher/JokosherApp.py:1009
 #, python-format
 msgid "Mixing project to file: %s"
-msgstr ""
-"Copy text   \t\r\n"
-"Mixing project to file: %s"
+msgstr "Mixing project to file: %s"
 
 #: ../../Jokosher/JokosherApp.py:1040
 msgid "Argh! Something went wrong and a serious error occurred:"
@@ -1747,9 +1740,7 @@ msgstr "Balance:"
 
 #: ../../Jokosher/MixerStrip.py:79
 msgid "L"
-msgstr ""
-"Copy text   \t\r\n"
-"L"
+msgstr "L"
 
 #: ../../Jokosher/MixerStrip.py:80
 msgid "R"
