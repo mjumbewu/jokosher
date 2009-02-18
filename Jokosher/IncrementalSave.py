@@ -10,13 +10,14 @@ _ = gettext.gettext
 #=========================================================================
 
 class NewEvent:
-	def __init__(self, instr_id, filename, event_start, recording=False):
+	def __init__(self, instr_id, filename, event_start, event_id, recording=False):
 		self.instr_id = instr_id
 		self.filename = filename
 		self.event_start = event_start
+		self.id = event_id
 		self.recording = recording
 		
-	def Execute(self, project):
+	def Execute(self, project, event_duration=None, event_levels_file=None):
 		instr = project.JokosherObjectFromString("I" + str(self.instr_id))
 		
 		filename = self.filename
@@ -29,7 +30,8 @@ class NewEvent:
 		else:
 			event_name = None
 			
-		instr.addEventFromFile(self.event_start, filename, copyfile=False, name=event_name)
+		instr.addEventFromFile(self.event_start, filename, copyfile=False,
+		              name=event_name, duration=event_duration, levels_file=event_levels_file)
 		
 	def StoreToString(self):
 		doc = xml.Document()
@@ -39,6 +41,7 @@ class NewEvent:
 		node.setAttribute("instrument_id", str(self.instr_id))
 		node.setAttribute("file", self.filename)
 		node.setAttribute("start", str(self.event_start))
+		node.setAttribute("event_id", str(self.id))
 		node.setAttribute("recording", str(self.recording))
 				
 		return doc.toxml()
@@ -52,9 +55,10 @@ class NewEvent:
 		instr_id = int(node.getAttribute("instrument_id"))
 		filename = node.getAttribute("file")
 		event_start = float(node.getAttribute("start"))
+		id = int(node.getAttribute("event_id"))
 		recording = (node.getAttribute("recording").lower() == "true")
 		
-		return NewEvent(instr_id, filename, event_start, recording)
+		return NewEvent(instr_id, filename, event_start, id, recording)
 
 #=========================================================================
 
@@ -71,7 +75,7 @@ class StartDownload:
 		instr.addEventFromURL(self.event_start, self.url)
 		
 	def GetNewEventAction(self):
-		return NewEvent(self.instr_id, self.save_file, self.event_start)
+		return NewEvent(self.instr_id, self.save_file, self.event_start, self.id)
 		
 	def StoreToString(self):
 		doc = xml.Document()
@@ -102,18 +106,22 @@ class StartDownload:
 
 #=========================================================================
 
-class CompleteDownload:
-	def __init__(self, id):
+class CompleteLoading:
+	def __init__(self, id, duration, levels_file):
 		self.id = id
+		self.duration = duration
+		self.levels_file = levels_file
 		
 	def Execute(self, project):
 		pass
 		
 	def StoreToString(self):
 		doc = xml.Document()
-		node = doc.createElement("CompleteDownload")
+		node = doc.createElement("CompleteLoading")
 		doc.appendChild(node)
 		node.setAttribute("action_id", str(self.id))
+		node.setAttribute("duration", str(self.duration))
+		node.setAttribute("levels_file", self.levels_file)
 				
 		return doc.toxml()
 	
@@ -121,11 +129,13 @@ class CompleteDownload:
 	def LoadFromString(string):
 		doc = xml.parseString(string)
 		node = doc.firstChild
-		assert node.nodeName == "CompleteDownload"
+		assert node.nodeName == "CompleteLoading"
 		
 		id = int(node.getAttribute("action_id"))
+		duration = float(node.getAttribute("duration"))
+		levels_file = node.getAttribute("levels_file")
 		
-		return CompleteDownload(id)
+		return CompleteLoading(id, duration, levels_file)
 
 #=========================================================================
 
@@ -277,7 +287,7 @@ def LoadFromString(string):
 		"Action" : Action,
 		"NewEvent" : NewEvent,
 		"StartDownload" : StartDownload,
-		"CompleteDownload" : CompleteDownload,
+		"CompleteLoading" : CompleteLoading,
 		"SetNotes" : SetNotes,
 	}
 	
@@ -289,16 +299,23 @@ def LoadFromString(string):
 #=========================================================================
 
 def FilterAndExecuteAll(save_action_list, project):
-	complete_download_ids = [x.id for x in save_action_list if isinstance(x, CompleteDownload)]
+	complete_load_ids = {}
+	for action in save_action_list:
+		if isinstance(action, CompleteLoading):
+			complete_load_ids[action.id] = action
 	
 	for action in save_action_list:
-		if isinstance(action, StartDownload) \
-				and action.id in complete_download_ids:
-			# download has completed. Instead of re-downloading just restore
-			# as a standard new event action
-			action = action.GetNewEventAction()
-			
-		action.Execute(project)
+		loading_type = isinstance(action, StartDownload) or isinstance(action, NewEvent)
+		if loading_type and action.id in complete_load_ids:
+			# convert to a NewEvent command, skip redownload
+			if isinstance(action, StartDownload):
+				action = action.GetNewEventAction()
+			# loading has completed. Instead of re-downloading or reloading levels
+			# just restore from the data on disk
+			complete_load = complete_load_ids[action.id]
+			action.Execute(project, complete_load.duration, complete_load.levels_file)
+		else:
+			action.Execute(project)
 			
 #=========================================================================
 

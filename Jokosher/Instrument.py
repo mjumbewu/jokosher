@@ -492,7 +492,7 @@ class Instrument(gobject.GObject):
 		event.file = os.path.join(self.project.audio_path, filename)
 		event.levels_file = filename + Event.Event.LEVELS_FILE_EXTENSION
 		
-		inc = IncrementalSave.NewEvent(self.id, filename, event.start, recording=True)
+		inc = IncrementalSave.NewEvent(self.id, filename, event.start, event.id, recording=True)
 		self.project.SaveIncrementalAction(inc)
 		
 		#must add it to the instrument's list so that an update of the event lane will not remove the widget
@@ -567,7 +567,7 @@ class Instrument(gobject.GObject):
 	#_____________________________________________________________________
 
 	@UndoSystem.UndoCommand("DeleteEvent", "temp", incremental_save=False)
-	def addEventFromFile(self, start, file, copyfile=False, name=None):
+	def addEventFromFile(self, start, file, copyfile=False, name=None, duration=None, levels_file=None):
 		"""
 		Adds an Event from a file to this Instrument.
 		
@@ -601,19 +601,29 @@ class Instrument(gobject.GObject):
 				raise UndoSystem.CancelUndoCommand()
 				
 			self.project.deleteOnCloseAudioFiles.append(audio_file)
-			inc = IncrementalSave.NewEvent(self.id, newfile, start)
+			inc = IncrementalSave.NewEvent(self.id, newfile, start, event_id)
 			self.project.SaveIncrementalAction(inc)
 			
 			file = audio_file
 		else:
-			inc = IncrementalSave.NewEvent(self.id, file, start)
+			inc = IncrementalSave.NewEvent(self.id, file, start, event_id)
 			self.project.SaveIncrementalAction(inc)
 
 		ev = Event.Event(self, file, event_id, filelabel)
 		ev.start = start
 		ev.name = name
 		self.events.append(ev)
-		ev.GenerateWaveform()
+		
+		if duration and levels_file:
+			ev.duration = duration
+			ev.levels_file = levels_file
+			levels_path = os.path.join(self.project.levels_path, levels_file)
+			ev.levels_list.fromfile(levels_path)
+			# update properties and position when duration changes.
+			ev.MoveButDoNotOverlap(ev.start)
+			ev.SetProperties()
+		else:
+			ev.GenerateWaveform()
 
 		self.temp = ev.id
 		
@@ -670,7 +680,7 @@ class Instrument(gobject.GObject):
 	
 	#_____________________________________________________________________
 	
-	@UndoSystem.UndoCommand("DeleteEvent", "temp", incremental_save=False)
+	@UndoSystem.UndoCommand("DeleteEvent", "temp")
 	def addEventFromEvent(self, start, event):
 		"""
 		Creates a new Event instance identical to the given Event object
@@ -691,9 +701,6 @@ class Instrument(gobject.GObject):
 		self.events.append(ev)
 		ev.SetProperties()
 		ev.MoveButDoNotOverlap(ev.start)
-		
-		inc = IncrementalSave.NewEvent(self.id, event.file, start)
-		self.project.SaveIncrementalAction(inc)
 		
 		self.temp = ev.id
 		self.emit("event::added", ev)
