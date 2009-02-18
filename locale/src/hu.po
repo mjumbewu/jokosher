@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2008-09-03 14:41+0000\n"
+"X-Launchpad-Export-Date: 2009-02-18 04:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../../Jokosher/Jokosher.glade.h:1
@@ -476,65 +476,6 @@ msgid ""
 "David Nielsen <david@lovesunix.net>\n"
 "daave <fan.d.liu@gmail.com>\n"
 msgstr ""
-"Iestyn Pryce <dylunio@gmail.com>\n"
-"Jerome S. Gotangco <jgotangco@ubuntu.com>\n"
-"torb <torrb@musiker.nu>\n"
-"Robert Renling Berencreuz <berencreuz@gmail.com>\n"
-"Ola Jeppsson <ola.jeppsson@gmail.com>\n"
-"Daniel Nylander <po@danielnylander.se>\n"
-"aruiz <aruiz@synaptia.net>\n"
-"Manuel Duran Moyano <mduran@ubiobio.cl>\n"
-"Laszlo Pandy <laszlok2@gmail.com>\n"
-"Iván Edgardo Vázquez Santos \n"
-"David Corrales <corrales.david@gmail.com>\n"
-"Benjamin A'Lee <bma@bmalee.eu>\n"
-"Peter Baričič <pbaricic@gmail.com>\n"
-"Артём Попов <artfwo@gmail.com>\n"
-"deepred <psalmos@swissinfo.org>\n"
-"KeepYourMind <keepyourmind@gmail.com>\n"
-"Georgy Faradzhev <georgy.faradzhev@gmail.com>\n"
-"Gendolf <pr-baukalo@rambler.ru>\n"
-"Rodrigo NSH <rodrigo.nsh@gmail.com>\n"
-"Christian Reis <kiko@async.com.br>\n"
-"Lourabe Multimédia \n"
-"Tomasz Dominikowski <dominikowski@gmail.com>\n"
-"Konrad Adamczyk <konrad@svx.pl>\n"
-"Hender <simsalabimladen@gmail.com>\n"
-"sklp\n"
-"Bård Aase <base@kvarteret.no>\n"
-"Pecisk <pecisk@gmail.com>\n"
-"Luca Ferretti <elle.uca@libero.it>\n"
-"Daniele Medri <daniele@medri.org>\n"
-"Igor Khanin \n"
-"Tobias Frederick <me@tbfr.org>\n"
-"Tim Fuchs <tim.fuchs@gmail.com>\n"
-"Ramona Barte \n"
-"Marcus Hochstadt\n"
-"Lebowski\n"
-"Julian Turner\n"
-"Dennis Lichtenthäler <dennis.lichtenthaeler@episode-iv.de>\n"
-"dyphil <dyphil@wanadoo.fr>\n"
-"XioNoX \n"
-"Stemp <StempUbuntu@gmail.com>\n"
-"Signez\n"
-"Pierre Slamich <pierre.slamich@gmail.com>\n"
-"Nicolas Velin <nsv@fr.st>\n"
-"Jean-Francois Arseneau <jf.arseneau@gmail.com>\n"
-"Guillaume Hoffmann \n"
-"Gabriel de Perthuis <gabriel.de-perthuis@laposte.net>\n"
-"Bruno Bord <bruno@jehaisleprintemps.net>\n"
-"Mikko Virkkilä <mvirkkil@cc.hut.fi>\n"
-"Boyd Timothy\n"
-"William Anderson<neuro@well.com>\n"
-"Sridhar Dhanapalan <sridhar@dhanapalan.com>\n"
-"Roger Light <roger@atchoo.org>\n"
-"Malcolm Parsons\n"
-"Peturrr <peterdekraker@planet.nl>\n"
-"jerven Bolleman <ik@jerven.eu>\n"
-"Mathias-K <mathias@computergeil.dk>\n"
-"Niels Kjøller Hansen <niels.k.h@gmail.com>\n"
-"David Nielsen <david@lovesunix.net>\n"
-"daave <fan.d.liu@gmail.com>\n"
 
 #: ../../Jokosher/Jokosher.glade.h:159 ../../Jokosher/JokosherApp.py:1388
 msgid "Jokosher"
@@ -1954,166 +1895,191 @@ msgstr "Hegedű"
 msgid "Vocal"
 msgstr "Vokál"
 
+msgid "Audio production made simple."
+msgstr "Hangstúdió egyszerűen"
+
+msgid "Beat value"
+msgstr "Ritmus érték"
+
+msgid "Device:"
+msgstr "Eszköz:"
+
+msgid "Don't open anything"
+msgstr "Ne nyisson meg semmit"
+
+msgid "FastForward"
+msgstr "Gyors Előretekerés"
+
+msgid "Output:"
+msgstr "Kimenet"
+
+#, fuzzy
+msgid "Pipeline:"
+msgstr "Láncolat"
+
+msgid "Preferences"
+msgstr "Beállítások"
+
+#, fuzzy
+msgid "Recording Workspace"
+msgstr "Felvételi Munkaterület"
+
+msgid "Search:"
+msgstr "Keresés:"
+
+msgid "Show welcome dialog"
+msgstr "Üdvözlőképernyő megjelenítése"
+
+msgid "Stop"
+msgstr "Stop"
+
+msgid "Switch to the Mixing workspace"
+msgstr "Váltás a keverőpultra"
+
+msgid "Switch to the Recording workspace"
+msgstr "Váltás a felvételi eszközökhöz"
+
+msgid "Workspaces"
+msgstr "Munkaterületek"
+
+msgid "version 0.9"
+msgstr "0.9 verzió"
+
+msgid "_Paste"
+msgstr "Beillesztés (_P)"
+
+msgid "Currently working in the Recording workspace"
+msgstr "Jelenleg a Felvételi Munkaterületen dolgozunk"
+
+msgid "Currently working in the Mixing workspace"
+msgstr "Jelenleg a Keverőpulton dolgozunk"
+
+#, fuzzy
+msgid "_Mixdown as"
+msgstr "Lekeverés _mint"
+
+msgid "Export file"
+msgstr "Fájl exportálása"
+
+msgid "Export as"
+msgstr "Exportálás mint"
+
+msgid "Run external script"
+msgstr "Külső szkript futtatása"
+
+msgid "Hz"
+msgstr "Hz"
+
+msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"
+msgstr "<b>Állítsuk</b> a <b>csúszkát</b> a hangerőszintek változtatásához"
+
 #~ msgid "<b>Presets for:</b>"
 #~ msgstr "<b>Előre elkészített beállítások ehhez:</b>"
 
+#, fuzzy
 #~ msgid "Add Instrument"
 #~ msgstr "Hangszer hozzáadása"
 
+#, fuzzy
 #~ msgid "Add a new instrument"
-#~ msgstr "Új hangszer hozzáadása"
+#~ msgstr "Hangszer hozzáadása"
 
+#, fuzzy
 #~ msgid "Add a new step:"
-#~ msgstr "Új lépés hozzáadása:"
+#~ msgstr "Hangszer hozzáadása"
 
-#~ msgid "Audio production made simple."
-#~ msgstr "Hangstúdió egyszerűen"
-
+#, fuzzy
 #~ msgid "Author"
-#~ msgstr "Szerző"
+#~ msgstr "Ismeretlen Szerző"
 
-#~ msgid "Beat value"
-#~ msgstr "Ritmus érték"
-
+#, fuzzy
 #~ msgid "Browse for an Existing Project"
-#~ msgstr "Meglévő projekt tallózása"
+#~ msgstr "Létező projekt megnyitása"
 
+#, fuzzy
 #~ msgid "Create a New Project"
-#~ msgstr "Új Projekt"
+#~ msgstr "Új projekt készítése"
 
-#~ msgid "Device:"
-#~ msgstr "Eszköz:"
-
-#~ msgid "Don't open anything"
-#~ msgstr "Ne nyisson meg semmit"
-
+#, fuzzy
 #~ msgid "Don't show this on start-up"
-#~ msgstr "Ne mutassa ezt indításkor"
+#~ msgstr "Ne töltsön be kiegészítőket induláskor"
 
-#~ msgid "FastForward"
-#~ msgstr "Gyors Előretekerés"
-
+#, fuzzy
 #~ msgid "Folder"
-#~ msgstr "Mappa"
+#~ msgstr "Szűrők"
 
+#, fuzzy
 #~ msgid "Mixing"
-#~ msgstr "Keverés"
+#~ msgstr "Projekt Keverése"
 
 #, fuzzy
 #~ msgid "Mixing Workspace"
-#~ msgstr "Keverő"
-
-#~ msgid "Open Selected Project"
-#~ msgstr "Kijelölt projekt megnyitása"
-
-#~ msgid "Open most recent project"
-#~ msgstr "Legutolsó projekt megnyitása"
-
-#~ msgid "Output:"
-#~ msgstr "Kimenet"
+#~ msgstr "Projekt Keverése"
 
 #, fuzzy
-#~ msgid "Pipeline:"
-#~ msgstr "Láncolat"
+#~ msgid "Open Selected Project"
+#~ msgstr "Nemrég használt projekt megnyitása"
 
-#~ msgid "Preferences"
-#~ msgstr "Beállítások"
+#, fuzzy
+#~ msgid "Open most recent project"
+#~ msgstr "Nemrég használt projekt megnyitása"
 
+#, fuzzy
 #~ msgid "Project Name"
-#~ msgstr "Projekt Neve"
+#~ msgstr "_Projekt"
 
+#, fuzzy
 #~ msgid "Record"
-#~ msgstr "Felvétel"
+#~ msgstr "Felvétel..."
 
 #, fuzzy
 #~ msgid "Recording"
 #~ msgstr "Felvétel..."
 
 #, fuzzy
-#~ msgid "Recording Workspace"
-#~ msgstr "Felvételi Munkaterület"
-
 #~ msgid "Remove Selected Instrument"
-#~ msgstr "Kiválasztott Hangszer Eltávolítása"
-
-#~ msgid "Rewind"
-#~ msgstr "Visszatekerés"
-
-#~ msgid "Search:"
-#~ msgstr "Keresés:"
-
-#~ msgid "Show welcome dialog"
-#~ msgstr "Üdvözlőképernyő megjelenítése"
-
-#~ msgid "Stop"
-#~ msgstr "Stop"
-
-#~ msgid "Switch to the Mixing workspace"
-#~ msgstr "Váltás a keverőpultra"
-
-#~ msgid "Switch to the Recording workspace"
-#~ msgstr "Váltás a felvételi eszközökhöz"
-
-#~ msgid "Workspaces"
-#~ msgstr "Munkaterületek"
-
-#~ msgid "_Add Instrument"
-#~ msgstr "Hangszer Hozzá_adása"
-
-#~ msgid "_Manage Extensions"
-#~ msgstr "Kiegészítők Kezelése (_M)"
-
-#~ msgid "_Mixdown Project"
-#~ msgstr "Projekt Lekeverése (_M)"
-
-#~ msgid "_Mixdown the project"
-#~ msgstr "Projekt lekeverése (_M)"
-
-#~ msgid "_Recording Inputs"
-#~ msgstr "Felvételi Bemenetek (_R)"
-
-#~ msgid "_Save these settings"
-#~ msgstr "Beállítá_sok mentése"
-
-#~ msgid "version 0.9"
-#~ msgstr "0.9 verzió"
-
-#~ msgid "_Paste"
-#~ msgstr "Beillesztés (_P)"
-
-#~ msgid "Currently working in the Recording workspace"
-#~ msgstr "Jelenleg a Felvételi Munkaterületen dolgozunk"
-
-#~ msgid "Currently working in the Mixing workspace"
-#~ msgstr "Jelenleg a Keverőpulton dolgozunk"
+#~ msgstr "A kijelölt hangszer eltávolítása"
 
 #, fuzzy
-#~ msgid "_Mixdown as"
-#~ msgstr "Lekeverés _mint"
+#~ msgid "Rewind"
+#~ msgstr "Megismétlés"
 
+#, fuzzy
+#~ msgid "_Add Instrument"
+#~ msgstr "Hangszer (_I)"
+
+#, fuzzy
+#~ msgid "_Manage Extensions"
+#~ msgstr "Kiegészí_tők"
+
+#, fuzzy
+#~ msgid "_Mixdown Project"
+#~ msgstr "Projekt Keverése"
+
+#, fuzzy
+#~ msgid "_Mixdown the project"
+#~ msgstr "A projekt keverésének leállítása"
+
+#, fuzzy
+#~ msgid "_Recording Inputs"
+#~ msgstr "Felvétel..."
+
+#, fuzzy
+#~ msgid "_Save these settings"
+#~ msgstr "Beállítások elfogadása"
+
+#, fuzzy
 #~ msgid "Choose a name for this profile"
-#~ msgstr "Válasszunk egy nevet a profilnak"
+#~ msgstr "Válasszunk ki egy Jokosher Kiegészítőt tartalmazó fájlt"
 
-#~ msgid "Export file"
-#~ msgstr "Fájl exportálása"
-
-#~ msgid "Export as"
-#~ msgstr "Exportálás mint"
-
+#, fuzzy
 #~ msgid "Run script %s"
-#~ msgstr "%s szkript futtatása"
+#~ msgstr "Hiba a %s szkriptben"
 
-#~ msgid "Run external script"
-#~ msgstr "Külső szkript futtatása"
-
+#, fuzzy
 #~ msgid "No such script %s"
-#~ msgstr "Nincs %s szkript"
+#~ msgstr "Hiba a %s szkriptben"
 
-#~ msgid "Hz"
-#~ msgstr "Hz"
-
+#, fuzzy
 #~ msgid "Zoom the timeline"
-#~ msgstr "Idővonal nagyítása"
-
-#~ msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"
-#~ msgstr "<b>Állítsuk</b> a <b>csúszkát</b> a hangerőszintek változtatásához"
+#~ msgstr "Idővonal megváltoztatása"

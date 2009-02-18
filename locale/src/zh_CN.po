@@ -3,26 +3,25 @@
 # This file is distributed under the same license as the jokosher package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2006.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: jokosher\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-09-03 13:33-0400\n"
-"PO-Revision-Date: 2007-05-03 12:21+0000\n"
-"Last-Translator: rainofchaos <rainofchaos@gmail.com>\n"
+"PO-Revision-Date: 2007-10-07 06:12+0000\n"
+"Last-Translator: Fan Liu <fan.d.liu@gmail.com>\n"
 "Language-Team: Chinese (China) <zh_CN@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Rosetta-Export-Date: 2007-05-06 13:18:18+0000\n"
+"X-Launchpad-Export-Date: 2009-02-18 04:36+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
 
 #: ../../Jokosher/Jokosher.glade.h:1
 msgid "<b>Active effects for: </b>"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:2
-#, fuzzy
 msgid "<b>Application Start-up</b>"
 msgstr "应用程序启动"
 
@@ -1916,229 +1915,301 @@ msgid "Violin"
 msgstr ""
 
 #: i18n.instr.h:18
-#, fuzzy
 msgid "Vocal"
-msgstr "人声"
+msgstr ""
 
 #, fuzzy
-#~ msgid "Add Instrument"
-#~ msgstr "添加乐器"
+msgid "Add Instrument"
+msgstr "添加乐器"
 
 #, fuzzy
-#~ msgid "Audio production made simple."
-#~ msgstr "简单化的音频生产"
+msgid "Audio production made simple."
+msgstr "简单化的音频生产"
 
 #, fuzzy
-#~ msgid "Mixing"
-#~ msgstr "混音中"
+msgid "Mixing"
+msgstr "混音中"
 
 #, fuzzy
-#~ msgid "Recording"
-#~ msgstr "录音中"
+msgid "Recording"
+msgstr "录音中"
 
 #, fuzzy
-#~ msgid "Workspaces"
-#~ msgstr "工作空间"
+msgid "Workspaces"
+msgstr "工作空间"
 
 #, fuzzy
-#~ msgid "_Mixdown Project"
-#~ msgstr "_M项目混音"
+msgid "_Mixdown Project"
+msgstr "_M项目混音"
 
 #, fuzzy
-#~ msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"
-#~ msgstr "<b>拖动滑杆</b>来改变音量水平。"
+msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"
+msgstr "<b>拖动滑杆</b>来改变音量水平。"
 
 #, fuzzy
-#~ msgid "Author"
-#~ msgstr "作者"
+msgid "Author"
+msgstr "作者"
 
 #, fuzzy
-#~ msgid "Browse for an Existing Project"
-#~ msgstr "浏览一个已经存在的项目"
+msgid "Browse for an Existing Project"
+msgstr "浏览一个已经存在的项目"
 
 #, fuzzy
-#~ msgid "Create a New Project"
-#~ msgstr "创建一个新的项目"
+msgid "Create a New Project"
+msgstr "创建一个新的项目"
 
 #, fuzzy
-#~ msgid "Don't open anything"
-#~ msgstr "不要打开任何东西"
+msgid "Don't open anything"
+msgstr "不要打开任何东西"
 
 #, fuzzy
-#~ msgid "Don't show this on start-up"
-#~ msgstr "不要在启动时显示这个"
+msgid "Don't show this on start-up"
+msgstr "不要在启动时显示这个"
 
 #, fuzzy
-#~ msgid "Folder"
-#~ msgstr "文件夹"
+msgid "Folder"
+msgstr "文件夹"
 
 #, fuzzy
-#~ msgid "Open Selected Project"
-#~ msgstr "打开所选的项目"
+msgid "Open Selected Project"
+msgstr "打开所选的项目"
 
 #, fuzzy
-#~ msgid "Open most recent project"
-#~ msgstr "打开最近的项目"
+msgid "Open most recent project"
+msgstr "打开最近的项目"
 
 #, fuzzy
-#~ msgid "Preferences"
-#~ msgstr "首选项"
+msgid "Preferences"
+msgstr "首选项"
 
 #, fuzzy
-#~ msgid "Project Name"
-#~ msgstr "项目名称"
+msgid "Project Name"
+msgstr "项目名称"
 
 #, fuzzy
-#~ msgid "Search:"
-#~ msgstr "搜索："
+msgid "Search:"
+msgstr "搜索："
 
 #, fuzzy
-#~ msgid "Show welcome dialog"
-#~ msgstr "显示欢迎对话框"
+msgid "Show welcome dialog"
+msgstr "显示欢迎对话框"
 
 #, fuzzy
-#~ msgid ""
-#~ "16 bit\n"
-#~ "24 bit\n"
-#~ "32 bit"
-#~ msgstr ""
-#~ "16位\n"
-#~ "24位\n"
-#~ "32位"
+msgid ""
+"16 bit\n"
+"24 bit\n"
+"32 bit"
+msgstr ""
+"16位\n"
+"24位\n"
+"32位"
 
 #, fuzzy
-#~ msgid ""
-#~ "96000\n"
-#~ "48000\n"
-#~ "44100\n"
-#~ "32000\n"
-#~ "24000\n"
-#~ "22050\n"
-#~ "16000\n"
-#~ "11025\n"
-#~ "8000"
-#~ msgstr ""
-#~ "96000\n"
-#~ "48000\n"
-#~ "44100\n"
-#~ "32000\n"
-#~ "24000\n"
-#~ "22050\n"
-#~ "16000\n"
-#~ "11025\n"
-#~ "8000"
+msgid ""
+"96000\n"
+"48000\n"
+"44100\n"
+"32000\n"
+"24000\n"
+"22050\n"
+"16000\n"
+"11025\n"
+"8000"
+msgstr ""
+"96000\n"
+"48000\n"
+"44100\n"
+"32000\n"
+"24000\n"
+"22050\n"
+"16000\n"
+"11025\n"
+"8000"
 
 #, fuzzy
-#~ msgid "<b>Audio Mixdown</b>"
-#~ msgstr "混音"
+msgid "<b>Audio Mixdown</b>"
+msgstr "混音"
+
+#, fuzzy
+msgid ""
+"<b>To find out more, visit:</b>\n"
+"http://www.jokosher.org/contribute"
+msgstr ""
+"<b>更多信息，访问：</b>\n"
+"http://www.jokosher.org/contribute"
+
+#, fuzzy
+msgid "Contributing to Jokosher"
+msgstr "向Jokosher作贡献"
+
+#, fuzzy
+msgid "Device"
+msgstr "设备"
+
+#, fuzzy
+msgid "General"
+msgstr "概况"
+
+#, fuzzy
+msgid "Instrument Connections"
+msgstr "乐器连接"
+
+#, fuzzy
+msgid "Output Format"
+msgstr "输出格式"
+
+#, fuzzy
+msgid "Playback"
+msgstr "回放"
+
+#, fuzzy
+msgid "Pre-release Notes"
+msgstr "预先发行版摘要"
+
+#, fuzzy
+msgid "Presets"
+msgstr "预设值"
+
+#, fuzzy
+msgid "Preview"
+msgstr "预览"
+
+#, fuzzy
+msgid "Recent Projects"
+msgstr "最近的项目"
+
+#, fuzzy
+msgid "Sample Format"
+msgstr "采样格式"
+
+#, fuzzy
+msgid "Sample Rate (Hz)"
+msgstr "采样率（Hz）"
+
+#, fuzzy
+msgid "Select an effect"
+msgstr "选择一个效果"
+
+#, fuzzy
+msgid "Select an effect to add to the instrument"
+msgstr "选择一个效果来加入到乐器中"
+
+#, fuzzy
+msgid "Select an instrument, then click here to begin recording"
+msgstr "选择一件乐器，然后点击这里开始录音"
+
+#, fuzzy
+msgid "Show as Bars, Beats, Ticks"
+msgstr "显示为小节，拍子，Ticks"
+
+#, fuzzy
+msgid "Show as Hours, Minutes, Seconds"
+msgstr "显示为小时，分钟，秒"
+
+#, fuzzy
+msgid "Time Format"
+msgstr "时间格式"
+
+#, fuzzy
+msgid ""
+"Use the combo boxes below to select which input is used with which instrument"
+msgstr "使用下面综合对话框选择哪件乐器使用那个输入。"
+
+#, fuzzy
+msgid ""
+"Wave\n"
+"FLAC\n"
+"Ogg Vorbis"
+msgstr ""
+"波形\n"
+"FLAC\n"
+"Ogg Vorbis"
+
+#, fuzzy
+msgid "Import Audio File..."
+msgstr "导入音频文件..."
+
+#, fuzzy
+msgid "Import file..."
+msgstr "导入文件..."
+
+#, fuzzy
+msgid ""
+"<b>NOTE</b>: The volume sliders in this pre-release version of Jokosher do "
+"not affect the audio."
+msgstr "<b>注意</b>：Jokosher的本预先发行版里音量滑杆并不影响音频。"
+
+#, fuzzy
+msgid "Split"
+msgstr "分割"
+
+#, fuzzy
+msgid "Cut"
+msgstr "剪切"
+
+#, fuzzy
+msgid "Instrument Effects..."
+msgstr "乐器效果..."
+
+#, fuzzy
+msgid ""
+"The instruments '%s' and '%s' both have the same input selected (%s). Please "
+"either disarm one, or connect it to a different input through 'Project -> "
+"Instrument Connections'"
+msgstr ""
+"乐器'%s'和'%s'有选择了相同的输入(%s)。请或者除去一个，或者用‘项目->乐器连"
+"接’来将其连接到一个不同的输入。"
+
+#, fuzzy
+msgid ""
+"No instruments are armed for recording. You need to arm an instrument before "
+"you can begin recording."
+msgstr "没有连接乐器来录音。你需要在录音前连接一件乐器。"
+
+#, fuzzy
+msgid "%d of %d seconds completed"
+msgstr "%d/%d秒已完成"
+
+#, fuzzy
+msgid ""
+"\n"
+"See http://jokosher.org/trac/wiki/GettingJokosher for more details.\n"
+msgstr ""
+"\n"
+"查看详情： http://jokosher.org/trac/wiki/GettingJokosher\n"
+
+#, fuzzy
+msgid ""
+"<big>Notes about this release</big>\n"
+"\n"
+"This version of Jokosher (0.1) is a pre-release version, and is infact, our "
+"very first release. As such, you may encounter some bugs and functionality "
+"that is not present."
+msgstr ""
+"<big>本发行版注意事项</big>\n"
+"\n"
+"本版Jokosher（0.1）为预发行版，并且是事实上我们的第一个发行版。因此，你可能会"
+"遭遇到一些错误或者尚不存在的功能。"
+
+#, fuzzy
+msgid "Master Volume"
+msgstr "主音量"
+
+#, fuzzy
+msgid "Volume: %.2f"
+msgstr "音量：%.2f"
+
+#, fuzzy
+msgid "translator-credits"
+msgstr "翻译者-感谢"
 
 #, fuzzy
 #~ msgid "<b>Audio Quality</b>"
-#~ msgstr "音频质量"
+#~ msgstr "艺术"
 
 #, fuzzy
 #~ msgid "<b>Quality</b>"
-#~ msgstr "质量"
-
-#, fuzzy
-#~ msgid ""
-#~ "<b>To find out more, visit:</b>\n"
-#~ "http://www.jokosher.org/contribute"
-#~ msgstr ""
-#~ "<b>更多信息，访问：</b>\n"
-#~ "http://www.jokosher.org/contribute"
-
-#, fuzzy
-#~ msgid "Contributing to Jokosher"
-#~ msgstr "向Jokosher作贡献"
-
-#, fuzzy
-#~ msgid "Device"
-#~ msgstr "设备"
-
-#, fuzzy
-#~ msgid "General"
-#~ msgstr "概况"
-
-#, fuzzy
-#~ msgid "Instrument Connections"
-#~ msgstr "乐器连接"
-
-#, fuzzy
-#~ msgid "Output Format"
-#~ msgstr "输出格式"
-
-#, fuzzy
-#~ msgid "Playback"
-#~ msgstr "回放"
-
-#, fuzzy
-#~ msgid "Pre-release Notes"
-#~ msgstr "预先发行版摘要"
-
-#, fuzzy
-#~ msgid "Presets"
-#~ msgstr "预设值"
-
-#, fuzzy
-#~ msgid "Preview"
-#~ msgstr "预览"
-
-#, fuzzy
-#~ msgid "Recent Projects"
-#~ msgstr "最近的项目"
-
-#, fuzzy
-#~ msgid "Sample Format"
-#~ msgstr "采样格式"
-
-#, fuzzy
-#~ msgid "Sample Rate (Hz)"
-#~ msgstr "采样率（Hz）"
-
-#, fuzzy
-#~ msgid "Select an effect"
-#~ msgstr "选择一个效果"
-
-#, fuzzy
-#~ msgid "Select an effect to add to the instrument"
-#~ msgstr "选择一个效果来加入到乐器中"
-
-#, fuzzy
-#~ msgid "Select an instrument, then click here to begin recording"
-#~ msgstr "选择一件乐器，然后点击这里开始录音"
-
-#, fuzzy
-#~ msgid "Show as Bars, Beats, Ticks"
-#~ msgstr "显示为小节，拍子，Ticks"
-
-#, fuzzy
-#~ msgid "Show as Hours, Minutes, Seconds"
-#~ msgstr "显示为小时，分钟，秒"
-
-#, fuzzy
-#~ msgid "Time Format"
-#~ msgstr "时间格式"
-
-#, fuzzy
-#~ msgid ""
-#~ "Use the combo boxes below to select which input is used with which "
-#~ "instrument"
-#~ msgstr "使用下面综合对话框选择哪件乐器使用那个输入。"
-
-#, fuzzy
-#~ msgid ""
-#~ "Wave\n"
-#~ "FLAC\n"
-#~ "Ogg Vorbis"
-#~ msgstr ""
-#~ "波形\n"
-#~ "FLAC\n"
-#~ "Ogg Vorbis"
-
-#, fuzzy
-#~ msgid "Import Audio File..."
-#~ msgstr "导入音频文件..."
+#~ msgstr "艺术"
 
 #~ msgid "Paste"
 #~ msgstr "粘贴"
@@ -2146,79 +2217,5 @@ msgstr "人声"
 #~ msgid "Delete"
 #~ msgstr "删除"
 
-#, fuzzy
-#~ msgid "Import file..."
-#~ msgstr "导入文件..."
-
-#, fuzzy
-#~ msgid ""
-#~ "<b>NOTE</b>: The volume sliders in this pre-release version of Jokosher "
-#~ "do not affect the audio."
-#~ msgstr "<b>注意</b>：Jokosher的本预先发行版里音量滑杆并不影响音频。"
-
-#, fuzzy
-#~ msgid "Split"
-#~ msgstr "分割"
-
-#, fuzzy
-#~ msgid "Cut"
-#~ msgstr "剪切"
-
 #~ msgid "Copy"
 #~ msgstr "复制"
-
-#, fuzzy
-#~ msgid "Instrument Effects..."
-#~ msgstr "乐器效果..."
-
-#, fuzzy
-#~ msgid ""
-#~ "The instruments '%s' and '%s' both have the same input selected (%s). "
-#~ "Please either disarm one, or connect it to a different input through "
-#~ "'Project -> Instrument Connections'"
-#~ msgstr ""
-#~ "乐器'%s'和'%s'有选择了相同的输入(%s)。请或者除去一个，或者用‘项目->乐器连"
-#~ "接’来将其连接到一个不同的输入。"
-
-#, fuzzy
-#~ msgid ""
-#~ "No instruments are armed for recording. You need to arm an instrument "
-#~ "before you can begin recording."
-#~ msgstr "没有连接乐器来录音。你需要在录音前连接一件乐器。"
-
-#, fuzzy
-#~ msgid "%d of %d seconds completed"
-#~ msgstr "%d/%d秒已完成"
-
-#, fuzzy
-#~ msgid ""
-#~ "\n"
-#~ "See http://jokosher.org/trac/wiki/GettingJokosher for more details.\n"
-#~ msgstr ""
-#~ "\n"
-#~ "查看详情： http://jokosher.org/trac/wiki/GettingJokosher\n"
-
-#, fuzzy
-#~ msgid ""
-#~ "<big>Notes about this release</big>\n"
-#~ "\n"
-#~ "This version of Jokosher (0.1) is a pre-release version, and is infact, "
-#~ "our very first release. As such, you may encounter some bugs and "
-#~ "functionality that is not present."
-#~ msgstr ""
-#~ "<big>本发行版注意事项</big>\n"
-#~ "\n"
-#~ "本版Jokosher（0.1）为预发行版，并且是事实上我们的第一个发行版。因此，你可"
-#~ "能会遭遇到一些错误或者尚不存在的功能。"
-
-#, fuzzy
-#~ msgid "Master Volume"
-#~ msgstr "主音量"
-
-#, fuzzy
-#~ msgid "Volume: %.2f"
-#~ msgstr "音量：%.2f"
-
-#, fuzzy
-#~ msgid "translator-credits"
-#~ msgstr "翻译者-感谢"
