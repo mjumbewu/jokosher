@@ -20,7 +20,7 @@ import gzip
 import re
 
 import TransportManager
-import UndoSystem
+import UndoSystem, IncrementalSave
 import Globals
 import xml.dom.minidom as xml
 import Instrument, Event
@@ -42,6 +42,10 @@ class Project(gobject.GObject):
 	""" The audio playback state enum values """
 	AUDIO_STOPPED, AUDIO_RECORDING, AUDIO_PLAYING, AUDIO_PAUSED, AUDIO_EXPORTING = range(5)
 	
+	""" String constants for incremental save """
+	INCREMENTAL_SAVE_EXT = ".incremental"
+	INCREMENTAL_SAVE_DELIMITER = "\n<<delimiter>>\n"
+	
 	"""
 	Signals:
 		"audio-state" -- The status of the audio system has changed. See below:
@@ -54,6 +58,7 @@ class Project(gobject.GObject):
 		"bpm" -- The beats per minute value was changed.
 		"click-track" -- The volume of the click track changed.
 		"gst-bus-error" -- An error message was posted to the pipeline. Two strings are also send with the error details.
+		"incremental-save" -- An action was logged to the .incremental file.
 		"instrument" -- The instruments for this project have changed. The instrument instance will be passed as a parameter. See below:
 			"instrument::added" -- An instrument was added to this project.
 			"instrument::removed" -- An instrument was removed from this project.
@@ -70,6 +75,7 @@ class Project(gobject.GObject):
 		"bpm"			: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () ),
 		"click-track"		: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, (gobject.TYPE_DOUBLE,) ),
 		"gst-bus-error"	: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, (gobject.TYPE_STRING, gobject.TYPE_STRING) ),
+		"incremental-save" : ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () ),
 		"instrument"		: ( gobject.SIGNAL_RUN_LAST | gobject.SIGNAL_DETAILED, gobject.TYPE_NONE, (gobject.TYPE_PYOBJECT,) ),
 		"time-signature"	: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () ),
 		"undo"			: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () ),
@@ -114,6 +120,9 @@ class Project(gobject.GObject):
 		self.volume = 1.0			#The volume setting for the entire project
 		self.level = 0.0			#The level of the entire project as reported by the gstreamer element
 		self.currentSinkString = None	#to keep track if the sink changes or not
+
+		self.hasDoneIncrementalSave = False	# True if we have already written to the .incremental file from this project.
+		self.isDoingIncrementalRestore = False # If we are currently restoring incremental save actions
 
 		# Variables for the undo/redo command system
 		self.__unsavedChanges = False	#This boolean is to indicate if something which is not on the undo/redo stack needs to be saved
@@ -730,6 +739,15 @@ class Project(gobject.GObject):
 			#purge savedRedoStack so that it will not prompt to save on exit
 			self.__redoStack.extend(self.__savedRedoStack)
 			self.__savedRedoStack = []
+			
+			# delete the incremental file since its all safe on disk now
+			basepath, ext = os.path.splitext(self.projectfile)
+			incr_path = basepath + self.INCREMENTAL_SAVE_EXT
+			try:
+				if os.path.exists(incr_path):
+					os.remove(incr_path)
+			except OSError:
+				Globals.debug("Removal of .incremental failed! Next load we will try to restore unrestorable state!")
 		
 		doc = xml.Document()
 		head = doc.createElement("JokosherProject")
@@ -785,11 +803,98 @@ class Project(gobject.GObject):
 		self.emit("undo")
 	
 	#_____________________________________________________________________
+	
+	def SaveIncrementalAction(self, action):
+		if self.isDoingIncrementalRestore:
+			return
+		
+		if self.__performingUndo or self.__performingRedo:
+			return
+		
+		path, ext = os.path.splitext(self.projectfile)
+		filename = path + self.INCREMENTAL_SAVE_EXT
+		
+		if self.hasDoneIncrementalSave:
+			incr_file = open(filename, "a")
+		else:
+			# if we haven't performed an incremental save yet,
+			# the existing .incremental file is old, so overwrite it.
+			incr_file = open(filename, "w")
+			self.hasDoneIncrementalSave = True
+		
+		incr_file.write(action.StoreToString())
+		incr_file.write(self.INCREMENTAL_SAVE_DELIMITER)
+		
+		incr_file.close()
+		
+		self.SetUnsavedChanges()
+		self.emit("incremental-save")
+	
+	#_____________________________________________________________________
+	
+	def CanDoIncrementalRestore(self):
+		path, ext = os.path.splitext(self.projectfile)
+		filename = path + self.INCREMENTAL_SAVE_EXT
+		return os.path.exists(filename)	
+	
+	#_____________________________________________________________________
+	
+	def DoIncrementalRestore(self):
+		"""
+		Loads all the actions from the .incremental file and executes them
+		to restore the project's state.
+		"""
+		
+		if self.hasDoneIncrementalSave:
+			Globals.debug("Cannot do incremental restore after incremental save.")
+			return False
+		
+		path, ext = os.path.splitext(self.projectfile)
+		filename = path + self.INCREMENTAL_SAVE_EXT
+		
+		save_action_list = []
+		
+		if os.path.isfile(filename):
+			incr_file = open(filename, "r")
+			filetext = incr_file.read()
+			incr_file.close()
+			for incr_xml in filetext.split(self.INCREMENTAL_SAVE_DELIMITER):
+				incr_xml = incr_xml.strip()
+				if incr_xml:
+					incr_action = IncrementalSave.LoadFromString(incr_xml)
+					save_action_list.append(incr_action)
+		
+		self.isDoingIncrementalRestore = True
+		try:
+			IncrementalSave.FilterAndExecuteAll(save_action_list, self)
+		except:
+			Globals.debug("Exception while restoring incremental save.",
+						"Project state is surely out of sync with .incremental file")
+			raise
+		
+		# set hasDoneIncrementSave to True because project is now in sync with .incremental file
+		# i.e. we don't have to destory the .incremental file because the states match up.
+		self.hasDoneIncrementalSave = True
+		self.isDoingIncrementalRestore = False
+		return True
+		
+	#_____________________________________________________________________
 
 	def CloseProject(self):
 		"""
 		Closes down this Project.
 		"""
+		
+		# when closing the file, the user chooses to either save, or discard
+		# in either case, we don't need the incremental save file anymore
+		path, ext = os.path.splitext(self.projectfile)
+		filename = path + self.INCREMENTAL_SAVE_EXT
+		try:
+			if os.path.exists(filename):
+				os.remove(filename)
+		except OSError:
+			Globals.debug("Removal of .incremental failed! Next load we will try to restore unrestorable state!")
+		
 		for file in self.deleteOnCloseAudioFiles:
 			if os.path.exists(file):
 				Globals.debug("Deleting copied audio file:", file)
@@ -818,6 +923,10 @@ class Project(gobject.GObject):
 			self.__savedUndo = False
 			
 		self.__performingUndo = False
+		
+		# __performingUndo must be False for project to log
+		inc = IncrementalSave.Undo()
+		self.SaveIncrementalAction(inc)
 	
 	#_____________________________________________________________________
 	
@@ -838,6 +947,10 @@ class Project(gobject.GObject):
 			self.ExecuteAction(cmd)
 			
 		self.__performingRedo = False
+		
+		# __performingRedo must be False for project to log
+		inc = IncrementalSave.Redo()
+		self.SaveIncrementalAction(inc)
 
 	#_____________________________________________________________________
 	
@@ -940,26 +1053,37 @@ class Project(gobject.GObject):
 		newUndoAction = self.NewAtomicUndoAction()
 		for cmdList in reversed(undoAction.GetUndoCommands()):
 			obj = cmdList[0]
-			target_object = None
-			if obj[0] == "P":		# Check if the object is a Project
-				target_object = self
-			elif obj[0] == "I":		# Check if the object is an Instrument
-				id = int(obj[1:])
-				target_object = [x for x in self.instruments if x.id==id][0]
-			elif obj[0] == "E":		# Check if the object is an Event
-				id = int(obj[1:])
-				for instr in self.instruments:
-					# First of all see if it's alive on an instrument
-					n = [x for x in instr.events if x.id==id]
-					if not n:
-						# If not, check the graveyard on each instrument
-						n = [x for x in instr.graveyard if x.id==id]
-					if n:
-						target_object = n[0]
-						break
+			target_object = self.JokosherObjectFromString(obj)
 			
 			getattr(target_object, cmdList[1])(_undoAction_=newUndoAction, *cmdList[2])
 
+	#_____________________________________________________________________
+	
+	def JokosherObjectFromString(self, string):
+		"""
+		Converts a string used to serialize references to Project, Instrument
+		and Event instances into a reference to the actual object.
+		
+		Parameters:
+			string -- The string to convert such as "P" for project or "I2" for instrument with ID equal to 2.
+		"""
+		if string[0] == "P":		# Check if the object is a Project
+			return self
+		elif string[0] == "I":		# Check if the object is an Instrument
+			id = int(string[1:])
+			for instr in self.instruments:
+				if instr.id == id:
+					return instr
+		elif string[0] == "E":		# Check if the object is an Event
+			id = int(string[1:])
+			for instr in self.instruments:
+				for event in instr.events:
+					if event.id == id:
+						return event
+				for event in instr.graveyard:
+					if event.id == id:
+						return event
+				
 	#_____________________________________________________________________
 	
 	@UndoSystem.UndoCommand("SetBPM", "temp")
@@ -1011,16 +1135,19 @@ class Project(gobject.GObject):
 		they are all appended to the undo stack as a single atomic action.
 		
 		Parameters:
-			instrTuples -- a list of tuples containing name, type and pixbuf
+			instrTuples -- a list of tuples containing name and type
 					that will be passed to AddInstrument().
 			
 		Returns:
-			A list of IDs of the added Instruments.
+			A list of the added Instruments.
 		"""
 		
 		undoAction = self.NewAtomicUndoAction()
-		for name, type, pixbuf in instrTuples:
-			self.AddInstrument(name, type, pixbuf, _undoAction_=undoAction)
+		instrList = []
+		for name, type in instrTuples:
+			instr = self.AddInstrument(name, type, _undoAction_=undoAction)
+			instrList.append(instr)
+		return instrList
 	
 	#_____________________________________________________________________
 	
@@ -1041,7 +1168,7 @@ class Project(gobject.GObject):
 	#_____________________________________________________________________
 	
 	@UndoSystem.UndoCommand("DeleteInstrument", "temp")
-	def AddInstrument(self, name, type, pixbuf):
+	def AddInstrument(self, name, type):
 		"""
 		Adds a new instrument to the Project and returns the ID for that instrument.
 		
@@ -1052,12 +1179,11 @@ class Project(gobject.GObject):
 		Parameters:
 			name -- name of the instrument.
 			type -- type of the instrument.
-			pixbuf -- image object corresponding to the instrument.
 			
 		Returns:
-			ID of the added Instrument.
+			The created Instrument object.
 		"""
-			
+		pixbuf = Globals.getCachedInstrumentPixbuf(type)
 		instr = Instrument.Instrument(self, name, type, pixbuf)
 		if len(self.instruments) == 0:
 			#If this is the first instrument, arm it by default
@@ -1168,7 +1294,7 @@ class Project(gobject.GObject):
 			undoAction = self.NewAtomicUndoAction()
 		
 		name, type, pixbuf, path = [x for x in Globals.getCachedInstruments() if x[1] == "audiofile"][0]
-		instr = self.AddInstrument(name, type, pixbuf, _undoAction_=undoAction)
+		instr = self.AddInstrument(name, type, _undoAction_=undoAction)
 		instr.AddEventsFromList(0, fileList, copyFile, undoAction)
 	
 	#_____________________________________________________________________
@@ -1264,13 +1390,15 @@ class Project(gobject.GObject):
 			if id in self.___id_list:
 				Globals.debug("Error: id", id, "already taken")
 			else:
-				self.___id_list.append(id)
+				if reserve:
+					self.___id_list.append(id)
 				return id
 				
 		counter = 0
 		while True:
 			if not counter in self.___id_list:
-				self.___id_list.append(counter)
+				if reserve:
+					self.___id_list.append(counter)
 				return counter
 			counter += 1
 	
@@ -1449,5 +1577,27 @@ class Project(gobject.GObject):
 		
 	#____________________________________________________________________	
 
+	def SetName(self, name):
+		if self.name != name:
+			self.name = name
+			inc = IncrementalSave.SetName(name)
+			self.SaveIncrementalAction(inc)
+				
+	#____________________________________________________________________	
 	
+	def SetAuthor(self, author):
+		if self.author != author:
+			self.author = author
+			inc = IncrementalSave.SetAuthor(author)
+			self.SaveIncrementalAction(inc)
+	
+	#____________________________________________________________________	
+	
+	def SetNotes(self, notes):
+		if self.notes != notes:
+			self.notes = notes
+			inc = IncrementalSave.SetNotes(notes)
+			self.SaveIncrementalAction(inc)
+	
+	#____________________________________________________________________		
 #=========================================================================

@@ -36,8 +36,6 @@ class Settings:
 				"projectfolder" : "",
 				"windowheight" : 550,
 				"windowwidth" : 900,
-				"backupsavetime" : 30000,
-				"lastbackup" : 0
 				}
 	
 	recording = {
@@ -96,7 +94,7 @@ class Settings:
 		"""
 		Writes configuration settings to the Settings config file.
 		"""
-		
+
 		for section, section_dict in self.sections.iteritems():
 			for key, value in section_dict.iteritems():
 				self.config.set(section, key, value)
@@ -263,6 +261,14 @@ def getCachedInstruments(checkForNew=False):
 
 #_____________________________________________________________________
 
+def getCachedInstrumentPixbuf(get_type):
+	for (name, type, pixbuf, pixbufPath) in getCachedInstruments():
+		if type == get_type:
+			return pixbuf
+	return None
+
+#_____________________________________________________________________
+
 def idleCacheInstruments():
 	"""
 	Loads the Instruments 'lazily' to avoid blocking the GUI.
@@ -403,7 +409,6 @@ create_dirs = [
 	('presets', 'mixdown'),
 	'mixdownprofiles',
 	'templates',
-	'backups'
 ]
 
 # do a listing before we create the dirs so we know if it was empty (ie first run)

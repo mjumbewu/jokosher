@@ -67,6 +67,8 @@ class RecordingView(gtk.Frame):
 		self.errorMessageArea = None
 		self.moreErrorsMessageArea = None
 		
+		self.restoreMessageArea = None
+		
 		## create darker workspace box
 		self.eventBox = gtk.EventBox()
 		self.eventBox.connect("button-press-event", self.OnEmptySpaceDoubleClicked)
@@ -152,6 +154,7 @@ class RecordingView(gtk.Frame):
 		
 		#connect to the project signals
 		self.project.connect("gst-bus-error", self.OnProjectGstError)
+		self.project.connect("incremental-save", self.OnProjectIncSave)
 		self.project.connect("instrument::added", self.OnInstrumentAdded)
 		self.project.connect("instrument::reordered", self.OnInstrumentReordered)
 		self.project.connect("instrument::removed", self.OnInstrumentRemoved)
@@ -172,6 +175,22 @@ class RecordingView(gtk.Frame):
 			self.inbutton.hide()
 			self.outbutton.hide()
 			self.zoomSlider.hide()
+		
+		if self.project.CanDoIncrementalRestore():
+			message = _("Would you like to restore the current project?")
+			details = _("A crash was detected and changes to your project were not saved.\nIf you would like, you can attempt to recover these lost changes.")
+			
+			msg_area = MessageArea.MessageArea()
+			msg_area.add_button(gtk.STOCK_CLOSE, gtk.RESPONSE_CLOSE)
+			msg_area.add_stock_button_with_text(_("_Restore Project"), gtk.STOCK_APPLY, gtk.RESPONSE_OK)
+			msg_area.set_text_and_icon(gtk.STOCK_DIALOG_QUESTION, message, details)
+			
+			msg_area.connect("response", self.OnRestoreMessageAreaResponse, msg_area)
+			msg_area.connect("close", self.OnRestoreMessageAreaClose, msg_area)
+			
+			self.vbox.pack_end(msg_area, False, False)
+			msg_area.show()
+			self.restoreMessageArea = msg_area
 		
 	#_____________________________________________________________________
 
@@ -245,7 +264,7 @@ class RecordingView(gtk.Frame):
 		self.header_size_group.add_widget(instrViewer.GetHeaderWidget())
 		
 		self.instrumentBox.pack_start(instrViewer, False, False)
-		instrViewer.show_all()
+		instrViewer.show()
 	
 	#_____________________________________________________________________
 	
@@ -619,5 +638,24 @@ class RecordingView(gtk.Frame):
 			self.zoomSlider.show()
 			
 	#____________________________________________________________________	
-
+	
+	def OnRestoreMessageAreaClose(self, widget=None, msg_area=None):
+		if self.restoreMessageArea:
+			self.vbox.remove(self.restoreMessageArea)
+			self.restoreMessageArea = None
+	
+	#____________________________________________________________________
+	
+	def OnRestoreMessageAreaResponse(self, widget, response_id, msg_area):
+		if response_id == gtk.RESPONSE_OK:
+			self.project.DoIncrementalRestore()
+		
+		self.OnRestoreMessageAreaClose()
+	
+	#____________________________________________________________________
+	
+	def OnProjectIncSave(self, project):
+		self.OnRestoreMessageAreaClose()
+	
+	#____________________________________________________________________
 #=========================================================================
