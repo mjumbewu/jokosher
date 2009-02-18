@@ -292,7 +292,20 @@ class MainApp:
 		"""
 		if self.workspace:
 			self.workspace.ToggleCompactMix()
-				
+
+	#_____________________________________________________________________
+
+
+	def OnF3Pressed(self, widget=None):
+		"""
+		Toggle to compact mix view button when F3 is pressed.
+
+		Paramaeters:
+			widget -- GTK callback parameter.
+		"""
+
+		self.compactMixButton.set_active(not self.compactMixButton.get_active())
+
 	#_____________________________________________________________________
 	
 	def OnResize(self, widget, event):
@@ -1322,7 +1335,7 @@ class MainApp:
 		else:
 			keysdict = {
 				"F1"			: self.OnHelpContentsMenu, # F1 - Help Contents
-				"F3"			: self.OnCompactMixView, # F3 - Compact Mix View
+				"F3"			: self.OnF3Pressed, # F3 - Compact Mix View
 				"Delete"		: self.OnDelete, # delete key - remove selected item
 				"BackSpace" 	: self.OnDelete, # backspace key
 				"space"		: self.Play,
