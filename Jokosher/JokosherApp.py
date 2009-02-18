@@ -150,6 +150,7 @@ class MainApp:
 		self.addAudioFileMenuItem = self.wTree.get_widget("add_audio_file_project_menu")
 		self.addInstrumentFileMenuItem = self.wTree.get_widget("add_instrument1")
 		self.recordingInputsFileMenuItem = self.wTree.get_widget("instrument_connections1")
+		self.timeFormatFileMenuItem = self.wTree.get_widget("time_format1")
 		self.properties_menu_item = self.wTree.get_widget("project_properties")
 		
 		self.recentprojectitems = []
@@ -1265,7 +1266,9 @@ class MainApp:
 		ctrls = (self.save, self.save_as, self.close, self.addInstrumentButton, self.addAudioFileButton,
 			self.reverse, self.forward, self.play, self.stop, self.record,
 			self.instrumentMenu, self.export, self.cut, self.copy, self.paste,
-			self.undo, self.redo, self.delete, self.compactMixButton, self.properties_menu_item)
+			self.undo, self.redo, self.delete, self.compactMixButton, self.properties_menu_item,
+			self.addAudioFileMenuItem, self.addInstrumentFileMenuItem, self.recordingInputsFileMenuItem,
+			self.timeFormatFileMenuItem)
 		
 		if self.project:
 			# make various buttons and menu items enabled now we have a project option
@@ -1382,11 +1385,11 @@ class MainApp:
 				self.mixdown_as_header.set_sensitive(False)
 			return
 		
-		self.addInstrumentFileMenuItem.set_sensitive(True)
-		self.addAudioFileMenuItem.set_sensitive(True)
-		self.recordingInputsFileMenuItem.set_sensitive(True)
 		eventList = False
 		if self.project:
+			self.addInstrumentFileMenuItem.set_sensitive(True)
+			self.addAudioFileMenuItem.set_sensitive(True)
+			self.recordingInputsFileMenuItem.set_sensitive(True)
 			for instr in self.project.instruments:
 				if instr.events:
 					eventList = True
