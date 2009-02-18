@@ -63,12 +63,12 @@ class NewEvent:
 #=========================================================================
 
 class StartDownload:
-	def __init__(self, instr_id, url, save_file, event_start, id):
+	def __init__(self, instr_id, url, save_file, event_start, event_id):
 		self.instr_id = instr_id
 		self.url = url
 		self.save_file = save_file
 		self.event_start = event_start
-		self.id = id
+		self.id = event_id
 		
 	def Execute(self, project):
 		instr = project.JokosherObjectFromString("I" + str(self.instr_id))
@@ -86,7 +86,7 @@ class StartDownload:
 		node.setAttribute("url", self.url)
 		node.setAttribute("save_file", self.save_file)
 		node.setAttribute("start", str(self.event_start))
-		node.setAttribute("action_id", str(self.id))
+		node.setAttribute("event_id", str(self.id))
 				
 		return doc.toxml()
 	
@@ -100,7 +100,7 @@ class StartDownload:
 		url = node.getAttribute("url")
 		save_file = node.getAttribute("save_file")
 		event_start = float(node.getAttribute("start"))
-		id = int(node.getAttribute("action_id"))
+		id = int(node.getAttribute("event_id"))
 		
 		return StartDownload(instr_id, url, save_file, event_start, id)
 
