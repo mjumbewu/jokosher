@@ -53,22 +53,9 @@
 		    <widget class="GtkImageMenuItem" id="new1">
 		      <property name="visible">True</property>
 		      <property name="tooltip" translatable="yes">Create a new project</property>
-		      <property name="label" translatable="yes">New...</property>
-		      <property name="use_underline">True</property>
+		      <property name="label">gtk-new</property>
+		      <property name="use_stock">True</property>
 		      <signal name="activate" handler="on_new_activate"/>
-		      <accelerator key="N" modifiers="GDK_CONTROL_MASK" signal="activate"/>
-
-		      <child internal-child="image">
-			<widget class="GtkImage" id="image3616">
-			  <property name="visible">True</property>
-			  <property name="stock">gtk-new</property>
-			  <property name="icon_size">1</property>
-			  <property name="xalign">0.5</property>
-			  <property name="yalign">0.5</property>
-			  <property name="xpad">0</property>
-			  <property name="ypad">0</property>
-			</widget>
-		      </child>
 		    </widget>
 		  </child>
 
@@ -76,73 +63,9 @@
 		    <widget class="GtkImageMenuItem" id="open">
 		      <property name="visible">True</property>
 		      <property name="tooltip" translatable="yes">Open an existing project</property>
-		      <property name="label" translatable="yes">Open...</property>
-		      <property name="use_underline">True</property>
+		      <property name="label">gtk-open</property>
+		      <property name="use_stock">True</property>
 		      <signal name="activate" handler="on_open_activate"/>
-		      <accelerator key="O" modifiers="GDK_CONTROL_MASK" signal="activate"/>
-
-		      <child internal-child="image">
-			<widget class="GtkImage" id="image3617">
-			  <property name="visible">True</property>
-			  <property name="stock">gtk-open</property>
-			  <property name="icon_size">1</property>
-			  <property name="xalign">0.5</property>
-			  <property name="yalign">0.5</property>
-			  <property name="xpad">0</property>
-			  <property name="ypad">0</property>
-			</widget>
-		      </child>
-		    </widget>
-		  </child>
-
-		  <child>
-		    <widget class="GtkImageMenuItem" id="save">
-		      <property name="visible">True</property>
-		      <property name="tooltip" translatable="yes">Save the current project</property>
-		      <property name="label">gtk-save</property>
-		      <property name="use_stock">True</property>
-		      <signal name="activate" handler="on_save_activate"/>
-		    </widget>
-		  </child>
-
-		  <child>
-		    <widget class="GtkImageMenuItem" id="save_as">
-		      <property name="visible">True</property>
-		      <property name="tooltip" translatable="yes">Save a copy of the current project</property>
-		      <property name="label" translatable="yes">Save As...</property>
-		      <property name="use_underline">True</property>
-		      <signal name="activate" handler="on_save_as_activate"/>
-
-		      <child internal-child="image">
-			<widget class="GtkImage" id="image3618">
-			  <property name="visible">True</property>
-			  <property name="stock">gtk-save-as</property>
-			  <property name="icon_size">1</property>
-			  <property name="xalign">0.5</property>
-			  <property name="yalign">0.5</property>
-			  <property name="xpad">0</property>
-			  <property name="ypad">0</property>
-			</widget>
-		      </child>
-		    </widget>
-		  </child>
-
-		  <child>
-		    <widget class="GtkImageMenuItem" id="close">
-		      <property name="visible">True</property>
-		      <property name="tooltip" translatable="yes">Close the current project</property>
-		      <property name="label">gtk-close</property>
-		      <property name="use_stock">True</property>
-		      <signal name="activate" handler="on_close_activate"/>
-		    </widget>
-		  </child>
-
-		  <child>
-		    <widget class="GtkImageMenuItem" id="project_properties">
-		      <property name="visible">True</property>
-		      <property name="label">gtk-properties</property>
-		      <property name="use_stock">True</property>
-		      <signal name="activate" handler="on_properties_activate" last_modification_time="Fri, 23 Jan 2009 22:25:58 GMT"/>
 		    </widget>
 		  </child>
 
@@ -162,6 +85,166 @@
 		  </child>
 
 		  <child>
+		    <widget class="GtkSeparatorMenuItem" id="separator5">
+		      <property name="visible">True</property>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkImageMenuItem" id="save">
+		      <property name="visible">True</property>
+		      <property name="tooltip" translatable="yes">Save the current project</property>
+		      <property name="label">gtk-save</property>
+		      <property name="use_stock">True</property>
+		      <signal name="activate" handler="on_save_activate"/>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkImageMenuItem" id="save_as">
+		      <property name="visible">True</property>
+		      <property name="tooltip" translatable="yes">Save a copy of the current project</property>
+		      <property name="label">gtk-save-as</property>
+		      <property name="use_stock">True</property>
+		      <signal name="activate" handler="on_save_as_activate"/>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkImageMenuItem" id="close">
+		      <property name="visible">True</property>
+		      <property name="tooltip" translatable="yes">Close the current project</property>
+		      <property name="label">gtk-close</property>
+		      <property name="use_stock">True</property>
+		      <signal name="activate" handler="on_close_activate"/>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkSeparatorMenuItem" id="separator6">
+		      <property name="visible">True</property>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkImageMenuItem" id="add_instrument1">
+		      <property name="visible">True</property>
+		      <property name="tooltip" translatable="yes">Add an instrument to the project</property>
+		      <property name="label" translatable="yes">_Add Instrument...</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_AddInstrument_clicked"/>
+
+		      <child internal-child="image">
+			<widget class="GtkImage" id="image3673">
+			  <property name="visible">True</property>
+			  <property name="stock">gtk-add</property>
+			  <property name="icon_size">1</property>
+			  <property name="xalign">0.5</property>
+			  <property name="yalign">0.5</property>
+			  <property name="xpad">0</property>
+			  <property name="ypad">0</property>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkImageMenuItem" id="add_audio_file_project_menu">
+		      <property name="visible">True</property>
+		      <property name="tooltip" translatable="yes">Add an audio file to the project</property>
+		      <property name="label" translatable="yes">Add Audio _File...</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_project_add_audio" last_modification_time="Tue, 26 Dec 2006 18:58:33 GMT"/>
+
+		      <child internal-child="image">
+			<widget class="GtkImage" id="image3674">
+			  <property name="visible">True</property>
+			  <property name="stock">gtk-open</property>
+			  <property name="icon_size">1</property>
+			  <property name="xalign">0.5</property>
+			  <property name="yalign">0.5</property>
+			  <property name="xpad">0</property>
+			  <property name="ypad">0</property>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkImageMenuItem" id="instrument_connections1">
+		      <property name="visible">True</property>
+		      <property name="tooltip" translatable="yes">Manage instrument recording inputs</property>
+		      <property name="label" translatable="yes">Recording _Inputs...</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_instrumentconnections_activate"/>
+
+		      <child internal-child="image">
+			<widget class="GtkImage" id="image3675">
+			  <property name="visible">True</property>
+			  <property name="stock">gtk-preferences</property>
+			  <property name="icon_size">1</property>
+			  <property name="xalign">0.5</property>
+			  <property name="yalign">0.5</property>
+			  <property name="xpad">0</property>
+			  <property name="ypad">0</property>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="time_format1">
+		      <property name="visible">True</property>
+		      <property name="tooltip" translatable="yes">Change the timeline</property>
+		      <property name="label" translatable="yes">_Time Format</property>
+		      <property name="use_underline">True</property>
+
+		      <child>
+			<widget class="GtkMenu" id="time_format1_menu">
+
+			  <child>
+			    <widget class="GtkRadioMenuItem" id="show_as_bars_beats_ticks">
+			      <property name="visible">True</property>
+			      <property name="tooltip" translatable="yes">Change the timeline to show bars, beats and ticks</property>
+			      <property name="label" translatable="yes">Show as _Bars, Beats, Ticks</property>
+			      <property name="use_underline">True</property>
+			      <property name="active">False</property>
+			      <signal name="toggled" handler="on_show_as_bars_beats_ticks_toggled" last_modification_time="Fri, 27 Apr 2007 20:38:50 GMT"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkRadioMenuItem" id="show_as_hours_minutes_seconds">
+			      <property name="visible">True</property>
+			      <property name="tooltip" translatable="yes">Change the timeline to show hours, minutes and seconds</property>
+			      <property name="label" translatable="yes">Show as _Hours, Minutes, Seconds</property>
+			      <property name="use_underline">True</property>
+			      <property name="active">True</property>
+			      <property name="group">show_as_bars_beats_ticks</property>
+			      <signal name="toggled" handler="on_show_as_hours_minutes_seconds_toggled" last_modification_time="Fri, 27 Apr 2007 20:39:20 GMT"/>
+			    </widget>
+			  </child>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkImageMenuItem" id="project_properties">
+		      <property name="visible">True</property>
+		      <property name="label">gtk-properties</property>
+		      <property name="use_stock">True</property>
+		      <signal name="activate" handler="on_properties_activate" last_modification_time="Fri, 23 Jan 2009 22:25:58 GMT"/>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkSeparatorMenuItem" id="separator7">
+		      <property name="visible">True</property>
+		    </widget>
+		  </child>
+
+		  <child>
 		    <widget class="GtkImageMenuItem" id="export">
 		      <property name="visible">True</property>
 		      <property name="tooltip" translatable="yes">Export current project to an audio file</property>
@@ -170,7 +253,7 @@
 		      <signal name="activate" handler="on_export_activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image3619">
+			<widget class="GtkImage" id="image3676">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-jump-to</property>
 			  <property name="icon_size">1</property>
@@ -223,7 +306,7 @@
 		      <accelerator key="Z" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image3620">
+			<widget class="GtkImage" id="image3677">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-undo</property>
 			  <property name="icon_size">1</property>
@@ -246,7 +329,7 @@
 		      <accelerator key="Z" modifiers="GDK_CONTROL_MASK | GDK_SHIFT_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image3621">
+			<widget class="GtkImage" id="image3678">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-redo</property>
 			  <property name="icon_size">1</property>
@@ -326,139 +409,6 @@
 	  </child>
 
 	  <child>
-	    <widget class="GtkMenuItem" id="projectmenu">
-	      <property name="visible">True</property>
-	      <property name="label" translatable="yes">_Project</property>
-	      <property name="use_underline">True</property>
-	      <signal name="activate" handler="on_projectmenu_activate"/>
-
-	      <child>
-		<widget class="GtkMenu" id="projectmenu_menu">
-
-		  <child>
-		    <widget class="GtkImageMenuItem" id="add_instrument1">
-		      <property name="visible">True</property>
-		      <property name="tooltip" translatable="yes">Add an instrument to the project</property>
-		      <property name="label" translatable="yes">_Add Instrument...</property>
-		      <property name="use_underline">True</property>
-		      <signal name="activate" handler="on_AddInstrument_clicked"/>
-
-		      <child internal-child="image">
-			<widget class="GtkImage" id="image3622">
-			  <property name="visible">True</property>
-			  <property name="stock">gtk-add</property>
-			  <property name="icon_size">1</property>
-			  <property name="xalign">0.5</property>
-			  <property name="yalign">0.5</property>
-			  <property name="xpad">0</property>
-			  <property name="ypad">0</property>
-			</widget>
-		      </child>
-		    </widget>
-		  </child>
-
-		  <child>
-		    <widget class="GtkImageMenuItem" id="add_audio_file_project_menu">
-		      <property name="visible">True</property>
-		      <property name="tooltip" translatable="yes">Add an audio file to the project</property>
-		      <property name="label" translatable="yes">Add Audio _File...</property>
-		      <property name="use_underline">True</property>
-		      <signal name="activate" handler="on_project_add_audio" last_modification_time="Tue, 26 Dec 2006 18:58:33 GMT"/>
-
-		      <child internal-child="image">
-			<widget class="GtkImage" id="image3623">
-			  <property name="visible">True</property>
-			  <property name="stock">gtk-open</property>
-			  <property name="icon_size">1</property>
-			  <property name="xalign">0.5</property>
-			  <property name="yalign">0.5</property>
-			  <property name="xpad">0</property>
-			  <property name="ypad">0</property>
-			</widget>
-		      </child>
-		    </widget>
-		  </child>
-
-		  <child>
-		    <widget class="GtkImageMenuItem" id="instrument_connections1">
-		      <property name="visible">True</property>
-		      <property name="tooltip" translatable="yes">Manage instrument recording inputs</property>
-		      <property name="label" translatable="yes">_Recording Inputs...</property>
-		      <property name="use_underline">True</property>
-		      <signal name="activate" handler="on_instrumentconnections_activate"/>
-
-		      <child internal-child="image">
-			<widget class="GtkImage" id="image3624">
-			  <property name="visible">True</property>
-			  <property name="stock">gtk-preferences</property>
-			  <property name="icon_size">1</property>
-			  <property name="xalign">0.5</property>
-			  <property name="yalign">0.5</property>
-			  <property name="xpad">0</property>
-			  <property name="ypad">0</property>
-			</widget>
-		      </child>
-		    </widget>
-		  </child>
-
-		  <child>
-		    <widget class="GtkMenuItem" id="time_format1">
-		      <property name="visible">True</property>
-		      <property name="tooltip" translatable="yes">Change the timeline</property>
-		      <property name="label" translatable="yes">_Time Format</property>
-		      <property name="use_underline">True</property>
-
-		      <child>
-			<widget class="GtkMenu" id="time_format1_menu">
-
-			  <child>
-			    <widget class="GtkRadioMenuItem" id="show_as_bars_beats_ticks">
-			      <property name="visible">True</property>
-			      <property name="tooltip" translatable="yes">Change the timeline to show bars, beats and ticks</property>
-			      <property name="label" translatable="yes">Show as _Bars, Beats, Ticks</property>
-			      <property name="use_underline">True</property>
-			      <property name="active">True</property>
-			      <signal name="toggled" handler="on_show_as_bars_beats_ticks_toggled" last_modification_time="Fri, 27 Apr 2007 20:38:50 GMT"/>
-			    </widget>
-			  </child>
-
-			  <child>
-			    <widget class="GtkRadioMenuItem" id="show_as_hours_minutes_seconds">
-			      <property name="visible">True</property>
-			      <property name="tooltip" translatable="yes">Change the timeline to show hours, minutes and seconds</property>
-			      <property name="label" translatable="yes">Show as _Hours, Minutes, Seconds</property>
-			      <property name="use_underline">True</property>
-			      <property name="active">True</property>
-			      <property name="group">show_as_bars_beats_ticks</property>
-			      <signal name="toggled" handler="on_show_as_hours_minutes_seconds_toggled" last_modification_time="Fri, 27 Apr 2007 20:39:20 GMT"/>
-			    </widget>
-			  </child>
-			</widget>
-		      </child>
-		    </widget>
-		  </child>
-
-		  <child>
-		    <widget class="GtkSeparatorMenuItem" id="separator5">
-		      <property name="visible">True</property>
-		    </widget>
-		  </child>
-
-		  <child>
-		    <widget class="GtkMenuItem" id="create_project_template">
-		      <property name="visible">True</property>
-		      <property name="tooltip" translatable="yes">Create project template from instruments in current project</property>
-		      <property name="label" translatable="yes">_Create Project Template</property>
-		      <property name="use_underline">True</property>
-		      <signal name="activate" handler="on_create_project_template" last_modification_time="Fri, 27 Apr 2007 19:13:25 GMT"/>
-		    </widget>
-		  </child>
-		</widget>
-	      </child>
-	    </widget>
-	  </child>
-
-	  <child>
 	    <widget class="GtkMenuItem" id="instrumentmenu">
 	      <property name="visible">True</property>
 	      <property name="label" translatable="yes">_Instrument</property>
@@ -497,7 +447,7 @@
 		      <signal name="activate" handler="on_remove_instr_activate" last_modification_time="Tue, 26 Dec 2006 18:59:48 GMT"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image3625">
+			<widget class="GtkImage" id="image3679">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-remove</property>
 			  <property name="icon_size">1</property>
@@ -581,7 +531,7 @@
 		      <signal name="activate" handler="on_forums_activate" last_modification_time="Sat, 16 Dec 2006 07:53:08 GMT"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image3626">
+			<widget class="GtkImage" id="image3680">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-info</property>
 			  <property name="icon_size">1</property>
@@ -603,7 +553,7 @@
 		      <signal name="activate" handler="on_contributing_activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image3627">
+			<widget class="GtkImage" id="image3681">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-index</property>
 			  <property name="icon_size">1</property>
@@ -625,7 +575,7 @@
 		      <signal name="activate" handler="on_system_information_activate" last_modification_time="Wed, 12 Sep 2007 20:10:54 GMT"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image3628">
+			<widget class="GtkImage" id="image3682">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-dialog-info</property>
 			  <property name="icon_size">1</property>
@@ -663,6 +613,7 @@
 	<widget class="GtkToolbar" id="MainToolbar">
 	  <property name="visible">True</property>
 	  <property name="orientation">GTK_ORIENTATION_HORIZONTAL</property>
+	  <property name="toolbar_style">GTK_TOOLBAR_BOTH</property>
 	  <property name="tooltips">True</property>
 	  <property name="show_arrow">True</property>
 
@@ -6855,7 +6806,6 @@ daave &lt;fan.d.liu@gmail.com&gt;
 
 <widget class="GtkDialog" id="ProjectPropertiesDialog">
   <property name="border_width">6</property>
-  <property name="visible">False</property>
   <property name="title" translatable="yes">Project Properties</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_CENTER_ON_PARENT</property>
@@ -7112,6 +7062,7 @@ daave &lt;fan.d.liu@gmail.com&gt;
 		      <property name="left_margin">3</property>
 		      <property name="right_margin">3</property>
 		      <property name="indent">0</property>
+		      <property name="text" translatable="yes"></property>
 		    </widget>
 		  </child>
 		</widget>

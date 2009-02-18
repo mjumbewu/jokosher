@@ -137,7 +137,6 @@ class MainApp:
 		self.copy = self.wTree.get_widget("copy")
 		self.paste = self.wTree.get_widget("paste")
 		self.delete = self.wTree.get_widget("delete")
-		self.projectMenu = self.wTree.get_widget("projectmenu")
 		self.instrumentMenu = self.wTree.get_widget("instrumentmenu")
 		self.export = self.wTree.get_widget("export")
 		self.recentprojects = self.wTree.get_widget("recentprojects")
@@ -149,6 +148,8 @@ class MainApp:
 		self.removeInstrMenuItem = self.wTree.get_widget("remove_selected_instrument")
 		self.addAudioFileButton = self.wTree.get_widget("addAudioFileButton")
 		self.addAudioFileMenuItem = self.wTree.get_widget("add_audio_file_project_menu")
+		self.addInstrumentFileMenuItem = self.wTree.get_widget("add_instrument1")
+		self.recordingInputsFileMenuItem = self.wTree.get_widget("instrument_connections1")
 		self.properties_menu_item = self.wTree.get_widget("project_properties")
 		
 		self.recentprojectitems = []
@@ -898,7 +899,7 @@ class MainApp:
 		self.stop.set_sensitive(True)	#stop should always be clickable
 		self.record.set_sensitive(not self.isPlaying)
 		
-		controls = (self.play, self.reverse, self.forward, self.editmenu, self.projectMenu, self.instrumentMenu, 
+		controls = (self.play, self.reverse, self.forward, self.editmenu, self.instrumentMenu, 
 				self.workspace.recordingView.timelinebar.headerhbox, 
 				self.addInstrumentButton, self.addAudioFileButton)
 		for widget in controls:
@@ -1250,7 +1251,7 @@ class MainApp:
 		
 		ctrls = (self.save, self.save_as, self.close, self.addInstrumentButton, self.addAudioFileButton,
 			self.reverse, self.forward, self.play, self.stop, self.record,
-			self.projectMenu, self.instrumentMenu, self.export, self.cut, self.copy, self.paste,
+			self.instrumentMenu, self.export, self.cut, self.copy, self.paste,
 			self.undo, self.redo, self.delete, self.compactMixButton, self.properties_menu_item)
 		
 		if self.project:
@@ -1361,10 +1362,16 @@ class MainApp:
 		self.PopulateMixdownAsMenu()
 		if self.isRecording:
 			self.export.set_sensitive(False)
+			self.addInstrumentFileMenuItem.set_sensitive(False)
+			self.addAudioFileMenuItem.set_sensitive(False)
+			self.recordingInputsFileMenuItem.set_sensitive(False)
 			if self.mixdown_as_header:
 				self.mixdown_as_header.set_sensitive(False)
 			return
 		
+		self.addInstrumentFileMenuItem.set_sensitive(True)
+		self.addAudioFileMenuItem.set_sensitive(True)
+		self.recordingInputsFileMenuItem.set_sensitive(True)
 		eventList = False
 		if self.project:
 			for instr in self.project.instruments:
@@ -1894,12 +1901,12 @@ class MainApp:
 		# If there's already a Mixdown As submenu, delete it and recreate it
 		for i in filemenulist.get_children():
 			if i.get_children():
-				if i.get_children()[0].get_label() == _("Mixdown as"):
+				if i.get_children()[0].get_label() == _("Mix_down As"):
 					filemenulist.remove(i)
 					i.destroy()
 		
 		# Create a Mixdown As submenu header
-		self.mixdown_as_header = gtk.MenuItem(label=_("Mixdown as"))
+		self.mixdown_as_header = gtk.MenuItem(label=_("Mix_down As"))
 		submenu = gtk.Menu()
 		for p in profiles:
 			profilenames = p.split(".")[0]
