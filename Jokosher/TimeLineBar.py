@@ -15,7 +15,7 @@ import gettext
 import os
 import TimeLine
 import Globals
-import EventLaneHSeparator
+import ui.EventLaneHSeparator as EventLaneHSeparator
 
 # for the time signature combo
 from math import log

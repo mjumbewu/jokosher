@@ -1006,31 +1006,6 @@ class MainApp:
 	
 	#_____________________________________________________________________
 	
-	def OnProjectGstError(self, project, error, details):
-		"""
-		Callback for when the project sends a gstreamer error message
-		from the pipeline.
-		
-		Parameters:
-			project -- The project instance that send the signal.
-			error -- The type of error that occurred as a string.
-			details -- A string with more information about the error.
-		"""
-		introstring = _("Argh! Something went wrong and a serious error occurred:")
-		outrostring = _("It is recommended that you report this to the Jokosher developers or get help at http://www.jokosher.org/forums/")
-		
-		outputtext = "\n\n".join((introstring, error, details, outrostring))
-		
-		dlg = gtk.MessageDialog(self.window,
-			gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
-			gtk.MESSAGE_ERROR,
-			gtk.BUTTONS_CLOSE,
-			outputtext)
-		dlg.connect('response', lambda dlg, response: dlg.destroy())
-		dlg.show()
-		
-	#_____________________________________________________________________
-	
 	def OnProjectUndo(self, project=None):
 		"""
 		Callback for when the project's undo or redo stacks change.
@@ -1560,7 +1535,6 @@ class MainApp:
 			
 		self.project = project
 		
-		self.project.connect("gst-bus-error", self.OnProjectGstError)
 		self.project.connect("audio-state::play", self.OnProjectAudioState)
 		self.project.connect("audio-state::pause", self.OnProjectAudioState)
 		self.project.connect("audio-state::record", self.OnProjectAudioState)
