@@ -9,13 +9,14 @@
 #
 #=========================================================================
 
-def UndoCommand(*command):
+def UndoCommand(*command, **command_options):
 	"""
 	Decorates functions, enabling them to be logged in the undo stack.
 	The decorating process is transparent to the clients.
 	
 	Parameters:
 		command -- the undo command list of strings.
+		command_options -- key-value parameters to change options.
 		
 	Returns:
 		an UndoFunction which decorates the original function.
@@ -68,6 +69,11 @@ def UndoCommand(*command):
 			else:
 				atomicUndoObject = None
 			
+			do_incremental_save = True
+			if command_options.has_key("incremental_save"):
+				do_incremental_save = command_options["incremental_save"]
+			
+			
 			try:
 				result = func(funcSelf, *args, **kwargs)
 			except CancelUndoCommand, e:
@@ -83,6 +89,12 @@ def UndoCommand(*command):
 			elif isinstance(funcSelf, Event.Event):
 				project = funcSelf.instrument.project
 				objectString = "E%d" % funcSelf.id
+			
+			if do_incremental_save:
+				inc = IncrementalSave.Action(objectString, func.__name__, args, kwargs)
+				project.SaveIncrementalAction(inc)
+				# testing: make sure loading produces an identical result
+				assert inc.StoreToString() == IncrementalSave.Action.LoadFromString(inc.StoreToString()).StoreToString()
 			
 			if not atomicUndoObject and project:
 				atomicUndoObject = project.NewAtomicUndoAction()
@@ -123,6 +135,8 @@ dependency will stop the program before it even starts.
 """
 import ProjectManager, Globals, Utils
 import Project, Event, Instrument
+import IncrementalSave
+import xml.dom.minidom as xml
 
 #=========================================================================
 

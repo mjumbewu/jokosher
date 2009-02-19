@@ -18,7 +18,7 @@ import gettext
 import OSSpecific
 import urllib # To decode URI's
 import Globals # To get projectfolder
-import EventLaneHSeparator
+import ui.EventLaneHSeparator as EventLaneHSeparator
 _ = gettext.gettext
 
 #=========================================================================
@@ -60,7 +60,7 @@ class EventLaneViewer(gtk.EventBox):
 		self.vbox = gtk.VBox()
 		self.fixed = gtk.Fixed()
 
-		self.separator = EventLaneHSeparator.EventLaneHSeparator(project.transport)
+		self.separator = EventLaneHSeparator.EventLaneHSeparator(project, project.transport)
 		self.vbox.pack_start(self.fixed, True, True)
 		self.vbox.pack_start(self.separator, False, False)
 

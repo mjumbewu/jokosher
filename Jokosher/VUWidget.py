@@ -174,6 +174,7 @@ class VUWidget(gtk.DrawingArea):
 			self.fader_active = False
 			gtk.gdk.pointer_ungrab(mouse.time)
 			self.queue_draw()
+			self.mixerstrip.CommitVolume()
 		
 		return True
 		

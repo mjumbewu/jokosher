@@ -58,8 +58,6 @@ def ListDeviceProbe(element, probe_name):
 	element_name = element.get_factory().get_property("name")
 	dev_info_list = []
 	
-	element.set_state(gst.STATE_READY)
-	
 	if hasattr(element.props, "device"):
 		default_device = element.__class__.props.device.default_value
 		if gobject.type_is_a(element, gst.interfaces.PropertyProbe):
@@ -72,7 +70,12 @@ def ListDeviceProbe(element, probe_name):
 			if probe_name and hasattr(element.props, "device-name"):
 				for dev in devices:
 					element.set_property("device", dev)
+					
+					element.set_state(gst.STATE_PAUSED)
+					# certain elements like pulsesrc won't load the device-name until STATE_PAUSED
 					name = element.get_property("device-name")
+					element.set_state(gst.STATE_NULL)
+					
 					dev_info_list.append((dev,name))
 			else:
 				for dev in devices:
@@ -82,8 +85,6 @@ def ListDeviceProbe(element, probe_name):
 	else:
 		Globals.debug("Cannot list devices: property probe not supported on", element_name)
 		
-	element.set_state(gst.STATE_NULL)
-	
 	return dev_info_list
 
 #_____________________________________________________________________
@@ -118,7 +119,7 @@ def GetRecordingSampleRate(device=None):
 		element.set_property("device", device)
 
 	# open device (so caps are probed)
-	bin.set_state(gst.STATE_READY)
+	bin.set_state(gst.STATE_PAUSED)
 
 	try:
 		pad = element.src_pads().next()
@@ -147,7 +148,7 @@ def GetChannelsOffered(device):
 	"""
 	src_desc = Globals.settings.recording["audiosrc"]
 	try:
-		bin = gst.parse_bin_from_description(src_desc, False)
+		bin = gst.parse_bin_from_description(src_desc, True)
 	except (gobject.GError, gst.ElementNotFoundError):
 		Globals.debug("Cannot get number of channels: cannot parse bin", src_desc)
 		return 0
@@ -156,17 +157,29 @@ def GetChannelsOffered(device):
 		src = bin.iterate_sources().next()
 	except StopIteration:
 		Globals.debug("Cannot list capture devices: no source device in the bin", src_desc)
-		
+
+	fakesink = gst.element_factory_make("fakesink")
+	pipeline = gst.Pipeline()
+	pipeline.add(bin)
+	pipeline.add(fakesink)
+	bin.link(fakesink)
+
 	src.set_property("device", device)
-	src.set_state(gst.STATE_PAUSED)
+	pipeline.set_state(gst.STATE_PAUSED)
+	# block for *at most* 100ms to wait for state to change 
+	pipeline.get_state(gst.SECOND / 100)
 	
 	try:
 		#Assume the card only offers one src (we can't handle more anyway)
 		for pad in src.src_pads():
-			caps = pad.get_caps()
+			caps = pad.get_negotiated_caps()
+			# in case it hasn't negotiated yet, get standard caps which are less precise.
+			if not caps:
+				Globals.debug("GetChannelsOffered(): Waited for STATE_PAUSED, but still no negotiated caps on", device)
+				caps = pad.get_caps()
 	except:
 		Globals.debug("Couldn't get source pad for %s"%device)
-		src.set_state(gst.STATE_NULL)
+		pipeline.set_state(gst.STATE_NULL)
 		return 0
 	
 	nums = []
@@ -193,7 +206,7 @@ def GetChannelsOffered(device):
 		#Assume one stereo input
 	#	numChannels = 1
 
-	src.set_state(gst.STATE_NULL)
+	pipeline.set_state(gst.STATE_NULL)
 	return numChannels
 
 """

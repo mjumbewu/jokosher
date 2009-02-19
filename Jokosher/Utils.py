@@ -16,7 +16,7 @@ from subprocess import call
 import Globals
 
 import gst
-try:
+try:	
 	import gst.pbutils
 	have_pbutils = True
 except:
@@ -365,7 +365,7 @@ def StoreVariableToNode(value, node, typeAttr="type", valueAttr="value"):
 		value -- the value of the variable.
 		node -- node to save the variable value to.
 		typeAttr -- type of the variable to be saved.
-		valueAttr -- value of the variable to be loaded. TODO
+		valueAttr -- value of the variable to be loaded.
 	"""
 	if type(value) == int:
 		node.setAttribute(typeAttr, "int")
@@ -383,6 +383,7 @@ def StoreVariableToNode(value, node, typeAttr="type", valueAttr="value"):
 #_____________________________________________________________________
 
 def HandleGstPbutilsMissingMessage(message, callback, x_window_id=0):
+	# Not all platforms have pbutils
 	if not have_pbutils:
 		return False
 
@@ -399,3 +400,31 @@ def HandleGstPbutilsMissingMessage(message, callback, x_window_id=0):
 
 #_____________________________________________________________________
 
+def StringUnRepr(s):
+	if sys.version > (2, 6, 0):
+		import ast
+		try:
+			return ast.literal_eval(s)
+		except ValueError, e:
+			return ""
+	
+	if len(s) < 2:
+		return ""
+
+	quote = s[0]
+	s = s[1:-1].replace("\\\\", "\\") \
+	           .replace("\\t", "\t") \
+	           .replace("\\n", "\n") \
+	           .replace("\\r", "\r") \
+	           .replace("\\" + quote, quote)
+	
+	strings = s.split("\\x")
+	replace = strings[0]
+	for string in strings[1:]:
+		hex_str = string[:2]
+		char = chr(int(hex_str, 16))
+		replace += char + string[2:]
+
+	return replace
+
+#_____________________________________________________________________

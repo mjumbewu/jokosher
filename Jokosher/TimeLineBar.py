@@ -15,7 +15,7 @@ import gettext
 import os
 import TimeLine
 import Globals
-import EventLaneHSeparator
+import ui.EventLaneHSeparator as EventLaneHSeparator
 
 # for the time signature combo
 from math import log
@@ -45,10 +45,6 @@ class TimeLineBar(gtk.HBox):
 		self.timeline = TimeLine.TimeLine(self.project, self, mainview)
 		self.Updating = False
 		
-		self.bgColor = "#73d216"
-		self.bgActiveColor = "#81eb17"
-		self.fontColor = "#0b410b"
-		
 		# add click / bpm / signature box
 		self.clickbutton = gtk.VolumeButton()
 		self.clickbutton.set_value(0)
@@ -70,16 +66,14 @@ class TimeLineBar(gtk.HBox):
 		self.clicktip.set_tip(self.clickbutton, _("Adjust volume of click track"), None)
 					
 		self.bpmeventbox = gtk.EventBox()
-		self.bpmeventbox.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.bgColor))
 		self.bpmframe = gtk.Frame()
 		self.bpmeventtip = gtk.Tooltips()
 		self.bpmeventtip.set_tip(self.bpmeventbox, _("Beats per minute"), None)
 		self.bpmframe.set_shadow_type(gtk.SHADOW_ETCHED_OUT)
-		self.bpmframe.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.bgColor))
 		
 		self.bpmlabel = gtk.Label()
 		self.bpmlabel.set_use_markup(True)
-		self.bpmlabel.set_markup("<span foreground='%s'><b>%s</b></span>" % (self.fontColor, self.project.bpm))
+		self.bpmlabel.set_markup("<b>%s</b>" % (self.project.bpm))
 		self.bpmlabel.set_padding(5, 5)
 		self.bpmeventbox.add(self.bpmlabel)
 		self.bpmframe.add(self.bpmeventbox)
@@ -91,16 +85,14 @@ class TimeLineBar(gtk.HBox):
 		self.bpmedit.connect("activate", self.OnAcceptEditBPM)
 
 		self.sigeventbox = gtk.EventBox()
-		self.sigeventbox.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.bgColor))
 		self.sigeventtip = gtk.Tooltips()
 		self.sigeventtip.set_tip(self.sigeventbox, _("Time signature"), None)
 		self.sigframe = gtk.Frame()
 		self.sigframe.set_shadow_type(gtk.SHADOW_ETCHED_OUT)
-		self.sigframe.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.bgColor))
-
+		
 		self.siglabel = gtk.Label()
 		self.siglabel.set_use_markup(True)
-		self.siglabel.set_markup("<span foreground='%s'><b>%d/%d</b></span>" % (self.fontColor, self.project.meter_nom, self.project.meter_denom))
+		self.siglabel.set_markup("<b>%d/%d</b>" % (self.project.meter_nom, self.project.meter_denom))
 		self.siglabel.set_padding(5, 5)
 		self.sigeventbox.add(self.siglabel)
 		self.sigframe.add(self.sigeventbox)
@@ -142,7 +134,7 @@ class TimeLineBar(gtk.HBox):
 		
 		self.timelineVBox = gtk.VBox()
 		self.timelineVBox.pack_start(self.timeline, True, True)
-		separator = EventLaneHSeparator.EventLaneHSeparator(self.project.transport)
+		separator = EventLaneHSeparator.EventLaneHSeparator(self.project, self.project.transport)
 		self.timelineVBox.pack_start(separator, False, False)
 		
 		self.pack_start(self.headerVBox, False, False)
@@ -168,8 +160,7 @@ class TimeLineBar(gtk.HBox):
 		"""
 		#Do this outside the if statement so that it gets updated if someone else changes the bpm
 		self.bpmlabel.set_use_markup(True)
-		self.bpmlabel.set_markup("<span foreground='%s'><b>%d</b></span>" % (self.fontColor, self.project.bpm))
-		self.bpmeventbox.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.bgColor))
+		self.bpmlabel.set_markup("<b>%d</b>" % (self.project.bpm))
 		
 	#_____________________________________________________________________
 	
@@ -182,7 +173,7 @@ class TimeLineBar(gtk.HBox):
 			project -- The project that send the signal.
 		"""
 		self.siglabel.set_use_markup(True)
-		self.siglabel.set_markup("<span foreground='%s'><b>%d/%d</b></span>" % (self.fontColor, self.project.meter_nom, self.project.meter_denom))
+		self.siglabel.set_markup("<b>%d/%d</b>" % (self.project.meter_nom, self.project.meter_denom))
 		
 	#_____________________________________________________________________
 	
@@ -238,7 +229,6 @@ class TimeLineBar(gtk.HBox):
 			
 			newbpm = self.bpmedit.get_value_as_int()
 			self.project.SetBPM(float(newbpm))
-			self.bpmeventbox.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.bgColor))
 		
 	#_____________________________________________________________________
 
@@ -327,10 +317,8 @@ class TimeLineBar(gtk.HBox):
 		
 		if (event.type == gtk.gdk.ENTER_NOTIFY):
 			widget.window.set_cursor(gtk.gdk.Cursor(gtk.gdk.XTERM))
-			self.bpmeventbox.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.bgActiveColor))
 		else:
 			widget.window.set_cursor(None)
-			self.bpmeventbox.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.bgColor))
 			
 	#_____________________________________________________________________
 	
@@ -347,9 +335,9 @@ class TimeLineBar(gtk.HBox):
 			return
 		
 		if (event.type == gtk.gdk.ENTER_NOTIFY):
-			self.sigeventbox.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.bgActiveColor))
+			self.sigeventbox.set_state(gtk.STATE_PRELIGHT)
 		else:
-			self.sigeventbox.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.bgColor))
+			self.sigeventbox.set_state(gtk.STATE_NORMAL)
 			
 	#_____________________________________________________________________
 

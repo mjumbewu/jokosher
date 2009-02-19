@@ -10,7 +10,7 @@
 #=========================================================================
 
 import urlparse, os, gzip, shutil, gst
-import Globals, Utils, UndoSystem, LevelsList
+import Globals, Utils, UndoSystem, LevelsList, IncrementalSave
 import Project, Instrument, Event
 import xml.dom.minidom as xml
 import traceback
@@ -165,6 +165,7 @@ def LoadProjectFile(uri):
 			#if we're loading an old version copy the project so that it is not overwritten when the user clicks save
 			withoutExt = os.path.splitext(projectfile)[0]
 			shutil.copy(projectfile, "%s.%s.jokosher" % (withoutExt, version))
+		
 		project.projectfile = projectfile
 		return project
 	else:
@@ -227,10 +228,7 @@ class _LoadZPOFile:
 		pixbufFilename = os.path.basename(instr.pixbufPath)
 		instr.instrType = os.path.splitext(pixbufFilename)[0]
 			
-		for i in Globals.getCachedInstruments():
-			if instr.instrType == i[1]:
-				instr.pixbuf = i[2]
-				break
+		instr.pixbuf = Globals.getCachedInstrumentPixbuf(instr.instrType)
 		if not instr.pixbuf:
 			Globals.debug("Error, could not load image:", instr.instrType)
 			
@@ -376,11 +374,9 @@ class _LoadZPTFile:
 			event.levels_file = os.path.basename(event.file + Event.Event.LEVELS_FILE_EXTENSION)
 			instr.graveyard.append(event)
 
+
 		#load image from file based on unique type
-		for instrTuple in Globals.getCachedInstruments():
-			if instr.instrType == instrTuple[1]:
-				instr.pixbuf = instrTuple[2]
-				break
+		instr.pixbuf = Globals.getCachedInstrumentPixbuf(instr.instrType)
 		if not instr.pixbuf:
 			Globals.debug("Error, could not load image:", instr.instrType)
 		
@@ -444,6 +440,12 @@ class _LoadZPNFile(_LoadZPTFile):
 		params = self.xmlDoc.getElementsByTagName("Parameters")[0]
 		
 		Utils.LoadParametersFromXML(self.project, params)
+		
+		notesNode = self.xmlDoc.getElementsByTagName("Notes")
+		if notesNode:
+			notes = notesNode[0].getAttribute("text")
+			# notes are encoded using repr() to preserver \n and \t.
+			self.project.notes = Utils.StringUnRepr(notes)
 		
 		# Hack to set the transport mode
 		self.project.transport.SetMode(self.project.transportMode)
@@ -682,6 +684,7 @@ JOKOSHER_VERSION_FUNCTIONS = {
 	"0.9" : _LoadZPNFile,
 	"1.0" : _LoadZPNFile,  # 1.0 was never used in a release, and it identical to 0.9
 	"0.10" : _LoadZPTenFile,
+	"0.11" : _LoadZPTenFile,	# 0.11 is identical to 0.10, exception for project notes, whose presence can be detected
 }
 
 zero_nine_compat = {("E", "Move") : "_Compat09_Move"}
