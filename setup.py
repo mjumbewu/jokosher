@@ -38,7 +38,7 @@ else:
 	OMFFILES.append((omfdir, glob.glob("help/jokosher/*.omf")))
 		
 dist = setup(name='jokosher',
-	version='0.10',
+	version='0.11',
 	author='Jokosher Project',
 	author_email='corrales.david@gmail.com',
 	maintainer='David Corrales',
@@ -120,9 +120,9 @@ print "\nInstallation finished! You can now run Jokosher by typing 'jokosher' or
 ## /usr/bin/jokosher
 ## /usr/share/jokosher/
 ## /usr/share/gnome/help/jokosher/
-## /usr/icons/hicolor/48x48/apps/jokosher.png
+## /usr/share/icons/hicolor/48x48/apps/jokosher.png
 ## /usr/share/locale/*/LC_MESSAGES/jokosher.mo
 ## /usr/share/pixmaps/jokosher.png
 ## /usr/share/applications/jokosher.desktop
 ## /usr/lib/python2.X/site-packages/Jokosher/
-## omfdir/jokosher/*.omf
+## /usr/share/omf/jokosher/*.omf
