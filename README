@@ -1,11 +1,11 @@
-Welcome to Jokosher 0.10!
+Welcome to Jokosher 0.11!
 
 Jokosher is a simple and easy to use audio multi-tracker
 for the Linux desktop. The aim of the project is to 
 create a simple yet comprehensive multi-track studio 
 that is focussed around the needs of musicians and podcasters.
 
-This is our third release of Jokosher and enables you 
+This is our fifth release of Jokosher and enables you 
 to create music and podcasts. It also includes a range of 
 features for recording, playing, editing, mixing, 
 post-producing and exporting your compositions.
@@ -14,35 +14,37 @@ post-producing and exporting your compositions.
 > Requirements <
 
 * Python 2.4
-* GStreamer from CVS
-* Python GStreamer from CVS
-* Gnonlin (plugin for Gstreamer)
+* GStreamer 0.10.9
+* Python GStreamer
+* Gnonlin 0.10.4.2 (plugin for Gstreamer)
 * PyGTK 2.8
 * Python Glade2
 * Python Cairo
 * Python Dbus
-* Python XMLPlus
 * Python Setuptools 
 
 
 > Running Jokosher <
 
-Complete instructions for running Jokosher can be found at 
-http://www.jokosher.org/download. Due to the reliance on a 
-very release of GStreamer that may not yet be distributions, 
-we have created a script that automates the process of 
-downloading the development snapshot of GStreamer, compiling 
-it and running Jokosher.
-
-However, if you already have Gstreamer from CVS installed
-just open a terminal and run:
+To run Jokosher without installing, open a terminal and run:
 
 ./Jokosher/Jokosher
+
+To install Jokosher system wide, open a terminal and run:
+
+python setup.py install
 
 
 > Finding Help <
 
 We have a number of resources for help:
+
+ * http://answers.launchpad.net/jokosher - Ask a question
+   on Launchpad.
+   
+ * http://bugs.launchpad.net/jokosher/+filebug - If you find
+   a bug in Jokosher, feel free to submit it to the developers
+   through Launchpad.
 
  * http://doc.jokosher.org/ - our primary documentation site 
    includes a number of guides and resources that shows you how 
@@ -51,13 +53,6 @@ We have a number of resources for help:
  * http://userdocs.jokosher.org/ - a community driven site 
    where HOWTOs and guides are developed to show specific uses 
    of Jokosher in specific situations and contexts.
-
- * http://www.jokosher.org/forums/ - our popular and bustling 
-   community of Jokosher users often congregates on our 
-   discussion forums. Here you can ask questions, share your 
-   experience and also post links to your compositions and 
-   podcasts for other Jokosher users to comment on. This is 
-   a great way to get valuable feedback from the community.
 
 Have fun with Jokosher, and do keep in touch!
 
