@@ -162,10 +162,7 @@ class InstrumentConnectionsDialog:
 			instr -- Instrument to change the input device to.
 		"""
 		device, deviceName, inTrack = self.devices_list[widget.get_active()]
-		if device != instr.input or inTrack != instr.inTrack:
-			instr.input = device
-			instr.inTrack = inTrack
-			self.project.SetUnsavedChanges()
+		instr.SetInput(device, inTrack)
 			
 	#_____________________________________________________________________
 	

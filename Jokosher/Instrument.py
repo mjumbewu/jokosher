@@ -19,7 +19,7 @@ import os, time, shutil
 import urlparse # To split up URI's
 import gobject
 import Event
-import UndoSystem
+import UndoSystem, IncrementalSave
 import Utils
 
 import Globals
@@ -492,6 +492,9 @@ class Instrument(gobject.GObject):
 		event.file = os.path.join(self.project.audio_path, filename)
 		event.levels_file = filename + Event.Event.LEVELS_FILE_EXTENSION
 		
+		inc = IncrementalSave.NewEvent(self.id, filename, event.start, event.id, recording=True)
+		self.project.SaveIncrementalAction(inc)
+		
 		#must add it to the instrument's list so that an update of the event lane will not remove the widget
 		self.events.append(event)
 		self.emit("event::added", event)
@@ -499,7 +502,7 @@ class Instrument(gobject.GObject):
 
 	#_____________________________________________________________________
 
-	@UndoSystem.UndoCommand("DeleteEvent", "temp")
+	@UndoSystem.UndoCommand("DeleteEvent", "temp", incremental_save=False)
 	def FinishRecordingEvent(self, event):
 		"""
 		Called to log the adding of this event on the undo stack
@@ -563,8 +566,8 @@ class Instrument(gobject.GObject):
 	
 	#_____________________________________________________________________
 
-	@UndoSystem.UndoCommand("DeleteEvent", "temp")
-	def addEventFromFile(self, start, file, copyfile=False):
+	@UndoSystem.UndoCommand("DeleteEvent", "temp", incremental_save=False)
+	def addEventFromFile(self, start, file, copyfile=False, name=None, duration=None, levels_file=None):
 		"""
 		Adds an Event from a file to this Instrument.
 		
@@ -573,17 +576,19 @@ class Instrument(gobject.GObject):
 			file -- path to the Event file.
 			copyfile --	True = copy the file to Project's audio directory.
 						False = don't copy the file to the Project's audio directory.
+			name -- An optional user visible name. The filename will be used if None.
 						
 		Returns:
 			the added Event.
 		"""
 		filelabel=file
 		event_id = self.project.GenerateUniqueID(None,  reserve=False)
-		name = os.path.basename(file)
+		if not name:
+			name = os.path.basename(file)
 		root,  extension = os.path.splitext(name.replace(" ", "_"))
 		
 		if extension:
-			newfile = "%s_%d.%s" % (root, event_id, extension)
+			newfile = "%s_%d%s" % (root, event_id, extension)
 		else:
 			newfile = "%s_%d" % (root, event_id)
 
@@ -596,14 +601,29 @@ class Instrument(gobject.GObject):
 				raise UndoSystem.CancelUndoCommand()
 				
 			self.project.deleteOnCloseAudioFiles.append(audio_file)
+			inc = IncrementalSave.NewEvent(self.id, newfile, start, event_id)
+			self.project.SaveIncrementalAction(inc)
 			
 			file = audio_file
+		else:
+			inc = IncrementalSave.NewEvent(self.id, file, start, event_id)
+			self.project.SaveIncrementalAction(inc)
 
 		ev = Event.Event(self, file, event_id, filelabel)
 		ev.start = start
 		ev.name = name
 		self.events.append(ev)
-		ev.GenerateWaveform()
+		
+		if duration and levels_file:
+			ev.duration = duration
+			ev.levels_file = levels_file
+			levels_path = os.path.join(self.project.levels_path, levels_file)
+			ev.levels_list.fromfile(levels_path)
+			# update properties and position when duration changes.
+			ev.MoveButDoNotOverlap(ev.start)
+			ev.SetProperties()
+		else:
+			ev.GenerateWaveform()
 
 		self.temp = ev.id
 		
@@ -613,7 +633,7 @@ class Instrument(gobject.GObject):
 		
 	#_____________________________________________________________________
 	
-	@UndoSystem.UndoCommand("DeleteEvent", "temp")
+	@UndoSystem.UndoCommand("DeleteEvent", "temp", incremental_save=False)
 	def addEventFromURL(self, start, url):
 		"""
 		Adds an Event from a URL to this Instrument.
@@ -649,6 +669,9 @@ class Instrument(gobject.GObject):
 		if not result:
 			self.events.remove(ev)
 			raise UndoSystem.CancelUndoCommand()
+		
+		inc = IncrementalSave.StartDownload(self.id, url, newfile, start, event_id)
+		self.project.SaveIncrementalAction(inc)
 		
 		self.temp = ev.id
 		self.emit("event::added", ev)
@@ -766,9 +789,19 @@ class Instrument(gobject.GObject):
 		if self.volume != volume:
 			self.volume = volume
 			self.UpdateVolume()
-			self.project.SetUnsavedChanges()
 			self.emit("volume")
 
+	#_____________________________________________________________________
+	
+	def CommitVolume(self):
+		"""
+		Signal that the volume is no longer volatile. This means we can incrementally save,
+		which we didn't do before because the volume was rapidly changing as the user
+		moved the mouse.
+		"""
+		inc = IncrementalSave.InstrumentSetVolume(self.id, self.volume)
+		self.project.SaveIncrementalAction(inc)
+		
 	#_____________________________________________________________________
 	
 	def UpdateVolume(self):
@@ -890,6 +923,16 @@ class Instrument(gobject.GObject):
 	
 	#_____________________________________________________________________
 	
+	def SetInput(self, device, inTrack):
+		if device != self.input or inTrack != self.inTrack:
+			self.input = device
+			self.inTrack = inTrack
+			
+			inc = IncrementalSave.InstrumentSetInput(self.id, device, inTrack)
+			self.project.SaveIncrementalAction(inc)
+			
+	#_____________________________________________________________________
+	
 	def OnMute(self):
 		"""
 		Updates the GStreamer volume element to reflect the mute status.
@@ -982,10 +1025,8 @@ class Instrument(gobject.GObject):
 		self.temp = self.instrType
 		self.temp2 = self.name
 		
-		pixbufList = [x[2] for x in Globals.getCachedInstruments() if x[1] == type]
-		if type != self.instrType and pixbufList:
-			pixbuf = pixbufList[0]
-		else:
+		pixbuf = Globals.getCachedInstrumentPixbuf(type)
+		if type == self.instrType or not pixbuf:
 			raise UndoSystem.CancelUndoCommand()
 
 		for tuple_ in Globals.getCachedInstruments():

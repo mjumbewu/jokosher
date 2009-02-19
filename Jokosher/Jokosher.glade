@@ -53,7 +53,7 @@
 		    <widget class="GtkImageMenuItem" id="new1">
 		      <property name="visible">True</property>
 		      <property name="tooltip" translatable="yes">Create a new project</property>
-		      <property name="label" translatable="yes">New...</property>
+		      <property name="label" translatable="yes">_New...</property>
 		      <property name="use_underline">True</property>
 		      <signal name="activate" handler="on_new_activate"/>
 		      <accelerator key="N" modifiers="GDK_CONTROL_MASK" signal="activate"/>
@@ -76,7 +76,7 @@
 		    <widget class="GtkImageMenuItem" id="open">
 		      <property name="visible">True</property>
 		      <property name="tooltip" translatable="yes">Open an existing project</property>
-		      <property name="label" translatable="yes">Open...</property>
+		      <property name="label" translatable="yes">_Open...</property>
 		      <property name="use_underline">True</property>
 		      <signal name="activate" handler="on_open_activate"/>
 		      <accelerator key="O" modifiers="GDK_CONTROL_MASK" signal="activate"/>
@@ -94,6 +94,27 @@
 		      </child>
 		    </widget>
 		  </child>
+		  
+		  <child>
+		    <widget class="GtkMenuItem" id="recentprojects">
+		      <property name="visible">True</property>
+		      <property name="tooltip" translatable="yes">Open a recent project</property>
+		      <property name="label" translatable="yes">_Recent Projects</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_recent_projects1_activate"/>
+
+		      <child>
+			<widget class="GtkMenu" id="recentprojects_menu">
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkSeparatorMenuItem" id="separator5">
+		      <property name="visible">True</property>
+		    </widget>
+		  </child>
 
 		  <child>
 		    <widget class="GtkImageMenuItem" id="save">
@@ -109,7 +130,7 @@
 		    <widget class="GtkImageMenuItem" id="save_as">
 		      <property name="visible">True</property>
 		      <property name="tooltip" translatable="yes">Save a copy of the current project</property>
-		      <property name="label" translatable="yes">Save As...</property>
+		      <property name="label" translatable="yes">Save _As...</property>
 		      <property name="use_underline">True</property>
 		      <signal name="activate" handler="on_save_as_activate"/>
 
@@ -138,6 +159,115 @@
 		  </child>
 
 		  <child>
+		    <widget class="GtkSeparatorMenuItem" id="separator6">
+		      <property name="visible">True</property>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkImageMenuItem" id="add_instrument1">
+		      <property name="visible">True</property>
+		      <property name="tooltip" translatable="yes">Add an instrument to the project</property>
+		      <property name="label" translatable="yes">Add _Instrument...</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_AddInstrument_clicked"/>
+
+		      <child internal-child="image">
+			<widget class="GtkImage" id="image3673">
+			  <property name="visible">True</property>
+			  <property name="stock">gtk-add</property>
+			  <property name="icon_size">1</property>
+			  <property name="xalign">0.5</property>
+			  <property name="yalign">0.5</property>
+			  <property name="xpad">0</property>
+			  <property name="ypad">0</property>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkImageMenuItem" id="add_audio_file_project_menu">
+		      <property name="visible">True</property>
+		      <property name="tooltip" translatable="yes">Add an audio file to the project</property>
+		      <property name="label" translatable="yes">Add Audio _File...</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_project_add_audio" last_modification_time="Tue, 26 Dec 2006 18:58:33 GMT"/>
+
+		      <child internal-child="image">
+			<widget class="GtkImage" id="image3674">
+			  <property name="visible">True</property>
+			  <property name="stock">gtk-open</property>
+			  <property name="icon_size">1</property>
+			  <property name="xalign">0.5</property>
+			  <property name="yalign">0.5</property>
+			  <property name="xpad">0</property>
+			  <property name="ypad">0</property>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkImageMenuItem" id="instrument_connections1">
+		      <property name="visible">True</property>
+		      <property name="tooltip" translatable="yes">Manage instrument recording inputs</property>
+		      <property name="label" translatable="yes">R_ecording Inputs...</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_instrumentconnections_activate"/>
+
+		      <child internal-child="image">
+			<widget class="GtkImage" id="image3675">
+			  <property name="visible">True</property>
+			  <property name="stock">gtk-preferences</property>
+			  <property name="icon_size">1</property>
+			  <property name="xalign">0.5</property>
+			  <property name="yalign">0.5</property>
+			  <property name="xpad">0</property>
+			  <property name="ypad">0</property>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="time_format1">
+		      <property name="visible">True</property>
+		      <property name="tooltip" translatable="yes">Change the timeline</property>
+		      <property name="label" translatable="yes">_Time Format</property>
+		      <property name="use_underline">True</property>
+
+		      <child>
+			<widget class="GtkMenu" id="time_format1_menu">
+
+			  <child>
+			    <widget class="GtkRadioMenuItem" id="show_as_bars_beats_ticks">
+			      <property name="visible">True</property>
+			      <property name="tooltip" translatable="yes">Change the timeline to show bars, beats and ticks</property>
+			      <property name="label" translatable="yes">Show as _Bars, Beats, Ticks</property>
+			      <property name="use_underline">True</property>
+			      <property name="active">False</property>
+			      <signal name="toggled" handler="on_show_as_bars_beats_ticks_toggled" last_modification_time="Fri, 27 Apr 2007 20:38:50 GMT"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkRadioMenuItem" id="show_as_hours_minutes_seconds">
+			      <property name="visible">True</property>
+			      <property name="tooltip" translatable="yes">Change the timeline to show hours, minutes and seconds</property>
+			      <property name="label" translatable="yes">Show as _Hours, Minutes, Seconds</property>
+			      <property name="use_underline">True</property>
+			      <property name="active">True</property>
+			      <property name="group">show_as_bars_beats_ticks</property>
+			      <signal name="toggled" handler="on_show_as_hours_minutes_seconds_toggled" last_modification_time="Fri, 27 Apr 2007 20:39:20 GMT"/>
+			    </widget>
+			  </child>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+
+		  <child>
 		    <widget class="GtkImageMenuItem" id="project_properties">
 		      <property name="visible">True</property>
 		      <property name="label">gtk-properties</property>
@@ -147,17 +277,8 @@
 		  </child>
 
 		  <child>
-		    <widget class="GtkMenuItem" id="recentprojects">
+		    <widget class="GtkSeparatorMenuItem" id="separator7">
 		      <property name="visible">True</property>
-		      <property name="tooltip" translatable="yes">Open a recent project</property>
-		      <property name="label" translatable="yes">_Recent Projects</property>
-		      <property name="use_underline">True</property>
-		      <signal name="activate" handler="on_recent_projects1_activate"/>
-
-		      <child>
-			<widget class="GtkMenu" id="recentprojects_menu">
-			</widget>
-		      </child>
 		    </widget>
 		  </child>
 
@@ -170,7 +291,7 @@
 		      <signal name="activate" handler="on_export_activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image3619">
+			<widget class="GtkImage" id="image3676">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-jump-to</property>
 			  <property name="icon_size">1</property>
@@ -180,15 +301,6 @@
 			  <property name="ypad">0</property>
 			</widget>
 		      </child>
-		    </widget>
-		  </child>
-
-		  <child>
-		    <widget class="GtkMenuItem" id="restore_crashed_project">
-		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">_Restore Crashed Project...</property>
-		      <property name="use_underline">True</property>
-		      <signal name="activate" handler="on_restore_crashed_project_activate" last_modification_time="Sun, 03 Aug 2008 11:19:52 GMT"/>
 		    </widget>
 		  </child>
 
@@ -232,7 +344,7 @@
 		      <accelerator key="Z" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image3620">
+			<widget class="GtkImage" id="image3677">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-undo</property>
 			  <property name="icon_size">1</property>
@@ -255,7 +367,7 @@
 		      <accelerator key="Z" modifiers="GDK_CONTROL_MASK | GDK_SHIFT_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image3621">
+			<widget class="GtkImage" id="image3678">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-redo</property>
 			  <property name="icon_size">1</property>
@@ -335,139 +447,6 @@
 	  </child>
 
 	  <child>
-	    <widget class="GtkMenuItem" id="projectmenu">
-	      <property name="visible">True</property>
-	      <property name="label" translatable="yes">_Project</property>
-	      <property name="use_underline">True</property>
-	      <signal name="activate" handler="on_projectmenu_activate"/>
-
-	      <child>
-		<widget class="GtkMenu" id="projectmenu_menu">
-
-		  <child>
-		    <widget class="GtkImageMenuItem" id="add_instrument1">
-		      <property name="visible">True</property>
-		      <property name="tooltip" translatable="yes">Add an instrument to the project</property>
-		      <property name="label" translatable="yes">_Add Instrument...</property>
-		      <property name="use_underline">True</property>
-		      <signal name="activate" handler="on_AddInstrument_clicked"/>
-
-		      <child internal-child="image">
-			<widget class="GtkImage" id="image3622">
-			  <property name="visible">True</property>
-			  <property name="stock">gtk-add</property>
-			  <property name="icon_size">1</property>
-			  <property name="xalign">0.5</property>
-			  <property name="yalign">0.5</property>
-			  <property name="xpad">0</property>
-			  <property name="ypad">0</property>
-			</widget>
-		      </child>
-		    </widget>
-		  </child>
-
-		  <child>
-		    <widget class="GtkImageMenuItem" id="add_audio_file_project_menu">
-		      <property name="visible">True</property>
-		      <property name="tooltip" translatable="yes">Add an audio file to the project</property>
-		      <property name="label" translatable="yes">Add Audio _File...</property>
-		      <property name="use_underline">True</property>
-		      <signal name="activate" handler="on_project_add_audio" last_modification_time="Tue, 26 Dec 2006 18:58:33 GMT"/>
-
-		      <child internal-child="image">
-			<widget class="GtkImage" id="image3623">
-			  <property name="visible">True</property>
-			  <property name="stock">gtk-open</property>
-			  <property name="icon_size">1</property>
-			  <property name="xalign">0.5</property>
-			  <property name="yalign">0.5</property>
-			  <property name="xpad">0</property>
-			  <property name="ypad">0</property>
-			</widget>
-		      </child>
-		    </widget>
-		  </child>
-
-		  <child>
-		    <widget class="GtkImageMenuItem" id="instrument_connections1">
-		      <property name="visible">True</property>
-		      <property name="tooltip" translatable="yes">Manage instrument recording inputs</property>
-		      <property name="label" translatable="yes">_Recording Inputs...</property>
-		      <property name="use_underline">True</property>
-		      <signal name="activate" handler="on_instrumentconnections_activate"/>
-
-		      <child internal-child="image">
-			<widget class="GtkImage" id="image3624">
-			  <property name="visible">True</property>
-			  <property name="stock">gtk-preferences</property>
-			  <property name="icon_size">1</property>
-			  <property name="xalign">0.5</property>
-			  <property name="yalign">0.5</property>
-			  <property name="xpad">0</property>
-			  <property name="ypad">0</property>
-			</widget>
-		      </child>
-		    </widget>
-		  </child>
-
-		  <child>
-		    <widget class="GtkMenuItem" id="time_format1">
-		      <property name="visible">True</property>
-		      <property name="tooltip" translatable="yes">Change the timeline</property>
-		      <property name="label" translatable="yes">_Time Format</property>
-		      <property name="use_underline">True</property>
-
-		      <child>
-			<widget class="GtkMenu" id="time_format1_menu">
-
-			  <child>
-			    <widget class="GtkRadioMenuItem" id="show_as_bars_beats_ticks">
-			      <property name="visible">True</property>
-			      <property name="tooltip" translatable="yes">Change the timeline to show bars, beats and ticks</property>
-			      <property name="label" translatable="yes">Show as _Bars, Beats, Ticks</property>
-			      <property name="use_underline">True</property>
-			      <property name="active">True</property>
-			      <signal name="toggled" handler="on_show_as_bars_beats_ticks_toggled" last_modification_time="Fri, 27 Apr 2007 20:38:50 GMT"/>
-			    </widget>
-			  </child>
-
-			  <child>
-			    <widget class="GtkRadioMenuItem" id="show_as_hours_minutes_seconds">
-			      <property name="visible">True</property>
-			      <property name="tooltip" translatable="yes">Change the timeline to show hours, minutes and seconds</property>
-			      <property name="label" translatable="yes">Show as _Hours, Minutes, Seconds</property>
-			      <property name="use_underline">True</property>
-			      <property name="active">True</property>
-			      <property name="group">show_as_bars_beats_ticks</property>
-			      <signal name="toggled" handler="on_show_as_hours_minutes_seconds_toggled" last_modification_time="Fri, 27 Apr 2007 20:39:20 GMT"/>
-			    </widget>
-			  </child>
-			</widget>
-		      </child>
-		    </widget>
-		  </child>
-
-		  <child>
-		    <widget class="GtkSeparatorMenuItem" id="separator5">
-		      <property name="visible">True</property>
-		    </widget>
-		  </child>
-
-		  <child>
-		    <widget class="GtkMenuItem" id="create_project_template">
-		      <property name="visible">True</property>
-		      <property name="tooltip" translatable="yes">Create project template from instruments in current project</property>
-		      <property name="label" translatable="yes">_Create Project Template</property>
-		      <property name="use_underline">True</property>
-		      <signal name="activate" handler="on_create_project_template" last_modification_time="Fri, 27 Apr 2007 19:13:25 GMT"/>
-		    </widget>
-		  </child>
-		</widget>
-	      </child>
-	    </widget>
-	  </child>
-
-	  <child>
 	    <widget class="GtkMenuItem" id="instrumentmenu">
 	      <property name="visible">True</property>
 	      <property name="label" translatable="yes">_Instrument</property>
@@ -506,7 +485,7 @@
 		      <signal name="activate" handler="on_remove_instr_activate" last_modification_time="Tue, 26 Dec 2006 18:59:48 GMT"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image3625">
+			<widget class="GtkImage" id="image3679">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-remove</property>
 			  <property name="icon_size">1</property>
@@ -590,7 +569,7 @@
 		      <signal name="activate" handler="on_forums_activate" last_modification_time="Sat, 16 Dec 2006 07:53:08 GMT"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image3626">
+			<widget class="GtkImage" id="image3680">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-info</property>
 			  <property name="icon_size">1</property>
@@ -612,7 +591,7 @@
 		      <signal name="activate" handler="on_contributing_activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image3627">
+			<widget class="GtkImage" id="image3681">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-index</property>
 			  <property name="icon_size">1</property>
@@ -634,7 +613,7 @@
 		      <signal name="activate" handler="on_system_information_activate" last_modification_time="Wed, 12 Sep 2007 20:10:54 GMT"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image3628">
+			<widget class="GtkImage" id="image3682">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-dialog-info</property>
 			  <property name="icon_size">1</property>
@@ -6862,288 +6841,6 @@ daave &lt;fan.d.liu@gmail.com&gt;
   </child>
 </widget>
 
-<widget class="GtkDialog" id="CrashedProjectDialog">
-  <property name="visible">True</property>
-  <property name="title" translatable="yes">Restore Crashed Project</property>
-  <property name="type">GTK_WINDOW_TOPLEVEL</property>
-  <property name="window_position">GTK_WIN_POS_CENTER_ON_PARENT</property>
-  <property name="modal">True</property>
-  <property name="resizable">True</property>
-  <property name="destroy_with_parent">False</property>
-  <property name="decorated">True</property>
-  <property name="skip_taskbar_hint">False</property>
-  <property name="skip_pager_hint">False</property>
-  <property name="type_hint">GDK_WINDOW_TYPE_HINT_DIALOG</property>
-  <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
-  <property name="focus_on_map">True</property>
-  <property name="urgency_hint">False</property>
-  <property name="has_separator">True</property>
-
-  <child internal-child="vbox">
-    <widget class="GtkVBox" id="dialog-vbox4">
-      <property name="visible">True</property>
-      <property name="homogeneous">False</property>
-      <property name="spacing">0</property>
-
-      <child internal-child="action_area">
-	<widget class="GtkHButtonBox" id="dialog-action_area4">
-	  <property name="visible">True</property>
-	  <property name="layout_style">GTK_BUTTONBOX_END</property>
-
-	  <child>
-	    <widget class="GtkButton" id="CrashDialogCloseButton">
-	      <property name="visible">True</property>
-	      <property name="can_default">True</property>
-	      <property name="can_focus">True</property>
-	      <property name="label">gtk-close</property>
-	      <property name="use_stock">True</property>
-	      <property name="relief">GTK_RELIEF_NORMAL</property>
-	      <property name="focus_on_click">True</property>
-	      <property name="response_id">-7</property>
-	    </widget>
-	  </child>
-	</widget>
-	<packing>
-	  <property name="padding">0</property>
-	  <property name="expand">False</property>
-	  <property name="fill">True</property>
-	  <property name="pack_type">GTK_PACK_END</property>
-	</packing>
-      </child>
-
-      <child>
-	<widget class="GtkVBox" id="crashVbox">
-	  <property name="border_width">5</property>
-	  <property name="visible">True</property>
-	  <property name="homogeneous">False</property>
-	  <property name="spacing">0</property>
-
-	  <child>
-	    <widget class="GtkLabel" id="crashMessage">
-	      <property name="width_request">500</property>
-	      <property name="visible">True</property>
-	      <property name="label" translatable="yes">&lt;i&gt;It appears that Jokosher crashed the last time it was used, the following dialog will help you restore your projects.&lt;/i&gt;</property>
-	      <property name="use_underline">False</property>
-	      <property name="use_markup">True</property>
-	      <property name="justify">GTK_JUSTIFY_LEFT</property>
-	      <property name="wrap">True</property>
-	      <property name="selectable">False</property>
-	      <property name="xalign">0.5</property>
-	      <property name="yalign">0.5</property>
-	      <property name="xpad">0</property>
-	      <property name="ypad">0</property>
-	      <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
-	      <property name="width_chars">-1</property>
-	      <property name="single_line_mode">False</property>
-	      <property name="angle">0</property>
-	    </widget>
-	    <packing>
-	      <property name="padding">0</property>
-	      <property name="expand">False</property>
-	      <property name="fill">False</property>
-	    </packing>
-	  </child>
-
-	  <child>
-	    <widget class="GtkLabel" id="labelRestoreDescription">
-	      <property name="width_request">500</property>
-	      <property name="visible">True</property>
-	      <property name="label" translatable="yes">Please select which projects you would like to restore from the list below. If you do not wish to restore a project now you can choose to do so later by visiting &lt;b&gt;File -&gt; Restore Crashed Project...&lt;/b&gt;
-
-&lt;b&gt;Warning:&lt;/b&gt; Restoring a project from a backup will overwrite the currently saved version.</property>
-	      <property name="use_underline">False</property>
-	      <property name="use_markup">True</property>
-	      <property name="justify">GTK_JUSTIFY_LEFT</property>
-	      <property name="wrap">True</property>
-	      <property name="selectable">False</property>
-	      <property name="xalign">0.5</property>
-	      <property name="yalign">0.5</property>
-	      <property name="xpad">0</property>
-	      <property name="ypad">10</property>
-	      <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
-	      <property name="width_chars">-1</property>
-	      <property name="single_line_mode">False</property>
-	      <property name="angle">0</property>
-	    </widget>
-	    <packing>
-	      <property name="padding">0</property>
-	      <property name="expand">False</property>
-	      <property name="fill">False</property>
-	    </packing>
-	  </child>
-
-	  <child>
-	    <widget class="GtkTable" id="crashTable">
-	      <property name="visible">True</property>
-	      <property name="n_rows">1</property>
-	      <property name="n_columns">4</property>
-	      <property name="homogeneous">False</property>
-	      <property name="row_spacing">5</property>
-	      <property name="column_spacing">12</property>
-
-	      <child>
-		<widget class="GtkLabel" id="label120">
-		  <property name="visible">True</property>
-		  <property name="label" translatable="yes">&lt;b&gt;Save Time&lt;/b&gt;</property>
-		  <property name="use_underline">False</property>
-		  <property name="use_markup">True</property>
-		  <property name="justify">GTK_JUSTIFY_CENTER</property>
-		  <property name="wrap">False</property>
-		  <property name="selectable">False</property>
-		  <property name="xalign">0</property>
-		  <property name="yalign">0.5</property>
-		  <property name="xpad">0</property>
-		  <property name="ypad">0</property>
-		  <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
-		  <property name="width_chars">-1</property>
-		  <property name="single_line_mode">False</property>
-		  <property name="angle">0</property>
-		</widget>
-		<packing>
-		  <property name="left_attach">1</property>
-		  <property name="right_attach">2</property>
-		  <property name="top_attach">0</property>
-		  <property name="bottom_attach">1</property>
-		  <property name="x_options">expand</property>
-		  <property name="y_options"></property>
-		</packing>
-	      </child>
-
-	      <child>
-		<widget class="GtkLabel" id="label119">
-		  <property name="visible">True</property>
-		  <property name="label" translatable="yes">&lt;b&gt;Project Name&lt;/b&gt;</property>
-		  <property name="use_underline">False</property>
-		  <property name="use_markup">True</property>
-		  <property name="justify">GTK_JUSTIFY_LEFT</property>
-		  <property name="wrap">False</property>
-		  <property name="selectable">False</property>
-		  <property name="xalign">0</property>
-		  <property name="yalign">0.5</property>
-		  <property name="xpad">0</property>
-		  <property name="ypad">0</property>
-		  <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
-		  <property name="width_chars">-1</property>
-		  <property name="single_line_mode">False</property>
-		  <property name="angle">0</property>
-		</widget>
-		<packing>
-		  <property name="left_attach">0</property>
-		  <property name="right_attach">1</property>
-		  <property name="top_attach">0</property>
-		  <property name="bottom_attach">1</property>
-		  <property name="x_options"></property>
-		  <property name="y_options"></property>
-		</packing>
-	      </child>
-	    </widget>
-	    <packing>
-	      <property name="padding">0</property>
-	      <property name="expand">True</property>
-	      <property name="fill">True</property>
-	    </packing>
-	  </child>
-	</widget>
-	<packing>
-	  <property name="padding">0</property>
-	  <property name="expand">True</property>
-	  <property name="fill">True</property>
-	</packing>
-      </child>
-    </widget>
-  </child>
-</widget>
-
-<widget class="GtkDialog" id="ErrorPaneDialog">
-  <property name="border_width">3</property>
-  <property name="title" translatable="yes">Jokosher Errors</property>
-  <property name="type">GTK_WINDOW_TOPLEVEL</property>
-  <property name="window_position">GTK_WIN_POS_NONE</property>
-  <property name="modal">False</property>
-  <property name="default_height">350</property>
-  <property name="resizable">True</property>
-  <property name="destroy_with_parent">True</property>
-  <property name="icon_name">gtk-dialog-error</property>
-  <property name="decorated">True</property>
-  <property name="skip_taskbar_hint">False</property>
-  <property name="skip_pager_hint">False</property>
-  <property name="type_hint">GDK_WINDOW_TYPE_HINT_DIALOG</property>
-  <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
-  <property name="focus_on_map">True</property>
-  <property name="urgency_hint">False</property>
-  <property name="has_separator">True</property>
-
-  <child internal-child="vbox">
-    <widget class="GtkVBox" id="dialog-vbox5">
-      <property name="visible">True</property>
-      <property name="homogeneous">False</property>
-      <property name="spacing">0</property>
-
-      <child internal-child="action_area">
-	<widget class="GtkHButtonBox" id="dialog-action_area5">
-	  <property name="visible">True</property>
-	  <property name="layout_style">GTK_BUTTONBOX_END</property>
-
-	  <child>
-	    <widget class="GtkButton" id="closebutton2">
-	      <property name="visible">True</property>
-	      <property name="can_default">True</property>
-	      <property name="can_focus">True</property>
-	      <property name="label">gtk-close</property>
-	      <property name="use_stock">True</property>
-	      <property name="relief">GTK_RELIEF_NORMAL</property>
-	      <property name="focus_on_click">True</property>
-	      <property name="response_id">-7</property>
-	    </widget>
-	  </child>
-	</widget>
-	<packing>
-	  <property name="padding">0</property>
-	  <property name="expand">False</property>
-	  <property name="fill">True</property>
-	  <property name="pack_type">GTK_PACK_END</property>
-	</packing>
-      </child>
-
-      <child>
-	<widget class="GtkScrolledWindow" id="error-scroll-window">
-	  <property name="visible">True</property>
-	  <property name="can_focus">True</property>
-	  <property name="hscrollbar_policy">GTK_POLICY_NEVER</property>
-	  <property name="vscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
-	  <property name="shadow_type">GTK_SHADOW_NONE</property>
-	  <property name="window_placement">GTK_CORNER_TOP_LEFT</property>
-
-	  <child>
-	    <widget class="GtkViewport" id="viewport1">
-	      <property name="visible">True</property>
-	      <property name="shadow_type">GTK_SHADOW_IN</property>
-
-	      <child>
-		<widget class="GtkVBox" id="MainVBox">
-		  <property name="visible">True</property>
-		  <property name="homogeneous">False</property>
-		  <property name="spacing">0</property>
-
-		  <child>
-		    <placeholder/>
-		  </child>
-		</widget>
-	      </child>
-	    </widget>
-	  </child>
-	</widget>
-	<packing>
-	  <property name="padding">0</property>
-	  <property name="expand">True</property>
-	  <property name="fill">True</property>
-	</packing>
-      </child>
-    </widget>
-  </child>
-</widget>
-
-
 <widget class="GtkDialog" id="ProjectPropertiesDialog">
   <property name="border_width">6</property>
   <property name="visible">False</property>
@@ -7444,5 +7141,93 @@ daave &lt;fan.d.liu@gmail.com&gt;
   </child>
 </widget>
 
+<widget class="GtkDialog" id="ErrorPaneDialog">
+  <property name="border_width">3</property>
+  <property name="title" translatable="yes">Jokosher Errors</property>
+  <property name="type">GTK_WINDOW_TOPLEVEL</property>
+  <property name="window_position">GTK_WIN_POS_NONE</property>
+  <property name="modal">False</property>
+  <property name="default_height">350</property>
+  <property name="resizable">True</property>
+  <property name="destroy_with_parent">True</property>
+  <property name="icon_name">gtk-dialog-error</property>
+  <property name="decorated">True</property>
+  <property name="skip_taskbar_hint">False</property>
+  <property name="skip_pager_hint">False</property>
+  <property name="type_hint">GDK_WINDOW_TYPE_HINT_DIALOG</property>
+  <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
+  <property name="focus_on_map">True</property>
+  <property name="urgency_hint">False</property>
+  <property name="has_separator">True</property>
+
+  <child internal-child="vbox">
+    <widget class="GtkVBox" id="dialog-vbox5">
+      <property name="visible">True</property>
+      <property name="homogeneous">False</property>
+      <property name="spacing">0</property>
+
+      <child internal-child="action_area">
+	<widget class="GtkHButtonBox" id="dialog-action_area5">
+	  <property name="visible">True</property>
+	  <property name="layout_style">GTK_BUTTONBOX_END</property>
+
+	  <child>
+	    <widget class="GtkButton" id="closebutton2">
+	      <property name="visible">True</property>
+	      <property name="can_default">True</property>
+	      <property name="can_focus">True</property>
+	      <property name="label">gtk-close</property>
+	      <property name="use_stock">True</property>
+	      <property name="relief">GTK_RELIEF_NORMAL</property>
+	      <property name="focus_on_click">True</property>
+	      <property name="response_id">-7</property>
+	    </widget>
+	  </child>
+	</widget>
+	<packing>
+	  <property name="padding">0</property>
+	  <property name="expand">False</property>
+	  <property name="fill">True</property>
+	  <property name="pack_type">GTK_PACK_END</property>
+	</packing>
+      </child>
+
+      <child>
+	<widget class="GtkScrolledWindow" id="error-scroll-window">
+	  <property name="visible">True</property>
+	  <property name="can_focus">True</property>
+	  <property name="hscrollbar_policy">GTK_POLICY_NEVER</property>
+	  <property name="vscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
+	  <property name="shadow_type">GTK_SHADOW_NONE</property>
+	  <property name="window_placement">GTK_CORNER_TOP_LEFT</property>
+
+	  <child>
+	    <widget class="GtkViewport" id="viewport1">
+	      <property name="visible">True</property>
+	      <property name="shadow_type">GTK_SHADOW_IN</property>
+
+	      <child>
+		<widget class="GtkVBox" id="MainVBox">
+		  <property name="visible">True</property>
+		  <property name="homogeneous">False</property>
+		  <property name="spacing">0</property>
+
+		  <child>
+		    <placeholder/>
+		  </child>
+		</widget>
+	      </child>
+	    </widget>
+	  </child>
+	</widget>
+	<packing>
+	  <property name="padding">0</property>
+	  <property name="expand">True</property>
+	  <property name="fill">True</property>
+	</packing>
+      </child>
+    </widget>
+  </child>
+</widget>
 
 </glade-interface>

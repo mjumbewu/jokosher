@@ -12,8 +12,7 @@ import pygtk
 pygtk.require("2.0")
 import gtk.glade, gobject
 import sys
-import os, os.path
-import time
+import os.path
 import pygst
 pygst.require("0.10")
 import gst
@@ -28,7 +27,6 @@ import ProjectManager, Globals, WelcomeDialog
 import InstrumentConnectionsDialog, StatusBar
 import EffectPresets, Extension, ExtensionManager
 import Utils, AudioPreview, MixdownProfileDialog, MixdownActions
-import CrashProtectionDialog
 
 #=========================================================================
 
@@ -115,7 +113,6 @@ class MainApp:
 			"on_report_bug_activate" : self.OnReportBug,
 			"on_project_add_audio" : self.OnAddAudioFile,
 			"on_system_information_activate" : self.OnSystemInformation,
-			"on_restore_crashed_project_activate" : self.OnRestoreCrashedProject,
 			"on_properties_activate" : self.OnProjectProperties,
 		}
 		self.wTree.signal_autoconnect(signals)
@@ -140,7 +137,6 @@ class MainApp:
 		self.copy = self.wTree.get_widget("copy")
 		self.paste = self.wTree.get_widget("paste")
 		self.delete = self.wTree.get_widget("delete")
-		self.projectMenu = self.wTree.get_widget("projectmenu")
 		self.instrumentMenu = self.wTree.get_widget("instrumentmenu")
 		self.export = self.wTree.get_widget("export")
 		self.recentprojects = self.wTree.get_widget("recentprojects")
@@ -152,6 +148,9 @@ class MainApp:
 		self.removeInstrMenuItem = self.wTree.get_widget("remove_selected_instrument")
 		self.addAudioFileButton = self.wTree.get_widget("addAudioFileButton")
 		self.addAudioFileMenuItem = self.wTree.get_widget("add_audio_file_project_menu")
+		self.addInstrumentFileMenuItem = self.wTree.get_widget("add_instrument1")
+		self.recordingInputsFileMenuItem = self.wTree.get_widget("instrument_connections1")
+		self.timeFormatFileMenuItem = self.wTree.get_widget("time_format1")
 		self.properties_menu_item = self.wTree.get_widget("project_properties")
 		
 		self.recentprojectitems = []
@@ -203,11 +202,7 @@ class MainApp:
 		miximg.show()
 		
 		#get the audiofile image from Globals
-		self.audioFilePixbuf = None
-		for name, type, pixbuf, path in Globals.getCachedInstruments():
-			if type == "audiofile":
-				self.audioFilePixbuf = pixbuf
-				break
+		self.audioFilePixbuf = Globals.getCachedInstrumentPixbuf("audiofile")
 		
 		audioimg = gtk.Image()
 		size = gtk.icon_size_lookup(gtk.ICON_SIZE_MENU)
@@ -268,26 +263,6 @@ class MainApp:
 		# Show the main window
 		self.window.show_all()
 
-		self.backupProject = None
-		self.restoredProject = False
-
-		# Check for crash and offer recovery
-		backupDir = os.path.join(Globals.JOKOSHER_DATA_HOME, "backups")
-
-		for backupFile in os.listdir(backupDir):
-			backup = os.path.join(backupDir, backupFile)
-			if os.stat(backup).st_size > 0 and os.stat(backup).st_mtime > float(Globals.settings.general["lastbackup"]):
-				# We didn't shutdown cleanly last time, offer recovery
-				CrashProtectionDialog.CrashProtectionDialog(self, True)
-				break
-
-		# Backup saving
-		self.SetupBackup()
-
-		if self.restoredProject:
-			#Don't display the welcome dialog if we've just restored a project (since it'll have been opened)
-			return
-
 		# command line options override preferences so check for them first,
 		# then preferences, then default to the welcome dialog
 		if startuptype == 2: # welcomedialog cmdline switch
@@ -318,7 +293,17 @@ class MainApp:
 		"""
 		if self.workspace:
 			self.workspace.ToggleCompactMix()
-				
+
+	#_____________________________________________________________________
+
+
+	def OnF3Pressed(self):
+		"""
+		Toggle to compact mix view button when F3 is pressed.
+		"""
+
+		self.compactMixButton.set_active(not self.compactMixButton.get_active())
+
 	#_____________________________________________________________________
 	
 	def OnResize(self, widget, event):
@@ -781,11 +766,6 @@ class MainApp:
 			self.project.SelectInstrument(None)
 			self.project.ClearEventSelections()
 			self.project.SaveProjectFile()
-			#Remove backup
-			if os.path.exists(self.backupProject):
-				Globals.debug("Removing backup file.")
-				os.remove(self.backupProject)
-
 			
 	#_____________________________________________________________________
 	
@@ -818,18 +798,6 @@ class MainApp:
 			self.project.SaveProjectFile(filename)
 		chooser.destroy()
 		
-	#_____________________________________________________________________
-
-	def BackupSave(self):
-		"""
-		Saves the project file to a backup in case of crashes.
-		"""
-		if self.project:
-			Globals.debug("Making automatic backup")
-			self.project.SaveProjectFile(self.backupProject, True)
-
-		gobject.timeout_add_seconds(int(Globals.settings.general["backupsavetime"]) / 1000, self.BackupSave)
-
 	#_____________________________________________________________________
 
 	def OnNewProject(self, widget, destroyCallback=None):
@@ -900,11 +868,6 @@ class MainApp:
 		
 		self.project.CloseProject()
 
-		#Remove backup
-		if os.path.exists(self.backupProject):
-			Globals.debug("Removing backup file.")
-			os.remove(self.backupProject)
-
 		self.project = None
 		self.mode = None
 		return 0
@@ -947,7 +910,7 @@ class MainApp:
 		self.stop.set_sensitive(True)	#stop should always be clickable
 		self.record.set_sensitive(not self.isPlaying)
 		
-		controls = (self.play, self.reverse, self.forward, self.editmenu, self.projectMenu, self.instrumentMenu, 
+		controls = (self.play, self.reverse, self.forward, self.editmenu, self.instrumentMenu, 
 				self.workspace.recordingView.timelinebar.headerhbox, 
 				self.addInstrumentButton, self.addAudioFileButton)
 		for widget in controls:
@@ -1299,8 +1262,10 @@ class MainApp:
 		
 		ctrls = (self.save, self.save_as, self.close, self.addInstrumentButton, self.addAudioFileButton,
 			self.reverse, self.forward, self.play, self.stop, self.record,
-			self.projectMenu, self.instrumentMenu, self.export, self.cut, self.copy, self.paste,
-			self.undo, self.redo, self.delete, self.compactMixButton, self.properties_menu_item)
+			self.instrumentMenu, self.export, self.cut, self.copy, self.paste,
+			self.undo, self.redo, self.delete, self.compactMixButton, self.properties_menu_item,
+			self.addAudioFileMenuItem, self.addInstrumentFileMenuItem, self.recordingInputsFileMenuItem,
+			self.timeFormatFileMenuItem)
 		
 		if self.project:
 			# make various buttons and menu items enabled now we have a project option
@@ -1370,7 +1335,7 @@ class MainApp:
 		else:
 			keysdict = {
 				"F1"			: self.OnHelpContentsMenu, # F1 - Help Contents
-				"F3"			: self.OnCompactMixView, # F3 - Compact Mix View
+				"F3"			: self.OnF3Pressed, # F3 - Compact Mix View
 				"Delete"		: self.OnDelete, # delete key - remove selected item
 				"BackSpace" 	: self.OnDelete, # backspace key
 				"space"		: self.Play,
@@ -1410,12 +1375,18 @@ class MainApp:
 		self.PopulateMixdownAsMenu()
 		if self.isRecording:
 			self.export.set_sensitive(False)
+			self.addInstrumentFileMenuItem.set_sensitive(False)
+			self.addAudioFileMenuItem.set_sensitive(False)
+			self.recordingInputsFileMenuItem.set_sensitive(False)
 			if self.mixdown_as_header:
 				self.mixdown_as_header.set_sensitive(False)
 			return
 		
 		eventList = False
 		if self.project:
+			self.addInstrumentFileMenuItem.set_sensitive(True)
+			self.addAudioFileMenuItem.set_sensitive(True)
+			self.recordingInputsFileMenuItem.set_sensitive(True)
 			for instr in self.project.instruments:
 				if instr.events:
 					eventList = True
@@ -1762,20 +1733,6 @@ class MainApp:
 	
 	#_____________________________________________________________________
 
-	def OnRestoreCrashedProject(self, widget):
-		"""
-		Displays a dialog allowing the user to either select a previously crashed 
-		project for restoration or to delete a crash file.
-
-		Parameters:
-			widget -- GTK callback parameter.
-		"""
-
-		self.crashDialog = CrashProtectionDialog.CrashProtectionDialog(self)
-
-
-	#_____________________________________________________________________
-
 	def ShowOpenProjectErrorDialog(self, error, parent=None):
 		"""
 		Creates and shows a dialog to inform the user about an error that has ocurred.
@@ -1957,12 +1914,12 @@ class MainApp:
 		# If there's already a Mixdown As submenu, delete it and recreate it
 		for i in filemenulist.get_children():
 			if i.get_children():
-				if i.get_children()[0].get_label() == _("Mixdown as"):
+				if i.get_children()[0].get_label() == _("Mix_down As"):
 					filemenulist.remove(i)
 					i.destroy()
 		
 		# Create a Mixdown As submenu header
-		self.mixdown_as_header = gtk.MenuItem(label=_("Mixdown as"))
+		self.mixdown_as_header = gtk.MenuItem(label=_("Mix_down As"))
 		submenu = gtk.Menu()
 		for p in profiles:
 			profilenames = p.split(".")[0]
@@ -1983,32 +1940,6 @@ class MainApp:
 			
 		self.filemenu.show_all()
 		
-	#_____________________________________________________________________
-
-	def SetupBackup(self, num=0):
-		"""
-		Sets up the backup system for crash protection. Stores all backups in 
-		JOKOSHER_DATA_HOME/backups in the format timestamp-num.jokosher. Backups will
-		occur at an interval specified in the "backupsavetime" config option.
-
-		Parameters:
-			num -- Number appended to the timestamp to allow for multiple
-			copies of Jokosher being launched at the same time.
-		"""
-
-		backupDir = os.path.join(Globals.JOKOSHER_DATA_HOME, "backups")
-		backupFile = "%d-%d.jokosher" % (int(time.time()), num)
-		self.backupProject = os.path.join(backupDir, backupFile)
-		if os.path.exists(self.backupProject):
-			#Multiple copies of Jokosher have been opened simultaneously, so increment
-			#num to avoid conflicts
-			self.SetupBackup(num+1)
-		else:
-			#Open the file quickly so other instances can see it (still potential for 
-			#a race condition, but chances are greatly reduced)
-			open(self.backupProject, "w")
-			gobject.timeout_add_seconds(int(Globals.settings.general["backupsavetime"]) / 1000, self.BackupSave)
-			
 	#_____________________________________________________________________
 	
 	def OnProjectProperties(self, widget=None):
@@ -2047,23 +1978,18 @@ class MainApp:
 		"""
 		
 		if self.project and response == gtk.RESPONSE_CLOSE:
-			author = authorEntry.get_text()
 			name = nameEntry.get_text()
+			author = authorEntry.get_text()
 			buffer = notesTextView.get_buffer()
 			notes = buffer.get_text(*buffer.get_bounds())
 			
-			has_changed = (author != self.project.author) or \
-			              (name != self.project.name) or \
-			              (notes != self.project.notes)
-			if has_changed:
-				self.project.author = author
-				self.project.name = name
-				self.project.notes = notes
-				self.project.SetUnsavedChanges()
+			self.project.SetName(name)
+			self.project.SetAuthor(author)
+			self.project.SetNotes(notes)
 				
 		dialog.destroy()
-				
-	
+
+	#_____________________________________________________________________
 #=========================================================================
 
 def main():

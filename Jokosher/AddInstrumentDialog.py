@@ -122,7 +122,7 @@ class AddInstrumentDialog:
 				#find the actual instrument using index 1 (the instrument type)
 				#because the name has been wrapped in self.model and can't be used
 				name, type, pixbuf, path = [x for x in Globals.getCachedInstruments() if x[1] == item[1]][0]
-				instrList.append( (name, type, pixbuf) )
+				instrList.append( (name, type) )
 			
 			self.project.AddInstruments(instrList)
 		else:

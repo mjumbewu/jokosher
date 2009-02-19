@@ -10,7 +10,7 @@
 #=========================================================================
 
 import urlparse, os, gzip, shutil, gst
-import Globals, Utils, UndoSystem, LevelsList
+import Globals, Utils, UndoSystem, LevelsList, IncrementalSave
 import Project, Instrument, Event
 import xml.dom.minidom as xml
 import traceback
@@ -160,6 +160,7 @@ def LoadProjectFile(uri):
 			#if we're loading an old version copy the project so that it is not overwritten when the user clicks save
 			withoutExt = os.path.splitext(projectfile)[0]
 			shutil.copy(projectfile, "%s.%s.jokosher" % (withoutExt, version))
+		
 		project.projectfile = projectfile
 		return project
 	else:
@@ -222,10 +223,7 @@ class _LoadZPOFile:
 		pixbufFilename = os.path.basename(instr.pixbufPath)
 		instr.instrType = os.path.splitext(pixbufFilename)[0]
 			
-		for i in Globals.getCachedInstruments():
-			if instr.instrType == i[1]:
-				instr.pixbuf = i[2]
-				break
+		instr.pixbuf = Globals.getCachedInstrumentPixbuf(instr.instrType)
 		if not instr.pixbuf:
 			Globals.debug("Error, could not load image:", instr.instrType)
 			
@@ -371,11 +369,9 @@ class _LoadZPTFile:
 			event.levels_file = os.path.basename(event.file + Event.Event.LEVELS_FILE_EXTENSION)
 			instr.graveyard.append(event)
 
+
 		#load image from file based on unique type
-		for instrTuple in Globals.getCachedInstruments():
-			if instr.instrType == instrTuple[1]:
-				instr.pixbuf = instrTuple[2]
-				break
+		instr.pixbuf = Globals.getCachedInstrumentPixbuf(instr.instrType)
 		if not instr.pixbuf:
 			Globals.debug("Error, could not load image:", instr.instrType)
 		

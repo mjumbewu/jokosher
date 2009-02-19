@@ -18,7 +18,7 @@ import pygst
 pygst.require("0.10")
 import gst, gobject
 import Utils, LevelsList
-import UndoSystem
+import UndoSystem, IncrementalSave
 import Globals
 import gettext
 import urllib
@@ -64,7 +64,6 @@ class Event(gobject.GObject):
 		Parameters:
 			instrument -- Instrument associated with this Event.
 			file -- the file this Event should play.
-			levels_file -- the file name (not directory path!) where the event's levels data will be stored
 			id -- unique ID for this Event. If it's taken, a new one will be generated.
 			filelabel -- label to print in error messages.
 						It can be different	from the file parameter.
@@ -840,6 +839,11 @@ class Event(gobject.GObject):
 		if self.loadingPipeline:
 			self.loadingPipeline.set_state(gst.STATE_NULL)
 			
+			if finishedLoading and self.levels_list:
+				self.levels_list.tofile(os.path.join(self.instrument.project.levels_path, self.levels_file))
+				inc = IncrementalSave.CompleteLoading(self.id, self.duration, self.levels_file)
+				self.instrument.project.SaveIncrementalAction(inc)
+			
 			if self.isDownloading:
 				# If we are currently downloading, we can't restart later, 
 				# so cancel regardless of the finishedLoading boolean's value.
@@ -847,6 +851,7 @@ class Event(gobject.GObject):
 				self.isLoading = False
 			else:
 				self.isLoading = not finishedLoading
+			
 			
 			self.loadingPipeline = None
 			self.loadingLength = 0

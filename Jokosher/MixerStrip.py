@@ -208,6 +208,11 @@ class MixerStrip(gtk.Frame):
 		
 	#_____________________________________________________________________
 	
+	def CommitVolume(self):
+		self.instrument.CommitVolume()
+	
+	#_____________________________________________________________________
+	
 	def OnPanChanged(self, slider):
 		"""
 		Changes the Instrument's audiopanorama value to the
