@@ -14,6 +14,7 @@ pygst.require("0.10")
 import gst
 import Globals
 import AudioBackend
+import PreferencesDialog
 import gettext
 _ = gettext.gettext
 
@@ -43,6 +44,7 @@ class InstrumentConnectionsDialog:
 
 		self.signals = {
 			"on_close_clicked" : self.OnClose,
+			"on_change_sound_system" : self.OnChangeSoundSystem,
 		}
 		
 		self.res.signal_autoconnect(self.signals)
@@ -71,6 +73,15 @@ class InstrumentConnectionsDialog:
 			button -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		self.window.destroy()
+	
+	#_____________________________________________________________________
+	
+	def OnChangeSoundSystem(self, button):
+		prefsdlg = PreferencesDialog.PreferencesDialog(self.project, self.parent, self.parent.icon)
+		self.window.hide()
+		# TODO: don't create a new instance of this window each time
+		prefsdlg.dlg.connect("destroy", self.parent.OnInstrumentConnectionsDialog)
+		prefsdlg.dlg.show_all()
 	
 	#_____________________________________________________________________
 
@@ -130,7 +141,7 @@ class InstrumentConnectionsDialog:
 						currentItem += 1
 				
 				combobox.connect("changed", self.OnSelected, instr)
-				row.pack_start(combobox, False, False)
+				row.pack_start(combobox, True, True)
 				row.pack_start(image, False, False)
 				row.pack_start(label, False, False)
 				

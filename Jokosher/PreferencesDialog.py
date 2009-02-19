@@ -166,6 +166,8 @@ class PreferencesDialog:
 			self.radioWelcome.set_active(True)
 			
 		self.loadingSettings = False
+
+		self.dlg.show_all()
 		
 	#_____________________________________________________________________
 		
