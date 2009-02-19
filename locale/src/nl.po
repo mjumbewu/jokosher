@@ -8,24 +8,22 @@ msgstr ""
 "Project-Id-Version: jokosher\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-09-03 13:33-0400\n"
-"PO-Revision-Date: 2007-12-26 20:27+0000\n"
-"Last-Translator: JW <jw00000@gmail.com>\n"
+"PO-Revision-Date: 2009-02-09 16:57+0000\n"
+"Last-Translator: Daniël H. <Unknown>\n"
 "Language-Team: Dutch <nl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2008-09-03 14:40+0000\n"
+"X-Launchpad-Export-Date: 2009-02-18 04:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../../Jokosher/Jokosher.glade.h:1
-#, fuzzy
 msgid "<b>Active effects for: </b>"
-msgstr "<b>Actieve effecten voor:</b>"
+msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:2
-#, fuzzy
 msgid "<b>Application Start-up</b>"
-msgstr "<b>Programma Start</b>"
+msgstr "<b>Programma-start</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:3
 msgid "<b>Art</b>"
@@ -33,7 +31,7 @@ msgstr "<b>Kunst</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:4
 msgid "<b>Audio Output Plugin</b>"
-msgstr "<b>Audio Output Plugin</b>"
+msgstr "<b>Plug-in voor geluids-output</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:5
 msgid "<b>Coding</b>"
@@ -45,7 +43,7 @@ msgstr "<b>Documentatie<b>"
 
 #: ../../Jokosher/Jokosher.glade.h:7
 msgid "<b>Effect Name</b>"
-msgstr "<b>Effect naam:</b>"
+msgstr "<b>Naam van effect</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:8
 msgid "<b>Effects</b>"
@@ -64,8 +62,8 @@ msgid ""
 "<b>Jokosher is an Open Source project that is driven by a community of "
 "contributors. To make Jokosher rock, we need your help!</b>"
 msgstr ""
-"<b>Jokosher is een Open Source project dat ontwikkeld wordt door een grote "
-"groep vrijwilligers. Om Jokosher een succes te maken hebben we ook jou hulp "
+"<b>Jokosher is een open source project dat ontwikkeld wordt door een grote "
+"groep vrijwilligers. Om Jokosher een succes te maken hebben we ook jouw hulp "
 "nodig!</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:12
@@ -82,15 +80,15 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:15
 msgid "<b>Recent Projects</b>"
-msgstr "<b>Recente Projecten</b>"
+msgstr "<b>Recente projecten</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:16
 msgid "<b>Recorded Audio Format</b>"
-msgstr "<b>Opgenomen Audio Formaat</b>"
+msgstr "<b>Opgenomen geluidsformaat</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:17
 msgid "<b>Recording Sample Rate</b>"
-msgstr "<b>Recording Sample Rate</b>"
+msgstr "<b>Frequentie van opname</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:18
 msgid "<b>Save Time</b>"
@@ -106,7 +104,7 @@ msgstr "<b>Testen</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:21
 msgid "<b>Time Signature</b>"
-msgstr "<b>Tijdssignatuur</b>"
+msgstr "<b>Tijdmarkering</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:22
 msgid "<b>_Presets for:</b>"
@@ -136,7 +134,7 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:28
 msgid "Add Audio File"
-msgstr "Een Geluids-bestand Toevoegen"
+msgstr "Een geluidsbestand toevoegen"
 
 #: ../../Jokosher/Jokosher.glade.h:29
 msgid "Add Audio _File..."
@@ -148,23 +146,23 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:31
 msgid "Add an audio file to the project"
-msgstr "Voeg een geluids-bestand toe aan het project"
+msgstr "Een geluidsbestand toe aan het project toevoegen"
 
 #: ../../Jokosher/Jokosher.glade.h:32
 msgid "Add an audio file to the selected instrument"
-msgstr "Voeg een geluids-bestand toe aan het geselcteerde instrument"
+msgstr "Een geluidsbestand toe aan het geselecteerde instrument toevoegen"
 
 #: ../../Jokosher/Jokosher.glade.h:33
 msgid "Add an extension"
-msgstr "Voeg een uitbreiding toe"
+msgstr "Een extensie toevoegen"
 
 #: ../../Jokosher/Jokosher.glade.h:34
 msgid "Add an instrument"
-msgstr "Voeg een instrument toe"
+msgstr "Instrument toevoegen"
 
 #: ../../Jokosher/Jokosher.glade.h:35
 msgid "Add an instrument to the project"
-msgstr "Voeg een instrument toe aan het project"
+msgstr "Een instrument toe aan het project toevoegen"
 
 #: ../../Jokosher/Jokosher.glade.h:36
 msgid "Add the selected instrument"
@@ -180,7 +178,7 @@ msgstr "Het aantal slagen per minuut aanpassen"
 
 #: ../../Jokosher/Jokosher.glade.h:39
 msgid "Adjust the settings for the currently selected active effect"
-msgstr "Pas de instellingen voor het huidige effect aan"
+msgstr "De instellingen voor het huidige effect aanpassen"
 
 #: ../../Jokosher/Jokosher.glade.h:40
 msgid "Arm an instrument then click here to begin recording"
@@ -216,7 +214,7 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:49
 msgid "Cancel the mixdown"
-msgstr ""
+msgstr "De mix annuleren"
 
 #: ../../Jokosher/Jokosher.glade.h:50
 msgid "Change Jokosher preferences"
@@ -240,7 +238,7 @@ msgstr "Verander het type van het geselecteerde instrument"
 
 #: ../../Jokosher/Jokosher.glade.h:55
 msgid "Choose a chain effects preset."
-msgstr ""
+msgstr "Kies een effecten-combinatie."
 
 #: ../../Jokosher/Jokosher.glade.h:56
 msgid "Choose a project template"
@@ -280,7 +278,7 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:65
 msgid "Configure Instrument Effects"
-msgstr "Configureer Instrumentele Effecten"
+msgstr "Instrument-effecten instellen"
 
 #: ../../Jokosher/Jokosher.glade.h:66
 msgid "Copy the current selection"
@@ -288,7 +286,7 @@ msgstr "Kopieer de huidige selectie"
 
 #: ../../Jokosher/Jokosher.glade.h:67
 msgid "Create a new project"
-msgstr "Maak een nieuw project"
+msgstr "Een nieuw project aanmaken"
 
 #: ../../Jokosher/Jokosher.glade.h:68
 msgid "Create project template from instruments in current project"
@@ -351,9 +349,8 @@ msgid "Double-click on a recent project to open"
 msgstr "Dubbelklik op een recent project om het te openen"
 
 #: ../../Jokosher/Jokosher.glade.h:83
-#, fuzzy
 msgid "Drawing icons, images and other art."
-msgstr "Teken iconen, afbeeldingen en andere kunst."
+msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:84
 msgid "Edit Jokosher preferences"
@@ -379,9 +376,8 @@ msgid "Enter the project's name"
 msgstr "Vul de naam van het project in"
 
 #: ../../Jokosher/Jokosher.glade.h:89
-#, fuzzy
 msgid "Ex_tensions"
-msgstr "Ex_tensies"
+msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:90
 msgid "Export current project to an audio file"
@@ -555,11 +551,11 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:163 ../../Jokosher/JokosherApp.py:628
 msgid "Mixdown Project"
-msgstr ""
+msgstr "Project mixen."
 
 #: ../../Jokosher/Jokosher.glade.h:164
 msgid "Mixdown the project using these settings"
-msgstr ""
+msgstr "Mix het project met deze instellingen."
 
 #: ../../Jokosher/Jokosher.glade.h:165
 msgid "Mixing Project"
@@ -714,7 +710,7 @@ msgstr "Selecteer de audio invoer voor  te gebruiken instrument"
 
 #: ../../Jokosher/Jokosher.glade.h:202
 msgid "Set Time Signature"
-msgstr ""
+msgstr "Tijdmarkering instellen"
 
 #: ../../Jokosher/Jokosher.glade.h:203
 msgid "Settings"
@@ -806,7 +802,7 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:225
 msgid "_Add Instrument..."
-msgstr ""
+msgstr "Instrument _toevoegen..."
 
 #: ../../Jokosher/Jokosher.glade.h:226
 msgid "_Author:"
@@ -821,9 +817,8 @@ msgid "_Change Instrument Type..."
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:229
-#, fuzzy
 msgid "_Contributing to Jokosher"
-msgstr "Meewerken aan Jokosher"
+msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:230
 msgid "_Create Project Template"
@@ -1076,13 +1071,10 @@ msgid "<b>Drag</b> the red sliders to modify the volume fade."
 msgstr ""
 
 #: ../../Jokosher/EventViewer.py:637
-#, fuzzy
 msgid ""
 "<b>Click</b> the buttons below the selection to do something to that portion "
 "of audio."
 msgstr ""
-"<b>Klik</b> op de knoppen onder de selectie om iets te doen met dat stuk "
-"audio."
 
 #: ../../Jokosher/EventViewer.py:902
 msgid "_Split"
@@ -1098,9 +1090,8 @@ msgstr "_Kopiëren"
 
 #: ../../Jokosher/EventViewer.py:906
 #: ../../Jokosher/InstrumentEffectsDialog.py:442
-#, fuzzy
 msgid "_Delete"
-msgstr "Verwij_deren"
+msgstr ""
 
 #: ../../Jokosher/EventViewer.py:1196
 msgid "Error loading file:"
@@ -1309,7 +1300,7 @@ msgstr "Stoppen met opnemen"
 
 #: ../../Jokosher/JokosherApp.py:64
 msgid "Arm an instrument, then click here to begin recording"
-msgstr ""
+msgstr "Pak eerst een instrument, klik daarna hier om de opname te starten"
 
 #: ../../Jokosher/JokosherApp.py:67
 msgid "Hide the audio level mixers"
@@ -1462,14 +1453,11 @@ msgstr ""
 "Het project verwijst naar onbestaande afbeeldingen:\n"
 
 #: ../../Jokosher/JokosherApp.py:1573
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "%s\n"
 " Invalid or corrupt project file, will not open."
 msgstr ""
-"%s\n"
-"\n"
-" Ongeldig of beschadigd project bestand, openen niet mogelijk."
 
 #: ../../Jokosher/JokosherApp.py:1612
 msgid "You must have Gstreamer version 0.10.9 or higher.\n"
@@ -1565,9 +1553,9 @@ msgid "The project file was created with version \"%s\" of Jokosher.\n"
 msgstr "Het projectbestand is aangemaakt met versie \"%s\" van Jokosher.\n"
 
 #: ../../Jokosher/JokosherApp.py:1843
-#, fuzzy, python-format
+#, python-format
 msgid "Projects from version \"%s\" are incompatible with this release.\n"
-msgstr "Projecten van versie \"%s\" zijn niet compatibel met deze versie.\n"
+msgstr ""
 
 #: ../../Jokosher/JokosherApp.py:1845
 #, python-format
@@ -1797,9 +1785,8 @@ msgstr ""
 "projectnaam en probeer opnieuw."
 
 #: ../../Jokosher/NewProjectDialog.py:150
-#, fuzzy
 msgid "The file or folder location is write-protected."
-msgstr "Het bestand of de map is beveiligd tegen schrijven."
+msgstr ""
 
 #: ../../Jokosher/NewProjectDialog.py:152
 msgid "Invalid name or author."
@@ -1890,9 +1877,8 @@ msgid "Print debug output to stdout"
 msgstr "De debuguitvoer afdrukken naar stdout"
 
 #: ../../Jokosher/Jokosher:68
-#, fuzzy
 msgid "Sent debug output to Gstreamer's debug system"
-msgstr "De debuguitvoer naar Gstreamer's debugsysteem sturen"
+msgstr ""
 
 #: ../../Jokosher/Jokosher:70
 msgid "Don't load extensions or last project on startup (same as -ne)"
@@ -1901,15 +1887,12 @@ msgstr ""
 "ne)"
 
 #: ../../Jokosher/Jokosher:72
-#, fuzzy
 msgid "Force the welcome dialog to show on startup"
 msgstr ""
-"Het verwelkomingsdialoog dwingen om weergegeven te worden bij opstarten"
 
 #: ../../Jokosher/Jokosher:74
-#, fuzzy
 msgid "Force Jokosher to load without a welcome dialog or project"
-msgstr "Jokosher dwingen om zonder verwelkomingsdialoog of project te starten"
+msgstr ""
 
 #: ../../Jokosher/Jokosher:76
 msgid "Do not load extensions on startup"
@@ -1960,9 +1943,8 @@ msgid "Keyboard"
 msgstr "Toetsenbord"
 
 #: i18n.instr.h:12
-#, fuzzy
 msgid "Other"
-msgstr "Overig"
+msgstr ""
 
 #: i18n.instr.h:13
 msgid "Saxophone"
@@ -1987,6 +1969,27 @@ msgstr "Viool"
 #: i18n.instr.h:18
 msgid "Vocal"
 msgstr "Zang"
+
+#, fuzzy
+msgid "Pre-release Notes"
+msgstr "Voor Publicatie Notities"
+
+#, fuzzy
+msgid ""
+"The instruments '%s' and '%s' both have the same input selected (%s). Please "
+"either disarm one, or connect it to a different input through 'Project -> "
+"Instrument Connections'"
+msgstr ""
+"De instrumenten '%s' en '%s' hebben allebei dezelfde invoer geselecteerd (%"
+"s). Deselecteer deze bij één van beiden of verbindt het instrument met een "
+"andere invoer via 'Project -> Instrumentverbindingen'"
+
+#, fuzzy
+msgid "Beat value"
+msgstr "Slagwaarde"
+
+msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"
+msgstr "<b>Sleep</b> de <b>schuif</b> om het volume niveau aan te passen"
 
 #~ msgid ""
 #~ "16 bit\n"
@@ -2040,25 +2043,21 @@ msgstr "Zang"
 
 #, fuzzy
 #~ msgid "Instrument Connections"
-#~ msgstr "Instrument Verbindingen"
+#~ msgstr "Instrument Effecten"
 
 #, fuzzy
 #~ msgid "Output Format"
-#~ msgstr "Uitvoer-formaat"
+#~ msgstr "Output"
 
 #~ msgid "Playback"
 #~ msgstr "Afspelen"
-
-#, fuzzy
-#~ msgid "Pre-release Notes"
-#~ msgstr "Voor Publicatie Notities"
 
 #~ msgid "Presets"
 #~ msgstr "Voorinstellingen"
 
 #, fuzzy
 #~ msgid "Preview"
-#~ msgstr "Voorvertoning"
+#~ msgstr "Apparaat"
 
 #~ msgid "Recent Projects"
 #~ msgstr "Recente Projecten"
@@ -2085,16 +2084,6 @@ msgstr "Zang"
 #~ "FLAC\n"
 #~ "Ogg Vorbis"
 
-#, fuzzy
-#~ msgid ""
-#~ "The instruments '%s' and '%s' both have the same input selected (%s). "
-#~ "Please either disarm one, or connect it to a different input through "
-#~ "'Project -> Instrument Connections'"
-#~ msgstr ""
-#~ "De instrumenten '%s' en '%s' hebben allebei dezelfde invoer geselecteerd "
-#~ "(%s). Deselecteer deze bij één van beiden of verbindt het instrument met "
-#~ "een andere invoer via 'Project -> Instrumentverbindingen'"
-
 #~ msgid ""
 #~ "No instruments are armed for recording. You need to arm an instrument "
 #~ "before you can begin recording."
@@ -2104,7 +2093,7 @@ msgstr "Zang"
 
 #, fuzzy
 #~ msgid "%d of %d seconds completed"
-#~ msgstr "%d van %d seconden voltooid"
+#~ msgstr "%(progress)d van %(total)d seconden voltooid"
 
 #~ msgid ""
 #~ "\n"
@@ -2191,18 +2180,15 @@ msgstr "Zang"
 #~ msgid "Author"
 #~ msgstr "Auteur"
 
-#, fuzzy
-#~ msgid "Beat value"
-#~ msgstr "Slagwaarde"
-
 #~ msgid "Beats per measure"
 #~ msgstr "Slagen per maat"
 
 #~ msgid "Browse for an Existing Project"
 #~ msgstr "Zoek een bestaand project"
 
+#, fuzzy
 #~ msgid "Create a New Project"
-#~ msgstr "Maak een nieuw project"
+#~ msgstr "Een nieuw project aanmaken"
 
 #~ msgid "Device:"
 #~ msgstr "Apparaat"
@@ -2281,7 +2267,7 @@ msgstr "Zang"
 
 #, fuzzy
 #~ msgid "_Paste"
-#~ msgstr "_Plakken"
+#~ msgstr "Plakken"
 
 #~ msgid "%(progress)d of %(total)d seconds completed"
 #~ msgstr "%(progress)d van %(total)d seconden voltooid"
@@ -2312,6 +2298,3 @@ msgstr "Zang"
 
 #~ msgid "Zoom the timeline"
 #~ msgstr "Zoom de tijdslijn"
-
-#~ msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"
-#~ msgstr "<b>Sleep</b> de <b>schuif</b> om het volume niveau aan te passen"

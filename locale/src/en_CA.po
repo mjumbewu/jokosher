@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2008-09-03 14:40+0000\n"
+"X-Launchpad-Export-Date: 2009-02-18 04:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../../Jokosher/Jokosher.glade.h:1
@@ -368,7 +368,6 @@ msgstr ""
 #: ../../Jokosher/Jokosher.glade.h:87
 msgid "Enter the author's name"
 msgstr ""
-"Copy text   \t\r\n"
 "Enter the author's name"
 
 #: ../../Jokosher/Jokosher.glade.h:88
@@ -861,7 +860,7 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:240
 msgid "_Mixdown"
-msgstr ""
+msgstr "_Mixdown"
 
 #: ../../Jokosher/Jokosher.glade.h:241 ../../Jokosher/JokosherApp.py:2025
 msgid "_Mixdown Project..."
@@ -1051,9 +1050,7 @@ msgstr "Downloading (%d%%)..."
 #: ../../Jokosher/EventViewer.py:451
 #, python-format
 msgid "Loading (%d%%)..."
-msgstr ""
-"Copy text   \t\r\n"
-"Loading (%d%%)..."
+msgstr "Loading (%d%%)..."
 
 #: ../../Jokosher/EventViewer.py:462
 msgid "Recording..."
@@ -1081,9 +1078,7 @@ msgstr ""
 
 #: ../../Jokosher/EventViewer.py:902
 msgid "_Split"
-msgstr ""
-"Copy text   \t\r\n"
-"_Split"
+msgstr "_Split"
 
 #: ../../Jokosher/EventViewer.py:904
 msgid "Cu_t"
@@ -1416,9 +1411,7 @@ msgstr "Close _Without Saving"
 #: ../../Jokosher/JokosherApp.py:1009
 #, python-format
 msgid "Mixing project to file: %s"
-msgstr ""
-"Copy text   \t\r\n"
-"Mixing project to file: %s"
+msgstr "Mixing project to file: %s"
 
 #: ../../Jokosher/JokosherApp.py:1040
 msgid "Argh! Something went wrong and a serious error occurred:"
@@ -1747,9 +1740,7 @@ msgstr "Balance:"
 
 #: ../../Jokosher/MixerStrip.py:79
 msgid "L"
-msgstr ""
-"Copy text   \t\r\n"
-"L"
+msgstr "L"
 
 #: ../../Jokosher/MixerStrip.py:80
 msgid "R"
@@ -2004,8 +1995,9 @@ msgstr "Vocal"
 #~ msgid "Beats per measure"
 #~ msgstr "Beats per measure"
 
+#, fuzzy
 #~ msgid "Browse for an Existing Project"
-#~ msgstr "Browse for an Existing Project"
+#~ msgstr "Open an existing project"
 
 #~ msgid "Create a New Project"
 #~ msgstr "Create a New Project"
@@ -2094,16 +2086,16 @@ msgstr "Vocal"
 #~ msgid "_Mixdown Project"
 #~ msgstr "_Mixdown Project"
 
+#, fuzzy
 #~ msgid "_Mixdown the project"
-#~ msgstr "_Mixdown the project"
+#~ msgstr "_Mixdown Project"
 
 #~ msgid "_Recording Inputs"
 #~ msgstr "_Recording Inputs"
 
+#, fuzzy
 #~ msgid "_Save these settings"
-#~ msgstr ""
-#~ "Copy text   \t\r\n"
-#~ "_Save these settings"
+#~ msgstr "Use these settings"
 
 #~ msgid "version 0.9"
 #~ msgstr "version 0.9"
@@ -2123,14 +2115,17 @@ msgstr "Vocal"
 #~ msgid "_Mixdown as"
 #~ msgstr "_Mixdown as"
 
+#, fuzzy
 #~ msgid "<b>Steps to mixdown %(projectname)s</b>"
-#~ msgstr "<b>Steps to mixdown %(projectname)s</b>"
+#~ msgstr "Preparing to mixdown project"
 
+#, fuzzy
 #~ msgid "Edit this mixdown step settings"
-#~ msgstr "Edit this mixdown step settings"
+#~ msgstr "Save these mixdown settings"
 
+#, fuzzy
 #~ msgid "Remove this mixdown step"
-#~ msgstr "Remove this mixdown step"
+#~ msgstr "Save these mixdown settings"
 
 #~ msgid "Don't save these mixdown settings"
 #~ msgstr "Don't save these mixdown settings"

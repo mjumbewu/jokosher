@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2008-09-03 14:41+0000\n"
+"X-Launchpad-Export-Date: 2009-02-18 04:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../../Jokosher/Jokosher.glade.h:1
@@ -470,7 +470,6 @@ msgid ""
 "David Nielsen <david@lovesunix.net>\n"
 "daave <fan.d.liu@gmail.com>\n"
 msgstr ""
-"Copy text   \t\n"
 "Iestyn Pryce <dylunio@gmail.com>\n"
 "Jerome S. Gotangco <jgotangco@ubuntu.com>\n"
 "torb <torrb@musiker.nu>\n"
@@ -1239,9 +1238,8 @@ msgid "Recorded audio"
 msgstr ""
 
 #: ../../Jokosher/InstrumentConnectionsDialog.py:56
-#, fuzzy
 msgid "There are no instruments to connect"
-msgstr "Nie sú žiadne nástroje na pripojenie"
+msgstr ""
 
 #: ../../Jokosher/InstrumentConnectionsDialog.py:110
 msgid "Default"
@@ -1953,6 +1951,34 @@ msgstr "Husle"
 msgid "Vocal"
 msgstr "Spev"
 
+#, fuzzy
+msgid "Files Saves As"
+msgstr "Ukladať súbory ako"
+
+#, fuzzy
+msgid ""
+"Use the combo boxes below to select which input is used with which instrument"
+msgstr ""
+"Použi combo box dole na výber ktorý vstup je použitý s ktorým nástrojom"
+
+msgid "Beat value"
+msgstr "Počet úderov"
+
+msgid "Pipeline:"
+msgstr "Pipeline:"
+
+msgid "Export as"
+msgstr "Exportovať ako"
+
+msgid "Run external script"
+msgstr "Spustiť externý skript"
+
+msgid "Hz"
+msgstr "Hz"
+
+msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"
+msgstr "<b>Ťahním posuvníka</b> upravíte hlasitosť"
+
 #~ msgid ""
 #~ "16 bit\n"
 #~ "24 bit\n"
@@ -2005,10 +2031,6 @@ msgstr "Spev"
 #~ msgid "Device"
 #~ msgstr "Zariadenie"
 
-#, fuzzy
-#~ msgid "Files Saves As"
-#~ msgstr "Ukladať súbory ako"
-
 #~ msgid "General"
 #~ msgstr "Všeobecné"
 
@@ -2044,7 +2066,7 @@ msgstr "Spev"
 
 #, fuzzy
 #~ msgid "Select an effect to add to the instrument"
-#~ msgstr "Vyber efekt na pridanie ku nástroju"
+#~ msgstr "Vyberte projekt k otvoreniu zo zoznamu"
 
 #~ msgid "Select an instrument, then click here to begin recording"
 #~ msgstr "Vyber nástroj, potom klikni sem pre spustenie nahrávania"
@@ -2054,13 +2076,6 @@ msgstr "Spev"
 
 #~ msgid "Time Format"
 #~ msgstr "Formát času"
-
-#, fuzzy
-#~ msgid ""
-#~ "Use the combo boxes below to select which input is used with which "
-#~ "instrument"
-#~ msgstr ""
-#~ "Použi combo box dole na výber ktorý vstup je použitý s ktorým nástrojom"
 
 #~ msgid ""
 #~ "Wave\n"
@@ -2100,8 +2115,8 @@ msgstr "Spev"
 #~ "No channels capable of recording have found, please attach a device and "
 #~ "try again."
 #~ msgstr ""
-#~ "Nenašli sa žiadne kanály schopné nahravania, prosím pripojte zariadenie a "
-#~ "skúste znovu."
+#~ "Nenašiel sa žiaden zvukový kanál schopný nahrávania, prosím pripojte "
+#~ "zariadenie a skúste znova"
 
 #~ msgid "%d of %d seconds completed"
 #~ msgstr "%d z %d sekúnd dokončených"
@@ -2216,11 +2231,9 @@ msgstr "Spev"
 #~ msgid "Author"
 #~ msgstr "Autor"
 
-#~ msgid "Beat value"
-#~ msgstr "Počet úderov"
-
+#, fuzzy
 #~ msgid "Beats per measure"
-#~ msgstr "Úderov na takt"
+#~ msgstr "Úderov za minútu"
 
 #~ msgid "Browse for an Existing Project"
 #~ msgstr "Otvoriť existujúci projekt"
@@ -2246,8 +2259,9 @@ msgstr "Spev"
 #~ msgid "Mixing"
 #~ msgstr "Mixovanie"
 
+#, fuzzy
 #~ msgid "Mixing Workspace"
-#~ msgstr "Pracovný priestor pre zmiešavanie"
+#~ msgstr "Nahrávací priestor"
 
 #~ msgid "Open Selected Project"
 #~ msgstr "Otvoriť vybraný projekt"
@@ -2257,9 +2271,6 @@ msgstr "Spev"
 
 #~ msgid "Output:"
 #~ msgstr "Výstup:"
-
-#~ msgid "Pipeline:"
-#~ msgstr "Pipeline:"
 
 #~ msgid "Preferences"
 #~ msgstr "Nastavenie"
@@ -2327,38 +2338,32 @@ msgstr "Spev"
 #~ msgid "_Paste"
 #~ msgstr "_Vlepiť"
 
+#, fuzzy
 #~ msgid "Currently working in the Recording workspace"
-#~ msgstr "Nachádzate sa v nahrávacom pracovnom priestore"
+#~ msgstr "Prepnúť na nahrávaciu plochu"
 
+#, fuzzy
 #~ msgid "Currently working in the Mixing workspace"
-#~ msgstr "Nachádzate sa v mixovacom pracovnom priestore"
+#~ msgstr "Prepnúť na mixážnu plochu"
 
 #~ msgid "_Mixdown as"
 #~ msgstr "_Zmixovať ako"
 
+#, fuzzy
 #~ msgid "Choose a name for this profile"
-#~ msgstr "Zvoľte názov tohto profilu"
+#~ msgstr "Vyberte súbor projektu Jokosher"
 
+#, fuzzy
 #~ msgid "Export file"
-#~ msgstr "Exportovať súbor"
+#~ msgstr "Importovať súbor..."
 
-#~ msgid "Export as"
-#~ msgstr "Exportovať ako"
-
+#, fuzzy
 #~ msgid "Run script %s"
-#~ msgstr "Spustiť skript %s"
+#~ msgstr "Chyba v skripte %s"
 
-#~ msgid "Run external script"
-#~ msgstr "Spustiť externý skript"
-
+#, fuzzy
 #~ msgid "No such script %s"
-#~ msgstr "Skript %s neexistuje"
-
-#~ msgid "Hz"
-#~ msgstr "Hz"
+#~ msgstr "Chyba v skripte %s"
 
 #~ msgid "Zoom the timeline"
 #~ msgstr "Priblížiť časovú osu"
-
-#~ msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"
-#~ msgstr "<b>Ťahním posuvníka</b> upravíte hlasitosť"

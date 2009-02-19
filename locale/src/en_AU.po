@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2008-09-03 14:40+0000\n"
+"X-Launchpad-Export-Date: 2009-02-18 04:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../../Jokosher/Jokosher.glade.h:1
@@ -1967,191 +1967,225 @@ msgstr "Violin"
 msgid "Vocal"
 msgstr "Vocal"
 
+msgid "Add this step to the current mixdown"
+msgstr "Add this step to the current mixdown"
+
+msgid "Audio production made simple."
+msgstr "Audio production made simple."
+
+msgid "Beat value"
+msgstr "Beat value"
+
+msgid "Device:"
+msgstr "Device:"
+
+msgid "Don't open anything"
+msgstr "Don't open anything"
+
+msgid "FastForward"
+msgstr "FastForward"
+
+msgid "Output:"
+msgstr "Output:"
+
+msgid "Pipeline:"
+msgstr "Pipeline:"
+
+msgid "Preferences"
+msgstr "Preferences"
+
+msgid "Recording Workspace"
+msgstr "Recording Workspace"
+
+msgid "Search:"
+msgstr "Search:"
+
+msgid "Show welcome dialog"
+msgstr "Show welcome dialog"
+
+msgid "Stop"
+msgstr "Stop"
+
+msgid "Switch to the Mixing workspace"
+msgstr "Switch to the Mixing workspace"
+
+msgid "Switch to the Recording workspace"
+msgstr "Switch to the Recording workspace"
+
+msgid "Workspaces"
+msgstr "Workspaces"
+
+msgid "version 0.9"
+msgstr "version 0.9"
+
+msgid "Currently working in the Recording workspace"
+msgstr "Currently working in the Recording workspace"
+
+msgid "Currently working in the Mixing workspace"
+msgstr "Currently working in the Mixing workspace"
+
+msgid "%(progress)d of %(total)d seconds completed"
+msgstr "%(progress)d of %(total)d seconds completed"
+
+msgid "Edit this mixdown step settings"
+msgstr "Edit this mixdown step settings"
+
+msgid "Remove this mixdown step"
+msgstr "Remove this mixdown step"
+
+msgid "Export file"
+msgstr "Export file"
+
+msgid "An unspecified MixdownAction"
+msgstr "An unspecified MixdownAction"
+
+msgid "Export to %(file)s as %(desc)s"
+msgstr "Export to %(file)s as %(desc)s"
+
+msgid "Export as"
+msgstr "Export as"
+
+msgid "Run external script"
+msgstr "Run external script"
+
+msgid "Hz"
+msgstr "Hz"
+
+msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"
+msgstr "<b>Drag</b> the <b>slider</b> to alter volume levels"
+
+#, fuzzy
 #~ msgid "<b>Presets for:</b>"
-#~ msgstr "<b>Presets for:</b>"
+#~ msgstr "<b>Active effects for: </b>"
 
+#, fuzzy
 #~ msgid "Add Instrument"
-#~ msgstr "Add Instrument"
+#~ msgstr "Add an instrument"
 
+#, fuzzy
 #~ msgid "Add a new instrument"
-#~ msgstr "Add a new instrument"
+#~ msgstr "Add an instrument"
 
+#, fuzzy
 #~ msgid "Add a new step:"
-#~ msgstr "Add a new step:"
+#~ msgstr "Add an instrument"
 
-#~ msgid "Add this step to the current mixdown"
-#~ msgstr "Add this step to the current mixdown"
-
-#~ msgid "Audio production made simple."
-#~ msgstr "Audio production made simple."
-
+#, fuzzy
 #~ msgid "Author"
-#~ msgstr "Author"
+#~ msgstr "Unknown Author"
 
-#~ msgid "Beat value"
-#~ msgstr "Beat value"
-
+#, fuzzy
 #~ msgid "Beats per measure"
-#~ msgstr "Beats per measure"
+#~ msgstr "Beats per minute"
 
+#, fuzzy
 #~ msgid "Browse for an Existing Project"
-#~ msgstr "Browse for an Existing Project"
+#~ msgstr "Open an existing project"
 
+#, fuzzy
 #~ msgid "Create a New Project"
-#~ msgstr "Create a New Project"
+#~ msgstr "Create a new project"
 
-#~ msgid "Device:"
-#~ msgstr "Device:"
-
-#~ msgid "Don't open anything"
-#~ msgstr "Don't open anything"
-
+#, fuzzy
 #~ msgid "Don't show this on start-up"
-#~ msgstr "Don't show this on start-up"
+#~ msgstr "Do not load extensions on startup"
 
-#~ msgid "FastForward"
-#~ msgstr "FastForward"
-
+#, fuzzy
 #~ msgid "Folder"
-#~ msgstr "Folder"
+#~ msgstr "Filters"
 
+#, fuzzy
 #~ msgid "Mixing"
-#~ msgstr "Mixing"
+#~ msgstr "Mixing Project"
 
+#, fuzzy
 #~ msgid "Mixing Workspace"
-#~ msgstr "Mixing Workspace"
+#~ msgstr "Mixing Project"
 
+#, fuzzy
 #~ msgid "Open Selected Project"
-#~ msgstr "Open Selected Project"
+#~ msgstr "Open a recent project"
 
+#, fuzzy
 #~ msgid "Open most recent project"
-#~ msgstr "Open most recent project"
+#~ msgstr "Open a recent project"
 
-#~ msgid "Output:"
-#~ msgstr "Output:"
-
-#~ msgid "Pipeline:"
-#~ msgstr "Pipeline:"
-
-#~ msgid "Preferences"
-#~ msgstr "Preferences"
-
+#, fuzzy
 #~ msgid "Project Name"
-#~ msgstr "Project Name"
+#~ msgstr "_Project"
 
+#, fuzzy
 #~ msgid "Record"
-#~ msgstr "Record"
+#~ msgstr "Recording..."
 
+#, fuzzy
 #~ msgid "Recording"
-#~ msgstr "Recording"
+#~ msgstr "Recording..."
 
-#~ msgid "Recording Workspace"
-#~ msgstr "Recording Workspace"
-
+#, fuzzy
 #~ msgid "Remove Selected Instrument"
-#~ msgstr "Remove Selected Instrument"
+#~ msgstr "Remove the selected instrument"
 
+#, fuzzy
 #~ msgid "Rewind"
-#~ msgstr "Rewind"
+#~ msgstr "Redo"
 
+#, fuzzy
 #~ msgid "Save these mixdown settings"
-#~ msgstr "Save these mixdown settings"
+#~ msgstr "Use these settings"
 
-#~ msgid "Search:"
-#~ msgstr "Search:"
-
-#~ msgid "Show welcome dialog"
-#~ msgstr "Show welcome dialog"
-
-#~ msgid "Stop"
-#~ msgstr "Stop"
-
-#~ msgid "Switch to the Mixing workspace"
-#~ msgstr "Switch to the Mixing workspace"
-
-#~ msgid "Switch to the Recording workspace"
-#~ msgstr "Switch to the Recording workspace"
-
-#~ msgid "Workspaces"
-#~ msgstr "Workspaces"
-
+#, fuzzy
 #~ msgid "_Add Instrument"
-#~ msgstr "_Add Instrument"
+#~ msgstr "_Instrument"
 
+#, fuzzy
 #~ msgid "_Manage Extensions"
-#~ msgstr "_Manage Extensions"
+#~ msgstr "Ex_tensions"
 
+#, fuzzy
 #~ msgid "_Mixdown Project"
-#~ msgstr "_Mixdown Project"
+#~ msgstr "Mixdown Project"
 
+#, fuzzy
 #~ msgid "_Mixdown the project"
-#~ msgstr "_Mixdown the project"
+#~ msgstr "Mixdown Project"
 
+#, fuzzy
 #~ msgid "_Recording Inputs"
-#~ msgstr "_Recording Inputs"
+#~ msgstr "Recording..."
 
+#, fuzzy
 #~ msgid "_Save these settings"
-#~ msgstr "_Save these settings"
+#~ msgstr "Use these settings"
 
-#~ msgid "version 0.9"
-#~ msgstr "version 0.9"
-
+#, fuzzy
 #~ msgid "_Paste"
-#~ msgstr "_Paste"
+#~ msgstr "Phasers"
 
-#~ msgid "Currently working in the Recording workspace"
-#~ msgstr "Currently working in the Recording workspace"
-
-#~ msgid "Currently working in the Mixing workspace"
-#~ msgstr "Currently working in the Mixing workspace"
-
-#~ msgid "%(progress)d of %(total)d seconds completed"
-#~ msgstr "%(progress)d of %(total)d seconds completed"
-
+#, fuzzy
 #~ msgid "_Mixdown as"
-#~ msgstr "_Mixdown as"
+#~ msgstr "Mixdown as"
 
+#, fuzzy
 #~ msgid "<b>Steps to mixdown %(projectname)s</b>"
-#~ msgstr "<b>Steps to mixdown %(projectname)s</b>"
+#~ msgstr "Preparing to mixdown project"
 
-#~ msgid "Edit this mixdown step settings"
-#~ msgstr "Edit this mixdown step settings"
-
-#~ msgid "Remove this mixdown step"
-#~ msgstr "Remove this mixdown step"
-
+#, fuzzy
 #~ msgid "Don't save these mixdown settings"
-#~ msgstr "Don't save these mixdown settings"
+#~ msgstr "Use these settings"
 
+#, fuzzy
 #~ msgid "Choose a name for this profile"
-#~ msgstr "Choose a name for this profile"
+#~ msgstr "Choose a Jokosher project file"
 
-#~ msgid "Export file"
-#~ msgstr "Export file"
-
-#~ msgid "An unspecified MixdownAction"
-#~ msgstr "An unspecified MixdownAction"
-
-#~ msgid "Export to %(file)s as %(desc)s"
-#~ msgstr "Export to %(file)s as %(desc)s"
-
-#~ msgid "Export as"
-#~ msgstr "Export as"
-
+#, fuzzy
 #~ msgid "Run script %s"
-#~ msgstr "Run script %s"
+#~ msgstr "Error in script %s"
 
-#~ msgid "Run external script"
-#~ msgstr "Run external script"
-
+#, fuzzy
 #~ msgid "No such script %s"
-#~ msgstr "No such script %s"
+#~ msgstr "Error in script %s"
 
-#~ msgid "Hz"
-#~ msgstr "Hz"
-
+#, fuzzy
 #~ msgid "Zoom the timeline"
-#~ msgstr "Zoom the timeline"
-
-#~ msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"
-#~ msgstr "<b>Drag</b> the <b>slider</b> to alter volume levels"
+#~ msgstr "Change the timeline"

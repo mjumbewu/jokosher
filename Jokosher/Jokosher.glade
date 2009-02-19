@@ -658,7 +658,7 @@
 	    <widget class="GtkToolButton" id="AddInstrument">
 	      <property name="visible">True</property>
 	      <property name="tooltip" translatable="yes">Add an instrument to the project</property>
-	      <property name="label">Add Instrument</property>
+	      <property name="label" translatable="yes">Add Instrument</property>
 	      <property name="use_underline">True</property>
 	      <property name="stock_id">gtk-add</property>
 	      <property name="visible_horizontal">True</property>

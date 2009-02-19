@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2008-09-03 14:41+0000\n"
+"X-Launchpad-Export-Date: 2009-02-18 04:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../../Jokosher/Jokosher.glade.h:1
@@ -1846,32 +1846,35 @@ msgstr ""
 msgid "Vocal"
 msgstr ""
 
+msgid "Add this step to the current mixdown"
+msgstr "engade este grao á mestura en uso"
+
+msgid "Audio production made simple."
+msgstr "Producción de audio facilitada"
+
+msgid "Author"
+msgstr "Autor/a"
+
+msgid "Beat value"
+msgstr "tempo"
+
+msgid "Beats per measure"
+msgstr "Pulsos por compás"
+
+msgid "Browse for an Existing Project"
+msgstr "Bota un vistazo a un proxecto xa existente"
+
+#, fuzzy
 #~ msgid "Add Instrument"
-#~ msgstr "Engade instrumento"
+#~ msgstr "Engade un instrumento"
 
+#, fuzzy
 #~ msgid "Add a new instrument"
-#~ msgstr "Engade un novo instrumento"
+#~ msgstr "Engade un instrumento"
 
+#, fuzzy
 #~ msgid "Add a new step:"
-#~ msgstr "Engade un novo grao"
-
-#~ msgid "Add this step to the current mixdown"
-#~ msgstr "engade este grao á mestura en uso"
-
-#~ msgid "Audio production made simple."
-#~ msgstr "Producción de audio facilitada"
-
-#~ msgid "Author"
-#~ msgstr "Autor/a"
-
-#~ msgid "Beat value"
-#~ msgstr "tempo"
-
-#~ msgid "Beats per measure"
-#~ msgstr "Pulsos por compás"
-
-#~ msgid "Browse for an Existing Project"
-#~ msgstr "Bota un vistazo a un proxecto xa existente"
+#~ msgstr "Engade un instrumento"
 
 #~ msgid "Create a New Project"
 #~ msgstr "Crear un novo proxecto"

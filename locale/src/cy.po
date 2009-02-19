@@ -3,7 +3,6 @@
 # This file is distributed under the same license as the jokosher package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2006.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: jokosher\n"
@@ -15,7 +14,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Rosetta-Export-Date: 2007-04-27 17:18:21+0000\n"
+"X-Launchpad-Export-Date: 2009-02-18 04:36+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
 
 #: ../../Jokosher/Jokosher.glade.h:1
 msgid "<b>Active effects for: </b>"
@@ -1359,7 +1359,7 @@ msgid ""
 "org/download."
 msgstr ""
 "Mae angen yr elfen hollti sianeli GStreamer i allu recordio o nifer o "
-"ddefeisiau mewnbwn. Mae'n bosib lawrlwytho hyn o\r\n"
+"ddefeisiau mewnbwn. Mae'n bosib lawrlwytho hyn o\n"
 "http://www.jokosher.org/download."
 
 #: ../../Jokosher/JokosherApp.py:676
@@ -2018,8 +2018,9 @@ msgstr "Llaisiol"
 #~ msgid "_Save these settings"
 #~ msgstr "_Arbed y gosodiadau hyn"
 
+#, fuzzy
 #~ msgid "version 0.10"
-#~ msgstr "fersiwn 0.10"
+#~ msgstr "fersiwn 0.9"
 
 #~ msgid "_Paste"
 #~ msgstr "_Gludo"
@@ -2031,9 +2032,7 @@ msgstr "Llaisiol"
 #~ msgstr "Gweithio'n bresennol yn y man Cymysgu"
 
 #~ msgid "%(progress)d of %(total)d seconds completed"
-#~ msgstr ""
-#~ "Copy text   \t\r\n"
-#~ "%(progress)d o %(total)d o eiliadau wedi'i cyflawni"
+#~ msgstr "%(progress)d o %(total)d o eiliadau wedi'i cyflawni"
 
 #~ msgid "_Mixdown as"
 #~ msgstr "_Lawrgymysgu fel"
@@ -2384,4 +2383,24 @@ msgstr "Llaisiol"
 #~ msgstr "Lefel Sain: %.2f"
 
 #~ msgid "translator-credits"
-#~ msgstr "clodau-cyfieithwyr"
+#~ msgstr ""
+#~ "clodau-cyfieithwyr\n"
+#~ "\n"
+#~ "Launchpad Contributions:\n"
+#~ "  Iestyn Pryce https://launchpad.net/~dylunio"
+
+#~ msgid "Files Saves As"
+#~ msgstr "Cadw Ffeiliau Fel"
+
+#~ msgid ""
+#~ "No channels capable of recording have found, please attach a device and "
+#~ "try again."
+#~ msgstr ""
+#~ "Does dim sianeli sy'n gallu recordio wedi ei ddarganfod, cysylltwch y "
+#~ "dyfais eto os gwelwch yn dda."
+
+#~ msgid "The uri scheme '%s' is either invalid or not supported."
+#~ msgstr "Mae cynllun uri '%s' yn annilys neu ddim yn gynhaliol."
+
+#~ msgid "The uri scheme given is either invalid or not supported"
+#~ msgstr "Mae'r cynllun uri a rhoddwyd yn annilys neu heb ei gynal."

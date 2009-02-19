@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-09-03 13:33-0400\n"
-"PO-Revision-Date: 2008-08-05 12:33+0000\n"
-"Last-Translator: Lorenz <LorenzLoidl@yahoo.de>\n"
+"PO-Revision-Date: 2009-01-24 12:56+0000\n"
+"Last-Translator: dauerbaustelle <Unknown>\n"
 "Language-Team: German <translation-team-de@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2008-09-03 14:41+0000\n"
+"X-Launchpad-Export-Date: 2009-02-18 04:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../../Jokosher/Jokosher.glade.h:1
@@ -51,11 +51,11 @@ msgstr "<b>Effekte</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:9
 msgid "<b>File Details</b>"
-msgstr ""
+msgstr "Datei Details"
 
 #: ../../Jokosher/Jokosher.glade.h:10
 msgid "<b>Jokosher Instruments</b>"
-msgstr ""
+msgstr "<b>Jokosher Instrumente</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:11
 msgid ""
@@ -68,15 +68,15 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:12
 msgid "<b>Location Details</b>"
-msgstr ""
+msgstr "Details des Ortes"
 
 #: ../../Jokosher/Jokosher.glade.h:13
 msgid "<b>Mixdown Actions</b>"
-msgstr ""
+msgstr "Abmischaktionen"
 
 #: ../../Jokosher/Jokosher.glade.h:14
 msgid "<b>Project Name</b>"
-msgstr ""
+msgstr "<b>Projektname</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:15
 msgid "<b>Recent Projects</b>"
@@ -92,11 +92,11 @@ msgstr "<b>Aufnahmequalität</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:18
 msgid "<b>Save Time</b>"
-msgstr ""
+msgstr "<b>Zeit speichern</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:19
 msgid "<b>Template Instruments</b>"
-msgstr ""
+msgstr "<b>Instrumentvorlagen</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:20
 msgid "<b>Testing</b>"
@@ -108,21 +108,24 @@ msgstr "<b>Zeitpunkt</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:22
 msgid "<b>_Presets for:</b>"
-msgstr ""
+msgstr "<b>_Voreinstellungen für:</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:23
 msgid "<big><b>Mixing the project...</b></big>"
-msgstr ""
+msgstr "<big><b>Das Projekt wird gemischt...</b></big>"
 
 #: ../../Jokosher/Jokosher.glade.h:24
 msgid "<big>System Information</big>"
-msgstr ""
+msgstr "<big>Systeminformationen</big>"
 
 #: ../../Jokosher/Jokosher.glade.h:25
 msgid ""
 "<i>It appears that Jokosher crashed the last time it was used, the following "
 "dialog will help you restore your projects.</i>"
 msgstr ""
+"<i>Es scheint als sei Jokosher abgestürzt, als Sie es das letzte Mal "
+"benutzten. Der folgende Dialog wird Ihnen helfen Ihre Projekte "
+"wiederherzustellen.</i>"
 
 #: ../../Jokosher/Jokosher.glade.h:26
 msgid "Activate the selected effect"
@@ -130,7 +133,7 @@ msgstr "Aktiviere den ausgewählten Effekt"
 
 #: ../../Jokosher/Jokosher.glade.h:27
 msgid "Add Action"
-msgstr ""
+msgstr "Aktion hinzufügen"
 
 #: ../../Jokosher/Jokosher.glade.h:28
 msgid "Add Audio File"
@@ -138,7 +141,7 @@ msgstr "Audiodatei hinzufügen"
 
 #: ../../Jokosher/Jokosher.glade.h:29
 msgid "Add Audio _File..."
-msgstr ""
+msgstr "Audio _Datei hinzufügen..."
 
 #: ../../Jokosher/Jokosher.glade.h:30
 msgid "Add Mixdown Action"
@@ -170,7 +173,7 @@ msgstr "Das ausgewählte Instrument hinzufügen"
 
 #: ../../Jokosher/Jokosher.glade.h:37
 msgid "Add the selected jokosher instrument"
-msgstr ""
+msgstr "Das ausgewählte Jokosher-Instrument hinzufügen"
 
 #: ../../Jokosher/Jokosher.glade.h:38
 msgid "Adjust the amount of beats per measure"
@@ -183,16 +186,20 @@ msgstr "Die Einstellungen für den aktuell ausgewählten Effekt verändern"
 #: ../../Jokosher/Jokosher.glade.h:40
 msgid "Arm an instrument then click here to begin recording"
 msgstr ""
+"Bereiten Sie ein Instrument vor und klicken Sie dann hier, um die Aufnahme "
+"zu starten"
 
 #: ../../Jokosher/Jokosher.glade.h:41
 msgid "Audio Mixers"
-msgstr ""
+msgstr "Audiomischer"
 
 #: ../../Jokosher/Jokosher.glade.h:42
 msgid ""
 "Audio production made simple.\n"
 "Version 0.10"
 msgstr ""
+"Audioproduktion leicht gemacht.\n"
+"Version 0.10"
 
 #: ../../Jokosher/Jokosher.glade.h:44
 msgid ""
@@ -206,7 +213,7 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:47
 msgid "Beat _value"
-msgstr ""
+msgstr "Takt _wert"
 
 #: ../../Jokosher/Jokosher.glade.h:48
 msgid "Beats per _measure"
@@ -242,7 +249,7 @@ msgstr "Wähle eine Vorlage für eine Effektkette"
 
 #: ../../Jokosher/Jokosher.glade.h:56
 msgid "Choose a project template"
-msgstr ""
+msgstr "Wählen Sie eine Projektvorlage"
 
 #: ../../Jokosher/Jokosher.glade.h:57
 msgid "Choose an effect preset."
@@ -272,11 +279,11 @@ msgstr "Den Erweiterungs-Manager schließen"
 
 #: ../../Jokosher/Jokosher.glade.h:63
 msgid "Close this window"
-msgstr ""
+msgstr "Dieses Fenster schließen"
 
 #: ../../Jokosher/Jokosher.glade.h:64
 msgid "Configure Export File Action"
-msgstr ""
+msgstr "Dateiexport konfigurieren"
 
 #: ../../Jokosher/Jokosher.glade.h:65
 msgid "Configure Instrument Effects"
@@ -292,7 +299,7 @@ msgstr "Ein neues Projekt erstellen"
 
 #: ../../Jokosher/Jokosher.glade.h:68
 msgid "Create project template from instruments in current project"
-msgstr ""
+msgstr "Aus den Instrumenten dieses Projektes eine Projektvorlage erstellen"
 
 #: ../../Jokosher/Jokosher.glade.h:69
 msgid "Create the project"
@@ -304,7 +311,7 @@ msgstr "Die aktuelle Auswahl ausschneiden"
 
 #: ../../Jokosher/Jokosher.glade.h:71
 msgid "D_evice:"
-msgstr ""
+msgstr "_Gerät:"
 
 #: ../../Jokosher/Jokosher.glade.h:72
 msgid "Deactivate the currently selected active effect"
@@ -324,11 +331,11 @@ msgstr "Aktive Voreinstellung löschen"
 
 #: ../../Jokosher/Jokosher.glade.h:76
 msgid "Delete the selected project template"
-msgstr ""
+msgstr "Ausgewählte Projektvorlage löschen"
 
 #: ../../Jokosher/Jokosher.glade.h:77
 msgid "Distribution:"
-msgstr ""
+msgstr "Distribution:"
 
 #: ../../Jokosher/Jokosher.glade.h:78
 msgid "Don't add an instrument"
@@ -361,7 +368,7 @@ msgstr "Jokosher-Einstellungen ändern"
 
 #: ../../Jokosher/Jokosher.glade.h:85
 msgid "Edit project templates"
-msgstr ""
+msgstr "Projektvorlage bearbeiten"
 
 #: ../../Jokosher/Jokosher.glade.h:86
 msgid ""
@@ -388,15 +395,15 @@ msgstr "Das aktuelle Projekt in eine Audiodatei exportieren"
 
 #: ../../Jokosher/Jokosher.glade.h:91
 msgid "Export to local directory"
-msgstr ""
+msgstr "In Verzeichnis exportieren"
 
 #: ../../Jokosher/Jokosher.glade.h:92
 msgid "Export to remote server"
-msgstr ""
+msgstr "Auf Server exportieren"
 
 #: ../../Jokosher/Jokosher.glade.h:93
 msgid "File name:"
-msgstr ""
+msgstr "Dateiname:"
 
 #: ../../Jokosher/Jokosher.glade.h:94
 msgid "Find and open an existing project"
@@ -408,11 +415,11 @@ msgstr "Finde heraus, wie du mithelfen kannst"
 
 #: ../../Jokosher/Jokosher.glade.h:96
 msgid "GStreamer version:"
-msgstr ""
+msgstr "Gstreamerversion:"
 
 #: ../../Jokosher/Jokosher.glade.h:97
 msgid "Gnonlin version:"
-msgstr ""
+msgstr "Gnonlinversion:"
 
 #: ../../Jokosher/Jokosher.glade.h:99
 msgid ""
@@ -541,7 +548,6 @@ msgid "Jokosher"
 msgstr "Jokosher"
 
 #: ../../Jokosher/Jokosher.glade.h:160
-#, fuzzy
 msgid "Listen to these effects"
 msgstr "Diese Effekte anhören"
 
@@ -551,7 +557,7 @@ msgstr "Instrumente Soundkarten-Eingängen zuordnen"
 
 #: ../../Jokosher/Jokosher.glade.h:162
 msgid "Mixdown Profile:"
-msgstr ""
+msgstr "Mischerprofil"
 
 #: ../../Jokosher/Jokosher.glade.h:163 ../../Jokosher/JokosherApp.py:628
 msgid "Mixdown Project"
@@ -579,11 +585,11 @@ msgstr "Neues Projekt"
 
 #: ../../Jokosher/Jokosher.glade.h:169
 msgid "New..."
-msgstr ""
+msgstr "Neu..."
 
 #: ../../Jokosher/Jokosher.glade.h:170
 msgid "O_utput:"
-msgstr ""
+msgstr "A_usgabe:"
 
 #: ../../Jokosher/Jokosher.glade.h:171
 msgid "Open a recent project"
@@ -599,7 +605,7 @@ msgstr "Erweiterungs-Manager öffnen"
 
 #: ../../Jokosher/Jokosher.glade.h:174
 msgid "Open..."
-msgstr ""
+msgstr "Öffnen..."
 
 #: ../../Jokosher/Jokosher.glade.h:175
 msgid "Paste the contents of the clipboard"
@@ -610,6 +616,8 @@ msgid ""
 "Please enter the filename of the audio you wish to export. The audio will be "
 "exported to the location specified."
 msgstr ""
+"Bitte geben Sie den Dateinamen der Audiodatei ein, die Sie exportieren "
+"wollen. Die Audiodatei wird an diesen Ort exportiert werden."
 
 #: ../../Jokosher/Jokosher.glade.h:177
 msgid ""
@@ -626,10 +634,16 @@ msgid ""
 "<b>Warning:</b> Restoring a project from a backup will overwrite the "
 "currently saved version."
 msgstr ""
+"Bitte wählen Sie die Projekte aus der Liste aus, die Sie wiederherstellen "
+"möchten. Falls Sie jetzt kein Projekt wiederherstellen möchten, können Sie "
+"dies später unter <b>Datei -> Projekt wiederhestellen..</b> tun.\n"
+"\n"
+"<b>Warnung:</b> Das Wiederherstellen eines Projekts von einer "
+"Sicherungskopie wird die zur Zeit gespeicherte Version überschreiben."
 
 #: ../../Jokosher/Jokosher.glade.h:181
 msgid "Project Templates"
-msgstr ""
+msgstr "Projektvorlagen"
 
 #: ../../Jokosher/Jokosher.glade.h:182
 msgid "Quit Jokosher"
@@ -657,11 +671,11 @@ msgstr "Einen Fehler in Jokosher melden"
 
 #: ../../Jokosher/Jokosher.glade.h:188
 msgid "Restore Crashed Project"
-msgstr ""
+msgstr "Abgestürztes Projekt wiederherstellen"
 
 #: ../../Jokosher/Jokosher.glade.h:189
 msgid "Save As..."
-msgstr ""
+msgstr "Speichern unter..."
 
 #: ../../Jokosher/Jokosher.glade.h:190
 msgid "Save a copy of the current project"
@@ -689,7 +703,7 @@ msgstr "Aktive Effekte als Voreinstellungen speichern"
 
 #: ../../Jokosher/Jokosher.glade.h:196
 msgid "Save the selected project template"
-msgstr ""
+msgstr "Ausgewählte Projektvorlage speichern"
 
 #: ../../Jokosher/Jokosher.glade.h:197
 msgid "Save your selections and close this window"
@@ -745,7 +759,7 @@ msgstr "Wiedergabe stoppen"
 
 #: ../../Jokosher/Jokosher.glade.h:210
 msgid "System Information"
-msgstr ""
+msgstr "Systeminformationen"
 
 #: ../../Jokosher/Jokosher.glade.h:211
 msgid "Testing Jokosher, and submitting bugs."
@@ -801,23 +815,23 @@ msgstr "Einfache Dokumentation schreiben"
 
 #: ../../Jokosher/Jokosher.glade.h:224
 msgid "Your music file is being mixed. This can take some seconds."
-msgstr ""
+msgstr "Ihre Musikdatei wird gemsicht. Dies kann einige Sekunden dauern."
 
 #: ../../Jokosher/Jokosher.glade.h:225
 msgid "_Add Instrument..."
-msgstr ""
+msgstr "_Instrument hinzufügen..."
 
 #: ../../Jokosher/Jokosher.glade.h:226
 msgid "_Author:"
-msgstr ""
+msgstr "_Autor:"
 
 #: ../../Jokosher/Jokosher.glade.h:227
 msgid "_Browse for an Existing Project"
-msgstr ""
+msgstr "_Nach einem Projekt suchen"
 
 #: ../../Jokosher/Jokosher.glade.h:228
 msgid "_Change Instrument Type..."
-msgstr ""
+msgstr "_Instrumentent-Typ ändern"
 
 #: ../../Jokosher/Jokosher.glade.h:229
 msgid "_Contributing to Jokosher"
@@ -825,19 +839,19 @@ msgstr "Jokosher unterstützen"
 
 #: ../../Jokosher/Jokosher.glade.h:230
 msgid "_Create Project Template"
-msgstr ""
+msgstr "_Projektvorlage erstellen"
 
 #: ../../Jokosher/Jokosher.glade.h:231
 msgid "_Create a New Project"
-msgstr ""
+msgstr "_Neues Projekt erstellen"
 
 #: ../../Jokosher/Jokosher.glade.h:232
 msgid "_Don't open anything"
-msgstr ""
+msgstr "_Nichts öffnen"
 
 #: ../../Jokosher/Jokosher.glade.h:233
 msgid "_Don't show this on start-up"
-msgstr ""
+msgstr "_Dies nicht beim Start zeigen"
 
 #: ../../Jokosher/Jokosher.glade.h:234
 msgid "_Edit"
@@ -849,7 +863,7 @@ msgstr "_Datei"
 
 #: ../../Jokosher/Jokosher.glade.h:236
 msgid "_Folder:"
-msgstr ""
+msgstr "_Ordner:"
 
 #: ../../Jokosher/Jokosher.glade.h:237
 msgid "_Help"
@@ -861,15 +875,15 @@ msgstr "_Instrument"
 
 #: ../../Jokosher/Jokosher.glade.h:239
 msgid "_Manage Extensions..."
-msgstr ""
+msgstr "_Erweiterungen verwalten"
 
 #: ../../Jokosher/Jokosher.glade.h:240
 msgid "_Mixdown"
-msgstr ""
+msgstr "_Mischen"
 
 #: ../../Jokosher/Jokosher.glade.h:241 ../../Jokosher/JokosherApp.py:2025
 msgid "_Mixdown Project..."
-msgstr ""
+msgstr "Projekt _abmischen"
 
 #: ../../Jokosher/Jokosher.glade.h:242
 msgid "_Online Forums"
@@ -877,11 +891,11 @@ msgstr "_Online Foren"
 
 #: ../../Jokosher/Jokosher.glade.h:243
 msgid "_Open Selected Project"
-msgstr ""
+msgstr "Ausgewähltes Projekt _öffnen"
 
 #: ../../Jokosher/Jokosher.glade.h:244
 msgid "_Open most recent project"
-msgstr ""
+msgstr "Letztes Projekt _öffnen"
 
 #: ../../Jokosher/Jokosher.glade.h:245
 msgid "_Pipeline:"
@@ -889,7 +903,7 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:246
 msgid "_Preferences"
-msgstr ""
+msgstr "_Einstellungen"
 
 #: ../../Jokosher/Jokosher.glade.h:247
 msgid "_Project"
@@ -897,7 +911,7 @@ msgstr "_Projekt"
 
 #: ../../Jokosher/Jokosher.glade.h:248
 msgid "_Project Name:"
-msgstr ""
+msgstr "_Projektname"
 
 #: ../../Jokosher/Jokosher.glade.h:249
 msgid "_Recent Projects"
@@ -905,36 +919,35 @@ msgstr "_Letzte Projekte"
 
 #: ../../Jokosher/Jokosher.glade.h:250
 msgid "_Recording Inputs..."
-msgstr ""
+msgstr "_Aufnahmeeingänge"
 
 #: ../../Jokosher/Jokosher.glade.h:251
 msgid "_Remove Selected Instrument"
-msgstr ""
+msgstr "_Ausgewähltes Instrument entfernen"
 
 #: ../../Jokosher/Jokosher.glade.h:252
-#, fuzzy
 msgid "_Report Bug..."
 msgstr "_Fehler melden..."
 
 #: ../../Jokosher/Jokosher.glade.h:253
 msgid "_Restore Crashed Project..."
-msgstr ""
+msgstr "_Abgestürztes Projekt wiederherstellen..."
 
 #: ../../Jokosher/Jokosher.glade.h:254
 msgid "_Search:"
-msgstr ""
+msgstr "_Suchen:"
 
 #: ../../Jokosher/Jokosher.glade.h:255
 msgid "_Show welcome dialog"
-msgstr ""
+msgstr "_Willenkommensdialog zeigen"
 
 #: ../../Jokosher/Jokosher.glade.h:256
 msgid "_System Information"
-msgstr ""
+msgstr "_Systeminformationen"
 
 #: ../../Jokosher/Jokosher.glade.h:257
 msgid "_Template Name:"
-msgstr ""
+msgstr "_Vorlagenname"
 
 #: ../../Jokosher/Jokosher.glade.h:258
 msgid "_Time Format"
@@ -942,7 +955,7 @@ msgstr "Zei_t Format"
 
 #: ../../Jokosher/Jokosher.glade.h:259
 msgid "_Use project template"
-msgstr ""
+msgstr "_Projektvorlage benutzen"
 
 #: ../../Jokosher/Jokosher.glade.h:260
 msgid "autoaudiosink"
@@ -950,7 +963,7 @@ msgstr "autoaudiosink"
 
 #: ../../Jokosher/Jokosher.glade.h:261
 msgid "xx.xx.xx"
-msgstr ""
+msgstr "xx.xx.xx"
 
 #: ../../Jokosher/AddInstrumentDialog.py:61
 msgid "Change Instrument Type"
@@ -997,16 +1010,16 @@ msgstr "Effekte"
 #: ../../Jokosher/CrashProtectionDialog.py:79
 #: ../../Jokosher/CrashProtectionDialog.py:138
 msgid "Restore"
-msgstr ""
+msgstr "Wiederherstellen"
 
 #: ../../Jokosher/CrashProtectionDialog.py:101
 msgid "There are currently no crashed projects to restore."
-msgstr ""
+msgstr "Es gibt zur Zeit keine wiederherstellbarten Projekte."
 
 #: ../../Jokosher/CrashProtectionDialog.py:110
 #, python-format
 msgid "Are you sure you wish to delete the backup for %s?"
-msgstr ""
+msgstr "Sind Sie sicher, dass Sie die Sicherung von %s löschen möchten?"
 
 #: ../../Jokosher/CrashProtectionDialog.py:132
 #, python-format
@@ -1014,6 +1027,8 @@ msgid ""
 "The project (%s) has been modified more recently than this backup. Are you "
 "certain you wish to restore it?"
 msgstr ""
+"Das Projekt (%s) wurde nach dieser Sicherung bereits verändert. Sind Sie "
+"sicher, dass Sie es wiederherstellen möchten?"
 
 #: ../../Jokosher/Event.py:765
 #, python-format
@@ -1073,6 +1088,8 @@ msgstr ""
 #: ../../Jokosher/EventViewer.py:524
 msgid "<b>Drag</b> the red sliders to modify the volume fade."
 msgstr ""
+"<b>Schieben</b> Sie die roten Regler, um das Ausblenden der Lautstärke zu "
+"ändern."
 
 #: ../../Jokosher/EventViewer.py:637
 msgid ""
@@ -1238,7 +1255,6 @@ msgid "Phasers"
 msgstr "Phaser"
 
 #: ../../Jokosher/Globals.py:456
-#, fuzzy
 msgid "Reverbs"
 msgstr "Hall"
 
@@ -1259,7 +1275,7 @@ msgid "Default"
 msgstr "Vorgaben"
 
 #: ../../Jokosher/InstrumentConnectionsDialog.py:118
-#, fuzzy, python-format
+#, python-format
 msgid "%(device)s input %(input)d"
 msgstr "%(device)s Eingang %(input)d"
 
@@ -1311,11 +1327,11 @@ msgstr ""
 
 #: ../../Jokosher/JokosherApp.py:67
 msgid "Hide the audio level mixers"
-msgstr ""
+msgstr "Mischer für Audiopegel verstecken"
 
 #: ../../Jokosher/JokosherApp.py:68
 msgid "Show the audio level mixers"
-msgstr ""
+msgstr "Mischer für Audiopegel zeigen"
 
 #: ../../Jokosher/JokosherApp.py:414
 #, python-format
@@ -1340,7 +1356,7 @@ msgstr ""
 "Bitte besuche %s."
 
 #: ../../Jokosher/JokosherApp.py:457
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The instruments '%(name1)s' and '%(name2)s' both have the same input "
 "selected (%(track)s). Please either disarm one, or connect it to a different "
@@ -1351,13 +1367,12 @@ msgstr ""
 "Verbindung durch 'Projekt -> Aufnahme Inputs' ein."
 
 #: ../../Jokosher/JokosherApp.py:498
-#, fuzzy
 msgid ""
 "No channels capable of recording have been found, please attach a device and "
 "try again."
 msgstr ""
-"Es wurden keine Kanäle gefunden, mit denen eine Aufnahme möglich wäre. Bitte "
-"schließe ein Gerät an und versuche es erneut."
+"Es wurden keine aufnahmefähigen Kanäle gefunden. Bitte schließen Sie ein "
+"Gerät an und versuchen Sie es erneut."
 
 #: ../../Jokosher/JokosherApp.py:500
 msgid ""
@@ -1384,7 +1399,7 @@ msgstr "Abmischen vorbereiten"
 #: ../../Jokosher/JokosherApp.py:682
 #, python-format
 msgid "%(progress)d%% of %(total)d seconds completed"
-msgstr ""
+msgstr "%(progress)d%% von %(total)d Sekunden fertig"
 
 #: ../../Jokosher/JokosherApp.py:754
 msgid "Choose a Jokosher project file"
@@ -1420,9 +1435,9 @@ msgid "Close _Without Saving"
 msgstr "Schließen _ohne zu speichern"
 
 #: ../../Jokosher/JokosherApp.py:1009
-#, fuzzy, python-format
+#, python-format
 msgid "Mixing project to file: %s"
-msgstr "Mixe Projekt in Datei %s"
+msgstr "Mische Projekt in Datei: %s"
 
 #: ../../Jokosher/JokosherApp.py:1040
 msgid "Argh! Something went wrong and a serious error occurred:"
@@ -1518,38 +1533,39 @@ msgid "<big>Couldn't launch the Yelp help browser.</big>"
 msgstr "<big>Konnte das Yelp Hilfeprogramm nicht starten.</big>"
 
 #: ../../Jokosher/JokosherApp.py:1695
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "<big>Couldn't launch the forums website automatically.</big>\n"
 "\n"
 "Please visit %s to access them."
 msgstr ""
-"<big>Konnte die Webforen nicht automatisch laden.</big>\n"
+"<big>Konnte die Internetseite des Forums nicht automatisch laden.</big>\n"
 "\n"
-"Sie können die Foren unter %s erreichen."
+"Sie können diese unter %s erreichen."
 
 #: ../../Jokosher/JokosherApp.py:1723
 msgid "<b>To find out more, visit:</b>"
 msgstr "<b>Um mehr zu erfahren besuche:</b>"
 
 #: ../../Jokosher/JokosherApp.py:1746
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "<big>Couldn't launch the contributing website automatically.</big>\n"
 "\n"
 "Please visit %s to access it."
 msgstr ""
-"<big>Konnte die Webseite nicht automatisch laden.</big>\n"
+"<big>Konnte die Internetseite für Beitragende nicht automatisch laden.</"
+"big>\n"
 "\n"
-"Bitte besuche %s."
+"Sie können diese unter %s erreichen."
 
 #: ../../Jokosher/JokosherApp.py:1801
 msgid "Gnonlin is missing!"
-msgstr ""
+msgstr "Die Gnonlin Bibliothek fehlt!"
 
 #: ../../Jokosher/JokosherApp.py:1808
 msgid "Unknown"
-msgstr ""
+msgstr "unbekannt"
 
 #: ../../Jokosher/JokosherApp.py:1838
 #, python-format
@@ -1608,11 +1624,11 @@ msgstr "Lautstärkeregelung:"
 
 #: ../../Jokosher/MixdownActions.py:157
 msgid "Export File"
-msgstr ""
+msgstr "Datei exportieren"
 
 #: ../../Jokosher/MixdownActions.py:158
 msgid "Export a file to the destination of your choosing."
-msgstr ""
+msgstr "Eine Datei an einen Ort Ihrer Wahl exportieren"
 
 #: ../../Jokosher/MixdownActions.py:225
 #, python-format
@@ -1621,48 +1637,51 @@ msgid ""
 "Please make sure all the plugins required for the specified format are "
 "installed."
 msgstr ""
+"Ein Plugin zum Enkodieren konnte nicht gefunden werden: %s.\n"
+"Stellen Sie sicher, dass alle Plugins für das gewählte Aufnahmeformat "
+"installiert sind."
 
 #: ../../Jokosher/MixdownActions.py:227
 #, python-format
 msgid "The encoding bin description is invalid: %s"
-msgstr ""
+msgstr "Die bin-Beschreibung des Enkoders ist ungültig: %s"
 
 #: ../../Jokosher/MixdownActions.py:253
 msgid "Server type:"
-msgstr ""
+msgstr "Servertyp"
 
 #: ../../Jokosher/MixdownActions.py:266
 msgid "Server location:"
-msgstr ""
+msgstr "Serverstandort"
 
 #: ../../Jokosher/MixdownActions.py:270
 msgid "Username:"
-msgstr ""
+msgstr "Benutzername:"
 
 #: ../../Jokosher/MixdownActions.py:274
 msgid "Password:"
-msgstr ""
+msgstr "Passwort:"
 
 #: ../../Jokosher/MixdownActions.py:310
 msgid "Location:"
-msgstr ""
+msgstr "Standort:"
 
 #: ../../Jokosher/MixdownActions.py:378
 msgid "Select Export Location"
-msgstr ""
+msgstr "Ort für den Export auswählen"
 
 #: ../../Jokosher/MixdownActions.py:489 ../../Jokosher/MixdownActions.py:499
 msgid "Run External Script"
-msgstr ""
+msgstr "Externes Skript benutzen"
 
 #: ../../Jokosher/MixdownActions.py:490
 msgid "Run an external script from the destination of your choosing."
-msgstr ""
+msgstr "Benutzen Sie ein externes Skript von einem Ort Ihrer Wahl."
 
 #: ../../Jokosher/MixdownActions.py:531
 #, python-format
 msgid "An error occured with the script %s"
-msgstr ""
+msgstr "Mit dem Skript %s ist ein Fehler aufgetreten"
 
 #: ../../Jokosher/MixdownActions.py:533
 #, python-format
@@ -1672,45 +1691,48 @@ msgstr "Fehler im Skript %s"
 #: ../../Jokosher/MixdownActions.py:536
 #, python-format
 msgid "The script %s does not exist."
-msgstr ""
+msgstr "Das Skript %s existiert nicht."
 
 #: ../../Jokosher/MixdownProfileDialog.py:186
 #, python-format
 msgid "<b>%s is configured</b>"
-msgstr ""
+msgstr "<b>%s ist konfiguriert</b>"
 
 #: ../../Jokosher/MixdownProfileDialog.py:188
 #, python-format
 msgid "<b>%s is not configured</b>"
-msgstr ""
+msgstr "<b>%s ist nicht konfiguriert</b>"
 
 #: ../../Jokosher/MixdownProfileDialog.py:367
 msgid "Please enter the name of the mixdown profile you wish to create."
 msgstr ""
+"Bitte geben Sie den Namen des Mischerprofils, das Sie erstellen möchten, ein."
 
 #: ../../Jokosher/MixdownProfileDialog.py:377
 msgid "Profile name:"
-msgstr ""
+msgstr "Profilname"
 
 #: ../../Jokosher/MixdownProfileDialog.py:380
 msgid "Create Mixdown Profile"
-msgstr ""
+msgstr "Mischerprofil erstellen"
 
 #: ../../Jokosher/MixdownProfileDialog.py:398
 #, python-format
 msgid "Successfully created mixdown profile <b>%s.profile</b>."
-msgstr ""
+msgstr "Mischerprofil <b>%s.profile</b> wurde erfolgreich erstellt."
 
 #: ../../Jokosher/MixdownProfileDialog.py:402
 msgid ""
 "Cannot create mixdown profile. Please make sure you have specified a profile "
 "name."
 msgstr ""
+"Kann Mischerprofil nicht erstellen. Stellen Sie sicher, dass Sie einen "
+"Profilnamen eingegeben haben."
 
 #: ../../Jokosher/MixdownProfileDialog.py:423
 #, python-format
 msgid "Please make sure the extension <b>%s</b> is enabled."
-msgstr ""
+msgstr "Stellen Sie sicher, dass die Erweiterung <b>%s</b> aktiviert ist."
 
 #: ../../Jokosher/MixdownProfileDialog.py:424
 #, python-format
@@ -1719,15 +1741,18 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"<big><b>Kann Mischeraktion %s nicht laden.</b></big>\n"
+"\n"
+"%s"
 
 #: ../../Jokosher/MixdownProfileDialog.py:552
 #, python-format
 msgid "An error occured while running the mixdown action: %s"
-msgstr ""
+msgstr "Beim Abmischschritt %s ist ein Fehler aufgetreten."
 
 #: ../../Jokosher/MixdownProfileDialog.py:617
 msgid "Icon"
-msgstr ""
+msgstr "Icon"
 
 #: ../../Jokosher/MixdownProfileDialog.py:632
 #, python-format
@@ -1735,16 +1760,18 @@ msgid ""
 "Please select the mixdown actions you would like to add to mixdown profile "
 "<b>%s.</b>"
 msgstr ""
+"Bitte wählen Sie die Abmischschritte die Sie Ihrem Mischprofil hinzufügen "
+"möchten <b>%s.</b>"
 
 #: ../../Jokosher/MixdownProfiles.py:94 ../../Jokosher/MixdownProfiles.py:151
 #, python-format
 msgid "The mixdown profile %s does not exist"
-msgstr ""
+msgstr "Das Mischprofil %s existiert nicht."
 
 #: ../../Jokosher/MixdownProfiles.py:115
 #, python-format
 msgid "Cannot remove mixdown profile %s"
-msgstr ""
+msgstr "Kann Mischprofil %s nicht entfernen"
 
 #: ../../Jokosher/MixerStrip.py:64
 msgid "Minimize instrument"
@@ -1763,7 +1790,6 @@ msgid "R"
 msgstr "R"
 
 #: ../../Jokosher/MixerStrip.py:86
-#, fuzzy
 msgid "Adjust instrument balance. Right-click to center"
 msgstr "Instrumenten Balance einstellen. Zum Zentrieren recktsklicken."
 
@@ -1830,37 +1856,39 @@ msgstr ""
 
 #: ../../Jokosher/PreferencesDialog.py:94
 msgid "Autodetect"
-msgstr ""
+msgstr "Automatisch erkennen"
 
 #: ../../Jokosher/ProjectTemplateDialog.py:83
 #: ../../Jokosher/ProjectTemplateDialog.py:87
 msgid "Instrument Name"
-msgstr ""
+msgstr "Instrumentenname"
 
 #: ../../Jokosher/RecordingView.py:105
 msgid "Zoom the timeline - Right-Click to reset to the default level"
 msgstr ""
+"Vergrößern der Zeitleiste - Rechtsklick, um auf den Ausgangswert "
+"zurückzukehren."
 
 #: ../../Jokosher/RecordingView.py:114
 msgid "Zoom in timeline"
-msgstr ""
+msgstr "Vergrößern der Zeitleiste"
 
 #: ../../Jokosher/RecordingView.py:121
 msgid "Zoom out timeline"
-msgstr ""
+msgstr "Verkleinerung der Zeitleiste"
 
 #: ../../Jokosher/TimeLine.py:512
-#, fuzzy, python-format
+#, python-format
 msgid "Timeline, %(bars)d bars, %(beats)d beats and %(ticks)d ticks in"
-msgstr "Zeitlinie, %(bars)d Bars, %(beats)d Beats und %(ticks)d Ticks in"
+msgstr "Zeitleiste, %(bars)d Striche, %(beats)d Takte und %(ticks)d Ticks in"
 
 #: ../../Jokosher/TimeLine.py:516
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Timeline, %(hours)d hours, %(mins)d minutes, %(secs)d seconds and %(millis)d "
 "milliseconds in"
 msgstr ""
-"Zeitstreifen, %(hours)d Stunden, %(mins)d Minuten, %(secs)d Sekunden und %"
+"Zeitleiste, %(hours)d Stunden, %(mins)d Minuten, %(secs)d Sekunden und %"
 "(millis)d Millisekunden in"
 
 #: ../../Jokosher/TimeLineBar.py:58 ../../Jokosher/TimeLineBar.py:226
@@ -1888,6 +1916,8 @@ msgid ""
 "<b>Drag</b> the <b>slider</b> to alter volume levels - <b>Right-Click</b> to "
 "set the <b>slider</b> to 100%"
 msgstr ""
+"<b>Schieben</b> Sie den <b>Regler</b> um die Lautstärkepegel zu ändern - "
+"<b>Rechtsklick</b> um den <b>Regler</b> auf 100% zu setzen"
 
 #: ../../Jokosher/Jokosher:66
 msgid "Print debug output to stdout"
@@ -1898,11 +1928,8 @@ msgid "Sent debug output to Gstreamer's debug system"
 msgstr "Debugausgabe zum Gstreamer Debug System schicken"
 
 #: ../../Jokosher/Jokosher:70
-#, fuzzy
 msgid "Don't load extensions or last project on startup (same as -ne)"
-msgstr ""
-"Erweiterungen oder letzte Projekte beim Start nicht laden (gleich wei bei -"
-"ne)"
+msgstr "Weder Erweiterungen noch das letzte Projekt laden (entspricht -ne)"
 
 #: ../../Jokosher/Jokosher:72
 msgid "Force the welcome dialog to show on startup"
@@ -1988,891 +2015,18 @@ msgstr "Geige"
 msgid "Vocal"
 msgstr "Sprache/Gesang"
 
+msgid "Add this step to the current mixdown"
+msgstr "Diesen Arbeitsschritt zum aktuellen Mix hinzufügen"
+
+msgid "Pipeline:"
+msgstr "Warteschlange:"
+
 #, fuzzy
-#~ msgid ""
-#~ "    GNU GENERAL PUBLIC LICENSE\n"
-#~ "\t\t       Version 2, June 1991\n"
-#~ "\n"
-#~ " Copyright (C) 1989, 1991 Free Software Foundation, Inc.\n"
-#~ "                 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, "
-#~ "USA\n"
-#~ " Everyone is permitted to copy and distribute verbatim copies\n"
-#~ " of this license document, but changing it is not allowed.\n"
-#~ "\n"
-#~ "NOTE: There is a license exception at the bottom of this document.\n"
-#~ "\n"
-#~ "\t\t\t    Preamble\n"
-#~ "\n"
-#~ "  The licenses for most software are designed to take away your\n"
-#~ "freedom to share and change it.  By contrast, the GNU General Public\n"
-#~ "License is intended to guarantee your freedom to share and change free\n"
-#~ "software--to make sure the software is free for all its users.  This\n"
-#~ "General Public License applies to most of the Free Software\n"
-#~ "Foundation's software and to any other program whose authors commit to\n"
-#~ "using it.  (Some other Free Software Foundation software is covered by\n"
-#~ "the GNU Library General Public License instead.)  You can apply it to\n"
-#~ "your programs, too.\n"
-#~ "\n"
-#~ "  When we speak of free software, we are referring to freedom, not\n"
-#~ "price.  Our General Public Licenses are designed to make sure that you\n"
-#~ "have the freedom to distribute copies of free software (and charge for\n"
-#~ "this service if you wish), that you receive source code or can get it\n"
-#~ "if you want it, that you can change the software or use pieces of it\n"
-#~ "in new free programs; and that you know you can do these things.\n"
-#~ "\n"
-#~ "  To protect your rights, we need to make restrictions that forbid\n"
-#~ "anyone to deny you these rights or to ask you to surrender the rights.\n"
-#~ "These restrictions translate to certain responsibilities for you if you\n"
-#~ "distribute copies of the software, or if you modify it.\n"
-#~ "\n"
-#~ "  For example, if you distribute copies of such a program, whether\n"
-#~ "gratis or for a fee, you must give the recipients all the rights that\n"
-#~ "you have.  You must make sure that they, too, receive or can get the\n"
-#~ "source code.  And you must show them these terms so they know their\n"
-#~ "rights.\n"
-#~ "\n"
-#~ "  We protect your rights with two steps: (1) copyright the software, and\n"
-#~ "(2) offer you this license which gives you legal permission to copy,\n"
-#~ "distribute and/or modify the software.\n"
-#~ "\n"
-#~ "  Also, for each author's protection and ours, we want to make certain\n"
-#~ "that everyone understands that there is no warranty for this free\n"
-#~ "software.  If the software is modified by someone else and passed on, we\n"
-#~ "want its recipients to know that what they have is not the original, so\n"
-#~ "that any problems introduced by others will not reflect on the original\n"
-#~ "authors' reputations.\n"
-#~ "\n"
-#~ "  Finally, any free program is threatened constantly by software\n"
-#~ "patents.  We wish to avoid the danger that redistributors of a free\n"
-#~ "program will individually obtain patent licenses, in effect making the\n"
-#~ "program proprietary.  To prevent this, we have made it clear that any\n"
-#~ "patent must be licensed for everyone's free use or not licensed at all.\n"
-#~ "\n"
-#~ "  The precise terms and conditions for copying, distribution and\n"
-#~ "modification follow.\n"
-#~ "\n"
-#~ "\t\t    GNU GENERAL PUBLIC LICENSE\n"
-#~ "   TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION\n"
-#~ "\n"
-#~ "  0. This License applies to any program or other work which contains\n"
-#~ "a notice placed by the copyright holder saying it may be distributed\n"
-#~ "under the terms of this General Public License.  The \"Program\", below,\n"
-#~ "refers to any such program or work, and a \"work based on the Program\"\n"
-#~ "means either the Program or any derivative work under copyright law:\n"
-#~ "that is to say, a work containing the Program or a portion of it,\n"
-#~ "either verbatim or with modifications and/or translated into another\n"
-#~ "language.  (Hereinafter, translation is included without limitation in\n"
-#~ "the term \"modification\".)  Each licensee is addressed as \"you\".\n"
-#~ "\n"
-#~ "Activities other than copying, distribution and modification are not\n"
-#~ "covered by this License; they are outside its scope.  The act of\n"
-#~ "running the Program is not restricted, and the output from the Program\n"
-#~ "is covered only if its contents constitute a work based on the\n"
-#~ "Program (independent of having been made by running the Program).\n"
-#~ "Whether that is true depends on what the Program does.\n"
-#~ "\n"
-#~ "  1. You may copy and distribute verbatim copies of the Program's\n"
-#~ "source code as you receive it, in any medium, provided that you\n"
-#~ "conspicuously and appropriately publish on each copy an appropriate\n"
-#~ "copyright notice and disclaimer of warranty; keep intact all the\n"
-#~ "notices that refer to this License and to the absence of any warranty;\n"
-#~ "and give any other recipients of the Program a copy of this License\n"
-#~ "along with the Program.\n"
-#~ "\n"
-#~ "You may charge a fee for the physical act of transferring a copy, and\n"
-#~ "you may at your option offer warranty protection in exchange for a fee.\n"
-#~ "\n"
-#~ "  2. You may modify your copy or copies of the Program or any portion\n"
-#~ "of it, thus forming a work based on the Program, and copy and\n"
-#~ "distribute such modifications or work under the terms of Section 1\n"
-#~ "above, provided that you also meet all of these conditions:\n"
-#~ "\n"
-#~ "    a) You must cause the modified files to carry prominent notices\n"
-#~ "    stating that you changed the files and the date of any change.\n"
-#~ "\n"
-#~ "    b) You must cause any work that you distribute or publish, that in\n"
-#~ "    whole or in part contains or is derived from the Program or any\n"
-#~ "    part thereof, to be licensed as a whole at no charge to all third\n"
-#~ "    parties under the terms of this License.\n"
-#~ "\n"
-#~ "    c) If the modified program normally reads commands interactively\n"
-#~ "    when run, you must cause it, when started running for such\n"
-#~ "    interactive use in the most ordinary way, to print or display an\n"
-#~ "    announcement including an appropriate copyright notice and a\n"
-#~ "    notice that there is no warranty (or else, saying that you provide\n"
-#~ "    a warranty) and that users may redistribute the program under\n"
-#~ "    these conditions, and telling the user how to view a copy of this\n"
-#~ "    License.  (Exception: if the Program itself is interactive but\n"
-#~ "    does not normally print such an announcement, your work based on\n"
-#~ "    the Program is not required to print an announcement.)\n"
-#~ "\n"
-#~ "These requirements apply to the modified work as a whole.  If\n"
-#~ "identifiable sections of that work are not derived from the Program,\n"
-#~ "and can be reasonably considered independent and separate works in\n"
-#~ "themselves, then this License, and its terms, do not apply to those\n"
-#~ "sections when you distribute them as separate works.  But when you\n"
-#~ "distribute the same sections as part of a whole which is a work based\n"
-#~ "on the Program, the distribution of the whole must be on the terms of\n"
-#~ "this License, whose permissions for other licensees extend to the\n"
-#~ "entire whole, and thus to each and every part regardless of who wrote "
-#~ "it.\n"
-#~ "\n"
-#~ "Thus, it is not the intent of this section to claim rights or contest\n"
-#~ "your rights to work written entirely by you; rather, the intent is to\n"
-#~ "exercise the right to control the distribution of derivative or\n"
-#~ "collective works based on the Program.\n"
-#~ "\n"
-#~ "In addition, mere aggregation of another work not based on the Program\n"
-#~ "with the Program (or with a work based on the Program) on a volume of\n"
-#~ "a storage or distribution medium does not bring the other work under\n"
-#~ "the scope of this License.\n"
-#~ "\n"
-#~ "  3. You may copy and distribute the Program (or a work based on it,\n"
-#~ "under Section 2) in object code or executable form under the terms of\n"
-#~ "Sections 1 and 2 above provided that you also do one of the following:\n"
-#~ "\n"
-#~ "    a) Accompany it with the complete corresponding machine-readable\n"
-#~ "    source code, which must be distributed under the terms of Sections\n"
-#~ "    1 and 2 above on a medium customarily used for software interchange; "
-#~ "or,\n"
-#~ "\n"
-#~ "    b) Accompany it with a written offer, valid for at least three\n"
-#~ "    years, to give any third party, for a charge no more than your\n"
-#~ "    cost of physically performing source distribution, a complete\n"
-#~ "    machine-readable copy of the corresponding source code, to be\n"
-#~ "    distributed under the terms of Sections 1 and 2 above on a medium\n"
-#~ "    customarily used for software interchange; or,\n"
-#~ "\n"
-#~ "    c) Accompany it with the information you received as to the offer\n"
-#~ "    to distribute corresponding source code.  (This alternative is\n"
-#~ "    allowed only for noncommercial distribution and only if you\n"
-#~ "    received the program in object code or executable form with such\n"
-#~ "    an offer, in accord with Subsection b above.)\n"
-#~ "\n"
-#~ "The source code for a work means the preferred form of the work for\n"
-#~ "making modifications to it.  For an executable work, complete source\n"
-#~ "code means all the source code for all modules it contains, plus any\n"
-#~ "associated interface definition files, plus the scripts used to\n"
-#~ "control compilation and installation of the executable.  However, as a\n"
-#~ "special exception, the source code distributed need not include\n"
-#~ "anything that is normally distributed (in either source or binary\n"
-#~ "form) with the major components (compiler, kernel, and so on) of the\n"
-#~ "operating system on which the executable runs, unless that component\n"
-#~ "itself accompanies the executable.\n"
-#~ "\n"
-#~ "If distribution of executable or object code is made by offering\n"
-#~ "access to copy from a designated place, then offering equivalent\n"
-#~ "access to copy the source code from the same place counts as\n"
-#~ "distribution of the source code, even though third parties are not\n"
-#~ "compelled to copy the source along with the object code.\n"
-#~ "\n"
-#~ "  4. You may not copy, modify, sublicense, or distribute the Program\n"
-#~ "except as expressly provided under this License.  Any attempt\n"
-#~ "otherwise to copy, modify, sublicense or distribute the Program is\n"
-#~ "void, and will automatically terminate your rights under this License.\n"
-#~ "However, parties who have received copies, or rights, from you under\n"
-#~ "this License will not have their licenses terminated so long as such\n"
-#~ "parties remain in full compliance.\n"
-#~ "\n"
-#~ "  5. You are not required to accept this License, since you have not\n"
-#~ "signed it.  However, nothing else grants you permission to modify or\n"
-#~ "distribute the Program or its derivative works.  These actions are\n"
-#~ "prohibited by law if you do not accept this License.  Therefore, by\n"
-#~ "modifying or distributing the Program (or any work based on the\n"
-#~ "Program), you indicate your acceptance of this License to do so, and\n"
-#~ "all its terms and conditions for copying, distributing or modifying\n"
-#~ "the Program or works based on it.\n"
-#~ "\n"
-#~ "  6. Each time you redistribute the Program (or any work based on the\n"
-#~ "Program), the recipient automatically receives a license from the\n"
-#~ "original licensor to copy, distribute or modify the Program subject to\n"
-#~ "these terms and conditions.  You may not impose any further\n"
-#~ "restrictions on the recipients' exercise of the rights granted herein.\n"
-#~ "You are not responsible for enforcing compliance by third parties to\n"
-#~ "this License.\n"
-#~ "\n"
-#~ "  7. If, as a consequence of a court judgment or allegation of patent\n"
-#~ "infringement or for any other reason (not limited to patent issues),\n"
-#~ "conditions are imposed on you (whether by court order, agreement or\n"
-#~ "otherwise) that contradict the conditions of this License, they do not\n"
-#~ "excuse you from the conditions of this License.  If you cannot\n"
-#~ "distribute so as to satisfy simultaneously your obligations under this\n"
-#~ "License and any other pertinent obligations, then as a consequence you\n"
-#~ "may not distribute the Program at all.  For example, if a patent\n"
-#~ "license would not permit royalty-free redistribution of the Program by\n"
-#~ "all those who receive copies directly or indirectly through you, then\n"
-#~ "the only way you could satisfy both it and this License would be to\n"
-#~ "refrain entirely from distribution of the Program.\n"
-#~ "\n"
-#~ "If any portion of this section is held invalid or unenforceable under\n"
-#~ "any particular circumstance, the balance of the section is intended to\n"
-#~ "apply and the section as a whole is intended to apply in other\n"
-#~ "circumstances.\n"
-#~ "\n"
-#~ "It is not the purpose of this section to induce you to infringe any\n"
-#~ "patents or other property right claims or to contest validity of any\n"
-#~ "such claims; this section has the sole purpose of protecting the\n"
-#~ "integrity of the free software distribution system, which is\n"
-#~ "implemented by public license practices.  Many people have made\n"
-#~ "generous contributions to the wide range of software distributed\n"
-#~ "through that system in reliance on consistent application of that\n"
-#~ "system; it is up to the author/donor to decide if he or she is willing\n"
-#~ "to distribute software through any other system and a licensee cannot\n"
-#~ "impose that choice.\n"
-#~ "\n"
-#~ "This section is intended to make thoroughly clear what is believed to\n"
-#~ "be a consequence of the rest of this License.\n"
-#~ "\n"
-#~ "  8. If the distribution and/or use of the Program is restricted in\n"
-#~ "certain countries either by patents or by copyrighted interfaces, the\n"
-#~ "original copyright holder who places the Program under this License\n"
-#~ "may add an explicit geographical distribution limitation excluding\n"
-#~ "those countries, so that distribution is permitted only in or among\n"
-#~ "countries not thus excluded.  In such case, this License incorporates\n"
-#~ "the limitation as if written in the body of this License.\n"
-#~ "\n"
-#~ "  9. The Free Software Foundation may publish revised and/or new "
-#~ "versions\n"
-#~ "of the General Public License from time to time.  Such new versions will\n"
-#~ "be similar in spirit to the present version, but may differ in detail to\n"
-#~ "address new problems or concerns.\n"
-#~ "\n"
-#~ "Each version is given a distinguishing version number.  If the Program\n"
-#~ "specifies a version number of this License which applies to it and \"any\n"
-#~ "later version\", you have the option of following the terms and "
-#~ "conditions\n"
-#~ "either of that version or of any later version published by the Free\n"
-#~ "Software Foundation.  If the Program does not specify a version number "
-#~ "of\n"
-#~ "this License, you may choose any version ever published by the Free "
-#~ "Software\n"
-#~ "Foundation.\n"
-#~ "\n"
-#~ "  10. If you wish to incorporate parts of the Program into other free\n"
-#~ "programs whose distribution conditions are different, write to the "
-#~ "author\n"
-#~ "to ask for permission.  For software which is copyrighted by the Free\n"
-#~ "Software Foundation, write to the Free Software Foundation; we sometimes\n"
-#~ "make exceptions for this.  Our decision will be guided by the two goals\n"
-#~ "of preserving the free status of all derivatives of our free software "
-#~ "and\n"
-#~ "of promoting the sharing and reuse of software generally.\n"
-#~ "\n"
-#~ "\t\t\t    NO WARRANTY\n"
-#~ "\n"
-#~ "  11. BECAUSE THE PROGRAM IS LICENSED FREE OF CHARGE, THERE IS NO "
-#~ "WARRANTY\n"
-#~ "FOR THE PROGRAM, TO THE EXTENT PERMITTED BY APPLICABLE LAW.  EXCEPT WHEN\n"
-#~ "OTHERWISE STATED IN WRITING THE COPYRIGHT HOLDERS AND/OR OTHER PARTIES\n"
-#~ "PROVIDE THE PROGRAM \"AS IS\" WITHOUT WARRANTY OF ANY KIND, EITHER "
-#~ "EXPRESSED\n"
-#~ "OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF\n"
-#~ "MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.  THE ENTIRE RISK "
-#~ "AS\n"
-#~ "TO THE QUALITY AND PERFORMANCE OF THE PROGRAM IS WITH YOU.  SHOULD THE\n"
-#~ "PROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF ALL NECESSARY SERVICING,\n"
-#~ "REPAIR OR CORRECTION.\n"
-#~ "\n"
-#~ "  12. IN NO EVENT UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN "
-#~ "WRITING\n"
-#~ "WILL ANY COPYRIGHT HOLDER, OR ANY OTHER PARTY WHO MAY MODIFY AND/OR\n"
-#~ "REDISTRIBUTE THE PROGRAM AS PERMITTED ABOVE, BE LIABLE TO YOU FOR "
-#~ "DAMAGES,\n"
-#~ "INCLUDING ANY GENERAL, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES "
-#~ "ARISING\n"
-#~ "OUT OF THE USE OR INABILITY TO USE THE PROGRAM (INCLUDING BUT NOT "
-#~ "LIMITED\n"
-#~ "TO LOSS OF DATA OR DATA BEING RENDERED INACCURATE OR LOSSES SUSTAINED BY\n"
-#~ "YOU OR THIRD PARTIES OR A FAILURE OF THE PROGRAM TO OPERATE WITH ANY "
-#~ "OTHER\n"
-#~ "PROGRAMS), EVEN IF SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE\n"
-#~ "POSSIBILITY OF SUCH DAMAGES.\n"
-#~ "\n"
-#~ "\t\t     END OF TERMS AND CONDITIONS\n"
-#~ "\n"
-#~ "\t    How to Apply These Terms to Your New Programs\n"
-#~ "\n"
-#~ "  If you develop a new program, and you want it to be of the greatest\n"
-#~ "possible use to the public, the best way to achieve this is to make it\n"
-#~ "free software which everyone can redistribute and change under these "
-#~ "terms.\n"
-#~ "\n"
-#~ "  To do so, attach the following notices to the program.  It is safest\n"
-#~ "to attach them to the start of each source file to most effectively\n"
-#~ "convey the exclusion of warranty; and each file should have at least\n"
-#~ "the \"copyright\" line and a pointer to where the full notice is found.\n"
-#~ "\n"
-#~ "    <one line to give the program's name and a brief idea of what it does."
-#~ ">\n"
-#~ "    Copyright (C) <year>  <name of author>\n"
-#~ "\n"
-#~ "    This program is free software; you can redistribute it and/or modify\n"
-#~ "    it under the terms of the GNU General Public License as published by\n"
-#~ "    the Free Software Foundation; either version 2 of the License, or\n"
-#~ "    (at your option) any later version.\n"
-#~ "\n"
-#~ "    This program is distributed in the hope that it will be useful,\n"
-#~ "    but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-#~ "    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
-#~ "    GNU General Public License for more details.\n"
-#~ "\n"
-#~ "    You should have received a copy of the GNU General Public License\n"
-#~ "    along with this program; if not, write to the Free Software\n"
-#~ "    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-"
-#~ "1301, USA\n"
-#~ "\n"
-#~ "\n"
-#~ "Also add information on how to contact you by electronic and paper mail.\n"
-#~ "\n"
-#~ "If the program is interactive, make it output a short notice like this\n"
-#~ "when it starts in an interactive mode:\n"
-#~ "\n"
-#~ "    Gnomovision version 69, Copyright (C) year name of author\n"
-#~ "    Gnomovision comes with ABSOLUTELY NO WARRANTY; for details type `show "
-#~ "w'.\n"
-#~ "    This is free software, and you are welcome to redistribute it\n"
-#~ "    under certain conditions; type `show c' for details.\n"
-#~ "\n"
-#~ "The hypothetical commands `show w' and `show c' should show the "
-#~ "appropriate\n"
-#~ "parts of the General Public License.  Of course, the commands you use "
-#~ "may\n"
-#~ "be called something other than `show w' and `show c'; they could even be\n"
-#~ "mouse-clicks or menu items--whatever suits your program.\n"
-#~ "\n"
-#~ "You should also get your employer (if you work as a programmer) or your\n"
-#~ "school, if any, to sign a \"copyright disclaimer\" for the program, if\n"
-#~ "necessary.  Here is a sample; alter the names:\n"
-#~ "\n"
-#~ "  Yoyodyne, Inc., hereby disclaims all copyright interest in the program\n"
-#~ "  `Gnomovision' (which makes passes at compilers) written by James "
-#~ "Hacker.\n"
-#~ "\n"
-#~ "  <signature of Ty Coon>, 1 April 1989\n"
-#~ "  Ty Coon, President of Vice\n"
-#~ "\n"
-#~ "This General Public License does not permit incorporating your program "
-#~ "into\n"
-#~ "proprietary programs.  If your program is a subroutine library, you may\n"
-#~ "consider it more useful to permit linking proprietary applications with "
-#~ "the\n"
-#~ "library.  If this is what you want to do, use the GNU Library General\n"
-#~ "Public License instead of this License.\n"
-#~ "\n"
-#~ "LICENCE EXCEPTION:\n"
-#~ "\n"
-#~ "The Jokosher project hereby grants permission for\n"
-#~ " non-GPL compatible GStreamer plugins to be used\n"
-#~ " and distributed together with GStreamer and\n"
-#~ " Jokosher. This permission is above and beyond the permissions granted by "
-#~ "the GPL license by which\n"
-#~ " Jokosher is covered. If you modify this code, you may\n"
-#~ " extend this exception to your version of the code, but you are not "
-#~ "obligated to do so. If you do not wish\n"
-#~ " to do so, delete this exception statement from your version."
-#~ msgstr ""
-#~ "    Deutsche Übersetzung der\n"
-#~ "GNU General Public License\n"
-#~ "\n"
-#~ "Ursprünglich erstellt im Auftrag der S.u.S.E. GmbH – http://www.suse.de\n"
-#~ "von Katja Lachmann Übersetzungen,\n"
-#~ "überarbeitet von Peter Gerwinski, G-N-U GmbH – http://www.g-n-u.de\n"
-#~ "(31. Oktober 1996, 4. Juni 2000)\n"
-#~ "\n"
-#~ "\n"
-#~ "Diese Übersetzung wird mit der Absicht angeboten, das Verständnis der GNU "
-#~ "General Public License (GNU GPL) zu erleichtern. Es handelt sich jedoch "
-#~ "nicht um eine offizielle oder im rechtlichen Sinne anerkannte "
-#~ "Übersetzung.\n"
-#~ "\n"
-#~ "Die Free Software Foundation (FSF) ist nicht der Herausgeber dieser "
-#~ "Übersetzung, und sie hat diese Übersetzung auch nicht als rechtskräftigen "
-#~ "Ersatz für die Original-GNU-GPL anerkannt. Da die Übersetzung nicht "
-#~ "sorgfältig von Anwälten überprüft wurde, können die Übersetzer nicht "
-#~ "garantieren, daß die Übersetzung die rechtlichen Aussagen der GNU GPL "
-#~ "exakt wiedergibt. Wenn Sie sichergehen wollen, daß von Ihnen geplante "
-#~ "Aktivitäten im Sinne der GNU GPL gestattet sind, halten Sie sich bitte an "
-#~ "die englischsprachige Originalversion.\n"
-#~ "\n"
-#~ "Die Übersetzer und die Free Software Foundation möchten Sie darum bitten, "
-#~ "diese Übersetzung nicht als offizielle Lizenzbedingungen für von Ihnen "
-#~ "geschriebene Programme zu verwenden. Bitte benutzen Sie hierfür "
-#~ "stattdessen die von der Free Software Foundation herausgegebene "
-#~ "englischsprachige Originalversion.\n"
-#~ "\n"
-#~ "\n"
-#~ "This is a translation of the GNU General Public License into German. This "
-#~ "translation is distributed in the hope that it will facilitate "
-#~ "understanding, but it is not an official or legally approved "
-#~ "translation.\n"
-#~ "\n"
-#~ "The Free Software Foundation is not the publisher of this translation and "
-#~ "has not approved it as a legal substitute for the authentic GNU General "
-#~ "Public License. The translation has not been reviewed carefully by "
-#~ "lawyers, and therefore the translator cannot be sure that it exactly "
-#~ "represents the legal meaning of the GNU General Public License. If you "
-#~ "wish to be sure whether your planned activities are permitted by the GNU "
-#~ "General Public License, please refer to the authentic English version.\n"
-#~ "\n"
-#~ "The translators and the Free Software Foundation strongly urge you not to "
-#~ "use this translation as the official distribution terms for your "
-#~ "programs; instead, please use the authentic English version published by "
-#~ "the Free Software Foundation.\n"
-#~ "\n"
-#~ "\n"
-#~ "\n"
-#~ "\n"
-#~ "GNU General Public License\n"
-#~ "\n"
-#~ "Deutsche Übersetzung der Version 2, Juni 1991\n"
-#~ "\n"
-#~ "Copyright © 1989, 1991 Free Software Foundation, Inc.\n"
-#~ "51 Franklin St, Fifth Floor, Boston, MA 02110, USA\n"
-#~ "\n"
-#~ "Es ist jedermann gestattet, diese Lizenzurkunde zu vervielfältigen und "
-#~ "unveränderte Kopien zu verbreiten; Änderungen sind jedoch nicht erlaubt.\n"
-#~ "\n"
-#~ "Diese Übersetzung ist kein rechtskräftiger Ersatz für die "
-#~ "englischsprachige Originalversion!\n"
-#~ "Vorwort\n"
-#~ "\n"
-#~ "Die meisten Softwarelizenzen sind daraufhin entworfen worden, Ihnen die "
-#~ "Freiheit zu nehmen, die Software weiterzugeben und zu verändern. Im "
-#~ "Gegensatz dazu soll Ihnen die GNU General Public License, die Allgemeine "
-#~ "Öffentliche GNU-Lizenz, ebendiese Freiheit garantieren. Sie soll "
-#~ "sicherstellen, daß die Software für alle Benutzer frei ist. Diese Lizenz "
-#~ "gilt für den Großteil der von der Free Software Foundation "
-#~ "herausgegebenen Software und für alle anderen Programme, deren Autoren "
-#~ "ihr Datenwerk dieser Lizenz unterstellt haben. Auch Sie können diese "
-#~ "Möglichkeit der Lizenzierung für Ihre Programme anwenden. (Ein anderer "
-#~ "Teil der Software der Free Software Foundation unterliegt stattdessen der "
-#~ "GNU Library General Public License, der Allgemeinen Öffentlichen GNU-"
-#~ "Lizenz für Bibliotheken.) [Mittlerweile wurde die GNU Library Public "
-#~ "License von der GNU Lesser Public License abgelöst – Anmerkung des "
-#~ "Übersetzers.]\n"
-#~ "\n"
-#~ "Die Bezeichnung „freie“ Software bezieht sich auf Freiheit, nicht auf den "
-#~ "Preis. Unsere Lizenzen sollen Ihnen die Freiheit garantieren, Kopien "
-#~ "freier Software zu verbreiten (und etwas für diesen Service zu berechnen, "
-#~ "wenn Sie möchten), die Möglichkeit, die Software im Quelltext zu erhalten "
-#~ "oder den Quelltext auf Wunsch zu bekommen. Die Lizenzen sollen "
-#~ "garantieren, daß Sie die Software ändern oder Teile davon in neuen freien "
-#~ "Programmen verwenden dürfen – und daß Sie wissen, daß Sie dies alles tun "
-#~ "dürfen.\n"
-#~ "\n"
-#~ "Um Ihre Rechte zu schützen, müssen wir Einschränkungen machen, die es "
-#~ "jedem verbieten, Ihnen diese Rechte zu verweigern oder Sie aufzufordern, "
-#~ "auf diese Rechte zu verzichten. Aus diesen Einschränkungen folgen "
-#~ "bestimmte Verantwortlichkeiten für Sie, wenn Sie Kopien der Software "
-#~ "verbreiten oder sie verändern.\n"
-#~ "\n"
-#~ "Beispielsweise müssen Sie den Empfängern alle Rechte gewähren, die Sie "
-#~ "selbst haben, wenn Sie – kostenlos oder gegen Bezahlung – Kopien eines "
-#~ "solchen Programms verbreiten. Sie müssen sicherstellen, daß auch die "
-#~ "Empfänger den Quelltext erhalten bzw. erhalten können. Und Sie müssen "
-#~ "ihnen diese Bedingungen zeigen, damit sie ihre Rechte kennen.\n"
-#~ "\n"
-#~ "Wir schützen Ihre Rechte in zwei Schritten: (1) Wir stellen die Software "
-#~ "unter ein Urheberrecht (Copyright), und (2) wir bieten Ihnen diese Lizenz "
-#~ "an, die Ihnen das Recht gibt, die Software zu vervielfältigen, zu "
-#~ "verbreiten und/oder zu verändern.\n"
-#~ "\n"
-#~ "Um die Autoren und uns zu schützen, wollen wir darüberhinaus "
-#~ "sicherstellen, daß jeder erfährt, daß für diese freie Software keinerlei "
-#~ "Garantie besteht. Wenn die Software von jemand anderem modifiziert und "
-#~ "weitergegeben wird, möchten wir, daß die Empfänger wissen, daß sie nicht "
-#~ "das Original erhalten haben, damit irgendwelche von anderen verursachte "
-#~ "Probleme nicht den Ruf des ursprünglichen Autors schädigen.\n"
-#~ "\n"
-#~ "Schließlich und endlich ist jedes freie Programm permanent durch Software-"
-#~ "Patente bedroht. Wir möchten die Gefahr ausschließen, daß Distributoren "
-#~ "eines freien Programms individuell Patente lizensieren – mit dem "
-#~ "Ergebnis, daß das Programm proprietär würde. Um dies zu verhindern, haben "
-#~ "wir klargestellt, daß jedes Patent entweder für freie Benutzung durch "
-#~ "jedermann lizenziert werden muß oder überhaupt nicht lizenziert werden "
-#~ "darf.\n"
-#~ "\n"
-#~ "Es folgen die genauen Bedingungen für die Vervielfältigung, Verbreitung "
-#~ "und Bearbeitung:\n"
-#~ "Allgemeine Öffentliche GNU-Lizenz\n"
-#~ "Bedingungen für die Vervielfältigung,\n"
-#~ "Verbreitung und Bearbeitung\n"
-#~ "\n"
-#~ "§0. Diese Lizenz gilt für jedes Programm und jedes andere Datenwerk, in "
-#~ "dem ein entsprechender Vermerk des Copyright-Inhabers darauf hinweist, "
-#~ "daß das Datenwerk unter den Bestimmungen dieser General Public License "
-#~ "verbreitet werden darf. Im folgenden wird jedes derartige Programm oder "
-#~ "Datenwerk als „das Programm“ bezeichnet; die Formulierung „auf dem "
-#~ "Programm basierendes Datenwerk“ bezeichnet das Programm sowie jegliche "
-#~ "Bearbeitung des Programms im urheberrechtlichen Sinne, also ein "
-#~ "Datenwerk, welches das Programm, auch auszugsweise, sei es unverändert "
-#~ "oder verändert und/oder in eine andere Sprache übersetzt, enthält. (Im "
-#~ "folgenden wird die Übersetzung ohne Einschränkung als „Bearbeitung“ "
-#~ "eingestuft.) Jeder Lizenznehmer wird im folgenden als „Sie“ "
-#~ "angesprochen.\n"
-#~ "\n"
-#~ "Andere Handlungen als Vervielfältigung, Verbreitung und Bearbeitung "
-#~ "werden von dieser Lizenz nicht berührt; sie fallen nicht in ihren "
-#~ "Anwendungsbereich. Der Vorgang der Ausführung des Programms wird nicht "
-#~ "eingeschränkt, und die Ausgaben des Programms unterliegen dieser Lizenz "
-#~ "nur, wenn der Inhalt ein auf dem Programm basierendes Datenwerk darstellt "
-#~ "(unabhängig davon, daß die Ausgabe durch die Ausführung des Programmes "
-#~ "erfolgte). Ob dies zutrifft, hängt von den Funktionen des Programms ab.\n"
-#~ "\n"
-#~ "§1. Sie dürfen auf beliebigen Medien unveränderte Kopien des Quelltextes "
-#~ "des Programms, wie sie ihn erhalten haben, anfertigen und verbreiten. "
-#~ "Voraussetzung hierfür ist, daß Sie mit jeder Kopie einen entsprechenden "
-#~ "Copyright-Vermerk sowie einen Haftungsausschluß veröffentlichen, alle "
-#~ "Vermerke, die sich auf diese Lizenz und das Fehlen einer Garantie "
-#~ "beziehen, unverändert lassen und desweiteren allen anderen Empfängern des "
-#~ "Programms zusammen mit dem Programm eine Kopie dieser Lizenz zukommen "
-#~ "lassen.\n"
-#~ "\n"
-#~ "Sie dürfen für den eigentlichen Kopiervorgang eine Gebühr verlangen. Wenn "
-#~ "Sie es wünschen, dürfen Sie auch gegen Entgelt eine Garantie für das "
-#~ "Programm anbieten.\n"
-#~ "\n"
-#~ "§2. Sie dürfen Ihre Kopie(n) des Programms oder eines Teils davon "
-#~ "verändern, wodurch ein auf dem Programm basierendes Datenwerk entsteht; "
-#~ "Sie dürfen derartige Bearbeitungen unter den Bestimmungen von Paragraph 1 "
-#~ "vervielfältigen und verbreiten, vorausgesetzt, daß zusätzlich alle im "
-#~ "folgenden genannten Bedingungen erfüllt werden:\n"
-#~ "\n"
-#~ "   1.\n"
-#~ "\n"
-#~ "      Sie müssen die veränderten Dateien mit einem auffälligen Vermerk "
-#~ "versehen, der auf die von Ihnen vorgenommene Modifizierung und das Datum "
-#~ "jeder Änderung hinweist.\n"
-#~ "   2.\n"
-#~ "\n"
-#~ "      Sie müssen dafür sorgen, daß jede von Ihnen verbreitete oder "
-#~ "veröffentlichte Arbeit, die ganz oder teilweise von dem Programm oder "
-#~ "Teilen davon abgeleitet ist, Dritten gegenüber als Ganzes unter den "
-#~ "Bedingungen dieser Lizenz ohne Lizenzgebühren zur Verfügung gestellt "
-#~ "wird.\n"
-#~ "   3.\n"
-#~ "\n"
-#~ "      Wenn das veränderte Programm normalerweise bei der Ausführung "
-#~ "interaktiv Kommandos einliest, müssen Sie dafür sorgen, daß es, wenn es "
-#~ "auf dem üblichsten Wege für solche interaktive Nutzung gestartet wird, "
-#~ "eine Meldung ausgibt oder ausdruckt, die einen geeigneten Copyright-"
-#~ "Vermerk enthält sowie einen Hinweis, daß es keine Gewährleistung gibt "
-#~ "(oder anderenfalls, daß Sie Garantie leisten), und daß die Benutzer das "
-#~ "Programm unter diesen Bedingungen weiter verbreiten dürfen. Auch muß der "
-#~ "Benutzer darauf hingewiesen werden, wie er eine Kopie dieser Lizenz "
-#~ "ansehen kann. (Ausnahme: Wenn das Programm selbst interaktiv arbeitet, "
-#~ "aber normalerweise keine derartige Meldung ausgibt, muß Ihr auf dem "
-#~ "Programm basierendes Datenwerk auch keine solche Meldung ausgeben).\n"
-#~ "\n"
-#~ "Diese Anforderungen gelten für das bearbeitete Datenwerk als Ganzes. Wenn "
-#~ "identifizierbare Teile des Datenwerkes nicht von dem Programm abgeleitet "
-#~ "sind und vernünftigerweise als unabhängige und eigenständige Datenwerke "
-#~ "für sich selbst zu betrachten sind, dann gelten diese Lizenz und ihre "
-#~ "Bedingungen nicht für die betroffenen Teile, wenn Sie diese als "
-#~ "eigenständige Datenwerke weitergeben. Wenn Sie jedoch dieselben "
-#~ "Abschnitte als Teil eines Ganzen weitergeben, das ein auf dem Programm "
-#~ "basierendes Datenwerk darstellt, dann muß die Weitergabe des Ganzen nach "
-#~ "den Bedingungen dieser Lizenz erfolgen, deren Bedingungen für weitere "
-#~ "Lizenznehmer somit auf das gesamte Ganze ausgedehnt werden – und somit "
-#~ "auf jeden einzelnen Teil, unabhängig vom jeweiligen Autor.\n"
-#~ "\n"
-#~ "Somit ist es nicht die Absicht dieses Abschnittes, Rechte für Datenwerke "
-#~ "in Anspruch zu nehmen oder Ihnen die Rechte für Datenwerke streitig zu "
-#~ "machen, die komplett von Ihnen geschrieben wurden; vielmehr ist es die "
-#~ "Absicht, die Rechte zur Kontrolle der Verbreitung von Datenwerken, die "
-#~ "auf dem Programm basieren oder unter seiner auszugsweisen Verwendung "
-#~ "zusammengestellt worden sind, auszuüben.\n"
-#~ "\n"
-#~ "Ferner bringt auch das einfache Zusammenlegen eines anderen Datenwerkes, "
-#~ "das nicht auf dem Programm basiert, mit dem Programm oder einem auf dem "
-#~ "Programm basierenden Datenwerk auf ein- und demselben Speicher- oder "
-#~ "Vertriebsmedium dieses andere Datenwerk nicht in den Anwendungsbereich "
-#~ "dieser Lizenz.\n"
-#~ "\n"
-#~ "§3. Sie dürfen das Programm (oder ein darauf basierendes Datenwerk gemäß "
-#~ "Paragraph 2) als Objectcode oder in ausführbarer Form unter den "
-#~ "Bedingungen der Paragraphen 1 und 2 kopieren und weitergeben – "
-#~ "vorausgesetzt, daß Sie außerdem eine der folgenden Leistungen erbringen:\n"
-#~ "\n"
-#~ "   1.\n"
-#~ "\n"
-#~ "      Liefern Sie das Programm zusammen mit dem vollständigen zugehörigen "
-#~ "maschinenlesbaren Quelltext auf einem für den Datenaustausch üblichen "
-#~ "Medium aus, wobei die Verteilung unter den Bedingungen der Paragraphen 1 "
-#~ "und 2 erfolgen muß. Oder:\n"
-#~ "   2.\n"
-#~ "\n"
-#~ "      Liefern Sie das Programm zusammen mit einem mindestens drei Jahre "
-#~ "lang gültigen schriftlichen Angebot aus, jedem Dritten eine vollständige "
-#~ "maschinenlesbare Kopie des Quelltextes zur Verfügung zu stellen – zu "
-#~ "nicht höheren Kosten als denen, die durch den physikalischen "
-#~ "Kopiervorgang anfallen –, wobei der Quelltext unter den Bedingungen der "
-#~ "Paragraphen 1 und 2 auf einem für den Datenaustausch üblichen Medium "
-#~ "weitergegeben wird. Oder:\n"
-#~ "   3.\n"
-#~ "\n"
-#~ "      Liefern Sie das Programm zusammen mit dem schriftlichen Angebot der "
-#~ "Zurverfügungstellung des Quelltextes aus, das Sie selbst erhalten haben. "
-#~ "(Diese Alternative ist nur für nicht-kommerzielle Verbreitung zulässig "
-#~ "und nur, wenn Sie das Programm als Objectcode oder in ausführbarer Form "
-#~ "mit einem entsprechenden Angebot gemäß Absatz b erhalten haben.)\n"
-#~ "\n"
-#~ "Unter dem Quelltext eines Datenwerkes wird diejenige Form des Datenwerkes "
-#~ "verstanden, die für Bearbeitungen vorzugsweise verwendet wird. Für ein "
-#~ "ausführbares Programm bedeutet „der komplette Quelltext“: Der Quelltext "
-#~ "aller im Programm enthaltenen Module einschließlich aller zugehörigen "
-#~ "Modulschnittstellen-Definitionsdateien sowie der zur Compilation und "
-#~ "Installation verwendeten Skripte. Als besondere Ausnahme jedoch braucht "
-#~ "der verteilte Quelltext nichts von dem zu enthalten, was üblicherweise "
-#~ "(entweder als Quelltext oder in binärer Form) zusammen mit den "
-#~ "Hauptkomponenten des Betriebssystems (Kernel, Compiler usw.) geliefert "
-#~ "wird, unter dem das Programm läuft – es sei denn, diese Komponente selbst "
-#~ "gehört zum ausführbaren Programm.\n"
-#~ "\n"
-#~ "Wenn die Verbreitung eines ausführbaren Programms oder von Objectcode "
-#~ "dadurch erfolgt, daß der Kopierzugriff auf eine dafür vorgesehene Stelle "
-#~ "gewährt wird, so gilt die Gewährung eines gleichwertigen Zugriffs auf den "
-#~ "Quelltext als Verbreitung des Quelltextes, auch wenn Dritte nicht dazu "
-#~ "gezwungen sind, den Quelltext zusammen mit dem Objectcode zu kopieren.\n"
-#~ "\n"
-#~ "§4. Sie dürfen das Programm nicht vervielfältigen, verändern, weiter "
-#~ "lizenzieren oder verbreiten, sofern es nicht durch diese Lizenz "
-#~ "ausdrücklich gestattet ist. Jeder anderweitige Versuch der "
-#~ "Vervielfältigung, Modifizierung, Weiterlizenzierung und Verbreitung ist "
-#~ "nichtig und beendet automatisch Ihre Rechte unter dieser Lizenz. Jedoch "
-#~ "werden die Lizenzen Dritter, die von Ihnen Kopien oder Rechte unter "
-#~ "dieser Lizenz erhalten haben, nicht beendet, solange diese die Lizenz "
-#~ "voll anerkennen und befolgen.\n"
-#~ "\n"
-#~ "§5. Sie sind nicht verpflichtet, diese Lizenz anzunehmen, da Sie sie "
-#~ "nicht unterzeichnet haben. Jedoch gibt Ihnen nichts anderes die "
-#~ "Erlaubnis, das Programm oder von ihm abgeleitete Datenwerke zu verändern "
-#~ "oder zu verbreiten. Diese Handlungen sind gesetzlich verboten, wenn Sie "
-#~ "diese Lizenz nicht anerkennen. Indem Sie das Programm (oder ein darauf "
-#~ "basierendes Datenwerk) verändern oder verbreiten, erklären Sie Ihr "
-#~ "Einverständnis mit dieser Lizenz und mit allen ihren Bedingungen "
-#~ "bezüglich der Vervielfältigung, Verbreitung und Veränderung des Programms "
-#~ "oder eines darauf basierenden Datenwerks.\n"
-#~ "\n"
-#~ "§6. Jedesmal, wenn Sie das Programm (oder ein auf dem Programm "
-#~ "basierendes Datenwerk) weitergeben, erhält der Empfänger automatisch vom "
-#~ "ursprünglichen Lizenzgeber die Lizenz, das Programm entsprechend den hier "
-#~ "festgelegten Bestimmungen zu vervielfältigen, zu verbreiten und zu "
-#~ "verändern. Sie dürfen keine weiteren Einschränkungen der Durchsetzung der "
-#~ "hierin zugestandenen Rechte des Empfängers vornehmen. Sie sind nicht "
-#~ "dafür verantwortlich, die Einhaltung dieser Lizenz durch Dritte "
-#~ "durchzusetzen.\n"
-#~ "\n"
-#~ "§7. Sollten Ihnen infolge eines Gerichtsurteils, des Vorwurfs einer "
-#~ "Patentverletzung oder aus einem anderen Grunde (nicht auf Patentfragen "
-#~ "begrenzt) Bedingungen (durch Gerichtsbeschluß, Vergleich oder "
-#~ "anderweitig) auferlegt werden, die den Bedingungen dieser Lizenz "
-#~ "widersprechen, so befreien Sie diese Umstände nicht von den Bestimmungen "
-#~ "dieser Lizenz. Wenn es Ihnen nicht möglich ist, das Programm unter "
-#~ "gleichzeitiger Beachtung der Bedingungen in dieser Lizenz und Ihrer "
-#~ "anderweitigen Verpflichtungen zu verbreiten, dann dürfen Sie als Folge "
-#~ "das Programm überhaupt nicht verbreiten. Wenn zum Beispiel ein Patent "
-#~ "nicht die gebührenfreie Weiterverbreitung des Programms durch diejenigen "
-#~ "erlaubt, die das Programm direkt oder indirekt von Ihnen erhalten haben, "
-#~ "dann besteht der einzige Weg, sowohl das Patentrecht als auch diese "
-#~ "Lizenz zu befolgen, darin, ganz auf die Verbreitung des Programms zu "
-#~ "verzichten.\n"
-#~ "\n"
-#~ "Sollte sich ein Teil dieses Paragraphen als ungültig oder unter "
-#~ "bestimmten Umständen nicht durchsetzbar erweisen, so soll dieser "
-#~ "Paragraph seinem Sinne nach angewandt werden; im übrigen soll dieser "
-#~ "Paragraph als Ganzes gelten.\n"
-#~ "\n"
-#~ "Zweck dieses Paragraphen ist nicht, Sie dazu zu bringen, irgendwelche "
-#~ "Patente oder andere Eigentumsansprüche zu verletzen oder die Gültigkeit "
-#~ "solcher Ansprüche zu bestreiten; dieser Paragraph hat einzig den Zweck, "
-#~ "die Integrität des Verbreitungssystems der freien Software zu schützen, "
-#~ "das durch die Praxis öffentlicher Lizenzen verwirklicht wird. Viele Leute "
-#~ "haben großzügige Beiträge zu dem großen Angebot der mit diesem System "
-#~ "verbreiteten Software im Vertrauen auf die konsistente Anwendung dieses "
-#~ "Systems geleistet; es liegt am Autor/Geber, zu entscheiden, ob er die "
-#~ "Software mittels irgendeines anderen Systems verbreiten will; ein "
-#~ "Lizenznehmer hat auf diese Entscheidung keinen Einfluß.\n"
-#~ "\n"
-#~ "Dieser Paragraph ist dazu gedacht, deutlich klarzustellen, was als "
-#~ "Konsequenz aus dem Rest dieser Lizenz betrachtet wird.\n"
-#~ "\n"
-#~ "§8. Wenn die Verbreitung und/oder die Benutzung des Programms in "
-#~ "bestimmten Staaten entweder durch Patente oder durch urheberrechtlich "
-#~ "geschützte Schnittstellen eingeschränkt ist, kann der "
-#~ "Urheberrechtsinhaber, der das Programm unter diese Lizenz gestellt hat, "
-#~ "eine explizite geographische Begrenzung der Verbreitung angeben, in der "
-#~ "diese Staaten ausgeschlossen werden, so daß die Verbreitung nur innerhalb "
-#~ "und zwischen den Staaten erlaubt ist, die nicht ausgeschlossen sind. In "
-#~ "einem solchen Fall beinhaltet diese Lizenz die Beschränkung, als wäre sie "
-#~ "in diesem Text niedergeschrieben.\n"
-#~ "\n"
-#~ "§9. Die Free Software Foundation kann von Zeit zu Zeit überarbeitete und/"
-#~ "oder neue Versionen der General Public License veröffentlichen. Solche "
-#~ "neuen Versionen werden vom Grundprinzip her der gegenwärtigen "
-#~ "entsprechen, können aber im Detail abweichen, um neuen Problemen und "
-#~ "Anforderungen gerecht zu werden.\n"
-#~ "\n"
-#~ "Jede Version dieser Lizenz hat eine eindeutige Versionsnummer. Wenn in "
-#~ "einem Programm angegeben wird, daß es dieser Lizenz in einer bestimmten "
-#~ "Versionsnummer oder „jeder späteren Version“ (“any later version”) "
-#~ "unterliegt, so haben Sie die Wahl, entweder den Bestimmungen der "
-#~ "genannten Version zu folgen oder denen jeder beliebigen späteren Version, "
-#~ "die von der Free Software Foundation veröffentlicht wurde. Wenn das "
-#~ "Programm keine Versionsnummer angibt, können Sie eine beliebige Version "
-#~ "wählen, die je von der Free Software Foundation veröffentlicht wurde.\n"
-#~ "\n"
-#~ "§10. Wenn Sie den Wunsch haben, Teile des Programms in anderen freien "
-#~ "Programmen zu verwenden, deren Bedingungen für die Verbreitung anders "
-#~ "sind, schreiben Sie an den Autor, um ihn um die Erlaubnis zu bitten. Für "
-#~ "Software, die unter dem Copyright der Free Software Foundation steht, "
-#~ "schreiben Sie an die Free Software Foundation; wir machen zu diesem Zweck "
-#~ "gelegentlich Ausnahmen. Unsere Entscheidung wird von den beiden Zielen "
-#~ "geleitet werden, zum einen den freien Status aller von unserer freien "
-#~ "Software abgeleiteten Datenwerke zu erhalten und zum anderen das "
-#~ "gemeinschaftliche Nutzen und Wiederverwenden von Software im allgemeinen "
-#~ "zu fördern.\n"
-#~ "Keine Gewährleistung\n"
-#~ "\n"
-#~ "§11. Da das Programm ohne jegliche Kosten lizenziert wird, besteht "
-#~ "keinerlei Gewährleistung für das Programm, soweit dies gesetzlich "
-#~ "zulässig ist. Sofern nicht anderweitig schriftlich bestätigt, stellen die "
-#~ "Copyright-Inhaber und/oder Dritte das Programm so zur Verfügung, „wie es "
-#~ "ist“, ohne irgendeine Gewährleistung, weder ausdrücklich noch implizit, "
-#~ "einschließlich – aber nicht begrenzt auf – Marktreife oder Verwendbarkeit "
-#~ "für einen bestimmten Zweck. Das volle Risiko bezüglich Qualität und "
-#~ "Leistungsfähigkeit des Programms liegt bei Ihnen. Sollte sich das "
-#~ "Programm als fehlerhaft herausstellen, liegen die Kosten für notwendigen "
-#~ "Service, Reparatur oder Korrektur bei Ihnen.\n"
-#~ "\n"
-#~ "§12. In keinem Fall, außer wenn durch geltendes Recht gefordert oder "
-#~ "schriftlich zugesichert, ist irgendein Copyright-Inhaber oder irgendein "
-#~ "Dritter, der das Programm wie oben erlaubt modifiziert oder verbreitet "
-#~ "hat, Ihnen gegenüber für irgendwelche Schäden haftbar, einschließlich "
-#~ "jeglicher allgemeiner oder spezieller Schäden, Schäden durch "
-#~ "Seiteneffekte (Nebenwirkungen) oder Folgeschäden, die aus der Benutzung "
-#~ "des Programms oder der Unbenutzbarkeit des Programms folgen "
-#~ "(einschließlich – aber nicht beschränkt auf – Datenverluste, fehlerhafte "
-#~ "Verarbeitung von Daten, Verluste, die von Ihnen oder anderen getragen "
-#~ "werden müssen, oder dem Unvermögen des Programms, mit irgendeinem anderen "
-#~ "Programm zusammenzuarbeiten), selbst wenn ein Copyright-Inhaber oder "
-#~ "Dritter über die Möglichkeit solcher Schäden unterrichtet worden war.\n"
-#~ "Ende der Bedingungen\n"
-#~ "Anhang: Wie Sie diese Bedingungen auf Ihre eigenen,\n"
-#~ "neuen Programme anwenden können\n"
-#~ "\n"
-#~ "Wenn Sie ein neues Programm entwickeln und wollen, daß es vom "
-#~ "größtmöglichen Nutzen für die Allgemeinheit ist, dann erreichen Sie das "
-#~ "am besten, indem Sie es zu freier Software machen, die jeder unter diesen "
-#~ "Bestimmungen weiterverbreiten und verändern kann.\n"
-#~ "\n"
-#~ "Um dies zu erreichen, fügen Sie die folgenden Vermerke zu Ihrem Programm "
-#~ "hinzu. Am sichersten ist es, sie an den Anfang einer jeden Quelldatei zu "
-#~ "stellen, um den Gewährleistungsausschluß möglichst deutlich darzustellen; "
-#~ "zumindest aber sollte jede Datei eine Copyright-Zeile besitzen sowie "
-#~ "einen kurzen Hinweis darauf, wo die vollständigen Vermerke zu finden "
-#~ "sind.\n"
-#~ "\n"
-#~ "    [eine Zeile mit dem Programmnamen und einer kurzen Beschreibung]\n"
-#~ "    Copyright (C) [Jahr]  [Name des Autors]\n"
-#~ "\n"
-#~ "    This program is free software; you can redistribute it and/or modify "
-#~ "it under the terms of the GNU General Public License as published by the "
-#~ "Free Software Foundation; either version 2 of the License, or (at your "
-#~ "option) any later version.\n"
-#~ "\n"
-#~ "    This program is distributed in the hope that it will be useful, but "
-#~ "WITHOUT ANY WARRANTY; without even the implied warranty of "
-#~ "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General "
-#~ "Public License for more details.\n"
-#~ "\n"
-#~ "    You should have received a copy of the GNU General Public License "
-#~ "along with this program; if not, write to the Free Software Foundation, "
-#~ "Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110, USA\n"
-#~ "\n"
-#~ "Auf Deutsch:\n"
-#~ "\n"
-#~ "    [eine Zeile mit dem Programmnamen und einer kurzen Beschreibung]\n"
-#~ "    Copyright (C) [Jahr]  [Name des Autors]\n"
-#~ "\n"
-#~ "    Dieses Programm ist freie Software. Sie können es unter den "
-#~ "Bedingungen der GNU General Public License, wie von der Free Software "
-#~ "Foundation veröffentlicht, weitergeben und/oder modifizieren, entweder "
-#~ "gemäß Version 2 der Lizenz oder (nach Ihrer Option) jeder späteren "
-#~ "Version.\n"
-#~ "\n"
-#~ "    Die Veröffentlichung dieses Programms erfolgt in der Hoffnung, daß es "
-#~ "Ihnen von Nutzen sein wird, aber OHNE IRGENDEINE GARANTIE, sogar ohne die "
-#~ "implizite Garantie der MARKTREIFE oder der VERWENDBARKEIT FÜR EINEN "
-#~ "BESTIMMTEN ZWECK. Details finden Sie in der GNU General Public License.\n"
-#~ "\n"
-#~ "    Sie sollten ein Exemplar der GNU General Public License zusammen mit "
-#~ "diesem Programm erhalten haben. Falls nicht, schreiben Sie an die Free "
-#~ "Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110, "
-#~ "USA.\n"
-#~ "\n"
-#~ "Fügen Sie auch einen kurzen Hinweis hinzu, wie Sie elektronisch und per "
-#~ "Brief erreichbar sind.\n"
-#~ "\n"
-#~ "Wenn Ihr Programm interaktiv ist, sorgen Sie dafür, daß es nach dem Start "
-#~ "einen kurzen Vermerk ausgibt:\n"
-#~ "\n"
-#~ "    version 69, Copyright (C) [Jahr]  [Name des Autors]\n"
-#~ "    Gnomovision comes with ABSOLUTELY NO WARRANTY; for details type `show "
-#~ "w'. This is free software, and you are welcome to redistribute it under "
-#~ "certain conditions; type `show c' for details.\n"
-#~ "\n"
-#~ "Auf Deutsch:\n"
-#~ "\n"
-#~ "    Version 69, Copyright (C) [Jahr]  [Name des Autors] Für Gnomovision "
-#~ "besteht KEINERLEI GARANTIE; geben Sie `show w' für Details ein. "
-#~ "Gnonovision ist freie Software, die Sie unter bestimmten Bedingungen "
-#~ "weitergeben dürfen; geben Sie `show c' für Details ein.\n"
-#~ "\n"
-#~ "Die hypothetischen Kommandos `show w' und `show c' sollten die "
-#~ "entsprechenden Teile der GNU-GPL anzeigen. Natürlich können die von Ihnen "
-#~ "verwendeten Kommandos anders heißen als `show w' und `show c'; es könnten "
-#~ "auch Mausklicks oder Menüpunkte sein – was immer am besten in Ihr "
-#~ "Programm paßt.\n"
-#~ "\n"
-#~ "Soweit vorhanden, sollten Sie auch Ihren Arbeitgeber (wenn Sie als "
-#~ "Programmierer arbeiten) oder Ihre Schule einen Copyright-Verzicht für das "
-#~ "Programm unterschreiben lassen. Hier ein Beispiel. Die Namen müssen Sie "
-#~ "natürlich ändern.\n"
-#~ "\n"
-#~ "    Yoyodyne, Inc., hereby disclaims all copyright interest in the "
-#~ "program `Gnomovision' (which makes passes at compilers) written by James "
-#~ "Hacker.\n"
-#~ "\n"
-#~ "    [Unterschrift von Ty Coon], 1 April 1989\n"
-#~ "    Ty Coon, President of Vice\n"
-#~ "\n"
-#~ "Auf Deutsch:\n"
-#~ "\n"
-#~ "    Die Yoyodyne GmbH erhebt keinen urheberrechtlichen Anspruch auf das "
-#~ "von James Hacker geschriebene Programm ,Gnomovision` (einem Schrittmacher "
-#~ "für Compiler).\n"
-#~ "\n"
-#~ "    [Unterschrift von Ty Coon], 1. April 1989\n"
-#~ "    Ty Coon, Vizepräsident\n"
-#~ "\n"
-#~ "Diese General Public License gestattet nicht die Einbindung des Programms "
-#~ "in proprietäre Programme. Ist Ihr Programm eine Funktionsbibliothek, so "
-#~ "kann es sinnvoller sein, das Binden proprietärer Programme mit dieser "
-#~ "Bibliothek zu gestatten. Wenn Sie dies tun wollen, sollten Sie die GNU "
-#~ "Library General Public License anstelle dieser Lizenz verwenden.\n"
-#~ "\n"
-#~ "AUSNAHMEREGELUNGEN:\n"
-#~ "\n"
-#~ "Das Jokosher-Projekt gestattet hiermit\n"
-#~ " die Nutzung und Weiterverbreitung von GStreamer-Plugins, die \n"
-#~ " nicht unter der GPL stehen zusammen mit GStreamer und\n"
-#~ " Jokosher. Diese Regelung geht über diejenige hinaus, die\n"
-#~ " durch die GPL gestattet werden, unter der Jokosher steht.\n"
-#~ " Wenn Sie diesen Code verändern, können sie diese Ausnahme\n"
-#~ " auf Ihre Version erweitern, dies ist aber nicht zwangsläufig nötig.\n"
-#~ " Wenn die Sonderregelung nicht übernommen werden soll, entfernen\n"
-#~ " Sie diesen Abschmitt aus Ihrer Version."
+msgid "Workspaces"
+msgstr "Arbeitsbereiche"
+
+msgid "An unspecified MixdownAction"
+msgstr "Eine nicht spezifizierte MixdownAktion"
 
 #~ msgid ""
 #~ "16 bit\n"
@@ -2999,24 +2153,29 @@ msgstr "Sprache/Gesang"
 #~ "Dennis Lichtenthäler <dennis.lichtenthaeler@episode-iv.de>\n"
 #~ "\n"
 #~ "Launchpad Contributions:\n"
+#~ "  Ansgar Burchardt https://launchpad.net/~ansgar-43-1\n"
 #~ "  Dennis Lichtenthäler https://launchpad.net/~pvbcharon\n"
 #~ "  Franz Papst https://launchpad.net/~inode-491770\n"
 #~ "  Julian Turner https://launchpad.net/~julian-turner\n"
-#~ "  Lebowski https://launchpad.net/~mstempin\n"
 #~ "  Lorenz https://launchpad.net/~lorenzloidl\n"
 #~ "  Lydia Pintscher https://launchpad.net/~lydia-pintscher\n"
 #~ "  Marcus Hochstadt https://launchpad.net/~info-hochstadt\n"
 #~ "  Martin Kerz https://launchpad.net/~martinkerz-deactivatedaccount-"
 #~ "deactivatedaccount\n"
 #~ "  Matthias Friedrich https://launchpad.net/~sparktherookie\n"
+#~ "  Michael Stempin https://launchpad.net/~mstempin\n"
 #~ "  Paul Lange https://launchpad.net/~palango\n"
 #~ "  Pierre Vorhagen https://launchpad.net/~pep.\n"
-#~ "  Ramona https://launchpad.net/~shiii\n"
+#~ "  Ramona https://launchpad.net/~muh.\n"
+#~ "  Takkara https://launchpad.net/~takkara\n"
 #~ "  Tim Fuchs https://launchpad.net/~tim-fuchs\n"
 #~ "  Tobias Etzold https://launchpad.net/~rontu\n"
 #~ "  Tobias Frederick https://launchpad.net/~me-tbfr\n"
 #~ "  Tobias Langenbucher https://launchpad.net/~tobias-langenbucher\n"
-#~ "  seakayone https://launchpad.net/~launchpad-net-dynamight"
+#~ "  Unchrist https://launchpad.net/~sergey-kartamyshev\n"
+#~ "  dauerbaustelle https://launchpad.net/~dauerbaustelle\n"
+#~ "  seakayone https://launchpad.net/~launchpad-net-dynamight\n"
+#~ "  simon schultz https://launchpad.net/~ark02"
 
 #~ msgid ""
 #~ "The instruments '%s' and '%s' both have the same input selected (%s). "
@@ -3043,7 +2202,7 @@ msgstr "Sprache/Gesang"
 
 #, fuzzy
 #~ msgid "%d of %d seconds completed"
-#~ msgstr "%d von %d Sekunden abgeschlossen"
+#~ msgstr "%(progress)d von %(total)d Sekunden fertig gestellt"
 
 #~ msgid ""
 #~ "\n"
@@ -3067,7 +2226,7 @@ msgstr "Sprache/Gesang"
 
 #, fuzzy
 #~ msgid "'Project -> Instrument Connections'"
-#~ msgstr "Verbindungen"
+#~ msgstr "Anschlüsse"
 
 #~ msgid "Import Audio File..."
 #~ msgstr "Audiodatei importieren..."
@@ -3152,8 +2311,9 @@ msgstr "Sprache/Gesang"
 #~ msgid "Remove curently selected extension"
 #~ msgstr "Ausgewählte Erweiterung entfernen"
 
+#, fuzzy
 #~ msgid "<b>Presets for:</b>"
-#~ msgstr "<b>Voreinstellungen für:</b>"
+#~ msgstr "<b>_Voreinstellungen für:</b>"
 
 #~ msgid "Add Instrument"
 #~ msgstr "Instrument hinzufügen"
@@ -3161,32 +2321,34 @@ msgstr "Sprache/Gesang"
 #~ msgid "Add a new instrument"
 #~ msgstr "Neues Instrument hinzufügen"
 
+#, fuzzy
 #~ msgid "Add a new step:"
-#~ msgstr "Einen neuen Schritt hinzufügen:"
-
-#~ msgid "Add this step to the current mixdown"
-#~ msgstr "Diesen Arbeitsschritt zum aktuellen Mix hinzufügen"
+#~ msgstr "Neues Instrument hinzufügen"
 
 #~ msgid "Audio production made simple."
 #~ msgstr "Audioproduktion leicht gemacht."
 
+#, fuzzy
 #~ msgid "Author"
-#~ msgstr "Autor/in"
+#~ msgstr "_Autor:"
 
 #~ msgid "Beat value"
 #~ msgstr "Schläge pro Minute"
 
+#, fuzzy
 #~ msgid "Beats per measure"
-#~ msgstr "Schläge pro Takt"
+#~ msgstr "Schläge pro Minute"
 
+#, fuzzy
 #~ msgid "Browse for an Existing Project"
-#~ msgstr "Nach einem bestehenden Projekt suchen"
+#~ msgstr "_Nach einem Projekt suchen"
 
 #~ msgid "Create a New Project"
 #~ msgstr "Neues Projekt erstellen"
 
+#, fuzzy
 #~ msgid "Device:"
-#~ msgstr "Gerät:"
+#~ msgstr "_Gerät:"
 
 #~ msgid "Don't open anything"
 #~ msgstr "Nichts öffnen"
@@ -3203,8 +2365,9 @@ msgstr "Sprache/Gesang"
 #~ msgid "Mixing"
 #~ msgstr "Abmischen"
 
+#, fuzzy
 #~ msgid "Mixing Workspace"
-#~ msgstr "Misch-Arbeitsbereich"
+#~ msgstr "Zum Mischbereich wechseln"
 
 #~ msgid "Open Selected Project"
 #~ msgstr "Ausgewähltes Projekt öffnen"
@@ -3215,9 +2378,6 @@ msgstr "Sprache/Gesang"
 #~ msgid "Output:"
 #~ msgstr "Ausgabe:"
 
-#~ msgid "Pipeline:"
-#~ msgstr "Warteschlange:"
-
 #~ msgid "Preferences"
 #~ msgstr "Einstellungen"
 
@@ -3227,11 +2387,13 @@ msgstr "Sprache/Gesang"
 #~ msgid "Record"
 #~ msgstr "Aufnahme"
 
+#, fuzzy
 #~ msgid "Recording"
-#~ msgstr "Aufnahme läuft"
+#~ msgstr "Aufnahme läuft..."
 
+#, fuzzy
 #~ msgid "Recording Workspace"
-#~ msgstr "Aufnahme-Arbeitsbereich"
+#~ msgstr "Zum Aufnahmebereich wechseln"
 
 #~ msgid "Remove Selected Instrument"
 #~ msgstr "Gewähltes Instrument entfernen"
@@ -3242,8 +2404,9 @@ msgstr "Sprache/Gesang"
 #~ msgid "Save these mixdown settings"
 #~ msgstr "Diese Misch-Einstellungen speichern"
 
+#, fuzzy
 #~ msgid "Search:"
-#~ msgstr "Suche:"
+#~ msgstr "_Suchen:"
 
 #~ msgid "Show welcome dialog"
 #~ msgstr "Willkommen-Dialog anzeigen"
@@ -3257,23 +2420,19 @@ msgstr "Sprache/Gesang"
 #~ msgid "Switch to the Recording workspace"
 #~ msgstr "Zum Aufnahmebereich wechseln"
 
-#, fuzzy
-#~ msgid "Workspaces"
-#~ msgstr "Arbeitsbereiche"
-
 #~ msgid "_Add Instrument"
 #~ msgstr "Instrument hinzufügen"
 
 #, fuzzy
 #~ msgid "_Manage Extensions"
-#~ msgstr "Erweiterungen verwalten"
+#~ msgstr "_Erweiterungen verwalten"
 
 #~ msgid "_Mixdown Project"
 #~ msgstr "Projekt _abmischen"
 
 #, fuzzy
 #~ msgid "_Mixdown the project"
-#~ msgstr "Projekt abmischen"
+#~ msgstr "Projekt _abmischen"
 
 #~ msgid "_Recording Inputs"
 #~ msgstr "Aufnahmeeingänge"
@@ -3292,7 +2451,7 @@ msgstr "Sprache/Gesang"
 
 #, fuzzy
 #~ msgid "Currently working in the Mixing workspace"
-#~ msgstr "Du befindest dich im Abmischbereich"
+#~ msgstr "Du befindest dich im Aufnahmebereich"
 
 #~ msgid "%(progress)d of %(total)d seconds completed"
 #~ msgstr "%(progress)d von %(total)d Sekunden fertig gestellt"
@@ -3300,14 +2459,17 @@ msgstr "Sprache/Gesang"
 #~ msgid "_Mixdown as"
 #~ msgstr "_Mix speichern unter"
 
+#, fuzzy
 #~ msgid "<b>Steps to mixdown %(projectname)s</b>"
-#~ msgstr "<b>Schritte um Mixdown für %(projectname)s zu erstellen </b>"
+#~ msgstr "Abmischen vorbereiten"
 
+#, fuzzy
 #~ msgid "Edit this mixdown step settings"
-#~ msgstr "Einstellungen für diesen Mixdown-Schritt bearbeiten"
+#~ msgstr "Diese Misch-Einstellungen speichern"
 
+#, fuzzy
 #~ msgid "Remove this mixdown step"
-#~ msgstr "Mixdown-Schritt entfernen"
+#~ msgstr "Diese Misch-Einstellungen speichern"
 
 #~ msgid "Don't save these mixdown settings"
 #~ msgstr "Misch-Einstellungen verwerfen"
@@ -3317,9 +2479,6 @@ msgstr "Sprache/Gesang"
 
 #~ msgid "Export file"
 #~ msgstr "Datei exportieren"
-
-#~ msgid "An unspecified MixdownAction"
-#~ msgstr "Eine nicht spezifizierte MixdownAktion"
 
 #~ msgid "Export to %(file)s as %(desc)s"
 #~ msgstr "Exportieren nach %(file)s als %(desc)s"

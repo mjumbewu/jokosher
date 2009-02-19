@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2008-09-03 14:40+0000\n"
+"X-Launchpad-Export-Date: 2009-02-18 04:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../../Jokosher/Jokosher.glade.h:1
@@ -1839,38 +1839,41 @@ msgstr ""
 msgid "Vocal"
 msgstr ""
 
-#~ msgid "Author"
-#~ msgstr "लेखक"
+msgid "Author"
+msgstr "लेखक"
 
-#~ msgid "Device:"
-#~ msgstr "उपकरण:"
+msgid "Device:"
+msgstr "उपकरण:"
 
-#~ msgid "Folder"
-#~ msgstr "फ़ोल्डर"
+msgid "Folder"
+msgstr "फ़ोल्डर"
 
-#~ msgid "Output:"
-#~ msgstr "आउटपुटः"
+msgid "Output:"
+msgstr "आउटपुटः"
 
-#~ msgid "Preferences"
-#~ msgstr "प्राथमिकताएं..."
+msgid "Preferences"
+msgstr "प्राथमिकताएं..."
 
+msgid "Recording"
+msgstr "रेकॉर्डिंग"
+
+msgid "Search:"
+msgstr "खोजें:"
+
+msgid "Stop"
+msgstr "रोकें"
+
+msgid "Workspaces"
+msgstr "कार्यस्थान"
+
+#, fuzzy
 #~ msgid "Project Name"
-#~ msgstr "परियोजना नाम"
+#~ msgstr "प्रोजेक्ट"
 
+#, fuzzy
 #~ msgid "Record"
-#~ msgstr "रेकॉर्ड करें"
+#~ msgstr "फिर से करें"
 
-#~ msgid "Recording"
-#~ msgstr "रेकॉर्डिंग"
-
+#, fuzzy
 #~ msgid "Rewind"
-#~ msgstr "रीवाइंड"
-
-#~ msgid "Search:"
-#~ msgstr "खोजें:"
-
-#~ msgid "Stop"
-#~ msgstr "रोकें"
-
-#~ msgid "Workspaces"
-#~ msgstr "कार्यस्थान"
+#~ msgstr "फिर से करें"
