@@ -7,7 +7,7 @@ import glob
 import py2exe
 
 dist = setup(name='jokosher',
-	version='0.10',
+	version='0.11',
 	author='Jokosher Project',
 	author_email='jokosher-devel@gnome.org',
 	maintainer='Michael Sheldon',
@@ -17,7 +17,7 @@ dist = setup(name='jokosher',
 	url='http://www.jokosher.org/',
 	download_url='http://www.jokosher.org/download',
 	license='GNU GPL',
-	packages=['Jokosher', 'Jokosher/elements'],
+	packages=['Jokosher', 'Jokosher/elements', 'Jokosher/ui'],
 	windows = [
 			{
 				'script' : 'bin/jokosher',
@@ -26,8 +26,8 @@ dist = setup(name='jokosher',
 		],
 	options = {
 			'py2exe': {
-				'packages' : 'encodings, Jokosher, Jokosher.elements',
-				'includes' : 'cairo, gtk, gtk.glade, gobject, pango, pangocairo, atk, gst, pygst'
+				'packages' : 'encodings, Jokosher, Jokosher.elements, Jokosher.ui',
+				'includes' : 'cairo, gtk, gtk.glade, gobject, pango, pangocairo, atk, gst, pygst, xdg'
 			}
 	},
 	data_files=[
