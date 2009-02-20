@@ -1,0 +1,36 @@
+Step 1) 
+	Download Debian staging files from a previous release:
+		
+		jokosher_version.dsc
+		jokosher_version-orig.tar.gz
+		jokosher_version.diff.gz
+
+	These can be found at http://packages.ubuntu.com/search?keywords=jokosher
+
+Step 2)
+	Run "dpkg-source -x jokosher_version.dsc" to extract the package staging files. This will create a "jokosher-version" directory.
+
+Step 3)
+	Unpack the latest release tarball to "jokosher-version+1"
+
+Step 4)
+	Copy the "debian" directory from "jokosher-version" to "jokosher-version+1"
+
+Step 5)
+	Edit "jokosher-version+1/debian/changelog", the format is important as this is where the build process finds the version information, it should be in the form:
+
+	jokosher (version+1) distro; urgency=low
+	  Free form text area for comments about changes
+
+	 -- Your Name <your@email.com>  Day, DD Mon YYYY HH:MM:SS +OFFSET
+
+	Previous entries can be seen as an example.
+
+Step 6)
+	Edit "jokosher-version+1/debian/control" if there are any new dependencies.
+	
+Step 7)
+	Change to the "jokosher-version+1" directory and run "dpkg-buildpackage -rfakeroot"
+
+Step 8)
+	In the directory above "jokosher-version+1-0ubuntu1.deb" will have been created. Release this file to the adoring masses.
