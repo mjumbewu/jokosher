@@ -86,6 +86,8 @@ class Settings:
 	
 		for section, section_dict in self.sections.iteritems():
 			for key, value in self.config.items(section):
+				if value == "None":
+					value = None
 				section_dict[key] = value
 	
 	#_____________________________________________________________________
