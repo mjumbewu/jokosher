@@ -23,7 +23,7 @@ _ = gettext.gettext
 
 import AddInstrumentDialog, TimeView, Workspace
 import PreferencesDialog, ExtensionManagerDialog, RecordingView, NewProjectDialog
-import ProjectManager, Globals, WelcomeDialog
+import ProjectManager, Globals
 import InstrumentConnectionsDialog, StatusBar
 import EffectPresets, Extension, ExtensionManager
 import Utils, AudioPreview, MixdownProfileDialog, MixdownActions
@@ -54,8 +54,7 @@ class MainApp:
 			loadExtensions -- whether the extensions should be loaded.
 			startuptype -- determines the startup state of Jokosher:
 							0 = Open the project referred by the openproject parameter.
-							1 = Do not display the welcome dialog or open a the previous project.
-							2 = Display the welcome dialog.
+							1 = Do not open the previous project.
 		"""
 		# create tooltip messages for buttons
 		self.recTipEnabled = _("Stop recording")
@@ -286,11 +285,8 @@ class MainApp:
 		self.window.show_all()
 
 		# command line options override preferences so check for them first,
-		# then preferences, then default to the welcome dialog
-		if startuptype == 2: # welcomedialog cmdline switch
-			WelcomeDialog.WelcomeDialog(self)
-			return
-		elif startuptype == 1: # no-project cmdline switch
+		# then use choice from preferences
+		if startuptype == 1: # no-project cmdline switch
 			return
 		elif openproject: # a project name on the cmdline
 			self.OpenProjectFromPath(openproject)
@@ -299,10 +295,6 @@ class MainApp:
 				self.OpenProjectFromPath(self.lastopenedproject[0])
 		elif Globals.settings.general["startupaction"] == PreferencesDialog.STARTUP_NOTHING:
 			return
-
-		#if everything else bombs out resort to the welcome dialog
-		if self.project == None:
-			WelcomeDialog.WelcomeDialog(self)
 
 	#_____________________________________________________________________
 	
