@@ -67,7 +67,6 @@ class Minimal:
 		wTree = gtk.glade.xml_new_from_buffer(xmlString, len(xmlString))
 		
 		self.window = wTree.get_widget("MinimalDialog")
-		self.API.set_window_icon(self.window)
 		self.timeLabel = wTree.get_widget("timeLabel")
 		self.hideShowButton = wTree.get_widget("hideShowButton")
 		self.abButton = wTree.get_widget("abButton")

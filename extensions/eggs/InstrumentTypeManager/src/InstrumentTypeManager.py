@@ -118,7 +118,6 @@ class InstrumentTypeManager:
 		self.wTree.signal_autoconnect(signals)
 	
 		self.window = self.wTree.get_widget("NewInstrumentTypeDialog")
-		self.API.set_window_icon(self.window)
 		self.icon = self.wTree.get_widget("button3")
 		self.instrument_name = self.wTree.get_widget("comboboxentry1")
 		self.icon_button = self.wTree.get_widget("button3")

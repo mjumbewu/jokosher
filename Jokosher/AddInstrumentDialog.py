@@ -89,7 +89,6 @@ class AddInstrumentDialog:
 		self.tree.set_size_request(72, -1)
 		self.dlg.resize(350, 300)
 		
-		self.dlg.set_icon(self.parent.icon)
 		self.dlg.set_transient_for(self.parent.window)
 		self.dlg.show()
 	#_____________________________________________________________________

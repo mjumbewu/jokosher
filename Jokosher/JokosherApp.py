@@ -246,14 +246,10 @@ class MainApp:
 		icon_theme = gtk.icon_theme_get_default()
 		try:
 			pixbuf = icon_theme.load_icon("jokosher", 48, 0)
-			self.window.set_icon(pixbuf)
+			gtk.window_set_default_icon(pixbuf)
 		except gobject.GError, exc:
-			self.window.set_icon_from_file(os.path.join(Globals.IMAGE_PATH, "jokosher.png"))
-		# make icon available to others
-		self.icon = self.window.get_icon()
+			gtk.window_set_default_icon_from_file(os.path.join(Globals.IMAGE_PATH, "jokosher.png"))
 		
-		# Make sure we can import for the instruments folder
-		sys.path.append("Instruments")
 		
 		self.window.add_events(gtk.gdk.KEY_PRESS_MASK)
 		self.window.connect_after("key-press-event", self.OnKeyPress)
@@ -400,7 +396,6 @@ class MainApp:
 		aboutTree = gtk.glade.XML(Globals.GLADE_PATH, "AboutDialog")
 		dlg = aboutTree.get_widget("AboutDialog")
 		dlg.set_transient_for(self.window)
-		dlg.set_icon(self.icon)
 		dlg.run()
 		dlg.destroy()
 		
@@ -686,7 +681,7 @@ class MainApp:
 			destroyCallback -- function that'll get called when the preferences 
 								dialog gets destroyed.
 		"""
-		prefsdlg = PreferencesDialog.PreferencesDialog(self.project, self, self.icon)
+		prefsdlg = PreferencesDialog.PreferencesDialog(self.project, self)
 			
 		if destroyCallback:
 			prefsdlg.dlg.connect("destroy", destroyCallback)
@@ -960,7 +955,6 @@ class MainApp:
 		export.signal_connect("on_cancel_clicked", self.OnExportCancel)
 		
 		self.exportdlg = export.get_widget("ProgressDialog")
-		self.exportdlg.set_icon(self.icon)
 		self.exportdlg.set_transient_for(self.window)
 		
 		label = export.get_widget("progressLabel")
@@ -1688,7 +1682,6 @@ class MainApp:
 		# grab references to the ContributingDialog window and vbox
 		self.contribdialog = self.contribTree.get_widget("ContributingDialog")
 		self.contribvbox = self.contribTree.get_widget("vbox14")
-		self.contribdialog.set_icon(self.icon)
 
 		# centre the ContributingDialog window on MainWindow
 		self.contribdialog.set_transient_for(self.window)
@@ -1822,7 +1815,6 @@ class MainApp:
 			gtk.MESSAGE_ERROR,
 			gtk.BUTTONS_OK,
 			message)
-		dlg.set_icon(self.icon)
 		dlg.run()
 		dlg.destroy()
 	
@@ -1898,7 +1890,6 @@ class MainApp:
 
 		dlg = gtk.FileChooserDialog(_("Add Audio File..."), action=gtk.FILE_CHOOSER_ACTION_OPEN, buttons=buttons)
 		dlg.set_default_response(gtk.RESPONSE_OK)
-		dlg.set_icon(self.icon)
 		if os.path.exists(Globals.settings.general["projectfolder"]):
 			dlg.set_current_folder(Globals.settings.general["projectfolder"])
 		else:

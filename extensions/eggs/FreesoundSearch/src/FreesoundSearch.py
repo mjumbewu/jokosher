@@ -159,7 +159,6 @@ class FreesoundSearch:
 		self.buttonFind.set_flags(gtk.CAN_DEFAULT)
 		self.buttonFind.grab_default()
 		self.scrollResults.add_with_viewport(self.vboxResults)
-		self.api.set_window_icon(self.window)
 		self.imageHeader.set_from_file(pkg_resources.resource_filename(__name__, "images/banner.png"))
 		self.statusbar.push(0, _("Tip: To add a sample to your project, drag and drop it into the recording view"))
 		
@@ -362,7 +361,6 @@ class FreesoundSearch:
 		self.entryPassword.set_activates_default(True)
 		self.buttonOK.set_flags(gtk.CAN_DEFAULT)
 		self.buttonOK.grab_default()
-		self.api.set_window_icon(self.loginWindow)
 		
 		# set the entries's text to the saved values
 		if self.api.get_config_value("fsUsername") is not None:

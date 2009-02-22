@@ -108,10 +108,6 @@ class MixdownAction(gobject.GObject):
 		
 		self.config = {}
 		self.isConfigured = None
-		
-		# to be used by the configuration window in MixdownAction sublcasses.
-		self.dialogIcon = gtk.gdk.pixbuf_new_from_file( os.path.join(Globals.IMAGE_PATH, "jokosher.png") )
-
 	
 	#_____________________________________________________________________
 	
@@ -189,7 +185,6 @@ class ExportAsFileType(MixdownAction):
 		self.formatModel = gtk.ListStore(str, str, str) # description, extension, pipeline
 			
 		# set some properties
-		self.configureExportWindow.set_icon(self.dialogIcon)
 		self.formatCombo.set_model(self.formatModel)
 		self.formatCombo.clear()
 		desc = gtk.CellRendererText()
@@ -380,7 +375,6 @@ class ExportAsFileType(MixdownAction):
 			chooser.set_current_folder(Globals.settings.general["projectfolder"])
 		else:
 			chooser.set_current_folder(os.path.expanduser("~"))
-		chooser.set_icon(self.dialogIcon)
 
 		chooser.set_default_response(gtk.RESPONSE_OK)
 		chooser.set_transient_for(self.configureExportWindow)
@@ -501,7 +495,6 @@ class RunAScript(MixdownAction):
 			chooser.set_current_folder(Globals.settings.general["projectfolder"])
 		else:
 			chooser.set_current_folder(os.path.expanduser("~"))
-		chooser.set_icon(self.dialogIcon)
 
 		chooser.set_default_response(gtk.RESPONSE_OK)
 		response = chooser.run()

@@ -28,14 +28,13 @@ class PreferencesDialog:
 	Creates a dialog for selecting and saving global preferences.
 	"""
 
-	def __init__(self, project, mainwindow, icon=None):
+	def __init__(self, project, mainwindow):
 		"""
 		Creates a new instance of PreferencesDialog.
 		
 		Parameters:
 			project -- the currently active Project.
 			mainwindow -- the main Jokosher window (MainApp).
-			icon -- the icon for the window manager to display for this window (optional).
 		"""
 
 		self.project = project
@@ -53,7 +52,6 @@ class PreferencesDialog:
 
 		self.res.signal_autoconnect(self.signals)
 		self.dlg = self.res.get_widget("PreferencesDialog")
-		self.dlg.set_icon(icon)
 		self.recordingFileFormat = self.res.get_widget("recordingFileFormat")
 		self.recordingCustomPipeline = self.res.get_widget("recordingCustomPipeline")
 		self.recordingSoundSystem = self.res.get_widget("recordingSoundSystem")

@@ -259,7 +259,6 @@ class TimeLineBar(gtk.HBox):
 				self.comboValue = self.sigDialogTree.get_widget("comboValue")
 				
 				# set some properties for the widgets
-				self.sigDialog.set_icon(self.mainview.icon)
 				self.spinBeats.set_value(self.project.meter_nom)
 				self.comboValue.set_active(int(log(self.project.meter_denom, 2)))
 			else:

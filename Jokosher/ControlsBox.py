@@ -215,8 +215,7 @@ class ControlsBox(gtk.HBox):
 		if not self.effectsDialog:
 			self.effectsDialog = InstrumentEffectsDialog.InstrumentEffectsDialog(
 					self.instrument,
-					self.OnEffectsDialogDestroyed,
-					self.mainview.icon)
+					self.OnEffectsDialogDestroyed)
 		else:
 			self.effectsDialog.BringWindowToFront()
 

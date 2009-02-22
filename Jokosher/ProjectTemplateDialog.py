@@ -50,7 +50,6 @@ class ProjectTemplateDialog:
 		
 		self.window = self.wTree.get_widget("ProjectTemplateDialog")
 		self.window.set_transient_for(self.newprojectdlg.dlg)
-		self.window.set_icon(self.newprojectdlg.dlg.get_icon())
 		
 		self.tempcombo = self.wTree.get_widget("template_comboentry")
 		self.tempcombo.child.set_activates_default(True)

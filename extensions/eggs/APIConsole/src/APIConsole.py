@@ -78,7 +78,6 @@ class APIConsole:
 		self.output = wTree.get_widget("textviewOutput")
 		self.scrollwindow = wTree.get_widget("scrolledwindow")
 		
-		self.api.set_window_icon(self.window)
 		self.output_text = gtk.TextBuffer()
 		self.output_text.insert_at_cursor(self.defaultOutput)
 		self.output.set_buffer(self.output_text)

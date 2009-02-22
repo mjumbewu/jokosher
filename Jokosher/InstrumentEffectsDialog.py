@@ -36,7 +36,7 @@ class InstrumentEffectsDialog:
 	
 	#_____________________________________________________________________	
 	
-	def __init__(self, instrument, destroyCallback, windowIcon):
+	def __init__(self, instrument, destroyCallback):
 		"""
 		This constructor enables a lot of variables, reads in the glade
 		file for the main dialog, and populates the effects and presets
@@ -45,11 +45,9 @@ class InstrumentEffectsDialog:
 		Parameters:
 			instrument -- Instrument whose effects are being modified.
 			destroyCallback -- GTK callback. Called when this dialog gets destroyed.
-			windowIcon -- icon to use on the window's upper corner.
 		"""
 		# a reference to the instrument object
 		self.instrument = instrument
-		self.windowIcon = windowIcon
 		self.res = gtk.glade.XML(Globals.GLADE_PATH, "InstrumentEffectsDialog")
 
 		self.Updating = False
@@ -104,7 +102,6 @@ class InstrumentEffectsDialog:
 
 		# connect the destroy signal and set the window icon
 		self.window.connect("destroy", destroyCallback)
-		self.window.set_icon(self.windowIcon)
 		
 		# set single selection for the list views
 		self.listEffects.get_selection().set_mode(gtk.SELECTION_SINGLE)
@@ -668,8 +665,7 @@ class InstrumentEffectsDialog:
 		self.settingsvbox.pack_start(self.settingsHeaderCairoImage, expand=False, fill=True)
 		self.settingsHeaderCairoImage.show()
 		
-		# set the window icon and parent (for correct modal mode)
-		self.settingswindow.set_icon(self.windowIcon)
+		# set the window parent (for correct modal mode)
 		self.settingswindow.set_transient_for(self.window)
 		
 		# tooltips object used to assign tooltips to the sliders

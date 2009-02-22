@@ -947,18 +947,6 @@ class ExtensionAPI:
 	#_____________________________________________________________________
 	
 	@exported_function
-	def set_window_icon(self, window):
-		"""
-		Sets the specified window to use the Jokosher icon.
-		
-		Parameters:
-			window -- the window which will use the Jokosher icon as its icon in the window border.
-		"""
-		window.set_icon(self.mainapp.icon)
-		
-	#_____________________________________________________________________
-	
-	@exported_function
 	def get_position(self):
 		"""
 		Gives the current position in pipeline

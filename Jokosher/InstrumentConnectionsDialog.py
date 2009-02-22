@@ -58,7 +58,6 @@ class InstrumentConnectionsDialog:
 			self.res.get_widget("explainLabel").set_text(_("There are no instruments to connect"))
 
 		self.parent = parent
-		self.window.set_icon(self.parent.icon)
 		## centre the InstrumentConnectionsDialog on the main jokosher window
 		self.window.set_transient_for(self.parent.window)
 		self.window.show_all()
@@ -77,7 +76,7 @@ class InstrumentConnectionsDialog:
 	#_____________________________________________________________________
 	
 	def OnChangeSoundSystem(self, button):
-		prefsdlg = PreferencesDialog.PreferencesDialog(self.project, self.parent, self.parent.icon)
+		prefsdlg = PreferencesDialog.PreferencesDialog(self.project, self.parent)
 		self.window.hide()
 		# TODO: don't create a new instance of this window each time
 		prefsdlg.dlg.connect("destroy", self.parent.OnInstrumentConnectionsDialog)

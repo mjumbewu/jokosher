@@ -58,7 +58,6 @@ class MixdownProfileDialog:
 
 		self.window = self.res.get_widget("MixdownProfileDialog")
 		self.window.set_default_size(450, 400)
-		self.window.set_icon(self.mainapp.icon)
 
 		self.profileCombo = self.res.get_widget("profile_combo")
 		self.treeView = self.res.get_widget("actions_treeview")
@@ -628,7 +627,6 @@ class AddMixdownActionDialog:
 		
 		# set some properties for the widgets
 		self.addActionDialog.set_transient_for(self.profileDialog.window)
-		self.addActionDialog.set_icon(self.profileDialog.window.get_icon())
 		self.actionLabel.set_markup(_("Please select the mixdown actions you would like to add to mixdown profile <b>%s.</b>") % self.profileName)
 	
 		self.PopulateActionModel()

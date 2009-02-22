@@ -98,7 +98,6 @@ class NewProjectDialog:
 			self.folder.set_current_folder(os.path.expanduser("~"))
 
 		self.dlg.resize(350, 300)
-		self.dlg.set_icon(self.parent.icon)
 		self.dlg.set_transient_for(self.parent.window)
 
 	#_____________________________________________________________________
