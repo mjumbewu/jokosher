@@ -1877,10 +1877,10 @@ daave &lt;fan.d.liu@gmail.com&gt;
 		  <property name="spacing">0</property>
 
 		  <child>
-		    <widget class="GtkRadioButton" id="startupWelcomeDialog">
+		    <widget class="GtkRadioButton" id="startupNewProject">
 		      <property name="visible">True</property>
 		      <property name="can_focus">True</property>
-		      <property name="label" translatable="yes">_Show welcome dialog</property>
+		      <property name="label" translatable="yes">Open a _new project</property>
 		      <property name="use_underline">True</property>
 		      <property name="relief">GTK_RELIEF_NORMAL</property>
 		      <property name="focus_on_click">True</property>
@@ -1907,7 +1907,7 @@ daave &lt;fan.d.liu@gmail.com&gt;
 		      <property name="active">False</property>
 		      <property name="inconsistent">False</property>
 		      <property name="draw_indicator">True</property>
-		      <property name="group">startupWelcomeDialog</property>
+		      <property name="group">startupNewProject</property>
 		      <signal name="clicked" handler="on_Setting_changed"/>
 		    </widget>
 		    <packing>
@@ -1921,14 +1921,14 @@ daave &lt;fan.d.liu@gmail.com&gt;
 		    <widget class="GtkRadioButton" id="startupNothing">
 		      <property name="visible">True</property>
 		      <property name="can_focus">True</property>
-		      <property name="label" translatable="yes">_Don't open anything</property>
+		      <property name="label" translatable="yes">_Don't open any project</property>
 		      <property name="use_underline">True</property>
 		      <property name="relief">GTK_RELIEF_NORMAL</property>
 		      <property name="focus_on_click">True</property>
 		      <property name="active">False</property>
 		      <property name="inconsistent">False</property>
 		      <property name="draw_indicator">True</property>
-		      <property name="group">startupWelcomeDialog</property>
+		      <property name="group">startupNewProject</property>
 		      <signal name="clicked" handler="on_Setting_changed"/>
 		    </widget>
 		    <packing>

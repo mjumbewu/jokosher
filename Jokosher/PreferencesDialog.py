@@ -17,7 +17,7 @@ import gst
 import gettext
 _ = gettext.gettext
 
-STARTUP_WELCOME_DIALOG = "welcome"
+STARTUP_NEW_PROJECT = "newproject"
 STARTUP_LAST_PROJECT = "lastproject"
 STARTUP_NOTHING = "nothing"
 
@@ -61,7 +61,7 @@ class PreferencesDialog:
 		self.playbackDevice = self.res.get_widget("playbackDevice")
 		self.playbackSink = self.res.get_widget("playbackSink")
 		self.customSink = self.res.get_widget("customSink")
-		self.radioWelcome = self.res.get_widget("startupWelcomeDialog")
+		self.radioNewProject = self.res.get_widget("startupNewProject")
 		self.radioLastProject = self.res.get_widget("startupLastProject")
 		self.radioNothing = self.res.get_widget("startupNothing")
 		
@@ -160,10 +160,10 @@ class PreferencesDialog:
 		startupValue = Globals.settings.general["startupaction"]
 		if startupValue == STARTUP_LAST_PROJECT:
 			self.radioLastProject.set_active(True)
-		elif startupValue == STARTUP_NOTHING:
-			self.radioNothing.set_active(True)
+		elif startupValue == STARTUP_NEW_PROJECT:
+			self.radioNewProject.set_active(True)
 		else: #default in case no preference is saved
-			self.radioWelcome.set_active(True)
+			self.radioNothing.set_active(True)
 			
 		self.loadingSettings = False
 
@@ -234,8 +234,8 @@ class PreferencesDialog:
 			Globals.settings.playback["devicename"] = ""
 			Globals.settings.playback["device"] = ""
 		
-		if self.radioWelcome.get_active():
-			Globals.settings.general["startupaction"] = STARTUP_WELCOME_DIALOG
+		if self.radioNewProject.get_active():
+			Globals.settings.general["startupaction"] = STARTUP_NEW_PROJECT
 		elif self.radioLastProject.get_active():	
 			Globals.settings.general["startupaction"] = STARTUP_LAST_PROJECT
 		elif self.radioNothing.get_active():
