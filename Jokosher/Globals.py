@@ -727,6 +727,7 @@ gobject.idle_add(idleCacheInstruments)
 
 gobject.set_application_name(_("Jokosher Audio Editor"))
 gobject.set_prgname(LOCALE_APP)
+gtk.window_set_default_icon_name("jokosher")
 # environment variable for pulseaudio type
 os.environ["PULSE_PROP_media.role"] = "production"
 
