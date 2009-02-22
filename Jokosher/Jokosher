@@ -24,7 +24,9 @@ def localFileImport(importName):
 		try:
 			#this is equivalent to "import Globals", but with a variable in
 			#place of "Globals"
-			globals()[importName] = __import__(importName)
+			module = __import__(importName)
+			globals()[importName] = module
+			sys.modules["Jokosher." + importName] = module
 		
 		except Exception, e:
 			print "Error loading Jokosher: %s" % e
