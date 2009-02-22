@@ -1072,7 +1072,7 @@
 		      </child>
 
 		      <child>
-			<widget class="GtkButton" id="button13">
+			<widget class="GtkButton" id="recent_projects_button">
 			  <property name="visible">True</property>
 			  <property name="tooltip" translatable="yes">Select a project to open from the list</property>
 			  <property name="can_default">True</property>

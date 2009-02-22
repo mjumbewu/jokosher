@@ -113,7 +113,7 @@ class MainApp:
 			"on_project_add_audio" : self.OnAddAudioFile,
 			"on_system_information_activate" : self.OnSystemInformation,
 			"on_properties_activate" : self.OnProjectProperties,
-			"on_recentprojectbutton_clicked" : self.OnOpenRecentProjectButton,
+			"on_openrecentbutton_clicked" : self.OnOpenRecentProjectButton,
 		}
 		self.wTree.signal_autoconnect(signals)
 		
@@ -154,6 +154,7 @@ class MainApp:
 		self.properties_menu_item = self.wTree.get_widget("project_properties")
 		self.welcome_pane = self.wTree.get_widget("WelcomePane")
 		self.recent_projects_tree = self.wTree.get_widget("recent_projects_tree")
+		self.recent_projects_button = self.wTree.get_widget("recent_projects_button")
 		
 		self.recentprojectitems = []
 		self.lastopenedproject = None
@@ -221,13 +222,13 @@ class MainApp:
 		audioimg.show()
 		
 		self.recent_projects_tree_model = gtk.ListStore(str, str, str)
+		self.recent_projects_tree.set_model(self.recent_projects_tree_model)
 		# populate the Recent Projects menu
 		self.OpenRecentProjects()
 		self.PopulateRecentProjects()
 		
 		# set up recent projects treeview with a ListStore model. We also
 		# use CellRenderPixbuf as we are using icons for each entry
-		self.recent_projects_tree.set_model(self.recent_projects_tree_model)
 		tvcolumn = gtk.TreeViewColumn()
 		cellpb = gtk.CellRendererPixbuf()
 		cell = gtk.CellRendererText()
@@ -239,9 +240,7 @@ class MainApp:
 		tvcolumn.set_attributes(cell, text=1)
 		
 		self.recent_projects_tree.append_column(tvcolumn)
-
 		self.recent_projects_tree.connect("row-activated", self.OnRecentProjectSelected)
-		
 		
 		# set window icon
 		icon_theme = gtk.icon_theme_get_default()
@@ -283,6 +282,9 @@ class MainApp:
 		
 		# Show the main window
 		self.window.show_all()
+		if self.recentprojectitems:
+			self.recent_projects_tree.set_cursor( (0,) ) # the highlight the first item
+			self.recent_projects_button.grab_focus()
 
 		# command line options override preferences so check for them first,
 		# then use choice from preferences
@@ -1143,7 +1145,6 @@ class MainApp:
 			path -- reserved for GTK callbacks, don't use it explicitly.
 			view_column -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-		
 		item = self.recent_projects_tree_model[path]
 		response = self.OnRecentProjectsItem(treeview, item[2], item[1])
 		
@@ -1156,7 +1157,8 @@ class MainApp:
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-		item = self.recent_projects_tree_model[self.tree.get_cursor()[0]]
+		path = self.recent_projects_tree.get_cursor()[0]
+		item = self.recent_projects_tree_model[path]
 		self.OnRecentProjectsItem(self, item[2], item[1])
 	
 	#_____________________________________________________________________
@@ -1364,6 +1366,9 @@ class MainApp:
 				self.tvtoolitem = None
 				
 			self.main_vbox.pack_start(self.welcome_pane, True, True)
+			if self.recentprojectitems:
+				self.recent_projects_tree.set_cursor( (0,) ) # the highlight the first item
+				self.recent_projects_button.grab_focus()
 
 	#_____________________________________________________________________
 	
