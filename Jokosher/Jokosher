@@ -67,11 +67,9 @@ parser.add_option("-d", "--debug", action="store_true", dest="debug",
 parser.add_option("-g", "--gst-debug", action="store_true", dest="gstDebug", 
 				help=_("Sent debug output to Gstreamer's debug system"))
 parser.add_option("-s", "--safe-mode", action="store_true", dest="safeMode", 
-				help=_("Don't load extensions or last project on startup (same as -ne)"))
-parser.add_option("-w", "--welcome-dialog", action="store_true", dest="forceWelcome", 
-				help=_("Force the welcome dialog to show on startup"))
+				help=_("Do not load extensions or project on startup (same as -ne)"))
 parser.add_option("-n", "--no-project", action="store_true", dest="forceNoProject", 
-				help=_("Force Jokosher to load without a welcome dialog or project"))
+				help=_("Do not load a project on startup"))
 parser.add_option("-e", "--no-extensions", action="store_true", dest="noextensions", 
 				help=_("Do not load extensions on startup"))
 
@@ -87,9 +85,7 @@ if options.gstDebug:
 	# this *must* be done before 'import gst' because it reads the env var on startup.
 	os.environ.setdefault("GST_DEBUG_DUMP_DOT_DIR", Globals.JOKOSHER_DATA_HOME)
 
-if options.forceWelcome:
-	startupType = 2
-elif options.forceNoProject:
+if options.forceNoProject:
 	startupType = 1
 else:
 	startupType = None
