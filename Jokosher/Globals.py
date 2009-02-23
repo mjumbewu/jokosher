@@ -417,7 +417,7 @@ create_dirs = [
 jokosher_dir_empty = (len(os.listdir(JOKOSHER_DATA_HOME)) == 0)
 _HOME_DOT_JOKOSHER = os.path.expanduser("~/.jokosher")
 
-if jokosher_dir_empty:
+if jokosher_dir_empty and os.path.isdir(_HOME_DOT_JOKOSHER):
 	# Copying old config file from ~/.jokosher.
 	CopyAllFiles(_HOME_DOT_JOKOSHER, JOKOSHER_CONFIG_HOME, ["config"])
 
