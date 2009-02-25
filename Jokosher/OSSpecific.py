@@ -76,3 +76,40 @@ def __WINDOWS_pathname2url(path):
 
 def __UNIX_pathname2url(path):
 	return "file://%s" % urllib.pathname2url(path)
+
+
+def GetRecordingDefaults():
+	if system == "Windows":
+		defaults = {
+				"fileformat": "vorbisenc ! oggmux",
+				"file_extension": "ogg",
+				"samplerate": "0", # zero means, autodetect sample rate (ie use any available)
+				"audiosrc" : "dshowaudiosrc",
+				"device" : "default"
+			}
+	else:	
+		defaults = {
+				"fileformat": "flacenc",
+				"file_extension": "flac",
+				"samplerate": "0", # zero means, autodetect sample rate (ie use any available)
+				"audiosrc" : "gconfaudiosrc",
+				"device" : "default"
+			} 
+	return defaults
+
+
+def GetPlaybackDefaults():
+	if system == "Windows":
+		defaults = {
+				"devicename": "default",
+				"device": "default",
+				"audiosink": "directsoundsink"
+			}
+	else:
+		defaults = {
+				"devicename": "default",
+				"device": "default",
+				"audiosink":"autoaudiosink"
+			}
+
+	return defaults	

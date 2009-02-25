@@ -18,6 +18,7 @@ pygtk.require("2.0")
 import gobject, gtk
 import xdg.BaseDirectory
 import shutil
+import OSSpecific
 
 import gettext
 _ = gettext.gettext
@@ -37,21 +38,10 @@ class Settings:
 				"windowheight" : 550,
 				"windowwidth" : 900,
 				}
-	
-	recording = {
-				"fileformat": "flacenc",
-				"file_extension": "flac",
-				"samplerate": "0", # zero means, autodetect sample rate (ie use any available)
-				"audiosrc" : "gconfaudiosrc",
-				"device" : "default"
-				}
-	
-	playback = 	{
-				"devicename": "default",
-				"device": "default",
-				"audiosink":"autoaudiosink"
-				}
-	
+
+	recording = OSSpecific.GetRecordingDefaults()
+	playback = OSSpecific.GetPlaybackDefaults()
+
 	extensions = {
 				 "extensions_blacklist": ""
 				 }

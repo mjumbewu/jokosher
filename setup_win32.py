@@ -27,7 +27,7 @@ dist = setup(name='jokosher',
 	options = {
 			'py2exe': {
 				'packages' : 'encodings, Jokosher, Jokosher.elements, Jokosher.ui',
-				'includes' : 'cairo, gtk, gtk.glade, gobject, pango, pangocairo, atk, gst, pygst, xdg'
+				'includes' : 'cairo, gtk, gtk.glade, gobject, pango, pangocairo, atk, gst, pygst, xdg, Queue, xml.etree.ElementTree, gtk.keysyms, code, keyword, re'
 			}
 	},
 	data_files=[
