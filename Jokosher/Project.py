@@ -27,6 +27,7 @@ import Instrument, Event
 import Utils
 import AudioBackend
 import ProjectManager
+import OSSpecific
 
 #=========================================================================
 
@@ -1294,10 +1295,14 @@ class Project(gobject.GObject):
 		"""
 		if not undoAction:
 			undoAction = self.NewAtomicUndoAction()
-		
+	
+		uris = []
+		for filename in fileList:
+			uris.append(OSSpecific.pathname2url(filename))
+
 		name, type, pixbuf, path = [x for x in Globals.getCachedInstruments() if x[1] == "audiofile"][0]
 		instr = self.AddInstrument(name, type, _undoAction_=undoAction)
-		instr.AddEventsFromList(0, fileList, copyFile, undoAction)
+		instr.AddEventsFromList(0, uris, copyFile, undoAction)
 	
 	#_____________________________________________________________________
 	

@@ -542,7 +542,7 @@ class Instrument(gobject.GObject):
 		
 		Parameters:
 			start -- the offset time in seconds for the first event.
-			fileList -- paths or URIs to the Event files.
+			fileList -- URIs to the Event files.
 			copyfile --	True = copy the files to Project's audio directory.
 						False = don't copy the files to the Project's audio directory.
 		"""
