@@ -692,14 +692,19 @@ class Project(gobject.GObject):
 		Globals.debug("Message:", error.message)
 		
 		if error.domain == gst.STREAM_ERROR and Globals.DEBUG_GST:
-			basepath, ext = os.path.splitext(self.projectfile)
-			name = "jokosher-pipeline-" + os.path.basename(basepath)
-			gst.DEBUG_BIN_TO_DOT_FILE_WITH_TS(self.mainpipeline, gst.DEBUG_GRAPH_SHOW_ALL, name)
-			Globals.debug("Dumped pipeline to DOT file:", name)
-			Globals.debug("Command to render DOT file: dot -Tsvg -o pipeline.svg <file>")
+			self.DumpDotFile()
 		
 		self.emit("gst-bus-error", str(error), str(debug))
 
+	#_____________________________________________________________________
+	
+	def DumpDotFile(self):
+		basepath, ext = os.path.splitext(self.projectfile)
+		name = "jokosher-pipeline-" + os.path.basename(basepath)
+		gst.DEBUG_BIN_TO_DOT_FILE_WITH_TS(self.mainpipeline, gst.DEBUG_GRAPH_SHOW_ALL, name)
+		Globals.debug("Dumped pipeline to DOT file:", name)
+		Globals.debug("Command to render DOT file: dot -Tsvg -o pipeline.svg <file>")
+	
 	#_____________________________________________________________________
 	
 	def SaveProjectFile(self, path=None, backup=False):
