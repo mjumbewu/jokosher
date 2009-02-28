@@ -86,6 +86,8 @@ class Settings:
 	
 		for section, section_dict in self.sections.iteritems():
 			for key, value in self.config.items(section):
+				if value == "None":
+					value = None
 				section_dict[key] = value
 	
 	#_____________________________________________________________________
@@ -721,6 +723,13 @@ settings = Settings()
 
 """ Cache Instruments """
 gobject.idle_add(idleCacheInstruments)
+
+
+gobject.set_application_name(_("Jokosher Audio Editor"))
+gobject.set_prgname(LOCALE_APP)
+gtk.window_set_default_icon_name("jokosher")
+# environment variable for pulseaudio type
+os.environ["PULSE_PROP_media.role"] = "production"
 
 # I have decided that Globals.py is a boring source file. So, here is a little
 # joke. What does the tax office and a pelican have in common? They can both stick

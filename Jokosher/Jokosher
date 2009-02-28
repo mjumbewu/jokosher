@@ -24,7 +24,9 @@ def localFileImport(importName):
 		try:
 			#this is equivalent to "import Globals", but with a variable in
 			#place of "Globals"
-			globals()[importName] = __import__(importName)
+			module = __import__(importName)
+			globals()[importName] = module
+			sys.modules["Jokosher." + importName] = module
 		
 		except Exception, e:
 			print "Error loading Jokosher: %s" % e
@@ -81,6 +83,11 @@ if len(args) > 0:
 	
 Globals.DEBUG_STDOUT = options.debug
 Globals.DEBUG_GST = options.gstDebug
+
+if options.gstDebug:
+	# enable path to dump dot files
+	# this *must* be done before 'import gst' because it reads the env var on startup.
+	os.environ.setdefault("GST_DEBUG_DUMP_DOT_DIR", Globals.JOKOSHER_DATA_HOME)
 
 if options.forceWelcome:
 	startupType = 2
