@@ -145,7 +145,7 @@ class Project(gobject.GObject):
 		self.levelElement.set_property("interval", gst.SECOND / 50)
 		self.levelElement.set_property("message", True)
 		
-		#Restrict adder's output caps due to adder bug
+		#Restrict adder's output caps due to adder bug 341431
 		self.levelElementCaps = gst.element_factory_make("capsfilter", "levelcaps")
 		capsString = "audio/x-raw-int,rate=44100,channels=2,width=16,depth=16,signed=(boolean)true"
 		capsString += ";audio/x-raw-float,rate=44100,channels=2"
