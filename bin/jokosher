@@ -73,6 +73,11 @@ if len(args) > 0:
 Globals.DEBUG_STDOUT = options.debug
 Globals.DEBUG_GST = options.gstDebug
 
+if options.gstDebug:
+	# enable path to dump dot files
+	# this *must* be done before 'import gst' because it reads the env var on startup.
+	os.environ.setdefault("GST_DEBUG_DUMP_DOT_DIR", Globals.JOKOSHER_DATA_HOME)
+
 if options.forceWelcome:
 	startupType = 2
 elif options.forceNoProject:

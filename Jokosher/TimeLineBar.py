@@ -83,6 +83,8 @@ class TimeLineBar(gtk.HBox):
 		self.bpmedit.set_increments(1, 5)
 		self.bpmedit.set_value(self.project.bpm)
 		self.bpmedit.connect("activate", self.OnAcceptEditBPM)
+		self.bpmedit.connect("key_press_event", self.OnEditBPMKey)
+		self.bpmedit.connect_after("button-release-event", self.OnEditBPMClick)
 
 		self.sigeventbox = gtk.EventBox()
 		self.sigeventtip = gtk.Tooltips()
@@ -104,7 +106,7 @@ class TimeLineBar(gtk.HBox):
 		self.clickbutton.connect("leave_notify_event", self.OnClickButtonEnter)
 		
 		self.bpmeventbox.set_events(gtk.gdk.BUTTON_PRESS_MASK)
-		self.bpmeventbox.connect("button_press_event", self.OnEditBPM)
+		self.bpmeventbox.connect("button_release_event", self.OnEditBPM)
 		self.bpmeventbox.connect("enter_notify_event", self.OnMouseMoveBPM)
 		self.bpmeventbox.connect("leave_notify_event", self.OnMouseMoveBPM)
 		
@@ -201,18 +203,20 @@ class TimeLineBar(gtk.HBox):
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 			event -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-		if event.type == gtk.gdk.BUTTON_PRESS:
+		if event.type == gtk.gdk.BUTTON_RELEASE:
 			startWidth = self.headerhbox.size_request()[0]
 			
 			if self.bpmeventbox.parent:
 				self.bpmframe.remove(self.bpmeventbox)
 				self.bpmframe.add(self.bpmedit)
 				self.bpmedit.show()
+				
+				self.bpmedit.grab_add()
 				self.bpmedit.grab_focus()
 
 	#_____________________________________________________________________
 	
-	def OnAcceptEditBPM(self, widget=None):
+	def OnAcceptEditBPM(self, widget=None, cancel=False):
 		"""
 		Called when the user finishes editing the beats per minute box.
 		This method then updates the beats per minute value to the value the user 
@@ -221,15 +225,46 @@ class TimeLineBar(gtk.HBox):
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
+		self.bpmedit.grab_remove()
 		
 		if self.bpmedit.parent:
 			self.bpmframe.remove(self.bpmedit)
 			self.bpmframe.add(self.bpmeventbox)
 			self.bpmframe.show_all()
 			
-			newbpm = self.bpmedit.get_value_as_int()
-			self.project.SetBPM(float(newbpm))
+			if not cancel:
+				newbpm = self.bpmedit.get_value_as_int()
+				self.project.SetBPM(float(newbpm))
 		
+	#_____________________________________________________________________
+	
+	def OnEditBPMClick(self, widget, event):
+		"""
+		Handles the button presses while doing a grab on the bpm edit spinbutton.
+		If we get a mouse event, it means the user has clicked outside the spinbutton.
+		So then we save what the user edited and go back to a label.
+		"""
+		if event.type == gtk.gdk.BUTTON_RELEASE:
+			self.OnAcceptEditBPM()
+			return True
+
+	#_____________________________________________________________________
+
+	def OnEditBPMKey(self, widget, event):
+		"""
+		Handles the key presses while editing the instrument name label.
+		Used to make the escape key save the name and then return to normal mode.
+		
+		Parameters:
+			widget -- GTK callback.
+			event -- GTK callback.
+		"""
+		key = gtk.gdk.keyval_name(event.keyval)
+		
+		if key == "Escape":
+			self.OnAcceptEditBPM(cancel=True)
+			return True
+
 	#_____________________________________________________________________
 
 	def OnEditSig(self, widget, event):
