@@ -374,8 +374,9 @@ class TimeLine(gtk.DrawingArea):
 		if not self.window:
 			return
 		
+		width_in_secs = self.allocation.width / self.project.viewScale
 		# The left and right sides of the viewable area
-		rightPos = self.project.viewStart + self.timelinebar.projectview.scrollRange.page_size
+		rightPos = self.project.viewStart + width_in_secs
 		leftPos = self.project.viewStart
 		currentPos = self.project.transport.GetPosition()
 		
@@ -386,12 +387,12 @@ class TimeLine(gtk.DrawingArea):
 			if leftPos < self.project.transport.GetPreviousPosition() < rightPos:
 				if currentPos > rightPos:
 					# now the playhead has moved off to the right, so force the scroll in that direction
-					self.timelinebar.projectview.SetViewPosition(rightPos)
+					self.project.SetViewStart(rightPos)
 			
 				elif currentPos < leftPos:
 					#if playhead is beyond leftmost position then force scroll and quit
-					leftPos = max(0, leftPos - self.timelinebar.projectview.scrollRange.page_size)
-					self.timelinebar.projectview.SetViewPosition(leftPos)
+					leftPos = max(0, leftPos - width_in_secs)
+					self.project.SetViewStart(leftPos)
 	
 		prev_pos = self.project.transport.GetPreviousPixelPosition()
 		new_pos = self.project.transport.GetPixelPosition()
@@ -434,8 +435,8 @@ class TimeLine(gtk.DrawingArea):
 		self.dragging = True
 		
 		# prevent playhead being dragged to the window edge - TODO make scrolling actually work!!
-		pos = event.x /self.project.viewScale
-		if (pos > 0.99 * self.timelinebar.projectview.scrollRange.page_size) or (pos < 0.01 * self.timelinebar.projectview.scrollRange.page_size):
+		pos = event.x
+		if (pos > 0.99 * self.allocation.width) or (pos < 0.01 * self.allocation.width):
 			self.buttonDown = False
 			return
 		self.moveHead(event.x)
