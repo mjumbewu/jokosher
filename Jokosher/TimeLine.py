@@ -50,19 +50,17 @@ class TimeLine(gtk.DrawingArea):
 	
 	#_____________________________________________________________________
 
-	def __init__(self, project, timelinebar, mainview):
+	def __init__(self, project, mainview):
 		"""
 		Creates a new instance of TimeLine
 		
 		Parameters:
 			project - reference to Project (Project.py)
-			timelinebar - reference of TimeLineBar (TimeLineBar.py)
 			mainview - reference to JokosherApp (JokosherApp.py) - Not used atm.
 		"""
 		gtk.DrawingArea.__init__(self)
 	
 		self.project = project
-		self.timelinebar = timelinebar
 		self.mainview = mainview
 		
 		# Listen for changes in the project and the TransportManager

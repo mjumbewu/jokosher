@@ -64,7 +64,7 @@ class RecordingView(gtk.Frame):
 		self.project = project
 		self.mainview = mainview
 		self.small = small
-		self.timelinebar = TimeLineBar.TimeLineBar(self.project, self, mainview)
+		self.timelinebar = TimeLineBar.TimeLineBar(self.project, mainview)
 		
 		self.gstreamerErrorMessages = []
 		self.errorMessageArea = None
