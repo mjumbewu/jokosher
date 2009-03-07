@@ -11,6 +11,7 @@
 import gtk
 import pango
 import cairo
+import gobject
 
 import gettext
 _ = gettext.gettext
@@ -48,6 +49,25 @@ class TimeLine(gtk.DrawingArea):
 	_BEAT_BAR_RGB = (0, 0, 0)
 	_PLAY_CURSOR_RGB = (1, 0, 0)
 	
+	"""
+	   The events we wish to receive after we grab the mouse (and it is no longer above this widget)
+	   If events other than mouse event are put in here, it may cause the program to crash.
+	"""
+	_POINTER_GRAB_EVENTS = (
+			gtk.gdk.POINTER_MOTION_MASK |
+			gtk.gdk.BUTTON_RELEASE_MASK |
+			gtk.gdk.BUTTON_PRESS_MASK)
+	
+	"""Number of milliseconds between each scrollbar update while autoscrolling"""
+	_AUTOSCROLL_UPDATE_INTERVAL = 100
+	
+	"""
+		Speed is relative to distance between mouse and closest edge of the timeline.
+		i.e. The further away you pull your mouse, the faster it scrolls.
+		The speed, multiplied by the mouse's distance, is the amount we scroll each update.
+	"""
+	_AUTOSCROLL_SPEED = 0.2
+	
 	#_____________________________________________________________________
 
 	def __init__(self, project, mainview):
@@ -73,6 +93,7 @@ class TimeLine(gtk.DrawingArea):
 		
 		self.height = 44
 		self.buttonDown = False
+		self.current_autoscroll_diff = 0
 
 		# source is an offscreen canvas to hold our waveform image
 		self.source = cairo.ImageSurface(cairo.FORMAT_ARGB32, 0, 0)
@@ -84,9 +105,9 @@ class TimeLine(gtk.DrawingArea):
 		self.SetAccessibleName()
 		self.set_property("can-focus", True)
 	
-		self.set_events(gtk.gdk.POINTER_MOTION_MASK |
-								gtk.gdk.BUTTON_PRESS_MASK |
-								gtk.gdk.BUTTON_RELEASE_MASK)
+		self.set_events(self._POINTER_GRAB_EVENTS)
+		self.set_flags(gtk.CAN_FOCUS)
+		
 		self.connect("expose-event", self.OnDraw)
 		self.connect("button_release_event", self.onMouseUp)
 		self.connect("button_press_event", self.onMouseDown)
@@ -410,10 +431,12 @@ class TimeLine(gtk.DrawingArea):
 		Returns:
 			True -- to continue the GTK signal propagation.
 		"""
-		self.buttonDown = True
+		
+		response = gtk.gdk.pointer_grab(self.window, False, self._POINTER_GRAB_EVENTS, None, None, event.time)
+		self.buttonDown = (response == gtk.gdk.GRAB_SUCCESS)
+		self.current_autoscroll_diff = 0
 		self.moveHead(event.x)
 		self.grab_focus()
-		
 		return True
 
 	#_____________________________________________________________________
@@ -429,12 +452,42 @@ class TimeLine(gtk.DrawingArea):
 		if not self.buttonDown:
 			return
 		
-		# prevent playhead being dragged to the window edge - TODO make scrolling actually work!!
-		pos = event.x
-		if (pos > 0.99 * self.allocation.width) or (pos < 0.01 * self.allocation.width):
-			self.buttonDown = False
-			return
-		self.moveHead(event.x)
+		old_diff = self.current_autoscroll_diff
+		
+		alloc = self.get_allocation()
+		xpos = event.x
+		if 0 < xpos < alloc.width:
+			self.current_autoscroll_diff = 0
+			self.moveHead(xpos)
+		else:
+			if xpos > alloc.width:
+				self.current_autoscroll_diff = (xpos - alloc.width) * self._AUTOSCROLL_SPEED
+			else:
+				self.current_autoscroll_diff = xpos * self._AUTOSCROLL_SPEED
+			
+			if old_diff == 0:
+				gobject.timeout_add(self._AUTOSCROLL_UPDATE_INTERVAL, self.onUpdateAutoscroll)
+		
+	#_____________________________________________________________________
+	
+	def onUpdateAutoscroll(self):
+		if self.current_autoscroll_diff:
+			if self.current_autoscroll_diff > 0:
+				start_xpos = self.current_autoscroll_diff;
+				playhead_xpos = start_xpos + self.allocation.width - 1
+			else:
+				start_xpos = self.current_autoscroll_diff
+				playhead_xpos = start_xpos
+				
+			start = self.project.viewStart + (start_xpos / self.project.viewScale)
+			playhead = self.project.viewStart + (playhead_xpos / self.project.viewScale)
+			
+			self.project.SetViewStart(start)
+			self.project.transport.SeekTo(playhead)
+
+			return True
+		else:
+			return False
 		
 	#_____________________________________________________________________
 		
@@ -446,7 +499,12 @@ class TimeLine(gtk.DrawingArea):
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 			event -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-		self.buttonDown = False
+		if self.buttonDown:
+			self.buttonDown = False
+			self.current_autoscroll_diff = 0
+			gtk.gdk.pointer_ungrab(event.time)
+		
+		return True
 		
 	#_____________________________________________________________________
 		
@@ -457,7 +515,8 @@ class TimeLine(gtk.DrawingArea):
 		Parameters:
 			xpos -- the time of the new project position.
 		"""
-		pos = self.project.viewStart + xpos/ self.project.viewScale
+		pos = self.project.viewStart + (xpos / self.project.viewScale)
+		pos = max(0., pos)
 		self.project.transport.SeekTo(pos)
 		self.SetAccessibleName()
 		
