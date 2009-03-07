@@ -75,7 +75,6 @@ class TimeLine(gtk.DrawingArea):
 		
 		self.height = 44
 		self.buttonDown = False
-		self.dragging = False
 
 		# source is an offscreen canvas to hold our waveform image
 		self.source = cairo.ImageSurface(cairo.FORMAT_ARGB32, 0, 0)
@@ -414,7 +413,6 @@ class TimeLine(gtk.DrawingArea):
 			True -- to continue the GTK signal propagation.
 		"""
 		self.buttonDown = True
-		self.dragging = False
 		self.moveHead(event.x)
 		self.grab_focus()
 		
@@ -432,7 +430,6 @@ class TimeLine(gtk.DrawingArea):
 		"""			
 		if not self.buttonDown:
 			return
-		self.dragging = True
 		
 		# prevent playhead being dragged to the window edge - TODO make scrolling actually work!!
 		pos = event.x
@@ -451,7 +448,6 @@ class TimeLine(gtk.DrawingArea):
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 			event -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-		self.dragging = False
 		self.buttonDown = False
 		
 	#_____________________________________________________________________
