@@ -1,0 +1,12 @@
+dholbach : you can get the old one by just running apt-get source jokosher
+dholbach : (it will unpack it for you)
+dholbach : also, I'd do something like this instead of copying debian/ over: zcat ../jokosher_old.diff.gz | patch -p1
+dholbach : and if you have devscripts installed, you can just run: dch -i
+dholbach : and it will create a new changelog entry for you
+dholbach : just run debuild -us -uc afterwards to build the package
+laszlok  : okay thanks, we will update the instructions
+dholbach : and I just added a debian/watch file, so you can use uscan and uupdate to do most of the stuff like getting the new tarball automatically (just: apt-get source jokosher; cd jokosher-<old>; uscan && uupdate; and maybe add new depends before running debuild -us -uc)
+dholbach : I know... packaging is no fun and myriads of new tools you just use twice a year :-/
+dholbach : but just ping me if you have any questions
+laszlok  : dholbach: it gets it from launchpad?
+dholbach : yep

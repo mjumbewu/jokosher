@@ -101,4 +101,11 @@ class MasterMixerStrip(gtk.Frame):
 		
 	#_____________________________________________________________________
 	
+	def CommitVolume(self):
+		#there is no incremental save for project volume
+		#as opposed to instrument volume. So do nothing for now.
+		pass
+	
+	#_____________________________________________________________________
+	
 #=========================================================================
