@@ -436,7 +436,7 @@ class Project(gobject.GObject):
 		"""
 		#try to create encoder/muxer first, before modifying the main pipeline.
 		try:
-			self.encodebin = gst.parse_bin_from_description("audioconvert ! %s" % encodeBin, True)
+			self.encodebin = gst.parse_bin_from_description(encodeBin, True)
 		except gobject.GError, e:
 			if e.code == gst.PARSE_ERROR_NO_SUCH_ELEMENT:
 				error_no = ProjectManager.ProjectExportException.MISSING_ELEMENT
@@ -449,7 +449,7 @@ class Project(gobject.GObject):
 		
 		#remove and unlink the alsasink
 		self.playbackbin.remove(self.masterSink, self.levelElement)
-		self.levelElementCaps.unlink(self.levelElement)
+		self.postAdderConvert.unlink(self.levelElement)
 		self.levelElement.unlink(self.masterSink)
 		
 		#create filesink
@@ -458,7 +458,7 @@ class Project(gobject.GObject):
 		self.playbackbin.add(self.outfile)
 
 		self.playbackbin.add(self.encodebin)
-		self.levelElementCaps.link(self.encodebin)
+		self.postAdderConvert.link(self.encodebin)
 		self.encodebin.link(self.outfile)
 			
 		#disconnect the bus message handler so the levels don't change
@@ -496,7 +496,7 @@ class Project(gobject.GObject):
 		
 		#remove the filesink and encoder
 		self.playbackbin.remove(self.outfile, self.encodebin)		
-		self.levelElementCaps.unlink(self.encodebin)
+		self.postAdderConvert.unlink(self.encodebin)
 			
 		#dispose of the elements
 		self.outfile.set_state(gst.STATE_NULL)
@@ -505,7 +505,7 @@ class Project(gobject.GObject):
 		
 		#re-add all the alsa playback elements
 		self.playbackbin.add(self.masterSink, self.levelElement)
-		self.levelElementCaps.link(self.levelElement)
+		self.postAdderConvert.link(self.levelElement)
 		self.levelElement.link(self.masterSink)
 		
 		self.emit("audio-state::export-stop")
