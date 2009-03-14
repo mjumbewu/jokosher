@@ -139,6 +139,7 @@ class Project(gobject.GObject):
 		self.mainpipeline = gst.Pipeline("timeline")
 		self.playbackbin = gst.Bin("playbackbin")
 		self.adder = gst.element_factory_make("adder")
+		self.postAdderConvert = gst.element_factory_make("audioconvert")
 		self.masterSink = self.MakeProjectSink()
 		
 		self.levelElement = gst.element_factory_make("level", "MasterLevel")
@@ -147,21 +148,21 @@ class Project(gobject.GObject):
 		
 		#Restrict adder's output caps due to adder bug 341431
 		self.levelElementCaps = gst.element_factory_make("capsfilter", "levelcaps")
-		capsString = "audio/x-raw-int,rate=44100,channels=2,width=16,depth=16,signed=(boolean)true"
-		capsString += ";audio/x-raw-float,rate=44100,channels=2"
+		capsString = "audio/x-raw-float,rate=44100,channels=2,width=32,endianness=1234"
 		caps = gst.caps_from_string(capsString)
 		self.levelElementCaps.set_property("caps", caps)
 		
 		# ADD ELEMENTS TO THE PIPELINE AND/OR THEIR BINS #
 		self.mainpipeline.add(self.playbackbin)
 		Globals.debug("added project playback bin to the pipeline")
-		for element in [self.adder, self.levelElementCaps, self.levelElement, self.masterSink]:
+		for element in [self.adder, self.levelElementCaps, self.postAdderConvert, self.levelElement, self.masterSink]:
 			self.playbackbin.add(element)
 			Globals.debug("added %s to project playbackbin" % element.get_name())
 
 		# LINK GSTREAMER ELEMENTS #
 		self.adder.link(self.levelElementCaps)
-		self.levelElementCaps.link(self.levelElement)
+		self.levelElementCaps.link(self.postAdderConvert)
+		self.postAdderConvert.link(self.levelElement)
 		self.levelElement.link(self.masterSink)
 		
 		# CONSTRUCT CLICK TRACK BIN #
