@@ -140,29 +140,30 @@ class Project(gobject.GObject):
 		self.mainpipeline = gst.Pipeline("timeline")
 		self.playbackbin = gst.Bin("playbackbin")
 		self.adder = gst.element_factory_make("adder")
+		self.postAdderConvert = gst.element_factory_make("audioconvert")
 		self.masterSink = self.MakeProjectSink()
 		
 		self.levelElement = gst.element_factory_make("level", "MasterLevel")
 		self.levelElement.set_property("interval", gst.SECOND / 50)
 		self.levelElement.set_property("message", True)
 		
-		#Restrict adder's output caps due to adder bug
+		#Restrict adder's output caps due to adder bug 341431
 		self.levelElementCaps = gst.element_factory_make("capsfilter", "levelcaps")
-		capsString = "audio/x-raw-int,rate=44100,channels=2,width=16,depth=16,signed=(boolean)true"
-		capsString += ";audio/x-raw-float,rate=44100,channels=2"
+		capsString = "audio/x-raw-float,rate=44100,channels=2,width=32,endianness=1234"
 		caps = gst.caps_from_string(capsString)
 		self.levelElementCaps.set_property("caps", caps)
 		
 		# ADD ELEMENTS TO THE PIPELINE AND/OR THEIR BINS #
 		self.mainpipeline.add(self.playbackbin)
 		Globals.debug("added project playback bin to the pipeline")
-		for element in [self.adder, self.levelElementCaps, self.levelElement, self.masterSink]:
+		for element in [self.adder, self.levelElementCaps, self.postAdderConvert, self.levelElement, self.masterSink]:
 			self.playbackbin.add(element)
 			Globals.debug("added %s to project playbackbin" % element.get_name())
 
 		# LINK GSTREAMER ELEMENTS #
 		self.adder.link(self.levelElementCaps)
-		self.levelElementCaps.link(self.levelElement)
+		self.levelElementCaps.link(self.postAdderConvert)
+		self.postAdderConvert.link(self.levelElement)
 		self.levelElement.link(self.masterSink)
 		
 		# CONSTRUCT CLICK TRACK BIN #
@@ -436,7 +437,7 @@ class Project(gobject.GObject):
 		"""
 		#try to create encoder/muxer first, before modifying the main pipeline.
 		try:
-			self.encodebin = gst.parse_bin_from_description("audioconvert ! %s" % encodeBin, True)
+			self.encodebin = gst.parse_bin_from_description(encodeBin, True)
 		except gobject.GError, e:
 			if e.code == gst.PARSE_ERROR_NO_SUCH_ELEMENT:
 				error_no = ProjectManager.ProjectExportException.MISSING_ELEMENT
@@ -449,7 +450,7 @@ class Project(gobject.GObject):
 		
 		#remove and unlink the alsasink
 		self.playbackbin.remove(self.masterSink, self.levelElement)
-		self.levelElementCaps.unlink(self.levelElement)
+		self.postAdderConvert.unlink(self.levelElement)
 		self.levelElement.unlink(self.masterSink)
 		
 		#create filesink
@@ -458,7 +459,7 @@ class Project(gobject.GObject):
 		self.playbackbin.add(self.outfile)
 
 		self.playbackbin.add(self.encodebin)
-		self.levelElementCaps.link(self.encodebin)
+		self.postAdderConvert.link(self.encodebin)
 		self.encodebin.link(self.outfile)
 			
 		#disconnect the bus message handler so the levels don't change
@@ -496,7 +497,7 @@ class Project(gobject.GObject):
 		
 		#remove the filesink and encoder
 		self.playbackbin.remove(self.outfile, self.encodebin)		
-		self.levelElementCaps.unlink(self.encodebin)
+		self.postAdderConvert.unlink(self.encodebin)
 			
 		#dispose of the elements
 		self.outfile.set_state(gst.STATE_NULL)
@@ -505,7 +506,7 @@ class Project(gobject.GObject):
 		
 		#re-add all the alsa playback elements
 		self.playbackbin.add(self.masterSink, self.levelElement)
-		self.levelElementCaps.link(self.levelElement)
+		self.postAdderConvert.link(self.levelElement)
 		self.levelElement.link(self.masterSink)
 		
 		self.emit("audio-state::export-stop")
@@ -693,14 +694,19 @@ class Project(gobject.GObject):
 		Globals.debug("Message:", error.message)
 		
 		if error.domain == gst.STREAM_ERROR and Globals.DEBUG_GST:
-			basepath, ext = os.path.splitext(self.projectfile)
-			name = "jokosher-pipeline-" + os.path.basename(basepath)
-			gst.DEBUG_BIN_TO_DOT_FILE_WITH_TS(self.mainpipeline, gst.DEBUG_GRAPH_SHOW_ALL, name)
-			Globals.debug("Dumped pipeline to DOT file:", name)
-			Globals.debug("Command to render DOT file: dot -Tsvg -o pipeline.svg <file>")
+			self.DumpDotFile()
 		
 		self.emit("gst-bus-error", str(error), str(debug))
 
+	#_____________________________________________________________________
+	
+	def DumpDotFile(self):
+		basepath, ext = os.path.splitext(self.projectfile)
+		name = "jokosher-pipeline-" + os.path.basename(basepath)
+		gst.DEBUG_BIN_TO_DOT_FILE_WITH_TS(self.mainpipeline, gst.DEBUG_GRAPH_SHOW_ALL, name)
+		Globals.debug("Dumped pipeline to DOT file:", name)
+		Globals.debug("Command to render DOT file: dot -Tsvg -o pipeline.svg <file>")
+	
 	#_____________________________________________________________________
 	
 	def SaveProjectFile(self, path=None, backup=False):

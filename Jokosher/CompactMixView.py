@@ -54,6 +54,16 @@ class CompactMixView(gtk.Frame):
 		
 		self.mastermixer = MasterMixerStrip(self.project, self, self.mainview)
 		self.hbox.pack_end(self.mastermixer, False, False)
+		
+		self.scrollWindow = gtk.ScrolledWindow()
+		self.mixerBox = gtk.HBox()
+		
+		self.scrollWindow.add_with_viewport(self.mixerBox)
+		# remove the shadow on the viewport
+		self.scrollWindow.child.set_shadow_type(gtk.SHADOW_NONE)
+		self.scrollWindow.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_NEVER)
+		self.hbox.pack_start(self.scrollWindow, True, True)
+		
 
 		self.project.connect("instrument::added", self.OnInstrumentAdded)
 		self.project.connect("instrument::reordered", self.OnInstrumentReordered)
@@ -118,10 +128,10 @@ class CompactMixView(gtk.Frame):
 				continue
 			
 			if visib and not strip.parent:
-				self.hbox.pack_start(strip, False, False)
+				self.mixerBox.pack_start(strip, False, False)
 				strip.show_all()
 			elif not visib and strip.parent:
-				self.hbox.remove(strip)
+				self.mixerBox.remove(strip)
 			
 			break
 		
@@ -191,7 +201,7 @@ class CompactMixView(gtk.Frame):
 		for strip in self.mixerStripList:
 			if strip.instrument is instrument:
 				if strip.parent:
-					self.hbox.remove(strip)
+					self.mixerBox.remove(strip)
 				strip.Destroy()
 				self.mixerStripList.remove(strip)
 				break
@@ -221,7 +231,7 @@ class CompactMixView(gtk.Frame):
 			if strip.instrument is instrument:
 				if strip.parent:
 					pos = visibleInstrs.index(instrument)
-					self.hbox.reorder_child(strip, pos + 1)
+					self.mixerBox.reorder_child(strip, pos + 1)
 				break
 		
 	#_____________________________________________________________________

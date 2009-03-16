@@ -28,21 +28,19 @@ class TimeLineBar(gtk.HBox):
 	"""
 	#_____________________________________________________________________
 	
-	def __init__(self, project, projectview, mainview):
+	def __init__(self, project, mainview):
 		"""
 		Creates a new instance of TimeLineBar
 		
 		Parameters:
 			project -- reference to Project (Project.py).
-			projectview -- reference to RecordingView (RecordingView.py).
 			mainview -- reference to MainApp (JokosherApp.py).
 		"""
 		gtk.HBox.__init__(self)
 		
 		self.project = project
-		self.projectview = projectview
 		self.mainview = mainview
-		self.timeline = TimeLine.TimeLine(self.project, self, mainview)
+		self.timeline = TimeLine.TimeLine(self.project, mainview)
 		self.Updating = False
 		
 		# add click / bpm / signature box

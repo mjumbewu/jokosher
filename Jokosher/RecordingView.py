@@ -44,6 +44,9 @@ class RecordingView(gtk.Frame):
 						URI_DRAG_TYPE ),		# Use the custom number
 						("text/plain", 0, URI_DRAG_TYPE) # so drags from Firefox work
 						]
+	
+	"""The number of seconds shown after the end of the last event"""
+	EXTRA_SCROLL_TIME = 25
 
 	#_____________________________________________________________________
 
@@ -61,7 +64,7 @@ class RecordingView(gtk.Frame):
 		self.project = project
 		self.mainview = mainview
 		self.small = small
-		self.timelinebar = TimeLineBar.TimeLineBar(self.project, self, mainview)
+		self.timelinebar = TimeLineBar.TimeLineBar(self.project, mainview)
 		
 		self.gstreamerErrorMessages = []
 		self.errorMessageArea = None
@@ -140,7 +143,6 @@ class RecordingView(gtk.Frame):
 		self.zoom_hb.pack_start( self.zoomSlider, False, False)
 		self.zoom_hb.pack_start( self.inbutton, False, False)
 		
-		self.extraScrollTime = 25
 		self.centreViewOnPosition = False
 		self.scrollRange.lower = 0
 		self.scrollRange.upper = 100
@@ -158,6 +160,7 @@ class RecordingView(gtk.Frame):
 		self.project.connect("instrument::added", self.OnInstrumentAdded)
 		self.project.connect("instrument::reordered", self.OnInstrumentReordered)
 		self.project.connect("instrument::removed", self.OnInstrumentRemoved)
+		self.project.connect("view-start", self.OnViewStartChanged)
 		
 		self.vbox.drag_dest_set(	gtk.DEST_DEFAULT_DROP,
 									self.DRAG_TARGETS, 
@@ -224,20 +227,20 @@ class RecordingView(gtk.Frame):
 		self.scrollRange.page_size = (self.scrollBar.allocation.width) / self.project.viewScale
 		self.scrollRange.page_increment = self.scrollRange.page_size
 		# add EXTRA_SCROLL_TIME extra seconds
-		length = self.project.GetProjectLength() + self.extraScrollTime
+		length = self.project.GetProjectLength() + self.EXTRA_SCROLL_TIME
 		self.scrollRange.upper = length
 		
 		if self.centreViewOnPosition:  
 			self.centreViewOnPosition = False  
 			#set the view to be centred over the playhead  
 			start = self.project.transport.GetPosition() - (self.scrollRange.page_size / 2)
-			self.SetViewPosition(start)
+			self.project.SetViewStart(start)
 		# Need to adjust project view start if we are zooming out
 		# and the end of the project is now before the end of the page.
 		# Project end will be at right edge unless the start is also on 
 		# screen, in which case the start will be at the left.
 		elif self.project.viewStart + self.scrollRange.page_size > length:
-			self.SetViewPosition(length - self.scrollRange.page_size)
+			self.project.SetViewStart(length - self.scrollRange.page_size)
 		
 		#check the min zoom value (based on project length)
 		# (scroll bar should always be same width as viewable area)
@@ -515,22 +518,16 @@ class RecordingView(gtk.Frame):
 			return True
 		
 	#_____________________________________________________________________
-
-	def SetViewPosition(self, position):
+	
+	def OnViewStartChanged(self, project):
 		"""
-		Moves the view so that the given position is the leftmost side
-		of the viewable area for scrolling, etc.
+		Callback for when the project notifies that the
+		viewable start position has changed.
 		
 		Parameters:
-			position -- the new position to set.
+			project -- The project instance that send the signal.
 		"""
-		length = self.project.GetProjectLength() + self.extraScrollTime 
-		#check if its over the project length
-		start = min(length - self.scrollRange.page_size, position)
-		#check if its under zero (do this after checking the project length, because if the project length is 0 it will go under)
-		start = max(0, start)
-		self.scrollRange.value = start
-		self.project.SetViewStart(start)
+		self.scrollRange.value = project.viewStart
 	
 	#_____________________________________________________________________
 	
