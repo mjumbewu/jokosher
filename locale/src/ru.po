@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jokosher HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-02-18 22:52-0500\n"
+"POT-Creation-Date: 2009-03-17 02:00+0000\n"
 "PO-Revision-Date: 2007-09-11 08:05+0000\n"
 "Last-Translator: VLK <Unknown>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -192,7 +192,7 @@ msgstr ""
 #: ../../Jokosher/Jokosher.glade.h:43
 msgid ""
 "Audio production made simple.\n"
-"Version 0.11"
+"Version 0.11.1"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:45
@@ -890,7 +890,7 @@ msgstr "Изменить тип инструмента"
 msgid "Choose the new instrument type for %s"
 msgstr "Выберите новый тип инструмента для %s"
 
-#: ../../Jokosher/CompactMixView.py:76
+#: ../../Jokosher/CompactMixView.py:86
 msgid "<b>Instruments Not Shown:</b>"
 msgstr "<b>Скрытые инструменты:</b>"
 
@@ -1088,80 +1088,84 @@ msgid ""
 "An error occurred when trying to launch the preferences for the extension"
 msgstr "Ошибка при запуске настроек расширения"
 
-#: ../../Jokosher/Globals.py:493
+#: ../../Jokosher/Globals.py:495
 msgid "Broken"
 msgstr "Неисправные"
 
-#: ../../Jokosher/Globals.py:494
+#: ../../Jokosher/Globals.py:496
 msgid "Unclassified"
 msgstr "Не определено"
 
-#: ../../Jokosher/Globals.py:495
+#: ../../Jokosher/Globals.py:497
 msgid "Amplifiers"
 msgstr "Усилители"
 
-#: ../../Jokosher/Globals.py:496
+#: ../../Jokosher/Globals.py:498
 msgid "Chorus"
 msgstr "Хорусы"
 
-#: ../../Jokosher/Globals.py:497
+#: ../../Jokosher/Globals.py:499
 msgid "Compressors"
 msgstr "Компрессоры"
 
-#: ../../Jokosher/Globals.py:498
+#: ../../Jokosher/Globals.py:500
 msgid "Delays"
 msgstr "Задержки"
 
-#: ../../Jokosher/Globals.py:499
+#: ../../Jokosher/Globals.py:501
 msgid "Distortions"
 msgstr "Дисторшн"
 
-#: ../../Jokosher/Globals.py:500
+#: ../../Jokosher/Globals.py:502
 msgid "Equalizers"
 msgstr "Эквалайзеры"
 
-#: ../../Jokosher/Globals.py:501
+#: ../../Jokosher/Globals.py:503
 msgid "Filters"
 msgstr "Фильтры"
 
-#: ../../Jokosher/Globals.py:502
+#: ../../Jokosher/Globals.py:504
 msgid "Flangers"
 msgstr "Флэнжеры"
 
-#: ../../Jokosher/Globals.py:503
+#: ../../Jokosher/Globals.py:505
 msgid "Miscellaneous"
 msgstr "Разное"
 
-#: ../../Jokosher/Globals.py:504
+#: ../../Jokosher/Globals.py:506
 msgid "Modulators"
 msgstr "Модуляторы"
 
-#: ../../Jokosher/Globals.py:505
+#: ../../Jokosher/Globals.py:507
 msgid "Oscillators"
 msgstr "Осцилляторы"
 
-#: ../../Jokosher/Globals.py:506
+#: ../../Jokosher/Globals.py:508
 msgid "Phasers"
 msgstr "Фазеры"
 
-#: ../../Jokosher/Globals.py:507
+#: ../../Jokosher/Globals.py:509
 msgid "Reverbs"
 msgstr "Ревербераторы"
 
-#: ../../Jokosher/Globals.py:508
+#: ../../Jokosher/Globals.py:510
 msgid "Simulators"
 msgstr "Симуляторы"
 
-#: ../../Jokosher/Globals.py:701 ../../Jokosher/PreferencesDialog.py:113
+#: ../../Jokosher/Globals.py:703 ../../Jokosher/PreferencesDialog.py:113
 msgid "Autodetect"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:702
+#: ../../Jokosher/Globals.py:704
 msgid "Use GNOME Settings"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:710
+#: ../../Jokosher/Globals.py:712
 msgid "GNOME Settings"
+msgstr ""
+
+#: ../../Jokosher/Globals.py:728
+msgid "Jokosher Audio Editor"
 msgstr ""
 
 #: ../../Jokosher/IncrementalSave.py:29 ../../Jokosher/Instrument.py:488
@@ -1737,65 +1741,65 @@ msgstr ""
 msgid "Instrument Name"
 msgstr "Имя инструмента"
 
-#: ../../Jokosher/RecordingView.py:120
+#: ../../Jokosher/RecordingView.py:123
 msgid "Zoom the timeline - Right-Click to reset to the default level"
 msgstr ""
 
-#: ../../Jokosher/RecordingView.py:129
+#: ../../Jokosher/RecordingView.py:132
 msgid "Zoom in timeline"
 msgstr ""
 
-#: ../../Jokosher/RecordingView.py:136
+#: ../../Jokosher/RecordingView.py:139
 msgid "Zoom out timeline"
 msgstr ""
 
-#: ../../Jokosher/RecordingView.py:180
+#: ../../Jokosher/RecordingView.py:183
 msgid "Would you like to restore the current project?"
 msgstr ""
 
-#: ../../Jokosher/RecordingView.py:181
+#: ../../Jokosher/RecordingView.py:184
 msgid ""
 "A crash was detected and changes to your project were not saved.\n"
 "If you would like, you can attempt to recover these lost changes."
 msgstr ""
 
-#: ../../Jokosher/RecordingView.py:185
+#: ../../Jokosher/RecordingView.py:188
 msgid "_Restore Project"
 msgstr ""
 
-#: ../../Jokosher/RecordingView.py:319
+#: ../../Jokosher/RecordingView.py:322
 msgid "A Gstreamer error has occurred"
 msgstr ""
 
-#: ../../Jokosher/RecordingView.py:332
+#: ../../Jokosher/RecordingView.py:335
 msgid "A GStreamer error has occurred."
 msgstr ""
 
-#: ../../Jokosher/RecordingView.py:369
+#: ../../Jokosher/RecordingView.py:372
 #, python-format
 msgid "There are %(number)d more errors not shown."
 msgstr ""
 
-#: ../../Jokosher/RecordingView.py:372
+#: ../../Jokosher/RecordingView.py:375
 msgid ""
 "If this problem persists consider reporting a bug using the link in the help "
 "menu."
 msgstr ""
 
-#: ../../Jokosher/RecordingView.py:375
+#: ../../Jokosher/RecordingView.py:378
 msgid "_Close All"
 msgstr ""
 
-#: ../../Jokosher/RecordingView.py:376
+#: ../../Jokosher/RecordingView.py:379
 msgid "_Show All"
 msgstr ""
 
-#: ../../Jokosher/TimeLine.py:512
+#: ../../Jokosher/TimeLine.py:566
 #, python-format
 msgid "Timeline, %(bars)d bars, %(beats)d beats and %(ticks)d ticks in"
 msgstr "Время, %(bars)d тактов, %(beats)d долей и %(ticks)d тиков в"
 
-#: ../../Jokosher/TimeLine.py:516
+#: ../../Jokosher/TimeLine.py:570
 #, python-format
 msgid ""
 "Timeline, %(hours)d hours, %(mins)d minutes, %(secs)d seconds and %(millis)d "
@@ -1804,11 +1808,11 @@ msgstr ""
 "Время, %(hours)d часов, %(mins)d минут, %(secs)d секунд и %(millis)d "
 "миллисекунд в"
 
-#: ../../Jokosher/TimeLineBar.py:66
+#: ../../Jokosher/TimeLineBar.py:64
 msgid "Adjust volume of click track"
 msgstr ""
 
-#: ../../Jokosher/TimeLineBar.py:71
+#: ../../Jokosher/TimeLineBar.py:69
 msgid "Beats per minute"
 msgstr "Ударов в минуту"
 
@@ -1826,27 +1830,27 @@ msgid ""
 "set the <b>slider</b> to 100%"
 msgstr ""
 
-#: ../../Jokosher/Jokosher:66
+#: ../../Jokosher/Jokosher:73
 msgid "Print debug output to stdout"
 msgstr "Выводить отладочные сообщения на стандартный вывод"
 
-#: ../../Jokosher/Jokosher:68
+#: ../../Jokosher/Jokosher:75
 msgid "Sent debug output to Gstreamer's debug system"
 msgstr "Посылать отладочные сообщения в систему отладки Gstreamer"
 
-#: ../../Jokosher/Jokosher:70
+#: ../../Jokosher/Jokosher:77
 msgid "Don't load extensions or last project on startup (same as -ne)"
 msgstr "Не загружать расширения или последний проект (то же, что и -ne)"
 
-#: ../../Jokosher/Jokosher:72
+#: ../../Jokosher/Jokosher:79
 msgid "Force the welcome dialog to show on startup"
 msgstr "Форсировать показ диалога приветствия"
 
-#: ../../Jokosher/Jokosher:74
+#: ../../Jokosher/Jokosher:81
 msgid "Force Jokosher to load without a welcome dialog or project"
 msgstr "Отключить показ диалога приветствия и открытия проекта"
 
-#: ../../Jokosher/Jokosher:76
+#: ../../Jokosher/Jokosher:83
 msgid "Do not load extensions on startup"
 msgstr "Не загружать расширения при запуске"
 

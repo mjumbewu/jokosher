@@ -38,7 +38,7 @@ else:
 	OMFFILES.append((omfdir, glob.glob("help/jokosher/*.omf")))
 		
 dist = setup(name='jokosher',
-	version='0.11',
+	version='0.11.1',
 	author='Jokosher Project',
 	author_email='corrales.david@gmail.com',
 	maintainer='David Corrales',
