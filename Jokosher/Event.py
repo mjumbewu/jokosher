@@ -773,10 +773,14 @@ class Event(gobject.GObject):
 		"""
 		Renders the level information for the GUI.
 		"""
-		pipe = """filesrc name=src location=%s ! decodebin ! audioconvert ! level interval=%d message=true ! fakesink"""
-		
-		pipe = pipe % (self.file.replace("\\", "\\\\").replace(" ", "\ "), self.LEVEL_INTERVAL * gst.SECOND)
+		pipe = """filesrc name=src ! decodebin ! audioconvert ! level message=true name=level_element ! fakesink"""
 		self.loadingPipeline = gst.parse_launch(pipe)
+		
+		filesrc = self.loadingPipeline.get_by_name("src")
+		level = self.loadingPipeline.get_by_name("level_element")
+		
+		filesrc.set_property("location", self.file)
+		level.set_property("interval", int(self.LEVEL_INTERVAL * gst.SECOND))
 
 		self.bus = self.loadingPipeline.get_bus()
 		self.bus.add_signal_watch()
@@ -799,14 +803,25 @@ class Event(gobject.GObject):
 		Copies the audio file to the new file location and reads the levels
 		at the same time.
 		"""
-		if not gst.element_make_from_uri(gst.URI_SRC, uri):
+		
+		urisrc = gst.element_make_from_uri(gst.URI_SRC, uri)
+		if not urisrc:
 			#This means that here is no gstreamer src element on the system that can handle this URI type.
 			return False
 		
-		pipe = """%s ! tee name=mytee mytee. ! queue ! filesink location=%s """ +\
-		"""mytee. ! queue ! decodebin ! audioconvert ! level interval=%d message=true ! fakesink""" 
-		pipe = pipe % (urllib.quote(uri,":/"), self.file.replace("\\", "\\\\").replace(" ", "\ "), self.LEVEL_INTERVAL * gst.SECOND)
+		pipe = """tee name=mytee mytee. ! queue ! filesink name=sink """ +\
+		       """mytee. ! queue ! decodebin ! audioconvert ! level name=level_element message=true ! fakesink""" 
 		self.loadingPipeline = gst.parse_launch(pipe)
+		
+		tee = self.loadingPipeline.get_by_name("mytee")
+		filesink = self.loadingPipeline.get_by_name("sink")
+		level = self.loadingPipeline.get_by_name("level_element")
+		
+		self.loadingPipeline.add(urisrc)
+		urisrc.link(tee)
+		
+		filesink.set_property("location", self.file)
+		level.set_property("interval", int(self.LEVEL_INTERVAL * gst.SECOND))
 
 		self.bus = self.loadingPipeline.get_bus()
 		self.bus.add_signal_watch()
