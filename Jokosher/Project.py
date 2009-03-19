@@ -1323,9 +1323,7 @@ class Project(gobject.GObject):
 		if not undoAction:
 			undoAction = self.NewAtomicUndoAction()
 	
-		uris = []
-		for filename in fileList:
-			uris.append(OSSpecific.pathname2url(filename))
+		uris = [OSSpecific.pathname2url(filename) for filename in fileList]
 
 		name, type, pixbuf, path = [x for x in Globals.getCachedInstruments() if x[1] == "audiofile"][0]
 		instr = self.AddInstrument(name, type, _undoAction_=undoAction)
