@@ -52,7 +52,7 @@ class Event(gobject.GObject):
 	}
 
 	""" The level sample interval in seconds """
-	LEVEL_INTERVAL = 0.01
+	LEVEL_INTERVAL = 0.1
 	LEVELS_FILE_EXTENSION = ".leveldata"
 	NANO_TO_MILLI_DIVISOR = gst.SECOND / 1000
 	
