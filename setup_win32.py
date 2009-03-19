@@ -17,7 +17,7 @@ dist = setup(name='jokosher',
 	url='http://www.jokosher.org/',
 	download_url='http://www.jokosher.org/download',
 	license='GNU GPL',
-	packages=['Jokosher', 'Jokosher/elements', 'Jokosher/ui'],
+	packages=['Jokosher', 'Jokosher/elements', 'Jokosher/ui', 'Jokosher/PlatformUtils'],
 	windows = [
 			{
 				'script' : 'bin/jokosher',
