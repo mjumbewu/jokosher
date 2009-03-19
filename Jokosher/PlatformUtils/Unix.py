@@ -26,21 +26,8 @@ def pathname2url(path):
 	return "file://%s" % urllib.pathname2url(path)
 
 def GetRecordingDefaults():
-	defaults = {
-			"fileformat": "flacenc",
-			"file_extension": "flac",
-			"samplerate": "0", # zero means, autodetect sample rate (ie use any available)
-			"audiosrc" : "gconfaudiosrc",
-			"device" : "default"
-		} 
-	return defaults
+	return dict()
 
 def GetPlaybackDefaults():
-	defaults = {
-			"devicename": "default",
-			"device": "default",
-			"audiosink":"autoaudiosink"
-		}
-
-	return defaults	
+	return dict()
 

@@ -21,17 +21,13 @@ def GetRecordingDefaults():
 	defaults = {
 			"fileformat": "vorbisenc ! oggmux",
 			"file_extension": "ogg",
-			"samplerate": "0", # zero means, autodetect sample rate (ie use any available)
-			"audiosrc" : "dshowaudiosrc",
-			"device" : "default"
+			"audiosrc" : "dshowaudiosrc"
 		}
 	return defaults
 
 
 def GetPlaybackDefaults():
 	defaults = {
-			"devicename": "default",
-			"device": "default",
 			"audiosink": "directsoundsink"
 		}
 	return defaults	

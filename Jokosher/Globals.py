@@ -39,8 +39,23 @@ class Settings:
 				"windowwidth" : 900,
 				}
 
-	recording = PlatformUtils.GetRecordingDefaults()
-	playback = PlatformUtils.GetPlaybackDefaults()
+	recording = {
+				"fileformat": "flacenc",
+				"file_extension": "flac",
+				"samplerate": "0", # zero means, autodetect sample rate (ie use any available)
+				"audiosrc" : "gconfaudiosrc",
+				"device" : "default"
+				}
+	# Overwrite with platform specific settings
+	recording.update( PlatformUtils.GetRecordingDefaults() )
+	
+	playback = 	{
+				"devicename": "default",
+				"device": "default",
+				"audiosink":"autoaudiosink"
+				}
+	# Overwrite with platform specific settings
+	playback.update( PlatformUtils.GetPlaybackDefaults() )
 
 	extensions = {
 				 "extensions_blacklist": ""
