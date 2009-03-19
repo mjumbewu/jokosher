@@ -18,7 +18,7 @@ pygtk.require("2.0")
 import gobject, gtk
 import xdg.BaseDirectory
 import shutil
-import OSSpecific
+import PlatformUtils
 
 import gettext
 _ = gettext.gettext
@@ -39,8 +39,8 @@ class Settings:
 				"windowwidth" : 900,
 				}
 
-	recording = OSSpecific.GetRecordingDefaults()
-	playback = OSSpecific.GetPlaybackDefaults()
+	recording = PlatformUtils.GetRecordingDefaults()
+	playback = PlatformUtils.GetPlaybackDefaults()
 
 	extensions = {
 				 "extensions_blacklist": ""

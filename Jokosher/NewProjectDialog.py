@@ -12,7 +12,7 @@
 import gtk.glade
 import os
 import ProjectManager
-import OSSpecific
+import PlatformUtils
 import Globals
 import gettext
 _ = gettext.gettext
@@ -77,7 +77,7 @@ class NewProjectDialog:
 		self.templatecombo.set_active(0)
 
 		# Default author to name of currently logged in user
-		self.author.set_text(OSSpecific.getFullName())
+		self.author.set_text(PlatformUtils.getFullName())
 		
 		self.okbutton = self.res.get_widget("okButton")
 		self.okbutton.set_flags(gtk.CAN_DEFAULT)
@@ -125,7 +125,7 @@ class NewProjectDialog:
 			author = _("Unknown Author")
 			
 		# CreateNewProject expects a URI	
-		folder = OSSpecific.pathname2url(self.folder.get_current_folder())
+		folder = PlatformUtils.pathname2url(self.folder.get_current_folder())
 		
 		# Save the selected folder as the default folder
 		Globals.settings.general["projectfolder"] = folder

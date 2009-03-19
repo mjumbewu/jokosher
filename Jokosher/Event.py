@@ -22,7 +22,7 @@ import UndoSystem, IncrementalSave
 import Globals
 import gettext
 import urllib
-import OSSpecific
+import PlatformUtils
 
 from elements.singledecodebin import SingleDecodeBin
 _ = gettext.gettext
@@ -162,7 +162,7 @@ class Event(gobject.GObject):
 
 			Globals.debug("creating SingleDecodeBin")
 			caps = gst.caps_from_string("audio/x-raw-int;audio/x-raw-float")
-			f = OSSpecific.pathname2url(self.file)
+			f = PlatformUtils.pathname2url(self.file)
 			Globals.debug("file uri is:", f)
 			self.single_decode_bin = SingleDecodeBin(caps=caps, uri=f)
 			self.gnlsrc.add(self.single_decode_bin)
@@ -213,7 +213,7 @@ class Event(gobject.GObject):
 			self.instrument.project.deleteOnCloseAudioFiles.remove(self.file)
 		
 		self.temp = self.file
-		if OSSpecific.samefile(self.instrument.project.audio_path, os.path.dirname(self.file)):
+		if PlatformUtils.samefile(self.instrument.project.audio_path, os.path.dirname(self.file)):
 			# If the file is in the audio dir, just include the filename, not the absolute path
 			self.file = os.path.basename(self.file)
 		
