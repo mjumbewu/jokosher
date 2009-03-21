@@ -16,8 +16,8 @@ from subprocess import call
 import Globals
 
 import gst
-#if gst.pygst_version >= (0, 10, 10):
-#	import gst.pbutils
+if gst.pygst_version >= (0, 10, 10):
+	import gst.pbutils
 
 # the highest range in decibels there can be between any two levels
 DECIBEL_RANGE = 80
