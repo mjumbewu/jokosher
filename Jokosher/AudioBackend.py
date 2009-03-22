@@ -114,6 +114,7 @@ def GetRecordingSampleRate(device=None):
 		element = bin.iterate_sources().next()
 	except StopIteration:
 		Globals.debug("Cannot get sample rate: no source device in the bin", src)
+		return list()
 	
 	if device:
 		element.set_property("device", device)
