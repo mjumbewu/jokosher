@@ -122,7 +122,7 @@ class MessageArea(gtk.HBox):
 			if rd == response_id:
 				child.set_sensitive(setting)
 	
-	def set_default_response (message_area, response_id):
+	def set_default_response (self, response_id):
 		children = self.action_area.get_children()
 		
 		for child in children:
