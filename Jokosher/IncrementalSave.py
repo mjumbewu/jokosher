@@ -177,7 +177,7 @@ class Action:
 			action.appendChild(node)
 			self.WriteToXMLAttributes(None, arg, node)
 				
-		for key, value in self.kwargs:
+		for key, value in self.kwargs.iteritems():
 			node = doc.createElement("NamedArgument")
 			action.appendChild(node)
 			self.WriteToXMLAttributes(key, value, node)
