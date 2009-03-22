@@ -144,25 +144,6 @@ def FAT32SafeFilename(filename):
 	return "".join([x for x in filename if x in allowedChars])
 
 #_____________________________________________________________________
-		
-def PrintPipelineDebug(message, pipeline):
-	"""
-	Prints debugging information for the GStreamer pipeline.
-	
-	Parameters:
-		message -- GStreamer message to be printed as debugging output.
-		pipeline -- the currently active Project's main pipeline.
-	"""
-	try:
-		if os.environ['JOKOSHER_DEBUG']:
-			import JokDebug
-			jokDebug = JokDebug.JokDebug()
-			debug(message)
-			jokDebug.ShowPipelineTree(pipeline)
-	except:
-		pass
-
-#_____________________________________________________________________
 
 #static list of all the Instrument files (to prevent having to reimport files).
 instrumentPropertyList = []

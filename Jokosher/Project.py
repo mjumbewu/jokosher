@@ -233,8 +233,6 @@ class Project(gobject.GObject):
 			self.transport.Play(newAudioState)
 		
 		Globals.debug("just set state to PAUSED")
-
-		Globals.PrintPipelineDebug("Play Pipeline:", self.mainpipeline)
 		
 	#_____________________________________________________________________
 
@@ -261,8 +259,6 @@ class Project(gobject.GObject):
 			self.bus.disconnect(handle)
 
 		self.TerminateRecording()
-		
-		Globals.PrintPipelineDebug("PIPELINE AFTER STOP:", self.mainpipeline)
 		
 	#_____________________________________________________________________
 
