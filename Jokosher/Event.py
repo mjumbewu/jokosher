@@ -53,7 +53,6 @@ class Event(gobject.GObject):
 	""" The level sample interval in seconds """
 	LEVEL_INTERVAL = 0.01
 	LEVELS_FILE_EXTENSION = ".leveldata"
-	NANO_TO_MILLI_DIVISOR = gst.SECOND / 1000
 	
 	#_____________________________________________________________________
 	
@@ -631,11 +630,17 @@ class Event(gobject.GObject):
 			Utils.HandleGstPbutilsMissingMessage(message, self.install_plugin_cb)
 
 		elif st.get_name() == "level":
-			# FIXME: currently everything is being averaged to a single channel
-			peak = Utils.CalculateAudioLevel(st["rms"])
-			#convert number from gst.SECOND (i.e. nanoseconds) to milliseconds
-			end = int(st["endtime"] / self.NANO_TO_MILLI_DIVISOR)
-			self.levels_list.append(end,  [peak])
+			stream_time = st["stream-time"]
+			(end, peaks) = Utils.CalculateAudioLevelFromStructure(st)
+			
+			# work around GStreamer bug where stream time will be -1 (indicating error)
+			# and then cast to guint64 which results in the maximum 64-bit integer value.
+			# In this case stream-time and endtime are bogus values, but duration is still correct.
+			if stream_time == ((2**64) - 1):
+				delta = int(st["duration"] / Utils.NANO_TO_MILLI_DIVISOR)
+				self.levels_list.append_time_delta(delta, peaks)
+			else:
+				self.levels_list.append(end, peaks)
 			
 			#Truncate at 1000 milliseconds so it updates once per second
 			self.loadingLength = end / 1000
@@ -878,11 +883,8 @@ class Event(gobject.GObject):
 		
 		st = message.structure
 		if st and message.src.get_name() == "recordlevel":
-			# FIXME: currently everything is being averaged to a single channel
-			peak = Utils.CalculateAudioLevel(st["rms"])
-			#convert number from gst.SECOND (i.e. nanoseconds) to milliseconds
-			end = int(st["endtime"] / self.NANO_TO_MILLI_DIVISOR)
-			self.levels_list.append(end,  [peak])
+			(end, peaks) = Utils.CalculateAudioLevelFromStructure(st)
+			self.levels_list.append(end, peaks)
 			
 			end = end / 1000.0	#convert to float representing seconds 
 			#Round to one decimal place so it updates 10 times per second

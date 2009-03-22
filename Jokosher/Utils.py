@@ -22,6 +22,8 @@ if gst.pygst_version >= (0, 10, 10):
 # the highest range in decibels there can be between any two levels
 DECIBEL_RANGE = 80
 
+NANO_TO_MILLI_DIVISOR = gst.SECOND / 1000
+
 #_____________________________________________________________________
 
 def OpenExternalURL(url, message, parent):
@@ -111,7 +113,7 @@ def DbToFloat(f):
 
 #_____________________________________________________________________
 
-def CalculateAudioLevel(channelLevels):
+def CalculateAudioLevelFromStructure(structure):
 	"""
 	Calculates an average for all channel levels.
 	
@@ -122,8 +124,8 @@ def CalculateAudioLevel(channelLevels):
 		an average level, also taking into account negative infinity numbers,
 		which will be discarded in the average.
 	"""
-	if not channelLevels:
-		return 0
+	# FIXME: currently everything is being averaged to a single channel
+	channelLevels = structure["rms"]
 
 	negInf = float("-inf")
 	peaktotal = 0
@@ -144,8 +146,11 @@ def CalculateAudioLevel(channelLevels):
 	peaktotal = max(peaktotal, -DECIBEL_RANGE)
 	peakint = int((peaktotal / DECIBEL_RANGE) * sys.maxint)
 
-	return peakint
+	endtime = structure["endtime"]
+	#convert number from gst.SECOND (i.e. nanoseconds) to milliseconds
+	endtime_millis = int(endtime / NANO_TO_MILLI_DIVISOR)
 
+	return (endtime_millis, [peakint])
 
 #_____________________________________________________________________
 

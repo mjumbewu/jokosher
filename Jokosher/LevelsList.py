@@ -57,12 +57,25 @@ class LevelsList:
 			self.CreateChannels(len(levels))
 		
 		assert len(self.channels) == len(levels)
+		# make sure the endtime is greater than the previous endtime
+		# if this is the first endtime, make sure its bigger than 0
+		assert endtime > (self.times[-1] if self.times else 0)
 		
 		self.times.append(endtime)
 		
 		for level,  chan in itertools.izip(levels,  self.channels):
 			chan.append(level)
 			assert len(self.times) == len(chan)
+	
+	#_____________________________________________________________________
+	
+	def append_time_delta(self, time_delta, levels):
+		if self.times:
+			last_time = self.times[-1]
+		else:
+			last_time = 0
+			
+		self.append(last_time + time_delta, levels)
 	
 	#_____________________________________________________________________
 	
