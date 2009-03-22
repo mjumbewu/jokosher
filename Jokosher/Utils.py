@@ -12,7 +12,6 @@
 import xml.dom.minidom as xml
 import math, os.path, sys
 import gtk, gobject
-from subprocess import call
 import Globals
 
 import gst
@@ -26,14 +25,9 @@ NANO_TO_MILLI_DIVISOR = gst.SECOND / 1000
 
 #_____________________________________________________________________
 
-def OpenExternalURL(url, message, parent):
+def OpenExternalURL(url, message, parent, timestamp=0):
 	"""
 	Opens a given url in the user's default web browser.
-	It'll try launchers in the following order:
-		xdg-open
-		gnome-open
-		kfmclient exec
-		exo-open
 		
 	Parameters:
 		url -- the url the user's default web browser will open.
@@ -41,25 +35,19 @@ def OpenExternalURL(url, message, parent):
 		parent -- parent window of the error message dialog.
 	"""
 		
-	for command in ("xdg-open", "gnome-open", "kfmclient exec", "exo-open"):
-		try:
-			#the next line will send the args as a list like: ["kfmclient", "exec", "http://www.jokosher.org/forums"]
-			retcode = call(command.split() + [url])
-			
-			#only return if the call was successful
-			if retcode == 0:
-				return
-		except OSError:
-			pass
-
-	dlg = gtk.MessageDialog(parent,
-			gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
-			gtk.MESSAGE_ERROR,
-			gtk.BUTTONS_CLOSE)
-	dlg.set_markup(message % url)
-	dlg.run()
-	dlg.destroy()
+	screen = gtk.gdk.screen_get_default()
+	ret = gtk.show_uri(screen, url, timestamp)
 	
+	if not ret and message:
+		dlg = gtk.MessageDialog(parent,
+				gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
+				gtk.MESSAGE_ERROR,
+				gtk.BUTTONS_CLOSE)
+		dlg.set_markup(message % url)
+		dlg.run()
+		dlg.destroy()
+	
+	return ret
 #_____________________________________________________________________
 
 def GetIconThatMayBeMissing(iconName, iconSize, returnGtkImage=True):

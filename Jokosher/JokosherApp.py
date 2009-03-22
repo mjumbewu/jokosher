@@ -1589,16 +1589,15 @@ class MainApp:
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-		helpfile = ""
-		
 		if Globals.USE_LOCAL_HELP:
-			helpfile = Globals.HELP_PATH
+			helpfile = "ghelp:" + Globals.HELP_PATH
 		else:
 			helpfile = "ghelp:jokosher"
 		
-		try:	
-			Popen(args=["yelp", helpfile])
-		except OSError:
+		screen = gtk.gdk.screen_get_default()
+		ret = gtk.show_uri(screen, helpfile, 0)
+		
+		if not ret:
 			dlg = gtk.MessageDialog(self.window,
 					gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
 					gtk.MESSAGE_ERROR,
