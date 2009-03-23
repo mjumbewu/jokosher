@@ -1720,7 +1720,7 @@ class MainApp:
 		if gnlVersion:
 			ignored, gnlMajor, gnlMinor = gnlVersion.get_version().split(".", 2)		
 			message = "%s.%s" % (gnlMajor, gnlMinor)
-		elif not gnl:
+		elif not gnlVersion:
 			message += _("Gnonlin is missing!")
 		self.gnonlinVersionStr.set_text(message)
 		
