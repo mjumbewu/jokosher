@@ -27,7 +27,7 @@ import ProjectManager, Globals, WelcomeDialog
 import InstrumentConnectionsDialog, StatusBar
 import EffectPresets, Extension, ExtensionManager
 import Utils, AudioPreview, MixdownProfileDialog, MixdownActions
-import OSSpecific
+import PlatformUtils
 
 #=========================================================================
 
@@ -1463,7 +1463,7 @@ class MainApp:
 					displayed to user detailing the error.
 		"""
 		try:
-			uri = OSSpecific.pathname2url(path)
+			uri = PlatformUtils.pathname2url(path)
 			self.SetProject(ProjectManager.LoadProjectFile(uri))
 			return True
 		except ProjectManager.OpenProjectError, e:

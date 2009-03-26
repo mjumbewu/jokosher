@@ -27,7 +27,7 @@ import Instrument, Event
 import Utils
 import AudioBackend
 import ProjectManager
-import OSSpecific
+import PlatformUtils
 
 #=========================================================================
 
@@ -393,13 +393,20 @@ class Project(gobject.GObject):
 				else:
 					capsString = "audioconvert"
 					
-				pipe = "%s ! %s ! level name=recordlevel interval=%d" +\
-							" ! audioconvert ! %s ! filesink location=%s"
-				pipe %= (recordString, capsString, event.LEVEL_INTERVAL * gst.SECOND, encodeString, event.file.replace("\\", "\\\\").replace(" ", "\ "))
+				# TODO: get rid of this entire string; do it manually
+				pipe = "%s ! %s ! level name=recordlevel ! audioconvert ! %s ! filesink name=sink"
+				pipe %= (recordString, capsString, encodeString)
 				
 				Globals.debug("Using pipeline: %s" % pipe)
 				
 				recordingbin = gst.parse_bin_from_description(pipe, False)
+				
+				filesink = recordingbin.get_by_name("sink")
+				level = recordingbin.get_by_name("recordlevel")
+				
+				filesink.set_property("location", event.file)
+				level.set_property("interval", int(event.LEVEL_INTERVAL * gst.SECOND))
+				
 				#update the levels in real time
 				handle = self.bus.connect("message::element", event.recording_bus_level)
 				
@@ -606,14 +613,20 @@ class Project(gobject.GObject):
 			if instr.inTrack == index:
 				event = instr.GetRecordingEvent()
 				
+				# TODO: get rid of string concatentation
 				encodeString = Globals.settings.recording["fileformat"]
-				pipe = "queue ! audioconvert ! level name=recordlevel interval=%d !" +\
-							"audioconvert ! %s ! filesink location=%s"
-				pipe %= (event.LEVEL_INTERVAL * gst.SECOND, encodeString, event.file.replace("\\","\\\\").replace(" ", "\ "))
+				pipe = "queue ! audioconvert ! level name=recordlevel ! audioconvert ! %s ! filesink name=sink"
+				pipe %= encodeString
 				
 				encodeBin = gst.parse_bin_from_description(pipe, True)
 				bin.add(encodeBin)
 				pad.link(encodeBin.get_pad("sink"))
+				
+				filesink = bin.get_by_name("sink")
+				level = bin.get_by_name("recordlevel")
+				
+				filesink.set_property("location", event.file)
+				level.set_property("interval", int(event.LEVEL_INTERVAL * gst.SECOND))
 				
 				handle = self.bus.connect("message::element", event.recording_bus_level)
 				
@@ -1310,9 +1323,7 @@ class Project(gobject.GObject):
 		if not undoAction:
 			undoAction = self.NewAtomicUndoAction()
 	
-		uris = []
-		for filename in fileList:
-			uris.append(OSSpecific.pathname2url(filename))
+		uris = [PlatformUtils.pathname2url(filename) for filename in fileList]
 
 		name, type, pixbuf, path = [x for x in Globals.getCachedInstruments() if x[1] == "audiofile"][0]
 		instr = self.AddInstrument(name, type, _undoAction_=undoAction)

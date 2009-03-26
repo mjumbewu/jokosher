@@ -14,7 +14,7 @@ import Globals, Utils, UndoSystem, LevelsList, IncrementalSave
 import Project, Instrument, Event
 import xml.dom.minidom as xml
 import traceback
-import OSSpecific
+import PlatformUtils
 
 def CreateNewProject(projecturi, name, author):
 	"""
@@ -34,7 +34,7 @@ def CreateNewProject(projecturi, name, author):
 
 	(scheme, domain,folder, params, query, fragment) = urlparse.urlparse(projecturi, "file", False)
 
-	folder = OSSpecific.url2pathname(folder)
+	folder = PlatformUtils.url2pathname(folder)
 
 	if scheme != "file":
 		# raise "The URI scheme used is invalid." message
@@ -117,7 +117,7 @@ def LoadProjectFile(uri):
 		# raise "The URI scheme used is invalid." message
 		raise OpenProjectError(1, scheme)
 
-	projectfile = OSSpecific.url2pathname(projectfile)
+	projectfile = PlatformUtils.url2pathname(projectfile)
 
 	Globals.debug("Attempting to open:", projectfile)
 
