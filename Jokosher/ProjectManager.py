@@ -685,6 +685,7 @@ JOKOSHER_VERSION_FUNCTIONS = {
 	"1.0" : _LoadZPNFile,  # 1.0 was never used in a release, and it identical to 0.9
 	"0.10" : _LoadZPTenFile,
 	"0.11" : _LoadZPTenFile,	# 0.11 is identical to 0.10, exception for project notes, whose presence can be detected
+	"0.11.1" : _LoadZPTenFile,
 }
 
 zero_nine_compat = {("E", "Move") : "_Compat09_Move"}

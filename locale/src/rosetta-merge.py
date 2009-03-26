@@ -10,7 +10,7 @@ def main():
 	files_to_merge = []
 	reldir = sys.argv[1]
 	for name in os.listdir(reldir):
-		if name.endswith(".po") and os.path.exists(name):
+		if name.endswith(".po") and os.path.exists(os.path.join(reldir, name)):
 			files = (os.path.join(reldir, name), name)
 			files_to_merge.append(files)
 			
@@ -24,7 +24,7 @@ def merge_files(rosetta_download, bzr_version):
 	COMMAND = 'msgmerge "%s" "%s" -o "%s"'
 	
 	outfile = bzr_version + ".tmp"
-	cmd = COMMAND % (rosetta_download, bzr_version, outfile)
+	cmd = COMMAND % (rosetta_download, rosetta_download, outfile)
 	
 	print "=> msgmerge-ing", bzr_version
 	os.system(cmd)
