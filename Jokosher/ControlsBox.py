@@ -54,16 +54,16 @@ class ControlsBox(gtk.HBox):
 		self.muteImgEnabled = Utils.GetIconThatMayBeMissing("stock_volume-mute", gtk.ICON_SIZE_BUTTON, False)
 		
 		self.recTip = gtk.Tooltips()
-		self.recButton = gtk.ToggleButton("")
+		self.recButton = gtk.ToggleButton()
 		self.recTip.set_tip(self.recButton, self.recTipEnabled, None)
 		self.recButton.connect("toggled", self.OnArm)
 		
-		self.muteButton = gtk.ToggleButton("")
+		self.muteButton = gtk.ToggleButton()
 		self.muteButton.connect("toggled", self.OnMute)
 		self.muteTip = gtk.Tooltips()
 		self.muteTip.set_tip(self.muteButton, self.muteTipDisabled, None)
 		
-		self.soloButton = gtk.ToggleButton("")
+		self.soloButton = gtk.ToggleButton()
 		self.soloTip = gtk.Tooltips()
 		self.soloTip.set_tip(self.soloButton, self.soloTipDisabled, None)
 		self.soloButton.connect("toggled", self.OnSolo)

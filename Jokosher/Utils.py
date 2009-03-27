@@ -16,8 +16,11 @@ from subprocess import call
 import Globals
 
 import gst
-if gst.pygst_version >= (0, 10, 10):
+try:	
 	import gst.pbutils
+	have_pbutils = True
+except:
+	have_pbutils = False
 
 # the highest range in decibels there can be between any two levels
 DECIBEL_RANGE = 80
@@ -125,7 +128,7 @@ def CalculateAudioLevel(channelLevels):
 	if not channelLevels:
 		return 0
 
-	negInf = float("-inf")
+	negInf = -1E+5000
 	peaktotal = 0
 	for peak in channelLevels:
 		#if peak > 0.001:
@@ -380,8 +383,8 @@ def StoreVariableToNode(value, node, typeAttr="type", valueAttr="value"):
 #_____________________________________________________________________
 
 def HandleGstPbutilsMissingMessage(message, callback, x_window_id=0):
-	# pbutils was wrapped in 0.10.10
-	if gst.pygst_version < (0, 10, 10):
+	# Not all platforms have pbutils
+	if not have_pbutils:
 		return False
 
 	#self._installing_plugins = True

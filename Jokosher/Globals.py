@@ -18,6 +18,7 @@ pygtk.require("2.0")
 import gobject, gtk
 import xdg.BaseDirectory
 import shutil
+import PlatformUtils
 
 import gettext
 _ = gettext.gettext
@@ -37,7 +38,7 @@ class Settings:
 				"windowheight" : 550,
 				"windowwidth" : 900,
 				}
-	
+
 	recording = {
 				"fileformat": "flacenc",
 				"file_extension": "flac",
@@ -45,13 +46,17 @@ class Settings:
 				"audiosrc" : "gconfaudiosrc",
 				"device" : "default"
 				}
+	# Overwrite with platform specific settings
+	recording.update( PlatformUtils.GetRecordingDefaults() )
 	
 	playback = 	{
 				"devicename": "default",
 				"device": "default",
 				"audiosink":"autoaudiosink"
 				}
-	
+	# Overwrite with platform specific settings
+	playback.update( PlatformUtils.GetPlaybackDefaults() )
+
 	extensions = {
 				 "extensions_blacklist": ""
 				 }
@@ -699,6 +704,7 @@ EXPORT_FORMATS = []
 
 SAMPLE_RATES = [8000, 11025, 22050, 32000, 44100, 48000, 96000, 192000]
 
+
 PLAYBACK_BACKENDS = [
 	(_("Autodetect"), "autoaudiosink"),
 	(_("Use GNOME Settings"), "gconfaudiosink"),
@@ -706,6 +712,8 @@ PLAYBACK_BACKENDS = [
 	("OSS", "osssink"),
 	("JACK", "jackaudiosink"),
 	("PulseAudio", "pulsesink"),
+	("Direct Sound", "directsoundsink"),
+	("Core Audio", "osxaudiosink")
 ]
 
 CAPTURE_BACKENDS = [
@@ -714,6 +722,8 @@ CAPTURE_BACKENDS = [
 	("OSS", "osssrc"),
 	("JACK", "jackaudiosrc"),
 	("PulseAudio", "pulsesrc"),
+	("Direct Sound", "dshowaudiosrc"),
+	("Core Audio", "osxaudiosrc")
 ]
 
 """ Default Instruments """

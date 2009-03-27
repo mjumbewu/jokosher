@@ -27,6 +27,7 @@ import ProjectManager, Globals, WelcomeDialog
 import InstrumentConnectionsDialog, StatusBar
 import EffectPresets, Extension, ExtensionManager
 import Utils, AudioPreview, MixdownProfileDialog, MixdownActions
+import PlatformUtils
 
 #=========================================================================
 
@@ -1462,7 +1463,8 @@ class MainApp:
 					displayed to user detailing the error.
 		"""
 		try:
-			self.SetProject(ProjectManager.LoadProjectFile(path))
+			uri = PlatformUtils.pathname2url(path)
+			self.SetProject(ProjectManager.LoadProjectFile(uri))
 			return True
 		except ProjectManager.OpenProjectError, e:
 			self.ShowOpenProjectErrorDialog(e,parent)
