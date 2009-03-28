@@ -24,10 +24,11 @@ _ = gettext.gettext
 import AddInstrumentDialog, TimeView, Workspace
 import PreferencesDialog, ExtensionManagerDialog, RecordingView, NewProjectDialog
 import ProjectManager, Globals, WelcomeDialog
-import InstrumentConnectionsDialog, StatusBar
+import InstrumentConnectionsDialog
 import EffectPresets, Extension, ExtensionManager
 import Utils, AudioPreview, MixdownProfileDialog, MixdownActions
 import PlatformUtils
+import ui.StatusBar as StatusBar
 
 #=========================================================================
 
