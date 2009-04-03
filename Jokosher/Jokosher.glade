@@ -1329,6 +1329,8 @@ daave &lt;fan.d.liu@gmail.com&gt;
   <property name="gravity">GDK_GRAVITY_CENTER</property>
   <property name="focus_on_map">True</property>
   <property name="urgency_hint">False</property>
+  <signal name="configure_event" handler="on_AddInstrument_configure_event" />
+
 
   <child>
     <widget class="GtkVBox" id="vbox2">
