@@ -9,7 +9,7 @@
 #
 #-------------------------------------------------------------------------------
 
-import gtk
+import gtk, gtk.glade
 import gobject
 import gettext
 import os

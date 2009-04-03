@@ -37,6 +37,11 @@ class Settings:
 				"projectfolder" : "",
 				"windowheight" : 550,
 				"windowwidth" : 900,
+				"addinstrumentwindowheight" : 350,
+				"addinstrumentwindowwidth" : 300,
+				"instrumenteffectwindowheight" : 450,				
+				"instrumenteffectwindowwidth" : 650,
+				
 				}
 
 	recording = {
@@ -147,25 +152,6 @@ def FAT32SafeFilename(filename):
 	
 	allowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789$%'`-@{}~!#()&_^ "
 	return "".join([x for x in filename if x in allowedChars])
-
-#_____________________________________________________________________
-		
-def PrintPipelineDebug(message, pipeline):
-	"""
-	Prints debugging information for the GStreamer pipeline.
-	
-	Parameters:
-		message -- GStreamer message to be printed as debugging output.
-		pipeline -- the currently active Project's main pipeline.
-	"""
-	try:
-		if os.environ['JOKOSHER_DEBUG']:
-			import JokDebug
-			jokDebug = JokDebug.JokDebug()
-			debug(message)
-			jokDebug.ShowPipelineTree(pipeline)
-	except:
-		pass
 
 #_____________________________________________________________________
 
