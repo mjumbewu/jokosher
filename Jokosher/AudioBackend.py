@@ -114,6 +114,7 @@ def GetRecordingSampleRate(device=None):
 		element = bin.iterate_sources().next()
 	except StopIteration:
 		Globals.debug("Cannot get sample rate: no source device in the bin", src)
+		return list()
 	
 	if device:
 		element.set_property("device", device)
@@ -212,5 +213,20 @@ def GetChannelsOffered(device):
 """
 The following function, is meant for testing this file independantly from the rest.
 """
+def print_device_list(l):
+	for dev, name in l:
+		print " " + repr(dev)
+		print "  => " + repr(name)
+
 if __name__ == "__main__":
-	print(GetRecordingSampleRate())
+	print "Listing ALSA capture:"
+	print_device_list(ListCaptureDevices("alsasrc", True))
+		
+	print "Listing ALSA output:"
+	print_device_list(ListPlaybackDevices("alsasink", True))
+		
+	print "Listing PulseAudio capture:"
+	print_device_list(ListCaptureDevices("pulsesrc", True))
+	
+	print "Listing PulseAudio output:"
+	print_device_list(ListPlaybackDevices("pulsesink", True))

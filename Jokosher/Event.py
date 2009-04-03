@@ -54,7 +54,6 @@ class Event(gobject.GObject):
 	""" The level sample interval in seconds """
 	LEVEL_INTERVAL = 0.1
 	LEVELS_FILE_EXTENSION = ".leveldata"
-	NANO_TO_MILLI_DIVISOR = gst.SECOND / 1000
 	
 	#_____________________________________________________________________
 	
@@ -632,14 +631,10 @@ class Event(gobject.GObject):
 			Utils.HandleGstPbutilsMissingMessage(message, self.install_plugin_cb)
 
 		elif st.get_name() == "level":
-			# FIXME: currently everything is being averaged to a single channel
-			peak = Utils.CalculateAudioLevel(st["rms"])
-			#convert number from gst.SECOND (i.e. nanoseconds) to milliseconds
-			end = int(st["endtime"] / self.NANO_TO_MILLI_DIVISOR)
-			self.levels_list.append(end,  [peak])
+			self.__AppendLevelToList(st)
 			
-			#Truncate at 1000 milliseconds so it updates once per second
-			self.loadingLength = end / 1000
+			#Truncate so it updates once per second
+			self.loadingLength = st["endtime"] / gst.SECOND
 			
 			# Only send events every second processed to reduce GUI load
 			if self.loadingLength != self.lastEnd:
@@ -894,13 +889,9 @@ class Event(gobject.GObject):
 		
 		st = message.structure
 		if st and message.src.get_name() == "recordlevel":
-			# FIXME: currently everything is being averaged to a single channel
-			peak = Utils.CalculateAudioLevel(st["rms"])
-			#convert number from gst.SECOND (i.e. nanoseconds) to milliseconds
-			end = int(st["endtime"] / self.NANO_TO_MILLI_DIVISOR)
-			self.levels_list.append(end,  [peak])
+			self.__AppendLevelToList(st)
 			
-			end = end / 1000.0	#convert to float representing seconds 
+			end = st["endtime"] / float(gst.SECOND)  #convert to float representing seconds 
 			#Round to one decimal place so it updates 10 times per second
 			self.loadingLength = round(end, 1)
 			
@@ -909,6 +900,25 @@ class Event(gobject.GObject):
 				self.lastEnd = self.loadingLength 
 				self.emit("length") # tell the GUI
 		return True
+		
+	#_____________________________________________________________________
+	
+	def __AppendLevelToList(self, structure):
+		(end, peaks) = Utils.CalculateAudioLevelFromStructure(structure)
+		
+		# the last level may be sent twice. If timestamp is the same, ignore it.
+		if self.levels_list and self.levels_list[-1][0] == end:
+			return
+		
+		# work around GStreamer bug where stream time will be -1 (indicating error)
+		# and then cast to guint64 which results in the maximum 64-bit integer value.
+		# In this case stream-time and endtime are bogus values, but duration is still correct.
+		stream_time = structure["stream-time"]
+		if stream_time == ((2**64) - 1):
+			delta = int(structure["duration"] / Utils.NANO_TO_MILLI_DIVISOR)
+			self.levels_list.append_time_delta(delta, peaks)
+		else:
+			self.levels_list.append(end, peaks)
 		
 	#_____________________________________________________________________
 	
