@@ -45,6 +45,7 @@ class AddInstrumentDialog:
 			"on_Cancel_clicked" : self.OnCancel,
 			"on_instrument_search_changed" : self.OnSearchChange,
 			"on_AddInstrument_configure_event" : self.OnResize,
+			"on_AddInstrument_destroy" : self.OnDestroy,
 		}
 		
 		self.res.signal_autoconnect(self.signals)
@@ -88,11 +89,11 @@ class AddInstrumentDialog:
 			
 		self.tree.set_item_width(90)
 		self.tree.set_size_request(72, -1)
-
+				
 		self.width = int(Globals.settings.general["addinstrumentwindowwidth"])
 		self.height = int(Globals.settings.general["addinstrumentwindowheight"])
 		self.dlg.resize(self.width, self.height)
-				
+
 		self.dlg.set_icon(self.parent.icon)
 		self.dlg.set_transient_for(self.parent.window)
 		self.dlg.show()
@@ -134,9 +135,6 @@ class AddInstrumentDialog:
 			instrItem = [x for x in Globals.getCachedInstruments() if x[1] == item[1]][0]
 			self.instr.ChangeType(instrItem[1], instrItem[0])
 
-		Globals.settings.general["addinstrumentwindowwidth"] = self.width
-		Globals.settings.general["addinstrumentwindowheight"] = self.height
-		Globals.settings.write()
 
 		self.dlg.destroy()
 		
@@ -193,7 +191,7 @@ class AddInstrumentDialog:
 
 	def OnResize(self, widget, event):
 		"""
-		This method is called when the add instrument window is resized
+		This method is called when the add instrument dialog is resized
 
 		Parameters:
 			widget -- GTK callback parameter.
@@ -205,29 +203,24 @@ class AddInstrumentDialog:
 
 		(self.width, self.height) = widget.get_size()
 
-		Globals.settings.general["addinstrumentwindowwidth"] = self.width
-		Globals.settings.general["addinstrumentwindowheight"] = self.height
-		Globals.settings.write()
-		
 		return False
 
+	#_____________________________________________________________________
 
 	def OnDestroy(self, widget=None, event=None):
 		"""
-		Called when the add instrument window is called
+		Called when the add instrument dialog is destroyed
 
 		Parameters: 
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 			event -- reserved for GTK callbacks, don't use it explicitly.
-		
-		Returns:
-			True -- the current project can't be properly closed.
-					This stops signal propagation.
 		"""
 		
+		Globals.settings.general["addinstrumentwindowwidth"] = self.width
+		Globals.settings.general["addinstrumentwindowheight"] = self.height
+		Globals.settings.write()
 		
-		
-		return True
+	#_____________________________________________________________________	
 
 
 

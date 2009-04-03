@@ -1330,7 +1330,7 @@ daave &lt;fan.d.liu@gmail.com&gt;
   <property name="focus_on_map">True</property>
   <property name="urgency_hint">False</property>
   <signal name="configure_event" handler="on_AddInstrument_configure_event" />
-
+  <signal name="destroy" handler="on_AddInstrument_destroy"/>	
 
   <child>
     <widget class="GtkVBox" id="vbox2">
@@ -3842,6 +3842,12 @@ daave &lt;fan.d.liu@gmail.com&gt;
   <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
   <property name="focus_on_map">True</property>
   <property name="urgency_hint">False</property>
+  <signal name="configure_event" handler="on_InstrumentEffects_configure_event" />
+  <signal name="destroy" handler="on_InstrumentEffects_destroy"/>
+
+
+
+
 
   <child>
     <widget class="GtkVBox" id="InstrumentEffectsDialogVBox">

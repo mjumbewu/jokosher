@@ -39,6 +39,9 @@ class Settings:
 				"windowwidth" : 900,
 				"addinstrumentwindowheight" : 350,
 				"addinstrumentwindowwidth" : 300,
+				"instrumenteffectwindowheight" : 450,				
+				"instrumenteffectwindowwidth" : 650,
+				
 				}
 
 	recording = {
