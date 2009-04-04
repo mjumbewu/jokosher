@@ -296,6 +296,30 @@ class MainApp:
 		elif Globals.settings.general["startupaction"] == PreferencesDialog.STARTUP_NOTHING:
 			return
 
+		self.welcome_background = None
+		# Uncomment this next line to draw a nice background on the welcome pane
+		#self.welcome_background = gtk.gdk.pixbuf_new_from_file("my-alpha-background.png")
+		if self.welcome_background:
+			self.welcome_pane.connect_after("expose-event", self.OnWelcomePaneExpose)
+
+	#_____________________________________________________________________
+	
+	def OnWelcomePaneExpose (self, widget, event):
+		"""
+		Draw a pretty picture to the background of the welcome pane.
+		
+		Parameters:
+			widget -- GTK callback parameter.
+			event -- GTK callback parameter.
+		"""
+		if not self.welcome_background:
+			return False
+		
+		flags = widget.flags()
+		if flags & gtk.VISIBLE and flags & gtk.MAPPED:
+			if not flags & gtk.NO_WINDOW and not flags & gtk.APP_PAINTABLE:
+				widget.window.draw_pixbuf(widget.style.white_gc, self.welcome_background, 0, 0, 0, 0);
+				
 	#_____________________________________________________________________
 	
 	def OnCompactMixView(self, button=None):
