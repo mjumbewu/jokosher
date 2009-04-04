@@ -42,12 +42,12 @@ class Event(gobject.GObject):
 
 	"""
 	__gsignals__ = {
-		"waveform" 	: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () ),
-		"position" 	: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () ),
-		"length" 		: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () ),
-		"corrupt" 	: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, (gobject.TYPE_STRING,)),
-		"loading" 	: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () ),
-		"selected" 	: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () )
+		"waveform"  : ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () ),
+		"position"  : ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () ),
+		"length"    : ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () ),
+		"corrupt"   : ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, (gobject.TYPE_STRING,)),
+		"loading"   : ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () ),
+		"selected"  : ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () )
 	}
 
 	""" The level sample interval in seconds """
