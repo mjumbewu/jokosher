@@ -38,8 +38,8 @@ class Workspace(gtk.VPaned):
 		self.small = False
 		self.recordingView = RecordingView.RecordingView(project, mainview, self.small)
 		self.mixView = CompactMixView.CompactMixView(project, mainview)
-		self.add(self.recordingView)
-		self.add(self.mixView)
+		self.pack1(self.recordingView, resize=True, shrink=False)
+		self.pack2(self.mixView, resize=True, shrink=False)
 		self.mixView.hide()
 		self.show()
 	#_____________________________________________________________________

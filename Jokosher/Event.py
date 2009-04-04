@@ -22,6 +22,7 @@ import UndoSystem, IncrementalSave
 import Globals
 import gettext
 import urllib
+import PlatformUtils
 
 from elements.singledecodebin import SingleDecodeBin
 _ = gettext.gettext
@@ -51,9 +52,8 @@ class Event(gobject.GObject):
 	}
 
 	""" The level sample interval in seconds """
-	LEVEL_INTERVAL = 0.01
+	LEVEL_INTERVAL = 0.1
 	LEVELS_FILE_EXTENSION = ".leveldata"
-	NANO_TO_MILLI_DIVISOR = gst.SECOND / 1000
 	
 	#_____________________________________________________________________
 	
@@ -161,9 +161,9 @@ class Event(gobject.GObject):
 
 			Globals.debug("creating SingleDecodeBin")
 			caps = gst.caps_from_string("audio/x-raw-int;audio/x-raw-float")
-			f = "file://" + self.file
-			self.single_decode_bin = SingleDecodeBin(caps=caps, uri=f)
+			f = PlatformUtils.pathname2url(self.file)
 			Globals.debug("file uri is:", f)
+			self.single_decode_bin = SingleDecodeBin(caps=caps, uri=f)
 			self.gnlsrc.add(self.single_decode_bin)
 			Globals.debug("setting event properties:")
 			propsDict = {
@@ -212,7 +212,7 @@ class Event(gobject.GObject):
 			self.instrument.project.deleteOnCloseAudioFiles.remove(self.file)
 		
 		self.temp = self.file
-		if os.path.samefile(self.instrument.project.audio_path, os.path.dirname(self.file)):
+		if PlatformUtils.samefile(self.instrument.project.audio_path, os.path.dirname(self.file)):
 			# If the file is in the audio dir, just include the filename, not the absolute path
 			self.file = os.path.basename(self.file)
 		
@@ -631,14 +631,10 @@ class Event(gobject.GObject):
 			Utils.HandleGstPbutilsMissingMessage(message, self.install_plugin_cb)
 
 		elif st.get_name() == "level":
-			# FIXME: currently everything is being averaged to a single channel
-			peak = Utils.CalculateAudioLevel(st["rms"])
-			#convert number from gst.SECOND (i.e. nanoseconds) to milliseconds
-			end = int(st["endtime"] / self.NANO_TO_MILLI_DIVISOR)
-			self.levels_list.append(end,  [peak])
+			self.__AppendLevelToList(st)
 			
-			#Truncate at 1000 milliseconds so it updates once per second
-			self.loadingLength = end / 1000
+			#Truncate so it updates once per second
+			self.loadingLength = st["endtime"] / gst.SECOND
 			
 			# Only send events every second processed to reduce GUI load
 			if self.loadingLength != self.lastEnd:
@@ -772,10 +768,14 @@ class Event(gobject.GObject):
 		"""
 		Renders the level information for the GUI.
 		"""
-		pipe = """filesrc name=src location=%s ! decodebin ! audioconvert ! level interval=%d message=true ! fakesink"""
-		
-		pipe = pipe % (self.file.replace(" ", "\ "), self.LEVEL_INTERVAL * gst.SECOND)
+		pipe = """filesrc name=src ! decodebin ! audioconvert ! level message=true name=level_element ! fakesink"""
 		self.loadingPipeline = gst.parse_launch(pipe)
+		
+		filesrc = self.loadingPipeline.get_by_name("src")
+		level = self.loadingPipeline.get_by_name("level_element")
+		
+		filesrc.set_property("location", self.file)
+		level.set_property("interval", int(self.LEVEL_INTERVAL * gst.SECOND))
 
 		self.bus = self.loadingPipeline.get_bus()
 		self.bus.add_signal_watch()
@@ -798,14 +798,25 @@ class Event(gobject.GObject):
 		Copies the audio file to the new file location and reads the levels
 		at the same time.
 		"""
-		if not gst.element_make_from_uri(gst.URI_SRC, uri):
+		
+		urisrc = gst.element_make_from_uri(gst.URI_SRC, uri)
+		if not urisrc:
 			#This means that here is no gstreamer src element on the system that can handle this URI type.
 			return False
 		
-		pipe = """%s ! tee name=mytee mytee. ! queue ! filesink location=%s """ +\
-		"""mytee. ! queue ! decodebin ! audioconvert ! level interval=%d message=true ! fakesink""" 
-		pipe = pipe % (urllib.quote(uri,":/"), self.file.replace(" ", "\ "), self.LEVEL_INTERVAL * gst.SECOND)
+		pipe = """tee name=mytee mytee. ! queue ! filesink name=sink """ +\
+		       """mytee. ! queue ! decodebin ! audioconvert ! level name=level_element message=true ! fakesink""" 
 		self.loadingPipeline = gst.parse_launch(pipe)
+		
+		tee = self.loadingPipeline.get_by_name("mytee")
+		filesink = self.loadingPipeline.get_by_name("sink")
+		level = self.loadingPipeline.get_by_name("level_element")
+		
+		self.loadingPipeline.add(urisrc)
+		urisrc.link(tee)
+		
+		filesink.set_property("location", self.file)
+		level.set_property("interval", int(self.LEVEL_INTERVAL * gst.SECOND))
 
 		self.bus = self.loadingPipeline.get_bus()
 		self.bus.add_signal_watch()
@@ -878,13 +889,9 @@ class Event(gobject.GObject):
 		
 		st = message.structure
 		if st and message.src.get_name() == "recordlevel":
-			# FIXME: currently everything is being averaged to a single channel
-			peak = Utils.CalculateAudioLevel(st["rms"])
-			#convert number from gst.SECOND (i.e. nanoseconds) to milliseconds
-			end = int(st["endtime"] / self.NANO_TO_MILLI_DIVISOR)
-			self.levels_list.append(end,  [peak])
+			self.__AppendLevelToList(st)
 			
-			end = end / 1000.0	#convert to float representing seconds 
+			end = st["endtime"] / float(gst.SECOND)  #convert to float representing seconds 
 			#Round to one decimal place so it updates 10 times per second
 			self.loadingLength = round(end, 1)
 			
@@ -893,6 +900,25 @@ class Event(gobject.GObject):
 				self.lastEnd = self.loadingLength 
 				self.emit("length") # tell the GUI
 		return True
+		
+	#_____________________________________________________________________
+	
+	def __AppendLevelToList(self, structure):
+		(end, peaks) = Utils.CalculateAudioLevelFromStructure(structure)
+		
+		# the last level may be sent twice. If timestamp is the same, ignore it.
+		if self.levels_list and self.levels_list[-1][0] == end:
+			return
+		
+		# work around GStreamer bug where stream time will be -1 (indicating error)
+		# and then cast to guint64 which results in the maximum 64-bit integer value.
+		# In this case stream-time and endtime are bogus values, but duration is still correct.
+		stream_time = structure["stream-time"]
+		if stream_time == ((2**64) - 1):
+			delta = int(structure["duration"] / Utils.NANO_TO_MILLI_DIVISOR)
+			self.levels_list.append_time_delta(delta, peaks)
+		else:
+			self.levels_list.append(end, peaks)
 		
 	#_____________________________________________________________________
 	

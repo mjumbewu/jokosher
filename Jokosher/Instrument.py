@@ -15,6 +15,7 @@
 import pygst
 pygst.require("0.10")
 import gst
+import PlatformUtils
 import os, time, shutil
 import urlparse # To split up URI's
 import gobject
@@ -199,7 +200,7 @@ class Instrument(gobject.GObject):
 		self.volumeElement.link(self.levelElement)
 		self.levelElement.link(self.panElement)	
 		self.panElement.link(self.resample)
-		
+
 		self.playghostpad = gst.GhostPad("src", self.resample.get_pad("src"))
 		self.playbackbin.add_pad(self.playghostpad)
 		
@@ -541,7 +542,7 @@ class Instrument(gobject.GObject):
 		
 		Parameters:
 			start -- the offset time in seconds for the first event.
-			fileList -- paths or URIs to the Event files.
+			fileList -- URIs to the Event files.
 			copyfile --	True = copy the files to Project's audio directory.
 						False = don't copy the files to the Project's audio directory.
 		"""
@@ -555,6 +556,7 @@ class Instrument(gobject.GObject):
 			# Parse the uri, and continue only if it is pointing to a local file
 			(scheme, domain, file, params, query, fragment) = urlparse.urlparse(uri, "file", False)
 			if scheme == "file":
+				file = PlatformUtils.url2pathname(file)
 				event = self.addEventFromFile(start, file, copyFile, _undoAction_=undoAction)
 			else:
 				event = self.addEventFromURL(start, uri, _undoAction_=undoAction)

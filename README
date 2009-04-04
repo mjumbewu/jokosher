@@ -1,4 +1,4 @@
-Welcome to Jokosher 0.11!
+Welcome to Jokosher 0.11.1!
 
 Jokosher is a simple and easy to use audio multi-tracker
 for the Linux desktop. The aim of the project is to 
@@ -15,9 +15,9 @@ post-producing and exporting your compositions.
 
 * Python 2.4
 * GStreamer 0.10.9
-* Python GStreamer
+* Python GStreamer 0.10.13
 * Gnonlin 0.10.4.2 (plugin for Gstreamer)
-* PyGTK 2.8
+* PyGTK 2.14
 * Python Glade2
 * Python Cairo
 * Python Dbus

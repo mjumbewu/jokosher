@@ -8,7 +8,7 @@
 #-------------------------------------------------------------------------------
 
 import os
-import gtk
+import gtk, gtk.glade
 import gobject
 
 import Globals

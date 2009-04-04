@@ -44,6 +44,9 @@ class RecordingView(gtk.Frame):
 						URI_DRAG_TYPE ),		# Use the custom number
 						("text/plain", 0, URI_DRAG_TYPE) # so drags from Firefox work
 						]
+	
+	"""The number of seconds shown after the end of the last event"""
+	EXTRA_SCROLL_TIME = 25
 
 	#_____________________________________________________________________
 
@@ -61,12 +64,9 @@ class RecordingView(gtk.Frame):
 		self.project = project
 		self.mainview = mainview
 		self.small = small
-		self.timelinebar = TimeLineBar.TimeLineBar(self.project, self, mainview)
+		self.timelinebar = TimeLineBar.TimeLineBar(self.project, mainview)
 		
-		self.gstreamerErrorMessages = []
 		self.errorMessageArea = None
-		self.moreErrorsMessageArea = None
-		
 		self.restoreMessageArea = None
 		
 		## create darker workspace box
@@ -140,7 +140,6 @@ class RecordingView(gtk.Frame):
 		self.zoom_hb.pack_start( self.zoomSlider, False, False)
 		self.zoom_hb.pack_start( self.inbutton, False, False)
 		
-		self.extraScrollTime = 25
 		self.centreViewOnPosition = False
 		self.scrollRange.lower = 0
 		self.scrollRange.upper = 100
@@ -158,6 +157,7 @@ class RecordingView(gtk.Frame):
 		self.project.connect("instrument::added", self.OnInstrumentAdded)
 		self.project.connect("instrument::reordered", self.OnInstrumentReordered)
 		self.project.connect("instrument::removed", self.OnInstrumentRemoved)
+		self.project.connect("view-start", self.OnViewStartChanged)
 		
 		self.vbox.drag_dest_set(	gtk.DEST_DEFAULT_DROP,
 									self.DRAG_TARGETS, 
@@ -224,20 +224,20 @@ class RecordingView(gtk.Frame):
 		self.scrollRange.page_size = (self.scrollBar.allocation.width) / self.project.viewScale
 		self.scrollRange.page_increment = self.scrollRange.page_size
 		# add EXTRA_SCROLL_TIME extra seconds
-		length = self.project.GetProjectLength() + self.extraScrollTime
+		length = self.project.GetProjectLength() + self.EXTRA_SCROLL_TIME
 		self.scrollRange.upper = length
 		
 		if self.centreViewOnPosition:  
 			self.centreViewOnPosition = False  
 			#set the view to be centred over the playhead  
 			start = self.project.transport.GetPosition() - (self.scrollRange.page_size / 2)
-			self.SetViewPosition(start)
+			self.project.SetViewStart(start)
 		# Need to adjust project view start if we are zooming out
 		# and the end of the project is now before the end of the page.
 		# Project end will be at right edge unless the start is also on 
 		# screen, in which case the start will be at the left.
 		elif self.project.viewStart + self.scrollRange.page_size > length:
-			self.SetViewPosition(length - self.scrollRange.page_size)
+			self.project.SetViewStart(length - self.scrollRange.page_size)
 		
 		#check the min zoom value (based on project length)
 		# (scroll bar should always be same width as viewable area)
@@ -305,7 +305,7 @@ class RecordingView(gtk.Frame):
 	
 	#_____________________________________________________________________
 	
-	def OnProjectGstError(self, project, error, details):
+	def OnProjectGstError(self, project, error, debug):
 		"""
 		Callback for when the project sends a gstreamer error message
 		from the pipeline.
@@ -313,25 +313,24 @@ class RecordingView(gtk.Frame):
 		Parameters:
 			project -- The project instance that send the signal.
 			error -- The type of error that occurred as a string.
-			details -- A string with more information about the error.
+			debug -- A string with more debug information about the error.
 		"""
 		if not error:
 			error = _("A Gstreamer error has occurred")
-		#outrostring = _("Please report this error to the Jokosher developers at:\nhttps://bugs.launchpad.net/jokosher\nYou can also get help from:\nhttp://www.jokosher.org/forums/")
 		
-		self.gstreamerErrorMessages.append((error, details))
-		# invalidate the second error pane since the number it displays has changed
-		if self.moreErrorsMessageArea:
-			self.vbox.remove(self.moreErrorsMessageArea)
-			self.moreErrorsMessageArea = None
-		self.ReloadErrorMessages()
-		
+		if not self.errorMessageArea:
+			msg_area = self.CreateDefaultErrorPane(error, debug)
+			self.vbox.pack_end(msg_area, False, False)
+			msg_area.show()
+			self.errorMessageArea = msg_area
+	
 	#_____________________________________________________________________
 	
 	def CreateDefaultErrorPane(self, error, details):
 		message = _("A GStreamer error has occurred.")
+		info = _("If this problem persists consider reporting a bug using the link in the help menu.")
 		
-		details = "\n".join((error, details))
+		details = "\n".join((error, info))
 		
 		msg_area = MessageArea.MessageArea()
 		msg_area.add_button(gtk.STOCK_CLOSE, gtk.RESPONSE_CLOSE)
@@ -341,90 +340,19 @@ class RecordingView(gtk.Frame):
 		msg_area.connect("close", self.OnMessageAreaClose, msg_area)
 		
 		return msg_area
-	
-	#_____________________________________________________________________
-		
-	def ReloadErrorMessages(self):
-		num_errors = len(self.gstreamerErrorMessages)
-		
-		if self.errorMessageArea:
-			self.vbox.remove(self.errorMessageArea)
-		if self.moreErrorsMessageArea:
-			self.vbox.remove(self.moreErrorsMessageArea)
-		
-		if num_errors == 0:
-			return
-		
-		
-		if not self.errorMessageArea:
-			error, details = self.gstreamerErrorMessages[0]
-			self.errorMessageArea = self.CreateDefaultErrorPane(error, details)
-		
-		
-		if num_errors == 2 and not self.moreErrorsMessageArea:
-			error, details = self.gstreamerErrorMessages[1]
-			self.moreErrorsMessageArea = self.CreateDefaultErrorPane(error, details)
-			
-		elif num_errors > 2 and not self.moreErrorsMessageArea:
-			multi_error = _("There are %(number)d more errors not shown.")
-			multi_error %= {"number" : num_errors - 1 }
-			
-			info = _("If this problem persists consider reporting a bug using the link in the help menu.")
-			
-			msg_area = MessageArea.MessageArea()
-			msg_area.add_stock_button_with_text(_("_Close All"), gtk.STOCK_CLOSE, gtk.RESPONSE_CLOSE)
-			msg_area.add_button(_("_Show All"), gtk.RESPONSE_YES)
-			msg_area.set_text_and_icon(gtk.STOCK_DIALOG_ERROR, multi_error, info)
-			
-			msg_area.connect("response", self.OnMessageAreaReponse, msg_area)
-			msg_area.connect("close", self.OnMessageAreaClose, msg_area)
-			
-			self.moreErrorsMessageArea = msg_area
-		
-		# now repack them in the correct order
-		if self.moreErrorsMessageArea:
-			self.vbox.pack_end(self.moreErrorsMessageArea, False, False)
-			self.moreErrorsMessageArea.show()
-			
-		self.vbox.pack_end(self.errorMessageArea, False, False)
-		self.errorMessageArea.show()
 		
 	#_____________________________________________________________________
 	
 	def OnMessageAreaClose(self, widget, message_area):
-		if message_area is self.errorMessageArea:
-			self.gstreamerErrorMessages.pop(0)
-		elif message_area is self.moreErrorsMessageArea:
-			self.gstreamerErrorMessages = []
-			
 		if self.errorMessageArea:
 			self.vbox.remove(self.errorMessageArea)
 			self.errorMessageArea = None
-		if self.moreErrorsMessageArea:
-			self.vbox.remove(self.moreErrorsMessageArea)
-			self.moreErrorsMessageArea = None
-			
-		self.ReloadErrorMessages()
-				
+	
 	#_____________________________________________________________________
 	
 	def OnMessageAreaReponse(self, widget, response_id, message_area):
 		if response_id == gtk.RESPONSE_CLOSE:
 			self.OnMessageAreaClose(widget, message_area)
-		if response_id == gtk.RESPONSE_YES:
-			# this is the response for Show All button
-			self.res = gtk.glade.XML(Globals.GLADE_PATH, "ErrorPaneDialog")
-			dialog = self.res.get_widget("ErrorPaneDialog")
-			main_vbox = self.res.get_widget("MainVBox")
-			for error, details in self.gstreamerErrorMessages:
-				msg_area = MessageArea.MessageArea()
-				#msg_area.add_button(gtk.STOCK_CLOSE, gtk.RESPONSE_CLOSE)
-				msg_area.set_text_and_icon(gtk.STOCK_DIALOG_ERROR, error, details)
-				main_vbox.pack_start(msg_area, False, False)
-				
-			dialog.connect("response", lambda dlg, resp: dlg.destroy())
-			dialog.show_all()
-			
 	
 	#_____________________________________________________________________
 	
@@ -515,22 +443,16 @@ class RecordingView(gtk.Frame):
 			return True
 		
 	#_____________________________________________________________________
-
-	def SetViewPosition(self, position):
+	
+	def OnViewStartChanged(self, project):
 		"""
-		Moves the view so that the given position is the leftmost side
-		of the viewable area for scrolling, etc.
+		Callback for when the project notifies that the
+		viewable start position has changed.
 		
 		Parameters:
-			position -- the new position to set.
+			project -- The project instance that send the signal.
 		"""
-		length = self.project.GetProjectLength() + self.extraScrollTime 
-		#check if its over the project length
-		start = min(length - self.scrollRange.page_size, position)
-		#check if its under zero (do this after checking the project length, because if the project length is 0 it will go under)
-		start = max(0, start)
-		self.scrollRange.value = start
-		self.project.SetViewStart(start)
+		self.scrollRange.value = project.viewStart
 	
 	#_____________________________________________________________________
 	

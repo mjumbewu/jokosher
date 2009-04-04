@@ -103,7 +103,6 @@ class InstrumentViewer(gtk.EventBox):
 		self.editlabel.connect("key_press_event", self.OnEditLabelKey)
 		self.editlabel.connect_after("button-press-event", self.OnEditLabelClick)
 		self.editlabel.connect_after("button-release-event", self.OnEditLabelClick)
-		self.editlabel_pointer_grab_time = 0L
 		self.editlabel_is_mouse_down = False
 		self.editlabelPacked = False
 
@@ -235,7 +234,6 @@ class InstrumentViewer(gtk.EventBox):
 			self.editlabel.grab_focus()
 			
 			self.editlabelPacked = True
-			self.editlabel_pointer_grab_time = event.time
 			self.editlabel_is_mouse_down = False
 			self.mainview.instrNameEntry = self.editlabel
 			

@@ -15,7 +15,7 @@ import pygst
 pygst.require("0.10")
 import gst
 import gobject
-import os
+import os, os.path
 import gzip
 import re
 
@@ -27,6 +27,7 @@ import Instrument, Event
 import Utils
 import AudioBackend
 import ProjectManager
+import PlatformUtils
 
 #=========================================================================
 
@@ -37,7 +38,7 @@ class Project(gobject.GObject):
 	"""
 	
 	""" The Project structure version. Will be useful for handling old save files. """
-	Globals.VERSION = "0.11"
+	Globals.VERSION = "0.11.1"
 	
 	""" The audio playback state enum values """
 	AUDIO_STOPPED, AUDIO_RECORDING, AUDIO_PLAYING, AUDIO_PAUSED, AUDIO_EXPORTING = range(5)
@@ -139,29 +140,30 @@ class Project(gobject.GObject):
 		self.mainpipeline = gst.Pipeline("timeline")
 		self.playbackbin = gst.Bin("playbackbin")
 		self.adder = gst.element_factory_make("adder")
+		self.postAdderConvert = gst.element_factory_make("audioconvert")
 		self.masterSink = self.MakeProjectSink()
 		
 		self.levelElement = gst.element_factory_make("level", "MasterLevel")
 		self.levelElement.set_property("interval", gst.SECOND / 50)
 		self.levelElement.set_property("message", True)
 		
-		#Restrict adder's output caps due to adder bug
+		#Restrict adder's output caps due to adder bug 341431
 		self.levelElementCaps = gst.element_factory_make("capsfilter", "levelcaps")
-		capsString = "audio/x-raw-int,rate=44100,channels=2,width=16,depth=16,signed=(boolean)true"
-		capsString += ";audio/x-raw-float,rate=44100,channels=2"
+		capsString = "audio/x-raw-float,rate=44100,channels=2,width=32,endianness=1234"
 		caps = gst.caps_from_string(capsString)
 		self.levelElementCaps.set_property("caps", caps)
 		
 		# ADD ELEMENTS TO THE PIPELINE AND/OR THEIR BINS #
 		self.mainpipeline.add(self.playbackbin)
 		Globals.debug("added project playback bin to the pipeline")
-		for element in [self.adder, self.levelElementCaps, self.levelElement, self.masterSink]:
+		for element in [self.adder, self.levelElementCaps, self.postAdderConvert, self.levelElement, self.masterSink]:
 			self.playbackbin.add(element)
 			Globals.debug("added %s to project playbackbin" % element.get_name())
 
 		# LINK GSTREAMER ELEMENTS #
 		self.adder.link(self.levelElementCaps)
-		self.levelElementCaps.link(self.levelElement)
+		self.levelElementCaps.link(self.postAdderConvert)
+		self.postAdderConvert.link(self.levelElement)
 		self.levelElement.link(self.masterSink)
 		
 		# CONSTRUCT CLICK TRACK BIN #
@@ -232,8 +234,6 @@ class Project(gobject.GObject):
 			self.transport.Play(newAudioState)
 		
 		Globals.debug("just set state to PAUSED")
-
-		Globals.PrintPipelineDebug("Play Pipeline:", self.mainpipeline)
 		
 	#_____________________________________________________________________
 
@@ -260,8 +260,6 @@ class Project(gobject.GObject):
 			self.bus.disconnect(handle)
 
 		self.TerminateRecording()
-		
-		Globals.PrintPipelineDebug("PIPELINE AFTER STOP:", self.mainpipeline)
 		
 	#_____________________________________________________________________
 
@@ -391,13 +389,20 @@ class Project(gobject.GObject):
 				else:
 					capsString = "audioconvert"
 					
-				pipe = "%s ! %s ! level name=recordlevel interval=%d" +\
-							" ! audioconvert ! %s ! filesink location=%s"
-				pipe %= (recordString, capsString, event.LEVEL_INTERVAL * gst.SECOND, encodeString, event.file.replace(" ", "\ "))
+				# TODO: get rid of this entire string; do it manually
+				pipe = "%s ! %s ! level name=recordlevel ! audioconvert ! %s ! filesink name=sink"
+				pipe %= (recordString, capsString, encodeString)
 				
 				Globals.debug("Using pipeline: %s" % pipe)
 				
 				recordingbin = gst.parse_bin_from_description(pipe, False)
+				
+				filesink = recordingbin.get_by_name("sink")
+				level = recordingbin.get_by_name("recordlevel")
+				
+				filesink.set_property("location", event.file)
+				level.set_property("interval", int(event.LEVEL_INTERVAL * gst.SECOND))
+				
 				#update the levels in real time
 				handle = self.bus.connect("message::element", event.recording_bus_level)
 				
@@ -435,7 +440,7 @@ class Project(gobject.GObject):
 		"""
 		#try to create encoder/muxer first, before modifying the main pipeline.
 		try:
-			self.encodebin = gst.parse_bin_from_description("audioconvert ! %s" % encodeBin, True)
+			self.encodebin = gst.parse_bin_from_description(encodeBin, True)
 		except gobject.GError, e:
 			if e.code == gst.PARSE_ERROR_NO_SUCH_ELEMENT:
 				error_no = ProjectManager.ProjectExportException.MISSING_ELEMENT
@@ -448,7 +453,7 @@ class Project(gobject.GObject):
 		
 		#remove and unlink the alsasink
 		self.playbackbin.remove(self.masterSink, self.levelElement)
-		self.levelElementCaps.unlink(self.levelElement)
+		self.postAdderConvert.unlink(self.levelElement)
 		self.levelElement.unlink(self.masterSink)
 		
 		#create filesink
@@ -457,7 +462,7 @@ class Project(gobject.GObject):
 		self.playbackbin.add(self.outfile)
 
 		self.playbackbin.add(self.encodebin)
-		self.levelElementCaps.link(self.encodebin)
+		self.postAdderConvert.link(self.encodebin)
 		self.encodebin.link(self.outfile)
 			
 		#disconnect the bus message handler so the levels don't change
@@ -495,7 +500,7 @@ class Project(gobject.GObject):
 		
 		#remove the filesink and encoder
 		self.playbackbin.remove(self.outfile, self.encodebin)		
-		self.levelElementCaps.unlink(self.encodebin)
+		self.postAdderConvert.unlink(self.encodebin)
 			
 		#dispose of the elements
 		self.outfile.set_state(gst.STATE_NULL)
@@ -504,7 +509,7 @@ class Project(gobject.GObject):
 		
 		#re-add all the alsa playback elements
 		self.playbackbin.add(self.masterSink, self.levelElement)
-		self.levelElementCaps.link(self.levelElement)
+		self.postAdderConvert.link(self.levelElement)
 		self.levelElement.link(self.masterSink)
 		
 		self.emit("audio-state::export-stop")
@@ -604,14 +609,20 @@ class Project(gobject.GObject):
 			if instr.inTrack == index:
 				event = instr.GetRecordingEvent()
 				
+				# TODO: get rid of string concatentation
 				encodeString = Globals.settings.recording["fileformat"]
-				pipe = "queue ! audioconvert ! level name=recordlevel interval=%d !" +\
-							"audioconvert ! %s ! filesink location=%s"
-				pipe %= (event.LEVEL_INTERVAL * gst.SECOND, encodeString, event.file.replace(" ", "\ "))
+				pipe = "queue ! audioconvert ! level name=recordlevel ! audioconvert ! %s ! filesink name=sink"
+				pipe %= encodeString
 				
 				encodeBin = gst.parse_bin_from_description(pipe, True)
 				bin.add(encodeBin)
 				pad.link(encodeBin.get_pad("sink"))
+				
+				filesink = bin.get_by_name("sink")
+				level = bin.get_by_name("recordlevel")
+				
+				filesink.set_property("location", event.file)
+				level.set_property("interval", int(event.LEVEL_INTERVAL * gst.SECOND))
 				
 				handle = self.bus.connect("message::element", event.recording_bus_level)
 				
@@ -692,14 +703,19 @@ class Project(gobject.GObject):
 		Globals.debug("Message:", error.message)
 		
 		if error.domain == gst.STREAM_ERROR and Globals.DEBUG_GST:
-			basepath, ext = os.path.splitext(self.projectfile)
-			name = "jokosher-pipeline-" + os.path.basename(basepath)
-			gst.DEBUG_BIN_TO_DOT_FILE_WITH_TS(self.mainpipeline, gst.DEBUG_GRAPH_SHOW_ALL, name)
-			Globals.debug("Dumped pipeline to DOT file:", name)
-			Globals.debug("Command to render DOT file: dot -Tsvg -o pipeline.svg <file>")
+			self.DumpDotFile()
 		
 		self.emit("gst-bus-error", str(error), str(debug))
 
+	#_____________________________________________________________________
+	
+	def DumpDotFile(self):
+		basepath, ext = os.path.splitext(self.projectfile)
+		name = "jokosher-pipeline-" + os.path.basename(basepath)
+		gst.DEBUG_BIN_TO_DOT_FILE_WITH_TS(self.mainpipeline, gst.DEBUG_GRAPH_SHOW_ALL, name)
+		Globals.debug("Dumped pipeline to DOT file:", name)
+		Globals.debug("Command to render DOT file: dot -Tsvg -o pipeline.svg <file>")
+	
 	#_____________________________________________________________________
 	
 	def SaveProjectFile(self, path=None, backup=False):
@@ -806,6 +822,8 @@ class Project(gobject.GObject):
 			os.remove(path + "~")
 		else:
 			#if the saving doesn't fail, move it to the proper location
+			if os.path.exists(path):
+				os.remove(path)
 			os.rename(path + "~", path)		
 		
 		self.emit("undo")
@@ -1300,10 +1318,12 @@ class Project(gobject.GObject):
 		"""
 		if not undoAction:
 			undoAction = self.NewAtomicUndoAction()
-		
+	
+		uris = [PlatformUtils.pathname2url(filename) for filename in fileList]
+
 		name, type, pixbuf, path = [x for x in Globals.getCachedInstruments() if x[1] == "audiofile"][0]
 		instr = self.AddInstrument(name, type, _undoAction_=undoAction)
-		instr.AddEventsFromList(0, fileList, copyFile, undoAction)
+		instr.AddEventsFromList(0, uris, copyFile, undoAction)
 	
 	#_____________________________________________________________________
 	

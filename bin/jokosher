@@ -11,9 +11,17 @@
 #	This script is also responsible for parsing comment line arguments.
 #
 #-------------------------------------------------------------------------------
-import os, sys
+import os, sys, platform
 
-ENV_PATHS = {"JOKOSHER_DATA_PATH" : "/usr/share/jokosher/",
+if platform.system() == "Windows":
+	ENV_PATHS = {"JOKOSHER_DATA_PATH" : ".\\",
+			"JOKOSHER_IMAGE_PATH" : ".\\pixmaps\\",
+			"JOKOSHER_LOCALE_PATH" : ".\\locale\\",
+			"JOKOSHER_HELP_PATH" : ".\\help\\",
+			"GST_PLUGIN_PATH" : ".\\"
+			}
+else:	
+	ENV_PATHS = {"JOKOSHER_DATA_PATH" : "/usr/share/jokosher/",
 			"JOKOSHER_IMAGE_PATH" : "/usr/share/jokosher/pixmaps/",
 			"JOKOSHER_LOCALE_PATH" : "/usr/share/locale/",
 			"JOKOSHER_HELP_PATH" : "/usr/share/gnome/jokosher/"
@@ -31,11 +39,16 @@ import optparse
 import locale, gettext
 _ = gettext.gettext
 
+# enable path to dump dot files
+# this *must* be done before 'import gst' because it reads the env var on startup.
+os.environ.setdefault("GST_DEBUG_DUMP_DOT_DIR", Globals.JOKOSHER_DATA_HOME)
+
 try:
 	locale.setlocale(locale.LC_ALL, '')
 	gettext.bindtextdomain(Globals.LOCALE_APP, Globals.LOCALE_PATH)
 	gettext.bind_textdomain_codeset(Globals.LOCALE_APP, "UTF-8")
 	gettext.textdomain(Globals.LOCALE_APP)
+	gettext.install(Globals.LOCALE_APP)
 except locale.Error:
 	print "Locale unsupported, defaulting to english for all Jokosher specific text."
 	
@@ -43,7 +56,7 @@ except locale.Error:
 openproject = None
 loadExtensions = True
 
-parser = optparse.OptionParser(usage="%prog [options] [project-file]", version="0.11")
+parser = optparse.OptionParser(usage="%prog [options] [project-file]", version="0.11.1")
 #command line options
 parser.add_option("-d", "--debug", action="store_true", dest="debug", 
 				help=_("Print debug output to stdout"))
@@ -62,11 +75,6 @@ if len(args) > 0:
 	
 Globals.DEBUG_STDOUT = options.debug
 Globals.DEBUG_GST = options.gstDebug
-
-if options.gstDebug:
-	# enable path to dump dot files
-	# this *must* be done before 'import gst' because it reads the env var on startup.
-	os.environ.setdefault("GST_DEBUG_DUMP_DOT_DIR", Globals.JOKOSHER_DATA_HOME)
 
 if options.forceNoProject:
 	startupType = 1

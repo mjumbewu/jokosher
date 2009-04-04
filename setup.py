@@ -38,7 +38,7 @@ else:
 	OMFFILES.append((omfdir, glob.glob("help/jokosher/*.omf")))
 		
 dist = setup(name='jokosher',
-	version='0.11',
+	version='0.11.1',
 	author='Jokosher Project',
 	author_email='corrales.david@gmail.com',
 	maintainer='David Corrales',
@@ -50,7 +50,7 @@ dist = setup(name='jokosher',
 	license='GNU GPL',
 	platforms='linux',
 	scripts=['bin/jokosher'],
-	packages=['Jokosher', 'Jokosher/elements', 'Jokosher/ui'],
+	packages=['Jokosher', 'Jokosher/elements', 'Jokosher/ui', 'Jokosher/PlatformUtils'],
 	data_files=[
 		('share/jokosher/', glob.glob("Jokosher/*.glade")),
 		('share/jokosher/', ["Jokosher/jokosher-logo.png"]),

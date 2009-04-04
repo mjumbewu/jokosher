@@ -1,0 +1,55 @@
+Step 1) 
+	Change the version numbers in all parts of the code:
+		* README (update version, dependencies and intro text)
+		* bin/jokosher (change the version parameter passed to the option parser)
+		* Jokosher/Jokosher (option parser version, same as above)
+		* Jokosher/Jokosher.glade (change the text in the about dialog)
+		* Jokosher/Project.py (at top of Project class, Globals.VERSION = ... )
+		* Jokosher/ProjectManager.py
+			Add the version to the JOKOSHER_VERSION_FUNCTIONS dictionary.
+			If there is no loader for that class because the format didn't change
+			use the loader class from the previous version. For example, 0.11
+			uses the _LoadZPTenFile loader class.
+		* setup.py (change the version parameter passed to distutils setup method)
+		
+Step 2)
+	Import translations (if any changed) from Launchpad Rosetta.
+	
+	a) Extract the Launchpad tarball into locale/src/rosetta.
+	b) Run the following command to merge the PO files:
+		cd locale/src
+		./rosetta-merge.py rosetta/
+		bzr commit
+		
+Step 3)
+	Extract the strings from the code, build POT file and merge POT with PO:
+		cd locale/src
+		make
+		bzr commit
+	
+	At this point you should upload the new POT file to Launchpad Rosetta so
+	the translators can start translating the new strings for this release.
+	
+Step 4)
+	Generate binary MO translation files (these are the ones that will 
+	be included in the release):
+		cd locale/src
+		make all
+		bzr commit
+
+Step 5)
+	Build source tarball:
+		python setup.py sdist
+		
+	You will find a tarball has been created at:
+		dist/jokosher-0.11.tar.gz
+	
+	Upload this tarball to jokosher.org, and Launchpad.
+		
+	This tarball can be used to create a debian package.
+	See jokosher_debian_build_howto.txt for more details.
+	
+
+		
+		
+		

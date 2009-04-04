@@ -24,9 +24,11 @@ _ = gettext.gettext
 import AddInstrumentDialog, TimeView, Workspace
 import PreferencesDialog, ExtensionManagerDialog, RecordingView, NewProjectDialog
 import ProjectManager, Globals
-import InstrumentConnectionsDialog, StatusBar
+import InstrumentConnectionsDialog
 import EffectPresets, Extension, ExtensionManager
 import Utils, AudioPreview, MixdownProfileDialog, MixdownActions
+import PlatformUtils
+import ui.StatusBar as StatusBar
 
 #=========================================================================
 
@@ -1512,7 +1514,8 @@ class MainApp:
 					displayed to user detailing the error.
 		"""
 		try:
-			self.SetProject(ProjectManager.LoadProjectFile(path))
+			uri = PlatformUtils.pathname2url(path)
+			self.SetProject(ProjectManager.LoadProjectFile(uri))
 			return True
 		except ProjectManager.OpenProjectError, e:
 			self.ShowOpenProjectErrorDialog(e,parent)
@@ -1639,16 +1642,15 @@ class MainApp:
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-		helpfile = ""
-		
 		if Globals.USE_LOCAL_HELP:
-			helpfile = Globals.HELP_PATH
+			helpfile = "ghelp:" + Globals.HELP_PATH
 		else:
 			helpfile = "ghelp:jokosher"
 		
-		try:	
-			Popen(args=["yelp", helpfile])
-		except OSError:
+		screen = gtk.gdk.screen_get_default()
+		ret = gtk.show_uri(screen, helpfile, 0)
+		
+		if not ret:
 			dlg = gtk.MessageDialog(self.window,
 					gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
 					gtk.MESSAGE_ERROR,
@@ -1770,7 +1772,7 @@ class MainApp:
 		if gnlVersion:
 			ignored, gnlMajor, gnlMinor = gnlVersion.get_version().split(".", 2)		
 			message = "%s.%s" % (gnlMajor, gnlMinor)
-		elif not gnl:
+		elif not gnlVersion:
 			message += _("Gnonlin is missing!")
 		self.gnonlinVersionStr.set_text(message)
 		

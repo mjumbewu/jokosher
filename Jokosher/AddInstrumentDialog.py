@@ -44,6 +44,8 @@ class AddInstrumentDialog:
 			"on_OK_clicked" : self.OnOK,
 			"on_Cancel_clicked" : self.OnCancel,
 			"on_instrument_search_changed" : self.OnSearchChange,
+			"on_AddInstrument_configure_event" : self.OnResize,
+			"on_AddInstrument_destroy" : self.OnDestroy,
 		}
 		
 		self.res.signal_autoconnect(self.signals)
@@ -87,8 +89,11 @@ class AddInstrumentDialog:
 			
 		self.tree.set_item_width(90)
 		self.tree.set_size_request(72, -1)
-		self.dlg.resize(350, 300)
-		
+				
+		self.width = int(Globals.settings.general["addinstrumentwindowwidth"])
+		self.height = int(Globals.settings.general["addinstrumentwindowheight"])
+		self.dlg.resize(self.width, self.height)
+
 		self.dlg.set_transient_for(self.parent.window)
 		self.dlg.show()
 	#_____________________________________________________________________
@@ -129,6 +134,7 @@ class AddInstrumentDialog:
 			instrItem = [x for x in Globals.getCachedInstruments() if x[1] == item[1]][0]
 			self.instr.ChangeType(instrItem[1], instrItem[0])
 
+
 		self.dlg.destroy()
 		
 	#_____________________________________________________________________
@@ -140,6 +146,7 @@ class AddInstrumentDialog:
 		Parameters:
 			button -- reserved for GTK callbacks, dont't use it explicity.
 		"""
+
 		self.dlg.destroy()
 		
 	#_____________________________________________________________________
@@ -179,5 +186,41 @@ class AddInstrumentDialog:
 		self.tree.set_model(self.model)
 		
 	#_____________________________________________________________________
+
+
+	def OnResize(self, widget, event):
+		"""
+		This method is called when the add instrument dialog is resized
+
+		Parameters:
+			widget -- GTK callback parameter.
+			event -- GTK callback parameter.
+			
+		Returns:
+			False -- continue GTK signal propagation.
+		"""		
+
+		(self.width, self.height) = widget.get_size()
+
+		return False
+
+	#_____________________________________________________________________
+
+	def OnDestroy(self, widget=None, event=None):
+		"""
+		Called when the add instrument dialog is destroyed
+
+		Parameters: 
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+			event -- reserved for GTK callbacks, don't use it explicitly.
+		"""
+		
+		Globals.settings.general["addinstrumentwindowwidth"] = self.width
+		Globals.settings.general["addinstrumentwindowheight"] = self.height
+		Globals.settings.write()
+		
+	#_____________________________________________________________________	
+
+
 
 #=========================================================================

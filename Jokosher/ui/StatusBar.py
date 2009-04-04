@@ -13,7 +13,7 @@ import gtk
 
 #=========================================================================
 
-class StatusBar(gtk.HBox):
+class StatusBar(gtk.Statusbar):
 	"""
 	Implements an improved status bar which allows pango markup styles (bold, italics, etc).
 	"""
@@ -23,14 +23,10 @@ class StatusBar(gtk.HBox):
 		"""
 		Creates a new instance of StatusBar with no messages shown.
 		"""
-		gtk.HBox.__init__(self)
-		self.latest_id = 0
-		self.label = gtk.Label()
-		self.label.set_justify(gtk.JUSTIFY_LEFT)
-		self.pack_start(self.label, False)
-		# message stack is a dictionary as this is a very easy type
-		# to add and remove from
-		self.stack = {}
+		gtk.Statusbar.__init__(self)
+		# gtk.Statusbar contains a label inside a frame inside itself
+		self.label = self.get_children()[0].get_children()[0]
+		self.label.set_use_markup(True)
 		
 	#_____________________________________________________________________
 
@@ -44,13 +40,9 @@ class StatusBar(gtk.HBox):
 		Return:
 			the value of the next valid message ID.
 		"""
-		# increment message_id - this will be key for
-		# message and highest message_id will be 'top of stack'
-		self.latest_id += 1
-		self.stack[self.latest_id] = message
-		self.DisplayTopOfStack()
-		
-		return self.latest_id
+		message_id = self.push(0, message)
+		self.label.set_use_markup(True)
+		return message_id
 	
 	#_____________________________________________________________________
 
@@ -61,25 +53,8 @@ class StatusBar(gtk.HBox):
 		Parameters:
 			message_id -- numerical id of the message to be removed from the StatusBar.
 		"""
-		# remove message from stack (first check if it's really there)
-		if message_id in self.stack:
-			del self.stack[message_id]
-			
-		self.DisplayTopOfStack()
-		
-	#_____________________________________________________________________
-
-	def DisplayTopOfStack(self):
-		"""
-		Updates the StatusBar display when a message is added or removed.
-		"""
-		# if stack is now empty then clear status bar
-		if len(self.stack) == 0:
-			self.label.set_markup("")
-			return
-		
-		# find the message at the top of the stack and display it
-		self.label.set_markup(self.stack[max(self.stack.keys())])
+		self.remove(0, message_id)
+		self.label.set_use_markup(True)
 		
 	#_____________________________________________________________________
 

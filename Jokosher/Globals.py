@@ -18,6 +18,7 @@ pygtk.require("2.0")
 import gobject, gtk
 import xdg.BaseDirectory
 import shutil
+import PlatformUtils
 
 import gettext
 _ = gettext.gettext
@@ -36,8 +37,13 @@ class Settings:
 				"projectfolder" : "",
 				"windowheight" : 550,
 				"windowwidth" : 900,
+				"addinstrumentwindowheight" : 350,
+				"addinstrumentwindowwidth" : 300,
+				"instrumenteffectwindowheight" : 450,				
+				"instrumenteffectwindowwidth" : 650,
+				
 				}
-	
+
 	recording = {
 				"fileformat": "flacenc",
 				"file_extension": "flac",
@@ -45,13 +51,17 @@ class Settings:
 				"audiosrc" : "gconfaudiosrc",
 				"device" : "default"
 				}
+	# Overwrite with platform specific settings
+	recording.update( PlatformUtils.GetRecordingDefaults() )
 	
 	playback = 	{
 				"devicename": "default",
 				"device": "default",
 				"audiosink":"autoaudiosink"
 				}
-	
+	# Overwrite with platform specific settings
+	playback.update( PlatformUtils.GetPlaybackDefaults() )
+
 	extensions = {
 				 "extensions_blacklist": ""
 				 }
@@ -142,25 +152,6 @@ def FAT32SafeFilename(filename):
 	
 	allowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789$%'`-@{}~!#()&_^ "
 	return "".join([x for x in filename if x in allowedChars])
-
-#_____________________________________________________________________
-		
-def PrintPipelineDebug(message, pipeline):
-	"""
-	Prints debugging information for the GStreamer pipeline.
-	
-	Parameters:
-		message -- GStreamer message to be printed as debugging output.
-		pipeline -- the currently active Project's main pipeline.
-	"""
-	try:
-		if os.environ['JOKOSHER_DEBUG']:
-			import JokDebug
-			jokDebug = JokDebug.JokDebug()
-			debug(message)
-			jokDebug.ShowPipelineTree(pipeline)
-	except:
-		pass
 
 #_____________________________________________________________________
 
@@ -417,7 +408,7 @@ create_dirs = [
 jokosher_dir_empty = (len(os.listdir(JOKOSHER_DATA_HOME)) == 0)
 _HOME_DOT_JOKOSHER = os.path.expanduser("~/.jokosher")
 
-if jokosher_dir_empty:
+if jokosher_dir_empty and os.path.isdir(_HOME_DOT_JOKOSHER):
 	# Copying old config file from ~/.jokosher.
 	CopyAllFiles(_HOME_DOT_JOKOSHER, JOKOSHER_CONFIG_HOME, ["config"])
 
@@ -699,6 +690,7 @@ EXPORT_FORMATS = []
 
 SAMPLE_RATES = [8000, 11025, 22050, 32000, 44100, 48000, 96000, 192000]
 
+
 PLAYBACK_BACKENDS = [
 	(_("Autodetect"), "autoaudiosink"),
 	(_("Use GNOME Settings"), "gconfaudiosink"),
@@ -706,6 +698,8 @@ PLAYBACK_BACKENDS = [
 	("OSS", "osssink"),
 	("JACK", "jackaudiosink"),
 	("PulseAudio", "pulsesink"),
+	("Direct Sound", "directsoundsink"),
+	("Core Audio", "osxaudiosink")
 ]
 
 CAPTURE_BACKENDS = [
@@ -714,6 +708,8 @@ CAPTURE_BACKENDS = [
 	("OSS", "osssrc"),
 	("JACK", "jackaudiosrc"),
 	("PulseAudio", "pulsesrc"),
+	("Direct Sound", "dshowaudiosrc"),
+	("Core Audio", "osxaudiosrc")
 ]
 
 """ Default Instruments """
@@ -723,6 +719,13 @@ settings = Settings()
 
 """ Cache Instruments """
 gobject.idle_add(idleCacheInstruments)
+
+
+gobject.set_application_name(_("Jokosher Audio Editor"))
+gobject.set_prgname(LOCALE_APP)
+gtk.window_set_default_icon_name("jokosher")
+# environment variable for pulseaudio type
+os.environ["PULSE_PROP_media.role"] = "production"
 
 # I have decided that Globals.py is a boring source file. So, here is a little
 # joke. What does the tax office and a pelican have in common? They can both stick
