@@ -77,7 +77,8 @@ class Event(gobject.GObject):
 		# If you need characters escaped, please do self.file.replace(" ", "\ ") 
 		# but **do not** assign it to this variable.
 		self.file = file
-		if self.file and PlatformUtils.samefile(instrument.project.audio_path, os.path.dirname(self.file)):
+		if self.file and os.path.isabs(self.file) and \
+		      PlatformUtils.samefile(instrument.project.audio_path, os.path.dirname(self.file)):
 			# If the file is in the audio dir, just include the filename, not the absolute path
 			Globals.debug("Event() given absolute file, should be relative:", self.file)
 			self.file = os.path.basename(self.file)
@@ -140,6 +141,11 @@ class Event(gobject.GObject):
 			return self.file
 		else:
 			return os.path.join(self.instrument.project.audio_path, self.file)
+	
+	#_____________________________________________________________________
+	
+	def GetAbsLevelsFile(self):
+		return os.path.join(self.instrument.project.levels_path, self.levels_file)
 	
 	#_____________________________________________________________________
 	
@@ -235,7 +241,7 @@ class Event(gobject.GObject):
 		Utils.StoreDictionaryToXML(doc, xmlPoints, self.__fadePointsDict, "FadePoint")
 		
 		if self.levels_list:
-			self.levels_list.tofile(os.path.join(self.instrument.project.levels_path, self.levels_file))
+			self.levels_list.tofile(self.GetAbsLevelsFile())
 		
 	#_____________________________________________________________________
 		
@@ -859,7 +865,7 @@ class Event(gobject.GObject):
 			self.loadingPipeline.set_state(gst.STATE_NULL)
 			
 			if finishedLoading and self.levels_list:
-				self.levels_list.tofile(os.path.join(self.instrument.project.levels_path, self.levels_file))
+				self.levels_list.tofile(self.GetAbsLevelsFile())
 				inc = IncrementalSave.CompleteLoading(self.id, self.duration, self.levels_file)
 				self.instrument.project.SaveIncrementalAction(inc)
 			

@@ -619,8 +619,7 @@ class Instrument(gobject.GObject):
 		if duration and levels_file:
 			ev.duration = duration
 			ev.levels_file = levels_file
-			levels_path = os.path.join(self.project.levels_path, levels_file)
-			ev.levels_list.fromfile(levels_path)
+			ev.levels_list.fromfile(ev.GetAbsLevelsFile())
 			# update properties and position when duration changes.
 			ev.MoveButDoNotOverlap(ev.start)
 			ev.SetProperties()

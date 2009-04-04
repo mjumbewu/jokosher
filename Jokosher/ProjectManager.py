@@ -542,7 +542,7 @@ class _LoadZPTenFile(_LoadZPNFile):
 			if event.isLoading or event.isRecording:  
 				event.GenerateWaveform()
 			else:
-				levels_path = os.path.join(self.project.levels_path, event.levels_file)
+				levels_path = event.GetAbsLevelsFile()
 				try:
 					event.levels_list.fromfile(levels_path)
 				except LevelsList.CorruptFileError:
