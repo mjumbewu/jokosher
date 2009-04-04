@@ -77,6 +77,10 @@ class Event(gobject.GObject):
 		# If you need characters escaped, please do self.file.replace(" ", "\ ") 
 		# but **do not** assign it to this variable.
 		self.file = file
+		if self.file and PlatformUtils.samefile(instrument.project.audio_path, os.path.dirname(self.file)):
+			# If the file is in the audio dir, just include the filename, not the absolute path
+			Globals.debug("Event() given absolute file, should be relative:", self.file)
+			self.file = os.path.basename(self.file)
 		
 		# levels_file is a filename only, no directory information for levels here.
 		basename = os.path.basename(self.file or "Unknown")
@@ -126,6 +130,19 @@ class Event(gobject.GObject):
 
 	#_____________________________________________________________________
 	
+	def GetFilename(self):
+		return os.path.basename(self.file)
+	
+	#_____________________________________________________________________
+	
+	def GetAbsFile(self):
+		if os.path.isabs(self.file):
+			return self.file
+		else:
+			return os.path.join(self.instrument.project.audio_path, self.file)
+	
+	#_____________________________________________________________________
+	
 	def CreateFilesource(self):	
 		"""
 		Creates a new GStreamer file source with an unique id.
@@ -161,7 +178,7 @@ class Event(gobject.GObject):
 
 			Globals.debug("creating SingleDecodeBin")
 			caps = gst.caps_from_string("audio/x-raw-int;audio/x-raw-float")
-			f = PlatformUtils.pathname2url(self.file)
+			f = PlatformUtils.pathname2url(self.GetAbsFile())
 			Globals.debug("file uri is:", f)
 			self.single_decode_bin = SingleDecodeBin(caps=caps, uri=f)
 			self.gnlsrc.add(self.single_decode_bin)
@@ -208,19 +225,10 @@ class Event(gobject.GObject):
 				]
 				
 		#Since we are saving the path to the project file, don't delete it on exit
-		if self.file in self.instrument.project.deleteOnCloseAudioFiles:
-			self.instrument.project.deleteOnCloseAudioFiles.remove(self.file)
+		if self.GetAbsFile() in self.instrument.project.deleteOnCloseAudioFiles:
+			self.instrument.project.deleteOnCloseAudioFiles.remove(self.GetAbsFile())
 		
-		self.temp = self.file
-		if PlatformUtils.samefile(self.instrument.project.audio_path, os.path.dirname(self.file)):
-			# If the file is in the audio dir, just include the filename, not the absolute path
-			self.file = os.path.basename(self.file)
-		
-		Utils.StoreParametersToXML(self, doc, params, items)
-		
-		# Put self.file back to its absolute path
-		self.file = self.temp
-		
+		Utils.StoreParametersToXML(self, doc, params, items)		
 		
 		xmlPoints = doc.createElement("FadePoints")
 		ev.appendChild(xmlPoints)
@@ -774,7 +782,7 @@ class Event(gobject.GObject):
 		filesrc = self.loadingPipeline.get_by_name("src")
 		level = self.loadingPipeline.get_by_name("level_element")
 		
-		filesrc.set_property("location", self.file)
+		filesrc.set_property("location", self.GetAbsFile())
 		level.set_property("interval", int(self.LEVEL_INTERVAL * gst.SECOND))
 
 		self.bus = self.loadingPipeline.get_bus()
@@ -815,7 +823,7 @@ class Event(gobject.GObject):
 		self.loadingPipeline.add(urisrc)
 		urisrc.link(tee)
 		
-		filesink.set_property("location", self.file)
+		filesink.set_property("location", self.GetAbsFile())
 		level.set_property("interval", int(self.LEVEL_INTERVAL * gst.SECOND))
 
 		self.bus = self.loadingPipeline.get_bus()

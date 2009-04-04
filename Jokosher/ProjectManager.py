@@ -91,8 +91,9 @@ def ValidateProject(project):
 
 	for instr in project.instruments:
 		for event in instr.events:
-			if (event.file!=None) and (not os.path.exists(event.file)) and (not event.file in unknownfiles):
-				unknownfiles.append(event.file)
+			file = event.GetAbsFile()
+			if file and (not os.path.exists(file)) and (not file in unknownfiles):
+				unknownfiles.append(file)
 	if len(unknownfiles) > 0 or len(unknownimages) > 0:
 		raise InvalidProjectError(unknownfiles,unknownimages)
 
@@ -222,7 +223,7 @@ class _LoadZPOFile:
 				id = None
 			e = Event.Event(instr, None, id)
 			self.LoadEvent(e, ev)
-			e.levels_file = os.path.basename(e.file + Event.Event.LEVELS_FILE_EXTENSION)
+			e.levels_file = e.GetFilename() + Event.Event.LEVELS_FILE_EXTENSION
 			instr.events.append(e)
 		
 		pixbufFilename = os.path.basename(instr.pixbufPath)
@@ -271,7 +272,7 @@ class _LoadZPOFile:
 class _LoadZPTFile:
 	def __init__(self, project, xmlDoc):
 		"""
-		Loads a Jokosher version 0.2 (Zero Point Nine) Project file into
+		Loads a Jokosher version 0.2 (Zero Point Two) Project file into
 		the given Project object using the given XML document.
 		
 		Parameters:
@@ -361,7 +362,7 @@ class _LoadZPTFile:
 				id = None
 			event = Event.Event(instr, None, id)
 			self.LoadEvent(event, ev)
-			event.levels_file = os.path.basename(event.file + Event.Event.LEVELS_FILE_EXTENSION)
+			event.levels_file = event.GetFilename() + Event.Event.LEVELS_FILE_EXTENSION
 			instr.events.append(event)
 		
 		for ev in xmlNode.getElementsByTagName("DeadEvent"):
@@ -371,7 +372,7 @@ class _LoadZPTFile:
 				id = None
 			event = Event.Event(instr, None, id)
 			self.LoadEvent(event, ev, True)
-			event.levels_file = os.path.basename(event.file + Event.Event.LEVELS_FILE_EXTENSION)
+			event.levels_file = event.GetFilename() + Event.Event.LEVELS_FILE_EXTENSION
 			instr.graveyard.append(event)
 
 
@@ -400,10 +401,6 @@ class _LoadZPTFile:
 		params = xmlNode.getElementsByTagName("Parameters")[0]
 		
 		Utils.LoadParametersFromXML(event, params)
-		
-		if not os.path.isabs(event.file):
-			# If there is a relative path for event.file, assume it is in the audio dir
-			event.file = os.path.join(event.instrument.project.audio_path, event.file)
 		
 		try:
 			xmlPoints = xmlNode.getElementsByTagName("FadePoints")[0]
@@ -526,10 +523,6 @@ class _LoadZPTenFile(_LoadZPNFile):
 		params = xmlNode.getElementsByTagName("Parameters")[0]
 		
 		Utils.LoadParametersFromXML(event, params)
-		
-		if not os.path.isabs(event.file):
-			# If there is a relative path for event.file, assume it is in the audio dir
-			event.file = os.path.join(self.project.audio_path, event.file)
 		
 		try:
 			xmlPoints = xmlNode.getElementsByTagName("FadePoints")[0]
