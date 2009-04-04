@@ -103,6 +103,7 @@ class Project(gobject.GObject):
 		self.instruments = []		#the list of instruments held by this project
 		self.graveyard = []			# The place where deleted instruments are kept, to later be retrieved by undo functions
 		#used to delete copied audio files if the event that uses them is not saved in the project file
+		#also contains paths to levels_data files corresponding to those audio files
 		self.deleteOnCloseAudioFiles = []	# WARNING: any paths in this list will be deleted on exit!
 		self.clipboardList = []		#The list containing the events to cut/copy
 		self.viewScale = 25.0		#View scale as pixels per second

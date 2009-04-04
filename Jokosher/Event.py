@@ -242,6 +242,8 @@ class Event(gobject.GObject):
 		
 		if self.levels_list:
 			self.levels_list.tofile(self.GetAbsLevelsFile())
+		if self.GetAbsLevelsFile() in self.instrument.project.deleteOnCloseAudioFiles:
+			self.instrument.project.deleteOnCloseAudioFiles.remove(self.GetAbsLevelsFile())
 		
 	#_____________________________________________________________________
 		
@@ -866,6 +868,12 @@ class Event(gobject.GObject):
 			
 			if finishedLoading and self.levels_list:
 				self.levels_list.tofile(self.GetAbsLevelsFile())
+				del_on_close_list = self.instrument.project.deleteOnCloseAudioFiles
+				# this event might not be in the project file yet
+				# if so, levels_file should be deleted when audio file is deleted on exit
+				if self.GetAbsFile() in del_on_close_list:
+					del_on_close_list.append(self.GetAbsLevelsFile())
+					
 				inc = IncrementalSave.CompleteLoading(self.id, self.duration, self.levels_file)
 				self.instrument.project.SaveIncrementalAction(inc)
 			
