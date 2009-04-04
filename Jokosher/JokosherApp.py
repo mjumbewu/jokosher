@@ -232,6 +232,7 @@ class MainApp:
 		except gobject.GError, exc:
 			self.window.set_icon_from_file(os.path.join(Globals.IMAGE_PATH, "jokosher.png"))
 		# make icon available to others
+		self.window.realize()
 		self.icon = self.window.get_icon()
 		
 		# Make sure we can import for the instruments folder
