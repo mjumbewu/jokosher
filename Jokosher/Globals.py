@@ -37,6 +37,11 @@ class Settings:
 				"projectfolder" : "",
 				"windowheight" : 550,
 				"windowwidth" : 900,
+				"addinstrumentwindowheight" : 350,
+				"addinstrumentwindowwidth" : 300,
+				"instrumenteffectwindowheight" : 450,				
+				"instrumenteffectwindowwidth" : 650,
+				
 				}
 
 	recording = {

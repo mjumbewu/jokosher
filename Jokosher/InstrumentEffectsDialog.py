@@ -70,7 +70,9 @@ class InstrumentEffectsDialog:
 			"on_buttonEffectSettings_clicked" : self.OnEffectSettings,
 			
 			"on_buttonPlay_clicked" : self.OnPlay,
-			"on_buttonClose_clicked" : self.OnClose
+			"on_buttonClose_clicked" : self.OnClose,
+			"on_InstrumentEffects_configure_event" : self.OnResize,
+			"on_InstrumentEffects_destroy" : self.OnDestroy
 		}
 		
 		# auto connect the signals to the methods
@@ -228,6 +230,11 @@ class InstrumentEffectsDialog:
 		if self.instrument.currentchainpreset is not None:
 			self.comboPresets.set_active(self.instrument.currentchainpreset)
 		self.updatinggui = False
+
+		self.width = int(Globals.settings.general["instrumenteffectwindowwidth"])
+		self.height = int(Globals.settings.general["instrumenteffectwindowheight"])
+		self.window.resize(self.width, self.height)
+
 			
 		self.Update()
 			
@@ -1007,6 +1014,41 @@ class InstrumentEffectsDialog:
 		
 	#_____________________________________________________________________
 
+
+
+	def OnResize(self, widget, event):
+		"""
+		This method is called when the Instrument Effect dialog is resized
+
+		Parameters:
+			widget -- GTK callback parameter.
+			event -- GTK callback parameter.
+			
+		Returns:
+			False -- continue GTK signal propagation.
+		"""	
+
+		(self.width, self.height) = widget.get_size()
+
+		return False
+
+	#_____________________________________________________________________
+
+
+	def OnDestroy(self, widget=None, event=None):
+		"""
+		Called when the instrument effects dialog is destroyed
+
+		Parameters: 
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+			event -- reserved for GTK callbacks, don't use it explicitly.
+		"""
+		
+		Globals.settings.general["instrumenteffectwindowwidth"] = self.width
+		Globals.settings.general["instrumenteffectwindowheight"] = self.height
+		Globals.settings.write()
+	#_____________________________________________________________________	
+
 #=========================================================================
 
 class CairoDialogHeaderImage(gtk.DrawingArea):
@@ -1116,5 +1158,6 @@ class CairoDialogHeaderImage(gtk.DrawingArea):
 		return False
 		
 	#_____________________________________________________________________
+
 
 #=========================================================================
