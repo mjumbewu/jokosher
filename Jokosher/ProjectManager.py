@@ -146,6 +146,13 @@ def LoadProjectFile(uri):
 	projectdir = os.path.split(projectfile)[0]
 	project.audio_path = os.path.join(projectdir, "audio")
 	project.levels_path = os.path.join(projectdir, "levels")
+	try:
+		if not os.path.exists(project.audio_path):
+			os.mkdir(project.audio_path)
+		if not os.path.exists(project.levels_path):
+			os.mkdir(project.levels_path)
+	except OSError:
+		raise OpenProjectError(0)
 	
 	#only open projects with the proper version number
 	version = None
