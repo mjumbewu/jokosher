@@ -347,7 +347,7 @@ def CheckBackendList(backend_list):
 def CopyAllFiles(src_dir, dest_dir, only_these_files=None):
 	""" Copies all the files, but only the files from one directory to another."""
 	for file in os.listdir(src_dir):
-		if only_these_files and file not in only_these_files:
+		if only_these_files is not None and file not in only_these_files:
 			continue
 		
 		src_path = os.path.join(src_dir, file)

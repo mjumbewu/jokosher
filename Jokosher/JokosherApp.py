@@ -802,6 +802,9 @@ class MainApp:
 			Globals.settings.write()
 			
 			name = os.path.basename(chooser.get_filename())
+			
+			old_audio_path = self.project.audio_path
+			old_levels_path = self.project.levels_path
 	
 			try:
 				ProjectManager.InitProjectLocation(folder, name, self.project)
@@ -826,6 +829,9 @@ class MainApp:
 				self.project.SelectInstrument()
 				self.project.ClearEventSelections()
 				self.project.SaveProjectFile(self.project.projectfile)
+				
+				Globals.CopyAllFiles(old_audio_path, self.project.audio_path, self.project.GetLocalAudioFilenames())
+				Globals.CopyAllFiles(old_levels_path, self.project.levels_path, self.project.GetLevelsFilenames())
 		
 		chooser.destroy()
 		

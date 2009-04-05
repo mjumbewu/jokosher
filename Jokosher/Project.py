@@ -1605,6 +1605,26 @@ class Project(gobject.GObject):
 		return fileList
 		
 	#____________________________________________________________________	
+	
+	def GetLocalAudioFilenames(self):
+		fileList = []
+		for instrument in self.instruments:
+			for event in instrument.events:
+				if not os.path.isabs(event.file):
+					fileList.append(event.file)
+		return fileList
+	
+	#____________________________________________________________________	
+	
+	def GetLevelsFilenames(self):
+		fileList = []
+		for instrument in self.instruments:
+			for event in instrument.events:
+				fileList.append(event.levels_file)
+		return fileList
+	
+	#____________________________________________________________________	
+	
 
 	def SetName(self, name):
 		if self.name != name:
