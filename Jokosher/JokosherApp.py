@@ -782,8 +782,8 @@ class MainApp:
 		"""
 		buttons = (gtk.STOCK_CANCEL,gtk.RESPONSE_CANCEL,gtk.STOCK_SAVE,gtk.RESPONSE_OK)
 		chooser = gtk.FileChooserDialog(_("Choose a location to save the project"), self.window,
-		                                gtk.FILE_CHOOSER_ACTION_CREATE_FOLDER, buttons)
-		chooser.set_do_overwrite_confirmation(True)
+		                                gtk.FILE_CHOOSER_ACTION_SAVE, buttons)
+		chooser.set_do_overwrite_confirmation(False)
 		chooser.set_current_name(self.project.name)
 		chooser.set_default_response(gtk.RESPONSE_OK)
 		if os.path.exists(Globals.settings.general["projectfolder"]):
@@ -795,20 +795,18 @@ class MainApp:
 		response = chooser.run()
 		if response == gtk.RESPONSE_OK:
 			# InitProjectLocation expects a URI	
-			folder = PlatformUtils.pathname2url(chooser.get_filename())
+			folder = PlatformUtils.pathname2url(chooser.get_current_folder())
 			
 			# Save the selected folder as the default folder
-			Globals.settings.general["projectfolder"] = os.path.dirname(folder)
+			Globals.settings.general["projectfolder"] = folder
 			Globals.settings.write()
 			
-			# user will select directory like "/home/user/myproject"
-			# project name will be "myproject", and will be written
-			# to file "/home/user/myproject/myproject.jokosher"
-			name = os.path.basename(folder)
+			name = os.path.basename(chooser.get_filename())
 	
 			try:
 				ProjectManager.InitProjectLocation(folder, name, self.project)
 			except ProjectManager.CreateProjectError, e:
+				chooser.hide()
 				if e.errno == 2:
 					message = _("A file or folder with this name already exists. Please choose a different project name and try again.")
 				elif e.errno == 3:
@@ -817,17 +815,17 @@ class MainApp:
 					message = _("The URI scheme given is either invalid or not supported")
 				
 				# show the error dialog with the relavent error message	
-				dlg = gtk.MessageDialog(self.dlg,
+				dlg = gtk.MessageDialog(self.window,
 					gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
 					gtk.MESSAGE_ERROR,
 					gtk.BUTTONS_OK,
 					_("Unable to create project.\n\n%s") % message)
 				dlg.run()
 				dlg.destroy()
-			
-			self.project.SelectInstrument()
-			self.project.ClearEventSelections()
-			self.project.SaveProjectFile(self.project.projectfile)
+			else:
+				self.project.SelectInstrument()
+				self.project.ClearEventSelections()
+				self.project.SaveProjectFile(self.project.projectfile)
 		
 		chooser.destroy()
 		
