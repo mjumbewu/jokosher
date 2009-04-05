@@ -781,7 +781,8 @@ class MainApp:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		buttons = (gtk.STOCK_CANCEL,gtk.RESPONSE_CANCEL,gtk.STOCK_SAVE,gtk.RESPONSE_OK)
-		chooser = gtk.FileChooserDialog(_("Choose a location to save the project"), self.window, gtk.FILE_CHOOSER_ACTION_SAVE, buttons)
+		chooser = gtk.FileChooserDialog(_("Choose a location to save the project"), self.window,
+		                                gtk.FILE_CHOOSER_ACTION_CREATE_FOLDER, buttons)
 		chooser.set_do_overwrite_confirmation(True)
 		chooser.set_current_name(self.project.name)
 		chooser.set_default_response(gtk.RESPONSE_OK)
@@ -793,12 +794,41 @@ class MainApp:
 
 		response = chooser.run()
 		if response == gtk.RESPONSE_OK:
-			filename = chooser.get_filename()
-			Globals.settings.general["projectfolder"] = os.path.dirname(filename)
+			# InitProjectLocation expects a URI	
+			folder = PlatformUtils.pathname2url(chooser.get_filename())
+			
+			# Save the selected folder as the default folder
+			Globals.settings.general["projectfolder"] = os.path.dirname(folder)
 			Globals.settings.write()
+			
+			# user will select directory like "/home/user/myproject"
+			# project name will be "myproject", and will be written
+			# to file "/home/user/myproject/myproject.jokosher"
+			name = os.path.basename(folder)
+	
+			try:
+				ProjectManager.InitProjectLocation(folder, name, self.project)
+			except ProjectManager.CreateProjectError, e:
+				if e.errno == 2:
+					message = _("A file or folder with this name already exists. Please choose a different project name and try again.")
+				elif e.errno == 3:
+					message = _("The file or folder location is write-protected.")
+				elif e.errno == 5:
+					message = _("The URI scheme given is either invalid or not supported")
+				
+				# show the error dialog with the relavent error message	
+				dlg = gtk.MessageDialog(self.dlg,
+					gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
+					gtk.MESSAGE_ERROR,
+					gtk.BUTTONS_OK,
+					_("Unable to create project.\n\n%s") % message)
+				dlg.run()
+				dlg.destroy()
+			
 			self.project.SelectInstrument()
 			self.project.ClearEventSelections()
-			self.project.SaveProjectFile(filename)
+			self.project.SaveProjectFile(self.project.projectfile)
+		
 		chooser.destroy()
 		
 	#_____________________________________________________________________

@@ -29,9 +29,36 @@ def CreateNewProject(projecturi, name, author):
 	Returns:
 		the newly created Project object.
 	"""
+	
 	if name == "" or author == "" or projecturi == "":
 		raise CreateProjectError(4)
 
+	project = InitProjectLocation(projecturi, name)
+	project.name = name
+	project.author = author
+	
+	project.SaveProjectFile(project.projectfile)
+	
+#_____________________________________________________________________
+	
+def InitProjectLocation(projecturi, name, project=None):
+	"""
+	Initialises the folder structure on disk for a Project.
+	If no project is provided, a new one is created.
+	Otherwise the given project is essentially moved to the new location.
+
+	Parameters:
+		projecturi -- the filesystem location for the new Project.
+						Currently, only file:// URIs are considered valid.
+		name --	the name of the Project.
+		project -- the project to init, or None is a new project should be created.
+		
+	Returns:
+		the given Project, or the newly created Project object.
+	"""
+	if name == "" or projecturi == "":
+		raise CreateProjectError(4)
+	
 	(scheme, domain,folder, params, query, fragment) = urlparse.urlparse(projecturi, "file", False)
 
 	folder = PlatformUtils.url2pathname(folder)
@@ -43,17 +70,16 @@ def CreateNewProject(projecturi, name, author):
 	filename = name + ".jokosher"
 	projectdir = os.path.join(folder, name)
 
-	try:
-		project = Project.Project()
-	except gst.PluginNotFoundError, e:
-		Globals.debug("Missing Gstreamer plugin:", e)
-		raise CreateProjectError(6, str(e))
-	except Exception, e:
-		Globals.debug("Could not initialize project object:", e)
-		raise CreateProjectError(1)
+	if not project:
+		try:
+			project = Project.Project()
+		except gst.PluginNotFoundError, e:
+			Globals.debug("Missing Gstreamer plugin:", e)
+			raise CreateProjectError(6, str(e))
+		except Exception, e:
+			Globals.debug("Could not initialize project object:", e)
+			raise CreateProjectError(1)
 
-	project.name = name
-	project.author = author
 	project.projectfile = os.path.join(projectdir, filename)
 	project.audio_path = os.path.join(projectdir, "audio")
 	project.levels_path = os.path.join(projectdir, "levels")
@@ -67,8 +93,6 @@ def CreateNewProject(projecturi, name, author):
 			os.mkdir(project.levels_path)
 		except:
 			raise CreateProjectError(3)
-
-	project.SaveProjectFile(project.projectfile)
 
 	return project
 
