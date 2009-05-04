@@ -103,6 +103,7 @@ class Project(gobject.GObject):
 		self.instruments = []		#the list of instruments held by this project
 		self.graveyard = []			# The place where deleted instruments are kept, to later be retrieved by undo functions
 		#used to delete copied audio files if the event that uses them is not saved in the project file
+		#also contains paths to levels_data files corresponding to those audio files
 		self.deleteOnCloseAudioFiles = []	# WARNING: any paths in this list will be deleted on exit!
 		self.clipboardList = []		#The list containing the events to cut/copy
 		self.viewScale = 25.0		#View scale as pixels per second
@@ -400,7 +401,7 @@ class Project(gobject.GObject):
 				filesink = recordingbin.get_by_name("sink")
 				level = recordingbin.get_by_name("recordlevel")
 				
-				filesink.set_property("location", event.file)
+				filesink.set_property("location", event.GetAbsFile())
 				level.set_property("interval", int(event.LEVEL_INTERVAL * gst.SECOND))
 				
 				#update the levels in real time
@@ -621,7 +622,7 @@ class Project(gobject.GObject):
 				filesink = bin.get_by_name("sink")
 				level = bin.get_by_name("recordlevel")
 				
-				filesink.set_property("location", event.file)
+				filesink.set_property("location", event.GetAbsFile())
 				level.set_property("interval", int(event.LEVEL_INTERVAL * gst.SECOND))
 				
 				handle = self.bus.connect("message::element", event.recording_bus_level)
@@ -1600,10 +1601,30 @@ class Project(gobject.GObject):
 		fileList = []
 		for instrument in self.instruments:
 			for event in instrument.events:
-				fileList.append(event.file)
+				fileList.append(event.GetAbsFile())
 		return fileList
 		
 	#____________________________________________________________________	
+	
+	def GetLocalAudioFilenames(self):
+		fileList = []
+		for instrument in self.instruments:
+			for event in instrument.events:
+				if not os.path.isabs(event.file):
+					fileList.append(event.file)
+		return fileList
+	
+	#____________________________________________________________________	
+	
+	def GetLevelsFilenames(self):
+		fileList = []
+		for instrument in self.instruments:
+			for event in instrument.events:
+				fileList.append(event.levels_file)
+		return fileList
+	
+	#____________________________________________________________________	
+	
 
 	def SetName(self, name):
 		if self.name != name:

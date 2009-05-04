@@ -29,9 +29,36 @@ def CreateNewProject(projecturi, name, author):
 	Returns:
 		the newly created Project object.
 	"""
+	
 	if name == "" or author == "" or projecturi == "":
 		raise CreateProjectError(4)
 
+	project = InitProjectLocation(projecturi, name)
+	project.name = name
+	project.author = author
+	
+	project.SaveProjectFile(project.projectfile)
+	
+#_____________________________________________________________________
+	
+def InitProjectLocation(projecturi, name, project=None):
+	"""
+	Initialises the folder structure on disk for a Project.
+	If no project is provided, a new one is created.
+	Otherwise the given project is essentially moved to the new location.
+
+	Parameters:
+		projecturi -- the filesystem location for the new Project.
+						Currently, only file:// URIs are considered valid.
+		name --	the name of the Project.
+		project -- the project to init, or None is a new project should be created.
+		
+	Returns:
+		the given Project, or the newly created Project object.
+	"""
+	if name == "" or projecturi == "":
+		raise CreateProjectError(4)
+	
 	(scheme, domain,folder, params, query, fragment) = urlparse.urlparse(projecturi, "file", False)
 
 	folder = PlatformUtils.url2pathname(folder)
@@ -43,17 +70,16 @@ def CreateNewProject(projecturi, name, author):
 	filename = name + ".jokosher"
 	projectdir = os.path.join(folder, name)
 
-	try:
-		project = Project.Project()
-	except gst.PluginNotFoundError, e:
-		Globals.debug("Missing Gstreamer plugin:", e)
-		raise CreateProjectError(6, str(e))
-	except Exception, e:
-		Globals.debug("Could not initialize project object:", e)
-		raise CreateProjectError(1)
+	if not project:
+		try:
+			project = Project.Project()
+		except gst.PluginNotFoundError, e:
+			Globals.debug("Missing Gstreamer plugin:", e)
+			raise CreateProjectError(6, str(e))
+		except Exception, e:
+			Globals.debug("Could not initialize project object:", e)
+			raise CreateProjectError(1)
 
-	project.name = name
-	project.author = author
 	project.projectfile = os.path.join(projectdir, filename)
 	project.audio_path = os.path.join(projectdir, "audio")
 	project.levels_path = os.path.join(projectdir, "levels")
@@ -67,8 +93,6 @@ def CreateNewProject(projecturi, name, author):
 			os.mkdir(project.levels_path)
 		except:
 			raise CreateProjectError(3)
-
-	project.SaveProjectFile(project.projectfile)
 
 	return project
 
@@ -91,8 +115,9 @@ def ValidateProject(project):
 
 	for instr in project.instruments:
 		for event in instr.events:
-			if (event.file!=None) and (not os.path.exists(event.file)) and (not event.file in unknownfiles):
-				unknownfiles.append(event.file)
+			file = event.GetAbsFile()
+			if file and (not os.path.exists(file)) and (not file in unknownfiles):
+				unknownfiles.append(file)
 	if len(unknownfiles) > 0 or len(unknownimages) > 0:
 		raise InvalidProjectError(unknownfiles,unknownimages)
 
@@ -145,6 +170,13 @@ def LoadProjectFile(uri):
 	projectdir = os.path.split(projectfile)[0]
 	project.audio_path = os.path.join(projectdir, "audio")
 	project.levels_path = os.path.join(projectdir, "levels")
+	try:
+		if not os.path.exists(project.audio_path):
+			os.mkdir(project.audio_path)
+		if not os.path.exists(project.levels_path):
+			os.mkdir(project.levels_path)
+	except OSError:
+		raise OpenProjectError(0)
 	
 	#only open projects with the proper version number
 	version = None
@@ -222,7 +254,7 @@ class _LoadZPOFile:
 				id = None
 			e = Event.Event(instr, None, id)
 			self.LoadEvent(e, ev)
-			e.levels_file = os.path.basename(e.file + Event.Event.LEVELS_FILE_EXTENSION)
+			e.levels_file = e.GetFilename() + Event.Event.LEVELS_FILE_EXTENSION
 			instr.events.append(e)
 		
 		pixbufFilename = os.path.basename(instr.pixbufPath)
@@ -271,7 +303,7 @@ class _LoadZPOFile:
 class _LoadZPTFile:
 	def __init__(self, project, xmlDoc):
 		"""
-		Loads a Jokosher version 0.2 (Zero Point Nine) Project file into
+		Loads a Jokosher version 0.2 (Zero Point Two) Project file into
 		the given Project object using the given XML document.
 		
 		Parameters:
@@ -361,7 +393,7 @@ class _LoadZPTFile:
 				id = None
 			event = Event.Event(instr, None, id)
 			self.LoadEvent(event, ev)
-			event.levels_file = os.path.basename(event.file + Event.Event.LEVELS_FILE_EXTENSION)
+			event.levels_file = event.GetFilename() + Event.Event.LEVELS_FILE_EXTENSION
 			instr.events.append(event)
 		
 		for ev in xmlNode.getElementsByTagName("DeadEvent"):
@@ -371,7 +403,7 @@ class _LoadZPTFile:
 				id = None
 			event = Event.Event(instr, None, id)
 			self.LoadEvent(event, ev, True)
-			event.levels_file = os.path.basename(event.file + Event.Event.LEVELS_FILE_EXTENSION)
+			event.levels_file = event.GetFilename() + Event.Event.LEVELS_FILE_EXTENSION
 			instr.graveyard.append(event)
 
 
@@ -400,10 +432,6 @@ class _LoadZPTFile:
 		params = xmlNode.getElementsByTagName("Parameters")[0]
 		
 		Utils.LoadParametersFromXML(event, params)
-		
-		if not os.path.isabs(event.file):
-			# If there is a relative path for event.file, assume it is in the audio dir
-			event.file = os.path.join(event.instrument.project.audio_path, event.file)
 		
 		try:
 			xmlPoints = xmlNode.getElementsByTagName("FadePoints")[0]
@@ -527,10 +555,6 @@ class _LoadZPTenFile(_LoadZPNFile):
 		
 		Utils.LoadParametersFromXML(event, params)
 		
-		if not os.path.isabs(event.file):
-			# If there is a relative path for event.file, assume it is in the audio dir
-			event.file = os.path.join(self.project.audio_path, event.file)
-		
 		try:
 			xmlPoints = xmlNode.getElementsByTagName("FadePoints")[0]
 		except IndexError:
@@ -542,7 +566,7 @@ class _LoadZPTenFile(_LoadZPNFile):
 			if event.isLoading or event.isRecording:  
 				event.GenerateWaveform()
 			else:
-				levels_path = os.path.join(self.project.levels_path, event.levels_file)
+				levels_path = event.GetAbsLevelsFile()
 				try:
 					event.levels_list.fromfile(levels_path)
 				except LevelsList.CorruptFileError:
