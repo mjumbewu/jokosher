@@ -232,6 +232,7 @@ class MainApp:
 		except gobject.GError, exc:
 			self.window.set_icon_from_file(os.path.join(Globals.IMAGE_PATH, "jokosher.png"))
 		# make icon available to others
+		self.window.realize()
 		self.icon = self.window.get_icon()
 		
 		# Make sure we can import for the instruments folder
@@ -780,8 +781,9 @@ class MainApp:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		buttons = (gtk.STOCK_CANCEL,gtk.RESPONSE_CANCEL,gtk.STOCK_SAVE,gtk.RESPONSE_OK)
-		chooser = gtk.FileChooserDialog(_("Choose a location to save the project"), self.window, gtk.FILE_CHOOSER_ACTION_SAVE, buttons)
-		chooser.set_do_overwrite_confirmation(True)
+		chooser = gtk.FileChooserDialog(_("Choose a location to save the project"), self.window,
+		                                gtk.FILE_CHOOSER_ACTION_SAVE, buttons)
+		chooser.set_do_overwrite_confirmation(False)
 		chooser.set_current_name(self.project.name)
 		chooser.set_default_response(gtk.RESPONSE_OK)
 		if os.path.exists(Globals.settings.general["projectfolder"]):
@@ -792,12 +794,45 @@ class MainApp:
 
 		response = chooser.run()
 		if response == gtk.RESPONSE_OK:
-			filename = chooser.get_filename()
-			Globals.settings.general["projectfolder"] = os.path.dirname(filename)
+			# InitProjectLocation expects a URI	
+			folder = PlatformUtils.pathname2url(chooser.get_current_folder())
+			
+			# Save the selected folder as the default folder
+			Globals.settings.general["projectfolder"] = folder
 			Globals.settings.write()
-			self.project.SelectInstrument()
-			self.project.ClearEventSelections()
-			self.project.SaveProjectFile(filename)
+			
+			name = os.path.basename(chooser.get_filename())
+			
+			old_audio_path = self.project.audio_path
+			old_levels_path = self.project.levels_path
+	
+			try:
+				ProjectManager.InitProjectLocation(folder, name, self.project)
+			except ProjectManager.CreateProjectError, e:
+				chooser.hide()
+				if e.errno == 2:
+					message = _("A file or folder with this name already exists. Please choose a different project name and try again.")
+				elif e.errno == 3:
+					message = _("The file or folder location is write-protected.")
+				elif e.errno == 5:
+					message = _("The URI scheme given is either invalid or not supported")
+				
+				# show the error dialog with the relavent error message	
+				dlg = gtk.MessageDialog(self.window,
+					gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
+					gtk.MESSAGE_ERROR,
+					gtk.BUTTONS_OK,
+					_("Unable to create project.\n\n%s") % message)
+				dlg.run()
+				dlg.destroy()
+			else:
+				self.project.SelectInstrument()
+				self.project.ClearEventSelections()
+				self.project.SaveProjectFile(self.project.projectfile)
+				
+				Globals.CopyAllFiles(old_audio_path, self.project.audio_path, self.project.GetLocalAudioFilenames())
+				Globals.CopyAllFiles(old_levels_path, self.project.levels_path, self.project.GetLevelsFilenames())
+		
 		chooser.destroy()
 		
 	#_____________________________________________________________________
@@ -1592,7 +1627,7 @@ class MainApp:
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-		if gtk.pygtk_version[0] = 2 and gtk.pygtk_version[1] < 14:
+		if gtk.pygtk_version[0] == 2 and gtk.pygtk_version[1] < 14:
 			helpfile = "http://doc.jokosher.org"
 		elif Globals.USE_LOCAL_HELP:
 			helpfile = "ghelp:" + Globals.HELP_PATH
