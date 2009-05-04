@@ -24,7 +24,7 @@ def merge_files(rosetta_download, bzr_version):
 	COMMAND = 'msgmerge "%s" "%s" -o "%s"'
 	
 	outfile = bzr_version + ".tmp"
-	cmd = COMMAND % (rosetta_download, rosetta_download, outfile)
+	cmd = COMMAND % (rosetta_download, bzr_version, outfile)
 	
 	print "=> msgmerge-ing", bzr_version
 	os.system(cmd)
