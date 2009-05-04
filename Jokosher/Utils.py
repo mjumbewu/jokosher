@@ -12,6 +12,7 @@
 import xml.dom.minidom as xml
 import math, os.path, sys
 import gtk, gobject
+import webbrowser
 import Globals
 
 import gst
