@@ -38,6 +38,7 @@ def CreateNewProject(projecturi, name, author):
 	project.author = author
 	
 	project.SaveProjectFile(project.projectfile)
+	return project
 	
 #_____________________________________________________________________
 	
