@@ -12,6 +12,7 @@
 import xml.dom.minidom as xml
 import math, os.path, sys
 import gtk, gobject
+import webbrowser
 import Globals
 
 import gst
@@ -39,7 +40,11 @@ def OpenExternalURL(url, message, parent, timestamp=0):
 	"""
 		
 	screen = gtk.gdk.screen_get_default()
-	ret = gtk.show_uri(screen, url, timestamp)
+	ret = False
+	try:
+		ret = gtk.show_uri(screen, url, timestamp)
+	except:
+		ret = webbrowser.open(url)
 	
 	if not ret and message:
 		dlg = gtk.MessageDialog(parent,

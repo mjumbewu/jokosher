@@ -1627,22 +1627,14 @@ class MainApp:
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-		if Globals.USE_LOCAL_HELP:
+		if gtk.pygtk_version[0] == 2 and gtk.pygtk_version[1] < 14:
+			helpfile = "http://doc.jokosher.org"
+		elif Globals.USE_LOCAL_HELP:
 			helpfile = "ghelp:" + Globals.HELP_PATH
 		else:
 			helpfile = "ghelp:jokosher"
-		
-		screen = gtk.gdk.screen_get_default()
-		ret = gtk.show_uri(screen, helpfile, 0)
-		
-		if not ret:
-			dlg = gtk.MessageDialog(self.window,
-					gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
-					gtk.MESSAGE_ERROR,
-					gtk.BUTTONS_CLOSE)
-			dlg.set_markup(_("<big>Couldn't launch the Yelp help browser.</big>"))
-			dlg.run()
-			dlg.destroy()
+	
+		Utils.OpenExternalURL(url=helpfile, message=_("<big>Couldn't launch the Jokosher documentation site.</big>\n\nPlease visit %s to access it."), parent=self.window)
 
 	#_____________________________________________________________________
 
