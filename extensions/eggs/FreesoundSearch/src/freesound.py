@@ -246,7 +246,6 @@ class Freesound:
 			print "Search: URL Error"
 			pass
 		data = handle.read()
-		print data
 		dom = minidom.parseString(data)
 		
 		if dom.documentElement.nodeName != "freesound":
