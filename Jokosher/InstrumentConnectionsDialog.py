@@ -109,8 +109,8 @@ class InstrumentConnectionsDialog:
 				num_channels = AudioBackend.GetChannelsOffered(device)
 				for input in xrange(num_channels):
 					if num_channels > 1:
-						s = _("%(device)s, input %(input)d")
-						display = s % {"device":deviceName, "input":input}
+						s = _("%(device)s (%(id)s), input %(input)d")
+						display = s % {"device":deviceName, "id":device, "input":input}
 					else:
 						display = deviceName
 					self.devices_list.append((device, deviceName, input))

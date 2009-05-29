@@ -332,8 +332,9 @@ class PreferencesDialog:
 			if len(self.playbacks) == 0 and not deviceName:
 				deviceName = _("Default")
 			self.playbacks.append(device)
-			if deviceName:
-				self.playbackDevice.append_text(deviceName)
+			if deviceName and device:
+				s = _("%(device)s (%(id)s)") % {"device":deviceName, "id":device}
+				self.playbackDevice.append_text(s)
 			elif device:
 				self.playbackDevice.append_text(device)
 			else:
