@@ -1547,6 +1547,26 @@ class Project(gobject.GObject):
 	
 	#_____________________________________________________________________
 	
+	def SetProjectSinkDevice(self):
+		"""
+		Grabs the sink element device based on the Global preferences, and sets
+		the pipeline to use that device.
+		"""
+		if self.audioState != self.AUDIO_EXPORTING and \
+		   self.audioState != self.AUDIO_STOPPED:
+			self.Stop()
+			
+		if not self.masterSink:
+			return
+		
+		sinkElement = self.masterSink.sinks().next()
+		if hasattr(sinkElement.props, "device"):
+			outdevice = Globals.settings.playback["device"]
+			Globals.debug("Changing output device: %s" % outdevice)
+			sinkElement.set_property("device", outdevice)
+		
+	#_____________________________________________________________________
+	
 	def MakeProjectSink(self):
 		"""
 		Contructs a GStreamer sink element (or bin with ghost pads) for the 

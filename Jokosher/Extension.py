@@ -781,7 +781,7 @@ class ExtensionAPI:
 			2 = a format with the same three values already exists.
 			3 = cannot parse or create encoder/muxer bin.
 		"""
-		if not description or not extension and not pipelineString:
+		if not description or not extension and not encodeBin:
 			return 1
 			
 		if checkIfValid:
