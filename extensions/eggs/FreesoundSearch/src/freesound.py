@@ -226,8 +226,19 @@ class Freesound:
 		Returns:
 			the matching sample(s) list.
 		"""
+		basequery = {
+		    "search": "unspecified",
+		    "searchDescriptions": 1,
+		    "searchTags": 1,
+		    "searchFilenames": 1,
+		    "searchUsernames": 0,
+		    "order": 1,
+		    "start": 0,
+		    "limit": 1000
+		}
+		basequery.update(query)
 		req = Request("http://www.freesound.org/searchTextXML.php", 
-				urllib.urlencode(query))
+				urllib.urlencode(basequery))
 		try:
 			handle = urlopen(req)
 		except:
