@@ -228,8 +228,13 @@ class PreferencesDialog:
 		sampleRateIndex = self.samplingRate.get_active()
 		Globals.settings.recording["samplerate"] = self.sampleRateList[sampleRateIndex][1]
 		if self.playbackDevice.get_active() >= 0:
+			old_device = Globals.settings.playback["device"]
+			new_device = self.playbacks[self.playbackDevice.get_active()]
 			Globals.settings.playback["devicename"] = self.playbackDevice.get_active_text()
-			Globals.settings.playback["device"] = self.playbacks[self.playbackDevice.get_active()]
+			Globals.settings.playback["device"] = new_device
+			
+			if old_device != new_device:
+				self.project.SetProjectSinkDevice()
 		else:
 			Globals.settings.playback["devicename"] = ""
 			Globals.settings.playback["device"] = ""
