@@ -181,6 +181,7 @@ class Event(gobject.GObject):
 		if self.file:
 			if self.single_decode_bin:
 				self.gnlsrc.remove(self.single_decode_bin)
+				self.single_decode_bin.set_state(gst.STATE_NULL)
 
 			Globals.debug("creating SingleDecodeBin")
 			caps = gst.caps_from_string("audio/x-raw-int;audio/x-raw-float")
