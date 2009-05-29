@@ -130,7 +130,7 @@ class NewProjectDialog:
 			author = _("Unknown Author")
 			
 		# CreateNewProject expects a URI	
-		folder = PlatformUtils.pathname2url(self.folder.get_current_folder())
+		folder = PlatformUtils.pathname2url(self.folder.get_filename())
 		
 		# Save the selected folder as the default folder
 		Globals.settings.general["projectfolder"] = folder
