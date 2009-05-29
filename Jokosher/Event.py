@@ -610,7 +610,9 @@ class Event(gobject.GObject):
 
 	def install_plugin_cb(self, result):
 		self._installing_plugins = False
-		if result == gst.pbutils.INSTALL_PLUGINS_SUCCESS:
+		# hardcode gst.pbutils.INSTALL_PLUGINS_SUCCESS to avoid conditional gst.pbutils import
+		INSTALL_PLUGINS_SUCCESS = 0
+		if result == INSTALL_PLUGINS_SUCCESS:
 			gst.update_registry()
 			self.GenerateWaveform()
 			return
