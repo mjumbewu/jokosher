@@ -38,11 +38,11 @@ else:
 	OMFFILES.append((omfdir, glob.glob("help/jokosher/*.omf")))
 		
 dist = setup(name='jokosher',
-	version='0.11.2',
+	version='0.11.3',
 	author='Jokosher Project',
-	author_email='corrales.david@gmail.com',
-	maintainer='David Corrales',
-	maintainer_email='corrales.david@gmail.com',
+	author_email='jokosher-devel-list@gnome.org',
+	maintainer='Jokosher Project',
+	maintainer_email='jokosher-devel-list@gnome.org',
 	description='Multi-track non-linear audio editing.',
 	long_description='Jokosher is a simple yet powerful multi-track studio. With it you can create and record music, podcasts and more, all from an integrated simple environment.',
 	url='http://www.jokosher.org/',

@@ -7,9 +7,9 @@ import glob
 import py2exe
 
 dist = setup(name='jokosher',
-	version='0.11.2',
+	version='0.11.3',
 	author='Jokosher Project',
-	author_email='jokosher-devel@gnome.org',
+	author_email='jokosher-devel-list@gnome.org',
 	maintainer='Michael Sheldon',
 	maintainer_email='mike@mikeasoft.com',
 	description='Multi-track non-linear audio editing.',
