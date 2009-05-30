@@ -11,8 +11,16 @@ def main():
 	reldir = sys.argv[1]
 	for name in os.listdir(reldir):
 		if name.endswith(".po") and os.path.exists(os.path.join(reldir, name)):
-			files = (os.path.join(reldir, name), name)
-			files_to_merge.append(files)
+			dl_file = os.path.join(reldir, name)
+			old_po_file = None
+			if os.path.exists(name): #exists in current directory
+				old_po_file = name
+			elif name.startswith("jokosher-") and os.path.exists(name[len("jokosher-"):]):
+				old_po_file = name[len("jokosher-"):]
+
+			if old_po_file:
+				files = (dl_file, old_po_file)
+				files_to_merge.append(files)
 			
 	print "Ready to merge %d PO files." % len(files_to_merge)
 	for dl_file, file in files_to_merge:
