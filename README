@@ -1,4 +1,4 @@
-Welcome to Jokosher 0.11.2!
+Welcome to Jokosher 0.11.3!
 
 Jokosher is a simple and easy to use audio multi-tracker
 for the Linux desktop. The aim of the project is to 
@@ -22,6 +22,7 @@ post-producing and exporting your compositions.
 * Python Cairo
 * Python Dbus
 * Python Setuptools 
+* Python XDG
 
 
 > Running Jokosher <

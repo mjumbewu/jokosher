@@ -36,7 +36,7 @@ class FreesoundSearch:
 	
 	# necessary extension attributes
 	EXTENSION_NAME = _("Freesound search")
-	EXTENSION_VERSION = "0.2"
+	EXTENSION_VERSION = "0.3"
 	EXTENSION_DESCRIPTION = _("Searches the Freesound library of freely" + \
 							" licenceable and useable sound clips")
 	
