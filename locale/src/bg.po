@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-02-18 04:36+0000\n"
+"X-Launchpad-Export-Date: 2009-05-30 01:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../../Jokosher/Jokosher.glade.h:1
@@ -134,9 +134,8 @@ msgid "Add Audio _File..."
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:29
-#, fuzzy
 msgid "Add Instrument"
-msgstr "_Добавяне на инструмент..."
+msgstr "Добавяне на инструмент"
 
 #: ../../Jokosher/Jokosher.glade.h:30
 msgid "Add Mixdown Action"
@@ -1976,123 +1975,136 @@ msgstr "Цигулка"
 msgid "Vocal"
 msgstr "Глас"
 
-#~ msgid "<b>Audio Output Plugin</b>"
-#~ msgstr "<b>Приставка за звуков изход</b>"
+msgid "<b>Audio Output Plugin</b>"
+msgstr "<b>Приставка за звуков изход</b>"
 
+msgid ""
+"Autodetect\n"
+"ALSA\n"
+"Custom"
+msgstr ""
+"Автоматично\n"
+"ALSA\n"
+"Ръчно"
+
+msgid "D_evice:"
+msgstr "_Устройство:"
+
+msgid "O_utput:"
+msgstr "_Изход:"
+
+msgid "Open..."
+msgstr "Отвори"
+
+msgid "Save As..."
+msgstr "Запазване като…"
+
+msgid "Restore"
+msgstr "Възстановяване"
+
+msgid ""
+"No channels capable of recording have been found, please attach a device and "
+"try again."
+msgstr ""
+"Не са открити канали за запис. Включете входно устройство и опитайте пак."
+
+msgid ""
+"Your sound card isn't capable of recording from multiple sources at the same "
+"time. Please disarm all but one instrument."
+msgstr ""
+"Звуковата ви карта не може да записва едновременно различни източници. "
+"Включете само един инструмент."
+
+msgid "Argh! Something went wrong and a serious error occurred:"
+msgstr "Опа! Неща стана и се получи сериозна грешка:"
+
+msgid "Add this step to the current mixdown"
+msgstr "Добавяне на тази стъпка към смесването"
+
+msgid "Audio production made simple."
+msgstr "Звукова обработка по лесен начин"
+
+msgid "Don't open anything"
+msgstr "Да не се отваря нищо"
+
+msgid "FastForward"
+msgstr "Напред"
+
+msgid "Recording Workspace"
+msgstr "Пулт за запис"
+
+msgid "Show welcome dialog"
+msgstr "Показване на начален екран"
+
+msgid "Stop"
+msgstr "Спиране"
+
+msgid "Switch to the Mixing workspace"
+msgstr "Превключване към пулт за смесване"
+
+msgid "Switch to the Recording workspace"
+msgstr "Превключване към пулт за запис"
+
+msgid "Workspaces"
+msgstr "Пултове"
+
+msgid "version 0.9"
+msgstr "версия 0.9"
+
+msgid "_Paste"
+msgstr "П_оставяне"
+
+msgid "Currently working in the Recording workspace"
+msgstr "В момента работите на пулта за запис"
+
+msgid "Currently working in the Mixing workspace"
+msgstr "В момента работите на пулта за смесване"
+
+msgid "Edit this mixdown step settings"
+msgstr "Редактиране настройките на тази стъпка от смесването"
+
+msgid "Remove this mixdown step"
+msgstr "Премахване на тази стъпка от смесването"
+
+msgid "Export to %(file)s as %(desc)s"
+msgstr "Инасяне в %(file)s като %(desc)s"
+
+msgid "Run external script"
+msgstr "Изпълнение на външен скрипт"
+
+msgid "Hz"
+msgstr "Хц"
+
+msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"
+msgstr "<b>Влачете</b> <b>плъзгача</b> за промяна силата на звука"
+
+#, fuzzy
+msgid "Device:"
+msgstr "_Устройство:"
+
+#, fuzzy
+msgid "Output:"
+msgstr "_Изход:"
+
+#, fuzzy
 #~ msgid "<b>Recorded Audio Format</b>"
-#~ msgstr "<b>Звуков формат за запис</b>"
+#~ msgstr "Записан звук"
 
-#~ msgid ""
-#~ "Autodetect\n"
-#~ "ALSA\n"
-#~ "Custom"
-#~ msgstr ""
-#~ "Автоматично\n"
-#~ "ALSA\n"
-#~ "Ръчно"
-
-#~ msgid "D_evice:"
-#~ msgstr "_Устройство:"
-
-#~ msgid "O_utput:"
-#~ msgstr "_Изход:"
-
-#~ msgid "Open..."
-#~ msgstr "Отвори"
-
-#~ msgid "Save As..."
-#~ msgstr "Запазване като…"
-
+#, fuzzy
 #~ msgid "_Add Instrument..."
-#~ msgstr "_Добавяне на инструмент..."
+#~ msgstr "Добавяне на инструмент"
 
+#, fuzzy
 #~ msgid "_Create Project Template"
-#~ msgstr "_Създаване на шаблон на проект"
+#~ msgstr "Шаблони на проекта"
 
+#, fuzzy
 #~ msgid "_Project"
-#~ msgstr "Про_ект"
+#~ msgstr "Нов проект"
 
-#~ msgid "Restore"
-#~ msgstr "Възстановяване"
-
-#~ msgid ""
-#~ "No channels capable of recording have been found, please attach a device "
-#~ "and try again."
-#~ msgstr ""
-#~ "Не са открити канали за запис. Включете входно устройство и опитайте пак."
-
-#~ msgid ""
-#~ "Your sound card isn't capable of recording from multiple sources at the "
-#~ "same time. Please disarm all but one instrument."
-#~ msgstr ""
-#~ "Звуковата ви карта не може да записва едновременно различни източници. "
-#~ "Включете само един инструмент."
-
-#~ msgid "Argh! Something went wrong and a serious error occurred:"
-#~ msgstr "Опа! Неща стана и се получи сериозна грешка:"
-
+#, fuzzy
 #~ msgid "Mixdown as"
-#~ msgstr "Смесване като"
-
-#~ msgid "Add this step to the current mixdown"
-#~ msgstr "Добавяне на тази стъпка към смесването"
-
-#~ msgid "Audio production made simple."
-#~ msgstr "Звукова обработка по лесен начин"
-
-#~ msgid "Don't open anything"
-#~ msgstr "Да не се отваря нищо"
-
-#~ msgid "FastForward"
-#~ msgstr "Напред"
-
-#~ msgid "Recording Workspace"
-#~ msgstr "Пулт за запис"
-
-#~ msgid "Show welcome dialog"
-#~ msgstr "Показване на начален екран"
-
-#~ msgid "Stop"
-#~ msgstr "Спиране"
-
-#~ msgid "Switch to the Mixing workspace"
-#~ msgstr "Превключване към пулт за смесване"
-
-#~ msgid "Switch to the Recording workspace"
-#~ msgstr "Превключване към пулт за запис"
-
-#~ msgid "Workspaces"
-#~ msgstr "Пултове"
-
-#~ msgid "version 0.9"
-#~ msgstr "версия 0.9"
-
-#~ msgid "_Paste"
-#~ msgstr "П_оставяне"
-
-#~ msgid "Currently working in the Recording workspace"
-#~ msgstr "В момента работите на пулта за запис"
-
-#~ msgid "Currently working in the Mixing workspace"
-#~ msgstr "В момента работите на пулта за смесване"
-
-#~ msgid "Edit this mixdown step settings"
-#~ msgstr "Редактиране настройките на тази стъпка от смесването"
-
-#~ msgid "Remove this mixdown step"
-#~ msgstr "Премахване на тази стъпка от смесването"
-
-#~ msgid "Export to %(file)s as %(desc)s"
-#~ msgstr "Инасяне в %(file)s като %(desc)s"
-
-#~ msgid "Run external script"
-#~ msgstr "Изпълнение на външен скрипт"
-
-#~ msgid "Hz"
-#~ msgstr "Хц"
-
-#~ msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"
-#~ msgstr "<b>Влачете</b> <b>плъзгача</b> за промяна силата на звука"
+#~ msgstr "Смесване на проекта"
 
 #, fuzzy
 #~ msgid "Add a new instrument"
@@ -2113,10 +2125,6 @@ msgstr "Глас"
 #, fuzzy
 #~ msgid "Create a New Project"
 #~ msgstr "_Създаване на нов проект"
-
-#, fuzzy
-#~ msgid "Device:"
-#~ msgstr "_Устройство:"
 
 #, fuzzy
 #~ msgid "Don't show this on start-up"
@@ -2143,16 +2151,12 @@ msgstr "Глас"
 #~ msgstr "Отваряне на скорошен проект"
 
 #, fuzzy
-#~ msgid "Output:"
-#~ msgstr "_Изход:"
-
-#, fuzzy
 #~ msgid "Preferences"
 #~ msgstr "_Настройки"
 
 #, fuzzy
 #~ msgid "Project Name"
-#~ msgstr "Про_ект"
+#~ msgstr "Шаблони на проекта"
 
 #, fuzzy
 #~ msgid "Record"
@@ -2180,7 +2184,7 @@ msgstr "Глас"
 
 #, fuzzy
 #~ msgid "_Add Instrument"
-#~ msgstr "_Добавяне на инструмент..."
+#~ msgstr "Добавяне на инструмент"
 
 #, fuzzy
 #~ msgid "_Manage Extensions"
@@ -2204,7 +2208,7 @@ msgstr "Глас"
 
 #, fuzzy
 #~ msgid "_Mixdown as"
-#~ msgstr "Смесване като"
+#~ msgstr "Смесване на проекта"
 
 #, fuzzy
 #~ msgid "<b>Steps to mixdown %(projectname)s</b>"

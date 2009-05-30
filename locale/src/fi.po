@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: jokosher\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-03-17 02:00+0000\n"
-"PO-Revision-Date: 2007-06-12 01:43+0000\n"
+"PO-Revision-Date: 2009-05-26 15:00+0000\n"
 "Last-Translator: Jyri-Petteri Paloposki <Unknown>\n"
 "Language-Team: Finnish <fi@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-02-18 04:36+0000\n"
+"X-Launchpad-Export-Date: 2009-05-30 01:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../../Jokosher/Jokosher.glade.h:1
@@ -62,6 +62,8 @@ msgid ""
 "<b>Jokosher is an Open Source project that is driven by a community of "
 "contributors. To make Jokosher rock, we need your help!</b>"
 msgstr ""
+"<b>Jokosher on avoimen lähdekoodin projekti, jonka kehitystä vie eteenpäin "
+"yhteisö. Sinunkin apusi on tervetullut!</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:12
 msgid "<b>Location Details</b>"
@@ -101,7 +103,7 @@ msgstr "<b>Testaus</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:21
 msgid "<b>Time Signature</b>"
-msgstr ""
+msgstr "<b>Aikaleima</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:22
 msgid "<b>_Presets for:</b>"
@@ -219,7 +221,7 @@ msgstr "Muuta aikajanaa"
 
 #: ../../Jokosher/Jokosher.glade.h:51
 msgid "Change the timeline to show bars, beats and ticks"
-msgstr ""
+msgstr "Muuta aikajana näyttämään tahtiviivoja, tahteja ja lyöntejä"
 
 #: ../../Jokosher/Jokosher.glade.h:52
 msgid "Change the timeline to show hours, minutes and seconds"
@@ -247,7 +249,7 @@ msgstr "Valitse yksi tai useampi soitin lisättäväksi projektiin"
 
 #: ../../Jokosher/Jokosher.glade.h:58
 msgid "Click and hold to fast forward"
-msgstr ""
+msgstr "Paina pohjassa pikakelataksesi"
 
 #: ../../Jokosher/Jokosher.glade.h:59
 msgid "Click and hold to rewind"
@@ -742,7 +744,7 @@ msgstr "Kirjoita tähän etsiäksesi soitinta"
 
 #: ../../Jokosher/Jokosher.glade.h:211
 msgid "Undo"
-msgstr "Peruuta"
+msgstr "Kumoa"
 
 #: ../../Jokosher/Jokosher.glade.h:212
 msgid "Undo the last edit"
@@ -1952,407 +1954,440 @@ msgstr "Viulu"
 msgid "Vocal"
 msgstr "Laulu"
 
-#~ msgid "<b>Audio Output Plugin</b>"
-#~ msgstr "<b>Äänen ulostuloliitännäinen</b>"
+msgid "<b>Audio Output Plugin</b>"
+msgstr "<b>Äänen ulostuloliitännäinen</b>"
 
+msgid "<b>Recording Sample Rate</b>"
+msgstr "<b>Tallennuksen näytteenottotaajuus</b>"
+
+msgid ""
+"Autodetect\n"
+"ALSA\n"
+"Custom"
+msgstr ""
+"Automaattinen\n"
+"ALSA\n"
+"Oma"
+
+msgid ""
+"Your sound card isn't capable of recording from multiple sources at the same "
+"time. Please disarm all but one instrument."
+msgstr ""
+"Äänikortti ei tue samanaikaista äänittämistä useammasta äänilähteestä. "
+"Määritä vain yksi soitin äänittämään."
+
+msgid "Argh! Something went wrong and a serious error occurred:"
+msgstr "Äh! Jotain meni pieleen ja"
+
+msgid "Mixdown as"
+msgstr "Alasmiksaa..."
+
+#, fuzzy
+msgid "Files Saves As"
+msgstr "Tiedosto Tallentaan"
+
+#, fuzzy
+msgid "Time Format"
+msgstr "Ajannäyttö"
+
+#, fuzzy
+msgid ""
+"Use the combo boxes below to select which input is used with which instrument"
+msgstr "Valitse alla mitä sisääntuloa kunkin soittimen kanssa käytetään"
+
+#, fuzzy
+msgid ""
+"Wave\n"
+"FLAC\n"
+"Ogg Vorbis"
+msgstr ""
+"Wave\n"
+"FLAC\n"
+"Ogg Vorbis"
+
+#, fuzzy
+msgid ""
+"The instruments '%s' and '%s' both have the same input selected (%s). Please "
+"either disarm one, or connect it to a different input through 'Project -> "
+"Instrument Connections'"
+msgstr ""
+"Soittimilla '%s' ja '%s' on samat valitut sisääntulot (%s). Estä toiselta "
+"soittimelta äänittäminen, tai liitä se toiseen sisääntuloon valikosta "
+"\"Projekti -> Soitinliitännät\""
+
+#, fuzzy
+msgid "%d of %d seconds completed"
+msgstr "%d/%d sekuntia käsitelty"
+
+#, fuzzy
+msgid "Add this step to the current mixdown"
+msgstr "Lisää tämä askel nykyiseen miksaukseen"
+
+#, fuzzy
+msgid "Audio production made simple."
+msgstr "Äänituotantoa yksinkertaisesti."
+
+#, fuzzy
+msgid "Preferences"
+msgstr "Asetukset"
+
+#, fuzzy
+msgid "Search:"
+msgstr "Etsi:"
+
+msgid ""
+"16 bit\n"
+"24 bit\n"
+"32 bit"
+msgstr ""
+"16 bittiä\n"
+"24 bittiä\n"
+"32 bittiä"
+
+msgid ""
+"96000\n"
+"48000\n"
+"44100\n"
+"32000\n"
+"24000\n"
+"22050\n"
+"16000\n"
+"11025\n"
+"8000"
+msgstr ""
+"96000\n"
+"48000\n"
+"44100\n"
+"32000\n"
+"24000\n"
+"22050\n"
+"16000\n"
+"11025\n"
+"8000"
+
+msgid "<b>Audio Mixdown</b>"
+msgstr "<b>Äänen alasmiksaus</b>"
+
+msgid ""
+"<b>To find out more, visit:</b>\n"
+"http://www.jokosher.org/contribute"
+msgstr ""
+"<b>Saadaksesi tietää enemmän:</b>\n"
+"http://www.jokosher.org/contribute"
+
+msgid "Device"
+msgstr "Laite"
+
+msgid "General"
+msgstr "Yleiset"
+
+msgid "Output Format"
+msgstr "Tulostusmuoto"
+
+msgid "Pre-release Notes"
+msgstr "Esi-julkaisun tiedot"
+
+msgid "Presets"
+msgstr "Esivalinnat"
+
+msgid "Preview"
+msgstr "Esikatselu"
+
+#, fuzzy
+msgid "Sample Format"
+msgstr "Näytteenottotaajuus (Hz)"
+
+msgid "Sample Rate (Hz)"
+msgstr "Näytteenottotaajuus (Hz)"
+
+msgid "Select an instrument, then click here to begin recording"
+msgstr "Valitse soitin, ja paina tästä aloittaaksesi äänitys"
+
+#, fuzzy
+msgid "Show as Bars, Beats, Ticks"
+msgstr "Näytä tunnit, minuutit, sekunnit"
+
+msgid "Show as Hours, Minutes, Seconds"
+msgstr "Näytä tunnit, minuutit, sekunnit"
+
+msgid "translator-credits"
+msgstr ""
+"kääntäjät\n"
+"\n"
+"Launchpad Contributions:\n"
+"  Boyd Timothy https://launchpad.net/~btimothy\n"
+"  Felix Heinonen https://launchpad.net/~fheinonen\n"
+"  Jyri-Petteri Paloposki https://launchpad.net/~zeip\n"
+"  Mikko Virkkilä https://launchpad.net/~mvirkkil"
+
+msgid ""
+"No instruments are armed for recording. You need to arm an instrument before "
+"you can begin recording."
+msgstr ""
+"Yhtään soitinta ei ole määrätty äänittämään. Vähintään yksi soitin on "
+"määrättävä äänittämään jotta äänitys voi alkaa."
+
+msgid ""
+"No channels capable of recording have found, please attach a device and try "
+"again."
+msgstr "Yhtään äänityskanavaa ei löytynyt. Liitä laite ja yritä uudestaan."
+
+msgid ""
+"\n"
+"See http://jokosher.org/trac/wiki/GettingJokosher for more details.\n"
+msgstr ""
+"\n"
+"Katso lisätietoja osoitteesta http://jokosher.org/trac/wiki/GettingJokosher\n"
+
+msgid ""
+"<big>Notes about this release</big>\n"
+"\n"
+"This version of Jokosher (0.1) is a pre-release version, and is infact, our "
+"very first release. As such, you may encounter some bugs and functionality "
+"that is not present."
+msgstr ""
+"<big>Tietoja tästä juklaisusta</big>\n"
+"\n"
+"Tämä versio Jokosherista (0.1) on esi-julkaisuversio ja itseasiassa "
+"ensimmäinen julkaisu koskaan. Tästä johtuen ohjelman toiminnallisuudessa "
+"saattaa esiintyä virheitä tai puutteita."
+
+msgid "Paste"
+msgstr "Liitä"
+
+msgid "Import file..."
+msgstr "Tuo tiedosto..."
+
+msgid ""
+"<b>NOTE</b>: The volume sliders in this pre-release version of Jokosher do "
+"not affect the audio."
+msgstr ""
+"<b>Huomio</b>: Äänenvoimakkuussäätimet tässä esi-julkaisuversiossa eivät "
+"vaikuta äänenvoimakkuuteen."
+
+msgid "The uri scheme '%s' is either invalid or not supported."
+msgstr "URI:n tyyppiä '%s' ei tueta tai se on virheellinen."
+
+msgid "The uri scheme given is either invalid or not supported"
+msgstr "URI:n tyyppiä ei ole määritelty tai sitä ei tueta"
+
+msgid "Beat value"
+msgstr "Iskun arvo"
+
+msgid "Device:"
+msgstr "Laite:"
+
+msgid "Don't open anything"
+msgstr "Älä avaa mitään"
+
+msgid "FastForward"
+msgstr "Kelaa eteenpäin"
+
+msgid "Output:"
+msgstr "Ulostulo:"
+
+msgid "Show welcome dialog"
+msgstr "Näytä tervetuliais viesti"
+
+msgid "Stop"
+msgstr "Stop"
+
+msgid "Switch to the Mixing workspace"
+msgstr "Vaihda Miksaus työtilaan"
+
+msgid "Switch to the Recording workspace"
+msgstr "Vaihda Äänitys työtilaan"
+
+msgid "Workspaces"
+msgstr "Työtilat"
+
+msgid "version 0.9"
+msgstr "versio 0.9"
+
+msgid "_Paste"
+msgstr "_Liitä"
+
+msgid "Currently working in the Recording workspace"
+msgstr "Työskentelet Äänitys työtilassa"
+
+msgid "Currently working in the Mixing workspace"
+msgstr "Työskentelet Miksaus työtilassa"
+
+msgid "_Mixdown as"
+msgstr "_Alasmiksaa..."
+
+msgid "Export file"
+msgstr "Lähetä tiedosto"
+
+msgid "Export as"
+msgstr "Lähetä..."
+
+msgid "Hz"
+msgstr "Hz"
+
+msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"
+msgstr "<b>Vedä liuutinta</b> muuttaaksesi äänenvoimakkuuksia"
+
+#, fuzzy
 #~ msgid "<b>Recorded Audio Format</b>"
-#~ msgstr "<b>Tallennetun äänen muoto</b>"
+#~ msgstr "Tallennettu ääni"
 
-#~ msgid "<b>Recording Sample Rate</b>"
-#~ msgstr "<b>Tallennuksen näytteenottotaajuus</b>"
-
-#~ msgid ""
-#~ "Autodetect\n"
-#~ "ALSA\n"
-#~ "Custom"
-#~ msgstr ""
-#~ "Automaattinen\n"
-#~ "ALSA\n"
-#~ "Oma"
-
+#, fuzzy
 #~ msgid "_Project"
-#~ msgstr "_Projekti"
-
-#~ msgid ""
-#~ "Your sound card isn't capable of recording from multiple sources at the "
-#~ "same time. Please disarm all but one instrument."
-#~ msgstr ""
-#~ "Äänikortti ei tue samanaikaista äänittämistä useammasta äänilähteestä. "
-#~ "Määritä vain yksi soitin äänittämään."
-
-#~ msgid "Argh! Something went wrong and a serious error occurred:"
-#~ msgstr "Äh! Jotain meni pieleen ja"
-
-#~ msgid "Mixdown as"
-#~ msgstr "Alasmiksaa..."
+#~ msgstr "Uusi projekti"
 
 #, fuzzy
-#~ msgid "Files Saves As"
-#~ msgstr "Tiedosto Tallentaan"
-
-#, fuzzy
-#~ msgid "Time Format"
-#~ msgstr "Ajannäyttö"
-
-#, fuzzy
-#~ msgid ""
-#~ "Use the combo boxes below to select which input is used with which "
-#~ "instrument"
-#~ msgstr "Valitse alla mitä sisääntuloa kunkin soittimen kanssa käytetään"
-
-#, fuzzy
-#~ msgid ""
-#~ "Wave\n"
-#~ "FLAC\n"
-#~ "Ogg Vorbis"
-#~ msgstr ""
-#~ "Wave\n"
-#~ "FLAC\n"
-#~ "Ogg Vorbis"
-
-#, fuzzy
-#~ msgid ""
-#~ "The instruments '%s' and '%s' both have the same input selected (%s). "
-#~ "Please either disarm one, or connect it to a different input through "
-#~ "'Project -> Instrument Connections'"
-#~ msgstr ""
-#~ "Soittimilla '%s' ja '%s' on samat valitut sisääntulot (%s). Estä toiselta "
-#~ "soittimelta äänittäminen, tai liitä se toiseen sisääntuloon valikosta "
-#~ "\"Projekti -> Soitinliitännät\""
-
-#, fuzzy
-#~ msgid "%d of %d seconds completed"
-#~ msgstr "%d/%d sekuntia käsitelty"
-
-#, fuzzy
-#~ msgid "Add this step to the current mixdown"
-#~ msgstr "Lisää tämä askel nykyiseen miksaukseen"
-
-#, fuzzy
-#~ msgid "Audio production made simple."
-#~ msgstr "Äänituotantoa yksinkertaisesti."
-
-#, fuzzy
-#~ msgid "Preferences"
-#~ msgstr "Asetukset"
-
-#, fuzzy
-#~ msgid "Search:"
-#~ msgstr "Etsi:"
-
-#~ msgid ""
-#~ "16 bit\n"
-#~ "24 bit\n"
-#~ "32 bit"
-#~ msgstr ""
-#~ "16 bittiä\n"
-#~ "24 bittiä\n"
-#~ "32 bittiä"
-
-#~ msgid ""
-#~ "96000\n"
-#~ "48000\n"
-#~ "44100\n"
-#~ "32000\n"
-#~ "24000\n"
-#~ "22050\n"
-#~ "16000\n"
-#~ "11025\n"
-#~ "8000"
-#~ msgstr ""
-#~ "96000\n"
-#~ "48000\n"
-#~ "44100\n"
-#~ "32000\n"
-#~ "24000\n"
-#~ "22050\n"
-#~ "16000\n"
-#~ "11025\n"
-#~ "8000"
-
-#~ msgid "<b>Audio Mixdown</b>"
-#~ msgstr "<b>Äänen alasmiksaus</b>"
-
 #~ msgid "<b>Audio Quality</b>"
-#~ msgstr "<b>Äänenlaatu</b>"
+#~ msgstr "<b>Taide</b>"
 
+#, fuzzy
 #~ msgid "<b>Quality</b>"
-#~ msgstr "<b>Laatu</b>"
+#~ msgstr "<b>Taide</b>"
 
-#~ msgid ""
-#~ "<b>To find out more, visit:</b>\n"
-#~ "http://www.jokosher.org/contribute"
-#~ msgstr ""
-#~ "<b>Saadaksesi tietää enemmän:</b>\n"
-#~ "http://www.jokosher.org/contribute"
-
+#, fuzzy
 #~ msgid "Contributing to Jokosher"
-#~ msgstr "Jokosherin kehitykseen osallistuminen"
+#~ msgstr "_Auta Jokosheria"
 
-#~ msgid "Device"
-#~ msgstr "Laite"
-
-#~ msgid "General"
-#~ msgstr "Yleiset"
-
+#, fuzzy
 #~ msgid "Instrument Connections"
-#~ msgstr "Soittimien liitännät"
-
-#~ msgid "Output Format"
-#~ msgstr "Tulostusmuoto"
+#~ msgstr "Soitin Efektit"
 
 #, fuzzy
 #~ msgid "Playback"
 #~ msgstr "Pysäytä soitto"
 
-#~ msgid "Pre-release Notes"
-#~ msgstr "Esi-julkaisun tiedot"
-
-#~ msgid "Presets"
-#~ msgstr "Esivalinnat"
-
-#~ msgid "Preview"
-#~ msgstr "Esikatselu"
-
+#, fuzzy
 #~ msgid "Recent Projects"
-#~ msgstr "Viimeisimmät projektit"
+#~ msgstr "_Viimeisimmät projektit"
 
 #, fuzzy
-#~ msgid "Sample Format"
-#~ msgstr "Näytteenottotaajuus (Hz)"
-
-#~ msgid "Sample Rate (Hz)"
-#~ msgstr "Näytteenottotaajuus (Hz)"
-
 #~ msgid "Select an effect"
-#~ msgstr "Valitse tehoste"
-
-#~ msgid "Select an effect to add to the instrument"
-#~ msgstr "Valitse soittimeen lisättävä tehoste"
-
-#~ msgid "Select an instrument, then click here to begin recording"
-#~ msgstr "Valitse soitin, ja paina tästä aloittaaksesi äänitys"
+#~ msgstr "_Aktoivoi efekti"
 
 #, fuzzy
-#~ msgid "Show as Bars, Beats, Ticks"
-#~ msgstr "Näytä tunnit, minuutit, sekunnit"
+#~ msgid "Select an effect to add to the instrument"
+#~ msgstr "Valitse projekti listasta"
 
-#~ msgid "Show as Hours, Minutes, Seconds"
-#~ msgstr "Näytä tunnit, minuutit, sekunnit"
-
-#~ msgid "translator-credits"
-#~ msgstr ""
-#~ "kääntäjät\n"
-#~ "\n"
-#~ "Launchpad Contributions:\n"
-#~ "  Boyd Timothy https://launchpad.net/~btimothy\n"
-#~ "  Felix Heinonen https://launchpad.net/~fheinonen\n"
-#~ "  Jyri-Petteri Paloposki https://launchpad.net/~zeip\n"
-#~ "  Mikko Virkkilä https://launchpad.net/~mvirkkil"
-
-#~ msgid ""
-#~ "No instruments are armed for recording. You need to arm an instrument "
-#~ "before you can begin recording."
-#~ msgstr ""
-#~ "Yhtään soitinta ei ole määrätty äänittämään. Vähintään yksi soitin on "
-#~ "määrättävä äänittämään jotta äänitys voi alkaa."
-
-#~ msgid ""
-#~ "No channels capable of recording have found, please attach a device and "
-#~ "try again."
-#~ msgstr "Yhtään äänityskanavaa ei löytynyt. Liitä laite ja yritä uudestaan."
-
-#~ msgid ""
-#~ "\n"
-#~ "See http://jokosher.org/trac/wiki/GettingJokosher for more details.\n"
-#~ msgstr ""
-#~ "\n"
-#~ "Katso lisätietoja osoitteesta http://jokosher.org/trac/wiki/"
-#~ "GettingJokosher\n"
-
-#~ msgid ""
-#~ "<big>Notes about this release</big>\n"
-#~ "\n"
-#~ "This version of Jokosher (0.1) is a pre-release version, and is infact, "
-#~ "our very first release. As such, you may encounter some bugs and "
-#~ "functionality that is not present."
-#~ msgstr ""
-#~ "<big>Tietoja tästä juklaisusta</big>\n"
-#~ "\n"
-#~ "Tämä versio Jokosherista (0.1) on esi-julkaisuversio ja itseasiassa "
-#~ "ensimmäinen julkaisu koskaan. Tästä johtuen ohjelman toiminnallisuudessa "
-#~ "saattaa esiintyä virheitä tai puutteita."
-
+#, fuzzy
 #~ msgid "Import Audio File..."
-#~ msgstr "Tuo äänitiedosto..."
+#~ msgstr "Lisää Äänitiedosto..."
 
-#~ msgid "Paste"
-#~ msgstr "Liitä"
-
+#, fuzzy
 #~ msgid "Delete"
-#~ msgstr "Poista"
+#~ msgstr "_Poista"
 
-#~ msgid "Import file..."
-#~ msgstr "Tuo tiedosto..."
-
-#~ msgid ""
-#~ "<b>NOTE</b>: The volume sliders in this pre-release version of Jokosher "
-#~ "do not affect the audio."
-#~ msgstr ""
-#~ "<b>Huomio</b>: Äänenvoimakkuussäätimet tässä esi-julkaisuversiossa eivät "
-#~ "vaikuta äänenvoimakkuuteen."
-
+#, fuzzy
 #~ msgid "Split"
-#~ msgstr "Pilko"
+#~ msgstr "_Jaa"
 
+#, fuzzy
 #~ msgid "Cut"
-#~ msgstr "Leikkaa"
+#~ msgstr "Lei_kkaa"
 
+#, fuzzy
 #~ msgid "Copy"
-#~ msgstr "Kopioi"
+#~ msgstr "_Kopioi"
 
+#, fuzzy
 #~ msgid "Instrument Effects..."
-#~ msgstr "Soitintehosteet..."
-
-#~ msgid "The uri scheme '%s' is either invalid or not supported."
-#~ msgstr "URI:n tyyppiä '%s' ei tueta tai se on virheellinen."
+#~ msgstr "Soitin Efektit"
 
 #, fuzzy
 #~ msgid "Master Volume"
 #~ msgstr "Master"
 
-#~ msgid "The uri scheme given is either invalid or not supported"
-#~ msgstr "URI:n tyyppiä ei ole määritelty tai sitä ei tueta"
-
+#, fuzzy
 #~ msgid "Volume: %.2f"
-#~ msgstr "Äänenvoimakkuus: %.2f"
+#~ msgstr "Äänenvoimakkuus:"
 
 #, fuzzy
 #~ msgid "<b>Presets for:</b>"
 #~ msgstr "<b>Aktiiviset efektit:</b>"
 
+#, fuzzy
 #~ msgid "Add a new instrument"
-#~ msgstr "Lisää uusi soitin"
+#~ msgstr "Lisää soitin"
 
 #, fuzzy
 #~ msgid "Add a new step:"
-#~ msgstr "Lisää uusi soitin"
+#~ msgstr "Lisää soitin"
 
+#, fuzzy
 #~ msgid "Author"
-#~ msgstr "Tekijä"
+#~ msgstr "Tuntematon tekijä"
 
-#~ msgid "Beat value"
-#~ msgstr "Iskun arvo"
-
+#, fuzzy
 #~ msgid "Beats per measure"
-#~ msgstr "Iskuja tahdissa"
+#~ msgstr "Iskua minuutissa"
 
 #, fuzzy
 #~ msgid "Browse for an Existing Project"
 #~ msgstr "Avaa olemassaoleva projekti"
 
+#, fuzzy
 #~ msgid "Create a New Project"
 #~ msgstr "Luo uusi projekti"
 
-#~ msgid "Device:"
-#~ msgstr "Laite:"
-
-#~ msgid "Don't open anything"
-#~ msgstr "Älä avaa mitään"
-
+#, fuzzy
 #~ msgid "Don't show this on start-up"
-#~ msgstr "Älä näytä käynnistettäessä"
+#~ msgstr "Älä lataa laajennuksia käynnistyksessa"
 
-#~ msgid "FastForward"
-#~ msgstr "Kelaa eteenpäin"
-
+#, fuzzy
 #~ msgid "Folder"
-#~ msgstr "Kansio"
+#~ msgstr "Suotimet"
 
+#, fuzzy
 #~ msgid "Mixing"
-#~ msgstr "Miksaus"
+#~ msgstr "Miksausprojekti"
 
+#, fuzzy
 #~ msgid "Mixing Workspace"
-#~ msgstr "Miksaus työtila"
+#~ msgstr "Miksausprojekti"
 
+#, fuzzy
 #~ msgid "Open Selected Project"
-#~ msgstr "Avaa valittu projekti"
+#~ msgstr "Avaa olemassaoleva projekti"
 
+#, fuzzy
 #~ msgid "Open most recent project"
-#~ msgstr "Avaa viimeisin projekti"
+#~ msgstr "Avaa olemassaoleva projekti"
 
-#~ msgid "Output:"
-#~ msgstr "Ulostulo:"
-
+#, fuzzy
 #~ msgid "Project Name"
-#~ msgstr "Projektin nimi"
+#~ msgstr "Uusi projekti"
 
+#, fuzzy
 #~ msgid "Record"
-#~ msgstr "Äänitä"
+#~ msgstr "Äänitetään..."
 
+#, fuzzy
 #~ msgid "Recording"
-#~ msgstr "Äänitys"
+#~ msgstr "Äänitetään..."
 
+#, fuzzy
 #~ msgid "Remove Selected Instrument"
 #~ msgstr "Poista valittu soitin"
 
+#, fuzzy
 #~ msgid "Rewind"
-#~ msgstr "Kelaa taakse"
+#~ msgstr "Toista"
 
-#~ msgid "Show welcome dialog"
-#~ msgstr "Näytä tervetuliais viesti"
-
-#~ msgid "Stop"
-#~ msgstr "Stop"
-
-#~ msgid "Switch to the Mixing workspace"
-#~ msgstr "Vaihda Miksaus työtilaan"
-
-#~ msgid "Switch to the Recording workspace"
-#~ msgstr "Vaihda Äänitys työtilaan"
-
-#~ msgid "Workspaces"
-#~ msgstr "Työtilat"
-
+#, fuzzy
 #~ msgid "_Add Instrument"
-#~ msgstr "_Lisää soitin"
+#~ msgstr "Lisää soitin"
 
+#, fuzzy
 #~ msgid "_Manage Extensions"
-#~ msgstr "_Hallitse laajennuksia"
+#~ msgstr "La_ajennukset"
 
 #, fuzzy
 #~ msgid "_Mixdown Project"
 #~ msgstr "Miksausprojekti"
 
+#, fuzzy
 #~ msgid "_Save these settings"
-#~ msgstr "_Tallena asetukset"
+#~ msgstr "Käytä näitä asetuksia"
 
-#~ msgid "version 0.9"
-#~ msgstr "versio 0.9"
-
-#~ msgid "_Paste"
-#~ msgstr "_Liitä"
-
-#~ msgid "Currently working in the Recording workspace"
-#~ msgstr "Työskentelet Äänitys työtilassa"
-
-#~ msgid "Currently working in the Mixing workspace"
-#~ msgstr "Työskentelet Miksaus työtilassa"
-
-#~ msgid "_Mixdown as"
-#~ msgstr "_Alasmiksaa..."
-
+#, fuzzy
 #~ msgid "Choose a name for this profile"
-#~ msgstr "Anna profiilille nimi"
-
-#~ msgid "Export file"
-#~ msgstr "Lähetä tiedosto"
-
-#~ msgid "Export as"
-#~ msgstr "Lähetä..."
-
-#~ msgid "Hz"
-#~ msgstr "Hz"
-
-#~ msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"
-#~ msgstr "<b>Vedä liuutinta</b> muuttaaksesi äänenvoimakkuuksia"
+#~ msgstr "Valitse Jokosher-projektitiedosto"

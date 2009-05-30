@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: jokosher\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-03-17 02:00+0000\n"
-"PO-Revision-Date: 2009-01-08 09:33+0000\n"
-"Last-Translator: Jesper Sandström <ramoniac@gmail.com>\n"
+"PO-Revision-Date: 2009-04-07 13:05+0000\n"
+"Last-Translator: Anders Grandt <anders@modernreklam.se>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-02-18 04:36+0000\n"
+"X-Launchpad-Export-Date: 2009-05-30 01:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../../Jokosher/Jokosher.glade.h:1
@@ -51,7 +51,7 @@ msgstr "<b>Fildetaljer</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:9
 msgid "<b>General</b>"
-msgstr ""
+msgstr "<b>Allmän</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:10
 msgid "<b>Jokosher Instruments</b>"
@@ -75,7 +75,7 @@ msgstr "<b>Val för nedmixning</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:14
 msgid "<b>N_otes</b>"
-msgstr ""
+msgstr "<b>N_oteringar</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:15
 msgid "<b>Playback Sound System</b>"
@@ -87,7 +87,7 @@ msgstr "<b>Senaste projekten</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:17
 msgid "<b>Recording Format</b>"
-msgstr ""
+msgstr "Inspelningsformat"
 
 #: ../../Jokosher/Jokosher.glade.h:18
 msgid "<b>Recording Sound System</b>"
@@ -143,7 +143,7 @@ msgstr "Lägg till val för nedmixning"
 
 #: ../../Jokosher/Jokosher.glade.h:31
 msgid "Add _Instrument..."
-msgstr ""
+msgstr "Lägg till _Instrument..."
 
 #: ../../Jokosher/Jokosher.glade.h:32
 msgid "Add an audio file to the project"
@@ -604,7 +604,7 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:175
 msgid "Project Properties"
-msgstr ""
+msgstr "Projektegenskaper"
 
 #: ../../Jokosher/Jokosher.glade.h:176
 msgid "Project Templates"
@@ -648,7 +648,7 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:186
 msgid "Save _As..."
-msgstr ""
+msgstr "Spara _som..."
 
 #: ../../Jokosher/Jokosher.glade.h:187
 msgid "Save a copy of the current project"
@@ -860,11 +860,11 @@ msgstr "_Mixa ned projekt..."
 
 #: ../../Jokosher/Jokosher.glade.h:239
 msgid "_Name:"
-msgstr ""
+msgstr "_Namn:"
 
 #: ../../Jokosher/Jokosher.glade.h:240
 msgid "_New..."
-msgstr ""
+msgstr "_Ny..."
 
 #: ../../Jokosher/Jokosher.glade.h:241
 msgid "_Online Forums"
@@ -880,7 +880,7 @@ msgstr "_Öppna senaste projekt"
 
 #: ../../Jokosher/Jokosher.glade.h:244
 msgid "_Open..."
-msgstr ""
+msgstr "_Öppna..."
 
 #: ../../Jokosher/Jokosher.glade.h:245
 msgid "_Pipeline:"
@@ -1213,15 +1213,15 @@ msgstr "Identifiera automatiskt"
 
 #: ../../Jokosher/Globals.py:704
 msgid "Use GNOME Settings"
-msgstr ""
+msgstr "Använd GNOME-inställningar"
 
 #: ../../Jokosher/Globals.py:712
 msgid "GNOME Settings"
-msgstr ""
+msgstr "GNOME-inställningar"
 
 #: ../../Jokosher/Globals.py:728
 msgid "Jokosher Audio Editor"
-msgstr ""
+msgstr "Ljudredigeraren Jokosher"
 
 #: ../../Jokosher/IncrementalSave.py:29 ../../Jokosher/Instrument.py:488
 msgid "Recorded audio"
@@ -1239,7 +1239,7 @@ msgstr "Standard"
 #: ../../Jokosher/InstrumentConnectionsDialog.py:105
 #, python-format
 msgid "Default (%s)"
-msgstr ""
+msgstr "Standard (%s)"
 
 #: ../../Jokosher/InstrumentConnectionsDialog.py:112
 #, python-format
@@ -1800,7 +1800,7 @@ msgstr ""
 #: ../../Jokosher/PreferencesDialog.py:75
 #: ../../Jokosher/PreferencesDialog.py:93
 msgid "Custom"
-msgstr ""
+msgstr "Anpassad"
 
 #: ../../Jokosher/PreferencesDialog.py:340
 #, python-format
@@ -1826,7 +1826,7 @@ msgstr "Zooma ut tidslinje"
 
 #: ../../Jokosher/RecordingView.py:183
 msgid "Would you like to restore the current project?"
-msgstr ""
+msgstr "Vill du återställa det nuvarande projektet?"
 
 #: ../../Jokosher/RecordingView.py:184
 msgid ""
@@ -1836,15 +1836,15 @@ msgstr ""
 
 #: ../../Jokosher/RecordingView.py:188
 msgid "_Restore Project"
-msgstr ""
+msgstr "_Återställ projekt"
 
 #: ../../Jokosher/RecordingView.py:322
 msgid "A Gstreamer error has occurred"
-msgstr ""
+msgstr "Ett fel med Gstreamer har uppstått"
 
 #: ../../Jokosher/RecordingView.py:335
 msgid "A GStreamer error has occurred."
-msgstr ""
+msgstr "Ett fel med Gstreamer har uppstått."
 
 #: ../../Jokosher/RecordingView.py:372
 #, python-format
@@ -1856,14 +1856,16 @@ msgid ""
 "If this problem persists consider reporting a bug using the link in the help "
 "menu."
 msgstr ""
+"Om detta problemet kvarstår, överväg att skapa en buggrapport via länken "
+"under hjälp-menyn."
 
 #: ../../Jokosher/RecordingView.py:378
 msgid "_Close All"
-msgstr ""
+msgstr "_Stäng alla"
 
 #: ../../Jokosher/RecordingView.py:379
 msgid "_Show All"
-msgstr ""
+msgstr "_Visa alla"
 
 #: ../../Jokosher/TimeLine.py:566
 #, python-format
@@ -1999,492 +2001,580 @@ msgstr "Fiol"
 msgid "Vocal"
 msgstr "Sång"
 
-#~ msgid "<b>Audio Output Plugin</b>"
-#~ msgstr "<b>Insticksmodul för ljudutgång</b>"
+msgid "<b>Audio Output Plugin</b>"
+msgstr "<b>Insticksmodul för ljudutgång</b>"
 
+msgid ""
+"<i>It appears that Jokosher crashed the last time it was used, the following "
+"dialog will help you restore your projects.</i>"
+msgstr ""
+"<i>Det verkar som att Jokosher kraschade sist det användes, följande ruta "
+"kommer hjälpa dig återställa dina projekt.</i>"
+
+msgid ""
+"Audio production made simple.\n"
+"Version 0.10"
+msgstr ""
+"Ljudproduktion - enkelt.\n"
+"Version 0.10"
+
+msgid "Create project template from instruments in current project"
+msgstr "Skapa projektmall från instrument i nuvarande projekt"
+
+msgid "D_evice:"
+msgstr "E_nhet:"
+
+msgid "O_utput:"
+msgstr "_Utdata:"
+
+msgid ""
+"Please select which projects you would like to restore from the list below. "
+"If you do not wish to restore a project now you can choose to do so later by "
+"visiting <b>File -> Restore Crashed Project...</b>\n"
+"\n"
+"<b>Warning:</b> Restoring a project from a backup will overwrite the "
+"currently saved version."
+msgstr ""
+"Välj vilka projekt du vill återställa från listan nedan. Om du inte vill "
+"återställa ett projekt nu kan du välja att göra det senare genom att gå till "
+"<b>Arkiv -> Återställ kraschat projekt...</b>"
+
+msgid "There are currently no crashed projects to restore."
+msgstr "Det finns inga kraschade projekt att återskapa."
+
+msgid "Are you sure you wish to delete the backup for %s?"
+msgstr "Är du säker på att du vill ta bort säkerhetskopian av %s?"
+
+msgid ""
+"The project (%s) has been modified more recently than this backup. Are you "
+"certain you wish to restore it?"
+msgstr ""
+"Projektet %s har ändrats vid ett senare tillfälle än denna säkerhetskopia. "
+"Är du säker på att du vill återställa den?"
+
+msgid "%(device)s input %(input)d"
+msgstr "%(device)s ingång %(input)d"
+
+msgid ""
+"The instruments '%(name1)s' and '%(name2)s' both have the same input "
+"selected (%(track)s). Please either disarm one, or connect it to a different "
+"input through 'Project -> Recording Inputs'"
+msgstr ""
+"Instrumenten \"%(name1)s\" och \"%(name2)s\" har samma ingång vald (%(track)"
+"s). Koppla bort en eller koppla den till en annan ingång med \"Projekt -> "
+"Inspelningsingångar\""
+
+msgid ""
+"No channels capable of recording have been found, please attach a device and "
+"try again."
+msgstr ""
+"Inga kanaler som kan spela in har hittats. Anslut en enhet och försök igen."
+
+msgid ""
+"Your sound card isn't capable of recording from multiple sources at the same "
+"time. Please disarm all but one instrument."
+msgstr ""
+"Ditt ljudkort är inte kapabelt till att spela in från flera källor "
+"samtidigt. Avmarkera alla utom ett instrument."
+
+msgid ""
+"You require the GStreamer channel splitting element to be able to record "
+"from multiple input devices. This can be downloaded from http://www.jokosher."
+"org/download."
+msgstr ""
+"Du behöver GStreamers \"channel splitting element\" för att kunna spela in "
+"från flera enheter. Detta kan hämtas från http://www.jokosher.org/download."
+
+msgid "Argh! Something went wrong and a serious error occurred:"
+msgstr "Argh! Någonting gick fel och ett allvarligt fel uppstod:"
+
+msgid "Turn click track on"
+msgstr "Slå på metronom"
+
+msgid "Turn click track off"
+msgstr "Slå av metronom"
+
+msgid "Add this step to the current mixdown"
+msgstr "Lägg till detta steg till den aktuella nedmixningen"
+
+msgid "FastForward"
+msgstr "Snabbspola framåt"
+
+msgid "Stop"
+msgstr "Stoppa"
+
+msgid ""
+"16 bit\n"
+"24 bit\n"
+"32 bit"
+msgstr ""
+"16 bitar\n"
+"24 bitar\n"
+"32 bitar"
+
+msgid ""
+"96000\n"
+"48000\n"
+"44100\n"
+"32000\n"
+"24000\n"
+"22050\n"
+"16000\n"
+"11025\n"
+"8000"
+msgstr ""
+"96000\n"
+"48000\n"
+"44100\n"
+"32000\n"
+"24000\n"
+"22050\n"
+"16000\n"
+"11025\n"
+"8000"
+
+msgid "Device"
+msgstr "Enhet"
+
+msgid "Files Saves As"
+msgstr "Spara Filer Som"
+
+msgid "Output Format"
+msgstr "Utdataformat"
+
+msgid "Pre-release Notes"
+msgstr "Noteringar för förhandsversion"
+
+msgid "Presets"
+msgstr "Förinställningar"
+
+msgid "Preview"
+msgstr "Förhandsgranska"
+
+msgid "Sample Rate (Hz)"
+msgstr "Samplings hastighet (Hz)"
+
+msgid ""
+"Use the combo boxes below to select which input is used with which instrument"
+msgstr ""
+"Använd kryssrutorna nedan för att välja vilken ljudingång som används till "
+"vilket instrument"
+
+msgid ""
+"Wave\n"
+"FLAC\n"
+"Ogg Vorbis"
+msgstr ""
+"Wave\n"
+"Flac\n"
+"Ogg Vorbis"
+
+msgid "translator-credits"
+msgstr ""
+"Robert Renling Berencreuz Laszlo Pandy Tor B. Skicka synpunkter på "
+"översättningen till tp-sv@listor.tp-sv.se\n"
+"\n"
+"Launchpad Contributions:\n"
+"  Daniel Nylander https://launchpad.net/~yeager\n"
+"  Gruggo https://launchpad.net/~gruggo-\n"
+"  Jesper Sandström https://launchpad.net/~ramoniac\n"
+"  John Wood https://launchpad.net/~johwo077\n"
+"  Laszlo Pandy https://launchpad.net/~laszlok\n"
+"  Ola Jeppsson https://launchpad.net/~ola-jeppsson\n"
+"  Robert Renling Berencreuz https://launchpad.net/~berencreuz\n"
+"  Ulf Abrahamsson https://launchpad.net/~ulf.abrahamsson\n"
+"  sklp https://launchpad.net/~sklp\n"
+"  torb https://launchpad.net/~torrb"
+
+msgid ""
+"The instruments '%s' and '%s' both have the same input selected (%s). Please "
+"either disarm one, or connect it to a different input through 'Project -> "
+"Instrument Connections'"
+msgstr ""
+"Instrumenten '%s' och '%s' har båda samma indata markerat (%s). Var god att "
+"avmarkera en av dem, eller anslut den till annan indata genom 'Projekt -> "
+"Instrumentkopplingar'"
+
+msgid ""
+"No instruments are armed for recording. You need to arm an instrument before "
+"you can begin recording."
+msgstr ""
+"Inga instrument är markerade för inspelning. Ni behöver markera ett "
+"instrument innan ni kan påbörja inspelning."
+
+msgid ""
+"<big>Notes about this release</big>\n"
+"\n"
+"This version of Jokosher (0.1) is a pre-release version, and is infact, our "
+"very first release. As such, you may encounter some bugs and functionality "
+"that is not present."
+msgstr ""
+"<big>Anteckningar om den här versionen</big>\n"
+"\n"
+"\n"
+"\n"
+"Den här versionen av Jokosher (0.1) är ett försläpp, och är faktiskt våran  "
+"första lansering. Som sådant, så kan ni stöta på buggar och funktionalitet "
+"som inte är närvarande."
+
+msgid ""
+"<b>NOTE</b>: The volume sliders in this pre-release version of Jokosher do "
+"not affect the audio."
+msgstr ""
+"<b>OBS</b>: Volymhandtagen i den här versionen av Jokosher påverkar inte "
+"ljudet."
+
+msgid "Save Files As"
+msgstr "Spara fil som"
+
+msgid "foo"
+msgstr "foo"
+
+msgid ""
+"%s\n"
+"\n"
+"File is corrupt, not an audio file, or the associated plugin is not installed"
+msgstr ""
+"%s\n"
+"\n"
+"\n"
+"\n"
+"Filen är korrupt, inte en ljudfil, eller så är inte det associerade "
+"tillägget installerat"
+
+msgid "Muted"
+msgstr "Dämpat"
+
+msgid "Unmuted"
+msgstr "Normal"
+
+msgid "Audio production made simple."
+msgstr "Ljudproduktion simpliferat."
+
+msgid "Device:"
+msgstr "Enhet:"
+
+#, fuzzy
+msgid "Output:"
+msgstr "_Utdata:"
+
+#, fuzzy
+msgid "Switch to the Mixing workspace"
+msgstr "Arbetar nu på arbetsytan för mixning"
+
+#, fuzzy
+msgid "Switch to the Recording workspace"
+msgstr "Arbetar nu på arbetsytan för inspelning"
+
+msgid "Workspaces"
+msgstr "Arbetsytor"
+
+msgid "version 0.9"
+msgstr "version 0.9"
+
+msgid "Currently working in the Recording workspace"
+msgstr "Arbetar nu på arbetsytan för inspelning"
+
+msgid "Currently working in the Mixing workspace"
+msgstr "Arbetar nu på arbetsytan för mixning"
+
+#, fuzzy
+msgid "Edit this mixdown step settings"
+msgstr "Spara dessa mixningsinställningar"
+
+msgid "Remove this mixdown step"
+msgstr "Ta bort detta nedmixningssteg"
+
+msgid "Export to %(file)s as %(desc)s"
+msgstr "Exportera till %(file)s som %(desc)s"
+
+msgid "Hz"
+msgstr "Hz"
+
+#, fuzzy
 #~ msgid "<b>Project Name</b>"
-#~ msgstr "<b>Projektnamn</b>"
+#~ msgstr "</b>Effektnamn</b>"
 
+#, fuzzy
 #~ msgid "<b>Recorded Audio Format</b>"
-#~ msgstr "<b>Inspelat ljudformat</b>"
+#~ msgstr "Inspelningsformat"
 
+#, fuzzy
 #~ msgid "<b>Recording Sample Rate</b>"
-#~ msgstr "<b>Samplingsfrekvens för inspelning</b>"
+#~ msgstr "Inspelningsformat"
 
+#, fuzzy
 #~ msgid "<b>Save Time</b>"
-#~ msgstr "<b>Tid sparad</b>"
+#~ msgstr "</b>Effektnamn</b>"
 
-#~ msgid ""
-#~ "<i>It appears that Jokosher crashed the last time it was used, the "
-#~ "following dialog will help you restore your projects.</i>"
-#~ msgstr ""
-#~ "<i>Det verkar som att Jokosher kraschade sist det användes, följande ruta "
-#~ "kommer hjälpa dig återställa dina projekt.</i>"
-
-#~ msgid ""
-#~ "Audio production made simple.\n"
-#~ "Version 0.10"
-#~ msgstr ""
-#~ "Ljudproduktion - enkelt.\n"
-#~ "Version 0.10"
-
+#, fuzzy
 #~ msgid ""
 #~ "Autodetect\n"
 #~ "ALSA\n"
 #~ "Custom"
-#~ msgstr ""
-#~ "Identifiera automatiskt\n"
-#~ "ALSA\n"
-#~ "Anpassad"
+#~ msgstr "Identifiera automatiskt"
 
-#~ msgid "Create project template from instruments in current project"
-#~ msgstr "Skapa projektmall från instrument i nuvarande projekt"
-
-#~ msgid "D_evice:"
-#~ msgstr "E_nhet:"
-
+#, fuzzy
 #~ msgid "New..."
-#~ msgstr "Ny..."
+#~ msgstr "_Ny..."
 
-#~ msgid "O_utput:"
-#~ msgstr "_Utdata:"
-
+#, fuzzy
 #~ msgid "Open..."
-#~ msgstr "Öppna..."
+#~ msgstr "_Öppna..."
 
-#~ msgid ""
-#~ "Please select which projects you would like to restore from the list "
-#~ "below. If you do not wish to restore a project now you can choose to do "
-#~ "so later by visiting <b>File -> Restore Crashed Project...</b>\n"
-#~ "\n"
-#~ "<b>Warning:</b> Restoring a project from a backup will overwrite the "
-#~ "currently saved version."
-#~ msgstr ""
-#~ "Välj vilka projekt du vill återställa från listan nedan. Om du inte vill "
-#~ "återställa ett projekt nu kan du välja att göra det senare genom att gå "
-#~ "till <b>Arkiv -> Återställ kraschat projekt...</b>"
-
+#, fuzzy
 #~ msgid "Restore Crashed Project"
-#~ msgstr "Återställ kraschat projekt"
+#~ msgstr "_Återställ projekt"
 
+#, fuzzy
 #~ msgid "Save As..."
-#~ msgstr "Spara som..."
+#~ msgstr "Spara _som..."
 
+#, fuzzy
 #~ msgid "_Add Instrument..."
-#~ msgstr "_Lägg till instrument..."
+#~ msgstr "Lägg till _Instrument..."
 
+#, fuzzy
 #~ msgid "_Create Project Template"
-#~ msgstr "_Skapa projektmall"
+#~ msgstr "Projektmallar"
 
+#, fuzzy
 #~ msgid "_Project"
-#~ msgstr "_Projekt"
+#~ msgstr "Nytt projekt"
 
+#, fuzzy
 #~ msgid "_Recording Inputs..."
-#~ msgstr "_Inspelningsingångar..."
+#~ msgstr "Spelar in..."
 
+#, fuzzy
 #~ msgid "_Restore Crashed Project..."
-#~ msgstr "_Återställ kraschat projekt..."
+#~ msgstr "_Återställ projekt"
 
+#, fuzzy
 #~ msgid "Restore"
-#~ msgstr "Återskapa"
+#~ msgstr "_Återställ projekt"
 
-#~ msgid "There are currently no crashed projects to restore."
-#~ msgstr "Det finns inga kraschade projekt att återskapa."
-
-#~ msgid "Are you sure you wish to delete the backup for %s?"
-#~ msgstr "Är du säker på att du vill ta bort säkerhetskopian av %s?"
-
-#~ msgid ""
-#~ "The project (%s) has been modified more recently than this backup. Are "
-#~ "you certain you wish to restore it?"
-#~ msgstr ""
-#~ "Projektet %s har ändrats vid ett senare tillfälle än denna "
-#~ "säkerhetskopia. Är du säker på att du vill återställa den?"
-
-#~ msgid "%(device)s input %(input)d"
-#~ msgstr "%(device)s ingång %(input)d"
-
-#~ msgid ""
-#~ "The instruments '%(name1)s' and '%(name2)s' both have the same input "
-#~ "selected (%(track)s). Please either disarm one, or connect it to a "
-#~ "different input through 'Project -> Recording Inputs'"
-#~ msgstr ""
-#~ "Instrumenten \"%(name1)s\" och \"%(name2)s\" har samma ingång vald (%"
-#~ "(track)s). Koppla bort en eller koppla den till en annan ingång med "
-#~ "\"Projekt -> Inspelningsingångar\""
-
-#~ msgid ""
-#~ "No channels capable of recording have been found, please attach a device "
-#~ "and try again."
-#~ msgstr ""
-#~ "Inga kanaler som kan spela in har hittats. Anslut en enhet och försök "
-#~ "igen."
-
-#~ msgid ""
-#~ "Your sound card isn't capable of recording from multiple sources at the "
-#~ "same time. Please disarm all but one instrument."
-#~ msgstr ""
-#~ "Ditt ljudkort är inte kapabelt till att spela in från flera källor "
-#~ "samtidigt. Avmarkera alla utom ett instrument."
-
-#~ msgid ""
-#~ "You require the GStreamer channel splitting element to be able to record "
-#~ "from multiple input devices. This can be downloaded from http://www."
-#~ "jokosher.org/download."
-#~ msgstr ""
-#~ "Du behöver GStreamers \"channel splitting element\" för att kunna spela "
-#~ "in från flera enheter. Detta kan hämtas från http://www.jokosher.org/"
-#~ "download."
-
-#~ msgid "Argh! Something went wrong and a serious error occurred:"
-#~ msgstr "Argh! Någonting gick fel och ett allvarligt fel uppstod:"
-
+#, fuzzy
 #~ msgid "Mixdown as"
-#~ msgstr "Mixa ned som"
+#~ msgstr "Ned_mixning"
 
-#~ msgid "Turn click track on"
-#~ msgstr "Slå på metronom"
-
-#~ msgid "Turn click track off"
-#~ msgstr "Slå av metronom"
-
-#~ msgid "Add this step to the current mixdown"
-#~ msgstr "Lägg till detta steg till den aktuella nedmixningen"
-
-#~ msgid "FastForward"
-#~ msgstr "Snabbspola framåt"
-
-#~ msgid "Stop"
-#~ msgstr "Stoppa"
-
-#~ msgid ""
-#~ "16 bit\n"
-#~ "24 bit\n"
-#~ "32 bit"
-#~ msgstr ""
-#~ "16 bitar\n"
-#~ "24 bitar\n"
-#~ "32 bitar"
-
-#~ msgid ""
-#~ "96000\n"
-#~ "48000\n"
-#~ "44100\n"
-#~ "32000\n"
-#~ "24000\n"
-#~ "22050\n"
-#~ "16000\n"
-#~ "11025\n"
-#~ "8000"
-#~ msgstr ""
-#~ "96000\n"
-#~ "48000\n"
-#~ "44100\n"
-#~ "32000\n"
-#~ "24000\n"
-#~ "22050\n"
-#~ "16000\n"
-#~ "11025\n"
-#~ "8000"
-
+#, fuzzy
 #~ msgid "<b>Audio Mixdown</b>"
-#~ msgstr "<b>Ljudnermixning</b>"
+#~ msgstr "<b>Val för nedmixning</b>"
 
+#, fuzzy
 #~ msgid "<b>Audio Quality</b>"
-#~ msgstr "<b>Ljudkvalitet</b>"
+#~ msgstr "<b>Konst</b>"
 
+#, fuzzy
 #~ msgid "<b>Quality</b>"
-#~ msgstr "<b>Kvalitet</b>"
+#~ msgstr "<b>Konst</b>"
 
+#, fuzzy
 #~ msgid ""
 #~ "<b>To find out more, visit:</b>\n"
 #~ "http://www.jokosher.org/contribute"
-#~ msgstr ""
-#~ "<b>För mer information, besök:</b>\n"
-#~ "http://www.jokosher.org/contribute"
+#~ msgstr "<b>För att få reda på mer, besök:</b>"
 
+#, fuzzy
 #~ msgid "Contributing to Jokosher"
-#~ msgstr "Bidra till Jokosher"
+#~ msgstr "_Bidra till Jokosher"
 
-#~ msgid "Device"
-#~ msgstr "Enhet"
-
-#~ msgid "Files Saves As"
-#~ msgstr "Spara Filer Som"
-
+#, fuzzy
 #~ msgid "General"
-#~ msgstr "Allmänt"
+#~ msgstr "<b>Allmän</b>"
 
+#, fuzzy
 #~ msgid "Instrument Connections"
-#~ msgstr "Instrumentkopplingar"
+#~ msgstr "Instrumenteffekter"
 
-#~ msgid "Output Format"
-#~ msgstr "Utdataformat"
-
+#, fuzzy
 #~ msgid "Playback"
-#~ msgstr "Uppspelning"
+#~ msgstr "Stoppa uppspelning"
 
-#~ msgid "Pre-release Notes"
-#~ msgstr "Noteringar för förhandsversion"
-
-#~ msgid "Presets"
-#~ msgstr "Förinställningar"
-
-#~ msgid "Preview"
-#~ msgstr "Förhandsgranska"
-
+#, fuzzy
 #~ msgid "Recent Projects"
-#~ msgstr "Tidigare projekt"
+#~ msgstr "_Tidigare projekt"
 
+#, fuzzy
 #~ msgid "Sample Format"
-#~ msgstr "Samplings format"
+#~ msgstr "_Tidsformat"
 
-#~ msgid "Sample Rate (Hz)"
-#~ msgstr "Samplings hastighet (Hz)"
-
+#, fuzzy
 #~ msgid "Select an effect"
-#~ msgstr "Välj en effekt"
+#~ msgstr "_Aktivera effekt"
 
+#, fuzzy
 #~ msgid "Select an effect to add to the instrument"
-#~ msgstr "Välj en effekt att lägga till instrumentet"
+#~ msgstr "Välj ett projekt att öppna från listan"
 
+#, fuzzy
 #~ msgid "Select an instrument, then click here to begin recording"
-#~ msgstr "Välj ett instrument, klicka sedan här för att påbörja inspelning"
+#~ msgstr "Välj ett instrument, klicka sedan här för att börja spela in"
 
+#, fuzzy
 #~ msgid "Show as Bars, Beats, Ticks"
-#~ msgstr "Visa som takter, slag och klick"
+#~ msgstr "Visa som _takter, slag, klick"
 
+#, fuzzy
 #~ msgid "Show as Hours, Minutes, Seconds"
-#~ msgstr "Visa som timmar, minuter och sekunder"
+#~ msgstr "Visa som _timmar. minuter, sekunder"
 
+#, fuzzy
 #~ msgid "Time Format"
-#~ msgstr "Tidsformat"
+#~ msgstr "_Tidsformat"
 
-#~ msgid ""
-#~ "Use the combo boxes below to select which input is used with which "
-#~ "instrument"
-#~ msgstr ""
-#~ "Använd kryssrutorna nedan för att välja vilken ljudingång som används "
-#~ "till vilket instrument"
-
-#~ msgid ""
-#~ "Wave\n"
-#~ "FLAC\n"
-#~ "Ogg Vorbis"
-#~ msgstr ""
-#~ "Wave\n"
-#~ "Flac\n"
-#~ "Ogg Vorbis"
-
-#~ msgid "translator-credits"
-#~ msgstr ""
-#~ "Robert Renling Berencreuz Laszlo Pandy Tor B. Skicka synpunkter på "
-#~ "översättningen till tp-sv@listor.tp-sv.se\n"
-#~ "\n"
-#~ "Launchpad Contributions:\n"
-#~ "  Daniel Nylander https://launchpad.net/~yeager\n"
-#~ "  Gruggo https://launchpad.net/~gruggo-\n"
-#~ "  Jesper Sandström https://launchpad.net/~ramoniac\n"
-#~ "  John Wood https://launchpad.net/~johwo077\n"
-#~ "  Laszlo Pandy https://launchpad.net/~laszlok\n"
-#~ "  Ola Jeppsson https://launchpad.net/~ola-jeppsson\n"
-#~ "  Robert Renling Berencreuz https://launchpad.net/~berencreuz\n"
-#~ "  Ulf Abrahamsson https://launchpad.net/~ulf.abrahamsson\n"
-#~ "  sklp https://launchpad.net/~sklp\n"
-#~ "  torb https://launchpad.net/~torrb"
-
-#~ msgid ""
-#~ "The instruments '%s' and '%s' both have the same input selected (%s). "
-#~ "Please either disarm one, or connect it to a different input through "
-#~ "'Project -> Instrument Connections'"
-#~ msgstr ""
-#~ "Instrumenten '%s' och '%s' har båda samma indata markerat (%s). Var god "
-#~ "att avmarkera en av dem, eller anslut den till annan indata genom "
-#~ "'Projekt -> Instrumentkopplingar'"
-
-#~ msgid ""
-#~ "No instruments are armed for recording. You need to arm an instrument "
-#~ "before you can begin recording."
-#~ msgstr ""
-#~ "Inga instrument är markerade för inspelning. Ni behöver markera ett "
-#~ "instrument innan ni kan påbörja inspelning."
-
+#, fuzzy
 #~ msgid "%d of %d seconds completed"
-#~ msgstr "%d av %d sekunder slutfört"
+#~ msgstr "%(progress)d%% av %(total)d sekunder klart"
 
+#, fuzzy
 #~ msgid ""
 #~ "\n"
 #~ "See http://jokosher.org/trac/wiki/GettingJokosher for more details.\n"
 #~ msgstr ""
 #~ "\n"
-#~ "Se http://jokosher.org/trac/wiki/GettingJokosher för mer detaljer.\n"
+#~ "Se http://doc.jokosher.org/Installation för fler detaljer.\n"
 
-#~ msgid ""
-#~ "<big>Notes about this release</big>\n"
-#~ "\n"
-#~ "This version of Jokosher (0.1) is a pre-release version, and is infact, "
-#~ "our very first release. As such, you may encounter some bugs and "
-#~ "functionality that is not present."
-#~ msgstr ""
-#~ "<big>Anteckningar om den här versionen</big>\n"
-#~ "\n"
-#~ "\n"
-#~ "\n"
-#~ "Den här versionen av Jokosher (0.1) är ett försläpp, och är faktiskt "
-#~ "våran  första lansering. Som sådant, så kan ni stöta på buggar och "
-#~ "funktionalitet som inte är närvarande."
-
+#, fuzzy
 #~ msgid "Import Audio File..."
-#~ msgstr "Importera ljudfil..."
+#~ msgstr "Lägg till ljudfil..."
 
+#, fuzzy
 #~ msgid "Paste"
-#~ msgstr "Klistra in"
+#~ msgstr "Phasers"
 
+#, fuzzy
 #~ msgid "Delete"
-#~ msgstr "Ta bort"
+#~ msgstr "_Ta bort"
 
+#, fuzzy
 #~ msgid "Import file..."
-#~ msgstr "Importera fil..."
+#~ msgstr "Exportera fil"
 
-#~ msgid ""
-#~ "<b>NOTE</b>: The volume sliders in this pre-release version of Jokosher "
-#~ "do not affect the audio."
-#~ msgstr ""
-#~ "<b>OBS</b>: Volymhandtagen i den här versionen av Jokosher påverkar inte "
-#~ "ljudet."
-
+#, fuzzy
 #~ msgid "Split"
-#~ msgstr "Dela"
+#~ msgstr "_Dela upp"
 
+#, fuzzy
 #~ msgid "Cut"
-#~ msgstr "Klipp ut"
+#~ msgstr "Kli_pp ut"
 
+#, fuzzy
 #~ msgid "Copy"
-#~ msgstr "Kopiera"
+#~ msgstr "_Kopiera"
 
+#, fuzzy
 #~ msgid "Instrument Effects..."
-#~ msgstr "Instrument Effekter..."
+#~ msgstr "Instrumenteffekter"
 
+#, fuzzy
 #~ msgid "The uri scheme '%s' is either invalid or not supported."
-#~ msgstr "Uri schemat '%s' är antingen ogiltigt eller saknar stöd."
+#~ msgstr "URI-schemat \"%s\" är antingen ogiltigt eller stöds inte."
 
+#, fuzzy
 #~ msgid "Master Volume"
-#~ msgstr "Mastervolym"
+#~ msgstr "Huvudvolym:"
 
+#, fuzzy
 #~ msgid "Volume: %.2f"
-#~ msgstr "Volym: %.2f"
+#~ msgstr "Volym:"
 
-#~ msgid "Save Files As"
-#~ msgstr "Spara fil som"
-
+#, fuzzy
 #~ msgid "_Extensions"
-#~ msgstr "_Utökningar"
+#~ msgstr "Tilläg_g"
 
-#~ msgid "foo"
-#~ msgstr "foo"
-
-#~ msgid ""
-#~ "%s\n"
-#~ "\n"
-#~ "File is corrupt, not an audio file, or the associated plugin is not "
-#~ "installed"
-#~ msgstr ""
-#~ "%s\n"
-#~ "\n"
-#~ "\n"
-#~ "\n"
-#~ "Filen är korrupt, inte en ljudfil, eller så är inte det associerade "
-#~ "tillägget installerat"
-
+#, fuzzy
 #~ msgid "Solo - silence all other instruments"
-#~ msgstr "Solo - tysta ner alla andra instrument"
+#~ msgstr "Aktivera solo - tysta alla andra instrument"
 
-#~ msgid "Muted"
-#~ msgstr "Dämpat"
-
-#~ msgid "Unmuted"
-#~ msgstr "Normal"
-
+#, fuzzy
 #~ msgid "Remove curently selected extension"
-#~ msgstr "Ta bort det valda tillägget"
+#~ msgstr "Ta bort det markerade tillägget"
 
 #, fuzzy
 #~ msgid "<b>Presets for:</b>"
 #~ msgstr "<b>Förinställningar för:</b>"
 
+#, fuzzy
 #~ msgid "Add a new instrument"
-#~ msgstr "Lägg till ett nytt instrument"
+#~ msgstr "Lägg till ett instrument"
 
 #, fuzzy
 #~ msgid "Add a new step:"
-#~ msgstr "Lägg till ett nytt instrument"
+#~ msgstr "Lägg till ett instrument"
 
-#~ msgid "Audio production made simple."
-#~ msgstr "Ljudproduktion simpliferat."
-
+#, fuzzy
 #~ msgid "Author"
-#~ msgstr "Upphovsman"
+#~ msgstr "_Upphovsman:"
 
+#, fuzzy
 #~ msgid "Beat value"
-#~ msgstr "Slagvärde"
+#~ msgstr "Takt _värde"
 
+#, fuzzy
 #~ msgid "Beats per measure"
-#~ msgstr "Slag per takt"
+#~ msgstr "Taktslag per _mått"
 
 #, fuzzy
 #~ msgid "Browse for an Existing Project"
 #~ msgstr "_Bläddra efter ett befintligt projekt"
 
+#, fuzzy
 #~ msgid "Create a New Project"
-#~ msgstr "Skapa ett nytt projekt"
+#~ msgstr "_Skapa ett nytt projekt"
 
-#~ msgid "Device:"
-#~ msgstr "Enhet:"
-
+#, fuzzy
 #~ msgid "Don't open anything"
-#~ msgstr "Öppna ingenting"
+#~ msgstr "_Gör ingenting"
 
+#, fuzzy
 #~ msgid "Don't show this on start-up"
-#~ msgstr "Visa inte detta vid uppstart"
+#~ msgstr "_Visa inte detta vid uppstart"
 
+#, fuzzy
 #~ msgid "Folder"
-#~ msgstr "Katalog"
+#~ msgstr "_Mapp:"
 
+#, fuzzy
 #~ msgid "Mixing"
-#~ msgstr "Mixning"
+#~ msgstr "Mixningsprojekt"
 
+#, fuzzy
 #~ msgid "Mixing Workspace"
-#~ msgstr "Arbetsyta för mixning"
+#~ msgstr "Mixningsprojekt"
 
 #, fuzzy
 #~ msgid "Open Selected Project"
 #~ msgstr "_Öppna markerat projekt"
 
-#~ msgid "Open most recent project"
-#~ msgstr "Öppna det senaste projektet"
-
 #, fuzzy
-#~ msgid "Output:"
-#~ msgstr "_Utdata:"
+#~ msgid "Open most recent project"
+#~ msgstr "_Öppna senaste projekt"
 
 #, fuzzy
 #~ msgid "Pipeline:"
 #~ msgstr "_Rörledning:"
 
+#, fuzzy
 #~ msgid "Preferences"
-#~ msgstr "Inställningar"
+#~ msgstr "_Inställningar"
 
+#, fuzzy
 #~ msgid "Project Name"
-#~ msgstr "Projektnamn"
+#~ msgstr "_Projektnamn:"
 
+#, fuzzy
 #~ msgid "Record"
-#~ msgstr "Inspelning"
+#~ msgstr "Spelar in..."
 
+#, fuzzy
 #~ msgid "Recording"
-#~ msgstr "Inspelning"
+#~ msgstr "Spelar in..."
 
+#, fuzzy
 #~ msgid "Recording Workspace"
-#~ msgstr "Arbetsyta för inspelning"
+#~ msgstr "Inspelningsformat"
 
 #, fuzzy
 #~ msgid "Remove Selected Instrument"
@@ -2494,29 +2584,21 @@ msgstr "Sång"
 #~ msgid "Rewind"
 #~ msgstr "Gör om"
 
+#, fuzzy
 #~ msgid "Save these mixdown settings"
-#~ msgstr "Spara dessa mixningsinställningar"
+#~ msgstr "Använd dessa inställningar"
 
+#, fuzzy
 #~ msgid "Search:"
-#~ msgstr "Sök:"
+#~ msgstr "_Sök:"
 
 #, fuzzy
 #~ msgid "Show welcome dialog"
 #~ msgstr "_Visa välkomstruta"
 
 #, fuzzy
-#~ msgid "Switch to the Mixing workspace"
-#~ msgstr "Arbetar nu på arbetsytan för mixning"
-
-#, fuzzy
-#~ msgid "Switch to the Recording workspace"
-#~ msgstr "Arbetar nu på arbetsytan för inspelning"
-
-#~ msgid "Workspaces"
-#~ msgstr "Arbetsytor"
-
 #~ msgid "_Add Instrument"
-#~ msgstr "_Lägg till instrument"
+#~ msgstr "Lägg till instrument"
 
 #, fuzzy
 #~ msgid "_Manage Extensions"
@@ -2526,50 +2608,43 @@ msgstr "Sång"
 #~ msgid "_Mixdown Project"
 #~ msgstr "Nedmixningsprojekt"
 
+#, fuzzy
 #~ msgid "_Mixdown the project"
-#~ msgstr "_Mixa ned projektet"
+#~ msgstr "Nedmixningsprojekt"
 
+#, fuzzy
 #~ msgid "_Recording Inputs"
-#~ msgstr "_Ljudingångar"
+#~ msgstr "Spelar in..."
 
+#, fuzzy
 #~ msgid "_Save these settings"
-#~ msgstr "_Spara dessa inställningar"
+#~ msgstr "Använd dessa inställningar"
 
-#~ msgid "version 0.9"
-#~ msgstr "version 0.9"
-
+#, fuzzy
 #~ msgid "_Paste"
-#~ msgstr "_Klistra in"
-
-#~ msgid "Currently working in the Recording workspace"
-#~ msgstr "Arbetar nu på arbetsytan för inspelning"
-
-#~ msgid "Currently working in the Mixing workspace"
-#~ msgstr "Arbetar nu på arbetsytan för mixning"
+#~ msgstr "Phasers"
 
 #, fuzzy
 #~ msgid "%(progress)d of %(total)d seconds completed"
 #~ msgstr "%(progress)d%% av %(total)d sekunder klart"
 
+#, fuzzy
 #~ msgid "_Mixdown as"
-#~ msgstr "_Mixa ned som"
-
-#~ msgid "<b>Steps to mixdown %(projectname)s</b>"
-#~ msgstr "<b>Steg för att mixa ner %(projectname)s</b>"
+#~ msgstr "Ned_mixning"
 
 #, fuzzy
-#~ msgid "Edit this mixdown step settings"
-#~ msgstr "Spara dessa mixningsinställningar"
+#~ msgid "<b>Steps to mixdown %(projectname)s</b>"
+#~ msgstr "Förbereder ett nedmixningsprojekt"
 
-#~ msgid "Remove this mixdown step"
-#~ msgstr "Ta bort detta nedmixningssteg"
-
+#, fuzzy
 #~ msgid "Don't save these mixdown settings"
-#~ msgstr "Spara inte dessa inställningar för nedmixning"
+#~ msgstr "Använd dessa inställningar"
 
+#, fuzzy
 #~ msgid "Choose a name for this profile"
-#~ msgstr "Välj ett namn för denna profil"
+#~ msgstr "Välj en Jokosher-projektfil"
 
+#, fuzzy
 #~ msgid "Export file"
 #~ msgstr "Exportera fil"
 
@@ -2577,26 +2652,25 @@ msgstr "Sång"
 #~ msgid "An unspecified MixdownAction"
 #~ msgstr "Lägg till val för nedmixning"
 
-#~ msgid "Export to %(file)s as %(desc)s"
-#~ msgstr "Exportera till %(file)s som %(desc)s"
-
+#, fuzzy
 #~ msgid "Export as"
-#~ msgstr "Exportera som"
+#~ msgstr "Exportera fil"
 
+#, fuzzy
 #~ msgid "Run script %s"
-#~ msgstr "Kör skriptet %s"
+#~ msgstr "Fel i skriptet %s"
 
+#, fuzzy
 #~ msgid "Run external script"
 #~ msgstr "Kör externt skript"
 
+#, fuzzy
 #~ msgid "No such script %s"
-#~ msgstr "Skriptet %s finns inte"
+#~ msgstr "Fel i skriptet %s"
 
-#~ msgid "Hz"
-#~ msgstr "Hz"
-
+#, fuzzy
 #~ msgid "Zoom the timeline"
-#~ msgstr "Zooma tidslinjen"
+#~ msgstr "Zooma ut tidslinje"
 
 #, fuzzy
 #~ msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"

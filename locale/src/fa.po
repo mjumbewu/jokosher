@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-02-18 04:36+0000\n"
+"X-Launchpad-Export-Date: 2009-05-30 01:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../../Jokosher/Jokosher.glade.h:1
@@ -134,7 +134,6 @@ msgid "Add Audio _File..."
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:29
-#, fuzzy
 msgid "Add Instrument"
 msgstr "افزودن آلت"
 
@@ -1868,40 +1867,40 @@ msgstr ""
 msgid "Vocal"
 msgstr ""
 
-#~ msgid "<b>Recorded Audio Format</b>"
-#~ msgstr "<b>ساختار صدای ضبط شده</b>"
+msgid "<b>Recorded Audio Format</b>"
+msgstr "<b>ساختار صدای ضبط شده</b>"
 
-#~ msgid "<b>Recording Sample Rate</b>"
-#~ msgstr "<b>نرخ نمونه‌ی ضبط کردن</b>"
+msgid "<b>Recording Sample Rate</b>"
+msgstr "<b>نرخ نمونه‌ی ضبط کردن</b>"
 
-#~ msgid ""
-#~ "Autodetect\n"
-#~ "ALSA\n"
-#~ "Custom"
-#~ msgstr ""
-#~ "تشخیص خودکار\n"
-#~ "ALSA\n"
-#~ "سفارشی"
-
-#, fuzzy
-#~ msgid "Add this step to the current mixdown"
-#~ msgstr "افزودن این گام به آمیزه‌ی جاری"
+msgid ""
+"Autodetect\n"
+"ALSA\n"
+"Custom"
+msgstr ""
+"تشخیص خودکار\n"
+"ALSA\n"
+"سفارشی"
 
 #, fuzzy
-#~ msgid "Audio production made simple."
-#~ msgstr "تولید صدای آسان."
+msgid "Add this step to the current mixdown"
+msgstr "افزودن این گام به آمیزه‌ی جاری"
 
-#~ msgid "Author"
-#~ msgstr "مؤلف"
+#, fuzzy
+msgid "Audio production made simple."
+msgstr "تولید صدای آسان."
 
-#~ msgid "Beat value"
-#~ msgstr "مقدار تپش"
+msgid "Author"
+msgstr "مؤلف"
 
-#~ msgid "Beats per measure"
-#~ msgstr "تپش در واحد"
+msgid "Beat value"
+msgstr "مقدار تپش"
 
-#~ msgid "Browse for an Existing Project"
-#~ msgstr "مرور برای طرح موجود"
+msgid "Beats per measure"
+msgstr "تپش در واحد"
+
+msgid "Browse for an Existing Project"
+msgstr "مرور برای طرح موجود"
 
 #, fuzzy
 #~ msgid "<b>Presets for:</b>"

@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-02-18 04:36+0000\n"
+"X-Launchpad-Export-Date: 2009-05-30 01:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../../Jokosher/Jokosher.glade.h:1
@@ -2011,305 +2011,354 @@ msgstr "Violí"
 msgid "Vocal"
 msgstr "Veu"
 
-#~ msgid "<b>Audio Output Plugin</b>"
-#~ msgstr "<b>Connector de la sortida d'àudio</b>"
+msgid "<b>Audio Output Plugin</b>"
+msgstr "<b>Connector de la sortida d'àudio</b>"
 
+msgid "<b>Recording Sample Rate</b>"
+msgstr "<b>Freqüència de mostreig per a l'enregistrament</b>"
+
+msgid ""
+"Audio production made simple.\n"
+"Version 0.10"
+msgstr ""
+"Producció d'àudio feta simple.\n"
+"Versió 0.10"
+
+msgid "Create project template from instruments in current project"
+msgstr ""
+"Crea una plantilla de projecte a partir dels instruments del projecte actual"
+
+msgid "D_evice:"
+msgstr "_Dispositiu:"
+
+msgid "New..."
+msgstr "Nou..."
+
+msgid "O_utput:"
+msgstr "_Sortida:"
+
+msgid "Open..."
+msgstr "Obre..."
+
+msgid "Save As..."
+msgstr "Anomena i desa..."
+
+msgid "Restore"
+msgstr "Restaura"
+
+msgid "Are you sure you wish to delete the backup for %s?"
+msgstr "Esteu segur de voler suprimir la còpia de seguretat de %s?"
+
+msgid "%(device)s input %(input)d"
+msgstr "Entrada %(input)d del dispositiu %(device)s"
+
+msgid ""
+"The instruments '%(name1)s' and '%(name2)s' both have the same input "
+"selected (%(track)s). Please either disarm one, or connect it to a different "
+"input through 'Project -> Recording Inputs'"
+msgstr ""
+"Els instruments «%(name1)s» i «%(name2)s» tenen la mateixa entrada "
+"seleccionada (%(track)s). Hauríeu de desarmar-ne un dels dos o bé connectar-"
+"lo a una entrada diferent des de l'opció «Projecte -> Entrades "
+"d'enregistrament»"
+
+msgid ""
+"No channels capable of recording have been found, please attach a device and "
+"try again."
+msgstr ""
+"No s'ha trobat cap canal capaç d'enregistrar, proveu de connectar un "
+"dispositiu i intenteu-ho una altra vegada."
+
+msgid ""
+"Your sound card isn't capable of recording from multiple sources at the same "
+"time. Please disarm all but one instrument."
+msgstr ""
+"La vostra targeta de so no és capaç d'enregistrar des de múltiples fonts de "
+"manera simultània. Hauríeu d'armar un sol instrument."
+
+msgid ""
+"You require the GStreamer channel splitting element to be able to record "
+"from multiple input devices. This can be downloaded from http://www.jokosher."
+"org/download."
+msgstr ""
+"Necessiteu l'element de divisió de canals del Gstreamer per a poder "
+"enregistrar a partir de múltiples dispositius d'entrada. Podeu baixar-lo des "
+"de http://www.jokosher.org/download."
+
+msgid "Argh! Something went wrong and a serious error occurred:"
+msgstr "Ups! S'ha produït un error important:"
+
+msgid "Turn click track on"
+msgstr "Activa la pista de sincronització"
+
+msgid "Turn click track off"
+msgstr "Desactiva la pista de sincronització"
+
+msgid "Add this step to the current mixdown"
+msgstr "Afegeix aquest pas a la mescla actual"
+
+msgid "Audio production made simple."
+msgstr "Producció d'àudio feta simple."
+
+msgid "FastForward"
+msgstr "Avançament ràpid"
+
+msgid "Recording Workspace"
+msgstr "Espai de treball d'enregistrament"
+
+msgid "Stop"
+msgstr "Atura"
+
+msgid "Switch to the Mixing workspace"
+msgstr "Canvia a l'espai de treball de mescla"
+
+msgid "Switch to the Recording workspace"
+msgstr "Canvia a l'espai de treball d'enregistrament"
+
+msgid "Workspaces"
+msgstr "Espais de treball"
+
+#, fuzzy
+msgid "version 0.10"
+msgstr "versió 0.9"
+
+msgid "Currently working in the Recording workspace"
+msgstr "Sou a l'espai de treball d'enregistrament"
+
+msgid "Currently working in the Mixing workspace"
+msgstr "Sou a l'espai de treball de mescla"
+
+msgid "Edit this mixdown step settings"
+msgstr "Edita els paràmetres d'aquest pas de la mescla"
+
+msgid "Remove this mixdown step"
+msgstr "Suprimeix aquest pas de la mescla"
+
+msgid "Export to %(file)s as %(desc)s"
+msgstr "Exporta al fitxer %(file)s com a %(desc)s"
+
+msgid "Hz"
+msgstr "Hz"
+
+msgid "Device:"
+msgstr "Dispositiu:"
+
+msgid "Output:"
+msgstr "Sortida:"
+
+#, fuzzy
 #~ msgid "<b>Project Name</b>"
-#~ msgstr "<b>Nom del projecte</b>"
+#~ msgstr "<b>Nom de l'efecte</b>"
 
+#, fuzzy
 #~ msgid "<b>Recorded Audio Format</b>"
-#~ msgstr "<b>Format d'àudio per a l'enregistrament</b>"
+#~ msgstr "Àudio enregistrat"
 
-#~ msgid "<b>Recording Sample Rate</b>"
-#~ msgstr "<b>Freqüència de mostreig per a l'enregistrament</b>"
-
-#~ msgid ""
-#~ "Audio production made simple.\n"
-#~ "Version 0.10"
-#~ msgstr ""
-#~ "Producció d'àudio feta simple.\n"
-#~ "Versió 0.10"
-
+#, fuzzy
 #~ msgid ""
 #~ "Autodetect\n"
 #~ "ALSA\n"
 #~ "Custom"
-#~ msgstr ""
-#~ "Autodetecció\n"
-#~ "ALSA\n"
-#~ "Personalitzat"
-
-#~ msgid "Create project template from instruments in current project"
-#~ msgstr ""
-#~ "Crea una plantilla de projecte a partir dels instruments del projecte "
-#~ "actual"
-
-#~ msgid "D_evice:"
-#~ msgstr "_Dispositiu:"
-
-#~ msgid "New..."
-#~ msgstr "Nou..."
-
-#~ msgid "O_utput:"
-#~ msgstr "_Sortida:"
-
-#~ msgid "Open..."
-#~ msgstr "Obre..."
-
-#~ msgid "Save As..."
-#~ msgstr "Anomena i desa..."
-
-#~ msgid "_Add Instrument..."
-#~ msgstr "_Afegeix un instrument..."
-
-#~ msgid "_Create Project Template"
-#~ msgstr "_Crea una plantilla de projecte"
-
-#~ msgid "_Project"
-#~ msgstr "_Projecte"
-
-#~ msgid "_Recording Inputs..."
-#~ msgstr "Entrades d'_enregistrament..."
-
-#~ msgid "Restore"
-#~ msgstr "Restaura"
-
-#~ msgid "Are you sure you wish to delete the backup for %s?"
-#~ msgstr "Esteu segur de voler suprimir la còpia de seguretat de %s?"
-
-#~ msgid "%(device)s input %(input)d"
-#~ msgstr "Entrada %(input)d del dispositiu %(device)s"
-
-#~ msgid ""
-#~ "The instruments '%(name1)s' and '%(name2)s' both have the same input "
-#~ "selected (%(track)s). Please either disarm one, or connect it to a "
-#~ "different input through 'Project -> Recording Inputs'"
-#~ msgstr ""
-#~ "Els instruments «%(name1)s» i «%(name2)s» tenen la mateixa entrada "
-#~ "seleccionada (%(track)s). Hauríeu de desarmar-ne un dels dos o bé "
-#~ "connectar-lo a una entrada diferent des de l'opció «Projecte -> Entrades "
-#~ "d'enregistrament»"
-
-#~ msgid ""
-#~ "No channels capable of recording have been found, please attach a device "
-#~ "and try again."
-#~ msgstr ""
-#~ "No s'ha trobat cap canal capaç d'enregistrar, proveu de connectar un "
-#~ "dispositiu i intenteu-ho una altra vegada."
-
-#~ msgid ""
-#~ "Your sound card isn't capable of recording from multiple sources at the "
-#~ "same time. Please disarm all but one instrument."
-#~ msgstr ""
-#~ "La vostra targeta de so no és capaç d'enregistrar des de múltiples fonts "
-#~ "de manera simultània. Hauríeu d'armar un sol instrument."
-
-#~ msgid ""
-#~ "You require the GStreamer channel splitting element to be able to record "
-#~ "from multiple input devices. This can be downloaded from http://www."
-#~ "jokosher.org/download."
-#~ msgstr ""
-#~ "Necessiteu l'element de divisió de canals del Gstreamer per a poder "
-#~ "enregistrar a partir de múltiples dispositius d'entrada. Podeu baixar-lo "
-#~ "des de http://www.jokosher.org/download."
-
-#~ msgid "Argh! Something went wrong and a serious error occurred:"
-#~ msgstr "Ups! S'ha produït un error important:"
-
-#~ msgid "Mixdown as"
-#~ msgstr "Mescla com a"
-
-#~ msgid "Turn click track on"
-#~ msgstr "Activa la pista de sincronització"
-
-#~ msgid "Turn click track off"
-#~ msgstr "Desactiva la pista de sincronització"
-
-#~ msgid "Add a new step:"
-#~ msgstr "Afegeix un pas nou:"
-
-#~ msgid "Add this step to the current mixdown"
-#~ msgstr "Afegeix aquest pas a la mescla actual"
-
-#~ msgid "Audio production made simple."
-#~ msgstr "Producció d'àudio feta simple."
-
-#~ msgid "FastForward"
-#~ msgstr "Avançament ràpid"
-
-#~ msgid "Mixing"
-#~ msgstr "Mescla"
-
-#~ msgid "Mixing Workspace"
-#~ msgstr "Espai de treball de mescla"
-
-#~ msgid "Record"
-#~ msgstr "Enregistra"
-
-#~ msgid "Recording"
-#~ msgstr "Enregistrament"
-
-#~ msgid "Recording Workspace"
-#~ msgstr "Espai de treball d'enregistrament"
-
-#~ msgid "Rewind"
-#~ msgstr "Retrocedeix"
-
-#~ msgid "Save these mixdown settings"
-#~ msgstr "Desa aquests paràmetres de mescla"
-
-#~ msgid "Stop"
-#~ msgstr "Atura"
-
-#~ msgid "Switch to the Mixing workspace"
-#~ msgstr "Canvia a l'espai de treball de mescla"
-
-#~ msgid "Switch to the Recording workspace"
-#~ msgstr "Canvia a l'espai de treball d'enregistrament"
-
-#~ msgid "Workspaces"
-#~ msgstr "Espais de treball"
-
-#~ msgid "_Mixdown the project"
-#~ msgstr "_Mescla el projecte"
-
-#~ msgid "_Save these settings"
-#~ msgstr "De_sa aquesta configuració"
+#~ msgstr "Detecció automàtica"
 
 #, fuzzy
-#~ msgid "version 0.10"
-#~ msgstr "versió 0.9"
+#~ msgid "_Add Instrument..."
+#~ msgstr "Afegeix un instrument"
 
+#, fuzzy
+#~ msgid "_Create Project Template"
+#~ msgstr "Plantilles de projecte"
+
+#, fuzzy
+#~ msgid "_Project"
+#~ msgstr "Projecte nou"
+
+#, fuzzy
+#~ msgid "_Recording Inputs..."
+#~ msgstr "S'està enregistrant..."
+
+#, fuzzy
+#~ msgid "Mixdown as"
+#~ msgstr "_Mescla"
+
+#, fuzzy
+#~ msgid "Add a new step:"
+#~ msgstr "Afegeix un instrument"
+
+#, fuzzy
+#~ msgid "Mixing"
+#~ msgstr "Mescla del projecte"
+
+#, fuzzy
+#~ msgid "Mixing Workspace"
+#~ msgstr "Mescla del projecte"
+
+#, fuzzy
+#~ msgid "Record"
+#~ msgstr "S'està enregistrant..."
+
+#, fuzzy
+#~ msgid "Recording"
+#~ msgstr "S'està enregistrant..."
+
+#, fuzzy
+#~ msgid "Rewind"
+#~ msgstr "Refés"
+
+#, fuzzy
+#~ msgid "Save these mixdown settings"
+#~ msgstr "Utilitza aquests paràmetres"
+
+#, fuzzy
+#~ msgid "_Mixdown the project"
+#~ msgstr "Mescla el projecte"
+
+#, fuzzy
+#~ msgid "_Save these settings"
+#~ msgstr "Utilitza aquests paràmetres"
+
+#, fuzzy
 #~ msgid "_Paste"
-#~ msgstr "_Enganxa"
+#~ msgstr "Desfasadors"
 
-#~ msgid "Currently working in the Recording workspace"
-#~ msgstr "Sou a l'espai de treball d'enregistrament"
-
-#~ msgid "Currently working in the Mixing workspace"
-#~ msgstr "Sou a l'espai de treball de mescla"
-
+#, fuzzy
 #~ msgid "%(progress)d of %(total)d seconds completed"
-#~ msgstr "%(progress)d de %(total)d segons completat"
+#~ msgstr "%(progress)d%% de %(total)d segonds completat"
 
+#, fuzzy
 #~ msgid "_Mixdown as"
-#~ msgstr "_Mescla com a"
+#~ msgstr "_Mescla"
 
+#, fuzzy
 #~ msgid "_Mixdown Project"
-#~ msgstr "_Mescla el projecte"
+#~ msgstr "Mescla el projecte"
 
+#, fuzzy
 #~ msgid "<b>Steps to mixdown %(projectname)s</b>"
-#~ msgstr "<b>Passos per a mesclar el projecte %(projectname)s</b>"
+#~ msgstr "S'està preparant la mescla del projecte"
 
-#~ msgid "Edit this mixdown step settings"
-#~ msgstr "Edita els paràmetres d'aquest pas de la mescla"
-
-#~ msgid "Remove this mixdown step"
-#~ msgstr "Suprimeix aquest pas de la mescla"
-
+#, fuzzy
 #~ msgid "Don't save these mixdown settings"
-#~ msgstr "No desis aquests paràmetres de la mescla"
+#~ msgstr "Utilitza aquests paràmetres"
 
+#, fuzzy
 #~ msgid "Choose a name for this profile"
-#~ msgstr "Escolliu un nom per a aquest perfil"
+#~ msgstr "Escolliu un fitxer de projecte del Jokosher"
 
+#, fuzzy
 #~ msgid "Export file"
-#~ msgstr "Exporta el fitxer"
+#~ msgstr "Exporta a un fitxer"
 
+#, fuzzy
 #~ msgid "An unspecified MixdownAction"
-#~ msgstr "Acció de mescla (MixdownAction) no especificada"
+#~ msgstr "Afegeix una acció de mescla"
 
-#~ msgid "Export to %(file)s as %(desc)s"
-#~ msgstr "Exporta al fitxer %(file)s com a %(desc)s"
-
+#, fuzzy
 #~ msgid "Export as"
-#~ msgstr "Exporta com a"
+#~ msgstr "Exporta a un fitxer"
 
+#, fuzzy
 #~ msgid "Run script %s"
-#~ msgstr "Executa la seqüència %s"
+#~ msgstr "S'ha produït un error en la seqüència %s"
 
+#, fuzzy
 #~ msgid "Run external script"
-#~ msgstr "Executa una seqüència externa"
+#~ msgstr "Executa un script extern"
 
-#~ msgid "Hz"
-#~ msgstr "Hz"
-
+#, fuzzy
 #~ msgid "Zoom the timeline"
-#~ msgstr "Amplia o redueix la barra de temps"
+#~ msgstr "Redueix la barra de temps"
 
+#, fuzzy
 #~ msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"
 #~ msgstr ""
-#~ "<b>Arrossegueu</b> el <b>control de lliscament</b> per a modificar els "
-#~ "nivells de volum"
+#~ "<b>Arrossegueu</b> els lliscadors vermells per a modificar l'esvaïment "
+#~ "del volum."
 
+#, fuzzy
 #~ msgid "<b>Presets for:</b>"
-#~ msgstr "<b>Configuracions predefinides per a:</b>"
+#~ msgstr "<b>Configuracions _predefinides per a:</b>"
 
+#, fuzzy
 #~ msgid "Add a new instrument"
-#~ msgstr "Afegeix un instrument nou"
+#~ msgstr "Afegeix un instrument"
 
+#, fuzzy
 #~ msgid "Author"
-#~ msgstr "Autor"
+#~ msgstr "_Autor:"
 
+#, fuzzy
 #~ msgid "Beat value"
-#~ msgstr "Valor del temps"
+#~ msgstr "_Valor del temps"
 
+#, fuzzy
 #~ msgid "Beats per measure"
-#~ msgstr "Temps per mesura"
+#~ msgstr "Temps per _compàs"
 
+#, fuzzy
 #~ msgid "Browse for an Existing Project"
 #~ msgstr "Obre un projecte existent"
 
+#, fuzzy
 #~ msgid "Create a New Project"
-#~ msgstr "Crea un projecte nou"
+#~ msgstr "_Crea un projecte nou"
 
-#~ msgid "Device:"
-#~ msgstr "Dispositiu:"
-
+#, fuzzy
 #~ msgid "Don't open anything"
-#~ msgstr "No obris res"
+#~ msgstr "_No obris res"
 
+#, fuzzy
 #~ msgid "Don't show this on start-up"
-#~ msgstr "No mostris això a l'inici"
+#~ msgstr "_No mostris això a l'inici"
 
+#, fuzzy
 #~ msgid "Folder"
-#~ msgstr "Carpeta"
+#~ msgstr "C_arpeta:"
 
+#, fuzzy
 #~ msgid "Open Selected Project"
-#~ msgstr "Obre el projecte seleccionat"
+#~ msgstr "_Obre el projecte seleccionat"
 
+#, fuzzy
 #~ msgid "Open most recent project"
-#~ msgstr "Obre el projecte més recent"
+#~ msgstr "_Obre el projecte més recent"
 
-#~ msgid "Output:"
-#~ msgstr "Sortida:"
-
+#, fuzzy
 #~ msgid "Pipeline:"
-#~ msgstr "Conducte:"
+#~ msgstr "_Conducte:"
 
+#, fuzzy
 #~ msgid "Preferences"
-#~ msgstr "Preferències"
+#~ msgstr "Preferè_ncies"
 
+#, fuzzy
 #~ msgid "Project Name"
-#~ msgstr "Nom del projecte"
+#~ msgstr "Nom del _projecte:"
 
+#, fuzzy
 #~ msgid "Remove Selected Instrument"
-#~ msgstr "Suprimeix l'instrument seleccionat"
+#~ msgstr "_Suprimeix l'instrument seleccionat"
 
+#, fuzzy
 #~ msgid "Search:"
-#~ msgstr "Cerca:"
+#~ msgstr "_Cerca:"
 
+#, fuzzy
 #~ msgid "Show welcome dialog"
-#~ msgstr "Mostra el diàleg de benvinguda"
+#~ msgstr "_Mostra el diàleg de benvinguda"
 
+#, fuzzy
 #~ msgid "_Add Instrument"
-#~ msgstr "_Afegeix un instrument"
+#~ msgstr "Afegeix un instrument"
 
+#, fuzzy
 #~ msgid "_Manage Extensions"
-#~ msgstr "_Gestiona les extensions"
+#~ msgstr "_Gestioneu les extensions..."
 
+#, fuzzy
 #~ msgid "_Recording Inputs"
-#~ msgstr "Ent_rades d'enregistrament"
+#~ msgstr "S'està enregistrant..."
 
+#, fuzzy
 #~ msgid "No such script %s"
-#~ msgstr "No s'ha trobat la seqüència %s"
+#~ msgstr "S'ha produït un error en la seqüència %s"

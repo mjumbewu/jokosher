@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: jokosher\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-03-17 02:00+0000\n"
-"PO-Revision-Date: 2006-11-14 14:38+0000\n"
+"PO-Revision-Date: 2009-02-18 07:01+0000\n"
 "Last-Translator: Peteris Krisjanis <pecisk@gmail.com>\n"
 "Language-Team: Latvian <lv@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-02-18 04:36+0000\n"
+"X-Launchpad-Export-Date: 2009-05-30 01:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../../Jokosher/Jokosher.glade.h:1
@@ -1902,354 +1902,376 @@ msgstr "Vijole"
 msgid "Vocal"
 msgstr "Vokāls"
 
-#~ msgid "<b>Recorded Audio Format</b>"
-#~ msgstr "<b>Ierakstītā audio formāts</b>"
+msgid "<b>Recorded Audio Format</b>"
+msgstr "<b>Ierakstītā audio formāts</b>"
 
+msgid ""
+"No channels capable of recording have been found, please attach a device and "
+"try again."
+msgstr ""
+"Netika atrasti kanāli, caur kuriem varētu veikt ierakstu. Lūdzu pievienojiet "
+"iekārtu un provējiet vēlreiz."
+
+msgid ""
+"Your sound card isn't capable of recording from multiple sources at the same "
+"time. Please disarm all but one instrument."
+msgstr ""
+"Jūsu skaņas karte nav spējīga ierakstīt no vairākiem avotiem vienlaicīgi. "
+"Lūdzu atstājiet sagatavotu tikai vienu instrumentu."
+
+msgid ""
+"You require the GStreamer channel splitting element to be able to record "
+"from multiple input devices. This can be downloaded from http://www.jokosher."
+"org/download."
+msgstr ""
+"Lai veiktu ierakstu no vairāku kanālu ievades iekārtām, jums nepieciešams "
+"GStreamer kanālu dalītāja elements. Tas var tikt lejupielādēts no http://www."
+"jokosher.org/download"
+
+msgid "Turn click track on"
+msgstr "Ieslēgt ritma celiņu"
+
+msgid "Turn click track off"
+msgstr "Izslēgt ritma celiņu"
+
+msgid "Audio production made simple."
+msgstr "Vienkārša audio radīšana."
+
+msgid "Recording"
+msgstr "Ieraksts"
+
+msgid "Switch to the Mixing workspace"
+msgstr "Pārslēgties uz miksēšanas darba lauku"
+
+msgid "Switch to the Recording workspace"
+msgstr "Pārslēgties uz ierakstīšanas darba lauku"
+
+msgid "Workspaces"
+msgstr "Darbavietas"
+
+msgid "Currently working in the Recording workspace"
+msgstr "Pašreiz strādājam ierakstīšanas darba laukā"
+
+msgid "Currently working in the Mixing workspace"
+msgstr "Pašreiz strādājat miksēšanas darba virsmā"
+
+msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"
+msgstr "<b>Velciet slīdi</b>, lai izmainītu skaļuma līmeņus"
+
+msgid "Don't open anything"
+msgstr "Neatvērt neko"
+
+msgid "Don't show this on start-up"
+msgstr "Nerādīt pie startēšanas"
+
+msgid "Folder"
+msgstr "Mape"
+
+msgid "Preferences"
+msgstr "Preferences"
+
+msgid "Search:"
+msgstr "Meklēt:"
+
+msgid "Show welcome dialog"
+msgstr "Parādīt ievaddialogu"
+
+msgid ""
+"16 bit\n"
+"24 bit\n"
+"32 bit"
+msgstr ""
+"16 bitu\n"
+"24 bitu\n"
+"32 bitu"
+
+msgid ""
+"96000\n"
+"48000\n"
+"44100\n"
+"32000\n"
+"24000\n"
+"22050\n"
+"16000\n"
+"11025\n"
+"8000"
+msgstr ""
+"96000\n"
+"48000\n"
+"44100\n"
+"32000\n"
+"24000\n"
+"22050\n"
+"16000\n"
+"11025\n"
+"8000"
+
+msgid ""
+"<b>To find out more, visit:</b>\n"
+"http://www.jokosher.org/contribute"
+msgstr ""
+"<b>Lai uzzinātu ko vairāk, skaties:</b>\n"
+"http://www.jokosher.org/contribute"
+
+msgid "Device"
+msgstr "Iekārta"
+
+msgid "General"
+msgstr "Vispārēji"
+
+msgid "Output Format"
+msgstr "Izvades formāts"
+
+msgid "Pre-release Notes"
+msgstr "Pirmsizlaiduma piezīmes"
+
+msgid "Presets"
+msgstr "Gatavie regulējumi"
+
+msgid "Preview"
+msgstr "Pirmsapskate"
+
+msgid "Sample Format"
+msgstr "Paraugformāts"
+
+msgid "Sample Rate (Hz)"
+msgstr "Frekvence (Hz)"
+
+msgid "Save Files As"
+msgstr "Saglabāt failus kā"
+
+msgid "Select an effect"
+msgstr "Izvēlieties efektu"
+
+msgid "Select an instrument, then click here to begin recording"
+msgstr "Izvēlieties instrumentu, tad kliksķiniet šeit, lai sāktu ierakstu"
+
+msgid "Show as Bars, Beats, Ticks"
+msgstr "Parādīt kā taktis, sitienus, tikšķus"
+
+msgid "Show as Hours, Minutes, Seconds"
+msgstr "Parādīt kā stundas, minūtes, sekundes"
+
+msgid "Time Format"
+msgstr "Laika formāts"
+
+msgid ""
+"Use the combo boxes below to select which input is used with which instrument"
+msgstr ""
+"Izmantojiet kombo izvēlnes zemāk, lai izvēlētos, kurš ievads tiks izmantots "
+"kuram instrumentam"
+
+msgid ""
+"Wave\n"
+"FLAC\n"
+"Ogg Vorbis"
+msgstr ""
+"Wave\n"
+"FLAC\n"
+"Ogg Vorbis"
+
+msgid "_Extensions"
+msgstr "_Paplašinājumi"
+
+msgid "foo"
+msgstr "foo"
+
+msgid "Paste"
+msgstr "Ievietot"
+
+msgid "Delete"
+msgstr "Dzēst"
+
+msgid "Import file..."
+msgstr "Importēt failu..."
+
+msgid ""
+"<b>NOTE</b>: The volume sliders in this pre-release version of Jokosher do "
+"not affect the audio."
+msgstr ""
+"<b>PIEZĪME</b>: Skaļuma regulētāji šajā Jokosher pirmsizlaiduma versijā "
+"neietekmē audio skaņu."
+
+msgid "Split"
+msgstr "Dalīt"
+
+msgid "Cut"
+msgstr "Izgriezt"
+
+msgid "Copy"
+msgstr "Kopēt"
+
+msgid ""
+"%s\n"
+"\n"
+"File is corrupt, not an audio file, or the associated plugin is not installed"
+msgstr ""
+"%s\n"
+"\n"
+"Fails ir bojāts, tas nav audio fails, vai arī asociētais spraudnis nav "
+"instalēts"
+
+msgid "Muted"
+msgstr "Apklusināts"
+
+msgid "Unmuted"
+msgstr "Neapklusināts"
+
+msgid ""
+"The instruments '%s' and '%s' both have the same input selected (%s). Please "
+"either disarm one, or connect it to a different input through 'Project -> "
+"Instrument Connections'"
+msgstr ""
+"Instrumentiem '%s' un '%s' ir izvēlēts viens ievads (%s). Lūdzu vai nu kādu "
+"no tiem atslēdziet, vai arī savienojiet ar citu ievadu, izmantojot 'Projekts "
+"-> Instrumentu savienojumi'"
+
+msgid ""
+"No instruments are armed for recording. You need to arm an instrument before "
+"you can begin recording."
+msgstr ""
+"Ierakstam nav sagatavots neviens instruments. Jums nepieciešams sagatavot "
+"instrumentu(s), pirms jūs varat sākt ierakstu."
+
+msgid "%d of %d seconds completed"
+msgstr "%d no %d sekundēm izpildītas"
+
+msgid ""
+"\n"
+"See http://jokosher.org/trac/wiki/GettingJokosher for more details.\n"
+msgstr ""
+"\n"
+"Skatieties http://jokosher.org/trac/wiki/GettingJokosher pēc vairāk "
+"detaļām.\n"
+
+msgid ""
+"<big>Notes about this release</big>\n"
+"\n"
+"This version of Jokosher (0.1) is a pre-release version, and is infact, our "
+"very first release. As such, you may encounter some bugs and functionality "
+"that is not present."
+msgstr ""
+"<big>Piezīmes par šo izlaidmumu</big>\n"
+"\n"
+"Šī Jokosher versija (0.1) ir pirmsizlaiduma versija, un faktiski arī pati "
+"pirmā šīs programmas versija. Attiecīgi jūs varat saskarties ar dažām kļūdām "
+"un funkcionalitāti, kas vēl nedarbojas."
+
+msgid "Master Volume"
+msgstr "Galvenais skaļums"
+
+msgid "Volume: %.2f"
+msgstr "Skaļums: %.2f"
+
+msgid "translator-credits"
+msgstr ""
+"Pēteris Krišjānis <pecisk@gmail.com>\n"
+"\n"
+"Launchpad Contributions:\n"
+"  Peteris Krisjanis https://launchpad.net/~pecisk-gmail"
+
+msgid "Files Saves As"
+msgstr "Faili glabājas kā"
+
+msgid ""
+"No channels capable of recording have found, please attach a device and try "
+"again."
+msgstr ""
+"Nav atrasti ierakstīt spējīgi kanāli, lūdzu pievienojiet iekārtu un "
+"provējiet vēlreiz."
+
+#, fuzzy
 #~ msgid "_Project"
-#~ msgstr "_Projekts"
+#~ msgstr "Jauns projekts"
 
-#~ msgid ""
-#~ "No channels capable of recording have been found, please attach a device "
-#~ "and try again."
-#~ msgstr ""
-#~ "Netika atrasti kanāli, caur kuriem varētu veikt ierakstu. Lūdzu "
-#~ "pievienojiet iekārtu un provējiet vēlreiz."
-
-#~ msgid ""
-#~ "Your sound card isn't capable of recording from multiple sources at the "
-#~ "same time. Please disarm all but one instrument."
-#~ msgstr ""
-#~ "Jūsu skaņas karte nav spējīga ierakstīt no vairākiem avotiem vienlaicīgi. "
-#~ "Lūdzu atstājiet sagatavotu tikai vienu instrumentu."
-
-#~ msgid ""
-#~ "You require the GStreamer channel splitting element to be able to record "
-#~ "from multiple input devices. This can be downloaded from http://www."
-#~ "jokosher.org/download."
-#~ msgstr ""
-#~ "Lai veiktu ierakstu no vairāku kanālu ievades iekārtām, jums nepieciešams "
-#~ "GStreamer kanālu dalītāja elements. Tas var tikt lejupielādēts no http://"
-#~ "www.jokosher.org/download"
-
-#~ msgid "Turn click track on"
-#~ msgstr "Ieslēgt ritma celiņu"
-
-#~ msgid "Turn click track off"
-#~ msgstr "Izslēgt ritma celiņu"
-
-#~ msgid "Audio production made simple."
-#~ msgstr "Vienkārša audio radīšana."
-
+#, fuzzy
 #~ msgid "Mixing"
-#~ msgstr "Miksēšana"
+#~ msgstr "Miksēt projektu"
 
-#~ msgid "Recording"
-#~ msgstr "Ieraksts"
-
-#~ msgid "Switch to the Mixing workspace"
-#~ msgstr "Pārslēgties uz miksēšanas darba lauku"
-
-#~ msgid "Switch to the Recording workspace"
-#~ msgstr "Pārslēgties uz ierakstīšanas darba lauku"
-
-#~ msgid "Workspaces"
-#~ msgstr "Darbavietas"
-
-#~ msgid "Currently working in the Recording workspace"
-#~ msgstr "Pašreiz strādājam ierakstīšanas darba laukā"
-
-#~ msgid "Currently working in the Mixing workspace"
-#~ msgstr "Pašreiz strādājat miksēšanas darba virsmā"
-
+#, fuzzy
 #~ msgid "_Mixdown Project"
-#~ msgstr "_Projekta miksēšana"
+#~ msgstr "Miksēt projektu"
 
+#, fuzzy
 #~ msgid "Zoom the timeline"
-#~ msgstr "Mērogot laika joslu"
+#~ msgstr "Izmainīt laika joslu"
 
-#~ msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"
-#~ msgstr "<b>Velciet slīdi</b>, lai izmainītu skaļuma līmeņus"
-
+#, fuzzy
 #~ msgid "Add a new instrument"
-#~ msgstr "Pievienot jaunu instrumentu"
+#~ msgstr "Pievienot instrumentu"
 
+#, fuzzy
 #~ msgid "Author"
-#~ msgstr "Autors"
+#~ msgstr "Nezināms autors"
 
+#, fuzzy
 #~ msgid "Browse for an Existing Project"
-#~ msgstr "Lūkoties pēc esoša projekta"
+#~ msgstr "Atvērt eksistējošu projektu"
 
+#, fuzzy
 #~ msgid "Create a New Project"
 #~ msgstr "Izveidot jaunu projektu"
 
-#~ msgid "Don't open anything"
-#~ msgstr "Neatvērt neko"
-
-#~ msgid "Don't show this on start-up"
-#~ msgstr "Nerādīt pie startēšanas"
-
-#~ msgid "Folder"
-#~ msgstr "Mape"
-
+#, fuzzy
 #~ msgid "Open Selected Project"
-#~ msgstr "Atvērt izvēlēto projektu"
+#~ msgstr "Atvērt jaunāko projektu"
 
+#, fuzzy
 #~ msgid "Open most recent project"
-#~ msgstr "Atvērt visjaunāko projektu"
+#~ msgstr "Atvērt jaunāko projektu"
 
-#~ msgid "Preferences"
-#~ msgstr "Preferences"
-
+#, fuzzy
 #~ msgid "Project Name"
-#~ msgstr "Projekta nosaukums"
+#~ msgstr "Jauns projekts"
 
-#~ msgid "Search:"
-#~ msgstr "Meklēt:"
-
-#~ msgid "Show welcome dialog"
-#~ msgstr "Parādīt ievaddialogu"
-
+#, fuzzy
 #~ msgid "_Manage Extensions"
-#~ msgstr "_Pārvaldīt paplašinājumus"
+#~ msgstr "Pievienot paplašinājumu"
 
-#~ msgid ""
-#~ "16 bit\n"
-#~ "24 bit\n"
-#~ "32 bit"
-#~ msgstr ""
-#~ "16 bitu\n"
-#~ "24 bitu\n"
-#~ "32 bitu"
-
-#~ msgid ""
-#~ "96000\n"
-#~ "48000\n"
-#~ "44100\n"
-#~ "32000\n"
-#~ "24000\n"
-#~ "22050\n"
-#~ "16000\n"
-#~ "11025\n"
-#~ "8000"
-#~ msgstr ""
-#~ "96000\n"
-#~ "48000\n"
-#~ "44100\n"
-#~ "32000\n"
-#~ "24000\n"
-#~ "22050\n"
-#~ "16000\n"
-#~ "11025\n"
-#~ "8000"
-
+#, fuzzy
 #~ msgid "<b>Audio Mixdown</b>"
-#~ msgstr "<b>Audio miksēšana</b>"
+#~ msgstr "<b>Programmēšana</b>"
 
+#, fuzzy
 #~ msgid "<b>Audio Quality</b>"
-#~ msgstr "<b>Audio kvalitāte</b>"
+#~ msgstr "<b>Māksla</b>"
 
+#, fuzzy
 #~ msgid "<b>Quality</b>"
-#~ msgstr "<b>Kvalitāte</b>"
+#~ msgstr "<b>Māksla</b>"
 
-#~ msgid ""
-#~ "<b>To find out more, visit:</b>\n"
-#~ "http://www.jokosher.org/contribute"
-#~ msgstr ""
-#~ "<b>Lai uzzinātu ko vairāk, skaties:</b>\n"
-#~ "http://www.jokosher.org/contribute"
-
+#, fuzzy
 #~ msgid "Contributing to Jokosher"
-#~ msgstr "Dot ieguldījumu Jokosher"
+#~ msgstr "Iziet no Jokosher"
 
-#~ msgid "Device"
-#~ msgstr "Iekārta"
-
-#~ msgid "General"
-#~ msgstr "Vispārēji"
-
+#, fuzzy
 #~ msgid "Instrument Connections"
-#~ msgstr "Instrumentu konekcijas"
+#~ msgstr "Instrumenta efekti"
 
-#~ msgid "Output Format"
-#~ msgstr "Izvades formāts"
-
+#, fuzzy
 #~ msgid "Playback"
-#~ msgstr "Atskaņot"
+#~ msgstr "Apstādināt atskaņošanu"
 
-#~ msgid "Pre-release Notes"
-#~ msgstr "Pirmsizlaiduma piezīmes"
-
-#~ msgid "Presets"
-#~ msgstr "Gatavie regulējumi"
-
-#~ msgid "Preview"
-#~ msgstr "Pirmsapskate"
-
+#, fuzzy
 #~ msgid "Recent Projects"
-#~ msgstr "Nesenie projekti"
+#~ msgstr "<b>Nesenie projekti</b>"
 
+#, fuzzy
 #~ msgid "Remove curently selected extension"
-#~ msgstr "Izņemt pašreiz izvēlēto paplašinājumu"
+#~ msgstr "Kopēt pašreizējo izvēli"
 
-#~ msgid "Sample Format"
-#~ msgstr "Paraugformāts"
-
-#~ msgid "Sample Rate (Hz)"
-#~ msgstr "Frekvence (Hz)"
-
-#~ msgid "Save Files As"
-#~ msgstr "Saglabāt failus kā"
-
-#~ msgid "Select an effect"
-#~ msgstr "Izvēlieties efektu"
-
+#, fuzzy
 #~ msgid "Select an effect to add to the instrument"
-#~ msgstr "Izvēlieties efektu, ko pievienot instrumentam"
+#~ msgstr "Izvēlieties projektu no saraksta, kuru atvērt"
 
-#~ msgid "Select an instrument, then click here to begin recording"
-#~ msgstr "Izvēlieties instrumentu, tad kliksķiniet šeit, lai sāktu ierakstu"
-
-#~ msgid "Show as Bars, Beats, Ticks"
-#~ msgstr "Parādīt kā taktis, sitienus, tikšķus"
-
-#~ msgid "Show as Hours, Minutes, Seconds"
-#~ msgstr "Parādīt kā stundas, minūtes, sekundes"
-
-#~ msgid "Time Format"
-#~ msgstr "Laika formāts"
-
-#~ msgid ""
-#~ "Use the combo boxes below to select which input is used with which "
-#~ "instrument"
-#~ msgstr ""
-#~ "Izmantojiet kombo izvēlnes zemāk, lai izvēlētos, kurš ievads tiks "
-#~ "izmantots kuram instrumentam"
-
-#~ msgid ""
-#~ "Wave\n"
-#~ "FLAC\n"
-#~ "Ogg Vorbis"
-#~ msgstr ""
-#~ "Wave\n"
-#~ "FLAC\n"
-#~ "Ogg Vorbis"
-
-#~ msgid "_Extensions"
-#~ msgstr "_Paplašinājumi"
-
-#~ msgid "foo"
-#~ msgstr "foo"
-
+#, fuzzy
 #~ msgid "Import Audio File..."
-#~ msgstr "Importēt audio failu..."
+#~ msgstr "Audio fails"
 
-#~ msgid "Paste"
-#~ msgstr "Ievietot"
-
-#~ msgid "Delete"
-#~ msgstr "Dzēst"
-
-#~ msgid "Import file..."
-#~ msgstr "Importēt failu..."
-
-#~ msgid ""
-#~ "<b>NOTE</b>: The volume sliders in this pre-release version of Jokosher "
-#~ "do not affect the audio."
-#~ msgstr ""
-#~ "<b>PIEZĪME</b>: Skaļuma regulētāji šajā Jokosher pirmsizlaiduma versijā "
-#~ "neietekmē audio skaņu."
-
-#~ msgid "Split"
-#~ msgstr "Dalīt"
-
-#~ msgid "Cut"
-#~ msgstr "Izgriezt"
-
-#~ msgid "Copy"
-#~ msgstr "Kopēt"
-
-#~ msgid ""
-#~ "%s\n"
-#~ "\n"
-#~ "File is corrupt, not an audio file, or the associated plugin is not "
-#~ "installed"
-#~ msgstr ""
-#~ "%s\n"
-#~ "\n"
-#~ "Fails ir bojāts, tas nav audio fails, vai arī asociētais spraudnis nav "
-#~ "instalēts"
-
+#, fuzzy
 #~ msgid "Solo - silence all other instruments"
-#~ msgstr "Solo - apklusināt visus citus instrumentus"
+#~ msgstr "Apklusināt - apklusināt šo instrumentu"
 
-#~ msgid "Muted"
-#~ msgstr "Apklusināts"
-
-#~ msgid "Unmuted"
-#~ msgstr "Neapklusināts"
-
+#, fuzzy
 #~ msgid "Instrument Effects..."
-#~ msgstr "Instrumentu efekti..."
-
-#~ msgid ""
-#~ "The instruments '%s' and '%s' both have the same input selected (%s). "
-#~ "Please either disarm one, or connect it to a different input through "
-#~ "'Project -> Instrument Connections'"
-#~ msgstr ""
-#~ "Instrumentiem '%s' un '%s' ir izvēlēts viens ievads (%s). Lūdzu vai nu "
-#~ "kādu no tiem atslēdziet, vai arī savienojiet ar citu ievadu, izmantojot "
-#~ "'Projekts -> Instrumentu savienojumi'"
-
-#~ msgid ""
-#~ "No instruments are armed for recording. You need to arm an instrument "
-#~ "before you can begin recording."
-#~ msgstr ""
-#~ "Ierakstam nav sagatavots neviens instruments. Jums nepieciešams sagatavot "
-#~ "instrumentu(s), pirms jūs varat sākt ierakstu."
-
-#~ msgid "%d of %d seconds completed"
-#~ msgstr "%d no %d sekundēm izpildītas"
-
-#~ msgid ""
-#~ "\n"
-#~ "See http://jokosher.org/trac/wiki/GettingJokosher for more details.\n"
-#~ msgstr ""
-#~ "\n"
-#~ "Skatieties http://jokosher.org/trac/wiki/GettingJokosher pēc vairāk "
-#~ "detaļām.\n"
-
-#~ msgid ""
-#~ "<big>Notes about this release</big>\n"
-#~ "\n"
-#~ "This version of Jokosher (0.1) is a pre-release version, and is infact, "
-#~ "our very first release. As such, you may encounter some bugs and "
-#~ "functionality that is not present."
-#~ msgstr ""
-#~ "<big>Piezīmes par šo izlaidmumu</big>\n"
-#~ "\n"
-#~ "Šī Jokosher versija (0.1) ir pirmsizlaiduma versija, un faktiski arī pati "
-#~ "pirmā šīs programmas versija. Attiecīgi jūs varat saskarties ar dažām "
-#~ "kļūdām un funkcionalitāti, kas vēl nedarbojas."
-
-#~ msgid "Master Volume"
-#~ msgstr "Galvenais skaļums"
-
-#~ msgid "Volume: %.2f"
-#~ msgstr "Skaļums: %.2f"
-
-#~ msgid "translator-credits"
-#~ msgstr ""
-#~ "Pēteris Krišjānis <pecisk@gmail.com>\n"
-#~ "\n"
-#~ "Launchpad Contributions:\n"
-#~ "  Peteris Krisjanis https://launchpad.net/~pecisk-gmail"
-
-#~ msgid "Files Saves As"
-#~ msgstr "Faili glabājas kā"
-
-#~ msgid ""
-#~ "No channels capable of recording have found, please attach a device and "
-#~ "try again."
-#~ msgstr ""
-#~ "Nav atrasti ierakstīt spējīgi kanāli, lūdzu pievienojiet iekārtu un "
-#~ "provējiet vēlreiz."
+#~ msgstr "Instrumenta efekti"

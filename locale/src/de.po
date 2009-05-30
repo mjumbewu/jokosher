@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-03-17 02:00+0000\n"
-"PO-Revision-Date: 2009-01-24 12:56+0000\n"
-"Last-Translator: dauerbaustelle <Unknown>\n"
+"PO-Revision-Date: 2009-04-15 13:22+0000\n"
+"Last-Translator: finaltune <Unknown>\n"
 "Language-Team: German <translation-team-de@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-02-18 04:36+0000\n"
+"X-Launchpad-Export-Date: 2009-05-30 01:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../../Jokosher/Jokosher.glade.h:1
@@ -51,7 +51,7 @@ msgstr "Datei Details"
 
 #: ../../Jokosher/Jokosher.glade.h:9
 msgid "<b>General</b>"
-msgstr ""
+msgstr "<b>Allgemein</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:10
 msgid "<b>Jokosher Instruments</b>"
@@ -68,7 +68,7 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:12
 msgid "<b>Location Details</b>"
-msgstr "Details des Ortes"
+msgstr "Ort Details"
 
 #: ../../Jokosher/Jokosher.glade.h:13
 msgid "<b>Mixdown Actions</b>"
@@ -76,23 +76,23 @@ msgstr "Abmischaktionen"
 
 #: ../../Jokosher/Jokosher.glade.h:14
 msgid "<b>N_otes</b>"
-msgstr ""
+msgstr "<b>N_otizen</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:15
 msgid "<b>Playback Sound System</b>"
-msgstr ""
+msgstr "<b>Wiedergabe Soundsystem</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:16
 msgid "<b>Recent Projects</b>"
-msgstr "<b>Letzte Projekte</b>"
+msgstr "Zuletzt verwendete Projekte"
 
 #: ../../Jokosher/Jokosher.glade.h:17
 msgid "<b>Recording Format</b>"
-msgstr ""
+msgstr "<b>Aufnahmeformat</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:18
 msgid "<b>Recording Sound System</b>"
-msgstr ""
+msgstr "<b>Aufnahme Soundsystem</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:19
 msgid "<b>Template Instruments</b>"
@@ -120,7 +120,7 @@ msgstr "<big>Systeminformationen</big>"
 
 #: ../../Jokosher/Jokosher.glade.h:25
 msgid "Activate the selected effect"
-msgstr "Aktiviere den ausgewählten Effekt"
+msgstr "Ausgewählten Effekt aktivieren"
 
 #: ../../Jokosher/Jokosher.glade.h:26
 msgid "Add Action"
@@ -140,11 +140,11 @@ msgstr "Instrument hinzufügen"
 
 #: ../../Jokosher/Jokosher.glade.h:30
 msgid "Add Mixdown Action"
-msgstr ""
+msgstr "Abmischschritt hinzufügen"
 
 #: ../../Jokosher/Jokosher.glade.h:31
 msgid "Add _Instrument..."
-msgstr ""
+msgstr "_Instrument hinzufügen..."
 
 #: ../../Jokosher/Jokosher.glade.h:32
 msgid "Add an audio file to the project"
@@ -204,11 +204,11 @@ msgstr "Takt _wert"
 
 #: ../../Jokosher/Jokosher.glade.h:46
 msgid "Beats per _measure"
-msgstr ""
+msgstr "Zählzeiten pro _Takt"
 
 #: ../../Jokosher/Jokosher.glade.h:47
 msgid "C_hange Sound System"
-msgstr ""
+msgstr "Soundsystem ändern"
 
 #: ../../Jokosher/Jokosher.glade.h:48
 msgid "Cancel the mixdown"
@@ -298,7 +298,7 @@ msgstr "Die aktuelle Auswahl ausschneiden"
 
 #: ../../Jokosher/Jokosher.glade.h:69
 msgid "De_vice:"
-msgstr ""
+msgstr "Ge_rät:"
 
 #: ../../Jokosher/Jokosher.glade.h:70
 msgid "Deactivate the currently selected active effect"
@@ -536,7 +536,7 @@ msgstr "Jokosher"
 
 #: ../../Jokosher/Jokosher.glade.h:158
 msgid "Jokosher Errors"
-msgstr ""
+msgstr "Jokosher Fehler"
 
 #: ../../Jokosher/Jokosher.glade.h:159
 msgid "Listen to these effects"
@@ -588,7 +588,7 @@ msgstr "Erweiterungs-Manager öffnen"
 
 #: ../../Jokosher/Jokosher.glade.h:171
 msgid "P_ipeline:"
-msgstr ""
+msgstr "Le_itung:"
 
 #: ../../Jokosher/Jokosher.glade.h:172
 msgid "Paste the contents of the clipboard"
@@ -607,10 +607,12 @@ msgid ""
 "Please select the mixdown actions you would like to add to the mixdown "
 "profile *profile*"
 msgstr ""
+"Bitte wählen Sie die Abmischschritte aus, die Sie Ihrem Mischerprofil "
+"hinzufügen möchten *profile*"
 
 #: ../../Jokosher/Jokosher.glade.h:175
 msgid "Project Properties"
-msgstr ""
+msgstr "Projekteigenschaften"
 
 #: ../../Jokosher/Jokosher.glade.h:176
 msgid "Project Templates"
@@ -622,7 +624,7 @@ msgstr "Jokosher beenden"
 
 #: ../../Jokosher/Jokosher.glade.h:178
 msgid "R_ecording Inputs..."
-msgstr ""
+msgstr "Aufnahm_e-Eingänge..."
 
 #: ../../Jokosher/Jokosher.glade.h:179
 msgid "Redo"
@@ -646,15 +648,15 @@ msgstr "Einen Fehler in Jokosher melden"
 
 #: ../../Jokosher/Jokosher.glade.h:184
 msgid "S_ample Rate:"
-msgstr ""
+msgstr "_Abtastrate:"
 
 #: ../../Jokosher/Jokosher.glade.h:185
 msgid "S_ystem:"
-msgstr ""
+msgstr "S_ystem:"
 
 #: ../../Jokosher/Jokosher.glade.h:186
 msgid "Save _As..."
-msgstr ""
+msgstr "Speichern _unter..."
 
 #: ../../Jokosher/Jokosher.glade.h:187
 msgid "Save a copy of the current project"
@@ -690,7 +692,7 @@ msgstr "Auswahl speichern und Fenster schließen"
 
 #: ../../Jokosher/Jokosher.glade.h:195
 msgid "See your system information"
-msgstr ""
+msgstr "Sehen Sie sich Informationen zu ihrem System an"
 
 #: ../../Jokosher/Jokosher.glade.h:196
 msgid "Select A Folder"
@@ -738,7 +740,7 @@ msgstr "Wiedergabe stoppen"
 
 #: ../../Jokosher/Jokosher.glade.h:207
 msgid "Sys_tem:"
-msgstr ""
+msgstr "Sys_tem:"
 
 #: ../../Jokosher/Jokosher.glade.h:208
 msgid "System Information"
@@ -834,7 +836,7 @@ msgstr "_Bearbeiten"
 
 #: ../../Jokosher/Jokosher.glade.h:231
 msgid "_Encoding:"
-msgstr ""
+msgstr "_Enkodiere:"
 
 #: ../../Jokosher/Jokosher.glade.h:232
 msgid "_File"
@@ -866,11 +868,11 @@ msgstr "Projekt _abmischen"
 
 #: ../../Jokosher/Jokosher.glade.h:239
 msgid "_Name:"
-msgstr ""
+msgstr "_Name:"
 
 #: ../../Jokosher/Jokosher.glade.h:240
 msgid "_New..."
-msgstr ""
+msgstr "_Neu..."
 
 #: ../../Jokosher/Jokosher.glade.h:241
 msgid "_Online Forums"
@@ -886,11 +888,11 @@ msgstr "Letztes Projekt _öffnen"
 
 #: ../../Jokosher/Jokosher.glade.h:244
 msgid "_Open..."
-msgstr ""
+msgstr "_Öffnen..."
 
 #: ../../Jokosher/Jokosher.glade.h:245
 msgid "_Pipeline:"
-msgstr ""
+msgstr "_Leitung:"
 
 #: ../../Jokosher/Jokosher.glade.h:246
 msgid "_Preferences"
@@ -1224,15 +1226,15 @@ msgstr "Automatisch erkennen"
 
 #: ../../Jokosher/Globals.py:704
 msgid "Use GNOME Settings"
-msgstr ""
+msgstr "GNOME Einstellungen verwenden"
 
 #: ../../Jokosher/Globals.py:712
 msgid "GNOME Settings"
-msgstr ""
+msgstr "GNOME Einstellungen"
 
 #: ../../Jokosher/Globals.py:728
 msgid "Jokosher Audio Editor"
-msgstr ""
+msgstr "Jokosher Audioeditor"
 
 #: ../../Jokosher/IncrementalSave.py:29 ../../Jokosher/Instrument.py:488
 msgid "Recorded audio"
@@ -1250,24 +1252,25 @@ msgstr "Vorgaben"
 #: ../../Jokosher/InstrumentConnectionsDialog.py:105
 #, python-format
 msgid "Default (%s)"
-msgstr ""
+msgstr "Voreinstellung (%s)"
 
 #: ../../Jokosher/InstrumentConnectionsDialog.py:112
 #, python-format
 msgid "%(device)s, input %(input)d"
-msgstr ""
+msgstr "%(device)s, Eingang %(input)d"
 
 #: ../../Jokosher/InstrumentConnectionsDialog.py:157
 #, python-format
 msgid ""
 "The %(sound-system-name)s sound system does not support device selection."
-msgstr ""
+msgstr "Das %(sound-system-name)s Soundsystem unterstützt keine Geräteauswahl."
 
 #: ../../Jokosher/InstrumentConnectionsDialog.py:160
 #, python-format
 msgid ""
 "The \"%(custom-pipeline)s\" sound system does not support device selection."
 msgstr ""
+"Die \"%(custom-pipeline)s\" Soundsystem unterstützt keine Geräteauswahl."
 
 #: ../../Jokosher/InstrumentEffectsDialog.py:140
 #: ../../Jokosher/InstrumentEffectsDialog.py:142
@@ -1352,6 +1355,9 @@ msgid ""
 "selected. Please either disarm one, or connect it to a different input "
 "through 'Project -> Recording Inputs'"
 msgstr ""
+"Für die Instrumente '%(name1)s' und '%(name2)s' wurde der gleiche Eingang "
+"ausgewählt. Bitte schalten Sie entweder eines ab oder verbinden Sie es mit "
+"einem anderen Eingang unter 'Projekt--> Aufnahmeeingänge'"
 
 #: ../../Jokosher/JokosherApp.py:640
 msgid "Preparing to mixdown project"
@@ -1572,7 +1578,7 @@ msgstr "Audiodatei hinzufügen..."
 
 #: ../../Jokosher/JokosherApp.py:1917 ../../Jokosher/JokosherApp.py:1922
 msgid "Mix_down As"
-msgstr ""
+msgstr "Abm_ischen als"
 
 #: ../../Jokosher/MasterMixerStrip.py:46
 msgid "Master Volume:"
@@ -1813,12 +1819,12 @@ msgstr ""
 #: ../../Jokosher/PreferencesDialog.py:75
 #: ../../Jokosher/PreferencesDialog.py:93
 msgid "Custom"
-msgstr ""
+msgstr "Benutzerdefiniert"
 
 #: ../../Jokosher/PreferencesDialog.py:340
 #, python-format
 msgid "Device %d"
-msgstr ""
+msgstr "Gerät %d"
 
 #: ../../Jokosher/ProjectTemplateDialog.py:83
 #: ../../Jokosher/ProjectTemplateDialog.py:87
@@ -1841,44 +1847,49 @@ msgstr "Verkleinerung der Zeitleiste"
 
 #: ../../Jokosher/RecordingView.py:183
 msgid "Would you like to restore the current project?"
-msgstr ""
+msgstr "Möchten Sie das aktuelle Projekt wiederherstellen?"
 
 #: ../../Jokosher/RecordingView.py:184
 msgid ""
 "A crash was detected and changes to your project were not saved.\n"
 "If you would like, you can attempt to recover these lost changes."
 msgstr ""
+"Ein Absturz wurde bemerkt und Änderungen Ihres Projektes wurden nicht "
+"gespeichert.\n"
+"Wenn Sie möchten kann versucht werden diese Änderungen wiederherzustellen."
 
 #: ../../Jokosher/RecordingView.py:188
 msgid "_Restore Project"
-msgstr ""
+msgstr "Projekt wiede_rherstellen"
 
 #: ../../Jokosher/RecordingView.py:322
 msgid "A Gstreamer error has occurred"
-msgstr ""
+msgstr "Ein Fehler in Gstreamer ist aufgetreten"
 
 #: ../../Jokosher/RecordingView.py:335
 msgid "A GStreamer error has occurred."
-msgstr ""
+msgstr "Ein Fehler in Gstreamer ist aufgetreten"
 
 #: ../../Jokosher/RecordingView.py:372
 #, python-format
 msgid "There are %(number)d more errors not shown."
-msgstr ""
+msgstr "%(number)d weitere Fehler werden nicht angezeigt."
 
 #: ../../Jokosher/RecordingView.py:375
 msgid ""
 "If this problem persists consider reporting a bug using the link in the help "
 "menu."
 msgstr ""
+"Falls dieser Fehler nochmals auftauchen sollte, melden Sie diesen bitte, "
+"indem den Link im Hilfemenü benutzen."
 
 #: ../../Jokosher/RecordingView.py:378
 msgid "_Close All"
-msgstr ""
+msgstr "_Alles schließen"
 
 #: ../../Jokosher/RecordingView.py:379
 msgid "_Show All"
-msgstr ""
+msgstr "_Alle anzeigen"
 
 #: ../../Jokosher/TimeLine.py:566
 #, python-format
@@ -1896,7 +1907,7 @@ msgstr ""
 
 #: ../../Jokosher/TimeLineBar.py:64
 msgid "Adjust volume of click track"
-msgstr ""
+msgstr "Lautstärke von click track anpassen"
 
 #: ../../Jokosher/TimeLineBar.py:69
 msgid "Beats per minute"
@@ -2014,528 +2025,623 @@ msgstr "Geige"
 msgid "Vocal"
 msgstr "Sprache/Gesang"
 
-#~ msgid "<b>Audio Output Plugin</b>"
-#~ msgstr "<b>Audio Ausgabe Plugin</b>"
+msgid "<b>Audio Output Plugin</b>"
+msgstr "<b>Audio Ausgabe Plugin</b>"
 
+msgid ""
+"<i>It appears that Jokosher crashed the last time it was used, the following "
+"dialog will help you restore your projects.</i>"
+msgstr ""
+"<i>Es scheint als sei Jokosher abgestürzt, als Sie es das letzte Mal "
+"benutzten. Der folgende Dialog wird Ihnen helfen Ihre Projekte "
+"wiederherzustellen.</i>"
+
+msgid ""
+"Audio production made simple.\n"
+"Version 0.10"
+msgstr ""
+"Audioproduktion leicht gemacht.\n"
+"Version 0.10"
+
+msgid "Create project template from instruments in current project"
+msgstr "Aus den Instrumenten dieses Projektes eine Projektvorlage erstellen"
+
+msgid "O_utput:"
+msgstr "A_usgabe:"
+
+msgid ""
+"Please select which projects you would like to restore from the list below. "
+"If you do not wish to restore a project now you can choose to do so later by "
+"visiting <b>File -> Restore Crashed Project...</b>\n"
+"\n"
+"<b>Warning:</b> Restoring a project from a backup will overwrite the "
+"currently saved version."
+msgstr ""
+"Bitte wählen Sie die Projekte aus der Liste aus, die Sie wiederherstellen "
+"möchten. Falls Sie jetzt kein Projekt wiederherstellen möchten, können Sie "
+"dies später unter <b>Datei -> Projekt wiederhestellen..</b> tun.\n"
+"\n"
+"<b>Warnung:</b> Das Wiederherstellen eines Projekts von einer "
+"Sicherungskopie wird die zur Zeit gespeicherte Version überschreiben."
+
+msgid "There are currently no crashed projects to restore."
+msgstr "Es gibt zur Zeit keine wiederherstellbarten Projekte."
+
+msgid "Are you sure you wish to delete the backup for %s?"
+msgstr "Sind Sie sicher, dass Sie die Sicherung von %s löschen möchten?"
+
+msgid ""
+"The project (%s) has been modified more recently than this backup. Are you "
+"certain you wish to restore it?"
+msgstr ""
+"Das Projekt (%s) wurde nach dieser Sicherung bereits verändert. Sind Sie "
+"sicher, dass Sie es wiederherstellen möchten?"
+
+msgid ""
+"No channels capable of recording have been found, please attach a device and "
+"try again."
+msgstr ""
+"Es wurden keine aufnahmefähigen Kanäle gefunden. Bitte schließen Sie ein "
+"Gerät an und versuchen Sie es erneut."
+
+msgid ""
+"Your sound card isn't capable of recording from multiple sources at the same "
+"time. Please disarm all but one instrument."
+msgstr ""
+"Deine Soundkarte kann nicht von mehreren Quellen gleichzeitig aufnehmen. "
+"Bitte entferne die Scharfschaltung bei allen Instrumenten bis auf eins."
+
+msgid ""
+"You require the GStreamer channel splitting element to be able to record "
+"from multiple input devices. This can be downloaded from http://www.jokosher."
+"org/download."
+msgstr ""
+"Um von mehreren Quellen gleichzeitig aufnehmen zu können, benötigt Jokosher "
+"das \"GStreamer channel splitting\"-Element von http://www.jokosher.org/"
+"download."
+
+msgid "Argh! Something went wrong and a serious error occurred:"
+msgstr ""
+"Argh! Es ist etwas schief gelaufen und ein schwerer Fehler ist passiert:"
+
+msgid "Turn click track on"
+msgstr "Metronom aktivieren"
+
+msgid "Turn click track off"
+msgstr "Metronom deaktivieren"
+
+msgid "Add this step to the current mixdown"
+msgstr "Diesen Arbeitsschritt zum aktuellen Mix hinzufügen"
+
+#, fuzzy
+msgid "Workspaces"
+msgstr "Arbeitsbereiche"
+
+msgid ""
+"16 bit\n"
+"24 bit\n"
+"32 bit"
+msgstr ""
+"16 bit\n"
+"24 bit\n"
+"32 bit"
+
+msgid ""
+"96000\n"
+"48000\n"
+"44100\n"
+"32000\n"
+"24000\n"
+"22050\n"
+"16000\n"
+"11025\n"
+"8000"
+msgstr ""
+"96000\n"
+"48000\n"
+"44100\n"
+"32000\n"
+"24000\n"
+"22050\n"
+"16000\n"
+"11025\n"
+"8000"
+
+msgid "Files Saves As"
+msgstr "Dateien speichern als"
+
+msgid "Output Format"
+msgstr "Ausgabeformat"
+
+msgid "Pre-release Notes"
+msgstr "Aktuelle Informationen"
+
+msgid "Presets"
+msgstr "Vorgaben"
+
+msgid "Preview"
+msgstr "Vorschau"
+
+msgid ""
+"Use the combo boxes below to select which input is used with which instrument"
+msgstr ""
+"Mit den Auswahllisten kannst du bestimmen, welcher Eingang für welches "
+"Instrument verwendet wird"
+
+msgid ""
+"Wave\n"
+"FLAC\n"
+"Ogg Vorbis"
+msgstr ""
+"Wave\n"
+"FLAC\n"
+"Ogg Vorbis"
+
+msgid "translator-credits"
+msgstr ""
+"Dennis Lichtenthäler <dennis.lichtenthaeler@episode-iv.de>\n"
+"\n"
+"Launchpad Contributions:\n"
+"  Ansgar Burchardt https://launchpad.net/~ansgar-43-1\n"
+"  Dennis Lichtenthäler https://launchpad.net/~pvbcharon\n"
+"  Franz Papst https://launchpad.net/~inode-491770\n"
+"  Julian Turner https://launchpad.net/~julian-turner\n"
+"  Lorenz https://launchpad.net/~lorenzloidl\n"
+"  Lydia Pintscher https://launchpad.net/~lydia-pintscher\n"
+"  Marcus Hochstadt https://launchpad.net/~info-hochstadt\n"
+"  Martin Kerz https://launchpad.net/~martinkerz-deactivatedaccount-"
+"deactivatedaccount\n"
+"  Matthias Friedrich https://launchpad.net/~sparktherookie\n"
+"  Michael Stempin https://launchpad.net/~mstempin\n"
+"  Paul Lange https://launchpad.net/~palango\n"
+"  Pierre Vorhagen https://launchpad.net/~pep.\n"
+"  Ramona https://launchpad.net/~muh.\n"
+"  Takkara https://launchpad.net/~takkara\n"
+"  Tim Fuchs https://launchpad.net/~tim-fuchs\n"
+"  Tobias Etzold https://launchpad.net/~rontu\n"
+"  Tobias Frederick https://launchpad.net/~me-tbfr\n"
+"  Tobias Langenbucher https://launchpad.net/~tobias-langenbucher\n"
+"  Unchrist https://launchpad.net/~sergey-kartamyshev\n"
+"  dauerbaustelle https://launchpad.net/~dauerbaustelle\n"
+"  seakayone https://launchpad.net/~launchpad-net-dynamight\n"
+"  simon schultz https://launchpad.net/~ark02"
+
+msgid ""
+"No instruments are armed for recording. You need to arm an instrument before "
+"you can begin recording."
+msgstr ""
+"Es ist kein Instrument scharfgeschaltet. Mindestens ein Instrument muss vor "
+"Beginn der Aufnahme scharfgeschaltet werden."
+
+msgid ""
+"No channels capable of recording have found, please attach a device and try "
+"again."
+msgstr ""
+"Es wurden keine aufnahmebereiten Kanäle gefunden. Bitte schließe ein Gerät "
+"an und versuche es erneut."
+
+msgid ""
+"<big>Notes about this release</big>\n"
+"\n"
+"This version of Jokosher (0.1) is a pre-release version, and is infact, our "
+"very first release. As such, you may encounter some bugs and functionality "
+"that is not present."
+msgstr ""
+"<big>Hinweise zu dieser Version</big>\n"
+"\n"
+"Diese Jokosher-Version (0.1) ist eine sehr frühe Version und, um ehrlich zu "
+"sein, unser allererstes Release. Daher wirst du eventuell einige Fehler oder "
+"fehlende Funktionen finden."
+
+#, fuzzy
+msgid "'Project -> Instrument Connections'"
+msgstr "Anschlüsse"
+
+msgid ""
+"<b>NOTE</b>: The volume sliders in this pre-release version of Jokosher do "
+"not affect the audio."
+msgstr ""
+"<b>Achtung:</b> Die Lautstärkeregler in dieser frühen Version von Jokosher "
+"haben keine Auswirkung."
+
+msgid "Save Files As"
+msgstr "Speichern als"
+
+msgid "foo"
+msgstr "foo"
+
+msgid ""
+"%s\n"
+"\n"
+"File is corrupt, not an audio file, or the associated plugin is not installed"
+msgstr ""
+"%s\n"
+"\n"
+"Die Datei ist beschädigt, keine Audiodatei oder das dafür zuständige Plugin "
+"ist nicht installiert."
+
+msgid "Muted"
+msgstr "Stummgeschaltet"
+
+msgid "Unmuted"
+msgstr "Nicht stummgeschaltet"
+
+msgid ""
+"Jokosher must be restarted in\n"
+"order for changes to take effect."
+msgstr ""
+"Damit die Änderungen wirksam werden,\n"
+"muss Jokosher neu gestarted werden."
+
+msgid "Audio production made simple."
+msgstr "Audioproduktion leicht gemacht."
+
+msgid "FastForward"
+msgstr "Vorspulen"
+
+msgid "Output:"
+msgstr "Ausgabe:"
+
+msgid "Stop"
+msgstr "Anhalten"
+
+msgid "Switch to the Mixing workspace"
+msgstr "Zum Mischbereich wechseln"
+
+msgid "Switch to the Recording workspace"
+msgstr "Zum Aufnahmebereich wechseln"
+
+msgid "version 0.9"
+msgstr "Version 0.9"
+
+msgid "Currently working in the Recording workspace"
+msgstr "Du befindest dich im Aufnahmebereich"
+
+#, fuzzy
+msgid "Currently working in the Mixing workspace"
+msgstr "Du befindest dich im Aufnahmebereich"
+
+#, fuzzy
+msgid "Edit this mixdown step settings"
+msgstr "Diese Misch-Einstellungen speichern"
+
+#, fuzzy
+msgid "Remove this mixdown step"
+msgstr "Diese Misch-Einstellungen speichern"
+
+msgid "Export to %(file)s as %(desc)s"
+msgstr "Exportieren nach %(file)s als %(desc)s"
+
+msgid "Hz"
+msgstr "Hz"
+
+#, fuzzy
 #~ msgid "<b>Project Name</b>"
-#~ msgstr "<b>Projektname</b>"
+#~ msgstr "<b>Effektname</b>"
 
+#, fuzzy
 #~ msgid "<b>Recorded Audio Format</b>"
 #~ msgstr "<b>Aufnahmeformat</b>"
 
+#, fuzzy
 #~ msgid "<b>Recording Sample Rate</b>"
-#~ msgstr "<b>Aufnahmequalität</b>"
+#~ msgstr "<b>Aufnahmeformat</b>"
 
+#, fuzzy
 #~ msgid "<b>Save Time</b>"
-#~ msgstr "<b>Zeit speichern</b>"
+#~ msgstr "<b>Effektname</b>"
 
-#~ msgid ""
-#~ "<i>It appears that Jokosher crashed the last time it was used, the "
-#~ "following dialog will help you restore your projects.</i>"
-#~ msgstr ""
-#~ "<i>Es scheint als sei Jokosher abgestürzt, als Sie es das letzte Mal "
-#~ "benutzten. Der folgende Dialog wird Ihnen helfen Ihre Projekte "
-#~ "wiederherzustellen.</i>"
-
-#~ msgid ""
-#~ "Audio production made simple.\n"
-#~ "Version 0.10"
-#~ msgstr ""
-#~ "Audioproduktion leicht gemacht.\n"
-#~ "Version 0.10"
-
+#, fuzzy
 #~ msgid ""
 #~ "Autodetect\n"
 #~ "ALSA\n"
 #~ "Custom"
-#~ msgstr ""
-#~ "Automatisch\n"
-#~ "ALSA\n"
-#~ "Eingener"
+#~ msgstr "Automatisch erkennen"
 
-#~ msgid "Create project template from instruments in current project"
-#~ msgstr "Aus den Instrumenten dieses Projektes eine Projektvorlage erstellen"
-
+#, fuzzy
 #~ msgid "D_evice:"
-#~ msgstr "_Gerät:"
+#~ msgstr "Ge_rät:"
 
+#, fuzzy
 #~ msgid "New..."
-#~ msgstr "Neu..."
+#~ msgstr "_Neu..."
 
-#~ msgid "O_utput:"
-#~ msgstr "A_usgabe:"
-
+#, fuzzy
 #~ msgid "Open..."
-#~ msgstr "Öffnen..."
+#~ msgstr "_Öffnen..."
 
-#~ msgid ""
-#~ "Please select which projects you would like to restore from the list "
-#~ "below. If you do not wish to restore a project now you can choose to do "
-#~ "so later by visiting <b>File -> Restore Crashed Project...</b>\n"
-#~ "\n"
-#~ "<b>Warning:</b> Restoring a project from a backup will overwrite the "
-#~ "currently saved version."
-#~ msgstr ""
-#~ "Bitte wählen Sie die Projekte aus der Liste aus, die Sie wiederherstellen "
-#~ "möchten. Falls Sie jetzt kein Projekt wiederherstellen möchten, können "
-#~ "Sie dies später unter <b>Datei -> Projekt wiederhestellen..</b> tun.\n"
-#~ "\n"
-#~ "<b>Warnung:</b> Das Wiederherstellen eines Projekts von einer "
-#~ "Sicherungskopie wird die zur Zeit gespeicherte Version überschreiben."
-
+#, fuzzy
 #~ msgid "Restore Crashed Project"
-#~ msgstr "Abgestürztes Projekt wiederherstellen"
+#~ msgstr "Projekt wiede_rherstellen"
 
+#, fuzzy
 #~ msgid "Save As..."
-#~ msgstr "Speichern unter..."
+#~ msgstr "Speichern _unter..."
 
+#, fuzzy
 #~ msgid "_Add Instrument..."
 #~ msgstr "_Instrument hinzufügen..."
 
+#, fuzzy
 #~ msgid "_Create Project Template"
-#~ msgstr "_Projektvorlage erstellen"
+#~ msgstr "Projektvorlagen"
 
+#, fuzzy
 #~ msgid "_Project"
-#~ msgstr "_Projekt"
+#~ msgstr "Neues Projekt"
 
+#, fuzzy
 #~ msgid "_Recording Inputs..."
-#~ msgstr "_Aufnahmeeingänge"
+#~ msgstr "Aufnahm_e-Eingänge..."
 
+#, fuzzy
 #~ msgid "_Restore Crashed Project..."
-#~ msgstr "_Abgestürztes Projekt wiederherstellen..."
+#~ msgstr "Projekt wiede_rherstellen"
 
+#, fuzzy
 #~ msgid "Restore"
-#~ msgstr "Wiederherstellen"
+#~ msgstr "Projekt wiede_rherstellen"
 
-#~ msgid "There are currently no crashed projects to restore."
-#~ msgstr "Es gibt zur Zeit keine wiederherstellbarten Projekte."
-
-#~ msgid "Are you sure you wish to delete the backup for %s?"
-#~ msgstr "Sind Sie sicher, dass Sie die Sicherung von %s löschen möchten?"
-
-#~ msgid ""
-#~ "The project (%s) has been modified more recently than this backup. Are "
-#~ "you certain you wish to restore it?"
-#~ msgstr ""
-#~ "Das Projekt (%s) wurde nach dieser Sicherung bereits verändert. Sind Sie "
-#~ "sicher, dass Sie es wiederherstellen möchten?"
-
+#, fuzzy
 #~ msgid "%(device)s input %(input)d"
-#~ msgstr "%(device)s Eingang %(input)d"
+#~ msgstr "%(device)s, Eingang %(input)d"
 
+#, fuzzy
 #~ msgid ""
 #~ "The instruments '%(name1)s' and '%(name2)s' both have the same input "
 #~ "selected (%(track)s). Please either disarm one, or connect it to a "
 #~ "different input through 'Project -> Recording Inputs'"
 #~ msgstr ""
-#~ "Die Instrumente '%(name1)s' und '%(name2)s' greifen beide auf den "
-#~ "gleichen Eingang zu (%(track)s). Bitte deaktiviere einen, oder stelle "
-#~ "eine andere Verbindung durch 'Projekt -> Aufnahme Inputs' ein."
-
-#~ msgid ""
-#~ "No channels capable of recording have been found, please attach a device "
-#~ "and try again."
-#~ msgstr ""
-#~ "Es wurden keine aufnahmefähigen Kanäle gefunden. Bitte schließen Sie ein "
-#~ "Gerät an und versuchen Sie es erneut."
-
-#~ msgid ""
-#~ "Your sound card isn't capable of recording from multiple sources at the "
-#~ "same time. Please disarm all but one instrument."
-#~ msgstr ""
-#~ "Deine Soundkarte kann nicht von mehreren Quellen gleichzeitig aufnehmen. "
-#~ "Bitte entferne die Scharfschaltung bei allen Instrumenten bis auf eins."
-
-#~ msgid ""
-#~ "You require the GStreamer channel splitting element to be able to record "
-#~ "from multiple input devices. This can be downloaded from http://www."
-#~ "jokosher.org/download."
-#~ msgstr ""
-#~ "Um von mehreren Quellen gleichzeitig aufnehmen zu können, benötigt "
-#~ "Jokosher das \"GStreamer channel splitting\"-Element von http://www."
-#~ "jokosher.org/download."
-
-#~ msgid "Argh! Something went wrong and a serious error occurred:"
-#~ msgstr ""
-#~ "Argh! Es ist etwas schief gelaufen und ein schwerer Fehler ist passiert:"
-
-#~ msgid "Mixdown as"
-#~ msgstr "Mix speichern unter"
-
-#~ msgid "Turn click track on"
-#~ msgstr "Metronom aktivieren"
-
-#~ msgid "Turn click track off"
-#~ msgstr "Metronom deaktivieren"
-
-#~ msgid "Add this step to the current mixdown"
-#~ msgstr "Diesen Arbeitsschritt zum aktuellen Mix hinzufügen"
-
-#~ msgid "Pipeline:"
-#~ msgstr "Warteschlange:"
+#~ "Für die Instrumente '%(name1)s' und '%(name2)s' wurde der gleiche Eingang "
+#~ "ausgewählt. Bitte schalten Sie entweder eines ab oder verbinden Sie es "
+#~ "mit einem anderen Eingang unter 'Projekt--> Aufnahmeeingänge'"
 
 #, fuzzy
-#~ msgid "Workspaces"
-#~ msgstr "Arbeitsbereiche"
+#~ msgid "Mixdown as"
+#~ msgstr "Abm_ischen als"
 
+#, fuzzy
+#~ msgid "Pipeline:"
+#~ msgstr "Le_itung:"
+
+#, fuzzy
 #~ msgid "An unspecified MixdownAction"
-#~ msgstr "Eine nicht spezifizierte MixdownAktion"
+#~ msgstr "Abmischschritt hinzufügen"
 
-#~ msgid ""
-#~ "16 bit\n"
-#~ "24 bit\n"
-#~ "32 bit"
-#~ msgstr ""
-#~ "16 bit\n"
-#~ "24 bit\n"
-#~ "32 bit"
-
-#~ msgid ""
-#~ "96000\n"
-#~ "48000\n"
-#~ "44100\n"
-#~ "32000\n"
-#~ "24000\n"
-#~ "22050\n"
-#~ "16000\n"
-#~ "11025\n"
-#~ "8000"
-#~ msgstr ""
-#~ "96000\n"
-#~ "48000\n"
-#~ "44100\n"
-#~ "32000\n"
-#~ "24000\n"
-#~ "22050\n"
-#~ "16000\n"
-#~ "11025\n"
-#~ "8000"
-
+#, fuzzy
 #~ msgid "<b>Audio Mixdown</b>"
-#~ msgstr "<b>Abmischen</b>"
+#~ msgstr "Abmischaktionen"
 
+#, fuzzy
 #~ msgid "<b>Audio Quality</b>"
-#~ msgstr "<b>Qualität</b>"
+#~ msgstr "<b>Kunst</b>"
 
+#, fuzzy
 #~ msgid "<b>Quality</b>"
-#~ msgstr "<b>Qualität</b>"
+#~ msgstr "<b>Kunst</b>"
 
+#, fuzzy
 #~ msgid ""
 #~ "<b>To find out more, visit:</b>\n"
 #~ "http://www.jokosher.org/contribute"
-#~ msgstr ""
-#~ "<b>Mehr Informationen unter:</b>\n"
-#~ "http://www.jokosher.org/contribute"
+#~ msgstr "<b>Um mehr zu erfahren besuche:</b>"
 
+#, fuzzy
 #~ msgid "Contributing to Jokosher"
-#~ msgstr "Mithelfen"
+#~ msgstr "Jokosher unterstützen"
 
+#, fuzzy
 #~ msgid "Device"
-#~ msgstr "Gerät"
+#~ msgstr "Ge_rät:"
 
-#~ msgid "Files Saves As"
-#~ msgstr "Dateien speichern als"
-
+#, fuzzy
 #~ msgid "General"
-#~ msgstr "Allgemein"
+#~ msgstr "<b>Allgemein</b>"
 
+#, fuzzy
 #~ msgid "Instrument Connections"
-#~ msgstr "Anschlüsse"
+#~ msgstr "Effekte"
 
-#~ msgid "Output Format"
-#~ msgstr "Ausgabeformat"
-
+#, fuzzy
 #~ msgid "Playback"
-#~ msgstr "Wiedergabe"
+#~ msgstr "Wiedergabe stoppen"
 
-#~ msgid "Pre-release Notes"
-#~ msgstr "Aktuelle Informationen"
-
-#~ msgid "Presets"
-#~ msgstr "Vorgaben"
-
-#~ msgid "Preview"
-#~ msgstr "Vorschau"
-
+#, fuzzy
 #~ msgid "Recent Projects"
-#~ msgstr "Bisherige Projekte"
+#~ msgstr "_Letzte Projekte"
 
+#, fuzzy
 #~ msgid "Sample Format"
-#~ msgstr "Sample-Format"
+#~ msgstr "Zei_t Format"
 
+#, fuzzy
 #~ msgid "Sample Rate (Hz)"
-#~ msgstr "Samplingrate (Hz)"
+#~ msgstr "_Abtastrate:"
 
+#, fuzzy
 #~ msgid "Select an effect"
-#~ msgstr "Einen Effekt auswählen"
+#~ msgstr "Effekt _aktivieren"
 
+#, fuzzy
 #~ msgid "Select an effect to add to the instrument"
-#~ msgstr "Wähle einen Effekt aus, der dem Instrument hinzugefügt werden soll"
+#~ msgstr "Das aus der Liste ausgewählte Projekt öffnen"
 
+#, fuzzy
 #~ msgid "Select an instrument, then click here to begin recording"
 #~ msgstr ""
-#~ "Wähle ein Instrument aus und klicke dann hier, um die Aufnahme zu beginnen"
+#~ "Machen Sie ein Instrument bereit und klicken Sie dann hier um die "
+#~ "Aufnahme zu beginnen"
 
+#, fuzzy
 #~ msgid "Show as Bars, Beats, Ticks"
-#~ msgstr "Takte, Schläge und Ticks"
+#~ msgstr "Als _Taktstriche, Beats, Ticks anzeigen"
 
+#, fuzzy
 #~ msgid "Show as Hours, Minutes, Seconds"
-#~ msgstr "Stunden, Minuten, Sekunden"
+#~ msgstr "Als _Stunde, Minute, Sekunde anzeigen"
 
+#, fuzzy
 #~ msgid "Time Format"
-#~ msgstr "Zeitanzeige"
+#~ msgstr "Zei_t Format"
 
-#~ msgid ""
-#~ "Use the combo boxes below to select which input is used with which "
-#~ "instrument"
-#~ msgstr ""
-#~ "Mit den Auswahllisten kannst du bestimmen, welcher Eingang für welches "
-#~ "Instrument verwendet wird"
-
-#~ msgid ""
-#~ "Wave\n"
-#~ "FLAC\n"
-#~ "Ogg Vorbis"
-#~ msgstr ""
-#~ "Wave\n"
-#~ "FLAC\n"
-#~ "Ogg Vorbis"
-
-#~ msgid "translator-credits"
-#~ msgstr ""
-#~ "Dennis Lichtenthäler <dennis.lichtenthaeler@episode-iv.de>\n"
-#~ "\n"
-#~ "Launchpad Contributions:\n"
-#~ "  Ansgar Burchardt https://launchpad.net/~ansgar-43-1\n"
-#~ "  Dennis Lichtenthäler https://launchpad.net/~pvbcharon\n"
-#~ "  Franz Papst https://launchpad.net/~inode-491770\n"
-#~ "  Julian Turner https://launchpad.net/~julian-turner\n"
-#~ "  Lorenz https://launchpad.net/~lorenzloidl\n"
-#~ "  Lydia Pintscher https://launchpad.net/~lydia-pintscher\n"
-#~ "  Marcus Hochstadt https://launchpad.net/~info-hochstadt\n"
-#~ "  Martin Kerz https://launchpad.net/~martinkerz-deactivatedaccount-"
-#~ "deactivatedaccount\n"
-#~ "  Matthias Friedrich https://launchpad.net/~sparktherookie\n"
-#~ "  Michael Stempin https://launchpad.net/~mstempin\n"
-#~ "  Paul Lange https://launchpad.net/~palango\n"
-#~ "  Pierre Vorhagen https://launchpad.net/~pep.\n"
-#~ "  Ramona https://launchpad.net/~muh.\n"
-#~ "  Takkara https://launchpad.net/~takkara\n"
-#~ "  Tim Fuchs https://launchpad.net/~tim-fuchs\n"
-#~ "  Tobias Etzold https://launchpad.net/~rontu\n"
-#~ "  Tobias Frederick https://launchpad.net/~me-tbfr\n"
-#~ "  Tobias Langenbucher https://launchpad.net/~tobias-langenbucher\n"
-#~ "  Unchrist https://launchpad.net/~sergey-kartamyshev\n"
-#~ "  dauerbaustelle https://launchpad.net/~dauerbaustelle\n"
-#~ "  seakayone https://launchpad.net/~launchpad-net-dynamight\n"
-#~ "  simon schultz https://launchpad.net/~ark02"
-
+#, fuzzy
 #~ msgid ""
 #~ "The instruments '%s' and '%s' both have the same input selected (%s). "
 #~ "Please either disarm one, or connect it to a different input through "
 #~ "'Project -> Instrument Connections'"
 #~ msgstr ""
-#~ "Den Instrumenten '%s' und '%s' ist der gleiche Eingang (%s) zugeordnet. "
-#~ "Bitte hebe entweder die Scharfschaltung bei einem der Instrumente auf "
-#~ "oder weise ihm über 'Projekt -> Verbindungen' einen anderen Eingang zu."
-
-#~ msgid ""
-#~ "No instruments are armed for recording. You need to arm an instrument "
-#~ "before you can begin recording."
-#~ msgstr ""
-#~ "Es ist kein Instrument scharfgeschaltet. Mindestens ein Instrument muss "
-#~ "vor Beginn der Aufnahme scharfgeschaltet werden."
-
-#~ msgid ""
-#~ "No channels capable of recording have found, please attach a device and "
-#~ "try again."
-#~ msgstr ""
-#~ "Es wurden keine aufnahmebereiten Kanäle gefunden. Bitte schließe ein "
-#~ "Gerät an und versuche es erneut."
+#~ "Für die Instrumente '%(name1)s' und '%(name2)s' wurde der gleiche Eingang "
+#~ "ausgewählt. Bitte schalten Sie entweder eines ab oder verbinden Sie es "
+#~ "mit einem anderen Eingang unter 'Projekt--> Aufnahmeeingänge'"
 
 #, fuzzy
 #~ msgid "%d of %d seconds completed"
-#~ msgstr "%(progress)d von %(total)d Sekunden fertig gestellt"
+#~ msgstr "%(progress)d%% von %(total)d Sekunden fertig"
 
+#, fuzzy
 #~ msgid ""
 #~ "\n"
 #~ "See http://jokosher.org/trac/wiki/GettingJokosher for more details.\n"
 #~ msgstr ""
 #~ "\n"
-#~ "Mehr Details unter http://jokosher.org/trac/wiki/GettingJokosher\n"
-
-#~ msgid ""
-#~ "<big>Notes about this release</big>\n"
-#~ "\n"
-#~ "This version of Jokosher (0.1) is a pre-release version, and is infact, "
-#~ "our very first release. As such, you may encounter some bugs and "
-#~ "functionality that is not present."
-#~ msgstr ""
-#~ "<big>Hinweise zu dieser Version</big>\n"
-#~ "\n"
-#~ "Diese Jokosher-Version (0.1) ist eine sehr frühe Version und, um ehrlich "
-#~ "zu sein, unser allererstes Release. Daher wirst du eventuell einige "
-#~ "Fehler oder fehlende Funktionen finden."
+#~ "Besuche http://doc.jokosher.org/Installation für mehr Informationen\n"
 
 #, fuzzy
-#~ msgid "'Project -> Instrument Connections'"
-#~ msgstr "Anschlüsse"
-
 #~ msgid "Import Audio File..."
-#~ msgstr "Audiodatei importieren..."
+#~ msgstr "Audiodatei hinzufügen..."
 
+#, fuzzy
 #~ msgid "Paste"
-#~ msgstr "Einfügen"
+#~ msgstr "Phaser"
 
+#, fuzzy
 #~ msgid "Delete"
-#~ msgstr "Löschen"
+#~ msgstr "_Löschen"
 
+#, fuzzy
 #~ msgid "Import file..."
-#~ msgstr "Datei importieren..."
+#~ msgstr "Datei exportieren"
 
-#~ msgid ""
-#~ "<b>NOTE</b>: The volume sliders in this pre-release version of Jokosher "
-#~ "do not affect the audio."
-#~ msgstr ""
-#~ "<b>Achtung:</b> Die Lautstärkeregler in dieser frühen Version von "
-#~ "Jokosher haben keine Auswirkung."
-
+#, fuzzy
 #~ msgid "Split"
-#~ msgstr "Aufteilen"
+#~ msgstr "_Teilen"
 
+#, fuzzy
 #~ msgid "Cut"
-#~ msgstr "Ausschneiden"
+#~ msgstr "Aus_schneiden"
 
+#, fuzzy
 #~ msgid "Copy"
-#~ msgstr "Kopieren"
+#~ msgstr "_Kopieren"
 
+#, fuzzy
 #~ msgid "Instrument Effects..."
 #~ msgstr "Effekte"
 
+#, fuzzy
 #~ msgid "The uri scheme '%s' is either invalid or not supported."
 #~ msgstr ""
-#~ "Das Adressschema '%s' ist entweder ungültig oder wird nicht unterstützt."
+#~ "Das URI-Schema '%s' ist entweder ungültig oder wird nicht unterstützt."
 
+#, fuzzy
 #~ msgid "Master Volume"
-#~ msgstr "Gesamtlautstärke"
+#~ msgstr "Lautstärkeregelung:"
 
+#, fuzzy
 #~ msgid "The uri scheme given is either invalid or not supported"
-#~ msgstr "Das Adressschema ist entweder ungültig oder wird nicht unterstützt"
+#~ msgstr "Das URI-Schema ist entweder ungültig oder wird nicht unterstützt."
 
+#, fuzzy
 #~ msgid "Volume: %.2f"
-#~ msgstr "Lautst.: %.2f"
+#~ msgstr "Lautstärke:"
 
-#~ msgid "Save Files As"
-#~ msgstr "Speichern als"
-
+#, fuzzy
 #~ msgid "_Extensions"
-#~ msgstr "_Erweiterungen"
+#~ msgstr "Erweiterungen"
 
-#~ msgid "foo"
-#~ msgstr "foo"
-
-#~ msgid ""
-#~ "%s\n"
-#~ "\n"
-#~ "File is corrupt, not an audio file, or the associated plugin is not "
-#~ "installed"
-#~ msgstr ""
-#~ "%s\n"
-#~ "\n"
-#~ "Die Datei ist beschädigt, keine Audiodatei oder das dafür zuständige "
-#~ "Plugin ist nicht installiert."
-
+#, fuzzy
 #~ msgid "Solo - silence all other instruments"
-#~ msgstr "Solo - alle anderen Instrumente stummschalten"
+#~ msgstr "Solo aktivieren - alle anderen Instrumente stummschalten"
 
-#~ msgid "Muted"
-#~ msgstr "Stummgeschaltet"
-
-#~ msgid "Unmuted"
-#~ msgstr "Nicht stummgeschaltet"
-
-#~ msgid ""
-#~ "Jokosher must be restarted in\n"
-#~ "order for changes to take effect."
-#~ msgstr ""
-#~ "Damit die Änderungen wirksam werden,\n"
-#~ "muss Jokosher neu gestarted werden."
-
+#, fuzzy
 #~ msgid "Remove curently selected extension"
-#~ msgstr "Ausgewählte Erweiterung entfernen"
+#~ msgstr "Gewählte Erweiterung entfernen"
 
 #, fuzzy
 #~ msgid "<b>Presets for:</b>"
 #~ msgstr "<b>_Voreinstellungen für:</b>"
 
+#, fuzzy
 #~ msgid "Add a new instrument"
-#~ msgstr "Neues Instrument hinzufügen"
+#~ msgstr "Ein Instrument hinzufügen"
 
 #, fuzzy
 #~ msgid "Add a new step:"
-#~ msgstr "Neues Instrument hinzufügen"
-
-#~ msgid "Audio production made simple."
-#~ msgstr "Audioproduktion leicht gemacht."
+#~ msgstr "Ein Instrument hinzufügen"
 
 #, fuzzy
 #~ msgid "Author"
 #~ msgstr "_Autor:"
 
+#, fuzzy
 #~ msgid "Beat value"
-#~ msgstr "Schläge pro Minute"
+#~ msgstr "Takt _wert"
 
 #, fuzzy
 #~ msgid "Beats per measure"
-#~ msgstr "Schläge pro Minute"
+#~ msgstr "Zählzeiten pro _Takt"
 
 #, fuzzy
 #~ msgid "Browse for an Existing Project"
 #~ msgstr "_Nach einem Projekt suchen"
 
+#, fuzzy
 #~ msgid "Create a New Project"
-#~ msgstr "Neues Projekt erstellen"
+#~ msgstr "_Neues Projekt erstellen"
 
 #, fuzzy
 #~ msgid "Device:"
-#~ msgstr "_Gerät:"
+#~ msgstr "Ge_rät:"
 
+#, fuzzy
 #~ msgid "Don't open anything"
-#~ msgstr "Nichts öffnen"
+#~ msgstr "_Nichts öffnen"
 
+#, fuzzy
 #~ msgid "Don't show this on start-up"
-#~ msgstr "Nicht mehr beim Start anzeigen"
+#~ msgstr "_Dies nicht beim Start zeigen"
 
-#~ msgid "FastForward"
-#~ msgstr "Vorspulen"
-
+#, fuzzy
 #~ msgid "Folder"
-#~ msgstr "Ordner"
+#~ msgstr "_Ordner:"
 
+#, fuzzy
 #~ msgid "Mixing"
-#~ msgstr "Abmischen"
+#~ msgstr "Projekt Abmischen"
 
 #, fuzzy
 #~ msgid "Mixing Workspace"
-#~ msgstr "Zum Mischbereich wechseln"
+#~ msgstr "Projekt Abmischen"
 
+#, fuzzy
 #~ msgid "Open Selected Project"
-#~ msgstr "Ausgewähltes Projekt öffnen"
+#~ msgstr "Ausgewähltes Projekt _öffnen"
 
+#, fuzzy
 #~ msgid "Open most recent project"
-#~ msgstr "Letztes Projekt öffnen"
+#~ msgstr "Letztes Projekt _öffnen"
 
-#~ msgid "Output:"
-#~ msgstr "Ausgabe:"
-
+#, fuzzy
 #~ msgid "Preferences"
-#~ msgstr "Einstellungen"
+#~ msgstr "_Einstellungen"
 
+#, fuzzy
 #~ msgid "Project Name"
-#~ msgstr "Projektname"
+#~ msgstr "_Projektname"
 
+#, fuzzy
 #~ msgid "Record"
-#~ msgstr "Aufnahme"
+#~ msgstr "Aufnahme läuft..."
 
 #, fuzzy
 #~ msgid "Recording"
@@ -2543,33 +2649,29 @@ msgstr "Sprache/Gesang"
 
 #, fuzzy
 #~ msgid "Recording Workspace"
-#~ msgstr "Zum Aufnahmebereich wechseln"
+#~ msgstr "<b>Aufnahmeformat</b>"
 
+#, fuzzy
 #~ msgid "Remove Selected Instrument"
-#~ msgstr "Gewähltes Instrument entfernen"
+#~ msgstr "_Ausgewähltes Instrument entfernen"
 
+#, fuzzy
 #~ msgid "Rewind"
-#~ msgstr "Zurückspulen"
+#~ msgstr "Wiederherstellen"
 
+#, fuzzy
 #~ msgid "Save these mixdown settings"
-#~ msgstr "Diese Misch-Einstellungen speichern"
+#~ msgstr "Diese Einstellungen verwenden"
 
 #, fuzzy
 #~ msgid "Search:"
 #~ msgstr "_Suchen:"
 
+#, fuzzy
 #~ msgid "Show welcome dialog"
-#~ msgstr "Willkommen-Dialog anzeigen"
+#~ msgstr "_Willenkommensdialog zeigen"
 
-#~ msgid "Stop"
-#~ msgstr "Anhalten"
-
-#~ msgid "Switch to the Mixing workspace"
-#~ msgstr "Zum Mischbereich wechseln"
-
-#~ msgid "Switch to the Recording workspace"
-#~ msgstr "Zum Aufnahmebereich wechseln"
-
+#, fuzzy
 #~ msgid "_Add Instrument"
 #~ msgstr "Instrument hinzufügen"
 
@@ -2577,79 +2679,72 @@ msgstr "Sprache/Gesang"
 #~ msgid "_Manage Extensions"
 #~ msgstr "_Erweiterungen verwalten"
 
+#, fuzzy
 #~ msgid "_Mixdown Project"
-#~ msgstr "Projekt _abmischen"
+#~ msgstr "Projekt abmischen"
 
 #, fuzzy
 #~ msgid "_Mixdown the project"
-#~ msgstr "Projekt _abmischen"
-
-#~ msgid "_Recording Inputs"
-#~ msgstr "Aufnahmeeingänge"
-
-#~ msgid "_Save these settings"
-#~ msgstr "Einstellungen _speichern"
-
-#~ msgid "version 0.9"
-#~ msgstr "Version 0.9"
-
-#~ msgid "_Paste"
-#~ msgstr "_Einfügen"
-
-#~ msgid "Currently working in the Recording workspace"
-#~ msgstr "Du befindest dich im Aufnahmebereich"
+#~ msgstr "Projekt abmischen"
 
 #, fuzzy
-#~ msgid "Currently working in the Mixing workspace"
-#~ msgstr "Du befindest dich im Aufnahmebereich"
+#~ msgid "_Recording Inputs"
+#~ msgstr "Aufnahm_e-Eingänge..."
 
+#, fuzzy
+#~ msgid "_Save these settings"
+#~ msgstr "Diese Einstellungen verwenden"
+
+#, fuzzy
+#~ msgid "_Paste"
+#~ msgstr "Phaser"
+
+#, fuzzy
 #~ msgid "%(progress)d of %(total)d seconds completed"
-#~ msgstr "%(progress)d von %(total)d Sekunden fertig gestellt"
+#~ msgstr "%(progress)d%% von %(total)d Sekunden fertig"
 
+#, fuzzy
 #~ msgid "_Mixdown as"
-#~ msgstr "_Mix speichern unter"
+#~ msgstr "_Mischen"
 
 #, fuzzy
 #~ msgid "<b>Steps to mixdown %(projectname)s</b>"
 #~ msgstr "Abmischen vorbereiten"
 
 #, fuzzy
-#~ msgid "Edit this mixdown step settings"
-#~ msgstr "Diese Misch-Einstellungen speichern"
+#~ msgid "Don't save these mixdown settings"
+#~ msgstr "Diese Einstellungen verwenden"
 
 #, fuzzy
-#~ msgid "Remove this mixdown step"
-#~ msgstr "Diese Misch-Einstellungen speichern"
-
-#~ msgid "Don't save these mixdown settings"
-#~ msgstr "Misch-Einstellungen verwerfen"
-
 #~ msgid "Choose a name for this profile"
-#~ msgstr "Wähle einen Namen für dieses Profil"
+#~ msgstr "Jokosher-Projektdatei auswählen"
 
+#, fuzzy
 #~ msgid "Export file"
 #~ msgstr "Datei exportieren"
 
-#~ msgid "Export to %(file)s as %(desc)s"
-#~ msgstr "Exportieren nach %(file)s als %(desc)s"
-
+#, fuzzy
 #~ msgid "Export as"
-#~ msgstr "Exportieren als"
+#~ msgstr "Datei exportieren"
 
+#, fuzzy
 #~ msgid "Run script %s"
-#~ msgstr "Skript ausführen %s"
+#~ msgstr "Fehler im Skript %s"
 
+#, fuzzy
 #~ msgid "Run external script"
-#~ msgstr "Externes Skript ausführen"
+#~ msgstr "Externes Skript benutzen"
 
+#, fuzzy
 #~ msgid "No such script %s"
-#~ msgstr "Es gibt kein Skript %s"
+#~ msgstr "Fehler im Skript %s"
 
-#~ msgid "Hz"
-#~ msgstr "Hz"
-
+#, fuzzy
 #~ msgid "Zoom the timeline"
-#~ msgstr "Heranzoomen"
+#~ msgstr "Verkleinerung der Zeitleiste"
 
+#, fuzzy
 #~ msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"
-#~ msgstr "<b>Ziehe</b> den <b>Regler</b>, um die Lautstärke zu ändern"
+#~ msgstr ""
+#~ "<b>Schieben</b> Sie die roten Regler, um das Ausblenden der Lautstärke zu "
+#~ "ändern."

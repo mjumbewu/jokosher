@@ -14,23 +14,20 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2008-09-03 14:40+0000\n"
+"X-Launchpad-Export-Date: 2009-05-30 01:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../../Jokosher/Jokosher.glade.h:1
-#, fuzzy
 msgid "<b>Active effects for: </b>"
-msgstr "<b>效果应用于: </b>"
+msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:2
-#, fuzzy
 msgid "<b>Application Start-up</b>"
-msgstr "<b>启动应用</b>"
+msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:3
-#, fuzzy
 msgid "<b>Art</b>"
-msgstr "<b>艺术效果</b>"
+msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:4
 msgid "<b>Coding</b>"
@@ -61,13 +58,10 @@ msgid "<b>Jokosher Instruments</b>"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:11
-#, fuzzy
 msgid ""
 "<b>Jokosher is an Open Source project that is driven by a community of "
 "contributors. To make Jokosher rock, we need your help!</b>"
 msgstr ""
-"<b>Jokosher是由贡献者团体支持的开放源的项目。为了开创Jokosher的新里程碑，我们"
-"需要您的帮助!</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:12
 msgid "<b>Location Details</b>"
@@ -106,9 +100,8 @@ msgid "<b>Testing</b>"
 msgstr "<b>测试</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:21
-#, fuzzy
 msgid "<b>Time Signature</b>"
-msgstr "<b>时间签名</b>"
+msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:22
 msgid "<b>_Presets for:</b>"
@@ -167,23 +160,20 @@ msgid "Add an instrument"
 msgstr "添加一个工具"
 
 #: ../../Jokosher/Jokosher.glade.h:36
-#, fuzzy
 msgid "Add an instrument to the project"
-msgstr "添加一个工具到这个项目中"
+msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:37
-#, fuzzy
 msgid "Add the selected instrument"
-msgstr "添加一个选中的工具"
+msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:38
 msgid "Add the selected jokosher instrument"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:39
-#, fuzzy
 msgid "Adjust the amount of beats per measure"
-msgstr "调整节奏"
+msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:40
 msgid "Adjust the settings for the currently selected active effect"
@@ -224,9 +214,8 @@ msgid "Change Jokosher preferences"
 msgstr "更改jokosher外观"
 
 #: ../../Jokosher/Jokosher.glade.h:50
-#, fuzzy
 msgid "Change the timeline"
-msgstr "更改时间线"
+msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:51
 msgid "Change the timeline to show bars, beats and ticks"
@@ -337,9 +326,8 @@ msgid "Don't create the project"
 msgstr "不新建项目"
 
 #: ../../Jokosher/Jokosher.glade.h:78
-#, fuzzy
 msgid "Double-click an active effect to adjust its settings"
-msgstr "双击一个生效的效果来调整设置"
+msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:79
 msgid "Double-click an effect to activate it"
@@ -375,9 +363,8 @@ msgid "Enter the project's name"
 msgstr "输入项目名字"
 
 #: ../../Jokosher/Jokosher.glade.h:87
-#, fuzzy
 msgid "Ex_tensions"
-msgstr "扩展"
+msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:88
 msgid "Export current project to an audio file"
@@ -643,9 +630,8 @@ msgid "Select a project to open from the list"
 msgstr "从列表中选择一个项目打开"
 
 #: ../../Jokosher/Jokosher.glade.h:198
-#, fuzzy
 msgid "Select the audio input to use with each instrument."
-msgstr "选择能用于各种乐器的音频导入"
+msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:199
 msgid "Set Time Signature"
@@ -656,9 +642,8 @@ msgid "Settings"
 msgstr "设置"
 
 #: ../../Jokosher/Jokosher.glade.h:201
-#, fuzzy
 msgid "Show as _Bars, Beats, Ticks"
-msgstr "显示为_栏，节拍，记号"
+msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:202
 msgid "Show as _Hours, Minutes, Seconds"
@@ -721,9 +706,8 @@ msgid "User manual contents"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:217
-#, fuzzy
 msgid "Version information, credits and licence"
-msgstr "版本信息，信用和许可"
+msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:218
 msgid "Visit Jokosher's online forums"
@@ -1881,117 +1865,132 @@ msgstr ""
 msgid "Vocal"
 msgstr ""
 
-#~ msgid "<b>Audio Output Plugin</b>"
-#~ msgstr "<b>音频输出控件</b>"
+msgid "<b>Audio Output Plugin</b>"
+msgstr "<b>音频输出控件</b>"
 
-#~ msgid "<b>Recorded Audio Format</b>"
-#~ msgstr "<b>有记录的音频格式</b>"
+msgid "<b>Recorded Audio Format</b>"
+msgstr "<b>有记录的音频格式</b>"
 
-#~ msgid "<b>Recording Sample Rate</b>"
-#~ msgstr "<b>有记录的抽样率</b>"
+msgid "<b>Recording Sample Rate</b>"
+msgstr "<b>有记录的抽样率</b>"
 
+#, fuzzy
+msgid "Audio production made simple."
+msgstr "音频产品变得简单"
+
+msgid "Author"
+msgstr "作者"
+
+#, fuzzy
+msgid "Beat value"
+msgstr "节奏"
+
+#, fuzzy
+msgid "Beats per measure"
+msgstr "每个单位的节奏"
+
+msgid "Device:"
+msgstr "器件"
+
+msgid "Don't show this on start-up"
+msgstr "不显示在启动栏里"
+
+msgid "FastForward"
+msgstr "快进"
+
+msgid "Folder"
+msgstr "文件夹"
+
+msgid "Output:"
+msgstr "导出"
+
+msgid "Pipeline:"
+msgstr "管道"
+
+msgid "Preferences"
+msgstr "外观"
+
+msgid "Recording Workspace"
+msgstr "记录工作空间"
+
+msgid "Search:"
+msgstr "搜索"
+
+msgid "Switch to the Mixing workspace"
+msgstr "转换到混合工作界面"
+
+msgid "Switch to the Recording workspace"
+msgstr "转换到记录工作界面"
+
+msgid "Workspaces"
+msgstr "工作界面"
+
+msgid "version 0.9"
+msgstr "版本0.9"
+
+msgid "_Paste"
+msgstr "_粘贴"
+
+#, fuzzy
 #~ msgid "<b>Presets for:</b>"
-#~ msgstr "<b>为</b>预设"
+#~ msgstr "<b>效果</b>"
 
+#, fuzzy
 #~ msgid "Add a new instrument"
-#~ msgstr "添加一个新工具"
+#~ msgstr "添加一个工具"
 
+#, fuzzy
 #~ msgid "Add a new step:"
-#~ msgstr "添加一个新步骤"
+#~ msgstr "添加一个工具"
 
 #, fuzzy
-#~ msgid "Audio production made simple."
-#~ msgstr "音频产品变得简单"
-
-#~ msgid "Author"
-#~ msgstr "作者"
-
-#, fuzzy
-#~ msgid "Beat value"
-#~ msgstr "节奏"
-
-#, fuzzy
-#~ msgid "Beats per measure"
-#~ msgstr "每个单位的节奏"
-
 #~ msgid "Browse for an Existing Project"
-#~ msgstr "浏览一个存在的项目"
+#~ msgstr "打开一个存在的项目"
 
+#, fuzzy
 #~ msgid "Create a New Project"
-#~ msgstr "新建一个项目"
+#~ msgstr "新建一个新项目"
 
-#~ msgid "Device:"
-#~ msgstr "器件"
-
-#~ msgid "Don't show this on start-up"
-#~ msgstr "不显示在启动栏里"
-
-#~ msgid "FastForward"
-#~ msgstr "快进"
-
-#~ msgid "Folder"
-#~ msgstr "文件夹"
-
+#, fuzzy
 #~ msgid "Mixing"
-#~ msgstr "混合"
+#~ msgstr "混合项目"
 
+#, fuzzy
 #~ msgid "Open Selected Project"
-#~ msgstr "打开选择的项目"
+#~ msgstr "打开一个最近的项目"
 
+#, fuzzy
 #~ msgid "Open most recent project"
-#~ msgstr "打开最近常使用的项目"
+#~ msgstr "打开一个最近的项目"
 
-#~ msgid "Output:"
-#~ msgstr "导出"
-
-#~ msgid "Pipeline:"
-#~ msgstr "管道"
-
-#~ msgid "Preferences"
-#~ msgstr "外观"
-
+#, fuzzy
 #~ msgid "Project Name"
-#~ msgstr "项目名称"
+#~ msgstr "新建项目"
 
+#, fuzzy
 #~ msgid "Record"
-#~ msgstr "记录"
+#~ msgstr "记录中..."
 
+#, fuzzy
 #~ msgid "Recording"
-#~ msgstr "记录"
+#~ msgstr "记录中..."
 
-#~ msgid "Recording Workspace"
-#~ msgstr "记录工作空间"
-
+#, fuzzy
 #~ msgid "Remove Selected Instrument"
-#~ msgstr "移除选择工具"
+#~ msgstr "移除选择的工具"
 
+#, fuzzy
 #~ msgid "Rewind"
-#~ msgstr "倒带"
+#~ msgstr "重复操作"
 
+#, fuzzy
 #~ msgid "Save these mixdown settings"
-#~ msgstr "保存这些混合设置"
-
-#~ msgid "Search:"
-#~ msgstr "搜索"
-
-#~ msgid "Switch to the Mixing workspace"
-#~ msgstr "转换到混合工作界面"
-
-#~ msgid "Switch to the Recording workspace"
-#~ msgstr "转换到记录工作界面"
-
-#~ msgid "Workspaces"
-#~ msgstr "工作界面"
+#~ msgstr "应用这些设置"
 
 #, fuzzy
 #~ msgid "_Add Instrument"
-#~ msgstr "_添加乐器"
+#~ msgstr "添加工具"
 
+#, fuzzy
 #~ msgid "_Save these settings"
-#~ msgstr "保存这些设置"
-
-#~ msgid "version 0.9"
-#~ msgstr "版本0.9"
-
-#~ msgid "_Paste"
-#~ msgstr "_粘贴"
+#~ msgstr "应用这些设置"

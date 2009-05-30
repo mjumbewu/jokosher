@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2008-09-03 14:40+0000\n"
+"X-Launchpad-Export-Date: 2009-05-30 01:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../../Jokosher/Jokosher.glade.h:1
@@ -1303,9 +1303,8 @@ msgstr ""
 "Via ŝanĝoj estos perdita se vi ne surdiskigas la projekton."
 
 #: ../../Jokosher/JokosherApp.py:852
-#, fuzzy
 msgid "Close _Without Saving"
-msgstr "Fermu _Sen Surdiskigado"
+msgstr ""
 
 #: ../../Jokosher/JokosherApp.py:951
 #, python-format
@@ -1882,246 +1881,268 @@ msgstr "Violono"
 msgid "Vocal"
 msgstr "Kantado"
 
-#~ msgid "<b>Audio Output Plugin</b>"
-#~ msgstr "Aŭdelmeto konekto"
+msgid "<b>Audio Output Plugin</b>"
+msgstr "Aŭdelmeto konekto"
 
-#~ msgid "<b>Recorded Audio Format</b>"
-#~ msgstr "<b>Rekordsonda Formato</b>"
+msgid "<b>Recorded Audio Format</b>"
+msgstr "<b>Rekordsonda Formato</b>"
 
+msgid ""
+"Your sound card isn't capable of recording from multiple sources at the same "
+"time. Please disarm all but one instrument."
+msgstr ""
+"La sondokarto eblas rekordi nur unu instrumenton je sama tempo. Bezonu "
+"malkapabligi tutan instrumentojn krom la unuon."
+
+msgid "Turn click track off"
+msgstr "Malŝalti klaksondon"
+
+msgid ""
+"16 bit\n"
+"24 bit\n"
+"32 bit"
+msgstr ""
+"16 bito\n"
+"24 bito\n"
+"32 bito"
+
+msgid ""
+"96000\n"
+"48000\n"
+"44100\n"
+"32000\n"
+"24000\n"
+"22050\n"
+"16000\n"
+"11025\n"
+"8000"
+msgstr ""
+"96000\n"
+"48000\n"
+"44100\n"
+"32000\n"
+"24000\n"
+"22050\n"
+"16000\n"
+"11025\n"
+"8000"
+
+msgid ""
+"<b>To find out more, visit:</b>\n"
+"http://www.jokosher.org/contribute"
+msgstr ""
+"<b>Por trovas pli, vizitu:</b>\n"
+"http://www.jokosher.org/contribute"
+
+msgid "Device"
+msgstr "Aparato"
+
+msgid "General"
+msgstr "Ĝenerala"
+
+msgid "Output Format"
+msgstr "Eliga formato"
+
+msgid "Presets"
+msgstr "Antaŭsetaĵoj"
+
+msgid "Preview"
+msgstr "Antaŭrigardo"
+
+msgid "Select an effect"
+msgstr "Elektu efikon"
+
+msgid "Select an instrument, then click here to begin recording"
+msgstr "Poste elektu instrumenton, klaku ĉi tie por rekordi"
+
+msgid "Show as Hours, Minutes, Seconds"
+msgstr "Vidigu tiel horojn, minutojn, sekundojn"
+
+msgid "Time Format"
+msgstr "Hora Formato"
+
+msgid ""
+"Wave\n"
+"FLAC\n"
+"Ogg Vorbis"
+msgstr ""
+"Wave\n"
+"FLAC\n"
+"Ogg Vorbis"
+
+msgid ""
+"No instruments are armed for recording. You need to arm an instrument before "
+"you can begin recording."
+msgstr ""
+"Nenia instrumentoj estas aktiviga por rekordado. Bezonu aktivigi instrumento "
+"antaŭ komenci rekordadon."
+
+msgid "%d of %d seconds completed"
+msgstr "%d de %d sekundo kompleta"
+
+msgid ""
+"\n"
+"See http://jokosher.org/trac/wiki/GettingJokosher for more details.\n"
+msgstr ""
+"\n"
+"Visitu http://jokosher.org/trac/wiki/GettingJokosher por detalo.\n"
+
+msgid "Paste"
+msgstr "Enmetu"
+
+msgid "Delete"
+msgstr "Forĵetu"
+
+msgid "Import file..."
+msgstr "Importu dosieron..."
+
+msgid "Split"
+msgstr "Dividi"
+
+msgid "Cut"
+msgstr "Eltondu"
+
+msgid "Copy"
+msgstr "Kopiu"
+
+msgid "Master Volume"
+msgstr "Mastra laŭteco"
+
+msgid "Volume: %.2f"
+msgstr "Volumeno: %.2f"
+
+msgid "_Extensions"
+msgstr "_Etendaĵoj"
+
+msgid "Muted"
+msgstr "Muta"
+
+msgid "Unmuted"
+msgstr "Malmuta"
+
+msgid "Audio production made simple."
+msgstr "Muzikproduktado simpligas."
+
+msgid "Don't open anything"
+msgstr "Malfermu nenion"
+
+msgid "Don't show this on start-up"
+msgstr "Ne vidigu ĉi tion dum ekado"
+
+msgid "Folder"
+msgstr "Dosierujo"
+
+msgid "Preferences"
+msgstr "Preferoj"
+
+msgid "Recording"
+msgstr "Rekordado"
+
+msgid "Search:"
+msgstr "Serĉu:"
+
+msgid "Show welcome dialog"
+msgstr "Vidigu ekadan dialogon"
+
+msgid "Switch to the Mixing workspace"
+msgstr "Iru je la miksejo"
+
+msgid "Switch to the Recording workspace"
+msgstr "Iru je la rekordejo"
+
+msgid "Workspaces"
+msgstr "Ejoj"
+
+msgid "Currently working in the Recording workspace"
+msgstr "Je la rekordejo"
+
+msgid "Currently working in the Mixing workspace"
+msgstr "Je la miksejo"
+
+#, fuzzy
 #~ msgid "_Project"
-#~ msgstr "_Projekto"
+#~ msgstr "Nova projekto"
 
-#~ msgid ""
-#~ "Your sound card isn't capable of recording from multiple sources at the "
-#~ "same time. Please disarm all but one instrument."
-#~ msgstr ""
-#~ "La sondokarto eblas rekordi nur unu instrumenton je sama tempo. Bezonu "
-#~ "malkapabligi tutan instrumentojn krom la unuon."
-
-#~ msgid "Turn click track off"
-#~ msgstr "Malŝalti klaksondon"
-
-#~ msgid ""
-#~ "16 bit\n"
-#~ "24 bit\n"
-#~ "32 bit"
-#~ msgstr ""
-#~ "16 bito\n"
-#~ "24 bito\n"
-#~ "32 bito"
-
-#~ msgid ""
-#~ "96000\n"
-#~ "48000\n"
-#~ "44100\n"
-#~ "32000\n"
-#~ "24000\n"
-#~ "22050\n"
-#~ "16000\n"
-#~ "11025\n"
-#~ "8000"
-#~ msgstr ""
-#~ "96000\n"
-#~ "48000\n"
-#~ "44100\n"
-#~ "32000\n"
-#~ "24000\n"
-#~ "22050\n"
-#~ "16000\n"
-#~ "11025\n"
-#~ "8000"
-
+#, fuzzy
 #~ msgid "<b>Audio Mixdown</b>"
-#~ msgstr "<b>Miksu Sondosieron</b>"
+#~ msgstr "<b>Kodado</b>"
 
+#, fuzzy
 #~ msgid "<b>Audio Quality</b>"
-#~ msgstr "<b>Sondeco</b>"
+#~ msgstr "<b>Arto</b>"
 
+#, fuzzy
 #~ msgid "<b>Quality</b>"
-#~ msgstr "<b>Eco</b>"
+#~ msgstr "<b>Arto</b>"
 
-#~ msgid ""
-#~ "<b>To find out more, visit:</b>\n"
-#~ "http://www.jokosher.org/contribute"
-#~ msgstr ""
-#~ "<b>Por trovas pli, vizitu:</b>\n"
-#~ "http://www.jokosher.org/contribute"
-
-#~ msgid "Device"
-#~ msgstr "Aparato"
-
-#~ msgid "General"
-#~ msgstr "Ĝenerala"
-
+#, fuzzy
 #~ msgid "Instrument Connections"
-#~ msgstr "Instrumentkonektoj"
+#~ msgstr "Instrumenta Efikoj"
 
-#~ msgid "Output Format"
-#~ msgstr "Eliga formato"
-
+#, fuzzy
 #~ msgid "Playback"
-#~ msgstr "Ludado"
+#~ msgstr "Haltu ludado"
 
-#~ msgid "Presets"
-#~ msgstr "Antaŭsetaĵoj"
-
-#~ msgid "Preview"
-#~ msgstr "Antaŭrigardo"
-
+#, fuzzy
 #~ msgid "Recent Projects"
-#~ msgstr "Freŝprojektoj"
+#~ msgstr "<b>Freŝprojektoj</b>"
 
-#~ msgid "Select an effect"
-#~ msgstr "Elektu efikon"
-
+#, fuzzy
 #~ msgid "Select an effect to add to the instrument"
-#~ msgstr "Elektu efikon por aldoni al la instrumento"
+#~ msgstr "Elektu projekton de la listo por malfermi"
 
-#~ msgid "Select an instrument, then click here to begin recording"
-#~ msgstr "Poste elektu instrumenton, klaku ĉi tie por rekordi"
-
-#~ msgid "Show as Hours, Minutes, Seconds"
-#~ msgstr "Vidigu tiel horojn, minutojn, sekundojn"
-
-#~ msgid "Time Format"
-#~ msgstr "Hora Formato"
-
-#~ msgid ""
-#~ "Wave\n"
-#~ "FLAC\n"
-#~ "Ogg Vorbis"
-#~ msgstr ""
-#~ "Wave\n"
-#~ "FLAC\n"
-#~ "Ogg Vorbis"
-
-#~ msgid ""
-#~ "No instruments are armed for recording. You need to arm an instrument "
-#~ "before you can begin recording."
-#~ msgstr ""
-#~ "Nenia instrumentoj estas aktiviga por rekordado. Bezonu aktivigi "
-#~ "instrumento antaŭ komenci rekordadon."
-
-#~ msgid "%d of %d seconds completed"
-#~ msgstr "%d de %d sekundo kompleta"
-
-#~ msgid ""
-#~ "\n"
-#~ "See http://jokosher.org/trac/wiki/GettingJokosher for more details.\n"
-#~ msgstr ""
-#~ "\n"
-#~ "Visitu http://jokosher.org/trac/wiki/GettingJokosher por detalo.\n"
-
+#, fuzzy
 #~ msgid "Import Audio File..."
-#~ msgstr "Importu sondosieron..."
+#~ msgstr "Sondosiero"
 
-#~ msgid "Paste"
-#~ msgstr "Enmetu"
-
-#~ msgid "Delete"
-#~ msgstr "Forĵetu"
-
-#~ msgid "Import file..."
-#~ msgstr "Importu dosieron..."
-
-#~ msgid "Split"
-#~ msgstr "Dividi"
-
-#~ msgid "Cut"
-#~ msgstr "Eltondu"
-
-#~ msgid "Copy"
-#~ msgstr "Kopiu"
-
+#, fuzzy
 #~ msgid "Instrument Effects..."
-#~ msgstr "Instrumentaj Efikoj..."
+#~ msgstr "Instrumenta Efikoj"
 
-#~ msgid "Master Volume"
-#~ msgstr "Mastra laŭteco"
-
-#~ msgid "Volume: %.2f"
-#~ msgstr "Volumeno: %.2f"
-
-#~ msgid "_Extensions"
-#~ msgstr "_Etendaĵoj"
-
+#, fuzzy
 #~ msgid "Solo - silence all other instruments"
-#~ msgstr "Sola - silentigu tutajn aliajn instrumentojn"
+#~ msgstr "Muta - silentigu la instrumenton"
 
-#~ msgid "Muted"
-#~ msgstr "Muta"
-
-#~ msgid "Unmuted"
-#~ msgstr "Malmuta"
-
+#, fuzzy
 #~ msgid "Remove curently selected extension"
-#~ msgstr "Elprenu elektan etendaĵon"
+#~ msgstr "Kopiu la elektaĵon"
 
+#, fuzzy
 #~ msgid "Add a new instrument"
-#~ msgstr "Aldonu novan instrumenton"
+#~ msgstr "Aldonu instrumenton"
 
-#~ msgid "Audio production made simple."
-#~ msgstr "Muzikproduktado simpligas."
-
+#, fuzzy
 #~ msgid "Author"
-#~ msgstr "Aŭtoro"
+#~ msgstr "Nekonatan Aŭtoron"
 
+#, fuzzy
 #~ msgid "Browse for an Existing Project"
-#~ msgstr "Foliumilu por projekton"
+#~ msgstr "Malfermu malnovan projekton"
 
+#, fuzzy
 #~ msgid "Create a New Project"
-#~ msgstr "Kreu Novan Projekton"
+#~ msgstr "Kreu novan projekton"
 
-#~ msgid "Don't open anything"
-#~ msgstr "Malfermu nenion"
-
-#~ msgid "Don't show this on start-up"
-#~ msgstr "Ne vidigu ĉi tion dum ekado"
-
-#~ msgid "Folder"
-#~ msgstr "Dosierujo"
-
+#, fuzzy
 #~ msgid "Mixing"
-#~ msgstr "Miksado"
+#~ msgstr "Projekta Miksado"
 
+#, fuzzy
 #~ msgid "Open Selected Project"
-#~ msgstr "Malfermu elektan projekton"
+#~ msgstr "Malfermu freŝprojekton"
 
+#, fuzzy
 #~ msgid "Open most recent project"
-#~ msgstr "Malfermu la plej freŝan projekton"
+#~ msgstr "Malfermu freŝprojekton"
 
-#~ msgid "Preferences"
-#~ msgstr "Preferoj"
-
+#, fuzzy
 #~ msgid "Project Name"
-#~ msgstr "Projekta Nomo"
+#~ msgstr "Nova projekto"
 
-#~ msgid "Recording"
-#~ msgstr "Rekordado"
-
-#~ msgid "Search:"
-#~ msgstr "Serĉu:"
-
-#~ msgid "Show welcome dialog"
-#~ msgstr "Vidigu ekadan dialogon"
-
-#~ msgid "Switch to the Mixing workspace"
-#~ msgstr "Iru je la miksejo"
-
-#~ msgid "Switch to the Recording workspace"
-#~ msgstr "Iru je la rekordejo"
-
-#~ msgid "Workspaces"
-#~ msgstr "Ejoj"
-
+#, fuzzy
 #~ msgid "_Manage Extensions"
-#~ msgstr "_Manaĝu Etendaĵojn"
+#~ msgstr "Aldonu etendaĵon"
 
+#, fuzzy
 #~ msgid "_Mixdown Project"
-#~ msgstr "_Miksado de Projekto"
-
-#~ msgid "Currently working in the Recording workspace"
-#~ msgstr "Je la rekordejo"
-
-#~ msgid "Currently working in the Mixing workspace"
-#~ msgstr "Je la miksejo"
+#~ msgstr "Miksado de Projekto"

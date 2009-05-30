@@ -3,7 +3,6 @@
 # This file is distributed under the same license as the jokosher package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2006.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: jokosher\n"
@@ -15,21 +14,20 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Rosetta-Export-Date: 2007-02-12 21:28+0000\n"
+"X-Launchpad-Export-Date: 2009-05-30 01:36+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
 
 #: ../../Jokosher/Jokosher.glade.h:1
 msgid "<b>Active effects for: </b>"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:2
-#, fuzzy
 msgid "<b>Application Start-up</b>"
-msgstr "<b>Апликациско стартување</b>"
+msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:3
-#, fuzzy
 msgid "<b>Art</b>"
-msgstr "<b>Арт</b>"
+msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:4
 msgid "<b>Coding</b>"
@@ -223,9 +221,8 @@ msgid "Change the timeline"
 msgstr "Промени ја временската линија"
 
 #: ../../Jokosher/Jokosher.glade.h:51
-#, fuzzy
 msgid "Change the timeline to show bars, beats and ticks"
-msgstr "Промени ја временската линија да покажува тактици, удари и отчукувања"
+msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:52
 msgid "Change the timeline to show hours, minutes and seconds"
@@ -252,14 +249,12 @@ msgid "Choose one or more instruments to add to your project."
 msgstr "Изберете еден или повќе инструменти за додавање на Вашиот проект."
 
 #: ../../Jokosher/Jokosher.glade.h:58
-#, fuzzy
 msgid "Click and hold to fast forward"
-msgstr "Кликнете и држете за брзо одење нанапред"
+msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:59
-#, fuzzy
 msgid "Click and hold to rewind"
-msgstr "Кликнете и држете за одење наназад"
+msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:60
 msgid "Close the current project"
@@ -346,9 +341,8 @@ msgid "Double-click on a recent project to open"
 msgstr "Двоен-клик на скорешниот проект за отварање"
 
 #: ../../Jokosher/Jokosher.glade.h:81
-#, fuzzy
 msgid "Drawing icons, images and other art."
-msgstr "Цртање на икони, слики и други творби."
+msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:82
 msgid "Edit Jokosher preferences"
@@ -479,9 +473,8 @@ msgid "Jokosher Errors"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:159
-#, fuzzy
 msgid "Listen to these effects"
-msgstr "Слушнете ги овие ефекти"
+msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:160
 msgid "Manage instrument recording inputs"
@@ -532,9 +525,8 @@ msgid "P_ipeline:"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:172
-#, fuzzy
 msgid "Paste the contents of the clipboard"
-msgstr "Вметни ја содржината од таблата за копирање"
+msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:173
 msgid ""
@@ -601,9 +593,8 @@ msgid "Save a copy of the current project"
 msgstr "Запамти копија од моменталниот проект"
 
 #: ../../Jokosher/Jokosher.glade.h:188 ../../Jokosher/JokosherApp.py:601
-#, fuzzy
 msgid "Save as file type:"
-msgstr "Запамти како тип на датотека:"
+msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:189
 msgid "Save preferences and close"
@@ -730,9 +721,8 @@ msgid "Welcome to Jokosher!"
 msgstr "Добредојдовте во Jokosher!"
 
 #: ../../Jokosher/Jokosher.glade.h:220
-#, fuzzy
 msgid "Writing code and features in Python."
-msgstr "Пишување на код во Python"
+msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:221
 msgid "Writing simple to read documentation."
@@ -976,13 +966,10 @@ msgid "Recording..."
 msgstr ""
 
 #: ../../Jokosher/EventViewer.py:512
-#, fuzzy
 msgid ""
 "To <b>Split, Double-Click</b> the wave - To <b>Select, Shift-Click</b> and "
 "drag the mouse"
 msgstr ""
-"За <b>разделување, двоен-клик</b> на бранот - за <b>селектирање, shift-клик</"
-"b> и влечење на глувчето"
 
 #: ../../Jokosher/EventViewer.py:526
 msgid "<b>Drag</b> the red sliders to modify the volume fade."
@@ -1440,9 +1427,9 @@ msgid "The URI scheme '%s' is either invalid or not supported."
 msgstr "URI шемата '%s' е или невалидна или не е поддржана."
 
 #: ../../Jokosher/JokosherApp.py:1750
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to unzip the project file %s"
-msgstr "Неможам да ја одзипувам датотеката на проектот %s"
+msgstr ""
 
 #: ../../Jokosher/JokosherApp.py:1752
 #, python-format
@@ -1882,9 +1869,8 @@ msgid "Harmonica"
 msgstr "Усна хармоника"
 
 #: i18n.instr.h:11
-#, fuzzy
 msgid "Keyboard"
-msgstr "Клавијатура"
+msgstr ""
 
 #: i18n.instr.h:12
 msgid "Other"
@@ -1915,87 +1901,97 @@ msgid "Vocal"
 msgstr "Вокал"
 
 #, fuzzy
-#~ msgid "<b>Recorded Audio Format</b>"
-#~ msgstr "<b>Аудио формат на снимање</b>"
+msgid "<b>Recorded Audio Format</b>"
+msgstr "<b>Аудио формат на снимање</b>"
 
-#~ msgid "_Project"
-#~ msgstr "_Проект"
+msgid ""
+"No channels capable of recording have been found, please attach a device and "
+"try again."
+msgstr ""
+"Не беше пронајден ниту еден канал способен за снимање. Ве молиме приклучете "
+"соодветен уред и пробајте повторно."
 
-#~ msgid ""
-#~ "No channels capable of recording have been found, please attach a device "
-#~ "and try again."
-#~ msgstr ""
-#~ "Не беше пронајден ниту еден канал способен за снимање. Ве молиме "
-#~ "приклучете соодветен уред и пробајте повторно."
-
-#~ msgid ""
-#~ "Your sound card isn't capable of recording from multiple sources at the "
-#~ "same time. Please disarm all but one instrument."
-#~ msgstr ""
-#~ "Вашата звучна картичка не е во можност да снима од повеќе извори "
-#~ "истоврмено. Ве молиме исклучете ги сите, освен еден инструмент."
+msgid ""
+"Your sound card isn't capable of recording from multiple sources at the same "
+"time. Please disarm all but one instrument."
+msgstr ""
+"Вашата звучна картичка не е во можност да снима од повеќе извори истоврмено. "
+"Ве молиме исклучете ги сите, освен еден инструмент."
 
 #, fuzzy
-#~ msgid "Audio production made simple."
-#~ msgstr "Аудио продукција со леснотија."
+msgid "Audio production made simple."
+msgstr "Аудио продукција со леснотија."
 
-#~ msgid "Recording"
-#~ msgstr "Снимање"
+msgid "Recording"
+msgstr "Снимање"
 
-#~ msgid "Switch to the Recording workspace"
-#~ msgstr "Промени работна околина во околина за снимање"
+msgid "Switch to the Recording workspace"
+msgstr "Промени работна околина во околина за снимање"
 
-#~ msgid "Workspaces"
-#~ msgstr "Работни околини"
+msgid "Workspaces"
+msgstr "Работни околини"
 
-#~ msgid "Currently working in the Recording workspace"
-#~ msgstr "Моментално работите во околината за снимање"
+msgid "Currently working in the Recording workspace"
+msgstr "Моментално работите во околината за снимање"
 
+msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"
+msgstr "<b>Влечете</b> го <b>лизгачот</b> за менување на нивото на јачина"
+
+msgid "Don't open anything"
+msgstr "Не отварај ништо"
+
+msgid "Don't show this on start-up"
+msgstr "Не го прикажувај ова при стартување"
+
+msgid "Folder"
+msgstr "Директориум"
+
+msgid "Preferences"
+msgstr "Параметри"
+
+msgid "Search:"
+msgstr "Барај:"
+
+#, fuzzy
+msgid "Show welcome dialog"
+msgstr "Прикажи го почетниот дијалог"
+
+#, fuzzy
+#~ msgid "_Project"
+#~ msgstr "Нов проект"
+
+#, fuzzy
 #~ msgid "Zoom the timeline"
-#~ msgstr "Зумирај временска линија"
+#~ msgstr "Промени ја временската линија"
 
-#~ msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"
-#~ msgstr "<b>Влечете</b> го <b>лизгачот</b> за менување на нивото на јачина"
-
+#, fuzzy
 #~ msgid "Add a new instrument"
-#~ msgstr "Додади нов инструмент"
+#~ msgstr "Додади инструмент"
 
+#, fuzzy
 #~ msgid "Author"
-#~ msgstr "Автор"
+#~ msgstr "Непознат автор"
 
+#, fuzzy
 #~ msgid "Browse for an Existing Project"
-#~ msgstr "Разгледај за веќе постоечки проект"
+#~ msgstr "Отвори веќе постоечки проект"
 
+#, fuzzy
 #~ msgid "Create a New Project"
 #~ msgstr "Креирај нов проект"
 
-#~ msgid "Don't open anything"
-#~ msgstr "Не отварај ништо"
-
-#~ msgid "Don't show this on start-up"
-#~ msgstr "Не го прикажувај ова при стартување"
-
-#~ msgid "Folder"
-#~ msgstr "Директориум"
-
+#, fuzzy
 #~ msgid "Open Selected Project"
-#~ msgstr "Отвори избран проект"
-
-#~ msgid "Open most recent project"
-#~ msgstr "Отвори најскорешен проект"
-
-#~ msgid "Preferences"
-#~ msgstr "Параметри"
-
-#~ msgid "Project Name"
-#~ msgstr "Име на проект"
-
-#~ msgid "Search:"
-#~ msgstr "Барај:"
+#~ msgstr "Отвори скорешен проект"
 
 #, fuzzy
-#~ msgid "Show welcome dialog"
-#~ msgstr "Прикажи го почетниот дијалог"
+#~ msgid "Open most recent project"
+#~ msgstr "Отвори скорешен проект"
 
+#, fuzzy
+#~ msgid "Project Name"
+#~ msgstr "Нов проект"
+
+#, fuzzy
 #~ msgid "_Manage Extensions"
-#~ msgstr "Уре_дување проширувања"
+#~ msgstr "Додади проширување"

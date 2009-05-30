@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-02-18 04:36+0000\n"
+"X-Launchpad-Export-Date: 2009-05-30 01:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../../Jokosher/Jokosher.glade.h:1
@@ -134,9 +134,8 @@ msgid "Add Audio _File..."
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:29
-#, fuzzy
 msgid "Add Instrument"
-msgstr "Add an instrument"
+msgstr "Add Instrument"
 
 #: ../../Jokosher/Jokosher.glade.h:30
 msgid "Add Mixdown Action"
@@ -1981,160 +1980,163 @@ msgstr "Violin"
 msgid "Vocal"
 msgstr "Vocal"
 
-#~ msgid "<b>Audio Output Plugin</b>"
-#~ msgstr "<b>Audio Output Plugin</b>"
+msgid "<b>Audio Output Plugin</b>"
+msgstr "<b>Audio Output Plugin</b>"
 
+msgid "<b>Recording Sample Rate</b>"
+msgstr "<b>Recording Sample Rate</b>"
+
+msgid ""
+"Autodetect\n"
+"ALSA\n"
+"Custom"
+msgstr ""
+"Autodetect\n"
+"ALSA\n"
+"Custom"
+
+msgid "%(device)s input %(input)d"
+msgstr "%(device)s input %(input)d"
+
+msgid ""
+"The instruments '%(name1)s' and '%(name2)s' both have the same input "
+"selected (%(track)s). Please either disarm one, or connect it to a different "
+"input through 'Project -> Recording Inputs'"
+msgstr ""
+"The instruments '%(name1)s' and '%(name2)s' both have the same input "
+"selected (%(track)s). Please either disarm one, or connect it to a different "
+"input through 'Project -> Recording Inputs'"
+
+msgid ""
+"No channels capable of recording have been found, please attach a device and "
+"try again."
+msgstr ""
+"No channels capable of recording have been found, please attach a device and "
+"try again."
+
+msgid ""
+"Your sound card isn't capable of recording from multiple sources at the same "
+"time. Please disarm all but one instrument."
+msgstr ""
+"Your sound card isn't capable of recording from multiple sources at the same "
+"time. Please disarm all but one instrument."
+
+msgid ""
+"You require the GStreamer channel splitting element to be able to record "
+"from multiple input devices. This can be downloaded from http://www.jokosher."
+"org/download."
+msgstr ""
+"You require the GStreamer channel splitting element to be able to record "
+"from multiple input devices. This can be downloaded from http://www.jokosher."
+"org/download."
+
+msgid "Argh! Something went wrong and a serious error occurred:"
+msgstr "Argh! Something went wrong and a serious error occurred:"
+
+msgid "Turn click track on"
+msgstr "Turn click track on"
+
+msgid "Turn click track off"
+msgstr "Turn click track off"
+
+msgid "Add this step to the current mixdown"
+msgstr "Add this step to the current mixdown"
+
+msgid "Audio production made simple."
+msgstr "Audio production made simple."
+
+msgid "Beat value"
+msgstr "Beat value"
+
+msgid "Device:"
+msgstr "Device:"
+
+msgid "Don't open anything"
+msgstr "Don't open anything"
+
+msgid "FastForward"
+msgstr "FastForward"
+
+msgid "Output:"
+msgstr "Output:"
+
+msgid "Pipeline:"
+msgstr "Pipeline:"
+
+msgid "Preferences"
+msgstr "Preferences"
+
+msgid "Recording Workspace"
+msgstr "Recording Workspace"
+
+msgid "Search:"
+msgstr "Search:"
+
+msgid "Show welcome dialog"
+msgstr "Show welcome dialog"
+
+msgid "Stop"
+msgstr "Stop"
+
+msgid "Switch to the Mixing workspace"
+msgstr "Switch to the Mixing workspace"
+
+msgid "Switch to the Recording workspace"
+msgstr "Switch to the Recording workspace"
+
+msgid "Workspaces"
+msgstr "Workspaces"
+
+msgid "version 0.9"
+msgstr "version 0.9"
+
+msgid "Currently working in the Recording workspace"
+msgstr "Currently working in the Recording workspace"
+
+msgid "Currently working in the Mixing workspace"
+msgstr "Currently working in the Mixing workspace"
+
+msgid "%(progress)d of %(total)d seconds completed"
+msgstr "%(progress)d of %(total)d seconds completed"
+
+msgid "Edit this mixdown step settings"
+msgstr "Edit this mixdown step settings"
+
+msgid "Remove this mixdown step"
+msgstr "Remove this mixdown step"
+
+msgid "Export file"
+msgstr "Export file"
+
+msgid "An unspecified MixdownAction"
+msgstr "An unspecified MixdownAction"
+
+msgid "Export to %(file)s as %(desc)s"
+msgstr "Export to %(file)s as %(desc)s"
+
+msgid "Export as"
+msgstr "Export as"
+
+msgid "Run external script"
+msgstr "Run external script"
+
+msgid "Hz"
+msgstr "Hz"
+
+msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"
+msgstr "<b>Drag</b> the <b>slider</b> to alter volume levels"
+
+#, fuzzy
 #~ msgid "<b>Recorded Audio Format</b>"
-#~ msgstr "<b>Recorded Audio Format</b>"
+#~ msgstr "Recorded audio"
 
-#~ msgid "<b>Recording Sample Rate</b>"
-#~ msgstr "<b>Recording Sample Rate</b>"
-
-#~ msgid ""
-#~ "Autodetect\n"
-#~ "ALSA\n"
-#~ "Custom"
-#~ msgstr ""
-#~ "Autodetect\n"
-#~ "ALSA\n"
-#~ "Custom"
-
+#, fuzzy
 #~ msgid "_Project"
-#~ msgstr "_Project"
+#~ msgstr "New Project"
 
-#~ msgid "%(device)s input %(input)d"
-#~ msgstr "%(device)s input %(input)d"
-
-#~ msgid ""
-#~ "The instruments '%(name1)s' and '%(name2)s' both have the same input "
-#~ "selected (%(track)s). Please either disarm one, or connect it to a "
-#~ "different input through 'Project -> Recording Inputs'"
-#~ msgstr ""
-#~ "The instruments '%(name1)s' and '%(name2)s' both have the same input "
-#~ "selected (%(track)s). Please either disarm one, or connect it to a "
-#~ "different input through 'Project -> Recording Inputs'"
-
-#~ msgid ""
-#~ "No channels capable of recording have been found, please attach a device "
-#~ "and try again."
-#~ msgstr ""
-#~ "No channels capable of recording have been found, please attach a device "
-#~ "and try again."
-
-#~ msgid ""
-#~ "Your sound card isn't capable of recording from multiple sources at the "
-#~ "same time. Please disarm all but one instrument."
-#~ msgstr ""
-#~ "Your sound card isn't capable of recording from multiple sources at the "
-#~ "same time. Please disarm all but one instrument."
-
-#~ msgid ""
-#~ "You require the GStreamer channel splitting element to be able to record "
-#~ "from multiple input devices. This can be downloaded from http://www."
-#~ "jokosher.org/download."
-#~ msgstr ""
-#~ "You require the GStreamer channel splitting element to be able to record "
-#~ "from multiple input devices. This can be downloaded from http://www."
-#~ "jokosher.org/download."
-
-#~ msgid "Argh! Something went wrong and a serious error occurred:"
-#~ msgstr "Argh! Something went wrong and a serious error occurred:"
-
+#, fuzzy
 #~ msgid "Mixdown as"
-#~ msgstr "Mixdown as"
-
-#~ msgid "Turn click track on"
-#~ msgstr "Turn click track on"
-
-#~ msgid "Turn click track off"
-#~ msgstr "Turn click track off"
-
-#~ msgid "Add this step to the current mixdown"
-#~ msgstr "Add this step to the current mixdown"
-
-#~ msgid "Audio production made simple."
-#~ msgstr "Audio production made simple."
-
-#~ msgid "Beat value"
-#~ msgstr "Beat value"
-
-#~ msgid "Device:"
-#~ msgstr "Device:"
-
-#~ msgid "Don't open anything"
-#~ msgstr "Don't open anything"
-
-#~ msgid "FastForward"
-#~ msgstr "FastForward"
-
-#~ msgid "Output:"
-#~ msgstr "Output:"
-
-#~ msgid "Pipeline:"
-#~ msgstr "Pipeline:"
-
-#~ msgid "Preferences"
-#~ msgstr "Preferences"
-
-#~ msgid "Recording Workspace"
-#~ msgstr "Recording Workspace"
-
-#~ msgid "Search:"
-#~ msgstr "Search:"
-
-#~ msgid "Show welcome dialog"
-#~ msgstr "Show welcome dialog"
-
-#~ msgid "Stop"
-#~ msgstr "Stop"
-
-#~ msgid "Switch to the Mixing workspace"
-#~ msgstr "Switch to the Mixing workspace"
-
-#~ msgid "Switch to the Recording workspace"
-#~ msgstr "Switch to the Recording workspace"
-
-#~ msgid "Workspaces"
-#~ msgstr "Workspaces"
-
-#~ msgid "version 0.9"
-#~ msgstr "version 0.9"
-
-#~ msgid "Currently working in the Recording workspace"
-#~ msgstr "Currently working in the Recording workspace"
-
-#~ msgid "Currently working in the Mixing workspace"
-#~ msgstr "Currently working in the Mixing workspace"
-
-#~ msgid "%(progress)d of %(total)d seconds completed"
-#~ msgstr "%(progress)d of %(total)d seconds completed"
-
-#~ msgid "Edit this mixdown step settings"
-#~ msgstr "Edit this mixdown step settings"
-
-#~ msgid "Remove this mixdown step"
-#~ msgstr "Remove this mixdown step"
-
-#~ msgid "Export file"
-#~ msgstr "Export file"
-
-#~ msgid "An unspecified MixdownAction"
-#~ msgstr "An unspecified MixdownAction"
-
-#~ msgid "Export to %(file)s as %(desc)s"
-#~ msgstr "Export to %(file)s as %(desc)s"
-
-#~ msgid "Export as"
-#~ msgstr "Export as"
-
-#~ msgid "Run external script"
-#~ msgstr "Run external script"
-
-#~ msgid "Hz"
-#~ msgstr "Hz"
-
-#~ msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"
-#~ msgstr "<b>Drag</b> the <b>slider</b> to alter volume levels"
+#~ msgstr "Mixdown Project"
 
 #, fuzzy
 #~ msgid "<b>Presets for:</b>"
@@ -2190,7 +2192,7 @@ msgstr "Vocal"
 
 #, fuzzy
 #~ msgid "Project Name"
-#~ msgstr "_Project"
+#~ msgstr "New Project"
 
 #, fuzzy
 #~ msgid "Record"
@@ -2214,7 +2216,7 @@ msgstr "Vocal"
 
 #, fuzzy
 #~ msgid "_Add Instrument"
-#~ msgstr "_Instrument"
+#~ msgstr "Add Instrument"
 
 #, fuzzy
 #~ msgid "_Manage Extensions"
@@ -2242,7 +2244,7 @@ msgstr "Vocal"
 
 #, fuzzy
 #~ msgid "_Mixdown as"
-#~ msgstr "Mixdown as"
+#~ msgstr "Mixdown Project"
 
 #, fuzzy
 #~ msgid "<b>Steps to mixdown %(projectname)s</b>"

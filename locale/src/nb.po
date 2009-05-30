@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: jokosher\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-03-17 02:00+0000\n"
-"PO-Revision-Date: 2007-04-05 13:04+0000\n"
+"PO-Revision-Date: 2009-02-18 07:02+0000\n"
 "Last-Translator: Henrik Width <henrik.width@gmail.com>\n"
 "Language-Team: Norwegian Bokmål <nb@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-02-18 04:36+0000\n"
+"X-Launchpad-Export-Date: 2009-05-30 01:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../../Jokosher/Jokosher.glade.h:1
@@ -1977,336 +1977,418 @@ msgstr "Fiolin"
 msgid "Vocal"
 msgstr "Vokal"
 
-#~ msgid "<b>Audio Output Plugin</b>"
-#~ msgstr "<b>Audioutgang utvidelsespakke</b>"
+msgid "<b>Audio Output Plugin</b>"
+msgstr "<b>Audioutgang utvidelsespakke</b>"
 
+msgid "<b>Recording Sample Rate</b>"
+msgstr "<b>Opptaks-samplingsrate</b>"
+
+msgid ""
+"Autodetect\n"
+"ALSA\n"
+"Custom"
+msgstr ""
+"Auto-oppdag\n"
+"ALSA\n"
+"Custom"
+
+msgid "%(device)s input %(input)d"
+msgstr "%(device)s inngang %(input)d"
+
+msgid ""
+"The instruments '%(name1)s' and '%(name2)s' both have the same input "
+"selected (%(track)s). Please either disarm one, or connect it to a different "
+"input through 'Project -> Recording Inputs'"
+msgstr ""
+"Instrumentene '%(name1)s' og '%(name2)s' har begge samme inngangsvalg (%"
+"(track)s). Vennligst koble fra en eller koble den til en annen inngang "
+"gjennom 'Prosjekt -> Inngangsvalg'"
+
+msgid ""
+"No channels capable of recording have been found, please attach a device and "
+"try again."
+msgstr ""
+"Finner ingen kanaler som kan spille inn, vennligst koble til en enhet og "
+"prøv igjen."
+
+msgid ""
+"Your sound card isn't capable of recording from multiple sources at the same "
+"time. Please disarm all but one instrument."
+msgstr ""
+"Lydkortet ditt kan ikke spille inn fra flere kilder samtidig. Vennligst velg "
+"kun et instrument."
+
+msgid ""
+"You require the GStreamer channel splitting element to be able to record "
+"from multiple input devices. This can be downloaded from http://www.jokosher."
+"org/download."
+msgstr ""
+"Du krever GStreamers kanaldelende element for å kunne ta opp fra flere "
+"innganger samtidig. Denne kan lastes ned fra http://www.jokosher.org/"
+"download."
+
+msgid "Argh! Something went wrong and a serious error occurred:"
+msgstr "Whæ! noe gikk galt og en alvorlig feil oppsto:"
+
+msgid "Turn click track on"
+msgstr "Skru click track på"
+
+msgid "Turn click track off"
+msgstr "Skru click track av"
+
+#, fuzzy
+msgid ""
+"16 bit\n"
+"24 bit\n"
+"32 bit"
+msgstr ""
+"16 biter\n"
+"24 biter\n"
+"32 biter"
+
+#, fuzzy
+msgid "General"
+msgstr "Generelt"
+
+#, fuzzy
+msgid "Presets"
+msgstr "Maler"
+
+#, fuzzy
+msgid ""
+"Wave\n"
+"FLAC\n"
+"Ogg Vorbis"
+msgstr ""
+"Wave\n"
+"FLAC\n"
+"Ogg Vorbis"
+
+#, fuzzy
+msgid "Files Saves As"
+msgstr "Lagre filer som"
+
+msgid "Add this step to the current mixdown"
+msgstr "Legg til steg i nedmiksingen"
+
+msgid "Audio production made simple."
+msgstr "Enkel lydproduksjon"
+
+msgid "FastForward"
+msgstr "Hurtigspol fremover"
+
+msgid "Recording Workspace"
+msgstr "Opptaksområde"
+
+msgid "Stop"
+msgstr "Stopp"
+
+msgid "Switch to the Mixing workspace"
+msgstr "Bytt til mikseområde"
+
+msgid "Switch to the Recording workspace"
+msgstr "Bytt til opptaksområde"
+
+msgid "Workspaces"
+msgstr "Arbeidsområder"
+
+#, fuzzy
+msgid "version 0.10"
+msgstr "Versjon 0.9"
+
+msgid "Currently working in the Recording workspace"
+msgstr "Arbeider i opptaksområde"
+
+msgid "Currently working in the Mixing workspace"
+msgstr "Arbeider i mikseområde"
+
+msgid "%(progress)d of %(total)d seconds completed"
+msgstr "%(progress)d av %(total)d sekunder ferdig"
+
+msgid "Edit this mixdown step settings"
+msgstr "Rediger innstillingene for dette nedmikssteget"
+
+msgid "Remove this mixdown step"
+msgstr "Fjern dette nedmikssteget"
+
+msgid "Export file"
+msgstr "Eksporter fil"
+
+msgid "An unspecified MixdownAction"
+msgstr "En uspesifisert nedmiksingshandling"
+
+msgid "Export to %(file)s as %(desc)s"
+msgstr "Eksporter til %(file)s som %(desc)s"
+
+msgid "Export as"
+msgstr "Eksporter som"
+
+msgid "Run external script"
+msgstr "Kjør eksternt skript"
+
+msgid "Hz"
+msgstr "Hz"
+
+msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"
+msgstr "<b>Dra slideren</b> for å endre volumnivå"
+
+msgid "Beat value"
+msgstr "Beatverdi"
+
+msgid "Device:"
+msgstr "Enhet:"
+
+msgid "Don't open anything"
+msgstr "Ikke åpne noe"
+
+msgid "Output:"
+msgstr "Ut:"
+
+msgid "Pipeline:"
+msgstr "Pipeline:"
+
+msgid "Preferences"
+msgstr "Innstillinger"
+
+msgid "Search:"
+msgstr "Søk:"
+
+msgid "Show welcome dialog"
+msgstr "Vis velkomstdialogen"
+
+msgid ""
+"96000\n"
+"48000\n"
+"44100\n"
+"32000\n"
+"24000\n"
+"22050\n"
+"16000\n"
+"11025\n"
+"8000"
+msgstr ""
+"96000\n"
+"48000\n"
+"44100\n"
+"32000\n"
+"24000\n"
+"22050\n"
+"16000\n"
+"11025\n"
+"8000"
+
+msgid "Device"
+msgstr "Enhet"
+
+msgid "Pre-release Notes"
+msgstr "Før-utgivelsesbemærkninger"
+
+msgid "Preview"
+msgstr "Forhåndsbilde"
+
+msgid ""
+"Use the combo boxes below to select which input is used with which instrument"
+msgstr ""
+"Bruk kombinasjonsboksene under for å velge hvilken input som skal brukes for "
+"respektive instrument"
+
+msgid "translator-credits"
+msgstr ""
+"oversetterliste\n"
+"\n"
+"Launchpad Contributions:\n"
+"  Bård Aase https://launchpad.net/~elzapp\n"
+"  Christoffer Heggem https://launchpad.net/~ch-fu3\n"
+"  Hender https://launchpad.net/~simsalabimladen\n"
+"  Henrik Width https://launchpad.net/~henrikwidth"
+
+msgid "Import file..."
+msgstr "Importer fil..."
+
+msgid ""
+"%s\n"
+"\n"
+"File is corrupt, not an audio file, or the associated plugin is not installed"
+msgstr ""
+"%s\n"
+"\n"
+"Filen er ødelagt, enten er den ingen lydfil, eller så er tilhørende plugin "
+"ikke installert"
+
+msgid "Muted"
+msgstr "Dempet"
+
+msgid "Unmuted"
+msgstr "Ikke-dempet"
+
+msgid "%d of %d seconds completed"
+msgstr "%d av %d sekunder klargjort"
+
+#, fuzzy
 #~ msgid "<b>Recorded Audio Format</b>"
-#~ msgstr "<b>Opptaksformat</b>"
+#~ msgstr "Innspilt lyd"
 
-#~ msgid "<b>Recording Sample Rate</b>"
-#~ msgstr "<b>Opptaks-samplingsrate</b>"
-
-#~ msgid ""
-#~ "Autodetect\n"
-#~ "ALSA\n"
-#~ "Custom"
-#~ msgstr ""
-#~ "Auto-oppdag\n"
-#~ "ALSA\n"
-#~ "Custom"
-
+#, fuzzy
 #~ msgid "_Project"
-#~ msgstr "_Prosjekt"
+#~ msgstr "Nytt prosjekt"
 
-#~ msgid "%(device)s input %(input)d"
-#~ msgstr "%(device)s inngang %(input)d"
-
-#~ msgid ""
-#~ "The instruments '%(name1)s' and '%(name2)s' both have the same input "
-#~ "selected (%(track)s). Please either disarm one, or connect it to a "
-#~ "different input through 'Project -> Recording Inputs'"
-#~ msgstr ""
-#~ "Instrumentene '%(name1)s' og '%(name2)s' har begge samme inngangsvalg (%"
-#~ "(track)s). Vennligst koble fra en eller koble den til en annen inngang "
-#~ "gjennom 'Prosjekt -> Inngangsvalg'"
-
-#~ msgid ""
-#~ "No channels capable of recording have been found, please attach a device "
-#~ "and try again."
-#~ msgstr ""
-#~ "Finner ingen kanaler som kan spille inn, vennligst koble til en enhet og "
-#~ "prøv igjen."
-
-#~ msgid ""
-#~ "Your sound card isn't capable of recording from multiple sources at the "
-#~ "same time. Please disarm all but one instrument."
-#~ msgstr ""
-#~ "Lydkortet ditt kan ikke spille inn fra flere kilder samtidig. Vennligst "
-#~ "velg kun et instrument."
-
-#~ msgid ""
-#~ "You require the GStreamer channel splitting element to be able to record "
-#~ "from multiple input devices. This can be downloaded from http://www."
-#~ "jokosher.org/download."
-#~ msgstr ""
-#~ "Du krever GStreamers kanaldelende element for å kunne ta opp fra flere "
-#~ "innganger samtidig. Denne kan lastes ned fra http://www.jokosher.org/"
-#~ "download."
-
-#~ msgid "Argh! Something went wrong and a serious error occurred:"
-#~ msgstr "Whæ! noe gikk galt og en alvorlig feil oppsto:"
-
+#, fuzzy
 #~ msgid "Mixdown as"
-#~ msgstr "Miks ned som"
-
-#~ msgid "Turn click track on"
-#~ msgstr "Skru click track på"
-
-#~ msgid "Turn click track off"
-#~ msgstr "Skru click track av"
+#~ msgstr "Miks ned prosjekt"
 
 #, fuzzy
-#~ msgid ""
-#~ "16 bit\n"
-#~ "24 bit\n"
-#~ "32 bit"
-#~ msgstr ""
-#~ "16 biter\n"
-#~ "24 biter\n"
-#~ "32 biter"
-
-#, fuzzy
-#~ msgid "General"
-#~ msgstr "Generelt"
-
-#, fuzzy
-#~ msgid "Presets"
-#~ msgstr "Maler"
-
-#, fuzzy
-#~ msgid ""
-#~ "Wave\n"
-#~ "FLAC\n"
-#~ "Ogg Vorbis"
-#~ msgstr ""
-#~ "Wave\n"
-#~ "FLAC\n"
-#~ "Ogg Vorbis"
-
-#, fuzzy
-#~ msgid "Files Saves As"
-#~ msgstr "Lagre filer som"
-
 #~ msgid "Add a new step:"
-#~ msgstr "Legg til et nytt steg"
-
-#~ msgid "Add this step to the current mixdown"
-#~ msgstr "Legg til steg i nedmiksingen"
-
-#~ msgid "Audio production made simple."
-#~ msgstr "Enkel lydproduksjon"
-
-#~ msgid "FastForward"
-#~ msgstr "Hurtigspol fremover"
-
-#~ msgid "Mixing"
-#~ msgstr "Miksing"
-
-#~ msgid "Mixing Workspace"
-#~ msgstr "Mikseområde"
-
-#~ msgid "Record"
-#~ msgstr "Opptak"
-
-#~ msgid "Recording"
-#~ msgstr "Tar opp"
-
-#~ msgid "Recording Workspace"
-#~ msgstr "Opptaksområde"
-
-#~ msgid "Rewind"
-#~ msgstr "Spol tilbake"
-
-#~ msgid "Save these mixdown settings"
-#~ msgstr "Lagre instillinger for nedmiks"
-
-#~ msgid "Stop"
-#~ msgstr "Stopp"
-
-#~ msgid "Switch to the Mixing workspace"
-#~ msgstr "Bytt til mikseområde"
-
-#~ msgid "Switch to the Recording workspace"
-#~ msgstr "Bytt til opptaksområde"
-
-#~ msgid "Workspaces"
-#~ msgstr "Arbeidsområder"
-
-#~ msgid "_Mixdown the project"
-#~ msgstr "_Miks ned prosjekt"
-
-#~ msgid "_Save these settings"
-#~ msgstr "_Lagre instillinger"
+#~ msgstr "Legg til et instrument"
 
 #, fuzzy
-#~ msgid "version 0.10"
-#~ msgstr "Versjon 0.9"
+#~ msgid "Mixing"
+#~ msgstr "Mikser prosjekt"
 
+#, fuzzy
+#~ msgid "Mixing Workspace"
+#~ msgstr "Mikser prosjekt"
+
+#, fuzzy
+#~ msgid "Record"
+#~ msgstr "Tar opp..."
+
+#, fuzzy
+#~ msgid "Recording"
+#~ msgstr "Tar opp..."
+
+#, fuzzy
+#~ msgid "Rewind"
+#~ msgstr "Gjør om"
+
+#, fuzzy
+#~ msgid "Save these mixdown settings"
+#~ msgstr "Bruk disse instillingene"
+
+#, fuzzy
+#~ msgid "_Mixdown the project"
+#~ msgstr "Miks ned prosjekt"
+
+#, fuzzy
+#~ msgid "_Save these settings"
+#~ msgstr "Bruk disse instillingene"
+
+#, fuzzy
 #~ msgid "_Paste"
-#~ msgstr "_Lim inn"
+#~ msgstr "Phasers"
 
-#~ msgid "Currently working in the Recording workspace"
-#~ msgstr "Arbeider i opptaksområde"
-
-#~ msgid "Currently working in the Mixing workspace"
-#~ msgstr "Arbeider i mikseområde"
-
-#~ msgid "%(progress)d of %(total)d seconds completed"
-#~ msgstr "%(progress)d av %(total)d sekunder ferdig"
-
+#, fuzzy
 #~ msgid "_Mixdown as"
-#~ msgstr "_Miks ned som"
+#~ msgstr "Miks ned prosjekt"
 
+#, fuzzy
 #~ msgid "_Mixdown Project"
-#~ msgstr "_Miks ned prosjekt"
+#~ msgstr "Miks ned prosjekt"
 
+#, fuzzy
 #~ msgid "<b>Steps to mixdown %(projectname)s</b>"
-#~ msgstr "<b>Steg for nedmiks %(projectname)s</b>"
+#~ msgstr "Forbereder nedmiksing av prosjektet"
 
-#~ msgid "Edit this mixdown step settings"
-#~ msgstr "Rediger innstillingene for dette nedmikssteget"
-
-#~ msgid "Remove this mixdown step"
-#~ msgstr "Fjern dette nedmikssteget"
-
+#, fuzzy
 #~ msgid "Don't save these mixdown settings"
-#~ msgstr "Ikke lagre disse nedmiks-instillingene"
+#~ msgstr "Bruk disse instillingene"
 
+#, fuzzy
 #~ msgid "Choose a name for this profile"
-#~ msgstr "Velg et navn for denne profilen"
+#~ msgstr "Velg en Jokosher prosjektfil"
 
-#~ msgid "Export file"
-#~ msgstr "Eksporter fil"
-
-#~ msgid "An unspecified MixdownAction"
-#~ msgstr "En uspesifisert nedmiksingshandling"
-
-#~ msgid "Export to %(file)s as %(desc)s"
-#~ msgstr "Eksporter til %(file)s som %(desc)s"
-
-#~ msgid "Export as"
-#~ msgstr "Eksporter som"
-
+#, fuzzy
 #~ msgid "Run script %s"
-#~ msgstr "Kjør skript %s"
+#~ msgstr "Feil i skript %s"
 
-#~ msgid "Run external script"
-#~ msgstr "Kjør eksternt skript"
-
-#~ msgid "Hz"
-#~ msgstr "Hz"
-
+#, fuzzy
 #~ msgid "Zoom the timeline"
-#~ msgstr "Førstørr tidslinjen"
+#~ msgstr "Endre tidslinjen"
 
-#~ msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"
-#~ msgstr "<b>Dra slideren</b> for å endre volumnivå"
-
+#, fuzzy
 #~ msgid "<b>Presets for:</b>"
-#~ msgstr "<b>Standard-instillinger for:</b>"
+#~ msgstr "<b>Aktive effekter for: </b>"
 
+#, fuzzy
 #~ msgid "Add a new instrument"
-#~ msgstr "Legg til et nytt instrument"
+#~ msgstr "Legg til et instrument"
 
+#, fuzzy
 #~ msgid "Author"
-#~ msgstr "Eier"
+#~ msgstr "Ukjent Artist"
 
-#~ msgid "Beat value"
-#~ msgstr "Beatverdi"
-
+#, fuzzy
 #~ msgid "Beats per measure"
-#~ msgstr "Beats per measure"
+#~ msgstr "Beats i minuttet"
 
+#, fuzzy
 #~ msgid "Browse for an Existing Project"
-#~ msgstr "Finn et eksisterende prosjekt"
+#~ msgstr "Åpne et eksisterende prosjekt"
 
+#, fuzzy
 #~ msgid "Create a New Project"
 #~ msgstr "Lag et nytt prosjekt"
 
-#~ msgid "Device:"
-#~ msgstr "Enhet:"
-
-#~ msgid "Don't open anything"
-#~ msgstr "Ikke åpne noe"
-
+#, fuzzy
 #~ msgid "Don't show this on start-up"
-#~ msgstr "Ikke vis dette ved oppstart"
+#~ msgstr "Ikke last utvidelse under oppstart"
 
+#, fuzzy
 #~ msgid "Folder"
-#~ msgstr "Mappe"
+#~ msgstr "Filter"
 
+#, fuzzy
 #~ msgid "Open Selected Project"
-#~ msgstr "Åpne valgt prosjekt"
+#~ msgstr "Åpne et nylig prosjekt"
 
+#, fuzzy
 #~ msgid "Open most recent project"
-#~ msgstr "Åpne nyeste prosjekt"
+#~ msgstr "Åpne et nylig prosjekt"
 
-#~ msgid "Output:"
-#~ msgstr "Ut:"
-
-#~ msgid "Pipeline:"
-#~ msgstr "Pipeline:"
-
-#~ msgid "Preferences"
-#~ msgstr "Innstillinger"
-
+#, fuzzy
 #~ msgid "Project Name"
-#~ msgstr "Prosjektnavn"
+#~ msgstr "Nytt prosjekt"
 
+#, fuzzy
 #~ msgid "Remove Selected Instrument"
 #~ msgstr "Fjern det valgte instrumentet"
 
-#~ msgid "Search:"
-#~ msgstr "Søk:"
-
-#~ msgid "Show welcome dialog"
-#~ msgstr "Vis velkomstdialogen"
-
+#, fuzzy
 #~ msgid "_Add Instrument"
-#~ msgstr "_Legg til instrument"
+#~ msgstr "Legg til instrument"
 
+#, fuzzy
 #~ msgid "_Manage Extensions"
-#~ msgstr "_Håndter Utvidelser"
+#~ msgstr "Ut_videlser"
 
+#, fuzzy
 #~ msgid "_Recording Inputs"
-#~ msgstr "_Opptaksinnganger"
+#~ msgstr "Tar opp..."
 
+#, fuzzy
 #~ msgid "No such script %s"
-#~ msgstr "Finner ikke skript %s"
-
-#~ msgid ""
-#~ "96000\n"
-#~ "48000\n"
-#~ "44100\n"
-#~ "32000\n"
-#~ "24000\n"
-#~ "22050\n"
-#~ "16000\n"
-#~ "11025\n"
-#~ "8000"
-#~ msgstr ""
-#~ "96000\n"
-#~ "48000\n"
-#~ "44100\n"
-#~ "32000\n"
-#~ "24000\n"
-#~ "22050\n"
-#~ "16000\n"
-#~ "11025\n"
-#~ "8000"
+#~ msgstr "Feil i skript %s"
 
 #, fuzzy
 #~ msgid "<b>Audio Mixdown</b>"
-#~ msgstr "Lydkvalitet"
+#~ msgstr "<b>Koding</b>"
 
+#, fuzzy
 #~ msgid "<b>Audio Quality</b>"
-#~ msgstr "Lydkvalitet"
+#~ msgstr "<b>Kunst</b>"
 
+#, fuzzy
 #~ msgid "<b>Quality</b>"
-#~ msgstr "Kvalitet"
+#~ msgstr "<b>Kunst</b>"
 
+#, fuzzy
 #~ msgid ""
 #~ "<b>To find out more, visit:</b>\n"
 #~ "http://www.jokosher.org/contribute"
-#~ msgstr ""
-#~ "<b>For å finne ut mer, besøk:</b>\n"
-#~ "http://www.jokosher.org/contribute"
+#~ msgstr "<b>For å finne ut mer, besøk:</b>"
 
+#, fuzzy
 #~ msgid "Contributing to Jokosher"
-#~ msgstr "Å bidra til Jokosher"
-
-#~ msgid "Device"
-#~ msgstr "Enhet"
+#~ msgstr "_Bidra til jokosher"
 
 #, fuzzy
 #~ msgid "Instrument Connections"
@@ -2316,12 +2398,6 @@ msgstr "Vokal"
 #~ msgid "Playback"
 #~ msgstr "Stopp avspilling"
 
-#~ msgid "Pre-release Notes"
-#~ msgstr "Før-utgivelsesbemærkninger"
-
-#~ msgid "Preview"
-#~ msgstr "Forhåndsbilde"
-
 #, fuzzy
 #~ msgid "Recent Projects"
 #~ msgstr "_Nylige prosjekt"
@@ -2330,75 +2406,46 @@ msgstr "Vokal"
 #~ msgid "Select an effect"
 #~ msgstr "_Aktiver effekt"
 
+#, fuzzy
 #~ msgid "Select an effect to add to the instrument"
-#~ msgstr "Velg en effekt å legge til instrumentet"
+#~ msgstr "Velg et prosjekt fra listen og åpne det"
 
+#, fuzzy
 #~ msgid "Select an instrument, then click here to begin recording"
 #~ msgstr "Velg et instrument og klikk her for å begynne opptak"
 
+#, fuzzy
 #~ msgid "Show as Bars, Beats, Ticks"
-#~ msgstr "Vis som Bars, Beats, Ticks"
+#~ msgstr "Vis som _Bars, Beats, Ticks"
 
+#, fuzzy
 #~ msgid "Show as Hours, Minutes, Seconds"
-#~ msgstr "Vis som timer, minutter, sekunder"
+#~ msgstr "Vis som _Timer, Minutter, Sekunder"
 
+#, fuzzy
 #~ msgid "Time Format"
-#~ msgstr "Tidsformat"
+#~ msgstr "_Tidsformat"
 
-#~ msgid ""
-#~ "Use the combo boxes below to select which input is used with which "
-#~ "instrument"
-#~ msgstr ""
-#~ "Bruk kombinasjonsboksene under for å velge hvilken input som skal brukes "
-#~ "for respektive instrument"
-
+#, fuzzy
 #~ msgid "_Extensions"
-#~ msgstr "_Utvidelser"
+#~ msgstr "Ut_videlser"
 
-#~ msgid "translator-credits"
-#~ msgstr ""
-#~ "oversetterliste\n"
-#~ "\n"
-#~ "Launchpad Contributions:\n"
-#~ "  Bård Aase https://launchpad.net/~elzapp\n"
-#~ "  Christoffer Heggem https://launchpad.net/~ch-fu3\n"
-#~ "  Hender https://launchpad.net/~simsalabimladen\n"
-#~ "  Henrik Width https://launchpad.net/~henrikwidth"
-
+#, fuzzy
 #~ msgid "Import Audio File..."
-#~ msgstr "Importer Lydfil..."
+#~ msgstr "Legg til lydfil"
 
+#, fuzzy
 #~ msgid "Paste"
-#~ msgstr "Lim inn"
+#~ msgstr "Phasers"
 
+#, fuzzy
 #~ msgid "Delete"
-#~ msgstr "Slett"
+#~ msgstr "_Slett"
 
-#~ msgid "Import file..."
-#~ msgstr "Importer fil..."
-
+#, fuzzy
 #~ msgid "Copy"
-#~ msgstr "Kopier"
+#~ msgstr "_Kopier"
 
-#~ msgid ""
-#~ "%s\n"
-#~ "\n"
-#~ "File is corrupt, not an audio file, or the associated plugin is not "
-#~ "installed"
-#~ msgstr ""
-#~ "%s\n"
-#~ "\n"
-#~ "Filen er ødelagt, enten er den ingen lydfil, eller så er tilhørende "
-#~ "plugin ikke installert"
-
+#, fuzzy
 #~ msgid "Solo - silence all other instruments"
-#~ msgstr "Solo - lyd fra kun dette instrumentet"
-
-#~ msgid "Muted"
-#~ msgstr "Dempet"
-
-#~ msgid "Unmuted"
-#~ msgstr "Ikke-dempet"
-
-#~ msgid "%d of %d seconds completed"
-#~ msgstr "%d av %d sekunder klargjort"
+#~ msgstr "Aktiver solo - demp alle andre instrumenter"
