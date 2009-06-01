@@ -233,7 +233,7 @@ class PreferencesDialog:
 			Globals.settings.playback["devicename"] = self.playbackDevice.get_active_text()
 			Globals.settings.playback["device"] = new_device
 			
-			if old_device != new_device:
+			if old_device != new_device and self.project:
 				self.project.SetProjectSinkDevice()
 		else:
 			Globals.settings.playback["devicename"] = ""
