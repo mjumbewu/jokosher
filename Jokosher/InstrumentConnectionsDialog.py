@@ -112,7 +112,7 @@ class InstrumentConnectionsDialog:
 						s = _("%(device)s (%(id)s), input %(input)d")
 						display = s % {"device":deviceName, "id":device, "input":input}
 					else:
-						display = deviceName
+						display = _("%(device)s (%(id)s)") % {"device":deviceName, "id":device}
 					self.devices_list.append((device, deviceName, input))
 					liststore.append((display,))
 		
