@@ -167,7 +167,6 @@ class FreesoundSearch:
 		self.scrollResults.add_with_viewport(self.vboxResults)
 		self.api.set_window_icon(self.window)
 		self.imageHeader.set_from_file(pkg_resources.resource_filename(__name__, "images/banner.png"))
-		self.statusbar.push(0, _("Tip: To add a sample to your project, drag and drop it into the recording view"))
 		
 		self.window.show_all()
 		
