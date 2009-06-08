@@ -380,7 +380,6 @@ class FreesoundSearch:
 			except gkey.DeniedError, gkey.NoMatchError:
 				pass
 		else:
-			Globals.debug("Gnome keyring is unavailable, falling back to text file")
 			password = self.api.get_config_value("fsPassword")
 		
 		if username is not None:
@@ -436,7 +435,6 @@ class FreesoundSearch:
 						password,
 						True)
 			else:
-				Globals.debug("Gnome keyring is unavailable, falling back to text file")
 				self.api.set_config_value("fsPassword", password)
 
 			gobject.idle_add(self.loginWindow.destroy)
