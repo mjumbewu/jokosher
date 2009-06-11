@@ -18,6 +18,12 @@ import urllib, os, Queue, threading
 import freesound
 import pkg_resources
 
+try:
+	import gnomekeyring as gkey
+	keyring = True
+except:
+	keyring = False
+
 import gettext
 _ = gettext.gettext
 
@@ -36,7 +42,7 @@ class FreesoundSearch:
 	
 	# necessary extension attributes
 	EXTENSION_NAME = _("Freesound search")
-	EXTENSION_VERSION = "0.3"
+	EXTENSION_VERSION = "0.4"
 	EXTENSION_DESCRIPTION = _("Searches the Freesound library of freely" + \
 							" licenceable and useable sound clips")
 	
@@ -161,7 +167,6 @@ class FreesoundSearch:
 		self.scrollResults.add_with_viewport(self.vboxResults)
 		self.api.set_window_icon(self.window)
 		self.imageHeader.set_from_file(pkg_resources.resource_filename(__name__, "images/banner.png"))
-		self.statusbar.push(0, _("Tip: To add a sample to your project, drag and drop it into the recording view"))
 		
 		self.window.show_all()
 		
@@ -363,12 +368,24 @@ class FreesoundSearch:
 		self.buttonOK.set_flags(gtk.CAN_DEFAULT)
 		self.buttonOK.grab_default()
 		self.api.set_window_icon(self.loginWindow)
+	
+		# set the entry text to the saved values
+		username = self.api.get_config_value("fsUsername")
+		if username is not None and keyring:
+			password = None
+			try:
+				items = gkey.find_items_sync(gkey.ITEM_NETWORK_PASSWORD, {"username" : username})
+				if len(items) > 0:
+					password = items[0].secret
+			except gkey.DeniedError, gkey.NoMatchError:
+				pass
+		else:
+			password = self.api.get_config_value("fsPassword")
 		
-		# set the entries's text to the saved values
-		if self.api.get_config_value("fsUsername") is not None:
-			self.entryUsername.set_text(self.api.get_config_value("fsUsername"))
-		if self.api.get_config_value("fsPassword") is not None:
-			self.entryPassword.set_text(self.api.get_config_value("fsPassword"))
+		if username is not None:
+			self.entryUsername.set_text(username)
+		if password is not None:
+			self.entryPassword.set_text(password)
 		
 		if warning:
 			self.labelWarning.set_label(warning)
@@ -399,7 +416,9 @@ class FreesoundSearch:
 	def FinishLogin(self, username, password):
 		"""
 		Attempts to login in to confirm the given credentials.
-		If successful, they're written to a local file for subsequent use.
+		If successful, the username is written to a local file for subsequent use
+		and the password is saved in the user's keyring (if available, or a local
+		file otherwise).
 		
 		The GUI calls are done using gobject.idle_add() to assure they're
 		within the main gtk thread.
@@ -408,7 +427,16 @@ class FreesoundSearch:
 		
 		if self.freeSound.loggedIn:
 			self.api.set_config_value("fsUsername", username)
-			self.api.set_config_value("fsPassword", password)
+			if keyring:
+				gkey.item_create_sync(gkey.get_default_keyring_sync(), 
+						gkey.ITEM_NETWORK_PASSWORD, 
+						EXTENSION_DATA_NAME,
+						{"username" : username},
+						password,
+						True)
+			else:
+				self.api.set_config_value("fsPassword", password)
+
 			gobject.idle_add(self.loginWindow.destroy)
 			
 			if self.showSearch:
