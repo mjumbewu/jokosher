@@ -53,7 +53,7 @@ class StatusBar(gtk.Statusbar):
 		Parameters:
 			message_id -- numerical id of the message to be removed from the StatusBar.
 		"""
-		self.remove(0, message_id)
+		self.remove_message(0, message_id)
 		self.label.set_use_markup(True)
 		
 	#_____________________________________________________________________

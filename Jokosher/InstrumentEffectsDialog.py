@@ -679,9 +679,6 @@ class InstrumentEffectsDialog:
 		self.settingswindow.set_icon(self.windowIcon)
 		self.settingswindow.set_transient_for(self.window)
 		
-		# tooltips object used to assign tooltips to the sliders
-		tooltips = gtk.Tooltips()
-		
 		# grab a list of properties from the effect
 		proplist = gobject.list_properties(self.instrument.effects[self.effectpos])
 		
@@ -757,7 +754,7 @@ class InstrumentEffectsDialog:
 					hscale.set_digits(0)
 
 				# add the slider to the settings table (with tooltips)
-				tooltips.set_tip(self.sliderdict[property.name], property.blurb)
+				self.sliderdict[property.name].set_tooltip_text(property.blurb)
 				self.settingstable.attach(self.sliderdict[property.name], 1, 2, count, count+1, gtk.FILL|gtk.EXPAND)
 			
 			count += 1

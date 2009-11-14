@@ -187,16 +187,15 @@ class FreesoundSearch:
 		Parameters:
 			status -- True for Find, False for Stop.
 		"""
-		tooltips = gtk.Tooltips()
 		
 		if status:
 			# change the icon to a search one
-			tooltips.set_tip(self.buttonFind, _("Search the Freesound library"))
+			self.buttonFind.set_tooltip_text(_("Search the Freesound library"))
 			self.buttonFind.set_label(_("Find"))
 			self.buttonFind.set_image(gtk.image_new_from_stock(gtk.STOCK_FIND, gtk.ICON_SIZE_BUTTON))
 		else:
 			# change the icon to a stop one
-			tooltips.set_tip(self.buttonFind, _("Stop the current search"))
+			self.buttonFind.set_tooltip_text(_("Stop the current search"))
 			self.buttonFind.set_label(_("Stop"))
 			self.buttonFind.set_image(gtk.image_new_from_stock(gtk.STOCK_STOP, gtk.ICON_SIZE_BUTTON))
 			

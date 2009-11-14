@@ -70,9 +70,6 @@ class MainApp:
 		gtk.glade.bindtextdomain(Globals.LOCALE_APP, Globals.LOCALE_PATH)
 		gtk.glade.textdomain(Globals.LOCALE_APP)
 
-		# create tooltips object
-		self.contextTooltips = gtk.Tooltips()
-		
 		self.wTree = gtk.glade.XML(Globals.GLADE_PATH, "MainWindow")
 		
 		#Connect event handlers
@@ -179,7 +176,7 @@ class MainApp:
 		self.isPaused = False
 
 		# Intialise context sensitive tooltips for workspace buttons
-		self.compactMixButton.set_tooltip(self.contextTooltips, self.mixingViewDisabledTip, None)
+		self.compactMixButton.set_tooltip_text(self.mixingViewDisabledTip)
 		
 		# set the window size to the last saved value
 		x = int(Globals.settings.general["windowwidth"])
@@ -960,11 +957,11 @@ class MainApp:
 		
 		# update the tooltips depending on the current recording state
 		if self.isRecording:
-			self.record.set_tooltip(self.contextTooltips, self.recTipEnabled, None)
-			self.stop.set_tooltip(self.contextTooltips, self.recStopTipEnabled, None)
+			self.record.set_tooltip_text(self.recTipEnabled)
+			self.stop.set_tooltip_text(self.recStopTipEnabled)
 		else:
-			self.record.set_tooltip(self.contextTooltips, self.recTipDisabled, None)
-			self.stop.set_tooltip(self.contextTooltips, self.recStopTipDisabled, None)
+			self.record.set_tooltip_text(self.recTipDisabled)
+			self.stop.set_tooltip_text(self.recStopTipDisabled)
 		
 		self.workspace.mixView.StartUpdateTimeout()
 	
@@ -1087,10 +1084,9 @@ class MainApp:
 			self.recentprojectsmenu.remove(c)
 		
 		if self.recentprojectitems:
-			tooltips = gtk.Tooltips()
 			for item in self.recentprojectitems:
 				mitem = gtk.MenuItem(item[1])
-				tooltips.set_tip(mitem, item[0], None)
+				mitem.set_tooltip_text(item[0])
 				self.recentprojectsmenu.append(mitem)
 				mitem.connect("activate", self.OnRecentProjectsItem, item[0], item[1])
 			
@@ -1098,8 +1094,7 @@ class MainApp:
 			self.recentprojectsmenu.append(mitem)
 			
 			mitem = gtk.ImageMenuItem(gtk.STOCK_CLEAR)
-			tooltips.set_tip(mitem, _("Clear the list of recent projects"), None)
-			tooltips.force_window()
+			mitem.set_tooltip_text(_("Clear the list of recent projects"))
 			self.recentprojectsmenu.append(mitem)
 			mitem.connect("activate", self.OnClearRecentProjects)
 			

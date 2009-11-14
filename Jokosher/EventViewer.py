@@ -78,8 +78,6 @@ class EventViewer(gtk.DrawingArea):
 		"""
 		self.small = small
 		
-		self.selectiontip = gtk.Tooltips()
-		
 		gtk.DrawingArea.__init__(self)
 
 		self.set_events(gtk.gdk.POINTER_MOTION_MASK |
@@ -150,7 +148,7 @@ class EventViewer(gtk.DrawingArea):
 		trimimg = gtk.Image()
 		trimimg.set_from_file(os.path.join(Globals.IMAGE_PATH, "icon_trim.png"))
 		trimButton.set_image(trimimg)
-		self.selectiontip.set_tip(trimButton,_("Trim"),None)
+		trimButton.set_tooltip_text(_("Trim"))
 
 		self.drawer.add(trimButton)
 		trimButton.connect("clicked", self.TrimToSelection)
@@ -161,7 +159,7 @@ class EventViewer(gtk.DrawingArea):
 		delFPButton.set_image(delimg)
 		self.drawer.add(delFPButton)
 		delFPButton.connect("clicked", self.DeleteSelectedFadePoints)
-		self.selectiontip.set_tip(delFPButton,_("Delete Fade Points"),None)
+		delFPButton.set_tooltip_text(_("Delete Fade Points"))
 		
 		snapFPButton = gtk.Button()
 		snapimg = gtk.Image()
@@ -169,7 +167,7 @@ class EventViewer(gtk.DrawingArea):
 		snapFPButton.set_image(snapimg)
 		self.drawer.add(snapFPButton)
 		snapFPButton.connect("clicked", self.SnapSelectionToFadePoints)
-		self.selectiontip.set_tip(snapFPButton,_("Snap To Fade Points"),None)
+		snapFPButton.set_tooltip_text(_("Snap To Fade Points"))
 		
 		self.drawer.set_sensitive(not self.event.isLoading)
 		self.drawer.show()
