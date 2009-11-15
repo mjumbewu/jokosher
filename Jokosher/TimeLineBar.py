@@ -60,13 +60,11 @@ class TimeLineBar(gtk.HBox):
 		image_size_group.add_widget(self.clickbutton_metronome_image)
 		image_size_group.add_widget(self.clickbutton_volume_image)
 		
-		self.clicktip = gtk.Tooltips()
-		self.clicktip.set_tip(self.clickbutton, _("Adjust volume of click track"), None)
+		self.clickbutton.set_tooltip_text(_("Adjust volume of click track"))
 					
 		self.bpmeventbox = gtk.EventBox()
 		self.bpmframe = gtk.Frame()
-		self.bpmeventtip = gtk.Tooltips()
-		self.bpmeventtip.set_tip(self.bpmeventbox, _("Beats per minute"), None)
+		self.bpmeventbox.set_tooltip_text(_("Beats per minute"))
 		self.bpmframe.set_shadow_type(gtk.SHADOW_ETCHED_OUT)
 		
 		self.bpmlabel = gtk.Label()
@@ -85,8 +83,7 @@ class TimeLineBar(gtk.HBox):
 		self.bpmedit.connect_after("button-release-event", self.OnEditBPMClick)
 
 		self.sigeventbox = gtk.EventBox()
-		self.sigeventtip = gtk.Tooltips()
-		self.sigeventtip.set_tip(self.sigeventbox, _("Time signature"), None)
+		self.sigeventbox.set_tooltip_text(_("Time signature"))
 		self.sigframe = gtk.Frame()
 		self.sigframe.set_shadow_type(gtk.SHADOW_ETCHED_OUT)
 		
