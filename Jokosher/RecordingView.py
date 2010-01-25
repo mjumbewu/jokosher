@@ -116,8 +116,7 @@ class RecordingView(gtk.Frame):
 		self.zoomSlider.set_increments(0.2, 0.2)
 		self.zoomSlider.set_draw_value(False)
 		self.zoomSlider.set_value(self.project.viewScale)
-		self.zoomtip = gtk.Tooltips()
-		self.zoomtip.set_tip(self.zoomSlider, _("Zoom the timeline - Right-Click to reset to the default level"), None)
+		self.zoomSlider.set_tooltip_text(_("Zoom the timeline - Right-Click to reset to the default level"))
 		
 		self.zoomSlider.connect("value-changed", self.OnZoom)
 		self.zoomSlider.connect("button-press-event", self.OnZoomReset)
@@ -126,14 +125,14 @@ class RecordingView(gtk.Frame):
 		inimg = gtk.image_new_from_stock(gtk.STOCK_ZOOM_IN, gtk.ICON_SIZE_BUTTON)
 		self.inbutton.set_image(inimg)
 		self.inbutton.set_relief(gtk.RELIEF_NONE)
-		self.zoomtip.set_tip(self.inbutton, _("Zoom in timeline"), None)
+		self.inbutton.set_tooltip_text(_("Zoom in timeline"))
 		self.inbutton.connect("clicked", self.OnZoomIn)
 		
 		self.outbutton = gtk.Button()
 		outimg = gtk.image_new_from_stock(gtk.STOCK_ZOOM_OUT, gtk.ICON_SIZE_BUTTON)
 		self.outbutton.set_image(outimg)
 		self.outbutton.set_relief(gtk.RELIEF_NONE)
-		self.zoomtip.set_tip(self.outbutton, _("Zoom out timeline"), None)
+		self.outbutton.set_tooltip_text(_("Zoom out timeline"))
 		self.outbutton.connect("clicked", self.OnZoomOut)
 
 		self.zoom_hb.pack_start( self.outbutton, False, False)

@@ -53,19 +53,16 @@ class ControlsBox(gtk.HBox):
 		self.muteImgDisabled = Utils.GetIconThatMayBeMissing("stock_volume", gtk.ICON_SIZE_BUTTON, False)
 		self.muteImgEnabled = Utils.GetIconThatMayBeMissing("stock_volume-mute", gtk.ICON_SIZE_BUTTON, False)
 		
-		self.recTip = gtk.Tooltips()
 		self.recButton = gtk.ToggleButton()
-		self.recTip.set_tip(self.recButton, self.recTipEnabled, None)
+		self.recButton.set_tooltip_text(self.recTipEnabled)
 		self.recButton.connect("toggled", self.OnArm)
 		
 		self.muteButton = gtk.ToggleButton()
 		self.muteButton.connect("toggled", self.OnMute)
-		self.muteTip = gtk.Tooltips()
-		self.muteTip.set_tip(self.muteButton, self.muteTipDisabled, None)
+		self.muteButton.set_tooltip_text(self.muteTipDisabled)
 		
 		self.soloButton = gtk.ToggleButton()
-		self.soloTip = gtk.Tooltips()
-		self.soloTip.set_tip(self.soloButton, self.soloTipDisabled, None)
+		self.soloButton.set_tooltip_text(self.soloTipDisabled)
 		self.soloButton.connect("toggled", self.OnSolo)
 		
 		self.add(self.recButton)
@@ -80,8 +77,7 @@ class ControlsBox(gtk.HBox):
 			self.effectsDialog = None		#the instrument effects dialog (to make sure more than one is never opened)
 
 			self.propsButton.connect("clicked", self.OnEffectsButtonClicked)
-			self.propsTip = gtk.Tooltips()
-			self.propsTip.set_tip(self.propsButton, _("Instrument Effects"), None)
+			self.propsButton.set_tooltip_text(_("Instrument Effects"))
 			self.add(self.propsButton)
 		
 		self.instrument.connect("solo", self.OnInstrumentSolo)
@@ -139,18 +135,17 @@ class ControlsBox(gtk.HBox):
 		self.Updating = True
 		self.soloButton.set_active(self.instrument.isSolo)
 		self.Updating = False
-		self.soloTip.enable()
 		
 		# update the solo button image and tooltip
 		image = gtk.Image()
 		if self.instrument.isSolo:
 			image.set_from_pixbuf(self.soloImgEnabled)
 			self.soloButton.set_image(image)
-			self.soloTip.set_tip(self.soloButton, self.soloTipEnabled, None)
+			self.soloButton.set_tooltip_text(self.soloTipEnabled)
 		else:
 			image.set_from_pixbuf(self.soloImgDisabled)
 			self.soloButton.set_image(image)
-			self.soloTip.set_tip(self.soloButton, self.soloTipDisabled, None)
+			self.soloButton.set_tooltip_text(self.soloTipDisabled)
 
 	#_____________________________________________________________________
 	
@@ -164,18 +159,17 @@ class ControlsBox(gtk.HBox):
 		self.Updating = True
 		self.recButton.set_active(self.instrument.isArmed)
 		self.Updating = False
-		self.recTip.enable()
 		
 		# update the arm button image and tooltip	
 		image = gtk.Image()
 		if self.instrument.isArmed:
 			image.set_from_pixbuf(self.recImgEnabled)
 			self.recButton.set_image(image)
-			self.recTip.set_tip(self.recButton, self.recTipEnabled, None)
+			self.recButton.set_tooltip_text(self.recTipEnabled)
 		else:
 			image.set_from_pixbuf(self.recImgDisabled)
 			self.recButton.set_image(image)
-			self.recTip.set_tip(self.recButton, self.recTipDisabled, None)
+			self.recButton.set_tooltip_text(self.recTipDisabled)
 	
 	#_____________________________________________________________________
 	
@@ -195,11 +189,11 @@ class ControlsBox(gtk.HBox):
 		if self.instrument.actuallyIsMuted:
 			image.set_from_pixbuf(self.muteImgEnabled)
 			self.muteButton.set_image(image)
-			self.muteTip.set_tip(self.muteButton, self.muteTipEnabled, None)
+			self.muteButton.set_tooltip_text(self.muteTipEnabled)
 		else:
 			image.set_from_pixbuf(self.muteImgDisabled)
 			self.muteButton.set_image(image)
-			self.muteTip.set_tip(self.muteButton, self.muteTipDisabled, None)
+			self.muteButton.set_tooltip_text(self.muteTipDisabled)
 	
 	#______________________________________________________________________
 

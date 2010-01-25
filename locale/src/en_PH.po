@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-02-18 04:36+0000\n"
+"X-Launchpad-Export-Date: 2009-05-30 01:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../../Jokosher/Jokosher.glade.h:1
@@ -134,9 +134,8 @@ msgid "Add Audio _File..."
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:29
-#, fuzzy
 msgid "Add Instrument"
-msgstr "Add an instrument"
+msgstr "Add Instrument"
 
 #: ../../Jokosher/Jokosher.glade.h:30
 msgid "Add Mixdown Action"
@@ -1902,82 +1901,83 @@ msgstr "Violin"
 msgid "Vocal"
 msgstr "Vocal"
 
-#~ msgid "<b>Recorded Audio Format</b>"
-#~ msgstr "<b>Recorded Audio Format</b>"
+msgid "<b>Recorded Audio Format</b>"
+msgstr "<b>Recorded Audio Format</b>"
 
+msgid ""
+"No channels capable of recording have been found, please attach a device and "
+"try again."
+msgstr ""
+"No channels capable of recording have been found, please attach a device and "
+"try again."
+
+msgid ""
+"Your sound card isn't capable of recording from multiple sources at the same "
+"time. Please disarm all but one instrument."
+msgstr ""
+"Your sound card isn't capable of recording from multiple sources at the same "
+"time. Please disarm all but one instrument."
+
+msgid ""
+"You require the GStreamer channel splitting element to be able to record "
+"from multiple input devices. This can be downloaded from http://www.jokosher."
+"org/download."
+msgstr ""
+"You require the GStreamer channel splitting element to be able to record "
+"from multiple input devices. This can be downloaded from http://www.jokosher."
+"org/download."
+
+msgid "Turn click track on"
+msgstr "Turn click track on"
+
+msgid "Turn click track off"
+msgstr "Turn click track off"
+
+msgid "Audio production made simple."
+msgstr "Audio production made simple."
+
+msgid "Recording"
+msgstr "Recording"
+
+msgid "Switch to the Mixing workspace"
+msgstr "Switch to the Mixing workspace"
+
+msgid "Switch to the Recording workspace"
+msgstr "Switch to the Recording workspace"
+
+msgid "Workspaces"
+msgstr "Workspaces"
+
+msgid "Currently working in the Recording workspace"
+msgstr "Currently working in the Recording workspace"
+
+msgid "Currently working in the Mixing workspace"
+msgstr "Currently working in the Mixing workspace"
+
+msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"
+msgstr "<b>Drag</b> the <b>slider</b> to alter volume levels"
+
+msgid "Don't open anything"
+msgstr "Don't open anything"
+
+msgid "Don't show this on start-up"
+msgstr "Don't show this on start-up"
+
+msgid "Folder"
+msgstr "Folder"
+
+msgid "Preferences"
+msgstr "Preferences"
+
+msgid "Search:"
+msgstr "Search:"
+
+msgid "Show welcome dialog"
+msgstr "Show welcome dialog"
+
+#, fuzzy
 #~ msgid "_Project"
-#~ msgstr "_Project"
-
-#~ msgid ""
-#~ "No channels capable of recording have been found, please attach a device "
-#~ "and try again."
-#~ msgstr ""
-#~ "No channels capable of recording have been found, please attach a device "
-#~ "and try again."
-
-#~ msgid ""
-#~ "Your sound card isn't capable of recording from multiple sources at the "
-#~ "same time. Please disarm all but one instrument."
-#~ msgstr ""
-#~ "Your sound card isn't capable of recording from multiple sources at the "
-#~ "same time. Please disarm all but one instrument."
-
-#~ msgid ""
-#~ "You require the GStreamer channel splitting element to be able to record "
-#~ "from multiple input devices. This can be downloaded from http://www."
-#~ "jokosher.org/download."
-#~ msgstr ""
-#~ "You require the GStreamer channel splitting element to be able to record "
-#~ "from multiple input devices. This can be downloaded from http://www."
-#~ "jokosher.org/download."
-
-#~ msgid "Turn click track on"
-#~ msgstr "Turn click track on"
-
-#~ msgid "Turn click track off"
-#~ msgstr "Turn click track off"
-
-#~ msgid "Audio production made simple."
-#~ msgstr "Audio production made simple."
-
-#~ msgid "Recording"
-#~ msgstr "Recording"
-
-#~ msgid "Switch to the Mixing workspace"
-#~ msgstr "Switch to the Mixing workspace"
-
-#~ msgid "Switch to the Recording workspace"
-#~ msgstr "Switch to the Recording workspace"
-
-#~ msgid "Workspaces"
-#~ msgstr "Workspaces"
-
-#~ msgid "Currently working in the Recording workspace"
-#~ msgstr "Currently working in the Recording workspace"
-
-#~ msgid "Currently working in the Mixing workspace"
-#~ msgstr "Currently working in the Mixing workspace"
-
-#~ msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"
-#~ msgstr "<b>Drag</b> the <b>slider</b> to alter volume levels"
-
-#~ msgid "Don't open anything"
-#~ msgstr "Don't open anything"
-
-#~ msgid "Don't show this on start-up"
-#~ msgstr "Don't show this on start-up"
-
-#~ msgid "Folder"
-#~ msgstr "Folder"
-
-#~ msgid "Preferences"
-#~ msgstr "Preferences"
-
-#~ msgid "Search:"
-#~ msgstr "Search:"
-
-#~ msgid "Show welcome dialog"
-#~ msgstr "Show welcome dialog"
+#~ msgstr "New Project"
 
 #, fuzzy
 #~ msgid "Mixing"
@@ -2017,7 +2017,7 @@ msgstr "Vocal"
 
 #, fuzzy
 #~ msgid "Project Name"
-#~ msgstr "_Project"
+#~ msgstr "New Project"
 
 #, fuzzy
 #~ msgid "_Manage Extensions"

@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: Jokosher HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-03-17 02:00+0000\n"
-"PO-Revision-Date: 2007-09-11 08:05+0000\n"
-"Last-Translator: VLK <Unknown>\n"
+"PO-Revision-Date: 2009-02-18 07:09+0000\n"
+"Last-Translator: Laszlo Pandy <laszlok2@gmail.com>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-02-18 04:36+0000\n"
+"X-Launchpad-Export-Date: 2009-05-30 01:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../../Jokosher/Jokosher.glade.h:1
@@ -1926,580 +1926,651 @@ msgstr "Скрипка"
 msgid "Vocal"
 msgstr "Вокал"
 
-#~ msgid "<b>Audio Output Plugin</b>"
-#~ msgstr "<b>Модуль вывода звука</b>"
+msgid "<b>Audio Output Plugin</b>"
+msgstr "<b>Модуль вывода звука</b>"
 
+msgid "<b>Recording Sample Rate</b>"
+msgstr "<b>Частота дискретизации записи</b>"
+
+msgid ""
+"Autodetect\n"
+"ALSA\n"
+"Custom"
+msgstr ""
+"Автоматически\n"
+"ALSA\n"
+"Пользовательский"
+
+msgid "Create project template from instruments in current project"
+msgstr "Создать шаблон проекта из инструментов текущего проекта"
+
+msgid "D_evice:"
+msgstr "Устр_ойство"
+
+msgid "New..."
+msgstr "Новый..."
+
+msgid "O_utput:"
+msgstr "В_ыход:"
+
+msgid "Open..."
+msgstr "Открыть..."
+
+msgid "Save As..."
+msgstr "Сохранить как..."
+
+msgid "%(device)s input %(input)d"
+msgstr "%(device)s, вход %(input)d"
+
+msgid ""
+"The instruments '%(name1)s' and '%(name2)s' both have the same input "
+"selected (%(track)s). Please either disarm one, or connect it to a different "
+"input through 'Project -> Recording Inputs'"
+msgstr ""
+"Для инструментов '%(name1)s' и '%(name2)s' выбран один и тот же вход (%"
+"(track)s). Пожалуйста отключите один из них, либо выберите другой вход в "
+"диалоге 'Проект -> Recording Inputs'"
+
+msgid ""
+"No channels capable of recording have been found, please attach a device and "
+"try again."
+msgstr ""
+"Не найдено каналов, пригодных для записи. Подключите устройство и попробуйте "
+"ещё раз."
+
+msgid ""
+"Your sound card isn't capable of recording from multiple sources at the same "
+"time. Please disarm all but one instrument."
+msgstr ""
+"Ваша звуковая плата не поддерживает одновременную запись с нескольких "
+"входов. Попробуйте отключить все инструменты, кроме одного."
+
+msgid ""
+"You require the GStreamer channel splitting element to be able to record "
+"from multiple input devices. This can be downloaded from http://www.jokosher."
+"org/download."
+msgstr ""
+"Для записи с нескольких устройств, вам необходим разделяющий каналы элемент "
+"GStreamer. Вы можете загрузить его по адресу http://www.jokosher.org/"
+"download."
+
+msgid "Argh! Something went wrong and a serious error occurred:"
+msgstr "Аргх! Что-то не сработало так и возникла серьёзная ошибка:"
+
+msgid "Turn click track on"
+msgstr "Включить метроном"
+
+msgid "Turn click track off"
+msgstr "Выключить метроном"
+
+msgid "Audio production made simple."
+msgstr "Создание аудио - это просто."
+
+msgid "Please enter the name of the template you wish to create."
+msgstr "Пожалуйста введите имя шаблона которого вы ходите создать."
+
+msgid "Your project instruments have been saved to <b>%s.template</b>"
+msgstr "Инструменты проекта были сохранены в <b>%s.template</b>"
+
+msgid ""
+"Cannot create project template. Please make sure you have specified a "
+"template name and make sure there are instruments in the project."
+msgstr ""
+"Невозможно создать шаблон проекта. Пожалуйста удостоверьтесь, что указали "
+"имя шаблона и что в проекте имеются инструменты."
+
+msgid ""
+"<big><b>A programming error has been detected during the execution of this "
+"program.</b></big>\n"
+"\n"
+"It probably isn't fatal, but should be reported to the developers "
+"nonetheless."
+msgstr ""
+"<big><b>Программная ошибка произошла во время выполнения программы.</b></"
+"big>\n"
+"\n"
+"Похоже это не смертельно, но тем не менее сообщите разработчикам."
+
+msgid "Bug Detected"
+msgstr "Обнаружена ошибка"
+
+msgid "Show Details"
+msgstr "Показать детали"
+
+msgid "Add this step to the current mixdown"
+msgstr "Добавить этап в процесс сведения"
+
+msgid "FastForward"
+msgstr "Вперёд"
+
+msgid "Recording Workspace"
+msgstr "Режим записи"
+
+msgid "Stop"
+msgstr "Стоп"
+
+msgid "Switch to the Mixing workspace"
+msgstr "Перейти в режим сведения"
+
+msgid "Switch to the Recording workspace"
+msgstr "Перейти в режим записи"
+
+msgid "Workspaces"
+msgstr "Режимы"
+
+msgid "version 0.9"
+msgstr "версия 0.9"
+
+msgid "Currently working in the Recording workspace"
+msgstr "В данный момент активен режим записи"
+
+msgid "Currently working in the Mixing workspace"
+msgstr "В данный момент активен режим сведения"
+
+msgid "%(progress)d of %(total)d seconds completed"
+msgstr "Выполнено %(progress)d из %(total)d секунд"
+
+msgid "Edit this mixdown step settings"
+msgstr "Редактировать параметры этого этапа"
+
+msgid "Remove this mixdown step"
+msgstr "Удалить этот этап сведения"
+
+msgid "Export file"
+msgstr "Экспортировать файл"
+
+msgid "An unspecified MixdownAction"
+msgstr "Неизвестный этап сведения"
+
+msgid "Export to %(file)s as %(desc)s"
+msgstr "Экспортировать в %(file)s в формате %(desc)s"
+
+msgid "Export as"
+msgstr "Экспортировать как"
+
+msgid "Run external script"
+msgstr "Запустить внешний сценарий"
+
+msgid "Hz"
+msgstr "Гц"
+
+msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"
+msgstr "<b>Перетащите ползунок</b> для изменения уровня громкости"
+
+msgid "Device:"
+msgstr "Устройство:"
+
+msgid "Output:"
+msgstr "Вывод:"
+
+msgid ""
+"16 bit\n"
+"24 bit\n"
+"32 bit"
+msgstr ""
+"16 бит\n"
+"24 бита\n"
+"32 бита"
+
+msgid ""
+"96000\n"
+"48000\n"
+"44100\n"
+"32000\n"
+"24000\n"
+"22050\n"
+"16000\n"
+"11025\n"
+"8000"
+msgstr ""
+"96000\n"
+"48000\n"
+"44100\n"
+"32000\n"
+"24000\n"
+"22050\n"
+"16000\n"
+"11025\n"
+"8000"
+
+msgid "Device"
+msgstr "Устройство"
+
+msgid "General"
+msgstr "Общие"
+
+msgid ""
+"Jokosher must be restarted in\n"
+"order for changes to take effect."
+msgstr ""
+"Чтобы изменения вступили в силу,\n"
+"следует перезапустить Jokosher."
+
+msgid "Output Format"
+msgstr "Формат вывода"
+
+msgid "Pre-release Notes"
+msgstr "Замечания к пред. версии"
+
+msgid "Presets"
+msgstr "Предустановки"
+
+msgid "Preview"
+msgstr "Предв. просмотр"
+
+msgid "Sample Rate (Hz)"
+msgstr "Частота дискретизации"
+
+msgid "Save Files As"
+msgstr "Сохранять файлы в"
+
+msgid ""
+"Use the combo boxes below to select which input is used with which instrument"
+msgstr ""
+"Используйте поля внизу для указания, какие входы используются инструментами"
+
+msgid ""
+"Wave\n"
+"FLAC\n"
+"Ogg Vorbis"
+msgstr ""
+"Wave\n"
+"FLAC\n"
+"Ogg Vorbis"
+
+msgid "Import file..."
+msgstr "Импортировать файл..."
+
+msgid ""
+"<b>NOTE</b>: The volume sliders in this pre-release version of Jokosher do "
+"not affect the audio."
+msgstr ""
+"<b>ВНИМАНИЕ</b>: Регуляторы громкости не работают в предварительной версии "
+"Jokosher."
+
+msgid ""
+"%s\n"
+"\n"
+"File is corrupt, not an audio file, or the associated plugin is not installed"
+msgstr ""
+"%s\n"
+"\n"
+"Файл повреждён, не является аудио-файлом, либо не установлен подходящий "
+"модуль"
+
+msgid "Muted"
+msgstr "Выключен"
+
+msgid "Unmuted"
+msgstr "Включен"
+
+msgid ""
+"The instruments '%s' and '%s' both have the same input selected (%s). Please "
+"either disarm one, or connect it to a different input through 'Project -> "
+"Instrument Connections'"
+msgstr ""
+"Инструменты '%s' и '%s' подключены к одному и тому же входу (%s). Попробуйте "
+"оключить один из них, или присоединить его к другому входу в диалоге 'Проект "
+"-> Связи инструментов'"
+
+msgid ""
+"No instruments are armed for recording. You need to arm an instrument before "
+"you can begin recording."
+msgstr ""
+"Ни один инструмент не готов для записи. Прежде чем можно будет начать "
+"запись, необходимо привести инструмент в состояние готовности."
+
+msgid "%d of %d seconds completed"
+msgstr "%d из %d секунд выполнено"
+
+msgid ""
+"<big>Notes about this release</big>\n"
+"\n"
+"This version of Jokosher (0.1) is a pre-release version, and is infact, our "
+"very first release. As such, you may encounter some bugs and functionality "
+"that is not present."
+msgstr ""
+"<big>Заметки к версии</big>\n"
+"\n"
+"Данная версия Jokosher (0.1) - это предварительная версия, и, фактически, "
+"наш первый релиз. Как следствие, вы можете столкнуться с ошибками и "
+"отстуствующими возможностями."
+
+msgid "Files Saves As"
+msgstr "Файлы сохраняются в"
+
+msgid "translator-credits"
+msgstr ""
+"Артём Попов <artfwo@gmail.com>\n"
+"\n"
+"Launchpad Contributions:\n"
+"  Alexandre Prokoudine https://launchpad.net/~alexandre-prokoudine\n"
+"  Gendolf https://launchpad.net/~pr-baukalo\n"
+"  Georgy Faradzhev https://launchpad.net/~georgy-faradzhev\n"
+"  Igor Zubarev https://launchpad.net/~igor4u\n"
+"  KeepYourMind https://launchpad.net/~keepyourmind\n"
+"  VLK https://launchpad.net/~valentyn\n"
+"  deepred https://launchpad.net/~nikraz\n"
+"  Артём Попов https://launchpad.net/~artfwo"
+
+msgid ""
+"No channels capable of recording have found, please attach a device and try "
+"again."
+msgstr ""
+"Не найдено каналов, пригодных для записи, присоедините устройство и "
+"попробуйте ещё раз."
+
+#, fuzzy
 #~ msgid "<b>Recorded Audio Format</b>"
-#~ msgstr "<b>Формат записи</b>"
+#~ msgstr "Записан аудио-файл"
 
-#~ msgid "<b>Recording Sample Rate</b>"
-#~ msgstr "<b>Частота дискретизации записи</b>"
-
-#~ msgid ""
-#~ "Autodetect\n"
-#~ "ALSA\n"
-#~ "Custom"
-#~ msgstr ""
-#~ "Автоматически\n"
-#~ "ALSA\n"
-#~ "Пользовательский"
-
-#~ msgid "Create project template from instruments in current project"
-#~ msgstr "Создать шаблон проекта из инструментов текущего проекта"
-
-#~ msgid "D_evice:"
-#~ msgstr "Устр_ойство"
-
-#~ msgid "New..."
-#~ msgstr "Новый..."
-
-#~ msgid "O_utput:"
-#~ msgstr "В_ыход:"
-
-#~ msgid "Open..."
-#~ msgstr "Открыть..."
-
-#~ msgid "Save As..."
-#~ msgstr "Сохранить как..."
-
+#, fuzzy
 #~ msgid "_Add Instrument..."
-#~ msgstr "_Добавить инструмент..."
+#~ msgstr "Добавить инструмент"
 
+#, fuzzy
 #~ msgid "_Create Project Template"
-#~ msgstr "_Создать шаблон проекта"
+#~ msgstr "Шаблоны проекта"
 
+#, fuzzy
 #~ msgid "_Project"
-#~ msgstr "П_роект"
+#~ msgstr "Новый проект"
 
+#, fuzzy
 #~ msgid "_Recording Inputs..."
-#~ msgstr "_Источники записи..."
+#~ msgstr "Запись..."
 
-#~ msgid "%(device)s input %(input)d"
-#~ msgstr "%(device)s, вход %(input)d"
-
-#~ msgid ""
-#~ "The instruments '%(name1)s' and '%(name2)s' both have the same input "
-#~ "selected (%(track)s). Please either disarm one, or connect it to a "
-#~ "different input through 'Project -> Recording Inputs'"
-#~ msgstr ""
-#~ "Для инструментов '%(name1)s' и '%(name2)s' выбран один и тот же вход (%"
-#~ "(track)s). Пожалуйста отключите один из них, либо выберите другой вход в "
-#~ "диалоге 'Проект -> Recording Inputs'"
-
-#~ msgid ""
-#~ "No channels capable of recording have been found, please attach a device "
-#~ "and try again."
-#~ msgstr ""
-#~ "Не найдено каналов, пригодных для записи. Подключите устройство и "
-#~ "попробуйте ещё раз."
-
-#~ msgid ""
-#~ "Your sound card isn't capable of recording from multiple sources at the "
-#~ "same time. Please disarm all but one instrument."
-#~ msgstr ""
-#~ "Ваша звуковая плата не поддерживает одновременную запись с нескольких "
-#~ "входов. Попробуйте отключить все инструменты, кроме одного."
-
-#~ msgid ""
-#~ "You require the GStreamer channel splitting element to be able to record "
-#~ "from multiple input devices. This can be downloaded from http://www."
-#~ "jokosher.org/download."
-#~ msgstr ""
-#~ "Для записи с нескольких устройств, вам необходим разделяющий каналы "
-#~ "элемент GStreamer. Вы можете загрузить его по адресу http://www.jokosher."
-#~ "org/download."
-
-#~ msgid "Argh! Something went wrong and a serious error occurred:"
-#~ msgstr "Аргх! Что-то не сработало так и возникла серьёзная ошибка:"
-
+#, fuzzy
 #~ msgid "Mixdown as"
-#~ msgstr "Свести как"
+#~ msgstr "Свести проект"
 
-#~ msgid "Turn click track on"
-#~ msgstr "Включить метроном"
-
-#~ msgid "Turn click track off"
-#~ msgstr "Выключить метроном"
-
-#~ msgid "Audio production made simple."
-#~ msgstr "Создание аудио - это просто."
-
+#, fuzzy
 #~ msgid "_Template Name"
-#~ msgstr "_Имя шаблона"
+#~ msgstr "_Имя шаблона:"
 
-#~ msgid "Please enter the name of the template you wish to create."
-#~ msgstr "Пожалуйста введите имя шаблона которого вы ходите создать."
-
-#~ msgid "Your project instruments have been saved to <b>%s.template</b>"
-#~ msgstr "Инструменты проекта были сохранены в <b>%s.template</b>"
-
-#~ msgid ""
-#~ "Cannot create project template. Please make sure you have specified a "
-#~ "template name and make sure there are instruments in the project."
-#~ msgstr ""
-#~ "Невозможно создать шаблон проекта. Пожалуйста удостоверьтесь, что указали "
-#~ "имя шаблона и что в проекте имеются инструменты."
-
-#~ msgid ""
-#~ "<big><b>A programming error has been detected during the execution of "
-#~ "this program.</b></big>\n"
-#~ "\n"
-#~ "It probably isn't fatal, but should be reported to the developers "
-#~ "nonetheless."
-#~ msgstr ""
-#~ "<big><b>Программная ошибка произошла во время выполнения программы.</b></"
-#~ "big>\n"
-#~ "\n"
-#~ "Похоже это не смертельно, но тем не менее сообщите разработчикам."
-
-#~ msgid "Bug Detected"
-#~ msgstr "Обнаружена ошибка"
-
-#~ msgid "Show Details"
-#~ msgstr "Показать детали"
-
+#, fuzzy
 #~ msgid "Add a new step:"
-#~ msgstr "Добавить новый этап:"
+#~ msgstr "Добавить инструмент"
 
-#~ msgid "Add this step to the current mixdown"
-#~ msgstr "Добавить этап в процесс сведения"
-
-#~ msgid "FastForward"
-#~ msgstr "Вперёд"
-
+#, fuzzy
 #~ msgid "Mixing"
-#~ msgstr "Сведение"
+#~ msgstr "Сведение проекта"
 
+#, fuzzy
 #~ msgid "Mixing Workspace"
-#~ msgstr "Режим сведения"
+#~ msgstr "Сведение проекта"
 
+#, fuzzy
 #~ msgid "Record"
-#~ msgstr "Запись"
+#~ msgstr "Запись..."
 
+#, fuzzy
 #~ msgid "Recording"
-#~ msgstr "Запись"
+#~ msgstr "Запись..."
 
-#~ msgid "Recording Workspace"
-#~ msgstr "Режим записи"
-
+#, fuzzy
 #~ msgid "Rewind"
-#~ msgstr "Назад"
+#~ msgstr "Вернуть"
 
+#, fuzzy
 #~ msgid "Save these mixdown settings"
-#~ msgstr "Сохранить текущие параметры сведения"
+#~ msgstr "Использовать эти параметры"
 
-#~ msgid "Stop"
-#~ msgstr "Стоп"
-
-#~ msgid "Switch to the Mixing workspace"
-#~ msgstr "Перейти в режим сведения"
-
-#~ msgid "Switch to the Recording workspace"
-#~ msgstr "Перейти в режим записи"
-
-#~ msgid "Workspaces"
-#~ msgstr "Режимы"
-
+#, fuzzy
 #~ msgid "_Mixdown the project"
-#~ msgstr "С_вести проект"
+#~ msgstr "Свести проект"
 
+#, fuzzy
 #~ msgid "_Save these settings"
-#~ msgstr "_Cохранить параметры"
+#~ msgstr "Использовать эти параметры"
 
-#~ msgid "version 0.9"
-#~ msgstr "версия 0.9"
-
+#, fuzzy
 #~ msgid "_Paste"
-#~ msgstr "Вст_авить"
+#~ msgstr "Фазеры"
 
-#~ msgid "Currently working in the Recording workspace"
-#~ msgstr "В данный момент активен режим записи"
-
-#~ msgid "Currently working in the Mixing workspace"
-#~ msgstr "В данный момент активен режим сведения"
-
-#~ msgid "%(progress)d of %(total)d seconds completed"
-#~ msgstr "Выполнено %(progress)d из %(total)d секунд"
-
+#, fuzzy
 #~ msgid "_Mixdown as"
-#~ msgstr "С_вести как"
+#~ msgstr "Свести проект"
 
+#, fuzzy
 #~ msgid "_Mixdown Project"
-#~ msgstr "С_вести проект"
+#~ msgstr "Свести проект"
 
 #, fuzzy
 #~ msgid "Create Project Template"
-#~ msgstr "Создать новый проект"
+#~ msgstr "Шаблоны проекта"
 
+#, fuzzy
 #~ msgid "<b>Steps to mixdown %(projectname)s</b>"
-#~ msgstr "<b>Этапы сведения %(projectname)s</b>"
+#~ msgstr "Подготовка к сведению проекта"
 
-#~ msgid "Edit this mixdown step settings"
-#~ msgstr "Редактировать параметры этого этапа"
-
-#~ msgid "Remove this mixdown step"
-#~ msgstr "Удалить этот этап сведения"
-
+#, fuzzy
 #~ msgid "Don't save these mixdown settings"
-#~ msgstr "Не сохранять параметры сведения"
+#~ msgstr "Использовать эти параметры"
 
+#, fuzzy
 #~ msgid "Choose a name for this profile"
-#~ msgstr "Выберите имя данного профиля"
+#~ msgstr "Выберите файл проекта Jokosher"
 
-#~ msgid "Export file"
-#~ msgstr "Экспортировать файл"
-
-#~ msgid "An unspecified MixdownAction"
-#~ msgstr "Неизвестный этап сведения"
-
-#~ msgid "Export to %(file)s as %(desc)s"
-#~ msgstr "Экспортировать в %(file)s в формате %(desc)s"
-
-#~ msgid "Export as"
-#~ msgstr "Экспортировать как"
-
+#, fuzzy
 #~ msgid "Run script %s"
-#~ msgstr "Запустить сценарий %s"
+#~ msgstr "Ошибка в сценарии %s"
 
-#~ msgid "Run external script"
-#~ msgstr "Запустить внешний сценарий"
-
-#~ msgid "Hz"
-#~ msgstr "Гц"
-
+#, fuzzy
 #~ msgid "Zoom the timeline"
-#~ msgstr "Приблизиться к дорожке"
+#~ msgstr "Изменить формат времени"
 
-#~ msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"
-#~ msgstr "<b>Перетащите ползунок</b> для изменения уровня громкости"
-
+#, fuzzy
 #~ msgid "<b>Presets for:</b>"
-#~ msgstr "<b>Пресеты для:</b>"
+#~ msgstr "_Пресеты для:"
 
+#, fuzzy
 #~ msgid "Add a new instrument"
-#~ msgstr "Добавить новый инструмент"
+#~ msgstr "Добавить инструмент"
 
+#, fuzzy
 #~ msgid "Author"
-#~ msgstr "Автор"
+#~ msgstr "_Автор:"
 
+#, fuzzy
 #~ msgid "Beat value"
-#~ msgstr "Длительность доли"
+#~ msgstr "Длительность _доли"
 
+#, fuzzy
 #~ msgid "Beats per measure"
-#~ msgstr "Долей в такте"
+#~ msgstr "Долей в _такте"
 
+#, fuzzy
 #~ msgid "Browse for an Existing Project"
-#~ msgstr "Открыть существующий проект"
+#~ msgstr "_Открыть существующий проект"
 
+#, fuzzy
 #~ msgid "Create a New Project"
-#~ msgstr "Создать новый проект"
+#~ msgstr "_Создать новый проект"
 
-#~ msgid "Device:"
-#~ msgstr "Устройство:"
-
+#, fuzzy
 #~ msgid "Don't open anything"
-#~ msgstr "Не открывать ничего"
+#~ msgstr "_Не открывать ничего"
 
+#, fuzzy
 #~ msgid "Don't show this on start-up"
-#~ msgstr "Не показывать этот диалог при запуске"
+#~ msgstr "_Не показывать это при запуске"
 
+#, fuzzy
 #~ msgid "Folder"
-#~ msgstr "Папка"
+#~ msgstr "_Папка:"
 
+#, fuzzy
 #~ msgid "Open Selected Project"
-#~ msgstr "Открыть выбранный проект"
+#~ msgstr "_Открыть выбранный проект"
 
+#, fuzzy
 #~ msgid "Open most recent project"
-#~ msgstr "Открывать последний проект"
+#~ msgstr "_Открыть недавний проект"
 
-#~ msgid "Output:"
-#~ msgstr "Вывод:"
-
+#, fuzzy
 #~ msgid "Pipeline:"
-#~ msgstr "Конвейер:"
+#~ msgstr "_Конвейер:"
 
+#, fuzzy
 #~ msgid "Preferences"
-#~ msgstr "Параметры"
+#~ msgstr "_Настройки"
 
+#, fuzzy
 #~ msgid "Project Name"
-#~ msgstr "Название проекта"
+#~ msgstr "_Имя проекта:"
 
+#, fuzzy
 #~ msgid "Remove Selected Instrument"
-#~ msgstr "Удалить выбранный инструмент"
+#~ msgstr "_Удалить выбранный инструмент"
 
+#, fuzzy
 #~ msgid "Search:"
-#~ msgstr "Поиск:"
+#~ msgstr "_Искать:"
 
+#, fuzzy
 #~ msgid "Show welcome dialog"
-#~ msgstr "Показывать диалог приветствия"
+#~ msgstr "_Показывать диалог приветствия"
 
+#, fuzzy
 #~ msgid "_Add Instrument"
-#~ msgstr "_Добавить инструмент"
+#~ msgstr "Добавить инструмент"
 
+#, fuzzy
 #~ msgid "_Manage Extensions"
-#~ msgstr "_Управление расширениями"
+#~ msgstr "_Управление расширениями..."
 
+#, fuzzy
 #~ msgid "_Recording Inputs"
-#~ msgstr "Входы для _записи"
+#~ msgstr "Запись..."
 
+#, fuzzy
 #~ msgid "No such script %s"
-#~ msgstr "Сценарий %s не найден"
+#~ msgstr "Ошибка в сценарии %s"
 
-#~ msgid ""
-#~ "16 bit\n"
-#~ "24 bit\n"
-#~ "32 bit"
-#~ msgstr ""
-#~ "16 бит\n"
-#~ "24 бита\n"
-#~ "32 бита"
-
-#~ msgid ""
-#~ "96000\n"
-#~ "48000\n"
-#~ "44100\n"
-#~ "32000\n"
-#~ "24000\n"
-#~ "22050\n"
-#~ "16000\n"
-#~ "11025\n"
-#~ "8000"
-#~ msgstr ""
-#~ "96000\n"
-#~ "48000\n"
-#~ "44100\n"
-#~ "32000\n"
-#~ "24000\n"
-#~ "22050\n"
-#~ "16000\n"
-#~ "11025\n"
-#~ "8000"
-
+#, fuzzy
 #~ msgid "<b>Audio Mixdown</b>"
-#~ msgstr "<b>Сведение</b>"
+#~ msgstr "<b>Программирование</b>"
 
+#, fuzzy
 #~ msgid "<b>Audio Quality</b>"
-#~ msgstr "<b>Качество сигнала</b>"
+#~ msgstr "<b>Графика</b>"
 
+#, fuzzy
 #~ msgid "<b>Quality</b>"
-#~ msgstr "<b>Качество</b>"
+#~ msgstr "<b>Графика</b>"
 
+#, fuzzy
 #~ msgid ""
 #~ "<b>To find out more, visit:</b>\n"
 #~ "http://www.jokosher.org/contribute"
-#~ msgstr ""
-#~ "<b>Если хотите узнать больше, посетите:</b>\n"
-#~ "http://www.jokosher.org/contribute"
+#~ msgstr "<b>Узнайте больше по адресу:</b>"
 
+#, fuzzy
 #~ msgid "Contributing to Jokosher"
-#~ msgstr "Как стать участником проекта Jokosher"
+#~ msgstr "_Содействие Jokosher"
 
-#~ msgid "Device"
-#~ msgstr "Устройство"
-
-#~ msgid "General"
-#~ msgstr "Общие"
-
+#, fuzzy
 #~ msgid "Instrument Connections"
-#~ msgstr "Связи инструментов"
+#~ msgstr "Эффекты инструмента"
 
-#~ msgid ""
-#~ "Jokosher must be restarted in\n"
-#~ "order for changes to take effect."
-#~ msgstr ""
-#~ "Чтобы изменения вступили в силу,\n"
-#~ "следует перезапустить Jokosher."
-
-#~ msgid "Output Format"
-#~ msgstr "Формат вывода"
-
+#, fuzzy
 #~ msgid "Playback"
-#~ msgstr "Воспроизведение"
+#~ msgstr "Остановить воспроизведение"
 
-#~ msgid "Pre-release Notes"
-#~ msgstr "Замечания к пред. версии"
-
-#~ msgid "Presets"
-#~ msgstr "Предустановки"
-
-#~ msgid "Preview"
-#~ msgstr "Предв. просмотр"
-
+#, fuzzy
 #~ msgid "Recent Projects"
-#~ msgstr "Последние проекты"
+#~ msgstr "_Последние проекты"
 
+#, fuzzy
 #~ msgid "Remove curently selected extension"
 #~ msgstr "Удалить выбранное расширение"
 
+#, fuzzy
 #~ msgid "Sample Format"
-#~ msgstr "Формат дискретизации"
+#~ msgstr "Формат _времени"
 
-#~ msgid "Sample Rate (Hz)"
-#~ msgstr "Частота дискретизации"
-
-#~ msgid "Save Files As"
-#~ msgstr "Сохранять файлы в"
-
+#, fuzzy
 #~ msgid "Select an effect"
-#~ msgstr "Выберите эффект"
+#~ msgstr "_Активировать эффект"
 
+#, fuzzy
 #~ msgid "Select an effect to add to the instrument"
-#~ msgstr "Выберите эффект для добавления к инструменту"
+#~ msgstr "Выберите открываемый проект из списка"
 
+#, fuzzy
 #~ msgid "Select an instrument, then click here to begin recording"
-#~ msgstr "Выберите инструмент, затем кликните эту кнопку, чтобы начать запись"
+#~ msgstr ""
+#~ "Подготовьте инструмент, после чего нажмите эту кнопку, чтобы начать запись"
 
+#, fuzzy
 #~ msgid "Show as Bars, Beats, Ticks"
-#~ msgstr "Показывать такты, доли, тики"
+#~ msgstr "Показывать _такты, доли, тики"
 
+#, fuzzy
 #~ msgid "Show as Hours, Minutes, Seconds"
-#~ msgstr "Показывать часы, минуты, секунды"
+#~ msgstr "Показывать _часы, минуты, секунды"
 
+#, fuzzy
 #~ msgid "Time Format"
-#~ msgstr "Формат времени"
+#~ msgstr "Формат _времени"
 
-#~ msgid ""
-#~ "Use the combo boxes below to select which input is used with which "
-#~ "instrument"
-#~ msgstr ""
-#~ "Используйте поля внизу для указания, какие входы используются "
-#~ "инструментами"
-
-#~ msgid ""
-#~ "Wave\n"
-#~ "FLAC\n"
-#~ "Ogg Vorbis"
-#~ msgstr ""
-#~ "Wave\n"
-#~ "FLAC\n"
-#~ "Ogg Vorbis"
-
+#, fuzzy
 #~ msgid "_Extensions"
 #~ msgstr "_Расширения"
 
+#, fuzzy
 #~ msgid "Import Audio File..."
-#~ msgstr "Импортировать аудио-файл..."
+#~ msgstr "Добавить аудио-файл..."
 
+#, fuzzy
 #~ msgid "Paste"
-#~ msgstr "Вставить"
+#~ msgstr "Фазеры"
 
+#, fuzzy
 #~ msgid "Delete"
-#~ msgstr "Удалить"
+#~ msgstr "У_далить"
 
-#~ msgid "Import file..."
-#~ msgstr "Импортировать файл..."
-
-#~ msgid ""
-#~ "<b>NOTE</b>: The volume sliders in this pre-release version of Jokosher "
-#~ "do not affect the audio."
-#~ msgstr ""
-#~ "<b>ВНИМАНИЕ</b>: Регуляторы громкости не работают в предварительной "
-#~ "версии Jokosher."
-
+#, fuzzy
 #~ msgid "Split"
-#~ msgstr "Разделить"
+#~ msgstr "_Разделить"
 
+#, fuzzy
 #~ msgid "Cut"
-#~ msgstr "Вырезать"
+#~ msgstr "_Вырезать"
 
+#, fuzzy
 #~ msgid "Copy"
-#~ msgstr "Копировать"
+#~ msgstr "_Копировать"
 
-#~ msgid ""
-#~ "%s\n"
-#~ "\n"
-#~ "File is corrupt, not an audio file, or the associated plugin is not "
-#~ "installed"
-#~ msgstr ""
-#~ "%s\n"
-#~ "\n"
-#~ "Файл повреждён, не является аудио-файлом, либо не установлен подходящий "
-#~ "модуль"
-
+#, fuzzy
 #~ msgid "Solo - silence all other instruments"
-#~ msgstr "Соло - выключить все остальные инструменты"
+#~ msgstr "Активировать соло - заглушить остальные инструменты"
 
-#~ msgid "Muted"
-#~ msgstr "Выключен"
-
-#~ msgid "Unmuted"
-#~ msgstr "Включен"
-
+#, fuzzy
 #~ msgid "Instrument Effects..."
-#~ msgstr "Эффекты инструмента..."
+#~ msgstr "Эффекты инструмента"
 
-#~ msgid ""
-#~ "The instruments '%s' and '%s' both have the same input selected (%s). "
-#~ "Please either disarm one, or connect it to a different input through "
-#~ "'Project -> Instrument Connections'"
-#~ msgstr ""
-#~ "Инструменты '%s' и '%s' подключены к одному и тому же входу (%s). "
-#~ "Попробуйте оключить один из них, или присоединить его к другому входу в "
-#~ "диалоге 'Проект -> Связи инструментов'"
-
-#~ msgid ""
-#~ "No instruments are armed for recording. You need to arm an instrument "
-#~ "before you can begin recording."
-#~ msgstr ""
-#~ "Ни один инструмент не готов для записи. Прежде чем можно будет начать "
-#~ "запись, необходимо привести инструмент в состояние готовности."
-
-#~ msgid "%d of %d seconds completed"
-#~ msgstr "%d из %d секунд выполнено"
-
+#, fuzzy
 #~ msgid ""
 #~ "\n"
 #~ "See http://jokosher.org/trac/wiki/GettingJokosher for more details.\n"
 #~ msgstr ""
 #~ "\n"
-#~ "См. http://jokosher.org/trac/wiki/GettingJokosher для дополнительной "
-#~ "информации.\n"
+#~ "См. http://doc.jokosher.org/Installation для дополнительной информации.\n"
 
-#~ msgid ""
-#~ "<big>Notes about this release</big>\n"
-#~ "\n"
-#~ "This version of Jokosher (0.1) is a pre-release version, and is infact, "
-#~ "our very first release. As such, you may encounter some bugs and "
-#~ "functionality that is not present."
-#~ msgstr ""
-#~ "<big>Заметки к версии</big>\n"
-#~ "\n"
-#~ "Данная версия Jokosher (0.1) - это предварительная версия, и, фактически, "
-#~ "наш первый релиз. Как следствие, вы можете столкнуться с ошибками и "
-#~ "отстуствующими возможностями."
-
+#, fuzzy
 #~ msgid "Master Volume"
-#~ msgstr "Общий уровень"
+#~ msgstr "Общий уровень:"
 
+#, fuzzy
 #~ msgid "Volume: %.2f"
-#~ msgstr "Уровень: %.2f"
+#~ msgstr "Уровень:"
 
-#~ msgid "Files Saves As"
-#~ msgstr "Файлы сохраняются в"
-
-#~ msgid "translator-credits"
-#~ msgstr ""
-#~ "Артём Попов <artfwo@gmail.com>\n"
-#~ "\n"
-#~ "Launchpad Contributions:\n"
-#~ "  Alexandre Prokoudine https://launchpad.net/~alexandre-prokoudine\n"
-#~ "  Gendolf https://launchpad.net/~pr-baukalo\n"
-#~ "  Georgy Faradzhev https://launchpad.net/~georgy-faradzhev\n"
-#~ "  Igor Zubarev https://launchpad.net/~igor4u\n"
-#~ "  KeepYourMind https://launchpad.net/~keepyourmind\n"
-#~ "  VLK https://launchpad.net/~valentyn\n"
-#~ "  deepred https://launchpad.net/~nikraz\n"
-#~ "  Артём Попов https://launchpad.net/~artfwo"
-
-#~ msgid ""
-#~ "No channels capable of recording have found, please attach a device and "
-#~ "try again."
-#~ msgstr ""
-#~ "Не найдено каналов, пригодных для записи, присоедините устройство и "
-#~ "попробуйте ещё раз."
-
+#, fuzzy
 #~ msgid "The uri scheme '%s' is either invalid or not supported."
 #~ msgstr "Схема обращения к ресурсу '%s' не верна или не поддерживается."
 
+#, fuzzy
 #~ msgid "The uri scheme given is either invalid or not supported"
 #~ msgstr "Данная схема обращения к ресурсу не верна или не поддерживается"

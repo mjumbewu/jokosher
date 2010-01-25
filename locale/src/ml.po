@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-02-18 04:36+0000\n"
+"X-Launchpad-Export-Date: 2009-05-30 01:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../../Jokosher/Jokosher.glade.h:1
@@ -132,9 +132,8 @@ msgid "Add Audio _File..."
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:29
-#, fuzzy
 msgid "Add Instrument"
-msgstr "ഒരു ഉപകരണം ചേര്‍ക്കുക"
+msgstr "ഉപകരണം ചേര്‍ക്കുക"
 
 #: ../../Jokosher/Jokosher.glade.h:30
 msgid "Add Mixdown Action"
@@ -1925,32 +1924,32 @@ msgstr ""
 msgid "Vocal"
 msgstr ""
 
-#~ msgid "Audio production made simple."
-#~ msgstr "ശബ്ദ നി‍ര്‍മ്മാണം വളരെ ലഘുവാക്കി."
+msgid "Audio production made simple."
+msgstr "ശബ്ദ നി‍ര്‍മ്മാണം വളരെ ലഘുവാക്കി."
 
-#~ msgid "Author"
-#~ msgstr "ലേഖകന്‍"
+msgid "Author"
+msgstr "ലേഖകന്‍"
 
-#~ msgid "Don't open anything"
-#~ msgstr "ഒന്നും തന്നെ തുറക്കരുത്"
+msgid "Don't open anything"
+msgstr "ഒന്നും തന്നെ തുറക്കരുത്"
 
-#~ msgid "Folder"
-#~ msgstr "ഫോള്‍ഡര്‍"
+msgid "Folder"
+msgstr "ഫോള്‍ഡര്‍"
 
-#~ msgid "Preferences"
-#~ msgstr "ഇഷ്ടാനിഷ്ടങ്ങള്‍ (Preferences)"
+msgid "Preferences"
+msgstr "ഇഷ്ടാനിഷ്ടങ്ങള്‍ (Preferences)"
 
-#~ msgid "Recording"
-#~ msgstr "ആലേഖനം ചെയ്യുന്നു"
+msgid "Recording"
+msgstr "ആലേഖനം ചെയ്യുന്നു"
 
-#~ msgid "Search:"
-#~ msgstr "തിരയുക:"
+msgid "Search:"
+msgstr "തിരയുക:"
 
-#~ msgid "Show welcome dialog"
-#~ msgstr "സ്വാഗതം കാണിക്കുക"
+msgid "Show welcome dialog"
+msgstr "സ്വാഗതം കാണിക്കുക"
 
-#~ msgid "Stop"
-#~ msgstr "നിര്‍ത്തുക"
+msgid "Stop"
+msgstr "നിര്‍ത്തുക"
 
 #, fuzzy
 #~ msgid "Add a new instrument"

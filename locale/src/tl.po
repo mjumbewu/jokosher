@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: jokosher\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-03-17 02:00+0000\n"
-"PO-Revision-Date: 2007-04-15 06:33+0000\n"
+"PO-Revision-Date: 2009-02-18 07:11+0000\n"
 "Last-Translator: Jerome S. Gotangco <jgotangco@ubuntu.com>\n"
 "Language-Team: Tagalog <tl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-02-18 04:36+0000\n"
+"X-Launchpad-Export-Date: 2009-05-30 01:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../../Jokosher/Jokosher.glade.h:1
@@ -1965,388 +1965,421 @@ msgstr "Biyolin"
 msgid "Vocal"
 msgstr "Boses"
 
-#~ msgid "<b>Audio Output Plugin</b>"
-#~ msgstr "<b>Plugin para sa Audio Output</b>"
+msgid "<b>Audio Output Plugin</b>"
+msgstr "<b>Plugin para sa Audio Output</b>"
 
-#~ msgid "<b>Recorded Audio Format</b>"
-#~ msgstr "<b>Recorded Audio Format</b>"
+msgid "<b>Recorded Audio Format</b>"
+msgstr "<b>Recorded Audio Format</b>"
 
-#~ msgid "<b>Recording Sample Rate</b>"
-#~ msgstr "<b>Recording Sample Rate</b>"
+msgid "<b>Recording Sample Rate</b>"
+msgstr "<b>Recording Sample Rate</b>"
 
-#~ msgid ""
-#~ "Autodetect\n"
-#~ "ALSA\n"
-#~ "Custom"
-#~ msgstr ""
-#~ "Autodetect\n"
-#~ "ALSA\n"
-#~ "Custom"
+msgid ""
+"Autodetect\n"
+"ALSA\n"
+"Custom"
+msgstr ""
+"Autodetect\n"
+"ALSA\n"
+"Custom"
 
-#~ msgid "_Project"
-#~ msgstr "_Proyekto"
+msgid ""
+"No channels capable of recording have been found, please attach a device and "
+"try again."
+msgstr ""
+"Walang mga channel na may kapabilidad sa pag record ang nakita, mag kabit ng "
+"device at subukan muli."
 
-#~ msgid ""
-#~ "No channels capable of recording have been found, please attach a device "
-#~ "and try again."
-#~ msgstr ""
-#~ "Walang mga channel na may kapabilidad sa pag record ang nakita, mag kabit "
-#~ "ng device at subukan muli."
+msgid ""
+"Your sound card isn't capable of recording from multiple sources at the same "
+"time. Please disarm all but one instrument."
+msgstr ""
+"Ang iyong sound card ay hindi kayang mag record ng madaming pinagmulan na "
+"mag kasabay. Kung maari, ay dis-armahan lahat maliban sa isang instrumento."
 
-#~ msgid ""
-#~ "Your sound card isn't capable of recording from multiple sources at the "
-#~ "same time. Please disarm all but one instrument."
-#~ msgstr ""
-#~ "Ang iyong sound card ay hindi kayang mag record ng madaming pinagmulan na "
-#~ "mag kasabay. Kung maari, ay dis-armahan lahat maliban sa isang "
-#~ "instrumento."
+msgid "Add this step to the current mixdown"
+msgstr "Idagdag ang hakbang na ito sa kasalukyang mixdown"
 
-#~ msgid "Add a new step:"
-#~ msgstr "Magdagdag ng panibagong hakbang"
+msgid "Audio production made simple."
+msgstr "Pag-buo ng Audio ginawang simple."
 
-#~ msgid "Add this step to the current mixdown"
-#~ msgstr "Idagdag ang hakbang na ito sa kasalukyang mixdown"
+msgid "FastForward"
+msgstr "FastForward"
 
-#~ msgid "Audio production made simple."
-#~ msgstr "Pag-buo ng Audio ginawang simple."
+msgid "Recording"
+msgstr "Nagre-rekord"
 
-#~ msgid "FastForward"
-#~ msgstr "FastForward"
+msgid "Stop"
+msgstr "Tigil"
 
-#~ msgid "Mixing"
-#~ msgstr "Mixing"
-
-#~ msgid "Mixing Workspace"
-#~ msgstr "Mixing Workspace"
-
-#~ msgid "Recording"
-#~ msgstr "Nagre-rekord"
-
-#~ msgid "Rewind"
-#~ msgstr "Rewind"
-
-#~ msgid "Stop"
-#~ msgstr "Tigil"
-
-#~ msgid "Workspaces"
-#~ msgstr "Workspaces"
+msgid "Workspaces"
+msgstr "Workspaces"
 
 #, fuzzy
-#~ msgid "version 0.10"
-#~ msgstr "bersiyon 0.9"
+msgid "version 0.10"
+msgstr "bersiyon 0.9"
 
+msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"
+msgstr "<b>Hilahin<b> ang <b>slider</b> para baguhin ang lebel ng tunog."
+
+msgid "Beat value"
+msgstr "Beat value"
+
+msgid "Beats per measure"
+msgstr "Beats per measure"
+
+msgid "Device:"
+msgstr "Kagamitan:"
+
+msgid "Don't open anything"
+msgstr "Huwag magbukas ng kahit na ano"
+
+msgid "Don't show this on start-up"
+msgstr "Huwag nang ipakita ito sa pag-simula"
+
+msgid "Output:"
+msgstr "Output:"
+
+msgid "Pipeline:"
+msgstr "Pipeline:"
+
+msgid "Preferences"
+msgstr "Mga Kagustuhan"
+
+msgid "Search:"
+msgstr "Hanapin:"
+
+msgid "Show welcome dialog"
+msgstr "Ipakita ang diyalogo ng pagbati."
+
+msgid "_Recording Inputs"
+msgstr "_Recording Inputs"
+
+msgid ""
+"16 bit\n"
+"24 bit\n"
+"32 bit"
+msgstr ""
+"16 bit\n"
+"24 bit\n"
+"32 bit"
+
+msgid ""
+"96000\n"
+"48000\n"
+"44100\n"
+"32000\n"
+"24000\n"
+"22050\n"
+"16000\n"
+"11025\n"
+"8000"
+msgstr ""
+"96000\n"
+"48000\n"
+"44100\n"
+"32000\n"
+"24000\n"
+"22050\n"
+"16000\n"
+"8000"
+
+msgid ""
+"<b>To find out more, visit:</b>\n"
+"http://www.jokosher.org/contribute"
+msgstr ""
+"<b>Alamin ang iba pa tungkol sa Jokosher, bumisita sa:</b>\n"
+"http://www.jokosher.org/contribute"
+
+msgid "Device"
+msgstr "Kagamitan"
+
+msgid "General"
+msgstr "Pangkalahatan"
+
+msgid ""
+"Jokosher must be restarted in\n"
+"order for changes to take effect."
+msgstr ""
+"Ang Jokosher ay kinakailangang patakbuhin muli\n"
+"upang ang mga pagbabago ay maging epektibo."
+
+msgid "Output Format"
+msgstr "Porma ng Output"
+
+msgid "Pre-release Notes"
+msgstr "Mga Kasulatang pang Pre-release"
+
+msgid "Presets"
+msgstr "Presets"
+
+msgid "Preview"
+msgstr "Preview"
+
+msgid "Sample Format"
+msgstr "Sample Format"
+
+msgid "Sample Rate (Hz)"
+msgstr "Sample Rate (Hz)"
+
+msgid "Save Files As"
+msgstr "Iluklok ang mga File bilang"
+
+msgid "Select an effect"
+msgstr "Pumili ng epekto"
+
+msgid "Select an effect to add to the instrument"
+msgstr "Pumili ng epekto na idadagdag sa instrumento"
+
+msgid "Time Format"
+msgstr "Porma ng Oras"
+
+msgid ""
+"Use the combo boxes below to select which input is used with which instrument"
+msgstr ""
+"Gamitin ang mga combo boxes sa ibaba para piliin ang input na gagamitin sa "
+"alin mang instrumento"
+
+msgid ""
+"Wave\n"
+"FLAC\n"
+"Ogg Vorbis"
+msgstr ""
+"Wave\n"
+"FLAC\n"
+"Ogg Vorbis"
+
+msgid "foo"
+msgstr "foo"
+
+msgid "Import file..."
+msgstr "Angkatin ang talaksan..."
+
+msgid ""
+"<b>NOTE</b>: The volume sliders in this pre-release version of Jokosher do "
+"not affect the audio."
+msgstr ""
+"<b>ABISO</b>: Ang mga volume sliders sa pre-release version na ito ng "
+"Jokosher ay walang bisa sa tunog."
+
+msgid "Split"
+msgstr "Hatiin"
+
+msgid "Cut"
+msgstr "Putulin"
+
+msgid ""
+"%s\n"
+"\n"
+"File is corrupt, not an audio file, or the associated plugin is not installed"
+msgstr ""
+"%s\n"
+"\n"
+"Ang talaksan ay sira, hindi isang talaksang pang-audio, o ang akma na plugin "
+"ay hindi nakaluklok"
+
+msgid "Muted"
+msgstr "Muted"
+
+msgid "Unmuted"
+msgstr "Unmuted"
+
+msgid ""
+"The instruments '%s' and '%s' both have the same input selected (%s). Please "
+"either disarm one, or connect it to a different input through 'Project -> "
+"Instrument Connections'"
+msgstr ""
+"Ang mga instrumentong '%s' at '%s' ay pareho ang input na napili (%s). Kung "
+"maari, ay dis-armahan ang isa, o i-konek sa ibang input gamit ang 'Project -"
+"> Instrument Connections'"
+
+msgid ""
+"No instruments are armed for recording. You need to arm an instrument before "
+"you can begin recording."
+msgstr ""
+"Walang instrumento ang naka arma para sa recording. Kinakailangan mong mag "
+"arma ng intrumento bago ka makapagsimula sa recording."
+
+msgid "%d of %d seconds completed"
+msgstr "%d ng %d na segundo ang nakumpleto na"
+
+msgid ""
+"\n"
+"See http://jokosher.org/trac/wiki/GettingJokosher for more details.\n"
+msgstr ""
+"\n"
+"Pumunta sa http://jokosher.org/trac/wiki/GettingJokosher para sa mga "
+"detalye.\n"
+
+msgid ""
+"<big>Notes about this release</big>\n"
+"\n"
+"This version of Jokosher (0.1) is a pre-release version, and is infact, our "
+"very first release. As such, you may encounter some bugs and functionality "
+"that is not present."
+msgstr ""
+"<big>Mga kasulatan ukol sa labas na ito</big>\n"
+"\n"
+"Ang bersiyon na ito ng Jokosher (0.1) ay isang bersiyon na pre-release, at "
+"ito na din ang unang labas. Maari kang makatagpo ng mga bugs at mga "
+"katangian na hindi pa nagawa sa ngayon."
+
+msgid "Master Volume"
+msgstr "Master Volume"
+
+msgid "Volume: %.2f"
+msgstr "Tunog: %.2f"
+
+msgid "translator-credits"
+msgstr ""
+"Jerome Gotangco <jgotangco@ubuntu.com>, 2006\n"
+"\n"
+"Launchpad Contributions:\n"
+"  Jerome S. Gotangco https://launchpad.net/~jgotangco"
+
+msgid "Files Saves As"
+msgstr "Ang mga talaksan ay ilalagak bilang"
+
+#, fuzzy
+#~ msgid "_Project"
+#~ msgstr "Bagong Proyekto"
+
+#, fuzzy
+#~ msgid "Add a new step:"
+#~ msgstr "Magdagdag ng instrumento"
+
+#, fuzzy
+#~ msgid "Mixing"
+#~ msgstr "Kasalukyang Mini-mix na ang Proyekto"
+
+#, fuzzy
+#~ msgid "Mixing Workspace"
+#~ msgstr "Kasalukyang Mini-mix na ang Proyekto"
+
+#, fuzzy
+#~ msgid "Rewind"
+#~ msgstr "Gawin muli"
+
+#, fuzzy
 #~ msgid "_Paste"
-#~ msgstr "_Dikit"
+#~ msgstr "Phasers"
 
+#, fuzzy
 #~ msgid "_Mixdown Project"
-#~ msgstr "_Mixdown and Proyekto"
+#~ msgstr "I-Mixdown ang Proyekto"
 
-#~ msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"
-#~ msgstr "<b>Hilahin<b> ang <b>slider</b> para baguhin ang lebel ng tunog."
-
+#, fuzzy
 #~ msgid "<b>Presets for:</b>"
-#~ msgstr "<b>Mga Presents para:</b>"
+#~ msgstr "<b>Mga Aktibong Epekto para:</b>"
 
+#, fuzzy
 #~ msgid "Add a new instrument"
-#~ msgstr "Magdagdag ng bagong instrumento"
+#~ msgstr "Magdagdag ng instrumento"
 
+#, fuzzy
 #~ msgid "Author"
-#~ msgstr "May-katha"
+#~ msgstr "Hindi kilala ang May-Katha"
 
-#~ msgid "Beat value"
-#~ msgstr "Beat value"
-
-#~ msgid "Beats per measure"
-#~ msgstr "Beats per measure"
-
+#, fuzzy
 #~ msgid "Browse for an Existing Project"
-#~ msgstr "Maghanap ng Proyekto"
+#~ msgstr "Maghanap at magbukas ng proyekto"
 
+#, fuzzy
 #~ msgid "Create a New Project"
-#~ msgstr "Gumawa ng Bagong Proyekto"
+#~ msgstr "Lumikha ng bagong proyekto"
 
-#~ msgid "Device:"
-#~ msgstr "Kagamitan:"
-
-#~ msgid "Don't open anything"
-#~ msgstr "Huwag magbukas ng kahit na ano"
-
-#~ msgid "Don't show this on start-up"
-#~ msgstr "Huwag nang ipakita ito sa pag-simula"
-
+#, fuzzy
 #~ msgid "Folder"
-#~ msgstr "Polder"
+#~ msgstr "Mga Filter"
 
+#, fuzzy
 #~ msgid "Open Selected Project"
-#~ msgstr "Buksan ang napiling Proyekto"
+#~ msgstr "Buksan ang proyekto na kailan lamang ginamit"
 
+#, fuzzy
 #~ msgid "Open most recent project"
-#~ msgstr "Buksan ang huling proyekto na ginamit"
+#~ msgstr "Buksan ang proyekto na kailan lamang ginamit"
 
-#~ msgid "Output:"
-#~ msgstr "Output:"
-
-#~ msgid "Pipeline:"
-#~ msgstr "Pipeline:"
-
-#~ msgid "Preferences"
-#~ msgstr "Mga Kagustuhan"
-
+#, fuzzy
 #~ msgid "Project Name"
-#~ msgstr "Pangalan ng Proyekto"
+#~ msgstr "Bagong Proyekto"
 
+#, fuzzy
 #~ msgid "Remove Selected Instrument"
-#~ msgstr "Tanggalin ang Napiling Instrumento"
+#~ msgstr "Tanggalin ang napiling instrumento"
 
-#~ msgid "Search:"
-#~ msgstr "Hanapin:"
-
-#~ msgid "Show welcome dialog"
-#~ msgstr "Ipakita ang diyalogo ng pagbati."
-
+#, fuzzy
 #~ msgid "_Manage Extensions"
-#~ msgstr "_Manage ang mga Extension"
+#~ msgstr "Ex_tensions"
 
-#~ msgid "_Recording Inputs"
-#~ msgstr "_Recording Inputs"
-
-#~ msgid ""
-#~ "16 bit\n"
-#~ "24 bit\n"
-#~ "32 bit"
-#~ msgstr ""
-#~ "16 bit\n"
-#~ "24 bit\n"
-#~ "32 bit"
-
-#~ msgid ""
-#~ "96000\n"
-#~ "48000\n"
-#~ "44100\n"
-#~ "32000\n"
-#~ "24000\n"
-#~ "22050\n"
-#~ "16000\n"
-#~ "11025\n"
-#~ "8000"
-#~ msgstr ""
-#~ "96000\n"
-#~ "48000\n"
-#~ "44100\n"
-#~ "32000\n"
-#~ "24000\n"
-#~ "22050\n"
-#~ "16000\n"
-#~ "8000"
-
+#, fuzzy
 #~ msgid "<b>Audio Mixdown</b>"
-#~ msgstr "<b>Audio Mixdown</b>"
+#~ msgstr "<b>Coding</b>"
 
+#, fuzzy
 #~ msgid "<b>Audio Quality</b>"
-#~ msgstr "<b>Kalidad ng Audio</b>"
+#~ msgstr "<b>Sining</b>"
 
+#, fuzzy
 #~ msgid "<b>Quality</b>"
-#~ msgstr "<b>Kalidad</b>"
+#~ msgstr "<b>Sining</b>"
 
-#~ msgid ""
-#~ "<b>To find out more, visit:</b>\n"
-#~ "http://www.jokosher.org/contribute"
-#~ msgstr ""
-#~ "<b>Alamin ang iba pa tungkol sa Jokosher, bumisita sa:</b>\n"
-#~ "http://www.jokosher.org/contribute"
-
+#, fuzzy
 #~ msgid "Contributing to Jokosher"
-#~ msgstr "Mag-ambag sa Jokosher"
+#~ msgstr "Isarado ang Jokosher"
 
-#~ msgid "Device"
-#~ msgstr "Kagamitan"
-
-#~ msgid "General"
-#~ msgstr "Pangkalahatan"
-
+#, fuzzy
 #~ msgid "Instrument Connections"
-#~ msgstr "Mga Koneksiyon ng mga Instrumento"
+#~ msgstr "Mga Epekto ng mga Instrumento"
 
-#~ msgid ""
-#~ "Jokosher must be restarted in\n"
-#~ "order for changes to take effect."
-#~ msgstr ""
-#~ "Ang Jokosher ay kinakailangang patakbuhin muli\n"
-#~ "upang ang mga pagbabago ay maging epektibo."
-
-#~ msgid "Output Format"
-#~ msgstr "Porma ng Output"
-
+#, fuzzy
 #~ msgid "Playback"
-#~ msgstr "Playback"
+#~ msgstr "Itigil ang playback"
 
-#~ msgid "Pre-release Notes"
-#~ msgstr "Mga Kasulatang pang Pre-release"
-
-#~ msgid "Presets"
-#~ msgstr "Presets"
-
-#~ msgid "Preview"
-#~ msgstr "Preview"
-
+#, fuzzy
 #~ msgid "Recent Projects"
-#~ msgstr "Mga Proyektong kailan lamang ginamit"
+#~ msgstr "<b>Mga Proyektong kailan lamang ginamit</b>"
 
+#, fuzzy
 #~ msgid "Remove curently selected extension"
-#~ msgstr "Tanggalin ang kasalukyang napiling extension"
+#~ msgstr "Tanggalin ang napiling instrumento"
 
-#~ msgid "Sample Format"
-#~ msgstr "Sample Format"
-
-#~ msgid "Sample Rate (Hz)"
-#~ msgstr "Sample Rate (Hz)"
-
-#~ msgid "Save Files As"
-#~ msgstr "Iluklok ang mga File bilang"
-
-#~ msgid "Select an effect"
-#~ msgstr "Pumili ng epekto"
-
-#~ msgid "Select an effect to add to the instrument"
-#~ msgstr "Pumili ng epekto na idadagdag sa instrumento"
-
+#, fuzzy
 #~ msgid "Select an instrument, then click here to begin recording"
-#~ msgstr "Pumili ng instrumento, at pindutin ito para simulan ang pag rekord"
+#~ msgstr "I-arma ang instrumento, at pindutin dito para simulan ang recording"
 
+#, fuzzy
 #~ msgid "Show as Bars, Beats, Ticks"
-#~ msgstr "Ipakita bilang Bars, Beats at Ticks"
+#~ msgstr "Ipakita blaing _Bars, Beats, Ticks"
 
+#, fuzzy
 #~ msgid "Show as Hours, Minutes, Seconds"
-#~ msgstr "Ipakita bilang Oras, Minuto, Segundo"
+#~ msgstr "Ipakita bilang _Oras, Minuto, Segundo"
 
-#~ msgid "Time Format"
-#~ msgstr "Porma ng Oras"
-
-#~ msgid ""
-#~ "Use the combo boxes below to select which input is used with which "
-#~ "instrument"
-#~ msgstr ""
-#~ "Gamitin ang mga combo boxes sa ibaba para piliin ang input na gagamitin "
-#~ "sa alin mang instrumento"
-
-#~ msgid ""
-#~ "Wave\n"
-#~ "FLAC\n"
-#~ "Ogg Vorbis"
-#~ msgstr ""
-#~ "Wave\n"
-#~ "FLAC\n"
-#~ "Ogg Vorbis"
-
+#, fuzzy
 #~ msgid "_Extensions"
-#~ msgstr "_Extensions"
+#~ msgstr "Ex_tensions"
 
-#~ msgid "foo"
-#~ msgstr "foo"
-
+#, fuzzy
 #~ msgid "Import Audio File..."
-#~ msgstr "Angkatin ang Talaksang Audio..."
+#~ msgstr "_Mag dagdag ng Audio File"
 
+#, fuzzy
 #~ msgid "Paste"
-#~ msgstr "Idikit"
+#~ msgstr "Phasers"
 
+#, fuzzy
 #~ msgid "Delete"
-#~ msgstr "Alisin"
+#~ msgstr "_Burahin"
 
-#~ msgid "Import file..."
-#~ msgstr "Angkatin ang talaksan..."
-
-#~ msgid ""
-#~ "<b>NOTE</b>: The volume sliders in this pre-release version of Jokosher "
-#~ "do not affect the audio."
-#~ msgstr ""
-#~ "<b>ABISO</b>: Ang mga volume sliders sa pre-release version na ito ng "
-#~ "Jokosher ay walang bisa sa tunog."
-
-#~ msgid "Split"
-#~ msgstr "Hatiin"
-
-#~ msgid "Cut"
-#~ msgstr "Putulin"
-
+#, fuzzy
 #~ msgid "Copy"
-#~ msgstr "Kopyahin"
+#~ msgstr "_Kopya"
 
-#~ msgid ""
-#~ "%s\n"
-#~ "\n"
-#~ "File is corrupt, not an audio file, or the associated plugin is not "
-#~ "installed"
-#~ msgstr ""
-#~ "%s\n"
-#~ "\n"
-#~ "Ang talaksan ay sira, hindi isang talaksang pang-audio, o ang akma na "
-#~ "plugin ay hindi nakaluklok"
-
+#, fuzzy
 #~ msgid "Solo - silence all other instruments"
-#~ msgstr "Solo - patahimikin ang iba pang mga instrumento"
+#~ msgstr "Mute - patahimikin itong instrumento na ito"
 
-#~ msgid "Muted"
-#~ msgstr "Muted"
-
-#~ msgid "Unmuted"
-#~ msgstr "Unmuted"
-
+#, fuzzy
 #~ msgid "Instrument Effects..."
-#~ msgstr "Mga Epekto ng Instrumento..."
-
-#~ msgid ""
-#~ "The instruments '%s' and '%s' both have the same input selected (%s). "
-#~ "Please either disarm one, or connect it to a different input through "
-#~ "'Project -> Instrument Connections'"
-#~ msgstr ""
-#~ "Ang mga instrumentong '%s' at '%s' ay pareho ang input na napili (%s). "
-#~ "Kung maari, ay dis-armahan ang isa, o i-konek sa ibang input gamit ang "
-#~ "'Project -> Instrument Connections'"
-
-#~ msgid ""
-#~ "No instruments are armed for recording. You need to arm an instrument "
-#~ "before you can begin recording."
-#~ msgstr ""
-#~ "Walang instrumento ang naka arma para sa recording. Kinakailangan mong "
-#~ "mag arma ng intrumento bago ka makapagsimula sa recording."
-
-#~ msgid "%d of %d seconds completed"
-#~ msgstr "%d ng %d na segundo ang nakumpleto na"
-
-#~ msgid ""
-#~ "\n"
-#~ "See http://jokosher.org/trac/wiki/GettingJokosher for more details.\n"
-#~ msgstr ""
-#~ "\n"
-#~ "Pumunta sa http://jokosher.org/trac/wiki/GettingJokosher para sa mga "
-#~ "detalye.\n"
-
-#~ msgid ""
-#~ "<big>Notes about this release</big>\n"
-#~ "\n"
-#~ "This version of Jokosher (0.1) is a pre-release version, and is infact, "
-#~ "our very first release. As such, you may encounter some bugs and "
-#~ "functionality that is not present."
-#~ msgstr ""
-#~ "<big>Mga kasulatan ukol sa labas na ito</big>\n"
-#~ "\n"
-#~ "Ang bersiyon na ito ng Jokosher (0.1) ay isang bersiyon na pre-release, "
-#~ "at ito na din ang unang labas. Maari kang makatagpo ng mga bugs at mga "
-#~ "katangian na hindi pa nagawa sa ngayon."
-
-#~ msgid "Master Volume"
-#~ msgstr "Master Volume"
-
-#~ msgid "Volume: %.2f"
-#~ msgstr "Tunog: %.2f"
-
-#~ msgid "translator-credits"
-#~ msgstr ""
-#~ "Jerome Gotangco <jgotangco@ubuntu.com>, 2006\n"
-#~ "\n"
-#~ "Launchpad Contributions:\n"
-#~ "  Jerome S. Gotangco https://launchpad.net/~jgotangco"
-
-#~ msgid "Files Saves As"
-#~ msgstr "Ang mga talaksan ay ilalagak bilang"
+#~ msgstr "Mga Epekto ng mga Instrumento"

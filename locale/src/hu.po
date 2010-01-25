@@ -9,12 +9,12 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-03-17 02:00+0000\n"
 "PO-Revision-Date: 2007-10-21 18:10+0000\n"
-"Last-Translator: Gergely Máté <gerymate@gmail.com>\n"
+"Last-Translator: Gergely Máté <fsf@sportember.eu>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-02-18 04:36+0000\n"
+"X-Launchpad-Export-Date: 2009-05-30 01:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../../Jokosher/Jokosher.glade.h:1
@@ -135,7 +135,6 @@ msgid "Add Audio _File..."
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:29
-#, fuzzy
 msgid "Add Instrument"
 msgstr "Hangszer hozzáadása"
 
@@ -306,14 +305,12 @@ msgid "Delete the current selection"
 msgstr "A jelenlegi kijelölés törlése"
 
 #: ../../Jokosher/Jokosher.glade.h:72
-#, fuzzy
 msgid "Delete the currently active effects preset"
-msgstr "Aktuális effekt alapbeállítás törlése"
+msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:73
-#, fuzzy
 msgid "Delete the currently active preset"
-msgstr "Aktuális alapbeállítás törlése"
+msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:74
 msgid "Delete the selected project template"
@@ -698,14 +695,12 @@ msgid "Undo the last edit"
 msgstr "Az utolsó szerkesztés visszavonása"
 
 #: ../../Jokosher/Jokosher.glade.h:213
-#, fuzzy
 msgid "Use these effect settings"
-msgstr "Effektbeállítások elfogadása"
+msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:214
-#, fuzzy
 msgid "Use these effects"
-msgstr "Effektek használata"
+msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:215
 msgid "Use these settings"
@@ -724,9 +719,8 @@ msgid "Visit Jokosher's online forums"
 msgstr "Látogassunk el a Jokosher fórumaira"
 
 #: ../../Jokosher/Jokosher.glade.h:219
-#, fuzzy
 msgid "Welcome to Jokosher!"
-msgstr "Jó napot!"
+msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:220
 msgid "Writing code and features in Python."
@@ -753,9 +747,8 @@ msgid "_Change Instrument Type..."
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:226
-#, fuzzy
 msgid "_Contributing to Jokosher"
-msgstr "_Csatlakozom a Jokosherhez"
+msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:227
 msgid "_Create a New Project"
@@ -890,18 +883,17 @@ msgid "Change Instrument Type"
 msgstr "Hangszer típusának megváltoztatása"
 
 #: ../../Jokosher/AddInstrumentDialog.py:63
-#, fuzzy, python-format
+#, python-format
 msgid "Choose the new instrument type for %s"
-msgstr "Válasszunk ki új hangszertípust %s-nek"
+msgstr ""
 
 #: ../../Jokosher/CompactMixView.py:86
 msgid "<b>Instruments Not Shown:</b>"
 msgstr "<b>Nem Látszó Hangszerek:</b>"
 
 #: ../../Jokosher/ControlsBox.py:42
-#, fuzzy
 msgid "Enable this instrument for recording"
-msgstr "Hangszer élesítése felvételhez"
+msgstr ""
 
 #: ../../Jokosher/ControlsBox.py:43
 msgid "Disable this instrument for recording"
@@ -1054,11 +1046,11 @@ msgid "Install"
 msgstr "Telepítés"
 
 #: ../../Jokosher/Extension.py:66
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You already have a extension with the name %s installed; would you like to "
 "replace it?"
-msgstr "Már van egy %s nevű kiegészítő telepítve; kicseréljük erre?"
+msgstr ""
 
 #: ../../Jokosher/Extension.py:69
 msgid "Replace"
@@ -1799,9 +1791,8 @@ msgid "Adjust volume of click track"
 msgstr ""
 
 #: ../../Jokosher/TimeLineBar.py:69
-#, fuzzy
 msgid "Beats per minute"
-msgstr "Ritmus per perc"
+msgstr ""
 
 #: ../../Jokosher/TimeLineBar.py:89
 msgid "Time signature"
@@ -1818,9 +1809,8 @@ msgid ""
 msgstr ""
 
 #: ../../Jokosher/Jokosher:73
-#, fuzzy
 msgid "Print debug output to stdout"
-msgstr "Hibainformáció kiírása terminálba"
+msgstr ""
 
 #: ../../Jokosher/Jokosher:75
 msgid "Sent debug output to Gstreamer's debug system"
@@ -1885,9 +1875,8 @@ msgid "Harmonica"
 msgstr "Harmónika"
 
 #: i18n.instr.h:11
-#, fuzzy
 msgid "Keyboard"
-msgstr "Szintetizátor"
+msgstr ""
 
 #: i18n.instr.h:12
 msgid "Other"
@@ -1917,111 +1906,113 @@ msgstr "Hegedű"
 msgid "Vocal"
 msgstr "Vokál"
 
-#~ msgid "<b>Audio Output Plugin</b>"
-#~ msgstr "<b>Audio kimenet bővítmény</b>"
+msgid "<b>Audio Output Plugin</b>"
+msgstr "<b>Audio kimenet bővítmény</b>"
 
-#~ msgid "<b>Recording Sample Rate</b>"
-#~ msgstr "<b>Mintavételezési Frekvencia a Felvételhez</b>"
+msgid "<b>Recording Sample Rate</b>"
+msgstr "<b>Mintavételezési Frekvencia a Felvételhez</b>"
 
-#~ msgid ""
-#~ "Autodetect\n"
-#~ "ALSA\n"
-#~ "Custom"
-#~ msgstr ""
-#~ "Automatikus\n"
-#~ "ALSA\n"
-#~ "Egyéni"
+msgid ""
+"Autodetect\n"
+"ALSA\n"
+"Custom"
+msgstr ""
+"Automatikus\n"
+"ALSA\n"
+"Egyéni"
 
+msgid "Argh! Something went wrong and a serious error occurred:"
+msgstr "Hű! Valami elromlott és komoly hiba merült fel:"
+
+#, fuzzy
+msgid "Mixdown as"
+msgstr "Lekeverés mint"
+
+msgid "Audio production made simple."
+msgstr "Hangstúdió egyszerűen"
+
+msgid "Beat value"
+msgstr "Ritmus érték"
+
+msgid "Device:"
+msgstr "Eszköz:"
+
+msgid "Don't open anything"
+msgstr "Ne nyisson meg semmit"
+
+msgid "FastForward"
+msgstr "Gyors Előretekerés"
+
+msgid "Output:"
+msgstr "Kimenet"
+
+#, fuzzy
+msgid "Pipeline:"
+msgstr "Láncolat"
+
+msgid "Preferences"
+msgstr "Beállítások"
+
+#, fuzzy
+msgid "Recording Workspace"
+msgstr "Felvételi Munkaterület"
+
+msgid "Search:"
+msgstr "Keresés:"
+
+msgid "Show welcome dialog"
+msgstr "Üdvözlőképernyő megjelenítése"
+
+msgid "Stop"
+msgstr "Stop"
+
+msgid "Switch to the Mixing workspace"
+msgstr "Váltás a keverőpultra"
+
+msgid "Switch to the Recording workspace"
+msgstr "Váltás a felvételi eszközökhöz"
+
+msgid "Workspaces"
+msgstr "Munkaterületek"
+
+msgid "version 0.9"
+msgstr "0.9 verzió"
+
+msgid "_Paste"
+msgstr "Beillesztés (_P)"
+
+msgid "Currently working in the Recording workspace"
+msgstr "Jelenleg a Felvételi Munkaterületen dolgozunk"
+
+msgid "Currently working in the Mixing workspace"
+msgstr "Jelenleg a Keverőpulton dolgozunk"
+
+#, fuzzy
+msgid "_Mixdown as"
+msgstr "Lekeverés _mint"
+
+msgid "Export file"
+msgstr "Fájl exportálása"
+
+msgid "Export as"
+msgstr "Exportálás mint"
+
+msgid "Run external script"
+msgstr "Külső szkript futtatása"
+
+msgid "Hz"
+msgstr "Hz"
+
+msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"
+msgstr "<b>Állítsuk</b> a <b>csúszkát</b> a hangerőszintek változtatásához"
+
+#, fuzzy
 #~ msgid "_Project"
-#~ msgstr "_Projekt"
-
-#~ msgid "Argh! Something went wrong and a serious error occurred:"
-#~ msgstr "Hű! Valami elromlott és komoly hiba merült fel:"
+#~ msgstr "Új Projekt"
 
 #, fuzzy
-#~ msgid "Mixdown as"
-#~ msgstr "Lekeverés mint"
-
-#~ msgid "Audio production made simple."
-#~ msgstr "Hangstúdió egyszerűen"
-
-#~ msgid "Beat value"
-#~ msgstr "Ritmus érték"
-
-#~ msgid "Device:"
-#~ msgstr "Eszköz:"
-
-#~ msgid "Don't open anything"
-#~ msgstr "Ne nyisson meg semmit"
-
-#~ msgid "FastForward"
-#~ msgstr "Gyors Előretekerés"
-
-#~ msgid "Output:"
-#~ msgstr "Kimenet"
-
-#, fuzzy
-#~ msgid "Pipeline:"
-#~ msgstr "Láncolat"
-
-#~ msgid "Preferences"
-#~ msgstr "Beállítások"
-
-#, fuzzy
-#~ msgid "Recording Workspace"
-#~ msgstr "Felvételi Munkaterület"
-
-#~ msgid "Search:"
-#~ msgstr "Keresés:"
-
-#~ msgid "Show welcome dialog"
-#~ msgstr "Üdvözlőképernyő megjelenítése"
-
-#~ msgid "Stop"
-#~ msgstr "Stop"
-
-#~ msgid "Switch to the Mixing workspace"
-#~ msgstr "Váltás a keverőpultra"
-
-#~ msgid "Switch to the Recording workspace"
-#~ msgstr "Váltás a felvételi eszközökhöz"
-
-#~ msgid "Workspaces"
-#~ msgstr "Munkaterületek"
-
-#~ msgid "version 0.9"
-#~ msgstr "0.9 verzió"
-
-#~ msgid "_Paste"
-#~ msgstr "Beillesztés (_P)"
-
-#~ msgid "Currently working in the Recording workspace"
-#~ msgstr "Jelenleg a Felvételi Munkaterületen dolgozunk"
-
-#~ msgid "Currently working in the Mixing workspace"
-#~ msgstr "Jelenleg a Keverőpulton dolgozunk"
-
-#, fuzzy
-#~ msgid "_Mixdown as"
-#~ msgstr "Lekeverés _mint"
-
-#~ msgid "Export file"
-#~ msgstr "Fájl exportálása"
-
-#~ msgid "Export as"
-#~ msgstr "Exportálás mint"
-
-#~ msgid "Run external script"
-#~ msgstr "Külső szkript futtatása"
-
-#~ msgid "Hz"
-#~ msgstr "Hz"
-
-#~ msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"
-#~ msgstr "<b>Állítsuk</b> a <b>csúszkát</b> a hangerőszintek változtatásához"
-
 #~ msgid "<b>Presets for:</b>"
-#~ msgstr "<b>Előre elkészített beállítások ehhez:</b>"
+#~ msgstr "<b>Aktív effektek ehhez:</b>"
 
 #, fuzzy
 #~ msgid "Add a new instrument"
@@ -2069,7 +2060,7 @@ msgstr "Vokál"
 
 #, fuzzy
 #~ msgid "Project Name"
-#~ msgstr "_Projekt"
+#~ msgstr "Új Projekt"
 
 #, fuzzy
 #~ msgid "Record"
@@ -2089,7 +2080,7 @@ msgstr "Vokál"
 
 #, fuzzy
 #~ msgid "_Add Instrument"
-#~ msgstr "Hangszer (_I)"
+#~ msgstr "Hangszer hozzáadása"
 
 #, fuzzy
 #~ msgid "_Manage Extensions"

@@ -1320,7 +1320,13 @@ class Project(gobject.GObject):
 		if not undoAction:
 			undoAction = self.NewAtomicUndoAction()
 	
-		uris = [PlatformUtils.pathname2url(filename) for filename in fileList]
+		uris = []
+		for filename in fileList:
+			if filename.find("://"):
+				uris.append(filename)
+			else:
+				# We've been passed a path, so convert it to a URI
+				uris.append(PlatformUtils.pathname2url(filename))
 
 		name, type, pixbuf, path = [x for x in Globals.getCachedInstruments() if x[1] == "audiofile"][0]
 		instr = self.AddInstrument(name, type, _undoAction_=undoAction)

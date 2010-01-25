@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: jokosher\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-03-17 02:00+0000\n"
-"PO-Revision-Date: 2007-03-10 16:19+0000\n"
+"PO-Revision-Date: 2009-02-18 06:56+0000\n"
 "Last-Translator: Iestyn Pryce <dylunio@gmail.com>\n"
 "Language-Team: Welsh <cy@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-02-18 04:36+0000\n"
+"X-Launchpad-Export-Date: 2009-05-30 01:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../../Jokosher/Jokosher.glade.h:1
@@ -1980,499 +1980,563 @@ msgstr "Ffidil"
 msgid "Vocal"
 msgstr "Llaisiol"
 
-#~ msgid "<b>Audio Output Plugin</b>"
-#~ msgstr "<b>Ategyn Allbwn Sain</b>"
+msgid "<b>Audio Output Plugin</b>"
+msgstr "<b>Ategyn Allbwn Sain</b>"
 
-#~ msgid "<b>Recorded Audio Format</b>"
-#~ msgstr "<b>Fformat Awdio Wedi'i Recordio</b>"
+msgid "<b>Recording Sample Rate</b>"
+msgstr "<b>Graddfa Samplo Y Recordiad</b>"
 
-#~ msgid "<b>Recording Sample Rate</b>"
-#~ msgstr "<b>Graddfa Samplo Y Recordiad</b>"
+msgid ""
+"Autodetect\n"
+"ALSA\n"
+"Custom"
+msgstr ""
+"Hunan-ganfod\n"
+"ALSA\n"
+"Addasiedig"
 
-#~ msgid ""
-#~ "Autodetect\n"
-#~ "ALSA\n"
-#~ "Custom"
-#~ msgstr ""
-#~ "Hunan-ganfod\n"
-#~ "ALSA\n"
-#~ "Addasiedig"
+msgid "%(device)s input %(input)d"
+msgstr "%(device)s mewnbwn %(input)d"
 
-#~ msgid "_Project"
-#~ msgstr "_Project"
+msgid ""
+"No channels capable of recording have been found, please attach a device and "
+"try again."
+msgstr ""
+"Does dim sianeli sy'n gallu recordio wedi eu darganfod, ail-gysylltwch "
+"dyfais a cheisiwch eto os gwelwch yn dda."
 
-#~ msgid "%(device)s input %(input)d"
-#~ msgstr "%(device)s mewnbwn %(input)d"
+msgid ""
+"Your sound card isn't capable of recording from multiple sources at the same "
+"time. Please disarm all but one instrument."
+msgstr ""
+"Dydy eich cerdyn sain ddim yn gallu recordio o nifer o tarddiadau ar yr un "
+"amser. Diarfogwch pob offeryn heblaw un."
 
-#~ msgid ""
-#~ "No channels capable of recording have been found, please attach a device "
-#~ "and try again."
-#~ msgstr ""
-#~ "Does dim sianeli sy'n gallu recordio wedi eu darganfod, ail-gysylltwch "
-#~ "dyfais a cheisiwch eto os gwelwch yn dda."
+msgid ""
+"You require the GStreamer channel splitting element to be able to record "
+"from multiple input devices. This can be downloaded from http://www.jokosher."
+"org/download."
+msgstr ""
+"Mae angen yr elfen hollti sianeli GStreamer i allu recordio o nifer o "
+"ddefeisiau mewnbwn. Mae'n bosib lawrlwytho hyn o\n"
+"http://www.jokosher.org/download."
 
-#~ msgid ""
-#~ "Your sound card isn't capable of recording from multiple sources at the "
-#~ "same time. Please disarm all but one instrument."
-#~ msgstr ""
-#~ "Dydy eich cerdyn sain ddim yn gallu recordio o nifer o tarddiadau ar yr "
-#~ "un amser. Diarfogwch pob offeryn heblaw un."
+msgid "Argh! Something went wrong and a serious error occurred:"
+msgstr "Aaaa! Aaeth rywbeth o'i le a ddigwyddodd gwall difrifol:"
 
-#~ msgid ""
-#~ "You require the GStreamer channel splitting element to be able to record "
-#~ "from multiple input devices. This can be downloaded from http://www."
-#~ "jokosher.org/download."
-#~ msgstr ""
-#~ "Mae angen yr elfen hollti sianeli GStreamer i allu recordio o nifer o "
-#~ "ddefeisiau mewnbwn. Mae'n bosib lawrlwytho hyn o\n"
-#~ "http://www.jokosher.org/download."
+msgid "Turn click track on"
+msgstr "Troi'r trac clicio ymlaen"
 
-#~ msgid "Argh! Something went wrong and a serious error occurred:"
-#~ msgstr "Aaaa! Aaeth rywbeth o'i le a ddigwyddodd gwall difrifol:"
+msgid "Turn click track off"
+msgstr "Troi'r trac clicio bant"
 
-#~ msgid "Mixdown as"
-#~ msgstr "Lawrgymysgu fel"
+msgid "Add this step to the current mixdown"
+msgstr "Ychwanegu'r cam yma i'r lawrgymysg presennol"
 
-#~ msgid "Turn click track on"
-#~ msgstr "Troi'r trac clicio ymlaen"
+msgid "Audio production made simple."
+msgstr "Cynhyrchu sain wedi ei wneud yn hawdd."
 
-#~ msgid "Turn click track off"
-#~ msgstr "Troi'r trac clicio bant"
+msgid "FastForward"
+msgstr "BrysYmlaen"
 
-#~ msgid "Add a new step:"
-#~ msgstr "Ychwanegu cam newydd:"
+msgid "Recording Workspace"
+msgstr "Gweithfan Recordio"
 
-#~ msgid "Add this step to the current mixdown"
-#~ msgstr "Ychwanegu'r cam yma i'r lawrgymysg presennol"
+msgid "Stop"
+msgstr "Atal"
 
-#~ msgid "Audio production made simple."
-#~ msgstr "Cynhyrchu sain wedi ei wneud yn hawdd."
+msgid "Switch to the Mixing workspace"
+msgstr "Newid i'r man Cymysgu"
 
-#~ msgid "FastForward"
-#~ msgstr "BrysYmlaen"
+msgid "Switch to the Recording workspace"
+msgstr "Newid i'r man Recordio"
 
-#~ msgid "Mixing"
-#~ msgstr "Cymysgu"
-
-#~ msgid "Mixing Workspace"
-#~ msgstr "Gweithfan Cymysgu"
-
-#~ msgid "Record"
-#~ msgstr "Recordio"
-
-#~ msgid "Recording"
-#~ msgstr "Recordio"
-
-#~ msgid "Recording Workspace"
-#~ msgstr "Gweithfan Recordio"
-
-#~ msgid "Rewind"
-#~ msgstr "Ail-ddirwyn"
-
-#~ msgid "Save these mixdown settings"
-#~ msgstr "Arbed y gosodiadau lawrgymysgu hyn"
-
-#~ msgid "Stop"
-#~ msgstr "Atal"
-
-#~ msgid "Switch to the Mixing workspace"
-#~ msgstr "Newid i'r man Cymysgu"
-
-#~ msgid "Switch to the Recording workspace"
-#~ msgstr "Newid i'r man Recordio"
-
-#~ msgid "Workspaces"
-#~ msgstr "Gweithfannau"
-
-#~ msgid "_Mixdown the project"
-#~ msgstr "_Lawrgymysgu'r broject"
-
-#~ msgid "_Save these settings"
-#~ msgstr "_Arbed y gosodiadau hyn"
+msgid "Workspaces"
+msgstr "Gweithfannau"
 
 #, fuzzy
-#~ msgid "version 0.10"
-#~ msgstr "fersiwn 0.9"
+msgid "version 0.10"
+msgstr "fersiwn 0.9"
 
+msgid "Currently working in the Recording workspace"
+msgstr "Gweithio'n bresennol yn y man Recordio"
+
+msgid "Currently working in the Mixing workspace"
+msgstr "Gweithio'n bresennol yn y man Cymysgu"
+
+msgid "%(progress)d of %(total)d seconds completed"
+msgstr "%(progress)d o %(total)d o eiliadau wedi'i cyflawni"
+
+msgid "Remove this mixdown step"
+msgstr "Gwaredu'r cam llawrgymysgu hyn"
+
+msgid "Export file"
+msgstr "Allforio feil"
+
+msgid "An unspecified MixdownAction"
+msgstr "GweithredLawrgymysgu amhenodol"
+
+msgid "Export to %(file)s as %(desc)s"
+msgstr "Allforio %(file)s fel %(desc)s"
+
+msgid "Export as"
+msgstr "Allforio fel"
+
+msgid "Run external script"
+msgstr "Rhedeg sgript allanol"
+
+msgid "Hz"
+msgstr "Hz"
+
+msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"
+msgstr "<b>Llusgwch</b> y <b>llithrydd</b> i newid lefelau sain"
+
+msgid "Beat value"
+msgstr "Gwerth curiad"
+
+msgid "Device:"
+msgstr "Dyfais:"
+
+msgid "Don't open anything"
+msgstr "Peidio a agor unrhyw beth"
+
+msgid "Output:"
+msgstr "Allbwn:"
+
+msgid "Pipeline:"
+msgstr "Pibell:"
+
+msgid "Preferences"
+msgstr "Hoffterau"
+
+msgid "Search:"
+msgstr "Chwilio:"
+
+msgid "Show welcome dialog"
+msgstr "Dangos ymgom croeso"
+
+msgid ""
+"16 bit\n"
+"24 bit\n"
+"32 bit"
+msgstr ""
+"16 bit\n"
+"24 bit\n"
+"32 bit"
+
+msgid ""
+"96000\n"
+"48000\n"
+"44100\n"
+"32000\n"
+"24000\n"
+"22050\n"
+"16000\n"
+"11025\n"
+"8000"
+msgstr ""
+"96000\n"
+"48000\n"
+"44100\n"
+"32000\n"
+"24000\n"
+"22050\n"
+"16000\n"
+"11025\n"
+"8000"
+
+msgid "Device"
+msgstr "Dyfais"
+
+msgid "General"
+msgstr "Cyffredinol"
+
+msgid ""
+"Jokosher must be restarted in\n"
+"order for changes to take effect."
+msgstr ""
+"Mae angen i Jokosher cael ei aliddechrau\n"
+"er mwyn i'r newidiadau cael effaith."
+
+msgid "Output Format"
+msgstr "Fformat Allbwn"
+
+msgid "Pre-release Notes"
+msgstr "Nodiauau Cyn-ryddhad"
+
+msgid "Presets"
+msgstr "Rhagosodau"
+
+msgid "Preview"
+msgstr "Rhagweld"
+
+msgid "Sample Rate (Hz)"
+msgstr "Cyfradd Samplu (Hz)"
+
+msgid "Save Files As"
+msgstr "Arbed Ffeiliau Fel"
+
+msgid ""
+"Use the combo boxes below to select which input is used with which instrument"
+msgstr ""
+"Defnyddiwch y bocsys cyfun islaw i ddewis pa fewnbwn sy'n cael ei ddefnyddio "
+"a pha offeryn"
+
+msgid ""
+"Wave\n"
+"FLAC\n"
+"Ogg Vorbis"
+msgstr ""
+"Ton\n"
+"FLAC\n"
+"Ogg Vorbis"
+
+msgid "foo"
+msgstr "foo"
+
+msgid "Import file..."
+msgstr "Mewnforio ffeil..."
+
+msgid ""
+"<b>NOTE</b>: The volume sliders in this pre-release version of Jokosher do "
+"not affect the audio."
+msgstr ""
+"<b>NODYN</b>: Mae'r llithryddion lefel sain yn y fersiwn cyn-rhyddhâd hyn o "
+"Jokosher ddim yn effeithio ar y sain."
+
+msgid ""
+"%s\n"
+"\n"
+"File is corrupt, not an audio file, or the associated plugin is not installed"
+msgstr ""
+"%s\n"
+"\n"
+"Mae'r ffeil wedi ei lygru, ddim yn ffeil sain, neu dydy'r atodyn "
+"cysylltiedig heb ei syfydlu."
+
+msgid "Muted"
+msgstr "Mudo"
+
+msgid "Unmuted"
+msgstr "Dadfudo"
+
+msgid ""
+"The instruments '%s' and '%s' both have the same input selected (%s). Please "
+"either disarm one, or connect it to a different input through 'Project -> "
+"Instrument Connections'"
+msgstr ""
+"Mae'r offerynau '%s' a '%s' gyda'r un fewnbwn wedi ei ddewn (%s). Unai "
+"diarfogwch un, neu cysylltwch ef i fewnbwn gwahanol trwy 'Prosiect -> "
+"Cysylltiadau Offerynau' os gwelwch yn dda."
+
+msgid ""
+"No instruments are armed for recording. You need to arm an instrument before "
+"you can begin recording."
+msgstr ""
+"Does ddim offerynau wedi eu harfogi i recordio. Mae'r rhaid i chi arfogi "
+"offeryn cyn allwch derchrau recordio."
+
+msgid "%d of %d seconds completed"
+msgstr "%d o %d eiliad wedi ei gwblhau"
+
+msgid ""
+"<big>Notes about this release</big>\n"
+"\n"
+"This version of Jokosher (0.1) is a pre-release version, and is infact, our "
+"very first release. As such, you may encounter some bugs and functionality "
+"that is not present."
+msgstr ""
+"<big>Nodiadau ynglyn ar rhyddhâd hwn</big>\n"
+"\n"
+"Mae'r fersiwn hyn o Jokosher (0.1) yn fersiwn cyn-rhyddhâd, ac yn wir, ein "
+"rhyddhâd cyntaf. Felly, mae'n bosib i chi dod ar draws namau a swyddogaethau "
+"sydd ddim yn bresennol."
+
+msgid "translator-credits"
+msgstr ""
+"clodau-cyfieithwyr\n"
+"\n"
+"Launchpad Contributions:\n"
+"  Iestyn Pryce https://launchpad.net/~dylunio"
+
+msgid "Files Saves As"
+msgstr "Cadw Ffeiliau Fel"
+
+msgid ""
+"No channels capable of recording have found, please attach a device and try "
+"again."
+msgstr ""
+"Does dim sianeli sy'n gallu recordio wedi ei ddarganfod, cysylltwch y dyfais "
+"eto os gwelwch yn dda."
+
+#, fuzzy
+#~ msgid "<b>Recorded Audio Format</b>"
+#~ msgstr "Sain sydd wedi'i recordio"
+
+#, fuzzy
+#~ msgid "_Project"
+#~ msgstr "Prosiect Newydd"
+
+#, fuzzy
+#~ msgid "Mixdown as"
+#~ msgstr "Lawrgymysgu Prosiect"
+
+#, fuzzy
+#~ msgid "Add a new step:"
+#~ msgstr "Ychwanegu offeryn"
+
+#, fuzzy
+#~ msgid "Mixing"
+#~ msgstr "Prosiect Cymysgu"
+
+#, fuzzy
+#~ msgid "Mixing Workspace"
+#~ msgstr "Prosiect Cymysgu"
+
+#, fuzzy
+#~ msgid "Record"
+#~ msgstr "Recordio..."
+
+#, fuzzy
+#~ msgid "Recording"
+#~ msgstr "Recordio..."
+
+#, fuzzy
+#~ msgid "Rewind"
+#~ msgstr "Ailwneud"
+
+#, fuzzy
+#~ msgid "Save these mixdown settings"
+#~ msgstr "Defnyddio'r gosodiadau hyn"
+
+#, fuzzy
+#~ msgid "_Mixdown the project"
+#~ msgstr "Lawrgymysgu Prosiect"
+
+#, fuzzy
+#~ msgid "_Save these settings"
+#~ msgstr "Defnyddio'r gosodiadau hyn"
+
+#, fuzzy
 #~ msgid "_Paste"
-#~ msgstr "_Gludo"
+#~ msgstr "Ffasors"
 
-#~ msgid "Currently working in the Recording workspace"
-#~ msgstr "Gweithio'n bresennol yn y man Recordio"
-
-#~ msgid "Currently working in the Mixing workspace"
-#~ msgstr "Gweithio'n bresennol yn y man Cymysgu"
-
-#~ msgid "%(progress)d of %(total)d seconds completed"
-#~ msgstr "%(progress)d o %(total)d o eiliadau wedi'i cyflawni"
-
+#, fuzzy
 #~ msgid "_Mixdown as"
-#~ msgstr "_Lawrgymysgu fel"
+#~ msgstr "Lawrgymysgu Prosiect"
 
+#, fuzzy
 #~ msgid "_Mixdown Project"
-#~ msgstr "_Lawrgymysgu Project"
+#~ msgstr "Lawrgymysgu Prosiect"
 
+#, fuzzy
 #~ msgid "<b>Steps to mixdown %(projectname)s</b>"
-#~ msgstr "<b>Camau i lawrgymysgu %(projectname)s</b>"
+#~ msgstr "Paratoi i lawrgymysgu'r prosiect"
 
-#~ msgid "Remove this mixdown step"
-#~ msgstr "Gwaredu'r cam llawrgymysgu hyn"
-
+#, fuzzy
 #~ msgid "Don't save these mixdown settings"
-#~ msgstr "Peidio arbed y gosodiadau lawrgymysgu hyn"
+#~ msgstr "Defnyddio'r gosodiadau hyn"
 
+#, fuzzy
 #~ msgid "Choose a name for this profile"
-#~ msgstr "Dewiswch enw ar gyfer y profil hyn"
+#~ msgstr "Dewis ffeil prosiect Jokosher"
 
-#~ msgid "Export file"
-#~ msgstr "Allforio feil"
-
-#~ msgid "An unspecified MixdownAction"
-#~ msgstr "GweithredLawrgymysgu amhenodol"
-
-#~ msgid "Export to %(file)s as %(desc)s"
-#~ msgstr "Allforio %(file)s fel %(desc)s"
-
-#~ msgid "Export as"
-#~ msgstr "Allforio fel"
-
+#, fuzzy
 #~ msgid "Run script %s"
-#~ msgstr "Rhedeg sgript %s"
+#~ msgstr "Gwall yn sgript %s"
 
-#~ msgid "Run external script"
-#~ msgstr "Rhedeg sgript allanol"
-
-#~ msgid "Hz"
-#~ msgstr "Hz"
-
+#, fuzzy
 #~ msgid "Zoom the timeline"
-#~ msgstr "Chwyddo llinell amser"
+#~ msgstr "Newid y llinell amser"
 
-#~ msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"
-#~ msgstr "<b>Llusgwch</b> y <b>llithrydd</b> i newid lefelau sain"
-
+#, fuzzy
 #~ msgid "<b>Presets for:</b>"
-#~ msgstr "<b>Rhagosodiadau ar gyfer:</b>"
+#~ msgstr "<b>Effeithiau gweithredol ar gyfer:</b>"
 
+#, fuzzy
 #~ msgid "Add a new instrument"
-#~ msgstr "Ychwanegu offenyn newydd"
+#~ msgstr "Ychwanegu offeryn"
 
+#, fuzzy
 #~ msgid "Author"
-#~ msgstr "Awdur"
+#~ msgstr "Awdur Anhysbus"
 
-#~ msgid "Beat value"
-#~ msgstr "Gwerth curiad"
-
+#, fuzzy
 #~ msgid "Beats per measure"
-#~ msgstr "Curiadau pob mesur"
+#~ msgstr "Curiadau pob munud"
 
+#, fuzzy
 #~ msgid "Browse for an Existing Project"
-#~ msgstr "Pori am Brosiect Presennol"
+#~ msgstr "Agor hen project"
 
+#, fuzzy
 #~ msgid "Create a New Project"
-#~ msgstr "Creu Prosiect Newydd"
+#~ msgstr "Creu project newydd"
 
-#~ msgid "Device:"
-#~ msgstr "Dyfais:"
-
-#~ msgid "Don't open anything"
-#~ msgstr "Peidio a agor unrhyw beth"
-
+#, fuzzy
 #~ msgid "Don't show this on start-up"
-#~ msgstr "Peidio a dangos hyn wrth gychwyn"
+#~ msgstr "Peidio llwytho estyniadau pan yn dechrau"
 
+#, fuzzy
 #~ msgid "Folder"
-#~ msgstr "Plygell"
+#~ msgstr "Hidlyddion"
 
+#, fuzzy
 #~ msgid "Open Selected Project"
-#~ msgstr "Agor Prosiect Benodol"
+#~ msgstr "Agor project diweddar"
 
+#, fuzzy
 #~ msgid "Open most recent project"
-#~ msgstr "Agor prosiect mwyaf diweddar"
+#~ msgstr "Agor project diweddar"
 
-#~ msgid "Output:"
-#~ msgstr "Allbwn:"
-
-#~ msgid "Pipeline:"
-#~ msgstr "Pibell:"
-
-#~ msgid "Preferences"
-#~ msgstr "Hoffterau"
-
+#, fuzzy
 #~ msgid "Project Name"
-#~ msgstr "Enw Project"
+#~ msgstr "Prosiect Newydd"
 
+#, fuzzy
 #~ msgid "Remove Selected Instrument"
-#~ msgstr "Gwaredu Offeryn Benodol"
+#~ msgstr "Gwaredu'r offenyn benodol"
 
-#~ msgid "Search:"
-#~ msgstr "Chwilio:"
-
-#~ msgid "Show welcome dialog"
-#~ msgstr "Dangos ymgom croeso"
-
+#, fuzzy
 #~ msgid "_Add Instrument"
-#~ msgstr "_Ychwanegu Offenyn"
+#~ msgstr "Ychwanegu Offeryn"
 
+#, fuzzy
 #~ msgid "_Manage Extensions"
-#~ msgstr "_Rheoli Estyniadau"
+#~ msgstr "Es_tyniadau"
 
+#, fuzzy
 #~ msgid "_Recording Inputs"
-#~ msgstr "Mewnbynnau _Recordio"
+#~ msgstr "Recordio..."
 
+#, fuzzy
 #~ msgid "No such script %s"
-#~ msgstr "Ddim y fath sgript %s"
+#~ msgstr "Gwall yn sgript %s"
 
-#~ msgid ""
-#~ "16 bit\n"
-#~ "24 bit\n"
-#~ "32 bit"
-#~ msgstr ""
-#~ "16 bit\n"
-#~ "24 bit\n"
-#~ "32 bit"
-
-#~ msgid ""
-#~ "96000\n"
-#~ "48000\n"
-#~ "44100\n"
-#~ "32000\n"
-#~ "24000\n"
-#~ "22050\n"
-#~ "16000\n"
-#~ "11025\n"
-#~ "8000"
-#~ msgstr ""
-#~ "96000\n"
-#~ "48000\n"
-#~ "44100\n"
-#~ "32000\n"
-#~ "24000\n"
-#~ "22050\n"
-#~ "16000\n"
-#~ "11025\n"
-#~ "8000"
-
+#, fuzzy
 #~ msgid "<b>Audio Mixdown</b>"
-#~ msgstr "<b>Lawrgymysgu Sain</b>"
+#~ msgstr "<b>Amgodio</b>"
 
+#, fuzzy
 #~ msgid "<b>Audio Quality</b>"
-#~ msgstr "<b>Ansawdd Sain</b>"
+#~ msgstr "<b>Celf</b>"
 
+#, fuzzy
 #~ msgid "<b>Quality</b>"
-#~ msgstr "<b>Ansawdd</b>"
+#~ msgstr "<b>Celf</b>"
 
+#, fuzzy
 #~ msgid ""
 #~ "<b>To find out more, visit:</b>\n"
 #~ "http://www.jokosher.org/contribute"
-#~ msgstr ""
-#~ "<b>I ddarganfod mwy, ymwelwch â</b>\n"
-#~ "http://www.jokosher.org/contribute"
+#~ msgstr "<b>I ddarganfod mwy, ymwelwch â:</b>"
 
+#, fuzzy
 #~ msgid "Contributing to Jokosher"
-#~ msgstr "Cyfrannu i Jokosher"
+#~ msgstr "_Cyfrannu i Jokosher"
 
-#~ msgid "Device"
-#~ msgstr "Dyfais"
-
-#~ msgid "General"
-#~ msgstr "Cyffredinol"
-
+#, fuzzy
 #~ msgid "Instrument Connections"
-#~ msgstr "Cysylltiadau Offeryn"
+#~ msgstr "Effeithiau Offerynnau"
 
-#~ msgid ""
-#~ "Jokosher must be restarted in\n"
-#~ "order for changes to take effect."
-#~ msgstr ""
-#~ "Mae angen i Jokosher cael ei aliddechrau\n"
-#~ "er mwyn i'r newidiadau cael effaith."
-
-#~ msgid "Output Format"
-#~ msgstr "Fformat Allbwn"
-
+#, fuzzy
 #~ msgid "Playback"
-#~ msgstr "Chwarae"
+#~ msgstr "Gorffen chwarae"
 
-#~ msgid "Pre-release Notes"
-#~ msgstr "Nodiauau Cyn-ryddhad"
-
-#~ msgid "Presets"
-#~ msgstr "Rhagosodau"
-
-#~ msgid "Preview"
-#~ msgstr "Rhagweld"
-
+#, fuzzy
 #~ msgid "Recent Projects"
-#~ msgstr "Prosiectau Diweddar"
+#~ msgstr "Projectau _Diweddar"
 
+#, fuzzy
 #~ msgid "Remove curently selected extension"
-#~ msgstr "Gwaredu'r estyniad sydd wedi ei ddewis"
+#~ msgstr "Gwaredu yr estyniad benodol presennol"
 
+#, fuzzy
 #~ msgid "Sample Format"
-#~ msgstr "Fformat Samplu"
+#~ msgstr "Format _Amser"
 
-#~ msgid "Sample Rate (Hz)"
-#~ msgstr "Cyfradd Samplu (Hz)"
-
-#~ msgid "Save Files As"
-#~ msgstr "Arbed Ffeiliau Fel"
-
+#, fuzzy
 #~ msgid "Select an effect"
-#~ msgstr "Dewis effaith"
+#~ msgstr "_Gweithredu effaith"
 
+#, fuzzy
 #~ msgid "Select an effect to add to the instrument"
-#~ msgstr "Dewiswch effaith y ychwanegu i'r offeryn"
+#~ msgstr "Dewis project i'w agor o'r rhestr"
 
+#, fuzzy
 #~ msgid "Select an instrument, then click here to begin recording"
-#~ msgstr "Dewiswch offeryn, yna cliciwch yma i dechrau recordio"
+#~ msgstr "Arfogi offeryn, yna cliciwch yma i ddechrau recordio"
 
+#, fuzzy
 #~ msgid "Show as Bars, Beats, Ticks"
-#~ msgstr "Dangos fel Bariau, Curiadau, Ticiau"
+#~ msgstr "Dangos fer _Bariau, Curiadau, Ticiau"
 
+#, fuzzy
 #~ msgid "Show as Hours, Minutes, Seconds"
-#~ msgstr "Dangos fel Oriau, Munudau, Eiliadau"
+#~ msgstr "Dangos fel _Oriau, Munudau, Eiliadau"
 
+#, fuzzy
 #~ msgid "Time Format"
-#~ msgstr "Fformat Amser"
+#~ msgstr "Format _Amser"
 
-#~ msgid ""
-#~ "Use the combo boxes below to select which input is used with which "
-#~ "instrument"
-#~ msgstr ""
-#~ "Defnyddiwch y bocsys cyfun islaw i ddewis pa fewnbwn sy'n cael ei "
-#~ "ddefnyddio a pha offeryn"
-
-#~ msgid ""
-#~ "Wave\n"
-#~ "FLAC\n"
-#~ "Ogg Vorbis"
-#~ msgstr ""
-#~ "Ton\n"
-#~ "FLAC\n"
-#~ "Ogg Vorbis"
-
+#, fuzzy
 #~ msgid "_Extensions"
-#~ msgstr "_Estyniadau"
+#~ msgstr "Es_tyniadau"
 
-#~ msgid "foo"
-#~ msgstr "foo"
-
+#, fuzzy
 #~ msgid "Import Audio File..."
-#~ msgstr "Mewnforio Ffeil Sain..."
+#~ msgstr "Ychwanegu Feil Sain"
 
+#, fuzzy
 #~ msgid "Paste"
-#~ msgstr "Gludo"
+#~ msgstr "Ffasors"
 
+#, fuzzy
 #~ msgid "Delete"
-#~ msgstr "Dileu"
+#~ msgstr "_Dileu"
 
-#~ msgid "Import file..."
-#~ msgstr "Mewnforio ffeil..."
-
-#~ msgid ""
-#~ "<b>NOTE</b>: The volume sliders in this pre-release version of Jokosher "
-#~ "do not affect the audio."
-#~ msgstr ""
-#~ "<b>NODYN</b>: Mae'r llithryddion lefel sain yn y fersiwn cyn-rhyddhâd hyn "
-#~ "o Jokosher ddim yn effeithio ar y sain."
-
+#, fuzzy
 #~ msgid "Split"
-#~ msgstr "Hollti"
+#~ msgstr "_Hollti"
 
+#, fuzzy
 #~ msgid "Cut"
-#~ msgstr "Torri"
+#~ msgstr "_Torri"
 
+#, fuzzy
 #~ msgid "Copy"
-#~ msgstr "Copïo"
+#~ msgstr "_Copïo"
 
-#~ msgid ""
-#~ "%s\n"
-#~ "\n"
-#~ "File is corrupt, not an audio file, or the associated plugin is not "
-#~ "installed"
-#~ msgstr ""
-#~ "%s\n"
-#~ "\n"
-#~ "Mae'r ffeil wedi ei lygru, ddim yn ffeil sain, neu dydy'r atodyn "
-#~ "cysylltiedig heb ei syfydlu."
-
+#, fuzzy
 #~ msgid "Solo - silence all other instruments"
-#~ msgstr "Solo - distewi pob offeryn arall"
+#~ msgstr "Mudo - distewi yn offenyn hon"
 
-#~ msgid "Muted"
-#~ msgstr "Mudo"
-
-#~ msgid "Unmuted"
-#~ msgstr "Dadfudo"
-
+#, fuzzy
 #~ msgid "Instrument Effects..."
 #~ msgstr "Effeithiau Offerynnau"
 
-#~ msgid ""
-#~ "The instruments '%s' and '%s' both have the same input selected (%s). "
-#~ "Please either disarm one, or connect it to a different input through "
-#~ "'Project -> Instrument Connections'"
-#~ msgstr ""
-#~ "Mae'r offerynau '%s' a '%s' gyda'r un fewnbwn wedi ei ddewn (%s). Unai "
-#~ "diarfogwch un, neu cysylltwch ef i fewnbwn gwahanol trwy 'Prosiect -> "
-#~ "Cysylltiadau Offerynau' os gwelwch yn dda."
-
-#~ msgid ""
-#~ "No instruments are armed for recording. You need to arm an instrument "
-#~ "before you can begin recording."
-#~ msgstr ""
-#~ "Does ddim offerynau wedi eu harfogi i recordio. Mae'r rhaid i chi arfogi "
-#~ "offeryn cyn allwch derchrau recordio."
-
-#~ msgid "%d of %d seconds completed"
-#~ msgstr "%d o %d eiliad wedi ei gwblhau"
-
+#, fuzzy
 #~ msgid ""
 #~ "\n"
 #~ "See http://jokosher.org/trac/wiki/GettingJokosher for more details.\n"
 #~ msgstr ""
 #~ "\n"
-#~ "Gwelwch http://jokosher.org/trac/wiki/GettingJokosher am fwy o fanylion\n"
+#~ "Gwelwch http://doc.jokosher.org/Installation am rhagor o wybodaeth.\n"
 
-#~ msgid ""
-#~ "<big>Notes about this release</big>\n"
-#~ "\n"
-#~ "This version of Jokosher (0.1) is a pre-release version, and is infact, "
-#~ "our very first release. As such, you may encounter some bugs and "
-#~ "functionality that is not present."
-#~ msgstr ""
-#~ "<big>Nodiadau ynglyn ar rhyddhâd hwn</big>\n"
-#~ "\n"
-#~ "Mae'r fersiwn hyn o Jokosher (0.1) yn fersiwn cyn-rhyddhâd, ac yn wir, "
-#~ "ein rhyddhâd cyntaf. Felly, mae'n bosib i chi dod ar draws namau a "
-#~ "swyddogaethau sydd ddim yn bresennol."
-
+#, fuzzy
 #~ msgid "Master Volume"
 #~ msgstr "Prif Lefel Sain"
 
+#, fuzzy
 #~ msgid "Volume: %.2f"
-#~ msgstr "Lefel Sain: %.2f"
+#~ msgstr "Lefel Sain:"
 
-#~ msgid "translator-credits"
-#~ msgstr ""
-#~ "clodau-cyfieithwyr\n"
-#~ "\n"
-#~ "Launchpad Contributions:\n"
-#~ "  Iestyn Pryce https://launchpad.net/~dylunio"
-
-#~ msgid "Files Saves As"
-#~ msgstr "Cadw Ffeiliau Fel"
-
-#~ msgid ""
-#~ "No channels capable of recording have found, please attach a device and "
-#~ "try again."
-#~ msgstr ""
-#~ "Does dim sianeli sy'n gallu recordio wedi ei ddarganfod, cysylltwch y "
-#~ "dyfais eto os gwelwch yn dda."
-
+#, fuzzy
 #~ msgid "The uri scheme '%s' is either invalid or not supported."
-#~ msgstr "Mae cynllun uri '%s' yn annilys neu ddim yn gynhaliol."
+#~ msgstr ""
+#~ "Mae'r cynllun URI '%s' unai'n annilys neu neu ddim yn cael ei gynnal."
 
+#, fuzzy
 #~ msgid "The uri scheme given is either invalid or not supported"
-#~ msgstr "Mae'r cynllun uri a rhoddwyd yn annilys neu heb ei gynal."
+#~ msgstr ""
+#~ "Mae'r cynllun URI a rhoddwyd unai'n annilys neu ddim yn cael ei gynnal."

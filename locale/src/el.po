@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-02-18 04:36+0000\n"
+"X-Launchpad-Export-Date: 2009-05-30 01:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../../Jokosher/Jokosher.glade.h:1
@@ -135,9 +135,8 @@ msgid "Add Audio _File..."
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:29
-#, fuzzy
 msgid "Add Instrument"
-msgstr "Προσθήκη οργάνου"
+msgstr "Προσθήκη Οργάνου"
 
 #: ../../Jokosher/Jokosher.glade.h:30
 msgid "Add Mixdown Action"
@@ -1875,53 +1874,54 @@ msgstr ""
 msgid "Vocal"
 msgstr ""
 
-#~ msgid "<b>Audio Output Plugin</b>"
-#~ msgstr "<b>Επέκταση Εξόδου Ήχου</b>"
+msgid "<b>Audio Output Plugin</b>"
+msgstr "<b>Επέκταση Εξόδου Ήχου</b>"
 
-#~ msgid ""
-#~ "Autodetect\n"
-#~ "ALSA\n"
-#~ "Custom"
-#~ msgstr ""
-#~ "Αυτόματος εντοπισμός\n"
-#~ "ALSA\n"
-#~ "προσαρμοσμένο"
+msgid ""
+"Autodetect\n"
+"ALSA\n"
+"Custom"
+msgstr ""
+"Αυτόματος εντοπισμός\n"
+"ALSA\n"
+"προσαρμοσμένο"
 
+msgid "Audio production made simple."
+msgstr "Η παραγωγή ήχου, απλοποιήθηκε."
+
+msgid "Author"
+msgstr "Δημιουργός"
+
+msgid "Device:"
+msgstr "Συσκευή:"
+
+msgid "Don't show this on start-up"
+msgstr "Να μην εμφανίζεται στην εκκίνηση"
+
+msgid "Output:"
+msgstr "Έξοδος:"
+
+msgid "Preferences"
+msgstr "Προτιμήσεις..."
+
+msgid "Search:"
+msgstr "Αναζήτηση:"
+
+msgid "Stop"
+msgstr "Σταμάτημα"
+
+msgid "Workspaces"
+msgstr "Χώροι εργασίας"
+
+msgid "version 0.9"
+msgstr "έκδοση 0.9"
+
+msgid "_Paste"
+msgstr "_Επικόλληση"
+
+#, fuzzy
 #~ msgid "_Project"
-#~ msgstr "_Έργο"
-
-#~ msgid "Audio production made simple."
-#~ msgstr "Η παραγωγή ήχου, απλοποιήθηκε."
-
-#~ msgid "Author"
-#~ msgstr "Δημιουργός"
-
-#~ msgid "Device:"
-#~ msgstr "Συσκευή:"
-
-#~ msgid "Don't show this on start-up"
-#~ msgstr "Να μην εμφανίζεται στην εκκίνηση"
-
-#~ msgid "Output:"
-#~ msgstr "Έξοδος:"
-
-#~ msgid "Preferences"
-#~ msgstr "Προτιμήσεις..."
-
-#~ msgid "Search:"
-#~ msgstr "Αναζήτηση:"
-
-#~ msgid "Stop"
-#~ msgstr "Σταμάτημα"
-
-#~ msgid "Workspaces"
-#~ msgstr "Χώροι εργασίας"
-
-#~ msgid "version 0.9"
-#~ msgstr "έκδοση 0.9"
-
-#~ msgid "_Paste"
-#~ msgstr "_Επικόλληση"
+#~ msgstr "Νέο Έργο"
 
 #, fuzzy
 #~ msgid "<b>Presets for:</b>"
@@ -1957,7 +1957,7 @@ msgstr ""
 
 #, fuzzy
 #~ msgid "Project Name"
-#~ msgstr "_Έργο"
+#~ msgstr "Νέο Έργο"
 
 #, fuzzy
 #~ msgid "Record"
@@ -1977,7 +1977,7 @@ msgstr ""
 
 #, fuzzy
 #~ msgid "_Add Instrument"
-#~ msgstr "_Όργανο"
+#~ msgstr "Προσθήκη Οργάνου"
 
 #, fuzzy
 #~ msgid "_Manage Extensions"

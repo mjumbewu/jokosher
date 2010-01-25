@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-02-18 04:36+0000\n"
+"X-Launchpad-Export-Date: 2009-05-30 01:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../../Jokosher/Jokosher.glade.h:1
@@ -134,7 +134,6 @@ msgid "Add Audio _File..."
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:29
-#, fuzzy
 msgid "Add Instrument"
 msgstr "أضف آله"
 
@@ -1939,100 +1938,102 @@ msgstr "كمان"
 msgid "Vocal"
 msgstr "صوتي"
 
-#~ msgid "<b>Audio Output Plugin</b>"
-#~ msgstr "<b>برنامج خرج الصوت المساعد</b>"
+msgid "<b>Audio Output Plugin</b>"
+msgstr "<b>برنامج خرج الصوت المساعد</b>"
 
+msgid "<b>Recording Sample Rate</b>"
+msgstr "<b>نسبة العينة المسجلة</b>"
+
+msgid ""
+"Autodetect\n"
+"ALSA\n"
+"Custom"
+msgstr ""
+"إكتشاف تلقائي/nALSA\n"
+"مخصص"
+
+msgid "%(device)s input %(input)d"
+msgstr "%(device)s دخل %(input)d"
+
+msgid ""
+"The instruments '%(name1)s' and '%(name2)s' both have the same input "
+"selected (%(track)s). Please either disarm one, or connect it to a different "
+"input through 'Project -> Recording Inputs'"
+msgstr ""
+"الآلات '%(name1)s' و '%(name2)s' كلتاهما لديهما نفس الدخل المحدد (%(track)"
+"s).  إما أن تقوم بتسريح احدهما أو توصيله إلى دخل أخر من خلال 'مشروع -> دخل "
+"التسجيل'"
+
+msgid "Add this step to the current mixdown"
+msgstr "أضف هذه الخطوة للدمج الحالي"
+
+msgid "Audio production made simple."
+msgstr "الإنتاج الصوتي أصبح بسيطا."
+
+msgid "Author"
+msgstr "مؤلف"
+
+msgid "Beat value"
+msgstr "قيمة الدق"
+
+msgid "Beats per measure"
+msgstr "الدقات لكل إجراء"
+
+msgid "Device:"
+msgstr "العتاد:"
+
+msgid "Don't open anything"
+msgstr "لا تفتح أي شيء"
+
+msgid "FastForward"
+msgstr "تقديم سريع"
+
+msgid "Output:"
+msgstr "خرج:"
+
+msgid "Pipeline:"
+msgstr "خط الأنابيب:"
+
+msgid "Preferences"
+msgstr "تفضيلات"
+
+msgid "Recording Workspace"
+msgstr "تسجيل مساحة العمل"
+
+msgid "Search:"
+msgstr "بحث:"
+
+msgid "Show welcome dialog"
+msgstr "اظهر حوار الترحيب"
+
+msgid "Stop"
+msgstr "إيقاف"
+
+msgid "Switch to the Mixing workspace"
+msgstr "تبديل إلى مساحة عمل الدمج"
+
+msgid "Switch to the Recording workspace"
+msgstr "تبديل إلى مساحة عمل التسجيل"
+
+msgid "Workspaces"
+msgstr "مساحات العمل"
+
+msgid "version 0.9"
+msgstr "الإصدار 0.9"
+
+msgid "Currently working in the Recording workspace"
+msgstr "حاليا تعمل في مساحة عمل التسجيل"
+
+msgid "Currently working in the Mixing workspace"
+msgstr "حاليا تعمل في مساحة عمل الدمج"
+
+#, fuzzy
 #~ msgid "<b>Recorded Audio Format</b>"
-#~ msgstr "<b>نسق الصوت المسجل</b>"
+#~ msgstr "صوت مسجل"
 
-#~ msgid "<b>Recording Sample Rate</b>"
-#~ msgstr "<b>نسبة العينة المسجلة</b>"
-
-#~ msgid ""
-#~ "Autodetect\n"
-#~ "ALSA\n"
-#~ "Custom"
-#~ msgstr ""
-#~ "إكتشاف تلقائي/nALSA\n"
-#~ "مخصص"
-
+#, fuzzy
 #~ msgid "_Project"
-#~ msgstr "_مشروع"
-
-#~ msgid "%(device)s input %(input)d"
-#~ msgstr "%(device)s دخل %(input)d"
-
-#~ msgid ""
-#~ "The instruments '%(name1)s' and '%(name2)s' both have the same input "
-#~ "selected (%(track)s). Please either disarm one, or connect it to a "
-#~ "different input through 'Project -> Recording Inputs'"
-#~ msgstr ""
-#~ "الآلات '%(name1)s' و '%(name2)s' كلتاهما لديهما نفس الدخل المحدد (%(track)"
-#~ "s).  إما أن تقوم بتسريح احدهما أو توصيله إلى دخل أخر من خلال 'مشروع -> "
-#~ "دخل التسجيل'"
-
-#~ msgid "Add this step to the current mixdown"
-#~ msgstr "أضف هذه الخطوة للدمج الحالي"
-
-#~ msgid "Audio production made simple."
-#~ msgstr "الإنتاج الصوتي أصبح بسيطا."
-
-#~ msgid "Author"
-#~ msgstr "مؤلف"
-
-#~ msgid "Beat value"
-#~ msgstr "قيمة الدق"
-
-#~ msgid "Beats per measure"
-#~ msgstr "الدقات لكل إجراء"
-
-#~ msgid "Device:"
-#~ msgstr "العتاد:"
-
-#~ msgid "Don't open anything"
-#~ msgstr "لا تفتح أي شيء"
-
-#~ msgid "FastForward"
-#~ msgstr "تقديم سريع"
-
-#~ msgid "Output:"
-#~ msgstr "خرج:"
-
-#~ msgid "Pipeline:"
-#~ msgstr "خط الأنابيب:"
-
-#~ msgid "Preferences"
-#~ msgstr "تفضيلات"
-
-#~ msgid "Recording Workspace"
-#~ msgstr "تسجيل مساحة العمل"
-
-#~ msgid "Search:"
-#~ msgstr "بحث:"
-
-#~ msgid "Show welcome dialog"
-#~ msgstr "اظهر حوار الترحيب"
-
-#~ msgid "Stop"
-#~ msgstr "إيقاف"
-
-#~ msgid "Switch to the Mixing workspace"
-#~ msgstr "تبديل إلى مساحة عمل الدمج"
-
-#~ msgid "Switch to the Recording workspace"
-#~ msgstr "تبديل إلى مساحة عمل التسجيل"
-
-#~ msgid "Workspaces"
-#~ msgstr "مساحات العمل"
-
-#~ msgid "version 0.9"
-#~ msgstr "الإصدار 0.9"
-
-#~ msgid "Currently working in the Recording workspace"
-#~ msgstr "حاليا تعمل في مساحة عمل التسجيل"
-
-#~ msgid "Currently working in the Mixing workspace"
-#~ msgstr "حاليا تعمل في مساحة عمل الدمج"
+#~ msgstr "مشروع جديد"
 
 #, fuzzy
 #~ msgid "<b>Presets for:</b>"
@@ -2080,7 +2081,7 @@ msgstr "صوتي"
 
 #, fuzzy
 #~ msgid "Project Name"
-#~ msgstr "_مشروع"
+#~ msgstr "مشروع جديد"
 
 #, fuzzy
 #~ msgid "Record"
@@ -2104,7 +2105,7 @@ msgstr "صوتي"
 
 #, fuzzy
 #~ msgid "_Add Instrument"
-#~ msgstr "آل_ه"
+#~ msgstr "أضف آله"
 
 #, fuzzy
 #~ msgid "_Manage Extensions"

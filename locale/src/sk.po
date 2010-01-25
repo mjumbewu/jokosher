@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: jokosher\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-03-17 02:00+0000\n"
-"PO-Revision-Date: 2007-08-27 15:54+0000\n"
-"Last-Translator: helix84 <Unknown>\n"
+"PO-Revision-Date: 2009-02-18 07:10+0000\n"
+"Last-Translator: Laszlo Pandy <laszlok2@gmail.com>\n"
 "Language-Team: Slovak <sk@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-02-18 04:36+0000\n"
+"X-Launchpad-Export-Date: 2009-05-30 01:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../../Jokosher/Jokosher.glade.h:1
@@ -1968,459 +1968,507 @@ msgstr "Husle"
 msgid "Vocal"
 msgstr "Spev"
 
-#~ msgid "<b>Audio Output Plugin</b>"
-#~ msgstr "<b>Rozšírenie pre zvukový výstup</b>"
+msgid "<b>Audio Output Plugin</b>"
+msgstr "<b>Rozšírenie pre zvukový výstup</b>"
 
-#~ msgid "<b>Recorded Audio Format</b>"
-#~ msgstr "<b>Záznamový audio formát</b>"
+msgid "<b>Recorded Audio Format</b>"
+msgstr "<b>Záznamový audio formát</b>"
 
-#~ msgid "<b>Recording Sample Rate</b>"
-#~ msgstr "<b>Vzorkovacia frekvencia nahrávania</b>"
+msgid "<b>Recording Sample Rate</b>"
+msgstr "<b>Vzorkovacia frekvencia nahrávania</b>"
 
-#~ msgid ""
-#~ "Autodetect\n"
-#~ "ALSA\n"
-#~ "Custom"
-#~ msgstr ""
-#~ "Autodetekcia\n"
-#~ "ALSA\n"
-#~ "Vlastné"
+msgid ""
+"Autodetect\n"
+"ALSA\n"
+"Custom"
+msgstr ""
+"Autodetekcia\n"
+"ALSA\n"
+"Vlastné"
 
+msgid ""
+"No channels capable of recording have been found, please attach a device and "
+"try again."
+msgstr ""
+"Nenašiel sa žiaden zvukový kanál schopný nahrávania, prosím pripojte "
+"zariadenie a skúste znova"
+
+msgid ""
+"Your sound card isn't capable of recording from multiple sources at the same "
+"time. Please disarm all but one instrument."
+msgstr ""
+"Vaša zvuková karta nedokáže nahrávať z viacerých zdrojov v rovnakom čase. "
+"Prosím odpojte všetky nástroje okrem jedného."
+
+msgid ""
+"You require the GStreamer channel splitting element to be able to record "
+"from multiple input devices. This can be downloaded from http://www.jokosher."
+"org/download."
+msgstr ""
+"Potrebujete Gstreamer rozdelujúci element aby ste mohli nahrávať z viacerých "
+"vstupov. Tento sa dá stiahnuť z http://www.jokosher.org/download."
+
+msgid "Argh! Something went wrong and a serious error occurred:"
+msgstr "Grr! Niečo sa pokazilo a vyskytla sa vážna chyba:"
+
+#, fuzzy
+msgid "Files Saves As"
+msgstr "Ukladať súbory ako"
+
+#, fuzzy
+msgid ""
+"Use the combo boxes below to select which input is used with which instrument"
+msgstr ""
+"Použi combo box dole na výber ktorý vstup je použitý s ktorým nástrojom"
+
+msgid "Beat value"
+msgstr "Počet úderov"
+
+msgid "Pipeline:"
+msgstr "Pipeline:"
+
+msgid "Export as"
+msgstr "Exportovať ako"
+
+msgid "Run external script"
+msgstr "Spustiť externý skript"
+
+msgid "Hz"
+msgstr "Hz"
+
+msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"
+msgstr "<b>Ťahním posuvníka</b> upravíte hlasitosť"
+
+msgid ""
+"16 bit\n"
+"24 bit\n"
+"32 bit"
+msgstr ""
+"16 bit\n"
+"24 bit\n"
+"32 bit"
+
+msgid ""
+"96000\n"
+"48000\n"
+"44100\n"
+"32000\n"
+"24000\n"
+"22050\n"
+"16000\n"
+"11025\n"
+"8000"
+msgstr ""
+"96000\n"
+"48000\n"
+"44100\n"
+"32000\n"
+"24000\n"
+"22050\n"
+"16000\n"
+"11025\n"
+"8000"
+
+msgid ""
+"<b>To find out more, visit:</b>\n"
+"http://www.jokosher.org/contribute"
+msgstr ""
+"<b>Pre viac informácií naštív:</b>\n"
+"http://www.jokosher.org/contribute"
+
+msgid "Device"
+msgstr "Zariadenie"
+
+msgid "General"
+msgstr "Všeobecné"
+
+msgid "Output Format"
+msgstr "Výstupný formát"
+
+msgid "Pre-release Notes"
+msgstr "Poznámky k vydaniu"
+
+msgid "Presets"
+msgstr "Predvoľby"
+
+msgid "Preview"
+msgstr "Náhľad"
+
+msgid "Sample Rate (Hz)"
+msgstr "Frekvencia vzorkovania"
+
+msgid ""
+"Wave\n"
+"FLAC\n"
+"Ogg Vorbis"
+msgstr ""
+"Wave\n"
+"FLAC\n"
+"Ogg Vorbis"
+
+msgid "translator-credits"
+msgstr ""
+"Slovenský prekladateľský tím Ubuntu\n"
+"\n"
+"Launchpad Contributions:\n"
+"  Peter Baričič https://launchpad.net/~denton-sk\n"
+"  helix84 https://launchpad.net/~helix84"
+
+msgid ""
+"The instruments '%s' and '%s' both have the same input selected (%s). Please "
+"either disarm one, or connect it to a different input through 'Project -> "
+"Instrument Connections'"
+msgstr ""
+"Nástroje '%s' a '%s' majú zvolený rovnaký vstup (%s). Prosím buď odpojte "
+"jeden, alebo ho pripojte na iný vstup cez 'Projekt -> Pripojenia nástrojov'"
+
+msgid ""
+"No instruments are armed for recording. You need to arm an instrument before "
+"you can begin recording."
+msgstr ""
+"Žiadne nástroje nie sú zapojené na nahrávanie. Je treba zapojiť nástroj pred "
+"začiatkom nahrávania záznamu."
+
+#, fuzzy
+msgid ""
+"No channels capable of recording have found, please attach a device and try "
+"again."
+msgstr ""
+"Nenašiel sa žiaden zvukový kanál schopný nahrávania, prosím pripojte "
+"zariadenie a skúste znova"
+
+msgid "%d of %d seconds completed"
+msgstr "%d z %d sekúnd dokončených"
+
+msgid ""
+"<big>Notes about this release</big>\n"
+"\n"
+"This version of Jokosher (0.1) is a pre-release version, and is infact, our "
+"very first release. As such, you may encounter some bugs and functionality "
+"that is not present."
+msgstr ""
+"<big>Poznámky k tomuto vydaniu</big>\n"
+"\n"
+"Táto verzia Jokosher (0.1) je testovacie vydanie a v skutočnosti aj naše "
+"prvé vydanie. Z tohoto dôvodu môžete naraziť na chyby alebo funkčnosť, ktorá "
+"nie je prítomná."
+
+msgid "Import file..."
+msgstr "Importovať súbor..."
+
+msgid ""
+"<b>NOTE</b>: The volume sliders in this pre-release version of Jokosher do "
+"not affect the audio."
+msgstr ""
+"<b>POZNÁMKA</b>: Posuvníky hlasitosti nemajú v tejto verzii Jokosher vplyv "
+"na zvuk."
+
+msgid "Save Files As"
+msgstr "Uložiť súbory ako"
+
+msgid "foo"
+msgstr "foo"
+
+msgid ""
+"%s\n"
+"\n"
+"File is corrupt, not an audio file, or the associated plugin is not installed"
+msgstr ""
+"%s\n"
+"\n"
+"Súbor je poškodený, alebo nie je zvukový súbor, alebo nie je nainštalované "
+"požadované rozšírenie"
+
+msgid "Muted"
+msgstr "Bez zvuku"
+
+msgid "Unmuted"
+msgstr "So zvukom"
+
+msgid "Add this step to the current mixdown"
+msgstr "Pridať tento krok do súčasného mixdownu"
+
+msgid "Audio production made simple."
+msgstr "Tvorba hudby jednoducho."
+
+msgid "Device:"
+msgstr "Zariadenie:"
+
+msgid "Don't open anything"
+msgstr "Nič neotvoriť"
+
+msgid "FastForward"
+msgstr "RýchlePretáčanie"
+
+msgid "Output:"
+msgstr "Výstup:"
+
+msgid "Preferences"
+msgstr "Nastavenie"
+
+msgid "Recording Workspace"
+msgstr "Nahrávací priestor"
+
+msgid "Search:"
+msgstr "Nájsť:"
+
+msgid "Show welcome dialog"
+msgstr "Zobraziť uvítacú obrazovku"
+
+msgid "Stop"
+msgstr "Zastaviť"
+
+msgid "Switch to the Mixing workspace"
+msgstr "Prepnúť na mixážnu plochu"
+
+msgid "Switch to the Recording workspace"
+msgstr "Prepnúť na nahrávaciu plochu"
+
+msgid "Workspaces"
+msgstr "Pracovné plochy"
+
+msgid "version 0.9"
+msgstr "verzia 0.9"
+
+#, fuzzy
+msgid "Currently working in the Recording workspace"
+msgstr "Prepnúť na nahrávaciu plochu"
+
+#, fuzzy
+msgid "Currently working in the Mixing workspace"
+msgstr "Prepnúť na mixážnu plochu"
+
+#, fuzzy
+msgid "Export file"
+msgstr "Importovať súbor..."
+
+#, fuzzy
 #~ msgid "_Project"
-#~ msgstr "_Projekt"
+#~ msgstr "Nový projekt"
 
-#~ msgid ""
-#~ "No channels capable of recording have been found, please attach a device "
-#~ "and try again."
-#~ msgstr ""
-#~ "Nenašiel sa žiaden zvukový kanál schopný nahrávania, prosím pripojte "
-#~ "zariadenie a skúste znova"
-
-#~ msgid ""
-#~ "Your sound card isn't capable of recording from multiple sources at the "
-#~ "same time. Please disarm all but one instrument."
-#~ msgstr ""
-#~ "Vaša zvuková karta nedokáže nahrávať z viacerých zdrojov v rovnakom čase. "
-#~ "Prosím odpojte všetky nástroje okrem jedného."
-
-#~ msgid ""
-#~ "You require the GStreamer channel splitting element to be able to record "
-#~ "from multiple input devices. This can be downloaded from http://www."
-#~ "jokosher.org/download."
-#~ msgstr ""
-#~ "Potrebujete Gstreamer rozdelujúci element aby ste mohli nahrávať z "
-#~ "viacerých vstupov. Tento sa dá stiahnuť z http://www.jokosher.org/"
-#~ "download."
-
-#~ msgid "Argh! Something went wrong and a serious error occurred:"
-#~ msgstr "Grr! Niečo sa pokazilo a vyskytla sa vážna chyba:"
-
+#, fuzzy
 #~ msgid "Mixdown as"
-#~ msgstr "Zmixovať ako"
+#~ msgstr "Zmixuj projekt"
 
 #, fuzzy
-#~ msgid "Files Saves As"
-#~ msgstr "Ukladať súbory ako"
-
-#, fuzzy
-#~ msgid ""
-#~ "Use the combo boxes below to select which input is used with which "
-#~ "instrument"
-#~ msgstr ""
-#~ "Použi combo box dole na výber ktorý vstup je použitý s ktorým nástrojom"
-
-#~ msgid "Beat value"
-#~ msgstr "Počet úderov"
-
-#~ msgid "Pipeline:"
-#~ msgstr "Pipeline:"
-
-#~ msgid "Export as"
-#~ msgstr "Exportovať ako"
-
-#~ msgid "Run external script"
-#~ msgstr "Spustiť externý skript"
-
-#~ msgid "Hz"
-#~ msgstr "Hz"
-
-#~ msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"
-#~ msgstr "<b>Ťahním posuvníka</b> upravíte hlasitosť"
-
-#~ msgid ""
-#~ "16 bit\n"
-#~ "24 bit\n"
-#~ "32 bit"
-#~ msgstr ""
-#~ "16 bit\n"
-#~ "24 bit\n"
-#~ "32 bit"
-
-#~ msgid ""
-#~ "96000\n"
-#~ "48000\n"
-#~ "44100\n"
-#~ "32000\n"
-#~ "24000\n"
-#~ "22050\n"
-#~ "16000\n"
-#~ "11025\n"
-#~ "8000"
-#~ msgstr ""
-#~ "96000\n"
-#~ "48000\n"
-#~ "44100\n"
-#~ "32000\n"
-#~ "24000\n"
-#~ "22050\n"
-#~ "16000\n"
-#~ "11025\n"
-#~ "8000"
-
 #~ msgid "<b>Audio Mixdown</b>"
-#~ msgstr "<b>Mixdown zvuku</b>"
+#~ msgstr "<b>Kódovanie</b>"
 
+#, fuzzy
 #~ msgid "<b>Audio Quality</b>"
-#~ msgstr "<b>Kvalita zvuku</b>"
+#~ msgstr "<b>Umenie</b>"
 
+#, fuzzy
 #~ msgid "<b>Quality</b>"
-#~ msgstr "<b>Kvalita</b>"
+#~ msgstr "<b>Umenie</b>"
 
-#~ msgid ""
-#~ "<b>To find out more, visit:</b>\n"
-#~ "http://www.jokosher.org/contribute"
-#~ msgstr ""
-#~ "<b>Pre viac informácií naštív:</b>\n"
-#~ "http://www.jokosher.org/contribute"
-
+#, fuzzy
 #~ msgid "Contributing to Jokosher"
-#~ msgstr "Prispievanie do Jokosher-a"
+#~ msgstr "_Prispievanie do Jokosher"
 
-#~ msgid "Device"
-#~ msgstr "Zariadenie"
-
-#~ msgid "General"
-#~ msgstr "Všeobecné"
-
+#, fuzzy
 #~ msgid "Instrument Connections"
-#~ msgstr "Prepojenia nástrojov"
+#~ msgstr "Efekty nástrojov"
 
-#~ msgid "Output Format"
-#~ msgstr "Výstupný formát"
-
+#, fuzzy
 #~ msgid "Playback"
-#~ msgstr "Prehrávanie"
+#~ msgstr "Zastaviť prehrávanie"
 
-#~ msgid "Pre-release Notes"
-#~ msgstr "Poznámky k vydaniu"
-
-#~ msgid "Presets"
-#~ msgstr "Predvoľby"
-
-#~ msgid "Preview"
-#~ msgstr "Náhľad"
-
+#, fuzzy
 #~ msgid "Recent Projects"
-#~ msgstr "Nedávne projekty"
+#~ msgstr "_Nedávne projekty"
 
+#, fuzzy
 #~ msgid "Sample Format"
-#~ msgstr "Formát vzorkovania"
+#~ msgstr "_Časový formát"
 
-#~ msgid "Sample Rate (Hz)"
-#~ msgstr "Frekvencia vzorkovania"
-
+#, fuzzy
 #~ msgid "Select an effect"
-#~ msgstr "Vyber efekt"
+#~ msgstr "_Aktivovať efekt"
 
 #, fuzzy
 #~ msgid "Select an effect to add to the instrument"
 #~ msgstr "Vyberte projekt k otvoreniu zo zoznamu"
 
+#, fuzzy
 #~ msgid "Select an instrument, then click here to begin recording"
-#~ msgstr "Vyber nástroj, potom klikni sem pre spustenie nahrávania"
-
-#~ msgid "Show as Hours, Minutes, Seconds"
-#~ msgstr "Zobraz ako hodiny, minúty, sekundy"
-
-#~ msgid "Time Format"
-#~ msgstr "Formát času"
-
-#~ msgid ""
-#~ "Wave\n"
-#~ "FLAC\n"
-#~ "Ogg Vorbis"
-#~ msgstr ""
-#~ "Wave\n"
-#~ "FLAC\n"
-#~ "Ogg Vorbis"
-
-#~ msgid "translator-credits"
-#~ msgstr ""
-#~ "Slovenský prekladateľský tím Ubuntu\n"
-#~ "\n"
-#~ "Launchpad Contributions:\n"
-#~ "  Peter Baričič https://launchpad.net/~denton-sk\n"
-#~ "  helix84 https://launchpad.net/~helix84"
-
-#~ msgid ""
-#~ "The instruments '%s' and '%s' both have the same input selected (%s). "
-#~ "Please either disarm one, or connect it to a different input through "
-#~ "'Project -> Instrument Connections'"
-#~ msgstr ""
-#~ "Nástroje '%s' a '%s' majú zvolený rovnaký vstup (%s). Prosím buď odpojte "
-#~ "jeden, alebo ho pripojte na iný vstup cez 'Projekt -> Pripojenia "
-#~ "nástrojov'"
-
-#~ msgid ""
-#~ "No instruments are armed for recording. You need to arm an instrument "
-#~ "before you can begin recording."
-#~ msgstr ""
-#~ "Žiadne nástroje nie sú zapojené na nahrávanie. Je treba zapojiť nástroj "
-#~ "pred začiatkom nahrávania záznamu."
+#~ msgstr "Pripoj nástroj, potom klikni na spustenie nahrávania"
 
 #, fuzzy
-#~ msgid ""
-#~ "No channels capable of recording have found, please attach a device and "
-#~ "try again."
-#~ msgstr ""
-#~ "Nenašiel sa žiaden zvukový kanál schopný nahrávania, prosím pripojte "
-#~ "zariadenie a skúste znova"
+#~ msgid "Show as Hours, Minutes, Seconds"
+#~ msgstr "Zobraziť ako _Hodiny, Minúty, Sekundy"
 
-#~ msgid "%d of %d seconds completed"
-#~ msgstr "%d z %d sekúnd dokončených"
+#, fuzzy
+#~ msgid "Time Format"
+#~ msgstr "_Časový formát"
 
+#, fuzzy
 #~ msgid ""
 #~ "\n"
 #~ "See http://jokosher.org/trac/wiki/GettingJokosher for more details.\n"
 #~ msgstr ""
 #~ "\n"
-#~ "Pozri http://jokosher.org/trac/wiki/GettingJokosher pre viac informácií.\n"
+#~ "Pozri podrobnosti v http://doc.jokosher.org/Installation\n"
 
-#~ msgid ""
-#~ "<big>Notes about this release</big>\n"
-#~ "\n"
-#~ "This version of Jokosher (0.1) is a pre-release version, and is infact, "
-#~ "our very first release. As such, you may encounter some bugs and "
-#~ "functionality that is not present."
-#~ msgstr ""
-#~ "<big>Poznámky k tomuto vydaniu</big>\n"
-#~ "\n"
-#~ "Táto verzia Jokosher (0.1) je testovacie vydanie a v skutočnosti aj naše "
-#~ "prvé vydanie. Z tohoto dôvodu môžete naraziť na chyby alebo funkčnosť, "
-#~ "ktorá nie je prítomná."
-
+#, fuzzy
 #~ msgid "Import Audio File..."
-#~ msgstr "Importovať zvukový súbor..."
+#~ msgstr "Pridať zvukový súbor..."
 
+#, fuzzy
 #~ msgid "Paste"
-#~ msgstr "Vložiť"
+#~ msgstr "Fázovače"
 
+#, fuzzy
 #~ msgid "Delete"
-#~ msgstr "Zmazať"
+#~ msgstr "_Odstrániť"
 
-#~ msgid "Import file..."
-#~ msgstr "Importovať súbor..."
-
-#~ msgid ""
-#~ "<b>NOTE</b>: The volume sliders in this pre-release version of Jokosher "
-#~ "do not affect the audio."
-#~ msgstr ""
-#~ "<b>POZNÁMKA</b>: Posuvníky hlasitosti nemajú v tejto verzii Jokosher "
-#~ "vplyv na zvuk."
-
+#, fuzzy
 #~ msgid "Split"
-#~ msgstr "Rozdeliť"
+#~ msgstr "_Rozdeliť"
 
+#, fuzzy
 #~ msgid "Cut"
-#~ msgstr "Vystrihnúť"
+#~ msgstr "Vy_strihnúť"
 
+#, fuzzy
 #~ msgid "Copy"
-#~ msgstr "Kopírovať"
+#~ msgstr "_Kopírovať"
 
+#, fuzzy
 #~ msgid "Instrument Effects..."
-#~ msgstr "Efekty nástrojov..."
+#~ msgstr "Efekty nástrojov"
 
+#, fuzzy
 #~ msgid "Master Volume"
-#~ msgstr "Hlavná hlasitosť"
+#~ msgstr "Hlasitosť:"
 
+#, fuzzy
 #~ msgid "Volume: %.2f"
-#~ msgstr "Hlasitosť: %.2f"
+#~ msgstr "Hlasitosť:"
 
-#~ msgid "Save Files As"
-#~ msgstr "Uložiť súbory ako"
-
+#, fuzzy
 #~ msgid "_Extensions"
-#~ msgstr "_Rozšírenia"
+#~ msgstr "Ro_zšírenia"
 
-#~ msgid "foo"
-#~ msgstr "foo"
-
-#~ msgid ""
-#~ "%s\n"
-#~ "\n"
-#~ "File is corrupt, not an audio file, or the associated plugin is not "
-#~ "installed"
-#~ msgstr ""
-#~ "%s\n"
-#~ "\n"
-#~ "Súbor je poškodený, alebo nie je zvukový súbor, alebo nie je "
-#~ "nainštalované požadované rozšírenie"
-
+#, fuzzy
 #~ msgid "Solo - silence all other instruments"
-#~ msgstr "Sólo - umlčať všetky ostatné nástroje"
+#~ msgstr "Aktivovať sólo - umlčať ostatné nástroje"
 
-#~ msgid "Muted"
-#~ msgstr "Bez zvuku"
-
-#~ msgid "Unmuted"
-#~ msgstr "So zvukom"
-
+#, fuzzy
 #~ msgid "Remove curently selected extension"
-#~ msgstr "Odobrať aktuálny výber rozšírení"
+#~ msgstr "Odstrániť zvolené rozšírenie"
 
+#, fuzzy
 #~ msgid "<b>Presets for:</b>"
-#~ msgstr "<b>Predvoľby pre:</b>"
+#~ msgstr "<b>Aktívne efekty pre: </b>"
 
+#, fuzzy
 #~ msgid "Add a new instrument"
-#~ msgstr "Pridať nový inštrument"
+#~ msgstr "Pridať nástroj"
 
+#, fuzzy
 #~ msgid "Add a new step:"
-#~ msgstr "Pridať nový krok:"
+#~ msgstr "Pridať nástroj"
 
-#~ msgid "Add this step to the current mixdown"
-#~ msgstr "Pridať tento krok do súčasného mixdownu"
-
-#~ msgid "Audio production made simple."
-#~ msgstr "Tvorba hudby jednoducho."
-
+#, fuzzy
 #~ msgid "Author"
-#~ msgstr "Autor"
+#~ msgstr "Neznámy autor"
 
 #, fuzzy
 #~ msgid "Beats per measure"
 #~ msgstr "Úderov za minútu"
 
+#, fuzzy
 #~ msgid "Browse for an Existing Project"
 #~ msgstr "Otvoriť existujúci projekt"
 
+#, fuzzy
 #~ msgid "Create a New Project"
 #~ msgstr "Vytvoriť nový projekt"
 
-#~ msgid "Device:"
-#~ msgstr "Zariadenie:"
-
-#~ msgid "Don't open anything"
-#~ msgstr "Nič neotvoriť"
-
+#, fuzzy
 #~ msgid "Don't show this on start-up"
-#~ msgstr "Neotvárať toto okno pri štarte programu"
+#~ msgstr "Nenahrávať rozšírenia pri štarte"
 
-#~ msgid "FastForward"
-#~ msgstr "RýchlePretáčanie"
-
+#, fuzzy
 #~ msgid "Folder"
-#~ msgstr "Priečinok"
+#~ msgstr "Filtre"
 
+#, fuzzy
 #~ msgid "Mixing"
-#~ msgstr "Mixovanie"
+#~ msgstr "Mixovanie projektu"
 
 #, fuzzy
 #~ msgid "Mixing Workspace"
-#~ msgstr "Nahrávací priestor"
+#~ msgstr "Mixovanie projektu"
 
+#, fuzzy
 #~ msgid "Open Selected Project"
-#~ msgstr "Otvoriť vybraný projekt"
+#~ msgstr "Otvoriť posledný projekt"
 
+#, fuzzy
 #~ msgid "Open most recent project"
 #~ msgstr "Otvoriť posledný projekt"
 
-#~ msgid "Output:"
-#~ msgstr "Výstup:"
-
-#~ msgid "Preferences"
-#~ msgstr "Nastavenie"
-
+#, fuzzy
 #~ msgid "Project Name"
-#~ msgstr "Názov projektu"
+#~ msgstr "Nový projekt"
 
+#, fuzzy
 #~ msgid "Record"
-#~ msgstr "Nahrať"
+#~ msgstr "Nahrávam..."
 
+#, fuzzy
 #~ msgid "Recording"
-#~ msgstr "Nahrávanie"
+#~ msgstr "Nahrávam..."
 
-#~ msgid "Recording Workspace"
-#~ msgstr "Nahrávací priestor"
-
+#, fuzzy
 #~ msgid "Remove Selected Instrument"
 #~ msgstr "Odstrániť zvolený nástroj"
 
+#, fuzzy
 #~ msgid "Rewind"
-#~ msgstr "Previnúť"
+#~ msgstr "Opakovať vrátené"
 
+#, fuzzy
 #~ msgid "Save these mixdown settings"
-#~ msgstr "Uložiť tieto mixdown nastavenia"
+#~ msgstr "Použiť tieto nastavenia"
 
-#~ msgid "Search:"
-#~ msgstr "Nájsť:"
-
-#~ msgid "Show welcome dialog"
-#~ msgstr "Zobraziť uvítacú obrazovku"
-
-#~ msgid "Stop"
-#~ msgstr "Zastaviť"
-
-#~ msgid "Switch to the Mixing workspace"
-#~ msgstr "Prepnúť na mixážnu plochu"
-
-#~ msgid "Switch to the Recording workspace"
-#~ msgstr "Prepnúť na nahrávaciu plochu"
-
-#~ msgid "Workspaces"
-#~ msgstr "Pracovné plochy"
-
+#, fuzzy
 #~ msgid "_Add Instrument"
-#~ msgstr "_Pridať nástroj"
+#~ msgstr "Pridať nástroj"
 
+#, fuzzy
 #~ msgid "_Manage Extensions"
-#~ msgstr "_Správa rozšírení"
+#~ msgstr "Ro_zšírenia"
 
+#, fuzzy
 #~ msgid "_Mixdown Project"
-#~ msgstr "_Zmixuj projekt"
+#~ msgstr "Zmixuj projekt"
 
+#, fuzzy
 #~ msgid "_Mixdown the project"
-#~ msgstr "_Zmixovať projektu"
+#~ msgstr "Zmixuj projekt"
 
+#, fuzzy
 #~ msgid "_Recording Inputs"
-#~ msgstr "_Nahrávacie vstupy"
+#~ msgstr "Nahrávam..."
 
+#, fuzzy
 #~ msgid "_Save these settings"
-#~ msgstr "_Uložiť tieto nastavenia"
+#~ msgstr "Použiť tieto nastavenia"
 
-#~ msgid "version 0.9"
-#~ msgstr "verzia 0.9"
-
+#, fuzzy
 #~ msgid "_Paste"
-#~ msgstr "_Vlepiť"
+#~ msgstr "Fázovače"
 
 #, fuzzy
-#~ msgid "Currently working in the Recording workspace"
-#~ msgstr "Prepnúť na nahrávaciu plochu"
-
-#, fuzzy
-#~ msgid "Currently working in the Mixing workspace"
-#~ msgstr "Prepnúť na mixážnu plochu"
-
 #~ msgid "_Mixdown as"
-#~ msgstr "_Zmixovať ako"
+#~ msgstr "Zmixuj projekt"
 
 #, fuzzy
 #~ msgid "Choose a name for this profile"
 #~ msgstr "Vyberte súbor projektu Jokosher"
-
-#, fuzzy
-#~ msgid "Export file"
-#~ msgstr "Importovať súbor..."
 
 #, fuzzy
 #~ msgid "Run script %s"
@@ -2430,5 +2478,6 @@ msgstr "Spev"
 #~ msgid "No such script %s"
 #~ msgstr "Chyba v skripte %s"
 
+#, fuzzy
 #~ msgid "Zoom the timeline"
-#~ msgstr "Priblížiť časovú osu"
+#~ msgstr "Zmeniť časovú os"
