@@ -11,7 +11,7 @@ Step 1)
 			use the loader class from the previous version. For example, 0.11
 			uses the _LoadZPTenFile loader class.
 		* setup.py (change the version parameter passed to distutils setup method)
-		* setup_w32.py (change version passed to distutils)
+		* setup_win32.py (change version passed to distutils)
 		* windows_installer.iss (Change version number in AppVerName)
 		
 Step 2)
