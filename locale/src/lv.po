@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: jokosher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-03-17 02:00+0000\n"
+"POT-Creation-Date: 2010-02-26 00:54+0000\n"
 "PO-Revision-Date: 2009-10-02 13:05+0000\n"
 "Last-Translator: Pēteris Krišjānis <pecisk@gmail.com>\n"
 "Language-Team: Latvian <lv@li.org>\n"
@@ -192,7 +192,7 @@ msgstr "Audio mikseri"
 #: ../../Jokosher/Jokosher.glade.h:43
 msgid ""
 "Audio production made simple.\n"
-"Version 0.11.1"
+"Version 0.11.4"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:45
@@ -465,71 +465,67 @@ msgid ""
 "daave <fan.d.liu@gmail.com>\n"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:157 ../../Jokosher/JokosherApp.py:1307
+#: ../../Jokosher/Jokosher.glade.h:157 ../../Jokosher/JokosherApp.py:1339
 msgid "Jokosher"
 msgstr "Jokosher"
 
 #: ../../Jokosher/Jokosher.glade.h:158
-msgid "Jokosher Errors"
-msgstr "Jokosher kļūdas"
-
-#: ../../Jokosher/Jokosher.glade.h:159
 msgid "Listen to these effects"
 msgstr "Klausīties šos efektus"
 
-#: ../../Jokosher/Jokosher.glade.h:160
+#: ../../Jokosher/Jokosher.glade.h:159
 msgid "Manage instrument recording inputs"
 msgstr "Pārvaldīt instrumentu ierakstīšanas ievadus"
 
-#: ../../Jokosher/Jokosher.glade.h:161
+#: ../../Jokosher/Jokosher.glade.h:160
 msgid "Mixdown Profile:"
 msgstr "Lejupmiksēšanas profils:"
 
-#: ../../Jokosher/Jokosher.glade.h:162 ../../Jokosher/JokosherApp.py:592
+#: ../../Jokosher/Jokosher.glade.h:161 ../../Jokosher/JokosherApp.py:592
 msgid "Mixdown Project"
 msgstr "Miksēt projektu"
 
-#: ../../Jokosher/Jokosher.glade.h:163
+#: ../../Jokosher/Jokosher.glade.h:162
 msgid "Mixdown the project using these settings"
 msgstr "Lejupmiksēt projektu izmantojot šos iestatījumus"
 
-#: ../../Jokosher/Jokosher.glade.h:164
+#: ../../Jokosher/Jokosher.glade.h:163
 msgid "Mixing Project"
 msgstr "Miksēt projektu"
 
-#: ../../Jokosher/Jokosher.glade.h:165
+#: ../../Jokosher/Jokosher.glade.h:164
 msgid "Move the selected active effect down on the effects chain"
 msgstr "Pārvietot izvēlēto aktīvo efektu lejup pa efektu ķēdi"
 
-#: ../../Jokosher/Jokosher.glade.h:166
+#: ../../Jokosher/Jokosher.glade.h:165
 msgid "Move the selected active effect up on the effects chain"
 msgstr "Pārvietot izvēlēto aktīvo efektu augšup pa efektu ķēdi"
 
-#: ../../Jokosher/Jokosher.glade.h:167 ../../Jokosher/NewProjectDialog.py:129
+#: ../../Jokosher/Jokosher.glade.h:166 ../../Jokosher/NewProjectDialog.py:126
 msgid "New Project"
 msgstr "Jauns projekts"
 
-#: ../../Jokosher/Jokosher.glade.h:168
+#: ../../Jokosher/Jokosher.glade.h:167
 msgid "Open a recent project"
 msgstr "Atvērt jaunāko projektu"
 
-#: ../../Jokosher/Jokosher.glade.h:169
+#: ../../Jokosher/Jokosher.glade.h:168
 msgid "Open an existing project"
 msgstr "Atvērt eksistējošu projektu"
 
-#: ../../Jokosher/Jokosher.glade.h:170
+#: ../../Jokosher/Jokosher.glade.h:169
 msgid "Open the extension manager"
 msgstr "Atvērt paplašinājuma pārvaldnieku"
 
-#: ../../Jokosher/Jokosher.glade.h:171
+#: ../../Jokosher/Jokosher.glade.h:170
 msgid "P_ipeline:"
 msgstr "_Konveijers:"
 
-#: ../../Jokosher/Jokosher.glade.h:172
+#: ../../Jokosher/Jokosher.glade.h:171
 msgid "Paste the contents of the clipboard"
 msgstr "Ievietot starpliktuves saturu"
 
-#: ../../Jokosher/Jokosher.glade.h:173
+#: ../../Jokosher/Jokosher.glade.h:172
 msgid ""
 "Please enter the filename of the audio you wish to export. The audio will be "
 "exported to the location specified."
@@ -537,7 +533,7 @@ msgstr ""
 "Lūdzu ievadiet faila nosaukumu, uz kuru jūs vēlaties eksportēt audio. Audio "
 "tiks eksportēts uz norādīto atrašanās vietu."
 
-#: ../../Jokosher/Jokosher.glade.h:174
+#: ../../Jokosher/Jokosher.glade.h:173
 msgid ""
 "Please select the mixdown actions you would like to add to the mixdown "
 "profile *profile*"
@@ -545,347 +541,343 @@ msgstr ""
 "Lūdzu izvēlieties lejupmiksēšanas darbības jūs vēlatos pievienot "
 "lejupmiksēšanas profilam *profile*"
 
-#: ../../Jokosher/Jokosher.glade.h:175
+#: ../../Jokosher/Jokosher.glade.h:174
 msgid "Project Properties"
 msgstr "Projekta īpašības"
 
-#: ../../Jokosher/Jokosher.glade.h:176
+#: ../../Jokosher/Jokosher.glade.h:175
 msgid "Project Templates"
 msgstr "Projekta šabloni"
 
-#: ../../Jokosher/Jokosher.glade.h:177
+#: ../../Jokosher/Jokosher.glade.h:176
 msgid "Quit Jokosher"
 msgstr "Iziet no Jokosher"
 
-#: ../../Jokosher/Jokosher.glade.h:178
+#: ../../Jokosher/Jokosher.glade.h:177
 msgid "R_ecording Inputs..."
 msgstr "_Ierakstīšanas ievadi..."
 
-#: ../../Jokosher/Jokosher.glade.h:179
+#: ../../Jokosher/Jokosher.glade.h:178
 msgid "Redo"
 msgstr "Atsaukt"
 
-#: ../../Jokosher/Jokosher.glade.h:180
+#: ../../Jokosher/Jokosher.glade.h:179
 msgid "Redo the previous edit"
 msgstr "Atsaukt iepriekšējo rediģējumu"
 
-#: ../../Jokosher/Jokosher.glade.h:181
+#: ../../Jokosher/Jokosher.glade.h:180
 msgid "Remove the currently selected extension"
 msgstr "Izņemt pašreiz izvēlēto paplašinājumu"
 
-#: ../../Jokosher/Jokosher.glade.h:182
+#: ../../Jokosher/Jokosher.glade.h:181
 msgid "Remove the selected instrument"
 msgstr "Izņemt izvēlēto instrumentu"
 
-#: ../../Jokosher/Jokosher.glade.h:183
+#: ../../Jokosher/Jokosher.glade.h:182
 msgid "Report a bug in Jokosher"
 msgstr "Ziņot par Jokosher kļūdu"
 
-#: ../../Jokosher/Jokosher.glade.h:184
+#: ../../Jokosher/Jokosher.glade.h:183
 msgid "S_ample Rate:"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:185
+#: ../../Jokosher/Jokosher.glade.h:184
 msgid "S_ystem:"
 msgstr "S_istēma:"
 
-#: ../../Jokosher/Jokosher.glade.h:186
+#: ../../Jokosher/Jokosher.glade.h:185
 msgid "Save _As..."
 msgstr "Saglabāt _kā..."
 
-#: ../../Jokosher/Jokosher.glade.h:187
+#: ../../Jokosher/Jokosher.glade.h:186
 msgid "Save a copy of the current project"
 msgstr "Saglabāt pašreizējā projekta kopiju"
 
-#: ../../Jokosher/Jokosher.glade.h:188 ../../Jokosher/JokosherApp.py:601
+#: ../../Jokosher/Jokosher.glade.h:187 ../../Jokosher/JokosherApp.py:601
 msgid "Save as file type:"
 msgstr "Saglabāt kā faila tipu:"
 
-#: ../../Jokosher/Jokosher.glade.h:189
+#: ../../Jokosher/Jokosher.glade.h:188
 msgid "Save preferences and close"
 msgstr "Saglabāt preferences un aizvērt"
 
-#: ../../Jokosher/Jokosher.glade.h:190
+#: ../../Jokosher/Jokosher.glade.h:189
 msgid "Save the current project"
 msgstr "Saglabāt pašreizējo projektu"
 
-#: ../../Jokosher/Jokosher.glade.h:191
+#: ../../Jokosher/Jokosher.glade.h:190
 msgid "Save the current settings as a preset"
 msgstr "Saglabāt pašreizējos iestatījumus kā iepriekšnoteikumu"
 
-#: ../../Jokosher/Jokosher.glade.h:192
+#: ../../Jokosher/Jokosher.glade.h:191
 msgid "Save the currently active effects as a preset"
 msgstr "Saglabot šobrīd aktīvos efektus kā iepriekšnoteikumu"
 
-#: ../../Jokosher/Jokosher.glade.h:193
+#: ../../Jokosher/Jokosher.glade.h:192
 msgid "Save the selected project template"
 msgstr "Saglabāt izvēlētā projekta šablonu"
 
-#: ../../Jokosher/Jokosher.glade.h:194
+#: ../../Jokosher/Jokosher.glade.h:193
 msgid "Save your selections and close this window"
 msgstr "Saglabāt jūsu izvēles un aizvērt šo logu"
 
-#: ../../Jokosher/Jokosher.glade.h:195
+#: ../../Jokosher/Jokosher.glade.h:194
 msgid "See your system information"
 msgstr "Aplūkot informāciju par jūsu sistēmu"
 
-#: ../../Jokosher/Jokosher.glade.h:196
-msgid "Select A Folder"
-msgstr "Izvēlieties mapi"
-
-#: ../../Jokosher/Jokosher.glade.h:197
+#: ../../Jokosher/Jokosher.glade.h:195
 msgid "Select a project to open from the list"
 msgstr "Izvēlieties projektu no saraksta, kuru atvērt"
 
-#: ../../Jokosher/Jokosher.glade.h:198
+#: ../../Jokosher/Jokosher.glade.h:196
 msgid "Select the audio input to use with each instrument."
 msgstr "Izvēlieties audio failu, ko izmantot ar katru instrumentu."
 
-#: ../../Jokosher/Jokosher.glade.h:199
+#: ../../Jokosher/Jokosher.glade.h:197
 msgid "Set Time Signature"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:200
+#: ../../Jokosher/Jokosher.glade.h:198
 msgid "Settings"
 msgstr "Uzstādījumi"
 
-#: ../../Jokosher/Jokosher.glade.h:201
+#: ../../Jokosher/Jokosher.glade.h:199
 msgid "Show as _Bars, Beats, Ticks"
 msgstr "Parādīt _taktīs, sitienos un tikšķos"
 
-#: ../../Jokosher/Jokosher.glade.h:202
+#: ../../Jokosher/Jokosher.glade.h:200
 msgid "Show as _Hours, Minutes, Seconds"
 msgstr "Parādīt _stundās, minūtēs, sekundēs"
 
-#: ../../Jokosher/Jokosher.glade.h:203
+#: ../../Jokosher/Jokosher.glade.h:201
 msgid "Start Jokosher with an empty project"
 msgstr "Sākt Jokosher ar tukšu projektu"
 
-#: ../../Jokosher/Jokosher.glade.h:204
+#: ../../Jokosher/Jokosher.glade.h:202
 msgid "Start playback"
 msgstr "Sākt atskaņot"
 
-#: ../../Jokosher/Jokosher.glade.h:205
+#: ../../Jokosher/Jokosher.glade.h:203
 msgid "Stop mixing the project"
 msgstr "Apstādināt projekta miksēšanu"
 
-#: ../../Jokosher/Jokosher.glade.h:206 ../../Jokosher/JokosherApp.py:64
+#: ../../Jokosher/Jokosher.glade.h:204 ../../Jokosher/JokosherApp.py:66
 msgid "Stop playback"
 msgstr "Apstādināt atskaņošanu"
 
-#: ../../Jokosher/Jokosher.glade.h:207
+#: ../../Jokosher/Jokosher.glade.h:205
 msgid "Sys_tem:"
 msgstr "Sis_tēma:"
 
-#: ../../Jokosher/Jokosher.glade.h:208
+#: ../../Jokosher/Jokosher.glade.h:206
 msgid "System Information"
 msgstr "Informācija par sistēmu"
 
-#: ../../Jokosher/Jokosher.glade.h:209
+#: ../../Jokosher/Jokosher.glade.h:207
 msgid "Testing Jokosher, and submitting bugs."
 msgstr "Jokosher testēšana un kļūdu ziņošana."
 
-#: ../../Jokosher/Jokosher.glade.h:210
+#: ../../Jokosher/Jokosher.glade.h:208
 msgid "Type here to search for an instrument"
 msgstr "Rakstiet šeit, lai meklētu instrumentu"
 
-#: ../../Jokosher/Jokosher.glade.h:211
+#: ../../Jokosher/Jokosher.glade.h:209
 msgid "Undo"
 msgstr "Atsaukt"
 
-#: ../../Jokosher/Jokosher.glade.h:212
+#: ../../Jokosher/Jokosher.glade.h:210
 msgid "Undo the last edit"
 msgstr "Atsaukt pēdējo rediģējumu"
 
-#: ../../Jokosher/Jokosher.glade.h:213
+#: ../../Jokosher/Jokosher.glade.h:211
 msgid "Use these effect settings"
 msgstr "Izmantot šos efekta iestatījumus"
 
-#: ../../Jokosher/Jokosher.glade.h:214
+#: ../../Jokosher/Jokosher.glade.h:212
 msgid "Use these effects"
 msgstr "Izmantot šos efektus"
 
-#: ../../Jokosher/Jokosher.glade.h:215
+#: ../../Jokosher/Jokosher.glade.h:213
 msgid "Use these settings"
 msgstr "Izmantot šos iestatījumus"
 
-#: ../../Jokosher/Jokosher.glade.h:216
+#: ../../Jokosher/Jokosher.glade.h:214
 msgid "User manual contents"
 msgstr "Lietotāja rokasgrāmatas saturs"
 
-#: ../../Jokosher/Jokosher.glade.h:217
+#: ../../Jokosher/Jokosher.glade.h:215
 msgid "Version information, credits and licence"
 msgstr "Versijas informācija, kredīti un license"
 
-#: ../../Jokosher/Jokosher.glade.h:218
+#: ../../Jokosher/Jokosher.glade.h:216
 msgid "Visit Jokosher's online forums"
 msgstr "Apmeklējiet Jokosher tiešsaistes forumu"
 
-#: ../../Jokosher/Jokosher.glade.h:219
+#: ../../Jokosher/Jokosher.glade.h:217
 msgid "Welcome to Jokosher!"
 msgstr "Esiet aicināti Jokosher!"
 
-#: ../../Jokosher/Jokosher.glade.h:220
+#: ../../Jokosher/Jokosher.glade.h:218
 msgid "Writing code and features in Python."
 msgstr "Programējot kodu un iespējas Python."
 
-#: ../../Jokosher/Jokosher.glade.h:221
+#: ../../Jokosher/Jokosher.glade.h:219
 msgid "Writing simple to read documentation."
 msgstr "Rakstot vienkārši lasāmu un saprotamu dokumentāciju."
 
-#: ../../Jokosher/Jokosher.glade.h:222
+#: ../../Jokosher/Jokosher.glade.h:220
 msgid "Your music file is being mixed. This can take some seconds."
 msgstr "Jūsu mūzikas fails tiek miksēts. Tas varētu prasīt kādu laiku."
 
-#: ../../Jokosher/Jokosher.glade.h:223
+#: ../../Jokosher/Jokosher.glade.h:221
 msgid "_Author:"
 msgstr "_Autors:"
 
-#: ../../Jokosher/Jokosher.glade.h:224
+#: ../../Jokosher/Jokosher.glade.h:222
 msgid "_Browse for an Existing Project"
 msgstr "_Lūkoties pēc eksistējoša projekta"
 
-#: ../../Jokosher/Jokosher.glade.h:225
+#: ../../Jokosher/Jokosher.glade.h:223
 msgid "_Change Instrument Type..."
 msgstr "_Izmainīt instrumentu tipu..."
 
-#: ../../Jokosher/Jokosher.glade.h:226
+#: ../../Jokosher/Jokosher.glade.h:224
 msgid "_Contributing to Jokosher"
 msgstr "_Palīdziet izstrādāt Jokosher"
 
-#: ../../Jokosher/Jokosher.glade.h:227
+#: ../../Jokosher/Jokosher.glade.h:225
 msgid "_Create a New Project"
 msgstr "_Izveidot jaunu projektu"
 
-#: ../../Jokosher/Jokosher.glade.h:228
+#: ../../Jokosher/Jokosher.glade.h:226
 msgid "_Don't open anything"
 msgstr "_Neatvērt neko"
 
-#: ../../Jokosher/Jokosher.glade.h:229
+#: ../../Jokosher/Jokosher.glade.h:227
 msgid "_Don't show this on start-up"
 msgstr "_Nerādiet to sākot"
 
-#: ../../Jokosher/Jokosher.glade.h:230
+#: ../../Jokosher/Jokosher.glade.h:228
 msgid "_Edit"
 msgstr "_Rediģēt"
 
-#: ../../Jokosher/Jokosher.glade.h:231
+#: ../../Jokosher/Jokosher.glade.h:229
 msgid "_Encoding:"
 msgstr "_Kodējums:"
 
-#: ../../Jokosher/Jokosher.glade.h:232
+#: ../../Jokosher/Jokosher.glade.h:230
 msgid "_File"
 msgstr "_Faili"
 
-#: ../../Jokosher/Jokosher.glade.h:233
+#: ../../Jokosher/Jokosher.glade.h:231
 msgid "_Folder:"
 msgstr "_Mape:"
 
-#: ../../Jokosher/Jokosher.glade.h:234
+#: ../../Jokosher/Jokosher.glade.h:232
 msgid "_Help"
 msgstr "_Palīdzība"
 
-#: ../../Jokosher/Jokosher.glade.h:235
+#: ../../Jokosher/Jokosher.glade.h:233
 msgid "_Instrument"
 msgstr "_Instruments"
 
-#: ../../Jokosher/Jokosher.glade.h:236
+#: ../../Jokosher/Jokosher.glade.h:234
 msgid "_Manage Extensions..."
 msgstr "_Pārvaldīt paplašinājumus..."
 
-#: ../../Jokosher/Jokosher.glade.h:237
+#: ../../Jokosher/Jokosher.glade.h:235
 msgid "_Mixdown"
 msgstr "_Lejupmiksēt"
 
-#: ../../Jokosher/Jokosher.glade.h:238 ../../Jokosher/JokosherApp.py:1935
+#: ../../Jokosher/Jokosher.glade.h:236 ../../Jokosher/JokosherApp.py:1959
 msgid "_Mixdown Project..."
 msgstr "_Lejupmiksēšanas projekts..."
 
-#: ../../Jokosher/Jokosher.glade.h:239
+#: ../../Jokosher/Jokosher.glade.h:237
 msgid "_Name:"
 msgstr "_Nosaukums"
 
-#: ../../Jokosher/Jokosher.glade.h:240
+#: ../../Jokosher/Jokosher.glade.h:238
 msgid "_New..."
 msgstr "_Jauns..."
 
-#: ../../Jokosher/Jokosher.glade.h:241
+#: ../../Jokosher/Jokosher.glade.h:239
 msgid "_Online Forums"
 msgstr "_Tiešsaistes forumi"
 
-#: ../../Jokosher/Jokosher.glade.h:242
+#: ../../Jokosher/Jokosher.glade.h:240
 msgid "_Open Selected Project"
 msgstr "_Atvērt izvēlēto projektu"
 
-#: ../../Jokosher/Jokosher.glade.h:243
+#: ../../Jokosher/Jokosher.glade.h:241
 msgid "_Open most recent project"
 msgstr "_Atvērt pēdējo lietoto projektu"
 
-#: ../../Jokosher/Jokosher.glade.h:244
+#: ../../Jokosher/Jokosher.glade.h:242
 msgid "_Open..."
 msgstr "_Atvērt..."
 
-#: ../../Jokosher/Jokosher.glade.h:245
+#: ../../Jokosher/Jokosher.glade.h:243
 msgid "_Pipeline:"
 msgstr "_Konveijers:"
 
-#: ../../Jokosher/Jokosher.glade.h:246
+#: ../../Jokosher/Jokosher.glade.h:244
 msgid "_Preferences"
 msgstr "_Preferences"
 
-#: ../../Jokosher/Jokosher.glade.h:247
+#: ../../Jokosher/Jokosher.glade.h:245
 msgid "_Project Name:"
 msgstr "_Projekta nosaukums:"
 
-#: ../../Jokosher/Jokosher.glade.h:248
+#: ../../Jokosher/Jokosher.glade.h:246
 msgid "_Recent Projects"
 msgstr "_Nesenie projekti"
 
-#: ../../Jokosher/Jokosher.glade.h:249
+#: ../../Jokosher/Jokosher.glade.h:247
 msgid "_Remove Selected Instrument"
 msgstr "_Izņemt iezīmēto instrumentu"
 
-#: ../../Jokosher/Jokosher.glade.h:250
+#: ../../Jokosher/Jokosher.glade.h:248
 msgid "_Report Bug..."
 msgstr "_Ziņot par kļūdu..."
 
-#: ../../Jokosher/Jokosher.glade.h:251
+#: ../../Jokosher/Jokosher.glade.h:249
 msgid "_Search:"
 msgstr "_Meklēt:"
 
-#: ../../Jokosher/Jokosher.glade.h:252
+#: ../../Jokosher/Jokosher.glade.h:250
 msgid "_Show welcome dialog"
 msgstr "_Rādīt sasveicināšanās dialogu"
 
-#: ../../Jokosher/Jokosher.glade.h:253
+#: ../../Jokosher/Jokosher.glade.h:251
 msgid "_System Information"
 msgstr "Informācija par _sistēmu"
 
-#: ../../Jokosher/Jokosher.glade.h:254
+#: ../../Jokosher/Jokosher.glade.h:252
 msgid "_Template Name:"
 msgstr "_Šablona nosaukums:"
 
-#: ../../Jokosher/Jokosher.glade.h:255
+#: ../../Jokosher/Jokosher.glade.h:253
 msgid "_Time Format"
 msgstr "_Laika formāts"
 
-#: ../../Jokosher/Jokosher.glade.h:256
+#: ../../Jokosher/Jokosher.glade.h:254
 msgid "_Use project template"
 msgstr "_Izmantot projekta šablonu"
 
-#: ../../Jokosher/Jokosher.glade.h:257
+#: ../../Jokosher/Jokosher.glade.h:255
 msgid "autoaudiosink"
 msgstr "autoaudiosink"
 
-#: ../../Jokosher/Jokosher.glade.h:258
+#: ../../Jokosher/Jokosher.glade.h:256
 msgid "xx.xx.xx"
 msgstr "xx.xx.xx"
 
-#: ../../Jokosher/AddInstrumentDialog.py:61
+#: ../../Jokosher/AddInstrumentDialog.py:63
 msgid "Change Instrument Type"
 msgstr "Mainīt instrumenta tipu"
 
-#: ../../Jokosher/AddInstrumentDialog.py:63
+#: ../../Jokosher/AddInstrumentDialog.py:65
 #, python-format
 msgid "Choose the new instrument type for %s"
 msgstr "Izvēlieties jaunu instrumenta tipu %s"
@@ -918,59 +910,59 @@ msgstr "Aktivizēt solo - apklusināt visus citus instrumentus"
 msgid "Deactivate Solo - hear all the instruments"
 msgstr "Deaktivizēt solo - dzirdēt visus instrumentus"
 
-#: ../../Jokosher/ControlsBox.py:84
-#: ../../Jokosher/InstrumentEffectsDialog.py:114
+#: ../../Jokosher/ControlsBox.py:80
+#: ../../Jokosher/InstrumentEffectsDialog.py:116
 msgid "Instrument Effects"
 msgstr "Instrumenta efekti"
 
-#: ../../Jokosher/Event.py:765
+#: ../../Jokosher/EventLaneViewer.py:115
+msgid "_Add Audio File..."
+msgstr "_Pievienot audio failu..."
+
+#: ../../Jokosher/EventLaneViewer.py:264
+msgid "<b>Right-click</b> for more options."
+msgstr "<b>Labais klikšķis</b>, lai iegūtu vairāk opcijas"
+
+#: ../../Jokosher/Event.py:780
 #, python-format
 msgid "%(title)s by %(artist)s"
 msgstr "%(artist)s - %(title)s"
 
-#: ../../Jokosher/EventLaneViewer.py:114
-msgid "_Add Audio File..."
-msgstr "_Pievienot audio failu..."
-
-#: ../../Jokosher/EventLaneViewer.py:263
-msgid "<b>Right-click</b> for more options."
-msgstr "<b>Labais klikšķis</b>, lai iegūtu vairāk opcijas"
-
-#: ../../Jokosher/EventViewer.py:153
+#: ../../Jokosher/EventViewer.py:151
 msgid "Trim"
 msgstr "Apgriezt"
 
-#: ../../Jokosher/EventViewer.py:164
+#: ../../Jokosher/EventViewer.py:162
 msgid "Delete Fade Points"
 msgstr "Dzēst skaļuma punktus"
 
-#: ../../Jokosher/EventViewer.py:172
+#: ../../Jokosher/EventViewer.py:170
 msgid "Snap To Fade Points"
 msgstr "Aizsniegt līdz skaļuma punktiem"
 
-#: ../../Jokosher/EventViewer.py:445
+#: ../../Jokosher/EventViewer.py:443
 msgid "Downloading..."
 msgstr "Lejupielādē..."
 
-#: ../../Jokosher/EventViewer.py:447
+#: ../../Jokosher/EventViewer.py:445
 msgid "Loading..."
 msgstr "Ielādē..."
 
-#: ../../Jokosher/EventViewer.py:451
+#: ../../Jokosher/EventViewer.py:449
 #, python-format
 msgid "Downloading (%d%%)..."
 msgstr "Lejupielādē (%d%%)..."
 
-#: ../../Jokosher/EventViewer.py:453
+#: ../../Jokosher/EventViewer.py:451
 #, python-format
 msgid "Loading (%d%%)..."
 msgstr "Ielādējam (%d%%)..."
 
-#: ../../Jokosher/EventViewer.py:464
+#: ../../Jokosher/EventViewer.py:462
 msgid "Recording..."
 msgstr "Ieraksta..."
 
-#: ../../Jokosher/EventViewer.py:512
+#: ../../Jokosher/EventViewer.py:510
 msgid ""
 "To <b>Split, Double-Click</b> the wave - To <b>Select, Shift-Click</b> and "
 "drag the mouse"
@@ -978,11 +970,11 @@ msgstr ""
 "Lai <b>Dalītu, dubultklikšķis</b> uz vilni - lai <b>izvēlētos, klikšķis kopā "
 "ar Shift</b> un vilkt ar peli"
 
-#: ../../Jokosher/EventViewer.py:526
+#: ../../Jokosher/EventViewer.py:524
 msgid "<b>Drag</b> the red sliders to modify the volume fade."
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:639
+#: ../../Jokosher/EventViewer.py:637
 msgid ""
 "<b>Click</b> the buttons below the selection to do something to that portion "
 "of audio."
@@ -990,39 +982,60 @@ msgstr ""
 "<b>Klikšķiniet</b> uz pogām zem izvēlnes, lai kaut ko paveiktu ar šo audio "
 "daļu."
 
-#: ../../Jokosher/EventViewer.py:904
+#: ../../Jokosher/EventViewer.py:902
 msgid "_Split"
 msgstr "_Sadalīt"
 
-#: ../../Jokosher/EventViewer.py:906
+#: ../../Jokosher/EventViewer.py:904
 msgid "Cu_t"
 msgstr "Griez_t"
 
-#: ../../Jokosher/EventViewer.py:907
+#: ../../Jokosher/EventViewer.py:905
 msgid "_Copy"
 msgstr "_Kopēt"
 
-#: ../../Jokosher/EventViewer.py:908
-#: ../../Jokosher/InstrumentEffectsDialog.py:442
+#: ../../Jokosher/EventViewer.py:906
+#: ../../Jokosher/InstrumentEffectsDialog.py:449
 msgid "_Delete"
 msgstr "_Dzēst"
 
-#: ../../Jokosher/EventViewer.py:1198
+#: ../../Jokosher/EventViewer.py:1196
 msgid "Error loading file:"
 msgstr "Kļūda ielādējot failu:"
 
-#: ../../Jokosher/EventViewer.py:1199
+#: ../../Jokosher/EventViewer.py:1197
 msgid ""
 "Please make sure the file exists, and the appropriate plugin is installed."
 msgstr ""
 "Lūdzu pārliecinieties, ka fails eksistē, un attiecīgais spraudnis ir "
 "uzinstalēts."
 
-#: ../../Jokosher/EventViewer.py:1417
+#: ../../Jokosher/EventViewer.py:1415
 #, python-format
 msgid ""
 "Event, %(name)s, %(dur)0.2f seconds long, starting at %(start)0.2f seconds."
 msgstr ""
+
+#: ../../Jokosher/ExtensionManagerDialog.py:169
+msgid "Choose a Jokosher Extension file"
+msgstr "Izvēlieties Jokosher paplašinājuma failu"
+
+#: ../../Jokosher/ExtensionManagerDialog.py:175
+msgid "Jokosher Extension Files (*.py *.egg)"
+msgstr "Jokosher paplašinājuma faili (*.py *.egg)"
+
+#: ../../Jokosher/ExtensionManagerDialog.py:197
+msgid "There was a problem loading the extension"
+msgstr "Problēma ielādējot paplašinājumu"
+
+#: ../../Jokosher/ExtensionManagerDialog.py:235
+msgid "There was a problem removing the extension"
+msgstr "Problēma izņemot ielādējumu"
+
+#: ../../Jokosher/ExtensionManagerDialog.py:272
+msgid ""
+"An error occurred when trying to launch the preferences for the extension"
+msgstr "Parādījās kļūda mēģinot atvērt paplašinājuma preferences"
 
 #: ../../Jokosher/Extension.py:50
 msgid "This is a Jokosher extension; it is not meant to be run directly."
@@ -1066,108 +1079,87 @@ msgstr "Aizvietot"
 msgid "Your new extension is now available in Jokosher!"
 msgstr "Jūsu jaunais paplašinājums ir tagad pieejams Jokosher!"
 
-#: ../../Jokosher/ExtensionManagerDialog.py:169
-msgid "Choose a Jokosher Extension file"
-msgstr "Izvēlieties Jokosher paplašinājuma failu"
-
-#: ../../Jokosher/ExtensionManagerDialog.py:175
-msgid "Jokosher Extension Files (*.py *.egg)"
-msgstr "Jokosher paplašinājuma faili (*.py *.egg)"
-
-#: ../../Jokosher/ExtensionManagerDialog.py:197
-msgid "There was a problem loading the extension"
-msgstr "Problēma ielādējot paplašinājumu"
-
-#: ../../Jokosher/ExtensionManagerDialog.py:235
-msgid "There was a problem removing the extension"
-msgstr "Problēma izņemot ielādējumu"
-
-#: ../../Jokosher/ExtensionManagerDialog.py:272
-msgid ""
-"An error occurred when trying to launch the preferences for the extension"
-msgstr "Parādījās kļūda mēģinot atvērt paplašinājuma preferences"
-
-#: ../../Jokosher/Globals.py:495
+#: ../../Jokosher/Globals.py:486
 msgid "Broken"
 msgstr "Bojāts"
 
-#: ../../Jokosher/Globals.py:496
+#: ../../Jokosher/Globals.py:487
 msgid "Unclassified"
 msgstr "Neklasificēti"
 
-#: ../../Jokosher/Globals.py:497
+#: ../../Jokosher/Globals.py:488
 msgid "Amplifiers"
 msgstr "Pastiprinātāji"
 
-#: ../../Jokosher/Globals.py:498
+#: ../../Jokosher/Globals.py:489
 msgid "Chorus"
 msgstr "Kori"
 
-#: ../../Jokosher/Globals.py:499
+#: ../../Jokosher/Globals.py:490
 msgid "Compressors"
 msgstr "Kompresori"
 
-#: ../../Jokosher/Globals.py:500
+#: ../../Jokosher/Globals.py:491
 msgid "Delays"
 msgstr "Nobīdes"
 
-#: ../../Jokosher/Globals.py:501
+#: ../../Jokosher/Globals.py:492
 msgid "Distortions"
 msgstr "Izkropļojumi"
 
-#: ../../Jokosher/Globals.py:502
+#: ../../Jokosher/Globals.py:493
 msgid "Equalizers"
 msgstr "Izlīdzinātāji (Equalizers)"
 
-#: ../../Jokosher/Globals.py:503
+#: ../../Jokosher/Globals.py:494
 msgid "Filters"
 msgstr "Filtri"
 
-#: ../../Jokosher/Globals.py:504
+#: ../../Jokosher/Globals.py:495
 msgid "Flangers"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:505
+#: ../../Jokosher/Globals.py:496
 msgid "Miscellaneous"
 msgstr "Dažādi"
 
-#: ../../Jokosher/Globals.py:506
+#: ../../Jokosher/Globals.py:497
 msgid "Modulators"
 msgstr "Modulātori"
 
-#: ../../Jokosher/Globals.py:507
+#: ../../Jokosher/Globals.py:498
 msgid "Oscillators"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:508
+#: ../../Jokosher/Globals.py:499
 msgid "Phasers"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:509
+#: ../../Jokosher/Globals.py:500
 msgid "Reverbs"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:510
+#: ../../Jokosher/Globals.py:501
 msgid "Simulators"
 msgstr "Simulātori"
 
-#: ../../Jokosher/Globals.py:703 ../../Jokosher/PreferencesDialog.py:113
+#: ../../Jokosher/Globals.py:695 ../../Jokosher/PreferencesDialog.py:113
 msgid "Autodetect"
 msgstr "Noteikt automātiski"
 
-#: ../../Jokosher/Globals.py:704
+#: ../../Jokosher/Globals.py:696
 msgid "Use GNOME Settings"
 msgstr "Izmantot GNOME iestatījumus"
 
-#: ../../Jokosher/Globals.py:712
+#: ../../Jokosher/Globals.py:706
 msgid "GNOME Settings"
 msgstr "GNOME iestatījumi"
 
-#: ../../Jokosher/Globals.py:728
+#: ../../Jokosher/Globals.py:724
 msgid "Jokosher Audio Editor"
 msgstr "Jokosher audio redaktors"
 
-#: ../../Jokosher/IncrementalSave.py:29 ../../Jokosher/Instrument.py:488
+#: ../../Jokosher/IncrementalSave.py:29 ../../Jokosher/Instrument.py:489
 msgid "Recorded audio"
 msgstr "Ierakstītais audio"
 
@@ -1176,7 +1168,7 @@ msgid "There are no instruments to connect"
 msgstr "Nav instrumentu, ko savienot"
 
 #: ../../Jokosher/InstrumentConnectionsDialog.py:103
-#: ../../Jokosher/PreferencesDialog.py:333
+#: ../../Jokosher/PreferencesDialog.py:338
 msgid "Default"
 msgstr "Noklusētais"
 
@@ -1187,8 +1179,14 @@ msgstr "Noklusētais (%s)"
 
 #: ../../Jokosher/InstrumentConnectionsDialog.py:112
 #, python-format
-msgid "%(device)s, input %(input)d"
-msgstr "%(device)s, ievads nr. %(input)d"
+msgid "%(device)s (%(id)s), input %(input)d"
+msgstr ""
+
+#: ../../Jokosher/InstrumentConnectionsDialog.py:115
+#: ../../Jokosher/PreferencesDialog.py:341
+#, python-format
+msgid "%(device)s (%(id)s)"
+msgstr ""
 
 #: ../../Jokosher/InstrumentConnectionsDialog.py:157
 #, python-format
@@ -1202,55 +1200,55 @@ msgid ""
 "The \"%(custom-pipeline)s\" sound system does not support device selection."
 msgstr ""
 
-#: ../../Jokosher/InstrumentEffectsDialog.py:140
 #: ../../Jokosher/InstrumentEffectsDialog.py:142
+#: ../../Jokosher/InstrumentEffectsDialog.py:144
 #: ../../Jokosher/MixdownProfileDialog.py:618
 msgid "Name"
 msgstr ""
 
-#: ../../Jokosher/InstrumentEffectsDialog.py:141
+#: ../../Jokosher/InstrumentEffectsDialog.py:143
 #: ../../Jokosher/ProjectTemplateDialog.py:82
 #: ../../Jokosher/ProjectTemplateDialog.py:86
 msgid "Type"
 msgstr "Tips"
 
-#: ../../Jokosher/InstrumentEffectsDialog.py:439
+#: ../../Jokosher/InstrumentEffectsDialog.py:446
 msgid "_Move up..."
 msgstr "_Pārvietot uz augšu..."
 
-#: ../../Jokosher/InstrumentEffectsDialog.py:440
+#: ../../Jokosher/InstrumentEffectsDialog.py:447
 msgid "M_ove down..."
 msgstr ""
 
-#: ../../Jokosher/InstrumentEffectsDialog.py:443
+#: ../../Jokosher/InstrumentEffectsDialog.py:450
 msgid "_Settings"
 msgstr ""
 
-#: ../../Jokosher/InstrumentEffectsDialog.py:484
+#: ../../Jokosher/InstrumentEffectsDialog.py:491
 msgid "_Activate effect"
 msgstr ""
 
-#: ../../Jokosher/InstrumentEffectsDialog.py:666
+#: ../../Jokosher/InstrumentEffectsDialog.py:673
 msgid "Effect Settings"
 msgstr "Efekta uzstādījumi"
 
-#: ../../Jokosher/InstrumentEffectsDialog.py:700
+#: ../../Jokosher/InstrumentEffectsDialog.py:704
 msgid "-parameter not readable-"
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:61 ../../Jokosher/JokosherApp.py:63
+#: ../../Jokosher/JokosherApp.py:63 ../../Jokosher/JokosherApp.py:65
 msgid "Stop recording"
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:62
+#: ../../Jokosher/JokosherApp.py:64
 msgid "Arm an instrument, then click here to begin recording"
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:65
+#: ../../Jokosher/JokosherApp.py:67
 msgid "Hide the audio level mixers"
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:66
+#: ../../Jokosher/JokosherApp.py:68
 msgid "Show the audio level mixers"
 msgstr ""
 
@@ -1303,7 +1301,34 @@ msgstr "Jokosher projekta fails (*.jokosher)"
 msgid "Choose a location to save the project"
 msgstr "Izvēlieties lokāciju projekta saglabāšanai"
 
-#: ../../Jokosher/JokosherApp.py:843
+#: ../../Jokosher/JokosherApp.py:811 ../../Jokosher/NewProjectDialog.py:147
+msgid ""
+"A file or folder with this name already exists. Please choose a different "
+"project name and try again."
+msgstr ""
+"Fails vai mape ar šādu nosaukumu jau eksistē. Lūdzu izvēlieties citu "
+"projekta vārdu un mēģiniet vēlreiz."
+
+#: ../../Jokosher/JokosherApp.py:813 ../../Jokosher/NewProjectDialog.py:149
+msgid "The file or folder location is write-protected."
+msgstr "Faila vai mapes lokācija ir aizsargāta pret ierakstu."
+
+#: ../../Jokosher/JokosherApp.py:815 ../../Jokosher/NewProjectDialog.py:153
+msgid "The URI scheme given is either invalid or not supported"
+msgstr "Dotā URI shēma ir vai nu nepareiza, vai neatbalstīta"
+
+#: ../../Jokosher/JokosherApp.py:822 ../../Jokosher/NewProjectDialog.py:162
+#, python-format
+msgid ""
+"Unable to create project.\n"
+"\n"
+"%s"
+msgstr ""
+"Nevar izveidot projektu.\n"
+"\n"
+"%s"
+
+#: ../../Jokosher/JokosherApp.py:877
 #, python-format
 msgid ""
 "<span size='large' weight='bold'>Save changes to project \"%s\" before "
@@ -1316,34 +1341,34 @@ msgstr ""
 "\n"
 "Jūsu izmaiņas tiks zaudētas, ja jūs to nesaglabāsiet."
 
-#: ../../Jokosher/JokosherApp.py:852
+#: ../../Jokosher/JokosherApp.py:886
 msgid "Close _Without Saving"
 msgstr "Aizvērt _bez saglabāšanas"
 
-#: ../../Jokosher/JokosherApp.py:951
+#: ../../Jokosher/JokosherApp.py:985
 #, python-format
 msgid "Mixing project to file: %s"
 msgstr "Miksēt projektu uz failu: %s"
 
-#: ../../Jokosher/JokosherApp.py:983
+#: ../../Jokosher/JokosherApp.py:1017
 #, python-format
 msgid "*%s - Jokosher"
 msgstr "*%s - Jokosher"
 
-#: ../../Jokosher/JokosherApp.py:985
+#: ../../Jokosher/JokosherApp.py:1019
 #, python-format
 msgid "%s - Jokosher"
 msgstr "%s - Jokosher"
 
-#: ../../Jokosher/JokosherApp.py:1064
+#: ../../Jokosher/JokosherApp.py:1097
 msgid "Clear the list of recent projects"
 msgstr "Attīrīt jaunāko projektu sarakstu"
 
-#: ../../Jokosher/JokosherApp.py:1486
+#: ../../Jokosher/JokosherApp.py:1519
 msgid "The project references non-existant files:\n"
 msgstr "Projekts norāda uz neeksistējošiem failiem:\n"
 
-#: ../../Jokosher/JokosherApp.py:1490
+#: ../../Jokosher/JokosherApp.py:1523
 msgid ""
 "\n"
 "The project references non-existant images:\n"
@@ -1351,7 +1376,7 @@ msgstr ""
 "\n"
 "Projekts norāda uz neeksistējošiem attēliem:\n"
 
-#: ../../Jokosher/JokosherApp.py:1498
+#: ../../Jokosher/JokosherApp.py:1531
 #, python-format
 msgid ""
 "%s\n"
@@ -1360,26 +1385,26 @@ msgstr ""
 "%s\n"
 " Nepareizs vai sabojāts projekta fails, tas netiks atvērts."
 
-#: ../../Jokosher/JokosherApp.py:1536
+#: ../../Jokosher/JokosherApp.py:1569
 msgid "You must have Gstreamer version 0.10.9 or higher.\n"
 msgstr "Jums jābūt Gstreamer versijai 0.10.9 un augstākai.\n"
 
-#: ../../Jokosher/JokosherApp.py:1544
+#: ../../Jokosher/JokosherApp.py:1577
 msgid "You must have Gstreamer plugin gnonlin version 0.10.4.2 or later.\n"
 msgstr ""
 "Jums jābūt Gstreamer spraudnim gnonlin versijai 0.10.4.2 vai vēlākai.\n"
 
-#: ../../Jokosher/JokosherApp.py:1546
+#: ../../Jokosher/JokosherApp.py:1579
 msgid "Gstreamer plugin gnonlin is not installed."
 msgstr "Gstreamer spraudnis gnonlin nav uzinstalēts."
 
-#: ../../Jokosher/JokosherApp.py:1547
+#: ../../Jokosher/JokosherApp.py:1580
 msgid ""
 "\n"
 "See http://doc.jokosher.org/Installation for more details.\n"
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:1550
+#: ../../Jokosher/JokosherApp.py:1583
 msgid ""
 "You must have the Gstreamer plugin packs gst-plugins-base and gst-plugins-"
 "good installed.\n"
@@ -1387,7 +1412,7 @@ msgstr ""
 "Jums jābūt uzstādītām Gstreamer spraudņu pakām gst-plugins-base un gst-"
 "plugins-good.\n"
 
-#: ../../Jokosher/JokosherApp.py:1556
+#: ../../Jokosher/JokosherApp.py:1589
 #, python-format
 msgid ""
 "<big>Some functionality will not work correctly or at all.</big>\n"
@@ -1398,11 +1423,15 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../../Jokosher/JokosherApp.py:1606
-msgid "<big>Couldn't launch the Yelp help browser.</big>"
+#: ../../Jokosher/JokosherApp.py:1632
+#, python-format
+msgid ""
+"<big>Couldn't launch the Jokosher documentation site.</big>\n"
+"\n"
+"Please visit %s to access it."
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:1619
+#: ../../Jokosher/JokosherApp.py:1643
 #, python-format
 msgid ""
 "<big>Couldn't launch the forums website automatically.</big>\n"
@@ -1410,11 +1439,11 @@ msgid ""
 "Please visit %s to access them."
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:1647
+#: ../../Jokosher/JokosherApp.py:1671
 msgid "<b>To find out more, visit:</b>"
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:1670
+#: ../../Jokosher/JokosherApp.py:1694
 #, python-format
 msgid ""
 "<big>Couldn't launch the contributing website automatically.</big>\n"
@@ -1422,35 +1451,35 @@ msgid ""
 "Please visit %s to access it."
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:1725
+#: ../../Jokosher/JokosherApp.py:1749
 msgid "Gnonlin is missing!"
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:1732
+#: ../../Jokosher/JokosherApp.py:1756
 msgid "Unknown"
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:1748
+#: ../../Jokosher/JokosherApp.py:1772
 #, python-format
 msgid "The URI scheme '%s' is either invalid or not supported."
 msgstr "URI shēma '%s' ir vai nu nepareiza, vai neatbalstīta."
 
-#: ../../Jokosher/JokosherApp.py:1750
+#: ../../Jokosher/JokosherApp.py:1774
 #, python-format
 msgid "Unable to unzip the project file %s"
 msgstr "Nevar atspiest projekta failu %s"
 
-#: ../../Jokosher/JokosherApp.py:1752
+#: ../../Jokosher/JokosherApp.py:1776
 #, python-format
 msgid "The project file was created with version \"%s\" of Jokosher.\n"
 msgstr "Šis projekta fails tika izveidots ar Jokosher versiju \"%s\".\n"
 
-#: ../../Jokosher/JokosherApp.py:1753
+#: ../../Jokosher/JokosherApp.py:1777
 #, python-format
 msgid "Projects from version \"%s\" are incompatible with this release.\n"
 msgstr "Projekti no versijas \"%s\" ir nesavietojami ar šo izlaidumu.\n"
 
-#: ../../Jokosher/JokosherApp.py:1755
+#: ../../Jokosher/JokosherApp.py:1779
 #, python-format
 msgid ""
 "The project:\n"
@@ -1463,25 +1492,25 @@ msgstr ""
 "\n"
 "neekistē.\n"
 
-#: ../../Jokosher/JokosherApp.py:1757 ../../Jokosher/JokosherApp.py:1761
+#: ../../Jokosher/JokosherApp.py:1781 ../../Jokosher/JokosherApp.py:1785
 msgid "The project file could not be opened.\n"
 msgstr "Projekta fails nevarēja tikt atvērts.\n"
 
-#: ../../Jokosher/JokosherApp.py:1758
+#: ../../Jokosher/JokosherApp.py:1782
 msgid ""
 "It is recommended that you report this to the Jokosher developers or get "
 "help at http://www.jokosher.org/forums/"
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:1838
+#: ../../Jokosher/JokosherApp.py:1862
 msgid "Copy file to project"
 msgstr "Kopēt failu projektā"
 
-#: ../../Jokosher/JokosherApp.py:1843
+#: ../../Jokosher/JokosherApp.py:1867
 msgid "Add Audio File..."
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:1917 ../../Jokosher/JokosherApp.py:1922
+#: ../../Jokosher/JokosherApp.py:1941 ../../Jokosher/JokosherApp.py:1946
 msgid "Mix_down As"
 msgstr ""
 
@@ -1629,93 +1658,70 @@ msgstr ""
 msgid "Cannot remove mixdown profile %s"
 msgstr ""
 
-#: ../../Jokosher/MixerStrip.py:64
+#: ../../Jokosher/MixerStrip.py:63
 msgid "Minimize instrument"
 msgstr "Minimizēt instrumentu"
 
-#: ../../Jokosher/MixerStrip.py:74
+#: ../../Jokosher/MixerStrip.py:73
 msgid "Balance:"
 msgstr ""
 
-#: ../../Jokosher/MixerStrip.py:79
+#: ../../Jokosher/MixerStrip.py:78
 msgid "L"
 msgstr "L"
 
-#: ../../Jokosher/MixerStrip.py:80
+#: ../../Jokosher/MixerStrip.py:79
 msgid "R"
 msgstr "R"
 
-#: ../../Jokosher/MixerStrip.py:86
+#: ../../Jokosher/MixerStrip.py:84
 msgid "Adjust instrument balance. Right-click to center"
 msgstr ""
 
-#: ../../Jokosher/MixerStrip.py:100
+#: ../../Jokosher/MixerStrip.py:98
 msgid "Volume:"
 msgstr ""
 
-#: ../../Jokosher/MixerStrip.py:233
+#: ../../Jokosher/MixerStrip.py:231
 #, python-format
 msgid "Current balance is <b>%d%%</b> left"
 msgstr ""
 
-#: ../../Jokosher/MixerStrip.py:235
+#: ../../Jokosher/MixerStrip.py:233
 msgid "Current balance is <b>centered</b>"
 msgstr ""
 
-#: ../../Jokosher/MixerStrip.py:237
+#: ../../Jokosher/MixerStrip.py:235
 #, python-format
 msgid "Current balance is <b>%d%%</b> right"
 msgstr ""
 
-#: ../../Jokosher/NewProjectDialog.py:133
+#: ../../Jokosher/NewProjectDialog.py:85
+msgid "Select A Folder"
+msgstr "Izvēlieties mapi"
+
+#: ../../Jokosher/NewProjectDialog.py:130
 msgid "Unknown Author"
 msgstr "Nezināms autors"
 
-#: ../../Jokosher/NewProjectDialog.py:146
+#: ../../Jokosher/NewProjectDialog.py:145
 msgid "Could not initialize project."
 msgstr "Nevarēja inicializēt projektu."
 
-#: ../../Jokosher/NewProjectDialog.py:148
-msgid ""
-"A file or folder with this name already exists. Please choose a different "
-"project name and try again."
-msgstr ""
-"Fails vai mape ar šādu nosaukumu jau eksistē. Lūdzu izvēlieties citu "
-"projekta vārdu un mēģiniet vēlreiz."
-
-#: ../../Jokosher/NewProjectDialog.py:150
-msgid "The file or folder location is write-protected."
-msgstr "Faila vai mapes lokācija ir aizsargāta pret ierakstu."
-
-#: ../../Jokosher/NewProjectDialog.py:152
+#: ../../Jokosher/NewProjectDialog.py:151
 msgid "Invalid name or author."
 msgstr "Nepareizs vārds vai autors."
 
-#: ../../Jokosher/NewProjectDialog.py:154
-msgid "The URI scheme given is either invalid or not supported"
-msgstr "Dotā URI shēma ir vai nu nepareiza, vai neatbalstīta"
-
-#: ../../Jokosher/NewProjectDialog.py:156
+#: ../../Jokosher/NewProjectDialog.py:155
 msgid "Unable to load required Gstreamer plugin:"
 msgstr ""
-
-#: ../../Jokosher/NewProjectDialog.py:163
-#, python-format
-msgid ""
-"Unable to create project.\n"
-"\n"
-"%s"
-msgstr ""
-"Nevar izveidot projektu.\n"
-"\n"
-"%s"
 
 #: ../../Jokosher/PreferencesDialog.py:75
 #: ../../Jokosher/PreferencesDialog.py:93
 msgid "Custom"
 msgstr ""
 
-#: ../../Jokosher/PreferencesDialog.py:340
+#: ../../Jokosher/PreferencesDialog.py:346
 #, python-format
 msgid "Device %d"
 msgstr ""
@@ -1725,57 +1731,56 @@ msgstr ""
 msgid "Instrument Name"
 msgstr ""
 
-#: ../../Jokosher/RecordingView.py:123
+#: ../../Jokosher/RecordingView.py:119
 msgid "Zoom the timeline - Right-Click to reset to the default level"
 msgstr ""
 
-#: ../../Jokosher/RecordingView.py:132
+#: ../../Jokosher/RecordingView.py:128
 msgid "Zoom in timeline"
 msgstr ""
 
-#: ../../Jokosher/RecordingView.py:139
+#: ../../Jokosher/RecordingView.py:135
 msgid "Zoom out timeline"
 msgstr ""
 
-#: ../../Jokosher/RecordingView.py:183
+#: ../../Jokosher/RecordingView.py:179
 msgid "Would you like to restore the current project?"
 msgstr ""
 
-#: ../../Jokosher/RecordingView.py:184
+#: ../../Jokosher/RecordingView.py:180
 msgid ""
 "A crash was detected and changes to your project were not saved.\n"
 "If you would like, you can attempt to recover these lost changes."
 msgstr ""
 
-#: ../../Jokosher/RecordingView.py:188
+#: ../../Jokosher/RecordingView.py:184
 msgid "_Restore Project"
 msgstr ""
 
-#: ../../Jokosher/RecordingView.py:322
+#: ../../Jokosher/RecordingView.py:318
 msgid "A Gstreamer error has occurred"
 msgstr ""
 
-#: ../../Jokosher/RecordingView.py:335
+#: ../../Jokosher/RecordingView.py:329
 msgid "A GStreamer error has occurred."
 msgstr ""
 
-#: ../../Jokosher/RecordingView.py:372
-#, python-format
-msgid "There are %(number)d more errors not shown."
-msgstr ""
-
-#: ../../Jokosher/RecordingView.py:375
+#: ../../Jokosher/RecordingView.py:330
 msgid ""
 "If this problem persists consider reporting a bug using the link in the help "
 "menu."
 msgstr ""
 
-#: ../../Jokosher/RecordingView.py:378
-msgid "_Close All"
+#: ../../Jokosher/TimeLineBar.py:63
+msgid "Adjust volume of click track"
 msgstr ""
 
-#: ../../Jokosher/RecordingView.py:379
-msgid "_Show All"
+#: ../../Jokosher/TimeLineBar.py:67
+msgid "Beats per minute"
+msgstr "Sitieni minūtē"
+
+#: ../../Jokosher/TimeLineBar.py:86
+msgid "Time signature"
 msgstr ""
 
 #: ../../Jokosher/TimeLine.py:566
@@ -1790,19 +1795,7 @@ msgid ""
 "milliseconds in"
 msgstr ""
 
-#: ../../Jokosher/TimeLineBar.py:64
-msgid "Adjust volume of click track"
-msgstr ""
-
-#: ../../Jokosher/TimeLineBar.py:69
-msgid "Beats per minute"
-msgstr "Sitieni minūtē"
-
-#: ../../Jokosher/TimeLineBar.py:89
-msgid "Time signature"
-msgstr ""
-
-#: ../../Jokosher/TimeView.py:50
+#: ../../Jokosher/TimeView.py:49
 msgid "Double click to change the time format"
 msgstr ""
 
@@ -1908,302 +1901,310 @@ msgstr "Vijole"
 msgid "Vocal"
 msgstr "Vokāls"
 
-#, fuzzy
-msgid "<b>Recorded Audio Format</b>"
-msgstr "<b>Ierakstīšanas formāts</b>"
+#~ msgid "Jokosher Errors"
+#~ msgstr "Jokosher kļūdas"
 
-msgid ""
-"No channels capable of recording have been found, please attach a device and "
-"try again."
-msgstr ""
-"Netika atrasti kanāli, caur kuriem varētu veikt ierakstu. Lūdzu pievienojiet "
-"iekārtu un provējiet vēlreiz."
-
-msgid ""
-"Your sound card isn't capable of recording from multiple sources at the same "
-"time. Please disarm all but one instrument."
-msgstr ""
-"Jūsu skaņas karte nav spējīga ierakstīt no vairākiem avotiem vienlaicīgi. "
-"Lūdzu atstājiet sagatavotu tikai vienu instrumentu."
-
-msgid ""
-"You require the GStreamer channel splitting element to be able to record "
-"from multiple input devices. This can be downloaded from http://www.jokosher."
-"org/download."
-msgstr ""
-"Lai veiktu ierakstu no vairāku kanālu ievades iekārtām, jums nepieciešams "
-"GStreamer kanālu dalītāja elements. Tas var tikt lejupielādēts no http://www."
-"jokosher.org/download"
-
-msgid "Turn click track on"
-msgstr "Ieslēgt ritma celiņu"
-
-msgid "Turn click track off"
-msgstr "Izslēgt ritma celiņu"
-
-msgid "Audio production made simple."
-msgstr "Vienkārša audio radīšana."
+#~ msgid "%(device)s, input %(input)d"
+#~ msgstr "%(device)s, ievads nr. %(input)d"
 
 #, fuzzy
-msgid "Recording"
-msgstr "Ieraksta..."
+#~ msgid "<b>Recorded Audio Format</b>"
+#~ msgstr "<b>Ierakstīšanas formāts</b>"
 
-msgid "Switch to the Mixing workspace"
-msgstr "Pārslēgties uz miksēšanas darba lauku"
+#~ msgid ""
+#~ "No channels capable of recording have been found, please attach a device "
+#~ "and try again."
+#~ msgstr ""
+#~ "Netika atrasti kanāli, caur kuriem varētu veikt ierakstu. Lūdzu "
+#~ "pievienojiet iekārtu un provējiet vēlreiz."
 
-msgid "Switch to the Recording workspace"
-msgstr "Pārslēgties uz ierakstīšanas darba lauku"
+#~ msgid ""
+#~ "Your sound card isn't capable of recording from multiple sources at the "
+#~ "same time. Please disarm all but one instrument."
+#~ msgstr ""
+#~ "Jūsu skaņas karte nav spējīga ierakstīt no vairākiem avotiem vienlaicīgi. "
+#~ "Lūdzu atstājiet sagatavotu tikai vienu instrumentu."
 
-msgid "Workspaces"
-msgstr "Darbavietas"
+#~ msgid ""
+#~ "You require the GStreamer channel splitting element to be able to record "
+#~ "from multiple input devices. This can be downloaded from http://www."
+#~ "jokosher.org/download."
+#~ msgstr ""
+#~ "Lai veiktu ierakstu no vairāku kanālu ievades iekārtām, jums nepieciešams "
+#~ "GStreamer kanālu dalītāja elements. Tas var tikt lejupielādēts no http://"
+#~ "www.jokosher.org/download"
 
-msgid "Currently working in the Recording workspace"
-msgstr "Pašreiz strādājam ierakstīšanas darba laukā"
+#~ msgid "Turn click track on"
+#~ msgstr "Ieslēgt ritma celiņu"
 
-msgid "Currently working in the Mixing workspace"
-msgstr "Pašreiz strādājat miksēšanas darba virsmā"
+#~ msgid "Turn click track off"
+#~ msgstr "Izslēgt ritma celiņu"
 
-msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"
-msgstr "<b>Velciet slīdi</b>, lai izmainītu skaļuma līmeņus"
-
-#, fuzzy
-msgid "Don't open anything"
-msgstr "_Neatvērt neko"
-
-#, fuzzy
-msgid "Don't show this on start-up"
-msgstr "_Nerādiet to sākot"
-
-#, fuzzy
-msgid "Folder"
-msgstr "_Mape:"
-
-#, fuzzy
-msgid "Preferences"
-msgstr "_Preferences"
+#~ msgid "Audio production made simple."
+#~ msgstr "Vienkārša audio radīšana."
 
 #, fuzzy
-msgid "Search:"
-msgstr "_Meklēt:"
+#~ msgid "Recording"
+#~ msgstr "Ieraksta..."
+
+#~ msgid "Switch to the Mixing workspace"
+#~ msgstr "Pārslēgties uz miksēšanas darba lauku"
+
+#~ msgid "Switch to the Recording workspace"
+#~ msgstr "Pārslēgties uz ierakstīšanas darba lauku"
+
+#~ msgid "Workspaces"
+#~ msgstr "Darbavietas"
+
+#~ msgid "Currently working in the Recording workspace"
+#~ msgstr "Pašreiz strādājam ierakstīšanas darba laukā"
+
+#~ msgid "Currently working in the Mixing workspace"
+#~ msgstr "Pašreiz strādājat miksēšanas darba virsmā"
+
+#~ msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"
+#~ msgstr "<b>Velciet slīdi</b>, lai izmainītu skaļuma līmeņus"
 
 #, fuzzy
-msgid "Show welcome dialog"
-msgstr "_Rādīt sasveicināšanās dialogu"
-
-msgid ""
-"16 bit\n"
-"24 bit\n"
-"32 bit"
-msgstr ""
-"16 bitu\n"
-"24 bitu\n"
-"32 bitu"
-
-msgid ""
-"96000\n"
-"48000\n"
-"44100\n"
-"32000\n"
-"24000\n"
-"22050\n"
-"16000\n"
-"11025\n"
-"8000"
-msgstr ""
-"96000\n"
-"48000\n"
-"44100\n"
-"32000\n"
-"24000\n"
-"22050\n"
-"16000\n"
-"11025\n"
-"8000"
-
-msgid ""
-"<b>To find out more, visit:</b>\n"
-"http://www.jokosher.org/contribute"
-msgstr ""
-"<b>Lai uzzinātu ko vairāk, skaties:</b>\n"
-"http://www.jokosher.org/contribute"
+#~ msgid "Don't open anything"
+#~ msgstr "_Neatvērt neko"
 
 #, fuzzy
-msgid "Device"
-msgstr "Ie_kārta:"
+#~ msgid "Don't show this on start-up"
+#~ msgstr "_Nerādiet to sākot"
 
 #, fuzzy
-msgid "General"
-msgstr "<b>Vispārīgi</b>"
-
-msgid "Output Format"
-msgstr "Izvades formāts"
-
-msgid "Pre-release Notes"
-msgstr "Pirmsizlaiduma piezīmes"
-
-msgid "Presets"
-msgstr "Gatavie regulējumi"
-
-msgid "Preview"
-msgstr "Pirmsapskate"
+#~ msgid "Folder"
+#~ msgstr "_Mape:"
 
 #, fuzzy
-msgid "Sample Format"
-msgstr "_Laika formāts"
-
-msgid "Sample Rate (Hz)"
-msgstr "Frekvence (Hz)"
-
-msgid "Save Files As"
-msgstr "Saglabāt failus kā"
-
-msgid "Select an effect"
-msgstr "Izvēlieties efektu"
-
-msgid "Select an instrument, then click here to begin recording"
-msgstr "Izvēlieties instrumentu, tad kliksķiniet šeit, lai sāktu ierakstu"
+#~ msgid "Preferences"
+#~ msgstr "_Preferences"
 
 #, fuzzy
-msgid "Show as Bars, Beats, Ticks"
-msgstr "Parādīt _taktīs, sitienos un tikšķos"
+#~ msgid "Search:"
+#~ msgstr "_Meklēt:"
 
 #, fuzzy
-msgid "Show as Hours, Minutes, Seconds"
-msgstr "Parādīt _stundās, minūtēs, sekundēs"
+#~ msgid "Show welcome dialog"
+#~ msgstr "_Rādīt sasveicināšanās dialogu"
+
+#~ msgid ""
+#~ "16 bit\n"
+#~ "24 bit\n"
+#~ "32 bit"
+#~ msgstr ""
+#~ "16 bitu\n"
+#~ "24 bitu\n"
+#~ "32 bitu"
+
+#~ msgid ""
+#~ "96000\n"
+#~ "48000\n"
+#~ "44100\n"
+#~ "32000\n"
+#~ "24000\n"
+#~ "22050\n"
+#~ "16000\n"
+#~ "11025\n"
+#~ "8000"
+#~ msgstr ""
+#~ "96000\n"
+#~ "48000\n"
+#~ "44100\n"
+#~ "32000\n"
+#~ "24000\n"
+#~ "22050\n"
+#~ "16000\n"
+#~ "11025\n"
+#~ "8000"
+
+#~ msgid ""
+#~ "<b>To find out more, visit:</b>\n"
+#~ "http://www.jokosher.org/contribute"
+#~ msgstr ""
+#~ "<b>Lai uzzinātu ko vairāk, skaties:</b>\n"
+#~ "http://www.jokosher.org/contribute"
 
 #, fuzzy
-msgid "Time Format"
-msgstr "_Laika formāts"
-
-msgid ""
-"Use the combo boxes below to select which input is used with which instrument"
-msgstr ""
-"Izmantojiet kombo izvēlnes zemāk, lai izvēlētos, kurš ievads tiks izmantots "
-"kuram instrumentam"
-
-msgid ""
-"Wave\n"
-"FLAC\n"
-"Ogg Vorbis"
-msgstr ""
-"Wave\n"
-"FLAC\n"
-"Ogg Vorbis"
+#~ msgid "Device"
+#~ msgstr "Ie_kārta:"
 
 #, fuzzy
-msgid "_Extensions"
-msgstr "_Paplašinājumi"
+#~ msgid "General"
+#~ msgstr "<b>Vispārīgi</b>"
 
-msgid "foo"
-msgstr "foo"
+#~ msgid "Output Format"
+#~ msgstr "Izvades formāts"
 
-msgid "Paste"
-msgstr "Ievietot"
+#~ msgid "Pre-release Notes"
+#~ msgstr "Pirmsizlaiduma piezīmes"
 
-#, fuzzy
-msgid "Delete"
-msgstr "_Dzēst"
+#~ msgid "Presets"
+#~ msgstr "Gatavie regulējumi"
 
-msgid "Import file..."
-msgstr "Importēt failu..."
-
-msgid ""
-"<b>NOTE</b>: The volume sliders in this pre-release version of Jokosher do "
-"not affect the audio."
-msgstr ""
-"<b>PIEZĪME</b>: Skaļuma regulētāji šajā Jokosher pirmsizlaiduma versijā "
-"neietekmē audio skaņu."
+#~ msgid "Preview"
+#~ msgstr "Pirmsapskate"
 
 #, fuzzy
-msgid "Split"
-msgstr "_Sadalīt"
+#~ msgid "Sample Format"
+#~ msgstr "_Laika formāts"
+
+#~ msgid "Sample Rate (Hz)"
+#~ msgstr "Frekvence (Hz)"
+
+#~ msgid "Save Files As"
+#~ msgstr "Saglabāt failus kā"
+
+#~ msgid "Select an effect"
+#~ msgstr "Izvēlieties efektu"
+
+#~ msgid "Select an instrument, then click here to begin recording"
+#~ msgstr "Izvēlieties instrumentu, tad kliksķiniet šeit, lai sāktu ierakstu"
 
 #, fuzzy
-msgid "Cut"
-msgstr "Griez_t"
+#~ msgid "Show as Bars, Beats, Ticks"
+#~ msgstr "Parādīt _taktīs, sitienos un tikšķos"
 
 #, fuzzy
-msgid "Copy"
-msgstr "_Kopēt"
+#~ msgid "Show as Hours, Minutes, Seconds"
+#~ msgstr "Parādīt _stundās, minūtēs, sekundēs"
 
-msgid ""
-"%s\n"
-"\n"
-"File is corrupt, not an audio file, or the associated plugin is not installed"
-msgstr ""
-"%s\n"
-"\n"
-"Fails ir bojāts, tas nav audio fails, vai arī asociētais spraudnis nav "
-"instalēts"
+#, fuzzy
+#~ msgid "Time Format"
+#~ msgstr "_Laika formāts"
 
-msgid "Muted"
-msgstr "Apklusināts"
+#~ msgid ""
+#~ "Use the combo boxes below to select which input is used with which "
+#~ "instrument"
+#~ msgstr ""
+#~ "Izmantojiet kombo izvēlnes zemāk, lai izvēlētos, kurš ievads tiks "
+#~ "izmantots kuram instrumentam"
 
-msgid "Unmuted"
-msgstr "Neapklusināts"
+#~ msgid ""
+#~ "Wave\n"
+#~ "FLAC\n"
+#~ "Ogg Vorbis"
+#~ msgstr ""
+#~ "Wave\n"
+#~ "FLAC\n"
+#~ "Ogg Vorbis"
 
-msgid ""
-"The instruments '%s' and '%s' both have the same input selected (%s). Please "
-"either disarm one, or connect it to a different input through 'Project -> "
-"Instrument Connections'"
-msgstr ""
-"Instrumentiem '%s' un '%s' ir izvēlēts viens ievads (%s). Lūdzu vai nu kādu "
-"no tiem atslēdziet, vai arī savienojiet ar citu ievadu, izmantojot 'Projekts "
-"-> Instrumentu savienojumi'"
+#, fuzzy
+#~ msgid "_Extensions"
+#~ msgstr "_Paplašinājumi"
 
-msgid ""
-"No instruments are armed for recording. You need to arm an instrument before "
-"you can begin recording."
-msgstr ""
-"Ierakstam nav sagatavots neviens instruments. Jums nepieciešams sagatavot "
-"instrumentu(s), pirms jūs varat sākt ierakstu."
+#~ msgid "foo"
+#~ msgstr "foo"
 
-msgid "%d of %d seconds completed"
-msgstr "%d no %d sekundēm izpildītas"
+#~ msgid "Paste"
+#~ msgstr "Ievietot"
 
-msgid ""
-"\n"
-"See http://jokosher.org/trac/wiki/GettingJokosher for more details.\n"
-msgstr ""
-"\n"
-"Skatieties http://jokosher.org/trac/wiki/GettingJokosher pēc vairāk "
-"detaļām.\n"
+#, fuzzy
+#~ msgid "Delete"
+#~ msgstr "_Dzēst"
 
-msgid ""
-"<big>Notes about this release</big>\n"
-"\n"
-"This version of Jokosher (0.1) is a pre-release version, and is infact, our "
-"very first release. As such, you may encounter some bugs and functionality "
-"that is not present."
-msgstr ""
-"<big>Piezīmes par šo izlaidmumu</big>\n"
-"\n"
-"Šī Jokosher versija (0.1) ir pirmsizlaiduma versija, un faktiski arī pati "
-"pirmā šīs programmas versija. Attiecīgi jūs varat saskarties ar dažām kļūdām "
-"un funkcionalitāti, kas vēl nedarbojas."
+#~ msgid "Import file..."
+#~ msgstr "Importēt failu..."
 
-msgid "Master Volume"
-msgstr "Galvenais skaļums"
+#~ msgid ""
+#~ "<b>NOTE</b>: The volume sliders in this pre-release version of Jokosher "
+#~ "do not affect the audio."
+#~ msgstr ""
+#~ "<b>PIEZĪME</b>: Skaļuma regulētāji šajā Jokosher pirmsizlaiduma versijā "
+#~ "neietekmē audio skaņu."
 
-msgid "Volume: %.2f"
-msgstr "Skaļums: %.2f"
+#, fuzzy
+#~ msgid "Split"
+#~ msgstr "_Sadalīt"
 
-msgid "translator-credits"
-msgstr ""
-"Pēteris Krišjānis <pecisk@gmail.com>\n"
-"\n"
-"Launchpad Contributions:\n"
-"  Peteris Krisjanis https://launchpad.net/~pecisk-gmail"
+#, fuzzy
+#~ msgid "Cut"
+#~ msgstr "Griez_t"
 
-msgid "Files Saves As"
-msgstr "Faili glabājas kā"
+#, fuzzy
+#~ msgid "Copy"
+#~ msgstr "_Kopēt"
 
-msgid ""
-"No channels capable of recording have found, please attach a device and try "
-"again."
-msgstr ""
-"Nav atrasti ierakstīt spējīgi kanāli, lūdzu pievienojiet iekārtu un "
-"provējiet vēlreiz."
+#~ msgid ""
+#~ "%s\n"
+#~ "\n"
+#~ "File is corrupt, not an audio file, or the associated plugin is not "
+#~ "installed"
+#~ msgstr ""
+#~ "%s\n"
+#~ "\n"
+#~ "Fails ir bojāts, tas nav audio fails, vai arī asociētais spraudnis nav "
+#~ "instalēts"
+
+#~ msgid "Muted"
+#~ msgstr "Apklusināts"
+
+#~ msgid "Unmuted"
+#~ msgstr "Neapklusināts"
+
+#~ msgid ""
+#~ "The instruments '%s' and '%s' both have the same input selected (%s). "
+#~ "Please either disarm one, or connect it to a different input through "
+#~ "'Project -> Instrument Connections'"
+#~ msgstr ""
+#~ "Instrumentiem '%s' un '%s' ir izvēlēts viens ievads (%s). Lūdzu vai nu "
+#~ "kādu no tiem atslēdziet, vai arī savienojiet ar citu ievadu, izmantojot "
+#~ "'Projekts -> Instrumentu savienojumi'"
+
+#~ msgid ""
+#~ "No instruments are armed for recording. You need to arm an instrument "
+#~ "before you can begin recording."
+#~ msgstr ""
+#~ "Ierakstam nav sagatavots neviens instruments. Jums nepieciešams sagatavot "
+#~ "instrumentu(s), pirms jūs varat sākt ierakstu."
+
+#~ msgid "%d of %d seconds completed"
+#~ msgstr "%d no %d sekundēm izpildītas"
+
+#~ msgid ""
+#~ "\n"
+#~ "See http://jokosher.org/trac/wiki/GettingJokosher for more details.\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Skatieties http://jokosher.org/trac/wiki/GettingJokosher pēc vairāk "
+#~ "detaļām.\n"
+
+#~ msgid ""
+#~ "<big>Notes about this release</big>\n"
+#~ "\n"
+#~ "This version of Jokosher (0.1) is a pre-release version, and is infact, "
+#~ "our very first release. As such, you may encounter some bugs and "
+#~ "functionality that is not present."
+#~ msgstr ""
+#~ "<big>Piezīmes par šo izlaidmumu</big>\n"
+#~ "\n"
+#~ "Šī Jokosher versija (0.1) ir pirmsizlaiduma versija, un faktiski arī pati "
+#~ "pirmā šīs programmas versija. Attiecīgi jūs varat saskarties ar dažām "
+#~ "kļūdām un funkcionalitāti, kas vēl nedarbojas."
+
+#~ msgid "Master Volume"
+#~ msgstr "Galvenais skaļums"
+
+#~ msgid "Volume: %.2f"
+#~ msgstr "Skaļums: %.2f"
+
+#~ msgid "translator-credits"
+#~ msgstr ""
+#~ "Pēteris Krišjānis <pecisk@gmail.com>\n"
+#~ "\n"
+#~ "Launchpad Contributions:\n"
+#~ "  Peteris Krisjanis https://launchpad.net/~pecisk-gmail"
+
+#~ msgid "Files Saves As"
+#~ msgstr "Faili glabājas kā"
+
+#~ msgid ""
+#~ "No channels capable of recording have found, please attach a device and "
+#~ "try again."
+#~ msgstr ""
+#~ "Nav atrasti ierakstīt spējīgi kanāli, lūdzu pievienojiet iekārtu un "
+#~ "provējiet vēlreiz."
 
 #, fuzzy
 #~ msgid "_Project"
