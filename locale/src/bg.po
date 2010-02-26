@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: jokosher\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-03-17 02:00+0000\n"
-"PO-Revision-Date: 2008-11-14 14:13+0000\n"
-"Last-Translator: Svetoslav Stefanov <svetlisashkov@yahoo.com>\n"
+"PO-Revision-Date: 2010-01-02 20:47+0000\n"
+"Last-Translator: Yasen Pramatarov <Unknown>\n"
 "Language-Team: Bulgarian <bg@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-05-30 01:36+0000\n"
+"X-Launchpad-Export-Date: 2010-02-26 00:44+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../../Jokosher/Jokosher.glade.h:1
@@ -47,15 +47,15 @@ msgstr "<b>Ефекти</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:8
 msgid "<b>File Details</b>"
-msgstr ""
+msgstr "<b>Файлови данни</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:9
 msgid "<b>General</b>"
-msgstr ""
+msgstr "<b>Общи</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:10
 msgid "<b>Jokosher Instruments</b>"
-msgstr ""
+msgstr "<b>Инструменти на Jokosher</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:11
 msgid ""
@@ -75,11 +75,11 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:14
 msgid "<b>N_otes</b>"
-msgstr ""
+msgstr "<b>_Бележки</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:15
 msgid "<b>Playback Sound System</b>"
-msgstr ""
+msgstr "<b>Звукова система за възпроизвеждане</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:16
 msgid "<b>Recent Projects</b>"
@@ -87,11 +87,11 @@ msgstr "<b>Скорошни проекти</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:17
 msgid "<b>Recording Format</b>"
-msgstr ""
+msgstr "<b>Формат за записване</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:18
 msgid "<b>Recording Sound System</b>"
-msgstr ""
+msgstr "<b>Звукова система за записване</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:19
 msgid "<b>Template Instruments</b>"
@@ -131,7 +131,7 @@ msgstr "Добавяне на звуков файл"
 
 #: ../../Jokosher/Jokosher.glade.h:28
 msgid "Add Audio _File..."
-msgstr ""
+msgstr "Добавяне на _звуков файл..."
 
 #: ../../Jokosher/Jokosher.glade.h:29
 msgid "Add Instrument"
@@ -143,7 +143,7 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:31
 msgid "Add _Instrument..."
-msgstr ""
+msgstr "Добавяне на _инструмент..."
 
 #: ../../Jokosher/Jokosher.glade.h:32
 msgid "Add an audio file to the project"
@@ -171,7 +171,7 @@ msgstr "Добавяне на избрания инструмент"
 
 #: ../../Jokosher/Jokosher.glade.h:38
 msgid "Add the selected jokosher instrument"
-msgstr ""
+msgstr "Добавяне на избрания инструмент на jokosher"
 
 #: ../../Jokosher/Jokosher.glade.h:39
 msgid "Adjust the amount of beats per measure"
@@ -293,7 +293,7 @@ msgstr "Изрязване на избраното"
 
 #: ../../Jokosher/Jokosher.glade.h:69
 msgid "De_vice:"
-msgstr ""
+msgstr "_Устройство:"
 
 #: ../../Jokosher/Jokosher.glade.h:70
 msgid "Deactivate the currently selected active effect"
@@ -528,7 +528,7 @@ msgstr "Jokosher"
 
 #: ../../Jokosher/Jokosher.glade.h:158
 msgid "Jokosher Errors"
-msgstr ""
+msgstr "Грешки в програмата"
 
 #: ../../Jokosher/Jokosher.glade.h:159
 msgid "Listen to these effects"
@@ -644,7 +644,7 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:186
 msgid "Save _As..."
-msgstr ""
+msgstr "Запазване _като…"
 
 #: ../../Jokosher/Jokosher.glade.h:187
 msgid "Save a copy of the current project"
@@ -1987,6 +1987,7 @@ msgstr ""
 "ALSA\n"
 "Ръчно"
 
+#, fuzzy
 msgid "D_evice:"
 msgstr "_Устройство:"
 
@@ -1996,8 +1997,9 @@ msgstr "_Изход:"
 msgid "Open..."
 msgstr "Отвори"
 
+#, fuzzy
 msgid "Save As..."
-msgstr "Запазване като…"
+msgstr "Запазване _като…"
 
 msgid "Restore"
 msgstr "Възстановяване"
@@ -2030,8 +2032,9 @@ msgstr "Да не се отваря нищо"
 msgid "FastForward"
 msgstr "Напред"
 
+#, fuzzy
 msgid "Recording Workspace"
-msgstr "Пулт за запис"
+msgstr "<b>Формат за записване</b>"
 
 msgid "Show welcome dialog"
 msgstr "Показване на начален екран"
@@ -2088,11 +2091,11 @@ msgstr "_Изход:"
 
 #, fuzzy
 #~ msgid "<b>Recorded Audio Format</b>"
-#~ msgstr "Записан звук"
+#~ msgstr "<b>Формат за записване</b>"
 
 #, fuzzy
 #~ msgid "_Add Instrument..."
-#~ msgstr "Добавяне на инструмент"
+#~ msgstr "Добавяне на _инструмент..."
 
 #, fuzzy
 #~ msgid "_Create Project Template"

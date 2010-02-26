@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: jokosher\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-03-17 02:00+0000\n"
-"PO-Revision-Date: 2008-09-21 17:21+0000\n"
+"PO-Revision-Date: 2009-10-02 00:19+0000\n"
 "Last-Translator: David Planella <Unknown>\n"
 "Language-Team: Ubuntu Catalan Translators <ubuntu-l10n-ca@lists.ubuntu.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-05-30 01:36+0000\n"
+"X-Launchpad-Export-Date: 2010-02-26 00:44+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../../Jokosher/Jokosher.glade.h:1
@@ -51,7 +51,7 @@ msgstr "<b>Detalls del fitxer</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:9
 msgid "<b>General</b>"
-msgstr ""
+msgstr "<b>General</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:10
 msgid "<b>Jokosher Instruments</b>"
@@ -76,7 +76,7 @@ msgstr "<b>Accions de mescla</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:14
 msgid "<b>N_otes</b>"
-msgstr ""
+msgstr "<b>N_otes</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:15
 msgid "<b>Playback Sound System</b>"
@@ -584,7 +584,7 @@ msgstr "Obre el gestor d'extensions"
 
 #: ../../Jokosher/Jokosher.glade.h:171
 msgid "P_ipeline:"
-msgstr ""
+msgstr "_Conducte:"
 
 #: ../../Jokosher/Jokosher.glade.h:172
 msgid "Paste the contents of the clipboard"
@@ -606,7 +606,7 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:175
 msgid "Project Properties"
-msgstr ""
+msgstr "Propietats del projecte"
 
 #: ../../Jokosher/Jokosher.glade.h:176
 msgid "Project Templates"
@@ -650,7 +650,7 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:186
 msgid "Save _As..."
-msgstr ""
+msgstr "_Anomena i desa..."
 
 #: ../../Jokosher/Jokosher.glade.h:187
 msgid "Save a copy of the current project"
@@ -831,7 +831,7 @@ msgstr "_Edita"
 
 #: ../../Jokosher/Jokosher.glade.h:231
 msgid "_Encoding:"
-msgstr ""
+msgstr "_Codificació:"
 
 #: ../../Jokosher/Jokosher.glade.h:232
 msgid "_File"
@@ -863,11 +863,11 @@ msgstr "_Mescla el projecte..."
 
 #: ../../Jokosher/Jokosher.glade.h:239
 msgid "_Name:"
-msgstr ""
+msgstr "_Nom:"
 
 #: ../../Jokosher/Jokosher.glade.h:240
 msgid "_New..."
-msgstr ""
+msgstr "_Nou..."
 
 #: ../../Jokosher/Jokosher.glade.h:241
 msgid "_Online Forums"
@@ -883,7 +883,7 @@ msgstr "_Obre el projecte més recent"
 
 #: ../../Jokosher/Jokosher.glade.h:244
 msgid "_Open..."
-msgstr ""
+msgstr "_Obre..."
 
 #: ../../Jokosher/Jokosher.glade.h:245
 msgid "_Pipeline:"
@@ -1000,6 +1000,7 @@ msgstr "Feu <b>clic amb el botó dret del ratolí</b> per a més opcions."
 msgid "Trim"
 msgstr "Talla"
 
+# FIXME «fade in» es podria traduir com a «aparèixer» , i «fade out» com a
 #: ../../Jokosher/EventViewer.py:164
 msgid "Delete Fade Points"
 msgstr "Suprimeix els punts d'esvaïment"
@@ -1186,6 +1187,7 @@ msgstr "Equalitzadors"
 msgid "Filters"
 msgstr "Filtres"
 
+# Vegeu l'article sobre flanging a la Viquipèdia en anglès i l'origen del terme
 #: ../../Jokosher/Globals.py:504
 msgid "Flangers"
 msgstr "Efectes de vorellat (flangers)"
@@ -1228,7 +1230,7 @@ msgstr ""
 
 #: ../../Jokosher/Globals.py:728
 msgid "Jokosher Audio Editor"
-msgstr ""
+msgstr "Editor d'àudio Jokosher"
 
 #: ../../Jokosher/IncrementalSave.py:29 ../../Jokosher/Instrument.py:488
 msgid "Recorded audio"
@@ -1246,7 +1248,7 @@ msgstr "Per defecte"
 #: ../../Jokosher/InstrumentConnectionsDialog.py:105
 #, python-format
 msgid "Default (%s)"
-msgstr ""
+msgstr "Per defecte (%s)"
 
 #: ../../Jokosher/InstrumentConnectionsDialog.py:112
 #, python-format
@@ -1806,7 +1808,7 @@ msgstr ""
 #: ../../Jokosher/PreferencesDialog.py:75
 #: ../../Jokosher/PreferencesDialog.py:93
 msgid "Custom"
-msgstr ""
+msgstr "Personalitzat"
 
 #: ../../Jokosher/PreferencesDialog.py:340
 #, python-format
@@ -1865,11 +1867,11 @@ msgstr ""
 
 #: ../../Jokosher/RecordingView.py:378
 msgid "_Close All"
-msgstr ""
+msgstr "Tan_ca-ho tot"
 
 #: ../../Jokosher/RecordingView.py:379
 msgid "_Show All"
-msgstr ""
+msgstr "Mo_stra-ho tot"
 
 #: ../../Jokosher/TimeLine.py:566
 #, python-format
@@ -2031,17 +2033,20 @@ msgstr ""
 msgid "D_evice:"
 msgstr "_Dispositiu:"
 
+#, fuzzy
 msgid "New..."
-msgstr "Nou..."
+msgstr "_Nou..."
 
 msgid "O_utput:"
 msgstr "_Sortida:"
 
+#, fuzzy
 msgid "Open..."
-msgstr "Obre..."
+msgstr "_Obre..."
 
+#, fuzzy
 msgid "Save As..."
-msgstr "Anomena i desa..."
+msgstr "_Anomena i desa..."
 
 msgid "Restore"
 msgstr "Restaura"

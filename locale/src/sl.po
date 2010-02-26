@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: jokosher\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-03-17 02:00+0000\n"
-"PO-Revision-Date: 2008-03-30 21:54+0000\n"
-"Last-Translator: Martin Božič <martin.bozic@gmail.com>\n"
+"PO-Revision-Date: 2009-10-22 00:30+0000\n"
+"Last-Translator: Simon Vidmar <Unknown>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-05-30 01:36+0000\n"
+"X-Launchpad-Export-Date: 2010-02-26 00:44+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../../Jokosher/Jokosher.glade.h:1
@@ -47,15 +47,15 @@ msgstr "<b>Učinki</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:8
 msgid "<b>File Details</b>"
-msgstr ""
+msgstr "<b>Podrobnosti datoteke</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:9
 msgid "<b>General</b>"
-msgstr ""
+msgstr "<b>Splošno</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:10
 msgid "<b>Jokosher Instruments</b>"
-msgstr ""
+msgstr "<b>Glasbila Jokosher</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:11
 msgid ""
@@ -67,7 +67,7 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:12
 msgid "<b>Location Details</b>"
-msgstr ""
+msgstr "<b>Podrobnosti mesta</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:13
 msgid "<b>Mixdown Actions</b>"
@@ -75,11 +75,11 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:14
 msgid "<b>N_otes</b>"
-msgstr ""
+msgstr "<b>Z_apiski</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:15
 msgid "<b>Playback Sound System</b>"
-msgstr ""
+msgstr "<b>Zvočni sistem za predvajanje</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:16
 msgid "<b>Recent Projects</b>"
@@ -87,15 +87,15 @@ msgstr "<b>Nedavni projekti</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:17
 msgid "<b>Recording Format</b>"
-msgstr ""
+msgstr "<b>Format posnetka</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:18
 msgid "<b>Recording Sound System</b>"
-msgstr ""
+msgstr "<b>Zvočni sistem za snemanje</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:19
 msgid "<b>Template Instruments</b>"
-msgstr ""
+msgstr "<b>Predloge inštrumentov</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:20
 msgid "<b>Testing</b>"
@@ -107,15 +107,15 @@ msgstr "<b>Takt</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:22
 msgid "<b>_Presets for:</b>"
-msgstr ""
+msgstr "<b>_Prednastavitve za:</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:23
 msgid "<big><b>Mixing the project...</b></big>"
-msgstr ""
+msgstr "<big><b>Mešanje projekta...</b></big>"
 
 #: ../../Jokosher/Jokosher.glade.h:24
 msgid "<big>System Information</big>"
-msgstr ""
+msgstr "<big>Podatki o sistemu</big>"
 
 #: ../../Jokosher/Jokosher.glade.h:25
 msgid "Activate the selected effect"
@@ -123,7 +123,7 @@ msgstr "Vključi trenutno izbrani učinek"
 
 #: ../../Jokosher/Jokosher.glade.h:26
 msgid "Add Action"
-msgstr ""
+msgstr "Dodaj dejanje"
 
 #: ../../Jokosher/Jokosher.glade.h:27
 msgid "Add Audio File"
@@ -131,7 +131,7 @@ msgstr "Dodaj zvočno datoteko"
 
 #: ../../Jokosher/Jokosher.glade.h:28
 msgid "Add Audio _File..."
-msgstr ""
+msgstr "Dodaj zvočno _datoteko ..."
 
 #: ../../Jokosher/Jokosher.glade.h:29
 msgid "Add Instrument"
@@ -143,7 +143,7 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:31
 msgid "Add _Instrument..."
-msgstr ""
+msgstr "Dodaj _glasbilo ..."
 
 #: ../../Jokosher/Jokosher.glade.h:32
 msgid "Add an audio file to the project"
@@ -171,7 +171,7 @@ msgstr "Dodaj izbrano glasbilo"
 
 #: ../../Jokosher/Jokosher.glade.h:38
 msgid "Add the selected jokosher instrument"
-msgstr ""
+msgstr "Dodaj izbrano jokosherjevo glasbilo"
 
 #: ../../Jokosher/Jokosher.glade.h:39
 msgid "Adjust the amount of beats per measure"
@@ -183,29 +183,31 @@ msgstr "Popravi nastavitve za trenutno izbrani aktivni učinek"
 
 #: ../../Jokosher/Jokosher.glade.h:41
 msgid "Arm an instrument then click here to begin recording"
-msgstr ""
+msgstr "Naproži glasbilo, nato klikni tu za pričetek snemanja"
 
 #: ../../Jokosher/Jokosher.glade.h:42
 msgid "Audio Mixers"
-msgstr ""
+msgstr "Mešalci zvoka"
 
 #: ../../Jokosher/Jokosher.glade.h:43
 msgid ""
 "Audio production made simple.\n"
 "Version 0.11.1"
 msgstr ""
+"Avdio produkcija na enostaven način.\n"
+"Različica 0.11.1"
 
 #: ../../Jokosher/Jokosher.glade.h:45
 msgid "Beat _value"
-msgstr ""
+msgstr "_Vrednost udarca"
 
 #: ../../Jokosher/Jokosher.glade.h:46
 msgid "Beats per _measure"
-msgstr ""
+msgstr "Udarcev na _enoto"
 
 #: ../../Jokosher/Jokosher.glade.h:47
 msgid "C_hange Sound System"
-msgstr ""
+msgstr "S_premeni zvočni sistem"
 
 #: ../../Jokosher/Jokosher.glade.h:48
 msgid "Cancel the mixdown"
@@ -237,7 +239,7 @@ msgstr "Izberi prednastavitev verige učinkov."
 
 #: ../../Jokosher/Jokosher.glade.h:55
 msgid "Choose a project template"
-msgstr ""
+msgstr "Izberite predlogo projekta"
 
 #: ../../Jokosher/Jokosher.glade.h:56
 msgid "Choose an effect preset."
@@ -265,7 +267,7 @@ msgstr "Zapri upravljalnik podaljškov"
 
 #: ../../Jokosher/Jokosher.glade.h:62
 msgid "Close this window"
-msgstr ""
+msgstr "Zapri to okno"
 
 #: ../../Jokosher/Jokosher.glade.h:63
 msgid "Configure Export File Action"
@@ -293,7 +295,7 @@ msgstr "Reži trenutni izbor"
 
 #: ../../Jokosher/Jokosher.glade.h:69
 msgid "De_vice:"
-msgstr ""
+msgstr "Napra_va"
 
 #: ../../Jokosher/Jokosher.glade.h:70
 msgid "Deactivate the currently selected active effect"
@@ -313,11 +315,11 @@ msgstr "Izbriši trenutno aktivno prednastavitev"
 
 #: ../../Jokosher/Jokosher.glade.h:74
 msgid "Delete the selected project template"
-msgstr ""
+msgstr "Izbriši izbrano predlogo projekta"
 
 #: ../../Jokosher/Jokosher.glade.h:75
 msgid "Distribution:"
-msgstr ""
+msgstr "Distribucija:"
 
 #: ../../Jokosher/Jokosher.glade.h:76
 msgid "Don't add an instrument"
@@ -349,7 +351,7 @@ msgstr "Urejanje nastavitev Jokosherja"
 
 #: ../../Jokosher/Jokosher.glade.h:83
 msgid "Edit project templates"
-msgstr ""
+msgstr "Uredi predloge projektov"
 
 #: ../../Jokosher/Jokosher.glade.h:84
 msgid ""
@@ -374,15 +376,15 @@ msgstr "Izvozi trenutni projekt v zvočno datoteko"
 
 #: ../../Jokosher/Jokosher.glade.h:89
 msgid "Export to local directory"
-msgstr ""
+msgstr "Izvozi v krajevni direktorij"
 
 #: ../../Jokosher/Jokosher.glade.h:90
 msgid "Export to remote server"
-msgstr ""
+msgstr "Izvozi na oddaljeni strežnik"
 
 #: ../../Jokosher/Jokosher.glade.h:91
 msgid "File name:"
-msgstr ""
+msgstr "Ime datoteke:"
 
 #: ../../Jokosher/Jokosher.glade.h:92
 msgid "Find and open an existing project"
@@ -394,11 +396,11 @@ msgstr "Kako nam lahko pomagaš"
 
 #: ../../Jokosher/Jokosher.glade.h:94
 msgid "GStreamer version:"
-msgstr ""
+msgstr "Različica GStreamerja:"
 
 #: ../../Jokosher/Jokosher.glade.h:95
 msgid "Gnonlin version:"
-msgstr ""
+msgstr "Različca Gnonlina:"
 
 #: ../../Jokosher/Jokosher.glade.h:97
 msgid ""
@@ -529,7 +531,7 @@ msgstr "Jokosher"
 
 #: ../../Jokosher/Jokosher.glade.h:158
 msgid "Jokosher Errors"
-msgstr ""
+msgstr "Jokosher napake"
 
 #: ../../Jokosher/Jokosher.glade.h:159
 msgid "Listen to these effects"
@@ -581,7 +583,7 @@ msgstr "Odpri upravitelja podaljškov"
 
 #: ../../Jokosher/Jokosher.glade.h:171
 msgid "P_ipeline:"
-msgstr ""
+msgstr "_Cevovod:"
 
 #: ../../Jokosher/Jokosher.glade.h:172
 msgid "Paste the contents of the clipboard"
@@ -601,11 +603,11 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:175
 msgid "Project Properties"
-msgstr ""
+msgstr "Lastnosti projekta"
 
 #: ../../Jokosher/Jokosher.glade.h:176
 msgid "Project Templates"
-msgstr ""
+msgstr "Predloge projekta"
 
 #: ../../Jokosher/Jokosher.glade.h:177
 msgid "Quit Jokosher"
@@ -613,7 +615,7 @@ msgstr "Končaj Jokosher"
 
 #: ../../Jokosher/Jokosher.glade.h:178
 msgid "R_ecording Inputs..."
-msgstr ""
+msgstr "S_nemalni vhodi ..."
 
 #: ../../Jokosher/Jokosher.glade.h:179
 msgid "Redo"
@@ -637,15 +639,15 @@ msgstr "Poročaj o hrošču v Jokosherju"
 
 #: ../../Jokosher/Jokosher.glade.h:184
 msgid "S_ample Rate:"
-msgstr ""
+msgstr "Vzorčn_a hitrost:"
 
 #: ../../Jokosher/Jokosher.glade.h:185
 msgid "S_ystem:"
-msgstr ""
+msgstr "Si_stem:"
 
 #: ../../Jokosher/Jokosher.glade.h:186
 msgid "Save _As..."
-msgstr ""
+msgstr "Shr_ani kot..."
 
 #: ../../Jokosher/Jokosher.glade.h:187
 msgid "Save a copy of the current project"
@@ -673,7 +675,7 @@ msgstr "Shrani trenutne aktivne efekte kot prednastavitev"
 
 #: ../../Jokosher/Jokosher.glade.h:193
 msgid "Save the selected project template"
-msgstr ""
+msgstr "Shrani izbrano predlogo projekta"
 
 #: ../../Jokosher/Jokosher.glade.h:194
 msgid "Save your selections and close this window"
@@ -681,7 +683,7 @@ msgstr "Shrani svoje nastavitve in zapri to okno"
 
 #: ../../Jokosher/Jokosher.glade.h:195
 msgid "See your system information"
-msgstr ""
+msgstr "Poglejte vaše informacije o sistemu"
 
 #: ../../Jokosher/Jokosher.glade.h:196
 msgid "Select A Folder"
@@ -729,11 +731,11 @@ msgstr "Ustavi predvajanje"
 
 #: ../../Jokosher/Jokosher.glade.h:207
 msgid "Sys_tem:"
-msgstr ""
+msgstr "Sis_tem:"
 
 #: ../../Jokosher/Jokosher.glade.h:208
 msgid "System Information"
-msgstr ""
+msgstr "Informacije o sistemu"
 
 #: ../../Jokosher/Jokosher.glade.h:209
 msgid "Testing Jokosher, and submitting bugs."
@@ -793,7 +795,7 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:223
 msgid "_Author:"
-msgstr ""
+msgstr "_Avtor:"
 
 #: ../../Jokosher/Jokosher.glade.h:224
 msgid "_Browse for an Existing Project"
@@ -801,7 +803,7 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:225
 msgid "_Change Instrument Type..."
-msgstr ""
+msgstr "_Spremenite vrsto inštrumenta..."
 
 #: ../../Jokosher/Jokosher.glade.h:226
 msgid "_Contributing to Jokosher"
@@ -813,7 +815,7 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:228
 msgid "_Don't open anything"
-msgstr ""
+msgstr "_Ne odpri ničesar"
 
 #: ../../Jokosher/Jokosher.glade.h:229
 msgid "_Don't show this on start-up"
@@ -825,7 +827,7 @@ msgstr "_Uredi"
 
 #: ../../Jokosher/Jokosher.glade.h:231
 msgid "_Encoding:"
-msgstr ""
+msgstr "_Kodiranje:"
 
 #: ../../Jokosher/Jokosher.glade.h:232
 msgid "_File"
@@ -833,7 +835,7 @@ msgstr "_Datoteka"
 
 #: ../../Jokosher/Jokosher.glade.h:233
 msgid "_Folder:"
-msgstr ""
+msgstr "_Mapa:"
 
 #: ../../Jokosher/Jokosher.glade.h:234
 msgid "_Help"
@@ -845,7 +847,7 @@ msgstr "_Glasbilo"
 
 #: ../../Jokosher/Jokosher.glade.h:236
 msgid "_Manage Extensions..."
-msgstr ""
+msgstr "_Upravljaj razširitve..."
 
 #: ../../Jokosher/Jokosher.glade.h:237
 msgid "_Mixdown"
@@ -857,11 +859,11 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:239
 msgid "_Name:"
-msgstr ""
+msgstr "_Ime:"
 
 #: ../../Jokosher/Jokosher.glade.h:240
 msgid "_New..."
-msgstr ""
+msgstr "_Novo ..."
 
 #: ../../Jokosher/Jokosher.glade.h:241
 msgid "_Online Forums"
@@ -869,27 +871,27 @@ msgstr "_Spletni forumi"
 
 #: ../../Jokosher/Jokosher.glade.h:242
 msgid "_Open Selected Project"
-msgstr ""
+msgstr "_Odpri izbrani projekt"
 
 #: ../../Jokosher/Jokosher.glade.h:243
 msgid "_Open most recent project"
-msgstr ""
+msgstr "_Odpri zadnji projekt"
 
 #: ../../Jokosher/Jokosher.glade.h:244
 msgid "_Open..."
-msgstr ""
+msgstr "_Odpri ..."
 
 #: ../../Jokosher/Jokosher.glade.h:245
 msgid "_Pipeline:"
-msgstr ""
+msgstr "_Cevovod:"
 
 #: ../../Jokosher/Jokosher.glade.h:246
 msgid "_Preferences"
-msgstr ""
+msgstr "Nas_tavitve"
 
 #: ../../Jokosher/Jokosher.glade.h:247
 msgid "_Project Name:"
-msgstr ""
+msgstr "Ime _projekta:"
 
 #: ../../Jokosher/Jokosher.glade.h:248
 msgid "_Recent Projects"
@@ -897,7 +899,7 @@ msgstr "_Nedavni projekti"
 
 #: ../../Jokosher/Jokosher.glade.h:249
 msgid "_Remove Selected Instrument"
-msgstr ""
+msgstr "Odst_rani izbrano glasbilo"
 
 #: ../../Jokosher/Jokosher.glade.h:250
 msgid "_Report Bug..."
@@ -905,19 +907,19 @@ msgstr "_Poročaj hrošča ..."
 
 #: ../../Jokosher/Jokosher.glade.h:251
 msgid "_Search:"
-msgstr ""
+msgstr "_Išči:"
 
 #: ../../Jokosher/Jokosher.glade.h:252
 msgid "_Show welcome dialog"
-msgstr ""
+msgstr "_Prikaži pozdravno okno"
 
 #: ../../Jokosher/Jokosher.glade.h:253
 msgid "_System Information"
-msgstr ""
+msgstr "_Informacije o sistemu"
 
 #: ../../Jokosher/Jokosher.glade.h:254
 msgid "_Template Name:"
-msgstr ""
+msgstr "_Naziv predloge"
 
 #: ../../Jokosher/Jokosher.glade.h:255
 msgid "_Time Format"
@@ -925,7 +927,7 @@ msgstr "_Časovni format"
 
 #: ../../Jokosher/Jokosher.glade.h:256
 msgid "_Use project template"
-msgstr ""
+msgstr "_Uporabi predlogo projekta"
 
 #: ../../Jokosher/Jokosher.glade.h:257
 msgid "autoaudiosink"
@@ -933,7 +935,7 @@ msgstr "avtozvočnilijak"
 
 #: ../../Jokosher/Jokosher.glade.h:258
 msgid "xx.xx.xx"
-msgstr ""
+msgstr "xx.xx.xx"
 
 #: ../../Jokosher/AddInstrumentDialog.py:61
 msgid "Change Instrument Type"
@@ -1202,19 +1204,19 @@ msgstr "Simulatorji"
 
 #: ../../Jokosher/Globals.py:703 ../../Jokosher/PreferencesDialog.py:113
 msgid "Autodetect"
-msgstr ""
+msgstr "Samodejna zaznava"
 
 #: ../../Jokosher/Globals.py:704
 msgid "Use GNOME Settings"
-msgstr ""
+msgstr "Uporabi nastavitve GNOME"
 
 #: ../../Jokosher/Globals.py:712
 msgid "GNOME Settings"
-msgstr ""
+msgstr "Nastavitve GNOME"
 
 #: ../../Jokosher/Globals.py:728
 msgid "Jokosher Audio Editor"
-msgstr ""
+msgstr "Urejevalnik zvoka Jokosher"
 
 #: ../../Jokosher/IncrementalSave.py:29 ../../Jokosher/Instrument.py:488
 msgid "Recorded audio"
@@ -1232,7 +1234,7 @@ msgstr "Privzeto"
 #: ../../Jokosher/InstrumentConnectionsDialog.py:105
 #, python-format
 msgid "Default (%s)"
-msgstr ""
+msgstr "Privzeto (%s)"
 
 #: ../../Jokosher/InstrumentConnectionsDialog.py:112
 #, python-format
@@ -1297,11 +1299,11 @@ msgstr "Pripravi glasbilo, nato klikni za začetek snemanja"
 
 #: ../../Jokosher/JokosherApp.py:65
 msgid "Hide the audio level mixers"
-msgstr ""
+msgstr "Skrij mešalce zvoka"
 
 #: ../../Jokosher/JokosherApp.py:66
 msgid "Show the audio level mixers"
-msgstr ""
+msgstr "Prikaži mešalce zvoka"
 
 #: ../../Jokosher/JokosherApp.py:400
 #, python-format
@@ -1487,11 +1489,11 @@ msgstr ""
 
 #: ../../Jokosher/JokosherApp.py:1725
 msgid "Gnonlin is missing!"
-msgstr ""
+msgstr "Manjka Gnonlin!"
 
 #: ../../Jokosher/JokosherApp.py:1732
 msgid "Unknown"
-msgstr ""
+msgstr "Neznano"
 
 #: ../../Jokosher/JokosherApp.py:1748
 #, python-format
@@ -1556,7 +1558,7 @@ msgstr "Glavna glasnost:"
 
 #: ../../Jokosher/MixdownActions.py:157
 msgid "Export File"
-msgstr ""
+msgstr "Izvoz datoteke"
 
 #: ../../Jokosher/MixdownActions.py:158
 msgid "Export a file to the destination of your choosing."
@@ -1577,27 +1579,27 @@ msgstr ""
 
 #: ../../Jokosher/MixdownActions.py:253
 msgid "Server type:"
-msgstr ""
+msgstr "Tip strežnika:"
 
 #: ../../Jokosher/MixdownActions.py:266
 msgid "Server location:"
-msgstr ""
+msgstr "Nahajališče strežnika:"
 
 #: ../../Jokosher/MixdownActions.py:270
 msgid "Username:"
-msgstr ""
+msgstr "Uporabniško ime:"
 
 #: ../../Jokosher/MixdownActions.py:274
 msgid "Password:"
-msgstr ""
+msgstr "Geslo:"
 
 #: ../../Jokosher/MixdownActions.py:310
 msgid "Location:"
-msgstr ""
+msgstr "Lokacija:"
 
 #: ../../Jokosher/MixdownActions.py:378
 msgid "Select Export Location"
-msgstr ""
+msgstr "Izberite lokacijo izvoza"
 
 #: ../../Jokosher/MixdownActions.py:489 ../../Jokosher/MixdownActions.py:499
 msgid "Run External Script"
@@ -1638,7 +1640,7 @@ msgstr ""
 
 #: ../../Jokosher/MixdownProfileDialog.py:377
 msgid "Profile name:"
-msgstr ""
+msgstr "Ime profila:"
 
 #: ../../Jokosher/MixdownProfileDialog.py:380
 msgid "Create Mixdown Profile"
@@ -1675,7 +1677,7 @@ msgstr ""
 
 #: ../../Jokosher/MixdownProfileDialog.py:617
 msgid "Icon"
-msgstr ""
+msgstr "Ikona"
 
 #: ../../Jokosher/MixdownProfileDialog.py:632
 #, python-format
@@ -1778,17 +1780,17 @@ msgstr ""
 #: ../../Jokosher/PreferencesDialog.py:75
 #: ../../Jokosher/PreferencesDialog.py:93
 msgid "Custom"
-msgstr ""
+msgstr "Po meri"
 
 #: ../../Jokosher/PreferencesDialog.py:340
 #, python-format
 msgid "Device %d"
-msgstr ""
+msgstr "Naprava %d"
 
 #: ../../Jokosher/ProjectTemplateDialog.py:83
 #: ../../Jokosher/ProjectTemplateDialog.py:87
 msgid "Instrument Name"
-msgstr ""
+msgstr "Ime inštrumenta"
 
 #: ../../Jokosher/RecordingView.py:123
 msgid "Zoom the timeline - Right-Click to reset to the default level"
@@ -1818,30 +1820,32 @@ msgstr ""
 
 #: ../../Jokosher/RecordingView.py:322
 msgid "A Gstreamer error has occurred"
-msgstr ""
+msgstr "Napaka Gstreamer-ja"
 
 #: ../../Jokosher/RecordingView.py:335
 msgid "A GStreamer error has occurred."
-msgstr ""
+msgstr "Napaka Gstreamer-ja"
 
 #: ../../Jokosher/RecordingView.py:372
 #, python-format
 msgid "There are %(number)d more errors not shown."
-msgstr ""
+msgstr "%(number)d napak ni bilo prikazanih."
 
 #: ../../Jokosher/RecordingView.py:375
 msgid ""
 "If this problem persists consider reporting a bug using the link in the help "
 "menu."
 msgstr ""
+"Če se problem ponavlja vas prosimo, da prijavite napako z uporabo povezave v "
+"menuju help."
 
 #: ../../Jokosher/RecordingView.py:378
 msgid "_Close All"
-msgstr ""
+msgstr "_Zapri vse"
 
 #: ../../Jokosher/RecordingView.py:379
 msgid "_Show All"
-msgstr ""
+msgstr "Prikaži vse"
 
 #: ../../Jokosher/TimeLine.py:566
 #, python-format
@@ -1978,17 +1982,16 @@ msgstr "Vokal"
 msgid "<b>Audio Output Plugin</b>"
 msgstr "<b>Vstavek za zvočni izhod</b>"
 
+#, fuzzy
 msgid "<b>Recording Sample Rate</b>"
-msgstr "<b>Snemalna frekvenca vzorčenja</b>"
+msgstr "<b>Format posnetka</b>"
 
+#, fuzzy
 msgid ""
 "Autodetect\n"
 "ALSA\n"
 "Custom"
-msgstr ""
-"Samozaznaj\n"
-"ALSA\n"
-"Ročno"
+msgstr "Samodejna zaznava"
 
 msgid "%(device)s input %(input)d"
 msgstr "%(device)s vhod %(input)d"
@@ -2037,20 +2040,26 @@ msgstr "Ugasni progo s kliki"
 msgid "Add this step to the current mixdown"
 msgstr "Dodaj ta korak h trenutnemu izvozu"
 
+#, fuzzy
 msgid "Audio production made simple."
-msgstr "Avdio produkcija na preprost način."
+msgstr ""
+"Avdio produkcija na enostaven način.\n"
+"Različica 0.11.1"
 
+#, fuzzy
 msgid "Device:"
-msgstr "Naprava:"
+msgstr "Napra_va"
 
 msgid "Output:"
 msgstr "Izhod:"
 
+#, fuzzy
 msgid "Pipeline:"
-msgstr "Vod:"
+msgstr "_Cevovod:"
 
+#, fuzzy
 msgid "Search:"
-msgstr "Iskanje:"
+msgstr "_Išči:"
 
 msgid "Stop"
 msgstr "Ustavi"
@@ -2082,8 +2091,9 @@ msgstr "Uredi te nastavitve izvoznih korakov"
 msgid "Remove this mixdown step"
 msgstr "Odstrani ta izvozni korak"
 
+#, fuzzy
 msgid "Export file"
-msgstr "Izvozi datoteko"
+msgstr "Izvoz datoteke"
 
 msgid "An unspecified MixdownAction"
 msgstr "Nedoločljiva akcija končnega miksa"
@@ -2091,8 +2101,9 @@ msgstr "Nedoločljiva akcija končnega miksa"
 msgid "Export to %(file)s as %(desc)s"
 msgstr "Izvozi v %(file)s kot %(desc)s"
 
+#, fuzzy
 msgid "Export as"
-msgstr "izvozi kot"
+msgstr "Izvoz datoteke"
 
 msgid "Run external script"
 msgstr "Poženi zunanjo skripto"
@@ -2103,28 +2114,32 @@ msgstr "Hz"
 msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"
 msgstr "Za spremembo glasnosti <b>povleči drsnik</b>."
 
+#, fuzzy
 msgid "Beat value"
-msgstr "Vrednost udarca"
+msgstr "_Vrednost udarca"
 
+#, fuzzy
 msgid "Don't open anything"
-msgstr "Ne odpri ničesar"
+msgstr "_Ne odpri ničesar"
 
 msgid "FastForward"
 msgstr "Previj naprej"
 
+#, fuzzy
 msgid "Preferences"
-msgstr "Nastavitve"
+msgstr "Nas_tavitve"
 
 #, fuzzy
 msgid "Recording Workspace"
-msgstr "Snemanje"
+msgstr "<b>Format posnetka</b>"
 
+#, fuzzy
 msgid "Show welcome dialog"
-msgstr "Prikaži okno \"Dobrodošli!\""
+msgstr "_Prikaži pozdravno okno"
 
 #, fuzzy
 #~ msgid "<b>Recorded Audio Format</b>"
-#~ msgstr "Posnet zvok"
+#~ msgstr "<b>Format posnetka</b>"
 
 #, fuzzy
 #~ msgid "_Project"
@@ -2136,7 +2151,7 @@ msgstr "Prikaži okno \"Dobrodošli!\""
 
 #, fuzzy
 #~ msgid "<b>Presets for:</b>"
-#~ msgstr "<b>Aktivni učinki za: </b>"
+#~ msgstr "<b>_Prednastavitve za:</b>"
 
 #, fuzzy
 #~ msgid "Add a new instrument"
@@ -2148,11 +2163,11 @@ msgstr "Prikaži okno \"Dobrodošli!\""
 
 #, fuzzy
 #~ msgid "Author"
-#~ msgstr "Neznan avtor"
+#~ msgstr "_Avtor:"
 
 #, fuzzy
 #~ msgid "Beats per measure"
-#~ msgstr "Udarcev na minuto"
+#~ msgstr "Udarcev na _enoto"
 
 #, fuzzy
 #~ msgid "Browse for an Existing Project"
@@ -2168,7 +2183,7 @@ msgstr "Prikaži okno \"Dobrodošli!\""
 
 #, fuzzy
 #~ msgid "Folder"
-#~ msgstr "Filtri"
+#~ msgstr "_Mapa:"
 
 #, fuzzy
 #~ msgid "Mixing"
@@ -2180,15 +2195,15 @@ msgstr "Prikaži okno \"Dobrodošli!\""
 
 #, fuzzy
 #~ msgid "Open Selected Project"
-#~ msgstr "Odpri nedaven projekt"
+#~ msgstr "_Odpri izbrani projekt"
 
 #, fuzzy
 #~ msgid "Open most recent project"
-#~ msgstr "Odpri nedaven projekt"
+#~ msgstr "_Odpri zadnji projekt"
 
 #, fuzzy
 #~ msgid "Project Name"
-#~ msgstr "Nov projekt"
+#~ msgstr "Ime _projekta:"
 
 #, fuzzy
 #~ msgid "Record"
@@ -2200,7 +2215,7 @@ msgstr "Prikaži okno \"Dobrodošli!\""
 
 #, fuzzy
 #~ msgid "Remove Selected Instrument"
-#~ msgstr "Odstrani izbrano glasbilo"
+#~ msgstr "Odst_rani izbrano glasbilo"
 
 #, fuzzy
 #~ msgid "Rewind"
@@ -2216,7 +2231,7 @@ msgstr "Prikaži okno \"Dobrodošli!\""
 
 #, fuzzy
 #~ msgid "_Manage Extensions"
-#~ msgstr "Po_daljški"
+#~ msgstr "_Upravljaj razširitve..."
 
 #, fuzzy
 #~ msgid "_Mixdown Project"
@@ -2228,7 +2243,7 @@ msgstr "Prikaži okno \"Dobrodošli!\""
 
 #, fuzzy
 #~ msgid "_Recording Inputs"
-#~ msgstr "Snemanje ..."
+#~ msgstr "S_nemalni vhodi ..."
 
 #, fuzzy
 #~ msgid "_Save these settings"

@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: jokosher\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-03-17 02:00+0000\n"
-"PO-Revision-Date: 2009-02-18 06:59+0000\n"
-"Last-Translator: Laszlo Pandy <laszlok2@gmail.com>\n"
+"PO-Revision-Date: 2009-08-18 02:44+0000\n"
+"Last-Translator: Jono Bacon <jono@ubuntu.com>\n"
 "Language-Team: English (United Kingdom) <en_GB@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-05-30 01:36+0000\n"
+"X-Launchpad-Export-Date: 2010-02-26 00:44+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../../Jokosher/Jokosher.glade.h:1
@@ -51,7 +51,7 @@ msgstr "<b>File Details</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:9
 msgid "<b>General</b>"
-msgstr ""
+msgstr "<b>General</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:10
 msgid "<b>Jokosher Instruments</b>"
@@ -75,11 +75,11 @@ msgstr "<b>Mixdown Actions</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:14
 msgid "<b>N_otes</b>"
-msgstr ""
+msgstr "<b>N_otes</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:15
 msgid "<b>Playback Sound System</b>"
-msgstr ""
+msgstr "<b>Playback Sound System</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:16
 msgid "<b>Recent Projects</b>"
@@ -87,11 +87,11 @@ msgstr "<b>Recent Projects</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:17
 msgid "<b>Recording Format</b>"
-msgstr ""
+msgstr "<b>Recording Format</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:18
 msgid "<b>Recording Sound System</b>"
-msgstr ""
+msgstr "<b>Recording Sound System</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:19
 msgid "<b>Template Instruments</b>"
@@ -143,7 +143,7 @@ msgstr "Add Mixdown Action"
 
 #: ../../Jokosher/Jokosher.glade.h:31
 msgid "Add _Instrument..."
-msgstr ""
+msgstr "Add _Instrument..."
 
 #: ../../Jokosher/Jokosher.glade.h:32
 msgid "Add an audio file to the project"
@@ -171,7 +171,7 @@ msgstr "Add the selected instrument"
 
 #: ../../Jokosher/Jokosher.glade.h:38
 msgid "Add the selected jokosher instrument"
-msgstr ""
+msgstr "Add the selected jokosher instrument"
 
 #: ../../Jokosher/Jokosher.glade.h:39
 msgid "Adjust the amount of beats per measure"
@@ -194,6 +194,8 @@ msgid ""
 "Audio production made simple.\n"
 "Version 0.11.1"
 msgstr ""
+"Audio production made simple.\n"
+"Version 0.11.1"
 
 #: ../../Jokosher/Jokosher.glade.h:45
 msgid "Beat _value"
@@ -205,7 +207,7 @@ msgstr "Beats per _measure"
 
 #: ../../Jokosher/Jokosher.glade.h:47
 msgid "C_hange Sound System"
-msgstr ""
+msgstr "C_hange Sound System"
 
 #: ../../Jokosher/Jokosher.glade.h:48
 msgid "Cancel the mixdown"
@@ -293,7 +295,7 @@ msgstr "Cut the current selection"
 
 #: ../../Jokosher/Jokosher.glade.h:69
 msgid "De_vice:"
-msgstr ""
+msgstr "De_vice:"
 
 #: ../../Jokosher/Jokosher.glade.h:70
 msgid "Deactivate the currently selected active effect"
@@ -529,7 +531,7 @@ msgstr "Jokosher"
 
 #: ../../Jokosher/Jokosher.glade.h:158
 msgid "Jokosher Errors"
-msgstr ""
+msgstr "Jokosher Errors"
 
 #: ../../Jokosher/Jokosher.glade.h:159
 msgid "Listen to these effects"
@@ -581,7 +583,7 @@ msgstr "Open the extension manager"
 
 #: ../../Jokosher/Jokosher.glade.h:171
 msgid "P_ipeline:"
-msgstr ""
+msgstr "P_ipeline:"
 
 #: ../../Jokosher/Jokosher.glade.h:172
 msgid "Paste the contents of the clipboard"
@@ -592,16 +594,20 @@ msgid ""
 "Please enter the filename of the audio you wish to export. The audio will be "
 "exported to the location specified."
 msgstr ""
+"Please enter the filename of the audio you wish to export. The audio will be "
+"exported to the location specified."
 
 #: ../../Jokosher/Jokosher.glade.h:174
 msgid ""
 "Please select the mixdown actions you would like to add to the mixdown "
 "profile *profile*"
 msgstr ""
+"Please select the mixdown actions you would like to add to the mixdown "
+"profile *profile*"
 
 #: ../../Jokosher/Jokosher.glade.h:175
 msgid "Project Properties"
-msgstr ""
+msgstr "Project Properties"
 
 #: ../../Jokosher/Jokosher.glade.h:176
 msgid "Project Templates"
@@ -613,7 +619,7 @@ msgstr "Quit Jokosher"
 
 #: ../../Jokosher/Jokosher.glade.h:178
 msgid "R_ecording Inputs..."
-msgstr ""
+msgstr "R_ecording Inputs..."
 
 #: ../../Jokosher/Jokosher.glade.h:179
 msgid "Redo"
@@ -637,15 +643,15 @@ msgstr "Report a bug in Jokosher"
 
 #: ../../Jokosher/Jokosher.glade.h:184
 msgid "S_ample Rate:"
-msgstr ""
+msgstr "S_ample Rate:"
 
 #: ../../Jokosher/Jokosher.glade.h:185
 msgid "S_ystem:"
-msgstr ""
+msgstr "S_ystem:"
 
 #: ../../Jokosher/Jokosher.glade.h:186
 msgid "Save _As..."
-msgstr ""
+msgstr "Save _As..."
 
 #: ../../Jokosher/Jokosher.glade.h:187
 msgid "Save a copy of the current project"
@@ -729,7 +735,7 @@ msgstr "Stop playback"
 
 #: ../../Jokosher/Jokosher.glade.h:207
 msgid "Sys_tem:"
-msgstr ""
+msgstr "Sys_tem:"
 
 #: ../../Jokosher/Jokosher.glade.h:208
 msgid "System Information"
@@ -789,7 +795,7 @@ msgstr "Writing simple to read documentation."
 
 #: ../../Jokosher/Jokosher.glade.h:222
 msgid "Your music file is being mixed. This can take some seconds."
-msgstr ""
+msgstr "Your music file is being mixed. This can take some time."
 
 #: ../../Jokosher/Jokosher.glade.h:223
 msgid "_Author:"
@@ -813,11 +819,11 @@ msgstr "_Create a New Project"
 
 #: ../../Jokosher/Jokosher.glade.h:228
 msgid "_Don't open anything"
-msgstr ""
+msgstr "_Don't open anything"
 
 #: ../../Jokosher/Jokosher.glade.h:229
 msgid "_Don't show this on start-up"
-msgstr ""
+msgstr "_Don't show this on start-up"
 
 #: ../../Jokosher/Jokosher.glade.h:230
 msgid "_Edit"
@@ -825,7 +831,7 @@ msgstr "_Edit"
 
 #: ../../Jokosher/Jokosher.glade.h:231
 msgid "_Encoding:"
-msgstr ""
+msgstr "_Encoding:"
 
 #: ../../Jokosher/Jokosher.glade.h:232
 msgid "_File"
@@ -857,11 +863,11 @@ msgstr "_Mixdown Project..."
 
 #: ../../Jokosher/Jokosher.glade.h:239
 msgid "_Name:"
-msgstr ""
+msgstr "_Name:"
 
 #: ../../Jokosher/Jokosher.glade.h:240
 msgid "_New..."
-msgstr ""
+msgstr "_New..."
 
 #: ../../Jokosher/Jokosher.glade.h:241
 msgid "_Online Forums"
@@ -877,7 +883,7 @@ msgstr "_Open most recent project"
 
 #: ../../Jokosher/Jokosher.glade.h:244
 msgid "_Open..."
-msgstr ""
+msgstr "_Open..."
 
 #: ../../Jokosher/Jokosher.glade.h:245
 msgid "_Pipeline:"
@@ -1208,19 +1214,19 @@ msgstr "Simulators"
 
 #: ../../Jokosher/Globals.py:703 ../../Jokosher/PreferencesDialog.py:113
 msgid "Autodetect"
-msgstr ""
+msgstr "Autodetect"
 
 #: ../../Jokosher/Globals.py:704
 msgid "Use GNOME Settings"
-msgstr ""
+msgstr "Use GNOME Settings"
 
 #: ../../Jokosher/Globals.py:712
 msgid "GNOME Settings"
-msgstr ""
+msgstr "GNOME Settings"
 
 #: ../../Jokosher/Globals.py:728
 msgid "Jokosher Audio Editor"
-msgstr ""
+msgstr "Jokosher Audio Editor"
 
 #: ../../Jokosher/IncrementalSave.py:29 ../../Jokosher/Instrument.py:488
 msgid "Recorded audio"
@@ -1238,24 +1244,26 @@ msgstr "Default"
 #: ../../Jokosher/InstrumentConnectionsDialog.py:105
 #, python-format
 msgid "Default (%s)"
-msgstr ""
+msgstr "Default (%s)"
 
 #: ../../Jokosher/InstrumentConnectionsDialog.py:112
 #, python-format
 msgid "%(device)s, input %(input)d"
-msgstr ""
+msgstr "%(device)s, input %(input)d"
 
 #: ../../Jokosher/InstrumentConnectionsDialog.py:157
 #, python-format
 msgid ""
 "The %(sound-system-name)s sound system does not support device selection."
 msgstr ""
+"The %(sound-system-name)s sound system does not support device selection."
 
 #: ../../Jokosher/InstrumentConnectionsDialog.py:160
 #, python-format
 msgid ""
 "The \"%(custom-pipeline)s\" sound system does not support device selection."
 msgstr ""
+"The \"%(custom-pipeline)s\" sound system does not support device selection."
 
 #: ../../Jokosher/InstrumentEffectsDialog.py:140
 #: ../../Jokosher/InstrumentEffectsDialog.py:142
@@ -1338,6 +1346,9 @@ msgid ""
 "selected. Please either disarm one, or connect it to a different input "
 "through 'Project -> Recording Inputs'"
 msgstr ""
+"The instruments '%(name1)s' and '%(name2)s' both have the same input "
+"selected. Please either disarm one, or connect it to a different input "
+"through 'Project -> Recording Inputs'"
 
 #: ../../Jokosher/JokosherApp.py:640
 msgid "Preparing to mixdown project"
@@ -1553,7 +1564,7 @@ msgstr "Add Audio File..."
 
 #: ../../Jokosher/JokosherApp.py:1917 ../../Jokosher/JokosherApp.py:1922
 msgid "Mix_down As"
-msgstr ""
+msgstr "Mix_down As"
 
 #: ../../Jokosher/MasterMixerStrip.py:46
 msgid "Master Volume:"
@@ -1574,11 +1585,14 @@ msgid ""
 "Please make sure all the plugins required for the specified format are "
 "installed."
 msgstr ""
+"An encoding plugin could not be found: %s.\n"
+"Please make sure all the plugins required for the specified format are "
+"installed."
 
 #: ../../Jokosher/MixdownActions.py:227
 #, python-format
 msgid "The encoding bin description is invalid: %s"
-msgstr ""
+msgstr "The encoding bin description is invalid: %s"
 
 #: ../../Jokosher/MixdownActions.py:253
 msgid "Server type:"
@@ -1610,12 +1624,12 @@ msgstr "Run External Script"
 
 #: ../../Jokosher/MixdownActions.py:490
 msgid "Run an external script from the destination of your choosing."
-msgstr ""
+msgstr "Run an external script from the destination of your choosing."
 
 #: ../../Jokosher/MixdownActions.py:531
 #, python-format
 msgid "An error occured with the script %s"
-msgstr ""
+msgstr "An error occured with the script %s"
 
 #: ../../Jokosher/MixdownActions.py:533
 #, python-format
@@ -1639,7 +1653,7 @@ msgstr "<b>%s is not configured</b>"
 
 #: ../../Jokosher/MixdownProfileDialog.py:367
 msgid "Please enter the name of the mixdown profile you wish to create."
-msgstr ""
+msgstr "Please enter the name of the mixdown profile you wish to create."
 
 #: ../../Jokosher/MixdownProfileDialog.py:377
 msgid "Profile name:"
@@ -1647,18 +1661,20 @@ msgstr "Profile name:"
 
 #: ../../Jokosher/MixdownProfileDialog.py:380
 msgid "Create Mixdown Profile"
-msgstr ""
+msgstr "Create Mixdown Profile"
 
 #: ../../Jokosher/MixdownProfileDialog.py:398
 #, python-format
 msgid "Successfully created mixdown profile <b>%s.profile</b>."
-msgstr ""
+msgstr "Successfully created mixdown profile <b>%s.profile</b>."
 
 #: ../../Jokosher/MixdownProfileDialog.py:402
 msgid ""
 "Cannot create mixdown profile. Please make sure you have specified a profile "
 "name."
 msgstr ""
+"Cannot create mixdown profile. Please make sure you have specified a profile "
+"name."
 
 #: ../../Jokosher/MixdownProfileDialog.py:423
 #, python-format
@@ -1672,11 +1688,14 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"<big><b>Cannot load mixdown action %s.</b></big>\n"
+"\n"
+"%s"
 
 #: ../../Jokosher/MixdownProfileDialog.py:552
 #, python-format
 msgid "An error occured while running the mixdown action: %s"
-msgstr ""
+msgstr "An error occured while running the mixdown action: %s"
 
 #: ../../Jokosher/MixdownProfileDialog.py:617
 msgid "Icon"
@@ -1688,16 +1707,18 @@ msgid ""
 "Please select the mixdown actions you would like to add to mixdown profile "
 "<b>%s.</b>"
 msgstr ""
+"Please select the mixdown actions you would like to add to mixdown profile "
+"<b>%s.</b>"
 
 #: ../../Jokosher/MixdownProfiles.py:94 ../../Jokosher/MixdownProfiles.py:151
 #, python-format
 msgid "The mixdown profile %s does not exist"
-msgstr ""
+msgstr "The mixdown profile %s does not exist"
 
 #: ../../Jokosher/MixdownProfiles.py:115
 #, python-format
 msgid "Cannot remove mixdown profile %s"
-msgstr ""
+msgstr "Cannot remove mixdown profile %s"
 
 #: ../../Jokosher/MixerStrip.py:64
 msgid "Minimize instrument"
@@ -1783,12 +1804,12 @@ msgstr ""
 #: ../../Jokosher/PreferencesDialog.py:75
 #: ../../Jokosher/PreferencesDialog.py:93
 msgid "Custom"
-msgstr ""
+msgstr "Custom"
 
 #: ../../Jokosher/PreferencesDialog.py:340
 #, python-format
 msgid "Device %d"
-msgstr ""
+msgstr "Device %d"
 
 #: ../../Jokosher/ProjectTemplateDialog.py:83
 #: ../../Jokosher/ProjectTemplateDialog.py:87
@@ -1797,56 +1818,60 @@ msgstr "Instrument Name"
 
 #: ../../Jokosher/RecordingView.py:123
 msgid "Zoom the timeline - Right-Click to reset to the default level"
-msgstr ""
+msgstr "Zoom the timeline - Right-Click to reset to the default level"
 
 #: ../../Jokosher/RecordingView.py:132
 msgid "Zoom in timeline"
-msgstr ""
+msgstr "Zoom in timeline"
 
 #: ../../Jokosher/RecordingView.py:139
 msgid "Zoom out timeline"
-msgstr ""
+msgstr "Zoom out timeline"
 
 #: ../../Jokosher/RecordingView.py:183
 msgid "Would you like to restore the current project?"
-msgstr ""
+msgstr "Would you like to restore the current project?"
 
 #: ../../Jokosher/RecordingView.py:184
 msgid ""
 "A crash was detected and changes to your project were not saved.\n"
 "If you would like, you can attempt to recover these lost changes."
 msgstr ""
+"A crash was detected and changes to your project were not saved.\n"
+"If you would like, you can attempt to recover these lost changes."
 
 #: ../../Jokosher/RecordingView.py:188
 msgid "_Restore Project"
-msgstr ""
+msgstr "_Restore Project"
 
 #: ../../Jokosher/RecordingView.py:322
 msgid "A Gstreamer error has occurred"
-msgstr ""
+msgstr "A GStreamer error has occurred"
 
 #: ../../Jokosher/RecordingView.py:335
 msgid "A GStreamer error has occurred."
-msgstr ""
+msgstr "A GStreamer error has occurred."
 
 #: ../../Jokosher/RecordingView.py:372
 #, python-format
 msgid "There are %(number)d more errors not shown."
-msgstr ""
+msgstr "There are %(number)d more errors not shown."
 
 #: ../../Jokosher/RecordingView.py:375
 msgid ""
 "If this problem persists consider reporting a bug using the link in the help "
 "menu."
 msgstr ""
+"If this problem persists consider reporting a bug using the link in the help "
+"menu."
 
 #: ../../Jokosher/RecordingView.py:378
 msgid "_Close All"
-msgstr ""
+msgstr "_Close All"
 
 #: ../../Jokosher/RecordingView.py:379
 msgid "_Show All"
-msgstr ""
+msgstr "_Show All"
 
 #: ../../Jokosher/TimeLine.py:566
 #, python-format
@@ -1864,7 +1889,7 @@ msgstr ""
 
 #: ../../Jokosher/TimeLineBar.py:64
 msgid "Adjust volume of click track"
-msgstr ""
+msgstr "Adjust volume of click track"
 
 #: ../../Jokosher/TimeLineBar.py:69
 msgid "Beats per minute"
@@ -1985,8 +2010,9 @@ msgstr "Vocal"
 msgid "<b>Audio Output Plugin</b>"
 msgstr "<b>Audio Output Plugin</b>"
 
+#, fuzzy
 msgid "<b>Recording Sample Rate</b>"
-msgstr "<b>Recording Sample Rate</b>"
+msgstr "<b>Recording Format</b>"
 
 msgid ""
 "<i>It appears that Jokosher crashed the last time it was used, the following "
@@ -1995,57 +2021,63 @@ msgstr ""
 "<i>It appears that Jokosher crashed the last time it was used, the following "
 "dialogue will help you restore your projects.</i>"
 
+#, fuzzy
 msgid ""
 "Audio production made simple.\n"
 "Version 0.10"
 msgstr ""
 "Audio production made simple.\n"
-"Version 0.10"
+"Version 0.11.1"
 
+#, fuzzy
 msgid ""
 "Autodetect\n"
 "ALSA\n"
 "Custom"
-msgstr ""
-"Autodetect\n"
-"ALSA\n"
-"Custom"
+msgstr "Autodetect"
 
 msgid "Create project template from instruments in current project"
 msgstr "Create project template from instruments in current project"
 
+#, fuzzy
 msgid "D_evice:"
-msgstr "D_evice:"
+msgstr "De_vice:"
 
+#, fuzzy
 msgid "New..."
-msgstr "New..."
+msgstr "_New..."
 
 msgid "O_utput:"
 msgstr "O_utput:"
 
+#, fuzzy
 msgid "Open..."
-msgstr "Open..."
+msgstr "_Open..."
 
+#, fuzzy
 msgid "Save As..."
-msgstr "Save As..."
+msgstr "Save _As..."
 
+#, fuzzy
 msgid "Restore"
-msgstr "Restore"
+msgstr "_Restore Project"
 
 msgid "There are currently no crashed projects to restore."
 msgstr "There are currently no crashed projects to restore."
 
+#, fuzzy
 msgid "%(device)s input %(input)d"
-msgstr "%(device)s input %(input)d"
+msgstr "%(device)s, input %(input)d"
 
+#, fuzzy
 msgid ""
 "The instruments '%(name1)s' and '%(name2)s' both have the same input "
 "selected (%(track)s). Please either disarm one, or connect it to a different "
 "input through 'Project -> Recording Inputs'"
 msgstr ""
 "The instruments '%(name1)s' and '%(name2)s' both have the same input "
-"selected (%(track)s). Please either disarm one, or connect it to a different "
-"input through 'Project -> Recording Inputs'"
+"selected. Please either disarm one, or connect it to a different input "
+"through 'Project -> Recording Inputs'"
 
 msgid ""
 "No channels capable of recording have been found, please attach a device and "
@@ -2082,14 +2114,18 @@ msgstr "Turn click track off"
 msgid "Add this step to the current mixdown"
 msgstr "Add this step to the current mixdown"
 
+#, fuzzy
 msgid "Audio production made simple."
-msgstr "Audio production made simple."
+msgstr ""
+"Audio production made simple.\n"
+"Version 0.11.1"
 
 msgid "FastForward"
 msgstr "FastForward"
 
+#, fuzzy
 msgid "Recording Workspace"
-msgstr "Recording Workspace"
+msgstr "<b>Recording Format</b>"
 
 msgid "Stop"
 msgstr "Stop"
@@ -2125,11 +2161,13 @@ msgstr "Export to %(file)s as %(desc)s"
 msgid "Hz"
 msgstr "Hz"
 
+#, fuzzy
 msgid "Device:"
-msgstr "Device:"
+msgstr "De_vice:"
 
+#, fuzzy
 msgid "Don't open anything"
-msgstr "Don't open anything"
+msgstr "_Don't open anything"
 
 msgid "Output:"
 msgstr "Output:"
@@ -2164,11 +2202,13 @@ msgstr ""
 "11025\n"
 "8000"
 
+#, fuzzy
 msgid "Device"
-msgstr "Device"
+msgstr "De_vice:"
 
+#, fuzzy
 msgid "General"
-msgstr "General"
+msgstr "<b>General</b>"
 
 msgid ""
 "Jokosher must be restarted in\n"
@@ -2189,8 +2229,9 @@ msgstr "Presets"
 msgid "Preview"
 msgstr "Preview"
 
+#, fuzzy
 msgid "Sample Rate (Hz)"
-msgstr "Sample Rate (Hz)"
+msgstr "S_ample Rate:"
 
 msgid "Save Files As"
 msgstr "Save Files As"
@@ -2234,14 +2275,15 @@ msgstr "Muted"
 msgid "Unmuted"
 msgstr "Unmuted"
 
+#, fuzzy
 msgid ""
 "The instruments '%s' and '%s' both have the same input selected (%s). Please "
 "either disarm one, or connect it to a different input through 'Project -> "
 "Instrument Connections'"
 msgstr ""
-"The instruments '%s' and '%s' both have the same input selected (%s). Please "
-"either disarm one, or connect it to a different input through 'Project -> "
-"Instrument Connections'"
+"The instruments '%(name1)s' and '%(name2)s' both have the same input "
+"selected. Please either disarm one, or connect it to a different input "
+"through 'Project -> Recording Inputs'"
 
 msgid ""
 "No instruments are armed for recording. You need to arm an instrument before "
@@ -2292,7 +2334,7 @@ msgstr ""
 
 #, fuzzy
 #~ msgid "<b>Recorded Audio Format</b>"
-#~ msgstr "Recorded audio"
+#~ msgstr "<b>Recording Format</b>"
 
 #, fuzzy
 #~ msgid "<b>Save Time</b>"
@@ -2300,11 +2342,11 @@ msgstr ""
 
 #, fuzzy
 #~ msgid "Restore Crashed Project"
-#~ msgstr "_Create a New Project"
+#~ msgstr "_Restore Project"
 
 #, fuzzy
 #~ msgid "_Add Instrument..."
-#~ msgstr "Add Instrument"
+#~ msgstr "Add _Instrument..."
 
 #, fuzzy
 #~ msgid "_Create Project Template"
@@ -2316,15 +2358,15 @@ msgstr ""
 
 #, fuzzy
 #~ msgid "_Recording Inputs..."
-#~ msgstr "Recording..."
+#~ msgstr "R_ecording Inputs..."
 
 #, fuzzy
 #~ msgid "_Restore Crashed Project..."
-#~ msgstr "_Create a New Project"
+#~ msgstr "_Restore Project"
 
 #, fuzzy
 #~ msgid "Mixdown as"
-#~ msgstr "_Mixdown"
+#~ msgstr "Mix_down As"
 
 #, fuzzy
 #~ msgid "Add a new step:"
@@ -2412,7 +2454,7 @@ msgstr ""
 
 #, fuzzy
 #~ msgid "Zoom the timeline"
-#~ msgstr "Change the timeline"
+#~ msgstr "Zoom out timeline"
 
 #, fuzzy
 #~ msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"
@@ -2448,7 +2490,7 @@ msgstr ""
 
 #, fuzzy
 #~ msgid "Don't show this on start-up"
-#~ msgstr "Do not load extensions on startup"
+#~ msgstr "_Don't show this on start-up"
 
 #, fuzzy
 #~ msgid "Folder"
@@ -2464,7 +2506,7 @@ msgstr ""
 
 #, fuzzy
 #~ msgid "Pipeline:"
-#~ msgstr "_Pipeline:"
+#~ msgstr "P_ipeline:"
 
 #, fuzzy
 #~ msgid "Preferences"
@@ -2496,7 +2538,7 @@ msgstr ""
 
 #, fuzzy
 #~ msgid "_Recording Inputs"
-#~ msgstr "Recording..."
+#~ msgstr "R_ecording Inputs..."
 
 #, fuzzy
 #~ msgid "No such script %s"

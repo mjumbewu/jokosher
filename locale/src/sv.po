@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: jokosher\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-03-17 02:00+0000\n"
-"PO-Revision-Date: 2009-04-07 13:05+0000\n"
-"Last-Translator: Anders Grandt <anders@modernreklam.se>\n"
+"PO-Revision-Date: 2010-02-24 13:13+0000\n"
+"Last-Translator: Ulf Urdén <ulf.urden@purplescout.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-05-30 01:36+0000\n"
+"X-Launchpad-Export-Date: 2010-02-26 00:44+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../../Jokosher/Jokosher.glade.h:1
@@ -27,7 +27,7 @@ msgstr "<b>Programuppstart</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:3
 msgid "<b>Art</b>"
-msgstr "<b>Konst</b>"
+msgstr "<b>Grafik</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:4
 msgid "<b>Coding</b>"
@@ -51,7 +51,7 @@ msgstr "<b>Fildetaljer</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:9
 msgid "<b>General</b>"
-msgstr "<b>Allmän</b>"
+msgstr "<b>Allmänt</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:10
 msgid "<b>Jokosher Instruments</b>"
@@ -79,7 +79,7 @@ msgstr "<b>N_oteringar</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:15
 msgid "<b>Playback Sound System</b>"
-msgstr ""
+msgstr "<b>Playback Ljudsystem</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:16
 msgid "<b>Recent Projects</b>"
@@ -91,7 +91,7 @@ msgstr "Inspelningsformat"
 
 #: ../../Jokosher/Jokosher.glade.h:18
 msgid "<b>Recording Sound System</b>"
-msgstr ""
+msgstr "<b>Inspelning Ljudsystem</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:19
 msgid "<b>Template Instruments</b>"
@@ -194,6 +194,8 @@ msgid ""
 "Audio production made simple.\n"
 "Version 0.11.1"
 msgstr ""
+"Ljudproduktion, gjord enkel.\n"
+"Version 0.11.1"
 
 #: ../../Jokosher/Jokosher.glade.h:45
 msgid "Beat _value"
@@ -205,7 +207,7 @@ msgstr "Taktslag per _mått"
 
 #: ../../Jokosher/Jokosher.glade.h:47
 msgid "C_hange Sound System"
-msgstr ""
+msgstr "B_yt ljudsystem"
 
 #: ../../Jokosher/Jokosher.glade.h:48
 msgid "Cancel the mixdown"
@@ -293,7 +295,7 @@ msgstr "Klipp ut den aktuella markeringen"
 
 #: ../../Jokosher/Jokosher.glade.h:69
 msgid "De_vice:"
-msgstr ""
+msgstr "En_het:"
 
 #: ../../Jokosher/Jokosher.glade.h:70
 msgid "Deactivate the currently selected active effect"
@@ -528,7 +530,7 @@ msgstr "Jokosher"
 
 #: ../../Jokosher/Jokosher.glade.h:158
 msgid "Jokosher Errors"
-msgstr ""
+msgstr "Jokosher-fel"
 
 #: ../../Jokosher/Jokosher.glade.h:159
 msgid "Listen to these effects"
@@ -616,7 +618,7 @@ msgstr "Avsluta Jokosher"
 
 #: ../../Jokosher/Jokosher.glade.h:178
 msgid "R_ecording Inputs..."
-msgstr ""
+msgstr "I_nspelningskällor..."
 
 #: ../../Jokosher/Jokosher.glade.h:179
 msgid "Redo"
@@ -640,11 +642,11 @@ msgstr "Rapportera ett fel i Jokosher"
 
 #: ../../Jokosher/Jokosher.glade.h:184
 msgid "S_ample Rate:"
-msgstr ""
+msgstr "S_amplingsfrekvens:"
 
 #: ../../Jokosher/Jokosher.glade.h:185
 msgid "S_ystem:"
-msgstr ""
+msgstr "S_ystem:"
 
 #: ../../Jokosher/Jokosher.glade.h:186
 msgid "Save _As..."
@@ -732,7 +734,7 @@ msgstr "Stoppa uppspelning"
 
 #: ../../Jokosher/Jokosher.glade.h:207
 msgid "Sys_tem:"
-msgstr ""
+msgstr "Sys_tem:"
 
 #: ../../Jokosher/Jokosher.glade.h:208
 msgid "System Information"
@@ -828,7 +830,7 @@ msgstr "_Redigera"
 
 #: ../../Jokosher/Jokosher.glade.h:231
 msgid "_Encoding:"
-msgstr ""
+msgstr "_Kodning"
 
 #: ../../Jokosher/Jokosher.glade.h:232
 msgid "_File"
@@ -1244,7 +1246,7 @@ msgstr "Standard (%s)"
 #: ../../Jokosher/InstrumentConnectionsDialog.py:112
 #, python-format
 msgid "%(device)s, input %(input)d"
-msgstr ""
+msgstr "%(device)s, inspelningskälla %(input)d"
 
 #: ../../Jokosher/InstrumentConnectionsDialog.py:157
 #, python-format
@@ -1339,6 +1341,9 @@ msgid ""
 "selected. Please either disarm one, or connect it to a different input "
 "through 'Project -> Recording Inputs'"
 msgstr ""
+"Instrumenten '%(name1)s' och '%(name2)s' har samma inspelningskälla. Koppla "
+"ur en av dem, eller välj en annan inspelningskälla under 'Projekt -> "
+"Inspelningskälla'."
 
 #: ../../Jokosher/JokosherApp.py:640
 msgid "Preparing to mixdown project"
@@ -1560,7 +1565,7 @@ msgstr "Lägg till ljudfil..."
 
 #: ../../Jokosher/JokosherApp.py:1917 ../../Jokosher/JokosherApp.py:1922
 msgid "Mix_down As"
-msgstr ""
+msgstr "Mi_xa ned som"
 
 #: ../../Jokosher/MasterMixerStrip.py:46
 msgid "Master Volume:"
@@ -2011,18 +2016,20 @@ msgstr ""
 "<i>Det verkar som att Jokosher kraschade sist det användes, följande ruta "
 "kommer hjälpa dig återställa dina projekt.</i>"
 
+#, fuzzy
 msgid ""
 "Audio production made simple.\n"
 "Version 0.10"
 msgstr ""
-"Ljudproduktion - enkelt.\n"
-"Version 0.10"
+"Ljudproduktion, gjord enkel.\n"
+"Version 0.11.1"
 
 msgid "Create project template from instruments in current project"
 msgstr "Skapa projektmall från instrument i nuvarande projekt"
 
+#, fuzzy
 msgid "D_evice:"
-msgstr "E_nhet:"
+msgstr "En_het:"
 
 msgid "O_utput:"
 msgstr "_Utdata:"
@@ -2052,17 +2059,19 @@ msgstr ""
 "Projektet %s har ändrats vid ett senare tillfälle än denna säkerhetskopia. "
 "Är du säker på att du vill återställa den?"
 
+#, fuzzy
 msgid "%(device)s input %(input)d"
-msgstr "%(device)s ingång %(input)d"
+msgstr "%(device)s, inspelningskälla %(input)d"
 
+#, fuzzy
 msgid ""
 "The instruments '%(name1)s' and '%(name2)s' both have the same input "
 "selected (%(track)s). Please either disarm one, or connect it to a different "
 "input through 'Project -> Recording Inputs'"
 msgstr ""
-"Instrumenten \"%(name1)s\" och \"%(name2)s\" har samma ingång vald (%(track)"
-"s). Koppla bort en eller koppla den till en annan ingång med \"Projekt -> "
-"Inspelningsingångar\""
+"Instrumenten '%(name1)s' och '%(name2)s' har samma inspelningskälla. Koppla "
+"ur en av dem, eller välj en annan inspelningskälla under 'Projekt -> "
+"Inspelningskälla'."
 
 msgid ""
 "No channels capable of recording have been found, please attach a device and "
@@ -2133,8 +2142,9 @@ msgstr ""
 "11025\n"
 "8000"
 
+#, fuzzy
 msgid "Device"
-msgstr "Enhet"
+msgstr "En_het:"
 
 msgid "Files Saves As"
 msgstr "Spara Filer Som"
@@ -2151,8 +2161,9 @@ msgstr "Förinställningar"
 msgid "Preview"
 msgstr "Förhandsgranska"
 
+#, fuzzy
 msgid "Sample Rate (Hz)"
-msgstr "Samplings hastighet (Hz)"
+msgstr "S_amplingsfrekvens:"
 
 msgid ""
 "Use the combo boxes below to select which input is used with which instrument"
@@ -2186,14 +2197,15 @@ msgstr ""
 "  sklp https://launchpad.net/~sklp\n"
 "  torb https://launchpad.net/~torrb"
 
+#, fuzzy
 msgid ""
 "The instruments '%s' and '%s' both have the same input selected (%s). Please "
 "either disarm one, or connect it to a different input through 'Project -> "
 "Instrument Connections'"
 msgstr ""
-"Instrumenten '%s' och '%s' har båda samma indata markerat (%s). Var god att "
-"avmarkera en av dem, eller anslut den till annan indata genom 'Projekt -> "
-"Instrumentkopplingar'"
+"Instrumenten '%(name1)s' och '%(name2)s' har samma inspelningskälla. Koppla "
+"ur en av dem, eller välj en annan inspelningskälla under 'Projekt -> "
+"Inspelningskälla'."
 
 msgid ""
 "No instruments are armed for recording. You need to arm an instrument before "
@@ -2248,11 +2260,15 @@ msgstr "Dämpat"
 msgid "Unmuted"
 msgstr "Normal"
 
+#, fuzzy
 msgid "Audio production made simple."
-msgstr "Ljudproduktion simpliferat."
+msgstr ""
+"Ljudproduktion, gjord enkel.\n"
+"Version 0.11.1"
 
+#, fuzzy
 msgid "Device:"
-msgstr "Enhet:"
+msgstr "En_het:"
 
 #, fuzzy
 msgid "Output:"
@@ -2344,7 +2360,7 @@ msgstr "Hz"
 
 #, fuzzy
 #~ msgid "_Recording Inputs..."
-#~ msgstr "Spelar in..."
+#~ msgstr "I_nspelningskällor..."
 
 #, fuzzy
 #~ msgid "_Restore Crashed Project..."
@@ -2356,7 +2372,7 @@ msgstr "Hz"
 
 #, fuzzy
 #~ msgid "Mixdown as"
-#~ msgstr "Ned_mixning"
+#~ msgstr "Mi_xa ned som"
 
 #, fuzzy
 #~ msgid "<b>Audio Mixdown</b>"
@@ -2364,11 +2380,11 @@ msgstr "Hz"
 
 #, fuzzy
 #~ msgid "<b>Audio Quality</b>"
-#~ msgstr "<b>Konst</b>"
+#~ msgstr "<b>Grafik</b>"
 
 #, fuzzy
 #~ msgid "<b>Quality</b>"
-#~ msgstr "<b>Konst</b>"
+#~ msgstr "<b>Grafik</b>"
 
 #, fuzzy
 #~ msgid ""
@@ -2382,7 +2398,7 @@ msgstr "Hz"
 
 #, fuzzy
 #~ msgid "General"
-#~ msgstr "<b>Allmän</b>"
+#~ msgstr "<b>Allmänt</b>"
 
 #, fuzzy
 #~ msgid "Instrument Connections"
@@ -2614,7 +2630,7 @@ msgstr "Hz"
 
 #, fuzzy
 #~ msgid "_Recording Inputs"
-#~ msgstr "Spelar in..."
+#~ msgstr "I_nspelningskällor..."
 
 #, fuzzy
 #~ msgid "_Save these settings"
