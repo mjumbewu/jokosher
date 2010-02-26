@@ -7,19 +7,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: jokosher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-03-17 02:00+0000\n"
-"PO-Revision-Date: 2009-05-26 15:00+0000\n"
-"Last-Translator: Jyri-Petteri Paloposki <Unknown>\n"
+"POT-Creation-Date: 2010-02-26 00:54+0000\n"
+"PO-Revision-Date: 2009-10-01 11:27+0000\n"
+"Last-Translator: Elias Julkunen <elias.julkunen@gmail.com>\n"
 "Language-Team: Finnish <fi@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-05-30 01:36+0000\n"
+"X-Launchpad-Export-Date: 2010-02-26 00:44+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../../Jokosher/Jokosher.glade.h:1
 msgid "<b>Active effects for: </b>"
-msgstr "<b>Aktiiviset efektit:</b>"
+msgstr "<b>Aktiiviset tehosteet:</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:2
 msgid "<b>Application Start-up</b>"
@@ -31,7 +31,7 @@ msgstr "<b>Taide</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:4
 msgid "<b>Coding</b>"
-msgstr ""
+msgstr "<b>Ohjelmointi</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:5
 msgid "<b>Documentation</b>"
@@ -39,23 +39,23 @@ msgstr "<b>Dokumentaatio</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:6
 msgid "<b>Effect Name</b>"
-msgstr "<b>Efektin nimi</b>"
+msgstr "<b>Tehosteen nimi</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:7
 msgid "<b>Effects</b>"
-msgstr "<b>Efektit</b>"
+msgstr "<b>Tehosteet</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:8
 msgid "<b>File Details</b>"
-msgstr ""
+msgstr "<b>Tiedoston tiedot</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:9
 msgid "<b>General</b>"
-msgstr ""
+msgstr "<b>Yleiset</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:10
 msgid "<b>Jokosher Instruments</b>"
-msgstr ""
+msgstr "<b>Jokosher-soittimet</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:11
 msgid ""
@@ -87,7 +87,7 @@ msgstr "<b>Viimeaikaiset projektit</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:17
 msgid "<b>Recording Format</b>"
-msgstr ""
+msgstr "<b>Äänitysmuoto</b>"
 
 #: ../../Jokosher/Jokosher.glade.h:18
 msgid "<b>Recording Sound System</b>"
@@ -115,15 +115,15 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:24
 msgid "<big>System Information</big>"
-msgstr ""
+msgstr "<big>Järjestelmän tiedot</big>"
 
 #: ../../Jokosher/Jokosher.glade.h:25
 msgid "Activate the selected effect"
-msgstr "Aktivoi valittu efekti"
+msgstr "Aktivoi valittu tehoste"
 
 #: ../../Jokosher/Jokosher.glade.h:26
 msgid "Add Action"
-msgstr ""
+msgstr "Lisää toiminto"
 
 #: ../../Jokosher/Jokosher.glade.h:27
 msgid "Add Audio File"
@@ -131,7 +131,7 @@ msgstr "Lisää äänitiedosto"
 
 #: ../../Jokosher/Jokosher.glade.h:28
 msgid "Add Audio _File..."
-msgstr ""
+msgstr "Lisää _äänitiedosto"
 
 #: ../../Jokosher/Jokosher.glade.h:29
 msgid "Add Instrument"
@@ -143,7 +143,7 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:31
 msgid "Add _Instrument..."
-msgstr ""
+msgstr "Lisää _soitin..."
 
 #: ../../Jokosher/Jokosher.glade.h:32
 msgid "Add an audio file to the project"
@@ -179,7 +179,7 @@ msgstr "Säädä iskujen määrä tahdissa"
 
 #: ../../Jokosher/Jokosher.glade.h:40
 msgid "Adjust the settings for the currently selected active effect"
-msgstr "Säädä valitun efektin asetuksia"
+msgstr "Säädä valitun tehosteen asetuksia"
 
 #: ../../Jokosher/Jokosher.glade.h:41
 msgid "Arm an instrument then click here to begin recording"
@@ -192,7 +192,7 @@ msgstr ""
 #: ../../Jokosher/Jokosher.glade.h:43
 msgid ""
 "Audio production made simple.\n"
-"Version 0.11.1"
+"Version 0.11.4"
 msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:45
@@ -201,11 +201,11 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher.glade.h:46
 msgid "Beats per _measure"
-msgstr ""
+msgstr "Iskua _tahdissa"
 
 #: ../../Jokosher/Jokosher.glade.h:47
 msgid "C_hange Sound System"
-msgstr ""
+msgstr "Vaihda _äänijärjestelmää"
 
 #: ../../Jokosher/Jokosher.glade.h:48
 msgid "Cancel the mixdown"
@@ -233,15 +233,15 @@ msgstr "Muuta valitun soittimen tyyppiä"
 
 #: ../../Jokosher/Jokosher.glade.h:54
 msgid "Choose a chain effects preset."
-msgstr "Valitse ketjuefektiesivalinta."
+msgstr "Valitse ketjutehoste-esivalinta."
 
 #: ../../Jokosher/Jokosher.glade.h:55
 msgid "Choose a project template"
-msgstr ""
+msgstr "Valitse projektin malli"
 
 #: ../../Jokosher/Jokosher.glade.h:56
 msgid "Choose an effect preset."
-msgstr "Valitse efektiesivalinta."
+msgstr "Valitse tehoste-esivalinta."
 
 #: ../../Jokosher/Jokosher.glade.h:57
 msgid "Choose one or more instruments to add to your project."
@@ -265,7 +265,7 @@ msgstr "Sulje laajennukset"
 
 #: ../../Jokosher/Jokosher.glade.h:62
 msgid "Close this window"
-msgstr ""
+msgstr "Sulje tämä ikkuna"
 
 #: ../../Jokosher/Jokosher.glade.h:63
 msgid "Configure Export File Action"
@@ -293,11 +293,11 @@ msgstr "Leikkaa nykyinen valinta"
 
 #: ../../Jokosher/Jokosher.glade.h:69
 msgid "De_vice:"
-msgstr ""
+msgstr "_Laite:"
 
 #: ../../Jokosher/Jokosher.glade.h:70
 msgid "Deactivate the currently selected active effect"
-msgstr "Poista käytöstä valittu efekti"
+msgstr "Poista käytöstä valittu tehoste"
 
 #: ../../Jokosher/Jokosher.glade.h:71
 msgid "Delete the current selection"
@@ -305,7 +305,7 @@ msgstr "Poista valittu"
 
 #: ../../Jokosher/Jokosher.glade.h:72
 msgid "Delete the currently active effects preset"
-msgstr "Poista aktiivinen efektien esiasetus"
+msgstr "Poista aktiivinen tehosteiden esiasetus"
 
 #: ../../Jokosher/Jokosher.glade.h:73
 msgid "Delete the currently active preset"
@@ -313,11 +313,11 @@ msgstr "Poista aktiivinen esiasetus"
 
 #: ../../Jokosher/Jokosher.glade.h:74
 msgid "Delete the selected project template"
-msgstr ""
+msgstr "Poista valittu projektimalli"
 
 #: ../../Jokosher/Jokosher.glade.h:75
 msgid "Distribution:"
-msgstr ""
+msgstr "Jakelu:"
 
 #: ../../Jokosher/Jokosher.glade.h:76
 msgid "Don't add an instrument"
@@ -329,19 +329,19 @@ msgstr "Älä luo projektia"
 
 #: ../../Jokosher/Jokosher.glade.h:78
 msgid "Double-click an active effect to adjust its settings"
-msgstr "Kaksoisklikkaa aktiivista efektia muuttaaksesi sen asetuksia"
+msgstr "Kaksoisnapsauta aktiivista tehostetta muuttaaksesi sen asetuksia"
 
 #: ../../Jokosher/Jokosher.glade.h:79
 msgid "Double-click an effect to activate it"
-msgstr "Kaksoisklikkaa efektiä aktivoidaksesi se"
+msgstr "Kaksoisnapsauta tehostetta aktivoidaksesi se"
 
 #: ../../Jokosher/Jokosher.glade.h:80
 msgid "Double-click on a recent project to open"
-msgstr ""
+msgstr "Kaksoisnapsauta viimeaikaista projektia avataksesi sen"
 
 #: ../../Jokosher/Jokosher.glade.h:81
 msgid "Drawing icons, images and other art."
-msgstr "Ikonien, kuvien ja muun grafiikan piirtäminen."
+msgstr "Kuvakkeiden, kuvien ja muun grafiikan piirtäminen."
 
 #: ../../Jokosher/Jokosher.glade.h:82
 msgid "Edit Jokosher preferences"
@@ -349,12 +349,12 @@ msgstr "Muuta Jokosherin asetuksia"
 
 #: ../../Jokosher/Jokosher.glade.h:83
 msgid "Edit project templates"
-msgstr ""
+msgstr "Muokkaa projektimalleja"
 
 #: ../../Jokosher/Jokosher.glade.h:84
 msgid ""
 "Enter a name for your project and select a folder to store the project in:"
-msgstr "Anna projektisi nimi ja valitse kansio jonne se tallennetaan:"
+msgstr "Anna projektisi nimi ja valitse kansio, jonne se tallennetaan:"
 
 #: ../../Jokosher/Jokosher.glade.h:85
 msgid "Enter the author's name"
@@ -370,19 +370,19 @@ msgstr "La_ajennukset"
 
 #: ../../Jokosher/Jokosher.glade.h:88
 msgid "Export current project to an audio file"
-msgstr "Lähetä nykyinen projekti äänitiedostoon"
+msgstr "Vie nykyinen projekti äänitiedostoon"
 
 #: ../../Jokosher/Jokosher.glade.h:89
 msgid "Export to local directory"
-msgstr ""
+msgstr "Vie paikalliseen hakemistoon"
 
 #: ../../Jokosher/Jokosher.glade.h:90
 msgid "Export to remote server"
-msgstr ""
+msgstr "Vie etäpalvelimelle"
 
 #: ../../Jokosher/Jokosher.glade.h:91
 msgid "File name:"
-msgstr ""
+msgstr "Tiedostonimi:"
 
 #: ../../Jokosher/Jokosher.glade.h:92
 msgid "Find and open an existing project"
@@ -394,11 +394,11 @@ msgstr "Näin voit auttaa"
 
 #: ../../Jokosher/Jokosher.glade.h:94
 msgid "GStreamer version:"
-msgstr ""
+msgstr "GStreamerin versio:"
 
 #: ../../Jokosher/Jokosher.glade.h:95
 msgid "Gnonlin version:"
-msgstr ""
+msgstr "Gnonlinin versio:"
 
 #: ../../Jokosher/Jokosher.glade.h:97
 msgid ""
@@ -522,430 +522,422 @@ msgstr ""
 "David Nielsen <david@lovesunix.net>\n"
 "daave <fan.d.liu@gmail.com>\n"
 
-#: ../../Jokosher/Jokosher.glade.h:157 ../../Jokosher/JokosherApp.py:1307
+#: ../../Jokosher/Jokosher.glade.h:157 ../../Jokosher/JokosherApp.py:1339
 msgid "Jokosher"
 msgstr "Jokosher"
 
 #: ../../Jokosher/Jokosher.glade.h:158
-msgid "Jokosher Errors"
-msgstr ""
+msgid "Listen to these effects"
+msgstr "Kuuntele tehosteita"
 
 #: ../../Jokosher/Jokosher.glade.h:159
-msgid "Listen to these effects"
-msgstr "Kuuntele efektejä"
-
-#: ../../Jokosher/Jokosher.glade.h:160
 msgid "Manage instrument recording inputs"
 msgstr "Hallitse soitinten äänitys sisääntuloja"
 
-#: ../../Jokosher/Jokosher.glade.h:161
+#: ../../Jokosher/Jokosher.glade.h:160
 msgid "Mixdown Profile:"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:162 ../../Jokosher/JokosherApp.py:592
+#: ../../Jokosher/Jokosher.glade.h:161 ../../Jokosher/JokosherApp.py:592
 msgid "Mixdown Project"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:163
+#: ../../Jokosher/Jokosher.glade.h:162
 msgid "Mixdown the project using these settings"
 msgstr "Alasmiksaa projekti näillä asetuksilla"
 
-#: ../../Jokosher/Jokosher.glade.h:164
+#: ../../Jokosher/Jokosher.glade.h:163
 msgid "Mixing Project"
 msgstr "Miksausprojekti"
 
-#: ../../Jokosher/Jokosher.glade.h:165
+#: ../../Jokosher/Jokosher.glade.h:164
 msgid "Move the selected active effect down on the effects chain"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:166
+#: ../../Jokosher/Jokosher.glade.h:165
 msgid "Move the selected active effect up on the effects chain"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:167 ../../Jokosher/NewProjectDialog.py:129
+#: ../../Jokosher/Jokosher.glade.h:166 ../../Jokosher/NewProjectDialog.py:126
 msgid "New Project"
 msgstr "Uusi projekti"
 
-#: ../../Jokosher/Jokosher.glade.h:168
+#: ../../Jokosher/Jokosher.glade.h:167
 msgid "Open a recent project"
-msgstr ""
+msgstr "Avaa viimeaikainen projekti"
 
-#: ../../Jokosher/Jokosher.glade.h:169
+#: ../../Jokosher/Jokosher.glade.h:168
 msgid "Open an existing project"
 msgstr "Avaa olemassaoleva projekti"
 
-#: ../../Jokosher/Jokosher.glade.h:170
+#: ../../Jokosher/Jokosher.glade.h:169
 msgid "Open the extension manager"
 msgstr "Avaa laajennukset"
 
-#: ../../Jokosher/Jokosher.glade.h:171
+#: ../../Jokosher/Jokosher.glade.h:170
 msgid "P_ipeline:"
-msgstr ""
+msgstr "Put_ki:"
 
-#: ../../Jokosher/Jokosher.glade.h:172
+#: ../../Jokosher/Jokosher.glade.h:171
 msgid "Paste the contents of the clipboard"
 msgstr "Liitä leikepöydän sisältö"
 
-#: ../../Jokosher/Jokosher.glade.h:173
+#: ../../Jokosher/Jokosher.glade.h:172
 msgid ""
 "Please enter the filename of the audio you wish to export. The audio will be "
 "exported to the location specified."
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:174
+#: ../../Jokosher/Jokosher.glade.h:173
 msgid ""
 "Please select the mixdown actions you would like to add to the mixdown "
 "profile *profile*"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:175
+#: ../../Jokosher/Jokosher.glade.h:174
 msgid "Project Properties"
-msgstr ""
+msgstr "Projektin ominaisuudet"
+
+#: ../../Jokosher/Jokosher.glade.h:175
+msgid "Project Templates"
+msgstr "Projektipohjat"
 
 #: ../../Jokosher/Jokosher.glade.h:176
-msgid "Project Templates"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:177
 msgid "Quit Jokosher"
 msgstr "Lopeta Jokosher"
 
-#: ../../Jokosher/Jokosher.glade.h:178
+#: ../../Jokosher/Jokosher.glade.h:177
 msgid "R_ecording Inputs..."
-msgstr ""
+msgstr "_Äänitys sissäntulot..."
 
-#: ../../Jokosher/Jokosher.glade.h:179
+#: ../../Jokosher/Jokosher.glade.h:178
 msgid "Redo"
 msgstr "Toista"
 
-#: ../../Jokosher/Jokosher.glade.h:180
+#: ../../Jokosher/Jokosher.glade.h:179
 msgid "Redo the previous edit"
-msgstr ""
+msgstr "Toista edellinen muokkaus"
 
-#: ../../Jokosher/Jokosher.glade.h:181
+#: ../../Jokosher/Jokosher.glade.h:180
 msgid "Remove the currently selected extension"
 msgstr "Poista valittu laajennus"
 
-#: ../../Jokosher/Jokosher.glade.h:182
+#: ../../Jokosher/Jokosher.glade.h:181
 msgid "Remove the selected instrument"
 msgstr "Poista valittu soitin"
 
-#: ../../Jokosher/Jokosher.glade.h:183
+#: ../../Jokosher/Jokosher.glade.h:182
 msgid "Report a bug in Jokosher"
 msgstr "Ilmoita virheestä Jokosherissa"
 
-#: ../../Jokosher/Jokosher.glade.h:184
+#: ../../Jokosher/Jokosher.glade.h:183
 msgid "S_ample Rate:"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:185
+#: ../../Jokosher/Jokosher.glade.h:184
 msgid "S_ystem:"
-msgstr ""
+msgstr "_Järjestelmä:"
+
+#: ../../Jokosher/Jokosher.glade.h:185
+msgid "Save _As..."
+msgstr "Tallenna _nimellä..."
 
 #: ../../Jokosher/Jokosher.glade.h:186
-msgid "Save _As..."
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:187
 msgid "Save a copy of the current project"
-msgstr ""
+msgstr "Tallenna kopioi projektista"
 
-#: ../../Jokosher/Jokosher.glade.h:188 ../../Jokosher/JokosherApp.py:601
+#: ../../Jokosher/Jokosher.glade.h:187 ../../Jokosher/JokosherApp.py:601
 msgid "Save as file type:"
-msgstr ""
+msgstr "Tallenna muodossa:"
 
-#: ../../Jokosher/Jokosher.glade.h:189
+#: ../../Jokosher/Jokosher.glade.h:188
 msgid "Save preferences and close"
 msgstr "Tallenna asetukset ja sulje"
 
-#: ../../Jokosher/Jokosher.glade.h:190
+#: ../../Jokosher/Jokosher.glade.h:189
 msgid "Save the current project"
 msgstr "Tallenna nykyinen projekti"
 
-#: ../../Jokosher/Jokosher.glade.h:191
+#: ../../Jokosher/Jokosher.glade.h:190
 msgid "Save the current settings as a preset"
 msgstr "Tallenna nykyiset asetukset esiasetuksena"
 
-#: ../../Jokosher/Jokosher.glade.h:192
+#: ../../Jokosher/Jokosher.glade.h:191
 msgid "Save the currently active effects as a preset"
-msgstr ""
+msgstr "Tallenna aktiiviset tehosteet esiasetuksena"
+
+#: ../../Jokosher/Jokosher.glade.h:192
+msgid "Save the selected project template"
+msgstr "Tallenna valittu projektimalli"
 
 #: ../../Jokosher/Jokosher.glade.h:193
-msgid "Save the selected project template"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:194
 msgid "Save your selections and close this window"
 msgstr "Tallenna valinnat ja sulje ikkuna"
 
-#: ../../Jokosher/Jokosher.glade.h:195
+#: ../../Jokosher/Jokosher.glade.h:194
 msgid "See your system information"
-msgstr ""
+msgstr "Näe järjestelmäsi tiedot"
 
-#: ../../Jokosher/Jokosher.glade.h:196
-msgid "Select A Folder"
-msgstr "Valitse hakemisto"
-
-#: ../../Jokosher/Jokosher.glade.h:197
+#: ../../Jokosher/Jokosher.glade.h:195
 msgid "Select a project to open from the list"
 msgstr "Valitse projekti listasta"
 
-#: ../../Jokosher/Jokosher.glade.h:198
+#: ../../Jokosher/Jokosher.glade.h:196
 msgid "Select the audio input to use with each instrument."
-msgstr ""
+msgstr "Valitse käytettävä äänen sisääntulo joka soittimelle."
 
-#: ../../Jokosher/Jokosher.glade.h:199
+#: ../../Jokosher/Jokosher.glade.h:197
 msgid "Set Time Signature"
 msgstr "Aseta tempo"
 
-#: ../../Jokosher/Jokosher.glade.h:200
+#: ../../Jokosher/Jokosher.glade.h:198
 msgid "Settings"
 msgstr "Asetukset"
 
-#: ../../Jokosher/Jokosher.glade.h:201
+#: ../../Jokosher/Jokosher.glade.h:199
 msgid "Show as _Bars, Beats, Ticks"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:202
+#: ../../Jokosher/Jokosher.glade.h:200
 msgid "Show as _Hours, Minutes, Seconds"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:203
+#: ../../Jokosher/Jokosher.glade.h:201
 msgid "Start Jokosher with an empty project"
 msgstr "Käynnistä Jokosher tyhjällä projektilla"
 
-#: ../../Jokosher/Jokosher.glade.h:204
+#: ../../Jokosher/Jokosher.glade.h:202
 msgid "Start playback"
 msgstr "Aloita soitto"
 
-#: ../../Jokosher/Jokosher.glade.h:205
+#: ../../Jokosher/Jokosher.glade.h:203
 msgid "Stop mixing the project"
 msgstr "Lopeta projektin miksaus"
 
-#: ../../Jokosher/Jokosher.glade.h:206 ../../Jokosher/JokosherApp.py:64
+#: ../../Jokosher/Jokosher.glade.h:204 ../../Jokosher/JokosherApp.py:66
 msgid "Stop playback"
 msgstr "Pysäytä soitto"
 
-#: ../../Jokosher/Jokosher.glade.h:207
+#: ../../Jokosher/Jokosher.glade.h:205
 msgid "Sys_tem:"
-msgstr ""
+msgstr "_Järjestelmä:"
 
-#: ../../Jokosher/Jokosher.glade.h:208
+#: ../../Jokosher/Jokosher.glade.h:206
 msgid "System Information"
-msgstr ""
+msgstr "Järjestelmän tiedot"
 
-#: ../../Jokosher/Jokosher.glade.h:209
+#: ../../Jokosher/Jokosher.glade.h:207
 msgid "Testing Jokosher, and submitting bugs."
 msgstr "Jokosherin testaus ja virheistä ilmoittaminen."
 
-#: ../../Jokosher/Jokosher.glade.h:210
+#: ../../Jokosher/Jokosher.glade.h:208
 msgid "Type here to search for an instrument"
 msgstr "Kirjoita tähän etsiäksesi soitinta"
 
-#: ../../Jokosher/Jokosher.glade.h:211
+#: ../../Jokosher/Jokosher.glade.h:209
 msgid "Undo"
 msgstr "Kumoa"
 
-#: ../../Jokosher/Jokosher.glade.h:212
+#: ../../Jokosher/Jokosher.glade.h:210
 msgid "Undo the last edit"
-msgstr "Kumoa"
+msgstr "Kumoa edellinen muokkaus"
+
+#: ../../Jokosher/Jokosher.glade.h:211
+msgid "Use these effect settings"
+msgstr "Käytä näitä tehosteasetuksia"
+
+#: ../../Jokosher/Jokosher.glade.h:212
+msgid "Use these effects"
+msgstr "Käytä näitä tehosteita"
 
 #: ../../Jokosher/Jokosher.glade.h:213
-msgid "Use these effect settings"
-msgstr "Käytä näitä efekti asetuksia"
-
-#: ../../Jokosher/Jokosher.glade.h:214
-msgid "Use these effects"
-msgstr "Käytä näitä efektejä"
-
-#: ../../Jokosher/Jokosher.glade.h:215
 msgid "Use these settings"
 msgstr "Käytä näitä asetuksia"
 
-#: ../../Jokosher/Jokosher.glade.h:216
+#: ../../Jokosher/Jokosher.glade.h:214
 msgid "User manual contents"
 msgstr "Käyttäjäoppaan hakemisto"
 
-#: ../../Jokosher/Jokosher.glade.h:217
+#: ../../Jokosher/Jokosher.glade.h:215
 msgid "Version information, credits and licence"
 msgstr "Versio tiedot, kiitokset ja lisenssi"
 
-#: ../../Jokosher/Jokosher.glade.h:218
+#: ../../Jokosher/Jokosher.glade.h:216
 msgid "Visit Jokosher's online forums"
-msgstr ""
+msgstr "Vieraile Jokosherin foorumilla netissä"
 
-#: ../../Jokosher/Jokosher.glade.h:219
+#: ../../Jokosher/Jokosher.glade.h:217
 msgid "Welcome to Jokosher!"
 msgstr "Tervetuloa Jokosheriin!"
 
-#: ../../Jokosher/Jokosher.glade.h:220
+#: ../../Jokosher/Jokosher.glade.h:218
 msgid "Writing code and features in Python."
 msgstr "Ohjelmointi ja ominaisuudet python-ohjelmointikielellä."
 
-#: ../../Jokosher/Jokosher.glade.h:221
+#: ../../Jokosher/Jokosher.glade.h:219
 msgid "Writing simple to read documentation."
 msgstr "Helposti ymmärrettävän dokumentaation kirjoittaminen."
 
-#: ../../Jokosher/Jokosher.glade.h:222
+#: ../../Jokosher/Jokosher.glade.h:220
 msgid "Your music file is being mixed. This can take some seconds."
-msgstr ""
+msgstr "Musiikkitiedostoasi miksataan. Tämä voi viedä muutamia sekunteja."
 
-#: ../../Jokosher/Jokosher.glade.h:223
+#: ../../Jokosher/Jokosher.glade.h:221
 msgid "_Author:"
-msgstr ""
+msgstr "_Tekijä:"
 
-#: ../../Jokosher/Jokosher.glade.h:224
+#: ../../Jokosher/Jokosher.glade.h:222
 msgid "_Browse for an Existing Project"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:225
+#: ../../Jokosher/Jokosher.glade.h:223
 msgid "_Change Instrument Type..."
-msgstr ""
+msgstr "_Muuta soittimen tyyppiä..."
 
-#: ../../Jokosher/Jokosher.glade.h:226
+#: ../../Jokosher/Jokosher.glade.h:224
 msgid "_Contributing to Jokosher"
 msgstr "_Auta Jokosheria"
 
-#: ../../Jokosher/Jokosher.glade.h:227
+#: ../../Jokosher/Jokosher.glade.h:225
 msgid "_Create a New Project"
-msgstr ""
+msgstr "_Luo uusi projekti"
+
+#: ../../Jokosher/Jokosher.glade.h:226
+msgid "_Don't open anything"
+msgstr "_Älä avaa mitään"
+
+#: ../../Jokosher/Jokosher.glade.h:227
+msgid "_Don't show this on start-up"
+msgstr "_Älä näytä tätä käynnistyksen yhteydessä"
 
 #: ../../Jokosher/Jokosher.glade.h:228
-msgid "_Don't open anything"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:229
-msgid "_Don't show this on start-up"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:230
 msgid "_Edit"
 msgstr "_Muokkaa"
 
-#: ../../Jokosher/Jokosher.glade.h:231
+#: ../../Jokosher/Jokosher.glade.h:229
 msgid "_Encoding:"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:232
+#: ../../Jokosher/Jokosher.glade.h:230
 msgid "_File"
 msgstr "_Tiedosto"
 
-#: ../../Jokosher/Jokosher.glade.h:233
+#: ../../Jokosher/Jokosher.glade.h:231
 msgid "_Folder:"
-msgstr ""
+msgstr "_Kansio:"
 
-#: ../../Jokosher/Jokosher.glade.h:234
+#: ../../Jokosher/Jokosher.glade.h:232
 msgid "_Help"
 msgstr "_Ohje"
 
-#: ../../Jokosher/Jokosher.glade.h:235
+#: ../../Jokosher/Jokosher.glade.h:233
 msgid "_Instrument"
 msgstr "_Soitin"
 
-#: ../../Jokosher/Jokosher.glade.h:236
+#: ../../Jokosher/Jokosher.glade.h:234
 msgid "_Manage Extensions..."
-msgstr ""
+msgstr "_Hallitse laajennuksia..."
 
-#: ../../Jokosher/Jokosher.glade.h:237
+#: ../../Jokosher/Jokosher.glade.h:235
 msgid "_Mixdown"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:238 ../../Jokosher/JokosherApp.py:1935
+#: ../../Jokosher/Jokosher.glade.h:236 ../../Jokosher/JokosherApp.py:1959
 msgid "_Mixdown Project..."
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:239
+#: ../../Jokosher/Jokosher.glade.h:237
 msgid "_Name:"
-msgstr ""
+msgstr "_Nimi:"
 
-#: ../../Jokosher/Jokosher.glade.h:240
+#: ../../Jokosher/Jokosher.glade.h:238
 msgid "_New..."
-msgstr ""
+msgstr "_Uusi..."
 
-#: ../../Jokosher/Jokosher.glade.h:241
+#: ../../Jokosher/Jokosher.glade.h:239
 msgid "_Online Forums"
 msgstr "_Foorumit"
 
-#: ../../Jokosher/Jokosher.glade.h:242
+#: ../../Jokosher/Jokosher.glade.h:240
 msgid "_Open Selected Project"
-msgstr ""
+msgstr "_Avaa valittu projekti"
+
+#: ../../Jokosher/Jokosher.glade.h:241
+msgid "_Open most recent project"
+msgstr "_Avaa viimeisin projekti"
+
+#: ../../Jokosher/Jokosher.glade.h:242
+msgid "_Open..."
+msgstr "_Avaa..."
 
 #: ../../Jokosher/Jokosher.glade.h:243
-msgid "_Open most recent project"
-msgstr ""
+msgid "_Pipeline:"
+msgstr "_Putki:"
 
 #: ../../Jokosher/Jokosher.glade.h:244
-msgid "_Open..."
-msgstr ""
+msgid "_Preferences"
+msgstr "_Asetukset"
 
 #: ../../Jokosher/Jokosher.glade.h:245
-msgid "_Pipeline:"
-msgstr ""
+msgid "_Project Name:"
+msgstr "_Projektin nimi:"
 
 #: ../../Jokosher/Jokosher.glade.h:246
-msgid "_Preferences"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:247
-msgid "_Project Name:"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:248
 msgid "_Recent Projects"
 msgstr "_Viimeisimmät projektit"
 
-#: ../../Jokosher/Jokosher.glade.h:249
+#: ../../Jokosher/Jokosher.glade.h:247
 msgid "_Remove Selected Instrument"
-msgstr ""
+msgstr "_Poista valitut soittimet"
+
+#: ../../Jokosher/Jokosher.glade.h:248
+msgid "_Report Bug..."
+msgstr "_Ilmoita ohjelman virheestä..."
+
+#: ../../Jokosher/Jokosher.glade.h:249
+msgid "_Search:"
+msgstr "_Etsi:"
 
 #: ../../Jokosher/Jokosher.glade.h:250
-msgid "_Report Bug..."
-msgstr "_Raportoi Ongelma"
+msgid "_Show welcome dialog"
+msgstr "_Näytä tervetuloikkuna"
 
 #: ../../Jokosher/Jokosher.glade.h:251
-msgid "_Search:"
-msgstr ""
+msgid "_System Information"
+msgstr "_Järjestelmän tiedot"
 
 #: ../../Jokosher/Jokosher.glade.h:252
-msgid "_Show welcome dialog"
-msgstr ""
+msgid "_Template Name:"
+msgstr "_Mallin nimi:"
 
 #: ../../Jokosher/Jokosher.glade.h:253
-msgid "_System Information"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:254
-msgid "_Template Name:"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:255
 msgid "_Time Format"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:256
+#: ../../Jokosher/Jokosher.glade.h:254
 msgid "_Use project template"
-msgstr ""
+msgstr "_Käytä projektimallia"
 
-#: ../../Jokosher/Jokosher.glade.h:257
+#: ../../Jokosher/Jokosher.glade.h:255
 msgid "autoaudiosink"
 msgstr "autoaudiosink"
 
-#: ../../Jokosher/Jokosher.glade.h:258
+#: ../../Jokosher/Jokosher.glade.h:256
 msgid "xx.xx.xx"
-msgstr ""
+msgstr "xx.xx.xx"
 
-#: ../../Jokosher/AddInstrumentDialog.py:61
+#: ../../Jokosher/AddInstrumentDialog.py:63
 msgid "Change Instrument Type"
 msgstr "Vaihda soittimen tyyppiä"
 
-#: ../../Jokosher/AddInstrumentDialog.py:63
+#: ../../Jokosher/AddInstrumentDialog.py:65
 #, python-format
 msgid "Choose the new instrument type for %s"
 msgstr ""
 
 #: ../../Jokosher/CompactMixView.py:86
 msgid "<b>Instruments Not Shown:</b>"
-msgstr ""
+msgstr "<b>Soittimet joita ei näytetä:</b>"
 
 #: ../../Jokosher/ControlsBox.py:42
 msgid "Enable this instrument for recording"
@@ -965,114 +957,136 @@ msgstr ""
 
 #: ../../Jokosher/ControlsBox.py:46
 msgid "Activate Solo - silence all other instruments"
-msgstr "Solo - mykistä muut soittimet"
+msgstr "Soolo - mykistä muut soittimet"
 
 #: ../../Jokosher/ControlsBox.py:47
 msgid "Deactivate Solo - hear all the instruments"
 msgstr ""
 
-#: ../../Jokosher/ControlsBox.py:84
-#: ../../Jokosher/InstrumentEffectsDialog.py:114
+#: ../../Jokosher/ControlsBox.py:80
+#: ../../Jokosher/InstrumentEffectsDialog.py:116
 msgid "Instrument Effects"
-msgstr "Soitin Efektit"
+msgstr "Soitintehosteet"
 
-#: ../../Jokosher/Event.py:765
+#: ../../Jokosher/EventLaneViewer.py:115
+msgid "_Add Audio File..."
+msgstr "_Lisää äänitiedosto..."
+
+#: ../../Jokosher/EventLaneViewer.py:264
+msgid "<b>Right-click</b> for more options."
+msgstr ""
+
+#: ../../Jokosher/Event.py:780
 #, python-format
 msgid "%(title)s by %(artist)s"
 msgstr ""
 
-#: ../../Jokosher/EventLaneViewer.py:114
-msgid "_Add Audio File..."
-msgstr "_Lisää äänitiedosto..."
-
-#: ../../Jokosher/EventLaneViewer.py:263
-msgid "<b>Right-click</b> for more options."
-msgstr ""
-
-#: ../../Jokosher/EventViewer.py:153
+#: ../../Jokosher/EventViewer.py:151
 msgid "Trim"
 msgstr "Ota kaistale"
 
-#: ../../Jokosher/EventViewer.py:164
+#: ../../Jokosher/EventViewer.py:162
 msgid "Delete Fade Points"
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:172
+#: ../../Jokosher/EventViewer.py:170
 msgid "Snap To Fade Points"
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:445
+#: ../../Jokosher/EventViewer.py:443
 msgid "Downloading..."
 msgstr "Ladataan..."
 
-#: ../../Jokosher/EventViewer.py:447
+#: ../../Jokosher/EventViewer.py:445
 msgid "Loading..."
 msgstr "Latautuu..."
 
-#: ../../Jokosher/EventViewer.py:451
+#: ../../Jokosher/EventViewer.py:449
 #, python-format
 msgid "Downloading (%d%%)..."
 msgstr "Ladataan (%d%%)..."
 
-#: ../../Jokosher/EventViewer.py:453
+#: ../../Jokosher/EventViewer.py:451
 #, python-format
 msgid "Loading (%d%%)..."
 msgstr "Latautuu (%d%%)..."
 
-#: ../../Jokosher/EventViewer.py:464
+#: ../../Jokosher/EventViewer.py:462
 msgid "Recording..."
 msgstr "Äänitetään..."
 
-#: ../../Jokosher/EventViewer.py:512
+#: ../../Jokosher/EventViewer.py:510
 msgid ""
 "To <b>Split, Double-Click</b> the wave - To <b>Select, Shift-Click</b> and "
 "drag the mouse"
 msgstr ""
-"<b>Jakaaksesi, Tuplaklikkaa</b> aaltoa - <b>Valitaksesi, Shift-klikkaa</b> "
-"ja vedä hiirellä"
+"<b>Jakaaksesi, kakoisnapsauta</b> aaltoa - <b>Valitaksesi, shift-napsauta</"
+"b> ja vedä hiirellä"
 
-#: ../../Jokosher/EventViewer.py:526
+#: ../../Jokosher/EventViewer.py:524
 msgid "<b>Drag</b> the red sliders to modify the volume fade."
 msgstr ""
 
-#: ../../Jokosher/EventViewer.py:639
+#: ../../Jokosher/EventViewer.py:637
 msgid ""
 "<b>Click</b> the buttons below the selection to do something to that portion "
 "of audio."
 msgstr ""
-"<b>Paina</b> valinnan alla olevia nappeja vaikuttaaksesi valittuun "
+"<b>Napsauta</b> valinnan alla olevia nappeja vaikuttaaksesi valittuun "
 "äänikaistaleeseen."
 
-#: ../../Jokosher/EventViewer.py:904
+#: ../../Jokosher/EventViewer.py:902
 msgid "_Split"
 msgstr "_Jaa"
 
-#: ../../Jokosher/EventViewer.py:906
+#: ../../Jokosher/EventViewer.py:904
 msgid "Cu_t"
-msgstr "Lei_kkaa"
+msgstr "_Leikkaa"
 
-#: ../../Jokosher/EventViewer.py:907
+#: ../../Jokosher/EventViewer.py:905
 msgid "_Copy"
 msgstr "_Kopioi"
 
-#: ../../Jokosher/EventViewer.py:908
-#: ../../Jokosher/InstrumentEffectsDialog.py:442
+#: ../../Jokosher/EventViewer.py:906
+#: ../../Jokosher/InstrumentEffectsDialog.py:449
 msgid "_Delete"
 msgstr "_Poista"
 
-#: ../../Jokosher/EventViewer.py:1198
+#: ../../Jokosher/EventViewer.py:1196
 msgid "Error loading file:"
 msgstr "Virhe ladattaessa tiedostoa:"
 
-#: ../../Jokosher/EventViewer.py:1199
+#: ../../Jokosher/EventViewer.py:1197
 msgid ""
 "Please make sure the file exists, and the appropriate plugin is installed."
-msgstr "Varmista tiedoston on olemassa ja että oikea laajennus on asennettu."
+msgstr ""
+"Varmista, että tiedosto on olemassa ja että oikea laajennus on asennettu."
 
-#: ../../Jokosher/EventViewer.py:1417
+#: ../../Jokosher/EventViewer.py:1415
 #, python-format
 msgid ""
 "Event, %(name)s, %(dur)0.2f seconds long, starting at %(start)0.2f seconds."
+msgstr ""
+
+#: ../../Jokosher/ExtensionManagerDialog.py:169
+msgid "Choose a Jokosher Extension file"
+msgstr "Valitse Jokosher-laajennus"
+
+#: ../../Jokosher/ExtensionManagerDialog.py:175
+msgid "Jokosher Extension Files (*.py *.egg)"
+msgstr "Jokosher-laajennukset (*.py *.egg)"
+
+#: ../../Jokosher/ExtensionManagerDialog.py:197
+msgid "There was a problem loading the extension"
+msgstr "Ongelma laajennusta ladattaessa"
+
+#: ../../Jokosher/ExtensionManagerDialog.py:235
+msgid "There was a problem removing the extension"
+msgstr "Ongelma laajennuksen poistamisessa"
+
+#: ../../Jokosher/ExtensionManagerDialog.py:272
+msgid ""
+"An error occurred when trying to launch the preferences for the extension"
 msgstr ""
 
 #: ../../Jokosher/Extension.py:50
@@ -1111,108 +1125,87 @@ msgstr "Korvaa"
 msgid "Your new extension is now available in Jokosher!"
 msgstr "Uusi laajennus on nyt käytettävissäsi"
 
-#: ../../Jokosher/ExtensionManagerDialog.py:169
-msgid "Choose a Jokosher Extension file"
-msgstr "Valitse Jokosher Laajennus"
-
-#: ../../Jokosher/ExtensionManagerDialog.py:175
-msgid "Jokosher Extension Files (*.py *.egg)"
-msgstr "Jokosher laajennukset (*.py *.egg)"
-
-#: ../../Jokosher/ExtensionManagerDialog.py:197
-msgid "There was a problem loading the extension"
-msgstr "Ongelma laajennusta ladattaessa"
-
-#: ../../Jokosher/ExtensionManagerDialog.py:235
-msgid "There was a problem removing the extension"
-msgstr "Ongelma laajennuksen poistamisessa"
-
-#: ../../Jokosher/ExtensionManagerDialog.py:272
-msgid ""
-"An error occurred when trying to launch the preferences for the extension"
-msgstr ""
-
-#: ../../Jokosher/Globals.py:495
+#: ../../Jokosher/Globals.py:486
 msgid "Broken"
 msgstr "Rikki"
 
-#: ../../Jokosher/Globals.py:496
+#: ../../Jokosher/Globals.py:487
 msgid "Unclassified"
 msgstr "Luokittelematon"
 
-#: ../../Jokosher/Globals.py:497
+#: ../../Jokosher/Globals.py:488
 msgid "Amplifiers"
 msgstr "Vahvistimet"
 
-#: ../../Jokosher/Globals.py:498
+#: ../../Jokosher/Globals.py:489
 msgid "Chorus"
 msgstr "Chorus"
 
-#: ../../Jokosher/Globals.py:499
+#: ../../Jokosher/Globals.py:490
 msgid "Compressors"
 msgstr "Kompressorit"
 
-#: ../../Jokosher/Globals.py:500
+#: ../../Jokosher/Globals.py:491
 msgid "Delays"
 msgstr "Viiveet"
 
-#: ../../Jokosher/Globals.py:501
+#: ../../Jokosher/Globals.py:492
 msgid "Distortions"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:502
+#: ../../Jokosher/Globals.py:493
 msgid "Equalizers"
 msgstr "Ekvalisaattori"
 
-#: ../../Jokosher/Globals.py:503
+#: ../../Jokosher/Globals.py:494
 msgid "Filters"
 msgstr "Suotimet"
 
-#: ../../Jokosher/Globals.py:504
+#: ../../Jokosher/Globals.py:495
 msgid "Flangers"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:505
+#: ../../Jokosher/Globals.py:496
 msgid "Miscellaneous"
 msgstr "Sekalaiset"
 
-#: ../../Jokosher/Globals.py:506
+#: ../../Jokosher/Globals.py:497
 msgid "Modulators"
 msgstr "Modulaattorit"
 
-#: ../../Jokosher/Globals.py:507
+#: ../../Jokosher/Globals.py:498
 msgid "Oscillators"
 msgstr "Oskillaattorit"
 
-#: ../../Jokosher/Globals.py:508
+#: ../../Jokosher/Globals.py:499
 msgid "Phasers"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:509
+#: ../../Jokosher/Globals.py:500
 msgid "Reverbs"
 msgstr "Kaiku"
 
-#: ../../Jokosher/Globals.py:510
+#: ../../Jokosher/Globals.py:501
 msgid "Simulators"
 msgstr "Simulaattorit"
 
-#: ../../Jokosher/Globals.py:703 ../../Jokosher/PreferencesDialog.py:113
+#: ../../Jokosher/Globals.py:695 ../../Jokosher/PreferencesDialog.py:113
 msgid "Autodetect"
-msgstr ""
+msgstr "Tunnista automaattisesti"
 
-#: ../../Jokosher/Globals.py:704
+#: ../../Jokosher/Globals.py:696
 msgid "Use GNOME Settings"
-msgstr ""
+msgstr "Käytän Gnomen asetuksia"
 
-#: ../../Jokosher/Globals.py:712
+#: ../../Jokosher/Globals.py:706
 msgid "GNOME Settings"
-msgstr ""
+msgstr "Gnomen asetukset"
 
-#: ../../Jokosher/Globals.py:728
+#: ../../Jokosher/Globals.py:724
 msgid "Jokosher Audio Editor"
-msgstr ""
+msgstr "Jokosher-äänieditori"
 
-#: ../../Jokosher/IncrementalSave.py:29 ../../Jokosher/Instrument.py:488
+#: ../../Jokosher/IncrementalSave.py:29 ../../Jokosher/Instrument.py:489
 msgid "Recorded audio"
 msgstr "Tallennettu ääni"
 
@@ -1221,18 +1214,24 @@ msgid "There are no instruments to connect"
 msgstr "Ei liitettäviä soittimia"
 
 #: ../../Jokosher/InstrumentConnectionsDialog.py:103
-#: ../../Jokosher/PreferencesDialog.py:333
+#: ../../Jokosher/PreferencesDialog.py:338
 msgid "Default"
 msgstr "Oletus"
 
 #: ../../Jokosher/InstrumentConnectionsDialog.py:105
 #, python-format
 msgid "Default (%s)"
-msgstr ""
+msgstr "Oletus (%s)"
 
 #: ../../Jokosher/InstrumentConnectionsDialog.py:112
 #, python-format
-msgid "%(device)s, input %(input)d"
+msgid "%(device)s (%(id)s), input %(input)d"
+msgstr ""
+
+#: ../../Jokosher/InstrumentConnectionsDialog.py:115
+#: ../../Jokosher/PreferencesDialog.py:341
+#, python-format
+msgid "%(device)s (%(id)s)"
 msgstr ""
 
 #: ../../Jokosher/InstrumentConnectionsDialog.py:157
@@ -1247,55 +1246,55 @@ msgid ""
 "The \"%(custom-pipeline)s\" sound system does not support device selection."
 msgstr ""
 
-#: ../../Jokosher/InstrumentEffectsDialog.py:140
 #: ../../Jokosher/InstrumentEffectsDialog.py:142
+#: ../../Jokosher/InstrumentEffectsDialog.py:144
 #: ../../Jokosher/MixdownProfileDialog.py:618
 msgid "Name"
 msgstr "Nimi"
 
-#: ../../Jokosher/InstrumentEffectsDialog.py:141
+#: ../../Jokosher/InstrumentEffectsDialog.py:143
 #: ../../Jokosher/ProjectTemplateDialog.py:82
 #: ../../Jokosher/ProjectTemplateDialog.py:86
 msgid "Type"
 msgstr "Tyyppi"
 
-#: ../../Jokosher/InstrumentEffectsDialog.py:439
+#: ../../Jokosher/InstrumentEffectsDialog.py:446
 msgid "_Move up..."
 msgstr "_Siirrä  ylös..."
 
-#: ../../Jokosher/InstrumentEffectsDialog.py:440
+#: ../../Jokosher/InstrumentEffectsDialog.py:447
 msgid "M_ove down..."
 msgstr "S_iirrä alas..."
 
-#: ../../Jokosher/InstrumentEffectsDialog.py:443
+#: ../../Jokosher/InstrumentEffectsDialog.py:450
 msgid "_Settings"
 msgstr "_Asetukset"
 
-#: ../../Jokosher/InstrumentEffectsDialog.py:484
+#: ../../Jokosher/InstrumentEffectsDialog.py:491
 msgid "_Activate effect"
-msgstr "_Aktoivoi efekti"
+msgstr "_Aktoivoi tehoste"
 
-#: ../../Jokosher/InstrumentEffectsDialog.py:666
+#: ../../Jokosher/InstrumentEffectsDialog.py:673
 msgid "Effect Settings"
-msgstr "Efekti Asetukset"
+msgstr "Tehosteen asetukset"
 
-#: ../../Jokosher/InstrumentEffectsDialog.py:700
+#: ../../Jokosher/InstrumentEffectsDialog.py:704
 msgid "-parameter not readable-"
 msgstr "-parametriä ei pystytä lukemaan-"
 
-#: ../../Jokosher/JokosherApp.py:61 ../../Jokosher/JokosherApp.py:63
+#: ../../Jokosher/JokosherApp.py:63 ../../Jokosher/JokosherApp.py:65
 msgid "Stop recording"
 msgstr "Pysäytä äänitys"
 
-#: ../../Jokosher/JokosherApp.py:62
+#: ../../Jokosher/JokosherApp.py:64
 msgid "Arm an instrument, then click here to begin recording"
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:65
+#: ../../Jokosher/JokosherApp.py:67
 msgid "Hide the audio level mixers"
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:66
+#: ../../Jokosher/JokosherApp.py:68
 msgid "Show the audio level mixers"
 msgstr ""
 
@@ -1346,9 +1345,36 @@ msgstr "Jokosher-projektitiedosto (*.jokosher)"
 
 #: ../../Jokosher/JokosherApp.py:781
 msgid "Choose a location to save the project"
+msgstr "Valitse sijainti, jonne projekti tallennetaan"
+
+#: ../../Jokosher/JokosherApp.py:811 ../../Jokosher/NewProjectDialog.py:147
+msgid ""
+"A file or folder with this name already exists. Please choose a different "
+"project name and try again."
+msgstr ""
+"Samanniminen tiedosto tai kansio on jo olemassa. Valitse toinen nimi "
+"projektille ja yritä uudestaan."
+
+#: ../../Jokosher/JokosherApp.py:813 ../../Jokosher/NewProjectDialog.py:149
+msgid "The file or folder location is write-protected."
+msgstr "Tiedosto tai kansio on kirjoitussuojattu."
+
+#: ../../Jokosher/JokosherApp.py:815 ../../Jokosher/NewProjectDialog.py:153
+msgid "The URI scheme given is either invalid or not supported"
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:843
+#: ../../Jokosher/JokosherApp.py:822 ../../Jokosher/NewProjectDialog.py:162
+#, python-format
+msgid ""
+"Unable to create project.\n"
+"\n"
+"%s"
+msgstr ""
+"Projektia ei voitu luoda:\n"
+"\n"
+"%s"
+
+#: ../../Jokosher/JokosherApp.py:877
 #, python-format
 msgid ""
 "<span size='large' weight='bold'>Save changes to project \"%s\" before "
@@ -1361,75 +1387,77 @@ msgstr ""
 "\n"
 "Muutoksesi katoavat ellei niitä tallenneta."
 
-#: ../../Jokosher/JokosherApp.py:852
+#: ../../Jokosher/JokosherApp.py:886
 msgid "Close _Without Saving"
 msgstr "Sulje _tallentamatta"
 
-#: ../../Jokosher/JokosherApp.py:951
+#: ../../Jokosher/JokosherApp.py:985
 #, python-format
 msgid "Mixing project to file: %s"
 msgstr "Miksataan projekti tiedostoon: %s"
 
-#: ../../Jokosher/JokosherApp.py:983
+#: ../../Jokosher/JokosherApp.py:1017
 #, python-format
 msgid "*%s - Jokosher"
 msgstr "*%s - Jokosher"
 
-#: ../../Jokosher/JokosherApp.py:985
+#: ../../Jokosher/JokosherApp.py:1019
 #, python-format
 msgid "%s - Jokosher"
 msgstr "%s - Jokosher"
 
-#: ../../Jokosher/JokosherApp.py:1064
+#: ../../Jokosher/JokosherApp.py:1097
 msgid "Clear the list of recent projects"
 msgstr "Tyhjennä viimeisimmät projektit"
 
-#: ../../Jokosher/JokosherApp.py:1486
+#: ../../Jokosher/JokosherApp.py:1519
 msgid "The project references non-existant files:\n"
-msgstr "Projektissa on viittauksia tiedostoihin joita ei löydy:\n"
+msgstr "Projektissa on viittauksia tiedostoihin, joita ei ole:\n"
 
-#: ../../Jokosher/JokosherApp.py:1490
+#: ../../Jokosher/JokosherApp.py:1523
 msgid ""
 "\n"
 "The project references non-existant images:\n"
 msgstr ""
 "\n"
-"Projektissa on viittauksia kuviin joita ei löydy:\n"
+"Projektissa on viittauksia kuviin, joita ei ole:\n"
 
-#: ../../Jokosher/JokosherApp.py:1498
+#: ../../Jokosher/JokosherApp.py:1531
 #, python-format
 msgid ""
 "%s\n"
 " Invalid or corrupt project file, will not open."
 msgstr ""
 "%s\n"
-" Virheellinen tai viallinen projektitiedosto jota ei voida avata."
+" Virheellinen tai viallinen projektitiedosto, jota ei voida avata."
 
-#: ../../Jokosher/JokosherApp.py:1536
+#: ../../Jokosher/JokosherApp.py:1569
 msgid "You must have Gstreamer version 0.10.9 or higher.\n"
 msgstr "Vaaditaan Gstreamer 0.10.9 tai uudempi.\n"
 
-#: ../../Jokosher/JokosherApp.py:1544
+#: ../../Jokosher/JokosherApp.py:1577
 msgid "You must have Gstreamer plugin gnonlin version 0.10.4.2 or later.\n"
 msgstr "Vaaditaan Gstreamer-lisäosa gnonlin 0.10.4.2 tai uudempi.\n"
 
-#: ../../Jokosher/JokosherApp.py:1546
+#: ../../Jokosher/JokosherApp.py:1579
 msgid "Gstreamer plugin gnonlin is not installed."
 msgstr "Gstreamer-lisäosaa gnonlin ei ole asennettu."
 
-#: ../../Jokosher/JokosherApp.py:1547
+#: ../../Jokosher/JokosherApp.py:1580
 msgid ""
 "\n"
 "See http://doc.jokosher.org/Installation for more details.\n"
 msgstr ""
+"\n"
+"Osiotteessa http://doc.jokosher.org/Installation on lisää tietoja.\n"
 
-#: ../../Jokosher/JokosherApp.py:1550
+#: ../../Jokosher/JokosherApp.py:1583
 msgid ""
 "You must have the Gstreamer plugin packs gst-plugins-base and gst-plugins-"
 "good installed.\n"
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:1556
+#: ../../Jokosher/JokosherApp.py:1589
 #, python-format
 msgid ""
 "<big>Some functionality will not work correctly or at all.</big>\n"
@@ -1441,11 +1469,15 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../../Jokosher/JokosherApp.py:1606
-msgid "<big>Couldn't launch the Yelp help browser.</big>"
+#: ../../Jokosher/JokosherApp.py:1632
+#, python-format
+msgid ""
+"<big>Couldn't launch the Jokosher documentation site.</big>\n"
+"\n"
+"Please visit %s to access it."
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:1619
+#: ../../Jokosher/JokosherApp.py:1643
 #, python-format
 msgid ""
 "<big>Couldn't launch the forums website automatically.</big>\n"
@@ -1453,11 +1485,11 @@ msgid ""
 "Please visit %s to access them."
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:1647
+#: ../../Jokosher/JokosherApp.py:1671
 msgid "<b>To find out more, visit:</b>"
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:1670
+#: ../../Jokosher/JokosherApp.py:1694
 #, python-format
 msgid ""
 "<big>Couldn't launch the contributing website automatically.</big>\n"
@@ -1465,36 +1497,36 @@ msgid ""
 "Please visit %s to access it."
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:1725
+#: ../../Jokosher/JokosherApp.py:1749
 msgid "Gnonlin is missing!"
-msgstr ""
+msgstr "Gnonlin puuttuu!"
 
-#: ../../Jokosher/JokosherApp.py:1732
+#: ../../Jokosher/JokosherApp.py:1756
 msgid "Unknown"
-msgstr ""
+msgstr "Tuntematon"
 
-#: ../../Jokosher/JokosherApp.py:1748
+#: ../../Jokosher/JokosherApp.py:1772
 #, python-format
 msgid "The URI scheme '%s' is either invalid or not supported."
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:1750
+#: ../../Jokosher/JokosherApp.py:1774
 #, python-format
 msgid "Unable to unzip the project file %s"
 msgstr "Projektitiedostoa %s ei voida purkaa"
 
-#: ../../Jokosher/JokosherApp.py:1752
+#: ../../Jokosher/JokosherApp.py:1776
 #, python-format
 msgid "The project file was created with version \"%s\" of Jokosher.\n"
 msgstr "Projektitiedosto luotu Jokosher versiolla \"%s\"\n"
 
-#: ../../Jokosher/JokosherApp.py:1753
+#: ../../Jokosher/JokosherApp.py:1777
 #, python-format
 msgid "Projects from version \"%s\" are incompatible with this release.\n"
 msgstr ""
 "Version \"%s\" projektit eivät ole yhteensopivia tämän version kanssa.\n"
 
-#: ../../Jokosher/JokosherApp.py:1755
+#: ../../Jokosher/JokosherApp.py:1779
 #, python-format
 msgid ""
 "The project:\n"
@@ -1507,27 +1539,28 @@ msgstr ""
 "\n"
 "ei ole olemassa.\n"
 
-#: ../../Jokosher/JokosherApp.py:1757 ../../Jokosher/JokosherApp.py:1761
+#: ../../Jokosher/JokosherApp.py:1781 ../../Jokosher/JokosherApp.py:1785
 msgid "The project file could not be opened.\n"
 msgstr "Projektitiedostoa ei voitu avata:\n"
 
-#: ../../Jokosher/JokosherApp.py:1758
+#: ../../Jokosher/JokosherApp.py:1782
 msgid ""
 "It is recommended that you report this to the Jokosher developers or get "
 "help at http://www.jokosher.org/forums/"
 msgstr ""
-"On suositeltavaa että raportoit tästä Jokosherin kehittäjille tai etsi apua\n"
+"On suositeltavaa, että ilmoitat tästä Jokosherin kehittäjille tai etsi apua"
+"\r\n"
 "http://www.jokosher.org/forums/"
 
-#: ../../Jokosher/JokosherApp.py:1838
+#: ../../Jokosher/JokosherApp.py:1862
 msgid "Copy file to project"
 msgstr "Kopioi tiedosto projektiin"
 
-#: ../../Jokosher/JokosherApp.py:1843
+#: ../../Jokosher/JokosherApp.py:1867
 msgid "Add Audio File..."
-msgstr "Lisää Äänitiedosto..."
+msgstr "Lisää äänitiedosto..."
 
-#: ../../Jokosher/JokosherApp.py:1917 ../../Jokosher/JokosherApp.py:1922
+#: ../../Jokosher/JokosherApp.py:1941 ../../Jokosher/JokosherApp.py:1946
 msgid "Mix_down As"
 msgstr ""
 
@@ -1537,11 +1570,11 @@ msgstr "Master"
 
 #: ../../Jokosher/MixdownActions.py:157
 msgid "Export File"
-msgstr ""
+msgstr "Vie tiedosto"
 
 #: ../../Jokosher/MixdownActions.py:158
 msgid "Export a file to the destination of your choosing."
-msgstr ""
+msgstr "Vie tiedosto valitsemaasi kohteeseen."
 
 #: ../../Jokosher/MixdownActions.py:225
 #, python-format
@@ -1558,27 +1591,27 @@ msgstr ""
 
 #: ../../Jokosher/MixdownActions.py:253
 msgid "Server type:"
-msgstr ""
+msgstr "Palvelimen tyyppi:"
 
 #: ../../Jokosher/MixdownActions.py:266
 msgid "Server location:"
-msgstr ""
+msgstr "Palvelimen sijainti:"
 
 #: ../../Jokosher/MixdownActions.py:270
 msgid "Username:"
-msgstr ""
+msgstr "Käyttäjänimi:"
 
 #: ../../Jokosher/MixdownActions.py:274
 msgid "Password:"
-msgstr ""
+msgstr "Salasana:"
 
 #: ../../Jokosher/MixdownActions.py:310
 msgid "Location:"
-msgstr ""
+msgstr "Sijainti:"
 
 #: ../../Jokosher/MixdownActions.py:378
 msgid "Select Export Location"
-msgstr ""
+msgstr "Valitse viennin sijainti"
 
 #: ../../Jokosher/MixdownActions.py:489 ../../Jokosher/MixdownActions.py:499
 msgid "Run External Script"
@@ -1619,7 +1652,7 @@ msgstr ""
 
 #: ../../Jokosher/MixdownProfileDialog.py:377
 msgid "Profile name:"
-msgstr ""
+msgstr "Profiilin nimi:"
 
 #: ../../Jokosher/MixdownProfileDialog.py:380
 msgid "Create Mixdown Profile"
@@ -1656,7 +1689,7 @@ msgstr ""
 
 #: ../../Jokosher/MixdownProfileDialog.py:617
 msgid "Icon"
-msgstr ""
+msgstr "Kuvake"
 
 #: ../../Jokosher/MixdownProfileDialog.py:632
 #, python-format
@@ -1675,154 +1708,130 @@ msgstr ""
 msgid "Cannot remove mixdown profile %s"
 msgstr ""
 
-#: ../../Jokosher/MixerStrip.py:64
+#: ../../Jokosher/MixerStrip.py:63
 msgid "Minimize instrument"
 msgstr ""
 
-#: ../../Jokosher/MixerStrip.py:74
+#: ../../Jokosher/MixerStrip.py:73
 msgid "Balance:"
 msgstr "Balanssi:"
 
-#: ../../Jokosher/MixerStrip.py:79
+#: ../../Jokosher/MixerStrip.py:78
 msgid "L"
 msgstr "L"
 
-#: ../../Jokosher/MixerStrip.py:80
+#: ../../Jokosher/MixerStrip.py:79
 msgid "R"
 msgstr "R"
 
-#: ../../Jokosher/MixerStrip.py:86
+#: ../../Jokosher/MixerStrip.py:84
 msgid "Adjust instrument balance. Right-click to center"
 msgstr ""
 
-#: ../../Jokosher/MixerStrip.py:100
+#: ../../Jokosher/MixerStrip.py:98
 msgid "Volume:"
 msgstr "Äänenvoimakkuus:"
 
-#: ../../Jokosher/MixerStrip.py:233
+#: ../../Jokosher/MixerStrip.py:231
 #, python-format
 msgid "Current balance is <b>%d%%</b> left"
 msgstr ""
 
-#: ../../Jokosher/MixerStrip.py:235
+#: ../../Jokosher/MixerStrip.py:233
 msgid "Current balance is <b>centered</b>"
 msgstr ""
 
-#: ../../Jokosher/MixerStrip.py:237
+#: ../../Jokosher/MixerStrip.py:235
 #, python-format
 msgid "Current balance is <b>%d%%</b> right"
 msgstr ""
 
-#: ../../Jokosher/NewProjectDialog.py:133
+#: ../../Jokosher/NewProjectDialog.py:85
+msgid "Select A Folder"
+msgstr "Valitse kansio"
+
+#: ../../Jokosher/NewProjectDialog.py:130
 msgid "Unknown Author"
 msgstr "Tuntematon tekijä"
 
-#: ../../Jokosher/NewProjectDialog.py:146
+#: ../../Jokosher/NewProjectDialog.py:145
 msgid "Could not initialize project."
 msgstr "Projektia ei voitu alustaa."
 
-#: ../../Jokosher/NewProjectDialog.py:148
-msgid ""
-"A file or folder with this name already exists. Please choose a different "
-"project name and try again."
-msgstr ""
-"Samanniminen tiedosto tai kansio on jo olemassa. Valitse toinen nimi "
-"projektille ja yritä uudestaan."
-
-#: ../../Jokosher/NewProjectDialog.py:150
-msgid "The file or folder location is write-protected."
-msgstr "Tiedosto tai kansio on kirjoitussuojattu."
-
-#: ../../Jokosher/NewProjectDialog.py:152
+#: ../../Jokosher/NewProjectDialog.py:151
 msgid "Invalid name or author."
 msgstr "Virheellinen nimi tai tekijä."
 
-#: ../../Jokosher/NewProjectDialog.py:154
-msgid "The URI scheme given is either invalid or not supported"
-msgstr ""
-
-#: ../../Jokosher/NewProjectDialog.py:156
+#: ../../Jokosher/NewProjectDialog.py:155
 msgid "Unable to load required Gstreamer plugin:"
-msgstr ""
-
-#: ../../Jokosher/NewProjectDialog.py:163
-#, python-format
-msgid ""
-"Unable to create project.\n"
-"\n"
-"%s"
-msgstr ""
-"Projektia ei voitu luoda:\n"
-"\n"
-"%s"
+msgstr "Tarvittavaa Gstreamer-lisäosaa ei voida ladata:"
 
 #: ../../Jokosher/PreferencesDialog.py:75
 #: ../../Jokosher/PreferencesDialog.py:93
 msgid "Custom"
-msgstr ""
+msgstr "Mukautettu"
 
-#: ../../Jokosher/PreferencesDialog.py:340
+#: ../../Jokosher/PreferencesDialog.py:346
 #, python-format
 msgid "Device %d"
-msgstr ""
+msgstr "Laite %d"
 
 #: ../../Jokosher/ProjectTemplateDialog.py:83
 #: ../../Jokosher/ProjectTemplateDialog.py:87
 msgid "Instrument Name"
-msgstr ""
+msgstr "Soittimen nimi"
 
-#: ../../Jokosher/RecordingView.py:123
+#: ../../Jokosher/RecordingView.py:119
 msgid "Zoom the timeline - Right-Click to reset to the default level"
 msgstr ""
 
-#: ../../Jokosher/RecordingView.py:132
+#: ../../Jokosher/RecordingView.py:128
 msgid "Zoom in timeline"
 msgstr ""
 
-#: ../../Jokosher/RecordingView.py:139
+#: ../../Jokosher/RecordingView.py:135
 msgid "Zoom out timeline"
 msgstr ""
 
-#: ../../Jokosher/RecordingView.py:183
+#: ../../Jokosher/RecordingView.py:179
 msgid "Would you like to restore the current project?"
 msgstr ""
 
-#: ../../Jokosher/RecordingView.py:184
+#: ../../Jokosher/RecordingView.py:180
 msgid ""
 "A crash was detected and changes to your project were not saved.\n"
 "If you would like, you can attempt to recover these lost changes."
 msgstr ""
 
-#: ../../Jokosher/RecordingView.py:188
+#: ../../Jokosher/RecordingView.py:184
 msgid "_Restore Project"
-msgstr ""
+msgstr "_Palauta projekti"
 
-#: ../../Jokosher/RecordingView.py:322
+#: ../../Jokosher/RecordingView.py:318
 msgid "A Gstreamer error has occurred"
-msgstr ""
+msgstr "Gstreamer-virhe tapahtui"
 
-#: ../../Jokosher/RecordingView.py:335
+#: ../../Jokosher/RecordingView.py:329
 msgid "A GStreamer error has occurred."
-msgstr ""
+msgstr "Gstreamer-virhe tapahtui."
 
-#: ../../Jokosher/RecordingView.py:372
-#, python-format
-msgid "There are %(number)d more errors not shown."
-msgstr ""
-
-#: ../../Jokosher/RecordingView.py:375
+#: ../../Jokosher/RecordingView.py:330
 msgid ""
 "If this problem persists consider reporting a bug using the link in the help "
 "menu."
 msgstr ""
 
-#: ../../Jokosher/RecordingView.py:378
-msgid "_Close All"
+#: ../../Jokosher/TimeLineBar.py:63
+msgid "Adjust volume of click track"
 msgstr ""
 
-#: ../../Jokosher/RecordingView.py:379
-msgid "_Show All"
-msgstr ""
+#: ../../Jokosher/TimeLineBar.py:67
+msgid "Beats per minute"
+msgstr "Iskua minuutissa"
+
+#: ../../Jokosher/TimeLineBar.py:86
+msgid "Time signature"
+msgstr "Tempo"
 
 #: ../../Jokosher/TimeLine.py:566
 #, python-format
@@ -1836,19 +1845,7 @@ msgid ""
 "milliseconds in"
 msgstr ""
 
-#: ../../Jokosher/TimeLineBar.py:64
-msgid "Adjust volume of click track"
-msgstr ""
-
-#: ../../Jokosher/TimeLineBar.py:69
-msgid "Beats per minute"
-msgstr "Iskua minuutissa"
-
-#: ../../Jokosher/TimeLineBar.py:89
-msgid "Time signature"
-msgstr "Tempo"
-
-#: ../../Jokosher/TimeView.py:50
+#: ../../Jokosher/TimeView.py:49
 msgid "Double click to change the time format"
 msgstr ""
 
@@ -1872,7 +1869,7 @@ msgstr ""
 
 #: ../../Jokosher/Jokosher:79
 msgid "Force the welcome dialog to show on startup"
-msgstr "Näytä tervetuloa ikkuna käynnistyksessä"
+msgstr "Näytä tervetuloikkuna käynnistyksessä"
 
 #: ../../Jokosher/Jokosher:81
 msgid "Force Jokosher to load without a welcome dialog or project"
@@ -1884,7 +1881,7 @@ msgstr "Älä lataa laajennuksia käynnistyksessa"
 
 #: i18n.instr.h:1
 msgid "Acoustic Guitar"
-msgstr "Akustinen Kitara"
+msgstr "Akustinen kitara"
 
 #: i18n.instr.h:2
 msgid "Audio File"
@@ -1924,7 +1921,7 @@ msgstr "Harmonikka"
 
 #: i18n.instr.h:11
 msgid "Keyboard"
-msgstr ""
+msgstr "Koskettimet"
 
 #: i18n.instr.h:12
 msgid "Other"
@@ -1954,283 +1951,302 @@ msgstr "Viulu"
 msgid "Vocal"
 msgstr "Laulu"
 
-msgid "<b>Audio Output Plugin</b>"
-msgstr "<b>Äänen ulostuloliitännäinen</b>"
+#~ msgid "Jokosher Errors"
+#~ msgstr "Jokosher-virheet"
 
-msgid "<b>Recording Sample Rate</b>"
-msgstr "<b>Tallennuksen näytteenottotaajuus</b>"
+#~ msgid "_Close All"
+#~ msgstr "_Sulje kaikki"
 
-msgid ""
-"Autodetect\n"
-"ALSA\n"
-"Custom"
-msgstr ""
-"Automaattinen\n"
-"ALSA\n"
-"Oma"
+#~ msgid "_Show All"
+#~ msgstr "_Näytä kaikki"
 
-msgid ""
-"Your sound card isn't capable of recording from multiple sources at the same "
-"time. Please disarm all but one instrument."
-msgstr ""
-"Äänikortti ei tue samanaikaista äänittämistä useammasta äänilähteestä. "
-"Määritä vain yksi soitin äänittämään."
-
-msgid "Argh! Something went wrong and a serious error occurred:"
-msgstr "Äh! Jotain meni pieleen ja"
-
-msgid "Mixdown as"
-msgstr "Alasmiksaa..."
+#~ msgid "<b>Audio Output Plugin</b>"
+#~ msgstr "<b>Äänen ulostuloliitännäinen</b>"
 
 #, fuzzy
-msgid "Files Saves As"
-msgstr "Tiedosto Tallentaan"
+#~ msgid "<b>Recording Sample Rate</b>"
+#~ msgstr "<b>Äänitysmuoto</b>"
 
 #, fuzzy
-msgid "Time Format"
-msgstr "Ajannäyttö"
+#~ msgid ""
+#~ "Autodetect\n"
+#~ "ALSA\n"
+#~ "Custom"
+#~ msgstr "Tunnista automaattisesti"
+
+#~ msgid ""
+#~ "Your sound card isn't capable of recording from multiple sources at the "
+#~ "same time. Please disarm all but one instrument."
+#~ msgstr ""
+#~ "Äänikortti ei tue samanaikaista äänittämistä useammasta äänilähteestä. "
+#~ "Määritä vain yksi soitin äänittämään."
+
+#~ msgid "Argh! Something went wrong and a serious error occurred:"
+#~ msgstr "Äh! Jotain meni pieleen ja"
+
+#~ msgid "Mixdown as"
+#~ msgstr "Alasmiksaa..."
 
 #, fuzzy
-msgid ""
-"Use the combo boxes below to select which input is used with which instrument"
-msgstr "Valitse alla mitä sisääntuloa kunkin soittimen kanssa käytetään"
+#~ msgid "Files Saves As"
+#~ msgstr "Tiedosto Tallentaan"
 
 #, fuzzy
-msgid ""
-"Wave\n"
-"FLAC\n"
-"Ogg Vorbis"
-msgstr ""
-"Wave\n"
-"FLAC\n"
-"Ogg Vorbis"
+#~ msgid "Time Format"
+#~ msgstr "Ajannäyttö"
 
 #, fuzzy
-msgid ""
-"The instruments '%s' and '%s' both have the same input selected (%s). Please "
-"either disarm one, or connect it to a different input through 'Project -> "
-"Instrument Connections'"
-msgstr ""
-"Soittimilla '%s' ja '%s' on samat valitut sisääntulot (%s). Estä toiselta "
-"soittimelta äänittäminen, tai liitä se toiseen sisääntuloon valikosta "
-"\"Projekti -> Soitinliitännät\""
+#~ msgid ""
+#~ "Use the combo boxes below to select which input is used with which "
+#~ "instrument"
+#~ msgstr "Valitse alla mitä sisääntuloa kunkin soittimen kanssa käytetään"
 
 #, fuzzy
-msgid "%d of %d seconds completed"
-msgstr "%d/%d sekuntia käsitelty"
+#~ msgid ""
+#~ "Wave\n"
+#~ "FLAC\n"
+#~ "Ogg Vorbis"
+#~ msgstr ""
+#~ "Wave\n"
+#~ "FLAC\n"
+#~ "Ogg Vorbis"
 
 #, fuzzy
-msgid "Add this step to the current mixdown"
-msgstr "Lisää tämä askel nykyiseen miksaukseen"
+#~ msgid ""
+#~ "The instruments '%s' and '%s' both have the same input selected (%s). "
+#~ "Please either disarm one, or connect it to a different input through "
+#~ "'Project -> Instrument Connections'"
+#~ msgstr ""
+#~ "Soittimilla '%s' ja '%s' on samat valitut sisääntulot (%s). Estä toiselta "
+#~ "soittimelta äänittäminen, tai liitä se toiseen sisääntuloon valikosta "
+#~ "\"Projekti -> Soitinliitännät\""
 
 #, fuzzy
-msgid "Audio production made simple."
-msgstr "Äänituotantoa yksinkertaisesti."
+#~ msgid "%d of %d seconds completed"
+#~ msgstr "%d/%d sekuntia käsitelty"
 
 #, fuzzy
-msgid "Preferences"
-msgstr "Asetukset"
+#~ msgid "Add this step to the current mixdown"
+#~ msgstr "Lisää tämä askel nykyiseen miksaukseen"
 
 #, fuzzy
-msgid "Search:"
-msgstr "Etsi:"
-
-msgid ""
-"16 bit\n"
-"24 bit\n"
-"32 bit"
-msgstr ""
-"16 bittiä\n"
-"24 bittiä\n"
-"32 bittiä"
-
-msgid ""
-"96000\n"
-"48000\n"
-"44100\n"
-"32000\n"
-"24000\n"
-"22050\n"
-"16000\n"
-"11025\n"
-"8000"
-msgstr ""
-"96000\n"
-"48000\n"
-"44100\n"
-"32000\n"
-"24000\n"
-"22050\n"
-"16000\n"
-"11025\n"
-"8000"
-
-msgid "<b>Audio Mixdown</b>"
-msgstr "<b>Äänen alasmiksaus</b>"
-
-msgid ""
-"<b>To find out more, visit:</b>\n"
-"http://www.jokosher.org/contribute"
-msgstr ""
-"<b>Saadaksesi tietää enemmän:</b>\n"
-"http://www.jokosher.org/contribute"
-
-msgid "Device"
-msgstr "Laite"
-
-msgid "General"
-msgstr "Yleiset"
-
-msgid "Output Format"
-msgstr "Tulostusmuoto"
-
-msgid "Pre-release Notes"
-msgstr "Esi-julkaisun tiedot"
-
-msgid "Presets"
-msgstr "Esivalinnat"
-
-msgid "Preview"
-msgstr "Esikatselu"
+#~ msgid "Audio production made simple."
+#~ msgstr "Äänituotantoa yksinkertaisesti."
 
 #, fuzzy
-msgid "Sample Format"
-msgstr "Näytteenottotaajuus (Hz)"
-
-msgid "Sample Rate (Hz)"
-msgstr "Näytteenottotaajuus (Hz)"
-
-msgid "Select an instrument, then click here to begin recording"
-msgstr "Valitse soitin, ja paina tästä aloittaaksesi äänitys"
+#~ msgid "Preferences"
+#~ msgstr "_Asetukset"
 
 #, fuzzy
-msgid "Show as Bars, Beats, Ticks"
-msgstr "Näytä tunnit, minuutit, sekunnit"
+#~ msgid "Search:"
+#~ msgstr "_Etsi:"
 
-msgid "Show as Hours, Minutes, Seconds"
-msgstr "Näytä tunnit, minuutit, sekunnit"
+#~ msgid ""
+#~ "16 bit\n"
+#~ "24 bit\n"
+#~ "32 bit"
+#~ msgstr ""
+#~ "16 bittiä\n"
+#~ "24 bittiä\n"
+#~ "32 bittiä"
 
-msgid "translator-credits"
-msgstr ""
-"kääntäjät\n"
-"\n"
-"Launchpad Contributions:\n"
-"  Boyd Timothy https://launchpad.net/~btimothy\n"
-"  Felix Heinonen https://launchpad.net/~fheinonen\n"
-"  Jyri-Petteri Paloposki https://launchpad.net/~zeip\n"
-"  Mikko Virkkilä https://launchpad.net/~mvirkkil"
+#~ msgid ""
+#~ "96000\n"
+#~ "48000\n"
+#~ "44100\n"
+#~ "32000\n"
+#~ "24000\n"
+#~ "22050\n"
+#~ "16000\n"
+#~ "11025\n"
+#~ "8000"
+#~ msgstr ""
+#~ "96000\n"
+#~ "48000\n"
+#~ "44100\n"
+#~ "32000\n"
+#~ "24000\n"
+#~ "22050\n"
+#~ "16000\n"
+#~ "11025\n"
+#~ "8000"
 
-msgid ""
-"No instruments are armed for recording. You need to arm an instrument before "
-"you can begin recording."
-msgstr ""
-"Yhtään soitinta ei ole määrätty äänittämään. Vähintään yksi soitin on "
-"määrättävä äänittämään jotta äänitys voi alkaa."
+#, fuzzy
+#~ msgid "<b>Audio Mixdown</b>"
+#~ msgstr "<b>Ohjelmointi</b>"
 
-msgid ""
-"No channels capable of recording have found, please attach a device and try "
-"again."
-msgstr "Yhtään äänityskanavaa ei löytynyt. Liitä laite ja yritä uudestaan."
+#~ msgid ""
+#~ "<b>To find out more, visit:</b>\n"
+#~ "http://www.jokosher.org/contribute"
+#~ msgstr ""
+#~ "<b>Saadaksesi tietää enemmän:</b>\n"
+#~ "http://www.jokosher.org/contribute"
 
-msgid ""
-"\n"
-"See http://jokosher.org/trac/wiki/GettingJokosher for more details.\n"
-msgstr ""
-"\n"
-"Katso lisätietoja osoitteesta http://jokosher.org/trac/wiki/GettingJokosher\n"
+#, fuzzy
+#~ msgid "Device"
+#~ msgstr "_Laite:"
 
-msgid ""
-"<big>Notes about this release</big>\n"
-"\n"
-"This version of Jokosher (0.1) is a pre-release version, and is infact, our "
-"very first release. As such, you may encounter some bugs and functionality "
-"that is not present."
-msgstr ""
-"<big>Tietoja tästä juklaisusta</big>\n"
-"\n"
-"Tämä versio Jokosherista (0.1) on esi-julkaisuversio ja itseasiassa "
-"ensimmäinen julkaisu koskaan. Tästä johtuen ohjelman toiminnallisuudessa "
-"saattaa esiintyä virheitä tai puutteita."
+#, fuzzy
+#~ msgid "General"
+#~ msgstr "<b>Yleiset</b>"
 
-msgid "Paste"
-msgstr "Liitä"
+#~ msgid "Output Format"
+#~ msgstr "Tulostusmuoto"
 
-msgid "Import file..."
-msgstr "Tuo tiedosto..."
+#~ msgid "Pre-release Notes"
+#~ msgstr "Esi-julkaisun tiedot"
 
-msgid ""
-"<b>NOTE</b>: The volume sliders in this pre-release version of Jokosher do "
-"not affect the audio."
-msgstr ""
-"<b>Huomio</b>: Äänenvoimakkuussäätimet tässä esi-julkaisuversiossa eivät "
-"vaikuta äänenvoimakkuuteen."
+#~ msgid "Presets"
+#~ msgstr "Esivalinnat"
 
-msgid "The uri scheme '%s' is either invalid or not supported."
-msgstr "URI:n tyyppiä '%s' ei tueta tai se on virheellinen."
+#~ msgid "Preview"
+#~ msgstr "Esikatselu"
 
-msgid "The uri scheme given is either invalid or not supported"
-msgstr "URI:n tyyppiä ei ole määritelty tai sitä ei tueta"
+#, fuzzy
+#~ msgid "Sample Format"
+#~ msgstr "Näytteenottotaajuus (Hz)"
 
-msgid "Beat value"
-msgstr "Iskun arvo"
+#~ msgid "Sample Rate (Hz)"
+#~ msgstr "Näytteenottotaajuus (Hz)"
 
-msgid "Device:"
-msgstr "Laite:"
+#~ msgid "Select an instrument, then click here to begin recording"
+#~ msgstr "Valitse soitin, ja paina tästä aloittaaksesi äänitys"
 
-msgid "Don't open anything"
-msgstr "Älä avaa mitään"
+#, fuzzy
+#~ msgid "Show as Bars, Beats, Ticks"
+#~ msgstr "Näytä tunnit, minuutit, sekunnit"
 
-msgid "FastForward"
-msgstr "Kelaa eteenpäin"
+#~ msgid "Show as Hours, Minutes, Seconds"
+#~ msgstr "Näytä tunnit, minuutit, sekunnit"
 
-msgid "Output:"
-msgstr "Ulostulo:"
+#~ msgid "translator-credits"
+#~ msgstr ""
+#~ "kääntäjät\n"
+#~ "\n"
+#~ "Launchpad Contributions:\n"
+#~ "  Boyd Timothy https://launchpad.net/~btimothy\n"
+#~ "  Felix Heinonen https://launchpad.net/~fheinonen\n"
+#~ "  Jyri-Petteri Paloposki https://launchpad.net/~zeip\n"
+#~ "  Mikko Virkkilä https://launchpad.net/~mvirkkil"
 
-msgid "Show welcome dialog"
-msgstr "Näytä tervetuliais viesti"
+#~ msgid ""
+#~ "No instruments are armed for recording. You need to arm an instrument "
+#~ "before you can begin recording."
+#~ msgstr ""
+#~ "Yhtään soitinta ei ole määrätty äänittämään. Vähintään yksi soitin on "
+#~ "määrättävä äänittämään jotta äänitys voi alkaa."
 
-msgid "Stop"
-msgstr "Stop"
+#~ msgid ""
+#~ "No channels capable of recording have found, please attach a device and "
+#~ "try again."
+#~ msgstr "Yhtään äänityskanavaa ei löytynyt. Liitä laite ja yritä uudestaan."
 
-msgid "Switch to the Mixing workspace"
-msgstr "Vaihda Miksaus työtilaan"
+#, fuzzy
+#~ msgid ""
+#~ "\n"
+#~ "See http://jokosher.org/trac/wiki/GettingJokosher for more details.\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Osiotteessa http://doc.jokosher.org/Installation on lisää tietoja.\n"
 
-msgid "Switch to the Recording workspace"
-msgstr "Vaihda Äänitys työtilaan"
+#~ msgid ""
+#~ "<big>Notes about this release</big>\n"
+#~ "\n"
+#~ "This version of Jokosher (0.1) is a pre-release version, and is infact, "
+#~ "our very first release. As such, you may encounter some bugs and "
+#~ "functionality that is not present."
+#~ msgstr ""
+#~ "<big>Tietoja tästä juklaisusta</big>\n"
+#~ "\n"
+#~ "Tämä versio Jokosherista (0.1) on esi-julkaisuversio ja itseasiassa "
+#~ "ensimmäinen julkaisu koskaan. Tästä johtuen ohjelman toiminnallisuudessa "
+#~ "saattaa esiintyä virheitä tai puutteita."
 
-msgid "Workspaces"
-msgstr "Työtilat"
+#~ msgid "Paste"
+#~ msgstr "Liitä"
 
-msgid "version 0.9"
-msgstr "versio 0.9"
+#, fuzzy
+#~ msgid "Import file..."
+#~ msgstr "Vie tiedosto"
 
-msgid "_Paste"
-msgstr "_Liitä"
+#~ msgid ""
+#~ "<b>NOTE</b>: The volume sliders in this pre-release version of Jokosher "
+#~ "do not affect the audio."
+#~ msgstr ""
+#~ "<b>Huomio</b>: Äänenvoimakkuussäätimet tässä esi-julkaisuversiossa eivät "
+#~ "vaikuta äänenvoimakkuuteen."
 
-msgid "Currently working in the Recording workspace"
-msgstr "Työskentelet Äänitys työtilassa"
+#~ msgid "The uri scheme '%s' is either invalid or not supported."
+#~ msgstr "URI:n tyyppiä '%s' ei tueta tai se on virheellinen."
 
-msgid "Currently working in the Mixing workspace"
-msgstr "Työskentelet Miksaus työtilassa"
+#~ msgid "The uri scheme given is either invalid or not supported"
+#~ msgstr "URI:n tyyppiä ei ole määritelty tai sitä ei tueta"
 
-msgid "_Mixdown as"
-msgstr "_Alasmiksaa..."
+#~ msgid "Beat value"
+#~ msgstr "Iskun arvo"
 
-msgid "Export file"
-msgstr "Lähetä tiedosto"
+#, fuzzy
+#~ msgid "Device:"
+#~ msgstr "_Laite:"
 
-msgid "Export as"
-msgstr "Lähetä..."
+#, fuzzy
+#~ msgid "Don't open anything"
+#~ msgstr "_Älä avaa mitään"
 
-msgid "Hz"
-msgstr "Hz"
+#~ msgid "FastForward"
+#~ msgstr "Kelaa eteenpäin"
 
-msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"
-msgstr "<b>Vedä liuutinta</b> muuttaaksesi äänenvoimakkuuksia"
+#~ msgid "Output:"
+#~ msgstr "Ulostulo:"
+
+#, fuzzy
+#~ msgid "Show welcome dialog"
+#~ msgstr "_Näytä tervetuloikkuna"
+
+#~ msgid "Stop"
+#~ msgstr "Stop"
+
+#~ msgid "Switch to the Mixing workspace"
+#~ msgstr "Vaihda Miksaus työtilaan"
+
+#~ msgid "Switch to the Recording workspace"
+#~ msgstr "Vaihda Äänitys työtilaan"
+
+#~ msgid "Workspaces"
+#~ msgstr "Työtilat"
+
+#~ msgid "version 0.9"
+#~ msgstr "versio 0.9"
+
+#~ msgid "_Paste"
+#~ msgstr "_Liitä"
+
+#~ msgid "Currently working in the Recording workspace"
+#~ msgstr "Työskentelet Äänitys työtilassa"
+
+#~ msgid "Currently working in the Mixing workspace"
+#~ msgstr "Työskentelet Miksaus työtilassa"
+
+#~ msgid "_Mixdown as"
+#~ msgstr "_Alasmiksaa..."
+
+#, fuzzy
+#~ msgid "Export file"
+#~ msgstr "Vie tiedosto"
+
+#, fuzzy
+#~ msgid "Export as"
+#~ msgstr "Vie tiedosto"
+
+#~ msgid "Hz"
+#~ msgstr "Hz"
+
+#~ msgid "<b>Drag</b> the <b>slider</b> to alter volume levels"
+#~ msgstr "<b>Vedä liuutinta</b> muuttaaksesi äänenvoimakkuuksia"
 
 #, fuzzy
 #~ msgid "<b>Recorded Audio Format</b>"
-#~ msgstr "Tallennettu ääni"
+#~ msgstr "<b>Äänitysmuoto</b>"
 
 #, fuzzy
 #~ msgid "_Project"
@@ -2250,7 +2266,7 @@ msgstr "<b>Vedä liuutinta</b> muuttaaksesi äänenvoimakkuuksia"
 
 #, fuzzy
 #~ msgid "Instrument Connections"
-#~ msgstr "Soitin Efektit"
+#~ msgstr "Soitintehosteet"
 
 #, fuzzy
 #~ msgid "Playback"
@@ -2262,7 +2278,7 @@ msgstr "<b>Vedä liuutinta</b> muuttaaksesi äänenvoimakkuuksia"
 
 #, fuzzy
 #~ msgid "Select an effect"
-#~ msgstr "_Aktoivoi efekti"
+#~ msgstr "_Aktoivoi tehoste"
 
 #, fuzzy
 #~ msgid "Select an effect to add to the instrument"
@@ -2270,7 +2286,7 @@ msgstr "<b>Vedä liuutinta</b> muuttaaksesi äänenvoimakkuuksia"
 
 #, fuzzy
 #~ msgid "Import Audio File..."
-#~ msgstr "Lisää Äänitiedosto..."
+#~ msgstr "Lisää äänitiedosto..."
 
 #, fuzzy
 #~ msgid "Delete"
@@ -2282,7 +2298,7 @@ msgstr "<b>Vedä liuutinta</b> muuttaaksesi äänenvoimakkuuksia"
 
 #, fuzzy
 #~ msgid "Cut"
-#~ msgstr "Lei_kkaa"
+#~ msgstr "_Leikkaa"
 
 #, fuzzy
 #~ msgid "Copy"
@@ -2290,7 +2306,7 @@ msgstr "<b>Vedä liuutinta</b> muuttaaksesi äänenvoimakkuuksia"
 
 #, fuzzy
 #~ msgid "Instrument Effects..."
-#~ msgstr "Soitin Efektit"
+#~ msgstr "Soitintehosteet"
 
 #, fuzzy
 #~ msgid "Master Volume"
@@ -2302,7 +2318,7 @@ msgstr "<b>Vedä liuutinta</b> muuttaaksesi äänenvoimakkuuksia"
 
 #, fuzzy
 #~ msgid "<b>Presets for:</b>"
-#~ msgstr "<b>Aktiiviset efektit:</b>"
+#~ msgstr "<b>Aktiiviset tehosteet:</b>"
 
 #, fuzzy
 #~ msgid "Add a new instrument"
@@ -2314,11 +2330,11 @@ msgstr "<b>Vedä liuutinta</b> muuttaaksesi äänenvoimakkuuksia"
 
 #, fuzzy
 #~ msgid "Author"
-#~ msgstr "Tuntematon tekijä"
+#~ msgstr "_Tekijä:"
 
 #, fuzzy
 #~ msgid "Beats per measure"
-#~ msgstr "Iskua minuutissa"
+#~ msgstr "Iskua _tahdissa"
 
 #, fuzzy
 #~ msgid "Browse for an Existing Project"
@@ -2326,15 +2342,15 @@ msgstr "<b>Vedä liuutinta</b> muuttaaksesi äänenvoimakkuuksia"
 
 #, fuzzy
 #~ msgid "Create a New Project"
-#~ msgstr "Luo uusi projekti"
+#~ msgstr "_Luo uusi projekti"
 
 #, fuzzy
 #~ msgid "Don't show this on start-up"
-#~ msgstr "Älä lataa laajennuksia käynnistyksessa"
+#~ msgstr "_Älä näytä tätä käynnistyksen yhteydessä"
 
 #, fuzzy
 #~ msgid "Folder"
-#~ msgstr "Suotimet"
+#~ msgstr "_Kansio:"
 
 #, fuzzy
 #~ msgid "Mixing"
@@ -2346,15 +2362,15 @@ msgstr "<b>Vedä liuutinta</b> muuttaaksesi äänenvoimakkuuksia"
 
 #, fuzzy
 #~ msgid "Open Selected Project"
-#~ msgstr "Avaa olemassaoleva projekti"
+#~ msgstr "_Avaa valittu projekti"
 
 #, fuzzy
 #~ msgid "Open most recent project"
-#~ msgstr "Avaa olemassaoleva projekti"
+#~ msgstr "_Avaa viimeisin projekti"
 
 #, fuzzy
 #~ msgid "Project Name"
-#~ msgstr "Uusi projekti"
+#~ msgstr "_Projektin nimi:"
 
 #, fuzzy
 #~ msgid "Record"
@@ -2366,7 +2382,7 @@ msgstr "<b>Vedä liuutinta</b> muuttaaksesi äänenvoimakkuuksia"
 
 #, fuzzy
 #~ msgid "Remove Selected Instrument"
-#~ msgstr "Poista valittu soitin"
+#~ msgstr "_Poista valitut soittimet"
 
 #, fuzzy
 #~ msgid "Rewind"
@@ -2378,7 +2394,7 @@ msgstr "<b>Vedä liuutinta</b> muuttaaksesi äänenvoimakkuuksia"
 
 #, fuzzy
 #~ msgid "_Manage Extensions"
-#~ msgstr "La_ajennukset"
+#~ msgstr "_Hallitse laajennuksia..."
 
 #, fuzzy
 #~ msgid "_Mixdown Project"

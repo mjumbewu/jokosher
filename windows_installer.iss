@@ -1,6 +1,6 @@
 [Setup]
 AppName =Jokosher
-AppVerName=Jokosher version 0.11.3
+AppVerName=Jokosher version 0.11.4
 DefaultDirName={pf}\Jokosher
 DefaultGroupName=Jokosher
 Compression=bzip/9

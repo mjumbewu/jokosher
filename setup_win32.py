@@ -7,7 +7,7 @@ import glob
 import py2exe
 
 dist = setup(name='jokosher',
-	version='0.11.3',
+	version='0.11.4',
 	author='Jokosher Project',
 	author_email='jokosher-devel-list@gnome.org',
 	maintainer='Michael Sheldon',

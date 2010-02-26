@@ -56,7 +56,7 @@ except locale.Error:
 openproject = None
 loadExtensions = True
 
-parser = optparse.OptionParser(usage="%prog [options] [project-file]", version="0.11.3")
+parser = optparse.OptionParser(usage="%prog [options] [project-file]", version="0.11.4")
 #command line options
 parser.add_option("-d", "--debug", action="store_true", dest="debug", 
 				help=_("Print debug output to stdout"))
