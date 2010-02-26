@@ -28,9 +28,9 @@ Step 3)
 		cd locale/src
 		make
 		bzr commit
-	
-	At this point you should upload the new POT file to Launchpad Rosetta so
-	the translators can start translating the new strings for this release.
+
+	Rosetta will automatically detect the changes to the POT file when your
+	branch gets merged into lp:jokosher.
 	
 Step 4)
 	Generate binary MO translation files (these are the ones that will 
