@@ -5,6 +5,10 @@ DefaultDirName={pf}\Jokosher
 DefaultGroupName=Jokosher
 Compression=bzip/9
 
+[InstallDelete]
+Type: files; Name: {app}\*.dll
+Type: files; Name: {app}\*.pyd
+
 [Files]
 Source: dist/*; DestDir: {app}; Flags: recursesubdirs createallsubdirs
 
