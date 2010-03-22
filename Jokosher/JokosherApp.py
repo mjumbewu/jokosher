@@ -1672,7 +1672,7 @@ class MainApp:
 		vbox.pack_start(label, False, False)
 		
 		if gtk.pygtk_version >= (2, 10, 0) and gtk.gtk_version >= (2, 10, 0):
-			contriblnkbtn = gtk.LinkButton("http://www.jokosher.org/contribute")
+			contriblnkbtn = gtk.LinkButton("http://www.jokosher.org/contribute",label="http://www.jokosher.org/contribute")
 			contriblnkbtn.connect("clicked", self.OnContributingLinkButtonClicked)
 			vbox.pack_start(contriblnkbtn, False, False)
 		else:
