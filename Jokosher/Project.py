@@ -375,6 +375,7 @@ class Project(gobject.GObject):
 				Globals.debug("Recording in multi-input mode")
 				Globals.debug("adding recordingbin_%d" % recbin)
 				self.mainpipeline.add(recordingbin)
+				recbin += 1
 			else:
 				instr = recInstruments[0]
 				event = instr.GetRecordingEvent()
