@@ -336,7 +336,7 @@ class Project(gobject.GObject):
 				recordString = Globals.settings.recording["audiosrc"]
 				srcBin = gst.parse_bin_from_description(recordString, True)
 				try:
-					src_element = recordingbin.iterate_sources().next()
+					src_element = srcBin.iterate_sources().next()
 				except StopIteration:
 					pass
 				else:
