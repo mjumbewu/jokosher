@@ -71,8 +71,8 @@ def ListDeviceProbe(element, probe_name):
 				for dev in devices:
 					element.set_property("device", dev)
 					
-					element.set_state(gst.STATE_PAUSED)
-					# certain elements like pulsesrc won't load the device-name until STATE_PAUSED
+					element.set_state(gst.STATE_PLAYING)
+					# certain elements like pulsesrc won't load the device-name until STATE_PLAYING
 					name = element.get_property("device-name")
 					element.set_state(gst.STATE_NULL)
 					
