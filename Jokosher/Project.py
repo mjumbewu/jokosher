@@ -315,6 +315,7 @@ class Project(gobject.GObject):
 					devices[default_device].append(instr)
 		
 
+		recbin = 0
 		for device, recInstruments in devices.iteritems():
 			if len(recInstruments) == 0:
 				#Nothing to record on this device
@@ -329,7 +330,9 @@ class Project(gobject.GObject):
 
 			
 			if channelsNeeded > 1: #We're recording from a multi-input device
-				recordingbin = gst.Bin("recording bin")
+				#Need multiple recording bins with unique names when we're
+				#recording from multiple devices
+				recordingbin = gst.Bin("recordingbin_%d" % recbin)
 				recordString = Globals.settings.recording["audiosrc"]
 				srcBin = gst.parse_bin_from_description(recordString, True)
 				try:
@@ -370,7 +373,7 @@ class Project(gobject.GObject):
 				
 				split.connect("pad-added", self.__RecordingPadAddedCb, recInstruments, recordingbin)
 				Globals.debug("Recording in multi-input mode")
-				Globals.debug("adding recordingbin")
+				Globals.debug("adding recordingbin_%d" % recbin)
 				self.mainpipeline.add(recordingbin)
 			else:
 				instr = recInstruments[0]
