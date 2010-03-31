@@ -63,8 +63,8 @@ def ListDeviceProbe(element, probe_name):
 		if gobject.type_is_a(element, gst.interfaces.PropertyProbe):
 			element.probe_property_name("device")
 			devices = element.probe_get_values_name("device")
-			
-			if not default_device in devices:
+	
+			if (default_device != None) and (default_device not in devices):
 				dev_info_list.append((default_device, ""))
 			
 			if probe_name and hasattr(element.props, "device-name"):
