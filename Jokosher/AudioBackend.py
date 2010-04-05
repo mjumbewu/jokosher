@@ -10,7 +10,8 @@
 #
 #-------------------------------------------------------------------------------
 
-import gst, gobject
+import gst, gtk, gobject
+import time
 import Globals
 
 #=========================================================================
@@ -76,7 +77,9 @@ def ListDeviceProbe(element, probe_name):
 					if state_change_type == gst.STATE_CHANGE_ASYNC:
 						new_state = None
 						while new_state != gst.STATE_PLAYING and new_state != gst.STATE_READY:
+							gtk.main_iteration()
 							state_change_type, new_state, pending = element.get_state(0)
+							time.sleep(0.01)
 					name = element.get_property("device-name")
 					element.set_state(gst.STATE_NULL)
 					
