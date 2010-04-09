@@ -220,12 +220,12 @@ class ControlsBox(gtk.HBox):
 			       self.effectsDialog.BringWindowToFront()
 
 		else:
-			message = gtk.MessageDialog(parent=None, flags=0, type=gtk.MESSAGE_INFO,buttons=gtk.BUTTONS_OK, message_format="You do not have any LADSPA effects plugins installed")
+			message = gtk.MessageDialog(parent=None, flags=0, type=gtk.MESSAGE_INFO,buttons=gtk.BUTTONS_OK, message_format=_("You do not have any LADSPA effects plugins installed"))
 		    	if platform.system() =="Windows":
-				message.format_secondary_text("Jokosher does not currently support any LADSPA plugins on Windows")
+				message.format_secondary_text(_("Jokosher does not currently support any LADSPA plugins on Windows"))
 				
 			else:
-				message.format_secondary_text("Jokosher requires one or more packages of LADSPA effects to be able to use this feature, please install the relevant package(s) for your distribution.")
+				message.format_secondary_text(_("Jokosher requires one or more packages of LADSPA effects to be able to use this feature, please install the relevant package(s) for your distribution."))
 
 			message.show_all()
 			response = message.run()
