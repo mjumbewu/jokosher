@@ -15,6 +15,7 @@ import os.path
 import Globals
 import Utils
 import InstrumentEffectsDialog
+import platform
 import gettext
 _ = gettext.gettext
 
@@ -208,7 +209,7 @@ class ControlsBox(gtk.HBox):
 		Globals.debug("props button pressed")
 		
 
-		if not Globals.LADSPA_NAME_MAP == []:
+		if Globals.LADSPA_NAME_MAP:
 
 			if not self.effectsDialog:
 			       self.effectsDialog = InstrumentEffectsDialog.InstrumentEffectsDialog(
@@ -219,17 +220,21 @@ class ControlsBox(gtk.HBox):
 			       self.effectsDialog.BringWindowToFront()
 
 		else:
-		    
-		        message = gtk.MessageDialog(parent=None, flags=0, type=gtk.MESSAGE_INFO,buttons=gtk.BUTTONS_OK, message_format="You do not have the LADSPA effects plugins installed")
+			message = gtk.MessageDialog(parent=None, flags=0, type=gtk.MESSAGE_INFO,buttons=gtk.BUTTONS_OK, message_format="You do not have the LADSPA effects plugins installed")
+		    	if platform.system() =="Windows":
 
-			message.format_secondary_text("Jokosher requires this package to be able to use effects, please install the relevant package for your distribution.\n\nNOTE FOR WINDOWS USERS: Jokosher with LADSPA is not currently supported on Windows.")
+				message.format_secondary_text("Jokosher does not currently support LADSPA plugins on Windows")
+				
+			else:
 
-		        message.show_all()
+				message.format_secondary_text("Jokosher requires this package to be able to use effects, please install the relevant package for your distribution.")
 
-		        response = message.run()
+			message.show_all()
 
-		        if response == gtk.RESPONSE_OK:
-		           message.destroy()
+			response = message.run()
+
+			if response == gtk.RESPONSE_OK:
+				message.destroy()
                    
 
 	#______________________________________________________________________
