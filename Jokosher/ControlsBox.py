@@ -225,7 +225,7 @@ class ControlsBox(gtk.HBox):
 				message.format_secondary_text("Jokosher does not currently support any LADSPA plugins on Windows")
 				
 			else:
-				message.format_secondary_text("Jokosher requires this package to be able to use effects, please install the relevant package for your distribution.")
+				message.format_secondary_text("Jokosher requires one or more packages of LADSPA effects to be able to use this feature, please install the relevant package(s) for your distribution.")
 
 			message.show_all()
 			response = message.run()
