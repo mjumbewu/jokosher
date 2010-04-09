@@ -222,15 +222,12 @@ class ControlsBox(gtk.HBox):
 		else:
 			message = gtk.MessageDialog(parent=None, flags=0, type=gtk.MESSAGE_INFO,buttons=gtk.BUTTONS_OK, message_format="You do not have the LADSPA effects plugins installed")
 		    	if platform.system() =="Windows":
-
 				message.format_secondary_text("Jokosher does not currently support LADSPA plugins on Windows")
 				
 			else:
-
 				message.format_secondary_text("Jokosher requires this package to be able to use effects, please install the relevant package for your distribution.")
 
 			message.show_all()
-
 			response = message.run()
 
 			if response == gtk.RESPONSE_OK:
