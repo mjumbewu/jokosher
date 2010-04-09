@@ -199,20 +199,38 @@ class ControlsBox(gtk.HBox):
 
 	def OnEffectsButtonClicked(self, widget):
 		"""
-		Creates and shows the instrument effects dialog
+		Creates and shows the instrument effects dialog if LADSPA is installed.
 		
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 			mouse -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		Globals.debug("props button pressed")
-		if not self.effectsDialog:
-			self.effectsDialog = InstrumentEffectsDialog.InstrumentEffectsDialog(
-					self.instrument,
-					self.OnEffectsDialogDestroyed,
-					self.mainview.icon)
+		
+
+		if not Globals.LADSPA_NAME_MAP == []:
+
+			if not self.effectsDialog:
+			       self.effectsDialog = InstrumentEffectsDialog.InstrumentEffectsDialog(
+						self.instrument,
+						self.OnEffectsDialogDestroyed,
+						self.mainview.icon)
+			else:
+			       self.effectsDialog.BringWindowToFront()
+
 		else:
-			self.effectsDialog.BringWindowToFront()
+		    
+		        message = gtk.MessageDialog(parent=None, flags=0, type=gtk.MESSAGE_INFO,buttons=gtk.BUTTONS_OK, message_format="You do not have the LADSPA effects plugins installed")
+
+			message.format_secondary_text("Jokosher requires this package to be able to use effects, please install the relevant package for your distribution.\n\nNOTE FOR WINDOWS USERS: Jokosher with LADSPA is not currently supported on Windows.")
+
+		        message.show_all()
+
+		        response = message.run()
+
+		        if response == gtk.RESPONSE_OK:
+		           message.destroy()
+                   
 
 	#______________________________________________________________________
 	
