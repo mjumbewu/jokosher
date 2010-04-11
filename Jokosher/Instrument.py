@@ -119,7 +119,7 @@ class Instrument(gobject.GObject):
 		self.id = project.GenerateUniqueID(id)	#check is id is already being used before setting
 		
 		self.input = None	# the device to use for recording on this instrument.
-		self.inTrack = -1	# Input track to record from if device is multichannel.
+		self.inTrack = 0	# Input track to record from if device is multichannel.
 	
 		# CREATE GSTREAMER ELEMENTS #
 		self.playbackbin = gst.element_factory_make("bin", "Instrument_%d"%self.id)
