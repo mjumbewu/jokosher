@@ -9,7 +9,7 @@ pygst.require('0.10')
 import py2exe
 
 dist = setup(name='jokosher',
-	version='0.11.4',
+	version='0.11.5',
 	author='Jokosher Project',
 	author_email='jokosher-devel-list@gnome.org',
 	maintainer='Michael Sheldon',
