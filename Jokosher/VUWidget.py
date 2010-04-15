@@ -306,7 +306,7 @@ class VUWidget(gtk.DrawingArea):
 		"""
 		
 		ctx = widget.window.cairo_create()
-		
+		ctx.save()
 		rect = self.get_allocation()
 
 		# Fill a black background		
@@ -320,9 +320,9 @@ class VUWidget(gtk.DrawingArea):
 		ctx.set_source_surface(self.source, 0, 0)	
 		ctx.paint()
 
-		# Reset the clip region
-		ctx.reset_clip()
-		
+		# Restore the clipping region from saved context
+		ctx.restore()
+
 		# Draw the current volume level bar, with highlight if appropriate
 		vpos = self.__GetVolumeHandleYPos()
 		if self.fader_active:
