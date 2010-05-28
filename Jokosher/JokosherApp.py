@@ -1311,6 +1311,10 @@ class MainApp:
 			# Create our custom widgets
 			self.timeview = TimeView.TimeView(self.project)
 			self.workspace = Workspace.Workspace(self.project, self)
+
+			# Set the scroll position
+			self.workspace.recordingView.OnExpose() # Calculate the scroll range
+			self.workspace.recordingView.scrollBar.set_value(self.project.viewStart)
 			
 			# Add them to the main window
 			self.main_vbox.pack_start(self.workspace, True, True)
