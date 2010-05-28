@@ -103,7 +103,7 @@ class WelcomeDialog:
 			button -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 
-		# hide the welcome dislog and call OnOpenProject() from JokosherApp		
+		# hide the welcome dialog and call OnOpenProject() from JokosherApp		
 		self.window.hide()
 		self.mainwindow.OnOpenProject(self, self.OnDialogClose)
 		
