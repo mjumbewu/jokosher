@@ -249,7 +249,7 @@ class Freesound:
 		dom = minidom.parseString(data)
 		
 		if dom.documentElement.nodeName != "freesound":
-			raise "Search failed"
+			raise Exception("Search failed")
 		
 		return [Sample(sample.getAttribute("id")) for sample in
 				dom.getElementsByTagName('sample')]

@@ -424,7 +424,7 @@ for dirs in create_dirs:
 		try:
 			os.makedirs(new_dir)
 		except:
-			raise "Failed to create user config directory %s" % new_dir
+			raise Exception("Failed to create user config directory %s" % new_dir)
 	
 	if jokosher_dir_empty and os.path.isdir(old_dir) and os.path.isdir(new_dir):
 		CopyAllFiles(old_dir, new_dir)
