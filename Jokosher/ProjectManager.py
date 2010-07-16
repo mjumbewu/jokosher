@@ -88,7 +88,7 @@ def InitProjectLocation(projecturi, name=None, project=None):
 			raise CreateProjectError(1)
 
 	unique_suffix = ""
-	for i in itertools.count(1):
+	for count in itertools.count(1):
 		try:
 			os.mkdir(projectdir + unique_suffix)
 		except OSError, e:
