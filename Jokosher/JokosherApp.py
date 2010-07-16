@@ -85,7 +85,6 @@ class MainApp:
 			"on_preferences_activate" : self.OnPreferences,
 			"on_open_activate" : self.OnOpenProject,
 			"on_save_activate" : self.OnSaveProject,
-			"on_save_as_activate" : self.OnSaveAsProject,
 			"on_new_activate" : self.OnNewProject,
 			"on_close_activate" : self.OnCloseProject,
 			"on_show_as_bars_beats_ticks_toggled" : self.OnShowBarsBeats,
@@ -122,7 +121,6 @@ class MainApp:
 		self.stop = self.wTree.get_widget("Stop")
 		self.record = self.wTree.get_widget("Record")
 		self.save = self.wTree.get_widget("save")
-		self.save_as = self.wTree.get_widget("save_as")
 		self.close = self.wTree.get_widget("close")
 		self.reverse = self.wTree.get_widget("Rewind")
 		self.forward = self.wTree.get_widget("Forward")
@@ -807,71 +805,6 @@ class MainApp:
 			
 	#_____________________________________________________________________
 	
-	def OnSaveAsProject(self, widget=None):
-		"""
-		Creates and shows a save as file dialog which allows the user to save
-		the current project to an specific file name.
-		
-		Parameters:
-			widget -- reserved for GTK callbacks, don't use it explicitly.
-		"""
-		buttons = (gtk.STOCK_CANCEL,gtk.RESPONSE_CANCEL,gtk.STOCK_SAVE,gtk.RESPONSE_OK)
-		chooser = gtk.FileChooserDialog(_("Choose a location to save the project"), self.window,
-		                                gtk.FILE_CHOOSER_ACTION_SAVE, buttons)
-		chooser.set_do_overwrite_confirmation(False)
-		chooser.set_current_name(self.project.name)
-		chooser.set_default_response(gtk.RESPONSE_OK)
-		if os.path.exists(Globals.settings.general["projectfolder"]):
-			chooser.set_current_folder(Globals.settings.general["projectfolder"])
-		else:
-			chooser.set_current_folder(os.path.expanduser("~"))
-
-
-		response = chooser.run()
-		if response == gtk.RESPONSE_OK:
-			# InitProjectLocation expects a URI	
-			folder = PlatformUtils.pathname2url(chooser.get_current_folder())
-			
-			# Save the selected folder as the default folder
-			Globals.settings.general["projectfolder"] = folder
-			Globals.settings.write()
-			
-			name = os.path.basename(chooser.get_filename())
-			
-			old_audio_path = self.project.audio_path
-			old_levels_path = self.project.levels_path
-	
-			try:
-				ProjectManager.InitProjectLocation(folder, name, self.project)
-			except ProjectManager.CreateProjectError, e:
-				chooser.hide()
-				if e.errno == 2:
-					message = _("A file or folder with this name already exists. Please choose a different project name and try again.")
-				elif e.errno == 3:
-					message = _("The file or folder location is write-protected.")
-				elif e.errno == 5:
-					message = _("The URI scheme given is either invalid or not supported")
-				
-				# show the error dialog with the relavent error message	
-				dlg = gtk.MessageDialog(self.window,
-					gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
-					gtk.MESSAGE_ERROR,
-					gtk.BUTTONS_OK,
-					_("Unable to create project.\n\n%s") % message)
-				dlg.run()
-				dlg.destroy()
-			else:
-				self.project.SelectInstrument()
-				self.project.ClearEventSelections()
-				self.project.SaveProjectFile(self.project.projectfile)
-				
-				Globals.CopyAllFiles(old_audio_path, self.project.audio_path, self.project.GetLocalAudioFilenames())
-				Globals.CopyAllFiles(old_levels_path, self.project.levels_path, self.project.GetLevelsFilenames())
-		
-		chooser.destroy()
-		
-	#_____________________________________________________________________
-
 	def OnNewProject(self, widget):
 		"""
 		Tries to create a new Project inside the Jokosher data directory.
@@ -1391,7 +1324,7 @@ class MainApp:
 		if self.tvtoolitem in self.toolbar.get_children():
 			self.toolbar.remove(self.tvtoolitem)
 		
-		ctrls = (self.save, self.save_as, self.close, self.addInstrumentButton, self.addAudioFileButton,
+		ctrls = (self.save, self.close, self.addInstrumentButton, self.addAudioFileButton,
 			self.reverse, self.forward, self.play, self.stop, self.record,
 			self.instrumentMenu, self.export, self.cut, self.copy, self.paste,
 			self.undo, self.redo, self.delete, self.compactMixButton, self.properties_menu_item,
