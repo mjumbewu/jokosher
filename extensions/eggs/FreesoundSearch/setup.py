@@ -2,7 +2,7 @@ from setuptools import setup
 import sys, os
 from shutil import copy
 
-version = "0.2"
+version = "0.3"
 setup(name="FreesoundSearch",
 	  version=version,
 	  author='Stuart Langridge, David Corrales',

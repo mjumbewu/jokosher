@@ -347,7 +347,7 @@ def CheckBackendList(backend_list):
 def CopyAllFiles(src_dir, dest_dir, only_these_files=None):
 	""" Copies all the files, but only the files from one directory to another."""
 	for file in os.listdir(src_dir):
-		if only_these_files and file not in only_these_files:
+		if only_these_files is not None and file not in only_these_files:
 			continue
 		
 		src_path = os.path.join(src_dir, file)
@@ -424,7 +424,7 @@ for dirs in create_dirs:
 		try:
 			os.makedirs(new_dir)
 		except:
-			raise "Failed to create user config directory %s" % new_dir
+			raise Exception("Failed to create user config directory %s" % new_dir)
 	
 	if jokosher_dir_empty and os.path.isdir(old_dir) and os.path.isdir(new_dir):
 		CopyAllFiles(old_dir, new_dir)

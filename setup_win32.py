@@ -4,12 +4,14 @@ from distutils.core import setup
 from subprocess import *
 import os
 import glob
+import pygst
+pygst.require('0.10')
 import py2exe
 
 dist = setup(name='jokosher',
-	version='0.11.1',
+	version='0.11.5',
 	author='Jokosher Project',
-	author_email='jokosher-devel@gnome.org',
+	author_email='jokosher-devel-list@gnome.org',
 	maintainer='Michael Sheldon',
 	maintainer_email='mike@mikeasoft.com',
 	description='Multi-track non-linear audio editing.',
@@ -27,7 +29,7 @@ dist = setup(name='jokosher',
 	options = {
 			'py2exe': {
 				'packages' : 'encodings, Jokosher, Jokosher.elements, Jokosher.ui',
-				'includes' : 'cairo, gtk, gtk.glade, gobject, pango, pangocairo, atk, gst, pygst, xdg, Queue, xml.etree.ElementTree, gtk.keysyms, code, keyword, re'
+				'includes' : 'cairo, gtk, gtk.glade, gobject, pango, pangocairo, atk, gio, gst, pygst, xdg, Queue, xml.etree.ElementTree, gtk.keysyms, code, keyword, re, pkg_resources'
 			}
 	},
 	data_files=[

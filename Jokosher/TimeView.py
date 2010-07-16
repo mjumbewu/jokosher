@@ -46,8 +46,7 @@ class TimeView(gtk.EventBox):
 		self.project.transport.connect("position", self.OnTransportPosition)
 		
 		self.UpdateTime()
-		self.tmtip = gtk.Tooltips()
-		self.tmtip.set_tip(self, _("Double click to change the time format"), None)
+		self.set_tooltip_text(_("Double click to change the time format"))
 		
 	#_____________________________________________________________________
 		

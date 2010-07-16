@@ -119,7 +119,7 @@ class Instrument(gobject.GObject):
 		self.id = project.GenerateUniqueID(id)	#check is id is already being used before setting
 		
 		self.input = None	# the device to use for recording on this instrument.
-		self.inTrack = -1	# Input track to record from if device is multichannel.
+		self.inTrack = 0	# Input track to record from if device is multichannel.
 	
 		# CREATE GSTREAMER ELEMENTS #
 		self.playbackbin = gst.element_factory_make("bin", "Instrument_%d"%self.id)
@@ -490,7 +490,7 @@ class Instrument(gobject.GObject):
 		
 		ext = Globals.settings.recording["file_extension"]
 		filename = "%s_%d.%s" % (Globals.FAT32SafeFilename(self.name), event.id, ext)
-		event.file = os.path.join(self.project.audio_path, filename)
+		event.file = filename
 		event.levels_file = filename + Event.Event.LEVELS_FILE_EXTENSION
 		
 		inc = IncrementalSave.NewEvent(self.id, filename, event.start, event.id, recording=True)
@@ -606,7 +606,7 @@ class Instrument(gobject.GObject):
 			inc = IncrementalSave.NewEvent(self.id, newfile, start, event_id)
 			self.project.SaveIncrementalAction(inc)
 			
-			file = audio_file
+			file = newfile
 		else:
 			inc = IncrementalSave.NewEvent(self.id, file, start, event_id)
 			self.project.SaveIncrementalAction(inc)
@@ -619,8 +619,7 @@ class Instrument(gobject.GObject):
 		if duration and levels_file:
 			ev.duration = duration
 			ev.levels_file = levels_file
-			levels_path = os.path.join(self.project.levels_path, levels_file)
-			ev.levels_list.fromfile(levels_path)
+			ev.levels_list.fromfile(ev.GetAbsLevelsFile())
 			# update properties and position when duration changes.
 			ev.MoveButDoNotOverlap(ev.start)
 			ev.SetProperties()
@@ -659,7 +658,7 @@ class Instrument(gobject.GObject):
 		self.project.deleteOnCloseAudioFiles.append(audio_file)
 		
 		# Create the event now so we can return it, and fill in the file later
-		ev = Event.Event(self, audio_file, event_id, url)
+		ev = Event.Event(self, newfile, event_id, url)
 		ev.start = start
 		ev.name = os.path.split(audio_file)[1]
 		ev.isDownloading = True

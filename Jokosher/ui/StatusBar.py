@@ -10,6 +10,7 @@
 #-------------------------------------------------------------------------------
 
 import gtk
+import pango
 
 #=========================================================================
 
@@ -24,9 +25,32 @@ class StatusBar(gtk.Statusbar):
 		Creates a new instance of StatusBar with no messages shown.
 		"""
 		gtk.Statusbar.__init__(self)
-		# gtk.Statusbar contains a label inside a frame inside itself
-		self.label = self.get_children()[0].get_children()[0]
-		self.label.set_use_markup(True)
+		# gtk.Statusbar contains a label somewhere inside itself
+		self.label = self.get_label_in_hierarchy()
+		if self.label:
+			self.label.set_use_markup(True)
+		
+	#_____________________________________________________________________
+	
+	def get_label_in_hierarchy(self):
+		"""
+		In Gtk+ 2.19 Statusbar was changed to keep a the Label inside an
+		HBox inside a frame. In previous versions the Label was directly
+		inside the frame. 
+		
+		Here we search the entire container hierarchy and hope it will
+		continue to work even if another container is added in the
+		future.
+		"""
+		unchecked = [self]
+		while unchecked:
+			widget = unchecked.pop(0)
+			if isinstance(widget, gtk.Label):
+				return widget
+			elif isinstance(widget, gtk.Container):
+				unchecked.extend(widget.get_children())
+			
+		return None
 		
 	#_____________________________________________________________________
 
@@ -40,8 +64,13 @@ class StatusBar(gtk.Statusbar):
 		Return:
 			the value of the next valid message ID.
 		"""
+		if not self.label:
+			pango_attr_list, text_without_markup, accel_char = pango.parse_markup(message)
+			message = text_without_markup
+		
 		message_id = self.push(0, message)
-		self.label.set_use_markup(True)
+		if self.label:
+			self.label.set_use_markup(True)
 		return message_id
 	
 	#_____________________________________________________________________
@@ -53,8 +82,9 @@ class StatusBar(gtk.Statusbar):
 		Parameters:
 			message_id -- numerical id of the message to be removed from the StatusBar.
 		"""
-		self.remove(0, message_id)
-		self.label.set_use_markup(True)
+		self.remove_message(0, message_id)
+		if self.label:
+			self.label.set_use_markup(True)
 		
 	#_____________________________________________________________________
 

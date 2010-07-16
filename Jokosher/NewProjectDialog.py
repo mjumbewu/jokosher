@@ -54,7 +54,6 @@ class NewProjectDialog:
 		
 		self.name = self.res.get_widget("name")
 		self.name.set_activates_default(True)
-		self.folder = self.res.get_widget("folder")
 		self.author = self.res.get_widget("author")
 		self.author.set_activates_default(True)
 		
@@ -82,6 +81,12 @@ class NewProjectDialog:
 		self.okbutton = self.res.get_widget("okButton")
 		self.okbutton.set_flags(gtk.CAN_DEFAULT)
 		self.okbutton.grab_default()
+		
+		self.folder = gtk.FileChooserButton(_("Select A Folder"))
+		self.folder.set_local_only(True)
+		self.folder.set_action(gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER)
+		self.res.get_widget("table5").attach(self.folder, 1, 2, 1, 2)
+		self.folder.show()
 		
 		# Set the default folder of 'folder' (a FileChooserButton)
 		if os.path.exists(Globals.settings.general["projectfolder"]):
@@ -124,7 +129,7 @@ class NewProjectDialog:
 			author = _("Unknown Author")
 			
 		# CreateNewProject expects a URI	
-		folder = PlatformUtils.pathname2url(self.folder.get_current_folder())
+		folder = PlatformUtils.pathname2url(self.folder.get_filename())
 		
 		# Save the selected folder as the default folder
 		Globals.settings.general["projectfolder"] = folder

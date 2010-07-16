@@ -69,9 +69,6 @@ class MainApp:
 		gtk.glade.bindtextdomain(Globals.LOCALE_APP, Globals.LOCALE_PATH)
 		gtk.glade.textdomain(Globals.LOCALE_APP)
 
-		# create tooltips object
-		self.contextTooltips = gtk.Tooltips()
-		
 		self.wTree = gtk.glade.XML(Globals.GLADE_PATH, "MainWindow")
 		
 		#Connect event handlers
@@ -182,7 +179,7 @@ class MainApp:
 		self.isPaused = False
 
 		# Intialise context sensitive tooltips for workspace buttons
-		self.compactMixButton.set_tooltip(self.contextTooltips, self.mixingViewDisabledTip, None)
+		self.compactMixButton.set_tooltip_text(self.mixingViewDisabledTip)
 		
 		# set the window size to the last saved value
 		x = int(Globals.settings.general["windowwidth"])
@@ -250,7 +247,10 @@ class MainApp:
 			pixbuf = icon_theme.load_icon("jokosher", 48, 0)
 			gtk.window_set_default_icon(pixbuf)
 		except gobject.GError, exc:
-			gtk.window_set_default_icon_from_file(os.path.join(Globals.IMAGE_PATH, "jokosher.png"))
+			self.window.set_icon_from_file(os.path.join(Globals.IMAGE_PATH, "jokosher.png"))
+		# make icon available to others
+		self.window.realize()
+		self.icon = self.window.get_icon()
 		
 		
 		self.window.add_events(gtk.gdk.KEY_PRESS_MASK)
@@ -815,8 +815,9 @@ class MainApp:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		buttons = (gtk.STOCK_CANCEL,gtk.RESPONSE_CANCEL,gtk.STOCK_SAVE,gtk.RESPONSE_OK)
-		chooser = gtk.FileChooserDialog(_("Choose a location to save the project"), self.window, gtk.FILE_CHOOSER_ACTION_SAVE, buttons)
-		chooser.set_do_overwrite_confirmation(True)
+		chooser = gtk.FileChooserDialog(_("Choose a location to save the project"), self.window,
+		                                gtk.FILE_CHOOSER_ACTION_SAVE, buttons)
+		chooser.set_do_overwrite_confirmation(False)
 		chooser.set_current_name(self.project.name)
 		chooser.set_default_response(gtk.RESPONSE_OK)
 		if os.path.exists(Globals.settings.general["projectfolder"]):
@@ -827,12 +828,45 @@ class MainApp:
 
 		response = chooser.run()
 		if response == gtk.RESPONSE_OK:
-			filename = chooser.get_filename()
-			Globals.settings.general["projectfolder"] = os.path.dirname(filename)
+			# InitProjectLocation expects a URI	
+			folder = PlatformUtils.pathname2url(chooser.get_current_folder())
+			
+			# Save the selected folder as the default folder
+			Globals.settings.general["projectfolder"] = folder
 			Globals.settings.write()
-			self.project.SelectInstrument()
-			self.project.ClearEventSelections()
-			self.project.SaveProjectFile(filename)
+			
+			name = os.path.basename(chooser.get_filename())
+			
+			old_audio_path = self.project.audio_path
+			old_levels_path = self.project.levels_path
+	
+			try:
+				ProjectManager.InitProjectLocation(folder, name, self.project)
+			except ProjectManager.CreateProjectError, e:
+				chooser.hide()
+				if e.errno == 2:
+					message = _("A file or folder with this name already exists. Please choose a different project name and try again.")
+				elif e.errno == 3:
+					message = _("The file or folder location is write-protected.")
+				elif e.errno == 5:
+					message = _("The URI scheme given is either invalid or not supported")
+				
+				# show the error dialog with the relavent error message	
+				dlg = gtk.MessageDialog(self.window,
+					gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
+					gtk.MESSAGE_ERROR,
+					gtk.BUTTONS_OK,
+					_("Unable to create project.\n\n%s") % message)
+				dlg.run()
+				dlg.destroy()
+			else:
+				self.project.SelectInstrument()
+				self.project.ClearEventSelections()
+				self.project.SaveProjectFile(self.project.projectfile)
+				
+				Globals.CopyAllFiles(old_audio_path, self.project.audio_path, self.project.GetLocalAudioFilenames())
+				Globals.CopyAllFiles(old_levels_path, self.project.levels_path, self.project.GetLevelsFilenames())
+		
 		chooser.destroy()
 		
 	#_____________________________________________________________________
@@ -960,11 +994,11 @@ class MainApp:
 		
 		# update the tooltips depending on the current recording state
 		if self.isRecording:
-			self.record.set_tooltip(self.contextTooltips, self.recTipEnabled, None)
-			self.stop.set_tooltip(self.contextTooltips, self.recStopTipEnabled, None)
+			self.record.set_tooltip_text(self.recTipEnabled)
+			self.stop.set_tooltip_text(self.recStopTipEnabled)
 		else:
-			self.record.set_tooltip(self.contextTooltips, self.recTipDisabled, None)
-			self.stop.set_tooltip(self.contextTooltips, self.recStopTipDisabled, None)
+			self.record.set_tooltip_text(self.recTipDisabled)
+			self.stop.set_tooltip_text(self.recStopTipDisabled)
 		
 		self.workspace.mixView.StartUpdateTimeout()
 	
@@ -1086,10 +1120,9 @@ class MainApp:
 			self.recentprojectsmenu.remove(c)
 		
 		if self.recentprojectitems:
-			tooltips = gtk.Tooltips()
 			for item in self.recentprojectitems:
 				mitem = gtk.MenuItem(item[1])
-				tooltips.set_tip(mitem, item[0], None)
+				mitem.set_tooltip_text(item[0])
 				self.recentprojectsmenu.append(mitem)
 				mitem.connect("activate", self.OnRecentProjectsItem, item[0], item[1])
 			
@@ -1097,8 +1130,7 @@ class MainApp:
 			self.recentprojectsmenu.append(mitem)
 			
 			mitem = gtk.ImageMenuItem(gtk.STOCK_CLEAR)
-			tooltips.set_tip(mitem, _("Clear the list of recent projects"), None)
-			tooltips.force_window()
+			mitem.set_tooltip_text(_("Clear the list of recent projects"))
 			self.recentprojectsmenu.append(mitem)
 			mitem.connect("activate", self.OnClearRecentProjects)
 			
@@ -1350,6 +1382,10 @@ class MainApp:
 			# Create our custom widgets
 			self.timeview = TimeView.TimeView(self.project)
 			self.workspace = Workspace.Workspace(self.project, self)
+
+			# Set the scroll position
+			self.workspace.recordingView.OnExpose() # Calculate the scroll range
+			self.workspace.recordingView.scrollBar.set_value(self.project.viewStart)
 			
 			# Add them to the main window
 			self.main_vbox.pack_start(self.workspace, True, True)
@@ -1666,22 +1702,14 @@ class MainApp:
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-		if Globals.USE_LOCAL_HELP:
+		if gtk.pygtk_version[0] == 2 and gtk.pygtk_version[1] < 14:
+			helpfile = "http://doc.jokosher.org"
+		elif Globals.USE_LOCAL_HELP:
 			helpfile = "ghelp:" + Globals.HELP_PATH
 		else:
 			helpfile = "ghelp:jokosher"
-		
-		screen = gtk.gdk.screen_get_default()
-		ret = gtk.show_uri(screen, helpfile, 0)
-		
-		if not ret:
-			dlg = gtk.MessageDialog(self.window,
-					gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
-					gtk.MESSAGE_ERROR,
-					gtk.BUTTONS_CLOSE)
-			dlg.set_markup(_("<big>Couldn't launch the Yelp help browser.</big>"))
-			dlg.run()
-			dlg.destroy()
+	
+		Utils.OpenExternalURL(url=helpfile, message=_("<big>Couldn't launch the Jokosher documentation site.</big>\n\nPlease visit %s to access it."), parent=self.window)
 
 	#_____________________________________________________________________
 
@@ -1723,7 +1751,7 @@ class MainApp:
 		vbox.pack_start(label, False, False)
 		
 		if gtk.pygtk_version >= (2, 10, 0) and gtk.gtk_version >= (2, 10, 0):
-			contriblnkbtn = gtk.LinkButton("http://www.jokosher.org/contribute")
+			contriblnkbtn = gtk.LinkButton("http://www.jokosher.org/contribute", label="http://www.jokosher.org/contribute")
 			contriblnkbtn.connect("clicked", self.OnContributingLinkButtonClicked)
 			vbox.pack_start(contriblnkbtn, False, False)
 		else:

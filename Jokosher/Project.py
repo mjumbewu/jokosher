@@ -103,6 +103,7 @@ class Project(gobject.GObject):
 		self.instruments = []		#the list of instruments held by this project
 		self.graveyard = []			# The place where deleted instruments are kept, to later be retrieved by undo functions
 		#used to delete copied audio files if the event that uses them is not saved in the project file
+		#also contains paths to levels_data files corresponding to those audio files
 		self.deleteOnCloseAudioFiles = []	# WARNING: any paths in this list will be deleted on exit!
 		self.clipboardList = []		#The list containing the events to cut/copy
 		self.viewScale = 25.0		#View scale as pixels per second
@@ -314,6 +315,7 @@ class Project(gobject.GObject):
 					devices[default_device].append(instr)
 		
 
+		recbin = 0
 		for device, recInstruments in devices.iteritems():
 			if len(recInstruments) == 0:
 				#Nothing to record on this device
@@ -328,11 +330,13 @@ class Project(gobject.GObject):
 
 			
 			if channelsNeeded > 1: #We're recording from a multi-input device
-				recordingbin = gst.Bin("recording bin")
+				#Need multiple recording bins with unique names when we're
+				#recording from multiple devices
+				recordingbin = gst.Bin("recordingbin_%d" % recbin)
 				recordString = Globals.settings.recording["audiosrc"]
 				srcBin = gst.parse_bin_from_description(recordString, True)
 				try:
-					src_element = recordingbin.iterate_sources().next()
+					src_element = srcBin.iterate_sources().next()
 				except StopIteration:
 					pass
 				else:
@@ -369,8 +373,9 @@ class Project(gobject.GObject):
 				
 				split.connect("pad-added", self.__RecordingPadAddedCb, recInstruments, recordingbin)
 				Globals.debug("Recording in multi-input mode")
-				Globals.debug("adding recordingbin")
+				Globals.debug("adding recordingbin_%d" % recbin)
 				self.mainpipeline.add(recordingbin)
+				recbin += 1
 			else:
 				instr = recInstruments[0]
 				event = instr.GetRecordingEvent()
@@ -400,7 +405,7 @@ class Project(gobject.GObject):
 				filesink = recordingbin.get_by_name("sink")
 				level = recordingbin.get_by_name("recordlevel")
 				
-				filesink.set_property("location", event.file)
+				filesink.set_property("location", event.GetAbsFile())
 				level.set_property("interval", int(event.LEVEL_INTERVAL * gst.SECOND))
 				
 				#update the levels in real time
@@ -621,7 +626,7 @@ class Project(gobject.GObject):
 				filesink = bin.get_by_name("sink")
 				level = bin.get_by_name("recordlevel")
 				
-				filesink.set_property("location", event.file)
+				filesink.set_property("location", event.GetAbsFile())
 				level.set_property("interval", int(event.LEVEL_INTERVAL * gst.SECOND))
 				
 				handle = self.bus.connect("message::element", event.recording_bus_level)
@@ -782,7 +787,7 @@ class Project(gobject.GObject):
 		params = doc.createElement("Parameters")
 		head.appendChild(params)
 		
-		items = ["viewScale", "viewStart", "name", "author",
+		items = ["viewScale", "viewStart", "name", "author", "volume",
 		         "transportMode", "bpm", "meter_nom", "meter_denom", "projectfile"]
 		
 		Utils.StoreParametersToXML(self, doc, params, items)
@@ -1319,7 +1324,13 @@ class Project(gobject.GObject):
 		if not undoAction:
 			undoAction = self.NewAtomicUndoAction()
 	
-		uris = [PlatformUtils.pathname2url(filename) for filename in fileList]
+		uris = []
+		for filename in fileList:
+			if filename.find("://"):
+				uris.append(filename)
+			else:
+				# We've been passed a path, so convert it to a URI
+				uris.append(PlatformUtils.pathname2url(filename))
 
 		name, type, pixbuf, path = [x for x in Globals.getCachedInstruments() if x[1] == "audiofile"][0]
 		instr = self.AddInstrument(name, type, _undoAction_=undoAction)
@@ -1546,6 +1557,26 @@ class Project(gobject.GObject):
 	
 	#_____________________________________________________________________
 	
+	def SetProjectSinkDevice(self):
+		"""
+		Grabs the sink element device based on the Global preferences, and sets
+		the pipeline to use that device.
+		"""
+		if self.audioState != self.AUDIO_EXPORTING and \
+		   self.audioState != self.AUDIO_STOPPED:
+			self.Stop()
+			
+		if not self.masterSink:
+			return
+		
+		sinkElement = self.masterSink.sinks().next()
+		if hasattr(sinkElement.props, "device"):
+			outdevice = Globals.settings.playback["device"]
+			Globals.debug("Changing output device: %s" % outdevice)
+			sinkElement.set_property("device", outdevice)
+		
+	#_____________________________________________________________________
+	
 	def MakeProjectSink(self):
 		"""
 		Contructs a GStreamer sink element (or bin with ghost pads) for the 
@@ -1600,10 +1631,30 @@ class Project(gobject.GObject):
 		fileList = []
 		for instrument in self.instruments:
 			for event in instrument.events:
-				fileList.append(event.file)
+				fileList.append(event.GetAbsFile())
 		return fileList
 		
 	#____________________________________________________________________	
+	
+	def GetLocalAudioFilenames(self):
+		fileList = []
+		for instrument in self.instruments:
+			for event in instrument.events:
+				if not os.path.isabs(event.file):
+					fileList.append(event.file)
+		return fileList
+	
+	#____________________________________________________________________	
+	
+	def GetLevelsFilenames(self):
+		fileList = []
+		for instrument in self.instruments:
+			for event in instrument.events:
+				fileList.append(event.levels_file)
+		return fileList
+	
+	#____________________________________________________________________	
+	
 
 	def SetName(self, name):
 		if self.name != name:

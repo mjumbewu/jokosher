@@ -77,6 +77,11 @@ class Event(gobject.GObject):
 		# If you need characters escaped, please do self.file.replace(" ", "\ ") 
 		# but **do not** assign it to this variable.
 		self.file = file
+		if self.file and os.path.isabs(self.file) and \
+		      PlatformUtils.samefile(instrument.project.audio_path, os.path.dirname(self.file)):
+			# If the file is in the audio dir, just include the filename, not the absolute path
+			Globals.debug("Event() given absolute file, should be relative:", self.file)
+			self.file = os.path.basename(self.file)
 		
 		# levels_file is a filename only, no directory information for levels here.
 		basename = os.path.basename(self.file or "Unknown")
@@ -126,6 +131,24 @@ class Event(gobject.GObject):
 
 	#_____________________________________________________________________
 	
+	def GetFilename(self):
+		return os.path.basename(self.file)
+	
+	#_____________________________________________________________________
+	
+	def GetAbsFile(self):
+		if os.path.isabs(self.file):
+			return self.file
+		else:
+			return os.path.join(self.instrument.project.audio_path, self.file)
+	
+	#_____________________________________________________________________
+	
+	def GetAbsLevelsFile(self):
+		return os.path.join(self.instrument.project.levels_path, self.levels_file)
+	
+	#_____________________________________________________________________
+	
 	def CreateFilesource(self):	
 		"""
 		Creates a new GStreamer file source with an unique id.
@@ -158,10 +181,11 @@ class Event(gobject.GObject):
 		if self.file:
 			if self.single_decode_bin:
 				self.gnlsrc.remove(self.single_decode_bin)
+				self.single_decode_bin.set_state(gst.STATE_NULL)
 
 			Globals.debug("creating SingleDecodeBin")
 			caps = gst.caps_from_string("audio/x-raw-int;audio/x-raw-float")
-			f = PlatformUtils.pathname2url(self.file)
+			f = PlatformUtils.pathname2url(self.GetAbsFile())
 			Globals.debug("file uri is:", f)
 			self.single_decode_bin = SingleDecodeBin(caps=caps, uri=f)
 			self.gnlsrc.add(self.single_decode_bin)
@@ -208,26 +232,19 @@ class Event(gobject.GObject):
 				]
 				
 		#Since we are saving the path to the project file, don't delete it on exit
-		if self.file in self.instrument.project.deleteOnCloseAudioFiles:
-			self.instrument.project.deleteOnCloseAudioFiles.remove(self.file)
+		if self.GetAbsFile() in self.instrument.project.deleteOnCloseAudioFiles:
+			self.instrument.project.deleteOnCloseAudioFiles.remove(self.GetAbsFile())
 		
-		self.temp = self.file
-		if PlatformUtils.samefile(self.instrument.project.audio_path, os.path.dirname(self.file)):
-			# If the file is in the audio dir, just include the filename, not the absolute path
-			self.file = os.path.basename(self.file)
-		
-		Utils.StoreParametersToXML(self, doc, params, items)
-		
-		# Put self.file back to its absolute path
-		self.file = self.temp
-		
+		Utils.StoreParametersToXML(self, doc, params, items)		
 		
 		xmlPoints = doc.createElement("FadePoints")
 		ev.appendChild(xmlPoints)
 		Utils.StoreDictionaryToXML(doc, xmlPoints, self.__fadePointsDict, "FadePoint")
 		
 		if self.levels_list:
-			self.levels_list.tofile(os.path.join(self.instrument.project.levels_path, self.levels_file))
+			self.levels_list.tofile(self.GetAbsLevelsFile())
+		if self.GetAbsLevelsFile() in self.instrument.project.deleteOnCloseAudioFiles:
+			self.instrument.project.deleteOnCloseAudioFiles.remove(self.GetAbsLevelsFile())
 		
 	#_____________________________________________________________________
 		
@@ -594,7 +611,9 @@ class Event(gobject.GObject):
 
 	def install_plugin_cb(self, result):
 		self._installing_plugins = False
-		if result == gst.pbutils.INSTALL_PLUGINS_SUCCESS:
+		# hardcode gst.pbutils.INSTALL_PLUGINS_SUCCESS to avoid conditional gst.pbutils import
+		INSTALL_PLUGINS_SUCCESS = 0
+		if result == INSTALL_PLUGINS_SUCCESS:
 			gst.update_registry()
 			self.GenerateWaveform()
 			return
@@ -774,7 +793,7 @@ class Event(gobject.GObject):
 		filesrc = self.loadingPipeline.get_by_name("src")
 		level = self.loadingPipeline.get_by_name("level_element")
 		
-		filesrc.set_property("location", self.file)
+		filesrc.set_property("location", self.GetAbsFile())
 		level.set_property("interval", int(self.LEVEL_INTERVAL * gst.SECOND))
 
 		self.bus = self.loadingPipeline.get_bus()
@@ -815,7 +834,7 @@ class Event(gobject.GObject):
 		self.loadingPipeline.add(urisrc)
 		urisrc.link(tee)
 		
-		filesink.set_property("location", self.file)
+		filesink.set_property("location", self.GetAbsFile())
 		level.set_property("interval", int(self.LEVEL_INTERVAL * gst.SECOND))
 
 		self.bus = self.loadingPipeline.get_bus()
@@ -851,7 +870,13 @@ class Event(gobject.GObject):
 			self.loadingPipeline.set_state(gst.STATE_NULL)
 			
 			if finishedLoading and self.levels_list:
-				self.levels_list.tofile(os.path.join(self.instrument.project.levels_path, self.levels_file))
+				self.levels_list.tofile(self.GetAbsLevelsFile())
+				del_on_close_list = self.instrument.project.deleteOnCloseAudioFiles
+				# this event might not be in the project file yet
+				# if so, levels_file should be deleted when audio file is deleted on exit
+				if self.GetAbsFile() in del_on_close_list:
+					del_on_close_list.append(self.GetAbsLevelsFile())
+					
 				inc = IncrementalSave.CompleteLoading(self.id, self.duration, self.levels_file)
 				self.instrument.project.SaveIncrementalAction(inc)
 			

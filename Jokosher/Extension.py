@@ -145,6 +145,7 @@ class ExtensionAPI:
 			mainapp -- reference the MainApp Jokosher window.
 		"""
 		self.mainapp = mainapp
+		self.jokosher = mainapp
 		
 		self.CONFIGPATH = os.path.join(EXTENSION_DIR_USER, '../extension-config')
 		self.DATAPATH = os.path.join(EXTENSION_DIR_USER, '../extension-data')
@@ -181,7 +182,11 @@ class ExtensionAPI:
 			reference to the new menu item.
 		"""
 		extensions_menu = self.mainapp.wTree.get_widget("extensionsmenu").get_submenu()
-		new_menu_item = gtk.MenuItem(menu_item_name)
+		if isinstance(menu_item_name, gtk.MenuItem):
+			new_menu_item = menu_item_name
+		else:
+			new_menu_item = gtk.MenuItem(menu_item_name)
+		
 		new_menu_item.connect("activate", callback_function)
 		extensions_menu.prepend(new_menu_item)
 		new_menu_item.show()
@@ -781,7 +786,7 @@ class ExtensionAPI:
 			2 = a format with the same three values already exists.
 			3 = cannot parse or create encoder/muxer bin.
 		"""
-		if not description or not extension and not pipelineString:
+		if not description or not extension and not encodeBin:
 			return 1
 			
 		if checkIfValid:

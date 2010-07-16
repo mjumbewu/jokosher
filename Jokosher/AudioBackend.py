@@ -10,7 +10,8 @@
 #
 #-------------------------------------------------------------------------------
 
-import gst, gobject
+import gst, gtk, gobject
+import time
 import Globals
 
 #=========================================================================
@@ -63,16 +64,22 @@ def ListDeviceProbe(element, probe_name):
 		if gobject.type_is_a(element, gst.interfaces.PropertyProbe):
 			element.probe_property_name("device")
 			devices = element.probe_get_values_name("device")
-			
-			if not default_device in devices:
+	
+			if (default_device != None) and (default_device not in devices):
 				dev_info_list.append((default_device, ""))
 			
 			if probe_name and hasattr(element.props, "device-name"):
 				for dev in devices:
 					element.set_property("device", dev)
 					
-					element.set_state(gst.STATE_PAUSED)
-					# certain elements like pulsesrc won't load the device-name until STATE_PAUSED
+					# certain elements like pulsesrc won't load the device-name until STATE_PLAYING
+					state_change_type = element.set_state(gst.STATE_PLAYING)
+					if state_change_type == gst.STATE_CHANGE_ASYNC:
+						new_state = None
+						while new_state != gst.STATE_PLAYING and new_state != gst.STATE_READY:
+							gtk.main_iteration()
+							state_change_type, new_state, pending = element.get_state(0)
+							time.sleep(0.01)
 					name = element.get_property("device-name")
 					element.set_state(gst.STATE_NULL)
 					

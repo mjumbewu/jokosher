@@ -60,8 +60,7 @@ class MixerStrip(gtk.Frame):
 		self.minbutt = gtk.Button()
 		img = gtk.image_new_from_stock(gtk.STOCK_GOTO_BOTTOM, gtk.ICON_SIZE_MENU)
 		self.minbutt.set_image(img)
-		self.mintip = gtk.Tooltips()
-		self.mintip.set_tip(self.minbutt, _("Minimize instrument"), None)
+		self.minbutt.set_tooltip_text(_("Minimize instrument"))
 		self.minbutt.connect("clicked", self.EmitMinimise)
 				
 		self.vbox.pack_start(self.minbutt, False)
@@ -82,8 +81,7 @@ class MixerStrip(gtk.Frame):
 		self.pan.set_range(-1.0, 1.0)
 		self.pan.set_increments(0.1, 1.0)
 		self.pan.set_draw_value(False)
-		self.pantip = gtk.Tooltips()
-		self.pantip.set_tip(self.pan, _("Adjust instrument balance. Right-click to center"), None)
+		self.pan.set_tooltip_text(_("Adjust instrument balance. Right-click to center"))
 		
 		if self.instrument.pan:
 			self.pan.set_value(self.instrument.pan)
