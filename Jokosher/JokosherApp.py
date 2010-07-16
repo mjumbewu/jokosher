@@ -22,7 +22,7 @@ import gettext
 _ = gettext.gettext
 
 import AddInstrumentDialog, TimeView, Workspace
-import PreferencesDialog, ExtensionManagerDialog, RecordingView, NewProjectDialog
+import PreferencesDialog, ExtensionManagerDialog, RecordingView
 import ProjectManager, Globals
 import InstrumentConnectionsDialog
 import EffectPresets, Extension, ExtensionManager
@@ -872,18 +872,44 @@ class MainApp:
 		
 	#_____________________________________________________________________
 
-	def OnNewProject(self, widget, destroyCallback=None):
+	def OnNewProject(self, widget):
 		"""
-		Creates and shows the "New Project" dialog.
+		Tries to create a new Project inside the Jokosher data directory.
+		If the process fails, a message is issued to the user stating the error.
 		
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
-			destroyCallback -- function that'll get called when the new project
-								dialog gets destroyed.
 		"""
-		newdlg = NewProjectDialog.NewProjectDialog(self)
-		if destroyCallback:
-			newdlg.dlg.connect("destroy", destroyCallback)
+		
+		name = _("New Project")
+		author = _("Unknown Author")
+			
+		try:
+			project = ProjectManager.CreateNewProject(name, author)
+		except ProjectManager.CreateProjectError, e:
+			if e.errno == 1:
+				message = _("Could not initialize project.")
+			elif e.errno == 2:
+				message = _("A file or folder with this name already exists. Please choose a different project name and try again.")
+			elif e.errno == 3:
+				message = _("The file or folder location is write-protected.")
+			elif e.errno == 4:
+				message = _("Invalid name or author.")
+			elif e.errno == 5:
+				message = _("The URI scheme given is either invalid or not supported")
+			elif e.errno == 6:
+				message = "%s %s" % (_("Unable to load required Gstreamer plugin:"), e.message)
+			
+			# show the error dialog with the relavent error message	
+			dlg = gtk.MessageDialog(self.dlg,
+				gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
+				gtk.MESSAGE_ERROR,
+				gtk.BUTTONS_OK,
+				_("Unable to create project.\n\n%s") % message)
+			dlg.run()
+			dlg.destroy()
+		else:
+			self.SetProject(project)
 		
 	#_____________________________________________________________________
 		

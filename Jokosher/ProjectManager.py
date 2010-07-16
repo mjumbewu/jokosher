@@ -10,30 +10,31 @@
 #=========================================================================
 
 import urlparse, os, gzip, shutil, gst
+import itertools, datetime, errno
 import Globals, Utils, UndoSystem, LevelsList, IncrementalSave
 import Project, Instrument, Event
 import xml.dom.minidom as xml
 import traceback
 import PlatformUtils
 
-def CreateNewProject(projecturi, name, author):
+def CreateNewProject(name, author, projecturi=None):
 	"""
 	Creates a new Project.
 
 	Parameters:
-		projecturi -- the filesystem location for the new Project.
-						Currently, only file:// URIs are considered valid.
 		name --	the name of the Project.
 		author - the name of the Project's author.
+		projecturi -- the filesystem location for the new Project.
+						Currently, only file:// URIs are considered valid.
 		
 	Returns:
 		the newly created Project object.
 	"""
 	
-	if name == "" or author == "" or projecturi == "":
-		raise CreateProjectError(4)
-
-	project = InitProjectLocation(projecturi, name)
+	if not projecturi:
+		projecturi = PlatformUtils.pathname2url(Globals.PROJECTS_PATH)
+		
+	project = InitProjectLocation(projecturi)
 	project.name = name
 	project.author = author
 	
@@ -42,7 +43,7 @@ def CreateNewProject(projecturi, name, author):
 	
 #_____________________________________________________________________
 	
-def InitProjectLocation(projecturi, name, project=None):
+def InitProjectLocation(projecturi, name=None, project=None):
 	"""
 	Initialises the folder structure on disk for a Project.
 	If no project is provided, a new one is created.
@@ -51,13 +52,13 @@ def InitProjectLocation(projecturi, name, project=None):
 	Parameters:
 		projecturi -- the filesystem location for the new Project.
 						Currently, only file:// URIs are considered valid.
-		name --	the name of the Project.
+		name -- the name of the project folder and file.
 		project -- the project to init, or None is a new project should be created.
 		
 	Returns:
 		the given Project, or the newly created Project object.
 	"""
-	if name == "" or projecturi == "":
+	if not projecturi:
 		raise CreateProjectError(4)
 	
 	(scheme, domain,folder, params, query, fragment) = urlparse.urlparse(projecturi, "file", False)
@@ -68,8 +69,13 @@ def InitProjectLocation(projecturi, name, project=None):
 		# raise "The URI scheme used is invalid." message
 		raise CreateProjectError(5)
 
-	filename = name + ".jokosher"
-	projectdir = os.path.join(folder, name)
+	if name:
+		filename = name + ".jokosher"
+		projectdir = os.path.join(folder, name)
+	else:
+		filename = "project.jokosher"
+		folder_name_template = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M")
+		projectdir = os.path.join(folder, folder_name_template)
 
 	if not project:
 		try:
@@ -81,19 +87,34 @@ def InitProjectLocation(projecturi, name, project=None):
 			Globals.debug("Could not initialize project object:", e)
 			raise CreateProjectError(1)
 
+	unique_suffix = ""
+	for i in itertools.count(1):
+		try:
+			os.mkdir(projectdir + unique_suffix)
+		except OSError, e:
+			if e.errno == errno.EEXIST:
+				# if name was specified, don't try to create a unique suffix
+				if name:
+					raise CreateProjectError(2)
+				else:
+					unique_suffix = "_%d" % count
+					continue
+			else:
+				raise CreateProjectError(3)
+		
+		projectdir = projectdir + unique_suffix
+		break
+	
 	project.projectfile = os.path.join(projectdir, filename)
 	project.audio_path = os.path.join(projectdir, "audio")
 	project.levels_path = os.path.join(projectdir, "levels")
-
-	if os.path.exists(projectdir):
-		raise CreateProjectError(2)
-	else: 
-		try:
-			os.mkdir(projectdir)
-			os.mkdir(project.audio_path)
-			os.mkdir(project.levels_path)
-		except:
-			raise CreateProjectError(3)
+	
+	try:
+		os.mkdir(project.audio_path)
+		os.mkdir(project.levels_path)
+	except:
+		raise CreateProjectError(3)
+		
 
 	return project
 
