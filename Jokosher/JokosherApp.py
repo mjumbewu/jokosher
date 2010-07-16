@@ -23,7 +23,7 @@ _ = gettext.gettext
 
 import AddInstrumentDialog, TimeView, Workspace
 import PreferencesDialog, ExtensionManagerDialog, RecordingView, NewProjectDialog
-import ProjectManager, Globals, WelcomeDialog
+import ProjectManager, Globals
 import InstrumentConnectionsDialog
 import EffectPresets, Extension, ExtensionManager
 import Utils, AudioPreview, MixdownProfileDialog, MixdownActions
@@ -56,8 +56,7 @@ class MainApp:
 			loadExtensions -- whether the extensions should be loaded.
 			startuptype -- determines the startup state of Jokosher:
 							0 = Open the project referred by the openproject parameter.
-							1 = Do not display the welcome dialog or open a the previous project.
-							2 = Display the welcome dialog.
+							1 = Do not open the previous project.
 		"""
 		# create tooltip messages for buttons
 		self.recTipEnabled = _("Stop recording")
@@ -113,6 +112,7 @@ class MainApp:
 			"on_project_add_audio" : self.OnAddAudioFile,
 			"on_system_information_activate" : self.OnSystemInformation,
 			"on_properties_activate" : self.OnProjectProperties,
+			"on_openrecentbutton_clicked" : self.OnOpenRecentProjectButton,
 		}
 		self.wTree.signal_autoconnect(signals)
 		
@@ -151,6 +151,9 @@ class MainApp:
 		self.recordingInputsFileMenuItem = self.wTree.get_widget("instrument_connections1")
 		self.timeFormatFileMenuItem = self.wTree.get_widget("time_format1")
 		self.properties_menu_item = self.wTree.get_widget("project_properties")
+		self.welcome_pane = self.wTree.get_widget("WelcomePane")
+		self.recent_projects_tree = self.wTree.get_widget("recent_projects_tree")
+		self.recent_projects_button = self.wTree.get_widget("recent_projects_button")
 		
 		self.recentprojectitems = []
 		self.lastopenedproject = None
@@ -217,9 +220,26 @@ class MainApp:
 		self.addAudioFileButton.set_icon_widget(audioimg)
 		audioimg.show()
 		
+		self.recent_projects_tree_model = gtk.ListStore(str, str, str)
+		self.recent_projects_tree.set_model(self.recent_projects_tree_model)
 		# populate the Recent Projects menu
 		self.OpenRecentProjects()
 		self.PopulateRecentProjects()
+		
+		# set up recent projects treeview with a ListStore model. We also
+		# use CellRenderPixbuf as we are using icons for each entry
+		tvcolumn = gtk.TreeViewColumn()
+		cellpb = gtk.CellRendererPixbuf()
+		cell = gtk.CellRendererText()
+		
+		tvcolumn.pack_start(cellpb, False)
+		tvcolumn.pack_start(cell, True)
+		
+		tvcolumn.set_attributes(cellpb, stock_id=0)
+		tvcolumn.set_attributes(cell, text=1)
+		
+		self.recent_projects_tree.append_column(tvcolumn)
+		self.recent_projects_tree.connect("row-activated", self.OnRecentProjectSelected)
 		
 		# set window icon
 		icon_theme = gtk.icon_theme_get_default()
@@ -232,8 +252,6 @@ class MainApp:
 		self.window.realize()
 		self.icon = self.window.get_icon()
 		
-		# Make sure we can import for the instruments folder
-		sys.path.append("Instruments")
 		
 		self.window.add_events(gtk.gdk.KEY_PRESS_MASK)
 		self.window.connect_after("key-press-event", self.OnKeyPress)
@@ -262,13 +280,13 @@ class MainApp:
 		
 		# Show the main window
 		self.window.show_all()
+		if self.recentprojectitems:
+			self.recent_projects_tree.set_cursor( (0,) ) # the highlight the first item
+			self.recent_projects_button.grab_focus()
 
 		# command line options override preferences so check for them first,
-		# then preferences, then default to the welcome dialog
-		if startuptype == 2: # welcomedialog cmdline switch
-			WelcomeDialog.WelcomeDialog(self)
-			return
-		elif startuptype == 1: # no-project cmdline switch
+		# then use choice from preferences
+		if startuptype == 1: # no-project cmdline switch
 			return
 		elif openproject: # a project name on the cmdline
 			self.OpenProjectFromPath(openproject)
@@ -278,10 +296,30 @@ class MainApp:
 		elif Globals.settings.general["startupaction"] == PreferencesDialog.STARTUP_NOTHING:
 			return
 
-		#if everything else bombs out resort to the welcome dialog
-		if self.project == None:
-			WelcomeDialog.WelcomeDialog(self)
+		self.welcome_background = None
+		# Uncomment this next line to draw a nice background on the welcome pane
+		#self.welcome_background = gtk.gdk.pixbuf_new_from_file("my-alpha-background.png")
+		if self.welcome_background:
+			self.welcome_pane.connect_after("expose-event", self.OnWelcomePaneExpose)
 
+	#_____________________________________________________________________
+	
+	def OnWelcomePaneExpose (self, widget, event):
+		"""
+		Draw a pretty picture to the background of the welcome pane.
+		
+		Parameters:
+			widget -- GTK callback parameter.
+			event -- GTK callback parameter.
+		"""
+		if not self.welcome_background:
+			return False
+		
+		flags = widget.flags()
+		if flags & gtk.VISIBLE and flags & gtk.MAPPED:
+			if not flags & gtk.NO_WINDOW and not flags & gtk.APP_PAINTABLE:
+				widget.window.draw_pixbuf(widget.style.white_gc, self.welcome_background, 0, 0, 0, 0);
+				
 	#_____________________________________________________________________
 	
 	def OnCompactMixView(self, button=None):
@@ -1103,6 +1141,10 @@ class MainApp:
 		else:
 			#there are no items, so just make it insensitive
 			self.recentprojects.set_sensitive(False)
+			
+		self.recent_projects_tree_model.clear()
+		for path, name in self.recentprojectitems:	
+			self.recent_projects_tree_model.append([gtk.STOCK_NEW, name, path])
 		
 	#_____________________________________________________________________
 	
@@ -1146,6 +1188,35 @@ class MainApp:
 		return self.OpenProjectFromPath(path)
 
 	#_____________________________________________________________________
+	
+	def OnRecentProjectSelected(self, treeview, path, view_column):
+		"""
+		This method is called when one of the entries in the recent projects
+		list is selected.
+		
+		Parameters:
+			treeview -- reserved for GTK callbacks, don't use it explicitly.
+			path -- reserved for GTK callbacks, don't use it explicitly.
+			view_column -- reserved for GTK callbacks, don't use it explicitly.
+		"""
+		item = self.recent_projects_tree_model[path]
+		response = self.OnRecentProjectsItem(treeview, item[2], item[1])
+		
+	#_____________________________________________________________________
+	
+	def OnOpenRecentProjectButton(self, widget):
+		"""
+		Loads the selected recent project.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+		"""
+		path = self.recent_projects_tree.get_cursor()[0]
+		item = self.recent_projects_tree_model[path]
+		self.OnRecentProjectsItem(self, item[2], item[1])
+	
+	#_____________________________________________________________________
+
 
 	def SaveRecentProjects(self):
 		"""
@@ -1286,6 +1357,8 @@ class MainApp:
 		children = self.main_vbox.get_children()
 		if self.workspace in children:
 			self.main_vbox.remove(self.workspace)
+		if self.welcome_pane in children:
+			self.main_vbox.remove(self.welcome_pane)
 		
 		if self.headerhbox in children:
 			self.main_vbox.remove(self.headerhbox)
@@ -1349,6 +1422,11 @@ class MainApp:
 			if self.tvtoolitem:
 				self.tvtoolitem.destroy()
 				self.tvtoolitem = None
+				
+			self.main_vbox.pack_start(self.welcome_pane, True, True)
+			if self.recentprojectitems:
+				self.recent_projects_tree.set_cursor( (0,) ) # the highlight the first item
+				self.recent_projects_button.grab_focus()
 
 	#_____________________________________________________________________
 	
