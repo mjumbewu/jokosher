@@ -193,7 +193,7 @@ class RecordingView(gtk.Frame):
 		
 	#_____________________________________________________________________
 
-	def OnExpose(self, widget, event):
+	def OnExpose(self, widget=None, event=None):
 		"""
 		Sets scrollbar properties (i.e. size, scroll increments, etc),
 		once space for the object has been allocated.
