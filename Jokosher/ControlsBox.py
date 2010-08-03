@@ -51,8 +51,8 @@ class ControlsBox(gtk.HBox):
 		self.recImgEnabled = gtk.gdk.pixbuf_new_from_file(os.path.join(Globals.IMAGE_PATH, "icon_disarm.png"))
 		self.soloImgDisabled = gtk.gdk.pixbuf_new_from_file(os.path.join(Globals.IMAGE_PATH, "icon_solo.png"))
 		self.soloImgEnabled = gtk.gdk.pixbuf_new_from_file(os.path.join(Globals.IMAGE_PATH, "icon_group.png"))
-		self.muteImgDisabled = Utils.GetIconThatMayBeMissing("stock_volume", gtk.ICON_SIZE_BUTTON, False)
-		self.muteImgEnabled = Utils.GetIconThatMayBeMissing("stock_volume-mute", gtk.ICON_SIZE_BUTTON, False)
+		self.muteImgDisabled = Utils.GetIconThatMayBeMissing("stock_volume", self.recImgEnabled.get_width(), False) # Use size of other control button images if fetching stock image
+		self.muteImgEnabled = Utils.GetIconThatMayBeMissing("stock_volume-mute", self.recImgEnabled.get_width(), False)
 		
 		self.recButton = gtk.ToggleButton()
 		self.recButton.set_tooltip_text(self.recTipEnabled)
