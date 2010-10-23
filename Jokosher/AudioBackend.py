@@ -91,7 +91,10 @@ def ListDeviceProbe(element, probe_name):
 			dev_info_list.append((default_device, ""))
 	else:
 		Globals.debug("Cannot list devices: property probe not supported on", element_name)
-		
+	
+	# Sort the devices by device ID (ensures that monitor devices are after canonical devices)
+	dev_info_list.sort()
+
 	return dev_info_list
 
 #_____________________________________________________________________
