@@ -32,7 +32,7 @@ class Settings:
 	general = 	{
 				# increment each time there is an incompatible change with the config file
 				"version" : "1",
-				"recentprojects": "value", 
+				"recentprojects": "", #deprecated
 				"startupaction" : "value",
 				"projectfolder" : "",
 				"windowheight" : 550,
@@ -66,12 +66,26 @@ class Settings:
 				 "extensions_blacklist": ""
 				 }
 				 
+	recentprojects = {
+			#FIXME: replace with some kind of proper database since 
+			# we now plan to store all the projects created ever 
+			# (not just the last 8 used)
+			"paths": "",
+			"names": "",
+			"create_times": "",
+			"last_used_times": "",
+	
+			}
+	
 	sections = {
 				"General" : general,
 				"Recording" : recording,
 				"Playback" : playback,
-				"Extensions" : extensions
+				"Extensions" : extensions,
+				"RecentProjects" : recentprojects,
 				}
+				
+	
 
 	#_____________________________________________________________________
 	

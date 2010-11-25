@@ -29,6 +29,7 @@ import EffectPresets, Extension, ExtensionManager
 import Utils, AudioPreview, MixdownProfileDialog, MixdownActions
 import PlatformUtils
 import ui.StatusBar as StatusBar
+import ProjectListDatabase
 
 #=========================================================================
 
@@ -154,7 +155,6 @@ class MainApp:
 		self.recent_projects_button = self.wTree.get_widget("recent_projects_button")
 		
 		self.recentprojectitems = []
-		self.lastopenedproject = None
 		
 		self.project = None
 		self.headerhbox = None
@@ -218,7 +218,7 @@ class MainApp:
 		self.addAudioFileButton.set_icon_widget(audioimg)
 		audioimg.show()
 		
-		self.recent_projects_tree_model = gtk.ListStore(str, str, str)
+		self.recent_projects_tree_model = gtk.ListStore(str, object, str)
 		self.recent_projects_tree.set_model(self.recent_projects_tree_model)
 		# populate the Recent Projects menu
 		self.OpenRecentProjects()
@@ -234,7 +234,7 @@ class MainApp:
 		tvcolumn.pack_start(cell, True)
 		
 		tvcolumn.set_attributes(cellpb, stock_id=0)
-		tvcolumn.set_attributes(cell, text=1)
+		tvcolumn.set_attributes(cell, text=2)
 		
 		self.recent_projects_tree.append_column(tvcolumn)
 		self.recent_projects_tree.connect("row-activated", self.OnRecentProjectSelected)
@@ -1047,29 +1047,20 @@ class MainApp:
 			path -- path to the project file.
 			name -- name of the project being added.
 		"""
+		
+		
+		# remove any item with the same path already in the list
 		for item in self.recentprojectitems:
-			if path == item[0]:
+			if path == item.path:
 				self.recentprojectitems.remove(item)
 				break
+
+		item = ProjectListDatabase.NewProjectItem(path, name)
 		
-		self.recentprojectitems.insert(0, (path, name))
+		self.recentprojectitems.insert(0, item)
 		self.SaveRecentProjects()
 		self.PopulateRecentProjects()
 
-	#_____________________________________________________________________
-	
-	def OnClearRecentProjects(self, widget):
-		"""
-		Clears the recent projects list. It then updates the user interface to reflect
-		the changes.
-		
-		Parameters:
-			widget -- reserved for GTK callbacks, don't use it explicitly.
-		"""
-		self.recentprojectitems = []
-		self.SaveRecentProjects()
-		self.PopulateRecentProjects()
-		
 	#_____________________________________________________________________
 	
 	def PopulateRecentProjects(self):
@@ -1082,18 +1073,9 @@ class MainApp:
 		
 		if self.recentprojectitems:
 			for item in self.recentprojectitems:
-				mitem = gtk.MenuItem(item[1])
-				mitem.set_tooltip_text(item[0])
+				mitem = gtk.MenuItem(item.name)
 				self.recentprojectsmenu.append(mitem)
-				mitem.connect("activate", self.OnRecentProjectsItem, item[0], item[1])
-			
-			mitem = gtk.SeparatorMenuItem()
-			self.recentprojectsmenu.append(mitem)
-			
-			mitem = gtk.ImageMenuItem(gtk.STOCK_CLEAR)
-			mitem.set_tooltip_text(_("Clear the list of recent projects"))
-			self.recentprojectsmenu.append(mitem)
-			mitem.connect("activate", self.OnClearRecentProjects)
+				mitem.connect("activate", self.OnRecentProjectsItem, item)
 			
 			self.recentprojects.set_sensitive(True)
 			self.recentprojectsmenu.show_all()
@@ -1102,40 +1084,28 @@ class MainApp:
 			self.recentprojects.set_sensitive(False)
 			
 		self.recent_projects_tree_model.clear()
-		for path, name in self.recentprojectitems:	
-			self.recent_projects_tree_model.append([gtk.STOCK_NEW, name, path])
+		for item in self.recentprojectitems:	
+			self.recent_projects_tree_model.append([gtk.STOCK_NEW, item, item.name])
 		
 	#_____________________________________________________________________
 	
 	def OpenRecentProjects(self):
 		"""
-		Populate the self.recentprojectpaths with items from global settings.
+		Populate the self.recentprojectitems with items from global settings.
 		"""
-		self.recentprojectitems = []
-		if Globals.settings.general.has_key("recentprojects"):
-			filestring = Globals.settings.general["recentprojects"]
-			filestring = filestring.split(",")
-			recentprojectitems = []
-			for i in filestring:
-				if len(i.split("|")) == 2:
-					recentprojectitems.append(i.split("|"))	
-					
-			for path, name in recentprojectitems:
-				#TODO - see ticket 80; should it check if the project is valid?
-				if not os.path.exists(path):
-					Globals.debug("Error: Couldn't open recent project", path)
-				else:
-					self.recentprojectitems.append((path, name))
-			
-			#the first project is our last opened project
-			if recentprojectitems and os.path.exists(recentprojectitems[0][0]):
-				self.lastopenedproject = recentprojectitems[0]
-			
-		self.SaveRecentProjects()
+		if Globals.settings.recentprojects['paths'] == "":
+			if Globals.settings.general['recentprojects'] != "":
+				# this is a first run; import the old recent projects
+				imports = ProjectListDatabase.GetOldRecentProjects()
+				for path, name in imports:
+					new = ProjectListDatabase.NewProjectItem(path, name)
+					self.recentprojectitems.append(new)
+		else:
+			self.recentprojectitems = ProjectListDatabase.LoadProjectItems()
 
 	#_____________________________________________________________________
 	
-	def OnRecentProjectsItem(self, widget, path, name):
+	def OnRecentProjectsItem(self, widget, project_item):
 		"""
 		Opens the project selected from the "Recent Projects" drop-down menu.
 		
@@ -1144,7 +1114,7 @@ class MainApp:
 			path -- path to the project file.
 			name -- name of the project being opened.
 		"""
-		return self.OpenProjectFromPath(path)
+		return self.OpenProjectFromPath(project_item.path)
 
 	#_____________________________________________________________________
 	
@@ -1158,8 +1128,8 @@ class MainApp:
 			path -- reserved for GTK callbacks, don't use it explicitly.
 			view_column -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-		item = self.recent_projects_tree_model[path]
-		response = self.OnRecentProjectsItem(treeview, item[2], item[1])
+		item = self.recent_projects_tree_model[path][1]
+		response = self.OnRecentProjectsItem(treeview, item)
 		
 	#_____________________________________________________________________
 	
@@ -1171,27 +1141,19 @@ class MainApp:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		path = self.recent_projects_tree.get_cursor()[0]
-		item = self.recent_projects_tree_model[path]
-		self.OnRecentProjectsItem(self, item[2], item[1])
+		if path:
+			item = self.recent_projects_tree_model[path][1]
+			self.OnRecentProjectsItem(self, item)
 	
 	#_____________________________________________________________________
 
 
 	def SaveRecentProjects(self):
 		"""
-		Saves the list of the last 8 recent projects to the Jokosher config file.
+		Saves the list of the previously used projects to the Jokosher config file.
 		"""
-		string = ""
-
-		# Cut list to 8 items
-		self.recentprojectitems = self.recentprojectitems[:8]
 		
-		for path, name in self.recentprojectitems:
-			string = string + str(path) + "|" + str(name) + ","
-			
-		string = string[:-1]
-		Globals.settings.general['recentprojects'] = string
-		Globals.settings.write()
+		ProjectListDatabase.StoreProjectItems(self.recentprojectitems)
 		
 	#______________________________________________________________________
 	
