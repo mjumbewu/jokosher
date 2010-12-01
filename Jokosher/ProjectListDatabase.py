@@ -51,7 +51,6 @@ def LoadProjectItems():
 	return project_items
 
 def StoreProjectItems(items):
-	print items
 	settings = Globals.settings.recentprojects
 	
 	paths = []
