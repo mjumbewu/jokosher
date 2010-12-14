@@ -98,8 +98,8 @@
 		  <child>
 		    <widget class="GtkMenuItem" id="recentprojects">
 		      <property name="visible">True</property>
-		      <property name="tooltip" translatable="yes">Open a recent project</property>
-		      <property name="label" translatable="yes">_Recent Projects</property>
+		      <property name="tooltip" translatable="yes">Open a project</property>
+		      <property name="label" translatable="yes">_Switch Project</property>
 		      <property name="use_underline">True</property>
 		      <signal name="activate" handler="on_recent_projects1_activate"/>
 

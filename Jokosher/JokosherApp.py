@@ -1067,16 +1067,34 @@ class MainApp:
 		"""
 		Populates the Recent Projects menu with items from self.recentprojectitems.
 		"""	
+		
+		MAX_PROJECTS_SHOWN = 4
+		
 		menuitems = self.recentprojectsmenu.get_children()
 		for c in menuitems:
 			self.recentprojectsmenu.remove(c)
 		
 		if self.recentprojectitems:
-			for item in self.recentprojectitems:
+			
+			for item in self.recentprojectitems[:MAX_PROJECTS_SHOWN]:
 				mitem = gtk.MenuItem(item.name)
 				self.recentprojectsmenu.append(mitem)
 				mitem.connect("activate", self.OnRecentProjectsItem, item)
 			
+			mitem = gtk.SeparatorMenuItem()
+			self.recentprojectsmenu.append(mitem)
+			
+			if len(self.recentprojectitems) > MAX_PROJECTS_SHOWN:
+				menu_text = _("Show all %d projects") % len(self.recentprojectitems)
+			else:
+				menu_text = _("Show all projects")
+			
+			mitem = gtk.MenuItem(menu_text)
+			mitem.set_tooltip_text(_("Close the current project, and show all available projects"))
+			self.recentprojectsmenu.append(mitem)
+			# To show all projects we close the project, which shows the welcome screen
+			mitem.connect("activate", self.OnCloseProject)
+
 			self.recentprojects.set_sensitive(True)
 			self.recentprojectsmenu.show_all()
 		else:
