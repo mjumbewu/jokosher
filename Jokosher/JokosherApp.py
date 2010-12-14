@@ -85,6 +85,7 @@ class MainApp:
 			"on_export_activate" : self.OnExport,
 			"on_preferences_activate" : self.OnPreferences,
 			"on_open_activate" : self.OnOpenProject,
+			"on_import_activate" : self.OnImportProject,
 			"on_save_activate" : self.OnSaveProject,
 			"on_new_activate" : self.OnNewProject,
 			"on_close_activate" : self.OnCloseProject,
@@ -740,8 +741,13 @@ class MainApp:
 			self.project.SetTransportMode(self.project.transport.MODE_HOURS_MINS_SECS)
 		
 	#_____________________________________________________________________
+	
+	def OnOpenProject(self, widget):
+		self.OnCloseProject()
+	
+	#_____________________________________________________________________
 
-	def OnOpenProject(self, widget, destroyCallback=None):
+	def OnImportProject(self, widget, destroyCallback=None):
 		"""
 		Creates and shows a open file dialog which allows the user to open
 		an existing Jokosher project.
@@ -846,7 +852,7 @@ class MainApp:
 		
 	#_____________________________________________________________________
 		
-	def OnCloseProject(self, widget):
+	def OnCloseProject(self, widget=None):
 		"""
 		Closes the current project by calling CloseProject(). 
 		

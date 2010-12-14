@@ -53,7 +53,7 @@
 		    <widget class="GtkImageMenuItem" id="new1">
 		      <property name="visible">True</property>
 		      <property name="tooltip" translatable="yes">Create a new project</property>
-		      <property name="label" translatable="yes">_New...</property>
+		      <property name="label" translatable="yes">_New</property>
 		      <property name="use_underline">True</property>
 		      <signal name="activate" handler="on_new_activate"/>
 		      <accelerator key="N" modifiers="GDK_CONTROL_MASK" signal="activate"/>
@@ -898,7 +898,7 @@
 				      <child>
 					<widget class="GtkLabel" id="label153">
 					  <property name="visible">True</property>
-					  <property name="label" translatable="yes">_New...</property>
+					  <property name="label" translatable="yes">_New</property>
 					  <property name="use_underline">True</property>
 					  <property name="use_markup">False</property>
 					  <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -933,7 +933,7 @@
 			      <property name="can_focus">True</property>
 			      <property name="relief">GTK_RELIEF_NORMAL</property>
 			      <property name="focus_on_click">True</property>
-			      <signal name="clicked" handler="on_open_activate" last_modification_time="Sun, 22 Feb 2009 03:06:13 GMT"/>
+			      <signal name="clicked" handler="on_import_activate" last_modification_time="Sun, 22 Feb 2009 03:06:13 GMT"/>
 
 			      <child>
 				<widget class="GtkAlignment" id="alignment45">
@@ -973,7 +973,7 @@
 				      <child>
 					<widget class="GtkLabel" id="label155">
 					  <property name="visible">True</property>
-					  <property name="label" translatable="yes">_Open...</property>
+					  <property name="label" translatable="yes">_Import</property>
 					  <property name="use_underline">True</property>
 					  <property name="use_markup">False</property>
 					  <property name="justify">GTK_JUSTIFY_LEFT</property>
