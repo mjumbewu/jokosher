@@ -95,6 +95,7 @@ class Project(gobject.GObject):
 		
 		self.author = ""			#user specified author of this project
 		self.name = ""				#the name of this project
+		self.name_is_unset = True		#True if the user has not manually changed the name
 		self.notes = ""				#user specified notes for the project
 		self.projectfile = ""		#the name of the project file, complete with path
 		self.audio_path = ""
@@ -787,7 +788,7 @@ class Project(gobject.GObject):
 		params = doc.createElement("Parameters")
 		head.appendChild(params)
 		
-		items = ["viewScale", "viewStart", "name", "author", "volume",
+		items = ["viewScale", "viewStart", "name", "name_is_unset", "author", "volume",
 		         "transportMode", "bpm", "meter_nom", "meter_denom", "projectfile"]
 		
 		Utils.StoreParametersToXML(self, doc, params, items)
@@ -1659,9 +1660,10 @@ class Project(gobject.GObject):
 	def SetName(self, name):
 		if self.name != name:
 			self.name = name
+			self.name_is_unset = False
 			inc = IncrementalSave.SetName(name)
 			self.SaveIncrementalAction(inc)
-				
+			
 	#____________________________________________________________________	
 	
 	def SetAuthor(self, author):
