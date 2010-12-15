@@ -876,6 +876,8 @@ class MainApp:
 			return 0
 		
 		self.Stop()
+		
+		"""
 		if self.project.CheckUnsavedChanges():
 			message = _("<span size='large' weight='bold'>Save changes to project \"%s\" before closing?</span>\n\nYour changes will be lost if you don't save them.") % self.project.name
 			
@@ -902,8 +904,14 @@ class MainApp:
 				pass
 			elif response == gtk.RESPONSE_CANCEL or response == gtk.RESPONSE_DELETE_EVENT:
 				return 1
+			"""
 		
-		self.project.CloseProject()
+		if self.project.CheckUnsavedChanges():
+			self.OnSaveProject()
+			self.project.CloseProject()
+		elif self.project.newly_created_project:
+			self.project.CloseProject()
+			ProjectManager.DeleteProjectLocation(self.project)
 
 		self.project = None
 		self.mode = None
@@ -1117,15 +1125,25 @@ class MainApp:
 		"""
 		Populate the self.recentprojectitems with items from global settings.
 		"""
+		recentprojectitems = []
+		
 		if Globals.settings.recentprojects['paths'] == "":
 			if Globals.settings.general['recentprojects'] != "":
 				# this is a first run; import the old recent projects
 				imports = ProjectListDatabase.GetOldRecentProjects()
 				for path, name in imports:
 					new = ProjectListDatabase.NewProjectItem(path, name)
-					self.recentprojectitems.append(new)
+					recentprojectitems.append(new)
+				
+				ProjectListDatabase.StoreProjectItems(recentprojectitems)
+				Globals.settings.general['recentprojects'] = ""
+				Globals.settings.write()
 		else:
-			self.recentprojectitems = ProjectListDatabase.LoadProjectItems()
+			recentprojectitems = ProjectListDatabase.LoadProjectItems()
+			
+		for item in recentprojectitems:
+			if os.path.exists(item.path):
+				self.recentprojectitems.append(item)
 
 	#_____________________________________________________________________
 	

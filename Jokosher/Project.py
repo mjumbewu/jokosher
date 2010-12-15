@@ -123,6 +123,8 @@ class Project(gobject.GObject):
 		self.volume = 1.0			#The volume setting for the entire project
 		self.level = 0.0			#The level of the entire project as reported by the gstreamer element
 		self.currentSinkString = None	#to keep track if the sink changes or not
+		
+		self.newly_created_project = False	#if the project was newly created this session (set by ProjectManager.CreateNewProject())
 
 		self.hasDoneIncrementalSave = False	# True if we have already written to the .incremental file from this project.
 		self.isDoingIncrementalRestore = False # If we are currently restoring incremental save actions

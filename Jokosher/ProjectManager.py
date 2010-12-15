@@ -97,6 +97,8 @@ def InitProjectLocation(projecturi):
 	project.audio_path = os.path.join(projectdir, "audio")
 	project.levels_path = os.path.join(projectdir, "levels")
 	
+	project.newly_created_project = True
+	
 	try:
 		os.mkdir(project.audio_path)
 		os.mkdir(project.levels_path)
@@ -105,6 +107,28 @@ def InitProjectLocation(projecturi):
 		
 
 	return project
+
+#_____________________________________________________________________
+
+def DeleteProjectLocation(project):
+	main_dir = os.path.dirname(project.projectfile)
+	try:
+		if os.path.exists(project.audio_path):
+			for file_name in os.listdir(project.audio_path):
+				os.remove(os.path.join(project.audio_path, file_name))
+			os.rmdir(project.audio_path)
+
+		if os.path.exists(project.levels_path):
+			for file_name in os.listdir(project.levels_path):
+				os.remove(os.path.join(project.levels_path, file_name))
+			os.rmdir(project.levels_path)
+	
+		if os.path.exists(main_dir):
+			for file_name in os.listdir(main_dir):
+				os.remove(os.path.join(main_dir, file_name))
+			os.rmdir(main_dir)
+	except OSError, e:
+		Globals.debug("Cannot remove project. Have the permissions been changed, or other directories created inside the project folder?:\n\t%s" % main_dir)
 
 #_____________________________________________________________________
 
