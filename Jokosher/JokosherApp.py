@@ -155,7 +155,7 @@ class MainApp:
 		self.recent_projects_tree = self.wTree.get_widget("recent_projects_tree")
 		self.recent_projects_button = self.wTree.get_widget("recent_projects_button")
 		
-		self.recentprojectitems = []
+		self.project_database_list = ProjectListDatabase.ProjectItemList()
 		
 		self.project = None
 		self.headerhbox = None
@@ -185,9 +185,6 @@ class MainApp:
 		y = int(Globals.settings.general["windowheight"])
 		self.window.resize(x, y)
 		
-		# set sensitivity
-		self.SetGUIProjectLoaded()
-
 		# Connect up the forward and reverse handlers. We can't use the autoconnect as we need child items
 		innerbtn = self.reverse.get_children()[0]
 		innerbtn.connect("pressed", self.OnRewindPressed)
@@ -240,6 +237,9 @@ class MainApp:
 		self.recent_projects_tree.append_column(tvcolumn)
 		self.recent_projects_tree.connect("row-activated", self.OnRecentProjectSelected)
 		
+		# set sensitivity
+		self.SetGUIProjectLoaded()
+		
 		# set window icon
 		icon_theme = gtk.icon_theme_get_default()
 		try:
@@ -279,7 +279,7 @@ class MainApp:
 		
 		# Show the main window
 		self.window.show_all()
-		if self.recentprojectitems:
+		if len(self.recent_projects_tree_model) > 0:
 			self.recent_projects_tree.set_cursor( (0,) ) # the highlight the first item
 			self.recent_projects_button.grab_focus()
 
@@ -1071,7 +1071,7 @@ class MainApp:
 		
 	#_____________________________________________________________________
 
-	def InsertRecentProject(self, path, name):
+	def UpdateProjectLastUsedTime(self, path, name):
 		"""
 		Inserts a new project with its corresponding path to the recent project list.
 		
@@ -1080,16 +1080,11 @@ class MainApp:
 			name -- name of the project being added.
 		"""
 		
+		if self.project_database_list.Contains(path):
+			self.project_database_list.UpdateLastUsedTime(path)
+		else:
+			self.project_database_list.AddProjectItem(path, name)
 		
-		# remove any item with the same path already in the list
-		for item in self.recentprojectitems:
-			if path == item.path:
-				self.recentprojectitems.remove(item)
-				break
-
-		item = ProjectListDatabase.NewProjectItem(path, name)
-		
-		self.recentprojectitems.insert(0, item)
 		self.SaveRecentProjects()
 		self.PopulateRecentProjects()
 
@@ -1097,7 +1092,7 @@ class MainApp:
 	
 	def PopulateRecentProjects(self):
 		"""
-		Populates the Recent Projects menu with items from self.recentprojectitems.
+		Populates the Recent Projects menu with items from self.project_database_list.
 		"""	
 		
 		MAX_PROJECTS_SHOWN = 4
@@ -1106,9 +1101,9 @@ class MainApp:
 		for c in menuitems:
 			self.recentprojectsmenu.remove(c)
 		
-		if self.recentprojectitems:
-			
-			for item in self.recentprojectitems[:MAX_PROJECTS_SHOWN]:
+		if self.project_database_list:
+			ordered_project_items = self.project_database_list.GetOrderedItems()
+			for item in ordered_project_items[:MAX_PROJECTS_SHOWN]:
 				mitem = gtk.MenuItem(item.name)
 				self.recentprojectsmenu.append(mitem)
 				mitem.connect("activate", self.OnRecentProjectsItem, item)
@@ -1116,8 +1111,8 @@ class MainApp:
 			mitem = gtk.SeparatorMenuItem()
 			self.recentprojectsmenu.append(mitem)
 			
-			if len(self.recentprojectitems) > MAX_PROJECTS_SHOWN:
-				menu_text = _("Show all %d projects") % len(self.recentprojectitems)
+			if len(ordered_project_items) > MAX_PROJECTS_SHOWN:
+				menu_text = _("Show all %d projects") % len(ordered_project_items)
 			else:
 				menu_text = _("Show all projects")
 			
@@ -1129,40 +1124,40 @@ class MainApp:
 
 			self.recentprojects.set_sensitive(True)
 			self.recentprojectsmenu.show_all()
+			
+			#Update the welcome screen
+			self.recent_projects_tree_model.clear()
+			for item in ordered_project_items:	
+				self.recent_projects_tree_model.append([gtk.STOCK_NEW, item, item.name])
+			
 		else:
 			#there are no items, so just make it insensitive
 			self.recentprojects.set_sensitive(False)
 			
-		self.recent_projects_tree_model.clear()
-		for item in self.recentprojectitems:	
-			self.recent_projects_tree_model.append([gtk.STOCK_NEW, item, item.name])
+			self.recent_projects_tree_model.clear()
 		
 	#_____________________________________________________________________
 	
 	def OpenRecentProjects(self):
 		"""
-		Populate the self.recentprojectitems with items from global settings.
+		Load the self.project_database_list with items from global settings.
 		"""
-		recentprojectitems = []
 		
 		if Globals.settings.recentprojects['paths'] == "":
 			if Globals.settings.general['recentprojects'] != "":
 				# this is a first run; import the old recent projects
 				imports = ProjectListDatabase.GetOldRecentProjects()
 				for path, name in imports:
-					new = ProjectListDatabase.NewProjectItem(path, name)
-					recentprojectitems.append(new)
+					self.project_database_list.AddProjectItem(path, name)
 				
-				ProjectListDatabase.StoreProjectItems(recentprojectitems)
+				ProjectListDatabase.StoreProjectItems(self.project_database_list)
 				Globals.settings.general['recentprojects'] = ""
 				Globals.settings.write()
 		else:
-			recentprojectitems = ProjectListDatabase.LoadProjectItems()
+			self.project_database_list = ProjectListDatabase.LoadProjectItems()
 			
-		for item in recentprojectitems:
-			if os.path.exists(item.path):
-				self.recentprojectitems.append(item)
-
+		self.project_database_list.PurgeNonExistantPaths()
+		
 	#_____________________________________________________________________
 	
 	def OnRecentProjectsItem(self, widget, project_item):
@@ -1207,13 +1202,12 @@ class MainApp:
 	
 	#_____________________________________________________________________
 
-
 	def SaveRecentProjects(self):
 		"""
 		Saves the list of the previously used projects to the Jokosher config file.
 		"""
 		
-		ProjectListDatabase.StoreProjectItems(self.recentprojectitems)
+		ProjectListDatabase.StoreProjectItems(self.project_database_list)
 		
 	#______________________________________________________________________
 	
@@ -1405,7 +1399,7 @@ class MainApp:
 				self.tvtoolitem = None
 				
 			self.main_vbox.pack_start(self.welcome_pane, True, True)
-			if self.recentprojectitems:
+			if len(self.recent_projects_tree_model) > 0:
 				self.recent_projects_tree.set_cursor( (0,) ) # the highlight the first item
 				self.recent_projects_button.grab_focus()
 
@@ -1612,7 +1606,7 @@ class MainApp:
 		
 		self.project.transport.connect("transport-mode", self.OnTransportMode)
 		self.OnTransportMode()
-		self.InsertRecentProject(project.projectfile, project.name)
+		self.UpdateProjectLastUsedTime(project.projectfile, project.name)
 		self.project.PrepareClick()
 
 		# make various buttons and menu items enabled now we have a project
