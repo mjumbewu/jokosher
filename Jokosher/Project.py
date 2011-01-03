@@ -1640,9 +1640,9 @@ class Project(gobject.GObject):
 	#____________________________________________________________________	
 	
 	def GetAudioAndLevelsFilenames(self, include_deleted=False):
-		levels_files = []
-		rel_audio_files = []
-		abs_audio_files = []
+		levels_files = set()
+		rel_audio_files = set()
+		abs_audio_files = set()
 		
 		if include_deleted:
 			instrs = self.instruments + self.graveyard
@@ -1656,11 +1656,11 @@ class Project(gobject.GObject):
 				events = instrument.events
 		
 			for event in events:
-				levels_files.append(event.levels_file)
+				levels_files.add(event.levels_file)
 				if os.path.isabs(event.file):
-					abs_audio_files.append(event.file)
+					abs_audio_files.add(event.file)
 				else:
-					rel_audio_files.append(event.file)
+					rel_audio_files.add(event.file)
 					
 		return abs_audio_files, rel_audio_files, levels_files
 	
