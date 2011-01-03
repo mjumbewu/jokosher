@@ -78,6 +78,7 @@ class Project(gobject.GObject):
 		"gst-bus-error"	: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, (gobject.TYPE_STRING, gobject.TYPE_STRING) ),
 		"incremental-save" : ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () ),
 		"instrument"		: ( gobject.SIGNAL_RUN_LAST | gobject.SIGNAL_DETAILED, gobject.TYPE_NONE, (gobject.TYPE_PYOBJECT,) ),
+		"name"			: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, (gobject.TYPE_STRING,) ),
 		"time-signature"	: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () ),
 		"undo"			: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () ),
 		"view-start"		: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () ),
@@ -1672,6 +1673,7 @@ class Project(gobject.GObject):
 			self.name_is_unset = False
 			inc = IncrementalSave.SetName(name)
 			self.SaveIncrementalAction(inc)
+			self.emit("name", name)
 			
 	#____________________________________________________________________	
 	

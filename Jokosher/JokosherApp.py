@@ -1032,6 +1032,17 @@ class MainApp:
 	
 	#_____________________________________________________________________
 	
+	def OnProjectNameChanged(self, project, new_name):
+		"""
+		Callback for when the project's name changes.
+		"""
+		
+		self.project_database_list.UpdateName(self.project.projectfile, new_name)
+		self.SaveRecentProjects()
+		self.PopulateRecentProjects()
+	
+	#_____________________________________________________________________
+	
 	def OnProjectUndo(self, project=None):
 		"""
 		Callback for when the project's undo or redo stacks change.
@@ -1602,6 +1613,7 @@ class MainApp:
 		self.project.connect("audio-state::stop", self.OnProjectAudioState)
 		self.project.connect("audio-state::export-start", self.OnProjectExportStart)
 		self.project.connect("audio-state::export-stop", self.OnProjectExportStop)
+		self.project.connect("name", self.OnProjectNameChanged)
 		self.project.connect("undo", self.OnProjectUndo)
 		
 		self.project.transport.connect("transport-mode", self.OnTransportMode)
