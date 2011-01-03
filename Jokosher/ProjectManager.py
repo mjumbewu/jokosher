@@ -16,6 +16,9 @@ import Project, Instrument, Event
 import xml.dom.minidom as xml
 import traceback
 import PlatformUtils
+import gio
+
+#_____________________________________________________________________
 
 def CreateNewProject(name, author, projecturi=None):
 	"""
@@ -129,6 +132,97 @@ def DeleteProjectLocation(project):
 			os.rmdir(main_dir)
 	except OSError, e:
 		Globals.debug("Cannot remove project. Have the permissions been changed, or other directories created inside the project folder?:\n\t%s" % main_dir)
+
+#_____________________________________________________________________
+
+def ImportProject(project_uri):
+	try:
+		old_project = LoadProjectFile(project_uri)
+	except ProjectManager.OpenProjectError, e:
+		raise
+		
+	all_files = old_project.GetAudioAndLevelsFilenames(include_deleted=True)
+	abs_audio_files, rel_audio_files, levels_files = all_files
+	
+	try:
+		new_project = InitProjectLocation(PlatformUtils.pathname2url(Globals.PROJECTS_PATH))
+	except CreateProjectError, e:
+		return None
+	
+	delete_on_fail_list = []
+	
+	try:
+		for audio_filename in rel_audio_files:
+			src = gio.File(path=old_project.audio_path).get_child(audio_filename)
+			dst = gio.File(path=new_project.audio_path).get_child(audio_filename)
+		
+			src.copy(dst)
+			delete_on_fail_list.append(dst.get_uri())
+		
+			Globals.debug("Copy:\n\t" + src.get_uri() + "\n\t" + dst.get_uri())
+		
+		for level_filename in levels_files:
+			src = gio.File(path=old_project.levels_path).get_child(level_filename)
+			dst = gio.File(path=new_project.levels_path).get_child(level_filename)
+		
+			src.copy(dst)
+			delete_on_fail_list.append(dst.get_uri())
+		
+			Globals.debug("Copy:\n\t" + src.get_uri() + "\n\t" + dst.get_uri())
+		
+		path, ext = os.path.splitext(old_project.projectfile)
+		project_incremental_path = path + old_project.INCREMENTAL_SAVE_EXT
+		path, ext = os.path.splitext(new_project.projectfile)
+		new_project_incremental_path = path + new_project.INCREMENTAL_SAVE_EXT
+		src = gio.File(project_incremental_path)
+		dst = gio.File(new_project_incremental_path)
+		
+		try:
+			src.copy(dst)
+			delete_on_fail_list.append(dst.get_uri())
+		except gio.Error, e:
+			# If the project was closed properly, there will be no
+			# .incremental file. This is not a problem.
+			pass
+		
+		old_project.audio_path = new_project.audio_path
+		old_project.levels_path = new_project.levels_path
+		old_project.projectfile = new_project.projectfile
+		old_project.SaveProjectFile(new_project.projectfile)
+		return new_project.projectfile
+	except gio.Error, gio_error:
+		Globals.debug("Unable to import project; copying failed:\n\t%s" % gio_error.message)
+		project_dir = gio.File(path=new_project.projectfile).get_parent().get_path()
+		ImportCleanUpFiles(delete_on_fail_list, new_project.audio_path,
+		        new_project.levels_path, project_dir)
+
+		if gio_error.code == gio.ERROR_NOT_FOUND:
+			# Ask user if they would like to continue even though
+			# some files are missing
+			pass
+		elif gio_error.code == gio.ERROR_EXISTS:
+			pass
+		elif gio_error.code == gio.ERROR_IS_DIRECTORY:
+			pass
+		
+		return None
+
+
+#_____________________________________________________________________
+
+def ImportCleanUpFiles(uris_to_delete, audio_path, levels_path, project_folder):
+	for uri in uris_to_delete:
+		try:
+			gio.File(uri=uri).delete()
+		except gio.Error, e:
+			Globals.debug("ImportCleanUpFiles: " + repr(e))
+	
+	for path in (audio_path, levels_path, project_folder):
+		try:
+			gio.File(path=path).delete()
+		except gio.Error, e:
+			Globals.debug("ImportCleanUpFiles: " + repr(e))
+			Gloabls.debug(path)
 
 #_____________________________________________________________________
 

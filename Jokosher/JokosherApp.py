@@ -757,20 +757,24 @@ class MainApp:
 			destroyCallback -- function that'll get called when the open file
 								dialog gets destroyed.
 		"""
-		chooser = gtk.FileChooserDialog((_('Choose a Jokosher project file')), None, gtk.FILE_CHOOSER_ACTION_OPEN, (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, gtk.STOCK_OPEN, gtk.RESPONSE_OK))
+		chooser = gtk.FileChooserDialog(
+		        title=_('Choose a Jokosher project file'),
+		        parent=self.window,
+		        action=gtk.FILE_CHOOSER_ACTION_OPEN,
+		        buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, gtk.STOCK_OPEN, gtk.RESPONSE_OK))
+		
 		if os.path.exists(Globals.settings.general["projectfolder"]):
 			chooser.set_current_folder(Globals.settings.general["projectfolder"])
 		else:
 			chooser.set_current_folder(os.path.expanduser("~"))
 
 		chooser.set_default_response(gtk.RESPONSE_OK)
-		chooser.set_transient_for(self.window)
 		allfilter = gtk.FileFilter()
 		allfilter.set_name(_("All Files"))
 		allfilter.add_pattern("*")
 		
 		jokfilter = gtk.FileFilter()
-		jokfilter.set_name(_("Jokosher Project File (*.jokosher)"))
+		jokfilter.set_name(_("Jokosher Project Files (*.jokosher)"))
 		jokfilter.add_pattern("*.jokosher")
 		
 		chooser.add_filter(jokfilter)
@@ -779,21 +783,35 @@ class MainApp:
 		if destroyCallback:
 			chooser.connect("destroy", destroyCallback)
 		
-		while True:
-			response = chooser.run()
+		response = chooser.run()
+		
+		if response == gtk.RESPONSE_OK:
 			
-			if response == gtk.RESPONSE_OK:
-				
-				filename = chooser.get_filename()
-				Globals.settings.general["projectfolder"] = os.path.dirname(filename)
-				Globals.settings.write()
-				if self.OpenProjectFromPath(filename,chooser):
-					break
-				
-			elif response == gtk.RESPONSE_CANCEL or response == gtk.RESPONSE_DELETE_EVENT:
-				break
+			filename = chooser.get_filename()
+			Globals.settings.general["projectfolder"] = os.path.dirname(filename)
+			Globals.settings.write()
 
-		chooser.destroy()
+			uri = chooser.get_uri()
+			chooser.destroy()
+
+			try:
+				new_project_file = ProjectManager.ImportProject(uri)
+			except ProjectManager.OpenProjectError, e:
+				self.ShowOpenProjectErrorDialog(e, self.window)
+			
+			if new_project_file:
+				self.OpenProjectFromPath(new_project_file, chooser)
+			else:
+				dlg = gtk.MessageDialog(
+				        parent=self.window,
+				        flags=gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
+				        type=gtk.MESSAGE_ERROR,
+				        buttons=gtk.BUTTONS_OK,
+				        message_format=_("An error occurred and the project could not be imported."))
+				dlg.run()
+				dlg.destroy()
+		else:
+			chooser.destroy()
 		
 	#_____________________________________________________________________
 		
@@ -1523,7 +1541,7 @@ class MainApp:
 	
 	#_____________________________________________________________________
 
-	def OpenProjectFromPath(self,path, parent=None):
+	def OpenProjectFromPath(self, path, parent=None):
 		"""
 		Opens the project file referred by the path parameter.
 		
@@ -1543,7 +1561,7 @@ class MainApp:
 			self.SetProject(ProjectManager.LoadProjectFile(uri))
 			return True
 		except ProjectManager.OpenProjectError, e:
-			self.ShowOpenProjectErrorDialog(e,parent)
+			self.ShowOpenProjectErrorDialog(e, parent)
 			return False
 
 	#_____________________________________________________________________
@@ -1930,7 +1948,7 @@ class MainApp:
 		
 		response = dlg.run()
 		if response == gtk.RESPONSE_OK:
-			#stop the preview audio from playing without destorying the dialog
+			#stop the preview audio from playing without destroying the dialog
 			audiopreview.OnDestroy()
 			dlg.hide()
 			Globals.settings.general["projectfolder"] = os.path.dirname(dlg.get_filename())
