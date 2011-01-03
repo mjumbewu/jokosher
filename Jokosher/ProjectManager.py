@@ -548,6 +548,62 @@ class _LoadZPNFile(_LoadZPTFile):
 			instr.RemoveAndUnlinkPlaybackbin()
 	
 	#_____________________________________________________________________
+	
+	def LoadInstrument(self, instr, xmlNode):
+		"""
+		Restores an Instrument from version 0.2 XML representation.
+		
+		Parameters:
+			instr -- the Instrument instance to apply loaded properties to.
+			xmlNode -- the XML node to retreive data from.
+		"""
+		params = xmlNode.getElementsByTagName("Parameters")[0]
+		
+		Utils.LoadParametersFromXML(instr, params)
+		
+		globaleffect = xmlNode.getElementsByTagName("GlobalEffect")
+		
+		for effect in globaleffect:
+			elementname = str(effect.getAttribute("element"))
+			Globals.debug("Loading effect:", elementname)
+			gstElement = instr.AddEffect(elementname)
+			
+			propsdict = Utils.LoadDictionaryFromXML(effect)
+			for key, value in propsdict.iteritems():
+				gstElement.set_property(key, value)		
+			
+		for ev in xmlNode.getElementsByTagName("Event"):
+			try:
+				id = int(ev.getAttribute("id"))
+			except ValueError:
+				id = None
+			event = Event.Event(instr, None, id)
+			self.LoadEvent(event, ev)
+			instr.events.append(event)
+		
+		for ev in xmlNode.getElementsByTagName("DeadEvent"):
+			try:
+				id = int(ev.getAttribute("id"))
+			except ValueError:
+				id = None
+			event = Event.Event(instr, None, id)
+			self.LoadEvent(event, ev, True)
+			instr.graveyard.append(event)
+
+
+		#load image from file based on unique type
+		instr.pixbuf = Globals.getCachedInstrumentPixbuf(instr.instrType)
+		if not instr.pixbuf:
+			Globals.debug("Error, could not load image:", instr.instrType)
+		
+		# load pan level
+		instr.panElement.set_property("panorama", instr.pan)
+		#check if instrument is muted and setup accordingly
+		instr.OnMute()
+		#update the volume element with the newly loaded value
+		instr.UpdateVolume()
+		
+	#_____________________________________________________________________
 
 	def LoadUndoAction(self, undoAction, xmlNode):
 		"""
