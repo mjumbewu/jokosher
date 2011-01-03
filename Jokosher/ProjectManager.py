@@ -593,6 +593,13 @@ class _LoadZPNFile(_LoadZPTFile):
 		self.project = project
 		self.xmlDoc = xmlDoc
 		
+		# A project being opened is either:
+		# --> A 0.11 or earlier project (all of which required a name on creation).
+		# --> A later than 0.11 project which will load the name_is_unset attribute.
+		# In the latter case, this attribute is overwriten, so here we set it to False 
+		# for the first case.
+		self.project.name_is_unset = False
+		
 		params = self.xmlDoc.getElementsByTagName("Parameters")[0]
 		
 		Utils.LoadParametersFromXML(self.project, params)
