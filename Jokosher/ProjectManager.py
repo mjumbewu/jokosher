@@ -595,7 +595,8 @@ class _LoadZPNFile(_LoadZPTFile):
 		
 		# A project being opened is either:
 		# --> A 0.11 or earlier project (all of which required a name on creation).
-		# --> A later than 0.11 project which will load the name_is_unset attribute.
+		# --> A project created by Jokosher >0.11 which will load the name_is_unset
+		#     attribute from the project file in the LoadParametersFromXML() function.
 		# In the latter case, this attribute is overwriten, so here we set it to False 
 		# for the first case.
 		self.project.name_is_unset = False
