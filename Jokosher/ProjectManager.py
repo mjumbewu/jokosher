@@ -10,30 +10,34 @@
 #=========================================================================
 
 import urlparse, os, gzip, shutil, gst
+import itertools, datetime, errno
 import Globals, Utils, UndoSystem, LevelsList, IncrementalSave
 import Project, Instrument, Event
 import xml.dom.minidom as xml
 import traceback
 import PlatformUtils
+import gio
 
-def CreateNewProject(projecturi, name, author):
+#_____________________________________________________________________
+
+def CreateNewProject(name, author, projecturi=None):
 	"""
 	Creates a new Project.
 
 	Parameters:
-		projecturi -- the filesystem location for the new Project.
-						Currently, only file:// URIs are considered valid.
 		name --	the name of the Project.
 		author - the name of the Project's author.
+		projecturi -- the filesystem location for the new Project.
+						Currently, only file:// URIs are considered valid.
 		
 	Returns:
 		the newly created Project object.
 	"""
 	
-	if name == "" or author == "" or projecturi == "":
-		raise CreateProjectError(4)
-
-	project = InitProjectLocation(projecturi, name)
+	if not projecturi:
+		projecturi = PlatformUtils.pathname2url(Globals.PROJECTS_PATH)
+		
+	project = InitProjectLocation(projecturi)
 	project.name = name
 	project.author = author
 	
@@ -42,7 +46,7 @@ def CreateNewProject(projecturi, name, author):
 	
 #_____________________________________________________________________
 	
-def InitProjectLocation(projecturi, name, project=None):
+def InitProjectLocation(projecturi):
 	"""
 	Initialises the folder structure on disk for a Project.
 	If no project is provided, a new one is created.
@@ -51,13 +55,10 @@ def InitProjectLocation(projecturi, name, project=None):
 	Parameters:
 		projecturi -- the filesystem location for the new Project.
 						Currently, only file:// URIs are considered valid.
-		name --	the name of the Project.
-		project -- the project to init, or None is a new project should be created.
-		
 	Returns:
 		the given Project, or the newly created Project object.
 	"""
-	if name == "" or projecturi == "":
+	if not projecturi:
 		raise CreateProjectError(4)
 	
 	(scheme, domain,folder, params, query, fragment) = urlparse.urlparse(projecturi, "file", False)
@@ -68,34 +69,160 @@ def InitProjectLocation(projecturi, name, project=None):
 		# raise "The URI scheme used is invalid." message
 		raise CreateProjectError(5)
 
-	filename = name + ".jokosher"
-	projectdir = os.path.join(folder, name)
+	filename = "project.jokosher"
+	folder_name_template = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M")
+	projectdir = os.path.join(folder, folder_name_template)
 
-	if not project:
+	try:
+		project = Project.Project()
+	except gst.PluginNotFoundError, e:
+		Globals.debug("Missing Gstreamer plugin:", e)
+		raise CreateProjectError(6, str(e))
+	except Exception, e:
+		Globals.debug("Could not initialize project object:", e)
+		raise CreateProjectError(1)
+
+	unique_suffix = ""
+	for count in itertools.count(1):
 		try:
-			project = Project.Project()
-		except gst.PluginNotFoundError, e:
-			Globals.debug("Missing Gstreamer plugin:", e)
-			raise CreateProjectError(6, str(e))
-		except Exception, e:
-			Globals.debug("Could not initialize project object:", e)
-			raise CreateProjectError(1)
-
+			os.mkdir(projectdir + unique_suffix)
+		except OSError, e:
+			if e.errno == errno.EEXIST:
+				unique_suffix = "_%d" % count
+				continue
+			else:
+				raise CreateProjectError(3)
+		
+		projectdir = projectdir + unique_suffix
+		break
+	
 	project.projectfile = os.path.join(projectdir, filename)
 	project.audio_path = os.path.join(projectdir, "audio")
 	project.levels_path = os.path.join(projectdir, "levels")
-
-	if os.path.exists(projectdir):
-		raise CreateProjectError(2)
-	else: 
-		try:
-			os.mkdir(projectdir)
-			os.mkdir(project.audio_path)
-			os.mkdir(project.levels_path)
-		except:
-			raise CreateProjectError(3)
+	
+	project.newly_created_project = True
+	
+	try:
+		os.mkdir(project.audio_path)
+		os.mkdir(project.levels_path)
+	except:
+		raise CreateProjectError(3)
+		
 
 	return project
+
+#_____________________________________________________________________
+
+def DeleteProjectLocation(project):
+	main_dir = os.path.dirname(project.projectfile)
+	try:
+		if os.path.exists(project.audio_path):
+			for file_name in os.listdir(project.audio_path):
+				os.remove(os.path.join(project.audio_path, file_name))
+			os.rmdir(project.audio_path)
+
+		if os.path.exists(project.levels_path):
+			for file_name in os.listdir(project.levels_path):
+				os.remove(os.path.join(project.levels_path, file_name))
+			os.rmdir(project.levels_path)
+	
+		if os.path.exists(main_dir):
+			for file_name in os.listdir(main_dir):
+				os.remove(os.path.join(main_dir, file_name))
+			os.rmdir(main_dir)
+	except OSError, e:
+		Globals.debug("Cannot remove project. Have the permissions been changed, or other directories created inside the project folder?:\n\t%s" % main_dir)
+
+#_____________________________________________________________________
+
+def ImportProject(project_uri):
+	try:
+		old_project = LoadProjectFile(project_uri)
+	except ProjectManager.OpenProjectError, e:
+		raise
+		
+	all_files = old_project.GetAudioAndLevelsFilenames(include_deleted=True)
+	abs_audio_files, rel_audio_files, levels_files = all_files
+	
+	try:
+		new_project = InitProjectLocation(PlatformUtils.pathname2url(Globals.PROJECTS_PATH))
+	except CreateProjectError, e:
+		return None
+	
+	delete_on_fail_list = []
+	
+	try:
+		for audio_filename in rel_audio_files:
+			src = gio.File(path=old_project.audio_path).get_child(audio_filename)
+			dst = gio.File(path=new_project.audio_path).get_child(audio_filename)
+		
+			src.copy(dst)
+			delete_on_fail_list.append(dst.get_uri())
+		
+			Globals.debug("Copy:\n\t" + src.get_uri() + "\n\t" + dst.get_uri())
+		
+		for level_filename in levels_files:
+			src = gio.File(path=old_project.levels_path).get_child(level_filename)
+			dst = gio.File(path=new_project.levels_path).get_child(level_filename)
+		
+			src.copy(dst)
+			delete_on_fail_list.append(dst.get_uri())
+		
+			Globals.debug("Copy:\n\t" + src.get_uri() + "\n\t" + dst.get_uri())
+		
+		path, ext = os.path.splitext(old_project.projectfile)
+		project_incremental_path = path + old_project.INCREMENTAL_SAVE_EXT
+		path, ext = os.path.splitext(new_project.projectfile)
+		new_project_incremental_path = path + new_project.INCREMENTAL_SAVE_EXT
+		src = gio.File(project_incremental_path)
+		dst = gio.File(new_project_incremental_path)
+		
+		try:
+			src.copy(dst)
+			delete_on_fail_list.append(dst.get_uri())
+		except gio.Error, e:
+			# If the project was closed properly, there will be no
+			# .incremental file. This is not a problem.
+			pass
+		
+		old_project.audio_path = new_project.audio_path
+		old_project.levels_path = new_project.levels_path
+		old_project.projectfile = new_project.projectfile
+		old_project.SaveProjectFile(new_project.projectfile)
+		return new_project.projectfile
+	except gio.Error, gio_error:
+		Globals.debug("Unable to import project; copying failed:\n\t%s" % gio_error.message)
+		project_dir = gio.File(path=new_project.projectfile).get_parent().get_path()
+		ImportCleanUpFiles(delete_on_fail_list, new_project.audio_path,
+		        new_project.levels_path, project_dir)
+
+		if gio_error.code == gio.ERROR_NOT_FOUND:
+			# Ask user if they would like to continue even though
+			# some files are missing
+			pass
+		elif gio_error.code == gio.ERROR_EXISTS:
+			pass
+		elif gio_error.code == gio.ERROR_IS_DIRECTORY:
+			pass
+		
+		return None
+
+
+#_____________________________________________________________________
+
+def ImportCleanUpFiles(uris_to_delete, audio_path, levels_path, project_folder):
+	for uri in uris_to_delete:
+		try:
+			gio.File(uri=uri).delete()
+		except gio.Error, e:
+			Globals.debug("ImportCleanUpFiles: " + repr(e))
+	
+	for path in (audio_path, levels_path, project_folder):
+		try:
+			gio.File(path=path).delete()
+		except gio.Error, e:
+			Globals.debug("ImportCleanUpFiles: " + repr(e))
+			Gloabls.debug(path)
 
 #_____________________________________________________________________
 
@@ -466,6 +593,14 @@ class _LoadZPNFile(_LoadZPTFile):
 		self.project = project
 		self.xmlDoc = xmlDoc
 		
+		# A project being opened is either:
+		# --> A 0.11 or earlier project (all of which required a name on creation).
+		# --> A project created by Jokosher >0.11 which will load the name_is_unset
+		#     attribute from the project file in the LoadParametersFromXML() function.
+		# In the latter case, this attribute is overwriten, so here we set it to False 
+		# for the first case.
+		self.project.name_is_unset = False
+		
 		params = self.xmlDoc.getElementsByTagName("Parameters")[0]
 		
 		Utils.LoadParametersFromXML(self.project, params)
@@ -514,6 +649,62 @@ class _LoadZPNFile(_LoadZPTFile):
 			self.project.graveyard.append(instr)
 			instr.RemoveAndUnlinkPlaybackbin()
 	
+	#_____________________________________________________________________
+	
+	def LoadInstrument(self, instr, xmlNode):
+		"""
+		Restores an Instrument from version 0.2 XML representation.
+		
+		Parameters:
+			instr -- the Instrument instance to apply loaded properties to.
+			xmlNode -- the XML node to retreive data from.
+		"""
+		params = xmlNode.getElementsByTagName("Parameters")[0]
+		
+		Utils.LoadParametersFromXML(instr, params)
+		
+		globaleffect = xmlNode.getElementsByTagName("GlobalEffect")
+		
+		for effect in globaleffect:
+			elementname = str(effect.getAttribute("element"))
+			Globals.debug("Loading effect:", elementname)
+			gstElement = instr.AddEffect(elementname)
+			
+			propsdict = Utils.LoadDictionaryFromXML(effect)
+			for key, value in propsdict.iteritems():
+				gstElement.set_property(key, value)		
+			
+		for ev in xmlNode.getElementsByTagName("Event"):
+			try:
+				id = int(ev.getAttribute("id"))
+			except ValueError:
+				id = None
+			event = Event.Event(instr, None, id)
+			self.LoadEvent(event, ev)
+			instr.events.append(event)
+		
+		for ev in xmlNode.getElementsByTagName("DeadEvent"):
+			try:
+				id = int(ev.getAttribute("id"))
+			except ValueError:
+				id = None
+			event = Event.Event(instr, None, id)
+			self.LoadEvent(event, ev, True)
+			instr.graveyard.append(event)
+
+
+		#load image from file based on unique type
+		instr.pixbuf = Globals.getCachedInstrumentPixbuf(instr.instrType)
+		if not instr.pixbuf:
+			Globals.debug("Error, could not load image:", instr.instrType)
+		
+		# load pan level
+		instr.panElement.set_property("panorama", instr.pan)
+		#check if instrument is muted and setup accordingly
+		instr.OnMute()
+		#update the volume element with the newly loaded value
+		instr.UpdateVolume()
+		
 	#_____________________________________________________________________
 
 	def LoadUndoAction(self, undoAction, xmlNode):

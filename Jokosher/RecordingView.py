@@ -68,6 +68,7 @@ class RecordingView(gtk.Frame):
 		
 		self.errorMessageArea = None
 		self.restoreMessageArea = None
+		self.unsetNameMessageArea = None
 		
 		## create darker workspace box
 		self.eventBox = gtk.EventBox()
@@ -190,9 +191,11 @@ class RecordingView(gtk.Frame):
 			self.vbox.pack_end(msg_area, False, False)
 			msg_area.show()
 			self.restoreMessageArea = msg_area
+		elif self.project.name_is_unset:
+			self.ShowUnsetProjectNameMessage()
 		
 	#_____________________________________________________________________
-
+	
 	def OnExpose(self, widget=None, event=None):
 		"""
 		Sets scrollbar properties (i.e. size, scroll increments, etc),
@@ -564,6 +567,9 @@ class RecordingView(gtk.Frame):
 		if self.restoreMessageArea:
 			self.vbox.remove(self.restoreMessageArea)
 			self.restoreMessageArea = None
+			
+			if self.unsetNameMessageArea is None:
+				self.ShowUnsetProjectNameMessage()
 	
 	#____________________________________________________________________
 	
@@ -576,7 +582,46 @@ class RecordingView(gtk.Frame):
 	#____________________________________________________________________
 	
 	def OnProjectIncSave(self, project):
-		self.OnRestoreMessageAreaClose()
+		if self.restoreMessageArea:
+			self.OnRestoreMessageAreaClose()
+		elif self.unsetNameMessageArea:
+			self.OnUnsetNameMessageAreaClose()
+	
+	#____________________________________________________________________
+	
+	def ShowUnsetProjectNameMessage(self):
+		if not self.project.name_is_unset:
+			return
+	
+		message = _("This project has no name. Would you like to give it one?")
+		details = _("The Properties dialog in the File menu lets you change the name of author of the project.")
+		
+		msg_area = MessageArea.MessageArea()
+		msg_area.add_button(gtk.STOCK_CLOSE, gtk.RESPONSE_CLOSE)
+		msg_area.add_stock_button_with_text(_("_Open Properties"), gtk.STOCK_APPLY, gtk.RESPONSE_OK)
+		msg_area.set_text_and_icon(gtk.STOCK_DIALOG_QUESTION, message, details)
+		
+		msg_area.connect("response", self.OnUnsetNameMessageAreaResponse, msg_area)
+		msg_area.connect("close", self.OnUnsetNameMessageAreaClose, msg_area)
+		
+		self.vbox.pack_end(msg_area, False, False)
+		msg_area.show()
+		self.unsetNameMessageArea = msg_area
+		
+	#_____________________________________________________________________
+	
+	def OnUnsetNameMessageAreaClose(self, widget=None, msg_area=None):
+		if self.unsetNameMessageArea:
+			self.vbox.remove(self.unsetNameMessageArea)
+			self.unsetNameMessageArea = None
+	
+	#____________________________________________________________________
+	
+	def OnUnsetNameMessageAreaResponse(self, widget, response_id, msg_area):
+		if response_id == gtk.RESPONSE_OK:
+			self.mainview.OnProjectProperties()
+		
+		self.OnUnsetNameMessageAreaClose()
 	
 	#____________________________________________________________________
 #=========================================================================

@@ -78,6 +78,7 @@ class Project(gobject.GObject):
 		"gst-bus-error"	: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, (gobject.TYPE_STRING, gobject.TYPE_STRING) ),
 		"incremental-save" : ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () ),
 		"instrument"		: ( gobject.SIGNAL_RUN_LAST | gobject.SIGNAL_DETAILED, gobject.TYPE_NONE, (gobject.TYPE_PYOBJECT,) ),
+		"name"			: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, (gobject.TYPE_STRING,) ),
 		"time-signature"	: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () ),
 		"undo"			: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () ),
 		"view-start"		: ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, () ),
@@ -95,6 +96,7 @@ class Project(gobject.GObject):
 		
 		self.author = ""			#user specified author of this project
 		self.name = ""				#the name of this project
+		self.name_is_unset = True		#True if the user has not manually changed the name
 		self.notes = ""				#user specified notes for the project
 		self.projectfile = ""		#the name of the project file, complete with path
 		self.audio_path = ""
@@ -122,6 +124,8 @@ class Project(gobject.GObject):
 		self.volume = 1.0			#The volume setting for the entire project
 		self.level = 0.0			#The level of the entire project as reported by the gstreamer element
 		self.currentSinkString = None	#to keep track if the sink changes or not
+		
+		self.newly_created_project = False	#if the project was newly created this session (set by ProjectManager.CreateNewProject())
 
 		self.hasDoneIncrementalSave = False	# True if we have already written to the .incremental file from this project.
 		self.isDoingIncrementalRestore = False # If we are currently restoring incremental save actions
@@ -787,7 +791,7 @@ class Project(gobject.GObject):
 		params = doc.createElement("Parameters")
 		head.appendChild(params)
 		
-		items = ["viewScale", "viewStart", "name", "author", "volume",
+		items = ["viewScale", "viewStart", "name", "name_is_unset", "author", "volume",
 		         "transportMode", "bpm", "meter_nom", "meter_denom", "projectfile"]
 		
 		Utils.StoreParametersToXML(self, doc, params, items)
@@ -1636,32 +1640,41 @@ class Project(gobject.GObject):
 		
 	#____________________________________________________________________	
 	
-	def GetLocalAudioFilenames(self):
-		fileList = []
-		for instrument in self.instruments:
-			for event in instrument.events:
-				if not os.path.isabs(event.file):
-					fileList.append(event.file)
-		return fileList
+	def GetAudioAndLevelsFilenames(self, include_deleted=False):
+		levels_files = set()
+		rel_audio_files = set()
+		abs_audio_files = set()
+		
+		if include_deleted:
+			instrs = self.instruments + self.graveyard
+		else:
+			instrs = self.instruments
+		
+		for instrument in instrs:
+			if include_deleted:
+				events = instrument.events + instrument.graveyard
+			else:
+				events = instrument.events
+		
+			for event in events:
+				levels_files.add(event.levels_file)
+				if os.path.isabs(event.file):
+					abs_audio_files.add(event.file)
+				else:
+					rel_audio_files.add(event.file)
+					
+		return abs_audio_files, rel_audio_files, levels_files
 	
 	#____________________________________________________________________	
 	
-	def GetLevelsFilenames(self):
-		fileList = []
-		for instrument in self.instruments:
-			for event in instrument.events:
-				fileList.append(event.levels_file)
-		return fileList
-	
-	#____________________________________________________________________	
-	
-
 	def SetName(self, name):
 		if self.name != name:
 			self.name = name
+			self.name_is_unset = False
 			inc = IncrementalSave.SetName(name)
 			self.SaveIncrementalAction(inc)
-				
+			self.emit("name", name)
+			
 	#____________________________________________________________________	
 	
 	def SetAuthor(self, author):

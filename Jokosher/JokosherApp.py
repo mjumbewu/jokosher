@@ -22,13 +22,14 @@ import gettext
 _ = gettext.gettext
 
 import AddInstrumentDialog, TimeView, Workspace
-import PreferencesDialog, ExtensionManagerDialog, RecordingView, NewProjectDialog
-import ProjectManager, Globals, WelcomeDialog
+import PreferencesDialog, ExtensionManagerDialog, RecordingView
+import ProjectManager, Globals
 import InstrumentConnectionsDialog
 import EffectPresets, Extension, ExtensionManager
 import Utils, AudioPreview, MixdownProfileDialog, MixdownActions
 import PlatformUtils
 import ui.StatusBar as StatusBar
+import ProjectListDatabase
 
 #=========================================================================
 
@@ -56,8 +57,7 @@ class MainApp:
 			loadExtensions -- whether the extensions should be loaded.
 			startuptype -- determines the startup state of Jokosher:
 							0 = Open the project referred by the openproject parameter.
-							1 = Do not display the welcome dialog or open a the previous project.
-							2 = Display the welcome dialog.
+							1 = Do not open the previous project.
 		"""
 		# create tooltip messages for buttons
 		self.recTipEnabled = _("Stop recording")
@@ -85,8 +85,8 @@ class MainApp:
 			"on_export_activate" : self.OnExport,
 			"on_preferences_activate" : self.OnPreferences,
 			"on_open_activate" : self.OnOpenProject,
+			"on_import_activate" : self.OnImportProject,
 			"on_save_activate" : self.OnSaveProject,
-			"on_save_as_activate" : self.OnSaveAsProject,
 			"on_new_activate" : self.OnNewProject,
 			"on_close_activate" : self.OnCloseProject,
 			"on_show_as_bars_beats_ticks_toggled" : self.OnShowBarsBeats,
@@ -113,6 +113,7 @@ class MainApp:
 			"on_project_add_audio" : self.OnAddAudioFile,
 			"on_system_information_activate" : self.OnSystemInformation,
 			"on_properties_activate" : self.OnProjectProperties,
+			"on_openrecentbutton_clicked" : self.OnOpenRecentProjectButton,
 		}
 		self.wTree.signal_autoconnect(signals)
 		
@@ -122,7 +123,6 @@ class MainApp:
 		self.stop = self.wTree.get_widget("Stop")
 		self.record = self.wTree.get_widget("Record")
 		self.save = self.wTree.get_widget("save")
-		self.save_as = self.wTree.get_widget("save_as")
 		self.close = self.wTree.get_widget("close")
 		self.reverse = self.wTree.get_widget("Rewind")
 		self.forward = self.wTree.get_widget("Forward")
@@ -151,9 +151,11 @@ class MainApp:
 		self.recordingInputsFileMenuItem = self.wTree.get_widget("instrument_connections1")
 		self.timeFormatFileMenuItem = self.wTree.get_widget("time_format1")
 		self.properties_menu_item = self.wTree.get_widget("project_properties")
+		self.welcome_pane = self.wTree.get_widget("WelcomePane")
+		self.recent_projects_tree = self.wTree.get_widget("recent_projects_tree")
+		self.recent_projects_button = self.wTree.get_widget("recent_projects_button")
 		
-		self.recentprojectitems = []
-		self.lastopenedproject = None
+		self.project_database_list = ProjectListDatabase.ProjectItemList()
 		
 		self.project = None
 		self.headerhbox = None
@@ -183,9 +185,6 @@ class MainApp:
 		y = int(Globals.settings.general["windowheight"])
 		self.window.resize(x, y)
 		
-		# set sensitivity
-		self.SetGUIProjectLoaded()
-
 		# Connect up the forward and reverse handlers. We can't use the autoconnect as we need child items
 		innerbtn = self.reverse.get_children()[0]
 		innerbtn.connect("pressed", self.OnRewindPressed)
@@ -217,9 +216,29 @@ class MainApp:
 		self.addAudioFileButton.set_icon_widget(audioimg)
 		audioimg.show()
 		
+		self.recent_projects_tree_model = gtk.ListStore(str, object, str)
+		self.recent_projects_tree.set_model(self.recent_projects_tree_model)
 		# populate the Recent Projects menu
 		self.OpenRecentProjects()
 		self.PopulateRecentProjects()
+		
+		# set up recent projects treeview with a ListStore model. We also
+		# use CellRenderPixbuf as we are using icons for each entry
+		tvcolumn = gtk.TreeViewColumn()
+		cellpb = gtk.CellRendererPixbuf()
+		cell = gtk.CellRendererText()
+		
+		tvcolumn.pack_start(cellpb, False)
+		tvcolumn.pack_start(cell, True)
+		
+		tvcolumn.set_attributes(cellpb, stock_id=0)
+		tvcolumn.set_attributes(cell, text=2)
+		
+		self.recent_projects_tree.append_column(tvcolumn)
+		self.recent_projects_tree.connect("row-activated", self.OnRecentProjectSelected)
+		
+		# set sensitivity
+		self.SetGUIProjectLoaded()
 		
 		# set window icon
 		icon_theme = gtk.icon_theme_get_default()
@@ -232,8 +251,6 @@ class MainApp:
 		self.window.realize()
 		self.icon = self.window.get_icon()
 		
-		# Make sure we can import for the instruments folder
-		sys.path.append("Instruments")
 		
 		self.window.add_events(gtk.gdk.KEY_PRESS_MASK)
 		self.window.connect_after("key-press-event", self.OnKeyPress)
@@ -262,13 +279,13 @@ class MainApp:
 		
 		# Show the main window
 		self.window.show_all()
+		if len(self.recent_projects_tree_model) > 0:
+			self.recent_projects_tree.set_cursor( (0,) ) # the highlight the first item
+			self.recent_projects_button.grab_focus()
 
 		# command line options override preferences so check for them first,
-		# then preferences, then default to the welcome dialog
-		if startuptype == 2: # welcomedialog cmdline switch
-			WelcomeDialog.WelcomeDialog(self)
-			return
-		elif startuptype == 1: # no-project cmdline switch
+		# then use choice from preferences
+		if startuptype == 1: # no-project cmdline switch
 			return
 		elif openproject: # a project name on the cmdline
 			self.OpenProjectFromPath(openproject)
@@ -278,10 +295,30 @@ class MainApp:
 		elif Globals.settings.general["startupaction"] == PreferencesDialog.STARTUP_NOTHING:
 			return
 
-		#if everything else bombs out resort to the welcome dialog
-		if self.project == None:
-			WelcomeDialog.WelcomeDialog(self)
+		self.welcome_background = None
+		# Uncomment this next line to draw a nice background on the welcome pane
+		#self.welcome_background = gtk.gdk.pixbuf_new_from_file("my-alpha-background.png")
+		if self.welcome_background:
+			self.welcome_pane.connect_after("expose-event", self.OnWelcomePaneExpose)
 
+	#_____________________________________________________________________
+	
+	def OnWelcomePaneExpose (self, widget, event):
+		"""
+		Draw a pretty picture to the background of the welcome pane.
+		
+		Parameters:
+			widget -- GTK callback parameter.
+			event -- GTK callback parameter.
+		"""
+		if not self.welcome_background:
+			return False
+		
+		flags = widget.flags()
+		if flags & gtk.VISIBLE and flags & gtk.MAPPED:
+			if not flags & gtk.NO_WINDOW and not flags & gtk.APP_PAINTABLE:
+				widget.window.draw_pixbuf(widget.style.white_gc, self.welcome_background, 0, 0, 0, 0);
+				
 	#_____________________________________________________________________
 	
 	def OnCompactMixView(self, button=None):
@@ -704,8 +741,13 @@ class MainApp:
 			self.project.SetTransportMode(self.project.transport.MODE_HOURS_MINS_SECS)
 		
 	#_____________________________________________________________________
+	
+	def OnOpenProject(self, widget):
+		self.OnCloseProject()
+	
+	#_____________________________________________________________________
 
-	def OnOpenProject(self, widget, destroyCallback=None):
+	def OnImportProject(self, widget, destroyCallback=None):
 		"""
 		Creates and shows a open file dialog which allows the user to open
 		an existing Jokosher project.
@@ -715,20 +757,24 @@ class MainApp:
 			destroyCallback -- function that'll get called when the open file
 								dialog gets destroyed.
 		"""
-		chooser = gtk.FileChooserDialog((_('Choose a Jokosher project file')), None, gtk.FILE_CHOOSER_ACTION_OPEN, (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, gtk.STOCK_OPEN, gtk.RESPONSE_OK))
+		chooser = gtk.FileChooserDialog(
+		        title=_('Choose a Jokosher project file'),
+		        parent=self.window,
+		        action=gtk.FILE_CHOOSER_ACTION_OPEN,
+		        buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, gtk.STOCK_OPEN, gtk.RESPONSE_OK))
+		
 		if os.path.exists(Globals.settings.general["projectfolder"]):
 			chooser.set_current_folder(Globals.settings.general["projectfolder"])
 		else:
 			chooser.set_current_folder(os.path.expanduser("~"))
 
 		chooser.set_default_response(gtk.RESPONSE_OK)
-		chooser.set_transient_for(self.window)
 		allfilter = gtk.FileFilter()
 		allfilter.set_name(_("All Files"))
 		allfilter.add_pattern("*")
 		
 		jokfilter = gtk.FileFilter()
-		jokfilter.set_name(_("Jokosher Project File (*.jokosher)"))
+		jokfilter.set_name(_("Jokosher Project Files (*.jokosher)"))
 		jokfilter.add_pattern("*.jokosher")
 		
 		chooser.add_filter(jokfilter)
@@ -737,21 +783,35 @@ class MainApp:
 		if destroyCallback:
 			chooser.connect("destroy", destroyCallback)
 		
-		while True:
-			response = chooser.run()
+		response = chooser.run()
+		
+		if response == gtk.RESPONSE_OK:
 			
-			if response == gtk.RESPONSE_OK:
-				
-				filename = chooser.get_filename()
-				Globals.settings.general["projectfolder"] = os.path.dirname(filename)
-				Globals.settings.write()
-				if self.OpenProjectFromPath(filename,chooser):
-					break
-				
-			elif response == gtk.RESPONSE_CANCEL or response == gtk.RESPONSE_DELETE_EVENT:
-				break
+			filename = chooser.get_filename()
+			Globals.settings.general["projectfolder"] = os.path.dirname(filename)
+			Globals.settings.write()
 
-		chooser.destroy()
+			uri = chooser.get_uri()
+			chooser.destroy()
+
+			try:
+				new_project_file = ProjectManager.ImportProject(uri)
+			except ProjectManager.OpenProjectError, e:
+				self.ShowOpenProjectErrorDialog(e, self.window)
+			
+			if new_project_file:
+				self.OpenProjectFromPath(new_project_file, chooser)
+			else:
+				dlg = gtk.MessageDialog(
+				        parent=self.window,
+				        flags=gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
+				        type=gtk.MESSAGE_ERROR,
+				        buttons=gtk.BUTTONS_OK,
+				        message_format=_("An error occurred and the project could not be imported."))
+				dlg.run()
+				dlg.destroy()
+		else:
+			chooser.destroy()
 		
 	#_____________________________________________________________________
 		
@@ -769,87 +829,48 @@ class MainApp:
 			
 	#_____________________________________________________________________
 	
-	def OnSaveAsProject(self, widget=None):
+	def OnNewProject(self, widget):
 		"""
-		Creates and shows a save as file dialog which allows the user to save
-		the current project to an specific file name.
+		Tries to create a new Project inside the Jokosher data directory.
+		If the process fails, a message is issued to the user stating the error.
 		
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-		buttons = (gtk.STOCK_CANCEL,gtk.RESPONSE_CANCEL,gtk.STOCK_SAVE,gtk.RESPONSE_OK)
-		chooser = gtk.FileChooserDialog(_("Choose a location to save the project"), self.window,
-		                                gtk.FILE_CHOOSER_ACTION_SAVE, buttons)
-		chooser.set_do_overwrite_confirmation(False)
-		chooser.set_current_name(self.project.name)
-		chooser.set_default_response(gtk.RESPONSE_OK)
-		if os.path.exists(Globals.settings.general["projectfolder"]):
-			chooser.set_current_folder(Globals.settings.general["projectfolder"])
+		
+		name = _("New Project")
+		author = _("Unknown Author")
+			
+		try:
+			project = ProjectManager.CreateNewProject(name, author)
+		except ProjectManager.CreateProjectError, e:
+			if e.errno == 1:
+				message = _("Could not initialize project.")
+			elif e.errno == 2:
+				message = _("A file or folder with this name already exists. Please choose a different project name and try again.")
+			elif e.errno == 3:
+				message = _("The file or folder location is write-protected.")
+			elif e.errno == 4:
+				message = _("Invalid name or author.")
+			elif e.errno == 5:
+				message = _("The URI scheme given is either invalid or not supported")
+			elif e.errno == 6:
+				message = "%s %s" % (_("Unable to load required Gstreamer plugin:"), e.message)
+			
+			# show the error dialog with the relavent error message	
+			dlg = gtk.MessageDialog(self.dlg,
+				gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
+				gtk.MESSAGE_ERROR,
+				gtk.BUTTONS_OK,
+				_("Unable to create project.\n\n%s") % message)
+			dlg.run()
+			dlg.destroy()
 		else:
-			chooser.set_current_folder(os.path.expanduser("~"))
-
-
-		response = chooser.run()
-		if response == gtk.RESPONSE_OK:
-			# InitProjectLocation expects a URI	
-			folder = PlatformUtils.pathname2url(chooser.get_current_folder())
-			
-			# Save the selected folder as the default folder
-			Globals.settings.general["projectfolder"] = folder
-			Globals.settings.write()
-			
-			name = os.path.basename(chooser.get_filename())
-			
-			old_audio_path = self.project.audio_path
-			old_levels_path = self.project.levels_path
-	
-			try:
-				ProjectManager.InitProjectLocation(folder, name, self.project)
-			except ProjectManager.CreateProjectError, e:
-				chooser.hide()
-				if e.errno == 2:
-					message = _("A file or folder with this name already exists. Please choose a different project name and try again.")
-				elif e.errno == 3:
-					message = _("The file or folder location is write-protected.")
-				elif e.errno == 5:
-					message = _("The URI scheme given is either invalid or not supported")
-				
-				# show the error dialog with the relavent error message	
-				dlg = gtk.MessageDialog(self.window,
-					gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
-					gtk.MESSAGE_ERROR,
-					gtk.BUTTONS_OK,
-					_("Unable to create project.\n\n%s") % message)
-				dlg.run()
-				dlg.destroy()
-			else:
-				self.project.SelectInstrument()
-				self.project.ClearEventSelections()
-				self.project.SaveProjectFile(self.project.projectfile)
-				
-				Globals.CopyAllFiles(old_audio_path, self.project.audio_path, self.project.GetLocalAudioFilenames())
-				Globals.CopyAllFiles(old_levels_path, self.project.levels_path, self.project.GetLevelsFilenames())
-		
-		chooser.destroy()
-		
-	#_____________________________________________________________________
-
-	def OnNewProject(self, widget, destroyCallback=None):
-		"""
-		Creates and shows the "New Project" dialog.
-		
-		Parameters:
-			widget -- reserved for GTK callbacks, don't use it explicitly.
-			destroyCallback -- function that'll get called when the new project
-								dialog gets destroyed.
-		"""
-		newdlg = NewProjectDialog.NewProjectDialog(self)
-		if destroyCallback:
-			newdlg.dlg.connect("destroy", destroyCallback)
+			self.SetProject(project)
 		
 	#_____________________________________________________________________
 		
-	def OnCloseProject(self, widget):
+	def OnCloseProject(self, widget=None):
 		"""
 		Closes the current project by calling CloseProject(). 
 		
@@ -873,6 +894,8 @@ class MainApp:
 			return 0
 		
 		self.Stop()
+		
+		"""
 		if self.project.CheckUnsavedChanges():
 			message = _("<span size='large' weight='bold'>Save changes to project \"%s\" before closing?</span>\n\nYour changes will be lost if you don't save them.") % self.project.name
 			
@@ -899,8 +922,14 @@ class MainApp:
 				pass
 			elif response == gtk.RESPONSE_CANCEL or response == gtk.RESPONSE_DELETE_EVENT:
 				return 1
+			"""
 		
-		self.project.CloseProject()
+		if self.project.CheckUnsavedChanges():
+			self.OnSaveProject()
+			self.project.CloseProject()
+		elif self.project.newly_created_project:
+			self.project.CloseProject()
+			ProjectManager.DeleteProjectLocation(self.project)
 
 		self.project = None
 		self.mode = None
@@ -1003,6 +1032,17 @@ class MainApp:
 	
 	#_____________________________________________________________________
 	
+	def OnProjectNameChanged(self, project, new_name):
+		"""
+		Callback for when the project's name changes.
+		"""
+		
+		self.project_database_list.UpdateName(self.project.projectfile, new_name)
+		self.SaveRecentProjects()
+		self.PopulateRecentProjects()
+	
+	#_____________________________________________________________________
+	
 	def OnProjectUndo(self, project=None):
 		"""
 		Callback for when the project's undo or redo stacks change.
@@ -1042,7 +1082,7 @@ class MainApp:
 		
 	#_____________________________________________________________________
 
-	def InsertRecentProject(self, path, name):
+	def UpdateProjectLastUsedTime(self, path, name):
 		"""
 		Inserts a new project with its corresponding path to the recent project list.
 		
@@ -1050,91 +1090,88 @@ class MainApp:
 			path -- path to the project file.
 			name -- name of the project being added.
 		"""
-		for item in self.recentprojectitems:
-			if path == item[0]:
-				self.recentprojectitems.remove(item)
-				break
 		
-		self.recentprojectitems.insert(0, (path, name))
+		if self.project_database_list.Contains(path):
+			self.project_database_list.UpdateLastUsedTime(path)
+		else:
+			self.project_database_list.AddProjectItem(path, name)
+		
 		self.SaveRecentProjects()
 		self.PopulateRecentProjects()
 
 	#_____________________________________________________________________
 	
-	def OnClearRecentProjects(self, widget):
-		"""
-		Clears the recent projects list. It then updates the user interface to reflect
-		the changes.
-		
-		Parameters:
-			widget -- reserved for GTK callbacks, don't use it explicitly.
-		"""
-		self.recentprojectitems = []
-		self.SaveRecentProjects()
-		self.PopulateRecentProjects()
-		
-	#_____________________________________________________________________
-	
 	def PopulateRecentProjects(self):
 		"""
-		Populates the Recent Projects menu with items from self.recentprojectitems.
+		Populates the Recent Projects menu with items from self.project_database_list.
 		"""	
+		
+		MAX_PROJECTS_SHOWN = 4
+		
 		menuitems = self.recentprojectsmenu.get_children()
 		for c in menuitems:
 			self.recentprojectsmenu.remove(c)
 		
-		if self.recentprojectitems:
-			for item in self.recentprojectitems:
-				mitem = gtk.MenuItem(item[1])
-				mitem.set_tooltip_text(item[0])
+		if self.project_database_list:
+			ordered_project_items = self.project_database_list.GetOrderedItems()
+			for item in ordered_project_items[:MAX_PROJECTS_SHOWN]:
+				mitem = gtk.MenuItem(item.name)
 				self.recentprojectsmenu.append(mitem)
-				mitem.connect("activate", self.OnRecentProjectsItem, item[0], item[1])
+				mitem.connect("activate", self.OnRecentProjectsItem, item)
 			
 			mitem = gtk.SeparatorMenuItem()
 			self.recentprojectsmenu.append(mitem)
 			
-			mitem = gtk.ImageMenuItem(gtk.STOCK_CLEAR)
-			mitem.set_tooltip_text(_("Clear the list of recent projects"))
-			self.recentprojectsmenu.append(mitem)
-			mitem.connect("activate", self.OnClearRecentProjects)
+			if len(ordered_project_items) > MAX_PROJECTS_SHOWN:
+				menu_text = _("Show all %d projects") % len(ordered_project_items)
+			else:
+				menu_text = _("Show all projects")
 			
+			mitem = gtk.MenuItem(menu_text)
+			mitem.set_tooltip_text(_("Close the current project, and show all available projects"))
+			self.recentprojectsmenu.append(mitem)
+			# To show all projects we close the project, which shows the welcome screen
+			mitem.connect("activate", self.OnCloseProject)
+
 			self.recentprojects.set_sensitive(True)
 			self.recentprojectsmenu.show_all()
+			
+			#Update the welcome screen
+			self.recent_projects_tree_model.clear()
+			for item in ordered_project_items:	
+				self.recent_projects_tree_model.append([gtk.STOCK_NEW, item, item.name])
+			
 		else:
 			#there are no items, so just make it insensitive
 			self.recentprojects.set_sensitive(False)
+			
+			self.recent_projects_tree_model.clear()
 		
 	#_____________________________________________________________________
 	
 	def OpenRecentProjects(self):
 		"""
-		Populate the self.recentprojectpaths with items from global settings.
+		Load the self.project_database_list with items from global settings.
 		"""
-		self.recentprojectitems = []
-		if Globals.settings.general.has_key("recentprojects"):
-			filestring = Globals.settings.general["recentprojects"]
-			filestring = filestring.split(",")
-			recentprojectitems = []
-			for i in filestring:
-				if len(i.split("|")) == 2:
-					recentprojectitems.append(i.split("|"))	
-					
-			for path, name in recentprojectitems:
-				#TODO - see ticket 80; should it check if the project is valid?
-				if not os.path.exists(path):
-					Globals.debug("Error: Couldn't open recent project", path)
-				else:
-					self.recentprojectitems.append((path, name))
+		
+		if Globals.settings.recentprojects['paths'] == "":
+			if Globals.settings.general['recentprojects'] != "":
+				# this is a first run; import the old recent projects
+				imports = ProjectListDatabase.GetOldRecentProjects()
+				for path, name in imports:
+					self.project_database_list.AddProjectItem(path, name)
+				
+				ProjectListDatabase.StoreProjectItems(self.project_database_list)
+				Globals.settings.general['recentprojects'] = ""
+				Globals.settings.write()
+		else:
+			self.project_database_list = ProjectListDatabase.LoadProjectItems()
 			
-			#the first project is our last opened project
-			if recentprojectitems and os.path.exists(recentprojectitems[0][0]):
-				self.lastopenedproject = recentprojectitems[0]
-			
-		self.SaveRecentProjects()
-
+		self.project_database_list.PurgeNonExistantPaths()
+		
 	#_____________________________________________________________________
 	
-	def OnRecentProjectsItem(self, widget, path, name):
+	def OnRecentProjectsItem(self, widget, project_item):
 		"""
 		Opens the project selected from the "Recent Projects" drop-down menu.
 		
@@ -1143,25 +1180,45 @@ class MainApp:
 			path -- path to the project file.
 			name -- name of the project being opened.
 		"""
-		return self.OpenProjectFromPath(path)
+		return self.OpenProjectFromPath(project_item.path)
 
+	#_____________________________________________________________________
+	
+	def OnRecentProjectSelected(self, treeview, path, view_column):
+		"""
+		This method is called when one of the entries in the recent projects
+		list is selected.
+		
+		Parameters:
+			treeview -- reserved for GTK callbacks, don't use it explicitly.
+			path -- reserved for GTK callbacks, don't use it explicitly.
+			view_column -- reserved for GTK callbacks, don't use it explicitly.
+		"""
+		item = self.recent_projects_tree_model[path][1]
+		response = self.OnRecentProjectsItem(treeview, item)
+		
+	#_____________________________________________________________________
+	
+	def OnOpenRecentProjectButton(self, widget):
+		"""
+		Loads the selected recent project.
+		
+		Parameters:
+			widget -- reserved for GTK callbacks, don't use it explicitly.
+		"""
+		path = self.recent_projects_tree.get_cursor()[0]
+		if path:
+			item = self.recent_projects_tree_model[path][1]
+			self.OnRecentProjectsItem(self, item)
+	
 	#_____________________________________________________________________
 
 	def SaveRecentProjects(self):
 		"""
-		Saves the list of the last 8 recent projects to the Jokosher config file.
+		Saves the list of the previously used projects to the Jokosher config file.
 		"""
-		string = ""
-
-		# Cut list to 8 items
-		self.recentprojectitems = self.recentprojectitems[:8]
 		
-		for path, name in self.recentprojectitems:
-			string = string + str(path) + "|" + str(name) + ","
-			
-		string = string[:-1]
-		Globals.settings.general['recentprojects'] = string
-		Globals.settings.write()
+		ProjectListDatabase.StoreProjectItems(self.project_database_list)
 		
 	#______________________________________________________________________
 	
@@ -1286,13 +1343,15 @@ class MainApp:
 		children = self.main_vbox.get_children()
 		if self.workspace in children:
 			self.main_vbox.remove(self.workspace)
+		if self.welcome_pane in children:
+			self.main_vbox.remove(self.welcome_pane)
 		
 		if self.headerhbox in children:
 			self.main_vbox.remove(self.headerhbox)
 		if self.tvtoolitem in self.toolbar.get_children():
 			self.toolbar.remove(self.tvtoolitem)
 		
-		ctrls = (self.save, self.save_as, self.close, self.addInstrumentButton, self.addAudioFileButton,
+		ctrls = (self.save, self.close, self.addInstrumentButton, self.addAudioFileButton,
 			self.reverse, self.forward, self.play, self.stop, self.record,
 			self.instrumentMenu, self.export, self.cut, self.copy, self.paste,
 			self.undo, self.redo, self.delete, self.compactMixButton, self.properties_menu_item,
@@ -1349,6 +1408,11 @@ class MainApp:
 			if self.tvtoolitem:
 				self.tvtoolitem.destroy()
 				self.tvtoolitem = None
+				
+			self.main_vbox.pack_start(self.welcome_pane, True, True)
+			if len(self.recent_projects_tree_model) > 0:
+				self.recent_projects_tree.set_cursor( (0,) ) # the highlight the first item
+				self.recent_projects_button.grab_focus()
 
 	#_____________________________________________________________________
 	
@@ -1482,7 +1546,7 @@ class MainApp:
 	
 	#_____________________________________________________________________
 
-	def OpenProjectFromPath(self,path, parent=None):
+	def OpenProjectFromPath(self, path, parent=None):
 		"""
 		Opens the project file referred by the path parameter.
 		
@@ -1502,7 +1566,7 @@ class MainApp:
 			self.SetProject(ProjectManager.LoadProjectFile(uri))
 			return True
 		except ProjectManager.OpenProjectError, e:
-			self.ShowOpenProjectErrorDialog(e,parent)
+			self.ShowOpenProjectErrorDialog(e, parent)
 			return False
 
 	#_____________________________________________________________________
@@ -1549,11 +1613,12 @@ class MainApp:
 		self.project.connect("audio-state::stop", self.OnProjectAudioState)
 		self.project.connect("audio-state::export-start", self.OnProjectExportStart)
 		self.project.connect("audio-state::export-stop", self.OnProjectExportStop)
+		self.project.connect("name", self.OnProjectNameChanged)
 		self.project.connect("undo", self.OnProjectUndo)
 		
 		self.project.transport.connect("transport-mode", self.OnTransportMode)
 		self.OnTransportMode()
-		self.InsertRecentProject(project.projectfile, project.name)
+		self.UpdateProjectLastUsedTime(project.projectfile, project.name)
 		self.project.PrepareClick()
 
 		# make various buttons and menu items enabled now we have a project
@@ -1889,7 +1954,7 @@ class MainApp:
 		
 		response = dlg.run()
 		if response == gtk.RESPONSE_OK:
-			#stop the preview audio from playing without destorying the dialog
+			#stop the preview audio from playing without destroying the dialog
 			audiopreview.OnDestroy()
 			dlg.hide()
 			Globals.settings.general["projectfolder"] = os.path.dirname(dlg.get_filename())

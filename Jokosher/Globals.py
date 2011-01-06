@@ -11,7 +11,7 @@
 #-------------------------------------------------------------------------------
 
 import ConfigParser
-import os
+import os, errno
 import locale, gettext
 import pygtk
 pygtk.require("2.0")
@@ -32,7 +32,7 @@ class Settings:
 	general = 	{
 				# increment each time there is an incompatible change with the config file
 				"version" : "1",
-				"recentprojects": "value", 
+				"recentprojects": "", #deprecated
 				"startupaction" : "value",
 				"projectfolder" : "",
 				"windowheight" : 550,
@@ -66,12 +66,26 @@ class Settings:
 				 "extensions_blacklist": ""
 				 }
 				 
+	recentprojects = {
+			#FIXME: replace with some kind of proper database since 
+			# we now plan to store all the projects created ever 
+			# (not just the last 8 used)
+			"paths": "",
+			"names": "",
+			"create_times": "",
+			"last_used_times": "",
+	
+			}
+	
 	sections = {
 				"General" : general,
 				"Recording" : recording,
 				"Playback" : playback,
-				"Extensions" : extensions
+				"Extensions" : extensions,
+				"RecentProjects" : recentprojects,
 				}
+				
+	
 
 	#_____________________________________________________________________
 	
@@ -401,7 +415,7 @@ create_dirs = [
 	('presets', 'effects'),
 	('presets', 'mixdown'),
 	'mixdownprofiles',
-	'templates',
+	'projects',
 ]
 
 # do a listing before we create the dirs so we know if it was empty (ie first run)
@@ -420,11 +434,13 @@ for dirs in create_dirs:
 		new_dir = os.path.join(JOKOSHER_DATA_HOME, *dirs)
 		old_dir = os.path.join(_HOME_DOT_JOKOSHER, *dirs)
 		
-	if not os.path.isdir(new_dir):
-		try:
-			os.makedirs(new_dir)
-		except:
-			raise Exception("Failed to create user config directory %s" % new_dir)
+	try:
+		os.makedirs(new_dir)
+	except OSError, e:
+		if e.errno != errno.EEXIST:
+			raise
+	except:
+		raise Exception("Failed to create user config directory %s" % new_dir)
 	
 	if jokosher_dir_empty and os.path.isdir(old_dir) and os.path.isdir(new_dir):
 		CopyAllFiles(old_dir, new_dir)
@@ -432,8 +448,8 @@ for dirs in create_dirs:
 
 #TODO: make this a list with the system path and home directory path
 EFFECT_PRESETS_PATH = os.path.join(JOKOSHER_DATA_HOME, "presets", "effects")
-TEMPLATES_PATH = os.path.join(JOKOSHER_DATA_HOME, "templates")
 MIXDOWN_PROFILES_PATH = os.path.join(JOKOSHER_DATA_HOME, "mixdownprofiles")
+PROJECTS_PATH = os.path.join(JOKOSHER_DATA_HOME, "projects")
 
 IMAGE_PATH = os.getenv("JOKOSHER_IMAGE_PATH")
 if not IMAGE_PATH:
