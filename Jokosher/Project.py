@@ -150,7 +150,7 @@ class Project(gobject.GObject):
 		
 		#Restrict adder's output caps due to adder bug 341431
 		self.levelElementCaps = gst.element_factory_make("capsfilter", "levelcaps")
-		capsString = "audio/x-raw-float,rate=44100,channels=2,width=32,endianness=1234"
+		capsString = "audio/x-raw-float,rate=44100,channels=2,width=32,endianness=(int)BYTE_ORDER"
 		caps = gst.caps_from_string(capsString)
 		self.levelElementCaps.set_property("caps", caps)
 		

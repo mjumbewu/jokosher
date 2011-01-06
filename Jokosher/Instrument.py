@@ -45,7 +45,7 @@ class Instrument(gobject.GObject):
 	This current must be audio/x-raw-float to prevent static from occuring
 	when adding LADSPA effects while playing.
 	"""
-	LADSPA_ELEMENT_CAPS = "audio/x-raw-float, width=(int)32, rate=(int)[ 1, 2147483647 ], channels=(int)1, endianness=(int)1234"
+	LADSPA_ELEMENT_CAPS = "audio/x-raw-float, width=(int)32, rate=(int)[ 1, 2147483647 ], channels=(int)1, endianness=(int)BYTE_ORDER"
 	
 	"""
 	Signals:
