@@ -8,7 +8,7 @@
 #
 #-------------------------------------------------------------------------------
 
-import gtk.glade
+import gtk
 import Globals
 import AudioBackend
 import pygst

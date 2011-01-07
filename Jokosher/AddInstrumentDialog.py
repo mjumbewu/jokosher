@@ -10,7 +10,7 @@
 #
 #-------------------------------------------------------------------------------
 
-import gtk.glade
+import gtk
 import Globals
 import textwrap
 import gettext
@@ -38,7 +38,7 @@ class AddInstrumentDialog:
 		self.project = project
 		self.instr = instr
 
-		self.res = gtk.glade.XML(Globals.GLADE_PATH, "AddInstrumentDialog")
+		self.gtk_builder = Globals.LoadGtkBuilderFilename("AddInstrumentDialog.ui")
 
 		self.signals = {
 			"on_OK_clicked" : self.OnOK,
@@ -48,20 +48,20 @@ class AddInstrumentDialog:
 			"on_AddInstrument_destroy" : self.OnDestroy,
 		}
 		
-		self.res.signal_autoconnect(self.signals)
+		self.gtk_builder.connect_signals(self.signals)
 		
-		self.dlg = self.res.get_widget("AddInstrumentDialog")
-		self.tree = self.res.get_widget("Instruments")
-		self.search_entry = self.res.get_widget("instrument_search")
+		self.dlg = self.gtk_builder.get_object("AddInstrumentDialog")
+		self.tree = self.gtk_builder.get_object("Instruments")
+		self.search_entry = self.gtk_builder.get_object("instrument_search")
 		self.search_entry.set_activates_default(True)
-		self.okbutton = self.res.get_widget("okButton")
+		self.okbutton = self.gtk_builder.get_object("okButton")
 		self.okbutton.set_sensitive(False)
 		self.okbutton.set_flags(gtk.CAN_DEFAULT)
 		self.okbutton.grab_default()
 		
 		if self.instr: 
 			self.dlg.set_title(_("Change Instrument Type"))
-			self.res.get_widget("instructions").set_text(
+			self.gtk_builder.get_object("instructions").set_text(
 					  _("Choose the new instrument type for %s") % self.instr.name)
 			self.okbutton.set_label("gtk-ok")
 

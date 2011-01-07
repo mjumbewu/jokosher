@@ -12,7 +12,7 @@
 #
 #-------------------------------------------------------------------------------
 
-import gtk.glade
+import gtk
 import gobject
 import cairo
 import pygst

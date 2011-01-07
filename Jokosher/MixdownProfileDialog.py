@@ -7,7 +7,7 @@
 #
 #-------------------------------------------------------------------------------
 
-import gtk.glade
+import gtk
 import gobject
 
 import Globals
