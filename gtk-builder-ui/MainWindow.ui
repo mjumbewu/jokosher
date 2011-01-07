@@ -14,7 +14,6 @@
     </accel-groups>
     <signal name="button_press_event" handler="on_MouseDown"/>
     <signal name="destroy" handler="on_MainWindow_destroy"/>
-    <signal name="key_press_event" handler="on_Keypress"/>
     <signal name="configure_event" handler="on_MainWindow_configure_event"/>
     <signal name="delete_event" handler="on_MainWindow_destroy"/>
     <child>
@@ -73,7 +72,6 @@
                         <property name="tooltip_text" translatable="yes">Open a project</property>
                         <property name="label" translatable="yes">_Switch Project</property>
                         <property name="use_underline">True</property>
-                        <signal name="activate" handler="on_recent_projects1_activate"/>
                         <child type="submenu">
                           <object class="GtkMenu" id="recentprojects_menu"/>
                         </child>
@@ -518,7 +516,6 @@
                 <property name="visible">True</property>
                 <property name="tooltip_text" translatable="yes">Click and hold to rewind</property>
                 <property name="stock_id">gtk-media-rewind</property>
-                <signal name="clicked" handler="on_Rewind_clicked"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -554,7 +551,6 @@
                 <property name="visible">True</property>
                 <property name="tooltip_text" translatable="yes">Click and hold to fast forward</property>
                 <property name="stock_id">gtk-media-forward</property>
-                <signal name="clicked" handler="on_Forward_clicked"/>
               </object>
               <packing>
                 <property name="expand">False</property>
