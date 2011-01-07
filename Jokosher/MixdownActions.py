@@ -169,7 +169,8 @@ class ExportAsFileType(MixdownAction):
 		"""
 		See MixdownAction.ConfigureAction
 		"""
-		self.configureExportTree = gtk.glade.XML(Globals.GLADE_PATH, "ConfigureExportFileAction")
+		self.gtk_builder = Globals.LoadGtkBuilderFilename("ConfigureExportFileAction.ui")
+
 		signals = {
 			"on_cancel_button_clicked" : self.__OnCancel,
 			"on_ok_button_clicked" : self.__OnOK,
@@ -177,14 +178,14 @@ class ExportAsFileType(MixdownAction):
 			"on_server_radio_toggled" : self.__OnServerRadioToggled
 		}
 			
-		self.configureExportTree.signal_autoconnect(signals)
+		self.gtk_builder.connect_signals(signals)
 		
-		self.configureExportWindow = self.configureExportTree.get_widget("ConfigureExportFileAction")
-		self.fileEntry = self.configureExportTree.get_widget("file_entry")
-		self.formatCombo = self.configureExportTree.get_widget("format_combo")
-		self.localRadio = self.configureExportTree.get_widget("local_radio")
-		self.serverRadio = self.configureExportTree.get_widget("server_radio")
-		self.detailsVBox = self.configureExportTree.get_widget("details_vbox")
+		self.configureExportWindow = self.gtk_builder.get_object("ConfigureExportFileAction")
+		self.fileEntry = self.gtk_builder.get_object("file_entry")
+		self.formatCombo = self.gtk_builder.get_object("format_combo")
+		self.localRadio = self.gtk_builder.get_object("local_radio")
+		self.serverRadio = self.gtk_builder.get_object("server_radio")
+		self.detailsVBox = self.gtk_builder.get_object("details_vbox")
 		
 		self.formatModel = gtk.ListStore(str, str, str) # description, extension, pipeline
 			

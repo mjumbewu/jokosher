@@ -42,7 +42,7 @@ class MixdownProfileDialog:
 		self.mainapp = mainapp
 		self.project = project
 		
-		self.res = gtk.glade.XML(Globals.GLADE_PATH, "MixdownProfileDialog")
+		self.gtk_builder = Globals.LoadGtkBuilderFilename("MixdownProfileDialog.ui")
 
 		self.signals = {
 			"on_add_profile_button_clicked" : self.OnAddProfile,
@@ -54,16 +54,16 @@ class MixdownProfileDialog:
 			"on_mixdown_button_clicked" : self.OnMixdown
 		}
 
-		self.res.signal_autoconnect(self.signals)
+		self.gtk_builder.connect_signals(self.signals)
 
-		self.window = self.res.get_widget("MixdownProfileDialog")
+		self.window = self.gtk_builder.get_object("MixdownProfileDialog")
 		self.window.set_default_size(450, 400)
 		self.window.set_icon(self.mainapp.icon)
 
-		self.profileCombo = self.res.get_widget("profile_combo")
-		self.treeView = self.res.get_widget("actions_treeview")
-		self.mixdownButton = self.res.get_widget("mixdown_button")
-		self.configureLabel = self.res.get_widget("action_configured_label")
+		self.profileCombo = self.gtk_builder.get_object("profile_combo")
+		self.treeView = self.gtk_builder.get_object("actions_treeview")
+		self.mixdownButton = self.gtk_builder.get_object("mixdown_button")
+		self.configureLabel = self.gtk_builder.get_object("action_configured_label")
 		
 		self.manager = MixdownProfileManager.MixdownProfileManager(self)
 		
@@ -597,19 +597,19 @@ class AddMixdownActionDialog:
 			profileDialog -- reference to the MixdownProfileDialog object which calls this class.
 		"""
 		self.profileDialog = profileDialog
-		self.addActionDialogTree = gtk.glade.XML(Globals.GLADE_PATH, "AddMixdownActionDialog")
+		self.add_action_gtk_builder = Globals.LoadGtkBuilderFilename("AddMixdownActionDialog.ui")
 		
 		signals = {
 			"on_cancel_button_clicked" : self.OnCancelAction,
 			"on_add_action_button_clicked" : self.OnAddAction,
 		}
 			
-		self.addActionDialogTree.signal_autoconnect(signals)
+		self.add_action_gtk_builder.connect_signals(signals)
 	
-		self.addActionDialog = self.addActionDialogTree.get_widget("AddMixdownActionDialog")
-		self.treeView = self.addActionDialogTree.get_widget("treeview")
-		self.actionLabel = self.addActionDialogTree.get_widget("action_label")
-		self.addActionButton = self.addActionDialogTree.get_widget("add_action_button")
+		self.addActionDialog = self.add_action_gtk_builder.get_object("AddMixdownActionDialog")
+		self.treeView = self.add_action_gtk_builder.get_object("treeview")
+		self.actionLabel = self.add_action_gtk_builder.get_object("action_label")
+		self.addActionButton = self.add_action_gtk_builder.get_object("add_action_button")
 		
 		self.treeModel = gtk.ListStore(gtk.gdk.Pixbuf, str, object) # pixbuf, details, class instance
 		self.treeView.set_model(self.treeModel)
