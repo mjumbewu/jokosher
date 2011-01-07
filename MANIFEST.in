@@ -8,11 +8,12 @@
 #
 #-------------------------------------------------------------------------------
 include AUTHORS COPYING COPYING-DOCS bin/jokosher.desktop bin/jokosher.xml
-recursive-include Jokosher *.png *.glade *.gladep Jokosher
+recursive-include Jokosher *.png Jokosher
 recursive-include images *.png
 recursive-include Instruments *.instr *.png
 recursive-include locale */LC_MESSAGES/jokosher.mo
 recursive-include help *.omf *.xml *.png
 recursive-include extensions *.py *.egg
+recursive-include gtk-builder-ui *.ui
 prune locale/src
 prune extensions/eggs
