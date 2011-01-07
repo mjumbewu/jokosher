@@ -446,7 +446,6 @@ Adriaan Leijnse &lt;lordmyth@gmail.com&gt;
 Dan Nawara &lt;dan@itsawisechild.com&gt;
 Andreas Nilsson &lt;nisses.mail@home.se&gt;
 Gregory Sheeran &lt;greg@grogoreo.co.uk&gt;</property>
-    <property name="logo">jokosher-logo.png</property>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog-vbox1">
         <property name="visible">True</property>

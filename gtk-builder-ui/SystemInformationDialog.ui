@@ -152,7 +152,7 @@
             <property name="visible">True</property>
             <property name="layout_style">end</property>
             <child>
-              <object class="GtkButton" id="closeButton1">
+              <object class="GtkButton" id="closeButton">
                 <property name="label">gtk-close</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
@@ -178,7 +178,7 @@
       </object>
     </child>
     <action-widgets>
-      <action-widget response="-7">closeButton1</action-widget>
+      <action-widget response="-7">closeButton</action-widget>
     </action-widgets>
   </object>
 </interface>

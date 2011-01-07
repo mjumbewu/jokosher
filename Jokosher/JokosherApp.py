@@ -191,6 +191,9 @@ class MainApp:
 		innerbtn.connect("pressed", self.OnForwardPressed)
 		innerbtn.connect("released", self.OnForwardReleased)
 		
+		jokosher_logo_path = os.path.join(Globals.IMAGE_PATH, "jokosher-logo.png")
+		self.jokosher_logo_pixbuf = gtk.gdk.pixbuf_new_from_file(jokosher_logo_path)
+		
 		miximg = gtk.Image()
 		miximg.set_from_file(os.path.join(Globals.IMAGE_PATH, "icon_mix.png"))	
 		self.compactMixButton.set_icon_widget(miximg)
@@ -415,10 +418,11 @@ class MainApp:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		gtk.about_dialog_set_url_hook(self.AboutLinkActivate)
-		aboutTree = gtk.glade.XML(Globals.GLADE_PATH, "AboutDialog")
-		dlg = aboutTree.get_widget("AboutDialog")
+		gtk_builder = Globals.LoadGtkBuilderFilename("AboutDialog.ui")
+		dlg = gtk_builder.get_object("AboutDialog")
 		dlg.set_transient_for(self.window)
 		dlg.set_icon(self.icon)
+		dlg.set_logo(self.jokosher_logo_pixbuf)
 		dlg.run()
 		dlg.destroy()
 		
@@ -1000,17 +1004,17 @@ class MainApp:
 		Parameters:
 			project -- The project instance that send the signal.
 		"""
-		export = gtk.glade.XML (Globals.GLADE_PATH, "ProgressDialog")
-		export.signal_connect("on_cancel_clicked", self.OnExportCancel)
+		gtk_builder = Globals.LoadGtkBuilderFilename("ProgressDialog.ui")
+		gtk_builder.connect_signals({"on_cancel_clicked": self.OnExportCancel})
 		
-		self.exportdlg = export.get_widget("ProgressDialog")
+		self.exportdlg = gtk_builder.get_object("ProgressDialog")
 		self.exportdlg.set_icon(self.icon)
 		self.exportdlg.set_transient_for(self.window)
 		
-		label = export.get_widget("progressLabel")
+		label = gtk_builder.get_object("progressLabel")
 		label.set_text(_("Mixing project to file: %s") % self.project.exportFilename)
 		
-		self.exportprogress = export.get_widget("progressBar")
+		self.exportprogress = gtk_builder.get_object("progressBar")
 		
 		gobject.timeout_add(100, self.UpdateExportDialog)
 		
@@ -1717,19 +1721,19 @@ class MainApp:
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-		self.contribTree = gtk.glade.XML(Globals.GLADE_PATH, "ContributingDialog")
+		gtk_builder = Globals.LoadGtkBuilderFilename("ContributingDialog.ui")
 		
 		# grab references to the ContributingDialog window and vbox
-		self.contribdialog = self.contribTree.get_widget("ContributingDialog")
-		self.contribvbox = self.contribTree.get_widget("vbox14")
+		self.contribdialog = gtk_builder.get_object("ContributingDialog")
+		self.contribvbox = gtk_builder.get_object("vbox14")
 		self.contribdialog.set_icon(self.icon)
 
 		# centre the ContributingDialog window on MainWindow
 		self.contribdialog.set_transient_for(self.window)
 
 		# set the contributing image
-		self.topimage = self.contribTree.get_widget("topimage")
-		self.topimage.set_from_file(os.path.join(Globals.IMAGE_PATH, "jokosher-logo.png"))
+		self.topimage = gtk_builder.get_object("topimage")
+		self.topimage.set_from_pixbuf(self.jokosher_logo_pixbuf)
 
 		# create the bottom vbox containing the contributing website link
 		vbox = gtk.VBox()			
@@ -1791,14 +1795,14 @@ class MainApp:
 		Parameters:
 			widget -- Gtk callback parameter.
 		"""
-		self.sysInfoTree = gtk.glade.XML(Globals.GLADE_PATH, "SystemInformationDialog")
+		gtk_builder = Globals.LoadGtkBuilderFilename("SystemInformationDialog.ui")
 		
 		# grab references to the SystemInformationDialog window and vbox
-		self.sysInfoDialog = self.sysInfoTree.get_widget("SystemInformationDialog")
-		self.gstVersionStr = self.sysInfoTree.get_widget("labelGStreamerVersion")
-		self.gnonlinVersionStr = self.sysInfoTree.get_widget("labelGnonlinVersion")
-		self.distroVersionStr = self.sysInfoTree.get_widget("labelDistributionVersion")
-		sysInfoCloseButton = self.sysInfoTree.get_widget("closeButton")
+		self.sysInfoDialog = gtk_builder.get_object("SystemInformationDialog")
+		self.gstVersionStr = gtk_builder.get_object("labelGStreamerVersion")
+		self.gnonlinVersionStr = gtk_builder.get_object("labelGnonlinVersion")
+		self.distroVersionStr = gtk_builder.get_object("labelDistributionVersion")
+		sysInfoCloseButton = gtk_builder.get_object("closeButton")
 	
 		#connect the close button
 		sysInfoCloseButton.connect("clicked", lambda dialog: self.sysInfoDialog.destroy())
@@ -2042,11 +2046,11 @@ class MainApp:
 		if not self.project:
 			return
 		
-		propertiesTree = gtk.glade.XML(Globals.GLADE_PATH, "ProjectPropertiesDialog")
-		dlg = propertiesTree.get_widget("ProjectPropertiesDialog")
-		nameEntry = propertiesTree.get_widget("nameEntry")
-		authorEntry = propertiesTree.get_widget("authorEntry")
-		notesTextView = propertiesTree.get_widget("notesTextView")
+		gtk_builder = Globals.LoadGtkBuilderFilename("ProjectPropertiesDialog.ui")
+		dlg = gtk_builder.get_object("ProjectPropertiesDialog")
+		nameEntry = gtk_builder.get_object("nameEntry")
+		authorEntry = gtk_builder.get_object("authorEntry")
+		notesTextView = gtk_builder.get_object("notesTextView")
 		
 		nameEntry.set_text(self.project.name)
 		authorEntry.set_text(self.project.author)
