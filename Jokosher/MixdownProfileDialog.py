@@ -420,8 +420,8 @@ class MixdownProfileDialog:
 				gtk.DIALOG_DESTROY_WITH_PARENT,
 				gtk.MESSAGE_ERROR,
 				gtk.BUTTONS_CLOSE)
-		message = _("Please make sure the extension <b>%s</b> is enabled." % extensionName)
-		msgdlg.set_markup(_("<big><b>Cannot load mixdown action %s.</b></big>\n\n%s" % (actionName, message)))
+		message = _("<big><b>Cannot load mixdown action <i>%(action-name)s</i>.</b></big>\n\nPlease make sure the extension <b>%(extention-name)s</b> is enabled." % {'action-name': actionName, 'extention-name': extensionName})
+		msgdlg.set_markup(message)
 		msgdlg.run()
 		msgdlg.destroy()
 		
