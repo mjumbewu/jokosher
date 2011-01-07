@@ -609,7 +609,6 @@ class AddMixdownActionDialog:
 		self.addActionDialog = self.add_action_gtk_builder.get_object("AddMixdownActionDialog")
 		self.treeView = self.add_action_gtk_builder.get_object("treeview")
 		self.actionLabel = self.add_action_gtk_builder.get_object("action_label")
-		self.addActionButton = self.add_action_gtk_builder.get_object("add_action_button")
 		
 		self.treeModel = gtk.ListStore(gtk.gdk.Pixbuf, str, object) # pixbuf, details, class instance
 		self.treeView.set_model(self.treeModel)
