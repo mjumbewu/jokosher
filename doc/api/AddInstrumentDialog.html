@@ -1,5 +1,5 @@
 
-<!doctype html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html><head><title>Python: module AddInstrumentDialog</title>
 </head><body bgcolor="#ffffff">
 
@@ -8,7 +8,7 @@
 <td valign=bottom>&nbsp;<br>
 <font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>AddInstrumentDialog</strong></big></big></font></td
 ><td align=right valign=bottom
-><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/david/Projects/Jokosher/trunk/Jokosher/AddInstrumentDialog.py">/home/david/Projects/Jokosher/trunk/Jokosher/AddInstrumentDialog.py</a></font></td></tr></table>
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/laszlo/Dev/joko-gtk-builder/Jokosher/AddInstrumentDialog.py">/home/laszlo/Dev/joko-gtk-builder/Jokosher/AddInstrumentDialog.py</a></font></td></tr></table>
     <p><tt>#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THIS&nbsp;FILE&nbsp;IS&nbsp;PART&nbsp;OF&nbsp;THE&nbsp;JOKOSHER&nbsp;PROJECT&nbsp;AND&nbsp;LICENSED&nbsp;UNDER&nbsp;THE&nbsp;GPL.&nbsp;SEE<br>
 #&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THE&nbsp;'COPYING'&nbsp;FILE&nbsp;FOR&nbsp;DETAILS<br>
 #<br>
@@ -23,7 +23,7 @@
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#4e9a06">
 <td colspan=3 valign=bottom>&nbsp;<br>
-<font color="#fffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
     
 <tr><td bgcolor="#4e9a06"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
 <td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="Globals.html">Globals</a><br>
@@ -55,11 +55,26 @@
 Parameters:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;button&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;dont't&nbsp;use&nbsp;it&nbsp;explicity.</tt></dd></dl>
 
+<dl><dt><a name="AddInstrumentDialog-OnDestroy"><strong>OnDestroy</strong></a>(self, widget<font color="#909090">=None</font>, event<font color="#909090">=None</font>)</dt><dd><tt>Called&nbsp;when&nbsp;the&nbsp;add&nbsp;instrument&nbsp;dialog&nbsp;is&nbsp;destroyed<br>
+&nbsp;<br>
+Parameters:&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;event&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
+
 <dl><dt><a name="AddInstrumentDialog-OnOK"><strong>OnOK</strong></a>(self, button<font color="#909090">=None</font>)</dt><dd><tt>This&nbsp;method&nbsp;is&nbsp;called&nbsp;when&nbsp;the&nbsp;ok&nbsp;button&nbsp;in&nbsp;the&nbsp;dialog&nbsp;has&nbsp;been&nbsp;clicked.<br>
 It&nbsp;will&nbsp;then&nbsp;add&nbsp;the&nbsp;selected&nbsp;instrument&nbsp;into&nbsp;the&nbsp;main&nbsp;jokosher&nbsp;window&nbsp;(JokosherApp).&nbsp;&nbsp;<br>
 &nbsp;<br>
 Parameters:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;button&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicity.</tt></dd></dl>
+
+<dl><dt><a name="AddInstrumentDialog-OnResize"><strong>OnResize</strong></a>(self, widget, event)</dt><dd><tt>This&nbsp;method&nbsp;is&nbsp;called&nbsp;when&nbsp;the&nbsp;add&nbsp;instrument&nbsp;dialog&nbsp;is&nbsp;resized<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;GTK&nbsp;callback&nbsp;parameter.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;event&nbsp;--&nbsp;GTK&nbsp;callback&nbsp;parameter.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;False&nbsp;--&nbsp;continue&nbsp;GTK&nbsp;signal&nbsp;propagation.</tt></dd></dl>
 
 <dl><dt><a name="AddInstrumentDialog-OnSearchChange"><strong>OnSearchChange</strong></a>(self, widget)</dt><dd><tt>This&nbsp;method&nbsp;will&nbsp;be&nbsp;called&nbsp;when&nbsp;a&nbsp;new&nbsp;letter&nbsp;has&nbsp;been&nbsp;added&nbsp;to&nbsp;the&nbsp;search&nbsp;box.<br>
 It&nbsp;will&nbsp;then&nbsp;update&nbsp;the&nbsp;search&nbsp;results&nbsp;accordingly.<br>

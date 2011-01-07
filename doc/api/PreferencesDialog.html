@@ -1,5 +1,5 @@
 
-<!doctype html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html><head><title>Python: module PreferencesDialog</title>
 </head><body bgcolor="#ffffff">
 
@@ -8,7 +8,7 @@
 <td valign=bottom>&nbsp;<br>
 <font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>PreferencesDialog</strong></big></big></font></td
 ><td align=right valign=bottom
-><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/david/Projects/Jokosher/trunk/Jokosher/PreferencesDialog.py">/home/david/Projects/Jokosher/trunk/Jokosher/PreferencesDialog.py</a></font></td></tr></table>
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/laszlo/Dev/joko-gtk-builder/Jokosher/PreferencesDialog.py">/home/laszlo/Dev/joko-gtk-builder/Jokosher/PreferencesDialog.py</a></font></td></tr></table>
     <p><tt>#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THIS&nbsp;FILE&nbsp;IS&nbsp;PART&nbsp;OF&nbsp;THE&nbsp;JOKOSHER&nbsp;PROJECT&nbsp;AND&nbsp;LICENSED&nbsp;UNDER&nbsp;THE&nbsp;GPL.&nbsp;SEE<br>
 #&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THE&nbsp;'COPYING'&nbsp;FILE&nbsp;FOR&nbsp;DETAILS<br>
 #<br>
@@ -21,10 +21,10 @@
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#4e9a06">
 <td colspan=3 valign=bottom>&nbsp;<br>
-<font color="#fffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
     
 <tr><td bgcolor="#4e9a06"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
-<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="AlsaDevices.html">AlsaDevices</a><br>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="AudioBackend.html">AudioBackend</a><br>
 <a href="Globals.html">Globals</a><br>
 </td><td width="25%" valign=top><a href="gettext.html">gettext</a><br>
 <a href="gst.html">gst</a><br>
@@ -67,7 +67,13 @@ be&nbsp;useful&nbsp;in&nbsp;the&nbsp;future.</tt></dd></dl>
 Parameters:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;button&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="PreferencesDialog-OnPlaybackSinkChanged"><strong>OnPlaybackSinkChanged</strong></a>(self, comboBox<font color="#909090">=None</font>)</dt><dd><tt>Updates&nbsp;the&nbsp;selected&nbsp;playback&nbsp;audio&nbsp;device&nbsp;from&nbsp;the&nbsp;comboBox&nbsp;selection.<br>
+<dl><dt><a name="PreferencesDialog-OnPlaybackSinkChanged"><strong>OnPlaybackSinkChanged</strong></a>(self, widget<font color="#909090">=None</font>, event<font color="#909090">=None</font>)</dt><dd><tt>Updates&nbsp;the&nbsp;selected&nbsp;playback&nbsp;audio&nbsp;device&nbsp;from&nbsp;the&nbsp;comboBox&nbsp;selection.<br>
+It&nbsp;then&nbsp;writes&nbsp;an&nbsp;updated&nbsp;settings&nbsp;file.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;comboBox&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
+
+<dl><dt><a name="PreferencesDialog-OnRecordingSystemChanged"><strong>OnRecordingSystemChanged</strong></a>(self, widget<font color="#909090">=None</font>, event<font color="#909090">=None</font>)</dt><dd><tt>Updates&nbsp;the&nbsp;selected&nbsp;playback&nbsp;audio&nbsp;device&nbsp;from&nbsp;the&nbsp;comboBox&nbsp;selection.<br>
 It&nbsp;then&nbsp;writes&nbsp;an&nbsp;updated&nbsp;settings&nbsp;file.<br>
 &nbsp;<br>
 Parameters:<br>
@@ -78,6 +84,8 @@ It&nbsp;then&nbsp;writes&nbsp;an&nbsp;updated&nbsp;settings&nbsp;file.<br>
 &nbsp;<br>
 Parameters:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;combobox&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
+
+<dl><dt><a name="PreferencesDialog-ProbeBackendDevices"><strong>ProbeBackendDevices</strong></a>(self)</dt></dl>
 
 <dl><dt><a name="PreferencesDialog-__init__"><strong>__init__</strong></a>(self, project, mainwindow, icon<font color="#909090">=None</font>)</dt><dd><tt>Creates&nbsp;a&nbsp;new&nbsp;instance&nbsp;of&nbsp;<a href="#PreferencesDialog">PreferencesDialog</a>.<br>
 &nbsp;<br>
@@ -94,6 +102,6 @@ Parameters:<br>
     
 <tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
 <td width="100%"><strong>STARTUP_LAST_PROJECT</strong> = 'lastproject'<br>
-<strong>STARTUP_NOTHING</strong> = 'nothing'<br>
-<strong>STARTUP_WELCOME_DIALOG</strong> = 'welcome'</td></tr></table>
+<strong>STARTUP_NEW_PROJECT</strong> = 'newproject'<br>
+<strong>STARTUP_NOTHING</strong> = 'nothing'</td></tr></table>
 </body></html>

@@ -1,5 +1,5 @@
 
-<!doctype html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html><head><title>Python: module MixerStrip</title>
 </head><body bgcolor="#ffffff">
 
@@ -8,7 +8,7 @@
 <td valign=bottom>&nbsp;<br>
 <font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>MixerStrip</strong></big></big></font></td
 ><td align=right valign=bottom
-><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/david/Projects/Jokosher/trunk/Jokosher/MixerStrip.py">/home/david/Projects/Jokosher/trunk/Jokosher/MixerStrip.py</a></font></td></tr></table>
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/laszlo/Dev/joko-gtk-builder/Jokosher/MixerStrip.py">/home/laszlo/Dev/joko-gtk-builder/Jokosher/MixerStrip.py</a></font></td></tr></table>
     <p><tt>#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THIS&nbsp;FILE&nbsp;IS&nbsp;PART&nbsp;OF&nbsp;THE&nbsp;JOKOSHER&nbsp;PROJECT&nbsp;AND&nbsp;LICENSED&nbsp;UNDER&nbsp;THE&nbsp;GPL.&nbsp;SEE<br>
 #&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THE&nbsp;'COPYING'&nbsp;FILE&nbsp;FOR&nbsp;DETAILS<br>
 #<br>
@@ -22,17 +22,19 @@
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#4e9a06">
 <td colspan=3 valign=bottom>&nbsp;<br>
-<font color="#fffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
     
 <tr><td bgcolor="#4e9a06"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
-<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="Globals.html">Globals</a><br>
-<a href="cairo.html">cairo</a><br>
-</td><td width="25%" valign=top><a href="gettext.html">gettext</a><br>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="ControlsBox.html">ControlsBox</a><br>
+<a href="Globals.html">Globals</a><br>
+<a href="Utils.html">Utils</a><br>
+</td><td width="25%" valign=top><a href="cairo.html">cairo</a><br>
+<a href="gettext.html">gettext</a><br>
 <a href="gobject.html">gobject</a><br>
 </td><td width="25%" valign=top><a href="gtk.html">gtk</a><br>
 <a href="os.html">os</a><br>
-</td><td width="25%" valign=top><a href="pygtk.html">pygtk</a><br>
-</td></tr></table></td></tr></table><p>
+<a href="pygtk.html">pygtk</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#3465a4">
 <td colspan=3 valign=bottom>&nbsp;<br>
@@ -40,7 +42,7 @@
     
 <tr><td bgcolor="#3465a4"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
 <td width="100%"><dl>
-<dt><font face="helvetica, arial">gobject.Frame(gobject.Bin)
+<dt><font face="helvetica, arial"><a href="gtk.html#Frame">gtk.Frame</a>(<a href="gtk.html#Bin">gtk.Bin</a>)
 </font></dt><dd>
 <dl>
 <dt><font face="helvetica, arial"><a href="MixerStrip.html#MixerStrip">MixerStrip</a>
@@ -51,7 +53,7 @@
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#729fcf">
 <td colspan=3 valign=bottom>&nbsp;<br>
-<font color="#000000" face="helvetica, arial"><a name="MixerStrip">class <strong>MixerStrip</strong></a>(gobject.Frame)</font></td></tr>
+<font color="#000000" face="helvetica, arial"><a name="MixerStrip">class <strong>MixerStrip</strong></a>(<a href="gtk.html#Frame">gtk.Frame</a>)</font></td></tr>
     
 <tr bgcolor="#729fcf"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
 <td colspan=2><tt>Contains&nbsp;the&nbsp;VU&nbsp;widget&nbsp;and&nbsp;the&nbsp;buttons&nbsp;below&nbsp;it,<br>
@@ -59,18 +61,21 @@ for&nbsp;an&nbsp;Instrument&nbsp;in&nbsp;the&nbsp;mixing&nbsp;view.<br>&nbsp;</t
 <tr><td>&nbsp;</td>
 <td width="100%"><dl><dt>Method resolution order:</dt>
 <dd><a href="MixerStrip.html#MixerStrip">MixerStrip</a></dd>
-<dd>gobject.Frame</dd>
-<dd>gobject.Bin</dd>
-<dd>gobject.Container</dd>
-<dd>gobject.Widget</dd>
-<dd>gobject.Object</dd>
-<dd><a href="gobject.html#GObject">gobject.GObject</a></dd>
+<dd><a href="gtk.html#Frame">gtk.Frame</a></dd>
+<dd><a href="gtk.html#Bin">gtk.Bin</a></dd>
+<dd><a href="gtk.html#Container">gtk.Container</a></dd>
+<dd><a href="gtk.html#Widget">gtk.Widget</a></dd>
+<dd><a href="gtk.html#Object">gtk.Object</a></dd>
+<dd><a href="gobject._gobject.html#GObject">gobject._gobject.GObject</a></dd>
 <dd><a href="atk.html#ImplementorIface">atk.ImplementorIface</a></dd>
+<dd><a href="gtk.html#Buildable">gtk.Buildable</a></dd>
 <dd><a href="gobject.html#GInterface">gobject.GInterface</a></dd>
 <dd><a href="__builtin__.html#object">__builtin__.object</a></dd>
 </dl>
 <hr>
 Methods defined here:<br>
+<dl><dt><a name="MixerStrip-CommitVolume"><strong>CommitVolume</strong></a>(self)</dt></dl>
+
 <dl><dt><a name="MixerStrip-Destroy"><strong>Destroy</strong></a>(self)</dt><dd><tt>Called&nbsp;when&nbsp;the&nbsp;<a href="#MixerStrip">MixerStrip</a>&nbsp;is&nbsp;destroyed.&nbsp;It&nbsp;also&nbsp;emits&nbsp;the<br>
 destroy&nbsp;signal&nbsp;to&nbsp;the&nbsp;VUMixer&nbsp;widget.</tt></dd></dl>
 
@@ -89,34 +94,35 @@ Returns:<br>
 Returns:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;volume&nbsp;of&nbsp;the&nbsp;instrument.</tt></dd></dl>
 
-<dl><dt><a name="MixerStrip-OnArm"><strong>OnArm</strong></a>(self, widget)</dt><dd><tt>Toggles&nbsp;arming&nbsp;the&nbsp;instrument&nbsp;on/off.<br>
+<dl><dt><a name="MixerStrip-OnInstrumentImage"><strong>OnInstrumentImage</strong></a>(self, instrument<font color="#909090">=None</font>)</dt><dd><tt>Callback&nbsp;for&nbsp;when&nbsp;the&nbsp;instrument's&nbsp;image&nbsp;changes.<br>
 &nbsp;<br>
 Parameters:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;instrument&nbsp;--&nbsp;the&nbsp;instrument&nbsp;instance&nbsp;that&nbsp;send&nbsp;the&nbsp;signal.</tt></dd></dl>
 
-<dl><dt><a name="MixerStrip-OnMute"><strong>OnMute</strong></a>(self, widget)</dt><dd><tt>Toggles&nbsp;muting&nbsp;the&nbsp;instrument&nbsp;on/off.<br>
+<dl><dt><a name="MixerStrip-OnInstrumentName"><strong>OnInstrumentName</strong></a>(self, instrument<font color="#909090">=None</font>)</dt><dd><tt>Callback&nbsp;for&nbsp;when&nbsp;the&nbsp;instrument's&nbsp;name&nbsp;changes.<br>
 &nbsp;<br>
 Parameters:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;instrument&nbsp;--&nbsp;the&nbsp;instrument&nbsp;instance&nbsp;that&nbsp;send&nbsp;the&nbsp;signal.</tt></dd></dl>
 
-<dl><dt><a name="MixerStrip-OnPanChanged"><strong>OnPanChanged</strong></a>(self, slider)</dt><dd><tt>Change&nbsp;the&nbsp;instrument's&nbsp;audiopanorama&nbsp;value&nbsp;to&nbsp;the<br>
+<dl><dt><a name="MixerStrip-OnPanChanged"><strong>OnPanChanged</strong></a>(self, slider)</dt><dd><tt>Changes&nbsp;the&nbsp;Instrument's&nbsp;audiopanorama&nbsp;value&nbsp;to&nbsp;the<br>
 one&nbsp;indicated&nbsp;by&nbsp;the&nbsp;slider&nbsp;control.<br>
+It&nbsp;also&nbsp;updates&nbsp;the&nbsp;statusbar&nbsp;when&nbsp;dragging&nbsp;the&nbsp;slider.<br>
 &nbsp;<br>
 Parameters:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;slider&nbsp;--&nbsp;panning&nbsp;slider&nbsp;control.</tt></dd></dl>
 
-<dl><dt><a name="MixerStrip-OnSolo"><strong>OnSolo</strong></a>(self, widget)</dt><dd><tt>Toggles&nbsp;soloing&nbsp;the&nbsp;instrument&nbsp;on/off.<br>
+<dl><dt><a name="MixerStrip-OnPanClicked"><strong>OnPanClicked</strong></a>(self, slider, mouse)</dt><dd><tt>Centers&nbsp;the&nbsp;panning&nbsp;slider&nbsp;bar&nbsp;when&nbsp;right&nbsp;clicked.<br>
 &nbsp;<br>
 Parameters:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;slider&nbsp;--&nbsp;panning&nbsp;slider&nbsp;control.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mouse&nbsp;--&nbsp;mouse&nbsp;event&nbsp;that&nbsp;fired&nbsp;this&nbsp;callback.</tt></dd></dl>
+
+<dl><dt><a name="MixerStrip-OnTimedStatusBarClear"><strong>OnTimedStatusBarClear</strong></a>(self)</dt><dd><tt>Waits&nbsp;for&nbsp;a&nbsp;few&nbsp;seconds&nbsp;and&nbsp;then&nbsp;clears&nbsp;the&nbsp;status&nbsp;bar&nbsp;message.</tt></dd></dl>
 
 <dl><dt><a name="MixerStrip-SetVolume"><strong>SetVolume</strong></a>(self, vol)</dt><dd><tt>Sets&nbsp;the&nbsp;instrument's&nbsp;volume.<br>
 &nbsp;<br>
 Parameters:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vol&nbsp;--&nbsp;volume&nbsp;value&nbsp;to&nbsp;set&nbsp;this&nbsp;Instrument's&nbsp;volume&nbsp;to.</tt></dd></dl>
-
-<dl><dt><a name="MixerStrip-Update"><strong>Update</strong></a>(self)</dt><dd><tt>Updates&nbsp;the&nbsp;<a href="#MixerStrip">MixerStrip</a>&nbsp;interface&nbsp;elements&nbsp;according&nbsp;to&nbsp;the&nbsp;actual<br>
-instrument&nbsp;state&nbsp;(i.e.&nbsp;muted/not&nbsp;muted).</tt></dd></dl>
 
 <dl><dt><a name="MixerStrip-__init__"><strong>__init__</strong></a>(self, project, instrument, mixview, mainview)</dt><dd><tt>Creates&nbsp;a&nbsp;new&nbsp;instance&nbsp;of&nbsp;<a href="#MixerStrip">MixerStrip</a>.<br>
 &nbsp;<br>
@@ -128,12 +134,14 @@ Parameters:<br>
 
 <hr>
 Data and other attributes defined here:<br>
-<dl><dt><strong>__gtype__</strong> = &lt;GType MixerStrip (138345984)&gt;</dl>
+<dl><dt><strong>__gtype__</strong> = &lt;GType MixerStrip (35306864)&gt;</dl>
 
 <dl><dt><strong>__gtype_name__</strong> = 'MixerStrip'</dl>
 
 <hr>
-Methods inherited from gobject.Frame:<br>
+Methods inherited from <a href="gtk.html#Frame">gtk.Frame</a>:<br>
+<dl><dt><a name="MixerStrip-__iter__"><strong>__iter__</strong></a>(...)</dt><dd><tt>x.<a href="#MixerStrip-__iter__">__iter__</a>()&nbsp;&lt;==&gt;&nbsp;iter(x)</tt></dd></dl>
+
 <dl><dt><a name="MixerStrip-get_label"><strong>get_label</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="MixerStrip-get_label_align"><strong>get_label_align</strong></a>(...)</dt></dl>
@@ -151,21 +159,19 @@ Methods inherited from gobject.Frame:<br>
 <dl><dt><a name="MixerStrip-set_shadow_type"><strong>set_shadow_type</strong></a>(...)</dt></dl>
 
 <hr>
-Data and other attributes inherited from gobject.Frame:<br>
+Data and other attributes inherited from <a href="gtk.html#Frame">gtk.Frame</a>:<br>
 <dl><dt><strong>do_compute_child_allocation</strong> = &lt;built-in method do_compute_child_allocation of GObjectMeta object&gt;</dl>
 
 <hr>
-Methods inherited from gobject.Bin:<br>
+Methods inherited from <a href="gtk.html#Bin">gtk.Bin</a>:<br>
 <dl><dt><a name="MixerStrip-get_child"><strong>get_child</strong></a>(...)</dt></dl>
 
 <hr>
-Data and other attributes inherited from gobject.Bin:<br>
-<dl><dt><strong>child</strong> = &lt;attribute 'child' of 'gtk.Bin' objects&gt;</dl>
-
+Data descriptors inherited from <a href="gtk.html#Bin">gtk.Bin</a>:<br>
+<dl><dt><strong>child</strong></dt>
+</dl>
 <hr>
-Methods inherited from gobject.Container:<br>
-<dl><dt><a name="MixerStrip-__iter__"><strong>__iter__</strong></a>(...)</dt><dd><tt>x.<a href="#MixerStrip-__iter__">__iter__</a>()&nbsp;&lt;==&gt;&nbsp;iter(x)</tt></dd></dl>
-
+Methods inherited from <a href="gtk.html#Container">gtk.Container</a>:<br>
 <dl><dt><a name="MixerStrip-__len__"><strong>__len__</strong></a>(...)</dt><dd><tt>x.<a href="#MixerStrip-__len__">__len__</a>()&nbsp;&lt;==&gt;&nbsp;len(x)</tt></dd></dl>
 
 <dl><dt><a name="MixerStrip-__nonzero__"><strong>__nonzero__</strong></a>(...)</dt><dd><tt>x.<a href="#MixerStrip-__nonzero__">__nonzero__</a>()&nbsp;&lt;==&gt;&nbsp;x&nbsp;!=&nbsp;0</tt></dd></dl>
@@ -198,6 +204,8 @@ Methods inherited from gobject.Container:<br>
 
 <dl><dt><a name="MixerStrip-get_focus_chain"><strong>get_focus_chain</strong></a>(...)</dt></dl>
 
+<dl><dt><a name="MixerStrip-get_focus_child"><strong>get_focus_child</strong></a>(...)</dt></dl>
+
 <dl><dt><a name="MixerStrip-get_focus_hadjustment"><strong>get_focus_hadjustment</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="MixerStrip-get_focus_vadjustment"><strong>get_focus_vadjustment</strong></a>(...)</dt></dl>
@@ -227,9 +235,21 @@ Methods inherited from gobject.Container:<br>
 <dl><dt><a name="MixerStrip-unset_focus_chain"><strong>unset_focus_chain</strong></a>(...)</dt></dl>
 
 <hr>
-Data and other attributes inherited from gobject.Container:<br>
-<dl><dt><strong>border_width</strong> = &lt;attribute 'border_width' of 'gtk.Container' objects&gt;</dl>
-
+Data descriptors inherited from <a href="gtk.html#Container">gtk.Container</a>:<br>
+<dl><dt><strong>border_width</strong></dt>
+</dl>
+<dl><dt><strong>focus_child</strong></dt>
+</dl>
+<dl><dt><strong>has_focus_chain</strong></dt>
+</dl>
+<dl><dt><strong>need_resize</strong></dt>
+</dl>
+<dl><dt><strong>reallocate_redraws</strong></dt>
+</dl>
+<dl><dt><strong>resize_mode</strong></dt>
+</dl>
+<hr>
+Data and other attributes inherited from <a href="gtk.html#Container">gtk.Container</a>:<br>
 <dl><dt><strong>do_add</strong> = &lt;built-in method do_add of GObjectMeta object&gt;</dl>
 
 <dl><dt><strong>do_check_resize</strong> = &lt;built-in method do_check_resize of GObjectMeta object&gt;</dl>
@@ -237,6 +257,8 @@ Data and other attributes inherited from gobject.Container:<br>
 <dl><dt><strong>do_child_type</strong> = &lt;built-in method do_child_type of GObjectMeta object&gt;</dl>
 
 <dl><dt><strong>do_composite_name</strong> = &lt;built-in method do_composite_name of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_forall</strong> = &lt;built-in method do_forall of GObjectMeta object&gt;</dl>
 
 <dl><dt><strong>do_get_child_property</strong> = &lt;built-in method do_get_child_property of GObjectMeta object&gt;</dl>
 
@@ -246,22 +268,12 @@ Data and other attributes inherited from gobject.Container:<br>
 
 <dl><dt><strong>do_set_focus_child</strong> = &lt;built-in method do_set_focus_child of GObjectMeta object&gt;</dl>
 
-<dl><dt><strong>focus_child</strong> = &lt;attribute 'focus_child' of 'gtk.Container' objects&gt;</dl>
-
-<dl><dt><strong>has_focus_chain</strong> = &lt;attribute 'has_focus_chain' of 'gtk.Container' objects&gt;</dl>
-
 <dl><dt><strong>install_child_property</strong> = &lt;built-in method install_child_property of GObjectMeta object&gt;</dl>
 
 <dl><dt><strong>list_child_properties</strong> = &lt;built-in method list_child_properties of GObjectMeta object&gt;</dl>
 
-<dl><dt><strong>need_resize</strong> = &lt;attribute 'need_resize' of 'gtk.Container' objects&gt;</dl>
-
-<dl><dt><strong>reallocate_redraws</strong> = &lt;attribute 'reallocate_redraws' of 'gtk.Container' objects&gt;</dl>
-
-<dl><dt><strong>resize_mode</strong> = &lt;attribute 'resize_mode' of 'gtk.Container' objects&gt;</dl>
-
 <hr>
-Methods inherited from gobject.Widget:<br>
+Methods inherited from <a href="gtk.html#Widget">gtk.Widget</a>:<br>
 <dl><dt><a name="MixerStrip-activate"><strong>activate</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="MixerStrip-add_accelerator"><strong>add_accelerator</strong></a>(...)</dt></dl>
@@ -342,6 +354,8 @@ Methods inherited from gobject.Widget:<br>
 
 <dl><dt><a name="MixerStrip-ensure_style"><strong>ensure_style</strong></a>(...)</dt></dl>
 
+<dl><dt><a name="MixerStrip-error_bell"><strong>error_bell</strong></a>(...)</dt></dl>
+
 <dl><dt><a name="MixerStrip-event"><strong>event</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="MixerStrip-freeze_child_notify"><strong>freeze_child_notify</strong></a>(...)</dt></dl>
@@ -353,6 +367,12 @@ Methods inherited from gobject.Widget:<br>
 <dl><dt><a name="MixerStrip-get_allocation"><strong>get_allocation</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="MixerStrip-get_ancestor"><strong>get_ancestor</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="MixerStrip-get_app_paintable"><strong>get_app_paintable</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="MixerStrip-get_can_default"><strong>get_can_default</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="MixerStrip-get_can_focus"><strong>get_can_focus</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="MixerStrip-get_child_requisition"><strong>get_child_requisition</strong></a>(...)</dt></dl>
 
@@ -368,9 +388,17 @@ Methods inherited from gobject.Widget:<br>
 
 <dl><dt><a name="MixerStrip-get_display"><strong>get_display</strong></a>(...)</dt></dl>
 
+<dl><dt><a name="MixerStrip-get_double_buffered"><strong>get_double_buffered</strong></a>(...)</dt></dl>
+
 <dl><dt><a name="MixerStrip-get_events"><strong>get_events</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="MixerStrip-get_extension_events"><strong>get_extension_events</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="MixerStrip-get_has_tooltip"><strong>get_has_tooltip</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="MixerStrip-get_has_window"><strong>get_has_window</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="MixerStrip-get_mapped"><strong>get_mapped</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="MixerStrip-get_modifier_style"><strong>get_modifier_style</strong></a>(...)</dt></dl>
 
@@ -386,19 +414,41 @@ Methods inherited from gobject.Widget:<br>
 
 <dl><dt><a name="MixerStrip-get_pointer"><strong>get_pointer</strong></a>(...)</dt></dl>
 
+<dl><dt><a name="MixerStrip-get_realized"><strong>get_realized</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="MixerStrip-get_receives_default"><strong>get_receives_default</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="MixerStrip-get_requisition"><strong>get_requisition</strong></a>(...)</dt></dl>
+
 <dl><dt><a name="MixerStrip-get_root_window"><strong>get_root_window</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="MixerStrip-get_screen"><strong>get_screen</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="MixerStrip-get_sensitive"><strong>get_sensitive</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="MixerStrip-get_settings"><strong>get_settings</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="MixerStrip-get_size_request"><strong>get_size_request</strong></a>(...)</dt></dl>
 
+<dl><dt><a name="MixerStrip-get_snapshot"><strong>get_snapshot</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="MixerStrip-get_state"><strong>get_state</strong></a>(...)</dt></dl>
+
 <dl><dt><a name="MixerStrip-get_style"><strong>get_style</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="MixerStrip-get_tooltip_markup"><strong>get_tooltip_markup</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="MixerStrip-get_tooltip_text"><strong>get_tooltip_text</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="MixerStrip-get_tooltip_window"><strong>get_tooltip_window</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="MixerStrip-get_toplevel"><strong>get_toplevel</strong></a>(...)</dt></dl>
 
+<dl><dt><a name="MixerStrip-get_visible"><strong>get_visible</strong></a>(...)</dt></dl>
+
 <dl><dt><a name="MixerStrip-get_visual"><strong>get_visual</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="MixerStrip-get_window"><strong>get_window</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="MixerStrip-grab_add"><strong>grab_add</strong></a>(...)</dt></dl>
 
@@ -407,6 +457,14 @@ Methods inherited from gobject.Widget:<br>
 <dl><dt><a name="MixerStrip-grab_focus"><strong>grab_focus</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="MixerStrip-grab_remove"><strong>grab_remove</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="MixerStrip-has_default"><strong>has_default</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="MixerStrip-has_focus"><strong>has_focus</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="MixerStrip-has_grab"><strong>has_grab</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="MixerStrip-has_rc_style"><strong>has_rc_style</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="MixerStrip-has_screen"><strong>has_screen</strong></a>(...)</dt></dl>
 
@@ -424,7 +482,17 @@ Methods inherited from gobject.Widget:<br>
 
 <dl><dt><a name="MixerStrip-is_composited"><strong>is_composited</strong></a>(...)</dt></dl>
 
+<dl><dt><a name="MixerStrip-is_drawable"><strong>is_drawable</strong></a>(...)</dt></dl>
+
 <dl><dt><a name="MixerStrip-is_focus"><strong>is_focus</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="MixerStrip-is_sensitive"><strong>is_sensitive</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="MixerStrip-is_toplevel"><strong>is_toplevel</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="MixerStrip-keynav_failed"><strong>keynav_failed</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="MixerStrip-list_accel_closures"><strong>list_accel_closures</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="MixerStrip-list_mnemonic_labels"><strong>list_mnemonic_labels</strong></a>(...)</dt></dl>
 
@@ -437,6 +505,8 @@ Methods inherited from gobject.Widget:<br>
 <dl><dt><a name="MixerStrip-modify_base"><strong>modify_base</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="MixerStrip-modify_bg"><strong>modify_bg</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="MixerStrip-modify_cursor"><strong>modify_cursor</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="MixerStrip-modify_fg"><strong>modify_fg</strong></a>(...)</dt></dl>
 
@@ -492,9 +562,17 @@ Methods inherited from gobject.Widget:<br>
 
 <dl><dt><a name="MixerStrip-send_expose"><strong>send_expose</strong></a>(...)</dt></dl>
 
+<dl><dt><a name="MixerStrip-send_focus_change"><strong>send_focus_change</strong></a>(...)</dt></dl>
+
 <dl><dt><a name="MixerStrip-set_accel_path"><strong>set_accel_path</strong></a>(...)</dt></dl>
 
+<dl><dt><a name="MixerStrip-set_allocation"><strong>set_allocation</strong></a>(...)</dt></dl>
+
 <dl><dt><a name="MixerStrip-set_app_paintable"><strong>set_app_paintable</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="MixerStrip-set_can_default"><strong>set_can_default</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="MixerStrip-set_can_focus"><strong>set_can_focus</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="MixerStrip-set_child_visible"><strong>set_child_visible</strong></a>(...)</dt></dl>
 
@@ -510,6 +588,12 @@ Methods inherited from gobject.Widget:<br>
 
 <dl><dt><a name="MixerStrip-set_extension_events"><strong>set_extension_events</strong></a>(...)</dt></dl>
 
+<dl><dt><a name="MixerStrip-set_has_tooltip"><strong>set_has_tooltip</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="MixerStrip-set_has_window"><strong>set_has_window</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="MixerStrip-set_mapped"><strong>set_mapped</strong></a>(...)</dt></dl>
+
 <dl><dt><a name="MixerStrip-set_name"><strong>set_name</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="MixerStrip-set_no_show_all"><strong>set_no_show_all</strong></a>(...)</dt></dl>
@@ -517,6 +601,10 @@ Methods inherited from gobject.Widget:<br>
 <dl><dt><a name="MixerStrip-set_parent"><strong>set_parent</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="MixerStrip-set_parent_window"><strong>set_parent_window</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="MixerStrip-set_realized"><strong>set_realized</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="MixerStrip-set_receives_default"><strong>set_receives_default</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="MixerStrip-set_redraw_on_allocate"><strong>set_redraw_on_allocate</strong></a>(...)</dt></dl>
 
@@ -530,9 +618,19 @@ Methods inherited from gobject.Widget:<br>
 
 <dl><dt><a name="MixerStrip-set_style"><strong>set_style</strong></a>(...)</dt></dl>
 
+<dl><dt><a name="MixerStrip-set_tooltip_markup"><strong>set_tooltip_markup</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="MixerStrip-set_tooltip_text"><strong>set_tooltip_text</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="MixerStrip-set_tooltip_window"><strong>set_tooltip_window</strong></a>(...)</dt></dl>
+
 <dl><dt><a name="MixerStrip-set_uposition"><strong>set_uposition</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="MixerStrip-set_usize"><strong>set_usize</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="MixerStrip-set_visible"><strong>set_visible</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="MixerStrip-set_window"><strong>set_window</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="MixerStrip-shape_combine_mask"><strong>shape_combine_mask</strong></a>(...)</dt></dl>
 
@@ -546,11 +644,15 @@ Methods inherited from gobject.Widget:<br>
 
 <dl><dt><a name="MixerStrip-size_request"><strong>size_request</strong></a>(...)</dt></dl>
 
+<dl><dt><a name="MixerStrip-style_attach"><strong>style_attach</strong></a>(...)</dt></dl>
+
 <dl><dt><a name="MixerStrip-style_get_property"><strong>style_get_property</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="MixerStrip-thaw_child_notify"><strong>thaw_child_notify</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="MixerStrip-translate_coordinates"><strong>translate_coordinates</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="MixerStrip-trigger_tooltip_query"><strong>trigger_tooltip_query</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="MixerStrip-unmap"><strong>unmap</strong></a>(...)</dt></dl>
 
@@ -559,9 +661,25 @@ Methods inherited from gobject.Widget:<br>
 <dl><dt><a name="MixerStrip-unrealize"><strong>unrealize</strong></a>(...)</dt></dl>
 
 <hr>
-Data and other attributes inherited from gobject.Widget:<br>
-<dl><dt><strong>allocation</strong> = &lt;attribute 'allocation' of 'gtk.Widget' objects&gt;</dl>
-
+Data descriptors inherited from <a href="gtk.html#Widget">gtk.Widget</a>:<br>
+<dl><dt><strong>allocation</strong></dt>
+</dl>
+<dl><dt><strong>name</strong></dt>
+</dl>
+<dl><dt><strong>parent</strong></dt>
+</dl>
+<dl><dt><strong>requisition</strong></dt>
+</dl>
+<dl><dt><strong>saved_state</strong></dt>
+</dl>
+<dl><dt><strong>state</strong></dt>
+</dl>
+<dl><dt><strong>style</strong></dt>
+</dl>
+<dl><dt><strong>window</strong></dt>
+</dl>
+<hr>
+Data and other attributes inherited from <a href="gtk.html#Widget">gtk.Widget</a>:<br>
 <dl><dt><strong>do_button_press_event</strong> = &lt;built-in method do_button_press_event of GObjectMeta object&gt;</dl>
 
 <dl><dt><strong>do_button_release_event</strong> = &lt;built-in method do_button_release_event of GObjectMeta object&gt;</dl>
@@ -690,24 +808,12 @@ Data and other attributes inherited from gobject.Widget:<br>
 
 <dl><dt><strong>get_activate_signal</strong> = &lt;built-in method get_activate_signal of GObjectMeta object&gt;</dl>
 
-<dl><dt><strong>name</strong> = &lt;attribute 'name' of 'gtk.Widget' objects&gt;</dl>
-
-<dl><dt><strong>parent</strong> = &lt;attribute 'parent' of 'gtk.Widget' objects&gt;</dl>
-
-<dl><dt><strong>saved_state</strong> = &lt;attribute 'saved_state' of 'gtk.Widget' objects&gt;</dl>
-
 <dl><dt><strong>set_activate_signal</strong> = &lt;built-in method set_activate_signal of GObjectMeta object&gt;</dl>
 
 <dl><dt><strong>set_set_scroll_adjustments_signal</strong> = &lt;built-in method set_set_scroll_adjustments_signal of GObjectMeta object&gt;</dl>
 
-<dl><dt><strong>state</strong> = &lt;attribute 'state' of 'gtk.Widget' objects&gt;</dl>
-
-<dl><dt><strong>style</strong> = &lt;attribute 'style' of 'gtk.Widget' objects&gt;</dl>
-
-<dl><dt><strong>window</strong> = &lt;attribute 'window' of 'gtk.Widget' objects&gt;</dl>
-
 <hr>
-Methods inherited from gobject.Object:<br>
+Methods inherited from <a href="gtk.html#Object">gtk.Object</a>:<br>
 <dl><dt><a name="MixerStrip-flags"><strong>flags</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="MixerStrip-remove_data"><strong>remove_data</strong></a>(...)</dt></dl>
@@ -719,18 +825,26 @@ Methods inherited from gobject.Object:<br>
 <dl><dt><a name="MixerStrip-unset_flags"><strong>unset_flags</strong></a>(...)</dt></dl>
 
 <hr>
-Data and other attributes inherited from gobject.Object:<br>
+Data and other attributes inherited from <a href="gtk.html#Object">gtk.Object</a>:<br>
 <dl><dt><strong>do_destroy</strong> = &lt;built-in method do_destroy of GObjectMeta object&gt;</dl>
 
 <hr>
-Methods inherited from <a href="gobject.html#GObject">gobject.GObject</a>:<br>
+Methods inherited from <a href="gobject._gobject.html#GObject">gobject._gobject.GObject</a>:<br>
 <dl><dt><a name="MixerStrip-__cmp__"><strong>__cmp__</strong></a>(...)</dt><dd><tt>x.<a href="#MixerStrip-__cmp__">__cmp__</a>(y)&nbsp;&lt;==&gt;&nbsp;cmp(x,y)</tt></dd></dl>
+
+<dl><dt><a name="MixerStrip-__copy__"><strong>__copy__</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="MixerStrip-__deepcopy__"><strong>__deepcopy__</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="MixerStrip-__delattr__"><strong>__delattr__</strong></a>(...)</dt><dd><tt>x.<a href="#MixerStrip-__delattr__">__delattr__</a>('name')&nbsp;&lt;==&gt;&nbsp;del&nbsp;x.name</tt></dd></dl>
 
 <dl><dt><a name="MixerStrip-__gobject_init__"><strong>__gobject_init__</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="MixerStrip-__hash__"><strong>__hash__</strong></a>(...)</dt><dd><tt>x.<a href="#MixerStrip-__hash__">__hash__</a>()&nbsp;&lt;==&gt;&nbsp;hash(x)</tt></dd></dl>
 
 <dl><dt><a name="MixerStrip-__repr__"><strong>__repr__</strong></a>(...)</dt><dd><tt>x.<a href="#MixerStrip-__repr__">__repr__</a>()&nbsp;&lt;==&gt;&nbsp;repr(x)</tt></dd></dl>
+
+<dl><dt><a name="MixerStrip-__setattr__"><strong>__setattr__</strong></a>(...)</dt><dd><tt>x.<a href="#MixerStrip-__setattr__">__setattr__</a>('name',&nbsp;value)&nbsp;&lt;==&gt;&nbsp;x.name&nbsp;=&nbsp;value</tt></dd></dl>
 
 <dl><dt><a name="MixerStrip-chain"><strong>chain</strong></a>(...)</dt></dl>
 
@@ -754,6 +868,8 @@ Methods inherited from <a href="gobject.html#GObject">gobject.GObject</a>:<br>
 
 <dl><dt><a name="MixerStrip-get_data"><strong>get_data</strong></a>(...)</dt></dl>
 
+<dl><dt><a name="MixerStrip-get_properties"><strong>get_properties</strong></a>(...)</dt></dl>
+
 <dl><dt><a name="MixerStrip-get_property"><strong>get_property</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="MixerStrip-handler_block"><strong>handler_block</strong></a>(...)</dt></dl>
@@ -772,19 +888,25 @@ Methods inherited from <a href="gobject.html#GObject">gobject.GObject</a>:<br>
 
 <dl><dt><a name="MixerStrip-set_data"><strong>set_data</strong></a>(...)</dt></dl>
 
+<dl><dt><a name="MixerStrip-set_properties"><strong>set_properties</strong></a>(...)</dt></dl>
+
 <dl><dt><a name="MixerStrip-set_property"><strong>set_property</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="MixerStrip-stop_emission"><strong>stop_emission</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="MixerStrip-thaw_notify"><strong>thaw_notify</strong></a>(...)</dt></dl>
 
+<dl><dt><a name="MixerStrip-weak_ref"><strong>weak_ref</strong></a>(...)</dt></dl>
+
 <hr>
-Data and other attributes inherited from <a href="gobject.html#GObject">gobject.GObject</a>:<br>
-<dl><dt><strong>__dict__</strong> = &lt;dictproxy object&gt;</dl>
-
+Data descriptors inherited from <a href="gobject._gobject.html#GObject">gobject._gobject.GObject</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+</dl>
+<dl><dt><strong>__grefcount__</strong></dt>
+</dl>
+<hr>
+Data and other attributes inherited from <a href="gobject._gobject.html#GObject">gobject._gobject.GObject</a>:<br>
 <dl><dt><strong>__gdoc__</strong> = 'Object MixerStrip<font color="#c040c0">\n\n\n\t</font>Contains the VU widget and ...ointer<font color="#c040c0">\n\n</font>Signals from GObject:<font color="#c040c0">\n</font>  notify (GParam)<font color="#c040c0">\n\n</font>'</dl>
-
-<dl><dt><strong>__grefcount__</strong> = &lt;attribute '__grefcount__' of 'gobject.GObject' objects&gt;</dl>
 
 <dl><dt><strong>__new__</strong> = &lt;built-in method __new__ of GObjectMeta object&gt;<dd><tt>T.<a href="#MixerStrip-__new__">__new__</a>(S,&nbsp;...)&nbsp;-&gt;&nbsp;a&nbsp;new&nbsp;object&nbsp;with&nbsp;type&nbsp;S,&nbsp;a&nbsp;subtype&nbsp;of&nbsp;T</tt></dl>
 
@@ -793,6 +915,28 @@ Data and other attributes inherited from <a href="gobject.html#GObject">gobject.
 <hr>
 Methods inherited from <a href="atk.html#ImplementorIface">atk.ImplementorIface</a>:<br>
 <dl><dt><a name="MixerStrip-ref_accessible"><strong>ref_accessible</strong></a>(...)</dt></dl>
+
+<hr>
+Methods inherited from <a href="gtk.html#Buildable">gtk.Buildable</a>:<br>
+<dl><dt><a name="MixerStrip-add_child"><strong>add_child</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="MixerStrip-construct_child"><strong>construct_child</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="MixerStrip-get_internal_child"><strong>get_internal_child</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="MixerStrip-parser_finished"><strong>parser_finished</strong></a>(...)</dt></dl>
+
+<hr>
+Data and other attributes inherited from <a href="gtk.html#Buildable">gtk.Buildable</a>:<br>
+<dl><dt><strong>do_add_child</strong> = &lt;built-in method do_add_child of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_construct_child</strong> = &lt;built-in method do_construct_child of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_get_internal_child</strong> = &lt;built-in method do_get_internal_child of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_parser_finished</strong> = &lt;built-in method do_parser_finished of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_set_name</strong> = &lt;built-in method do_set_name of GObjectMeta object&gt;</dl>
 
 </td></tr></table></td></tr></table>
 </body></html>

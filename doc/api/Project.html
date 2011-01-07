@@ -1,5 +1,5 @@
 
-<!doctype html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html><head><title>Python: module Project</title>
 </head><body bgcolor="#ffffff">
 
@@ -8,7 +8,7 @@
 <td valign=bottom>&nbsp;<br>
 <font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>Project</strong></big></big></font></td
 ><td align=right valign=bottom
-><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/david/Projects/Jokosher/trunk/Jokosher/Project.py">/home/david/Projects/Jokosher/trunk/Jokosher/Project.py</a></font></td></tr></table>
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/laszlo/Dev/joko-gtk-builder/Jokosher/Project.py">/home/laszlo/Dev/joko-gtk-builder/Jokosher/Project.py</a></font></td></tr></table>
     <p><tt>#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THIS&nbsp;FILE&nbsp;IS&nbsp;PART&nbsp;OF&nbsp;THE&nbsp;JOKOSHER&nbsp;PROJECT&nbsp;AND&nbsp;LICENSED&nbsp;UNDER&nbsp;THE&nbsp;GPL.&nbsp;SEE<br>
 #&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THE&nbsp;'COPYING'&nbsp;FILE&nbsp;FOR&nbsp;DETAILS<br>
 #<br>
@@ -24,27 +24,25 @@
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#4e9a06">
 <td colspan=3 valign=bottom>&nbsp;<br>
-<font color="#fffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
     
 <tr><td bgcolor="#4e9a06"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
-<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="AlsaDevices.html">AlsaDevices</a><br>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="AudioBackend.html">AudioBackend</a><br>
+<a href="Event.html">Event</a><br>
 <a href="Globals.html">Globals</a><br>
+<a href="IncrementalSave.html">IncrementalSave</a><br>
+<a href="Instrument.html">Instrument</a><br>
+</td><td width="25%" valign=top><a href="PlatformUtils.html">PlatformUtils</a><br>
+<a href="ProjectManager.html">ProjectManager</a><br>
 <a href="TransportManager.html">TransportManager</a><br>
+<a href="UndoSystem.html">UndoSystem</a><br>
 <a href="Utils.html">Utils</a><br>
-<a href="dbus.html">dbus</a><br>
-</td><td width="25%" valign=top><a href="gettext.html">gettext</a><br>
-<a href="gnomevfs.html">gnomevfs</a><br>
-<a href="gobject.html">gobject</a><br>
+</td><td width="25%" valign=top><a href="gobject.html">gobject</a><br>
 <a href="gst.html">gst</a><br>
-<a href="gtk.html">gtk</a><br>
-</td><td width="25%" valign=top><a href="gzip.html">gzip</a><br>
-<a href="math.html">math</a><br>
+<a href="gzip.html">gzip</a><br>
 <a href="os.html">os</a><br>
 <a href="pygst.html">pygst</a><br>
-<a href="re.html">re</a><br>
-</td><td width="25%" valign=top><a href="shutil.html">shutil</a><br>
-<a href="time.html">time</a><br>
-<a href="urlparse.html">urlparse</a><br>
+</td><td width="25%" valign=top><a href="re.html">re</a><br>
 <a href="xml.dom.minidom.html">xml.dom.minidom</a><br>
 </td></tr></table></td></tr></table><p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
@@ -54,24 +52,10 @@
     
 <tr><td bgcolor="#3465a4"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
 <td width="100%"><dl>
-<dt><font face="helvetica, arial"><a href="Monitored.html#Monitored">Monitored.Monitored</a>
+<dt><font face="helvetica, arial"><a href="gobject._gobject.html#GObject">gobject._gobject.GObject</a>(<a href="__builtin__.html#object">__builtin__.object</a>)
 </font></dt><dd>
 <dl>
 <dt><font face="helvetica, arial"><a href="Project.html#Project">Project</a>
-</font></dt></dl>
-</dd>
-<dt><font face="helvetica, arial"><a href="exceptions.html#EnvironmentError">exceptions.EnvironmentError</a>(<a href="exceptions.html#StandardError">exceptions.StandardError</a>)
-</font></dt><dd>
-<dl>
-<dt><font face="helvetica, arial"><a href="Project.html#OpenProjectError">OpenProjectError</a>
-</font></dt></dl>
-</dd>
-<dt><font face="helvetica, arial"><a href="exceptions.html#Exception">exceptions.Exception</a>
-</font></dt><dd>
-<dl>
-<dt><font face="helvetica, arial"><a href="Project.html#AudioInputsError">AudioInputsError</a>
-</font></dt><dt><font face="helvetica, arial"><a href="Project.html#CreateProjectError">CreateProjectError</a>
-</font></dt><dt><font face="helvetica, arial"><a href="Project.html#InvalidProjectError">InvalidProjectError</a>
 </font></dt></dl>
 </dd>
 </dl>
@@ -79,125 +63,19 @@
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#729fcf">
 <td colspan=3 valign=bottom>&nbsp;<br>
-<font color="#000000" face="helvetica, arial"><a name="AudioInputsError">class <strong>AudioInputsError</strong></a>(<a href="exceptions.html#Exception">exceptions.Exception</a>)</font></td></tr>
-    
-<tr bgcolor="#729fcf"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
-<td colspan=2><tt>This&nbsp;class&nbsp;will&nbsp;get&nbsp;created&nbsp;when&nbsp;there&nbsp;are&nbsp;problems&nbsp;with&nbsp;the&nbsp;soundcard&nbsp;inputs.<br>
-It's&nbsp;used&nbsp;for&nbsp;handling&nbsp;errors.<br>&nbsp;</tt></td></tr>
-<tr><td>&nbsp;</td>
-<td width="100%">Methods defined here:<br>
-<dl><dt><a name="AudioInputsError-__init__"><strong>__init__</strong></a>(self, errno)</dt><dd><tt>Creates&nbsp;a&nbsp;new&nbsp;instance&nbsp;of&nbsp;<a href="#AudioInputsError">AudioInputsError</a>.<br>
-&nbsp;<br>
-Parameters:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;errno&nbsp;--&nbsp;number&nbsp;indicating&nbsp;the&nbsp;type&nbsp;of&nbsp;error:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;=&nbsp;no&nbsp;recording&nbsp;channels&nbsp;found.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;=&nbsp;sound&nbsp;card&nbsp;is&nbsp;not&nbsp;capable&nbsp;of&nbsp;multiple&nbsp;simultaneous&nbsp;inputs.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3&nbsp;=&nbsp;channel&nbsp;splitting&nbsp;element&nbsp;not&nbsp;found.</tt></dd></dl>
-
-<hr>
-Methods inherited from <a href="exceptions.html#Exception">exceptions.Exception</a>:<br>
-<dl><dt><a name="AudioInputsError-__getitem__"><strong>__getitem__</strong></a>(...)</dt></dl>
-
-<dl><dt><a name="AudioInputsError-__str__"><strong>__str__</strong></a>(...)</dt></dl>
-
-</td></tr></table> <p>
-<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
-<tr bgcolor="#729fcf">
-<td colspan=3 valign=bottom>&nbsp;<br>
-<font color="#000000" face="helvetica, arial"><a name="CreateProjectError">class <strong>CreateProjectError</strong></a>(<a href="exceptions.html#Exception">exceptions.Exception</a>)</font></td></tr>
-    
-<tr bgcolor="#729fcf"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
-<td colspan=2><tt>This&nbsp;class&nbsp;will&nbsp;get&nbsp;created&nbsp;when&nbsp;creating&nbsp;a&nbsp;<a href="#Project">Project</a>&nbsp;fails.<br>
-It's&nbsp;used&nbsp;for&nbsp;handling&nbsp;errors.<br>&nbsp;</tt></td></tr>
-<tr><td>&nbsp;</td>
-<td width="100%">Methods defined here:<br>
-<dl><dt><a name="CreateProjectError-__init__"><strong>__init__</strong></a>(self, errno)</dt><dd><tt>Creates&nbsp;a&nbsp;new&nbsp;instance&nbsp;of&nbsp;<a href="#CreateProjectError">CreateProjectError</a>.<br>
-&nbsp;<br>
-Parameters:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;errno&nbsp;--&nbsp;number&nbsp;indicating&nbsp;the&nbsp;type&nbsp;of&nbsp;error:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;=&nbsp;unable&nbsp;to&nbsp;create&nbsp;a&nbsp;<a href="#Project">Project</a>&nbsp;object.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;=&nbsp;path&nbsp;for&nbsp;<a href="#Project">Project</a>&nbsp;file&nbsp;already&nbsp;exists.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3&nbsp;=&nbsp;unable&nbsp;to&nbsp;create&nbsp;file.&nbsp;(Invalid&nbsp;permissions,&nbsp;read-only,&nbsp;or&nbsp;the&nbsp;disk&nbsp;is&nbsp;full).<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4&nbsp;=&nbsp;invalid&nbsp;path,&nbsp;name&nbsp;or&nbsp;author.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5&nbsp;=&nbsp;invalid&nbsp;uri&nbsp;passed&nbsp;for&nbsp;the&nbsp;<a href="#Project">Project</a>&nbsp;file.</tt></dd></dl>
-
-<hr>
-Methods inherited from <a href="exceptions.html#Exception">exceptions.Exception</a>:<br>
-<dl><dt><a name="CreateProjectError-__getitem__"><strong>__getitem__</strong></a>(...)</dt></dl>
-
-<dl><dt><a name="CreateProjectError-__str__"><strong>__str__</strong></a>(...)</dt></dl>
-
-</td></tr></table> <p>
-<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
-<tr bgcolor="#729fcf">
-<td colspan=3 valign=bottom>&nbsp;<br>
-<font color="#000000" face="helvetica, arial"><a name="InvalidProjectError">class <strong>InvalidProjectError</strong></a>(<a href="exceptions.html#Exception">exceptions.Exception</a>)</font></td></tr>
-    
-<tr bgcolor="#729fcf"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
-<td colspan=2><tt>This&nbsp;class&nbsp;will&nbsp;get&nbsp;created&nbsp;when&nbsp;there's&nbsp;an&nbsp;invalid&nbsp;<a href="#Project">Project</a>.<br>
-It's&nbsp;used&nbsp;for&nbsp;handling&nbsp;errors.<br>&nbsp;</tt></td></tr>
-<tr><td>&nbsp;</td>
-<td width="100%">Methods defined here:<br>
-<dl><dt><a name="InvalidProjectError-__init__"><strong>__init__</strong></a>(self, missingfiles, missingimages)</dt><dd><tt>Creates&nbsp;a&nbsp;new&nbsp;instance&nbsp;of&nbsp;<a href="#InvalidProjectError">InvalidProjectError</a>.<br>
-&nbsp;<br>
-Parameters:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;missingfiles&nbsp;--&nbsp;filenames&nbsp;of&nbsp;the&nbsp;missing&nbsp;files.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;missingimages&nbsp;--&nbsp;filenames&nbsp;of&nbsp;the&nbsp;missing&nbsp;images.</tt></dd></dl>
-
-<hr>
-Methods inherited from <a href="exceptions.html#Exception">exceptions.Exception</a>:<br>
-<dl><dt><a name="InvalidProjectError-__getitem__"><strong>__getitem__</strong></a>(...)</dt></dl>
-
-<dl><dt><a name="InvalidProjectError-__str__"><strong>__str__</strong></a>(...)</dt></dl>
-
-</td></tr></table> <p>
-<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
-<tr bgcolor="#729fcf">
-<td colspan=3 valign=bottom>&nbsp;<br>
-<font color="#000000" face="helvetica, arial"><a name="OpenProjectError">class <strong>OpenProjectError</strong></a>(<a href="exceptions.html#EnvironmentError">exceptions.EnvironmentError</a>)</font></td></tr>
-    
-<tr bgcolor="#729fcf"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
-<td colspan=2><tt>This&nbsp;class&nbsp;will&nbsp;get&nbsp;created&nbsp;when&nbsp;a&nbsp;opening&nbsp;a&nbsp;<a href="#Project">Project</a>&nbsp;fails.<br>
-It's&nbsp;used&nbsp;for&nbsp;handling&nbsp;errors.<br>&nbsp;</tt></td></tr>
-<tr><td>&nbsp;</td>
-<td width="100%"><dl><dt>Method resolution order:</dt>
-<dd><a href="Project.html#OpenProjectError">OpenProjectError</a></dd>
-<dd><a href="exceptions.html#EnvironmentError">exceptions.EnvironmentError</a></dd>
-<dd><a href="exceptions.html#StandardError">exceptions.StandardError</a></dd>
-<dd><a href="exceptions.html#Exception">exceptions.Exception</a></dd>
-</dl>
-<hr>
-Methods defined here:<br>
-<dl><dt><a name="OpenProjectError-__init__"><strong>__init__</strong></a>(self, errno, info<font color="#909090">=None</font>)</dt><dd><tt>Creates&nbsp;a&nbsp;new&nbsp;instance&nbsp;of&nbsp;<a href="#OpenProjectError">OpenProjectError</a>.<br>
-&nbsp;<br>
-Parameters:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;errno&nbsp;--&nbsp;number&nbsp;indicating&nbsp;the&nbsp;type&nbsp;of&nbsp;error:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;=&nbsp;invalid&nbsp;uri&nbsp;passed&nbsp;for&nbsp;the&nbsp;<a href="#Project">Project</a>&nbsp;file.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;=&nbsp;unable&nbsp;to&nbsp;unzip&nbsp;the&nbsp;<a href="#Project">Project</a>.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3&nbsp;=&nbsp;<a href="#Project">Project</a>&nbsp;created&nbsp;by&nbsp;a&nbsp;different&nbsp;version&nbsp;of&nbsp;Jokosher.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4&nbsp;=&nbsp;<a href="#Project">Project</a>&nbsp;file&nbsp;doesn't&nbsp;exist.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;info&nbsp;--&nbsp;version&nbsp;of&nbsp;Jokosher&nbsp;that&nbsp;created&nbsp;the&nbsp;<a href="#Project">Project</a>.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Will&nbsp;be&nbsp;present&nbsp;only&nbsp;along&nbsp;with&nbsp;error&nbsp;#3.</tt></dd></dl>
-
-<hr>
-Methods inherited from <a href="exceptions.html#EnvironmentError">exceptions.EnvironmentError</a>:<br>
-<dl><dt><a name="OpenProjectError-__str__"><strong>__str__</strong></a>(...)</dt></dl>
-
-<hr>
-Methods inherited from <a href="exceptions.html#Exception">exceptions.Exception</a>:<br>
-<dl><dt><a name="OpenProjectError-__getitem__"><strong>__getitem__</strong></a>(...)</dt></dl>
-
-</td></tr></table> <p>
-<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
-<tr bgcolor="#729fcf">
-<td colspan=3 valign=bottom>&nbsp;<br>
-<font color="#000000" face="helvetica, arial"><a name="Project">class <strong>Project</strong></a>(<a href="Monitored.html#Monitored">Monitored.Monitored</a>)</font></td></tr>
+<font color="#000000" face="helvetica, arial"><a name="Project">class <strong>Project</strong></a>(<a href="gobject._gobject.html#GObject">gobject._gobject.GObject</a>)</font></td></tr>
     
 <tr bgcolor="#729fcf"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
 <td colspan=2><tt>This&nbsp;class&nbsp;maintains&nbsp;all&nbsp;of&nbsp;the&nbsp;information&nbsp;required&nbsp;about&nbsp;single&nbsp;<a href="#Project">Project</a>.&nbsp;It&nbsp;also<br>
 saves&nbsp;and&nbsp;loads&nbsp;<a href="#Project">Project</a>&nbsp;files.<br>&nbsp;</tt></td></tr>
 <tr><td>&nbsp;</td>
-<td width="100%">Methods defined here:<br>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="Project.html#Project">Project</a></dd>
+<dd><a href="gobject._gobject.html#GObject">gobject._gobject.GObject</a></dd>
+<dd><a href="__builtin__.html#object">__builtin__.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
 <dl><dt><a name="Project-AddInstrument"><strong>AddInstrument</strong></a> = UndoWrapper(funcSelf, *args, **kwargs)</dt><dd><tt>This&nbsp;function&nbsp;will&nbsp;wrap&nbsp;and&nbsp;take&nbsp;the&nbsp;place&nbsp;of&nbsp;the&nbsp;function<br>
 that&nbsp;is&nbsp;being&nbsp;decorated.&nbsp;All&nbsp;arguments&nbsp;to&nbsp;the&nbsp;original&nbsp;function<br>
 will&nbsp;be&nbsp;saved,&nbsp;and&nbsp;sent&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function&nbsp;call.<br>
@@ -211,17 +89,41 @@ Considerations:<br>
 Parameters:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;funcSelf&nbsp;--&nbsp;reference&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function's&nbsp;class.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*args&nbsp;--&nbsp;parameters&nbsp;meant&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**kwargs&nbsp;--&nbsp;dictionary&nbsp;of&nbsp;keyword:value&nbsp;parameters&nbsp;meant<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**kwargs&nbsp;--&nbsp;dictionary&nbsp;of&nbsp;keyword:value&nbsp;parameters<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;containing&nbsp;the&nbsp;optional&nbsp;_undoAction_&nbsp;parameter.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_undoAction_&nbsp;--&nbsp;has&nbsp;to&nbsp;be&nbsp;passed&nbsp;as&nbsp;a&nbsp;key:value&nbsp;pair&nbsp;inside&nbsp;kwargs.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;AtomicUndoAction&nbsp;object&nbsp;to&nbsp;append&nbsp;the&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;command&nbsp;to&nbsp;or&nbsp;None&nbsp;to&nbsp;create&nbsp;a&nbsp;default&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AtomicUndoAction&nbsp;with&nbsp;only&nbsp;the&nbsp;one&nbsp;command.<br>
 &nbsp;<br>
 Returns:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;wrapped&nbsp;function&nbsp;resulting&nbsp;value.</tt></dd></dl>
+
+<dl><dt><a name="Project-AddInstrumentAndEvents"><strong>AddInstrumentAndEvents</strong></a>(self, fileList, copyFile<font color="#909090">=False</font>, undoAction<font color="#909090">=None</font>)</dt><dd><tt>Adds&nbsp;a&nbsp;new&nbsp;instrument&nbsp;of&nbsp;type&nbsp;"audio&nbsp;file"&nbsp;to&nbsp;the&nbsp;project,&nbsp;and&nbsp;adds&nbsp;the<br>
+given&nbsp;files&nbsp;to&nbsp;the&nbsp;new&nbsp;instrument.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fileList&nbsp;--&nbsp;the&nbsp;list&nbsp;of&nbsp;paths&nbsp;of&nbsp;the&nbsp;files&nbsp;that&nbsp;should&nbsp;be&nbsp;added.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;copyFile&nbsp;--&nbsp;True&nbsp;=&nbsp;copy&nbsp;the&nbsp;files&nbsp;to&nbsp;<a href="#Project">Project</a>'s&nbsp;audio&nbsp;directory.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;False&nbsp;=&nbsp;don't&nbsp;copy&nbsp;the&nbsp;files&nbsp;to&nbsp;the&nbsp;<a href="#Project">Project</a>'s&nbsp;audio&nbsp;directory.</tt></dd></dl>
+
+<dl><dt><a name="Project-AddInstruments"><strong>AddInstruments</strong></a>(self, instrTuples)</dt><dd><tt>Adds&nbsp;one&nbsp;or&nbsp;more&nbsp;instruments&nbsp;to&nbsp;the&nbsp;<a href="#Project">Project</a>,&nbsp;and&nbsp;ensures&nbsp;that<br>
+they&nbsp;are&nbsp;all&nbsp;appended&nbsp;to&nbsp;the&nbsp;undo&nbsp;stack&nbsp;as&nbsp;a&nbsp;single&nbsp;atomic&nbsp;action.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;instrTuples&nbsp;--&nbsp;a&nbsp;list&nbsp;of&nbsp;tuples&nbsp;containing&nbsp;name&nbsp;and&nbsp;type<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;that&nbsp;will&nbsp;be&nbsp;passed&nbsp;to&nbsp;<a href="#Project-AddInstrument">AddInstrument</a>().<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A&nbsp;list&nbsp;of&nbsp;the&nbsp;added&nbsp;Instruments.</tt></dd></dl>
 
 <dl><dt><a name="Project-AppendToCurrentStack"><strong>AppendToCurrentStack</strong></a>(self, object)</dt><dd><tt>Appends&nbsp;the&nbsp;action&nbsp;specified&nbsp;by&nbsp;object&nbsp;onto&nbsp;the&nbsp;relevant<br>
 undo/redo&nbsp;stack.<br>
 &nbsp;<br>
 Parameters:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;object&nbsp;--&nbsp;action&nbsp;to&nbsp;be&nbsp;added&nbsp;to&nbsp;the&nbsp;undo/redo&nbsp;stack</tt></dd></dl>
+
+<dl><dt><a name="Project-CanDoIncrementalRestore"><strong>CanDoIncrementalRestore</strong></a>(self)</dt></dl>
 
 <dl><dt><a name="Project-CanPerformRedo"><strong>CanPerformRedo</strong></a>(self)</dt><dd><tt>Whether&nbsp;it's&nbsp;possible&nbsp;to&nbsp;perform&nbsp;an&nbsp;redo&nbsp;operation.<br>
 &nbsp;<br>
@@ -235,7 +137,7 @@ Returns:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;True&nbsp;--&nbsp;there&nbsp;is&nbsp;another&nbsp;undo&nbsp;command&nbsp;in&nbsp;the&nbsp;stack&nbsp;that&nbsp;can&nbsp;be&nbsp;performed.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;False&nbsp;--&nbsp;there&nbsp;are&nbsp;no&nbsp;available&nbsp;undo&nbsp;commands.</tt></dd></dl>
 
-<dl><dt><a name="Project-CheckUnsavedChanges"><strong>CheckUnsavedChanges</strong></a>(self)</dt><dd><tt>Uses&nbsp;boolean&nbsp;self.<strong>unsavedChanges</strong>&nbsp;and&nbsp;Undo/Redo&nbsp;to&nbsp;<br>
+<dl><dt><a name="Project-CheckUnsavedChanges"><strong>CheckUnsavedChanges</strong></a>(self)</dt><dd><tt>Uses&nbsp;boolean&nbsp;self.<strong>__unsavedChanges</strong>&nbsp;and&nbsp;Undo/Redo&nbsp;to&nbsp;<br>
 determine&nbsp;if&nbsp;the&nbsp;program&nbsp;needs&nbsp;to&nbsp;save&nbsp;anything&nbsp;on&nbsp;exit.<br>
 &nbsp;<br>
 Return:<br>
@@ -261,15 +163,25 @@ Considerations:<br>
 Parameters:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;funcSelf&nbsp;--&nbsp;reference&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function's&nbsp;class.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*args&nbsp;--&nbsp;parameters&nbsp;meant&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**kwargs&nbsp;--&nbsp;dictionary&nbsp;of&nbsp;keyword:value&nbsp;parameters&nbsp;meant<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**kwargs&nbsp;--&nbsp;dictionary&nbsp;of&nbsp;keyword:value&nbsp;parameters<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;containing&nbsp;the&nbsp;optional&nbsp;_undoAction_&nbsp;parameter.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_undoAction_&nbsp;--&nbsp;has&nbsp;to&nbsp;be&nbsp;passed&nbsp;as&nbsp;a&nbsp;key:value&nbsp;pair&nbsp;inside&nbsp;kwargs.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;AtomicUndoAction&nbsp;object&nbsp;to&nbsp;append&nbsp;the&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;command&nbsp;to&nbsp;or&nbsp;None&nbsp;to&nbsp;create&nbsp;a&nbsp;default&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AtomicUndoAction&nbsp;with&nbsp;only&nbsp;the&nbsp;one&nbsp;command.<br>
 &nbsp;<br>
 Returns:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;wrapped&nbsp;function&nbsp;resulting&nbsp;value.</tt></dd></dl>
 
-<dl><dt><a name="Project-DisableClick"><strong>DisableClick</strong></a>(self)</dt><dd><tt>Mutes&nbsp;and&nbsp;disables&nbsp;the&nbsp;click&nbsp;track.</tt></dd></dl>
+<dl><dt><a name="Project-DeleteInstrumentsOrEvents"><strong>DeleteInstrumentsOrEvents</strong></a>(self, instrumentOrEventList)</dt><dd><tt>Removes&nbsp;the&nbsp;given&nbsp;instruments&nbsp;the&nbsp;<a href="#Project">Project</a>.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;instrumentList&nbsp;--&nbsp;a&nbsp;list&nbsp;of&nbsp;Instrument&nbsp;instances&nbsp;to&nbsp;be&nbsp;removed.</tt></dd></dl>
 
-<dl><dt><a name="Project-EnableClick"><strong>EnableClick</strong></a>(self)</dt><dd><tt>Unmutes&nbsp;and&nbsp;enables&nbsp;the&nbsp;click&nbsp;track.</tt></dd></dl>
+<dl><dt><a name="Project-DoIncrementalRestore"><strong>DoIncrementalRestore</strong></a>(self)</dt><dd><tt>Loads&nbsp;all&nbsp;the&nbsp;actions&nbsp;from&nbsp;the&nbsp;.incremental&nbsp;file&nbsp;and&nbsp;executes&nbsp;them<br>
+to&nbsp;restore&nbsp;the&nbsp;project's&nbsp;state.</tt></dd></dl>
+
+<dl><dt><a name="Project-DumpDotFile"><strong>DumpDotFile</strong></a>(self)</dt></dl>
 
 <dl><dt><a name="Project-ExecuteAction"><strong>ExecuteAction</strong></a>(self, undoAction)</dt><dd><tt>Executes&nbsp;an&nbsp;AtomicUndoAction&nbsp;object,&nbsp;reverting&nbsp;all&nbsp;operations&nbsp;stored<br>
 in&nbsp;it.<br>
@@ -277,26 +189,34 @@ in&nbsp;it.<br>
 Parameters:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;undoAction&nbsp;--&nbsp;the&nbsp;instance&nbsp;of&nbsp;AtomicUndoAction&nbsp;to&nbsp;be&nbsp;executed.</tt></dd></dl>
 
-<dl><dt><a name="Project-Export"><strong>Export</strong></a>(self, filename, format<font color="#909090">=None</font>)</dt><dd><tt>Export&nbsp;to&nbsp;location&nbsp;filename&nbsp;with&nbsp;format&nbsp;specified&nbsp;by&nbsp;format&nbsp;variable.<br>
+<dl><dt><a name="Project-Export"><strong>Export</strong></a>(self, filename, encodeBin)</dt><dd><tt>Export&nbsp;to&nbsp;location&nbsp;filename&nbsp;with&nbsp;format&nbsp;specified&nbsp;by&nbsp;format&nbsp;variable.<br>
 &nbsp;<br>
 Parameters:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;filename&nbsp;--&nbsp;filename&nbsp;where&nbsp;the&nbsp;exported&nbsp;audio&nbsp;will&nbsp;be&nbsp;saved.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;format&nbsp;--&nbsp;string&nbsp;of&nbsp;the&nbsp;file&nbsp;extension&nbsp;as&nbsp;used&nbsp;in&nbsp;Globals.EXPORT_FORMATS:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"ogg"<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"mp3"<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"wav"<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*if&nbsp;no&nbsp;format&nbsp;is&nbsp;given,&nbsp;it'll&nbsp;be&nbsp;guessed&nbsp;by&nbsp;the&nbsp;file&nbsp;extension*</tt></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;encodeBin&nbsp;--&nbsp;the&nbsp;gst-launch&nbsp;syntax&nbsp;string&nbsp;of&nbsp;the&nbsp;encoder&nbsp;as&nbsp;used&nbsp;in&nbsp;Globals.EXPORT_FORMATS:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;ogg:&nbsp;"vorbisenc&nbsp;!&nbsp;oggmux"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;mp3:&nbsp;"lame"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;wav:&nbsp;"wavenc"</tt></dd></dl>
 
-<dl><dt><a name="Project-GenerateUniqueID"><strong>GenerateUniqueID</strong></a>(self, id<font color="#909090">=None</font>)</dt><dd><tt>Creates&nbsp;a&nbsp;new&nbsp;unique&nbsp;ID&nbsp;which&nbsp;can&nbsp;be&nbsp;assigned&nbsp;to&nbsp;an&nbsp;new&nbsp;<a href="#Project">Project</a>&nbsp;object.<br>
+<dl><dt><a name="Project-GenerateUniqueID"><strong>GenerateUniqueID</strong></a>(self, id<font color="#909090">=None</font>, reserve<font color="#909090">=True</font>)</dt><dd><tt>Creates&nbsp;a&nbsp;new&nbsp;unique&nbsp;ID&nbsp;which&nbsp;can&nbsp;be&nbsp;assigned&nbsp;to&nbsp;an&nbsp;new&nbsp;<a href="#Project">Project</a>&nbsp;object.<br>
 &nbsp;<br>
 Parameters:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id&nbsp;--&nbsp;an&nbsp;unique&nbsp;ID&nbsp;proposal.&nbsp;If&nbsp;it's&nbsp;already&nbsp;taken,&nbsp;a&nbsp;new&nbsp;one&nbsp;is&nbsp;generated.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reserve&nbsp;--&nbsp;if&nbsp;True,&nbsp;the&nbsp;ID&nbsp;will&nbsp;be&nbsp;recorded&nbsp;and&nbsp;never&nbsp;returned&nbsp;again.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
 Returns:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;an&nbsp;unique&nbsp;ID&nbsp;suitable&nbsp;for&nbsp;a&nbsp;new&nbsp;<a href="#Project">Project</a>.</tt></dd></dl>
 
+<dl><dt><a name="Project-GetAudioAndLevelsFilenames"><strong>GetAudioAndLevelsFilenames</strong></a>(self, include_deleted<font color="#909090">=False</font>)</dt></dl>
+
 <dl><dt><a name="Project-GetExportProgress"><strong>GetExportProgress</strong></a>(self)</dt><dd><tt>Returns&nbsp;a&nbsp;tuple&nbsp;with&nbsp;the&nbsp;number&nbsp;of&nbsp;seconds&nbsp;exported<br>
 and&nbsp;the&nbsp;number&nbsp;of&nbsp;total&nbsp;seconds.</tt></dd></dl>
+
+<dl><dt><a name="Project-GetInputFilenames"><strong>GetInputFilenames</strong></a>(self)</dt><dd><tt>Obtains&nbsp;a&nbsp;list&nbsp;of&nbsp;&nbsp;all&nbsp;filenames&nbsp;that&nbsp;are&nbsp;to&nbsp;be&nbsp;input&nbsp;to<br>
+the&nbsp;pipeline.<br>
+&nbsp;<br>
+Return:&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;list&nbsp;of&nbsp;&nbsp;the&nbsp;filenames</tt></dd></dl>
 
 <dl><dt><a name="Project-GetIsExporting"><strong>GetIsExporting</strong></a>(self)</dt><dd><tt>Returns&nbsp;true&nbsp;if&nbsp;the&nbsp;<a href="#Project">Project</a>&nbsp;is&nbsp;not&nbsp;in&nbsp;the&nbsp;stopped&nbsp;state,<br>
 because&nbsp;paused,&nbsp;playing&nbsp;and&nbsp;recording&nbsp;are&nbsp;all&nbsp;forms&nbsp;of&nbsp;playing.</tt></dd></dl>
@@ -304,10 +224,18 @@ because&nbsp;paused,&nbsp;playing&nbsp;and&nbsp;recording&nbsp;are&nbsp;all&nbsp
 <dl><dt><a name="Project-GetIsPlaying"><strong>GetIsPlaying</strong></a>(self)</dt><dd><tt>Returns&nbsp;true&nbsp;if&nbsp;the&nbsp;<a href="#Project">Project</a>&nbsp;is&nbsp;not&nbsp;in&nbsp;the&nbsp;stopped&nbsp;state,<br>
 because&nbsp;paused,&nbsp;playing&nbsp;and&nbsp;recording&nbsp;are&nbsp;all&nbsp;forms&nbsp;of&nbsp;playing.</tt></dd></dl>
 
+<dl><dt><a name="Project-GetIsRecording"><strong>GetIsRecording</strong></a>(self)</dt><dd><tt>Returns&nbsp;true&nbsp;if&nbsp;the&nbsp;<a href="#Project">Project</a>&nbsp;is&nbsp;in&nbsp;the&nbsp;recording&nbsp;state.</tt></dd></dl>
+
 <dl><dt><a name="Project-GetProjectLength"><strong>GetProjectLength</strong></a>(self)</dt><dd><tt>Returns&nbsp;the&nbsp;length&nbsp;of&nbsp;the&nbsp;<a href="#Project">Project</a>.<br>
 &nbsp;<br>
 Returns:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lenght&nbsp;of&nbsp;the&nbsp;<a href="#Project">Project</a>&nbsp;in&nbsp;seconds.</tt></dd></dl>
+
+<dl><dt><a name="Project-JokosherObjectFromString"><strong>JokosherObjectFromString</strong></a>(self, string)</dt><dd><tt>Converts&nbsp;a&nbsp;string&nbsp;used&nbsp;to&nbsp;serialize&nbsp;references&nbsp;to&nbsp;<a href="#Project">Project</a>,&nbsp;Instrument<br>
+and&nbsp;Event&nbsp;instances&nbsp;into&nbsp;a&nbsp;reference&nbsp;to&nbsp;the&nbsp;actual&nbsp;object.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string&nbsp;--&nbsp;The&nbsp;string&nbsp;to&nbsp;convert&nbsp;such&nbsp;as&nbsp;"P"&nbsp;for&nbsp;project&nbsp;or&nbsp;"I2"&nbsp;for&nbsp;instrument&nbsp;with&nbsp;ID&nbsp;equal&nbsp;to&nbsp;2.</tt></dd></dl>
 
 <dl><dt><a name="Project-MakeProjectSink"><strong>MakeProjectSink</strong></a>(self)</dt><dd><tt>Contructs&nbsp;a&nbsp;GStreamer&nbsp;sink&nbsp;element&nbsp;(or&nbsp;bin&nbsp;with&nbsp;ghost&nbsp;pads)&nbsp;for&nbsp;the&nbsp;<br>
 <a href="#Project">Project</a>'s&nbsp;audio&nbsp;output,&nbsp;according&nbsp;to&nbsp;the&nbsp;Global&nbsp;"audiosink"&nbsp;property.<br>
@@ -328,13 +256,25 @@ Considerations:<br>
 Parameters:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;funcSelf&nbsp;--&nbsp;reference&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function's&nbsp;class.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*args&nbsp;--&nbsp;parameters&nbsp;meant&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**kwargs&nbsp;--&nbsp;dictionary&nbsp;of&nbsp;keyword:value&nbsp;parameters&nbsp;meant<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**kwargs&nbsp;--&nbsp;dictionary&nbsp;of&nbsp;keyword:value&nbsp;parameters<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;containing&nbsp;the&nbsp;optional&nbsp;_undoAction_&nbsp;parameter.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_undoAction_&nbsp;--&nbsp;has&nbsp;to&nbsp;be&nbsp;passed&nbsp;as&nbsp;a&nbsp;key:value&nbsp;pair&nbsp;inside&nbsp;kwargs.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;AtomicUndoAction&nbsp;object&nbsp;to&nbsp;append&nbsp;the&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;command&nbsp;to&nbsp;or&nbsp;None&nbsp;to&nbsp;create&nbsp;a&nbsp;default&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AtomicUndoAction&nbsp;with&nbsp;only&nbsp;the&nbsp;one&nbsp;command.<br>
 &nbsp;<br>
 Returns:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;wrapped&nbsp;function&nbsp;resulting&nbsp;value.</tt></dd></dl>
 
+<dl><dt><a name="Project-NewAtomicUndoAction"><strong>NewAtomicUndoAction</strong></a>(self)</dt><dd><tt>Creates&nbsp;a&nbsp;new&nbsp;AtomicUndoAction&nbsp;and&nbsp;adds&nbsp;to&nbsp;the<br>
+appropriate&nbsp;undo/redo&nbsp;stack&nbsp;for&nbsp;this&nbsp;project.<br>
+&nbsp;<br>
+Return:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;newly&nbsp;created&nbsp;AtomicUndoAction&nbsp;instance.</tt></dd></dl>
+
 <dl><dt><a name="Project-OnAllInstrumentsMute"><strong>OnAllInstrumentsMute</strong></a>(self)</dt><dd><tt>Mutes&nbsp;all&nbsp;Instruments&nbsp;in&nbsp;this&nbsp;<a href="#Project">Project</a>.</tt></dd></dl>
+
+<dl><dt><a name="Project-OnCaptureBackendChange"><strong>OnCaptureBackendChange</strong></a>(self)</dt></dl>
 
 <dl><dt><a name="Project-Pause"><strong>Pause</strong></a>(self)</dt></dl>
 
@@ -367,13 +307,19 @@ Considerations:<br>
 Parameters:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;funcSelf&nbsp;--&nbsp;reference&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function's&nbsp;class.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*args&nbsp;--&nbsp;parameters&nbsp;meant&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**kwargs&nbsp;--&nbsp;dictionary&nbsp;of&nbsp;keyword:value&nbsp;parameters&nbsp;meant<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**kwargs&nbsp;--&nbsp;dictionary&nbsp;of&nbsp;keyword:value&nbsp;parameters<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;containing&nbsp;the&nbsp;optional&nbsp;_undoAction_&nbsp;parameter.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_undoAction_&nbsp;--&nbsp;has&nbsp;to&nbsp;be&nbsp;passed&nbsp;as&nbsp;a&nbsp;key:value&nbsp;pair&nbsp;inside&nbsp;kwargs.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;AtomicUndoAction&nbsp;object&nbsp;to&nbsp;append&nbsp;the&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;command&nbsp;to&nbsp;or&nbsp;None&nbsp;to&nbsp;create&nbsp;a&nbsp;default&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AtomicUndoAction&nbsp;with&nbsp;only&nbsp;the&nbsp;one&nbsp;command.<br>
 &nbsp;<br>
 Returns:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;wrapped&nbsp;function&nbsp;resulting&nbsp;value.</tt></dd></dl>
 
-<dl><dt><a name="Project-SaveProjectFile"><strong>SaveProjectFile</strong></a>(self, path<font color="#909090">=None</font>)</dt><dd><tt>Saves&nbsp;the&nbsp;<a href="#Project">Project</a>&nbsp;and&nbsp;its&nbsp;children&nbsp;as&nbsp;an&nbsp;XML&nbsp;file<br>
+<dl><dt><a name="Project-SaveIncrementalAction"><strong>SaveIncrementalAction</strong></a>(self, action)</dt></dl>
+
+<dl><dt><a name="Project-SaveProjectFile"><strong>SaveProjectFile</strong></a>(self, path<font color="#909090">=None</font>, backup<font color="#909090">=False</font>)</dt><dd><tt>Saves&nbsp;the&nbsp;<a href="#Project">Project</a>&nbsp;and&nbsp;its&nbsp;children&nbsp;as&nbsp;an&nbsp;XML&nbsp;file<br>
 to&nbsp;the&nbsp;path&nbsp;specified&nbsp;by&nbsp;file.<br>
 &nbsp;<br>
 Parameters:<br>
@@ -389,6 +335,8 @@ Parameters:<br>
 Parameters:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;newState&nbsp;--&nbsp;the&nbsp;new&nbsp;state&nbsp;to&nbsp;set&nbsp;the&nbsp;<a href="#Project">Project</a>&nbsp;to.</tt></dd></dl>
 
+<dl><dt><a name="Project-SetAuthor"><strong>SetAuthor</strong></a>(self, author)</dt></dl>
+
 <dl><dt><a name="Project-SetBPM"><strong>SetBPM</strong></a> = UndoWrapper(funcSelf, *args, **kwargs)</dt><dd><tt>This&nbsp;function&nbsp;will&nbsp;wrap&nbsp;and&nbsp;take&nbsp;the&nbsp;place&nbsp;of&nbsp;the&nbsp;function<br>
 that&nbsp;is&nbsp;being&nbsp;decorated.&nbsp;All&nbsp;arguments&nbsp;to&nbsp;the&nbsp;original&nbsp;function<br>
 will&nbsp;be&nbsp;saved,&nbsp;and&nbsp;sent&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function&nbsp;call.<br>
@@ -402,11 +350,20 @@ Considerations:<br>
 Parameters:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;funcSelf&nbsp;--&nbsp;reference&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function's&nbsp;class.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*args&nbsp;--&nbsp;parameters&nbsp;meant&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**kwargs&nbsp;--&nbsp;dictionary&nbsp;of&nbsp;keyword:value&nbsp;parameters&nbsp;meant<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**kwargs&nbsp;--&nbsp;dictionary&nbsp;of&nbsp;keyword:value&nbsp;parameters<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;containing&nbsp;the&nbsp;optional&nbsp;_undoAction_&nbsp;parameter.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_undoAction_&nbsp;--&nbsp;has&nbsp;to&nbsp;be&nbsp;passed&nbsp;as&nbsp;a&nbsp;key:value&nbsp;pair&nbsp;inside&nbsp;kwargs.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;AtomicUndoAction&nbsp;object&nbsp;to&nbsp;append&nbsp;the&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;command&nbsp;to&nbsp;or&nbsp;None&nbsp;to&nbsp;create&nbsp;a&nbsp;default&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AtomicUndoAction&nbsp;with&nbsp;only&nbsp;the&nbsp;one&nbsp;command.<br>
 &nbsp;<br>
 Returns:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;wrapped&nbsp;function&nbsp;resulting&nbsp;value.</tt></dd></dl>
+
+<dl><dt><a name="Project-SetClickTrackVolume"><strong>SetClickTrackVolume</strong></a>(self, value)</dt><dd><tt>Unmutes&nbsp;and&nbsp;enables&nbsp;the&nbsp;click&nbsp;track.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value&nbsp;--&nbsp;The&nbsp;volume&nbsp;of&nbsp;the&nbsp;click&nbsp;track&nbsp;between&nbsp;0.0&nbsp;and&nbsp;1.0</tt></dd></dl>
 
 <dl><dt><a name="Project-SetLevel"><strong>SetLevel</strong></a>(self, level)</dt><dd><tt>Sets&nbsp;the&nbsp;current&nbsp;REPORTED&nbsp;level,&nbsp;NOT&nbsp;THE&nbsp;VOLUME!<br>
 &nbsp;<br>
@@ -426,11 +383,25 @@ Considerations:<br>
 Parameters:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;funcSelf&nbsp;--&nbsp;reference&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function's&nbsp;class.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*args&nbsp;--&nbsp;parameters&nbsp;meant&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**kwargs&nbsp;--&nbsp;dictionary&nbsp;of&nbsp;keyword:value&nbsp;parameters&nbsp;meant<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**kwargs&nbsp;--&nbsp;dictionary&nbsp;of&nbsp;keyword:value&nbsp;parameters<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;containing&nbsp;the&nbsp;optional&nbsp;_undoAction_&nbsp;parameter.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_undoAction_&nbsp;--&nbsp;has&nbsp;to&nbsp;be&nbsp;passed&nbsp;as&nbsp;a&nbsp;key:value&nbsp;pair&nbsp;inside&nbsp;kwargs.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;AtomicUndoAction&nbsp;object&nbsp;to&nbsp;append&nbsp;the&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;command&nbsp;to&nbsp;or&nbsp;None&nbsp;to&nbsp;create&nbsp;a&nbsp;default&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AtomicUndoAction&nbsp;with&nbsp;only&nbsp;the&nbsp;one&nbsp;command.<br>
 &nbsp;<br>
 Returns:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;wrapped&nbsp;function&nbsp;resulting&nbsp;value.</tt></dd></dl>
+
+<dl><dt><a name="Project-SetName"><strong>SetName</strong></a>(self, name)</dt></dl>
+
+<dl><dt><a name="Project-SetNotes"><strong>SetNotes</strong></a>(self, notes)</dt></dl>
+
+<dl><dt><a name="Project-SetProjectSink"><strong>SetProjectSink</strong></a>(self)</dt><dd><tt>Grabs&nbsp;the&nbsp;sink&nbsp;element&nbsp;based&nbsp;on&nbsp;the&nbsp;Global&nbsp;preferences,&nbsp;and&nbsp;sets<br>
+the&nbsp;pipeline&nbsp;to&nbsp;use&nbsp;that&nbsp;sink.</tt></dd></dl>
+
+<dl><dt><a name="Project-SetProjectSinkDevice"><strong>SetProjectSinkDevice</strong></a>(self)</dt><dd><tt>Grabs&nbsp;the&nbsp;sink&nbsp;element&nbsp;device&nbsp;based&nbsp;on&nbsp;the&nbsp;Global&nbsp;preferences,&nbsp;and&nbsp;sets<br>
+the&nbsp;pipeline&nbsp;to&nbsp;use&nbsp;that&nbsp;device.</tt></dd></dl>
 
 <dl><dt><a name="Project-SetTransportMode"><strong>SetTransportMode</strong></a> = UndoWrapper(funcSelf, *args, **kwargs)</dt><dd><tt>This&nbsp;function&nbsp;will&nbsp;wrap&nbsp;and&nbsp;take&nbsp;the&nbsp;place&nbsp;of&nbsp;the&nbsp;function<br>
 that&nbsp;is&nbsp;being&nbsp;decorated.&nbsp;All&nbsp;arguments&nbsp;to&nbsp;the&nbsp;original&nbsp;function<br>
@@ -445,11 +416,17 @@ Considerations:<br>
 Parameters:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;funcSelf&nbsp;--&nbsp;reference&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function's&nbsp;class.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*args&nbsp;--&nbsp;parameters&nbsp;meant&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**kwargs&nbsp;--&nbsp;dictionary&nbsp;of&nbsp;keyword:value&nbsp;parameters&nbsp;meant<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**kwargs&nbsp;--&nbsp;dictionary&nbsp;of&nbsp;keyword:value&nbsp;parameters<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;containing&nbsp;the&nbsp;optional&nbsp;_undoAction_&nbsp;parameter.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_undoAction_&nbsp;--&nbsp;has&nbsp;to&nbsp;be&nbsp;passed&nbsp;as&nbsp;a&nbsp;key:value&nbsp;pair&nbsp;inside&nbsp;kwargs.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;AtomicUndoAction&nbsp;object&nbsp;to&nbsp;append&nbsp;the&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;command&nbsp;to&nbsp;or&nbsp;None&nbsp;to&nbsp;create&nbsp;a&nbsp;default&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AtomicUndoAction&nbsp;with&nbsp;only&nbsp;the&nbsp;one&nbsp;command.<br>
 &nbsp;<br>
 Returns:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;wrapped&nbsp;function&nbsp;resulting&nbsp;value.</tt></dd></dl>
+
+<dl><dt><a name="Project-SetUnsavedChanges"><strong>SetUnsavedChanges</strong></a>(self)</dt></dl>
 
 <dl><dt><a name="Project-SetViewScale"><strong>SetViewScale</strong></a>(self, scale)</dt><dd><tt>Sets&nbsp;the&nbsp;scale&nbsp;of&nbsp;the&nbsp;<a href="#Project">Project</a>&nbsp;view.<br>
 &nbsp;<br>
@@ -485,13 +462,6 @@ error&nbsp;occurs&nbsp;after&nbsp;instruments&nbsp;have&nbsp;started.</tt></dd><
 <dl><dt><a name="Project-Undo"><strong>Undo</strong></a>(self)</dt><dd><tt>Attempts&nbsp;to&nbsp;revert&nbsp;the&nbsp;last&nbsp;user&nbsp;action&nbsp;by&nbsp;popping&nbsp;an&nbsp;action<br>
 from&nbsp;the&nbsp;undo&nbsp;stack&nbsp;and&nbsp;executing&nbsp;it.</tt></dd></dl>
 
-<dl><dt><a name="Project-ValidateProject"><strong>ValidateProject</strong></a>(self)</dt><dd><tt>Checks&nbsp;that&nbsp;the&nbsp;<a href="#Project">Project</a>&nbsp;is&nbsp;valid&nbsp;-&nbsp;i.e.&nbsp;that&nbsp;the&nbsp;files&nbsp;and&nbsp;<br>
-images&nbsp;it&nbsp;references&nbsp;can&nbsp;be&nbsp;found.<br>
-&nbsp;<br>
-Returns:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;True&nbsp;--&nbsp;the&nbsp;<a href="#Project">Project</a>&nbsp;is&nbsp;valid.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;False&nbsp;--&nbsp;the&nbsp;<a href="#Project">Project</a>&nbsp;contains&nbsp;non-existant&nbsp;files&nbsp;and/or&nbsp;images.</tt></dd></dl>
-
 <dl><dt><a name="Project-__init__"><strong>__init__</strong></a>(self)</dt><dd><tt>Creates&nbsp;a&nbsp;new&nbsp;instance&nbsp;of&nbsp;<a href="#Project">Project</a>&nbsp;with&nbsp;default&nbsp;values.</tt></dd></dl>
 
 <hr>
@@ -506,67 +476,95 @@ Data and other attributes defined here:<br>
 
 <dl><dt><strong>AUDIO_STOPPED</strong> = 0</dl>
 
+<dl><dt><strong>INCREMENTAL_SAVE_DELIMITER</strong> = '<font color="#c040c0">\n</font>&lt;&lt;delimiter&gt;&gt;<font color="#c040c0">\n</font>'</dl>
+
+<dl><dt><strong>INCREMENTAL_SAVE_EXT</strong> = '.incremental'</dl>
+
+<dl><dt><strong>__gtype__</strong> = &lt;GType Project+Project (35968784)&gt;</dl>
+
 <hr>
-Methods inherited from <a href="Monitored.html#Monitored">Monitored.Monitored</a>:<br>
-<dl><dt><a name="Project-AddListener"><strong>AddListener</strong></a>(self, obj)</dt><dd><tt>Adds&nbsp;an&nbsp;object&nbsp;to&nbsp;report&nbsp;changes&nbsp;to.<br>
-&nbsp;<br>
-Parameters:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;obj&nbsp;--&nbsp;an&nbsp;object&nbsp;to&nbsp;inform&nbsp;when&nbsp;StateChanged&nbsp;is&nbsp;called.</tt></dd></dl>
+Methods inherited from <a href="gobject._gobject.html#GObject">gobject._gobject.GObject</a>:<br>
+<dl><dt><a name="Project-__cmp__"><strong>__cmp__</strong></a>(...)</dt><dd><tt>x.<a href="#Project-__cmp__">__cmp__</a>(y)&nbsp;&lt;==&gt;&nbsp;cmp(x,y)</tt></dd></dl>
 
-<dl><dt><a name="Project-ClearListeners"><strong>ClearListeners</strong></a>(self)</dt><dd><tt>Remove&nbsp;all&nbsp;listeners&nbsp;to&nbsp;allow&nbsp;them&nbsp;to&nbsp;be&nbsp;destroyed.</tt></dd></dl>
+<dl><dt><a name="Project-__copy__"><strong>__copy__</strong></a>(...)</dt></dl>
 
-<dl><dt><a name="Project-RemoveListener"><strong>RemoveListener</strong></a>(self, obj)</dt><dd><tt>Stop&nbsp;reporting&nbsp;changes&nbsp;to&nbsp;the&nbsp;specified&nbsp;object.<br>
-&nbsp;<br>
-Parameters:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;obj&nbsp;--&nbsp;the&nbsp;object&nbsp;which&nbsp;should&nbsp;no&nbsp;longer&nbsp;receive&nbsp;change&nbsp;updates.</tt></dd></dl>
+<dl><dt><a name="Project-__deepcopy__"><strong>__deepcopy__</strong></a>(...)</dt></dl>
 
-<dl><dt><a name="Project-StateChanged"><strong>StateChanged</strong></a>(self, change<font color="#909090">=None</font>, *extra)</dt><dd><tt>This&nbsp;method&nbsp;should&nbsp;be&nbsp;called&nbsp;when&nbsp;we&nbsp;want&nbsp;a&nbsp;change&nbsp;to&nbsp;be&nbsp;reported<br>
-to&nbsp;all&nbsp;objects&nbsp;previously&nbsp;added&nbsp;by&nbsp;AddListener.&nbsp;<br>
-&nbsp;<br>
-Parameters:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;change&nbsp;--&nbsp;the&nbsp;change&nbsp;which&nbsp;has&nbsp;occured.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;extra&nbsp;--&nbsp;any&nbsp;extra&nbsp;parameters&nbsp;that&nbsp;should&nbsp;be&nbsp;passed.</tt></dd></dl>
+<dl><dt><a name="Project-__delattr__"><strong>__delattr__</strong></a>(...)</dt><dd><tt>x.<a href="#Project-__delattr__">__delattr__</a>('name')&nbsp;&lt;==&gt;&nbsp;del&nbsp;x.name</tt></dd></dl>
 
-</td></tr></table></td></tr></table><p>
-<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
-<tr bgcolor="#c17d11">
-<td colspan=3 valign=bottom>&nbsp;<br>
-<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
-    
-<tr><td bgcolor="#c17d11"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
-<td width="100%"><dl><dt><a name="-CreateNew"><strong>CreateNew</strong></a>(projecturi, name, author)</dt><dd><tt>Creates&nbsp;a&nbsp;new&nbsp;<a href="#Project">Project</a>.<br>
-&nbsp;<br>
-Parameters:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;projecturi&nbsp;--&nbsp;the&nbsp;filesystem&nbsp;location&nbsp;for&nbsp;the&nbsp;new&nbsp;<a href="#Project">Project</a>.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Currently,&nbsp;only&nbsp;file://&nbsp;URIs&nbsp;are&nbsp;considered&nbsp;valid.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name&nbsp;--&nbsp;the&nbsp;name&nbsp;of&nbsp;the&nbsp;<a href="#Project">Project</a>.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;author&nbsp;-&nbsp;the&nbsp;name&nbsp;of&nbsp;the&nbsp;<a href="#Project">Project</a>'s&nbsp;author.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
-Returns:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;newly&nbsp;created&nbsp;<a href="#Project">Project</a>&nbsp;object.</tt></dd></dl>
- <dl><dt><a name="-LoadFromFile"><strong>LoadFromFile</strong></a>(uri)</dt><dd><tt>Loads&nbsp;a&nbsp;<a href="#Project">Project</a>&nbsp;from&nbsp;a&nbsp;saved&nbsp;file&nbsp;on&nbsp;disk.<br>
-&nbsp;<br>
-Parameters:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;uri&nbsp;--&nbsp;the&nbsp;filesystem&nbsp;location&nbsp;of&nbsp;the&nbsp;<a href="#Project">Project</a>&nbsp;file&nbsp;to&nbsp;load.&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Currently&nbsp;only&nbsp;file://&nbsp;URIs&nbsp;are&nbsp;considered&nbsp;valid.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
-Returns:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;loaded&nbsp;<a href="#Project">Project</a>&nbsp;object.</tt></dd></dl>
- <dl><dt><a name="-LoadFromZPOFile"><strong>LoadFromZPOFile</strong></a>(project, doc)</dt><dd><tt>Loads&nbsp;a&nbsp;project&nbsp;from&nbsp;a&nbsp;Jokosher&nbsp;0.1&nbsp;(ZPO)&nbsp;<a href="#Project">Project</a>&nbsp;file&nbsp;into<br>
-the&nbsp;given&nbsp;<a href="#Project">Project</a>&nbsp;object&nbsp;using&nbsp;the&nbsp;XML&nbsp;document&nbsp;doc.<br>
-&nbsp;<br>
-Parameters:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;project&nbsp;--&nbsp;Jokosher&nbsp;0.1&nbsp;(ZPO)&nbsp;<a href="#Project">Project</a>&nbsp;file.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;doc&nbsp;--&nbsp;XML&nbsp;document&nbsp;doc&nbsp;used&nbsp;to&nbsp;load&nbsp;the&nbsp;0.1&nbsp;<a href="#Project">Project</a>&nbsp;into&nbsp;the&nbsp;given&nbsp;0.2+&nbsp;<a href="#Project">Project</a>&nbsp;object.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
-Returns:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;loaded&nbsp;<a href="#Project">Project</a>&nbsp;object.</tt></dd></dl>
-</td></tr></table><p>
-<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
-<tr bgcolor="#55aa55">
-<td colspan=3 valign=bottom>&nbsp;<br>
-<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
-    
-<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
-<td width="100%"><strong>GlobalProjectObject</strong> = None</td></tr></table>
+<dl><dt><a name="Project-__gobject_init__"><strong>__gobject_init__</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Project-__hash__"><strong>__hash__</strong></a>(...)</dt><dd><tt>x.<a href="#Project-__hash__">__hash__</a>()&nbsp;&lt;==&gt;&nbsp;hash(x)</tt></dd></dl>
+
+<dl><dt><a name="Project-__repr__"><strong>__repr__</strong></a>(...)</dt><dd><tt>x.<a href="#Project-__repr__">__repr__</a>()&nbsp;&lt;==&gt;&nbsp;repr(x)</tt></dd></dl>
+
+<dl><dt><a name="Project-__setattr__"><strong>__setattr__</strong></a>(...)</dt><dd><tt>x.<a href="#Project-__setattr__">__setattr__</a>('name',&nbsp;value)&nbsp;&lt;==&gt;&nbsp;x.name&nbsp;=&nbsp;value</tt></dd></dl>
+
+<dl><dt><a name="Project-chain"><strong>chain</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Project-connect"><strong>connect</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Project-connect_after"><strong>connect_after</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Project-connect_object"><strong>connect_object</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Project-connect_object_after"><strong>connect_object_after</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Project-disconnect"><strong>disconnect</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Project-disconnect_by_func"><strong>disconnect_by_func</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Project-emit"><strong>emit</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Project-emit_stop_by_name"><strong>emit_stop_by_name</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Project-freeze_notify"><strong>freeze_notify</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Project-get_data"><strong>get_data</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Project-get_properties"><strong>get_properties</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Project-get_property"><strong>get_property</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Project-handler_block"><strong>handler_block</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Project-handler_block_by_func"><strong>handler_block_by_func</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Project-handler_disconnect"><strong>handler_disconnect</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Project-handler_is_connected"><strong>handler_is_connected</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Project-handler_unblock"><strong>handler_unblock</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Project-handler_unblock_by_func"><strong>handler_unblock_by_func</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Project-notify"><strong>notify</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Project-set_data"><strong>set_data</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Project-set_properties"><strong>set_properties</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Project-set_property"><strong>set_property</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Project-stop_emission"><strong>stop_emission</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Project-thaw_notify"><strong>thaw_notify</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Project-weak_ref"><strong>weak_ref</strong></a>(...)</dt></dl>
+
+<hr>
+Data descriptors inherited from <a href="gobject._gobject.html#GObject">gobject._gobject.GObject</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+</dl>
+<dl><dt><strong>__grefcount__</strong></dt>
+</dl>
+<hr>
+Data and other attributes inherited from <a href="gobject._gobject.html#GObject">gobject._gobject.GObject</a>:<br>
+<dl><dt><strong>__gdoc__</strong> = 'Object Project+Project<font color="#c040c0">\n\n\n\t</font>This class maintains a...array)<font color="#c040c0">\n\n</font>Signals from GObject:<font color="#c040c0">\n</font>  notify (GParam)<font color="#c040c0">\n\n</font>'</dl>
+
+<dl><dt><strong>__new__</strong> = &lt;built-in method __new__ of GObjectMeta object&gt;<dd><tt>T.<a href="#Project-__new__">__new__</a>(S,&nbsp;...)&nbsp;-&gt;&nbsp;a&nbsp;new&nbsp;object&nbsp;with&nbsp;type&nbsp;S,&nbsp;a&nbsp;subtype&nbsp;of&nbsp;T</tt></dl>
+
+<dl><dt><strong>props</strong> = &lt;gobject.GProps object&gt;</dl>
+
+</td></tr></table></td></tr></table>
 </body></html>

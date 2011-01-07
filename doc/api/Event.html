@@ -1,5 +1,5 @@
 
-<!doctype html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html><head><title>Python: module Event</title>
 </head><body bgcolor="#ffffff">
 
@@ -8,7 +8,7 @@
 <td valign=bottom>&nbsp;<br>
 <font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>Event</strong></big></big></font></td
 ><td align=right valign=bottom
-><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/david/Projects/Jokosher/trunk/Jokosher/Event.py">/home/david/Projects/Jokosher/trunk/Jokosher/Event.py</a></font></td></tr></table>
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/laszlo/Dev/joko-gtk-builder/Jokosher/Event.py">/home/laszlo/Dev/joko-gtk-builder/Jokosher/Event.py</a></font></td></tr></table>
     <p><tt>#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THIS&nbsp;FILE&nbsp;IS&nbsp;PART&nbsp;OF&nbsp;THE&nbsp;JOKOSHER&nbsp;PROJECT&nbsp;AND&nbsp;LICENSED&nbsp;UNDER&nbsp;THE&nbsp;GPL.&nbsp;SEE<br>
 #&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THE&nbsp;'COPYING'&nbsp;FILE&nbsp;FOR&nbsp;DETAILS<br>
 #<br>
@@ -25,19 +25,23 @@
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#4e9a06">
 <td colspan=3 valign=bottom>&nbsp;<br>
-<font color="#fffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
     
 <tr><td bgcolor="#4e9a06"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
 <td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="Globals.html">Globals</a><br>
-<a href="Project.html">Project</a><br>
+<a href="IncrementalSave.html">IncrementalSave</a><br>
+<a href="LevelsList.html">LevelsList</a><br>
+<a href="PlatformUtils.html">PlatformUtils</a><br>
+</td><td width="25%" valign=top><a href="UndoSystem.html">UndoSystem</a><br>
 <a href="Utils.html">Utils</a><br>
-</td><td width="25%" valign=top><a href="gettext.html">gettext</a><br>
-<a href="gst.html">gst</a><br>
-<a href="gtk.html">gtk</a><br>
-</td><td width="25%" valign=top><a href="math.html">math</a><br>
+<a href="gettext.html">gettext</a><br>
+<a href="gobject.html">gobject</a><br>
+</td><td width="25%" valign=top><a href="gst.html">gst</a><br>
 <a href="os.html">os</a><br>
 <a href="pygst.html">pygst</a><br>
-</td><td width="25%" valign=top><a href="xml.dom.minidom.html">xml.dom.minidom</a><br>
+<a href="sys.html">sys</a><br>
+</td><td width="25%" valign=top><a href="urllib.html">urllib</a><br>
+<a href="xml.dom.minidom.html">xml.dom.minidom</a><br>
 </td></tr></table></td></tr></table><p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#3465a4">
@@ -46,7 +50,7 @@
     
 <tr><td bgcolor="#3465a4"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
 <td width="100%"><dl>
-<dt><font face="helvetica, arial"><a href="Monitored.html#Monitored">Monitored.Monitored</a>
+<dt><font face="helvetica, arial"><a href="gobject._gobject.html#GObject">gobject._gobject.GObject</a>(<a href="__builtin__.html#object">__builtin__.object</a>)
 </font></dt><dd>
 <dl>
 <dt><font face="helvetica, arial"><a href="Event.html#Event">Event</a>
@@ -57,13 +61,26 @@
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#729fcf">
 <td colspan=3 valign=bottom>&nbsp;<br>
-<font color="#000000" face="helvetica, arial"><a name="Event">class <strong>Event</strong></a>(<a href="Monitored.html#Monitored">Monitored.Monitored</a>)</font></td></tr>
+<font color="#000000" face="helvetica, arial"><a name="Event">class <strong>Event</strong></a>(<a href="gobject._gobject.html#GObject">gobject._gobject.GObject</a>)</font></td></tr>
     
 <tr bgcolor="#729fcf"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
 <td colspan=2><tt>This&nbsp;class&nbsp;handles&nbsp;maintaing&nbsp;the&nbsp;information&nbsp;for&nbsp;a&nbsp;single&nbsp;audio&nbsp;<br>
-event,&nbsp;normally,&nbsp;a&nbsp;fragment&nbsp;of&nbsp;a&nbsp;recorded&nbsp;file.<br>&nbsp;</tt></td></tr>
+event,&nbsp;normally,&nbsp;a&nbsp;fragment&nbsp;of&nbsp;a&nbsp;recorded&nbsp;file.<br>
+&nbsp;<br>
+Signals:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"waveform"&nbsp;--&nbsp;The&nbsp;waveform&nbsp;date&nbsp;for&nbsp;this&nbsp;event&nbsp;has&nbsp;changed.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"position"&nbsp;--&nbsp;The&nbsp;starting&nbsp;position&nbsp;of&nbsp;this&nbsp;event&nbsp;has&nbsp;changed.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"length"&nbsp;--&nbsp;The&nbsp;length&nbsp;of&nbsp;this&nbsp;event&nbsp;has&nbsp;changed.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"corrupt"&nbsp;--&nbsp;The&nbsp;audio&nbsp;file&nbsp;for&nbsp;this&nbsp;event&nbsp;is&nbsp;not&nbsp;playable.&nbsp;Two&nbsp;strings&nbsp;with&nbsp;detailed&nbsp;information&nbsp;are&nbsp;sent.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"loading"&nbsp;--&nbsp;Loading&nbsp;has&nbsp;started&nbsp;or&nbsp;completed.<br>&nbsp;</tt></td></tr>
 <tr><td>&nbsp;</td>
-<td width="100%">Methods defined here:<br>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="Event.html#Event">Event</a></dd>
+<dd><a href="gobject._gobject.html#GObject">gobject._gobject.GObject</a></dd>
+<dd><a href="__builtin__.html#object">__builtin__.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
 <dl><dt><a name="Event-AddAudioFadePoints"><strong>AddAudioFadePoints</strong></a> = UndoWrapper(funcSelf, *args, **kwargs)</dt><dd><tt>This&nbsp;function&nbsp;will&nbsp;wrap&nbsp;and&nbsp;take&nbsp;the&nbsp;place&nbsp;of&nbsp;the&nbsp;function<br>
 that&nbsp;is&nbsp;being&nbsp;decorated.&nbsp;All&nbsp;arguments&nbsp;to&nbsp;the&nbsp;original&nbsp;function<br>
 will&nbsp;be&nbsp;saved,&nbsp;and&nbsp;sent&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function&nbsp;call.<br>
@@ -77,38 +94,42 @@ Considerations:<br>
 Parameters:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;funcSelf&nbsp;--&nbsp;reference&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function's&nbsp;class.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*args&nbsp;--&nbsp;parameters&nbsp;meant&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**kwargs&nbsp;--&nbsp;dictionary&nbsp;of&nbsp;keyword:value&nbsp;parameters&nbsp;meant<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**kwargs&nbsp;--&nbsp;dictionary&nbsp;of&nbsp;keyword:value&nbsp;parameters<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;containing&nbsp;the&nbsp;optional&nbsp;_undoAction_&nbsp;parameter.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_undoAction_&nbsp;--&nbsp;has&nbsp;to&nbsp;be&nbsp;passed&nbsp;as&nbsp;a&nbsp;key:value&nbsp;pair&nbsp;inside&nbsp;kwargs.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;AtomicUndoAction&nbsp;object&nbsp;to&nbsp;append&nbsp;the&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;command&nbsp;to&nbsp;or&nbsp;None&nbsp;to&nbsp;create&nbsp;a&nbsp;default&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AtomicUndoAction&nbsp;with&nbsp;only&nbsp;the&nbsp;one&nbsp;command.<br>
 &nbsp;<br>
 Returns:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;wrapped&nbsp;function&nbsp;resulting&nbsp;value.</tt></dd></dl>
+
+<dl><dt><a name="Event-CopyAndGenerateWaveform"><strong>CopyAndGenerateWaveform</strong></a>(self, uri)</dt><dd><tt>Copies&nbsp;the&nbsp;audio&nbsp;file&nbsp;to&nbsp;the&nbsp;new&nbsp;file&nbsp;location&nbsp;and&nbsp;reads&nbsp;the&nbsp;levels<br>
+at&nbsp;the&nbsp;same&nbsp;time.</tt></dd></dl>
+
+<dl><dt><a name="Event-CopySelection"><strong>CopySelection</strong></a>(self, eventID<font color="#909090">=-1</font>)</dt><dd><tt>Only&nbsp;for&nbsp;use&nbsp;with&nbsp;a&nbsp;2-point&nbsp;selection.<br>
+Essentially&nbsp;performs&nbsp;a&nbsp;'fake&nbsp;split'&nbsp;and&nbsp;returns&nbsp;a&nbsp;new&nbsp;event<br>
+which&nbsp;would&nbsp;be&nbsp;the&nbsp;result&nbsp;of&nbsp;splitting&nbsp;an&nbsp;event&nbsp;at&nbsp;the&nbsp;2&nbsp;points.<br>
+&nbsp;<br>
+This&nbsp;is&nbsp;used&nbsp;when&nbsp;the&nbsp;user&nbsp;shift-drags&nbsp;an&nbsp;event&nbsp;to&nbsp;create&nbsp;a&nbsp;selection,<br>
+then&nbsp;chooses&nbsp;'copy'&nbsp;from&nbsp;the&nbsp;context&nbsp;menu.&nbsp;The&nbsp;new&nbsp;event&nbsp;can&nbsp;be&nbsp;placed<br>
+wherever&nbsp;the&nbsp;user&nbsp;wishes&nbsp;by&nbsp;right-clicking&nbsp;and&nbsp;choosing&nbsp;'paste'.</tt></dd></dl>
 
 <dl><dt><a name="Event-CreateFilesource"><strong>CreateFilesource</strong></a>(self)</dt><dd><tt>Creates&nbsp;a&nbsp;new&nbsp;GStreamer&nbsp;file&nbsp;source&nbsp;with&nbsp;an&nbsp;unique&nbsp;id.<br>
 It&nbsp;then&nbsp;calls&nbsp;<a href="#Event-SetProperties">SetProperties</a>()&nbsp;to&nbsp;populate&nbsp;the&nbsp;new&nbsp;object's<br>
 properties.</tt></dd></dl>
 
-<dl><dt><a name="Event-Delete"><strong>Delete</strong></a> = UndoWrapper(funcSelf, *args, **kwargs)</dt><dd><tt>This&nbsp;function&nbsp;will&nbsp;wrap&nbsp;and&nbsp;take&nbsp;the&nbsp;place&nbsp;of&nbsp;the&nbsp;function<br>
-that&nbsp;is&nbsp;being&nbsp;decorated.&nbsp;All&nbsp;arguments&nbsp;to&nbsp;the&nbsp;original&nbsp;function<br>
-will&nbsp;be&nbsp;saved,&nbsp;and&nbsp;sent&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function&nbsp;call.<br>
-The&nbsp;funcSelf&nbsp;value&nbsp;must&nbsp;be&nbsp;the&nbsp;first&nbsp;parameter,&nbsp;because<br>
-the&nbsp;first&nbsp;parameter&nbsp;will&nbsp;always&nbsp;be&nbsp;self,&nbsp;and&nbsp;it&nbsp;carries&nbsp;a<br>
-reference&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function's&nbsp;class.<br>
-&nbsp;<br>
-Considerations:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;All&nbsp;decorated&nbsp;undo&nbsp;functions&nbsp;*must*&nbsp;be&nbsp;in&nbsp;a&nbsp;class&nbsp;or&nbsp;this&nbsp;will&nbsp;fail.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
-Parameters:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;funcSelf&nbsp;--&nbsp;reference&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function's&nbsp;class.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*args&nbsp;--&nbsp;parameters&nbsp;meant&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**kwargs&nbsp;--&nbsp;dictionary&nbsp;of&nbsp;keyword:value&nbsp;parameters&nbsp;meant<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
-&nbsp;<br>
-Returns:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;wrapped&nbsp;function&nbsp;resulting&nbsp;value.</tt></dd></dl>
+<dl><dt><a name="Event-Delete"><strong>Delete</strong></a>(self, _undoAction_<font color="#909090">=None</font>)</dt><dd><tt>Deletes&nbsp;this&nbsp;<a href="#Event">Event</a>&nbsp;and&nbsp;sends&nbsp;it&nbsp;to&nbsp;the&nbsp;graveyard.</tt></dd></dl>
 
 <dl><dt><a name="Event-DeleteSelectedFadePoints"><strong>DeleteSelectedFadePoints</strong></a>(self)</dt><dd><tt>Removes&nbsp;all&nbsp;the&nbsp;fade&nbsp;points&nbsp;for&nbsp;this&nbsp;<a href="#Event">Event</a>.</tt></dd></dl>
 
+<dl><dt><a name="Event-DestroyFilesource"><strong>DestroyFilesource</strong></a>(self)</dt><dd><tt>Removes&nbsp;the&nbsp;Gstreamer&nbsp;file&nbsp;source&nbsp;from&nbsp;the&nbsp;instrument's&nbsp;composition.</tt></dd></dl>
+
 <dl><dt><a name="Event-GenerateWaveform"><strong>GenerateWaveform</strong></a>(self)</dt><dd><tt>Renders&nbsp;the&nbsp;level&nbsp;information&nbsp;for&nbsp;the&nbsp;GUI.</tt></dd></dl>
+
+<dl><dt><a name="Event-GetAbsFile"><strong>GetAbsFile</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="Event-GetAbsLevelsFile"><strong>GetAbsLevelsFile</strong></a>(self)</dt></dl>
 
 <dl><dt><a name="Event-GetFadeLevelAtPoint"><strong>GetFadeLevelAtPoint</strong></a>(self, time)</dt><dd><tt>Obtain&nbsp;the&nbsp;level&nbsp;of&nbsp;audio&nbsp;at&nbsp;any&nbsp;point&nbsp;in&nbsp;time.<br>
 &nbsp;<br>
@@ -126,7 +147,9 @@ curves&nbsp;applied&nbsp;to&nbsp;the&nbsp;current&nbsp;<a href="#Event">Event</a
 Returns:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;list&nbsp;of&nbsp;fade&nbsp;levels,&nbsp;the&nbsp;same&nbsp;length&nbsp;as&nbsp;the&nbsp;levels&nbsp;list.</tt></dd></dl>
 
-<dl><dt><a name="Event-Join"><strong>Join</strong></a> = UndoWrapper(funcSelf, *args, **kwargs)</dt><dd><tt>This&nbsp;function&nbsp;will&nbsp;wrap&nbsp;and&nbsp;take&nbsp;the&nbsp;place&nbsp;of&nbsp;the&nbsp;function<br>
+<dl><dt><a name="Event-GetFilename"><strong>GetFilename</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="Event-JoinEvent"><strong>JoinEvent</strong></a> = UndoWrapper(funcSelf, *args, **kwargs)</dt><dd><tt>This&nbsp;function&nbsp;will&nbsp;wrap&nbsp;and&nbsp;take&nbsp;the&nbsp;place&nbsp;of&nbsp;the&nbsp;function<br>
 that&nbsp;is&nbsp;being&nbsp;decorated.&nbsp;All&nbsp;arguments&nbsp;to&nbsp;the&nbsp;original&nbsp;function<br>
 will&nbsp;be&nbsp;saved,&nbsp;and&nbsp;sent&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function&nbsp;call.<br>
 The&nbsp;funcSelf&nbsp;value&nbsp;must&nbsp;be&nbsp;the&nbsp;first&nbsp;parameter,&nbsp;because<br>
@@ -139,16 +162,15 @@ Considerations:<br>
 Parameters:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;funcSelf&nbsp;--&nbsp;reference&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function's&nbsp;class.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*args&nbsp;--&nbsp;parameters&nbsp;meant&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**kwargs&nbsp;--&nbsp;dictionary&nbsp;of&nbsp;keyword:value&nbsp;parameters&nbsp;meant<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**kwargs&nbsp;--&nbsp;dictionary&nbsp;of&nbsp;keyword:value&nbsp;parameters<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;containing&nbsp;the&nbsp;optional&nbsp;_undoAction_&nbsp;parameter.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_undoAction_&nbsp;--&nbsp;has&nbsp;to&nbsp;be&nbsp;passed&nbsp;as&nbsp;a&nbsp;key:value&nbsp;pair&nbsp;inside&nbsp;kwargs.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;AtomicUndoAction&nbsp;object&nbsp;to&nbsp;append&nbsp;the&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;command&nbsp;to&nbsp;or&nbsp;None&nbsp;to&nbsp;create&nbsp;a&nbsp;default&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AtomicUndoAction&nbsp;with&nbsp;only&nbsp;the&nbsp;one&nbsp;command.<br>
 &nbsp;<br>
 Returns:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;wrapped&nbsp;function&nbsp;resulting&nbsp;value.</tt></dd></dl>
-
-<dl><dt><a name="Event-LoadFromXML"><strong>LoadFromXML</strong></a>(self, node)</dt><dd><tt>Restores&nbsp;an&nbsp;<a href="#Event">Event</a>&nbsp;from&nbsp;its&nbsp;serialized&nbsp;XML&nbsp;representation.<br>
-&nbsp;<br>
-Parameters:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;node&nbsp;--&nbsp;the&nbsp;XML&nbsp;node&nbsp;to&nbsp;retreive&nbsp;data&nbsp;from.</tt></dd></dl>
 
 <dl><dt><a name="Event-MayPlace"><strong>MayPlace</strong></a>(self, xpos)</dt><dd><tt>Checks&nbsp;if&nbsp;this&nbsp;event&nbsp;could&nbsp;be&nbsp;placed&nbsp;at&nbsp;xpos&nbsp;without&nbsp;<br>
 overlapping&nbsp;another&nbsp;<a href="#Event">Event</a>&nbsp;on&nbsp;the&nbsp;same&nbsp;Instrument.<br>
@@ -172,8 +194,12 @@ Considerations:<br>
 Parameters:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;funcSelf&nbsp;--&nbsp;reference&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function's&nbsp;class.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*args&nbsp;--&nbsp;parameters&nbsp;meant&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**kwargs&nbsp;--&nbsp;dictionary&nbsp;of&nbsp;keyword:value&nbsp;parameters&nbsp;meant<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**kwargs&nbsp;--&nbsp;dictionary&nbsp;of&nbsp;keyword:value&nbsp;parameters<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;containing&nbsp;the&nbsp;optional&nbsp;_undoAction_&nbsp;parameter.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_undoAction_&nbsp;--&nbsp;has&nbsp;to&nbsp;be&nbsp;passed&nbsp;as&nbsp;a&nbsp;key:value&nbsp;pair&nbsp;inside&nbsp;kwargs.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;AtomicUndoAction&nbsp;object&nbsp;to&nbsp;append&nbsp;the&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;command&nbsp;to&nbsp;or&nbsp;None&nbsp;to&nbsp;create&nbsp;a&nbsp;default&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AtomicUndoAction&nbsp;with&nbsp;only&nbsp;the&nbsp;one&nbsp;command.<br>
 &nbsp;<br>
 Returns:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;wrapped&nbsp;function&nbsp;resulting&nbsp;value.</tt></dd></dl>
@@ -198,30 +224,21 @@ Considerations:<br>
 Parameters:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;funcSelf&nbsp;--&nbsp;reference&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function's&nbsp;class.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*args&nbsp;--&nbsp;parameters&nbsp;meant&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**kwargs&nbsp;--&nbsp;dictionary&nbsp;of&nbsp;keyword:value&nbsp;parameters&nbsp;meant<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**kwargs&nbsp;--&nbsp;dictionary&nbsp;of&nbsp;keyword:value&nbsp;parameters<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;containing&nbsp;the&nbsp;optional&nbsp;_undoAction_&nbsp;parameter.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_undoAction_&nbsp;--&nbsp;has&nbsp;to&nbsp;be&nbsp;passed&nbsp;as&nbsp;a&nbsp;key:value&nbsp;pair&nbsp;inside&nbsp;kwargs.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;AtomicUndoAction&nbsp;object&nbsp;to&nbsp;append&nbsp;the&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;command&nbsp;to&nbsp;or&nbsp;None&nbsp;to&nbsp;create&nbsp;a&nbsp;default&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AtomicUndoAction&nbsp;with&nbsp;only&nbsp;the&nbsp;one&nbsp;command.<br>
 &nbsp;<br>
 Returns:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;wrapped&nbsp;function&nbsp;resulting&nbsp;value.</tt></dd></dl>
 
-<dl><dt><a name="Event-Resurrect"><strong>Resurrect</strong></a> = UndoWrapper(funcSelf, *args, **kwargs)</dt><dd><tt>This&nbsp;function&nbsp;will&nbsp;wrap&nbsp;and&nbsp;take&nbsp;the&nbsp;place&nbsp;of&nbsp;the&nbsp;function<br>
-that&nbsp;is&nbsp;being&nbsp;decorated.&nbsp;All&nbsp;arguments&nbsp;to&nbsp;the&nbsp;original&nbsp;function<br>
-will&nbsp;be&nbsp;saved,&nbsp;and&nbsp;sent&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function&nbsp;call.<br>
-The&nbsp;funcSelf&nbsp;value&nbsp;must&nbsp;be&nbsp;the&nbsp;first&nbsp;parameter,&nbsp;because<br>
-the&nbsp;first&nbsp;parameter&nbsp;will&nbsp;always&nbsp;be&nbsp;self,&nbsp;and&nbsp;it&nbsp;carries&nbsp;a<br>
-reference&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function's&nbsp;class.<br>
+<dl><dt><a name="Event-Resurrect"><strong>Resurrect</strong></a>(self, _undoAction_<font color="#909090">=None</font>)</dt><dd><tt>Brings&nbsp;this&nbsp;event&nbsp;back&nbsp;from&nbsp;the&nbsp;graveyard.<br>
 &nbsp;<br>
 Considerations:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;All&nbsp;decorated&nbsp;undo&nbsp;functions&nbsp;*must*&nbsp;be&nbsp;in&nbsp;a&nbsp;class&nbsp;or&nbsp;this&nbsp;will&nbsp;fail.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
-Parameters:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;funcSelf&nbsp;--&nbsp;reference&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function's&nbsp;class.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*args&nbsp;--&nbsp;parameters&nbsp;meant&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**kwargs&nbsp;--&nbsp;dictionary&nbsp;of&nbsp;keyword:value&nbsp;parameters&nbsp;meant<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
-&nbsp;<br>
-Returns:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;wrapped&nbsp;function&nbsp;resulting&nbsp;value.</tt></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;method&nbsp;is&nbsp;made&nbsp;obsolete&nbsp;by&nbsp;instrument.ResurrectEvent(),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;but&nbsp;is&nbsp;still&nbsp;kept&nbsp;here&nbsp;for&nbsp;0.2&nbsp;undo&nbsp;history&nbsp;compatibility.</tt></dd></dl>
 
 <dl><dt><a name="Event-SetProperties"><strong>SetProperties</strong></a>(self)</dt><dd><tt>Sets&nbsp;basic&nbsp;<a href="#Event">Event</a>&nbsp;properties&nbsp;like&nbsp;location,&nbsp;start,&nbsp;duration,&nbsp;etc.</tt></dd></dl>
 
@@ -232,7 +249,7 @@ Parameters:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;True&nbsp;=&nbsp;the&nbsp;<a href="#Event">Event</a>&nbsp;has&nbsp;been&nbsp;selected.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;False&nbsp;=&nbsp;the&nbsp;<a href="#Event">Event</a>&nbsp;has&nbsp;been&nbsp;deselected.</tt></dd></dl>
 
-<dl><dt><a name="Event-Split"><strong>Split</strong></a> = UndoWrapper(funcSelf, *args, **kwargs)</dt><dd><tt>This&nbsp;function&nbsp;will&nbsp;wrap&nbsp;and&nbsp;take&nbsp;the&nbsp;place&nbsp;of&nbsp;the&nbsp;function<br>
+<dl><dt><a name="Event-SplitEvent"><strong>SplitEvent</strong></a> = UndoWrapper(funcSelf, *args, **kwargs)</dt><dd><tt>This&nbsp;function&nbsp;will&nbsp;wrap&nbsp;and&nbsp;take&nbsp;the&nbsp;place&nbsp;of&nbsp;the&nbsp;function<br>
 that&nbsp;is&nbsp;being&nbsp;decorated.&nbsp;All&nbsp;arguments&nbsp;to&nbsp;the&nbsp;original&nbsp;function<br>
 will&nbsp;be&nbsp;saved,&nbsp;and&nbsp;sent&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function&nbsp;call.<br>
 The&nbsp;funcSelf&nbsp;value&nbsp;must&nbsp;be&nbsp;the&nbsp;first&nbsp;parameter,&nbsp;because<br>
@@ -245,11 +262,21 @@ Considerations:<br>
 Parameters:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;funcSelf&nbsp;--&nbsp;reference&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function's&nbsp;class.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*args&nbsp;--&nbsp;parameters&nbsp;meant&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**kwargs&nbsp;--&nbsp;dictionary&nbsp;of&nbsp;keyword:value&nbsp;parameters&nbsp;meant<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**kwargs&nbsp;--&nbsp;dictionary&nbsp;of&nbsp;keyword:value&nbsp;parameters<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;containing&nbsp;the&nbsp;optional&nbsp;_undoAction_&nbsp;parameter.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_undoAction_&nbsp;--&nbsp;has&nbsp;to&nbsp;be&nbsp;passed&nbsp;as&nbsp;a&nbsp;key:value&nbsp;pair&nbsp;inside&nbsp;kwargs.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;AtomicUndoAction&nbsp;object&nbsp;to&nbsp;append&nbsp;the&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;command&nbsp;to&nbsp;or&nbsp;None&nbsp;to&nbsp;create&nbsp;a&nbsp;default&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AtomicUndoAction&nbsp;with&nbsp;only&nbsp;the&nbsp;one&nbsp;command.<br>
 &nbsp;<br>
 Returns:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;wrapped&nbsp;function&nbsp;resulting&nbsp;value.</tt></dd></dl>
+
+<dl><dt><a name="Event-StopGenerateWaveform"><strong>StopGenerateWaveform</strong></a>(self, finishedLoading<font color="#909090">=True</font>)</dt><dd><tt>Stops&nbsp;the&nbsp;internal&nbsp;pipeline&nbsp;that&nbsp;loads&nbsp;the&nbsp;waveform&nbsp;from&nbsp;this&nbsp;event's&nbsp;file.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;finishedLoading&nbsp;--&nbsp;True&nbsp;if&nbsp;the&nbsp;event&nbsp;has&nbsp;finished&nbsp;loading&nbsp;the&nbsp;waveform,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;False&nbsp;if&nbsp;the&nbsp;loading&nbsp;is&nbsp;being&nbsp;cancelled.</tt></dd></dl>
 
 <dl><dt><a name="Event-StoreToXML"><strong>StoreToXML</strong></a>(self, doc, parent, graveyard<font color="#909090">=False</font>)</dt><dd><tt>Converts&nbsp;this&nbsp;<a href="#Event">Event</a>&nbsp;into&nbsp;an&nbsp;XML&nbsp;representation&nbsp;suitable&nbsp;for&nbsp;saving&nbsp;to&nbsp;a&nbsp;file.<br>
 &nbsp;<br>
@@ -260,43 +287,12 @@ Parameters:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;graveyard&nbsp;--&nbsp;True&nbsp;if&nbsp;this&nbsp;<a href="#Event">Event</a>&nbsp;is&nbsp;on&nbsp;the&nbsp;graveyard&nbsp;stack,<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;should&nbsp;be&nbsp;serialized&nbsp;as&nbsp;a&nbsp;dead&nbsp;<a href="#Event">Event</a>.</tt></dd></dl>
 
-<dl><dt><a name="Event-Trim"><strong>Trim</strong></a> = UndoWrapper(funcSelf, *args, **kwargs)</dt><dd><tt>This&nbsp;function&nbsp;will&nbsp;wrap&nbsp;and&nbsp;take&nbsp;the&nbsp;place&nbsp;of&nbsp;the&nbsp;function<br>
-that&nbsp;is&nbsp;being&nbsp;decorated.&nbsp;All&nbsp;arguments&nbsp;to&nbsp;the&nbsp;original&nbsp;function<br>
-will&nbsp;be&nbsp;saved,&nbsp;and&nbsp;sent&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function&nbsp;call.<br>
-The&nbsp;funcSelf&nbsp;value&nbsp;must&nbsp;be&nbsp;the&nbsp;first&nbsp;parameter,&nbsp;because<br>
-the&nbsp;first&nbsp;parameter&nbsp;will&nbsp;always&nbsp;be&nbsp;self,&nbsp;and&nbsp;it&nbsp;carries&nbsp;a<br>
-reference&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function's&nbsp;class.<br>
+<dl><dt><a name="Event-Trim"><strong>Trim</strong></a>(self, start_split, end_split)</dt><dd><tt>Splits&nbsp;the&nbsp;<a href="#Event">Event</a>&nbsp;and&nbsp;then&nbsp;deletes&nbsp;the&nbsp;first&nbsp;and&nbsp;last&nbsp;sections,<br>
+leaving&nbsp;only&nbsp;the&nbsp;middle&nbsp;section.<br>
 &nbsp;<br>
-Considerations:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;All&nbsp;decorated&nbsp;undo&nbsp;functions&nbsp;*must*&nbsp;be&nbsp;in&nbsp;a&nbsp;class&nbsp;or&nbsp;this&nbsp;will&nbsp;fail.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
 Parameters:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;funcSelf&nbsp;--&nbsp;reference&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function's&nbsp;class.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*args&nbsp;--&nbsp;parameters&nbsp;meant&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**kwargs&nbsp;--&nbsp;dictionary&nbsp;of&nbsp;keyword:value&nbsp;parameters&nbsp;meant<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
-&nbsp;<br>
-Returns:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;wrapped&nbsp;function&nbsp;resulting&nbsp;value.</tt></dd></dl>
-
-<dl><dt><a name="Event-UndoTrim"><strong>UndoTrim</strong></a> = UndoWrapper(funcSelf, *args, **kwargs)</dt><dd><tt>This&nbsp;function&nbsp;will&nbsp;wrap&nbsp;and&nbsp;take&nbsp;the&nbsp;place&nbsp;of&nbsp;the&nbsp;function<br>
-that&nbsp;is&nbsp;being&nbsp;decorated.&nbsp;All&nbsp;arguments&nbsp;to&nbsp;the&nbsp;original&nbsp;function<br>
-will&nbsp;be&nbsp;saved,&nbsp;and&nbsp;sent&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function&nbsp;call.<br>
-The&nbsp;funcSelf&nbsp;value&nbsp;must&nbsp;be&nbsp;the&nbsp;first&nbsp;parameter,&nbsp;because<br>
-the&nbsp;first&nbsp;parameter&nbsp;will&nbsp;always&nbsp;be&nbsp;self,&nbsp;and&nbsp;it&nbsp;carries&nbsp;a<br>
-reference&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function's&nbsp;class.<br>
-&nbsp;<br>
-Considerations:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;All&nbsp;decorated&nbsp;undo&nbsp;functions&nbsp;*must*&nbsp;be&nbsp;in&nbsp;a&nbsp;class&nbsp;or&nbsp;this&nbsp;will&nbsp;fail.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
-Parameters:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;funcSelf&nbsp;--&nbsp;reference&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function's&nbsp;class.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*args&nbsp;--&nbsp;parameters&nbsp;meant&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**kwargs&nbsp;--&nbsp;dictionary&nbsp;of&nbsp;keyword:value&nbsp;parameters&nbsp;meant<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
-&nbsp;<br>
-Returns:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;wrapped&nbsp;function&nbsp;resulting&nbsp;value.</tt></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;start_split&nbsp;--&nbsp;the&nbsp;time&nbsp;for&nbsp;the&nbsp;start&nbsp;of&nbsp;the&nbsp;trim.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;end_split&nbsp;--&nbsp;the&nbsp;time&nbsp;for&nbsp;the&nbsp;end&nbsp;of&nbsp;the&nbsp;trim.</tt></dd></dl>
 
 <dl><dt><a name="Event-__cmp__"><strong>__cmp__</strong></a>(self, object)</dt><dd><tt>Compares&nbsp;two&nbsp;Events&nbsp;for&nbsp;equality.<br>
 &nbsp;<br>
@@ -361,19 +357,7 @@ Parameters:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bus&nbsp;--&nbsp;GStreamer&nbsp;bus&nbsp;sending&nbsp;the&nbsp;message.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message&nbsp;--&nbsp;GStreamer&nbsp;message.</tt></dd></dl>
 
-<dl><dt><a name="Event-join_event"><strong>join_event</strong></a>(self, joinEvent, joinToRight<font color="#909090">=True</font>)</dt><dd><tt>Helper&nbsp;function&nbsp;for&nbsp;<a href="#Event-Join">Join</a>()&nbsp;and&nbsp;<a href="#Event-Trim">Trim</a>().&nbsp;After&nbsp;joining&nbsp;the&nbsp;events&nbsp;on<br>
-either&nbsp;side,&nbsp;this&nbsp;method&nbsp;will&nbsp;not&nbsp;remove&nbsp;the&nbsp;<a href="#Event">Event</a>&nbsp;from&nbsp;the&nbsp;instrument&nbsp;lane.<br>
-This&nbsp;must&nbsp;be&nbsp;done&nbsp;from&nbsp;the&nbsp;calling&nbsp;function.<br>
-&nbsp;<br>
-Considerations:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;All&nbsp;other&nbsp;methods&nbsp;and&nbsp;classes&nbsp;should&nbsp;not&nbsp;invoke&nbsp;this&nbsp;function&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;directly&nbsp;since&nbsp;there&nbsp;is&nbsp;no&nbsp;undo&nbsp;for&nbsp;it.<br>
-&nbsp;<br>
-Parameters:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;joinEvent&nbsp;--&nbsp;<a href="#Event">Event</a>&nbsp;to&nbsp;join&nbsp;with&nbsp;elf.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;joinToRight&nbsp;--&nbsp;&nbsp;if&nbsp;True,&nbsp;the&nbsp;joinEvent&nbsp;will&nbsp;be&nbsp;merged&nbsp;to&nbsp;the&nbsp;right<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;side&nbsp;of&nbsp;self.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;False,&nbsp;the&nbsp;joinEvent&nbsp;will&nbsp;be&nbsp;to&nbsp;the&nbsp;left&nbsp;of&nbsp;self.</tt></dd></dl>
+<dl><dt><a name="Event-install_plugin_cb"><strong>install_plugin_cb</strong></a>(self, result)</dt></dl>
 
 <dl><dt><a name="Event-recording_bus_level"><strong>recording_bus_level</strong></a>(self, bus, message)</dt><dd><tt>Handler&nbsp;for&nbsp;the&nbsp;GStreamer&nbsp;bus&nbsp;messages&nbsp;relevant&nbsp;to&nbsp;this&nbsp;<a href="#Event">Event</a>.<br>
 At&nbsp;the&nbsp;moment&nbsp;this&nbsp;is&nbsp;used&nbsp;to&nbsp;report&nbsp;on&nbsp;how&nbsp;the&nbsp;recording<br>
@@ -387,54 +371,93 @@ Returns:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;True&nbsp;--&nbsp;the&nbsp;<a href="#Event">Event</a>&nbsp;is&nbsp;recording.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;False&nbsp;--&nbsp;the&nbsp;<a href="#Event">Event</a>&nbsp;isn't&nbsp;recording.</tt></dd></dl>
 
-<dl><dt><a name="Event-split_event"><strong>split_event</strong></a>(self, split_point, cutRightSide<font color="#909090">=True</font>)</dt><dd><tt>Helper&nbsp;function&nbsp;for&nbsp;<a href="#Event-Split">Split</a>()&nbsp;and&nbsp;<a href="#Event-Trim">Trim</a>().&nbsp;<br>
-&nbsp;<br>
-Considerations:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;All&nbsp;other&nbsp;methods&nbsp;and&nbsp;classes&nbsp;should&nbsp;not&nbsp;invoke&nbsp;this&nbsp;function&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;directly&nbsp;since&nbsp;there&nbsp;is&nbsp;no&nbsp;undo&nbsp;for&nbsp;it.<br>
-&nbsp;<br>
-Parameters:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;split_point&nbsp;--<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cutRightSide&nbsp;--&nbsp;if&nbsp;True,&nbsp;a&nbsp;new&nbsp;event&nbsp;will&nbsp;be&nbsp;created&nbsp;to&nbsp;represent<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;piece&nbsp;on&nbsp;the&nbsp;right&nbsp;which&nbsp;was&nbsp;split.&nbsp;This&nbsp;instance<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;will&nbsp;be&nbsp;the&nbsp;one&nbsp;on&nbsp;the&nbsp;left.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;False,&nbsp;this&nbsp;instance&nbsp;is&nbsp;the&nbsp;one&nbsp;on&nbsp;the&nbsp;right.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
-Returns:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;newly&nbsp;created&nbsp;<a href="#Event">Event</a>.</tt></dd></dl>
-
 <hr>
 Data and other attributes defined here:<br>
-<dl><dt><strong>CORRUPT</strong> = 3</dl>
-
-<dl><dt><strong>LENGTH</strong> = 2</dl>
+<dl><dt><strong>LEVELS_FILE_EXTENSION</strong> = '.leveldata'</dl>
 
 <dl><dt><strong>LEVEL_INTERVAL</strong> = 0.10000000000000001</dl>
 
-<dl><dt><strong>MOVE</strong> = 1</dl>
-
-<dl><dt><strong>WAVEFORM</strong> = 0</dl>
+<dl><dt><strong>__gtype__</strong> = &lt;GType Event+Event (35613632)&gt;</dl>
 
 <hr>
-Methods inherited from <a href="Monitored.html#Monitored">Monitored.Monitored</a>:<br>
-<dl><dt><a name="Event-AddListener"><strong>AddListener</strong></a>(self, obj)</dt><dd><tt>Adds&nbsp;an&nbsp;object&nbsp;to&nbsp;report&nbsp;changes&nbsp;to.<br>
-&nbsp;<br>
-Parameters:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;obj&nbsp;--&nbsp;an&nbsp;object&nbsp;to&nbsp;inform&nbsp;when&nbsp;StateChanged&nbsp;is&nbsp;called.</tt></dd></dl>
+Methods inherited from <a href="gobject._gobject.html#GObject">gobject._gobject.GObject</a>:<br>
+<dl><dt><a name="Event-__copy__"><strong>__copy__</strong></a>(...)</dt></dl>
 
-<dl><dt><a name="Event-ClearListeners"><strong>ClearListeners</strong></a>(self)</dt><dd><tt>Remove&nbsp;all&nbsp;listeners&nbsp;to&nbsp;allow&nbsp;them&nbsp;to&nbsp;be&nbsp;destroyed.</tt></dd></dl>
+<dl><dt><a name="Event-__deepcopy__"><strong>__deepcopy__</strong></a>(...)</dt></dl>
 
-<dl><dt><a name="Event-RemoveListener"><strong>RemoveListener</strong></a>(self, obj)</dt><dd><tt>Stop&nbsp;reporting&nbsp;changes&nbsp;to&nbsp;the&nbsp;specified&nbsp;object.<br>
-&nbsp;<br>
-Parameters:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;obj&nbsp;--&nbsp;the&nbsp;object&nbsp;which&nbsp;should&nbsp;no&nbsp;longer&nbsp;receive&nbsp;change&nbsp;updates.</tt></dd></dl>
+<dl><dt><a name="Event-__delattr__"><strong>__delattr__</strong></a>(...)</dt><dd><tt>x.<a href="#Event-__delattr__">__delattr__</a>('name')&nbsp;&lt;==&gt;&nbsp;del&nbsp;x.name</tt></dd></dl>
 
-<dl><dt><a name="Event-StateChanged"><strong>StateChanged</strong></a>(self, change<font color="#909090">=None</font>, *extra)</dt><dd><tt>This&nbsp;method&nbsp;should&nbsp;be&nbsp;called&nbsp;when&nbsp;we&nbsp;want&nbsp;a&nbsp;change&nbsp;to&nbsp;be&nbsp;reported<br>
-to&nbsp;all&nbsp;objects&nbsp;previously&nbsp;added&nbsp;by&nbsp;AddListener.&nbsp;<br>
-&nbsp;<br>
-Parameters:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;change&nbsp;--&nbsp;the&nbsp;change&nbsp;which&nbsp;has&nbsp;occured.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;extra&nbsp;--&nbsp;any&nbsp;extra&nbsp;parameters&nbsp;that&nbsp;should&nbsp;be&nbsp;passed.</tt></dd></dl>
+<dl><dt><a name="Event-__gobject_init__"><strong>__gobject_init__</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Event-__hash__"><strong>__hash__</strong></a>(...)</dt><dd><tt>x.<a href="#Event-__hash__">__hash__</a>()&nbsp;&lt;==&gt;&nbsp;hash(x)</tt></dd></dl>
+
+<dl><dt><a name="Event-__setattr__"><strong>__setattr__</strong></a>(...)</dt><dd><tt>x.<a href="#Event-__setattr__">__setattr__</a>('name',&nbsp;value)&nbsp;&lt;==&gt;&nbsp;x.name&nbsp;=&nbsp;value</tt></dd></dl>
+
+<dl><dt><a name="Event-chain"><strong>chain</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Event-connect"><strong>connect</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Event-connect_after"><strong>connect_after</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Event-connect_object"><strong>connect_object</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Event-connect_object_after"><strong>connect_object_after</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Event-disconnect"><strong>disconnect</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Event-disconnect_by_func"><strong>disconnect_by_func</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Event-emit"><strong>emit</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Event-emit_stop_by_name"><strong>emit_stop_by_name</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Event-freeze_notify"><strong>freeze_notify</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Event-get_data"><strong>get_data</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Event-get_properties"><strong>get_properties</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Event-get_property"><strong>get_property</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Event-handler_block"><strong>handler_block</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Event-handler_block_by_func"><strong>handler_block_by_func</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Event-handler_disconnect"><strong>handler_disconnect</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Event-handler_is_connected"><strong>handler_is_connected</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Event-handler_unblock"><strong>handler_unblock</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Event-handler_unblock_by_func"><strong>handler_unblock_by_func</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Event-notify"><strong>notify</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Event-set_data"><strong>set_data</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Event-set_properties"><strong>set_properties</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Event-set_property"><strong>set_property</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Event-stop_emission"><strong>stop_emission</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Event-thaw_notify"><strong>thaw_notify</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Event-weak_ref"><strong>weak_ref</strong></a>(...)</dt></dl>
+
+<hr>
+Data descriptors inherited from <a href="gobject._gobject.html#GObject">gobject._gobject.GObject</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+</dl>
+<dl><dt><strong>__grefcount__</strong></dt>
+</dl>
+<hr>
+Data and other attributes inherited from <a href="gobject._gobject.html#GObject">gobject._gobject.GObject</a>:<br>
+<dl><dt><strong>__gdoc__</strong> = 'Object Event+Event<font color="#c040c0">\n\n\n\t</font>This class handles maintai...array)<font color="#c040c0">\n\n</font>Signals from GObject:<font color="#c040c0">\n</font>  notify (GParam)<font color="#c040c0">\n\n</font>'</dl>
+
+<dl><dt><strong>__new__</strong> = &lt;built-in method __new__ of GObjectMeta object&gt;<dd><tt>T.<a href="#Event-__new__">__new__</a>(S,&nbsp;...)&nbsp;-&gt;&nbsp;a&nbsp;new&nbsp;object&nbsp;with&nbsp;type&nbsp;S,&nbsp;a&nbsp;subtype&nbsp;of&nbsp;T</tt></dl>
+
+<dl><dt><strong>props</strong> = &lt;gobject.GProps object&gt;</dl>
 
 </td></tr></table></td></tr></table>
 </body></html>

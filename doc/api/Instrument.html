@@ -1,5 +1,5 @@
 
-<!doctype html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html><head><title>Python: module Instrument</title>
 </head><body bgcolor="#ffffff">
 
@@ -8,7 +8,7 @@
 <td valign=bottom>&nbsp;<br>
 <font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>Instrument</strong></big></big></font></td
 ><td align=right valign=bottom
-><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/david/Projects/Jokosher/trunk/Jokosher/Instrument.py">/home/david/Projects/Jokosher/trunk/Jokosher/Instrument.py</a></font></td></tr></table>
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/laszlo/Dev/joko-gtk-builder/Jokosher/Instrument.py">/home/laszlo/Dev/joko-gtk-builder/Jokosher/Instrument.py</a></font></td></tr></table>
     <p><tt>#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THIS&nbsp;FILE&nbsp;IS&nbsp;PART&nbsp;OF&nbsp;THE&nbsp;JOKOSHER&nbsp;PROJECT&nbsp;AND&nbsp;LICENSED&nbsp;UNDER&nbsp;THE&nbsp;GPL.&nbsp;SEE<br>
 #&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THE&nbsp;'COPYING'&nbsp;FILE&nbsp;FOR&nbsp;DETAILS<br>
 #<br>
@@ -25,24 +25,23 @@
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#4e9a06">
 <td colspan=3 valign=bottom>&nbsp;<br>
-<font color="#fffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
     
 <tr><td bgcolor="#4e9a06"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
-<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="AlsaDevices.html">AlsaDevices</a><br>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="Event.html">Event</a><br>
 <a href="Globals.html">Globals</a><br>
-<a href="Project.html">Project</a><br>
+<a href="IncrementalSave.html">IncrementalSave</a><br>
+<a href="PlatformUtils.html">PlatformUtils</a><br>
+</td><td width="25%" valign=top><a href="UndoSystem.html">UndoSystem</a><br>
 <a href="Utils.html">Utils</a><br>
-</td><td width="25%" valign=top><a href="gettext.html">gettext</a><br>
-<a href="gnomevfs.html">gnomevfs</a><br>
+<a href="gettext.html">gettext</a><br>
 <a href="gobject.html">gobject</a><br>
-<a href="gst.html">gst</a><br>
-</td><td width="25%" valign=top><a href="gtk.html">gtk</a><br>
-<a href="math.html">math</a><br>
+</td><td width="25%" valign=top><a href="gst.html">gst</a><br>
 <a href="os.html">os</a><br>
 <a href="pygst.html">pygst</a><br>
-</td><td width="25%" valign=top><a href="shutil.html">shutil</a><br>
-<a href="time.html">time</a><br>
-<a href="xml.dom.minidom.html">xml.dom.minidom</a><br>
+<a href="shutil.html">shutil</a><br>
+</td><td width="25%" valign=top><a href="time.html">time</a><br>
+<a href="urlparse.html">urlparse</a><br>
 </td></tr></table></td></tr></table><p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#3465a4">
@@ -51,7 +50,7 @@
     
 <tr><td bgcolor="#3465a4"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
 <td width="100%"><dl>
-<dt><font face="helvetica, arial"><a href="Monitored.html#Monitored">Monitored.Monitored</a>
+<dt><font face="helvetica, arial"><a href="gobject._gobject.html#GObject">gobject._gobject.GObject</a>(<a href="__builtin__.html#object">__builtin__.object</a>)
 </font></dt><dd>
 <dl>
 <dt><font face="helvetica, arial"><a href="Instrument.html#Instrument">Instrument</a>
@@ -62,7 +61,7 @@
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#729fcf">
 <td colspan=3 valign=bottom>&nbsp;<br>
-<font color="#000000" face="helvetica, arial"><a name="Instrument">class <strong>Instrument</strong></a>(<a href="Monitored.html#Monitored">Monitored.Monitored</a>)</font></td></tr>
+<font color="#000000" face="helvetica, arial"><a name="Instrument">class <strong>Instrument</strong></a>(<a href="gobject._gobject.html#GObject">gobject._gobject.GObject</a>)</font></td></tr>
     
 <tr bgcolor="#729fcf"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
 <td colspan=2><tt>This&nbsp;module&nbsp;is&nbsp;the&nbsp;non-gui&nbsp;class&nbsp;the&nbsp;represents&nbsp;Instruments.&nbsp;Instruments<br>
@@ -71,7 +70,13 @@ It&nbsp;also&nbsp;handles&nbsp;loading&nbsp;and&nbsp;saving&nbsp;Instruments&nbs
 bits&nbsp;for&nbsp;playing&nbsp;and&nbsp;recording&nbsp;events,&nbsp;audio&nbsp;effects&nbsp;plugins,&nbsp;as&nbsp;well&nbsp;as&nbsp;any&nbsp;<br>
 <a href="#Instrument">Instrument</a>&nbsp;specific&nbsp;functionality&nbsp;like;&nbsp;solo,&nbsp;mute,&nbsp;volume,&nbsp;etc.<br>&nbsp;</tt></td></tr>
 <tr><td>&nbsp;</td>
-<td width="100%">Methods defined here:<br>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="Instrument.html#Instrument">Instrument</a></dd>
+<dd><a href="gobject._gobject.html#GObject">gobject._gobject.GObject</a></dd>
+<dd><a href="__builtin__.html#object">__builtin__.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
 <dl><dt><a name="Instrument-AddAndLinkPlaybackbin"><strong>AddAndLinkPlaybackbin</strong></a>(self)</dt><dd><tt>Creates&nbsp;a&nbsp;playback&nbsp;bin&nbsp;for&nbsp;this&nbsp;<a href="#Instrument">Instrument</a>&nbsp;and&nbsp;adds&nbsp;it&nbsp;to&nbsp;the&nbsp;main<br>
 playback&nbsp;pipeline.&nbsp;*CHECK*</tt></dd></dl>
 
@@ -87,14 +92,29 @@ Parameters:<br>
 Returns:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;added&nbsp;effect&nbsp;element.</tt></dd></dl>
 
-<dl><dt><a name="Instrument-ChangeEffectOrder"><strong>ChangeEffectOrder</strong></a>(self, effect, newPosition)</dt><dd><tt>TODO:&nbsp;this&nbsp;function&nbsp;has&nbsp;yet&nbsp;to&nbsp;be&nbsp;implemented.<br>
+<dl><dt><a name="Instrument-AddEventsFromList"><strong>AddEventsFromList</strong></a>(self, start, fileList, copyFile<font color="#909090">=False</font>, undoAction<font color="#909090">=None</font>)</dt><dd><tt>Adds&nbsp;multiple&nbsp;files&nbsp;to&nbsp;an&nbsp;instrument&nbsp;one&nbsp;after&nbsp;another&nbsp;starting<br>
+at&nbsp;the&nbsp;given&nbsp;start&nbsp;position.<br>
 &nbsp;<br>
-Move&nbsp;a&nbsp;given&nbsp;GStreamer&nbsp;element&nbsp;inside&nbsp;the&nbsp;effects&nbsp;bin.<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;start&nbsp;--&nbsp;the&nbsp;offset&nbsp;time&nbsp;in&nbsp;seconds&nbsp;for&nbsp;the&nbsp;first&nbsp;event.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fileList&nbsp;--&nbsp;URIs&nbsp;to&nbsp;the&nbsp;Event&nbsp;files.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;copyfile&nbsp;--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;True&nbsp;=&nbsp;copy&nbsp;the&nbsp;files&nbsp;to&nbsp;Project's&nbsp;audio&nbsp;directory.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;False&nbsp;=&nbsp;don't&nbsp;copy&nbsp;the&nbsp;files&nbsp;to&nbsp;the&nbsp;Project's&nbsp;audio&nbsp;directory.</tt></dd></dl>
+
+<dl><dt><a name="Instrument-ChangeEffectOrder"><strong>ChangeEffectOrder</strong></a>(self, effect, newPosition)</dt><dd><tt>Move&nbsp;a&nbsp;given&nbsp;GStreamer&nbsp;element&nbsp;inside&nbsp;the&nbsp;effects&nbsp;bin.&nbsp;This&nbsp;method<br>
+does&nbsp;not&nbsp;swap&nbsp;the&nbsp;element&nbsp;into&nbsp;its&nbsp;new&nbsp;position,&nbsp;it&nbsp;simply&nbsp;shifts&nbsp;all&nbsp;the<br>
+elements&nbsp;between&nbsp;the&nbsp;effect's&nbsp;current&nbsp;position&nbsp;and&nbsp;the&nbsp;new&nbsp;position<br>
+down&nbsp;by&nbsp;one.&nbsp;Since&nbsp;a&nbsp;Gstreamer&nbsp;pipeline&nbsp;is&nbsp;essentially&nbsp;a&nbsp;linked&nbsp;list,&nbsp;this<br>
+"shift"&nbsp;implementation&nbsp;is&nbsp;the&nbsp;fastest&nbsp;way&nbsp;to&nbsp;make&nbsp;one&nbsp;element&nbsp;move&nbsp;to<br>
+a&nbsp;new&nbsp;position&nbsp;without&nbsp;changing&nbsp;the&nbsp;order&nbsp;of&nbsp;any&nbsp;of&nbsp;the&nbsp;others.<br>
+For&nbsp;example&nbsp;if&nbsp;this&nbsp;instrument&nbsp;has&nbsp;five&nbsp;effects&nbsp;which&nbsp;are&nbsp;ordered<br>
+A,&nbsp;B,&nbsp;C,&nbsp;D,&nbsp;E,&nbsp;and&nbsp;I&nbsp;call&nbsp;this&nbsp;method&nbsp;with&nbsp;effect&nbsp;D&nbsp;and&nbsp;a&nbsp;new&nbsp;position<br>
+of&nbsp;1&nbsp;the&nbsp;new&nbsp;order&nbsp;will&nbsp;be:&nbsp;&nbsp;A,&nbsp;D,&nbsp;B,&nbsp;C,&nbsp;E.<br>
 &nbsp;<br>
 Parameters:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;effect&nbsp;--&nbsp;GStreamer&nbsp;effect&nbsp;to&nbsp;be&nbsp;moved.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;newPosition&nbsp;--&nbsp;value&nbsp;of&nbsp;the&nbsp;new&nbsp;position&nbsp;inside&nbsp;the&nbsp;effects&nbsp;bin<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;effect&nbsp;will&nbsp;have.</tt></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;effect&nbsp;will&nbsp;have&nbsp;(with&nbsp;0&nbsp;as&nbsp;the&nbsp;first&nbsp;position).</tt></dd></dl>
 
 <dl><dt><a name="Instrument-ChangeType"><strong>ChangeType</strong></a> = UndoWrapper(funcSelf, *args, **kwargs)</dt><dd><tt>This&nbsp;function&nbsp;will&nbsp;wrap&nbsp;and&nbsp;take&nbsp;the&nbsp;place&nbsp;of&nbsp;the&nbsp;function<br>
 that&nbsp;is&nbsp;being&nbsp;decorated.&nbsp;All&nbsp;arguments&nbsp;to&nbsp;the&nbsp;original&nbsp;function<br>
@@ -109,27 +129,74 @@ Considerations:<br>
 Parameters:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;funcSelf&nbsp;--&nbsp;reference&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function's&nbsp;class.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*args&nbsp;--&nbsp;parameters&nbsp;meant&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**kwargs&nbsp;--&nbsp;dictionary&nbsp;of&nbsp;keyword:value&nbsp;parameters&nbsp;meant<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**kwargs&nbsp;--&nbsp;dictionary&nbsp;of&nbsp;keyword:value&nbsp;parameters<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;containing&nbsp;the&nbsp;optional&nbsp;_undoAction_&nbsp;parameter.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_undoAction_&nbsp;--&nbsp;has&nbsp;to&nbsp;be&nbsp;passed&nbsp;as&nbsp;a&nbsp;key:value&nbsp;pair&nbsp;inside&nbsp;kwargs.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;AtomicUndoAction&nbsp;object&nbsp;to&nbsp;append&nbsp;the&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;command&nbsp;to&nbsp;or&nbsp;None&nbsp;to&nbsp;create&nbsp;a&nbsp;default&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AtomicUndoAction&nbsp;with&nbsp;only&nbsp;the&nbsp;one&nbsp;command.<br>
 &nbsp;<br>
 Returns:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;wrapped&nbsp;function&nbsp;resulting&nbsp;value.</tt></dd></dl>
 
-<dl><dt><a name="Instrument-DeleteEvent"><strong>DeleteEvent</strong></a>(self, eventid)</dt><dd><tt>Removes&nbsp;an&nbsp;Event&nbsp;from&nbsp;this&nbsp;<a href="#Instrument">Instrument</a>.<br>
+<dl><dt><a name="Instrument-CommitVolume"><strong>CommitVolume</strong></a>(self)</dt><dd><tt>Signal&nbsp;that&nbsp;the&nbsp;volume&nbsp;is&nbsp;no&nbsp;longer&nbsp;volatile.&nbsp;This&nbsp;means&nbsp;we&nbsp;can&nbsp;incrementally&nbsp;save,<br>
+which&nbsp;we&nbsp;didn't&nbsp;do&nbsp;before&nbsp;because&nbsp;the&nbsp;volume&nbsp;was&nbsp;rapidly&nbsp;changing&nbsp;as&nbsp;the&nbsp;user<br>
+moved&nbsp;the&nbsp;mouse.</tt></dd></dl>
+
+<dl><dt><a name="Instrument-DeleteEvent"><strong>DeleteEvent</strong></a> = UndoWrapper(funcSelf, *args, **kwargs)</dt><dd><tt>This&nbsp;function&nbsp;will&nbsp;wrap&nbsp;and&nbsp;take&nbsp;the&nbsp;place&nbsp;of&nbsp;the&nbsp;function<br>
+that&nbsp;is&nbsp;being&nbsp;decorated.&nbsp;All&nbsp;arguments&nbsp;to&nbsp;the&nbsp;original&nbsp;function<br>
+will&nbsp;be&nbsp;saved,&nbsp;and&nbsp;sent&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function&nbsp;call.<br>
+The&nbsp;funcSelf&nbsp;value&nbsp;must&nbsp;be&nbsp;the&nbsp;first&nbsp;parameter,&nbsp;because<br>
+the&nbsp;first&nbsp;parameter&nbsp;will&nbsp;always&nbsp;be&nbsp;self,&nbsp;and&nbsp;it&nbsp;carries&nbsp;a<br>
+reference&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function's&nbsp;class.<br>
 &nbsp;<br>
 Considerations:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;operation&nbsp;does&nbsp;not&nbsp;register&nbsp;with&nbsp;undo&nbsp;or&nbsp;append&nbsp;it&nbsp;to&nbsp;the<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;graveyard,&nbsp;because&nbsp;both&nbsp;are&nbsp;done&nbsp;by&nbsp;event.Delete()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;All&nbsp;decorated&nbsp;undo&nbsp;functions&nbsp;*must*&nbsp;be&nbsp;in&nbsp;a&nbsp;class&nbsp;or&nbsp;this&nbsp;will&nbsp;fail.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
 Parameters:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;eventid&nbsp;--&nbsp;ID&nbsp;of&nbsp;the&nbsp;Event&nbsp;to&nbsp;be&nbsp;removed.</tt></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;funcSelf&nbsp;--&nbsp;reference&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function's&nbsp;class.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*args&nbsp;--&nbsp;parameters&nbsp;meant&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**kwargs&nbsp;--&nbsp;dictionary&nbsp;of&nbsp;keyword:value&nbsp;parameters<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;containing&nbsp;the&nbsp;optional&nbsp;_undoAction_&nbsp;parameter.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_undoAction_&nbsp;--&nbsp;has&nbsp;to&nbsp;be&nbsp;passed&nbsp;as&nbsp;a&nbsp;key:value&nbsp;pair&nbsp;inside&nbsp;kwargs.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;AtomicUndoAction&nbsp;object&nbsp;to&nbsp;append&nbsp;the&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;command&nbsp;to&nbsp;or&nbsp;None&nbsp;to&nbsp;create&nbsp;a&nbsp;default&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AtomicUndoAction&nbsp;with&nbsp;only&nbsp;the&nbsp;one&nbsp;command.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;wrapped&nbsp;function&nbsp;resulting&nbsp;value.</tt></dd></dl>
 
-<dl><dt><a name="Instrument-JoinEvents"><strong>JoinEvents</strong></a>(self)</dt><dd><tt>Joins&nbsp;together&nbsp;all&nbsp;the&nbsp;selected&nbsp;Events&nbsp;into&nbsp;a&nbsp;single&nbsp;Event.</tt></dd></dl>
-
-<dl><dt><a name="Instrument-LoadFromXML"><strong>LoadFromXML</strong></a>(self, node)</dt><dd><tt>Restores&nbsp;an&nbsp;<a href="#Instrument">Instrument</a>&nbsp;from&nbsp;its&nbsp;serialized&nbsp;XML&nbsp;representation.<br>
+<dl><dt><a name="Instrument-FinalizeRecording"><strong>FinalizeRecording</strong></a>(self, event)</dt><dd><tt>Called&nbsp;when&nbsp;the&nbsp;recording&nbsp;of&nbsp;an&nbsp;Event&nbsp;has&nbsp;finished.<br>
 &nbsp;<br>
 Parameters:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;node&nbsp;--&nbsp;the&nbsp;XML&nbsp;node&nbsp;to&nbsp;retreive&nbsp;data&nbsp;from.</tt></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;event&nbsp;--&nbsp;Event&nbsp;object&nbsp;that&nbsp;has&nbsp;finished&nbsp;being&nbsp;recorded.</tt></dd></dl>
+
+<dl><dt><a name="Instrument-FinishRecordingEvent"><strong>FinishRecordingEvent</strong></a> = UndoWrapper(funcSelf, *args, **kwargs)</dt><dd><tt>This&nbsp;function&nbsp;will&nbsp;wrap&nbsp;and&nbsp;take&nbsp;the&nbsp;place&nbsp;of&nbsp;the&nbsp;function<br>
+that&nbsp;is&nbsp;being&nbsp;decorated.&nbsp;All&nbsp;arguments&nbsp;to&nbsp;the&nbsp;original&nbsp;function<br>
+will&nbsp;be&nbsp;saved,&nbsp;and&nbsp;sent&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function&nbsp;call.<br>
+The&nbsp;funcSelf&nbsp;value&nbsp;must&nbsp;be&nbsp;the&nbsp;first&nbsp;parameter,&nbsp;because<br>
+the&nbsp;first&nbsp;parameter&nbsp;will&nbsp;always&nbsp;be&nbsp;self,&nbsp;and&nbsp;it&nbsp;carries&nbsp;a<br>
+reference&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function's&nbsp;class.<br>
+&nbsp;<br>
+Considerations:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;All&nbsp;decorated&nbsp;undo&nbsp;functions&nbsp;*must*&nbsp;be&nbsp;in&nbsp;a&nbsp;class&nbsp;or&nbsp;this&nbsp;will&nbsp;fail.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;funcSelf&nbsp;--&nbsp;reference&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function's&nbsp;class.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*args&nbsp;--&nbsp;parameters&nbsp;meant&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**kwargs&nbsp;--&nbsp;dictionary&nbsp;of&nbsp;keyword:value&nbsp;parameters<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;containing&nbsp;the&nbsp;optional&nbsp;_undoAction_&nbsp;parameter.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_undoAction_&nbsp;--&nbsp;has&nbsp;to&nbsp;be&nbsp;passed&nbsp;as&nbsp;a&nbsp;key:value&nbsp;pair&nbsp;inside&nbsp;kwargs.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;AtomicUndoAction&nbsp;object&nbsp;to&nbsp;append&nbsp;the&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;command&nbsp;to&nbsp;or&nbsp;None&nbsp;to&nbsp;create&nbsp;a&nbsp;default&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AtomicUndoAction&nbsp;with&nbsp;only&nbsp;the&nbsp;one&nbsp;command.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;wrapped&nbsp;function&nbsp;resulting&nbsp;value.</tt></dd></dl>
+
+<dl><dt><a name="Instrument-GetRecordingEvent"><strong>GetRecordingEvent</strong></a>(self)</dt><dd><tt>Obtain&nbsp;an&nbsp;Event&nbsp;suitable&nbsp;for&nbsp;recording.<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;an&nbsp;Event&nbsp;suitable&nbsp;for&nbsp;recording.</tt></dd></dl>
 
 <dl><dt><a name="Instrument-MultipleEventsSelected"><strong>MultipleEventsSelected</strong></a>(self)</dt><dd><tt>Confirms&nbsp;whether&nbsp;or&nbsp;not&nbsp;multiple&nbsp;events&nbsp;are&nbsp;selected.<br>
 &nbsp;<br>
@@ -147,6 +214,39 @@ Returns:<br>
 &nbsp;<br>
 Parameters:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;effect&nbsp;--&nbsp;GStreamer&nbsp;effect&nbsp;to&nbsp;be&nbsp;removed&nbsp;from&nbsp;this&nbsp;<a href="#Instrument">Instrument</a>.</tt></dd></dl>
+
+<dl><dt><a name="Instrument-RemoveEventsUnderEvent"><strong>RemoveEventsUnderEvent</strong></a>(self, mainEvent, undoAction<font color="#909090">=None</font>)</dt><dd><tt>Deletes&nbsp;and/or&nbsp;trims&nbsp;any&nbsp;events&nbsp;which&nbsp;are&nbsp;between&nbsp;the&nbsp;two&nbsp;given&nbsp;values.<br>
+This&nbsp;is&nbsp;useful&nbsp;for&nbsp;ensuring&nbsp;that&nbsp;a&nbsp;particular&nbsp;section&nbsp;of&nbsp;this&nbsp;instrument&nbsp;in<br>
+totally&nbsp;clear&nbsp;of&nbsp;any&nbsp;audio.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;start&nbsp;--&nbsp;the&nbsp;start&nbsp;of&nbsp;the&nbsp;interval&nbsp;in&nbsp;seconds<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;stop&nbsp;--&nbsp;the&nbsp;stop&nbsp;of&nbsp;the&nbsp;interval&nbsp;in&nbsp;seconds</tt></dd></dl>
+
+<dl><dt><a name="Instrument-ResurrectEvent"><strong>ResurrectEvent</strong></a> = UndoWrapper(funcSelf, *args, **kwargs)</dt><dd><tt>This&nbsp;function&nbsp;will&nbsp;wrap&nbsp;and&nbsp;take&nbsp;the&nbsp;place&nbsp;of&nbsp;the&nbsp;function<br>
+that&nbsp;is&nbsp;being&nbsp;decorated.&nbsp;All&nbsp;arguments&nbsp;to&nbsp;the&nbsp;original&nbsp;function<br>
+will&nbsp;be&nbsp;saved,&nbsp;and&nbsp;sent&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function&nbsp;call.<br>
+The&nbsp;funcSelf&nbsp;value&nbsp;must&nbsp;be&nbsp;the&nbsp;first&nbsp;parameter,&nbsp;because<br>
+the&nbsp;first&nbsp;parameter&nbsp;will&nbsp;always&nbsp;be&nbsp;self,&nbsp;and&nbsp;it&nbsp;carries&nbsp;a<br>
+reference&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function's&nbsp;class.<br>
+&nbsp;<br>
+Considerations:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;All&nbsp;decorated&nbsp;undo&nbsp;functions&nbsp;*must*&nbsp;be&nbsp;in&nbsp;a&nbsp;class&nbsp;or&nbsp;this&nbsp;will&nbsp;fail.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;funcSelf&nbsp;--&nbsp;reference&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function's&nbsp;class.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*args&nbsp;--&nbsp;parameters&nbsp;meant&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**kwargs&nbsp;--&nbsp;dictionary&nbsp;of&nbsp;keyword:value&nbsp;parameters<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;containing&nbsp;the&nbsp;optional&nbsp;_undoAction_&nbsp;parameter.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_undoAction_&nbsp;--&nbsp;has&nbsp;to&nbsp;be&nbsp;passed&nbsp;as&nbsp;a&nbsp;key:value&nbsp;pair&nbsp;inside&nbsp;kwargs.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;AtomicUndoAction&nbsp;object&nbsp;to&nbsp;append&nbsp;the&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;command&nbsp;to&nbsp;or&nbsp;None&nbsp;to&nbsp;create&nbsp;a&nbsp;default&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AtomicUndoAction&nbsp;with&nbsp;only&nbsp;the&nbsp;one&nbsp;command.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;wrapped&nbsp;function&nbsp;resulting&nbsp;value.</tt></dd></dl>
+
+<dl><dt><a name="Instrument-SetInput"><strong>SetInput</strong></a>(self, device, inTrack)</dt></dl>
 
 <dl><dt><a name="Instrument-SetLevel"><strong>SetLevel</strong></a>(self, level)</dt><dd><tt>Sets&nbsp;the&nbsp;level&nbsp;of&nbsp;this&nbsp;<a href="#Instrument">Instrument</a>.<br>
 &nbsp;<br>
@@ -169,8 +269,12 @@ Considerations:<br>
 Parameters:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;funcSelf&nbsp;--&nbsp;reference&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function's&nbsp;class.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*args&nbsp;--&nbsp;parameters&nbsp;meant&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**kwargs&nbsp;--&nbsp;dictionary&nbsp;of&nbsp;keyword:value&nbsp;parameters&nbsp;meant<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**kwargs&nbsp;--&nbsp;dictionary&nbsp;of&nbsp;keyword:value&nbsp;parameters<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;containing&nbsp;the&nbsp;optional&nbsp;_undoAction_&nbsp;parameter.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_undoAction_&nbsp;--&nbsp;has&nbsp;to&nbsp;be&nbsp;passed&nbsp;as&nbsp;a&nbsp;key:value&nbsp;pair&nbsp;inside&nbsp;kwargs.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;AtomicUndoAction&nbsp;object&nbsp;to&nbsp;append&nbsp;the&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;command&nbsp;to&nbsp;or&nbsp;None&nbsp;to&nbsp;create&nbsp;a&nbsp;default&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AtomicUndoAction&nbsp;with&nbsp;only&nbsp;the&nbsp;one&nbsp;command.<br>
 &nbsp;<br>
 Returns:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;wrapped&nbsp;function&nbsp;resulting&nbsp;value.</tt></dd></dl>
@@ -194,8 +298,12 @@ Considerations:<br>
 Parameters:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;funcSelf&nbsp;--&nbsp;reference&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function's&nbsp;class.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*args&nbsp;--&nbsp;parameters&nbsp;meant&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**kwargs&nbsp;--&nbsp;dictionary&nbsp;of&nbsp;keyword:value&nbsp;parameters&nbsp;meant<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**kwargs&nbsp;--&nbsp;dictionary&nbsp;of&nbsp;keyword:value&nbsp;parameters<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;containing&nbsp;the&nbsp;optional&nbsp;_undoAction_&nbsp;parameter.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_undoAction_&nbsp;--&nbsp;has&nbsp;to&nbsp;be&nbsp;passed&nbsp;as&nbsp;a&nbsp;key:value&nbsp;pair&nbsp;inside&nbsp;kwargs.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;AtomicUndoAction&nbsp;object&nbsp;to&nbsp;append&nbsp;the&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;command&nbsp;to&nbsp;or&nbsp;None&nbsp;to&nbsp;create&nbsp;a&nbsp;default&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AtomicUndoAction&nbsp;with&nbsp;only&nbsp;the&nbsp;one&nbsp;command.<br>
 &nbsp;<br>
 Returns:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;wrapped&nbsp;function&nbsp;resulting&nbsp;value.</tt></dd></dl>
@@ -227,8 +335,12 @@ Considerations:<br>
 Parameters:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;funcSelf&nbsp;--&nbsp;reference&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function's&nbsp;class.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*args&nbsp;--&nbsp;parameters&nbsp;meant&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**kwargs&nbsp;--&nbsp;dictionary&nbsp;of&nbsp;keyword:value&nbsp;parameters&nbsp;meant<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**kwargs&nbsp;--&nbsp;dictionary&nbsp;of&nbsp;keyword:value&nbsp;parameters<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;containing&nbsp;the&nbsp;optional&nbsp;_undoAction_&nbsp;parameter.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_undoAction_&nbsp;--&nbsp;has&nbsp;to&nbsp;be&nbsp;passed&nbsp;as&nbsp;a&nbsp;key:value&nbsp;pair&nbsp;inside&nbsp;kwargs.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;AtomicUndoAction&nbsp;object&nbsp;to&nbsp;append&nbsp;the&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;command&nbsp;to&nbsp;or&nbsp;None&nbsp;to&nbsp;create&nbsp;a&nbsp;default&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AtomicUndoAction&nbsp;with&nbsp;only&nbsp;the&nbsp;one&nbsp;command.<br>
 &nbsp;<br>
 Returns:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;wrapped&nbsp;function&nbsp;resulting&nbsp;value.</tt></dd></dl>
@@ -246,8 +358,12 @@ Considerations:<br>
 Parameters:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;funcSelf&nbsp;--&nbsp;reference&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function's&nbsp;class.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*args&nbsp;--&nbsp;parameters&nbsp;meant&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**kwargs&nbsp;--&nbsp;dictionary&nbsp;of&nbsp;keyword:value&nbsp;parameters&nbsp;meant<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**kwargs&nbsp;--&nbsp;dictionary&nbsp;of&nbsp;keyword:value&nbsp;parameters<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;containing&nbsp;the&nbsp;optional&nbsp;_undoAction_&nbsp;parameter.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_undoAction_&nbsp;--&nbsp;has&nbsp;to&nbsp;be&nbsp;passed&nbsp;as&nbsp;a&nbsp;key:value&nbsp;pair&nbsp;inside&nbsp;kwargs.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;AtomicUndoAction&nbsp;object&nbsp;to&nbsp;append&nbsp;the&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;command&nbsp;to&nbsp;or&nbsp;None&nbsp;to&nbsp;create&nbsp;a&nbsp;default&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AtomicUndoAction&nbsp;with&nbsp;only&nbsp;the&nbsp;one&nbsp;command.<br>
 &nbsp;<br>
 Returns:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;wrapped&nbsp;function&nbsp;resulting&nbsp;value.</tt></dd></dl>
@@ -265,8 +381,12 @@ Considerations:<br>
 Parameters:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;funcSelf&nbsp;--&nbsp;reference&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function's&nbsp;class.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*args&nbsp;--&nbsp;parameters&nbsp;meant&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**kwargs&nbsp;--&nbsp;dictionary&nbsp;of&nbsp;keyword:value&nbsp;parameters&nbsp;meant<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**kwargs&nbsp;--&nbsp;dictionary&nbsp;of&nbsp;keyword:value&nbsp;parameters<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;containing&nbsp;the&nbsp;optional&nbsp;_undoAction_&nbsp;parameter.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_undoAction_&nbsp;--&nbsp;has&nbsp;to&nbsp;be&nbsp;passed&nbsp;as&nbsp;a&nbsp;key:value&nbsp;pair&nbsp;inside&nbsp;kwargs.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;AtomicUndoAction&nbsp;object&nbsp;to&nbsp;append&nbsp;the&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;command&nbsp;to&nbsp;or&nbsp;None&nbsp;to&nbsp;create&nbsp;a&nbsp;default&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AtomicUndoAction&nbsp;with&nbsp;only&nbsp;the&nbsp;one&nbsp;command.<br>
 &nbsp;<br>
 Returns:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;wrapped&nbsp;function&nbsp;resulting&nbsp;value.</tt></dd></dl>
@@ -301,8 +421,12 @@ Considerations:<br>
 Parameters:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;funcSelf&nbsp;--&nbsp;reference&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function's&nbsp;class.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*args&nbsp;--&nbsp;parameters&nbsp;meant&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**kwargs&nbsp;--&nbsp;dictionary&nbsp;of&nbsp;keyword:value&nbsp;parameters&nbsp;meant<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**kwargs&nbsp;--&nbsp;dictionary&nbsp;of&nbsp;keyword:value&nbsp;parameters<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;containing&nbsp;the&nbsp;optional&nbsp;_undoAction_&nbsp;parameter.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_undoAction_&nbsp;--&nbsp;has&nbsp;to&nbsp;be&nbsp;passed&nbsp;as&nbsp;a&nbsp;key:value&nbsp;pair&nbsp;inside&nbsp;kwargs.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;AtomicUndoAction&nbsp;object&nbsp;to&nbsp;append&nbsp;the&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;command&nbsp;to&nbsp;or&nbsp;None&nbsp;to&nbsp;create&nbsp;a&nbsp;default&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AtomicUndoAction&nbsp;with&nbsp;only&nbsp;the&nbsp;one&nbsp;command.<br>
 &nbsp;<br>
 Returns:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;wrapped&nbsp;function&nbsp;resulting&nbsp;value.</tt></dd></dl>
@@ -320,8 +444,12 @@ Considerations:<br>
 Parameters:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;funcSelf&nbsp;--&nbsp;reference&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function's&nbsp;class.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*args&nbsp;--&nbsp;parameters&nbsp;meant&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**kwargs&nbsp;--&nbsp;dictionary&nbsp;of&nbsp;keyword:value&nbsp;parameters&nbsp;meant<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**kwargs&nbsp;--&nbsp;dictionary&nbsp;of&nbsp;keyword:value&nbsp;parameters<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;containing&nbsp;the&nbsp;optional&nbsp;_undoAction_&nbsp;parameter.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_undoAction_&nbsp;--&nbsp;has&nbsp;to&nbsp;be&nbsp;passed&nbsp;as&nbsp;a&nbsp;key:value&nbsp;pair&nbsp;inside&nbsp;kwargs.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;AtomicUndoAction&nbsp;object&nbsp;to&nbsp;append&nbsp;the&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;command&nbsp;to&nbsp;or&nbsp;None&nbsp;to&nbsp;create&nbsp;a&nbsp;default&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AtomicUndoAction&nbsp;with&nbsp;only&nbsp;the&nbsp;one&nbsp;command.<br>
 &nbsp;<br>
 Returns:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;wrapped&nbsp;function&nbsp;resulting&nbsp;value.</tt></dd></dl>
@@ -339,8 +467,12 @@ Considerations:<br>
 Parameters:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;funcSelf&nbsp;--&nbsp;reference&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function's&nbsp;class.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*args&nbsp;--&nbsp;parameters&nbsp;meant&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**kwargs&nbsp;--&nbsp;dictionary&nbsp;of&nbsp;keyword:value&nbsp;parameters&nbsp;meant<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**kwargs&nbsp;--&nbsp;dictionary&nbsp;of&nbsp;keyword:value&nbsp;parameters<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;containing&nbsp;the&nbsp;optional&nbsp;_undoAction_&nbsp;parameter.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_undoAction_&nbsp;--&nbsp;has&nbsp;to&nbsp;be&nbsp;passed&nbsp;as&nbsp;a&nbsp;key:value&nbsp;pair&nbsp;inside&nbsp;kwargs.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;AtomicUndoAction&nbsp;object&nbsp;to&nbsp;append&nbsp;the&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;command&nbsp;to&nbsp;or&nbsp;None&nbsp;to&nbsp;create&nbsp;a&nbsp;default&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AtomicUndoAction&nbsp;with&nbsp;only&nbsp;the&nbsp;one&nbsp;command.<br>
 &nbsp;<br>
 Returns:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;wrapped&nbsp;function&nbsp;resulting&nbsp;value.</tt></dd></dl>
@@ -348,49 +480,93 @@ Returns:<br>
 <dl><dt><a name="Instrument-checkActuallyIsMuted"><strong>checkActuallyIsMuted</strong></a>(self)</dt><dd><tt>Determines&nbsp;if&nbsp;this&nbsp;Intrument&nbsp;should&nbsp;be&nbsp;muted,&nbsp;by&nbsp;taking&nbsp;into&nbsp;account<br>
 if&nbsp;any&nbsp;other&nbsp;Intruments&nbsp;are&nbsp;muted.</tt></dd></dl>
 
-<dl><dt><a name="Instrument-finishRecordingEvent"><strong>finishRecordingEvent</strong></a> = UndoWrapper(funcSelf, *args, **kwargs)</dt><dd><tt>This&nbsp;function&nbsp;will&nbsp;wrap&nbsp;and&nbsp;take&nbsp;the&nbsp;place&nbsp;of&nbsp;the&nbsp;function<br>
-that&nbsp;is&nbsp;being&nbsp;decorated.&nbsp;All&nbsp;arguments&nbsp;to&nbsp;the&nbsp;original&nbsp;function<br>
-will&nbsp;be&nbsp;saved,&nbsp;and&nbsp;sent&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function&nbsp;call.<br>
-The&nbsp;funcSelf&nbsp;value&nbsp;must&nbsp;be&nbsp;the&nbsp;first&nbsp;parameter,&nbsp;because<br>
-the&nbsp;first&nbsp;parameter&nbsp;will&nbsp;always&nbsp;be&nbsp;self,&nbsp;and&nbsp;it&nbsp;carries&nbsp;a<br>
-reference&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function's&nbsp;class.<br>
-&nbsp;<br>
-Considerations:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;All&nbsp;decorated&nbsp;undo&nbsp;functions&nbsp;*must*&nbsp;be&nbsp;in&nbsp;a&nbsp;class&nbsp;or&nbsp;this&nbsp;will&nbsp;fail.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
-Parameters:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;funcSelf&nbsp;--&nbsp;reference&nbsp;to&nbsp;the&nbsp;decorated&nbsp;function's&nbsp;class.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*args&nbsp;--&nbsp;parameters&nbsp;meant&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**kwargs&nbsp;--&nbsp;dictionary&nbsp;of&nbsp;keyword:value&nbsp;parameters&nbsp;meant<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;the&nbsp;decorated&nbsp;function.<br>
-&nbsp;<br>
-Returns:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;wrapped&nbsp;function&nbsp;resulting&nbsp;value.</tt></dd></dl>
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>LADSPA_ELEMENT_CAPS</strong> = 'audio/x-raw-float, width=(int)32, rate=(int)[ 1,...47 ], channels=(int)1, endianness=(int)BYTE_ORDER'</dl>
 
-<dl><dt><a name="Instrument-getRecordingEvent"><strong>getRecordingEvent</strong></a>(self)</dt><dd><tt>Obtain&nbsp;an&nbsp;Event&nbsp;suitable&nbsp;for&nbsp;recording.&nbsp;*CHECK*<br>
-Returns:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;an&nbsp;Event&nbsp;suitable&nbsp;for&nbsp;recording.</tt></dd></dl>
+<dl><dt><strong>__gtype__</strong> = &lt;GType Instrument+Instrument (35940032)&gt;</dl>
 
 <hr>
-Methods inherited from <a href="Monitored.html#Monitored">Monitored.Monitored</a>:<br>
-<dl><dt><a name="Instrument-AddListener"><strong>AddListener</strong></a>(self, obj)</dt><dd><tt>Adds&nbsp;an&nbsp;object&nbsp;to&nbsp;report&nbsp;changes&nbsp;to.<br>
-&nbsp;<br>
-Parameters:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;obj&nbsp;--&nbsp;an&nbsp;object&nbsp;to&nbsp;inform&nbsp;when&nbsp;StateChanged&nbsp;is&nbsp;called.</tt></dd></dl>
+Methods inherited from <a href="gobject._gobject.html#GObject">gobject._gobject.GObject</a>:<br>
+<dl><dt><a name="Instrument-__cmp__"><strong>__cmp__</strong></a>(...)</dt><dd><tt>x.<a href="#Instrument-__cmp__">__cmp__</a>(y)&nbsp;&lt;==&gt;&nbsp;cmp(x,y)</tt></dd></dl>
 
-<dl><dt><a name="Instrument-ClearListeners"><strong>ClearListeners</strong></a>(self)</dt><dd><tt>Remove&nbsp;all&nbsp;listeners&nbsp;to&nbsp;allow&nbsp;them&nbsp;to&nbsp;be&nbsp;destroyed.</tt></dd></dl>
+<dl><dt><a name="Instrument-__copy__"><strong>__copy__</strong></a>(...)</dt></dl>
 
-<dl><dt><a name="Instrument-RemoveListener"><strong>RemoveListener</strong></a>(self, obj)</dt><dd><tt>Stop&nbsp;reporting&nbsp;changes&nbsp;to&nbsp;the&nbsp;specified&nbsp;object.<br>
-&nbsp;<br>
-Parameters:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;obj&nbsp;--&nbsp;the&nbsp;object&nbsp;which&nbsp;should&nbsp;no&nbsp;longer&nbsp;receive&nbsp;change&nbsp;updates.</tt></dd></dl>
+<dl><dt><a name="Instrument-__deepcopy__"><strong>__deepcopy__</strong></a>(...)</dt></dl>
 
-<dl><dt><a name="Instrument-StateChanged"><strong>StateChanged</strong></a>(self, change<font color="#909090">=None</font>, *extra)</dt><dd><tt>This&nbsp;method&nbsp;should&nbsp;be&nbsp;called&nbsp;when&nbsp;we&nbsp;want&nbsp;a&nbsp;change&nbsp;to&nbsp;be&nbsp;reported<br>
-to&nbsp;all&nbsp;objects&nbsp;previously&nbsp;added&nbsp;by&nbsp;AddListener.&nbsp;<br>
-&nbsp;<br>
-Parameters:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;change&nbsp;--&nbsp;the&nbsp;change&nbsp;which&nbsp;has&nbsp;occured.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;extra&nbsp;--&nbsp;any&nbsp;extra&nbsp;parameters&nbsp;that&nbsp;should&nbsp;be&nbsp;passed.</tt></dd></dl>
+<dl><dt><a name="Instrument-__delattr__"><strong>__delattr__</strong></a>(...)</dt><dd><tt>x.<a href="#Instrument-__delattr__">__delattr__</a>('name')&nbsp;&lt;==&gt;&nbsp;del&nbsp;x.name</tt></dd></dl>
+
+<dl><dt><a name="Instrument-__gobject_init__"><strong>__gobject_init__</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Instrument-__hash__"><strong>__hash__</strong></a>(...)</dt><dd><tt>x.<a href="#Instrument-__hash__">__hash__</a>()&nbsp;&lt;==&gt;&nbsp;hash(x)</tt></dd></dl>
+
+<dl><dt><a name="Instrument-__setattr__"><strong>__setattr__</strong></a>(...)</dt><dd><tt>x.<a href="#Instrument-__setattr__">__setattr__</a>('name',&nbsp;value)&nbsp;&lt;==&gt;&nbsp;x.name&nbsp;=&nbsp;value</tt></dd></dl>
+
+<dl><dt><a name="Instrument-chain"><strong>chain</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Instrument-connect"><strong>connect</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Instrument-connect_after"><strong>connect_after</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Instrument-connect_object"><strong>connect_object</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Instrument-connect_object_after"><strong>connect_object_after</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Instrument-disconnect"><strong>disconnect</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Instrument-disconnect_by_func"><strong>disconnect_by_func</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Instrument-emit"><strong>emit</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Instrument-emit_stop_by_name"><strong>emit_stop_by_name</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Instrument-freeze_notify"><strong>freeze_notify</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Instrument-get_data"><strong>get_data</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Instrument-get_properties"><strong>get_properties</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Instrument-get_property"><strong>get_property</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Instrument-handler_block"><strong>handler_block</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Instrument-handler_block_by_func"><strong>handler_block_by_func</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Instrument-handler_disconnect"><strong>handler_disconnect</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Instrument-handler_is_connected"><strong>handler_is_connected</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Instrument-handler_unblock"><strong>handler_unblock</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Instrument-handler_unblock_by_func"><strong>handler_unblock_by_func</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Instrument-notify"><strong>notify</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Instrument-set_data"><strong>set_data</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Instrument-set_properties"><strong>set_properties</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Instrument-set_property"><strong>set_property</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Instrument-stop_emission"><strong>stop_emission</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Instrument-thaw_notify"><strong>thaw_notify</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Instrument-weak_ref"><strong>weak_ref</strong></a>(...)</dt></dl>
+
+<hr>
+Data descriptors inherited from <a href="gobject._gobject.html#GObject">gobject._gobject.GObject</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+</dl>
+<dl><dt><strong>__grefcount__</strong></dt>
+</dl>
+<hr>
+Data and other attributes inherited from <a href="gobject._gobject.html#GObject">gobject._gobject.GObject</a>:<br>
+<dl><dt><strong>__gdoc__</strong> = 'Object Instrument+Instrument<font color="#c040c0">\n\n\n\t</font>This module is t...one ()<font color="#c040c0">\n\n</font>Signals from GObject:<font color="#c040c0">\n</font>  notify (GParam)<font color="#c040c0">\n\n</font>'</dl>
+
+<dl><dt><strong>__new__</strong> = &lt;built-in method __new__ of GObjectMeta object&gt;<dd><tt>T.<a href="#Instrument-__new__">__new__</a>(S,&nbsp;...)&nbsp;-&gt;&nbsp;a&nbsp;new&nbsp;object&nbsp;with&nbsp;type&nbsp;S,&nbsp;a&nbsp;subtype&nbsp;of&nbsp;T</tt></dl>
+
+<dl><dt><strong>props</strong> = &lt;gobject.GProps object&gt;</dl>
 
 </td></tr></table></td></tr></table>
 </body></html>
