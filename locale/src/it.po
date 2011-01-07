@@ -9,57 +9,222 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-26 00:54+0000\n"
+"POT-Creation-Date: 2011-01-07 14:18+0100\n"
 "PO-Revision-Date: 2009-12-29 13:29+0000\n"
 "Last-Translator: Danielsan474 <Unknown>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
+"Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2010-02-26 00:44+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
-#: ../../Jokosher/Jokosher.glade.h:1
-msgid "<b>Active effects for: </b>"
-msgstr "<b>Effetti attivi per: </b>"
+#: ../../gtk-builder-ui/AboutDialog.ui:10
+msgid ""
+"Audio production made simple.\n"
+"Version 0.11.5"
+msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:2
-msgid "<b>Application Start-up</b>"
-msgstr "<b>Avvio dell'applicazione</b>"
+#. TRANSLATORS: Replace this string with your names, one name per line.
+#: ../../gtk-builder-ui/AboutDialog.ui:384
+msgid ""
+"Iestyn Pryce <dylunio@gmail.com>\n"
+"Jerome S. Gotangco <jgotangco@ubuntu.com>\n"
+"torb <torrb@musiker.nu>\n"
+"Robert Renling Berencreuz <berencreuz@gmail.com>\n"
+"Ola Jeppsson <ola.jeppsson@gmail.com>\n"
+"Daniel Nylander <po@danielnylander.se>\n"
+"aruiz <aruiz@synaptia.net>\n"
+"Manuel Duran Moyano <mduran@ubiobio.cl>\n"
+"Laszlo Pandy <laszlok2@gmail.com>\n"
+"Iván Edgardo Vázquez Santos \n"
+"David Corrales <corrales.david@gmail.com>\n"
+"Benjamin A'Lee <bma@bmalee.eu>\n"
+"Peter Baričič <pbaricic@gmail.com>\n"
+"Артём Попов <artfwo@gmail.com>\n"
+"deepred <psalmos@swissinfo.org>\n"
+"KeepYourMind <keepyourmind@gmail.com>\n"
+"Georgy Faradzhev <georgy.faradzhev@gmail.com>\n"
+"Gendolf <pr-baukalo@rambler.ru>\n"
+"Rodrigo NSH <rodrigo.nsh@gmail.com>\n"
+"Christian Reis <kiko@async.com.br>\n"
+"Lourabe Multimédia \n"
+"Tomasz Dominikowski <dominikowski@gmail.com>\n"
+"Konrad Adamczyk <konrad@svx.pl>\n"
+"Hender <simsalabimladen@gmail.com>\n"
+"sklp\n"
+"Bård Aase <base@kvarteret.no>\n"
+"Pecisk <pecisk@gmail.com>\n"
+"Luca Ferretti <elle.uca@libero.it>\n"
+"Daniele Medri <daniele@medri.org>\n"
+"Igor Khanin \n"
+"Tobias Frederick <me@tbfr.org>\n"
+"Tim Fuchs <tim.fuchs@gmail.com>\n"
+"Ramona Barte \n"
+"Marcus Hochstadt\n"
+"Lebowski\n"
+"Julian Turner\n"
+"Dennis Lichtenthäler <dennis.lichtenthaeler@episode-iv.de>\n"
+"dyphil <dyphil@wanadoo.fr>\n"
+"XioNoX \n"
+"Stemp <StempUbuntu@gmail.com>\n"
+"Signez\n"
+"Pierre Slamich <pierre.slamich@gmail.com>\n"
+"Nicolas Velin <nsv@fr.st>\n"
+"Jean-Francois Arseneau <jf.arseneau@gmail.com>\n"
+"Guillaume Hoffmann \n"
+"Gabriel de Perthuis <gabriel.de-perthuis@laposte.net>\n"
+"Bruno Bord <bruno@jehaisleprintemps.net>\n"
+"Mikko Virkkilä <mvirkkil@cc.hut.fi>\n"
+"Boyd Timothy\n"
+"William Anderson<neuro@well.com>\n"
+"Sridhar Dhanapalan <sridhar@dhanapalan.com>\n"
+"Roger Light <roger@atchoo.org>\n"
+"Malcolm Parsons\n"
+"Peturrr <peterdekraker@planet.nl>\n"
+"jerven Bolleman <ik@jerven.eu>\n"
+"Mathias-K <mathias@computergeil.dk>\n"
+"Niels Kjøller Hansen <niels.k.h@gmail.com>\n"
+"David Nielsen <david@lovesunix.net>\n"
+"daave <fan.d.liu@gmail.com>\n"
+msgstr ""
+"Iestyn Pryce <dylunio@gmail.com>\n"
+"Jerome S. Gotangco <jgotangco@ubuntu.com>\n"
+"torb <torrb@musiker.nu>\n"
+"Robert Renling Berencreuz <berencreuz@gmail.com>\n"
+"Ola Jeppsson <ola.jeppsson@gmail.com>\n"
+"Daniel Nylander <po@danielnylander.se>\n"
+"aruiz <aruiz@synaptia.net>\n"
+"Manuel Duran Moyano <mduran@ubiobio.cl>\n"
+"Laszlo Pandy <laszlok2@gmail.com>\n"
+"Iván Edgardo Vázquez Santos \n"
+"David Corrales <corrales.david@gmail.com>\n"
+"Benjamin A'Lee <bma@bmalee.eu>\n"
+"Peter Baričič <pbaricic@gmail.com>\n"
+"Артём Попов <artfwo@gmail.com>\n"
+"deepred <psalmos@swissinfo.org>\n"
+"KeepYourMind <keepyourmind@gmail.com>\n"
+"Georgy Faradzhev <georgy.faradzhev@gmail.com>\n"
+"Gendolf <pr-baukalo@rambler.ru>\n"
+"Rodrigo NSH <rodrigo.nsh@gmail.com>\n"
+"Christian Reis <kiko@async.com.br>\n"
+"Lourabe Multimédia \n"
+"Tomasz Dominikowski <dominikowski@gmail.com>\n"
+"Konrad Adamczyk <konrad@svx.pl>\n"
+"Hender <simsalabimladen@gmail.com>\n"
+"sklp\n"
+"Bård Aase <base@kvarteret.no>\n"
+"Pecisk <pecisk@gmail.com>\n"
+"Luca Ferretti <elle.uca@libero.it>\n"
+"Daniele Medri <daniele@medri.org>\n"
+"Igor Khanin \n"
+"Tobias Frederick <me@tbfr.org>\n"
+"Tim Fuchs <tim.fuchs@gmail.com>\n"
+"Ramona Barte \n"
+"Marcus Hochstadt\n"
+"Lebowski\n"
+"Julian Turner\n"
+"Dennis Lichtenthäler <dennis.lichtenthaeler@episode-iv.de>\n"
+"dyphil <dyphil@wanadoo.fr>\n"
+"XioNoX \n"
+"Stemp <StempUbuntu@gmail.com>\n"
+"Signez\n"
+"Pierre Slamich <pierre.slamich@gmail.com>\n"
+"Nicolas Velin <nsv@fr.st>\n"
+"Jean-Francois Arseneau <jf.arseneau@gmail.com>\n"
+"Guillaume Hoffmann \n"
+"Gabriel de Perthuis <gabriel.de-perthuis@laposte.net>\n"
+"Bruno Bord <bruno@jehaisleprintemps.net>\n"
+"Mikko Virkkilä <mvirkkil@cc.hut.fi>\n"
+"Boyd Timothy\n"
+"William Anderson<neuro@well.com>\n"
+"Sridhar Dhanapalan <sridhar@dhanapalan.com>\n"
+"Roger Light <roger@atchoo.org>\n"
+"Malcolm Parsons\n"
+"Peturrr <peterdekraker@planet.nl>\n"
+"jerven Bolleman <ik@jerven.eu>\n"
+"Mathias-K <mathias@computergeil.dk>\n"
+"Niels Kjøller Hansen <niels.k.h@gmail.com>\n"
+"David Nielsen <david@lovesunix.net>\n"
+"daave <fan.d.liu@gmail.com>\n"
 
-#: ../../Jokosher/Jokosher.glade.h:3
-msgid "<b>Art</b>"
-msgstr "<b>Grafica</b>"
+#: ../../gtk-builder-ui/AddInstrumentDialog.ui:7
+msgid "Add an instrument"
+msgstr "Aggiunge uno strumento"
 
-#: ../../Jokosher/Jokosher.glade.h:4
-msgid "<b>Coding</b>"
-msgstr "<b>Sviluppo</b>"
+#: ../../gtk-builder-ui/AddInstrumentDialog.ui:21
+msgid "Choose one or more instruments to add to your project."
+msgstr "Scegliere uno o più strumenti da aggiungere al proprio progetto."
 
-#: ../../Jokosher/Jokosher.glade.h:5
-msgid "<b>Documentation</b>"
-msgstr "<b>Documentazione</b>"
+#: ../../gtk-builder-ui/AddInstrumentDialog.ui:37
+msgid "_Search:"
+msgstr "_Cerca:"
 
-#: ../../Jokosher/Jokosher.glade.h:6
-msgid "<b>Effect Name</b>"
-msgstr "<b>Nome dell'effetto</b>"
+#: ../../gtk-builder-ui/AddInstrumentDialog.ui:51
+msgid "Type here to search for an instrument"
+msgstr "Digitare qui per cercare uno strumento"
 
-#: ../../Jokosher/Jokosher.glade.h:7
-msgid "<b>Effects</b>"
-msgstr "<b>Effetti</b>"
+#: ../../gtk-builder-ui/AddInstrumentDialog.ui:96
+msgid "Don't add an instrument"
+msgstr "Non aggiunge alcuno strumento"
 
-#: ../../Jokosher/Jokosher.glade.h:8
+#: ../../gtk-builder-ui/AddInstrumentDialog.ui:113
+msgid "Add the selected instrument"
+msgstr "Aggiunge lo strumento selezionato"
+
+#: ../../gtk-builder-ui/AddMixdownActionDialog.ui:7
+msgid "Add Mixdown Action"
+msgstr ""
+
+#: ../../gtk-builder-ui/AddMixdownActionDialog.ui:24
+msgid ""
+"Please select the mixdown actions you would like to add to the mixdown "
+"profile *profile*"
+msgstr ""
+
+#: ../../gtk-builder-ui/AddMixdownActionDialog.ui:110
+msgid "Add Action"
+msgstr "Aggiungi azione"
+
+#: ../../gtk-builder-ui/ConfigureExportFileAction.ui:13
+msgid "Configure Export File Action"
+msgstr "Configura azione per l'esportazione"
+
+#: ../../gtk-builder-ui/ConfigureExportFileAction.ui:25
+msgid ""
+"Please enter the filename of the audio you wish to export. The audio will be "
+"exported to the location specified."
+msgstr ""
+"Inserisci il nome del file audio che si desidera esportare. L'audio sarà "
+"esportato verso la posizione specificata."
+
+#: ../../gtk-builder-ui/ConfigureExportFileAction.ui:54
+msgid "File name:"
+msgstr "Nome file:"
+
+#: ../../gtk-builder-ui/ConfigureExportFileAction.ui:65
+#: ../../Jokosher/JokosherApp.py:639
+msgid "Save as file type:"
+msgstr "Salva come tipo di file:"
+
+#: ../../gtk-builder-ui/ConfigureExportFileAction.ui:115
 msgid "<b>File Details</b>"
 msgstr "<b>Dettagli file</b>"
 
-#: ../../Jokosher/Jokosher.glade.h:9
-msgid "<b>General</b>"
-msgstr "<b>Generale</b>"
+#: ../../gtk-builder-ui/ConfigureExportFileAction.ui:144
+msgid "Export to local directory"
+msgstr "Esporta in una cartella locale"
 
-#: ../../Jokosher/Jokosher.glade.h:10
-msgid "<b>Jokosher Instruments</b>"
-msgstr "<b>Strumenti Jokosher</b>"
+#: ../../gtk-builder-ui/ConfigureExportFileAction.ui:160
+msgid "Export to remote server"
+msgstr "Esporta in un server remoto"
 
-#: ../../Jokosher/Jokosher.glade.h:11
+#: ../../gtk-builder-ui/ConfigureExportFileAction.ui:200
+msgid "<b>Location Details</b>"
+msgstr "<b>Dettagli Ubicazione</b>"
+
+#: ../../gtk-builder-ui/ContributingDialog.ui:34
 msgid ""
 "<b>Jokosher is an Open Source project that is driven by a community of "
 "contributors. To make Jokosher rock, we need your help!</b>"
@@ -68,873 +233,577 @@ msgstr ""
 "sviluppatori. Per renderlo imbattibile, abbiamo bisogno anche del tuo aiuto!"
 "</b>"
 
-#: ../../Jokosher/Jokosher.glade.h:12
-msgid "<b>Location Details</b>"
-msgstr "<b>Dettagli Ubicazione</b>"
-
-#: ../../Jokosher/Jokosher.glade.h:13
-msgid "<b>Mixdown Actions</b>"
-msgstr "<b>Azioni di mixdown</b>"
-
-#: ../../Jokosher/Jokosher.glade.h:14
-msgid "<b>N_otes</b>"
-msgstr "<b>N_ote</b>"
-
-#: ../../Jokosher/Jokosher.glade.h:15
-msgid "<b>Playback Sound System</b>"
-msgstr "<b>Sistema audio per la riproduzione</b>"
-
-#: ../../Jokosher/Jokosher.glade.h:16
-msgid "<b>Recent Projects</b>"
-msgstr "<b>Progetti recenti</b>"
-
-#: ../../Jokosher/Jokosher.glade.h:17
-msgid "<b>Recording Format</b>"
-msgstr "<b>Formato Registrazione</b>"
-
-#: ../../Jokosher/Jokosher.glade.h:18
-msgid "<b>Recording Sound System</b>"
-msgstr "<b>Sistema audio per la registrazione</b>"
-
-#: ../../Jokosher/Jokosher.glade.h:19
-msgid "<b>Template Instruments</b>"
-msgstr "<b>Modelli per strumenti</b>"
-
-#: ../../Jokosher/Jokosher.glade.h:20
-msgid "<b>Testing</b>"
-msgstr "<b>Testing</b>"
-
-#: ../../Jokosher/Jokosher.glade.h:21
-msgid "<b>Time Signature</b>"
-msgstr "<b>Indicazione del tempo</b>"
-
-#: ../../Jokosher/Jokosher.glade.h:22
-msgid "<b>_Presets for:</b>"
-msgstr "<b>Im_postazioni per:</b>"
-
-#: ../../Jokosher/Jokosher.glade.h:23
-msgid "<big><b>Mixing the project...</b></big>"
-msgstr "<big><b>Realizzazione del progetto...</b></big>"
-
-#: ../../Jokosher/Jokosher.glade.h:24
-msgid "<big>System Information</big>"
-msgstr "<big>Informazione di sistema</big>"
-
-#: ../../Jokosher/Jokosher.glade.h:25
-msgid "Activate the selected effect"
-msgstr "Attiva l'effetto selezionato"
-
-#: ../../Jokosher/Jokosher.glade.h:26
-msgid "Add Action"
-msgstr "Aggiungi azione"
-
-#: ../../Jokosher/Jokosher.glade.h:27
-msgid "Add Audio File"
-msgstr "Aggiungi file audio"
-
-#: ../../Jokosher/Jokosher.glade.h:28
-msgid "Add Audio _File..."
-msgstr "Aggiungi _File audio"
-
-#: ../../Jokosher/Jokosher.glade.h:29
-msgid "Add Instrument"
-msgstr "Aggiungi strumento"
-
-#: ../../Jokosher/Jokosher.glade.h:30
-msgid "Add Mixdown Action"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:31
-msgid "Add _Instrument..."
-msgstr "Aggiung_i strumento..."
-
-#: ../../Jokosher/Jokosher.glade.h:32
-msgid "Add an audio file to the project"
-msgstr "Aggiunge un nuovo file audio al progetto"
-
-#: ../../Jokosher/Jokosher.glade.h:33
-msgid "Add an audio file to the selected instrument"
-msgstr "Aggiunge un file audio allo strumento selezionato"
-
-#: ../../Jokosher/Jokosher.glade.h:34
-msgid "Add an extension"
-msgstr "Aggiunge una estensione"
-
-#: ../../Jokosher/Jokosher.glade.h:35
-msgid "Add an instrument"
-msgstr "Aggiunge uno strumento"
-
-#: ../../Jokosher/Jokosher.glade.h:36
-msgid "Add an instrument to the project"
-msgstr "Aggiunge uno strumento al progetto"
-
-#: ../../Jokosher/Jokosher.glade.h:37
-msgid "Add the selected instrument"
-msgstr "Aggiunge lo strumento selezionato"
-
-#: ../../Jokosher/Jokosher.glade.h:38
-msgid "Add the selected jokosher instrument"
-msgstr "Aggiungi lo strumento jokosher selezionato"
-
-#: ../../Jokosher/Jokosher.glade.h:39
-msgid "Adjust the amount of beats per measure"
-msgstr "Regola la quantità di battiti per misura"
-
-#: ../../Jokosher/Jokosher.glade.h:40
-msgid "Adjust the settings for the currently selected active effect"
-msgstr "Regola le impostazioni per l'effetto attivo attualmente selezionato"
-
-#: ../../Jokosher/Jokosher.glade.h:41
-msgid "Arm an instrument then click here to begin recording"
-msgstr "Inbraccia  uno strumento e poi clicca qui per iniziare a registrare"
-
-#: ../../Jokosher/Jokosher.glade.h:42
-msgid "Audio Mixers"
-msgstr "Mixer audio"
-
-#: ../../Jokosher/Jokosher.glade.h:43
-msgid ""
-"Audio production made simple.\n"
-"Version 0.11.4"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:45
-msgid "Beat _value"
-msgstr "_Valore battuta"
-
-#: ../../Jokosher/Jokosher.glade.h:46
-msgid "Beats per _measure"
-msgstr "Battute per _misura"
-
-#: ../../Jokosher/Jokosher.glade.h:47
-msgid "C_hange Sound System"
-msgstr "_Cambia il sistema audio"
-
-#: ../../Jokosher/Jokosher.glade.h:48
-msgid "Cancel the mixdown"
-msgstr "Annulla il mixdown"
-
-#: ../../Jokosher/Jokosher.glade.h:49
-msgid "Change Jokosher preferences"
-msgstr "Cambia le preferenze di Jokosher"
-
-#: ../../Jokosher/Jokosher.glade.h:50
-msgid "Change the timeline"
-msgstr "Cambia la linea temporale"
-
-#: ../../Jokosher/Jokosher.glade.h:51
-msgid "Change the timeline to show bars, beats and ticks"
-msgstr "Cambia la linea temporale per mostrare barre, battute, tacche"
-
-#: ../../Jokosher/Jokosher.glade.h:52
-msgid "Change the timeline to show hours, minutes and seconds"
-msgstr "Cambia la linea temporale per mostrare ore, minuti, secondi"
-
-#: ../../Jokosher/Jokosher.glade.h:53
-msgid "Change type of the selected instrument"
-msgstr "Cambia il tipo di strumento selezionato"
-
-#: ../../Jokosher/Jokosher.glade.h:54
-msgid "Choose a chain effects preset."
-msgstr "Sceglie una catena di effetti preselezionata."
-
-#: ../../Jokosher/Jokosher.glade.h:55
-msgid "Choose a project template"
-msgstr "Scegli un modello di progetto"
-
-#: ../../Jokosher/Jokosher.glade.h:56
-msgid "Choose an effect preset."
-msgstr "Sceglie un effetto preselezionato."
-
-#: ../../Jokosher/Jokosher.glade.h:57
-msgid "Choose one or more instruments to add to your project."
-msgstr "Scegliere uno o più strumenti da aggiungere al proprio progetto."
-
-#: ../../Jokosher/Jokosher.glade.h:58
-msgid "Click and hold to fast forward"
-msgstr "Fare clic e tenere premuto per l'avanzamento rapido"
-
-#: ../../Jokosher/Jokosher.glade.h:59
-msgid "Click and hold to rewind"
-msgstr "Fare clic e tenere premuto per il riavvolgimento rapido"
-
-#: ../../Jokosher/Jokosher.glade.h:60
-msgid "Close the current project"
-msgstr "Chiude il progetto corrente"
-
-#: ../../Jokosher/Jokosher.glade.h:61
-msgid "Close the extension manager"
-msgstr "Chiude il gestore di estensioni"
-
-#: ../../Jokosher/Jokosher.glade.h:62
-msgid "Close this window"
-msgstr "Chiudi questa finestra"
-
-#: ../../Jokosher/Jokosher.glade.h:63
-msgid "Configure Export File Action"
-msgstr "Configura azione per l'esportazione"
-
-#: ../../Jokosher/Jokosher.glade.h:64
-msgid "Configure Instrument Effects"
-msgstr "Configura effetti degli strumenti"
-
-#: ../../Jokosher/Jokosher.glade.h:65
-msgid "Copy the current selection"
-msgstr "Copia la selezione corrente"
-
-#: ../../Jokosher/Jokosher.glade.h:66
-msgid "Create a new project"
-msgstr "Crea un nuovo progetto"
-
-#: ../../Jokosher/Jokosher.glade.h:67
-msgid "Create the project"
-msgstr "Crea il progetto"
-
-#: ../../Jokosher/Jokosher.glade.h:68
-msgid "Cut the current selection"
-msgstr "Taglia la selezione corrente"
-
-#: ../../Jokosher/Jokosher.glade.h:69
-msgid "De_vice:"
-msgstr "Dispositi_vo"
-
-#: ../../Jokosher/Jokosher.glade.h:70
-msgid "Deactivate the currently selected active effect"
-msgstr "Disattiva l'effetto attivo al momento selezionato"
-
-#: ../../Jokosher/Jokosher.glade.h:71
-msgid "Delete the current selection"
-msgstr "Elimina la selezione corrente"
-
-#: ../../Jokosher/Jokosher.glade.h:72
-msgid "Delete the currently active effects preset"
-msgstr "Elimina la preselezione di effetti al momento attiva"
-
-#: ../../Jokosher/Jokosher.glade.h:73
-msgid "Delete the currently active preset"
-msgstr "Attiva la preselezione al momento attiva"
-
-#: ../../Jokosher/Jokosher.glade.h:74
-msgid "Delete the selected project template"
-msgstr "Elimina il modello di progetto selezionato"
-
-#: ../../Jokosher/Jokosher.glade.h:75
-msgid "Distribution:"
-msgstr "Distribuzione:"
-
-#: ../../Jokosher/Jokosher.glade.h:76
-msgid "Don't add an instrument"
-msgstr "Non aggiunge alcuno strumento"
-
-#: ../../Jokosher/Jokosher.glade.h:77
-msgid "Don't create the project"
-msgstr "Non crea il progetto"
-
-#: ../../Jokosher/Jokosher.glade.h:78
-msgid "Double-click an active effect to adjust its settings"
-msgstr "Doppio clic su un effetto attivo per regolare le sue impostazioni"
-
-#: ../../Jokosher/Jokosher.glade.h:79
-msgid "Double-click an effect to activate it"
-msgstr "Doppio-clic su un effetto per attivarlo"
-
-#: ../../Jokosher/Jokosher.glade.h:80
-msgid "Double-click on a recent project to open"
-msgstr "Doppio-clic su un progetto recente per aprirlo"
-
-#: ../../Jokosher/Jokosher.glade.h:81
+#: ../../gtk-builder-ui/ContributingDialog.ui:55
+msgid "Testing Jokosher, and submitting bugs."
+msgstr "Provare Jokosher e segnalare bug."
+
+#: ../../gtk-builder-ui/ContributingDialog.ui:70
 msgid "Drawing icons, images and other art."
 msgstr "Disegno di icone, immagini e altro."
 
-#: ../../Jokosher/Jokosher.glade.h:82
+#: ../../gtk-builder-ui/ContributingDialog.ui:85
+msgid "Writing simple to read documentation."
+msgstr "Scrittura di documentazine semplice da leggere."
+
+#: ../../gtk-builder-ui/ContributingDialog.ui:100
+msgid "Writing code and features in Python."
+msgstr "Scrittura di codice e funzioni in Python."
+
+#: ../../gtk-builder-ui/ContributingDialog.ui:124
+msgid "<b>Testing</b>"
+msgstr "<b>Testing</b>"
+
+#: ../../gtk-builder-ui/ContributingDialog.ui:141
+msgid "<b>Art</b>"
+msgstr "<b>Grafica</b>"
+
+#: ../../gtk-builder-ui/ContributingDialog.ui:158
+msgid "<b>Documentation</b>"
+msgstr "<b>Documentazione</b>"
+
+#: ../../gtk-builder-ui/ContributingDialog.ui:207
+msgid "<b>Coding</b>"
+msgstr "<b>Sviluppo</b>"
+
+#: ../../gtk-builder-ui/EffectSettingsDialog.ui:18
+msgid "Settings"
+msgstr "Impostazioni"
+
+#: ../../gtk-builder-ui/EffectSettingsDialog.ui:47
+msgid "<b>Effect Name</b>"
+msgstr "<b>Nome dell'effetto</b>"
+
+#: ../../gtk-builder-ui/EffectSettingsDialog.ui:112
+msgid "Save the current settings as a preset"
+msgstr "Salva le impostazioni attuali come una preselezione"
+
+#: ../../gtk-builder-ui/EffectSettingsDialog.ui:132
+msgid "Delete the currently active preset"
+msgstr "Attiva la preselezione al momento attiva"
+
+#: ../../gtk-builder-ui/EffectSettingsDialog.ui:185
+msgid "Use these effect settings"
+msgstr "Usa queste impostazioni degli effetti"
+
+#: ../../gtk-builder-ui/ExtensionManagerDialog.ui:56
+msgid "Add an extension"
+msgstr "Aggiunge una estensione"
+
+#: ../../gtk-builder-ui/ExtensionManagerDialog.ui:76
+msgid "Remove the currently selected extension"
+msgstr "Rimove l'estensione attualmente selezionata"
+
+#: ../../gtk-builder-ui/ExtensionManagerDialog.ui:98
+#: ../../gtk-builder-ui/MainWindow.ui:315
 msgid "Edit Jokosher preferences"
 msgstr "Modifica le preferenze di Jokosher"
 
-#: ../../Jokosher/Jokosher.glade.h:83
-msgid "Edit project templates"
-msgstr "Modifica modelli di progetto"
+#: ../../gtk-builder-ui/ExtensionManagerDialog.ui:123
+msgid "Close the extension manager"
+msgstr "Chiude il gestore di estensioni"
 
-#: ../../Jokosher/Jokosher.glade.h:84
-msgid ""
-"Enter a name for your project and select a folder to store the project in:"
-msgstr ""
-"Inserire un nome per il proprio progetto e selezionare una cartella in cui "
-"memorizzarlo:"
+#: ../../gtk-builder-ui/InstrumentConnectionsDialog.ui:23
+msgid "Select the audio input to use with each instrument."
+msgstr "Selezionare l'ingresso audio da usare con ciascuno strumento."
 
-#: ../../Jokosher/Jokosher.glade.h:85
-msgid "Enter the author's name"
-msgstr "Inserire il nome dell'autore"
+#: ../../gtk-builder-ui/InstrumentConnectionsDialog.ui:75
+msgid "C_hange Sound System"
+msgstr "_Cambia il sistema audio"
 
-#: ../../Jokosher/Jokosher.glade.h:86
-msgid "Enter the project's name"
-msgstr "Inserire il nome del progetto"
+#: ../../gtk-builder-ui/InstrumentConnectionsDialog.ui:103
+msgid "Save your selections and close this window"
+msgstr "Salva la selezione e chiude questa finestra"
 
-#: ../../Jokosher/Jokosher.glade.h:87
-msgid "Ex_tensions"
-msgstr "Es_tensioni"
+#: ../../gtk-builder-ui/InstrumentEffectsDialog.ui:18
+msgid "Configure Instrument Effects"
+msgstr "Configura effetti degli strumenti"
 
-#: ../../Jokosher/Jokosher.glade.h:88
-msgid "Export current project to an audio file"
-msgstr "Esporta il progetto corrente su un file audio"
+#: ../../gtk-builder-ui/InstrumentEffectsDialog.ui:36
+msgid "<b>_Presets for:</b>"
+msgstr "<b>Im_postazioni per:</b>"
 
-#: ../../Jokosher/Jokosher.glade.h:89
-msgid "Export to local directory"
-msgstr "Esporta in una cartella locale"
+#: ../../gtk-builder-ui/InstrumentEffectsDialog.ui:78
+msgid "Save the currently active effects as a preset"
+msgstr "Salva gli effetti al momento attivi come una preselezione"
 
-#: ../../Jokosher/Jokosher.glade.h:90
-msgid "Export to remote server"
-msgstr "Esporta in un server remoto"
+#: ../../gtk-builder-ui/InstrumentEffectsDialog.ui:98
+msgid "Delete the currently active effects preset"
+msgstr "Elimina la preselezione di effetti al momento attiva"
 
-#: ../../Jokosher/Jokosher.glade.h:91
-msgid "File name:"
-msgstr "Nome file:"
+#: ../../gtk-builder-ui/InstrumentEffectsDialog.ui:179
+msgid "Double-click an effect to activate it"
+msgstr "Doppio-clic su un effetto per attivarlo"
 
-#: ../../Jokosher/Jokosher.glade.h:92
-msgid "Find and open an existing project"
-msgstr "Trova e apre un progetto esistente"
+#: ../../gtk-builder-ui/InstrumentEffectsDialog.ui:197
+msgid "<b>Effects</b>"
+msgstr "<b>Effetti</b>"
 
-#: ../../Jokosher/Jokosher.glade.h:93
-msgid "Find out how you can help"
-msgstr "Mostra come è possibile contribuire"
+#: ../../gtk-builder-ui/InstrumentEffectsDialog.ui:217
+msgid "Activate the selected effect"
+msgstr "Attiva l'effetto selezionato"
 
-#: ../../Jokosher/Jokosher.glade.h:94
-msgid "GStreamer version:"
-msgstr "Versione GStreamer:"
+#: ../../gtk-builder-ui/InstrumentEffectsDialog.ui:264
+msgid "Double-click an active effect to adjust its settings"
+msgstr "Doppio clic su un effetto attivo per regolare le sue impostazioni"
 
-#: ../../Jokosher/Jokosher.glade.h:95
-msgid "Gnonlin version:"
-msgstr "Versione Gnonlin:"
+#: ../../gtk-builder-ui/InstrumentEffectsDialog.ui:293
+msgid "Move the selected active effect up on the effects chain"
+msgstr "Sposta l'effetto attivo selezionato in alto nella catena degli effetti"
 
-#: ../../Jokosher/Jokosher.glade.h:97
-msgid ""
-"Iestyn Pryce <dylunio@gmail.com>\n"
-"Jerome S. Gotangco <jgotangco@ubuntu.com>\n"
-"torb <torrb@musiker.nu>\n"
-"Robert Renling Berencreuz <berencreuz@gmail.com>\n"
-"Ola Jeppsson <ola.jeppsson@gmail.com>\n"
-"Daniel Nylander <po@danielnylander.se>\n"
-"aruiz <aruiz@synaptia.net>\n"
-"Manuel Duran Moyano <mduran@ubiobio.cl>\n"
-"Laszlo Pandy <laszlok2@gmail.com>\n"
-"Iván Edgardo Vázquez Santos \n"
-"David Corrales <corrales.david@gmail.com>\n"
-"Benjamin A'Lee <bma@bmalee.eu>\n"
-"Peter Baričič <pbaricic@gmail.com>\n"
-"Артём Попов <artfwo@gmail.com>\n"
-"deepred <psalmos@swissinfo.org>\n"
-"KeepYourMind <keepyourmind@gmail.com>\n"
-"Georgy Faradzhev <georgy.faradzhev@gmail.com>\n"
-"Gendolf <pr-baukalo@rambler.ru>\n"
-"Rodrigo NSH <rodrigo.nsh@gmail.com>\n"
-"Christian Reis <kiko@async.com.br>\n"
-"Lourabe Multimédia \n"
-"Tomasz Dominikowski <dominikowski@gmail.com>\n"
-"Konrad Adamczyk <konrad@svx.pl>\n"
-"Hender <simsalabimladen@gmail.com>\n"
-"sklp\n"
-"Bård Aase <base@kvarteret.no>\n"
-"Pecisk <pecisk@gmail.com>\n"
-"Luca Ferretti <elle.uca@libero.it>\n"
-"Daniele Medri <daniele@medri.org>\n"
-"Igor Khanin \n"
-"Tobias Frederick <me@tbfr.org>\n"
-"Tim Fuchs <tim.fuchs@gmail.com>\n"
-"Ramona Barte \n"
-"Marcus Hochstadt\n"
-"Lebowski\n"
-"Julian Turner\n"
-"Dennis Lichtenthäler <dennis.lichtenthaeler@episode-iv.de>\n"
-"dyphil <dyphil@wanadoo.fr>\n"
-"XioNoX \n"
-"Stemp <StempUbuntu@gmail.com>\n"
-"Signez\n"
-"Pierre Slamich <pierre.slamich@gmail.com>\n"
-"Nicolas Velin <nsv@fr.st>\n"
-"Jean-Francois Arseneau <jf.arseneau@gmail.com>\n"
-"Guillaume Hoffmann \n"
-"Gabriel de Perthuis <gabriel.de-perthuis@laposte.net>\n"
-"Bruno Bord <bruno@jehaisleprintemps.net>\n"
-"Mikko Virkkilä <mvirkkil@cc.hut.fi>\n"
-"Boyd Timothy\n"
-"William Anderson<neuro@well.com>\n"
-"Sridhar Dhanapalan <sridhar@dhanapalan.com>\n"
-"Roger Light <roger@atchoo.org>\n"
-"Malcolm Parsons\n"
-"Peturrr <peterdekraker@planet.nl>\n"
-"jerven Bolleman <ik@jerven.eu>\n"
-"Mathias-K <mathias@computergeil.dk>\n"
-"Niels Kjøller Hansen <niels.k.h@gmail.com>\n"
-"David Nielsen <david@lovesunix.net>\n"
-"daave <fan.d.liu@gmail.com>\n"
-msgstr ""
-"Iestyn Pryce <dylunio@gmail.com>\n"
-"Jerome S. Gotangco <jgotangco@ubuntu.com>\n"
-"torb <torrb@musiker.nu>\n"
-"Robert Renling Berencreuz <berencreuz@gmail.com>\n"
-"Ola Jeppsson <ola.jeppsson@gmail.com>\n"
-"Daniel Nylander <po@danielnylander.se>\n"
-"aruiz <aruiz@synaptia.net>\n"
-"Manuel Duran Moyano <mduran@ubiobio.cl>\n"
-"Laszlo Pandy <laszlok2@gmail.com>\n"
-"Iván Edgardo Vázquez Santos \n"
-"David Corrales <corrales.david@gmail.com>\n"
-"Benjamin A'Lee <bma@bmalee.eu>\n"
-"Peter Baričič <pbaricic@gmail.com>\n"
-"Артём Попов <artfwo@gmail.com>\n"
-"deepred <psalmos@swissinfo.org>\n"
-"KeepYourMind <keepyourmind@gmail.com>\n"
-"Georgy Faradzhev <georgy.faradzhev@gmail.com>\n"
-"Gendolf <pr-baukalo@rambler.ru>\n"
-"Rodrigo NSH <rodrigo.nsh@gmail.com>\n"
-"Christian Reis <kiko@async.com.br>\n"
-"Lourabe Multimédia \n"
-"Tomasz Dominikowski <dominikowski@gmail.com>\n"
-"Konrad Adamczyk <konrad@svx.pl>\n"
-"Hender <simsalabimladen@gmail.com>\n"
-"sklp\n"
-"Bård Aase <base@kvarteret.no>\n"
-"Pecisk <pecisk@gmail.com>\n"
-"Luca Ferretti <elle.uca@libero.it>\n"
-"Daniele Medri <daniele@medri.org>\n"
-"Igor Khanin \n"
-"Tobias Frederick <me@tbfr.org>\n"
-"Tim Fuchs <tim.fuchs@gmail.com>\n"
-"Ramona Barte \n"
-"Marcus Hochstadt\n"
-"Lebowski\n"
-"Julian Turner\n"
-"Dennis Lichtenthäler <dennis.lichtenthaeler@episode-iv.de>\n"
-"dyphil <dyphil@wanadoo.fr>\n"
-"XioNoX \n"
-"Stemp <StempUbuntu@gmail.com>\n"
-"Signez\n"
-"Pierre Slamich <pierre.slamich@gmail.com>\n"
-"Nicolas Velin <nsv@fr.st>\n"
-"Jean-Francois Arseneau <jf.arseneau@gmail.com>\n"
-"Guillaume Hoffmann \n"
-"Gabriel de Perthuis <gabriel.de-perthuis@laposte.net>\n"
-"Bruno Bord <bruno@jehaisleprintemps.net>\n"
-"Mikko Virkkilä <mvirkkil@cc.hut.fi>\n"
-"Boyd Timothy\n"
-"William Anderson<neuro@well.com>\n"
-"Sridhar Dhanapalan <sridhar@dhanapalan.com>\n"
-"Roger Light <roger@atchoo.org>\n"
-"Malcolm Parsons\n"
-"Peturrr <peterdekraker@planet.nl>\n"
-"jerven Bolleman <ik@jerven.eu>\n"
-"Mathias-K <mathias@computergeil.dk>\n"
-"Niels Kjøller Hansen <niels.k.h@gmail.com>\n"
-"David Nielsen <david@lovesunix.net>\n"
-"daave <fan.d.liu@gmail.com>\n"
-
-#: ../../Jokosher/Jokosher.glade.h:157 ../../Jokosher/JokosherApp.py:1339
-msgid "Jokosher"
-msgstr "Jokosher"
-
-#: ../../Jokosher/Jokosher.glade.h:158
-msgid "Listen to these effects"
-msgstr "Ascolta gli effetti selezionati"
-
-#: ../../Jokosher/Jokosher.glade.h:159
-msgid "Manage instrument recording inputs"
-msgstr "Gestisce gli ingressi di registrazione degli strumenti"
-
-#: ../../Jokosher/Jokosher.glade.h:160
-msgid "Mixdown Profile:"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:161 ../../Jokosher/JokosherApp.py:592
-msgid "Mixdown Project"
-msgstr "Mixdown del progetto"
-
-#: ../../Jokosher/Jokosher.glade.h:162
-msgid "Mixdown the project using these settings"
-msgstr "Esegue il mixdown del progetto usando queste impostazioni"
-
-#: ../../Jokosher/Jokosher.glade.h:163
-msgid "Mixing Project"
-msgstr "Mixing del progetto"
-
-#: ../../Jokosher/Jokosher.glade.h:164
+#: ../../gtk-builder-ui/InstrumentEffectsDialog.ui:313
 msgid "Move the selected active effect down on the effects chain"
 msgstr ""
 "Sposta l'effetto attivo selezionato in basso nella catena degli effetti"
 
-#: ../../Jokosher/Jokosher.glade.h:165
-msgid "Move the selected active effect up on the effects chain"
-msgstr "Sposta l'effetto attivo selezionato in alto nella catena degli effetti"
+#: ../../gtk-builder-ui/InstrumentEffectsDialog.ui:333
+msgid "Deactivate the currently selected active effect"
+msgstr "Disattiva l'effetto attivo al momento selezionato"
 
-#: ../../Jokosher/Jokosher.glade.h:166 ../../Jokosher/NewProjectDialog.py:126
-msgid "New Project"
-msgstr "Nuovo progetto"
+#: ../../gtk-builder-ui/InstrumentEffectsDialog.ui:353
+msgid "Adjust the settings for the currently selected active effect"
+msgstr "Regola le impostazioni per l'effetto attivo attualmente selezionato"
 
-#: ../../Jokosher/Jokosher.glade.h:167
-msgid "Open a recent project"
-msgstr "Apre un progetto recente"
+#: ../../gtk-builder-ui/InstrumentEffectsDialog.ui:381
+msgid "<b>Active effects for: </b>"
+msgstr "<b>Effetti attivi per: </b>"
 
-#: ../../Jokosher/Jokosher.glade.h:168
-msgid "Open an existing project"
-msgstr "Apre un progetto esistente"
+#: ../../gtk-builder-ui/InstrumentEffectsDialog.ui:410
+msgid "Listen to these effects"
+msgstr "Ascolta gli effetti selezionati"
 
-#: ../../Jokosher/Jokosher.glade.h:169
-msgid "Open the extension manager"
-msgstr "Apre il gestore di estensioni"
-
-#: ../../Jokosher/Jokosher.glade.h:170
-msgid "P_ipeline:"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:171
-msgid "Paste the contents of the clipboard"
-msgstr "Incolla il contenuto degli appunti"
-
-#: ../../Jokosher/Jokosher.glade.h:172
-msgid ""
-"Please enter the filename of the audio you wish to export. The audio will be "
-"exported to the location specified."
-msgstr ""
-"Inserisci il nome del file audio che si desidera esportare. L'audio sarà "
-"esportato verso la posizione specificata."
-
-#: ../../Jokosher/Jokosher.glade.h:173
-msgid ""
-"Please select the mixdown actions you would like to add to the mixdown "
-"profile *profile*"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:174
-msgid "Project Properties"
-msgstr "Proprietà del progetto"
-
-#: ../../Jokosher/Jokosher.glade.h:175
-msgid "Project Templates"
-msgstr "Modelli di progetto"
-
-#: ../../Jokosher/Jokosher.glade.h:176
-msgid "Quit Jokosher"
-msgstr "Esce da Jokosher"
-
-#: ../../Jokosher/Jokosher.glade.h:177
-msgid "R_ecording Inputs..."
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:178
-msgid "Redo"
-msgstr "Ripeti"
-
-#: ../../Jokosher/Jokosher.glade.h:179
-msgid "Redo the previous edit"
-msgstr "Ripete la modifica precedente"
-
-#: ../../Jokosher/Jokosher.glade.h:180
-msgid "Remove the currently selected extension"
-msgstr "Rimove l'estensione attualmente selezionata"
-
-#: ../../Jokosher/Jokosher.glade.h:181
-msgid "Remove the selected instrument"
-msgstr "Rimuove lo strumento selezionato"
-
-#: ../../Jokosher/Jokosher.glade.h:182
-msgid "Report a bug in Jokosher"
-msgstr "Segnala un bug in Jokosher"
-
-#: ../../Jokosher/Jokosher.glade.h:183
-msgid "S_ample Rate:"
-msgstr "Frequenz_a di campionamento:"
-
-#: ../../Jokosher/Jokosher.glade.h:184
-msgid "S_ystem:"
-msgstr "Sis_tema:"
-
-#: ../../Jokosher/Jokosher.glade.h:185
-msgid "Save _As..."
-msgstr "Salva come"
-
-#: ../../Jokosher/Jokosher.glade.h:186
-msgid "Save a copy of the current project"
-msgstr "Salva una copia del progetto corrente"
-
-#: ../../Jokosher/Jokosher.glade.h:187 ../../Jokosher/JokosherApp.py:601
-msgid "Save as file type:"
-msgstr "Salva come tipo di file:"
-
-#: ../../Jokosher/Jokosher.glade.h:188
-msgid "Save preferences and close"
-msgstr "Salva le preferenze e chiude"
-
-#: ../../Jokosher/Jokosher.glade.h:189
-msgid "Save the current project"
-msgstr "Salva il progetto in uso"
-
-#: ../../Jokosher/Jokosher.glade.h:190
-msgid "Save the current settings as a preset"
-msgstr "Salva le impostazioni attuali come una preselezione"
-
-#: ../../Jokosher/Jokosher.glade.h:191
-msgid "Save the currently active effects as a preset"
-msgstr "Salva gli effetti al momento attivi come una preselezione"
-
-#: ../../Jokosher/Jokosher.glade.h:192
-msgid "Save the selected project template"
-msgstr "Salva il modello di progetto selezionato"
-
-#: ../../Jokosher/Jokosher.glade.h:193
-msgid "Save your selections and close this window"
-msgstr "Salva la selezione e chiude questa finestra"
-
-#: ../../Jokosher/Jokosher.glade.h:194
-msgid "See your system information"
-msgstr "Guarda le informazioni di sistema"
-
-#: ../../Jokosher/Jokosher.glade.h:195
-msgid "Select a project to open from the list"
-msgstr "Seleziona dall'elenco un progetto da aprire"
-
-#: ../../Jokosher/Jokosher.glade.h:196
-msgid "Select the audio input to use with each instrument."
-msgstr "Selezionare l'ingresso audio da usare con ciascuno strumento."
-
-#: ../../Jokosher/Jokosher.glade.h:197
-msgid "Set Time Signature"
-msgstr "Imposta indicazione del tempo"
-
-#: ../../Jokosher/Jokosher.glade.h:198
-msgid "Settings"
-msgstr "Impostazioni"
-
-#: ../../Jokosher/Jokosher.glade.h:199
-msgid "Show as _Bars, Beats, Ticks"
-msgstr "Mostra come _barre, battute, tacche"
-
-#: ../../Jokosher/Jokosher.glade.h:200
-msgid "Show as _Hours, Minutes, Seconds"
-msgstr "Mostra come _ore, minuti, secondi"
-
-#: ../../Jokosher/Jokosher.glade.h:201
-msgid "Start Jokosher with an empty project"
-msgstr "Avvia Jokosher con un progetto vuoto"
-
-#: ../../Jokosher/Jokosher.glade.h:202
-msgid "Start playback"
-msgstr "Avvia la riproduzione"
-
-#: ../../Jokosher/Jokosher.glade.h:203
-msgid "Stop mixing the project"
-msgstr "Ferma il mixing del progetto"
-
-#: ../../Jokosher/Jokosher.glade.h:204 ../../Jokosher/JokosherApp.py:66
-msgid "Stop playback"
-msgstr "Ferma la riproduzione"
-
-#: ../../Jokosher/Jokosher.glade.h:205
-msgid "Sys_tem:"
-msgstr "Sis_tema"
-
-#: ../../Jokosher/Jokosher.glade.h:206
-msgid "System Information"
-msgstr "Informazioni di sistema"
-
-#: ../../Jokosher/Jokosher.glade.h:207
-msgid "Testing Jokosher, and submitting bugs."
-msgstr "Provare Jokosher e segnalare bug."
-
-#: ../../Jokosher/Jokosher.glade.h:208
-msgid "Type here to search for an instrument"
-msgstr "Digitare qui per cercare uno strumento"
-
-#: ../../Jokosher/Jokosher.glade.h:209
-msgid "Undo"
-msgstr "Annulla"
-
-#: ../../Jokosher/Jokosher.glade.h:210
-msgid "Undo the last edit"
-msgstr "Annulla l'ultima modifica"
-
-#: ../../Jokosher/Jokosher.glade.h:211
-msgid "Use these effect settings"
-msgstr "Usa queste impostazioni degli effetti"
-
-#: ../../Jokosher/Jokosher.glade.h:212
+#: ../../gtk-builder-ui/InstrumentEffectsDialog.ui:427
 msgid "Use these effects"
 msgstr "Usa questi effetti"
 
-#: ../../Jokosher/Jokosher.glade.h:213
-msgid "Use these settings"
-msgstr "Usa queste impostazioni"
+#: ../../gtk-builder-ui/MainWindow.ui:29
+msgid "_File"
+msgstr "_File"
 
-#: ../../Jokosher/Jokosher.glade.h:214
+#: ../../gtk-builder-ui/MainWindow.ui:38
+msgid "Create a new project"
+msgstr "Crea un nuovo progetto"
+
+#: ../../gtk-builder-ui/MainWindow.ui:50
+msgid "Open an existing project"
+msgstr "Apre un progetto esistente"
+
+#: ../../gtk-builder-ui/MainWindow.ui:62
+msgid "Import an existing project"
+msgstr ""
+
+#: ../../gtk-builder-ui/MainWindow.ui:73
+msgid "Open a project"
+msgstr ""
+
+#: ../../gtk-builder-ui/MainWindow.ui:74
+msgid "_Switch Project"
+msgstr ""
+
+#: ../../gtk-builder-ui/MainWindow.ui:91
+msgid "Save the current project"
+msgstr "Salva il progetto in uso"
+
+#: ../../gtk-builder-ui/MainWindow.ui:102
+msgid "Close the current project"
+msgstr "Chiude il progetto corrente"
+
+#: ../../gtk-builder-ui/MainWindow.ui:118
+#: ../../gtk-builder-ui/MainWindow.ui:482
+msgid "Add an instrument to the project"
+msgstr "Aggiunge uno strumento al progetto"
+
+#: ../../gtk-builder-ui/MainWindow.ui:129
+#: ../../gtk-builder-ui/MainWindow.ui:497
+msgid "Add an audio file to the project"
+msgstr "Aggiunge un nuovo file audio al progetto"
+
+#: ../../gtk-builder-ui/MainWindow.ui:140
+msgid "Manage instrument recording inputs"
+msgstr "Gestisce gli ingressi di registrazione degli strumenti"
+
+#: ../../gtk-builder-ui/MainWindow.ui:150
+msgid "Change the timeline"
+msgstr "Cambia la linea temporale"
+
+#: ../../gtk-builder-ui/MainWindow.ui:151
+msgid "_Time Format"
+msgstr "Formato _tempo"
+
+#: ../../gtk-builder-ui/MainWindow.ui:158
+msgid "Change the timeline to show bars, beats and ticks"
+msgstr "Cambia la linea temporale per mostrare barre, battute, tacche"
+
+#: ../../gtk-builder-ui/MainWindow.ui:159
+msgid "Show as _Bars, Beats, Ticks"
+msgstr "Mostra come _barre, battute, tacche"
+
+#: ../../gtk-builder-ui/MainWindow.ui:167
+msgid "Change the timeline to show hours, minutes and seconds"
+msgstr "Cambia la linea temporale per mostrare ore, minuti, secondi"
+
+#: ../../gtk-builder-ui/MainWindow.ui:168
+msgid "Show as _Hours, Minutes, Seconds"
+msgstr "Mostra come _ore, minuti, secondi"
+
+#: ../../gtk-builder-ui/MainWindow.ui:198
+msgid "Export current project to an audio file"
+msgstr "Esporta il progetto corrente su un file audio"
+
+#: ../../gtk-builder-ui/MainWindow.ui:214
+msgid "Quit Jokosher"
+msgstr "Esce da Jokosher"
+
+#: ../../gtk-builder-ui/MainWindow.ui:228
+msgid "_Edit"
+msgstr "_Modifica"
+
+#: ../../gtk-builder-ui/MainWindow.ui:237
+msgid "Undo the last edit"
+msgstr "Annulla l'ultima modifica"
+
+#: ../../gtk-builder-ui/MainWindow.ui:249
+msgid "Redo the previous edit"
+msgstr "Ripete la modifica precedente"
+
+#: ../../gtk-builder-ui/MainWindow.ui:266
+msgid "Cut the current selection"
+msgstr "Taglia la selezione corrente"
+
+#: ../../gtk-builder-ui/MainWindow.ui:277
+msgid "Copy the current selection"
+msgstr "Copia la selezione corrente"
+
+#: ../../gtk-builder-ui/MainWindow.ui:288
+msgid "Paste the contents of the clipboard"
+msgstr "Incolla il contenuto degli appunti"
+
+#: ../../gtk-builder-ui/MainWindow.ui:299
+msgid "Delete the current selection"
+msgstr "Elimina la selezione corrente"
+
+#: ../../gtk-builder-ui/MainWindow.ui:329
+msgid "_Instrument"
+msgstr "_Strumenti"
+
+#: ../../gtk-builder-ui/MainWindow.ui:338
+msgid "Add an audio file to the selected instrument"
+msgstr "Aggiunge un file audio allo strumento selezionato"
+
+#: ../../gtk-builder-ui/MainWindow.ui:348
+msgid "Change type of the selected instrument"
+msgstr "Cambia il tipo di strumento selezionato"
+
+#: ../../gtk-builder-ui/MainWindow.ui:349
+msgid "_Change Instrument Type..."
+msgstr "_Cambia il tipo di strumento..."
+
+#: ../../gtk-builder-ui/MainWindow.ui:358
+msgid "Remove the selected instrument"
+msgstr "Rimuove lo strumento selezionato"
+
+#: ../../gtk-builder-ui/MainWindow.ui:372
+msgid "Ex_tensions"
+msgstr "Es_tensioni"
+
+#: ../../gtk-builder-ui/MainWindow.ui:384
+msgid "Open the extension manager"
+msgstr "Apre il gestore di estensioni"
+
+#: ../../gtk-builder-ui/MainWindow.ui:385
+msgid "_Manage Extensions..."
+msgstr "_Gestisti estensioni..."
+
+#: ../../gtk-builder-ui/MainWindow.ui:397
+msgid "_Help"
+msgstr "A_iuto"
+
+#: ../../gtk-builder-ui/MainWindow.ui:405
 msgid "User manual contents"
 msgstr "Sommario del manuale per l'utente"
 
-#: ../../Jokosher/Jokosher.glade.h:215
-msgid "Version information, credits and licence"
-msgstr "Informazioni di versione, riconoscimenti e licenza"
+#: ../../gtk-builder-ui/MainWindow.ui:415
+msgid "Report a bug in Jokosher"
+msgstr "Segnala un bug in Jokosher"
 
-#: ../../Jokosher/Jokosher.glade.h:216
+#: ../../gtk-builder-ui/MainWindow.ui:416
+msgid "_Report Bug..."
+msgstr "_Segnala bug..."
+
+#: ../../gtk-builder-ui/MainWindow.ui:425
 msgid "Visit Jokosher's online forums"
 msgstr "Visita i forum online di Jokosher"
 
-#: ../../Jokosher/Jokosher.glade.h:217
-msgid "Welcome to Jokosher!"
-msgstr "Benvenuto in Jokosher!"
+#: ../../gtk-builder-ui/MainWindow.ui:436
+msgid "Find out how you can help"
+msgstr "Mostra come è possibile contribuire"
 
-#: ../../Jokosher/Jokosher.glade.h:218
-msgid "Writing code and features in Python."
-msgstr "Scrittura di codice e funzioni in Python."
+#: ../../gtk-builder-ui/MainWindow.ui:447
+msgid "See your system information"
+msgstr "Guarda le informazioni di sistema"
 
-#: ../../Jokosher/Jokosher.glade.h:219
-msgid "Writing simple to read documentation."
-msgstr "Scrittura di documentazine semplice da leggere."
+#: ../../gtk-builder-ui/MainWindow.ui:458
+msgid "Version information, credits and licence"
+msgstr "Informazioni di versione, riconoscimenti e licenza"
 
-#: ../../Jokosher/Jokosher.glade.h:220
+#: ../../gtk-builder-ui/MainWindow.ui:484
+msgid "Add Instrument"
+msgstr "Aggiungi strumento"
+
+#: ../../gtk-builder-ui/MainWindow.ui:499
+msgid "Add Audio File"
+msgstr "Aggiungi file audio"
+
+#: ../../gtk-builder-ui/MainWindow.ui:519
+msgid "Click and hold to rewind"
+msgstr "Fare clic e tenere premuto per il riavvolgimento rapido"
+
+#: ../../gtk-builder-ui/MainWindow.ui:531
+msgid "Start playback"
+msgstr "Avvia la riproduzione"
+
+#: ../../gtk-builder-ui/MainWindow.ui:543 ../../Jokosher/JokosherApp.py:66
+msgid "Stop playback"
+msgstr "Ferma la riproduzione"
+
+#: ../../gtk-builder-ui/MainWindow.ui:555
+msgid "Click and hold to fast forward"
+msgstr "Fare clic e tenere premuto per l'avanzamento rapido"
+
+#: ../../gtk-builder-ui/MainWindow.ui:567
+msgid "Arm an instrument then click here to begin recording"
+msgstr "Inbraccia  uno strumento e poi clicca qui per iniziare a registrare"
+
+#: ../../gtk-builder-ui/MainWindow.ui:588
+msgid "Audio Mixers"
+msgstr "Mixer audio"
+
+#: ../../gtk-builder-ui/MainWindow.ui:645
+msgid "Start Jokosher with an empty project"
+msgstr "Avvia Jokosher con un progetto vuoto"
+
+#: ../../gtk-builder-ui/MainWindow.ui:670
+msgid "_New"
+msgstr ""
+
+#: ../../gtk-builder-ui/MainWindow.ui:695
+msgid "Find and open an existing project"
+msgstr "Trova e apre un progetto esistente"
+
+#: ../../gtk-builder-ui/MainWindow.ui:720
+msgid "_Import"
+msgstr ""
+
+#: ../../gtk-builder-ui/MainWindow.ui:770
+msgid "Double-click on a recent project to open"
+msgstr "Doppio-clic su un progetto recente per aprirlo"
+
+#: ../../gtk-builder-ui/MainWindow.ui:788
+msgid "Select a project to open from the list"
+msgstr "Seleziona dall'elenco un progetto da aprire"
+
+#: ../../gtk-builder-ui/MainWindow.ui:813
+msgid "_Open Selected Project"
+msgstr "_Apri il progetto selezionato"
+
+#: ../../gtk-builder-ui/MixdownProfileDialog.ui:13
+#: ../../Jokosher/JokosherApp.py:630
+msgid "Mixdown Project"
+msgstr "Mixdown del progetto"
+
+#: ../../gtk-builder-ui/MixdownProfileDialog.ui:30
+msgid "Mixdown Profile:"
+msgstr ""
+
+#: ../../gtk-builder-ui/MixdownProfileDialog.ui:116
+msgid "<b>Mixdown Actions</b>"
+msgstr "<b>Azioni di mixdown</b>"
+
+#: ../../gtk-builder-ui/MixdownProfileDialog.ui:240
+msgid "Cancel the mixdown"
+msgstr "Annulla il mixdown"
+
+#: ../../gtk-builder-ui/MixdownProfileDialog.ui:257
+msgid "Mixdown the project using these settings"
+msgstr "Esegue il mixdown del progetto usando queste impostazioni"
+
+#: ../../gtk-builder-ui/MixdownProfileDialog.ui:282
+msgid "_Mixdown"
+msgstr ""
+
+#: ../../gtk-builder-ui/PreferencesDialog.ui:59
+msgid "Open a _new project"
+msgstr ""
+
+#: ../../gtk-builder-ui/PreferencesDialog.ui:75
+msgid "_Open most recent project"
+msgstr "_Apri il progetto più recente"
+
+#: ../../gtk-builder-ui/PreferencesDialog.ui:92
+msgid "_Don't open any project"
+msgstr ""
+
+#: ../../gtk-builder-ui/PreferencesDialog.ui:116
+msgid "<b>Application Start-up</b>"
+msgstr "<b>Avvio dell'applicazione</b>"
+
+#: ../../gtk-builder-ui/PreferencesDialog.ui:148
+msgid "_Encoding:"
+msgstr "Co_difica:"
+
+#: ../../gtk-builder-ui/PreferencesDialog.ui:161
+msgid "S_ample Rate:"
+msgstr "Frequenz_a di campionamento:"
+
+#: ../../gtk-builder-ui/PreferencesDialog.ui:219
+msgid "<b>Recording Format</b>"
+msgstr "<b>Formato Registrazione</b>"
+
+#: ../../gtk-builder-ui/PreferencesDialog.ui:251
+msgid "S_ystem:"
+msgstr "Sis_tema:"
+
+#: ../../gtk-builder-ui/PreferencesDialog.ui:264
+msgid "_Pipeline:"
+msgstr "_Pipeline:"
+
+#: ../../gtk-builder-ui/PreferencesDialog.ui:316
+msgid "<b>Recording Sound System</b>"
+msgstr "<b>Sistema audio per la registrazione</b>"
+
+#: ../../gtk-builder-ui/PreferencesDialog.ui:365
+msgid "Sys_tem:"
+msgstr "Sis_tema"
+
+#: ../../gtk-builder-ui/PreferencesDialog.ui:378
+msgid "P_ipeline:"
+msgstr ""
+
+#: ../../gtk-builder-ui/PreferencesDialog.ui:393
+msgid "De_vice:"
+msgstr "Dispositi_vo"
+
+#: ../../gtk-builder-ui/PreferencesDialog.ui:428
+msgid "autoaudiosink"
+msgstr "autoaudiosink"
+
+#: ../../gtk-builder-ui/PreferencesDialog.ui:447
+msgid "<b>Playback Sound System</b>"
+msgstr "<b>Sistema audio per la riproduzione</b>"
+
+#: ../../gtk-builder-ui/PreferencesDialog.ui:470
+msgid "Save preferences and close"
+msgstr "Salva le preferenze e chiude"
+
+#: ../../gtk-builder-ui/ProgressDialog.ui:7
+msgid "Mixing Project"
+msgstr "Mixing del progetto"
+
+#: ../../gtk-builder-ui/ProgressDialog.ui:26
+msgid "<big><b>Mixing the project...</b></big>"
+msgstr "<big><b>Realizzazione del progetto...</b></big>"
+
+#: ../../gtk-builder-ui/ProgressDialog.ui:47
 msgid "Your music file is being mixed. This can take some seconds."
 msgstr ""
 "Il tuo file musicale viene mixato. Questa operazione può richiedere diversi "
 "secondi."
 
-#: ../../Jokosher/Jokosher.glade.h:221
-msgid "_Author:"
-msgstr "_Autore:"
+#: ../../gtk-builder-ui/ProgressDialog.ui:90
+msgid "Stop mixing the project"
+msgstr "Ferma il mixing del progetto"
 
-#: ../../Jokosher/Jokosher.glade.h:222
-msgid "_Browse for an Existing Project"
-msgstr ""
+#: ../../gtk-builder-ui/ProjectPropertiesDialog.ui:7
+msgid "Project Properties"
+msgstr "Proprietà del progetto"
 
-#: ../../Jokosher/Jokosher.glade.h:223
-msgid "_Change Instrument Type..."
-msgstr "_Cambia il tipo di strumento..."
-
-#: ../../Jokosher/Jokosher.glade.h:224
-msgid "_Contributing to Jokosher"
-msgstr "_Contribuire a Jokosher"
-
-#: ../../Jokosher/Jokosher.glade.h:225
-msgid "_Create a New Project"
-msgstr "_Crea un nuovo progetto"
-
-#: ../../Jokosher/Jokosher.glade.h:226
-msgid "_Don't open anything"
-msgstr "_Non aprire nulla"
-
-#: ../../Jokosher/Jokosher.glade.h:227
-msgid "_Don't show this on start-up"
-msgstr "_Non mostrare all'avvio"
-
-#: ../../Jokosher/Jokosher.glade.h:228
-msgid "_Edit"
-msgstr "_Modifica"
-
-#: ../../Jokosher/Jokosher.glade.h:229
-msgid "_Encoding:"
-msgstr "Co_difica:"
-
-#: ../../Jokosher/Jokosher.glade.h:230
-msgid "_File"
-msgstr "_File"
-
-#: ../../Jokosher/Jokosher.glade.h:231
-msgid "_Folder:"
-msgstr "_Cartella"
-
-#: ../../Jokosher/Jokosher.glade.h:232
-msgid "_Help"
-msgstr "A_iuto"
-
-#: ../../Jokosher/Jokosher.glade.h:233
-msgid "_Instrument"
-msgstr "_Strumenti"
-
-#: ../../Jokosher/Jokosher.glade.h:234
-msgid "_Manage Extensions..."
-msgstr "_Gestisti estensioni..."
-
-#: ../../Jokosher/Jokosher.glade.h:235
-msgid "_Mixdown"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:236 ../../Jokosher/JokosherApp.py:1959
-msgid "_Mixdown Project..."
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:237
+#: ../../gtk-builder-ui/ProjectPropertiesDialog.ui:39
 msgid "_Name:"
 msgstr "_Nome:"
 
-#: ../../Jokosher/Jokosher.glade.h:238
-msgid "_New..."
-msgstr "_Nuovo..."
+#: ../../gtk-builder-ui/ProjectPropertiesDialog.ui:52
+msgid "_Author:"
+msgstr "_Autore:"
 
-#: ../../Jokosher/Jokosher.glade.h:239
-msgid "_Online Forums"
-msgstr "_Forum online"
+#: ../../gtk-builder-ui/ProjectPropertiesDialog.ui:96
+msgid "<b>General</b>"
+msgstr "<b>Generale</b>"
 
-#: ../../Jokosher/Jokosher.glade.h:240
-msgid "_Open Selected Project"
-msgstr "_Apri il progetto selezionato"
+#: ../../gtk-builder-ui/ProjectPropertiesDialog.ui:143
+msgid "<b>N_otes</b>"
+msgstr "<b>N_ote</b>"
 
-#: ../../Jokosher/Jokosher.glade.h:241
-msgid "_Open most recent project"
-msgstr "_Apri il progetto più recente"
+#: ../../gtk-builder-ui/SystemInformationDialog.ui:7
+msgid "System Information"
+msgstr "Informazioni di sistema"
 
-#: ../../Jokosher/Jokosher.glade.h:242
-msgid "_Open..."
-msgstr "_Apri..."
+#: ../../gtk-builder-ui/SystemInformationDialog.ui:36
+msgid "<big>System Information</big>"
+msgstr "<big>Informazione di sistema</big>"
 
-#: ../../Jokosher/Jokosher.glade.h:243
-msgid "_Pipeline:"
-msgstr "_Pipeline:"
+#: ../../gtk-builder-ui/SystemInformationDialog.ui:63
+msgid "GStreamer version:"
+msgstr "Versione GStreamer:"
 
-#: ../../Jokosher/Jokosher.glade.h:244
-msgid "_Preferences"
-msgstr "_Preferenze"
+#: ../../gtk-builder-ui/SystemInformationDialog.ui:74
+msgid "Gnonlin version:"
+msgstr "Versione Gnonlin:"
 
-#: ../../Jokosher/Jokosher.glade.h:245
-msgid "_Project Name:"
-msgstr "_Nome progetto:"
-
-#: ../../Jokosher/Jokosher.glade.h:246
-msgid "_Recent Projects"
-msgstr "Progetti _recenti"
-
-#: ../../Jokosher/Jokosher.glade.h:247
-msgid "_Remove Selected Instrument"
-msgstr "_Rimuovi lo strumento selezionato"
-
-#: ../../Jokosher/Jokosher.glade.h:248
-msgid "_Report Bug..."
-msgstr "_Segnala bug..."
-
-#: ../../Jokosher/Jokosher.glade.h:249
-msgid "_Search:"
-msgstr "_Cerca:"
-
-#: ../../Jokosher/Jokosher.glade.h:250
-msgid "_Show welcome dialog"
-msgstr "_Mostra dialogo di benvenuto"
-
-#: ../../Jokosher/Jokosher.glade.h:251
-msgid "_System Information"
-msgstr "_Informazioni di sistema"
-
-#: ../../Jokosher/Jokosher.glade.h:252
-msgid "_Template Name:"
-msgstr "_Nome modello:"
-
-#: ../../Jokosher/Jokosher.glade.h:253
-msgid "_Time Format"
-msgstr "Formato _tempo"
-
-#: ../../Jokosher/Jokosher.glade.h:254
-msgid "_Use project template"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:255
-msgid "autoaudiosink"
-msgstr "autoaudiosink"
-
-#: ../../Jokosher/Jokosher.glade.h:256
+#: ../../gtk-builder-ui/SystemInformationDialog.ui:87
+#: ../../gtk-builder-ui/SystemInformationDialog.ui:128
 msgid "xx.xx.xx"
 msgstr "xx.xx.xx"
+
+#: ../../gtk-builder-ui/SystemInformationDialog.ui:115
+msgid "Distribution:"
+msgstr "Distribuzione:"
+
+#: ../../gtk-builder-ui/SystemInformationDialog.ui:161
+msgid "Close this window"
+msgstr "Chiudi questa finestra"
+
+#: ../../gtk-builder-ui/TimeSignatureDialog.ui:33
+msgid "Set Time Signature"
+msgstr "Imposta indicazione del tempo"
+
+#: ../../gtk-builder-ui/TimeSignatureDialog.ui:63
+msgid "Beats per _measure"
+msgstr "Battute per _misura"
+
+#: ../../gtk-builder-ui/TimeSignatureDialog.ui:76
+msgid "Beat _value"
+msgstr "_Valore battuta"
+
+#: ../../gtk-builder-ui/TimeSignatureDialog.ui:111
+msgid "Adjust the amount of beats per measure"
+msgstr "Regola la quantità di battiti per misura"
+
+#: ../../gtk-builder-ui/TimeSignatureDialog.ui:131
+msgid "<b>Time Signature</b>"
+msgstr "<b>Indicazione del tempo</b>"
+
+#: ../../gtk-builder-ui/TimeSignatureDialog.ui:158
+msgid "Use these settings"
+msgstr "Usa queste impostazioni"
+
+#: ../../Jokosher/Jokosher:73
+msgid "Print debug output to stdout"
+msgstr "Stampa l'output di debug su stdout"
+
+#: ../../Jokosher/Jokosher:75
+msgid "Sent debug output to Gstreamer's debug system"
+msgstr "Invia l'output di debug al sistema di debug di GStreamer"
+
+#: ../../Jokosher/Jokosher:77
+msgid "Do not load extensions or project on startup (same as -ne)"
+msgstr ""
+
+#: ../../Jokosher/Jokosher:79
+msgid "Do not load a project on startup"
+msgstr ""
+
+#: ../../Jokosher/Jokosher:81
+msgid "Do not load extensions on startup"
+msgstr "Non caricare le estensioni all'avvio"
 
 #: ../../Jokosher/AddInstrumentDialog.py:63
 msgid "Change Instrument Type"
@@ -949,34 +818,53 @@ msgstr "Scegliere in nuovo tipo di strumento per «%s»"
 msgid "<b>Instruments Not Shown:</b>"
 msgstr "<b>Strumenti non mostrati:</b>"
 
-#: ../../Jokosher/ControlsBox.py:42
+#: ../../Jokosher/ControlsBox.py:43
 msgid "Enable this instrument for recording"
 msgstr "Abilita la registrazione con questo strumento"
 
-#: ../../Jokosher/ControlsBox.py:43
+#: ../../Jokosher/ControlsBox.py:44
 msgid "Disable this instrument for recording"
 msgstr "Disabilita la registrazione con questo strumento"
 
-#: ../../Jokosher/ControlsBox.py:44
+#: ../../Jokosher/ControlsBox.py:45
 msgid "Mute - silence this instrument"
 msgstr "Muto - rende silenzioso questo strumento"
 
-#: ../../Jokosher/ControlsBox.py:45
+#: ../../Jokosher/ControlsBox.py:46
 msgid "Unmute - hear this instrument"
 msgstr "Non muto - rende udibile questo strumento"
 
-#: ../../Jokosher/ControlsBox.py:46
+#: ../../Jokosher/ControlsBox.py:47
 msgid "Activate Solo - silence all other instruments"
 msgstr "Attiva assolo - rende silenziosi tutti gli altri strumenti"
 
-#: ../../Jokosher/ControlsBox.py:47
+#: ../../Jokosher/ControlsBox.py:48
 msgid "Deactivate Solo - hear all the instruments"
 msgstr "Disattiva assolo - rende udibili tutti gli altri strumenti"
 
-#: ../../Jokosher/ControlsBox.py:80
-#: ../../Jokosher/InstrumentEffectsDialog.py:116
+#: ../../Jokosher/ControlsBox.py:81
+#: ../../Jokosher/InstrumentEffectsDialog.py:117
 msgid "Instrument Effects"
 msgstr "Effetti dello strumento"
+
+#: ../../Jokosher/ControlsBox.py:223
+msgid "You do not have any LADSPA effects plugins installed"
+msgstr ""
+
+#: ../../Jokosher/ControlsBox.py:225
+msgid "Jokosher does not currently support any LADSPA plugins on Windows"
+msgstr ""
+
+#: ../../Jokosher/ControlsBox.py:228
+msgid ""
+"Jokosher requires one or more packages of LADSPA effects to be able to use "
+"this feature, please install the relevant package(s) for your distribution."
+msgstr ""
+
+#: ../../Jokosher/Event.py:780
+#, python-format
+msgid "%(title)s by %(artist)s"
+msgstr "«%(title)s» di %(artist)s"
 
 #: ../../Jokosher/EventLaneViewer.py:115
 msgid "_Add Audio File..."
@@ -985,11 +873,6 @@ msgstr "A_ggiungi file audio..."
 #: ../../Jokosher/EventLaneViewer.py:264
 msgid "<b>Right-click</b> for more options."
 msgstr "<b>Clic col tasto destro</b> per maggiori opzioni."
-
-#: ../../Jokosher/Event.py:780
-#, python-format
-msgid "%(title)s by %(artist)s"
-msgstr "«%(title)s» di %(artist)s"
 
 #: ../../Jokosher/EventViewer.py:151
 msgid "Trim"
@@ -1059,7 +942,7 @@ msgid "_Copy"
 msgstr "_Copia"
 
 #: ../../Jokosher/EventViewer.py:906
-#: ../../Jokosher/InstrumentEffectsDialog.py:449
+#: ../../Jokosher/InstrumentEffectsDialog.py:450
 msgid "_Delete"
 msgstr "E_limina"
 
@@ -1079,29 +962,6 @@ msgid ""
 "Event, %(name)s, %(dur)0.2f seconds long, starting at %(start)0.2f seconds."
 msgstr ""
 "Evento, %(name)s, durata %(dur)0.2f secondi, avvio a %(start)0.2f secondi."
-
-#: ../../Jokosher/ExtensionManagerDialog.py:169
-msgid "Choose a Jokosher Extension file"
-msgstr "Scegliere un file estensione di Jokosher"
-
-#: ../../Jokosher/ExtensionManagerDialog.py:175
-msgid "Jokosher Extension Files (*.py *.egg)"
-msgstr "File estensione di Jokosher (*.py *.egg)"
-
-#: ../../Jokosher/ExtensionManagerDialog.py:197
-msgid "There was a problem loading the extension"
-msgstr "Si è verificato un problema nel caricare l'estensione"
-
-#: ../../Jokosher/ExtensionManagerDialog.py:235
-msgid "There was a problem removing the extension"
-msgstr "Si è verificato un problema nel rimuovere l'estensione"
-
-#: ../../Jokosher/ExtensionManagerDialog.py:272
-msgid ""
-"An error occurred when trying to launch the preferences for the extension"
-msgstr ""
-"Si è verificato un problema nel tentativo di avviare le preferenze "
-"dell'estensione"
 
 #: ../../Jokosher/Extension.py:50
 msgid "This is a Jokosher extension; it is not meant to be run directly."
@@ -1147,83 +1007,106 @@ msgstr "Sostituisci"
 msgid "Your new extension is now available in Jokosher!"
 msgstr "La nuova estensione è ora disponibile in Jokosher!"
 
-#: ../../Jokosher/Globals.py:486
+#: ../../Jokosher/ExtensionManagerDialog.py:168
+msgid "Choose a Jokosher Extension file"
+msgstr "Scegliere un file estensione di Jokosher"
+
+#: ../../Jokosher/ExtensionManagerDialog.py:174
+msgid "Jokosher Extension Files (*.py *.egg)"
+msgstr "File estensione di Jokosher (*.py *.egg)"
+
+#: ../../Jokosher/ExtensionManagerDialog.py:196
+msgid "There was a problem loading the extension"
+msgstr "Si è verificato un problema nel caricare l'estensione"
+
+#: ../../Jokosher/ExtensionManagerDialog.py:234
+msgid "There was a problem removing the extension"
+msgstr "Si è verificato un problema nel rimuovere l'estensione"
+
+#: ../../Jokosher/ExtensionManagerDialog.py:271
+msgid ""
+"An error occurred when trying to launch the preferences for the extension"
+msgstr ""
+"Si è verificato un problema nel tentativo di avviare le preferenze "
+"dell'estensione"
+
+#: ../../Jokosher/Globals.py:509
 msgid "Broken"
 msgstr "Difettoso"
 
-#: ../../Jokosher/Globals.py:487
+#: ../../Jokosher/Globals.py:510
 msgid "Unclassified"
 msgstr "Non classificati"
 
-#: ../../Jokosher/Globals.py:488
+#: ../../Jokosher/Globals.py:511
 msgid "Amplifiers"
 msgstr "Amplificatori"
 
-#: ../../Jokosher/Globals.py:489
+#: ../../Jokosher/Globals.py:512
 msgid "Chorus"
 msgstr "Chorus"
 
-#: ../../Jokosher/Globals.py:490
+#: ../../Jokosher/Globals.py:513
 msgid "Compressors"
 msgstr "Compressori"
 
-#: ../../Jokosher/Globals.py:491
+#: ../../Jokosher/Globals.py:514
 msgid "Delays"
 msgstr "Delay"
 
-#: ../../Jokosher/Globals.py:492
+#: ../../Jokosher/Globals.py:515
 msgid "Distortions"
 msgstr "Distorsioni"
 
-#: ../../Jokosher/Globals.py:493
+#: ../../Jokosher/Globals.py:516
 msgid "Equalizers"
 msgstr "Equalizzatori"
 
-#: ../../Jokosher/Globals.py:494
+#: ../../Jokosher/Globals.py:517
 msgid "Filters"
 msgstr "Filtri"
 
-#: ../../Jokosher/Globals.py:495
+#: ../../Jokosher/Globals.py:518
 msgid "Flangers"
 msgstr "Flangers"
 
-#: ../../Jokosher/Globals.py:496
+#: ../../Jokosher/Globals.py:519
 msgid "Miscellaneous"
 msgstr "Vari"
 
-#: ../../Jokosher/Globals.py:497
+#: ../../Jokosher/Globals.py:520
 msgid "Modulators"
 msgstr "Modulatori"
 
-#: ../../Jokosher/Globals.py:498
+#: ../../Jokosher/Globals.py:521
 msgid "Oscillators"
 msgstr "Oscillatori"
 
-#: ../../Jokosher/Globals.py:499
+#: ../../Jokosher/Globals.py:522
 msgid "Phasers"
 msgstr "Phaser"
 
-#: ../../Jokosher/Globals.py:500
+#: ../../Jokosher/Globals.py:523
 msgid "Reverbs"
 msgstr "Riverberi"
 
-#: ../../Jokosher/Globals.py:501
+#: ../../Jokosher/Globals.py:524
 msgid "Simulators"
 msgstr "Simulatori"
 
-#: ../../Jokosher/Globals.py:695 ../../Jokosher/PreferencesDialog.py:113
+#: ../../Jokosher/Globals.py:718 ../../Jokosher/PreferencesDialog.py:113
 msgid "Autodetect"
 msgstr "Rilevamento automatico"
 
-#: ../../Jokosher/Globals.py:696
+#: ../../Jokosher/Globals.py:719
 msgid "Use GNOME Settings"
 msgstr "Utilizza impostazioni GNOME"
 
-#: ../../Jokosher/Globals.py:706
+#: ../../Jokosher/Globals.py:729
 msgid "GNOME Settings"
 msgstr "Impostazioni GNOME"
 
-#: ../../Jokosher/Globals.py:724
+#: ../../Jokosher/Globals.py:747
 msgid "Jokosher Audio Editor"
 msgstr "Editor audio di Jokosher"
 
@@ -1268,39 +1151,37 @@ msgid ""
 "The \"%(custom-pipeline)s\" sound system does not support device selection."
 msgstr ""
 
-#: ../../Jokosher/InstrumentEffectsDialog.py:142
-#: ../../Jokosher/InstrumentEffectsDialog.py:144
-#: ../../Jokosher/MixdownProfileDialog.py:618
+#: ../../Jokosher/InstrumentEffectsDialog.py:143
+#: ../../Jokosher/InstrumentEffectsDialog.py:145
+#: ../../Jokosher/MixdownProfileDialog.py:617
 msgid "Name"
 msgstr "Nome"
 
-#: ../../Jokosher/InstrumentEffectsDialog.py:143
-#: ../../Jokosher/ProjectTemplateDialog.py:82
-#: ../../Jokosher/ProjectTemplateDialog.py:86
+#: ../../Jokosher/InstrumentEffectsDialog.py:144
 msgid "Type"
 msgstr "Tipo"
 
-#: ../../Jokosher/InstrumentEffectsDialog.py:446
+#: ../../Jokosher/InstrumentEffectsDialog.py:447
 msgid "_Move up..."
 msgstr "_Sposta su..."
 
-#: ../../Jokosher/InstrumentEffectsDialog.py:447
+#: ../../Jokosher/InstrumentEffectsDialog.py:448
 msgid "M_ove down..."
 msgstr "S_posta giù..."
 
-#: ../../Jokosher/InstrumentEffectsDialog.py:450
+#: ../../Jokosher/InstrumentEffectsDialog.py:451
 msgid "_Settings"
 msgstr "_Impostazioni"
 
-#: ../../Jokosher/InstrumentEffectsDialog.py:491
+#: ../../Jokosher/InstrumentEffectsDialog.py:492
 msgid "_Activate effect"
 msgstr "_Attiva effetto"
 
-#: ../../Jokosher/InstrumentEffectsDialog.py:673
+#: ../../Jokosher/InstrumentEffectsDialog.py:674
 msgid "Effect Settings"
 msgstr "Impostazioni dell'effetto"
 
-#: ../../Jokosher/InstrumentEffectsDialog.py:704
+#: ../../Jokosher/InstrumentEffectsDialog.py:705
 msgid "-parameter not readable-"
 msgstr "-parametro non leggibile-"
 
@@ -1321,7 +1202,7 @@ msgstr ""
 msgid "Show the audio level mixers"
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:400
+#: ../../Jokosher/JokosherApp.py:438
 #, python-format
 msgid ""
 "<big>Couldn't launch the jokosher website automatically.</big>\n"
@@ -1332,7 +1213,7 @@ msgstr ""
 "\n"
 "Visitare %s per accedervi."
 
-#: ../../Jokosher/JokosherApp.py:411
+#: ../../Jokosher/JokosherApp.py:449
 #, python-format
 msgid ""
 "<big>Couldn't launch the launchpad website automatically.</big>\n"
@@ -1343,7 +1224,7 @@ msgstr ""
 "\n"
 "Visitare %s per accedervi"
 
-#: ../../Jokosher/JokosherApp.py:443
+#: ../../Jokosher/JokosherApp.py:481
 #, python-format
 msgid ""
 "The instruments '%(name1)s' and '%(name2)s' both have the same input "
@@ -1351,32 +1232,44 @@ msgid ""
 "through 'Project -> Recording Inputs'"
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:640
+#: ../../Jokosher/JokosherApp.py:678
 msgid "Preparing to mixdown project"
 msgstr "Preparazione al mixdown del progetto"
 
-#: ../../Jokosher/JokosherApp.py:646
+#: ../../Jokosher/JokosherApp.py:684
 #, python-format
 msgid "%(progress)d%% of %(total)d seconds completed"
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:718
+#: ../../Jokosher/JokosherApp.py:762
 msgid "Choose a Jokosher project file"
 msgstr "Scegliere un file di progetto Jokosher"
 
-#: ../../Jokosher/JokosherApp.py:727
+#: ../../Jokosher/JokosherApp.py:774
 msgid "All Files"
 msgstr "Tutti i file"
 
-#: ../../Jokosher/JokosherApp.py:731
-msgid "Jokosher Project File (*.jokosher)"
-msgstr "File di progetto Jokosher (*.jokosher)"
+#: ../../Jokosher/JokosherApp.py:778
+msgid "Jokosher Project Files (*.jokosher)"
+msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:781
-msgid "Choose a location to save the project"
-msgstr "Sceglire una posizione per salvare il progetto"
+#: ../../Jokosher/JokosherApp.py:811
+msgid "An error occurred and the project could not be imported."
+msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:811 ../../Jokosher/NewProjectDialog.py:147
+#: ../../Jokosher/JokosherApp.py:842
+msgid "New Project"
+msgstr "Nuovo progetto"
+
+#: ../../Jokosher/JokosherApp.py:843
+msgid "Unknown Author"
+msgstr "Autore sconosciuto"
+
+#: ../../Jokosher/JokosherApp.py:849
+msgid "Could not initialize project."
+msgstr "Non è possibile inizializzare il progetto."
+
+#: ../../Jokosher/JokosherApp.py:851
 msgid ""
 "A file or folder with this name already exists. Please choose a different "
 "project name and try again."
@@ -1384,15 +1277,23 @@ msgstr ""
 "Esiste già un file o una cartella con questo nome. Scegliere un nome "
 "differente per il progetto e provare nuovamente."
 
-#: ../../Jokosher/JokosherApp.py:813 ../../Jokosher/NewProjectDialog.py:149
+#: ../../Jokosher/JokosherApp.py:853
 msgid "The file or folder location is write-protected."
 msgstr "La posizione del file o della cartella è protetta dalla scrittura."
 
-#: ../../Jokosher/JokosherApp.py:815 ../../Jokosher/NewProjectDialog.py:153
+#: ../../Jokosher/JokosherApp.py:855
+msgid "Invalid name or author."
+msgstr "Nome o autore non valido."
+
+#: ../../Jokosher/JokosherApp.py:857
 msgid "The URI scheme given is either invalid or not supported"
 msgstr "Lo schema URI indicato non è valido oppure non è supportato"
 
-#: ../../Jokosher/JokosherApp.py:822 ../../Jokosher/NewProjectDialog.py:162
+#: ../../Jokosher/JokosherApp.py:859
+msgid "Unable to load required Gstreamer plugin:"
+msgstr "Impossibile caricare il plugin di GStreamer necessario:"
+
+#: ../../Jokosher/JokosherApp.py:866
 #, python-format
 msgid ""
 "Unable to create project.\n"
@@ -1403,47 +1304,43 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../../Jokosher/JokosherApp.py:877
-#, python-format
-msgid ""
-"<span size='large' weight='bold'>Save changes to project \"%s\" before "
-"closing?</span>\n"
-"\n"
-"Your changes will be lost if you don't save them."
-msgstr ""
-"<span size='large' weight='bold'>Salvare i cambiamenti al progetto «%s» prima "
-"di chiuderlo?</span>\n"
-"\n"
-"Le modifiche apportate andranno perse se non vengono salvate."
-
-#: ../../Jokosher/JokosherApp.py:886
-msgid "Close _Without Saving"
-msgstr "_Chiudi senza salvare"
-
-#: ../../Jokosher/JokosherApp.py:985
+#: ../../Jokosher/JokosherApp.py:1015
 #, python-format
 msgid "Mixing project to file: %s"
 msgstr "Mixing del progetto sul file: %s"
 
-#: ../../Jokosher/JokosherApp.py:1017
+#: ../../Jokosher/JokosherApp.py:1058
 #, python-format
 msgid "*%s - Jokosher"
 msgstr "*%s - Jokosher"
 
-#: ../../Jokosher/JokosherApp.py:1019
+#: ../../Jokosher/JokosherApp.py:1060
 #, python-format
 msgid "%s - Jokosher"
 msgstr "%s - Jokosher"
 
-#: ../../Jokosher/JokosherApp.py:1097
-msgid "Clear the list of recent projects"
-msgstr "Pulisce l'elenco dei progetti recenti"
+#: ../../Jokosher/JokosherApp.py:1127
+#, python-format
+msgid "Show all %d projects"
+msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:1519
+#: ../../Jokosher/JokosherApp.py:1129
+msgid "Show all projects"
+msgstr ""
+
+#: ../../Jokosher/JokosherApp.py:1132
+msgid "Close the current project, and show all available projects"
+msgstr ""
+
+#: ../../Jokosher/JokosherApp.py:1403
+msgid "Jokosher"
+msgstr "Jokosher"
+
+#: ../../Jokosher/JokosherApp.py:1588
 msgid "The project references non-existant files:\n"
 msgstr "Il progetto fa riferimento a dei file non esistenti:\n"
 
-#: ../../Jokosher/JokosherApp.py:1523
+#: ../../Jokosher/JokosherApp.py:1592
 msgid ""
 "\n"
 "The project references non-existant images:\n"
@@ -1451,7 +1348,7 @@ msgstr ""
 "\n"
 "Il progetto fa riferimento a delle immagini non esistenti:\n"
 
-#: ../../Jokosher/JokosherApp.py:1531
+#: ../../Jokosher/JokosherApp.py:1600
 #, python-format
 msgid ""
 "%s\n"
@@ -1460,21 +1357,21 @@ msgstr ""
 "%s\n"
 " Il file di progetto non si apre perché sembra non valido o corrotto."
 
-#: ../../Jokosher/JokosherApp.py:1569
+#: ../../Jokosher/JokosherApp.py:1639
 msgid "You must have Gstreamer version 0.10.9 or higher.\n"
 msgstr "È necessaria la versione 0.10.9 o superiore di Gstreamer.\n"
 
-#: ../../Jokosher/JokosherApp.py:1577
+#: ../../Jokosher/JokosherApp.py:1647
 msgid "You must have Gstreamer plugin gnonlin version 0.10.4.2 or later.\n"
 msgstr ""
 "È necessaria la versione 0.10.4.2 o superiore del plugin «gnonlin» di "
 "Gstreamer.\n"
 
-#: ../../Jokosher/JokosherApp.py:1579
+#: ../../Jokosher/JokosherApp.py:1649
 msgid "Gstreamer plugin gnonlin is not installed."
 msgstr "Plugin «gnonlin» di Gstreamer non installato."
 
-#: ../../Jokosher/JokosherApp.py:1580
+#: ../../Jokosher/JokosherApp.py:1650
 msgid ""
 "\n"
 "See http://doc.jokosher.org/Installation for more details.\n"
@@ -1482,7 +1379,7 @@ msgstr ""
 "\n"
 "Consultare http://doc.jokosher.org/Installation per maggiori dettagli.\n"
 
-#: ../../Jokosher/JokosherApp.py:1583
+#: ../../Jokosher/JokosherApp.py:1653
 msgid ""
 "You must have the Gstreamer plugin packs gst-plugins-base and gst-plugins-"
 "good installed.\n"
@@ -1490,7 +1387,7 @@ msgstr ""
 "È necessario che siano installate le raccolte di plugin di GStreamer «gst-"
 "plugins-base» e «gst-plugins-good».\n"
 
-#: ../../Jokosher/JokosherApp.py:1589
+#: ../../Jokosher/JokosherApp.py:1659
 #, python-format
 msgid ""
 "<big>Some functionality will not work correctly or at all.</big>\n"
@@ -1502,7 +1399,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../../Jokosher/JokosherApp.py:1632
+#: ../../Jokosher/JokosherApp.py:1702
 #, python-format
 msgid ""
 "<big>Couldn't launch the Jokosher documentation site.</big>\n"
@@ -1510,7 +1407,7 @@ msgid ""
 "Please visit %s to access it."
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:1643
+#: ../../Jokosher/JokosherApp.py:1713
 #, python-format
 msgid ""
 "<big>Couldn't launch the forums website automatically.</big>\n"
@@ -1521,11 +1418,11 @@ msgstr ""
 "\n"
 "Visitare %s per accedervi."
 
-#: ../../Jokosher/JokosherApp.py:1671
+#: ../../Jokosher/JokosherApp.py:1741
 msgid "<b>To find out more, visit:</b>"
 msgstr "<b>Per maggiori informazioni, visitare:</b>"
 
-#: ../../Jokosher/JokosherApp.py:1694
+#: ../../Jokosher/JokosherApp.py:1764
 #, python-format
 msgid ""
 "<big>Couldn't launch the contributing website automatically.</big>\n"
@@ -1536,37 +1433,37 @@ msgstr ""
 "\n"
 "Visitare %s per accedervi."
 
-#: ../../Jokosher/JokosherApp.py:1749
+#: ../../Jokosher/JokosherApp.py:1819
 msgid "Gnonlin is missing!"
 msgstr "Gnonlin assente!"
 
-#: ../../Jokosher/JokosherApp.py:1756
+#: ../../Jokosher/JokosherApp.py:1826
 msgid "Unknown"
 msgstr "Sconosciuto"
 
-#: ../../Jokosher/JokosherApp.py:1772
+#: ../../Jokosher/JokosherApp.py:1842
 #, python-format
 msgid "The URI scheme '%s' is either invalid or not supported."
 msgstr "Lo schema URI «%s» sembra non valido o non supportato."
 
-#: ../../Jokosher/JokosherApp.py:1774
+#: ../../Jokosher/JokosherApp.py:1844
 #, python-format
 msgid "Unable to unzip the project file %s"
 msgstr "Non è possibile decomprimere il file di progetto %s"
 
-#: ../../Jokosher/JokosherApp.py:1776
+#: ../../Jokosher/JokosherApp.py:1846
 #, python-format
 msgid "The project file was created with version \"%s\" of Jokosher.\n"
 msgstr ""
 "Il file di progetto era stato creato con la versione «%s» di Jokosher.\n"
 
-#: ../../Jokosher/JokosherApp.py:1777
+#: ../../Jokosher/JokosherApp.py:1847
 #, python-format
 msgid "Projects from version \"%s\" are incompatible with this release.\n"
 msgstr ""
 "I progetti della versione «%s» sono incompatibili con questo rilascio.\n"
 
-#: ../../Jokosher/JokosherApp.py:1779
+#: ../../Jokosher/JokosherApp.py:1849
 #, python-format
 msgid ""
 "The project:\n"
@@ -1579,11 +1476,11 @@ msgstr ""
 "\n"
 "non esiste.\n"
 
-#: ../../Jokosher/JokosherApp.py:1781 ../../Jokosher/JokosherApp.py:1785
+#: ../../Jokosher/JokosherApp.py:1851 ../../Jokosher/JokosherApp.py:1855
 msgid "The project file could not be opened.\n"
 msgstr "Il file di progetto non può essere aperto.\n"
 
-#: ../../Jokosher/JokosherApp.py:1782
+#: ../../Jokosher/JokosherApp.py:1852
 msgid ""
 "It is recommended that you report this to the Jokosher developers or get "
 "help at http://www.jokosher.org/forums/"
@@ -1591,16 +1488,20 @@ msgstr ""
 "È consigliato segnalare questo evento agli sviluppatori di Jokosher o "
 "cercare aiuto presso http://www.jokosher.org/forums/"
 
-#: ../../Jokosher/JokosherApp.py:1862
+#: ../../Jokosher/JokosherApp.py:1932
 msgid "Copy file to project"
 msgstr "Copia file nel progetto"
 
-#: ../../Jokosher/JokosherApp.py:1867
+#: ../../Jokosher/JokosherApp.py:1937
 msgid "Add Audio File..."
 msgstr "Aggiungi file audio..."
 
-#: ../../Jokosher/JokosherApp.py:1941 ../../Jokosher/JokosherApp.py:1946
+#: ../../Jokosher/JokosherApp.py:2011 ../../Jokosher/JokosherApp.py:2016
 msgid "Mix_down As"
+msgstr ""
+
+#: ../../Jokosher/JokosherApp.py:2029
+msgid "_Mixdown Project..."
 msgstr ""
 
 #: ../../Jokosher/MasterMixerStrip.py:46
@@ -1615,7 +1516,7 @@ msgstr "Esporta file"
 msgid "Export a file to the destination of your choosing."
 msgstr "Esporta un file alla destinazione scelta."
 
-#: ../../Jokosher/MixdownActions.py:225
+#: ../../Jokosher/MixdownActions.py:226
 #, python-format
 msgid ""
 "An encoding plugin could not be found: %s.\n"
@@ -1626,54 +1527,54 @@ msgstr ""
 "Si prega di assicurarsi che tutti i plugin necessari per il formato "
 "specificato siano installati."
 
-#: ../../Jokosher/MixdownActions.py:227
+#: ../../Jokosher/MixdownActions.py:228
 #, python-format
 msgid "The encoding bin description is invalid: %s"
 msgstr ""
 
-#: ../../Jokosher/MixdownActions.py:253
+#: ../../Jokosher/MixdownActions.py:254
 msgid "Server type:"
 msgstr "Tipo di server:"
 
-#: ../../Jokosher/MixdownActions.py:266
+#: ../../Jokosher/MixdownActions.py:267
 msgid "Server location:"
 msgstr "Posizione server:"
 
-#: ../../Jokosher/MixdownActions.py:270
+#: ../../Jokosher/MixdownActions.py:271
 msgid "Username:"
 msgstr "Nome utente:"
 
-#: ../../Jokosher/MixdownActions.py:274
+#: ../../Jokosher/MixdownActions.py:275
 msgid "Password:"
 msgstr "Password:"
 
-#: ../../Jokosher/MixdownActions.py:310
+#: ../../Jokosher/MixdownActions.py:311
 msgid "Location:"
 msgstr "Posizione:"
 
-#: ../../Jokosher/MixdownActions.py:378
+#: ../../Jokosher/MixdownActions.py:379
 msgid "Select Export Location"
 msgstr "Indica dove esportare"
 
-#: ../../Jokosher/MixdownActions.py:489 ../../Jokosher/MixdownActions.py:499
+#: ../../Jokosher/MixdownActions.py:490 ../../Jokosher/MixdownActions.py:500
 msgid "Run External Script"
 msgstr "Esegui script esterno"
 
-#: ../../Jokosher/MixdownActions.py:490
+#: ../../Jokosher/MixdownActions.py:491
 msgid "Run an external script from the destination of your choosing."
 msgstr "Esegui uno script esterno dalla destinazione scelta."
 
-#: ../../Jokosher/MixdownActions.py:531
+#: ../../Jokosher/MixdownActions.py:532
 #, python-format
 msgid "An error occured with the script %s"
 msgstr "Si è verificato un errore con lo script %s"
 
-#: ../../Jokosher/MixdownActions.py:533
+#: ../../Jokosher/MixdownActions.py:534
 #, python-format
 msgid "Error in script %s"
 msgstr "Errore nello script «%s»"
 
-#: ../../Jokosher/MixdownActions.py:536
+#: ../../Jokosher/MixdownActions.py:537
 #, python-format
 msgid "The script %s does not exist."
 msgstr "Lo script %s non esiste."
@@ -1729,11 +1630,11 @@ msgstr ""
 msgid "An error occured while running the mixdown action: %s"
 msgstr ""
 
-#: ../../Jokosher/MixdownProfileDialog.py:617
+#: ../../Jokosher/MixdownProfileDialog.py:616
 msgid "Icon"
 msgstr "Icona"
 
-#: ../../Jokosher/MixdownProfileDialog.py:632
+#: ../../Jokosher/MixdownProfileDialog.py:631
 #, python-format
 msgid ""
 "Please select the mixdown actions you would like to add to mixdown profile "
@@ -1789,26 +1690,6 @@ msgstr "Il bilanciamento attuale è <b>centrato</b>"
 msgid "Current balance is <b>%d%%</b> right"
 msgstr "Il bilanciamento attuale è <b>%d%%</b> a destra"
 
-#: ../../Jokosher/NewProjectDialog.py:85
-msgid "Select A Folder"
-msgstr "Seleziona una cartella"
-
-#: ../../Jokosher/NewProjectDialog.py:130
-msgid "Unknown Author"
-msgstr "Autore sconosciuto"
-
-#: ../../Jokosher/NewProjectDialog.py:145
-msgid "Could not initialize project."
-msgstr "Non è possibile inizializzare il progetto."
-
-#: ../../Jokosher/NewProjectDialog.py:151
-msgid "Invalid name or author."
-msgstr "Nome o autore non valido."
-
-#: ../../Jokosher/NewProjectDialog.py:155
-msgid "Unable to load required Gstreamer plugin:"
-msgstr "Impossibile caricare il plugin di GStreamer necessario:"
-
 #: ../../Jokosher/PreferencesDialog.py:75
 #: ../../Jokosher/PreferencesDialog.py:93
 msgid "Custom"
@@ -1819,46 +1700,41 @@ msgstr "Personalizza"
 msgid "Device %d"
 msgstr "Dispositivo %d"
 
-#: ../../Jokosher/ProjectTemplateDialog.py:83
-#: ../../Jokosher/ProjectTemplateDialog.py:87
-msgid "Instrument Name"
-msgstr "Nome strumento"
-
-#: ../../Jokosher/RecordingView.py:119
+#: ../../Jokosher/RecordingView.py:120
 msgid "Zoom the timeline - Right-Click to reset to the default level"
 msgstr ""
 
-#: ../../Jokosher/RecordingView.py:128
+#: ../../Jokosher/RecordingView.py:129
 msgid "Zoom in timeline"
 msgstr "Ingrandisci la timeline"
 
-#: ../../Jokosher/RecordingView.py:135
+#: ../../Jokosher/RecordingView.py:136
 msgid "Zoom out timeline"
 msgstr ""
 
-#: ../../Jokosher/RecordingView.py:179
+#: ../../Jokosher/RecordingView.py:180
 msgid "Would you like to restore the current project?"
 msgstr ""
 
-#: ../../Jokosher/RecordingView.py:180
+#: ../../Jokosher/RecordingView.py:181
 msgid ""
 "A crash was detected and changes to your project were not saved.\n"
 "If you would like, you can attempt to recover these lost changes."
 msgstr ""
 
-#: ../../Jokosher/RecordingView.py:184
+#: ../../Jokosher/RecordingView.py:185
 msgid "_Restore Project"
 msgstr "_Ripristina progetto"
 
-#: ../../Jokosher/RecordingView.py:318
+#: ../../Jokosher/RecordingView.py:321
 msgid "A Gstreamer error has occurred"
 msgstr "Rilevato un errore di Gstreamer"
 
-#: ../../Jokosher/RecordingView.py:329
+#: ../../Jokosher/RecordingView.py:332
 msgid "A GStreamer error has occurred."
 msgstr "Rilevato un errore di Gstreamer."
 
-#: ../../Jokosher/RecordingView.py:330
+#: ../../Jokosher/RecordingView.py:333
 msgid ""
 "If this problem persists consider reporting a bug using the link in the help "
 "menu."
@@ -1866,17 +1742,19 @@ msgstr ""
 "Se questo problema persiste, prendere in considerazione l'idea di riportare "
 "l'errore utilizzando l'apposito link nel menu Aiuto"
 
-#: ../../Jokosher/TimeLineBar.py:63
-msgid "Adjust volume of click track"
+#: ../../Jokosher/RecordingView.py:596
+msgid "This project has no name. Would you like to give it one?"
 msgstr ""
 
-#: ../../Jokosher/TimeLineBar.py:67
-msgid "Beats per minute"
-msgstr "Battiti per minuto"
+#: ../../Jokosher/RecordingView.py:597
+msgid ""
+"The Properties dialog in the File menu lets you change the name of author of "
+"the project."
+msgstr ""
 
-#: ../../Jokosher/TimeLineBar.py:86
-msgid "Time signature"
-msgstr "Indicazione del tempo"
+#: ../../Jokosher/RecordingView.py:601
+msgid "_Open Properties"
+msgstr ""
 
 #: ../../Jokosher/TimeLine.py:566
 #, python-format
@@ -1890,8 +1768,20 @@ msgid ""
 "Timeline, %(hours)d hours, %(mins)d minutes, %(secs)d seconds and %(millis)d "
 "milliseconds in"
 msgstr ""
-"Linea del tempo, %(hours)d ore, %(mins)d minuti, %(secs)d secondi e %(millis)"
-"d millisecondi in"
+"Linea del tempo, %(hours)d ore, %(mins)d minuti, %(secs)d secondi e "
+"%(millis)d millisecondi in"
+
+#: ../../Jokosher/TimeLineBar.py:63
+msgid "Adjust volume of click track"
+msgstr ""
+
+#: ../../Jokosher/TimeLineBar.py:67
+msgid "Beats per minute"
+msgstr "Battiti per minuto"
+
+#: ../../Jokosher/TimeLineBar.py:86
+msgid "Time signature"
+msgstr "Indicazione del tempo"
 
 #: ../../Jokosher/TimeView.py:49
 msgid "Double click to change the time format"
@@ -1902,31 +1792,6 @@ msgid ""
 "<b>Drag</b> the <b>slider</b> to alter volume levels - <b>Right-Click</b> to "
 "set the <b>slider</b> to 100%"
 msgstr ""
-
-#: ../../Jokosher/Jokosher:73
-msgid "Print debug output to stdout"
-msgstr "Stampa l'output di debug su stdout"
-
-#: ../../Jokosher/Jokosher:75
-msgid "Sent debug output to Gstreamer's debug system"
-msgstr "Invia l'output di debug al sistema di debug di GStreamer"
-
-#: ../../Jokosher/Jokosher:77
-msgid "Don't load extensions or last project on startup (same as -ne)"
-msgstr "Non carica le estensioni o l'ultimo progetto all'avio (come -ne)"
-
-#: ../../Jokosher/Jokosher:79
-msgid "Force the welcome dialog to show on startup"
-msgstr "Forza la presenza del dialogo di benvenuto all'avvio"
-
-#: ../../Jokosher/Jokosher:81
-msgid "Force Jokosher to load without a welcome dialog or project"
-msgstr ""
-"Forza il caricamento di Jokosher senza un dialogo di benvenuto o progetto"
-
-#: ../../Jokosher/Jokosher:83
-msgid "Do not load extensions on startup"
-msgstr "Non caricare le estensioni all'avvio"
 
 #: i18n.instr.h:1
 msgid "Acoustic Guitar"
@@ -1999,6 +1864,168 @@ msgstr "Violino"
 #: i18n.instr.h:18
 msgid "Vocal"
 msgstr "Voce"
+
+#~ msgid "<b>Jokosher Instruments</b>"
+#~ msgstr "<b>Strumenti Jokosher</b>"
+
+#~ msgid "<b>Recent Projects</b>"
+#~ msgstr "<b>Progetti recenti</b>"
+
+#~ msgid "<b>Template Instruments</b>"
+#~ msgstr "<b>Modelli per strumenti</b>"
+
+#~ msgid "Add Audio _File..."
+#~ msgstr "Aggiungi _File audio"
+
+#~ msgid "Add _Instrument..."
+#~ msgstr "Aggiung_i strumento..."
+
+#~ msgid "Add the selected jokosher instrument"
+#~ msgstr "Aggiungi lo strumento jokosher selezionato"
+
+#~ msgid "Change Jokosher preferences"
+#~ msgstr "Cambia le preferenze di Jokosher"
+
+#~ msgid "Choose a chain effects preset."
+#~ msgstr "Sceglie una catena di effetti preselezionata."
+
+#~ msgid "Choose a project template"
+#~ msgstr "Scegli un modello di progetto"
+
+#~ msgid "Choose an effect preset."
+#~ msgstr "Sceglie un effetto preselezionato."
+
+#~ msgid "Create the project"
+#~ msgstr "Crea il progetto"
+
+#~ msgid "Delete the selected project template"
+#~ msgstr "Elimina il modello di progetto selezionato"
+
+#~ msgid "Don't create the project"
+#~ msgstr "Non crea il progetto"
+
+#~ msgid "Edit project templates"
+#~ msgstr "Modifica modelli di progetto"
+
+#~ msgid ""
+#~ "Enter a name for your project and select a folder to store the project in:"
+#~ msgstr ""
+#~ "Inserire un nome per il proprio progetto e selezionare una cartella in "
+#~ "cui memorizzarlo:"
+
+#~ msgid "Enter the author's name"
+#~ msgstr "Inserire il nome dell'autore"
+
+#~ msgid "Enter the project's name"
+#~ msgstr "Inserire il nome del progetto"
+
+#~ msgid "Open a recent project"
+#~ msgstr "Apre un progetto recente"
+
+#~ msgid "Project Templates"
+#~ msgstr "Modelli di progetto"
+
+#~ msgid "Redo"
+#~ msgstr "Ripeti"
+
+#~ msgid "Save _As..."
+#~ msgstr "Salva come"
+
+#~ msgid "Save a copy of the current project"
+#~ msgstr "Salva una copia del progetto corrente"
+
+#~ msgid "Save the selected project template"
+#~ msgstr "Salva il modello di progetto selezionato"
+
+#~ msgid "Undo"
+#~ msgstr "Annulla"
+
+#~ msgid "Welcome to Jokosher!"
+#~ msgstr "Benvenuto in Jokosher!"
+
+#~ msgid "_Contributing to Jokosher"
+#~ msgstr "_Contribuire a Jokosher"
+
+#~ msgid "_Create a New Project"
+#~ msgstr "_Crea un nuovo progetto"
+
+#~ msgid "_Don't open anything"
+#~ msgstr "_Non aprire nulla"
+
+#~ msgid "_Don't show this on start-up"
+#~ msgstr "_Non mostrare all'avvio"
+
+#~ msgid "_Folder:"
+#~ msgstr "_Cartella"
+
+#~ msgid "_New..."
+#~ msgstr "_Nuovo..."
+
+#~ msgid "_Online Forums"
+#~ msgstr "_Forum online"
+
+#~ msgid "_Open..."
+#~ msgstr "_Apri..."
+
+#~ msgid "_Preferences"
+#~ msgstr "_Preferenze"
+
+#~ msgid "_Project Name:"
+#~ msgstr "_Nome progetto:"
+
+#~ msgid "_Recent Projects"
+#~ msgstr "Progetti _recenti"
+
+#~ msgid "_Remove Selected Instrument"
+#~ msgstr "_Rimuovi lo strumento selezionato"
+
+#~ msgid "_Show welcome dialog"
+#~ msgstr "_Mostra dialogo di benvenuto"
+
+#~ msgid "_System Information"
+#~ msgstr "_Informazioni di sistema"
+
+#~ msgid "_Template Name:"
+#~ msgstr "_Nome modello:"
+
+#~ msgid "Jokosher Project File (*.jokosher)"
+#~ msgstr "File di progetto Jokosher (*.jokosher)"
+
+#~ msgid "Choose a location to save the project"
+#~ msgstr "Sceglire una posizione per salvare il progetto"
+
+#~ msgid ""
+#~ "<span size='large' weight='bold'>Save changes to project \"%s\" before "
+#~ "closing?</span>\n"
+#~ "\n"
+#~ "Your changes will be lost if you don't save them."
+#~ msgstr ""
+#~ "<span size='large' weight='bold'>Salvare i cambiamenti al progetto «%s» "
+#~ "prima di chiuderlo?</span>\n"
+#~ "\n"
+#~ "Le modifiche apportate andranno perse se non vengono salvate."
+
+#~ msgid "Close _Without Saving"
+#~ msgstr "_Chiudi senza salvare"
+
+#~ msgid "Clear the list of recent projects"
+#~ msgstr "Pulisce l'elenco dei progetti recenti"
+
+#~ msgid "Select A Folder"
+#~ msgstr "Seleziona una cartella"
+
+#~ msgid "Instrument Name"
+#~ msgstr "Nome strumento"
+
+#~ msgid "Don't load extensions or last project on startup (same as -ne)"
+#~ msgstr "Non carica le estensioni o l'ultimo progetto all'avio (come -ne)"
+
+#~ msgid "Force the welcome dialog to show on startup"
+#~ msgstr "Forza la presenza del dialogo di benvenuto all'avvio"
+
+#~ msgid "Force Jokosher to load without a welcome dialog or project"
+#~ msgstr ""
+#~ "Forza il caricamento di Jokosher senza un dialogo di benvenuto o progetto"
 
 #~ msgid "Jokosher Errors"
 #~ msgstr "Errori di Jokosher"
@@ -2091,8 +2118,8 @@ msgstr "Voce"
 #~ "selected (%(track)s). Please either disarm one, or connect it to a "
 #~ "different input through 'Project -> Recording Inputs'"
 #~ msgstr ""
-#~ "Per entrambi gli strumenti «%(name1)s» e «%(name2)s» risulta selezionato lo "
-#~ "stesso ingresso (%(track)s). Disattivare uno strumento, oppure "
+#~ "Per entrambi gli strumenti «%(name1)s» e «%(name2)s» risulta selezionato "
+#~ "lo stesso ingresso (%(track)s). Disattivare uno strumento, oppure "
 #~ "connetterlo a un diverso ingresso attraverso Progetto->Ingressi di "
 #~ "registrazione"
 
@@ -2218,9 +2245,9 @@ msgstr "Voce"
 #~ "Please either disarm one, or connect it to a different input through "
 #~ "'Project -> Instrument Connections'"
 #~ msgstr ""
-#~ "Per gli strumenti «%s» e «%s» è stato selezionato lo stesso ingresso (%s). "
-#~ "Disabilitare uno strumento, oppure connetterlo a un ingresso differente "
-#~ "tramite Progetto -> Connessioni strumenti"
+#~ "Per gli strumenti «%s» e «%s» è stato selezionato lo stesso ingresso "
+#~ "(%s). Disabilitare uno strumento, oppure connetterlo a un ingresso "
+#~ "differente tramite Progetto -> Connessioni strumenti"
 
 #~ msgid ""
 #~ "No instruments are armed for recording. You need to arm an instrument "

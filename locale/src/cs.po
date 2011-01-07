@@ -7,57 +7,220 @@ msgid ""
 msgstr ""
 "Project-Id-Version: jokosher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-26 00:54+0000\n"
+"POT-Creation-Date: 2011-01-07 14:18+0100\n"
 "PO-Revision-Date: 2010-01-05 15:09+0000\n"
 "Last-Translator: Kuvaly [LCT] <kuvaly@seznam.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
+"Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2010-02-26 00:44+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
-#: ../../Jokosher/Jokosher.glade.h:1
-msgid "<b>Active effects for: </b>"
-msgstr "<b>Aktivní efekty pro: </b>"
+#: ../../gtk-builder-ui/AboutDialog.ui:10
+msgid ""
+"Audio production made simple.\n"
+"Version 0.11.5"
+msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:2
-msgid "<b>Application Start-up</b>"
-msgstr "<b>Inicializace aplikace</b>"
+#. TRANSLATORS: Replace this string with your names, one name per line.
+#: ../../gtk-builder-ui/AboutDialog.ui:384
+msgid ""
+"Iestyn Pryce <dylunio@gmail.com>\n"
+"Jerome S. Gotangco <jgotangco@ubuntu.com>\n"
+"torb <torrb@musiker.nu>\n"
+"Robert Renling Berencreuz <berencreuz@gmail.com>\n"
+"Ola Jeppsson <ola.jeppsson@gmail.com>\n"
+"Daniel Nylander <po@danielnylander.se>\n"
+"aruiz <aruiz@synaptia.net>\n"
+"Manuel Duran Moyano <mduran@ubiobio.cl>\n"
+"Laszlo Pandy <laszlok2@gmail.com>\n"
+"Iván Edgardo Vázquez Santos \n"
+"David Corrales <corrales.david@gmail.com>\n"
+"Benjamin A'Lee <bma@bmalee.eu>\n"
+"Peter Baričič <pbaricic@gmail.com>\n"
+"Артём Попов <artfwo@gmail.com>\n"
+"deepred <psalmos@swissinfo.org>\n"
+"KeepYourMind <keepyourmind@gmail.com>\n"
+"Georgy Faradzhev <georgy.faradzhev@gmail.com>\n"
+"Gendolf <pr-baukalo@rambler.ru>\n"
+"Rodrigo NSH <rodrigo.nsh@gmail.com>\n"
+"Christian Reis <kiko@async.com.br>\n"
+"Lourabe Multimédia \n"
+"Tomasz Dominikowski <dominikowski@gmail.com>\n"
+"Konrad Adamczyk <konrad@svx.pl>\n"
+"Hender <simsalabimladen@gmail.com>\n"
+"sklp\n"
+"Bård Aase <base@kvarteret.no>\n"
+"Pecisk <pecisk@gmail.com>\n"
+"Luca Ferretti <elle.uca@libero.it>\n"
+"Daniele Medri <daniele@medri.org>\n"
+"Igor Khanin \n"
+"Tobias Frederick <me@tbfr.org>\n"
+"Tim Fuchs <tim.fuchs@gmail.com>\n"
+"Ramona Barte \n"
+"Marcus Hochstadt\n"
+"Lebowski\n"
+"Julian Turner\n"
+"Dennis Lichtenthäler <dennis.lichtenthaeler@episode-iv.de>\n"
+"dyphil <dyphil@wanadoo.fr>\n"
+"XioNoX \n"
+"Stemp <StempUbuntu@gmail.com>\n"
+"Signez\n"
+"Pierre Slamich <pierre.slamich@gmail.com>\n"
+"Nicolas Velin <nsv@fr.st>\n"
+"Jean-Francois Arseneau <jf.arseneau@gmail.com>\n"
+"Guillaume Hoffmann \n"
+"Gabriel de Perthuis <gabriel.de-perthuis@laposte.net>\n"
+"Bruno Bord <bruno@jehaisleprintemps.net>\n"
+"Mikko Virkkilä <mvirkkil@cc.hut.fi>\n"
+"Boyd Timothy\n"
+"William Anderson<neuro@well.com>\n"
+"Sridhar Dhanapalan <sridhar@dhanapalan.com>\n"
+"Roger Light <roger@atchoo.org>\n"
+"Malcolm Parsons\n"
+"Peturrr <peterdekraker@planet.nl>\n"
+"jerven Bolleman <ik@jerven.eu>\n"
+"Mathias-K <mathias@computergeil.dk>\n"
+"Niels Kjøller Hansen <niels.k.h@gmail.com>\n"
+"David Nielsen <david@lovesunix.net>\n"
+"daave <fan.d.liu@gmail.com>\n"
+msgstr ""
+"Iestyn Pryce <dylunio@gmail.com>\n"
+"Jerome S. Gotangco <jgotangco@ubuntu.com>\n"
+"torb <torrb@musiker.nu>\n"
+"Robert Renling Berencreuz <berencreuz@gmail.com>\n"
+"Ola Jeppsson <ola.jeppsson@gmail.com>\n"
+"Daniel Nylander <po@danielnylander.se>\n"
+"aruiz <aruiz@synaptia.net>\n"
+"Manuel Duran Moyano <mduran@ubiobio.cl>\n"
+"Laszlo Pandy <laszlok2@gmail.com>\n"
+"Iván Edgardo Vázquez Santos \n"
+"David Corrales <corrales.david@gmail.com>\n"
+"Benjamin A'Lee <bma@bmalee.eu>\n"
+"Peter Baričič <pbaricic@gmail.com>\n"
+"Артём Попов <artfwo@gmail.com>\n"
+"deepred <psalmos@swissinfo.org>\n"
+"KeepYourMind <keepyourmind@gmail.com>\n"
+"Georgy Faradzhev <georgy.faradzhev@gmail.com>\n"
+"Gendolf <pr-baukalo@rambler.ru>\n"
+"Rodrigo NSH <rodrigo.nsh@gmail.com>\n"
+"Christian Reis <kiko@async.com.br>\n"
+"Lourabe Multimédia \n"
+"Tomasz Dominikowski <dominikowski@gmail.com>\n"
+"Konrad Adamczyk <konrad@svx.pl>\n"
+"Hender <simsalabimladen@gmail.com>\n"
+"sklp\n"
+"Bård Aase <base@kvarteret.no>\n"
+"Pecisk <pecisk@gmail.com>\n"
+"Luca Ferretti <elle.uca@libero.it>\n"
+"Daniele Medri <daniele@medri.org>\n"
+"Igor Khanin \n"
+"Tobias Frederick <me@tbfr.org>\n"
+"Tim Fuchs <tim.fuchs@gmail.com>\n"
+"Ramona Barte \n"
+"Marcus Hochstadt\n"
+"Lebowski\n"
+"Julian Turner\n"
+"Dennis Lichtenthäler <dennis.lichtenthaeler@episode-iv.de>\n"
+"dyphil <dyphil@wanadoo.fr>\n"
+"XioNoX \n"
+"Stemp <StempUbuntu@gmail.com>\n"
+"Signez\n"
+"Pierre Slamich <pierre.slamich@gmail.com>\n"
+"Nicolas Velin <nsv@fr.st>\n"
+"Jean-Francois Arseneau <jf.arseneau@gmail.com>\n"
+"Guillaume Hoffmann \n"
+"Gabriel de Perthuis <gabriel.de-perthuis@laposte.net>\n"
+"Bruno Bord <bruno@jehaisleprintemps.net>\n"
+"Mikko Virkkilä <mvirkkil@cc.hut.fi>\n"
+"Boyd Timothy\n"
+"William Anderson<neuro@well.com>\n"
+"Sridhar Dhanapalan <sridhar@dhanapalan.com>\n"
+"Roger Light <roger@atchoo.org>\n"
+"Malcolm Parsons\n"
+"Peturrr <peterdekraker@planet.nl>\n"
+"jerven Bolleman <ik@jerven.eu>\n"
+"Mathias-K <mathias@computergeil.dk>\n"
+"Niels Kjøller Hansen <niels.k.h@gmail.com>\n"
+"David Nielsen <david@lovesunix.net>\n"
+"daave <fan.d.liu@gmail.com>\n"
 
-#: ../../Jokosher/Jokosher.glade.h:3
-msgid "<b>Art</b>"
-msgstr "<b>Umění</b>"
+#: ../../gtk-builder-ui/AddInstrumentDialog.ui:7
+msgid "Add an instrument"
+msgstr "Přidat instrument"
 
-#: ../../Jokosher/Jokosher.glade.h:4
-msgid "<b>Coding</b>"
-msgstr "<b>Převod</b>"
+#: ../../gtk-builder-ui/AddInstrumentDialog.ui:21
+msgid "Choose one or more instruments to add to your project."
+msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:5
-msgid "<b>Documentation</b>"
-msgstr "<b>Dokumentace</b>"
+#: ../../gtk-builder-ui/AddInstrumentDialog.ui:37
+msgid "_Search:"
+msgstr "_Hledat:"
 
-#: ../../Jokosher/Jokosher.glade.h:6
-msgid "<b>Effect Name</b>"
-msgstr "<b>Název efektu</b>"
+#: ../../gtk-builder-ui/AddInstrumentDialog.ui:51
+msgid "Type here to search for an instrument"
+msgstr "Pro hledání nástroje pište zde"
 
-#: ../../Jokosher/Jokosher.glade.h:7
-msgid "<b>Effects</b>"
-msgstr "<b>Efekty</b>"
+#: ../../gtk-builder-ui/AddInstrumentDialog.ui:96
+msgid "Don't add an instrument"
+msgstr "Nepřidávat hudební nástroj"
 
-#: ../../Jokosher/Jokosher.glade.h:8
+#: ../../gtk-builder-ui/AddInstrumentDialog.ui:113
+msgid "Add the selected instrument"
+msgstr "Přidat vybraný nástroj"
+
+#: ../../gtk-builder-ui/AddMixdownActionDialog.ui:7
+msgid "Add Mixdown Action"
+msgstr ""
+
+#: ../../gtk-builder-ui/AddMixdownActionDialog.ui:24
+msgid ""
+"Please select the mixdown actions you would like to add to the mixdown "
+"profile *profile*"
+msgstr ""
+
+#: ../../gtk-builder-ui/AddMixdownActionDialog.ui:110
+msgid "Add Action"
+msgstr "Přidat akci"
+
+#: ../../gtk-builder-ui/ConfigureExportFileAction.ui:13
+msgid "Configure Export File Action"
+msgstr ""
+
+#: ../../gtk-builder-ui/ConfigureExportFileAction.ui:25
+msgid ""
+"Please enter the filename of the audio you wish to export. The audio will be "
+"exported to the location specified."
+msgstr ""
+
+#: ../../gtk-builder-ui/ConfigureExportFileAction.ui:54
+msgid "File name:"
+msgstr "Název souboru:"
+
+#: ../../gtk-builder-ui/ConfigureExportFileAction.ui:65
+#: ../../Jokosher/JokosherApp.py:639
+msgid "Save as file type:"
+msgstr "Uložit jako typ souboru:"
+
+#: ../../gtk-builder-ui/ConfigureExportFileAction.ui:115
 msgid "<b>File Details</b>"
 msgstr "<b>Detaily souboru</b>"
 
-#: ../../Jokosher/Jokosher.glade.h:9
-msgid "<b>General</b>"
-msgstr "<b>Obecné</b>"
+#: ../../gtk-builder-ui/ConfigureExportFileAction.ui:144
+msgid "Export to local directory"
+msgstr "Exportovat do místního adresáře"
 
-#: ../../Jokosher/Jokosher.glade.h:10
-msgid "<b>Jokosher Instruments</b>"
-msgstr "<b>Hudební nástroje Jokosher</b>"
+#: ../../gtk-builder-ui/ConfigureExportFileAction.ui:160
+msgid "Export to remote server"
+msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:11
+#: ../../gtk-builder-ui/ConfigureExportFileAction.ui:200
+msgid "<b>Location Details</b>"
+msgstr "<b>Detaily umístění</b>"
+
+#: ../../gtk-builder-ui/ContributingDialog.ui:34
 msgid ""
 "<b>Jokosher is an Open Source project that is driven by a community of "
 "contributors. To make Jokosher rock, we need your help!</b>"
@@ -65,866 +228,574 @@ msgstr ""
 "<b>Jokosher je Open Source projekt, který je spoluspravován i komunitou "
 "přispěvovatelů. Aby byl Jokosher nejlepší, potřebujeme vašu pomoc!</b>"
 
-#: ../../Jokosher/Jokosher.glade.h:12
-msgid "<b>Location Details</b>"
-msgstr "<b>Detaily umístění</b>"
-
-#: ../../Jokosher/Jokosher.glade.h:13
-msgid "<b>Mixdown Actions</b>"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:14
-msgid "<b>N_otes</b>"
-msgstr "<b>P_oznámky</b>"
-
-#: ../../Jokosher/Jokosher.glade.h:15
-msgid "<b>Playback Sound System</b>"
-msgstr "<b>Zvukový přehrávací systém</b>"
-
-#: ../../Jokosher/Jokosher.glade.h:16
-msgid "<b>Recent Projects</b>"
-msgstr "<b>Nedávné projekty</b>"
-
-#: ../../Jokosher/Jokosher.glade.h:17
-msgid "<b>Recording Format</b>"
-msgstr "<b>Formát nahrávání</b>"
-
-#: ../../Jokosher/Jokosher.glade.h:18
-msgid "<b>Recording Sound System</b>"
-msgstr "<b>Systém záznamu zvuku</b>"
-
-#: ../../Jokosher/Jokosher.glade.h:19
-msgid "<b>Template Instruments</b>"
-msgstr "<b>Šablony nástrojů</b>"
-
-#: ../../Jokosher/Jokosher.glade.h:20
-msgid "<b>Testing</b>"
-msgstr "<b>Testování</b>"
-
-#: ../../Jokosher/Jokosher.glade.h:21
-msgid "<b>Time Signature</b>"
-msgstr "<b>Časové razítko</b>"
-
-#: ../../Jokosher/Jokosher.glade.h:22
-msgid "<b>_Presets for:</b>"
-msgstr "<b>_Předvolby pro:</b>"
-
-#: ../../Jokosher/Jokosher.glade.h:23
-msgid "<big><b>Mixing the project...</b></big>"
-msgstr "<big><b>Mixáž projektu...</b></big>"
-
-#: ../../Jokosher/Jokosher.glade.h:24
-msgid "<big>System Information</big>"
-msgstr "<big>Systémové informace</big>"
-
-#: ../../Jokosher/Jokosher.glade.h:25
-msgid "Activate the selected effect"
-msgstr "Aktivovat zvolený efekt"
-
-#: ../../Jokosher/Jokosher.glade.h:26
-msgid "Add Action"
-msgstr "Přidat akci"
-
-#: ../../Jokosher/Jokosher.glade.h:27
-msgid "Add Audio File"
-msgstr "Přidat zvukový soubor"
-
-#: ../../Jokosher/Jokosher.glade.h:28
-msgid "Add Audio _File..."
-msgstr "Přidat zvukový _soubor..."
-
-#: ../../Jokosher/Jokosher.glade.h:29
-msgid "Add Instrument"
-msgstr "Přidat nástroj"
-
-#: ../../Jokosher/Jokosher.glade.h:30
-msgid "Add Mixdown Action"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:31
-msgid "Add _Instrument..."
-msgstr "Přidat _nástroj..."
-
-#: ../../Jokosher/Jokosher.glade.h:32
-msgid "Add an audio file to the project"
-msgstr "Přidat zvukový soubor k projektu"
-
-#: ../../Jokosher/Jokosher.glade.h:33
-msgid "Add an audio file to the selected instrument"
-msgstr "Přídat zvukový soubor k vybranému nástroji"
-
-#: ../../Jokosher/Jokosher.glade.h:34
-msgid "Add an extension"
-msgstr "Přidat rozšíření"
-
-#: ../../Jokosher/Jokosher.glade.h:35
-msgid "Add an instrument"
-msgstr "Přidat instrument"
-
-#: ../../Jokosher/Jokosher.glade.h:36
-msgid "Add an instrument to the project"
-msgstr "Přidat instrument k projektu"
-
-#: ../../Jokosher/Jokosher.glade.h:37
-msgid "Add the selected instrument"
-msgstr "Přidat vybraný nástroj"
-
-#: ../../Jokosher/Jokosher.glade.h:38
-msgid "Add the selected jokosher instrument"
-msgstr "Přidat zvolený jokosher nástroj"
-
-#: ../../Jokosher/Jokosher.glade.h:39
-msgid "Adjust the amount of beats per measure"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:40
-msgid "Adjust the settings for the currently selected active effect"
-msgstr "Přizpůsobit nastavení pro aktuálně vybraný efekt"
-
-#: ../../Jokosher/Jokosher.glade.h:41
-msgid "Arm an instrument then click here to begin recording"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:42
-msgid "Audio Mixers"
-msgstr "Audio mixery"
-
-#: ../../Jokosher/Jokosher.glade.h:43
-msgid ""
-"Audio production made simple.\n"
-"Version 0.11.4"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:45
-msgid "Beat _value"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:46
-msgid "Beats per _measure"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:47
-msgid "C_hange Sound System"
-msgstr "Z_měnit hudební systém"
-
-#: ../../Jokosher/Jokosher.glade.h:48
-msgid "Cancel the mixdown"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:49
-msgid "Change Jokosher preferences"
-msgstr "Změnit nastavení Jokosher"
-
-#: ../../Jokosher/Jokosher.glade.h:50
-msgid "Change the timeline"
-msgstr "Změnit časovou osu"
-
-#: ../../Jokosher/Jokosher.glade.h:51
-msgid "Change the timeline to show bars, beats and ticks"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:52
-msgid "Change the timeline to show hours, minutes and seconds"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:53
-msgid "Change type of the selected instrument"
-msgstr "Změnit typ zvoleného nástroje"
-
-#: ../../Jokosher/Jokosher.glade.h:54
-msgid "Choose a chain effects preset."
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:55
-msgid "Choose a project template"
-msgstr "Vyberte šablonu projektu"
-
-#: ../../Jokosher/Jokosher.glade.h:56
-msgid "Choose an effect preset."
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:57
-msgid "Choose one or more instruments to add to your project."
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:58
-msgid "Click and hold to fast forward"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:59
-msgid "Click and hold to rewind"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:60
-msgid "Close the current project"
-msgstr "Zavřít aktuální projekt"
-
-#: ../../Jokosher/Jokosher.glade.h:61
-msgid "Close the extension manager"
-msgstr "Zavřít správce doplňků"
-
-#: ../../Jokosher/Jokosher.glade.h:62
-msgid "Close this window"
-msgstr "Zavřít toto okno"
-
-#: ../../Jokosher/Jokosher.glade.h:63
-msgid "Configure Export File Action"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:64
-msgid "Configure Instrument Effects"
-msgstr "Nastavit efekty nástroje"
-
-#: ../../Jokosher/Jokosher.glade.h:65
-msgid "Copy the current selection"
-msgstr "Kopírovat výběr"
-
-#: ../../Jokosher/Jokosher.glade.h:66
-msgid "Create a new project"
-msgstr "Vytvořit nový projekt"
-
-#: ../../Jokosher/Jokosher.glade.h:67
-msgid "Create the project"
-msgstr "Vytvořit projekt"
-
-#: ../../Jokosher/Jokosher.glade.h:68
-msgid "Cut the current selection"
-msgstr "Vyříznout výběr"
-
-#: ../../Jokosher/Jokosher.glade.h:69
-msgid "De_vice:"
-msgstr "Za_řízení:"
-
-#: ../../Jokosher/Jokosher.glade.h:70
-msgid "Deactivate the currently selected active effect"
-msgstr "Deaktivovat aktuálně zvolený efekt"
-
-#: ../../Jokosher/Jokosher.glade.h:71
-msgid "Delete the current selection"
-msgstr "Smazat výběr"
-
-#: ../../Jokosher/Jokosher.glade.h:72
-msgid "Delete the currently active effects preset"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:73
-msgid "Delete the currently active preset"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:74
-msgid "Delete the selected project template"
-msgstr "Odstranit vybranou šablonu projektu"
-
-#: ../../Jokosher/Jokosher.glade.h:75
-msgid "Distribution:"
-msgstr "Distribuce:"
-
-#: ../../Jokosher/Jokosher.glade.h:76
-msgid "Don't add an instrument"
-msgstr "Nepřidávat hudební nástroj"
-
-#: ../../Jokosher/Jokosher.glade.h:77
-msgid "Don't create the project"
-msgstr "Nevytvářet projekt"
-
-#: ../../Jokosher/Jokosher.glade.h:78
-msgid "Double-click an active effect to adjust its settings"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:79
-msgid "Double-click an effect to activate it"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:80
-msgid "Double-click on a recent project to open"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:81
-msgid "Drawing icons, images and other art."
-msgstr "Kreslení ikonek, obrázků a jiného umění."
-
-#: ../../Jokosher/Jokosher.glade.h:82
-msgid "Edit Jokosher preferences"
-msgstr "Změna Jokosher nastavení"
-
-#: ../../Jokosher/Jokosher.glade.h:83
-msgid "Edit project templates"
-msgstr "Upravit šablonu projektu"
-
-#: ../../Jokosher/Jokosher.glade.h:84
-msgid ""
-"Enter a name for your project and select a folder to store the project in:"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:85
-msgid "Enter the author's name"
-msgstr "Vložte autorovo jméno"
-
-#: ../../Jokosher/Jokosher.glade.h:86
-msgid "Enter the project's name"
-msgstr "Vložte jméno projektu"
-
-#: ../../Jokosher/Jokosher.glade.h:87
-msgid "Ex_tensions"
-msgstr "Do_plňky"
-
-#: ../../Jokosher/Jokosher.glade.h:88
-msgid "Export current project to an audio file"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:89
-msgid "Export to local directory"
-msgstr "Exportovat do místního adresáře"
-
-#: ../../Jokosher/Jokosher.glade.h:90
-msgid "Export to remote server"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:91
-msgid "File name:"
-msgstr "Název souboru:"
-
-#: ../../Jokosher/Jokosher.glade.h:92
-msgid "Find and open an existing project"
-msgstr "Hledat a otevřít existující projekt"
-
-#: ../../Jokosher/Jokosher.glade.h:93
-msgid "Find out how you can help"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:94
-msgid "GStreamer version:"
-msgstr "Verze GStreamer:"
-
-#: ../../Jokosher/Jokosher.glade.h:95
-msgid "Gnonlin version:"
-msgstr "Verze Gnonlin:"
-
-#: ../../Jokosher/Jokosher.glade.h:97
-msgid ""
-"Iestyn Pryce <dylunio@gmail.com>\n"
-"Jerome S. Gotangco <jgotangco@ubuntu.com>\n"
-"torb <torrb@musiker.nu>\n"
-"Robert Renling Berencreuz <berencreuz@gmail.com>\n"
-"Ola Jeppsson <ola.jeppsson@gmail.com>\n"
-"Daniel Nylander <po@danielnylander.se>\n"
-"aruiz <aruiz@synaptia.net>\n"
-"Manuel Duran Moyano <mduran@ubiobio.cl>\n"
-"Laszlo Pandy <laszlok2@gmail.com>\n"
-"Iván Edgardo Vázquez Santos \n"
-"David Corrales <corrales.david@gmail.com>\n"
-"Benjamin A'Lee <bma@bmalee.eu>\n"
-"Peter Baričič <pbaricic@gmail.com>\n"
-"Артём Попов <artfwo@gmail.com>\n"
-"deepred <psalmos@swissinfo.org>\n"
-"KeepYourMind <keepyourmind@gmail.com>\n"
-"Georgy Faradzhev <georgy.faradzhev@gmail.com>\n"
-"Gendolf <pr-baukalo@rambler.ru>\n"
-"Rodrigo NSH <rodrigo.nsh@gmail.com>\n"
-"Christian Reis <kiko@async.com.br>\n"
-"Lourabe Multimédia \n"
-"Tomasz Dominikowski <dominikowski@gmail.com>\n"
-"Konrad Adamczyk <konrad@svx.pl>\n"
-"Hender <simsalabimladen@gmail.com>\n"
-"sklp\n"
-"Bård Aase <base@kvarteret.no>\n"
-"Pecisk <pecisk@gmail.com>\n"
-"Luca Ferretti <elle.uca@libero.it>\n"
-"Daniele Medri <daniele@medri.org>\n"
-"Igor Khanin \n"
-"Tobias Frederick <me@tbfr.org>\n"
-"Tim Fuchs <tim.fuchs@gmail.com>\n"
-"Ramona Barte \n"
-"Marcus Hochstadt\n"
-"Lebowski\n"
-"Julian Turner\n"
-"Dennis Lichtenthäler <dennis.lichtenthaeler@episode-iv.de>\n"
-"dyphil <dyphil@wanadoo.fr>\n"
-"XioNoX \n"
-"Stemp <StempUbuntu@gmail.com>\n"
-"Signez\n"
-"Pierre Slamich <pierre.slamich@gmail.com>\n"
-"Nicolas Velin <nsv@fr.st>\n"
-"Jean-Francois Arseneau <jf.arseneau@gmail.com>\n"
-"Guillaume Hoffmann \n"
-"Gabriel de Perthuis <gabriel.de-perthuis@laposte.net>\n"
-"Bruno Bord <bruno@jehaisleprintemps.net>\n"
-"Mikko Virkkilä <mvirkkil@cc.hut.fi>\n"
-"Boyd Timothy\n"
-"William Anderson<neuro@well.com>\n"
-"Sridhar Dhanapalan <sridhar@dhanapalan.com>\n"
-"Roger Light <roger@atchoo.org>\n"
-"Malcolm Parsons\n"
-"Peturrr <peterdekraker@planet.nl>\n"
-"jerven Bolleman <ik@jerven.eu>\n"
-"Mathias-K <mathias@computergeil.dk>\n"
-"Niels Kjøller Hansen <niels.k.h@gmail.com>\n"
-"David Nielsen <david@lovesunix.net>\n"
-"daave <fan.d.liu@gmail.com>\n"
-msgstr ""
-"Iestyn Pryce <dylunio@gmail.com>\n"
-"Jerome S. Gotangco <jgotangco@ubuntu.com>\n"
-"torb <torrb@musiker.nu>\n"
-"Robert Renling Berencreuz <berencreuz@gmail.com>\n"
-"Ola Jeppsson <ola.jeppsson@gmail.com>\n"
-"Daniel Nylander <po@danielnylander.se>\n"
-"aruiz <aruiz@synaptia.net>\n"
-"Manuel Duran Moyano <mduran@ubiobio.cl>\n"
-"Laszlo Pandy <laszlok2@gmail.com>\n"
-"Iván Edgardo Vázquez Santos \n"
-"David Corrales <corrales.david@gmail.com>\n"
-"Benjamin A'Lee <bma@bmalee.eu>\n"
-"Peter Baričič <pbaricic@gmail.com>\n"
-"Артём Попов <artfwo@gmail.com>\n"
-"deepred <psalmos@swissinfo.org>\n"
-"KeepYourMind <keepyourmind@gmail.com>\n"
-"Georgy Faradzhev <georgy.faradzhev@gmail.com>\n"
-"Gendolf <pr-baukalo@rambler.ru>\n"
-"Rodrigo NSH <rodrigo.nsh@gmail.com>\n"
-"Christian Reis <kiko@async.com.br>\n"
-"Lourabe Multimédia \n"
-"Tomasz Dominikowski <dominikowski@gmail.com>\n"
-"Konrad Adamczyk <konrad@svx.pl>\n"
-"Hender <simsalabimladen@gmail.com>\n"
-"sklp\n"
-"Bård Aase <base@kvarteret.no>\n"
-"Pecisk <pecisk@gmail.com>\n"
-"Luca Ferretti <elle.uca@libero.it>\n"
-"Daniele Medri <daniele@medri.org>\n"
-"Igor Khanin \n"
-"Tobias Frederick <me@tbfr.org>\n"
-"Tim Fuchs <tim.fuchs@gmail.com>\n"
-"Ramona Barte \n"
-"Marcus Hochstadt\n"
-"Lebowski\n"
-"Julian Turner\n"
-"Dennis Lichtenthäler <dennis.lichtenthaeler@episode-iv.de>\n"
-"dyphil <dyphil@wanadoo.fr>\n"
-"XioNoX \n"
-"Stemp <StempUbuntu@gmail.com>\n"
-"Signez\n"
-"Pierre Slamich <pierre.slamich@gmail.com>\n"
-"Nicolas Velin <nsv@fr.st>\n"
-"Jean-Francois Arseneau <jf.arseneau@gmail.com>\n"
-"Guillaume Hoffmann \n"
-"Gabriel de Perthuis <gabriel.de-perthuis@laposte.net>\n"
-"Bruno Bord <bruno@jehaisleprintemps.net>\n"
-"Mikko Virkkilä <mvirkkil@cc.hut.fi>\n"
-"Boyd Timothy\n"
-"William Anderson<neuro@well.com>\n"
-"Sridhar Dhanapalan <sridhar@dhanapalan.com>\n"
-"Roger Light <roger@atchoo.org>\n"
-"Malcolm Parsons\n"
-"Peturrr <peterdekraker@planet.nl>\n"
-"jerven Bolleman <ik@jerven.eu>\n"
-"Mathias-K <mathias@computergeil.dk>\n"
-"Niels Kjøller Hansen <niels.k.h@gmail.com>\n"
-"David Nielsen <david@lovesunix.net>\n"
-"daave <fan.d.liu@gmail.com>\n"
-
-#: ../../Jokosher/Jokosher.glade.h:157 ../../Jokosher/JokosherApp.py:1339
-msgid "Jokosher"
-msgstr "Jokosher"
-
-#: ../../Jokosher/Jokosher.glade.h:158
-msgid "Listen to these effects"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:159
-msgid "Manage instrument recording inputs"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:160
-msgid "Mixdown Profile:"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:161 ../../Jokosher/JokosherApp.py:592
-msgid "Mixdown Project"
-msgstr "Zmixovat projekt"
-
-#: ../../Jokosher/Jokosher.glade.h:162
-msgid "Mixdown the project using these settings"
-msgstr "Zmixovat projekt s tímto nastavením"
-
-#: ../../Jokosher/Jokosher.glade.h:163
-msgid "Mixing Project"
-msgstr "Mixování projektu"
-
-#: ../../Jokosher/Jokosher.glade.h:164
-msgid "Move the selected active effect down on the effects chain"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:165
-msgid "Move the selected active effect up on the effects chain"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:166 ../../Jokosher/NewProjectDialog.py:126
-msgid "New Project"
-msgstr "Nový projekt"
-
-#: ../../Jokosher/Jokosher.glade.h:167
-msgid "Open a recent project"
-msgstr "Otevřít poslední projekt"
-
-#: ../../Jokosher/Jokosher.glade.h:168
-msgid "Open an existing project"
-msgstr "Otevřít existující projekt"
-
-#: ../../Jokosher/Jokosher.glade.h:169
-msgid "Open the extension manager"
-msgstr "Otevřít správce doplňků"
-
-#: ../../Jokosher/Jokosher.glade.h:170
-msgid "P_ipeline:"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:171
-msgid "Paste the contents of the clipboard"
-msgstr "Vložit obsah ze schránky"
-
-#: ../../Jokosher/Jokosher.glade.h:172
-msgid ""
-"Please enter the filename of the audio you wish to export. The audio will be "
-"exported to the location specified."
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:173
-msgid ""
-"Please select the mixdown actions you would like to add to the mixdown "
-"profile *profile*"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:174
-msgid "Project Properties"
-msgstr "Vlastnosti projektu"
-
-#: ../../Jokosher/Jokosher.glade.h:175
-msgid "Project Templates"
-msgstr "Šablony projektu"
-
-#: ../../Jokosher/Jokosher.glade.h:176
-msgid "Quit Jokosher"
-msgstr "Ukončit Jokosher"
-
-#: ../../Jokosher/Jokosher.glade.h:177
-msgid "R_ecording Inputs..."
-msgstr "V_stupy záznamu..."
-
-#: ../../Jokosher/Jokosher.glade.h:178
-msgid "Redo"
-msgstr "Vpřed"
-
-#: ../../Jokosher/Jokosher.glade.h:179
-msgid "Redo the previous edit"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:180
-msgid "Remove the currently selected extension"
-msgstr "Odstranit aktuálně vybrané rozsíření"
-
-#: ../../Jokosher/Jokosher.glade.h:181
-msgid "Remove the selected instrument"
-msgstr "Odstranit vybraný nástroj"
-
-#: ../../Jokosher/Jokosher.glade.h:182
-msgid "Report a bug in Jokosher"
-msgstr "Oznámit chybu v Jokosher"
-
-#: ../../Jokosher/Jokosher.glade.h:183
-msgid "S_ample Rate:"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:184
-msgid "S_ystem:"
-msgstr "S_ystém:"
-
-#: ../../Jokosher/Jokosher.glade.h:185
-msgid "Save _As..."
-msgstr "Uložit _jako..."
-
-#: ../../Jokosher/Jokosher.glade.h:186
-msgid "Save a copy of the current project"
-msgstr "Uložit kopii aktuálního projektu"
-
-#: ../../Jokosher/Jokosher.glade.h:187 ../../Jokosher/JokosherApp.py:601
-msgid "Save as file type:"
-msgstr "Uložit jako typ souboru:"
-
-#: ../../Jokosher/Jokosher.glade.h:188
-msgid "Save preferences and close"
-msgstr "Uložit nastavení a zavřít"
-
-#: ../../Jokosher/Jokosher.glade.h:189
-msgid "Save the current project"
-msgstr "Uložit aktuální projekt"
-
-#: ../../Jokosher/Jokosher.glade.h:190
-msgid "Save the current settings as a preset"
-msgstr "Uložit aktuální nastavení jako předvolbu"
-
-#: ../../Jokosher/Jokosher.glade.h:191
-msgid "Save the currently active effects as a preset"
-msgstr "Uložit aktuální aktivní efekty jako předvolbu"
-
-#: ../../Jokosher/Jokosher.glade.h:192
-msgid "Save the selected project template"
-msgstr "Uložit vybranou šablonu projektu"
-
-#: ../../Jokosher/Jokosher.glade.h:193
-msgid "Save your selections and close this window"
-msgstr "Uložit vaše volby a zavřít toto okno"
-
-#: ../../Jokosher/Jokosher.glade.h:194
-msgid "See your system information"
-msgstr "Vaše systémové informace"
-
-#: ../../Jokosher/Jokosher.glade.h:195
-msgid "Select a project to open from the list"
-msgstr "Vyberte projekt k otevření ze seznamu"
-
-#: ../../Jokosher/Jokosher.glade.h:196
-msgid "Select the audio input to use with each instrument."
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:197
-msgid "Set Time Signature"
-msgstr "Nastavit časové razítko"
-
-#: ../../Jokosher/Jokosher.glade.h:198
-msgid "Settings"
-msgstr "Nastavení"
-
-#: ../../Jokosher/Jokosher.glade.h:199
-msgid "Show as _Bars, Beats, Ticks"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:200
-msgid "Show as _Hours, Minutes, Seconds"
-msgstr "Zobrazit jako _hodiny, minuty, sekundy"
-
-#: ../../Jokosher/Jokosher.glade.h:201
-msgid "Start Jokosher with an empty project"
-msgstr "Spustit Jokosher s posledním projektem"
-
-#: ../../Jokosher/Jokosher.glade.h:202
-msgid "Start playback"
-msgstr "Spustit přehrávání"
-
-#: ../../Jokosher/Jokosher.glade.h:203
-msgid "Stop mixing the project"
-msgstr "Ukončit mixáž projektu"
-
-#: ../../Jokosher/Jokosher.glade.h:204 ../../Jokosher/JokosherApp.py:66
-msgid "Stop playback"
-msgstr "Zastavit přehrávání"
-
-#: ../../Jokosher/Jokosher.glade.h:205
-msgid "Sys_tem:"
-msgstr "Sys_tém:"
-
-#: ../../Jokosher/Jokosher.glade.h:206
-msgid "System Information"
-msgstr "Systémové informace"
-
-#: ../../Jokosher/Jokosher.glade.h:207
+#: ../../gtk-builder-ui/ContributingDialog.ui:55
 msgid "Testing Jokosher, and submitting bugs."
 msgstr "Testování Jokosher, a hlášení chyb."
 
-#: ../../Jokosher/Jokosher.glade.h:208
-msgid "Type here to search for an instrument"
-msgstr "Pro hledání nástroje pište zde"
+#: ../../gtk-builder-ui/ContributingDialog.ui:70
+msgid "Drawing icons, images and other art."
+msgstr "Kreslení ikonek, obrázků a jiného umění."
 
-#: ../../Jokosher/Jokosher.glade.h:209
-msgid "Undo"
-msgstr "Zpět"
-
-#: ../../Jokosher/Jokosher.glade.h:210
-msgid "Undo the last edit"
-msgstr "Vrátit poslední úpravu"
-
-#: ../../Jokosher/Jokosher.glade.h:211
-msgid "Use these effect settings"
-msgstr "Použít toto nastavení efektů"
-
-#: ../../Jokosher/Jokosher.glade.h:212
-msgid "Use these effects"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:213
-msgid "Use these settings"
-msgstr "Použít toto nastavení"
-
-#: ../../Jokosher/Jokosher.glade.h:214
-msgid "User manual contents"
-msgstr ""
-
-#: ../../Jokosher/Jokosher.glade.h:215
-msgid "Version information, credits and licence"
-msgstr "Informace o verzi, zásluhách a licenci"
-
-#: ../../Jokosher/Jokosher.glade.h:216
-msgid "Visit Jokosher's online forums"
-msgstr "Navštivte online fóra Jokosher"
-
-#: ../../Jokosher/Jokosher.glade.h:217
-msgid "Welcome to Jokosher!"
-msgstr "Vítejte v Jokosher!"
-
-#: ../../Jokosher/Jokosher.glade.h:218
-msgid "Writing code and features in Python."
-msgstr "Programování v jazyku Python."
-
-#: ../../Jokosher/Jokosher.glade.h:219
+#: ../../gtk-builder-ui/ContributingDialog.ui:85
 msgid "Writing simple to read documentation."
 msgstr "Psaní srozumitelné dokumentace."
 
-#: ../../Jokosher/Jokosher.glade.h:220
-msgid "Your music file is being mixed. This can take some seconds."
+#: ../../gtk-builder-ui/ContributingDialog.ui:100
+msgid "Writing code and features in Python."
+msgstr "Programování v jazyku Python."
+
+#: ../../gtk-builder-ui/ContributingDialog.ui:124
+msgid "<b>Testing</b>"
+msgstr "<b>Testování</b>"
+
+#: ../../gtk-builder-ui/ContributingDialog.ui:141
+msgid "<b>Art</b>"
+msgstr "<b>Umění</b>"
+
+#: ../../gtk-builder-ui/ContributingDialog.ui:158
+msgid "<b>Documentation</b>"
+msgstr "<b>Dokumentace</b>"
+
+#: ../../gtk-builder-ui/ContributingDialog.ui:207
+msgid "<b>Coding</b>"
+msgstr "<b>Převod</b>"
+
+#: ../../gtk-builder-ui/EffectSettingsDialog.ui:18
+msgid "Settings"
+msgstr "Nastavení"
+
+#: ../../gtk-builder-ui/EffectSettingsDialog.ui:47
+msgid "<b>Effect Name</b>"
+msgstr "<b>Název efektu</b>"
+
+#: ../../gtk-builder-ui/EffectSettingsDialog.ui:112
+msgid "Save the current settings as a preset"
+msgstr "Uložit aktuální nastavení jako předvolbu"
+
+#: ../../gtk-builder-ui/EffectSettingsDialog.ui:132
+msgid "Delete the currently active preset"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:221
-msgid "_Author:"
-msgstr "_Autor:"
+#: ../../gtk-builder-ui/EffectSettingsDialog.ui:185
+msgid "Use these effect settings"
+msgstr "Použít toto nastavení efektů"
 
-#: ../../Jokosher/Jokosher.glade.h:222
-msgid "_Browse for an Existing Project"
-msgstr "_Procházet pro existující projekt"
+#: ../../gtk-builder-ui/ExtensionManagerDialog.ui:56
+msgid "Add an extension"
+msgstr "Přidat rozšíření"
 
-#: ../../Jokosher/Jokosher.glade.h:223
-msgid "_Change Instrument Type..."
-msgstr "_Změnit typ nástroje..."
+#: ../../gtk-builder-ui/ExtensionManagerDialog.ui:76
+msgid "Remove the currently selected extension"
+msgstr "Odstranit aktuálně vybrané rozsíření"
 
-#: ../../Jokosher/Jokosher.glade.h:224
-msgid "_Contributing to Jokosher"
-msgstr "_Přispívání k Jokosher"
+#: ../../gtk-builder-ui/ExtensionManagerDialog.ui:98
+#: ../../gtk-builder-ui/MainWindow.ui:315
+msgid "Edit Jokosher preferences"
+msgstr "Změna Jokosher nastavení"
 
-#: ../../Jokosher/Jokosher.glade.h:225
-msgid "_Create a New Project"
-msgstr "_Vytvořit nový projekt"
+#: ../../gtk-builder-ui/ExtensionManagerDialog.ui:123
+msgid "Close the extension manager"
+msgstr "Zavřít správce doplňků"
 
-#: ../../Jokosher/Jokosher.glade.h:226
-msgid "_Don't open anything"
-msgstr "_Neotevírat nic"
-
-#: ../../Jokosher/Jokosher.glade.h:227
-msgid "_Don't show this on start-up"
-msgstr "_Nezobrazovat toto po startu"
-
-#: ../../Jokosher/Jokosher.glade.h:228
-msgid "_Edit"
-msgstr "_Upravit"
-
-#: ../../Jokosher/Jokosher.glade.h:229
-msgid "_Encoding:"
+#: ../../gtk-builder-ui/InstrumentConnectionsDialog.ui:23
+msgid "Select the audio input to use with each instrument."
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:230
+#: ../../gtk-builder-ui/InstrumentConnectionsDialog.ui:75
+msgid "C_hange Sound System"
+msgstr "Z_měnit hudební systém"
+
+#: ../../gtk-builder-ui/InstrumentConnectionsDialog.ui:103
+msgid "Save your selections and close this window"
+msgstr "Uložit vaše volby a zavřít toto okno"
+
+#: ../../gtk-builder-ui/InstrumentEffectsDialog.ui:18
+msgid "Configure Instrument Effects"
+msgstr "Nastavit efekty nástroje"
+
+#: ../../gtk-builder-ui/InstrumentEffectsDialog.ui:36
+msgid "<b>_Presets for:</b>"
+msgstr "<b>_Předvolby pro:</b>"
+
+#: ../../gtk-builder-ui/InstrumentEffectsDialog.ui:78
+msgid "Save the currently active effects as a preset"
+msgstr "Uložit aktuální aktivní efekty jako předvolbu"
+
+#: ../../gtk-builder-ui/InstrumentEffectsDialog.ui:98
+msgid "Delete the currently active effects preset"
+msgstr ""
+
+#: ../../gtk-builder-ui/InstrumentEffectsDialog.ui:179
+msgid "Double-click an effect to activate it"
+msgstr ""
+
+#: ../../gtk-builder-ui/InstrumentEffectsDialog.ui:197
+msgid "<b>Effects</b>"
+msgstr "<b>Efekty</b>"
+
+#: ../../gtk-builder-ui/InstrumentEffectsDialog.ui:217
+msgid "Activate the selected effect"
+msgstr "Aktivovat zvolený efekt"
+
+#: ../../gtk-builder-ui/InstrumentEffectsDialog.ui:264
+msgid "Double-click an active effect to adjust its settings"
+msgstr ""
+
+#: ../../gtk-builder-ui/InstrumentEffectsDialog.ui:293
+msgid "Move the selected active effect up on the effects chain"
+msgstr ""
+
+#: ../../gtk-builder-ui/InstrumentEffectsDialog.ui:313
+msgid "Move the selected active effect down on the effects chain"
+msgstr ""
+
+#: ../../gtk-builder-ui/InstrumentEffectsDialog.ui:333
+msgid "Deactivate the currently selected active effect"
+msgstr "Deaktivovat aktuálně zvolený efekt"
+
+#: ../../gtk-builder-ui/InstrumentEffectsDialog.ui:353
+msgid "Adjust the settings for the currently selected active effect"
+msgstr "Přizpůsobit nastavení pro aktuálně vybraný efekt"
+
+#: ../../gtk-builder-ui/InstrumentEffectsDialog.ui:381
+msgid "<b>Active effects for: </b>"
+msgstr "<b>Aktivní efekty pro: </b>"
+
+#: ../../gtk-builder-ui/InstrumentEffectsDialog.ui:410
+msgid "Listen to these effects"
+msgstr ""
+
+#: ../../gtk-builder-ui/InstrumentEffectsDialog.ui:427
+msgid "Use these effects"
+msgstr ""
+
+#: ../../gtk-builder-ui/MainWindow.ui:29
 msgid "_File"
 msgstr "_Soubor"
 
-#: ../../Jokosher/Jokosher.glade.h:231
-msgid "_Folder:"
-msgstr "_Složka:"
+#: ../../gtk-builder-ui/MainWindow.ui:38
+msgid "Create a new project"
+msgstr "Vytvořit nový projekt"
 
-#: ../../Jokosher/Jokosher.glade.h:232
-msgid "_Help"
-msgstr "_Pomoc"
+#: ../../gtk-builder-ui/MainWindow.ui:50
+msgid "Open an existing project"
+msgstr "Otevřít existující projekt"
 
-#: ../../Jokosher/Jokosher.glade.h:233
-msgid "_Instrument"
-msgstr "_Nástroj"
-
-#: ../../Jokosher/Jokosher.glade.h:234
-msgid "_Manage Extensions..."
-msgstr "_Spravovat doplňky..."
-
-#: ../../Jokosher/Jokosher.glade.h:235
-msgid "_Mixdown"
+#: ../../gtk-builder-ui/MainWindow.ui:62
+msgid "Import an existing project"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:236 ../../Jokosher/JokosherApp.py:1959
-msgid "_Mixdown Project..."
+#: ../../gtk-builder-ui/MainWindow.ui:73
+msgid "Open a project"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:237
-msgid "_Name:"
-msgstr "_Název..."
-
-#: ../../Jokosher/Jokosher.glade.h:238
-msgid "_New..."
-msgstr "_Nový..."
-
-#: ../../Jokosher/Jokosher.glade.h:239
-msgid "_Online Forums"
-msgstr "_Online fóra"
-
-#: ../../Jokosher/Jokosher.glade.h:240
-msgid "_Open Selected Project"
-msgstr "_Otevřít vybraný projekt"
-
-#: ../../Jokosher/Jokosher.glade.h:241
-msgid "_Open most recent project"
-msgstr "_Otevřít poslední projekt"
-
-#: ../../Jokosher/Jokosher.glade.h:242
-msgid "_Open..."
-msgstr "_Otevřít..."
-
-#: ../../Jokosher/Jokosher.glade.h:243
-msgid "_Pipeline:"
+#: ../../gtk-builder-ui/MainWindow.ui:74
+msgid "_Switch Project"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:244
-msgid "_Preferences"
-msgstr "_Nastavení"
+#: ../../gtk-builder-ui/MainWindow.ui:91
+msgid "Save the current project"
+msgstr "Uložit aktuální projekt"
 
-#: ../../Jokosher/Jokosher.glade.h:245
-msgid "_Project Name:"
-msgstr "_Název projektu:"
+#: ../../gtk-builder-ui/MainWindow.ui:102
+msgid "Close the current project"
+msgstr "Zavřít aktuální projekt"
 
-#: ../../Jokosher/Jokosher.glade.h:246
-msgid "_Recent Projects"
-msgstr "_Poslední projekty"
+#: ../../gtk-builder-ui/MainWindow.ui:118
+#: ../../gtk-builder-ui/MainWindow.ui:482
+msgid "Add an instrument to the project"
+msgstr "Přidat instrument k projektu"
 
-#: ../../Jokosher/Jokosher.glade.h:247
-msgid "_Remove Selected Instrument"
-msgstr "_Odstranit vybraný nástroj"
+#: ../../gtk-builder-ui/MainWindow.ui:129
+#: ../../gtk-builder-ui/MainWindow.ui:497
+msgid "Add an audio file to the project"
+msgstr "Přidat zvukový soubor k projektu"
 
-#: ../../Jokosher/Jokosher.glade.h:248
-msgid "_Report Bug..."
-msgstr "_Oznámit chybu..."
+#: ../../gtk-builder-ui/MainWindow.ui:140
+msgid "Manage instrument recording inputs"
+msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:249
-msgid "_Search:"
-msgstr "_Hledat:"
+#: ../../gtk-builder-ui/MainWindow.ui:150
+msgid "Change the timeline"
+msgstr "Změnit časovou osu"
 
-#: ../../Jokosher/Jokosher.glade.h:250
-msgid "_Show welcome dialog"
-msgstr "_Zobrazit uvítání"
-
-#: ../../Jokosher/Jokosher.glade.h:251
-msgid "_System Information"
-msgstr "_Systémové informace"
-
-#: ../../Jokosher/Jokosher.glade.h:252
-msgid "_Template Name:"
-msgstr "_Název šablony:"
-
-#: ../../Jokosher/Jokosher.glade.h:253
+#: ../../gtk-builder-ui/MainWindow.ui:151
 msgid "_Time Format"
 msgstr "_Formát času"
 
-#: ../../Jokosher/Jokosher.glade.h:254
-msgid "_Use project template"
-msgstr "_Použít projektovou šablonu"
+#: ../../gtk-builder-ui/MainWindow.ui:158
+msgid "Change the timeline to show bars, beats and ticks"
+msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:255
+#: ../../gtk-builder-ui/MainWindow.ui:159
+msgid "Show as _Bars, Beats, Ticks"
+msgstr ""
+
+#: ../../gtk-builder-ui/MainWindow.ui:167
+msgid "Change the timeline to show hours, minutes and seconds"
+msgstr ""
+
+#: ../../gtk-builder-ui/MainWindow.ui:168
+msgid "Show as _Hours, Minutes, Seconds"
+msgstr "Zobrazit jako _hodiny, minuty, sekundy"
+
+#: ../../gtk-builder-ui/MainWindow.ui:198
+msgid "Export current project to an audio file"
+msgstr ""
+
+#: ../../gtk-builder-ui/MainWindow.ui:214
+msgid "Quit Jokosher"
+msgstr "Ukončit Jokosher"
+
+#: ../../gtk-builder-ui/MainWindow.ui:228
+msgid "_Edit"
+msgstr "_Upravit"
+
+#: ../../gtk-builder-ui/MainWindow.ui:237
+msgid "Undo the last edit"
+msgstr "Vrátit poslední úpravu"
+
+#: ../../gtk-builder-ui/MainWindow.ui:249
+msgid "Redo the previous edit"
+msgstr ""
+
+#: ../../gtk-builder-ui/MainWindow.ui:266
+msgid "Cut the current selection"
+msgstr "Vyříznout výběr"
+
+#: ../../gtk-builder-ui/MainWindow.ui:277
+msgid "Copy the current selection"
+msgstr "Kopírovat výběr"
+
+#: ../../gtk-builder-ui/MainWindow.ui:288
+msgid "Paste the contents of the clipboard"
+msgstr "Vložit obsah ze schránky"
+
+#: ../../gtk-builder-ui/MainWindow.ui:299
+msgid "Delete the current selection"
+msgstr "Smazat výběr"
+
+#: ../../gtk-builder-ui/MainWindow.ui:329
+msgid "_Instrument"
+msgstr "_Nástroj"
+
+#: ../../gtk-builder-ui/MainWindow.ui:338
+msgid "Add an audio file to the selected instrument"
+msgstr "Přídat zvukový soubor k vybranému nástroji"
+
+#: ../../gtk-builder-ui/MainWindow.ui:348
+msgid "Change type of the selected instrument"
+msgstr "Změnit typ zvoleného nástroje"
+
+#: ../../gtk-builder-ui/MainWindow.ui:349
+msgid "_Change Instrument Type..."
+msgstr "_Změnit typ nástroje..."
+
+#: ../../gtk-builder-ui/MainWindow.ui:358
+msgid "Remove the selected instrument"
+msgstr "Odstranit vybraný nástroj"
+
+#: ../../gtk-builder-ui/MainWindow.ui:372
+msgid "Ex_tensions"
+msgstr "Do_plňky"
+
+#: ../../gtk-builder-ui/MainWindow.ui:384
+msgid "Open the extension manager"
+msgstr "Otevřít správce doplňků"
+
+#: ../../gtk-builder-ui/MainWindow.ui:385
+msgid "_Manage Extensions..."
+msgstr "_Spravovat doplňky..."
+
+#: ../../gtk-builder-ui/MainWindow.ui:397
+msgid "_Help"
+msgstr "_Pomoc"
+
+#: ../../gtk-builder-ui/MainWindow.ui:405
+msgid "User manual contents"
+msgstr ""
+
+#: ../../gtk-builder-ui/MainWindow.ui:415
+msgid "Report a bug in Jokosher"
+msgstr "Oznámit chybu v Jokosher"
+
+#: ../../gtk-builder-ui/MainWindow.ui:416
+msgid "_Report Bug..."
+msgstr "_Oznámit chybu..."
+
+#: ../../gtk-builder-ui/MainWindow.ui:425
+msgid "Visit Jokosher's online forums"
+msgstr "Navštivte online fóra Jokosher"
+
+#: ../../gtk-builder-ui/MainWindow.ui:436
+msgid "Find out how you can help"
+msgstr ""
+
+#: ../../gtk-builder-ui/MainWindow.ui:447
+msgid "See your system information"
+msgstr "Vaše systémové informace"
+
+#: ../../gtk-builder-ui/MainWindow.ui:458
+msgid "Version information, credits and licence"
+msgstr "Informace o verzi, zásluhách a licenci"
+
+#: ../../gtk-builder-ui/MainWindow.ui:484
+msgid "Add Instrument"
+msgstr "Přidat nástroj"
+
+#: ../../gtk-builder-ui/MainWindow.ui:499
+msgid "Add Audio File"
+msgstr "Přidat zvukový soubor"
+
+#: ../../gtk-builder-ui/MainWindow.ui:519
+msgid "Click and hold to rewind"
+msgstr ""
+
+#: ../../gtk-builder-ui/MainWindow.ui:531
+msgid "Start playback"
+msgstr "Spustit přehrávání"
+
+#: ../../gtk-builder-ui/MainWindow.ui:543 ../../Jokosher/JokosherApp.py:66
+msgid "Stop playback"
+msgstr "Zastavit přehrávání"
+
+#: ../../gtk-builder-ui/MainWindow.ui:555
+msgid "Click and hold to fast forward"
+msgstr ""
+
+#: ../../gtk-builder-ui/MainWindow.ui:567
+msgid "Arm an instrument then click here to begin recording"
+msgstr ""
+
+#: ../../gtk-builder-ui/MainWindow.ui:588
+msgid "Audio Mixers"
+msgstr "Audio mixery"
+
+#: ../../gtk-builder-ui/MainWindow.ui:645
+msgid "Start Jokosher with an empty project"
+msgstr "Spustit Jokosher s posledním projektem"
+
+#: ../../gtk-builder-ui/MainWindow.ui:670
+msgid "_New"
+msgstr ""
+
+#: ../../gtk-builder-ui/MainWindow.ui:695
+msgid "Find and open an existing project"
+msgstr "Hledat a otevřít existující projekt"
+
+#: ../../gtk-builder-ui/MainWindow.ui:720
+msgid "_Import"
+msgstr ""
+
+#: ../../gtk-builder-ui/MainWindow.ui:770
+msgid "Double-click on a recent project to open"
+msgstr ""
+
+#: ../../gtk-builder-ui/MainWindow.ui:788
+msgid "Select a project to open from the list"
+msgstr "Vyberte projekt k otevření ze seznamu"
+
+#: ../../gtk-builder-ui/MainWindow.ui:813
+msgid "_Open Selected Project"
+msgstr "_Otevřít vybraný projekt"
+
+#: ../../gtk-builder-ui/MixdownProfileDialog.ui:13
+#: ../../Jokosher/JokosherApp.py:630
+msgid "Mixdown Project"
+msgstr "Zmixovat projekt"
+
+#: ../../gtk-builder-ui/MixdownProfileDialog.ui:30
+msgid "Mixdown Profile:"
+msgstr ""
+
+#: ../../gtk-builder-ui/MixdownProfileDialog.ui:116
+msgid "<b>Mixdown Actions</b>"
+msgstr ""
+
+#: ../../gtk-builder-ui/MixdownProfileDialog.ui:240
+msgid "Cancel the mixdown"
+msgstr ""
+
+#: ../../gtk-builder-ui/MixdownProfileDialog.ui:257
+msgid "Mixdown the project using these settings"
+msgstr "Zmixovat projekt s tímto nastavením"
+
+#: ../../gtk-builder-ui/MixdownProfileDialog.ui:282
+msgid "_Mixdown"
+msgstr ""
+
+#: ../../gtk-builder-ui/PreferencesDialog.ui:59
+msgid "Open a _new project"
+msgstr ""
+
+#: ../../gtk-builder-ui/PreferencesDialog.ui:75
+msgid "_Open most recent project"
+msgstr "_Otevřít poslední projekt"
+
+#: ../../gtk-builder-ui/PreferencesDialog.ui:92
+msgid "_Don't open any project"
+msgstr ""
+
+#: ../../gtk-builder-ui/PreferencesDialog.ui:116
+msgid "<b>Application Start-up</b>"
+msgstr "<b>Inicializace aplikace</b>"
+
+#: ../../gtk-builder-ui/PreferencesDialog.ui:148
+msgid "_Encoding:"
+msgstr ""
+
+#: ../../gtk-builder-ui/PreferencesDialog.ui:161
+msgid "S_ample Rate:"
+msgstr ""
+
+#: ../../gtk-builder-ui/PreferencesDialog.ui:219
+msgid "<b>Recording Format</b>"
+msgstr "<b>Formát nahrávání</b>"
+
+#: ../../gtk-builder-ui/PreferencesDialog.ui:251
+msgid "S_ystem:"
+msgstr "S_ystém:"
+
+#: ../../gtk-builder-ui/PreferencesDialog.ui:264
+msgid "_Pipeline:"
+msgstr ""
+
+#: ../../gtk-builder-ui/PreferencesDialog.ui:316
+msgid "<b>Recording Sound System</b>"
+msgstr "<b>Systém záznamu zvuku</b>"
+
+#: ../../gtk-builder-ui/PreferencesDialog.ui:365
+msgid "Sys_tem:"
+msgstr "Sys_tém:"
+
+#: ../../gtk-builder-ui/PreferencesDialog.ui:378
+msgid "P_ipeline:"
+msgstr ""
+
+#: ../../gtk-builder-ui/PreferencesDialog.ui:393
+msgid "De_vice:"
+msgstr "Za_řízení:"
+
+#: ../../gtk-builder-ui/PreferencesDialog.ui:428
 msgid "autoaudiosink"
 msgstr ""
 
-#: ../../Jokosher/Jokosher.glade.h:256
+#: ../../gtk-builder-ui/PreferencesDialog.ui:447
+msgid "<b>Playback Sound System</b>"
+msgstr "<b>Zvukový přehrávací systém</b>"
+
+#: ../../gtk-builder-ui/PreferencesDialog.ui:470
+msgid "Save preferences and close"
+msgstr "Uložit nastavení a zavřít"
+
+#: ../../gtk-builder-ui/ProgressDialog.ui:7
+msgid "Mixing Project"
+msgstr "Mixování projektu"
+
+#: ../../gtk-builder-ui/ProgressDialog.ui:26
+msgid "<big><b>Mixing the project...</b></big>"
+msgstr "<big><b>Mixáž projektu...</b></big>"
+
+#: ../../gtk-builder-ui/ProgressDialog.ui:47
+msgid "Your music file is being mixed. This can take some seconds."
+msgstr ""
+
+#: ../../gtk-builder-ui/ProgressDialog.ui:90
+msgid "Stop mixing the project"
+msgstr "Ukončit mixáž projektu"
+
+#: ../../gtk-builder-ui/ProjectPropertiesDialog.ui:7
+msgid "Project Properties"
+msgstr "Vlastnosti projektu"
+
+#: ../../gtk-builder-ui/ProjectPropertiesDialog.ui:39
+msgid "_Name:"
+msgstr "_Název..."
+
+#: ../../gtk-builder-ui/ProjectPropertiesDialog.ui:52
+msgid "_Author:"
+msgstr "_Autor:"
+
+#: ../../gtk-builder-ui/ProjectPropertiesDialog.ui:96
+msgid "<b>General</b>"
+msgstr "<b>Obecné</b>"
+
+#: ../../gtk-builder-ui/ProjectPropertiesDialog.ui:143
+msgid "<b>N_otes</b>"
+msgstr "<b>P_oznámky</b>"
+
+#: ../../gtk-builder-ui/SystemInformationDialog.ui:7
+msgid "System Information"
+msgstr "Systémové informace"
+
+#: ../../gtk-builder-ui/SystemInformationDialog.ui:36
+msgid "<big>System Information</big>"
+msgstr "<big>Systémové informace</big>"
+
+#: ../../gtk-builder-ui/SystemInformationDialog.ui:63
+msgid "GStreamer version:"
+msgstr "Verze GStreamer:"
+
+#: ../../gtk-builder-ui/SystemInformationDialog.ui:74
+msgid "Gnonlin version:"
+msgstr "Verze Gnonlin:"
+
+#: ../../gtk-builder-ui/SystemInformationDialog.ui:87
+#: ../../gtk-builder-ui/SystemInformationDialog.ui:128
 msgid "xx.xx.xx"
 msgstr ""
+
+#: ../../gtk-builder-ui/SystemInformationDialog.ui:115
+msgid "Distribution:"
+msgstr "Distribuce:"
+
+#: ../../gtk-builder-ui/SystemInformationDialog.ui:161
+msgid "Close this window"
+msgstr "Zavřít toto okno"
+
+#: ../../gtk-builder-ui/TimeSignatureDialog.ui:33
+msgid "Set Time Signature"
+msgstr "Nastavit časové razítko"
+
+#: ../../gtk-builder-ui/TimeSignatureDialog.ui:63
+msgid "Beats per _measure"
+msgstr ""
+
+#: ../../gtk-builder-ui/TimeSignatureDialog.ui:76
+msgid "Beat _value"
+msgstr ""
+
+#: ../../gtk-builder-ui/TimeSignatureDialog.ui:111
+msgid "Adjust the amount of beats per measure"
+msgstr ""
+
+#: ../../gtk-builder-ui/TimeSignatureDialog.ui:131
+msgid "<b>Time Signature</b>"
+msgstr "<b>Časové razítko</b>"
+
+#: ../../gtk-builder-ui/TimeSignatureDialog.ui:158
+msgid "Use these settings"
+msgstr "Použít toto nastavení"
+
+#: ../../Jokosher/Jokosher:73
+msgid "Print debug output to stdout"
+msgstr ""
+
+#: ../../Jokosher/Jokosher:75
+msgid "Sent debug output to Gstreamer's debug system"
+msgstr ""
+
+#: ../../Jokosher/Jokosher:77
+msgid "Do not load extensions or project on startup (same as -ne)"
+msgstr ""
+
+#: ../../Jokosher/Jokosher:79
+msgid "Do not load a project on startup"
+msgstr ""
+
+#: ../../Jokosher/Jokosher:81
+msgid "Do not load extensions on startup"
+msgstr "Při spouštění nenačítat rozšíření"
 
 #: ../../Jokosher/AddInstrumentDialog.py:63
 msgid "Change Instrument Type"
@@ -939,34 +810,53 @@ msgstr ""
 msgid "<b>Instruments Not Shown:</b>"
 msgstr "<b>Nezobrazené nástroje:</b>"
 
-#: ../../Jokosher/ControlsBox.py:42
+#: ../../Jokosher/ControlsBox.py:43
 msgid "Enable this instrument for recording"
 msgstr ""
 
-#: ../../Jokosher/ControlsBox.py:43
+#: ../../Jokosher/ControlsBox.py:44
 msgid "Disable this instrument for recording"
 msgstr ""
 
-#: ../../Jokosher/ControlsBox.py:44
+#: ../../Jokosher/ControlsBox.py:45
 msgid "Mute - silence this instrument"
 msgstr "Ztlumit - ztiší tento nástroj"
 
-#: ../../Jokosher/ControlsBox.py:45
+#: ../../Jokosher/ControlsBox.py:46
 msgid "Unmute - hear this instrument"
 msgstr ""
 
-#: ../../Jokosher/ControlsBox.py:46
+#: ../../Jokosher/ControlsBox.py:47
 msgid "Activate Solo - silence all other instruments"
 msgstr ""
 
-#: ../../Jokosher/ControlsBox.py:47
+#: ../../Jokosher/ControlsBox.py:48
 msgid "Deactivate Solo - hear all the instruments"
 msgstr ""
 
-#: ../../Jokosher/ControlsBox.py:80
-#: ../../Jokosher/InstrumentEffectsDialog.py:116
+#: ../../Jokosher/ControlsBox.py:81
+#: ../../Jokosher/InstrumentEffectsDialog.py:117
 msgid "Instrument Effects"
 msgstr "Efekty nástrojů"
+
+#: ../../Jokosher/ControlsBox.py:223
+msgid "You do not have any LADSPA effects plugins installed"
+msgstr ""
+
+#: ../../Jokosher/ControlsBox.py:225
+msgid "Jokosher does not currently support any LADSPA plugins on Windows"
+msgstr ""
+
+#: ../../Jokosher/ControlsBox.py:228
+msgid ""
+"Jokosher requires one or more packages of LADSPA effects to be able to use "
+"this feature, please install the relevant package(s) for your distribution."
+msgstr ""
+
+#: ../../Jokosher/Event.py:780
+#, python-format
+msgid "%(title)s by %(artist)s"
+msgstr ""
 
 #: ../../Jokosher/EventLaneViewer.py:115
 msgid "_Add Audio File..."
@@ -974,11 +864,6 @@ msgstr "_Přidat zvukový soubor..."
 
 #: ../../Jokosher/EventLaneViewer.py:264
 msgid "<b>Right-click</b> for more options."
-msgstr ""
-
-#: ../../Jokosher/Event.py:780
-#, python-format
-msgid "%(title)s by %(artist)s"
 msgstr ""
 
 #: ../../Jokosher/EventViewer.py:151
@@ -1046,7 +931,7 @@ msgid "_Copy"
 msgstr "_Kopírovat"
 
 #: ../../Jokosher/EventViewer.py:906
-#: ../../Jokosher/InstrumentEffectsDialog.py:449
+#: ../../Jokosher/InstrumentEffectsDialog.py:450
 msgid "_Delete"
 msgstr "_Odstranit"
 
@@ -1063,27 +948,6 @@ msgstr ""
 #, python-format
 msgid ""
 "Event, %(name)s, %(dur)0.2f seconds long, starting at %(start)0.2f seconds."
-msgstr ""
-
-#: ../../Jokosher/ExtensionManagerDialog.py:169
-msgid "Choose a Jokosher Extension file"
-msgstr "Vyberte soubor s doplňkem Jokosher"
-
-#: ../../Jokosher/ExtensionManagerDialog.py:175
-msgid "Jokosher Extension Files (*.py *.egg)"
-msgstr "Jokosher rozšiřující soubory (*.py *.egg)"
-
-#: ../../Jokosher/ExtensionManagerDialog.py:197
-msgid "There was a problem loading the extension"
-msgstr "Vyskytl se problém s načtením doplňku"
-
-#: ../../Jokosher/ExtensionManagerDialog.py:235
-msgid "There was a problem removing the extension"
-msgstr "Nastal problém s odebráním rozšíření"
-
-#: ../../Jokosher/ExtensionManagerDialog.py:272
-msgid ""
-"An error occurred when trying to launch the preferences for the extension"
 msgstr ""
 
 #: ../../Jokosher/Extension.py:50
@@ -1122,83 +986,104 @@ msgstr "Nahradit"
 msgid "Your new extension is now available in Jokosher!"
 msgstr "Vaše nové rozšíření je nyní připraveno v Jokosher!"
 
-#: ../../Jokosher/Globals.py:486
+#: ../../Jokosher/ExtensionManagerDialog.py:168
+msgid "Choose a Jokosher Extension file"
+msgstr "Vyberte soubor s doplňkem Jokosher"
+
+#: ../../Jokosher/ExtensionManagerDialog.py:174
+msgid "Jokosher Extension Files (*.py *.egg)"
+msgstr "Jokosher rozšiřující soubory (*.py *.egg)"
+
+#: ../../Jokosher/ExtensionManagerDialog.py:196
+msgid "There was a problem loading the extension"
+msgstr "Vyskytl se problém s načtením doplňku"
+
+#: ../../Jokosher/ExtensionManagerDialog.py:234
+msgid "There was a problem removing the extension"
+msgstr "Nastal problém s odebráním rozšíření"
+
+#: ../../Jokosher/ExtensionManagerDialog.py:271
+msgid ""
+"An error occurred when trying to launch the preferences for the extension"
+msgstr ""
+
+#: ../../Jokosher/Globals.py:509
 msgid "Broken"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:487
+#: ../../Jokosher/Globals.py:510
 msgid "Unclassified"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:488
+#: ../../Jokosher/Globals.py:511
 msgid "Amplifiers"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:489
+#: ../../Jokosher/Globals.py:512
 msgid "Chorus"
 msgstr "Sbor"
 
-#: ../../Jokosher/Globals.py:490
+#: ../../Jokosher/Globals.py:513
 msgid "Compressors"
 msgstr "Kompresory"
 
-#: ../../Jokosher/Globals.py:491
+#: ../../Jokosher/Globals.py:514
 msgid "Delays"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:492
+#: ../../Jokosher/Globals.py:515
 msgid "Distortions"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:493
+#: ../../Jokosher/Globals.py:516
 msgid "Equalizers"
 msgstr "Ekvalizéry"
 
-#: ../../Jokosher/Globals.py:494
+#: ../../Jokosher/Globals.py:517
 msgid "Filters"
 msgstr "Filtry"
 
-#: ../../Jokosher/Globals.py:495
+#: ../../Jokosher/Globals.py:518
 msgid "Flangers"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:496
+#: ../../Jokosher/Globals.py:519
 msgid "Miscellaneous"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:497
+#: ../../Jokosher/Globals.py:520
 msgid "Modulators"
 msgstr "Modulátory"
 
-#: ../../Jokosher/Globals.py:498
+#: ../../Jokosher/Globals.py:521
 msgid "Oscillators"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:499
+#: ../../Jokosher/Globals.py:522
 msgid "Phasers"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:500
+#: ../../Jokosher/Globals.py:523
 msgid "Reverbs"
 msgstr ""
 
-#: ../../Jokosher/Globals.py:501
+#: ../../Jokosher/Globals.py:524
 msgid "Simulators"
 msgstr "Simulátory"
 
-#: ../../Jokosher/Globals.py:695 ../../Jokosher/PreferencesDialog.py:113
+#: ../../Jokosher/Globals.py:718 ../../Jokosher/PreferencesDialog.py:113
 msgid "Autodetect"
 msgstr "Autodetekce"
 
-#: ../../Jokosher/Globals.py:696
+#: ../../Jokosher/Globals.py:719
 msgid "Use GNOME Settings"
 msgstr "Použít nastavení GNOME"
 
-#: ../../Jokosher/Globals.py:706
+#: ../../Jokosher/Globals.py:729
 msgid "GNOME Settings"
 msgstr "Nastavení GNOME"
 
-#: ../../Jokosher/Globals.py:724
+#: ../../Jokosher/Globals.py:747
 msgid "Jokosher Audio Editor"
 msgstr "Jokosher Audio Editor"
 
@@ -1243,39 +1128,37 @@ msgid ""
 "The \"%(custom-pipeline)s\" sound system does not support device selection."
 msgstr ""
 
-#: ../../Jokosher/InstrumentEffectsDialog.py:142
-#: ../../Jokosher/InstrumentEffectsDialog.py:144
-#: ../../Jokosher/MixdownProfileDialog.py:618
+#: ../../Jokosher/InstrumentEffectsDialog.py:143
+#: ../../Jokosher/InstrumentEffectsDialog.py:145
+#: ../../Jokosher/MixdownProfileDialog.py:617
 msgid "Name"
 msgstr "Název"
 
-#: ../../Jokosher/InstrumentEffectsDialog.py:143
-#: ../../Jokosher/ProjectTemplateDialog.py:82
-#: ../../Jokosher/ProjectTemplateDialog.py:86
+#: ../../Jokosher/InstrumentEffectsDialog.py:144
 msgid "Type"
 msgstr "Typ"
 
-#: ../../Jokosher/InstrumentEffectsDialog.py:446
+#: ../../Jokosher/InstrumentEffectsDialog.py:447
 msgid "_Move up..."
 msgstr "_Nahorů..."
 
-#: ../../Jokosher/InstrumentEffectsDialog.py:447
+#: ../../Jokosher/InstrumentEffectsDialog.py:448
 msgid "M_ove down..."
 msgstr "D_olů..."
 
-#: ../../Jokosher/InstrumentEffectsDialog.py:450
+#: ../../Jokosher/InstrumentEffectsDialog.py:451
 msgid "_Settings"
 msgstr "_Nastavení"
 
-#: ../../Jokosher/InstrumentEffectsDialog.py:491
+#: ../../Jokosher/InstrumentEffectsDialog.py:492
 msgid "_Activate effect"
 msgstr "_Aktivovat efekt"
 
-#: ../../Jokosher/InstrumentEffectsDialog.py:673
+#: ../../Jokosher/InstrumentEffectsDialog.py:674
 msgid "Effect Settings"
 msgstr "Nastavení efektů"
 
-#: ../../Jokosher/InstrumentEffectsDialog.py:704
+#: ../../Jokosher/InstrumentEffectsDialog.py:705
 msgid "-parameter not readable-"
 msgstr ""
 
@@ -1295,7 +1178,7 @@ msgstr ""
 msgid "Show the audio level mixers"
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:400
+#: ../../Jokosher/JokosherApp.py:438
 #, python-format
 msgid ""
 "<big>Couldn't launch the jokosher website automatically.</big>\n"
@@ -1303,7 +1186,7 @@ msgid ""
 "Please visit %s to access it."
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:411
+#: ../../Jokosher/JokosherApp.py:449
 #, python-format
 msgid ""
 "<big>Couldn't launch the launchpad website automatically.</big>\n"
@@ -1311,7 +1194,7 @@ msgid ""
 "Please visit %s to access it."
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:443
+#: ../../Jokosher/JokosherApp.py:481
 #, python-format
 msgid ""
 "The instruments '%(name1)s' and '%(name2)s' both have the same input "
@@ -1319,32 +1202,44 @@ msgid ""
 "through 'Project -> Recording Inputs'"
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:640
+#: ../../Jokosher/JokosherApp.py:678
 msgid "Preparing to mixdown project"
 msgstr "Připravuje se zmixování projektu"
 
-#: ../../Jokosher/JokosherApp.py:646
+#: ../../Jokosher/JokosherApp.py:684
 #, python-format
 msgid "%(progress)d%% of %(total)d seconds completed"
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:718
+#: ../../Jokosher/JokosherApp.py:762
 msgid "Choose a Jokosher project file"
 msgstr "Vyber soubor projektu Jokosher"
 
-#: ../../Jokosher/JokosherApp.py:727
+#: ../../Jokosher/JokosherApp.py:774
 msgid "All Files"
 msgstr "Všechny soubory"
 
-#: ../../Jokosher/JokosherApp.py:731
-msgid "Jokosher Project File (*.jokosher)"
-msgstr "Soubor projektu (*.jokosher)"
+#: ../../Jokosher/JokosherApp.py:778
+msgid "Jokosher Project Files (*.jokosher)"
+msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:781
-msgid "Choose a location to save the project"
-msgstr "Vybrat místo pro uložení projektu"
+#: ../../Jokosher/JokosherApp.py:811
+msgid "An error occurred and the project could not be imported."
+msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:811 ../../Jokosher/NewProjectDialog.py:147
+#: ../../Jokosher/JokosherApp.py:842
+msgid "New Project"
+msgstr "Nový projekt"
+
+#: ../../Jokosher/JokosherApp.py:843
+msgid "Unknown Author"
+msgstr "Neznámy autor"
+
+#: ../../Jokosher/JokosherApp.py:849
+msgid "Could not initialize project."
+msgstr "Není možné zahájit projekt"
+
+#: ../../Jokosher/JokosherApp.py:851
 msgid ""
 "A file or folder with this name already exists. Please choose a different "
 "project name and try again."
@@ -1352,15 +1247,23 @@ msgstr ""
 "Soubor nebo adresář s tímto názvem již existuje. Prosím, vyberte jiný název "
 "projektu a zkuste znovu."
 
-#: ../../Jokosher/JokosherApp.py:813 ../../Jokosher/NewProjectDialog.py:149
+#: ../../Jokosher/JokosherApp.py:853
 msgid "The file or folder location is write-protected."
 msgstr "Soubor nebo adresář v místě je chráněn proti zápisu."
 
-#: ../../Jokosher/JokosherApp.py:815 ../../Jokosher/NewProjectDialog.py:153
+#: ../../Jokosher/JokosherApp.py:855
+msgid "Invalid name or author."
+msgstr "Neplatný název nebo autor."
+
+#: ../../Jokosher/JokosherApp.py:857
 msgid "The URI scheme given is either invalid or not supported"
 msgstr "Schéma URI je neplatné nebo nepodporované"
 
-#: ../../Jokosher/JokosherApp.py:822 ../../Jokosher/NewProjectDialog.py:162
+#: ../../Jokosher/JokosherApp.py:859
+msgid "Unable to load required Gstreamer plugin:"
+msgstr ""
+
+#: ../../Jokosher/JokosherApp.py:866
 #, python-format
 msgid ""
 "Unable to create project.\n"
@@ -1371,47 +1274,43 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../../Jokosher/JokosherApp.py:877
-#, python-format
-msgid ""
-"<span size='large' weight='bold'>Save changes to project \"%s\" before "
-"closing?</span>\n"
-"\n"
-"Your changes will be lost if you don't save them."
-msgstr ""
-"<span size='large' weight='bold'>Uložit změny na projektu \"%s\" před "
-"uzavřením?</span>\n"
-"\n"
-"Pokud projekt neuložíte, ztratíte všechny změny."
-
-#: ../../Jokosher/JokosherApp.py:886
-msgid "Close _Without Saving"
-msgstr "Zavřít _bez uložení"
-
-#: ../../Jokosher/JokosherApp.py:985
+#: ../../Jokosher/JokosherApp.py:1015
 #, python-format
 msgid "Mixing project to file: %s"
 msgstr "Zmixovat projekt do souboru: %s"
 
-#: ../../Jokosher/JokosherApp.py:1017
+#: ../../Jokosher/JokosherApp.py:1058
 #, python-format
 msgid "*%s - Jokosher"
 msgstr "*%s - Jokosher"
 
-#: ../../Jokosher/JokosherApp.py:1019
+#: ../../Jokosher/JokosherApp.py:1060
 #, python-format
 msgid "%s - Jokosher"
 msgstr "%s - Jokosher"
 
-#: ../../Jokosher/JokosherApp.py:1097
-msgid "Clear the list of recent projects"
-msgstr "Vyčistit seznam již otevřených projektů"
+#: ../../Jokosher/JokosherApp.py:1127
+#, python-format
+msgid "Show all %d projects"
+msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:1519
+#: ../../Jokosher/JokosherApp.py:1129
+msgid "Show all projects"
+msgstr ""
+
+#: ../../Jokosher/JokosherApp.py:1132
+msgid "Close the current project, and show all available projects"
+msgstr ""
+
+#: ../../Jokosher/JokosherApp.py:1403
+msgid "Jokosher"
+msgstr "Jokosher"
+
+#: ../../Jokosher/JokosherApp.py:1588
 msgid "The project references non-existant files:\n"
 msgstr "Projekt odkazuje na neexistující soubory:\n"
 
-#: ../../Jokosher/JokosherApp.py:1523
+#: ../../Jokosher/JokosherApp.py:1592
 msgid ""
 "\n"
 "The project references non-existant images:\n"
@@ -1419,7 +1318,7 @@ msgstr ""
 "\n"
 "Projekt odkazuje na neexistující obrázky:\n"
 
-#: ../../Jokosher/JokosherApp.py:1531
+#: ../../Jokosher/JokosherApp.py:1600
 #, python-format
 msgid ""
 "%s\n"
@@ -1428,19 +1327,19 @@ msgstr ""
 "%s\n"
 " Neplatný, nebo poškozený soubor projektu. Nebude otevřený."
 
-#: ../../Jokosher/JokosherApp.py:1569
+#: ../../Jokosher/JokosherApp.py:1639
 msgid "You must have Gstreamer version 0.10.9 or higher.\n"
 msgstr "Musíte mít Gstreamer verze minimálně 0.10.9.\n"
 
-#: ../../Jokosher/JokosherApp.py:1577
+#: ../../Jokosher/JokosherApp.py:1647
 msgid "You must have Gstreamer plugin gnonlin version 0.10.4.2 or later.\n"
 msgstr "Musíte mít Gstreamer plugin gnonlin verze minimálně 0.10.4.2.\n"
 
-#: ../../Jokosher/JokosherApp.py:1579
+#: ../../Jokosher/JokosherApp.py:1649
 msgid "Gstreamer plugin gnonlin is not installed."
 msgstr "Gstreamer plugin gnonlin není nainstalovaný."
 
-#: ../../Jokosher/JokosherApp.py:1580
+#: ../../Jokosher/JokosherApp.py:1650
 msgid ""
 "\n"
 "See http://doc.jokosher.org/Installation for more details.\n"
@@ -1448,14 +1347,14 @@ msgstr ""
 "\n"
 "Viz http://doc.jokosher.org/Installation pro více detailů.\n"
 
-#: ../../Jokosher/JokosherApp.py:1583
+#: ../../Jokosher/JokosherApp.py:1653
 msgid ""
 "You must have the Gstreamer plugin packs gst-plugins-base and gst-plugins-"
 "good installed.\n"
 msgstr ""
 "Musíte mít nainstalované balíčky gst-plugins-base a gst-plugins-good.\n"
 
-#: ../../Jokosher/JokosherApp.py:1589
+#: ../../Jokosher/JokosherApp.py:1659
 #, python-format
 msgid ""
 "<big>Some functionality will not work correctly or at all.</big>\n"
@@ -1466,7 +1365,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../../Jokosher/JokosherApp.py:1632
+#: ../../Jokosher/JokosherApp.py:1702
 #, python-format
 msgid ""
 "<big>Couldn't launch the Jokosher documentation site.</big>\n"
@@ -1474,7 +1373,7 @@ msgid ""
 "Please visit %s to access it."
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:1643
+#: ../../Jokosher/JokosherApp.py:1713
 #, python-format
 msgid ""
 "<big>Couldn't launch the forums website automatically.</big>\n"
@@ -1482,11 +1381,11 @@ msgid ""
 "Please visit %s to access them."
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:1671
+#: ../../Jokosher/JokosherApp.py:1741
 msgid "<b>To find out more, visit:</b>"
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:1694
+#: ../../Jokosher/JokosherApp.py:1764
 #, python-format
 msgid ""
 "<big>Couldn't launch the contributing website automatically.</big>\n"
@@ -1494,35 +1393,35 @@ msgid ""
 "Please visit %s to access it."
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:1749
+#: ../../Jokosher/JokosherApp.py:1819
 msgid "Gnonlin is missing!"
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:1756
+#: ../../Jokosher/JokosherApp.py:1826
 msgid "Unknown"
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:1772
+#: ../../Jokosher/JokosherApp.py:1842
 #, python-format
 msgid "The URI scheme '%s' is either invalid or not supported."
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:1774
+#: ../../Jokosher/JokosherApp.py:1844
 #, python-format
 msgid "Unable to unzip the project file %s"
 msgstr "Není možné rozbalit soubor %s"
 
-#: ../../Jokosher/JokosherApp.py:1776
+#: ../../Jokosher/JokosherApp.py:1846
 #, python-format
 msgid "The project file was created with version \"%s\" of Jokosher.\n"
 msgstr "Soubor byl vytvořen programem Jokosher, verze \"%s\".\n"
 
-#: ../../Jokosher/JokosherApp.py:1777
+#: ../../Jokosher/JokosherApp.py:1847
 #, python-format
 msgid "Projects from version \"%s\" are incompatible with this release.\n"
 msgstr "Projekty z verze \"%s\" jsou nekompatibilní s tímto vydáním.\n"
 
-#: ../../Jokosher/JokosherApp.py:1779
+#: ../../Jokosher/JokosherApp.py:1849
 #, python-format
 msgid ""
 "The project:\n"
@@ -1535,26 +1434,30 @@ msgstr ""
 "\n"
 "neexistuje.\n"
 
-#: ../../Jokosher/JokosherApp.py:1781 ../../Jokosher/JokosherApp.py:1785
+#: ../../Jokosher/JokosherApp.py:1851 ../../Jokosher/JokosherApp.py:1855
 msgid "The project file could not be opened.\n"
 msgstr "Soubor projektu nemohl být otevřený.\n"
 
-#: ../../Jokosher/JokosherApp.py:1782
+#: ../../Jokosher/JokosherApp.py:1852
 msgid ""
 "It is recommended that you report this to the Jokosher developers or get "
 "help at http://www.jokosher.org/forums/"
 msgstr ""
 
-#: ../../Jokosher/JokosherApp.py:1862
+#: ../../Jokosher/JokosherApp.py:1932
 msgid "Copy file to project"
 msgstr "Zkopírovat soubor do projektu"
 
-#: ../../Jokosher/JokosherApp.py:1867
+#: ../../Jokosher/JokosherApp.py:1937
 msgid "Add Audio File..."
 msgstr "Přidat zvukový soubor..."
 
-#: ../../Jokosher/JokosherApp.py:1941 ../../Jokosher/JokosherApp.py:1946
+#: ../../Jokosher/JokosherApp.py:2011 ../../Jokosher/JokosherApp.py:2016
 msgid "Mix_down As"
+msgstr ""
+
+#: ../../Jokosher/JokosherApp.py:2029
+msgid "_Mixdown Project..."
 msgstr ""
 
 #: ../../Jokosher/MasterMixerStrip.py:46
@@ -1569,7 +1472,7 @@ msgstr ""
 msgid "Export a file to the destination of your choosing."
 msgstr ""
 
-#: ../../Jokosher/MixdownActions.py:225
+#: ../../Jokosher/MixdownActions.py:226
 #, python-format
 msgid ""
 "An encoding plugin could not be found: %s.\n"
@@ -1577,54 +1480,54 @@ msgid ""
 "installed."
 msgstr ""
 
-#: ../../Jokosher/MixdownActions.py:227
+#: ../../Jokosher/MixdownActions.py:228
 #, python-format
 msgid "The encoding bin description is invalid: %s"
 msgstr ""
 
-#: ../../Jokosher/MixdownActions.py:253
+#: ../../Jokosher/MixdownActions.py:254
 msgid "Server type:"
 msgstr ""
 
-#: ../../Jokosher/MixdownActions.py:266
+#: ../../Jokosher/MixdownActions.py:267
 msgid "Server location:"
 msgstr ""
 
-#: ../../Jokosher/MixdownActions.py:270
+#: ../../Jokosher/MixdownActions.py:271
 msgid "Username:"
 msgstr "Uživatelské jméno:"
 
-#: ../../Jokosher/MixdownActions.py:274
+#: ../../Jokosher/MixdownActions.py:275
 msgid "Password:"
 msgstr "Heslo:"
 
-#: ../../Jokosher/MixdownActions.py:310
+#: ../../Jokosher/MixdownActions.py:311
 msgid "Location:"
 msgstr "Umístění:"
 
-#: ../../Jokosher/MixdownActions.py:378
+#: ../../Jokosher/MixdownActions.py:379
 msgid "Select Export Location"
 msgstr ""
 
-#: ../../Jokosher/MixdownActions.py:489 ../../Jokosher/MixdownActions.py:499
+#: ../../Jokosher/MixdownActions.py:490 ../../Jokosher/MixdownActions.py:500
 msgid "Run External Script"
 msgstr ""
 
-#: ../../Jokosher/MixdownActions.py:490
+#: ../../Jokosher/MixdownActions.py:491
 msgid "Run an external script from the destination of your choosing."
 msgstr ""
 
-#: ../../Jokosher/MixdownActions.py:531
+#: ../../Jokosher/MixdownActions.py:532
 #, python-format
 msgid "An error occured with the script %s"
 msgstr ""
 
-#: ../../Jokosher/MixdownActions.py:533
+#: ../../Jokosher/MixdownActions.py:534
 #, python-format
 msgid "Error in script %s"
 msgstr "Chyba ve skriptu %s"
 
-#: ../../Jokosher/MixdownActions.py:536
+#: ../../Jokosher/MixdownActions.py:537
 #, python-format
 msgid "The script %s does not exist."
 msgstr "Skript %s neexistuje."
@@ -1680,11 +1583,11 @@ msgstr ""
 msgid "An error occured while running the mixdown action: %s"
 msgstr ""
 
-#: ../../Jokosher/MixdownProfileDialog.py:617
+#: ../../Jokosher/MixdownProfileDialog.py:616
 msgid "Icon"
 msgstr "Ikonka"
 
-#: ../../Jokosher/MixdownProfileDialog.py:632
+#: ../../Jokosher/MixdownProfileDialog.py:631
 #, python-format
 msgid ""
 "Please select the mixdown actions you would like to add to mixdown profile "
@@ -1739,26 +1642,6 @@ msgstr ""
 msgid "Current balance is <b>%d%%</b> right"
 msgstr ""
 
-#: ../../Jokosher/NewProjectDialog.py:85
-msgid "Select A Folder"
-msgstr "Vyberte složku"
-
-#: ../../Jokosher/NewProjectDialog.py:130
-msgid "Unknown Author"
-msgstr "Neznámy autor"
-
-#: ../../Jokosher/NewProjectDialog.py:145
-msgid "Could not initialize project."
-msgstr "Není možné zahájit projekt"
-
-#: ../../Jokosher/NewProjectDialog.py:151
-msgid "Invalid name or author."
-msgstr "Neplatný název nebo autor."
-
-#: ../../Jokosher/NewProjectDialog.py:155
-msgid "Unable to load required Gstreamer plugin:"
-msgstr ""
-
 #: ../../Jokosher/PreferencesDialog.py:75
 #: ../../Jokosher/PreferencesDialog.py:93
 msgid "Custom"
@@ -1769,49 +1652,70 @@ msgstr "Vlastní"
 msgid "Device %d"
 msgstr "Zařízení %d"
 
-#: ../../Jokosher/ProjectTemplateDialog.py:83
-#: ../../Jokosher/ProjectTemplateDialog.py:87
-msgid "Instrument Name"
-msgstr "Jméno nástroje"
-
-#: ../../Jokosher/RecordingView.py:119
+#: ../../Jokosher/RecordingView.py:120
 msgid "Zoom the timeline - Right-Click to reset to the default level"
 msgstr ""
 
-#: ../../Jokosher/RecordingView.py:128
+#: ../../Jokosher/RecordingView.py:129
 msgid "Zoom in timeline"
 msgstr "Přiblížit časovou osu"
 
-#: ../../Jokosher/RecordingView.py:135
+#: ../../Jokosher/RecordingView.py:136
 msgid "Zoom out timeline"
 msgstr "Oddálit časovou osu"
 
-#: ../../Jokosher/RecordingView.py:179
+#: ../../Jokosher/RecordingView.py:180
 msgid "Would you like to restore the current project?"
 msgstr ""
 
-#: ../../Jokosher/RecordingView.py:180
+#: ../../Jokosher/RecordingView.py:181
 msgid ""
 "A crash was detected and changes to your project were not saved.\n"
 "If you would like, you can attempt to recover these lost changes."
 msgstr ""
 
-#: ../../Jokosher/RecordingView.py:184
+#: ../../Jokosher/RecordingView.py:185
 msgid "_Restore Project"
 msgstr "_Obnovit projekt"
 
-#: ../../Jokosher/RecordingView.py:318
+#: ../../Jokosher/RecordingView.py:321
 msgid "A Gstreamer error has occurred"
 msgstr "Vyskytla se chyba v Gstreamer"
 
-#: ../../Jokosher/RecordingView.py:329
+#: ../../Jokosher/RecordingView.py:332
 msgid "A GStreamer error has occurred."
 msgstr "Vyskytla se chyba v Gstreamer."
 
-#: ../../Jokosher/RecordingView.py:330
+#: ../../Jokosher/RecordingView.py:333
 msgid ""
 "If this problem persists consider reporting a bug using the link in the help "
 "menu."
+msgstr ""
+
+#: ../../Jokosher/RecordingView.py:596
+msgid "This project has no name. Would you like to give it one?"
+msgstr ""
+
+#: ../../Jokosher/RecordingView.py:597
+msgid ""
+"The Properties dialog in the File menu lets you change the name of author of "
+"the project."
+msgstr ""
+
+#: ../../Jokosher/RecordingView.py:601
+msgid "_Open Properties"
+msgstr ""
+
+#: ../../Jokosher/TimeLine.py:566
+#, python-format
+msgid "Timeline, %(bars)d bars, %(beats)d beats and %(ticks)d ticks in"
+msgstr ""
+
+#: ../../Jokosher/TimeLine.py:570
+#, python-format
+msgid ""
+"Timeline, %(hours)d hours, %(mins)d minutes, %(secs)d seconds and %(millis)d "
+"milliseconds in"
 msgstr ""
 
 #: ../../Jokosher/TimeLineBar.py:63
@@ -1826,18 +1730,6 @@ msgstr ""
 msgid "Time signature"
 msgstr "Časové razítko"
 
-#: ../../Jokosher/TimeLine.py:566
-#, python-format
-msgid "Timeline, %(bars)d bars, %(beats)d beats and %(ticks)d ticks in"
-msgstr ""
-
-#: ../../Jokosher/TimeLine.py:570
-#, python-format
-msgid ""
-"Timeline, %(hours)d hours, %(mins)d minutes, %(secs)d seconds and %(millis)d "
-"milliseconds in"
-msgstr ""
-
 #: ../../Jokosher/TimeView.py:49
 msgid "Double click to change the time format"
 msgstr "Dvojté kliknutí pro změnu časového formátu"
@@ -1847,30 +1739,6 @@ msgid ""
 "<b>Drag</b> the <b>slider</b> to alter volume levels - <b>Right-Click</b> to "
 "set the <b>slider</b> to 100%"
 msgstr ""
-
-#: ../../Jokosher/Jokosher:73
-msgid "Print debug output to stdout"
-msgstr ""
-
-#: ../../Jokosher/Jokosher:75
-msgid "Sent debug output to Gstreamer's debug system"
-msgstr ""
-
-#: ../../Jokosher/Jokosher:77
-msgid "Don't load extensions or last project on startup (same as -ne)"
-msgstr ""
-
-#: ../../Jokosher/Jokosher:79
-msgid "Force the welcome dialog to show on startup"
-msgstr ""
-
-#: ../../Jokosher/Jokosher:81
-msgid "Force Jokosher to load without a welcome dialog or project"
-msgstr ""
-
-#: ../../Jokosher/Jokosher:83
-msgid "Do not load extensions on startup"
-msgstr "Při spouštění nenačítat rozšíření"
 
 #: i18n.instr.h:1
 msgid "Acoustic Guitar"
@@ -1943,6 +1811,155 @@ msgstr "Housle"
 #: i18n.instr.h:18
 msgid "Vocal"
 msgstr "Vokál"
+
+#~ msgid "<b>Jokosher Instruments</b>"
+#~ msgstr "<b>Hudební nástroje Jokosher</b>"
+
+#~ msgid "<b>Recent Projects</b>"
+#~ msgstr "<b>Nedávné projekty</b>"
+
+#~ msgid "<b>Template Instruments</b>"
+#~ msgstr "<b>Šablony nástrojů</b>"
+
+#~ msgid "Add Audio _File..."
+#~ msgstr "Přidat zvukový _soubor..."
+
+#~ msgid "Add _Instrument..."
+#~ msgstr "Přidat _nástroj..."
+
+#~ msgid "Add the selected jokosher instrument"
+#~ msgstr "Přidat zvolený jokosher nástroj"
+
+#~ msgid "Change Jokosher preferences"
+#~ msgstr "Změnit nastavení Jokosher"
+
+#~ msgid "Choose a project template"
+#~ msgstr "Vyberte šablonu projektu"
+
+#~ msgid "Create the project"
+#~ msgstr "Vytvořit projekt"
+
+#~ msgid "Delete the selected project template"
+#~ msgstr "Odstranit vybranou šablonu projektu"
+
+#~ msgid "Don't create the project"
+#~ msgstr "Nevytvářet projekt"
+
+#~ msgid "Edit project templates"
+#~ msgstr "Upravit šablonu projektu"
+
+#~ msgid "Enter the author's name"
+#~ msgstr "Vložte autorovo jméno"
+
+#~ msgid "Enter the project's name"
+#~ msgstr "Vložte jméno projektu"
+
+#~ msgid "Open a recent project"
+#~ msgstr "Otevřít poslední projekt"
+
+#~ msgid "Project Templates"
+#~ msgstr "Šablony projektu"
+
+#~ msgid "R_ecording Inputs..."
+#~ msgstr "V_stupy záznamu..."
+
+#~ msgid "Redo"
+#~ msgstr "Vpřed"
+
+#~ msgid "Save _As..."
+#~ msgstr "Uložit _jako..."
+
+#~ msgid "Save a copy of the current project"
+#~ msgstr "Uložit kopii aktuálního projektu"
+
+#~ msgid "Save the selected project template"
+#~ msgstr "Uložit vybranou šablonu projektu"
+
+#~ msgid "Undo"
+#~ msgstr "Zpět"
+
+#~ msgid "Welcome to Jokosher!"
+#~ msgstr "Vítejte v Jokosher!"
+
+#~ msgid "_Browse for an Existing Project"
+#~ msgstr "_Procházet pro existující projekt"
+
+#~ msgid "_Contributing to Jokosher"
+#~ msgstr "_Přispívání k Jokosher"
+
+#~ msgid "_Create a New Project"
+#~ msgstr "_Vytvořit nový projekt"
+
+#~ msgid "_Don't open anything"
+#~ msgstr "_Neotevírat nic"
+
+#~ msgid "_Don't show this on start-up"
+#~ msgstr "_Nezobrazovat toto po startu"
+
+#~ msgid "_Folder:"
+#~ msgstr "_Složka:"
+
+#~ msgid "_New..."
+#~ msgstr "_Nový..."
+
+#~ msgid "_Online Forums"
+#~ msgstr "_Online fóra"
+
+#~ msgid "_Open..."
+#~ msgstr "_Otevřít..."
+
+#~ msgid "_Preferences"
+#~ msgstr "_Nastavení"
+
+#~ msgid "_Project Name:"
+#~ msgstr "_Název projektu:"
+
+#~ msgid "_Recent Projects"
+#~ msgstr "_Poslední projekty"
+
+#~ msgid "_Remove Selected Instrument"
+#~ msgstr "_Odstranit vybraný nástroj"
+
+#~ msgid "_Show welcome dialog"
+#~ msgstr "_Zobrazit uvítání"
+
+#~ msgid "_System Information"
+#~ msgstr "_Systémové informace"
+
+#~ msgid "_Template Name:"
+#~ msgstr "_Název šablony:"
+
+#~ msgid "_Use project template"
+#~ msgstr "_Použít projektovou šablonu"
+
+#~ msgid "Jokosher Project File (*.jokosher)"
+#~ msgstr "Soubor projektu (*.jokosher)"
+
+#~ msgid "Choose a location to save the project"
+#~ msgstr "Vybrat místo pro uložení projektu"
+
+#~ msgid ""
+#~ "<span size='large' weight='bold'>Save changes to project \"%s\" before "
+#~ "closing?</span>\n"
+#~ "\n"
+#~ "Your changes will be lost if you don't save them."
+#~ msgstr ""
+#~ "<span size='large' weight='bold'>Uložit změny na projektu \"%s\" před "
+#~ "uzavřením?</span>\n"
+#~ "\n"
+#~ "Pokud projekt neuložíte, ztratíte všechny změny."
+
+#~ msgid "Close _Without Saving"
+#~ msgstr "Zavřít _bez uložení"
+
+#~ msgid "Clear the list of recent projects"
+#~ msgstr "Vyčistit seznam již otevřených projektů"
+
+#~ msgid "Select A Folder"
+#~ msgstr "Vyberte složku"
+
+#~ msgid "Instrument Name"
+#~ msgstr "Jméno nástroje"
 
 #~ msgid ""
 #~ "Audio production made simple.\n"
