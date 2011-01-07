@@ -40,22 +40,22 @@ class InstrumentConnectionsDialog:
 		else:
 			return
 		
-		self.res = gtk.glade.XML(Globals.GLADE_PATH, "InstrumentConnectionsDialog")
+		self.gtk_builder = Globals.LoadGtkBuilderFilename("InstrumentConnectionsDialog.ui")
 
 		self.signals = {
 			"on_close_clicked" : self.OnClose,
 			"on_change_sound_system" : self.OnChangeSoundSystem,
 		}
 		
-		self.res.signal_autoconnect(self.signals)
+		self.gtk_builder.connect_signals(self.signals)
 
-		self.window = self.res.get_widget("InstrumentConnectionsDialog")
-		self.vbox = self.res.get_widget("vbox")
+		self.window = self.gtk_builder.get_object("InstrumentConnectionsDialog")
+		self.vbox = self.gtk_builder.get_object("vbox")
 		
 		if len(self.project.instruments) > 0:
 			self.Populate()
 		else:
-			self.res.get_widget("explainLabel").set_text(_("There are no instruments to connect"))
+			self.gtk_builder.get_object("explainLabel").set_text(_("There are no instruments to connect"))
 
 		self.parent = parent
 		self.window.set_icon(self.parent.icon)
@@ -159,7 +159,7 @@ class InstrumentConnectionsDialog:
 			else:
 				msg = _('The "%(custom-pipeline)s" sound system does not support device selection.')
 				msg %= {"custom-pipeline" : audiosrc}
-			self.res.get_widget("explainLabel").set_text(msg)
+			self.gtk_builder.get_object("explainLabel").set_text(msg)
 			self.vbox.hide()
 	
 	#_____________________________________________________________________
