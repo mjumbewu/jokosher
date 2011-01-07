@@ -38,9 +38,9 @@ class InstrumentEffectsDialog:
 	
 	def __init__(self, instrument, destroyCallback, windowIcon):
 		"""
-		This constructor enables a lot of variables, reads in the glade
-		file for the main dialog, and populates the effects and presets
-		controls.
+		This constructor enables a lot of variables, reads in the gtk
+		builder file for the main dialog, and populates the effects and
+		presets controls.
 		
 		Parameters:
 			instrument -- Instrument whose effects are being modified.
@@ -79,7 +79,7 @@ class InstrumentEffectsDialog:
 		# auto connect the signals to the methods
 		self.gtk_builder.connect_signals(self.signals)
 
-		# grab references to some Glade items
+		# grab references to some gtk builder widgets
 		self.window = self.gtk_builder.get_object("InstrumentEffectsDialog")
 		self.mainvbox = self.gtk_builder.get_object("InstrumentEffectsDialogVBox")
 		
@@ -663,7 +663,7 @@ class InstrumentEffectsDialog:
 
 		self.settings_gtk_builder.connect_signals(settsignals)
 
-		# create references to glade items
+		# create references to gtk builder widgets
 		self.settingswindow = self.settings_gtk_builder.get_object("EffectSettingsDialog")
 		self.settingsvbox = self.settings_gtk_builder.get_object("EffectSettingsVBox")
 		self.effectLabel = self.settings_gtk_builder.get_object("effectLabel")
