@@ -181,7 +181,7 @@ class ExtensionAPI:
 		Returns:
 			reference to the new menu item.
 		"""
-		extensions_menu = self.mainapp.wTree.get_widget("extensionsmenu").get_submenu()
+		extensions_menu = self.mainapp.gtk_builder.get_object("extensionsmenu").get_submenu()
 		if isinstance(menu_item_name, gtk.MenuItem):
 			new_menu_item = menu_item_name
 		else:
