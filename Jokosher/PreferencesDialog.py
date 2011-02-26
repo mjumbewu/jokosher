@@ -8,7 +8,7 @@
 #
 #-------------------------------------------------------------------------------
 
-import gtk.glade
+import gtk
 import Globals
 import AudioBackend
 import pygst
@@ -41,8 +41,8 @@ class PreferencesDialog:
 		self.project = project
 		self.mainwindow = mainwindow
 
-		#Initialize GTK resources from glade file
-		self.res = gtk.glade.XML(Globals.GLADE_PATH, "PreferencesDialog")
+		#Initialize GTK resources from gtk builder file
+		self.gtk_builder = Globals.LoadGtkBuilderFilename("PreferencesDialog.ui")
 
 		self.signals = {
 			"on_Setting_changed" : self.OnSettingChanged,
@@ -50,20 +50,20 @@ class PreferencesDialog:
 			"on_recordingSoundSystem_changed" : self.OnRecordingSystemChanged,
 			"on_Close_clicked" : self.OnClose,
 		}
-
-		self.res.signal_autoconnect(self.signals)
-		self.dlg = self.res.get_widget("PreferencesDialog")
+		self.gtk_builder.connect_signals(self.signals)
+		
+		self.dlg = self.gtk_builder.get_object("PreferencesDialog")
 		self.dlg.set_icon(icon)
-		self.recordingFileFormat = self.res.get_widget("recordingFileFormat")
-		self.recordingCustomPipeline = self.res.get_widget("recordingCustomPipeline")
-		self.recordingSoundSystem = self.res.get_widget("recordingSoundSystem")
-		self.samplingRate = self.res.get_widget("samplingRate")
-		self.playbackDevice = self.res.get_widget("playbackDevice")
-		self.playbackSink = self.res.get_widget("playbackSink")
-		self.customSink = self.res.get_widget("customSink")
-		self.radioNewProject = self.res.get_widget("startupNewProject")
-		self.radioLastProject = self.res.get_widget("startupLastProject")
-		self.radioNothing = self.res.get_widget("startupNothing")
+		self.recordingFileFormat = self.gtk_builder.get_object("recordingFileFormat")
+		self.recordingCustomPipeline = self.gtk_builder.get_object("recordingCustomPipeline")
+		self.recordingSoundSystem = self.gtk_builder.get_object("recordingSoundSystem")
+		self.samplingRate = self.gtk_builder.get_object("samplingRate")
+		self.playbackDevice = self.gtk_builder.get_object("playbackDevice")
+		self.playbackSink = self.gtk_builder.get_object("playbackSink")
+		self.customSink = self.gtk_builder.get_object("customSink")
+		self.radioNewProject = self.gtk_builder.get_object("startupNewProject")
+		self.radioLastProject = self.gtk_builder.get_object("startupLastProject")
+		self.radioNothing = self.gtk_builder.get_object("startupNothing")
 		
 		#Load settings - set to True to make sure data isn't saved to file until everything is loaded
 		self.loadingSettings = True

@@ -1,5 +1,5 @@
 
-<!doctype html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html><head><title>Python: module EventLaneViewer</title>
 </head><body bgcolor="#ffffff">
 
@@ -8,7 +8,7 @@
 <td valign=bottom>&nbsp;<br>
 <font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>EventLaneViewer</strong></big></big></font></td
 ><td align=right valign=bottom
-><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/david/Projects/Jokosher/trunk/Jokosher/EventLaneViewer.py">/home/david/Projects/Jokosher/trunk/Jokosher/EventLaneViewer.py</a></font></td></tr></table>
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/laszlo/Dev/joko-gtk-builder/Jokosher/EventLaneViewer.py">/home/laszlo/Dev/joko-gtk-builder/Jokosher/EventLaneViewer.py</a></font></td></tr></table>
     <p><tt>#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THIS&nbsp;FILE&nbsp;IS&nbsp;PART&nbsp;OF&nbsp;THE&nbsp;JOKOSHER&nbsp;PROJECT&nbsp;AND&nbsp;LICENSED&nbsp;UNDER&nbsp;THE&nbsp;GPL.&nbsp;SEE<br>
 #&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THE&nbsp;'COPYING'&nbsp;FILE&nbsp;FOR&nbsp;DETAILS<br>
 #<br>
@@ -24,19 +24,21 @@
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#4e9a06">
 <td colspan=3 valign=bottom>&nbsp;<br>
-<font color="#fffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
     
 <tr><td bgcolor="#4e9a06"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
-<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="Globals.html">Globals</a><br>
-<a href="Project.html">Project</a><br>
-<a href="Utils.html">Utils</a><br>
-</td><td width="25%" valign=top><a href="cairo.html">cairo</a><br>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="ui.EventLaneHSeparator.html">ui.EventLaneHSeparator</a><br>
+<a href="Globals.html">Globals</a><br>
+<a href="PlatformUtils.html">PlatformUtils</a><br>
+</td><td width="25%" valign=top><a href="Utils.html">Utils</a><br>
+<a href="cairo.html">cairo</a><br>
 <a href="gettext.html">gettext</a><br>
-<a href="gtk.html">gtk</a><br>
-</td><td width="25%" valign=top><a href="os.html">os</a><br>
+</td><td width="25%" valign=top><a href="gtk.html">gtk</a><br>
+<a href="itertools.html">itertools</a><br>
+<a href="os.html">os</a><br>
+</td><td width="25%" valign=top><a href="sys.html">sys</a><br>
 <a href="urllib.html">urllib</a><br>
-<a href="urlparse.html">urlparse</a><br>
-</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+</td></tr></table></td></tr></table><p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#3465a4">
 <td colspan=3 valign=bottom>&nbsp;<br>
@@ -44,7 +46,7 @@
     
 <tr><td bgcolor="#3465a4"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
 <td width="100%"><dl>
-<dt><font face="helvetica, arial">gobject.EventBox(gobject.Bin)
+<dt><font face="helvetica, arial"><a href="gtk.html#EventBox">gtk.EventBox</a>(<a href="gtk.html#Bin">gtk.Bin</a>)
 </font></dt><dd>
 <dl>
 <dt><font face="helvetica, arial"><a href="EventLaneViewer.html#EventLaneViewer">EventLaneViewer</a>
@@ -55,7 +57,7 @@
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#729fcf">
 <td colspan=3 valign=bottom>&nbsp;<br>
-<font color="#000000" face="helvetica, arial"><a name="EventLaneViewer">class <strong>EventLaneViewer</strong></a>(gobject.EventBox)</font></td></tr>
+<font color="#000000" face="helvetica, arial"><a name="EventLaneViewer">class <strong>EventLaneViewer</strong></a>(<a href="gtk.html#EventBox">gtk.EventBox</a>)</font></td></tr>
     
 <tr bgcolor="#729fcf"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
 <td colspan=2><tt>This&nbsp;class&nbsp;is&nbsp;a&nbsp;container&nbsp;for&nbsp;all&nbsp;the&nbsp;individual&nbsp;EventViewers<br>
@@ -63,18 +65,24 @@ for&nbsp;a&nbsp;single&nbsp;Instrument.<br>&nbsp;</tt></td></tr>
 <tr><td>&nbsp;</td>
 <td width="100%"><dl><dt>Method resolution order:</dt>
 <dd><a href="EventLaneViewer.html#EventLaneViewer">EventLaneViewer</a></dd>
-<dd>gobject.EventBox</dd>
-<dd>gobject.Bin</dd>
-<dd>gobject.Container</dd>
-<dd>gobject.Widget</dd>
-<dd>gobject.Object</dd>
-<dd><a href="gobject.html#GObject">gobject.GObject</a></dd>
+<dd><a href="gtk.html#EventBox">gtk.EventBox</a></dd>
+<dd><a href="gtk.html#Bin">gtk.Bin</a></dd>
+<dd><a href="gtk.html#Container">gtk.Container</a></dd>
+<dd><a href="gtk.html#Widget">gtk.Widget</a></dd>
+<dd><a href="gtk.html#Object">gtk.Object</a></dd>
+<dd><a href="gobject._gobject.html#GObject">gobject._gobject.GObject</a></dd>
 <dd><a href="atk.html#ImplementorIface">atk.ImplementorIface</a></dd>
+<dd><a href="gtk.html#Buildable">gtk.Buildable</a></dd>
 <dd><a href="gobject.html#GInterface">gobject.GInterface</a></dd>
 <dd><a href="__builtin__.html#object">__builtin__.object</a></dd>
 </dl>
 <hr>
 Methods defined here:<br>
+<dl><dt><a name="EventLaneViewer-ChangeSize"><strong>ChangeSize</strong></a>(self, small)</dt><dd><tt>Changes&nbsp;the&nbsp;size&nbsp;of&nbsp;the&nbsp;event&nbsp;lane.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;small&nbsp;-&nbsp;True&nbsp;if&nbsp;the&nbsp;event&nbsp;lane&nbsp;is&nbsp;to&nbsp;be&nbsp;small.</tt></dd></dl>
+
 <dl><dt><a name="EventLaneViewer-CreateEventFromFile"><strong>CreateEventFromFile</strong></a>(self, event<font color="#909090">=None</font>)</dt><dd><tt>Called&nbsp;when&nbsp;"Import&nbsp;Audio&nbsp;File..."&nbsp;is&nbsp;selected&nbsp;from&nbsp;the&nbsp;right-click&nbsp;context&nbsp;menu.<br>
 Opens&nbsp;up&nbsp;a&nbsp;file&nbsp;chooser&nbsp;dialog&nbsp;to&nbsp;import&nbsp;an&nbsp;Event.<br>
 &nbsp;<br>
@@ -83,7 +91,7 @@ Parameters:<br>
 
 <dl><dt><a name="EventLaneViewer-Destroy"><strong>Destroy</strong></a>(self)</dt><dd><tt>Called&nbsp;when&nbsp;the&nbsp;<a href="#EventLaneViewer">EventLaneViewer</a>&nbsp;gets&nbsp;destroyed.<br>
 It&nbsp;also&nbsp;destroys&nbsp;any&nbsp;child&nbsp;widget&nbsp;and&nbsp;disconnects&nbsp;itself&nbsp;from&nbsp;any<br>
-listening&nbsp;objects&nbsp;via&nbsp;Monitored.</tt></dd></dl>
+gobject&nbsp;signals.</tt></dd></dl>
 
 <dl><dt><a name="EventLaneViewer-OnDelete"><strong>OnDelete</strong></a>(self, event<font color="#909090">=None</font>)</dt><dd><tt>Called&nbsp;when&nbsp;"Delete"&nbsp;is&nbsp;selected&nbsp;from&nbsp;context&nbsp;menu.<br>
 Deletes&nbsp;the&nbsp;selected&nbsp;Instrument&nbsp;from&nbsp;the&nbsp;Project.<br>
@@ -142,7 +150,19 @@ Parameters:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;GTK&nbsp;widget&nbsp;to&nbsp;be&nbsp;repainted.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;event&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="EventLaneViewer-OnMenuDone"><strong>OnMenuDone</strong></a>(self, widget)</dt><dd><tt>Hides&nbsp;the&nbsp;right-click&nbsp;context&nbsp;menu&nbsp;after&nbsp;the&nbsp;user&nbsp;has&nbsp;selected&nbsp;one<br>
+<dl><dt><a name="EventLaneViewer-OnEventAdded"><strong>OnEventAdded</strong></a>(self, instrument, event)</dt><dd><tt>Callback&nbsp;for&nbsp;when&nbsp;an&nbsp;event&nbsp;is&nbsp;added&nbsp;to&nbsp;our&nbsp;instrument.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;instrument&nbsp;--&nbsp;the&nbsp;instrument&nbsp;instance&nbsp;that&nbsp;send&nbsp;the&nbsp;signal.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;event&nbsp;--&nbsp;the&nbsp;event&nbsp;instance&nbsp;that&nbsp;was&nbsp;added.</tt></dd></dl>
+
+<dl><dt><a name="EventLaneViewer-OnEventRemoved"><strong>OnEventRemoved</strong></a>(self, instrument, event)</dt><dd><tt>Callback&nbsp;for&nbsp;when&nbsp;an&nbsp;event&nbsp;is&nbsp;removed&nbsp;from&nbsp;our&nbsp;instrument.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;instrument&nbsp;--&nbsp;the&nbsp;instrument&nbsp;instance&nbsp;that&nbsp;send&nbsp;the&nbsp;signal.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;event&nbsp;--&nbsp;the&nbsp;event&nbsp;instance&nbsp;that&nbsp;was&nbsp;removed.</tt></dd></dl>
+
+<dl><dt><a name="EventLaneViewer-OnMenuDone"><strong>OnMenuDone</strong></a>(self, widget<font color="#909090">=None</font>)</dt><dd><tt>Hides&nbsp;the&nbsp;right-click&nbsp;context&nbsp;menu&nbsp;after&nbsp;the&nbsp;user&nbsp;has&nbsp;selected&nbsp;one<br>
 of&nbsp;its&nbsp;options&nbsp;or&nbsp;clicked&nbsp;elsewhere.<br>
 &nbsp;<br>
 Parameters:<br>
@@ -176,20 +196,37 @@ Adds&nbsp;the&nbsp;selected&nbsp;Event&nbsp;to&nbsp;the&nbsp;clipboard.<br>
 Parameters:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
 
-<dl><dt><a name="EventLaneViewer-OnStateChanged"><strong>OnStateChanged</strong></a>(self, obj, change<font color="#909090">=None</font>, *extra)</dt><dd><tt>Called&nbsp;when&nbsp;a&nbsp;change&nbsp;of&nbsp;state&nbsp;is&nbsp;signalled&nbsp;by&nbsp;any&nbsp;of&nbsp;the<br>
-objects&nbsp;this&nbsp;view&nbsp;is&nbsp;'listening'&nbsp;to.<br>
-If&nbsp;there's&nbsp;a&nbsp;Project&nbsp;or&nbsp;Instrument&nbsp;change,&nbsp;then&nbsp;redraw&nbsp;everything,<br>
-otherwise&nbsp;just&nbsp;redraw&nbsp;the&nbsp;playhead.<br>
+<dl><dt><a name="EventLaneViewer-OnProjectViewChange"><strong>OnProjectViewChange</strong></a>(self, project)</dt><dd><tt>Callback&nbsp;function&nbsp;for&nbsp;when&nbsp;the&nbsp;project&nbsp;view&nbsp;changes,<br>
+and&nbsp;the&nbsp;"view-start"&nbsp;or&nbsp;the&nbsp;"zoom"&nbsp;signal&nbsp;is&nbsp;send,&nbsp;and&nbsp;we<br>
+need&nbsp;to&nbsp;update.<br>
 &nbsp;<br>
 Parameters:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;obj&nbsp;--&nbsp;object&nbsp;changing&nbsp;state.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;change&nbsp;--&nbsp;the&nbsp;change&nbsp;which&nbsp;has&nbsp;occured.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;extra&nbsp;--&nbsp;extra&nbsp;parameters&nbsp;passed&nbsp;by&nbsp;the&nbsp;caller.</tt></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;project&nbsp;--&nbsp;The&nbsp;project&nbsp;instance&nbsp;that&nbsp;send&nbsp;the&nbsp;signal.</tt></dd></dl>
 
-<dl><dt><a name="EventLaneViewer-Update"><strong>Update</strong></a>(self, child<font color="#909090">=None</font>)</dt><dd><tt>Updates&nbsp;the&nbsp;complete&nbsp;view&nbsp;when&nbsp;requested&nbsp;by&nbsp;OnStateChanged&nbsp;or&nbsp;__init__.<br>
+<dl><dt><a name="EventLaneViewer-OnTransportPosition"><strong>OnTransportPosition</strong></a>(self, transportManager, extraString)</dt><dd><tt>Callback&nbsp;for&nbsp;signal&nbsp;when&nbsp;the&nbsp;transport&nbsp;position&nbsp;changes.<br>
+Here&nbsp;we&nbsp;just&nbsp;redraw&nbsp;the&nbsp;playhead.<br>
 &nbsp;<br>
 Parameters:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;child&nbsp;--&nbsp;list&nbsp;of&nbsp;children&nbsp;widgets&nbsp;to&nbsp;be&nbsp;updated.</tt></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;transportManager&nbsp;--&nbsp;the&nbsp;TransportManager&nbsp;instance&nbsp;that&nbsp;send&nbsp;the&nbsp;signal.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;extraString&nbsp;--&nbsp;a&nbsp;string&nbsp;specifying&nbsp;the&nbsp;extra&nbsp;action&nbsp;details.&nbsp;i.e.&nbsp;"stop-action"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;means&nbsp;that&nbsp;the&nbsp;position&nbsp;changed&nbsp;because&nbsp;the&nbsp;user&nbsp;hit&nbsp;stop.</tt></dd></dl>
+
+<dl><dt><a name="EventLaneViewer-PutDrawer"><strong>PutDrawer</strong></a>(self, drawer, xvalue<font color="#909090">=1</font>)</dt><dd><tt>Places&nbsp;the&nbsp;drawer&nbsp;below&nbsp;in&nbsp;the&nbsp;event&nbsp;lane&nbsp;and&nbsp;makes&nbsp;it&nbsp;visible.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;drawer&nbsp;--&nbsp;the&nbsp;widget&nbsp;to&nbsp;show.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xvalue&nbsp;--&nbsp;the&nbsp;horizontal&nbsp;position&nbsp;of&nbsp;the&nbsp;drawer&nbsp;in&nbsp;pixels</tt></dd></dl>
+
+<dl><dt><a name="EventLaneViewer-RemoveDrawer"><strong>RemoveDrawer</strong></a>(self, drawer)</dt><dd><tt>Removes&nbsp;the&nbsp;drawer&nbsp;from&nbsp;below&nbsp;in&nbsp;the&nbsp;event.&nbsp;This&nbsp;function&nbsp;does<br>
+nothing&nbsp;if&nbsp;the&nbsp;given&nbsp;drawer&nbsp;is&nbsp;not&nbsp;currenly&nbsp;shown.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;drawer&nbsp;--&nbsp;the&nbsp;widget&nbsp;to&nbsp;remove.</tt></dd></dl>
+
+<dl><dt><a name="EventLaneViewer-UpdatePosition"><strong>UpdatePosition</strong></a>(self, eventViewer)</dt><dd><tt>Moves&nbsp;the&nbsp;given&nbsp;EventViewer&nbsp;widget&nbsp;to&nbsp;the&nbsp;appropriate&nbsp;position.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;eventViewer&nbsp;--&nbsp;the&nbsp;widget&nbsp;that&nbsp;has&nbsp;needs&nbsp;to&nbsp;be&nbsp;moved&nbsp;to&nbsp;a&nbsp;new&nbsp;position.</tt></dd></dl>
 
 <dl><dt><a name="EventLaneViewer-__init__"><strong>__init__</strong></a>(self, project, instrument, instrumentviewer, mainview, small<font color="#909090">=False</font>)</dt><dd><tt>Creates&nbsp;a&nbsp;new&nbsp;instance&nbsp;of&nbsp;<a href="#EventLaneViewer">EventLaneViewer</a>.<br>
 &nbsp;<br>
@@ -207,7 +244,9 @@ Data and other attributes defined here:<br>
 <dl><dt><strong>URI_DRAG_TYPE</strong> = 84</dl>
 
 <hr>
-Methods inherited from gobject.EventBox:<br>
+Methods inherited from <a href="gtk.html#EventBox">gtk.EventBox</a>:<br>
+<dl><dt><a name="EventLaneViewer-__iter__"><strong>__iter__</strong></a>(...)</dt><dd><tt>x.<a href="#EventLaneViewer-__iter__">__iter__</a>()&nbsp;&lt;==&gt;&nbsp;iter(x)</tt></dd></dl>
+
 <dl><dt><a name="EventLaneViewer-get_above_child"><strong>get_above_child</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventLaneViewer-get_visible_window"><strong>get_visible_window</strong></a>(...)</dt></dl>
@@ -217,21 +256,19 @@ Methods inherited from gobject.EventBox:<br>
 <dl><dt><a name="EventLaneViewer-set_visible_window"><strong>set_visible_window</strong></a>(...)</dt></dl>
 
 <hr>
-Data and other attributes inherited from gobject.EventBox:<br>
-<dl><dt><strong>__gtype__</strong> = &lt;GType GtkEventBox (136328696)&gt;</dl>
+Data and other attributes inherited from <a href="gtk.html#EventBox">gtk.EventBox</a>:<br>
+<dl><dt><strong>__gtype__</strong> = &lt;GType GtkEventBox (26939184)&gt;</dl>
 
 <hr>
-Methods inherited from gobject.Bin:<br>
+Methods inherited from <a href="gtk.html#Bin">gtk.Bin</a>:<br>
 <dl><dt><a name="EventLaneViewer-get_child"><strong>get_child</strong></a>(...)</dt></dl>
 
 <hr>
-Data and other attributes inherited from gobject.Bin:<br>
-<dl><dt><strong>child</strong> = &lt;attribute 'child' of 'gtk.Bin' objects&gt;</dl>
-
+Data descriptors inherited from <a href="gtk.html#Bin">gtk.Bin</a>:<br>
+<dl><dt><strong>child</strong></dt>
+</dl>
 <hr>
-Methods inherited from gobject.Container:<br>
-<dl><dt><a name="EventLaneViewer-__iter__"><strong>__iter__</strong></a>(...)</dt><dd><tt>x.<a href="#EventLaneViewer-__iter__">__iter__</a>()&nbsp;&lt;==&gt;&nbsp;iter(x)</tt></dd></dl>
-
+Methods inherited from <a href="gtk.html#Container">gtk.Container</a>:<br>
 <dl><dt><a name="EventLaneViewer-__len__"><strong>__len__</strong></a>(...)</dt><dd><tt>x.<a href="#EventLaneViewer-__len__">__len__</a>()&nbsp;&lt;==&gt;&nbsp;len(x)</tt></dd></dl>
 
 <dl><dt><a name="EventLaneViewer-__nonzero__"><strong>__nonzero__</strong></a>(...)</dt><dd><tt>x.<a href="#EventLaneViewer-__nonzero__">__nonzero__</a>()&nbsp;&lt;==&gt;&nbsp;x&nbsp;!=&nbsp;0</tt></dd></dl>
@@ -264,6 +301,8 @@ Methods inherited from gobject.Container:<br>
 
 <dl><dt><a name="EventLaneViewer-get_focus_chain"><strong>get_focus_chain</strong></a>(...)</dt></dl>
 
+<dl><dt><a name="EventLaneViewer-get_focus_child"><strong>get_focus_child</strong></a>(...)</dt></dl>
+
 <dl><dt><a name="EventLaneViewer-get_focus_hadjustment"><strong>get_focus_hadjustment</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventLaneViewer-get_focus_vadjustment"><strong>get_focus_vadjustment</strong></a>(...)</dt></dl>
@@ -293,9 +332,21 @@ Methods inherited from gobject.Container:<br>
 <dl><dt><a name="EventLaneViewer-unset_focus_chain"><strong>unset_focus_chain</strong></a>(...)</dt></dl>
 
 <hr>
-Data and other attributes inherited from gobject.Container:<br>
-<dl><dt><strong>border_width</strong> = &lt;attribute 'border_width' of 'gtk.Container' objects&gt;</dl>
-
+Data descriptors inherited from <a href="gtk.html#Container">gtk.Container</a>:<br>
+<dl><dt><strong>border_width</strong></dt>
+</dl>
+<dl><dt><strong>focus_child</strong></dt>
+</dl>
+<dl><dt><strong>has_focus_chain</strong></dt>
+</dl>
+<dl><dt><strong>need_resize</strong></dt>
+</dl>
+<dl><dt><strong>reallocate_redraws</strong></dt>
+</dl>
+<dl><dt><strong>resize_mode</strong></dt>
+</dl>
+<hr>
+Data and other attributes inherited from <a href="gtk.html#Container">gtk.Container</a>:<br>
 <dl><dt><strong>do_add</strong> = &lt;built-in method do_add of GObjectMeta object&gt;</dl>
 
 <dl><dt><strong>do_check_resize</strong> = &lt;built-in method do_check_resize of GObjectMeta object&gt;</dl>
@@ -303,6 +354,8 @@ Data and other attributes inherited from gobject.Container:<br>
 <dl><dt><strong>do_child_type</strong> = &lt;built-in method do_child_type of GObjectMeta object&gt;</dl>
 
 <dl><dt><strong>do_composite_name</strong> = &lt;built-in method do_composite_name of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_forall</strong> = &lt;built-in method do_forall of GObjectMeta object&gt;</dl>
 
 <dl><dt><strong>do_get_child_property</strong> = &lt;built-in method do_get_child_property of GObjectMeta object&gt;</dl>
 
@@ -312,22 +365,12 @@ Data and other attributes inherited from gobject.Container:<br>
 
 <dl><dt><strong>do_set_focus_child</strong> = &lt;built-in method do_set_focus_child of GObjectMeta object&gt;</dl>
 
-<dl><dt><strong>focus_child</strong> = &lt;attribute 'focus_child' of 'gtk.Container' objects&gt;</dl>
-
-<dl><dt><strong>has_focus_chain</strong> = &lt;attribute 'has_focus_chain' of 'gtk.Container' objects&gt;</dl>
-
 <dl><dt><strong>install_child_property</strong> = &lt;built-in method install_child_property of GObjectMeta object&gt;</dl>
 
 <dl><dt><strong>list_child_properties</strong> = &lt;built-in method list_child_properties of GObjectMeta object&gt;</dl>
 
-<dl><dt><strong>need_resize</strong> = &lt;attribute 'need_resize' of 'gtk.Container' objects&gt;</dl>
-
-<dl><dt><strong>reallocate_redraws</strong> = &lt;attribute 'reallocate_redraws' of 'gtk.Container' objects&gt;</dl>
-
-<dl><dt><strong>resize_mode</strong> = &lt;attribute 'resize_mode' of 'gtk.Container' objects&gt;</dl>
-
 <hr>
-Methods inherited from gobject.Widget:<br>
+Methods inherited from <a href="gtk.html#Widget">gtk.Widget</a>:<br>
 <dl><dt><a name="EventLaneViewer-activate"><strong>activate</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventLaneViewer-add_accelerator"><strong>add_accelerator</strong></a>(...)</dt></dl>
@@ -408,6 +451,8 @@ Methods inherited from gobject.Widget:<br>
 
 <dl><dt><a name="EventLaneViewer-ensure_style"><strong>ensure_style</strong></a>(...)</dt></dl>
 
+<dl><dt><a name="EventLaneViewer-error_bell"><strong>error_bell</strong></a>(...)</dt></dl>
+
 <dl><dt><a name="EventLaneViewer-event"><strong>event</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventLaneViewer-freeze_child_notify"><strong>freeze_child_notify</strong></a>(...)</dt></dl>
@@ -419,6 +464,12 @@ Methods inherited from gobject.Widget:<br>
 <dl><dt><a name="EventLaneViewer-get_allocation"><strong>get_allocation</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventLaneViewer-get_ancestor"><strong>get_ancestor</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventLaneViewer-get_app_paintable"><strong>get_app_paintable</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventLaneViewer-get_can_default"><strong>get_can_default</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventLaneViewer-get_can_focus"><strong>get_can_focus</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventLaneViewer-get_child_requisition"><strong>get_child_requisition</strong></a>(...)</dt></dl>
 
@@ -434,9 +485,17 @@ Methods inherited from gobject.Widget:<br>
 
 <dl><dt><a name="EventLaneViewer-get_display"><strong>get_display</strong></a>(...)</dt></dl>
 
+<dl><dt><a name="EventLaneViewer-get_double_buffered"><strong>get_double_buffered</strong></a>(...)</dt></dl>
+
 <dl><dt><a name="EventLaneViewer-get_events"><strong>get_events</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventLaneViewer-get_extension_events"><strong>get_extension_events</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventLaneViewer-get_has_tooltip"><strong>get_has_tooltip</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventLaneViewer-get_has_window"><strong>get_has_window</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventLaneViewer-get_mapped"><strong>get_mapped</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventLaneViewer-get_modifier_style"><strong>get_modifier_style</strong></a>(...)</dt></dl>
 
@@ -452,19 +511,41 @@ Methods inherited from gobject.Widget:<br>
 
 <dl><dt><a name="EventLaneViewer-get_pointer"><strong>get_pointer</strong></a>(...)</dt></dl>
 
+<dl><dt><a name="EventLaneViewer-get_realized"><strong>get_realized</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventLaneViewer-get_receives_default"><strong>get_receives_default</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventLaneViewer-get_requisition"><strong>get_requisition</strong></a>(...)</dt></dl>
+
 <dl><dt><a name="EventLaneViewer-get_root_window"><strong>get_root_window</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventLaneViewer-get_screen"><strong>get_screen</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventLaneViewer-get_sensitive"><strong>get_sensitive</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventLaneViewer-get_settings"><strong>get_settings</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventLaneViewer-get_size_request"><strong>get_size_request</strong></a>(...)</dt></dl>
 
+<dl><dt><a name="EventLaneViewer-get_snapshot"><strong>get_snapshot</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventLaneViewer-get_state"><strong>get_state</strong></a>(...)</dt></dl>
+
 <dl><dt><a name="EventLaneViewer-get_style"><strong>get_style</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventLaneViewer-get_tooltip_markup"><strong>get_tooltip_markup</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventLaneViewer-get_tooltip_text"><strong>get_tooltip_text</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventLaneViewer-get_tooltip_window"><strong>get_tooltip_window</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventLaneViewer-get_toplevel"><strong>get_toplevel</strong></a>(...)</dt></dl>
 
+<dl><dt><a name="EventLaneViewer-get_visible"><strong>get_visible</strong></a>(...)</dt></dl>
+
 <dl><dt><a name="EventLaneViewer-get_visual"><strong>get_visual</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventLaneViewer-get_window"><strong>get_window</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventLaneViewer-grab_add"><strong>grab_add</strong></a>(...)</dt></dl>
 
@@ -473,6 +554,14 @@ Methods inherited from gobject.Widget:<br>
 <dl><dt><a name="EventLaneViewer-grab_focus"><strong>grab_focus</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventLaneViewer-grab_remove"><strong>grab_remove</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventLaneViewer-has_default"><strong>has_default</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventLaneViewer-has_focus"><strong>has_focus</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventLaneViewer-has_grab"><strong>has_grab</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventLaneViewer-has_rc_style"><strong>has_rc_style</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventLaneViewer-has_screen"><strong>has_screen</strong></a>(...)</dt></dl>
 
@@ -490,7 +579,17 @@ Methods inherited from gobject.Widget:<br>
 
 <dl><dt><a name="EventLaneViewer-is_composited"><strong>is_composited</strong></a>(...)</dt></dl>
 
+<dl><dt><a name="EventLaneViewer-is_drawable"><strong>is_drawable</strong></a>(...)</dt></dl>
+
 <dl><dt><a name="EventLaneViewer-is_focus"><strong>is_focus</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventLaneViewer-is_sensitive"><strong>is_sensitive</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventLaneViewer-is_toplevel"><strong>is_toplevel</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventLaneViewer-keynav_failed"><strong>keynav_failed</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventLaneViewer-list_accel_closures"><strong>list_accel_closures</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventLaneViewer-list_mnemonic_labels"><strong>list_mnemonic_labels</strong></a>(...)</dt></dl>
 
@@ -503,6 +602,8 @@ Methods inherited from gobject.Widget:<br>
 <dl><dt><a name="EventLaneViewer-modify_base"><strong>modify_base</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventLaneViewer-modify_bg"><strong>modify_bg</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventLaneViewer-modify_cursor"><strong>modify_cursor</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventLaneViewer-modify_fg"><strong>modify_fg</strong></a>(...)</dt></dl>
 
@@ -558,9 +659,17 @@ Methods inherited from gobject.Widget:<br>
 
 <dl><dt><a name="EventLaneViewer-send_expose"><strong>send_expose</strong></a>(...)</dt></dl>
 
+<dl><dt><a name="EventLaneViewer-send_focus_change"><strong>send_focus_change</strong></a>(...)</dt></dl>
+
 <dl><dt><a name="EventLaneViewer-set_accel_path"><strong>set_accel_path</strong></a>(...)</dt></dl>
 
+<dl><dt><a name="EventLaneViewer-set_allocation"><strong>set_allocation</strong></a>(...)</dt></dl>
+
 <dl><dt><a name="EventLaneViewer-set_app_paintable"><strong>set_app_paintable</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventLaneViewer-set_can_default"><strong>set_can_default</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventLaneViewer-set_can_focus"><strong>set_can_focus</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventLaneViewer-set_child_visible"><strong>set_child_visible</strong></a>(...)</dt></dl>
 
@@ -576,6 +685,12 @@ Methods inherited from gobject.Widget:<br>
 
 <dl><dt><a name="EventLaneViewer-set_extension_events"><strong>set_extension_events</strong></a>(...)</dt></dl>
 
+<dl><dt><a name="EventLaneViewer-set_has_tooltip"><strong>set_has_tooltip</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventLaneViewer-set_has_window"><strong>set_has_window</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventLaneViewer-set_mapped"><strong>set_mapped</strong></a>(...)</dt></dl>
+
 <dl><dt><a name="EventLaneViewer-set_name"><strong>set_name</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventLaneViewer-set_no_show_all"><strong>set_no_show_all</strong></a>(...)</dt></dl>
@@ -583,6 +698,10 @@ Methods inherited from gobject.Widget:<br>
 <dl><dt><a name="EventLaneViewer-set_parent"><strong>set_parent</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventLaneViewer-set_parent_window"><strong>set_parent_window</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventLaneViewer-set_realized"><strong>set_realized</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventLaneViewer-set_receives_default"><strong>set_receives_default</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventLaneViewer-set_redraw_on_allocate"><strong>set_redraw_on_allocate</strong></a>(...)</dt></dl>
 
@@ -596,9 +715,19 @@ Methods inherited from gobject.Widget:<br>
 
 <dl><dt><a name="EventLaneViewer-set_style"><strong>set_style</strong></a>(...)</dt></dl>
 
+<dl><dt><a name="EventLaneViewer-set_tooltip_markup"><strong>set_tooltip_markup</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventLaneViewer-set_tooltip_text"><strong>set_tooltip_text</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventLaneViewer-set_tooltip_window"><strong>set_tooltip_window</strong></a>(...)</dt></dl>
+
 <dl><dt><a name="EventLaneViewer-set_uposition"><strong>set_uposition</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventLaneViewer-set_usize"><strong>set_usize</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventLaneViewer-set_visible"><strong>set_visible</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventLaneViewer-set_window"><strong>set_window</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventLaneViewer-shape_combine_mask"><strong>shape_combine_mask</strong></a>(...)</dt></dl>
 
@@ -612,11 +741,15 @@ Methods inherited from gobject.Widget:<br>
 
 <dl><dt><a name="EventLaneViewer-size_request"><strong>size_request</strong></a>(...)</dt></dl>
 
+<dl><dt><a name="EventLaneViewer-style_attach"><strong>style_attach</strong></a>(...)</dt></dl>
+
 <dl><dt><a name="EventLaneViewer-style_get_property"><strong>style_get_property</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventLaneViewer-thaw_child_notify"><strong>thaw_child_notify</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventLaneViewer-translate_coordinates"><strong>translate_coordinates</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventLaneViewer-trigger_tooltip_query"><strong>trigger_tooltip_query</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventLaneViewer-unmap"><strong>unmap</strong></a>(...)</dt></dl>
 
@@ -625,9 +758,25 @@ Methods inherited from gobject.Widget:<br>
 <dl><dt><a name="EventLaneViewer-unrealize"><strong>unrealize</strong></a>(...)</dt></dl>
 
 <hr>
-Data and other attributes inherited from gobject.Widget:<br>
-<dl><dt><strong>allocation</strong> = &lt;attribute 'allocation' of 'gtk.Widget' objects&gt;</dl>
-
+Data descriptors inherited from <a href="gtk.html#Widget">gtk.Widget</a>:<br>
+<dl><dt><strong>allocation</strong></dt>
+</dl>
+<dl><dt><strong>name</strong></dt>
+</dl>
+<dl><dt><strong>parent</strong></dt>
+</dl>
+<dl><dt><strong>requisition</strong></dt>
+</dl>
+<dl><dt><strong>saved_state</strong></dt>
+</dl>
+<dl><dt><strong>state</strong></dt>
+</dl>
+<dl><dt><strong>style</strong></dt>
+</dl>
+<dl><dt><strong>window</strong></dt>
+</dl>
+<hr>
+Data and other attributes inherited from <a href="gtk.html#Widget">gtk.Widget</a>:<br>
 <dl><dt><strong>do_button_press_event</strong> = &lt;built-in method do_button_press_event of GObjectMeta object&gt;</dl>
 
 <dl><dt><strong>do_button_release_event</strong> = &lt;built-in method do_button_release_event of GObjectMeta object&gt;</dl>
@@ -756,24 +905,12 @@ Data and other attributes inherited from gobject.Widget:<br>
 
 <dl><dt><strong>get_activate_signal</strong> = &lt;built-in method get_activate_signal of GObjectMeta object&gt;</dl>
 
-<dl><dt><strong>name</strong> = &lt;attribute 'name' of 'gtk.Widget' objects&gt;</dl>
-
-<dl><dt><strong>parent</strong> = &lt;attribute 'parent' of 'gtk.Widget' objects&gt;</dl>
-
-<dl><dt><strong>saved_state</strong> = &lt;attribute 'saved_state' of 'gtk.Widget' objects&gt;</dl>
-
 <dl><dt><strong>set_activate_signal</strong> = &lt;built-in method set_activate_signal of GObjectMeta object&gt;</dl>
 
 <dl><dt><strong>set_set_scroll_adjustments_signal</strong> = &lt;built-in method set_set_scroll_adjustments_signal of GObjectMeta object&gt;</dl>
 
-<dl><dt><strong>state</strong> = &lt;attribute 'state' of 'gtk.Widget' objects&gt;</dl>
-
-<dl><dt><strong>style</strong> = &lt;attribute 'style' of 'gtk.Widget' objects&gt;</dl>
-
-<dl><dt><strong>window</strong> = &lt;attribute 'window' of 'gtk.Widget' objects&gt;</dl>
-
 <hr>
-Methods inherited from gobject.Object:<br>
+Methods inherited from <a href="gtk.html#Object">gtk.Object</a>:<br>
 <dl><dt><a name="EventLaneViewer-flags"><strong>flags</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventLaneViewer-remove_data"><strong>remove_data</strong></a>(...)</dt></dl>
@@ -785,18 +922,26 @@ Methods inherited from gobject.Object:<br>
 <dl><dt><a name="EventLaneViewer-unset_flags"><strong>unset_flags</strong></a>(...)</dt></dl>
 
 <hr>
-Data and other attributes inherited from gobject.Object:<br>
+Data and other attributes inherited from <a href="gtk.html#Object">gtk.Object</a>:<br>
 <dl><dt><strong>do_destroy</strong> = &lt;built-in method do_destroy of GObjectMeta object&gt;</dl>
 
 <hr>
-Methods inherited from <a href="gobject.html#GObject">gobject.GObject</a>:<br>
+Methods inherited from <a href="gobject._gobject.html#GObject">gobject._gobject.GObject</a>:<br>
 <dl><dt><a name="EventLaneViewer-__cmp__"><strong>__cmp__</strong></a>(...)</dt><dd><tt>x.<a href="#EventLaneViewer-__cmp__">__cmp__</a>(y)&nbsp;&lt;==&gt;&nbsp;cmp(x,y)</tt></dd></dl>
+
+<dl><dt><a name="EventLaneViewer-__copy__"><strong>__copy__</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventLaneViewer-__deepcopy__"><strong>__deepcopy__</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventLaneViewer-__delattr__"><strong>__delattr__</strong></a>(...)</dt><dd><tt>x.<a href="#EventLaneViewer-__delattr__">__delattr__</a>('name')&nbsp;&lt;==&gt;&nbsp;del&nbsp;x.name</tt></dd></dl>
 
 <dl><dt><a name="EventLaneViewer-__gobject_init__"><strong>__gobject_init__</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventLaneViewer-__hash__"><strong>__hash__</strong></a>(...)</dt><dd><tt>x.<a href="#EventLaneViewer-__hash__">__hash__</a>()&nbsp;&lt;==&gt;&nbsp;hash(x)</tt></dd></dl>
 
 <dl><dt><a name="EventLaneViewer-__repr__"><strong>__repr__</strong></a>(...)</dt><dd><tt>x.<a href="#EventLaneViewer-__repr__">__repr__</a>()&nbsp;&lt;==&gt;&nbsp;repr(x)</tt></dd></dl>
+
+<dl><dt><a name="EventLaneViewer-__setattr__"><strong>__setattr__</strong></a>(...)</dt><dd><tt>x.<a href="#EventLaneViewer-__setattr__">__setattr__</a>('name',&nbsp;value)&nbsp;&lt;==&gt;&nbsp;x.name&nbsp;=&nbsp;value</tt></dd></dl>
 
 <dl><dt><a name="EventLaneViewer-chain"><strong>chain</strong></a>(...)</dt></dl>
 
@@ -820,6 +965,8 @@ Methods inherited from <a href="gobject.html#GObject">gobject.GObject</a>:<br>
 
 <dl><dt><a name="EventLaneViewer-get_data"><strong>get_data</strong></a>(...)</dt></dl>
 
+<dl><dt><a name="EventLaneViewer-get_properties"><strong>get_properties</strong></a>(...)</dt></dl>
+
 <dl><dt><a name="EventLaneViewer-get_property"><strong>get_property</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventLaneViewer-handler_block"><strong>handler_block</strong></a>(...)</dt></dl>
@@ -838,19 +985,25 @@ Methods inherited from <a href="gobject.html#GObject">gobject.GObject</a>:<br>
 
 <dl><dt><a name="EventLaneViewer-set_data"><strong>set_data</strong></a>(...)</dt></dl>
 
+<dl><dt><a name="EventLaneViewer-set_properties"><strong>set_properties</strong></a>(...)</dt></dl>
+
 <dl><dt><a name="EventLaneViewer-set_property"><strong>set_property</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventLaneViewer-stop_emission"><strong>stop_emission</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventLaneViewer-thaw_notify"><strong>thaw_notify</strong></a>(...)</dt></dl>
 
+<dl><dt><a name="EventLaneViewer-weak_ref"><strong>weak_ref</strong></a>(...)</dt></dl>
+
 <hr>
-Data and other attributes inherited from <a href="gobject.html#GObject">gobject.GObject</a>:<br>
-<dl><dt><strong>__dict__</strong> = &lt;dictproxy object&gt;</dl>
-
+Data descriptors inherited from <a href="gobject._gobject.html#GObject">gobject._gobject.GObject</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+</dl>
+<dl><dt><strong>__grefcount__</strong></dt>
+</dl>
+<hr>
+Data and other attributes inherited from <a href="gobject._gobject.html#GObject">gobject._gobject.GObject</a>:<br>
 <dl><dt><strong>__gdoc__</strong> = 'Object GtkEventBox<font color="#c040c0">\n\n\n\t</font>This class is a container ...ointer<font color="#c040c0">\n\n</font>Signals from GObject:<font color="#c040c0">\n</font>  notify (GParam)<font color="#c040c0">\n\n</font>'</dl>
-
-<dl><dt><strong>__grefcount__</strong> = &lt;attribute '__grefcount__' of 'gobject.GObject' objects&gt;</dl>
 
 <dl><dt><strong>__new__</strong> = &lt;built-in method __new__ of GObjectMeta object&gt;<dd><tt>T.<a href="#EventLaneViewer-__new__">__new__</a>(S,&nbsp;...)&nbsp;-&gt;&nbsp;a&nbsp;new&nbsp;object&nbsp;with&nbsp;type&nbsp;S,&nbsp;a&nbsp;subtype&nbsp;of&nbsp;T</tt></dl>
 
@@ -859,6 +1012,28 @@ Data and other attributes inherited from <a href="gobject.html#GObject">gobject.
 <hr>
 Methods inherited from <a href="atk.html#ImplementorIface">atk.ImplementorIface</a>:<br>
 <dl><dt><a name="EventLaneViewer-ref_accessible"><strong>ref_accessible</strong></a>(...)</dt></dl>
+
+<hr>
+Methods inherited from <a href="gtk.html#Buildable">gtk.Buildable</a>:<br>
+<dl><dt><a name="EventLaneViewer-add_child"><strong>add_child</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventLaneViewer-construct_child"><strong>construct_child</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventLaneViewer-get_internal_child"><strong>get_internal_child</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventLaneViewer-parser_finished"><strong>parser_finished</strong></a>(...)</dt></dl>
+
+<hr>
+Data and other attributes inherited from <a href="gtk.html#Buildable">gtk.Buildable</a>:<br>
+<dl><dt><strong>do_add_child</strong> = &lt;built-in method do_add_child of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_construct_child</strong> = &lt;built-in method do_construct_child of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_get_internal_child</strong> = &lt;built-in method do_get_internal_child of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_parser_finished</strong> = &lt;built-in method do_parser_finished of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_set_name</strong> = &lt;built-in method do_set_name of GObjectMeta object&gt;</dl>
 
 </td></tr></table></td></tr></table>
 </body></html>

@@ -1,5 +1,5 @@
 
-<!doctype html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html><head><title>Python: module Extension</title>
 </head><body bgcolor="#ffffff">
 
@@ -8,7 +8,7 @@
 <td valign=bottom>&nbsp;<br>
 <font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>Extension</strong></big></big></font></td
 ><td align=right valign=bottom
-><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/david/Projects/Jokosher/trunk/Jokosher/Extension.py">/home/david/Projects/Jokosher/trunk/Jokosher/Extension.py</a></font></td></tr></table>
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/laszlo/Dev/joko-gtk-builder/Jokosher/Extension.py">/home/laszlo/Dev/joko-gtk-builder/Jokosher/Extension.py</a></font></td></tr></table>
     <p><tt>#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THIS&nbsp;FILE&nbsp;IS&nbsp;PART&nbsp;OF&nbsp;THE&nbsp;JOKOSHER&nbsp;PROJECT&nbsp;AND&nbsp;LICENSED&nbsp;UNDER&nbsp;THE&nbsp;GPL.&nbsp;SEE<br>
 #&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THE&nbsp;'COPYING'&nbsp;FILE&nbsp;FOR&nbsp;DETAILS<br>
 #<br>
@@ -19,7 +19,7 @@
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#4e9a06">
 <td colspan=3 valign=bottom>&nbsp;<br>
-<font color="#fffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
     
 <tr><td bgcolor="#4e9a06"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
 <td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="ConfigParser.html">ConfigParser</a><br>
@@ -59,15 +59,27 @@
 Parameters:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mainapp&nbsp;--&nbsp;reference&nbsp;the&nbsp;MainApp&nbsp;Jokosher&nbsp;window.</tt></dd></dl>
 
+<dl><dt><a name="ExtensionAPI-add_end_of_stream_handler"><strong>add_end_of_stream_handler</strong></a>(*args, **kwargs)</dt><dd><tt>Adds&nbsp;a&nbsp;function&nbsp;to&nbsp;receive&nbsp;and&nbsp;end-of-stream&nbsp;notification.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;function&nbsp;--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;function&nbsp;that&nbsp;will&nbsp;receive&nbsp;the&nbsp;notification<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;=&nbsp;end&nbsp;of&nbsp;stream&nbsp;handler&nbsp;successfully&nbsp;added<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;=&nbsp;no&nbsp;project&nbsp;currently&nbsp;open</tt></dd></dl>
+
 <dl><dt><a name="ExtensionAPI-add_export_format"><strong>add_export_format</strong></a>(*args, **kwargs)</dt><dd><tt>Adds&nbsp;a&nbsp;new&nbsp;format&nbsp;that&nbsp;the&nbsp;user&nbsp;can&nbsp;select&nbsp;from&nbsp;the&nbsp;filetype&nbsp;drop&nbsp;down&nbsp;box<br>
 in&nbsp;the&nbsp;'Mixdown&nbsp;Project'&nbsp;dialog.<br>
 &nbsp;<br>
 Parameters:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;description&nbsp;--&nbsp;string&nbsp;for&nbsp;the&nbsp;drop&nbsp;down&nbsp;box.&nbsp;i.e:&nbsp;'Ogg&nbsp;Vorbis&nbsp;(.ogg)'.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;extension&nbsp;--&nbsp;string&nbsp;of&nbsp;the&nbsp;file&nbsp;extension&nbsp;without&nbsp;a&nbsp;'.'.&nbsp;i.e:&nbsp;'ogg'.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;encodeBin&nbsp;--&nbsp;string&nbsp;used&nbsp;by&nbsp;gst_parse_bin_from_description&nbsp;to&nbsp;create<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;encodeBin&nbsp;--&nbsp;string&nbsp;used&nbsp;by&nbsp;gst.parse_bin_from_description&nbsp;to&nbsp;create<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;bin&nbsp;that&nbsp;can&nbsp;encode&nbsp;and&nbsp;mux&nbsp;the&nbsp;audio&nbsp;when&nbsp;added&nbsp;to&nbsp;a<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pipeline.&nbsp;i.e:&nbsp;'vorbisenc&nbsp;!&nbsp;oggmux'.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;checkIfValid&nbsp;--&nbsp;If&nbsp;True,&nbsp;Jokosher&nbsp;will&nbsp;check&nbsp;if&nbsp;the&nbsp;encodeBin&nbsp;string&nbsp;is&nbsp;valid&nbsp;before&nbsp;adding<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it&nbsp;to&nbsp;the&nbsp;export&nbsp;dialog.&nbsp;If&nbsp;you&nbsp;know&nbsp;a&nbsp;string&nbsp;to&nbsp;be&nbsp;correct,&nbsp;this&nbsp;parameter<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;should&nbsp;be&nbsp;False&nbsp;because&nbsp;checking&nbsp;will&nbsp;make&nbsp;startup&nbsp;take&nbsp;longer.<br>
 Returns:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;=&nbsp;the&nbsp;new&nbsp;export&nbsp;format&nbsp;was&nbsp;successfully&nbsp;added&nbsp;to&nbsp;Jokosher.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;=&nbsp;invalid&nbsp;options.<br>
@@ -131,7 +143,7 @@ Parameters:<br>
 Returns:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reference&nbsp;to&nbsp;the&nbsp;new&nbsp;menu&nbsp;item.</tt></dd></dl>
 
-<dl><dt><a name="ExtensionAPI-create_new_instrument_type"><strong>create_new_instrument_type</strong></a>(*args, **kwargs)</dt><dd><tt>Creates&nbsp;a&nbsp;new&nbsp;Instrument&nbsp;type&nbsp;in&nbsp;the&nbsp;user's&nbsp;~/.jokosher/instruments&nbsp;folder.<br>
+<dl><dt><a name="ExtensionAPI-create_new_instrument_type"><strong>create_new_instrument_type</strong></a>(*args, **kwargs)</dt><dd><tt>Creates&nbsp;a&nbsp;new&nbsp;Instrument&nbsp;type&nbsp;in&nbsp;the&nbsp;user's&nbsp;JOKOSHER_DATA_HOME/instruments&nbsp;folder.<br>
 It&nbsp;will&nbsp;then&nbsp;be&nbsp;automatically&nbsp;loaded&nbsp;on&nbsp;startup.<br>
 &nbsp;<br>
 Parameters:<br>
@@ -143,20 +155,67 @@ Returns:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;=&nbsp;the&nbsp;new&nbsp;Instrument&nbsp;type&nbsp;was&nbsp;successfully&nbsp;created.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;=&nbsp;file&nbsp;already&nbsp;exists&nbsp;or&nbsp;defaultName&nbsp;is&nbsp;already&nbsp;used&nbsp;by&nbsp;a&nbsp;loaded&nbsp;Instrument.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;=&nbsp;cannot&nbsp;load&nbsp;image&nbsp;file.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3&nbsp;=&nbsp;cannot&nbsp;write&nbsp;to&nbsp;~/.jokosher/instruments&nbsp;or&nbsp;~/.jokosher/instruments/images.</tt></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3&nbsp;=&nbsp;cannot&nbsp;write&nbsp;to&nbsp;JOKOSHER_DATA_HOME/instruments&nbsp;or&nbsp;JOKOSHER_DATA_HOME/instruments/images.</tt></dd></dl>
 
 <dl><dt><a name="ExtensionAPI-delete_instrument"><strong>delete_instrument</strong></a>(*args, **kwargs)</dt><dd><tt>Removes&nbsp;an&nbsp;Instrument&nbsp;from&nbsp;the&nbsp;Project.<br>
 &nbsp;<br>
 Parameters:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;instrumentID&nbsp;--&nbsp;ID&nbsp;of&nbsp;the&nbsp;Instrument&nbsp;to&nbsp;be&nbsp;removed.</tt></dd></dl>
 
-<dl><dt><a name="ExtensionAPI-get_config_value"><strong>get_config_value</strong></a>(*args, **kwargs)</dt><dd><tt>Obtain&nbsp;the&nbsp;config&nbsp;value&nbsp;saved&nbsp;under&nbsp;this&nbsp;key.<br>
+<dl><dt><a name="ExtensionAPI-delete_instrument_type"><strong>delete_instrument_type</strong></a>(*args, **kwargs)</dt><dd><tt>Deletes&nbsp;an&nbsp;instrument&nbsp;type&nbsp;from&nbsp;the&nbsp;user's&nbsp;JOKOSHER_DATA_HOME/instruments&nbsp;<br>
+directory&nbsp;(deleting&nbsp;default&nbsp;instruments&nbsp;isn't&nbsp;allowed)<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;typeString&nbsp;--&nbsp;The&nbsp;instrument&nbsp;type,&nbsp;the&nbsp;instrument&nbsp;name&nbsp;is&nbsp;translated<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;so&nbsp;we&nbsp;can't&nbsp;use&nbsp;that&nbsp;one<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;=&nbsp;Instrument&nbsp;successfully&nbsp;deleted<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;=&nbsp;Instrument&nbsp;is&nbsp;a&nbsp;default&nbsp;instrument&nbsp;and&nbsp;cannot&nbsp;be&nbsp;deleted<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;=&nbsp;Error&nbsp;deleting&nbsp;instrument&nbsp;files<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3&nbsp;=&nbsp;Error&nbsp;removing&nbsp;instrument&nbsp;from&nbsp;cache<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4&nbsp;=&nbsp;Cannot&nbsp;find&nbsp;an&nbsp;instrument&nbsp;with&nbsp;that&nbsp;type&nbsp;string</tt></dd></dl>
+
+<dl><dt><a name="ExtensionAPI-export_to_file"><strong>export_to_file</strong></a>(*args, **kwargs)</dt><dd><tt>Exports&nbsp;the&nbsp;entire&nbsp;project&nbsp;to&nbsp;a&nbsp;single&nbsp;audio&nbsp;file&nbsp;at&nbsp;the&nbsp;URI&nbsp;given,<br>
+and&nbsp;encoded&nbsp;with&nbsp;the&nbsp;Gstreamer&nbsp;encoding&nbsp;bin&nbsp;given.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;uri&nbsp;--&nbsp;string&nbsp;of&nbsp;the&nbsp;location&nbsp;to&nbsp;save&nbsp;the&nbsp;file.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;encodeBin&nbsp;--&nbsp;gst-launch&nbsp;formatted&nbsp;string&nbsp;used&nbsp;to&nbsp;create&nbsp;the&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bin&nbsp;that&nbsp;will&nbsp;encode&nbsp;the&nbsp;audio&nbsp;before&nbsp;being&nbsp;written&nbsp;to&nbsp;disk.</tt></dd></dl>
+
+<dl><dt><a name="ExtensionAPI-get_bpm"><strong>get_bpm</strong></a>(*args, **kwargs)</dt><dd><tt>Returns&nbsp;the&nbsp;current&nbsp;beats&nbsp;per&nbsp;minute&nbsp;for&nbsp;the&nbsp;Project.</tt></dd></dl>
+
+<dl><dt><a name="ExtensionAPI-get_button_states"><strong>get_button_states</strong></a>(*args, **kwargs)</dt><dd><tt>Obtains&nbsp;the&nbsp;states&nbsp;of&nbsp;the&nbsp;transport&nbsp;toggle&nbsp;buttons<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;dictionary&nbsp;containing&nbsp;a&nbsp;set&nbsp;of&nbsp;tuples&nbsp;representing&nbsp;the<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;toggle&nbsp;state&nbsp;and&nbsp;sensitive&nbsp;state&nbsp;of&nbsp;the&nbsp;transport&nbsp;buttons</tt></dd></dl>
+
+<dl><dt><a name="ExtensionAPI-get_config_value"><strong>get_config_value</strong></a>(*args, **kwargs)</dt><dd><tt>Obtains&nbsp;the&nbsp;config&nbsp;value&nbsp;saved&nbsp;under&nbsp;this&nbsp;key.<br>
 &nbsp;<br>
 Parameters:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;key&nbsp;--&nbsp;config&nbsp;key&nbsp;to&nbsp;obtain&nbsp;the&nbsp;value&nbsp;of.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
 Returns:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;value&nbsp;of&nbsp;the&nbsp;config&nbsp;key,&nbsp;or&nbsp;None&nbsp;if&nbsp;the&nbsp;value&nbsp;doesn't&nbsp;exist.</tt></dd></dl>
+
+<dl><dt><a name="ExtensionAPI-get_data_file"><strong>get_data_file</strong></a>(*args, **kwargs)</dt><dd><tt>Obtain&nbsp;the&nbsp;data&nbsp;file&nbsp;saved&nbsp;under&nbsp;this&nbsp;key.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;extName&nbsp;--&nbsp;name&nbsp;of&nbsp;the&nbsp;extension&nbsp;loading&nbsp;the&nbsp;file.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;key&nbsp;--&nbsp;config&nbsp;key&nbsp;to&nbsp;obtain&nbsp;the&nbsp;data&nbsp;file&nbsp;of.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;data&nbsp;retrieved,&nbsp;or&nbsp;None&nbsp;if&nbsp;the&nbsp;value&nbsp;doesn't&nbsp;exist<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;or&nbsp;couldn't&nbsp;be&nbsp;loaded.</tt></dd></dl>
+
+<dl><dt><a name="ExtensionAPI-get_export_formats"><strong>get_export_formats</strong></a>(*args, **kwargs)</dt><dd><tt>Returns&nbsp;the&nbsp;list&nbsp;of&nbsp;dictionaries&nbsp;of&nbsp;available&nbsp;export&nbsp;formats<br>
+that&nbsp;Jokosher&nbsp;knowns&nbsp;about.&nbsp;Even&nbsp;if&nbsp;a&nbsp;format&nbsp;is&nbsp;not&nbsp;listed<br>
+here,&nbsp;you&nbsp;can&nbsp;still&nbsp;export&nbsp;with&nbsp;it&nbsp;by&nbsp;passing&nbsp;the&nbsp;gst-launch<br>
+formatted&nbsp;string&nbsp;to&nbsp;export_to_file.<br>
+An&nbsp;example&nbsp;format&nbsp;dictionary&nbsp;for&nbsp;Ogg:&nbsp;<br>
+{"description":"Ogg&nbsp;Vorbis",&nbsp;"extension":"ogg",&nbsp;"pipeline":"vorbisenc&nbsp;!&nbsp;oggmux"}</tt></dd></dl>
 
 <dl><dt><a name="ExtensionAPI-get_instrument_effects"><strong>get_instrument_effects</strong></a>(*args, **kwargs)</dt><dd><tt>Obtains&nbsp;the&nbsp;current&nbsp;effects&nbsp;applied&nbsp;to&nbsp;an&nbsp;Instrument.<br>
 &nbsp;<br>
@@ -175,6 +234,27 @@ Parameters:<br>
 Returns:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;volume&nbsp;=&nbsp;volume&nbsp;of&nbsp;the&nbsp;Instrument.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;=&nbsp;the&nbsp;Instrument&nbsp;with&nbsp;id&nbsp;'instr_id'&nbsp;was&nbsp;not&nbsp;found.</tt></dd></dl>
+
+<dl><dt><a name="ExtensionAPI-get_meter"><strong>get_meter</strong></a>(*args, **kwargs)</dt><dd><tt>Returns&nbsp;the&nbsp;current&nbsp;meter&nbsp;of&nbsp;the&nbsp;project&nbsp;as&nbsp;a&nbsp;tuple.</tt></dd></dl>
+
+<dl><dt><a name="ExtensionAPI-get_pipeline_state"><strong>get_pipeline_state</strong></a>(*args, **kwargs)</dt><dd><tt>Obtains&nbsp;up&nbsp;the&nbsp;state&nbsp;of&nbsp;the&nbsp;pipeline<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;state&nbsp;of&nbsp;the&nbsp;pipeline</tt></dd></dl>
+
+<dl><dt><a name="ExtensionAPI-get_position"><strong>get_position</strong></a>(*args, **kwargs)</dt><dd><tt>Gives&nbsp;the&nbsp;current&nbsp;position&nbsp;in&nbsp;pipeline<br>
+&nbsp;<br>
+Returns:&nbsp;time&nbsp;in&nbsp;seconds</tt></dd></dl>
+
+<dl><dt><a name="ExtensionAPI-get_position_as_bars_and_beats"><strong>get_position_as_bars_and_beats</strong></a>(*args, **kwargs)</dt><dd><tt>Gives&nbsp;the&nbsp;current&nbsp;position&nbsp;in&nbsp;pipeline<br>
+&nbsp;<br>
+Returns:&nbsp;position&nbsp;as&nbsp;a&nbsp;tuple&nbsp;(bars,&nbsp;beats,&nbsp;ticks)</tt></dd></dl>
+
+<dl><dt><a name="ExtensionAPI-get_position_as_hours_minutes_seconds"><strong>get_position_as_hours_minutes_seconds</strong></a>(*args, **kwargs)</dt><dd><tt>Obtains&nbsp;the&nbsp;current&nbsp;playback&nbsp;position&nbsp;in&nbsp;hours,&nbsp;minutes,&nbsp;seconds.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tuple&nbsp;of&nbsp;the&nbsp;current&nbsp;position&nbsp;as&nbsp;(hours,&nbsp;minutes,&nbsp;seconds,&nbsp;milliseconds).<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;None&nbsp;-&nbsp;no&nbsp;project&nbsp;is&nbsp;currently&nbsp;open</tt></dd></dl>
 
 <dl><dt><a name="ExtensionAPI-hide_main_window"><strong>hide_main_window</strong></a>(*args, **kwargs)</dt><dd><tt>Makes&nbsp;the&nbsp;main&nbsp;Jokosher&nbsp;window&nbsp;invisible.<br>
 &nbsp;<br>
@@ -212,12 +292,23 @@ Parameters:<br>
 
 <dl><dt><a name="ExtensionAPI-quit"><strong>quit</strong></a>(*args, **kwargs)</dt><dd><tt>Quits&nbsp;Jokosher.</tt></dd></dl>
 
+<dl><dt><a name="ExtensionAPI-record"><strong>record</strong></a>(*args, **kwargs)</dt><dd><tt>Starts&nbsp;the&nbsp;project&nbsp;recording</tt></dd></dl>
+
+<dl><dt><a name="ExtensionAPI-remove_end_of_stream_handler"><strong>remove_end_of_stream_handler</strong></a>(*args, **kwargs)</dt><dd><tt>Removes&nbsp;a&nbsp;function&nbsp;from&nbsp;the&nbsp;end-of-stream-handler&nbsp;list<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;function&nbsp;--&nbsp;the&nbsp;function&nbsp;to&nbsp;remove<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;=&nbsp;end&nbsp;of&nbsp;stream&nbsp;handler&nbsp;successfully&nbsp;removed<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;=&nbsp;no&nbsp;project&nbsp;currently&nbsp;open</tt></dd></dl>
+
 <dl><dt><a name="ExtensionAPI-remove_export_format"><strong>remove_export_format</strong></a>(*args, **kwargs)</dt><dd><tt>Removes&nbsp;an&nbsp;export&nbsp;format&nbsp;that&nbsp;was&nbsp;previously&nbsp;added&nbsp;using&nbsp;add_export_format.<br>
 &nbsp;<br>
 Parameters:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;description&nbsp;--&nbsp;string&nbsp;for&nbsp;the&nbsp;drop&nbsp;down&nbsp;box.&nbsp;i.e:&nbsp;'Ogg&nbsp;Vorbis&nbsp;(.ogg)'.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;extension&nbsp;--&nbsp;string&nbsp;of&nbsp;the&nbsp;file&nbsp;extension&nbsp;without&nbsp;a&nbsp;'.'.&nbsp;i.e:&nbsp;'ogg'.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;encodeBin&nbsp;--&nbsp;string&nbsp;used&nbsp;by&nbsp;gst_parse_bin_from_description&nbsp;to&nbsp;create<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;encodeBin&nbsp;--&nbsp;string&nbsp;used&nbsp;by&nbsp;gst.parse_bin_from_description&nbsp;to&nbsp;create<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;bin&nbsp;that&nbsp;can&nbsp;encode&nbsp;and&nbsp;mux&nbsp;the&nbsp;audio&nbsp;when&nbsp;added&nbsp;to&nbsp;a<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pipeline.&nbsp;i.e:&nbsp;'vorbisenc&nbsp;!&nbsp;oggmux'.<br>
 Returns:<br>
@@ -236,11 +327,30 @@ Returns:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;=&nbsp;the&nbsp;Instrument&nbsp;with&nbsp;id&nbsp;'instr_id'&nbsp;was&nbsp;not&nbsp;found.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3&nbsp;=&nbsp;unknown&nbsp;GStreamer&nbsp;error.</tt></dd></dl>
 
+<dl><dt><a name="ExtensionAPI-seek"><strong>seek</strong></a>(*args, **kwargs)</dt><dd><tt>Performs&nbsp;a&nbsp;seek&nbsp;on&nbsp;the&nbsp;pipeline<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;start_position&nbsp;--&nbsp;position&nbsp;to&nbsp;seek&nbsp;to<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;end_position&nbsp;--&nbsp;position&nbsp;where&nbsp;playing&nbsp;will&nbsp;stop</tt></dd></dl>
+
+<dl><dt><a name="ExtensionAPI-set_bpm"><strong>set_bpm</strong></a>(*args, **kwargs)</dt><dd><tt>Sets&nbsp;the&nbsp;current&nbsp;beats&nbsp;per&nbsp;minute&nbsp;for&nbsp;the&nbsp;Project.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bpm&nbsp;--&nbsp;the&nbsp;beats&nbsp;per&nbsp;minute&nbsp;to&nbsp;set.</tt></dd></dl>
+
 <dl><dt><a name="ExtensionAPI-set_config_value"><strong>set_config_value</strong></a>(*args, **kwargs)</dt><dd><tt>Sets&nbsp;a&nbsp;new&nbsp;config&nbsp;value&nbsp;under&nbsp;a&nbsp;given&nbsp;key&nbsp;for&nbsp;later&nbsp;retrieval.<br>
 &nbsp;<br>
 Parameters:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;key&nbsp;--&nbsp;name&nbsp;of&nbsp;the&nbsp;key&nbsp;to&nbsp;save&nbsp;the&nbsp;value&nbsp;under.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value&nbsp;--&nbsp;value&nbsp;to&nbsp;save.</tt></dd></dl>
+
+<dl><dt><a name="ExtensionAPI-set_data_file"><strong>set_data_file</strong></a>(*args, **kwargs)</dt><dd><tt>Stores&nbsp;a&nbsp;new&nbsp;data&nbsp;file&nbsp;under&nbsp;a&nbsp;given&nbsp;key&nbsp;for&nbsp;later&nbsp;retrieval.<br>
+It&nbsp;must&nbsp;a&nbsp;serializable&nbsp;object.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;extName&nbsp;--&nbsp;name&nbsp;of&nbsp;the&nbsp;extension&nbsp;loading&nbsp;the&nbsp;file.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;key&nbsp;--&nbsp;name&nbsp;of&nbsp;the&nbsp;key&nbsp;to&nbsp;save&nbsp;this&nbsp;data&nbsp;under.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data&nbsp;--&nbsp;data&nbsp;to&nbsp;store.</tt></dd></dl>
 
 <dl><dt><a name="ExtensionAPI-set_instrument_volume"><strong>set_instrument_volume</strong></a>(*args, **kwargs)</dt><dd><tt>Sets&nbsp;the&nbsp;volume&nbsp;of&nbsp;an&nbsp;Instrument.<br>
 &nbsp;<br>
@@ -251,6 +361,29 @@ Parameters:<br>
 Returns:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;=&nbsp;the&nbsp;volume&nbsp;was&nbsp;successfully&nbsp;changed.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;=&nbsp;the&nbsp;Instrument&nbsp;with&nbsp;id&nbsp;'instr_id'&nbsp;was&nbsp;not&nbsp;found.</tt></dd></dl>
+
+<dl><dt><a name="ExtensionAPI-set_meter"><strong>set_meter</strong></a>(*args, **kwargs)</dt><dd><tt>Changes&nbsp;the&nbsp;current&nbsp;time&nbsp;signature.<br>
+&nbsp;<br>
+Example:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nom&nbsp;=&nbsp;3<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;denom&nbsp;=&nbsp;4<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;would&nbsp;result&nbsp;in&nbsp;the&nbsp;following&nbsp;signature:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3/4<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nom&nbsp;--&nbsp;new&nbsp;time&nbsp;signature&nbsp;nominator.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;denom&nbsp;--new&nbsp;time&nbsp;signature&nbsp;denominator.</tt></dd></dl>
+
+<dl><dt><a name="ExtensionAPI-set_window_icon"><strong>set_window_icon</strong></a>(*args, **kwargs)</dt><dd><tt>Sets&nbsp;the&nbsp;specified&nbsp;window&nbsp;to&nbsp;use&nbsp;the&nbsp;Jokosher&nbsp;icon.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;window&nbsp;--&nbsp;the&nbsp;window&nbsp;which&nbsp;will&nbsp;use&nbsp;the&nbsp;Jokosher&nbsp;icon&nbsp;as&nbsp;its&nbsp;icon&nbsp;in&nbsp;the&nbsp;window&nbsp;border.</tt></dd></dl>
+
+<dl><dt><a name="ExtensionAPI-set_window_parent"><strong>set_window_parent</strong></a>(*args, **kwargs)</dt><dd><tt>Sets&nbsp;the&nbsp;main&nbsp;Jokosher&nbsp;window&nbsp;as&nbsp;the&nbsp;parent&nbsp;for&nbsp;the&nbsp;given&nbsp;window.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;window&nbsp;--&nbsp;window&nbsp;who's&nbsp;parent&nbsp;is&nbsp;to&nbsp;be&nbsp;set&nbsp;as&nbsp;the&nbsp;main&nbsp;window.</tt></dd></dl>
 
 <dl><dt><a name="ExtensionAPI-show_main_window"><strong>show_main_window</strong></a>(*args, **kwargs)</dt><dd><tt>Makes&nbsp;the&nbsp;main&nbsp;Jokosher&nbsp;window&nbsp;visible.<br>
 &nbsp;<br>
@@ -293,8 +426,8 @@ Returns:<br>
     
 <tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
 <td width="100%"><strong>API</strong> = None<br>
-<strong>EXTENSION_DIR_USER</strong> = '/home/david/.jokosher/extensions/'<br>
-<strong>PREFERRED_EXTENSION_DIR</strong> = '/home/david/Projects/Jokosher/trunk/Jokosher/../extensions'<br>
+<strong>EXTENSION_DIR_USER</strong> = '/home/laszlo/.local/share/jokosher/extensions/'<br>
+<strong>PREFERRED_EXTENSION_DIR</strong> = '/home/laszlo/Dev/joko-gtk-builder/Jokosher/../extensions'<br>
 <strong>RESP_INSTALL</strong> = 9999<br>
 <strong>RESP_REPLACE</strong> = 9998</td></tr></table>
 </body></html>

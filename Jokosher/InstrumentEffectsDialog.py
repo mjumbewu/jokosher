@@ -12,7 +12,7 @@
 #
 #-------------------------------------------------------------------------------
 
-import gtk.glade
+import gtk
 import gobject
 import cairo
 import pygst
@@ -38,9 +38,9 @@ class InstrumentEffectsDialog:
 	
 	def __init__(self, instrument, destroyCallback, windowIcon):
 		"""
-		This constructor enables a lot of variables, reads in the glade
-		file for the main dialog, and populates the effects and presets
-		controls.
+		This constructor enables a lot of variables, reads in the gtk
+		builder file for the main dialog, and populates the effects and
+		presets controls.
 		
 		Parameters:
 			instrument -- Instrument whose effects are being modified.
@@ -50,7 +50,8 @@ class InstrumentEffectsDialog:
 		# a reference to the instrument object
 		self.instrument = instrument
 		self.windowIcon = windowIcon
-		self.res = gtk.glade.XML(Globals.GLADE_PATH, "InstrumentEffectsDialog")
+		
+		self.gtk_builder = Globals.LoadGtkBuilderFilename("InstrumentEffectsDialog.ui")
 
 		self.Updating = False
 		self.effectWidgets = []
@@ -76,29 +77,29 @@ class InstrumentEffectsDialog:
 		}
 		
 		# auto connect the signals to the methods
-		self.res.signal_autoconnect(self.signals)
+		self.gtk_builder.connect_signals(self.signals)
 
-		# grab references to some Glade items
-		self.window = self.res.get_widget("InstrumentEffectsDialog")
-		self.mainvbox = self.res.get_widget("InstrumentEffectsDialogVBox")
+		# grab references to some gtk builder widgets
+		self.window = self.gtk_builder.get_object("InstrumentEffectsDialog")
+		self.mainvbox = self.gtk_builder.get_object("InstrumentEffectsDialogVBox")
 		
-		self.imageInstrument = self.res.get_widget("imageInstrument")
-		self.comboPresets = self.res.get_widget("comboPresets")
-		self.buttonPresetSave = self.res.get_widget("buttonPresetSave")
-		self.buttonPresetDelete = self.res.get_widget("buttonPresetDelete")
+		self.imageInstrument = self.gtk_builder.get_object("imageInstrument")
+		self.comboPresets = self.gtk_builder.get_object("comboPresets")
+		self.buttonPresetSave = self.gtk_builder.get_object("buttonPresetSave")
+		self.buttonPresetDelete = self.gtk_builder.get_object("buttonPresetDelete")
 		
-		self.comboCategories = self.res.get_widget("comboCategories")
-		self.listEffects = self.res.get_widget("listEffects")
-		self.buttonEffectAdd = self.res.get_widget("buttonEffectAdd")
-		self.labelActiveEffects = self.res.get_widget("labelActiveEffects")
-		self.listActiveEffects = self.res.get_widget("listActiveEffects")
-		self.buttonEffectUp = self.res.get_widget("buttonEffectUp")
-		self.buttonEffectDown = self.res.get_widget("buttonEffectDown")
-		self.buttonEffectDelete = self.res.get_widget("buttonEffectDelete")
-		self.buttonEffectSettings = self.res.get_widget("buttonEffectSettings")
+		self.comboCategories = self.gtk_builder.get_object("comboCategories")
+		self.listEffects = self.gtk_builder.get_object("listEffects")
+		self.buttonEffectAdd = self.gtk_builder.get_object("buttonEffectAdd")
+		self.labelActiveEffects = self.gtk_builder.get_object("labelActiveEffects")
+		self.listActiveEffects = self.gtk_builder.get_object("listActiveEffects")
+		self.buttonEffectUp = self.gtk_builder.get_object("buttonEffectUp")
+		self.buttonEffectDown = self.gtk_builder.get_object("buttonEffectDown")
+		self.buttonEffectDelete = self.gtk_builder.get_object("buttonEffectDelete")
+		self.buttonEffectSettings = self.gtk_builder.get_object("buttonEffectSettings")
 
-		self.buttonPlay = self.res.get_widget("buttonPlay")
-		self.buttonClose = self.res.get_widget("buttonClose")
+		self.buttonPlay = self.gtk_builder.get_object("buttonPlay")
+		self.buttonClose = self.gtk_builder.get_object("buttonClose")
 
 		# connect the right-click signal for both treeviews
 		self.listEffects.connect("button-press-event", self.OnEffectsTreeViewClick)
@@ -651,7 +652,7 @@ class InstrumentEffectsDialog:
 		
 		# set the index of the current edited effect - used to reference the
 		# effect elsewhere
-		self.settWin = gtk.glade.XML(Globals.GLADE_PATH, "EffectSettingsDialog")
+		self.settings_gtk_builder = Globals.LoadGtkBuilderFilename("EffectSettingsDialog.ui")
 
 		settsignals = {
 			"on_presetsCombo_changed" : self.OnSingleEffectPresetChanged,
@@ -660,15 +661,15 @@ class InstrumentEffectsDialog:
 			"on_closeButton_clicked" : self.OnSingleEffectSettingsClose
 		}
 
-		self.settWin.signal_autoconnect(settsignals)
+		self.settings_gtk_builder.connect_signals(settsignals)
 
-		# create references to glade items
-		self.settingswindow = self.settWin.get_widget("EffectSettingsDialog")
-		self.settingsvbox = self.settWin.get_widget("EffectSettingsVBox")
-		self.effectLabel = self.settWin.get_widget("effectLabel")
-		self.effectImage = self.settWin.get_widget("effectImage")
-		self.settingstable = self.settWin.get_widget("settingsTable")
-		self.presetscombo = self.settWin.get_widget("presetsCombo")
+		# create references to gtk builder widgets
+		self.settingswindow = self.settings_gtk_builder.get_object("EffectSettingsDialog")
+		self.settingsvbox = self.settings_gtk_builder.get_object("EffectSettingsVBox")
+		self.effectLabel = self.settings_gtk_builder.get_object("effectLabel")
+		self.effectImage = self.settings_gtk_builder.get_object("effectImage")
+		self.settingstable = self.settings_gtk_builder.get_object("settingsTable")
+		self.presetscombo = self.settings_gtk_builder.get_object("presetsCombo")
 		
 		self.settingsHeaderCairoImage = CairoDialogHeaderImage(_("Effect Settings"))
 		self.settingsHeaderCairoImage.set_size_request(450, 60)

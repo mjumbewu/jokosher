@@ -1,0 +1,849 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk+" version="2.16"/>
+  <!-- interface-naming-policy project-wide -->
+  <object class="GtkWindow" id="MainWindow">
+    <property name="width_request">800</property>
+    <property name="height_request">400</property>
+    <property name="title">Jokosher</property>
+    <property name="window_position">center</property>
+    <property name="default_width">500</property>
+    <property name="default_height">400</property>
+    <accel-groups>
+      <group name="mainwindow_menubar_accelgroup"/>
+    </accel-groups>
+    <signal name="button_press_event" handler="on_MouseDown"/>
+    <signal name="destroy" handler="on_MainWindow_destroy"/>
+    <signal name="configure_event" handler="on_MainWindow_configure_event"/>
+    <signal name="delete_event" handler="on_MainWindow_destroy"/>
+    <child>
+      <object class="GtkVBox" id="main_vbox">
+        <property name="visible">True</property>
+        <child>
+          <object class="GtkMenuBar" id="menubar">
+            <property name="visible">True</property>
+            <child>
+              <object class="GtkMenuItem" id="filemenu">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">_File</property>
+                <property name="use_underline">True</property>
+                <signal name="activate" handler="on_filemenu_activate"/>
+                <child type="submenu">
+                  <object class="GtkMenu" id="filemenu_menu">
+                    <child>
+                      <object class="GtkImageMenuItem" id="new1">
+                        <property name="label">_New</property>
+                        <property name="visible">True</property>
+                        <property name="tooltip_text" translatable="yes">Create a new project</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                        <property name="accel_group">mainwindow_menubar_accelgroup</property>
+                        <accelerator key="N" signal="activate" modifiers="GDK_CONTROL_MASK"/>
+                        <signal name="activate" handler="on_new_activate"/>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkImageMenuItem" id="open">
+                        <property name="label">_Open...</property>
+                        <property name="visible">True</property>
+                        <property name="tooltip_text" translatable="yes">Open an existing project</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                        <property name="accel_group">mainwindow_menubar_accelgroup</property>
+                        <accelerator key="O" signal="activate" modifiers="GDK_CONTROL_MASK"/>
+                        <signal name="activate" handler="on_open_activate"/>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkImageMenuItem" id="import_menu">
+                        <property name="label">_Import...</property>
+                        <property name="visible">True</property>
+                        <property name="tooltip_text" translatable="yes">Import an existing project</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                        <property name="accel_group">mainwindow_menubar_accelgroup</property>
+                        <accelerator key="I" signal="activate" modifiers="GDK_CONTROL_MASK"/>
+                        <signal name="activate" handler="on_import_activate"/>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkMenuItem" id="recentprojects">
+                        <property name="visible">True</property>
+                        <property name="tooltip_text" translatable="yes">Open a project</property>
+                        <property name="label" translatable="yes">_Switch Project</property>
+                        <property name="use_underline">True</property>
+                        <child type="submenu">
+                          <object class="GtkMenu" id="recentprojects_menu"/>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkSeparatorMenuItem" id="separator5">
+                        <property name="visible">True</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkImageMenuItem" id="save">
+                        <property name="label">gtk-save</property>
+                        <property name="visible">True</property>
+                        <property name="tooltip_text" translatable="yes">Save the current project</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                        <property name="accel_group">mainwindow_menubar_accelgroup</property>
+                        <signal name="activate" handler="on_save_activate"/>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkImageMenuItem" id="close">
+                        <property name="label">gtk-close</property>
+                        <property name="visible">True</property>
+                        <property name="tooltip_text" translatable="yes">Close the current project</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                        <property name="accel_group">mainwindow_menubar_accelgroup</property>
+                        <signal name="activate" handler="on_close_activate"/>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkSeparatorMenuItem" id="separator6">
+                        <property name="visible">True</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkImageMenuItem" id="add_instrument1">
+                        <property name="label">Add _Instrument...</property>
+                        <property name="visible">True</property>
+                        <property name="tooltip_text" translatable="yes">Add an instrument to the project</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                        <property name="accel_group">mainwindow_menubar_accelgroup</property>
+                        <signal name="activate" handler="on_AddInstrument_clicked"/>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkImageMenuItem" id="add_audio_file_project_menu">
+                        <property name="label">Add Audio _File...</property>
+                        <property name="visible">True</property>
+                        <property name="tooltip_text" translatable="yes">Add an audio file to the project</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                        <property name="accel_group">mainwindow_menubar_accelgroup</property>
+                        <signal name="activate" handler="on_project_add_audio"/>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkImageMenuItem" id="instrument_connections1">
+                        <property name="label">R_ecording Inputs...</property>
+                        <property name="visible">True</property>
+                        <property name="tooltip_text" translatable="yes">Manage instrument recording inputs</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                        <property name="accel_group">mainwindow_menubar_accelgroup</property>
+                        <signal name="activate" handler="on_instrumentconnections_activate"/>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkMenuItem" id="time_format1">
+                        <property name="visible">True</property>
+                        <property name="tooltip_text" translatable="yes">Change the timeline</property>
+                        <property name="label" translatable="yes">_Time Format</property>
+                        <property name="use_underline">True</property>
+                        <child type="submenu">
+                          <object class="GtkMenu" id="time_format1_menu">
+                            <child>
+                              <object class="GtkRadioMenuItem" id="show_as_bars_beats_ticks">
+                                <property name="visible">True</property>
+                                <property name="tooltip_text" translatable="yes">Change the timeline to show bars, beats and ticks</property>
+                                <property name="label" translatable="yes">Show as _Bars, Beats, Ticks</property>
+                                <property name="use_underline">True</property>
+                                <signal name="toggled" handler="on_show_as_bars_beats_ticks_toggled"/>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkRadioMenuItem" id="show_as_hours_minutes_seconds">
+                                <property name="visible">True</property>
+                                <property name="tooltip_text" translatable="yes">Change the timeline to show hours, minutes and seconds</property>
+                                <property name="label" translatable="yes">Show as _Hours, Minutes, Seconds</property>
+                                <property name="use_underline">True</property>
+                                <property name="active">True</property>
+                                <property name="group">show_as_bars_beats_ticks</property>
+                                <signal name="toggled" handler="on_show_as_hours_minutes_seconds_toggled"/>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkImageMenuItem" id="project_properties">
+                        <property name="label">gtk-properties</property>
+                        <property name="visible">True</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                        <property name="accel_group">mainwindow_menubar_accelgroup</property>
+                        <signal name="activate" handler="on_properties_activate"/>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkSeparatorMenuItem" id="separator7">
+                        <property name="visible">True</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkImageMenuItem" id="export">
+                        <property name="label">_Mixdown Project...</property>
+                        <property name="visible">True</property>
+                        <property name="tooltip_text" translatable="yes">Export current project to an audio file</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                        <property name="accel_group">mainwindow_menubar_accelgroup</property>
+                        <signal name="activate" handler="on_export_activate"/>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkSeparatorMenuItem" id="separator2">
+                        <property name="visible">True</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkImageMenuItem" id="quit2">
+                        <property name="label">gtk-quit</property>
+                        <property name="visible">True</property>
+                        <property name="tooltip_text" translatable="yes">Quit Jokosher</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                        <property name="accel_group">mainwindow_menubar_accelgroup</property>
+                        <signal name="activate" handler="on_MainWindow_destroy"/>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkMenuItem" id="editmenu">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">_Edit</property>
+                <property name="use_underline">True</property>
+                <signal name="activate" handler="on_editmenu_activate"/>
+                <child type="submenu">
+                  <object class="GtkMenu" id="editmenu_menu">
+                    <child>
+                      <object class="GtkImageMenuItem" id="undo">
+                        <property name="label">Undo</property>
+                        <property name="visible">True</property>
+                        <property name="tooltip_text" translatable="yes">Undo the last edit</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                        <property name="accel_group">mainwindow_menubar_accelgroup</property>
+                        <accelerator key="Z" signal="activate" modifiers="GDK_CONTROL_MASK"/>
+                        <signal name="activate" handler="on_undo_activate"/>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkImageMenuItem" id="redo">
+                        <property name="label">Redo</property>
+                        <property name="visible">True</property>
+                        <property name="tooltip_text" translatable="yes">Redo the previous edit</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                        <property name="accel_group">mainwindow_menubar_accelgroup</property>
+                        <accelerator key="Z" signal="activate" modifiers="GDK_SHIFT_MASK | GDK_CONTROL_MASK"/>
+                        <signal name="activate" handler="on_redo_activate"/>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkSeparatorMenuItem" id="separator3">
+                        <property name="visible">True</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkImageMenuItem" id="cut">
+                        <property name="label">gtk-cut</property>
+                        <property name="visible">True</property>
+                        <property name="tooltip_text" translatable="yes">Cut the current selection</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                        <property name="accel_group">mainwindow_menubar_accelgroup</property>
+                        <signal name="activate" handler="on_cut_activate"/>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkImageMenuItem" id="copy">
+                        <property name="label">gtk-copy</property>
+                        <property name="visible">True</property>
+                        <property name="tooltip_text" translatable="yes">Copy the current selection</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                        <property name="accel_group">mainwindow_menubar_accelgroup</property>
+                        <signal name="activate" handler="on_copy_activate"/>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkImageMenuItem" id="paste">
+                        <property name="label">gtk-paste</property>
+                        <property name="visible">True</property>
+                        <property name="tooltip_text" translatable="yes">Paste the contents of the clipboard</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                        <property name="accel_group">mainwindow_menubar_accelgroup</property>
+                        <signal name="activate" handler="on_paste_activate"/>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkImageMenuItem" id="delete">
+                        <property name="label">gtk-delete</property>
+                        <property name="visible">True</property>
+                        <property name="tooltip_text" translatable="yes">Delete the current selection</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                        <property name="accel_group">mainwindow_menubar_accelgroup</property>
+                        <signal name="activate" handler="on_delete_activate"/>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkSeparatorMenuItem" id="separator1">
+                        <property name="visible">True</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkImageMenuItem" id="preferences">
+                        <property name="label">gtk-preferences</property>
+                        <property name="visible">True</property>
+                        <property name="tooltip_text" translatable="yes">Edit Jokosher preferences</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                        <property name="accel_group">mainwindow_menubar_accelgroup</property>
+                        <signal name="activate" handler="on_preferences_activate"/>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkMenuItem" id="instrumentmenu">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">_Instrument</property>
+                <property name="use_underline">True</property>
+                <signal name="activate" handler="on_instrumentmenu_activate"/>
+                <child type="submenu">
+                  <object class="GtkMenu" id="instrumentmenu_menu">
+                    <child>
+                      <object class="GtkImageMenuItem" id="add_audio_file_instrument_menu">
+                        <property name="label">Add Audio _File...</property>
+                        <property name="visible">True</property>
+                        <property name="tooltip_text" translatable="yes">Add an audio file to the selected instrument</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                        <property name="accel_group">mainwindow_menubar_accelgroup</property>
+                        <signal name="activate" handler="on_instrMenu_add_audio"/>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkMenuItem" id="change_instrument_type">
+                        <property name="visible">True</property>
+                        <property name="tooltip_text" translatable="yes">Change type of the selected instrument</property>
+                        <property name="label" translatable="yes">_Change Instrument Type...</property>
+                        <property name="use_underline">True</property>
+                        <signal name="activate" handler="on_change_instr_type_activate"/>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkImageMenuItem" id="remove_selected_instrument">
+                        <property name="label">_Remove Selected Instrument</property>
+                        <property name="visible">True</property>
+                        <property name="tooltip_text" translatable="yes">Remove the selected instrument</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                        <property name="accel_group">mainwindow_menubar_accelgroup</property>
+                        <signal name="activate" handler="on_remove_instr_activate"/>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkMenuItem" id="extensionsmenu">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">Ex_tensions</property>
+                <property name="use_underline">True</property>
+                <child type="submenu">
+                  <object class="GtkMenu" id="extensionsmenu_menu">
+                    <child>
+                      <object class="GtkSeparatorMenuItem" id="separator4">
+                        <property name="visible">True</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkMenuItem" id="manage_extensions1">
+                        <property name="visible">True</property>
+                        <property name="tooltip_text" translatable="yes">Open the extension manager</property>
+                        <property name="label" translatable="yes">_Manage Extensions...</property>
+                        <property name="use_underline">True</property>
+                        <signal name="activate" handler="on_ExtensionManager_activate"/>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkMenuItem" id="helpmenu">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">_Help</property>
+                <property name="use_underline">True</property>
+                <child type="submenu">
+                  <object class="GtkMenu" id="helpmenu_menu">
+                    <child>
+                      <object class="GtkImageMenuItem" id="help_contents">
+                        <property name="label">gtk-help</property>
+                        <property name="visible">True</property>
+                        <property name="tooltip_text" translatable="yes">User manual contents</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                        <property name="accel_group">mainwindow_menubar_accelgroup</property>
+                        <signal name="activate" handler="on_help_contents_activate"/>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkMenuItem" id="report_bug">
+                        <property name="visible">True</property>
+                        <property name="tooltip_text" translatable="yes">Report a bug in Jokosher</property>
+                        <property name="label" translatable="yes">_Report Bug...</property>
+                        <property name="use_underline">True</property>
+                        <signal name="activate" handler="on_report_bug_activate"/>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkImageMenuItem" id="online_forums">
+                        <property name="label">_Online Forums</property>
+                        <property name="visible">True</property>
+                        <property name="tooltip_text" translatable="yes">Visit Jokosher's online forums</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                        <property name="accel_group">mainwindow_menubar_accelgroup</property>
+                        <signal name="activate" handler="on_forums_activate"/>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkImageMenuItem" id="contributing_to_jokosher1">
+                        <property name="label">_Contributing to Jokosher</property>
+                        <property name="visible">True</property>
+                        <property name="tooltip_text" translatable="yes">Find out how you can help</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                        <property name="accel_group">mainwindow_menubar_accelgroup</property>
+                        <signal name="activate" handler="on_contributing_activate"/>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkImageMenuItem" id="system_information">
+                        <property name="label">_System Information</property>
+                        <property name="visible">True</property>
+                        <property name="tooltip_text" translatable="yes">See your system information</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                        <property name="accel_group">mainwindow_menubar_accelgroup</property>
+                        <signal name="activate" handler="on_system_information_activate"/>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkImageMenuItem" id="About">
+                        <property name="label">gtk-about</property>
+                        <property name="visible">True</property>
+                        <property name="tooltip_text" translatable="yes">Version information, credits and licence</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                        <property name="accel_group">mainwindow_menubar_accelgroup</property>
+                        <signal name="activate" handler="on_About_activate"/>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkToolbar" id="MainToolbar">
+            <property name="visible">True</property>
+            <child>
+              <object class="GtkToolButton" id="AddInstrument">
+                <property name="visible">True</property>
+                <property name="tooltip_text" translatable="yes">Add an instrument to the project</property>
+                <property name="is_important">True</property>
+                <property name="label" translatable="yes">Add Instrument</property>
+                <property name="use_underline">True</property>
+                <property name="stock_id">gtk-add</property>
+                <signal name="clicked" handler="on_AddInstrument_clicked"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToolButton" id="addAudioFileButton">
+                <property name="visible">True</property>
+                <property name="tooltip_text" translatable="yes">Add an audio file to the project</property>
+                <property name="is_important">True</property>
+                <property name="label" translatable="yes">Add Audio File</property>
+                <property name="use_underline">True</property>
+                <signal name="clicked" handler="on_project_add_audio"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSeparatorToolItem" id="separatortoolitem1">
+                <property name="visible">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToolButton" id="Rewind">
+                <property name="visible">True</property>
+                <property name="tooltip_text" translatable="yes">Click and hold to rewind</property>
+                <property name="stock_id">gtk-media-rewind</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToolButton" id="Play">
+                <property name="visible">True</property>
+                <property name="tooltip_text" translatable="yes">Start playback</property>
+                <property name="stock_id">gtk-media-play</property>
+                <signal name="clicked" handler="on_Play_clicked"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToolButton" id="Stop">
+                <property name="visible">True</property>
+                <property name="tooltip_text" translatable="yes">Stop playback</property>
+                <property name="stock_id">gtk-media-stop</property>
+                <signal name="clicked" handler="on_Stop_clicked"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToolButton" id="Forward">
+                <property name="visible">True</property>
+                <property name="tooltip_text" translatable="yes">Click and hold to fast forward</property>
+                <property name="stock_id">gtk-media-forward</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToggleToolButton" id="Record">
+                <property name="visible">True</property>
+                <property name="tooltip_text" translatable="yes">Arm an instrument then click here to begin recording</property>
+                <property name="stock_id">gtk-media-record</property>
+                <signal name="toggled" handler="on_Record_toggled"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSeparatorToolItem" id="separatortoolitem2">
+                <property name="visible">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToggleToolButton" id="CompactMix">
+                <property name="visible">True</property>
+                <property name="is_important">True</property>
+                <property name="label" translatable="yes">Audio Mixers</property>
+                <property name="use_underline">True</property>
+                <signal name="toggled" handler="on_CompactMix_toggled"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSeparatorToolItem" id="separatortoolitem3">
+                <property name="visible">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEventBox" id="WelcomePane">
+            <property name="visible">True</property>
+            <child>
+              <object class="GtkAlignment" id="WelcomeAlignment">
+                <property name="visible">True</property>
+                <property name="yalign">0</property>
+                <property name="xscale">0</property>
+                <property name="yscale">0</property>
+                <property name="top_padding">12</property>
+                <property name="bottom_padding">12</property>
+                <property name="left_padding">12</property>
+                <property name="right_padding">12</property>
+                <child>
+                  <object class="GtkFrame" id="frame19">
+                    <property name="width_request">330</property>
+                    <property name="height_request">300</property>
+                    <property name="visible">True</property>
+                    <property name="label_xalign">0</property>
+                    <property name="shadow_type">in</property>
+                    <child>
+                      <object class="GtkVBox" id="vbox49">
+                        <property name="visible">True</property>
+                        <property name="border_width">12</property>
+                        <property name="spacing">6</property>
+                        <child>
+                          <object class="GtkHButtonBox" id="hbuttonbox15">
+                            <property name="visible">True</property>
+                            <child>
+                              <object class="GtkButton" id="button14">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="receives_default">False</property>
+                                <property name="tooltip_text" translatable="yes">Start Jokosher with an empty project</property>
+                                <signal name="clicked" handler="on_new_activate"/>
+                                <child>
+                                  <object class="GtkAlignment" id="alignment43">
+                                    <property name="visible">True</property>
+                                    <property name="xscale">0</property>
+                                    <property name="yscale">0</property>
+                                    <child>
+                                      <object class="GtkHBox" id="hbox61">
+                                        <property name="visible">True</property>
+                                        <property name="spacing">2</property>
+                                        <child>
+                                          <object class="GtkImage" id="image3690">
+                                            <property name="visible">True</property>
+                                            <property name="stock">gtk-new</property>
+                                          </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">False</property>
+                                            <property name="position">0</property>
+                                          </packing>
+                                        </child>
+                                        <child>
+                                          <object class="GtkLabel" id="label153">
+                                            <property name="visible">True</property>
+                                            <property name="label" translatable="yes">_New</property>
+                                            <property name="use_underline">True</property>
+                                          </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">False</property>
+                                            <property name="position">1</property>
+                                          </packing>
+                                        </child>
+                                      </object>
+                                    </child>
+                                  </object>
+                                </child>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">False</property>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkButton" id="button18">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="receives_default">False</property>
+                                <property name="tooltip_text" translatable="yes">Find and open an existing project</property>
+                                <signal name="clicked" handler="on_import_activate"/>
+                                <child>
+                                  <object class="GtkAlignment" id="alignment45">
+                                    <property name="visible">True</property>
+                                    <property name="xscale">0</property>
+                                    <property name="yscale">0</property>
+                                    <child>
+                                      <object class="GtkHBox" id="hbox65">
+                                        <property name="visible">True</property>
+                                        <property name="spacing">2</property>
+                                        <child>
+                                          <object class="GtkImage" id="image3692">
+                                            <property name="visible">True</property>
+                                            <property name="stock">gtk-open</property>
+                                          </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">False</property>
+                                            <property name="position">0</property>
+                                          </packing>
+                                        </child>
+                                        <child>
+                                          <object class="GtkLabel" id="label155">
+                                            <property name="visible">True</property>
+                                            <property name="label" translatable="yes">_Import</property>
+                                            <property name="use_underline">True</property>
+                                          </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">False</property>
+                                            <property name="position">1</property>
+                                          </packing>
+                                        </child>
+                                      </object>
+                                    </child>
+                                  </object>
+                                </child>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">False</property>
+                                <property name="position">1</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">False</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkHSeparator" id="hseparator3"/>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">False</property>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkVBox" id="vbox1">
+                            <property name="visible">True</property>
+                            <property name="spacing">6</property>
+                            <child>
+                              <object class="GtkScrolledWindow" id="scrolledwindow14">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="hscrollbar_policy">never</property>
+                                <property name="vscrollbar_policy">automatic</property>
+                                <property name="shadow_type">in</property>
+                                <child>
+                                  <object class="GtkTreeView" id="recent_projects_tree">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">True</property>
+                                    <property name="tooltip_text" translatable="yes">Double-click on a recent project to open</property>
+                                    <property name="headers_visible">False</property>
+                                    <property name="enable_search">False</property>
+                                  </object>
+                                </child>
+                              </object>
+                              <packing>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkButton" id="recent_projects_button">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="has_focus">True</property>
+                                <property name="can_default">True</property>
+                                <property name="has_default">True</property>
+                                <property name="receives_default">False</property>
+                                <property name="tooltip_text" translatable="yes">Select a project to open from the list</property>
+                                <signal name="clicked" handler="on_openrecentbutton_clicked"/>
+                                <child>
+                                  <object class="GtkAlignment" id="alignment42">
+                                    <property name="visible">True</property>
+                                    <property name="xscale">0</property>
+                                    <property name="yscale">0</property>
+                                    <child>
+                                      <object class="GtkHBox" id="hbox60">
+                                        <property name="visible">True</property>
+                                        <property name="spacing">2</property>
+                                        <child>
+                                          <object class="GtkImage" id="image3689">
+                                            <property name="visible">True</property>
+                                            <property name="stock">gtk-open</property>
+                                          </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">False</property>
+                                            <property name="position">0</property>
+                                          </packing>
+                                        </child>
+                                        <child>
+                                          <object class="GtkLabel" id="label152">
+                                            <property name="visible">True</property>
+                                            <property name="label" translatable="yes">_Open Selected Project</property>
+                                            <property name="use_underline">True</property>
+                                          </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">False</property>
+                                            <property name="position">1</property>
+                                          </packing>
+                                        </child>
+                                      </object>
+                                    </child>
+                                  </object>
+                                </child>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">False</property>
+                                <property name="position">1</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="position">2</property>
+                          </packing>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="position">2</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkAccelGroup" id="mainwindow_menubar_accelgroup"/>
+</interface>

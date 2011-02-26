@@ -7,11 +7,10 @@
 #
 #-------------------------------------------------------------------------------
 
-import gtk.glade, pango
+import gtk, pango
 import Globals, Extension
 import gettext
 import os
-import gettext
 _ = gettext.gettext
 
 class ExtensionManagerDialog:
@@ -28,7 +27,7 @@ class ExtensionManagerDialog:
 		"""
 		self.parent = parent
 		
-		self.wTree = gtk.glade.XML(Globals.GLADE_PATH, "ExtensionManagerDialog")
+		self.gtk_builder = Globals.LoadGtkBuilderFilename("ExtensionManagerDialog.ui")
 		
 		signals = {
 			"on_Close_clicked" : self.OnClose,
@@ -37,13 +36,13 @@ class ExtensionManagerDialog:
 			"on_Treeview_selected": self.OnSelect,
 			"on_Preferences_clicked": self.OnPreferences
 		}
-		self.wTree.signal_autoconnect(signals)
+		self.gtk_builder.connect_signals(signals)
 		
-		self.dlg = self.wTree.get_widget("ExtensionManagerDialog")
-		self.tree = self.wTree.get_widget("treeviewExtensions")
-		self.eb = self.wTree.get_widget("descriptionEventBox")
-		self.description = self.wTree.get_widget("ExtensionDescription")
-		self.prefs_button = self.wTree.get_widget("buttonPreferences")
+		self.dlg = self.gtk_builder.get_object("ExtensionManagerDialog")
+		self.tree = self.gtk_builder.get_object("treeviewExtensions")
+		self.eb = self.gtk_builder.get_object("descriptionEventBox")
+		self.description = self.gtk_builder.get_object("ExtensionDescription")
+		self.prefs_button = self.gtk_builder.get_object("buttonPreferences")
 		
 		self.AddColumn("Enabled", 0, 'toggle')
 		self.AddColumn("Name", 1, 'text', 30)

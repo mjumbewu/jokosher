@@ -9,7 +9,7 @@
 #
 #-------------------------------------------------------------------------------
 
-import gtk, gtk.glade
+import gtk
 import gobject
 import gettext
 import os
@@ -273,20 +273,19 @@ class TimeLineBar(gtk.HBox):
 		""" 
 		if event.type == gtk.gdk.BUTTON_PRESS:
 			if not self.sigDialog:
-				self.sigDialogTree = gtk.glade.XML(Globals.GLADE_PATH, "TimeSignatureDialog")
+				self.gtk_builder = Globals.LoadGtkBuilderFilename("TimeSignatureDialog.ui")
 		
 				signals = {
 					"on_spinBeats_value_changed" : self.OnNomValueChange,
 					"on_comboValue_changed" : self.OnDenomValueChange,
 					"on_buttonClose_clicked" : self.OnSigDialogClose
 				}
-				
-				self.sigDialogTree.signal_autoconnect(signals)
+				self.gtk_builder.connect_signals(signals)
 
 				# references to GUI widgets
-				self.sigDialog = self.sigDialogTree.get_widget("TimeSignatureDialog")
-				self.spinBeats = self.sigDialogTree.get_widget("spinBeats")
-				self.comboValue = self.sigDialogTree.get_widget("comboValue")
+				self.sigDialog = self.gtk_builder.get_object("TimeSignatureDialog")
+				self.spinBeats = self.gtk_builder.get_object("spinBeats")
+				self.comboValue = self.gtk_builder.get_object("comboValue")
 				
 				# set some properties for the widgets
 				self.sigDialog.set_icon(self.mainview.icon)

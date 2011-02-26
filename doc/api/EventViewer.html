@@ -1,5 +1,5 @@
 
-<!doctype html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html><head><title>Python: module EventViewer</title>
 </head><body bgcolor="#ffffff">
 
@@ -8,7 +8,7 @@
 <td valign=bottom>&nbsp;<br>
 <font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>EventViewer</strong></big></big></font></td
 ><td align=right valign=bottom
-><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/david/Projects/Jokosher/trunk/Jokosher/EventViewer.py">/home/david/Projects/Jokosher/trunk/Jokosher/EventViewer.py</a></font></td></tr></table>
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/laszlo/Dev/joko-gtk-builder/Jokosher/EventViewer.py">/home/laszlo/Dev/joko-gtk-builder/Jokosher/EventViewer.py</a></font></td></tr></table>
     <p><tt>#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THIS&nbsp;FILE&nbsp;IS&nbsp;PART&nbsp;OF&nbsp;THE&nbsp;JOKOSHER&nbsp;PROJECT&nbsp;AND&nbsp;LICENSED&nbsp;UNDER&nbsp;THE&nbsp;GPL.&nbsp;SEE<br>
 #&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THE&nbsp;'COPYING'&nbsp;FILE&nbsp;FOR&nbsp;DETAILS<br>
 #<br>
@@ -24,16 +24,17 @@
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#4e9a06">
 <td colspan=3 valign=bottom>&nbsp;<br>
-<font color="#fffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
     
 <tr><td bgcolor="#4e9a06"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
 <td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="Globals.html">Globals</a><br>
-<a href="Project.html">Project</a><br>
-</td><td width="25%" valign=top><a href="Utils.html">Utils</a><br>
-<a href="cairo.html">cairo</a><br>
-</td><td width="25%" valign=top><a href="gettext.html">gettext</a><br>
-<a href="gtk.html">gtk</a><br>
+<a href="Utils.html">Utils</a><br>
+</td><td width="25%" valign=top><a href="cairo.html">cairo</a><br>
+<a href="gettext.html">gettext</a><br>
+</td><td width="25%" valign=top><a href="gtk.html">gtk</a><br>
+<a href="itertools.html">itertools</a><br>
 </td><td width="25%" valign=top><a href="os.html">os</a><br>
+<a href="sys.html">sys</a><br>
 </td></tr></table></td></tr></table><p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#3465a4">
@@ -42,7 +43,7 @@
     
 <tr><td bgcolor="#3465a4"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
 <td width="100%"><dl>
-<dt><font face="helvetica, arial">gobject.DrawingArea(gobject.Widget)
+<dt><font face="helvetica, arial"><a href="gtk.html#DrawingArea">gtk.DrawingArea</a>(<a href="gtk.html#Widget">gtk.Widget</a>)
 </font></dt><dd>
 <dl>
 <dt><font face="helvetica, arial"><a href="EventViewer.html#EventViewer">EventViewer</a>
@@ -53,7 +54,7 @@
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#729fcf">
 <td colspan=3 valign=bottom>&nbsp;<br>
-<font color="#000000" face="helvetica, arial"><a name="EventViewer">class <strong>EventViewer</strong></a>(gobject.DrawingArea)</font></td></tr>
+<font color="#000000" face="helvetica, arial"><a name="EventViewer">class <strong>EventViewer</strong></a>(<a href="gtk.html#DrawingArea">gtk.DrawingArea</a>)</font></td></tr>
     
 <tr bgcolor="#729fcf"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
 <td colspan=2><tt>The&nbsp;<a href="#EventViewer">EventViewer</a>&nbsp;class&nbsp;handles&nbsp;displaying&nbsp;a&nbsp;single&nbsp;event&nbsp;as&nbsp;part<br>
@@ -61,16 +62,22 @@ of&nbsp;an&nbsp;EventLaneViewer&nbsp;object.<br>&nbsp;</tt></td></tr>
 <tr><td>&nbsp;</td>
 <td width="100%"><dl><dt>Method resolution order:</dt>
 <dd><a href="EventViewer.html#EventViewer">EventViewer</a></dd>
-<dd>gobject.DrawingArea</dd>
-<dd>gobject.Widget</dd>
-<dd>gobject.Object</dd>
-<dd><a href="gobject.html#GObject">gobject.GObject</a></dd>
+<dd><a href="gtk.html#DrawingArea">gtk.DrawingArea</a></dd>
+<dd><a href="gtk.html#Widget">gtk.Widget</a></dd>
+<dd><a href="gtk.html#Object">gtk.Object</a></dd>
+<dd><a href="gobject._gobject.html#GObject">gobject._gobject.GObject</a></dd>
 <dd><a href="atk.html#ImplementorIface">atk.ImplementorIface</a></dd>
+<dd><a href="gtk.html#Buildable">gtk.Buildable</a></dd>
 <dd><a href="gobject.html#GInterface">gobject.GInterface</a></dd>
 <dd><a href="__builtin__.html#object">__builtin__.object</a></dd>
 </dl>
 <hr>
 Methods defined here:<br>
+<dl><dt><a name="EventViewer-ChangeSize"><strong>ChangeSize</strong></a>(self, small)</dt><dd><tt>Changes&nbsp;size&nbsp;of&nbsp;event&nbsp;viewer.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;small&nbsp;--&nbsp;True&nbsp;if&nbsp;the&nbsp;event&nbsp;viewer&nbsp;is&nbsp;to&nbsp;change&nbsp;to&nbsp;small</tt></dd></dl>
+
 <dl><dt><a name="EventViewer-ContextMenu"><strong>ContextMenu</strong></a>(self, mouse)</dt><dd><tt>Creates&nbsp;a&nbsp;context&nbsp;menu&nbsp;in&nbsp;response&nbsp;to&nbsp;a&nbsp;right&nbsp;click.<br>
 &nbsp;<br>
 Parameters:<br>
@@ -83,7 +90,7 @@ Parameters:<br>
 
 <dl><dt><a name="EventViewer-Destroy"><strong>Destroy</strong></a>(self)</dt><dd><tt>Called&nbsp;when&nbsp;the&nbsp;<a href="#EventViewer">EventViewer</a>&nbsp;gets&nbsp;destroyed.<br>
 It&nbsp;also&nbsp;destroys&nbsp;any&nbsp;child&nbsp;widget&nbsp;and&nbsp;disconnects&nbsp;itself&nbsp;from&nbsp;any<br>
-listening&nbsp;objects&nbsp;via&nbsp;Monitored.</tt></dd></dl>
+gobject&nbsp;signals.</tt></dd></dl>
 
 <dl><dt><a name="EventViewer-DrawWaveform"><strong>DrawWaveform</strong></a>(self, exposeArea)</dt><dd><tt>Uses&nbsp;Cairo&nbsp;to&nbsp;draw&nbsp;the&nbsp;waveform&nbsp;level&nbsp;information&nbsp;onto&nbsp;a&nbsp;canvas&nbsp;in&nbsp;memory.<br>
 &nbsp;<br>
@@ -95,6 +102,8 @@ pixels&nbsp;instead&nbsp;of&nbsp;seconds&nbsp;like&nbsp;Event.selection.<br>
 &nbsp;<br>
 Returns:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;list&nbsp;with&nbsp;two&nbsp;X&nbsp;points&nbsp;describing&nbsp;the&nbsp;selection.</tt></dd></dl>
+
+<dl><dt><a name="EventViewer-HideDrawer"><strong>HideDrawer</strong></a>(self)</dt><dd><tt>Hide&nbsp;the&nbsp;drawer.</tt></dd></dl>
 
 <dl><dt><a name="EventViewer-OnCopy"><strong>OnCopy</strong></a>(self, gtkevent)</dt><dd><tt>Copies&nbsp;the&nbsp;selected&nbsp;portion&nbsp;of&nbsp;the&nbsp;Event&nbsp;to&nbsp;the&nbsp;clipboard.<br>
 &nbsp;<br>
@@ -120,6 +129,57 @@ event&nbsp;--&nbsp;GTK&nbsp;event&nbsp;associated&nbsp;to&nbsp;the&nbsp;widget.<
 &nbsp;<br>
 Returns:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;False&nbsp;--&nbsp;stop&nbsp;propagating&nbsp;the&nbsp;GTK&nbsp;signal.&nbsp;*CHECK*</tt></dd></dl>
+
+<dl><dt><a name="EventViewer-OnEventCorrupt"><strong>OnEventCorrupt</strong></a>(self, event, error)</dt><dd><tt>Callback&nbsp;function&nbsp;for&nbsp;when&nbsp;the&nbsp;event's&nbsp;file&nbsp;is&nbsp;found&nbsp;to&nbsp;be&nbsp;corrupt.</tt></dd></dl>
+
+<dl><dt><a name="EventViewer-OnEventLength"><strong>OnEventLength</strong></a>(self, event)</dt><dd><tt>Callback&nbsp;function&nbsp;for&nbsp;when&nbsp;the&nbsp;length&nbsp;of&nbsp;the&nbsp;event&nbsp;changes.</tt></dd></dl>
+
+<dl><dt><a name="EventViewer-OnEventLoading"><strong>OnEventLoading</strong></a>(self, event)</dt><dd><tt>Callback&nbsp;function&nbsp;for&nbsp;when&nbsp;the&nbsp;loading&nbsp;status&nbsp;of&nbsp;the&nbsp;event&nbsp;changes.</tt></dd></dl>
+
+<dl><dt><a name="EventViewer-OnEventPosition"><strong>OnEventPosition</strong></a>(self, event)</dt><dd><tt>Callback&nbsp;function&nbsp;for&nbsp;when&nbsp;the&nbsp;position&nbsp;of&nbsp;the&nbsp;event&nbsp;changes.</tt></dd></dl>
+
+<dl><dt><a name="EventViewer-OnEventSelected"><strong>OnEventSelected</strong></a>(self, event)</dt><dd><tt>Callback&nbsp;function&nbsp;for&nbsp;when&nbsp;the&nbsp;event&nbsp;is&nbsp;selected&nbsp;or&nbsp;de-selected.</tt></dd></dl>
+
+<dl><dt><a name="EventViewer-OnEventWaveform"><strong>OnEventWaveform</strong></a>(self, event)</dt><dd><tt>Callback&nbsp;function&nbsp;for&nbsp;when&nbsp;the&nbsp;waveform&nbsp;of&nbsp;the&nbsp;event&nbsp;changes.</tt></dd></dl>
+
+<dl><dt><a name="EventViewer-OnFocus"><strong>OnFocus</strong></a>(self, widget, event)</dt><dd><tt>Select&nbsp;the&nbsp;event&nbsp;when&nbsp;focused&nbsp;via&nbsp;a&nbsp;non-mouse&nbsp;based&nbsp;method.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;event&nbsp;--&nbsp;GTK&nbsp;focus&nbsp;event&nbsp;that&nbsp;fired&nbsp;this&nbsp;method&nbsp;call.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;True&nbsp;--&nbsp;continue&nbsp;GTK&nbsp;signal&nbsp;propagation&nbsp;after&nbsp;processing&nbsp;event.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;False&nbsp;--&nbsp;pass&nbsp;this&nbsp;event&nbsp;on&nbsp;to&nbsp;other&nbsp;handlers&nbsp;because&nbsp;we&nbsp;don't&nbsp;want&nbsp;it.</tt></dd></dl>
+
+<dl><dt><a name="EventViewer-OnFocusLost"><strong>OnFocusLost</strong></a>(self, widget, event)</dt><dd><tt>Deselect&nbsp;the&nbsp;event&nbsp;when&nbsp;focus&nbsp;is&nbsp;lost.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;event&nbsp;--&nbsp;GTK&nbsp;focus&nbsp;event&nbsp;that&nbsp;fired&nbsp;this&nbsp;method&nbsp;call.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;True&nbsp;--&nbsp;continue&nbsp;GTK&nbsp;signal&nbsp;propagation&nbsp;after&nbsp;processing&nbsp;the&nbsp;event.</tt></dd></dl>
+
+<dl><dt><a name="EventViewer-OnKeyPress"><strong>OnKeyPress</strong></a>(self, widget, event)</dt><dd><tt>Handle&nbsp;manipulation&nbsp;of&nbsp;events&nbsp;via&nbsp;the&nbsp;keyboard.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;event&nbsp;--&nbsp;GTK&nbsp;keyboard&nbsp;event&nbsp;that&nbsp;fired&nbsp;this&nbsp;method&nbsp;call.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;True&nbsp;--&nbsp;continue&nbsp;GTK&nbsp;signal&nbsp;propagation&nbsp;after&nbsp;processing&nbsp;the&nbsp;event.&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;False&nbsp;--&nbsp;pass&nbsp;this&nbsp;event&nbsp;on&nbsp;to&nbsp;other&nbsp;handlers&nbsp;because&nbsp;we&nbsp;don't&nbsp;want&nbsp;it.</tt></dd></dl>
+
+<dl><dt><a name="EventViewer-OnKeyRelease"><strong>OnKeyRelease</strong></a>(self, widget, event)</dt><dd><tt>Handle&nbsp;releasing&nbsp;of&nbsp;ALT&nbsp;key&nbsp;to&nbsp;stop&nbsp;drawing&nbsp;selection.<br>
+&nbsp;<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;event&nbsp;--&nbsp;GTK&nbsp;keyboard&nbsp;event&nbsp;that&nbsp;fired&nbsp;this&nbsp;method&nbsp;call.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;True&nbsp;--&nbsp;continue&nbsp;GTK&nbsp;signal&nbsp;propagation&nbsp;after&nbsp;processing&nbsp;the&nbsp;event.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;False&nbsp;--&nbsp;pass&nbsp;this&nbsp;event&nbsp;on&nbsp;to&nbsp;other&nbsp;handlers&nbsp;because&nbsp;we&nbsp;don't&nbsp;want&nbsp;it.</tt></dd></dl>
 
 <dl><dt><a name="EventViewer-OnMenuDone"><strong>OnMenuDone</strong></a>(self, widget)</dt><dd><tt>Hides&nbsp;the&nbsp;right-click&nbsp;context&nbsp;menu&nbsp;after&nbsp;the&nbsp;user&nbsp;has&nbsp;selected&nbsp;one<br>
 of&nbsp;its&nbsp;options&nbsp;or&nbsp;clicked&nbsp;elsewhere.<br>
@@ -161,7 +221,7 @@ Parameters:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mouse&nbsp;--&nbsp;GTK&nbsp;mouse&nbsp;event&nbsp;that&nbsp;fired&nbsp;this&nbsp;method&nbsp;call.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
 Returns:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;True&nbsp;--&nbsp;continue&nbsp;GTK&nbsp;signal&nbsp;propagation.&nbsp;*CHECK*</tt></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;True&nbsp;--&nbsp;stop&nbsp;GTK&nbsp;signal&nbsp;propagation.</tt></dd></dl>
 
 <dl><dt><a name="EventViewer-OnMouseUp"><strong>OnMouseUp</strong></a>(self, widget, mouse)</dt><dd><tt>Called&nbsp;when&nbsp;the&nbsp;left&nbsp;mouse&nbsp;button&nbsp;is&nbsp;released.<br>
 Finishes&nbsp;drag,&nbsp;fade&nbsp;and&nbsp;selection&nbsp;operations.<br>
@@ -170,19 +230,16 @@ Parameters:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mouse&nbsp;--&nbsp;GTK&nbsp;mouse&nbsp;event&nbsp;that&nbsp;fired&nbsp;this&nbsp;method&nbsp;call.</tt></dd></dl>
 
-<dl><dt><a name="EventViewer-OnSplit"><strong>OnSplit</strong></a>(self, gtkevent)</dt><dd><tt>Splits&nbsp;an&nbsp;Event&nbsp;in&nbsp;two.<br>
+<dl><dt><a name="EventViewer-OnProjectZoom"><strong>OnProjectZoom</strong></a>(self, project)</dt><dd><tt>Callback&nbsp;for&nbsp;when&nbsp;the&nbsp;zoom&nbsp;level&nbsp;of&nbsp;the&nbsp;project&nbsp;changes.<br>
 &nbsp;<br>
 Parameters:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gtkevent&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.</tt></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;project&nbsp;--&nbsp;The&nbsp;project&nbsp;instance&nbsp;that&nbsp;send&nbsp;the&nbsp;signal.</tt></dd></dl>
 
-<dl><dt><a name="EventViewer-OnStateChanged"><strong>OnStateChanged</strong></a>(self, obj, change<font color="#909090">=None</font>, *extra)</dt><dd><tt>Called&nbsp;when&nbsp;a&nbsp;change&nbsp;of&nbsp;state&nbsp;is&nbsp;signalled&nbsp;by&nbsp;any&nbsp;of&nbsp;the<br>
-objects&nbsp;this&nbsp;view&nbsp;is&nbsp;'listening'&nbsp;to.<br>
-Redraws&nbsp;the&nbsp;Event&nbsp;if&nbsp;any&nbsp;of&nbsp;its&nbsp;audio&nbsp;has&nbsp;been&nbsp;modified.<br>
+<dl><dt><a name="EventViewer-OnSplit"><strong>OnSplit</strong></a>(self, gtkevent, pos)</dt><dd><tt>Splits&nbsp;an&nbsp;Event&nbsp;in&nbsp;two.<br>
 &nbsp;<br>
 Parameters:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;obj&nbsp;--&nbsp;object&nbsp;changing&nbsp;state.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;change&nbsp;--&nbsp;the&nbsp;change&nbsp;which&nbsp;has&nbsp;occured.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;extra&nbsp;--&nbsp;extra&nbsp;parameters&nbsp;passed&nbsp;by&nbsp;the&nbsp;caller.</tt></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gtkevent&nbsp;--&nbsp;reserved&nbsp;for&nbsp;GTK&nbsp;callbacks,&nbsp;don't&nbsp;use&nbsp;it&nbsp;explicitly.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;position&nbsp;--&nbsp;The&nbsp;position&nbsp;in&nbsp;the&nbsp;event&nbsp;to&nbsp;split</tt></dd></dl>
 
 <dl><dt><a name="EventViewer-PixXFromSec"><strong>PixXFromSec</strong></a>(self, sec)</dt><dd><tt>Converts&nbsp;seconds&nbsp;to&nbsp;an&nbsp;X&nbsp;pixel&nbsp;position&nbsp;in&nbsp;the&nbsp;waveform.<br>
 &nbsp;<br>
@@ -208,7 +265,11 @@ Parameters:<br>
 Returns:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;correspondent&nbsp;value&nbsp;in&nbsp;seconds.</tt></dd></dl>
 
+<dl><dt><a name="EventViewer-SetAccessibleName"><strong>SetAccessibleName</strong></a>(self)</dt><dd><tt>Set&nbsp;an&nbsp;ATK&nbsp;name&nbsp;to&nbsp;help&nbsp;users&nbsp;with&nbsp;screenreaders.</tt></dd></dl>
+
 <dl><dt><a name="EventViewer-SetAudioFadePointsFromCurrentSelection"><strong>SetAudioFadePointsFromCurrentSelection</strong></a>(self)</dt><dd><tt>Creates&nbsp;fade&nbsp;points&nbsp;for&nbsp;the&nbsp;current&nbsp;selection.</tt></dd></dl>
+
+<dl><dt><a name="EventViewer-ShowDrawer"><strong>ShowDrawer</strong></a>(self)</dt><dd><tt>Cause&nbsp;the&nbsp;draw&nbsp;to&nbsp;be&nbsp;shown&nbsp;at&nbsp;the&nbsp;current&nbsp;event&nbsp;selection&nbsp;position.</tt></dd></dl>
 
 <dl><dt><a name="EventViewer-SnapSelectionToFadePoints"><strong>SnapSelectionToFadePoints</strong></a>(self, event)</dt><dd><tt>Snaps&nbsp;the&nbsp;selection&nbsp;to&nbsp;a&nbsp;set&nbsp;of&nbsp;fade&nbsp;points.<br>
 &nbsp;<br>
@@ -256,16 +317,16 @@ Parameters:<br>
 
 <hr>
 Data and other attributes defined here:<br>
-<dl><dt><strong>__gtype__</strong> = &lt;GType EventViewer (137957448)&gt;</dl>
+<dl><dt><strong>__gtype__</strong> = &lt;GType EventViewer (34872064)&gt;</dl>
 
 <dl><dt><strong>__gtype_name__</strong> = 'EventViewer'</dl>
 
 <hr>
-Methods inherited from gobject.DrawingArea:<br>
+Methods inherited from <a href="gtk.html#DrawingArea">gtk.DrawingArea</a>:<br>
 <dl><dt><a name="EventViewer-size"><strong>size</strong></a>(...)</dt></dl>
 
 <hr>
-Methods inherited from gobject.Widget:<br>
+Methods inherited from <a href="gtk.html#Widget">gtk.Widget</a>:<br>
 <dl><dt><a name="EventViewer-activate"><strong>activate</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventViewer-add_accelerator"><strong>add_accelerator</strong></a>(...)</dt></dl>
@@ -346,6 +407,8 @@ Methods inherited from gobject.Widget:<br>
 
 <dl><dt><a name="EventViewer-ensure_style"><strong>ensure_style</strong></a>(...)</dt></dl>
 
+<dl><dt><a name="EventViewer-error_bell"><strong>error_bell</strong></a>(...)</dt></dl>
+
 <dl><dt><a name="EventViewer-event"><strong>event</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventViewer-freeze_child_notify"><strong>freeze_child_notify</strong></a>(...)</dt></dl>
@@ -357,6 +420,12 @@ Methods inherited from gobject.Widget:<br>
 <dl><dt><a name="EventViewer-get_allocation"><strong>get_allocation</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventViewer-get_ancestor"><strong>get_ancestor</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventViewer-get_app_paintable"><strong>get_app_paintable</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventViewer-get_can_default"><strong>get_can_default</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventViewer-get_can_focus"><strong>get_can_focus</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventViewer-get_child_requisition"><strong>get_child_requisition</strong></a>(...)</dt></dl>
 
@@ -372,9 +441,17 @@ Methods inherited from gobject.Widget:<br>
 
 <dl><dt><a name="EventViewer-get_display"><strong>get_display</strong></a>(...)</dt></dl>
 
+<dl><dt><a name="EventViewer-get_double_buffered"><strong>get_double_buffered</strong></a>(...)</dt></dl>
+
 <dl><dt><a name="EventViewer-get_events"><strong>get_events</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventViewer-get_extension_events"><strong>get_extension_events</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventViewer-get_has_tooltip"><strong>get_has_tooltip</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventViewer-get_has_window"><strong>get_has_window</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventViewer-get_mapped"><strong>get_mapped</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventViewer-get_modifier_style"><strong>get_modifier_style</strong></a>(...)</dt></dl>
 
@@ -390,19 +467,41 @@ Methods inherited from gobject.Widget:<br>
 
 <dl><dt><a name="EventViewer-get_pointer"><strong>get_pointer</strong></a>(...)</dt></dl>
 
+<dl><dt><a name="EventViewer-get_realized"><strong>get_realized</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventViewer-get_receives_default"><strong>get_receives_default</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventViewer-get_requisition"><strong>get_requisition</strong></a>(...)</dt></dl>
+
 <dl><dt><a name="EventViewer-get_root_window"><strong>get_root_window</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventViewer-get_screen"><strong>get_screen</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventViewer-get_sensitive"><strong>get_sensitive</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventViewer-get_settings"><strong>get_settings</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventViewer-get_size_request"><strong>get_size_request</strong></a>(...)</dt></dl>
 
+<dl><dt><a name="EventViewer-get_snapshot"><strong>get_snapshot</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventViewer-get_state"><strong>get_state</strong></a>(...)</dt></dl>
+
 <dl><dt><a name="EventViewer-get_style"><strong>get_style</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventViewer-get_tooltip_markup"><strong>get_tooltip_markup</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventViewer-get_tooltip_text"><strong>get_tooltip_text</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventViewer-get_tooltip_window"><strong>get_tooltip_window</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventViewer-get_toplevel"><strong>get_toplevel</strong></a>(...)</dt></dl>
 
+<dl><dt><a name="EventViewer-get_visible"><strong>get_visible</strong></a>(...)</dt></dl>
+
 <dl><dt><a name="EventViewer-get_visual"><strong>get_visual</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventViewer-get_window"><strong>get_window</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventViewer-grab_add"><strong>grab_add</strong></a>(...)</dt></dl>
 
@@ -411,6 +510,14 @@ Methods inherited from gobject.Widget:<br>
 <dl><dt><a name="EventViewer-grab_focus"><strong>grab_focus</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventViewer-grab_remove"><strong>grab_remove</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventViewer-has_default"><strong>has_default</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventViewer-has_focus"><strong>has_focus</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventViewer-has_grab"><strong>has_grab</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventViewer-has_rc_style"><strong>has_rc_style</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventViewer-has_screen"><strong>has_screen</strong></a>(...)</dt></dl>
 
@@ -428,7 +535,17 @@ Methods inherited from gobject.Widget:<br>
 
 <dl><dt><a name="EventViewer-is_composited"><strong>is_composited</strong></a>(...)</dt></dl>
 
+<dl><dt><a name="EventViewer-is_drawable"><strong>is_drawable</strong></a>(...)</dt></dl>
+
 <dl><dt><a name="EventViewer-is_focus"><strong>is_focus</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventViewer-is_sensitive"><strong>is_sensitive</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventViewer-is_toplevel"><strong>is_toplevel</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventViewer-keynav_failed"><strong>keynav_failed</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventViewer-list_accel_closures"><strong>list_accel_closures</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventViewer-list_mnemonic_labels"><strong>list_mnemonic_labels</strong></a>(...)</dt></dl>
 
@@ -441,6 +558,8 @@ Methods inherited from gobject.Widget:<br>
 <dl><dt><a name="EventViewer-modify_base"><strong>modify_base</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventViewer-modify_bg"><strong>modify_bg</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventViewer-modify_cursor"><strong>modify_cursor</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventViewer-modify_fg"><strong>modify_fg</strong></a>(...)</dt></dl>
 
@@ -496,9 +615,17 @@ Methods inherited from gobject.Widget:<br>
 
 <dl><dt><a name="EventViewer-send_expose"><strong>send_expose</strong></a>(...)</dt></dl>
 
+<dl><dt><a name="EventViewer-send_focus_change"><strong>send_focus_change</strong></a>(...)</dt></dl>
+
 <dl><dt><a name="EventViewer-set_accel_path"><strong>set_accel_path</strong></a>(...)</dt></dl>
 
+<dl><dt><a name="EventViewer-set_allocation"><strong>set_allocation</strong></a>(...)</dt></dl>
+
 <dl><dt><a name="EventViewer-set_app_paintable"><strong>set_app_paintable</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventViewer-set_can_default"><strong>set_can_default</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventViewer-set_can_focus"><strong>set_can_focus</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventViewer-set_child_visible"><strong>set_child_visible</strong></a>(...)</dt></dl>
 
@@ -514,6 +641,12 @@ Methods inherited from gobject.Widget:<br>
 
 <dl><dt><a name="EventViewer-set_extension_events"><strong>set_extension_events</strong></a>(...)</dt></dl>
 
+<dl><dt><a name="EventViewer-set_has_tooltip"><strong>set_has_tooltip</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventViewer-set_has_window"><strong>set_has_window</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventViewer-set_mapped"><strong>set_mapped</strong></a>(...)</dt></dl>
+
 <dl><dt><a name="EventViewer-set_name"><strong>set_name</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventViewer-set_no_show_all"><strong>set_no_show_all</strong></a>(...)</dt></dl>
@@ -521,6 +654,10 @@ Methods inherited from gobject.Widget:<br>
 <dl><dt><a name="EventViewer-set_parent"><strong>set_parent</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventViewer-set_parent_window"><strong>set_parent_window</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventViewer-set_realized"><strong>set_realized</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventViewer-set_receives_default"><strong>set_receives_default</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventViewer-set_redraw_on_allocate"><strong>set_redraw_on_allocate</strong></a>(...)</dt></dl>
 
@@ -534,9 +671,19 @@ Methods inherited from gobject.Widget:<br>
 
 <dl><dt><a name="EventViewer-set_style"><strong>set_style</strong></a>(...)</dt></dl>
 
+<dl><dt><a name="EventViewer-set_tooltip_markup"><strong>set_tooltip_markup</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventViewer-set_tooltip_text"><strong>set_tooltip_text</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventViewer-set_tooltip_window"><strong>set_tooltip_window</strong></a>(...)</dt></dl>
+
 <dl><dt><a name="EventViewer-set_uposition"><strong>set_uposition</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventViewer-set_usize"><strong>set_usize</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventViewer-set_visible"><strong>set_visible</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventViewer-set_window"><strong>set_window</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventViewer-shape_combine_mask"><strong>shape_combine_mask</strong></a>(...)</dt></dl>
 
@@ -550,11 +697,15 @@ Methods inherited from gobject.Widget:<br>
 
 <dl><dt><a name="EventViewer-size_request"><strong>size_request</strong></a>(...)</dt></dl>
 
+<dl><dt><a name="EventViewer-style_attach"><strong>style_attach</strong></a>(...)</dt></dl>
+
 <dl><dt><a name="EventViewer-style_get_property"><strong>style_get_property</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventViewer-thaw_child_notify"><strong>thaw_child_notify</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventViewer-translate_coordinates"><strong>translate_coordinates</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventViewer-trigger_tooltip_query"><strong>trigger_tooltip_query</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventViewer-unmap"><strong>unmap</strong></a>(...)</dt></dl>
 
@@ -563,9 +714,25 @@ Methods inherited from gobject.Widget:<br>
 <dl><dt><a name="EventViewer-unrealize"><strong>unrealize</strong></a>(...)</dt></dl>
 
 <hr>
-Data and other attributes inherited from gobject.Widget:<br>
-<dl><dt><strong>allocation</strong> = &lt;attribute 'allocation' of 'gtk.Widget' objects&gt;</dl>
-
+Data descriptors inherited from <a href="gtk.html#Widget">gtk.Widget</a>:<br>
+<dl><dt><strong>allocation</strong></dt>
+</dl>
+<dl><dt><strong>name</strong></dt>
+</dl>
+<dl><dt><strong>parent</strong></dt>
+</dl>
+<dl><dt><strong>requisition</strong></dt>
+</dl>
+<dl><dt><strong>saved_state</strong></dt>
+</dl>
+<dl><dt><strong>state</strong></dt>
+</dl>
+<dl><dt><strong>style</strong></dt>
+</dl>
+<dl><dt><strong>window</strong></dt>
+</dl>
+<hr>
+Data and other attributes inherited from <a href="gtk.html#Widget">gtk.Widget</a>:<br>
 <dl><dt><strong>do_button_press_event</strong> = &lt;built-in method do_button_press_event of GObjectMeta object&gt;</dl>
 
 <dl><dt><strong>do_button_release_event</strong> = &lt;built-in method do_button_release_event of GObjectMeta object&gt;</dl>
@@ -692,24 +859,12 @@ Data and other attributes inherited from gobject.Widget:<br>
 
 <dl><dt><strong>get_activate_signal</strong> = &lt;built-in method get_activate_signal of GObjectMeta object&gt;</dl>
 
-<dl><dt><strong>name</strong> = &lt;attribute 'name' of 'gtk.Widget' objects&gt;</dl>
-
-<dl><dt><strong>parent</strong> = &lt;attribute 'parent' of 'gtk.Widget' objects&gt;</dl>
-
-<dl><dt><strong>saved_state</strong> = &lt;attribute 'saved_state' of 'gtk.Widget' objects&gt;</dl>
-
 <dl><dt><strong>set_activate_signal</strong> = &lt;built-in method set_activate_signal of GObjectMeta object&gt;</dl>
 
 <dl><dt><strong>set_set_scroll_adjustments_signal</strong> = &lt;built-in method set_set_scroll_adjustments_signal of GObjectMeta object&gt;</dl>
 
-<dl><dt><strong>state</strong> = &lt;attribute 'state' of 'gtk.Widget' objects&gt;</dl>
-
-<dl><dt><strong>style</strong> = &lt;attribute 'style' of 'gtk.Widget' objects&gt;</dl>
-
-<dl><dt><strong>window</strong> = &lt;attribute 'window' of 'gtk.Widget' objects&gt;</dl>
-
 <hr>
-Methods inherited from gobject.Object:<br>
+Methods inherited from <a href="gtk.html#Object">gtk.Object</a>:<br>
 <dl><dt><a name="EventViewer-flags"><strong>flags</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventViewer-remove_data"><strong>remove_data</strong></a>(...)</dt></dl>
@@ -721,18 +876,26 @@ Methods inherited from gobject.Object:<br>
 <dl><dt><a name="EventViewer-unset_flags"><strong>unset_flags</strong></a>(...)</dt></dl>
 
 <hr>
-Data and other attributes inherited from gobject.Object:<br>
+Data and other attributes inherited from <a href="gtk.html#Object">gtk.Object</a>:<br>
 <dl><dt><strong>do_destroy</strong> = &lt;built-in method do_destroy of GObjectMeta object&gt;</dl>
 
 <hr>
-Methods inherited from <a href="gobject.html#GObject">gobject.GObject</a>:<br>
+Methods inherited from <a href="gobject._gobject.html#GObject">gobject._gobject.GObject</a>:<br>
 <dl><dt><a name="EventViewer-__cmp__"><strong>__cmp__</strong></a>(...)</dt><dd><tt>x.<a href="#EventViewer-__cmp__">__cmp__</a>(y)&nbsp;&lt;==&gt;&nbsp;cmp(x,y)</tt></dd></dl>
+
+<dl><dt><a name="EventViewer-__copy__"><strong>__copy__</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventViewer-__deepcopy__"><strong>__deepcopy__</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventViewer-__delattr__"><strong>__delattr__</strong></a>(...)</dt><dd><tt>x.<a href="#EventViewer-__delattr__">__delattr__</a>('name')&nbsp;&lt;==&gt;&nbsp;del&nbsp;x.name</tt></dd></dl>
 
 <dl><dt><a name="EventViewer-__gobject_init__"><strong>__gobject_init__</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventViewer-__hash__"><strong>__hash__</strong></a>(...)</dt><dd><tt>x.<a href="#EventViewer-__hash__">__hash__</a>()&nbsp;&lt;==&gt;&nbsp;hash(x)</tt></dd></dl>
 
 <dl><dt><a name="EventViewer-__repr__"><strong>__repr__</strong></a>(...)</dt><dd><tt>x.<a href="#EventViewer-__repr__">__repr__</a>()&nbsp;&lt;==&gt;&nbsp;repr(x)</tt></dd></dl>
+
+<dl><dt><a name="EventViewer-__setattr__"><strong>__setattr__</strong></a>(...)</dt><dd><tt>x.<a href="#EventViewer-__setattr__">__setattr__</a>('name',&nbsp;value)&nbsp;&lt;==&gt;&nbsp;x.name&nbsp;=&nbsp;value</tt></dd></dl>
 
 <dl><dt><a name="EventViewer-chain"><strong>chain</strong></a>(...)</dt></dl>
 
@@ -756,6 +919,8 @@ Methods inherited from <a href="gobject.html#GObject">gobject.GObject</a>:<br>
 
 <dl><dt><a name="EventViewer-get_data"><strong>get_data</strong></a>(...)</dt></dl>
 
+<dl><dt><a name="EventViewer-get_properties"><strong>get_properties</strong></a>(...)</dt></dl>
+
 <dl><dt><a name="EventViewer-get_property"><strong>get_property</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventViewer-handler_block"><strong>handler_block</strong></a>(...)</dt></dl>
@@ -774,19 +939,25 @@ Methods inherited from <a href="gobject.html#GObject">gobject.GObject</a>:<br>
 
 <dl><dt><a name="EventViewer-set_data"><strong>set_data</strong></a>(...)</dt></dl>
 
+<dl><dt><a name="EventViewer-set_properties"><strong>set_properties</strong></a>(...)</dt></dl>
+
 <dl><dt><a name="EventViewer-set_property"><strong>set_property</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventViewer-stop_emission"><strong>stop_emission</strong></a>(...)</dt></dl>
 
 <dl><dt><a name="EventViewer-thaw_notify"><strong>thaw_notify</strong></a>(...)</dt></dl>
 
+<dl><dt><a name="EventViewer-weak_ref"><strong>weak_ref</strong></a>(...)</dt></dl>
+
 <hr>
-Data and other attributes inherited from <a href="gobject.html#GObject">gobject.GObject</a>:<br>
-<dl><dt><strong>__dict__</strong> = &lt;dictproxy object&gt;</dl>
-
+Data descriptors inherited from <a href="gobject._gobject.html#GObject">gobject._gobject.GObject</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+</dl>
+<dl><dt><strong>__grefcount__</strong></dt>
+</dl>
+<hr>
+Data and other attributes inherited from <a href="gobject._gobject.html#GObject">gobject._gobject.GObject</a>:<br>
 <dl><dt><strong>__gdoc__</strong> = 'Object EventViewer<font color="#c040c0">\n\n\n\t</font>The EventViewer class hand...ointer<font color="#c040c0">\n\n</font>Signals from GObject:<font color="#c040c0">\n</font>  notify (GParam)<font color="#c040c0">\n\n</font>'</dl>
-
-<dl><dt><strong>__grefcount__</strong> = &lt;attribute '__grefcount__' of 'gobject.GObject' objects&gt;</dl>
 
 <dl><dt><strong>__new__</strong> = &lt;built-in method __new__ of GObjectMeta object&gt;<dd><tt>T.<a href="#EventViewer-__new__">__new__</a>(S,&nbsp;...)&nbsp;-&gt;&nbsp;a&nbsp;new&nbsp;object&nbsp;with&nbsp;type&nbsp;S,&nbsp;a&nbsp;subtype&nbsp;of&nbsp;T</tt></dl>
 
@@ -795,6 +966,28 @@ Data and other attributes inherited from <a href="gobject.html#GObject">gobject.
 <hr>
 Methods inherited from <a href="atk.html#ImplementorIface">atk.ImplementorIface</a>:<br>
 <dl><dt><a name="EventViewer-ref_accessible"><strong>ref_accessible</strong></a>(...)</dt></dl>
+
+<hr>
+Methods inherited from <a href="gtk.html#Buildable">gtk.Buildable</a>:<br>
+<dl><dt><a name="EventViewer-add_child"><strong>add_child</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventViewer-construct_child"><strong>construct_child</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventViewer-get_internal_child"><strong>get_internal_child</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="EventViewer-parser_finished"><strong>parser_finished</strong></a>(...)</dt></dl>
+
+<hr>
+Data and other attributes inherited from <a href="gtk.html#Buildable">gtk.Buildable</a>:<br>
+<dl><dt><strong>do_add_child</strong> = &lt;built-in method do_add_child of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_construct_child</strong> = &lt;built-in method do_construct_child of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_get_internal_child</strong> = &lt;built-in method do_get_internal_child of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_parser_finished</strong> = &lt;built-in method do_parser_finished of GObjectMeta object&gt;</dl>
+
+<dl><dt><strong>do_set_name</strong> = &lt;built-in method do_set_name of GObjectMeta object&gt;</dl>
 
 </td></tr></table></td></tr></table>
 </body></html>

@@ -10,7 +10,7 @@
 
 import pygtk
 pygtk.require("2.0")
-import gtk.glade, gobject
+import gobject, gtk
 import sys
 import os.path
 import pygst
@@ -67,10 +67,7 @@ class MainApp:
 		self.mixingViewEnabledTip = _("Hide the audio level mixers")
 		self.mixingViewDisabledTip = _("Show the audio level mixers")
 		
-		gtk.glade.bindtextdomain(Globals.LOCALE_APP, Globals.LOCALE_PATH)
-		gtk.glade.textdomain(Globals.LOCALE_APP)
-
-		self.wTree = gtk.glade.XML(Globals.GLADE_PATH, "MainWindow")
+		self.gtk_builder = Globals.LoadGtkBuilderFilename("MainWindow.ui")
 		
 		#Connect event handlers
 		signals = {
@@ -115,45 +112,45 @@ class MainApp:
 			"on_properties_activate" : self.OnProjectProperties,
 			"on_openrecentbutton_clicked" : self.OnOpenRecentProjectButton,
 		}
-		self.wTree.signal_autoconnect(signals)
+		self.gtk_builder.connect_signals(signals)
 		
 		# grab some references to bits of the GUI
-		self.window = self.wTree.get_widget("MainWindow")
-		self.play = self.wTree.get_widget("Play")
-		self.stop = self.wTree.get_widget("Stop")
-		self.record = self.wTree.get_widget("Record")
-		self.save = self.wTree.get_widget("save")
-		self.close = self.wTree.get_widget("close")
-		self.reverse = self.wTree.get_widget("Rewind")
-		self.forward = self.wTree.get_widget("Forward")
-		self.addInstrumentButton = self.wTree.get_widget("AddInstrument")
-		self.compactMixButton = self.wTree.get_widget("CompactMix")
-		self.editmenu = self.wTree.get_widget("editmenu")
-		self.filemenu = self.wTree.get_widget("filemenu")
-		self.undo = self.wTree.get_widget("undo")
-		self.redo = self.wTree.get_widget("redo")
-		self.cut = self.wTree.get_widget("cut")
-		self.copy = self.wTree.get_widget("copy")
-		self.paste = self.wTree.get_widget("paste")
-		self.delete = self.wTree.get_widget("delete")
-		self.instrumentMenu = self.wTree.get_widget("instrumentmenu")
-		self.export = self.wTree.get_widget("export")
-		self.recentprojects = self.wTree.get_widget("recentprojects")
-		self.recentprojectsmenu = self.wTree.get_widget("recentprojects_menu")
-		self.menubar = self.wTree.get_widget("menubar")
-		self.toolbar = self.wTree.get_widget("MainToolbar")
-		self.addAudioMenuItem = self.wTree.get_widget("add_audio_file_instrument_menu")
-		self.changeInstrMenuItem = self.wTree.get_widget("change_instrument_type")
-		self.removeInstrMenuItem = self.wTree.get_widget("remove_selected_instrument")
-		self.addAudioFileButton = self.wTree.get_widget("addAudioFileButton")
-		self.addAudioFileMenuItem = self.wTree.get_widget("add_audio_file_project_menu")
-		self.addInstrumentFileMenuItem = self.wTree.get_widget("add_instrument1")
-		self.recordingInputsFileMenuItem = self.wTree.get_widget("instrument_connections1")
-		self.timeFormatFileMenuItem = self.wTree.get_widget("time_format1")
-		self.properties_menu_item = self.wTree.get_widget("project_properties")
-		self.welcome_pane = self.wTree.get_widget("WelcomePane")
-		self.recent_projects_tree = self.wTree.get_widget("recent_projects_tree")
-		self.recent_projects_button = self.wTree.get_widget("recent_projects_button")
+		self.window = self.gtk_builder.get_object("MainWindow")
+		self.play = self.gtk_builder.get_object("Play")
+		self.stop = self.gtk_builder.get_object("Stop")
+		self.record = self.gtk_builder.get_object("Record")
+		self.save = self.gtk_builder.get_object("save")
+		self.close = self.gtk_builder.get_object("close")
+		self.reverse = self.gtk_builder.get_object("Rewind")
+		self.forward = self.gtk_builder.get_object("Forward")
+		self.addInstrumentButton = self.gtk_builder.get_object("AddInstrument")
+		self.compactMixButton = self.gtk_builder.get_object("CompactMix")
+		self.editmenu = self.gtk_builder.get_object("editmenu")
+		self.filemenu = self.gtk_builder.get_object("filemenu")
+		self.undo = self.gtk_builder.get_object("undo")
+		self.redo = self.gtk_builder.get_object("redo")
+		self.cut = self.gtk_builder.get_object("cut")
+		self.copy = self.gtk_builder.get_object("copy")
+		self.paste = self.gtk_builder.get_object("paste")
+		self.delete = self.gtk_builder.get_object("delete")
+		self.instrumentMenu = self.gtk_builder.get_object("instrumentmenu")
+		self.export = self.gtk_builder.get_object("export")
+		self.recentprojects = self.gtk_builder.get_object("recentprojects")
+		self.recentprojectsmenu = self.gtk_builder.get_object("recentprojects_menu")
+		self.menubar = self.gtk_builder.get_object("menubar")
+		self.toolbar = self.gtk_builder.get_object("MainToolbar")
+		self.addAudioMenuItem = self.gtk_builder.get_object("add_audio_file_instrument_menu")
+		self.changeInstrMenuItem = self.gtk_builder.get_object("change_instrument_type")
+		self.removeInstrMenuItem = self.gtk_builder.get_object("remove_selected_instrument")
+		self.addAudioFileButton = self.gtk_builder.get_object("addAudioFileButton")
+		self.addAudioFileMenuItem = self.gtk_builder.get_object("add_audio_file_project_menu")
+		self.addInstrumentFileMenuItem = self.gtk_builder.get_object("add_instrument1")
+		self.recordingInputsFileMenuItem = self.gtk_builder.get_object("instrument_connections1")
+		self.timeFormatFileMenuItem = self.gtk_builder.get_object("time_format1")
+		self.properties_menu_item = self.gtk_builder.get_object("project_properties")
+		self.welcome_pane = self.gtk_builder.get_object("WelcomePane")
+		self.recent_projects_tree = self.gtk_builder.get_object("recent_projects_tree")
+		self.recent_projects_button = self.gtk_builder.get_object("recent_projects_button")
 		
 		self.project_database_list = ProjectListDatabase.ProjectItemList()
 		
@@ -163,7 +160,7 @@ class MainApp:
 		self.tvtoolitem = None #wrapper for putting timeview in toolbar
 		self.workspace = None
 		self.instrNameEntry = None #the gtk.Entry when editing an instrument name
-		self.main_vbox = self.wTree.get_widget("main_vbox")
+		self.main_vbox = self.gtk_builder.get_object("main_vbox")
 		
 		self.statusbar = StatusBar.StatusBar()
 		self.main_vbox.pack_end(self.statusbar, False)
@@ -193,6 +190,9 @@ class MainApp:
 		innerbtn = self.forward.get_children()[0]
 		innerbtn.connect("pressed", self.OnForwardPressed)
 		innerbtn.connect("released", self.OnForwardReleased)
+		
+		jokosher_logo_path = os.path.join(Globals.IMAGE_PATH, "jokosher-logo.png")
+		self.jokosher_logo_pixbuf = gtk.gdk.pixbuf_new_from_file(jokosher_logo_path)
 		
 		miximg = gtk.Image()
 		miximg.set_from_file(os.path.join(Globals.IMAGE_PATH, "icon_mix.png"))	
@@ -418,10 +418,11 @@ class MainApp:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		gtk.about_dialog_set_url_hook(self.AboutLinkActivate)
-		aboutTree = gtk.glade.XML(Globals.GLADE_PATH, "AboutDialog")
-		dlg = aboutTree.get_widget("AboutDialog")
+		gtk_builder = Globals.LoadGtkBuilderFilename("AboutDialog.ui")
+		dlg = gtk_builder.get_object("AboutDialog")
 		dlg.set_transient_for(self.window)
 		dlg.set_icon(self.icon)
+		dlg.set_logo(self.jokosher_logo_pixbuf)
 		dlg.run()
 		dlg.destroy()
 		
@@ -1003,17 +1004,17 @@ class MainApp:
 		Parameters:
 			project -- The project instance that send the signal.
 		"""
-		export = gtk.glade.XML (Globals.GLADE_PATH, "ProgressDialog")
-		export.signal_connect("on_cancel_clicked", self.OnExportCancel)
+		gtk_builder = Globals.LoadGtkBuilderFilename("ProgressDialog.ui")
+		gtk_builder.connect_signals({"on_cancel_clicked": self.OnExportCancel})
 		
-		self.exportdlg = export.get_widget("ProgressDialog")
+		self.exportdlg = gtk_builder.get_object("ProgressDialog")
 		self.exportdlg.set_icon(self.icon)
 		self.exportdlg.set_transient_for(self.window)
 		
-		label = export.get_widget("progressLabel")
+		label = gtk_builder.get_object("progressLabel")
 		label.set_text(_("Mixing project to file: %s") % self.project.exportFilename)
 		
-		self.exportprogress = export.get_widget("progressBar")
+		self.exportprogress = gtk_builder.get_object("progressBar")
 		
 		gobject.timeout_add(100, self.UpdateExportDialog)
 		
@@ -1071,8 +1072,8 @@ class MainApp:
 		if self.settingButtons:
 			return
 		self.settingButtons = True
-		modeBars = self.wTree.get_widget("show_as_bars_beats_ticks")
-		modeHours = self.wTree.get_widget("show_as_hours_minutes_seconds")
+		modeBars = self.gtk_builder.get_object("show_as_bars_beats_ticks")
+		modeHours = self.gtk_builder.get_object("show_as_hours_minutes_seconds")
 		transport = self.project.transport
 		
 		modeBars.set_active(transport.mode == transport.MODE_BARS_BEATS)
@@ -1720,19 +1721,19 @@ class MainApp:
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-		self.contribTree = gtk.glade.XML(Globals.GLADE_PATH, "ContributingDialog")
+		gtk_builder = Globals.LoadGtkBuilderFilename("ContributingDialog.ui")
 		
 		# grab references to the ContributingDialog window and vbox
-		self.contribdialog = self.contribTree.get_widget("ContributingDialog")
-		self.contribvbox = self.contribTree.get_widget("vbox14")
+		self.contribdialog = gtk_builder.get_object("ContributingDialog")
+		self.contribvbox = gtk_builder.get_object("vbox14")
 		self.contribdialog.set_icon(self.icon)
 
 		# centre the ContributingDialog window on MainWindow
 		self.contribdialog.set_transient_for(self.window)
 
 		# set the contributing image
-		self.topimage = self.contribTree.get_widget("topimage")
-		self.topimage.set_from_file(os.path.join(Globals.IMAGE_PATH, "jokosher-logo.png"))
+		self.topimage = gtk_builder.get_object("topimage")
+		self.topimage.set_from_pixbuf(self.jokosher_logo_pixbuf)
 
 		# create the bottom vbox containing the contributing website link
 		vbox = gtk.VBox()			
@@ -1794,14 +1795,14 @@ class MainApp:
 		Parameters:
 			widget -- Gtk callback parameter.
 		"""
-		self.sysInfoTree = gtk.glade.XML(Globals.GLADE_PATH, "SystemInformationDialog")
+		gtk_builder = Globals.LoadGtkBuilderFilename("SystemInformationDialog.ui")
 		
 		# grab references to the SystemInformationDialog window and vbox
-		self.sysInfoDialog = self.sysInfoTree.get_widget("SystemInformationDialog")
-		self.gstVersionStr = self.sysInfoTree.get_widget("labelGStreamerVersion")
-		self.gnonlinVersionStr = self.sysInfoTree.get_widget("labelGnonlinVersion")
-		self.distroVersionStr = self.sysInfoTree.get_widget("labelDistributionVersion")
-		sysInfoCloseButton = self.sysInfoTree.get_widget("closeButton")
+		self.sysInfoDialog = gtk_builder.get_object("SystemInformationDialog")
+		self.gstVersionStr = gtk_builder.get_object("labelGStreamerVersion")
+		self.gnonlinVersionStr = gtk_builder.get_object("labelGnonlinVersion")
+		self.distroVersionStr = gtk_builder.get_object("labelDistributionVersion")
+		sysInfoCloseButton = gtk_builder.get_object("closeButton")
 	
 		#connect the close button
 		sysInfoCloseButton.connect("clicked", lambda dialog: self.sysInfoDialog.destroy())
@@ -2045,11 +2046,11 @@ class MainApp:
 		if not self.project:
 			return
 		
-		propertiesTree = gtk.glade.XML(Globals.GLADE_PATH, "ProjectPropertiesDialog")
-		dlg = propertiesTree.get_widget("ProjectPropertiesDialog")
-		nameEntry = propertiesTree.get_widget("nameEntry")
-		authorEntry = propertiesTree.get_widget("authorEntry")
-		notesTextView = propertiesTree.get_widget("notesTextView")
+		gtk_builder = Globals.LoadGtkBuilderFilename("ProjectPropertiesDialog.ui")
+		dlg = gtk_builder.get_object("ProjectPropertiesDialog")
+		nameEntry = gtk_builder.get_object("nameEntry")
+		authorEntry = gtk_builder.get_object("authorEntry")
+		notesTextView = gtk_builder.get_object("notesTextView")
 		
 		nameEntry.set_text(self.project.name)
 		authorEntry.set_text(self.project.author)

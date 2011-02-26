@@ -3,7 +3,7 @@ Step 1)
 		* README (update version, dependencies and intro text)
 		* bin/jokosher (change the version parameter passed to the option parser)
 		* Jokosher/Jokosher (option parser version, same as above)
-		* Jokosher/Jokosher.glade (change the text in the about dialog)
+		* gtk-builder-ui/AboutDialog.ui (change the text in the about dialog)
 		* Jokosher/Project.py (at top of Project class, Globals.VERSION = ... )
 		* Jokosher/ProjectManager.py
 			Add the version to the JOKOSHER_VERSION_FUNCTIONS dictionary.

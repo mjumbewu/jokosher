@@ -374,6 +374,13 @@ def CopyAllFiles(src_dir, dest_dir, only_these_files=None):
 
 #_____________________________________________________________________
 
+def LoadGtkBuilderFilename(filename):
+	builder = gtk.Builder()
+	builder.add_from_file(os.path.join(GTK_BUILDER_PATH, filename))
+	return builder
+
+#_____________________________________________________________________
+
 """
 Used for launching the correct help file:
 	True -- Jokosher's running locally by the user. Use the help file from
@@ -397,12 +404,12 @@ data_path = os.getenv("JOKOSHER_DATA_PATH")
 if data_path:
 	INSTR_PATHS = (os.path.join(data_path, "Instruments"), os.path.join(JOKOSHER_DATA_HOME, "instruments"))
 	EXTENSION_PATHS = (os.path.join(data_path, "extensions"), os.path.join(JOKOSHER_DATA_HOME, "extensions"))
-	GLADE_PATH = os.path.join(data_path, "Jokosher.glade")
+	GTK_BUILDER_PATH = os.path.join(data_path, "gtk-builder-ui")
 else:
 	data_path = os.path.dirname(os.path.abspath(__file__))
 	INSTR_PATHS = (os.path.join(data_path, "..", "Instruments"), os.path.join(JOKOSHER_DATA_HOME, "instruments"))
 	EXTENSION_PATHS = (os.path.join(data_path, "..", "extensions"), os.path.join(JOKOSHER_DATA_HOME, "extensions"))
-	GLADE_PATH = os.path.join(data_path, "Jokosher.glade")
+	GTK_BUILDER_PATH = os.path.join(data_path, "..", "gtk-builder-ui")
 	LOCALE_PATH = os.path.join(data_path, "..", "locale")
 
 # create a couple dirs to avoid having problems creating a non-existing
