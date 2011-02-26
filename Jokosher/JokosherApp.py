@@ -26,7 +26,7 @@ import PreferencesDialog, ExtensionManagerDialog, RecordingView
 import ProjectManager, Globals
 import InstrumentConnectionsDialog
 import EffectPresets, Extension, ExtensionManager
-import Utils, AudioPreview, MixdownProfileDialog, MixdownActions
+import Utils, AudioPreview
 import PlatformUtils
 import ui.StatusBar as StatusBar
 import ProjectListDatabase
@@ -262,13 +262,6 @@ class MainApp:
 		EffectPresets.EffectPresets()
 		Globals.PopulateEncoders()
 		Globals.PopulateAudioBackends()
-		
-		# seems like this is the best place to instantiate RegisterMixdownActionAPI
-		# as extensions and the mixdown profile dialog can use it through mainapp
-		self.registerMixdownActionAPI = MixdownActions.RegisterMixdownActionAPI()
-		
-		# register the default MixdownActions
-		self.registerMixdownActionAPI.RegisterMixdownActions((MixdownActions.RunAScript, MixdownActions.ExportAsFileType))
 		
 		if loadExtensions:
 			# Load extensions -- this should probably go somewhere more appropriate
@@ -604,21 +597,7 @@ class MainApp:
 	
 	#_____________________________________________________________________
 	
-	def OnExport(self, widget=None, profile=None):
-		"""
-		Displays the Mixdown Profiles dialog, which allows the user to
-		(simply) export the project as ogg or mp3 (replacing the old
-		export dialog), or create a mixdown profile that does a set of
-		complicated things.
-		
-		Parameters:
-			widget -- reserved for GTK callbacks, don't use it explicitly.
-		"""
-		MixdownProfileDialog.MixdownProfileDialog(self, self.project, profile)
-		
-	#_____________________________________________________________________
-		
-	def OnExport_old(self, widget=None):
+	def OnExport(self, widget=None):
 		"""
 		Creates and shows a save file dialog which allows the user to export
 		the project as ogg or mp3.
@@ -627,7 +606,7 @@ class MainApp:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		buttons = (gtk.STOCK_CANCEL,gtk.RESPONSE_CANCEL,gtk.STOCK_SAVE,gtk.RESPONSE_OK)
-		chooser = gtk.FileChooserDialog(_("Mixdown Project"), self.window, gtk.FILE_CHOOSER_ACTION_SAVE, buttons)
+		chooser = gtk.FileChooserDialog(_("Export Project"), self.window, gtk.FILE_CHOOSER_ACTION_SAVE, buttons)
 		if os.path.exists(Globals.settings.general["projectfolder"]):
 			chooser.set_current_folder(Globals.settings.general["projectfolder"])
 		else:
@@ -1473,14 +1452,11 @@ class MainApp:
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-		self.PopulateMixdownAsMenu()
 		if self.isRecording:
 			self.export.set_sensitive(False)
 			self.addInstrumentFileMenuItem.set_sensitive(False)
 			self.addAudioFileMenuItem.set_sensitive(False)
 			self.recordingInputsFileMenuItem.set_sensitive(False)
-			if self.mixdown_as_header:
-				self.mixdown_as_header.set_sensitive(False)
 			return
 		
 		eventList = False
@@ -1493,8 +1469,6 @@ class MainApp:
 					eventList = True
 					break
 		self.export.set_sensitive(eventList)
-		if self.mixdown_as_header:
-			self.mixdown_as_header.set_sensitive(eventList)
 			
 	#_____________________________________________________________________
 	
@@ -1986,56 +1960,6 @@ class MainApp:
 		
 	#_____________________________________________________________________
 
-	def PopulateMixdownAsMenu(self):
-		"""
-		If there are any saved mixdown profiles, create a Mixdown As submenu in
-		the file menu and add links to them.
-		"""
-		self.mixdown_as_header = None
-		savefolder = os.path.join(Globals.JOKOSHER_DATA_HOME, 'mixdownprofiles') # created by Globals
-		profiles = os.listdir(savefolder)
-		if not profiles: return
-		
-		# remove any old mixdown profiles
-		for item in profiles:
-			if not item.endswith(".profile"):
-				path = os.path.join(Globals.MIXDOWN_PROFILES_PATH, item)
-				os.remove(path)
-				break
-		profiles = os.listdir(savefolder)
-			
-		filemenulist = self.filemenu.get_submenu()
-		# If there's already a Mixdown As submenu, delete it and recreate it
-		for i in filemenulist.get_children():
-			if i.get_children():
-				if i.get_children()[0].get_label() == _("Mix_down As"):
-					filemenulist.remove(i)
-					i.destroy()
-		
-		# Create a Mixdown As submenu header
-		self.mixdown_as_header = gtk.MenuItem(label=_("Mix_down As"))
-		submenu = gtk.Menu()
-		for p in profiles:
-			profilenames = p.split(".")[0]
-			menuitem = gtk.MenuItem(label=profilenames)
-			menuitem.connect("activate", self.OnExport, profilenames)
-			submenu.append(menuitem)
-		self.mixdown_as_header.set_submenu(submenu)
-		# insert it after Mixdown Project
-		counter = 0
-		insert_position = None
-		for i in filemenulist.get_children():
-			if i.get_children():
-				if i.get_children()[0].get_label() == _("_Mixdown Project..."):
-					insert_position = counter
-			counter += 1
-		if insert_position:
-			self.filemenu.get_submenu().insert(self.mixdown_as_header,insert_position + 1)
-			
-		self.filemenu.show_all()
-		
-	#_____________________________________________________________________
-	
 	def OnProjectProperties(self, widget=None):
 		"""
 		Called when the "Properties..." in the project menu is clicked.
