@@ -451,7 +451,9 @@ class Project(gobject.GObject):
 		"""
 		
 		if samplerate:
-			encodeBin = "audioresample ! audio/x-raw-float,rate=%d ! %s" % (samplerate, encodeBin)
+			encodeBin = "audioresample ! audio/x-raw-float,rate=%d ! audioconvert ! %s" % (samplerate, encodeBin)
+		if bitrate:
+			encodeBin %= bitrate
 			
 		#try to create encoder/muxer first, before modifying the main pipeline.
 		try:

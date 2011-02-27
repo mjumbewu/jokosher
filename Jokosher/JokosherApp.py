@@ -673,6 +673,9 @@ class MainApp:
 				samplerate = None
 			if bitRateHBox.get_property("visible"):
 				bitrate = Globals.BIT_RATES[bitRateCombo.get_active()]
+				if filetypeDict["extension"] == "ogg":
+					# vorbisenc takes bit rate in bps instead of kbps
+					bitrate *= 1024
 			else:
 				bitrate = None
 

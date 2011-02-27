@@ -329,6 +329,7 @@ def VerifyAllElements(bin_desc):
 	
 	all_elements_exist = True
 	for element in bin_desc.split("!"):
+		element = element.strip().split(" ")[0] # Disregard any options
 		exists = gst.default_registry_check_feature_version(element.strip(), 0, 10, 0)
 		if not exists:
 			all_elements_exist = False
@@ -703,8 +704,8 @@ DEBUG_STDOUT, DEBUG_GST = (False, False)
 
 _export_template = ("description", "extension", "pipeline", "setSampleRate", "setBitRate") 
 _export_formats = 	[
-					("Ogg Vorbis", "ogg", "vorbisenc ! oggmux", True, True),
-					("MP3", "mp3", "lame", True, True),
+					("Ogg Vorbis", "ogg", "vorbisenc bitrate=%d ! oggmux", True, True),
+					("MP3", "mp3", "lame bitrate=%d ", True, True),
 					("Flac", "flac", "flacenc", True, False),
 					("WAV", "wav", "wavenc", True, False),
 					]
@@ -715,7 +716,7 @@ DEFAULT_SAMPLE_RATE = 44100
 SAMPLE_RATES = [8000, 11025, 22050, 32000, 44100, 48000, 96000, 192000]
 
 DEFAULT_BIT_RATE = 128
-BIT_RATES = [32, 64, 96, 128, 160, 192, 224, 320]
+BIT_RATES = [32, 64, 96, 128, 160, 192, 224]
 
 PLAYBACK_BACKENDS = [
 	(_("Autodetect"), "autoaudiosink"),
