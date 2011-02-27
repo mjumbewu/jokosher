@@ -26,7 +26,7 @@ def startup(api):
 			encodeBin = "audioresample ! audioconvert ! " + _GCONF.get_string(_GCONF_PROFILE_PATH + name + "/pipeline")
 			
 			#last parameter is False to tell Jokosher to assume the strings are correct, and not check them.
-			error = API.add_export_format(description, extension, encodeBin, False)
+			error = API.add_export_format(description, extension, encodeBin, False, False, False)
 			if error == 0:
 				#it has been succesfully added, so keep track of what we added
 				audio_profiles_list.append((description, extension, encodeBin))

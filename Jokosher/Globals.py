@@ -701,12 +701,12 @@ LADSPA_CATEGORIES_DICT = {
 						}
 DEBUG_STDOUT, DEBUG_GST = (False, False)
 
-_export_template = ("description", "extension", "pipeline") 
+_export_template = ("description", "extension", "pipeline", "setSampleRate", "setBitRate") 
 _export_formats = 	[
-					("Ogg Vorbis", "ogg", "vorbisenc ! oggmux"),
-					("MP3", "mp3", "lame"),
-					("Flac", "flac", "flacenc"),
-					("WAV", "wav", "wavenc"),
+					("Ogg Vorbis", "ogg", "vorbisenc ! oggmux", True, True),
+					("MP3", "mp3", "lame", True, True),
+					("Flac", "flac", "flacenc", True, False),
+					("WAV", "wav", "wavenc", True, False),
 					]
 
 EXPORT_FORMATS = []

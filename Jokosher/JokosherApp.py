@@ -615,12 +615,19 @@ class MainApp:
 		chooser.set_default_response(gtk.RESPONSE_OK)
 		chooser.set_current_name(self.project.name)
 
+		sampleRateHBox = gtk.HBox()
 		sampleRateLabel = gtk.Label(_("Sample rate:"))
 		sampleRateCombo = gtk.combo_box_new_text()
+		sampleRateHBox.pack_start(sampleRateLabel, False, False, 10)
+		sampleRateHBox.pack_start(sampleRateCombo, False, False, 10)
 		bitRateLabel = gtk.Label(_("Bit rate:"))
 		bitRateCombo = gtk.combo_box_new_text()
+		bitRateHBox = gtk.HBox()
+		bitRateHBox.pack_start(bitRateLabel, False, False, 10)
+		bitRateHBox.pack_start(bitRateCombo, False, False, 10)
 		saveLabel = gtk.Label(_("Save as file type:"))		
 		typeCombo = gtk.combo_box_new_text()
+		typeCombo.connect("changed", self.OnExportFormatChanged, sampleRateHBox, bitRateHBox)
 		
 		for frmt in Globals.EXPORT_FORMATS:
 			typeCombo.append_text("%s (.%s)" % (frmt["description"], frmt["extension"]))
@@ -642,10 +649,8 @@ class MainApp:
 			i += 1
 
 		extraHBox = gtk.HBox()
-		extraHBox.pack_start(sampleRateLabel, False, False, 10)
-		extraHBox.pack_start(sampleRateCombo, False, False, 10)
-		extraHBox.pack_start(bitRateLabel, False, False, 10)
-		extraHBox.pack_start(bitRateCombo, False, False, 10)
+		extraHBox.pack_start(sampleRateHBox, False)
+		extraHBox.pack_start(bitRateHBox, False)
 		extraHBox.pack_end(typeCombo, False, False, 10)
 		extraHBox.pack_end(saveLabel, False, False, 10)
 		extraHBox.show_all()
@@ -659,16 +664,42 @@ class MainApp:
 			#If they haven't already appended the extension for the 
 			#chosen file type, add it to the end of the file.
 			filetypeDict = Globals.EXPORT_FORMATS[typeCombo.get_active()]
-			samplerate = Globals.SAMPLE_RATES[sampleRateCombo.get_active()]
-			bitrate = Globals.BIT_RATES[bitRateCombo.get_active()]
 			if not exportFilename.lower().endswith(filetypeDict["extension"]):
 				exportFilename += "." + filetypeDict["extension"]
 		
+			if sampleRateHBox.get_property("visible"):
+				samplerate = Globals.SAMPLE_RATES[sampleRateCombo.get_active()]
+			else:
+				samplerate = None
+			if bitRateHBox.get_property("visible"):
+				bitrate = Globals.BIT_RATES[bitRateCombo.get_active()]
+			else:
+				bitrate = None
+
 			chooser.destroy()
 			self.project.Export(exportFilename, filetypeDict["pipeline"], samplerate, bitrate)
 		else:
 			chooser.destroy()
 		
+	#_____________________________________________________________________
+
+	def OnExportFormatChanged(self, typeCombo, sampleRateHBox, bitRateHBox):
+		"""
+		Updates the export file chooser dialog's setting options to make sure
+		that they're appropriate for the selected format.
+		"""
+
+		format_def = Globals.EXPORT_FORMATS[typeCombo.get_active()]
+		if format_def["setSampleRate"]:
+			sampleRateHBox.show()
+		else:
+			sampleRateHBox.hide()
+
+		if format_def["setBitRate"]:
+			bitRateHBox.show()
+		else:
+			bitRateHBox.hide()
+
 	#_____________________________________________________________________
 	
 	def UpdateExportDialog(self):
