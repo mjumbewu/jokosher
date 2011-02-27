@@ -622,8 +622,8 @@ class MainApp:
 		saveLabel = gtk.Label(_("Save as file type:"))		
 		typeCombo = gtk.combo_box_new_text()
 		
-		for format in Globals.EXPORT_FORMATS:
-			typeCombo.append_text("%s (.%s)" % (format["description"], format["extension"]))
+		for frmt in Globals.EXPORT_FORMATS:
+			typeCombo.append_text("%s (.%s)" % (frmt["description"], frmt["extension"]))
 		#Make the first item the default
 		typeCombo.set_active(0)
 
