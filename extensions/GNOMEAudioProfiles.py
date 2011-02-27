@@ -8,7 +8,7 @@ import traceback
 
 EXTENSION_NAME = "GNOME Audio Profiles"
 EXTENSION_DESCRIPTION = "Imports GNOME Audio Profiles into jokosher"
-EXTENSION_VERSION = "0.0.1"
+EXTENSION_VERSION = "0.0.2"
 _GCONF_PROFILE_PATH = "/system/gstreamer/0.10/audio/profiles/"
 _GCONF_PROFILE_LIST_PATH = "/system/gstreamer/0.10/audio/global/profile_list"
 audio_profiles_list = []
@@ -23,7 +23,7 @@ def startup(api):
 		if (_GCONF.get_bool(_GCONF_PROFILE_PATH + name + "/active")):
 			description = _GCONF.get_string(_GCONF_PROFILE_PATH + name + "/name")
 			extension = _GCONF.get_string(_GCONF_PROFILE_PATH + name + "/extension")
-			encodeBin = _GCONF.get_string(_GCONF_PROFILE_PATH + name + "/pipeline")
+			encodeBin = "audioresample ! audioconvert ! " + _GCONF.get_string(_GCONF_PROFILE_PATH + name + "/pipeline")
 			
 			#last parameter is False to tell Jokosher to assume the strings are correct, and not check them.
 			error = API.add_export_format(description, extension, encodeBin, False)
