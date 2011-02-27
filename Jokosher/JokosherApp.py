@@ -615,6 +615,10 @@ class MainApp:
 		chooser.set_default_response(gtk.RESPONSE_OK)
 		chooser.set_current_name(self.project.name)
 
+		sampleRateLabel = gtk.Label(_("Sample rate:"))
+		sampleRateCombo = gtk.combo_box_new_text()
+		bitRateLabel = gtk.Label(_("Bit rate:"))
+		bitRateCombo = gtk.combo_box_new_text()
 		saveLabel = gtk.Label(_("Save as file type:"))		
 		typeCombo = gtk.combo_box_new_text()
 		
@@ -622,10 +626,28 @@ class MainApp:
 			typeCombo.append_text("%s (.%s)" % (format["description"], format["extension"]))
 		#Make the first item the default
 		typeCombo.set_active(0)
-		
+
+		i = 0
+		for samplerate in Globals.SAMPLE_RATES:
+			sampleRateCombo.append_text("%d Hz" % samplerate)
+			if samplerate == Globals.DEFAULT_SAMPLE_RATE:
+				sampleRateCombo.set_active(i)
+			i += 1
+			
+		i = 0	
+		for bitrate in Globals.BIT_RATES:
+			bitRateCombo.append_text("%d kbps" % bitrate)
+			if bitrate == Globals.DEFAULT_BIT_RATE:
+				bitRateCombo.set_active(i)
+			i += 1
+
 		extraHBox = gtk.HBox()
-		extraHBox.pack_start(saveLabel, False)
-		extraHBox.pack_end(typeCombo, False)
+		extraHBox.pack_start(sampleRateLabel, False, False, 10)
+		extraHBox.pack_start(sampleRateCombo, False, False, 10)
+		extraHBox.pack_start(bitRateLabel, False, False, 10)
+		extraHBox.pack_start(bitRateCombo, False, False, 10)
+		extraHBox.pack_end(typeCombo, False, False, 10)
+		extraHBox.pack_end(saveLabel, False, False, 10)
 		extraHBox.show_all()
 		chooser.set_extra_widget(extraHBox)
 		
