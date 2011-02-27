@@ -659,11 +659,13 @@ class MainApp:
 			#If they haven't already appended the extension for the 
 			#chosen file type, add it to the end of the file.
 			filetypeDict = Globals.EXPORT_FORMATS[typeCombo.get_active()]
+			samplerate = Globals.SAMPLE_RATES[sampleRateCombo.get_active()]
+			bitrate = Globals.BIT_RATES[bitRateCombo.get_active()]
 			if not exportFilename.lower().endswith(filetypeDict["extension"]):
 				exportFilename += "." + filetypeDict["extension"]
 		
 			chooser.destroy()
-			self.project.Export(exportFilename, filetypeDict["pipeline"])
+			self.project.Export(exportFilename, filetypeDict["pipeline"], samplerate, bitrate)
 		else:
 			chooser.destroy()
 		
