@@ -731,17 +731,16 @@ class SearchFreesoundThread(threading.Thread):
 		Parameter:
 			sample -- sample whose preview image shoud be fetched.
 		"""
-		tmpnam = os.tmpnam()
 		try:
-			imgfile = urllib.urlretrieve(sample.image, tmpnam)
+			imgfile = urllib.urlretrieve(sample.image)[0]
 		except:
 			# TODO: handle the url problems
 			return
-		
+
 		image = gtk.Image()
-		image.set_from_pixbuf(gtk.gdk.pixbuf_new_from_file_at_size(tmpnam, 50, 50))
+		image.set_from_pixbuf(gtk.gdk.pixbuf_new_from_file_at_size(imgfile, 50, 50))
 		sample.image = image
-		os.unlink(tmpnam)
+		os.unlink(imgfile)
 		
 	#_____________________________________________________________________
 
