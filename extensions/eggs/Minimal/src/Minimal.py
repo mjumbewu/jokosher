@@ -29,7 +29,7 @@ class Minimal:
 	"""
 	EXTENSION_NAME = "Minimal"
 	EXTENSION_DESCRIPTION = "Replaces the normal Jokosher window with a tiny dialog"
-	EXTENSION_VERSION = "0.9"
+	EXTENSION_VERSION = "0.11"
 	
 	#_____________________________________________________________________
 	
