@@ -4,7 +4,6 @@
 #	by playing it back and tapping the space bar in time with the beat.
 import Jokosher.Extension
 import gtk
-import gtk.glade
 import pkg_resources
 import time
 	

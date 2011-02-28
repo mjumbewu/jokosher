@@ -8,7 +8,6 @@
 
 import Jokosher.Extension
 import gtk
-import gtk.glade
 import pkg_resources
 import time
 import gobject
