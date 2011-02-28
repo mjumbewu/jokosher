@@ -130,11 +130,11 @@ class InstrumentTypeManager:
 				gtk.FILE_CHOOSER_ACTION_OPEN, (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, gtk.STOCK_OPEN, gtk.RESPONSE_OK))
 		self.filechooser.set_default_response(gtk.RESPONSE_OK)
 		
-		filter = gtk.FileFilter()
-		filter.add_pixbuf_formats()
-		filter.set_name("Images")
+		fileFilter = gtk.FileFilter()
+		fileFilter.add_pixbuf_formats()
+		fileFilter.set_name("Images")
 		
-		self.filechooser.add_filter(filter)
+		self.filechooser.add_filter(fileFilter)
 		
 		self.changes_flag = None
 	
