@@ -10,7 +10,7 @@
 import Jokosher.Extension # required in all Jokosher extensions
 import pygtk
 pygtk.require("2.0")
-import gtk, gtk.glade, gobject
+import gtk, gobject
 import pygst
 pygst.require("0.10")
 import gst
@@ -42,7 +42,7 @@ class FreesoundSearch:
 	
 	# necessary extension attributes
 	EXTENSION_NAME = _("Freesound search")
-	EXTENSION_VERSION = "0.4"
+	EXTENSION_VERSION = "0.11"
 	EXTENSION_DESCRIPTION = _("Searches the Freesound library of freely" + \
 							" licenceable and useable sound clips")
 	
@@ -101,8 +101,9 @@ class FreesoundSearch:
 			self.LoginDetails()
 			return
 		
-		xmlString = pkg_resources.resource_string(__name__, "FreesoundSearch.glade")
-		wTree = gtk.glade.xml_new_from_buffer(xmlString, len(xmlString), "FreesoundSearchWindow")
+		xmlString = pkg_resources.resource_string(__name__, "FreesoundSearch.ui")
+		gtkBuilder = gtk.Builder()
+		gtkBuilder.add_from_string(xmlString)
 		
 		signals = {
 			"on_buttonFind_clicked" : self.OnFind,
@@ -112,21 +113,21 @@ class FreesoundSearch:
 			"on_buttonDelete_clicked" : self.OnDelete,
 			"on_buttonCopy_clicked" : self.OnCopy
 		}
-		wTree.signal_autoconnect(signals)
+		gtkBuilder.connect_signals(signals)
 		
-		self.entryFind = wTree.get_widget("entryFind")
-		self.buttonFind = wTree.get_widget("buttonFind")
-		self.scrollResults = wTree.get_widget("scrolledwindowResults")
-		self.statusbar = wTree.get_widget("statusbar")
-		self.imageHeader = wTree.get_widget("imageHeader")
-		self.eventBoxHeader = wTree.get_widget("eventboxHeader")
-		self.checkDescriptions = wTree.get_widget("checkbuttonDescriptions")
-		self.checkTags = wTree.get_widget("checkbuttonTags")
-		self.checkFilenames = wTree.get_widget("checkbuttonFilenames")
-		self.checkUsernames = wTree.get_widget("checkbuttonUsernames")
-		self.spinResults = wTree.get_widget("spinbuttonResults")
-		self.window = wTree.get_widget("FreesoundSearchWindow")
-		self.treeHistory = wTree.get_widget("treeviewHistory")
+		self.entryFind = gtkBuilder.get_object("entryFind")
+		self.buttonFind = gtkBuilder.get_object("buttonFind")
+		self.scrollResults = gtkBuilder.get_object("scrolledwindowResults")
+		self.statusbar = gtkBuilder.get_object("statusbar")
+		self.imageHeader = gtkBuilder.get_object("imageHeader")
+		self.eventBoxHeader = gtkBuilder.get_object("eventboxHeader")
+		self.checkDescriptions = gtkBuilder.get_object("checkbuttonDescriptions")
+		self.checkTags = gtkBuilder.get_object("checkbuttonTags")
+		self.checkFilenames = gtkBuilder.get_object("checkbuttonFilenames")
+		self.checkUsernames = gtkBuilder.get_object("checkbuttonUsernames")
+		self.spinResults = gtkBuilder.get_object("spinbuttonResults")
+		self.window = gtkBuilder.get_object("FreesoundSearchWindow")
+		self.treeHistory = gtkBuilder.get_object("treeviewHistory")
 		self.vboxResults = gtk.VBox(spacing=6)
 		self.clipboard = gtk.Clipboard()
 		
@@ -347,20 +348,21 @@ class FreesoundSearch:
 		Parameters:
 			warning -- True if the validation failed and the user must be informed.
 		"""
-		xmlString = pkg_resources.resource_string(__name__, "FreesoundSearch.glade")
-		wTree = gtk.glade.xml_new_from_buffer(xmlString, len(xmlString), "LoginDetailsDialog")
+		xmlString = pkg_resources.resource_string(__name__, "LoginDialog.ui")
+		gtkBuilder = gtk.Builder()
+		gtkBuilder.add_from_string(xmlString)
 		
 		signals = {
 			"on_buttonOK_clicked" : self.OnAcceptDetails,
 			"on_buttonCancel_clicked" : self.OnCancelDetails
 		}
-		wTree.signal_autoconnect(signals)
+		gtkBuilder.connect_signals(signals)
 	
-		self.entryUsername = wTree.get_widget("entryUsername")
-		self.entryPassword = wTree.get_widget("entryPassword")
-		self.labelWarning = wTree.get_widget("labelWarning")
-		self.buttonOK = wTree.get_widget("buttonOK")
-		self.loginWindow = wTree.get_widget("LoginDetailsDialog")
+		self.entryUsername = gtkBuilder.get_object("entryUsername")
+		self.entryPassword = gtkBuilder.get_object("entryPassword")
+		self.labelWarning = gtkBuilder.get_object("labelWarning")
+		self.buttonOK = gtkBuilder.get_object("buttonOK")
+		self.loginWindow = gtkBuilder.get_object("LoginDetailsDialog")
 		
 		self.entryUsername.set_activates_default(True)
 		self.entryPassword.set_activates_default(True)
