@@ -225,18 +225,17 @@ class Minimal:
 		"""
 		GTK callback when the "A-B" button is clicked.
 		"""
-		tooltip = gtk.tooltips_data_get(self.abButton)[0]
 		if self.abStatus == 0:
 			self.abStatus = 1
 			self.abButton.set_label("A-")
 			self.abButton.set_active(True)
-			tooltip.set_tip(self.abButton, _("Select the end position for looped playback"))
+			self.abButton.set_tooltip_text(_("Select the end position for looped playback"))
 			self.abStart = self.API.get_position()
 		elif self.abStatus ==1:
 			self.abStatus = 2
 			self.abButton.set_label("A-B")
 			self.abButton.set_active(True)
-			tooltip.set_tip(self.abButton, _("End looped playback"))
+			self.abButton.set_tooltip_text(_("End looped playback"))
 			self.abEnd = self.API.get_position()
 			self.API.seek(self.abStart, self.abEnd)
 		else:
@@ -274,8 +273,7 @@ class Minimal:
 		self.abStatus = self.abStart = self.abEnd = 0
 		self.abButton.set_label("A-B")
 		self.abButton.set_active(False)
-		tooltip = gtk.tooltips_data_get(self.abButton)[0]
-		tooltip.set_tip(self.abButton, _("Select the start position for looped playback"))
+		self.abButton.set_tooltip_text(_("Select the start position for looped playback"))
 		
 	#____________________________________________________________________	
 
