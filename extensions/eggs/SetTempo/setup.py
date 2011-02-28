@@ -1,13 +1,13 @@
 from setuptools import setup
 import sys, os
 from shutil import copy
-version="0.1"
+version="0.11"
 setup(name="SetTempo",
 version=version,
 description="Sets tempo for current project",
 packages=["SetTempo"],
 package_dir={"SetTempo":"src"},
-package_data={"":["SetTempo.glade"]},
+package_data={"":["SetTempo.ui"]},
 entry_points="""
 [jokosher.extensions]
 extension = SetTempo:SetTempo

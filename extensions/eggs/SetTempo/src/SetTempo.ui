@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk+" version="2.16"/>
+  <!-- interface-naming-policy toplevel-contextual -->
+  <object class="GtkWindow" id="SetTempoDialog">
+    <property name="visible">True</property>
+    <property name="border_width">6</property>
+    <property name="title" translatable="yes">Set Tempo</property>
+    <property name="window_position">center-on-parent</property>
+    <property name="type_hint">dialog</property>
+    <child>
+      <object class="GtkVBox" id="vboxMain">
+        <property name="visible">True</property>
+        <property name="homogeneous">True</property>
+        <child>
+          <object class="GtkLabel" id="tempoLabel">
+            <property name="visible">True</property>
+            <property name="label" translatable="yes">0</property>
+          </object>
+          <packing>
+            <property name="padding">6</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkHBox" id="hboxButtons">
+            <property name="visible">True</property>
+            <property name="spacing">6</property>
+            <property name="homogeneous">True</property>
+            <child>
+              <object class="GtkButton" id="clearButton">
+                <property name="label" translatable="yes">Clea_r</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="tooltip_text" translatable="yes">Press to clear the current bpm value</property>
+                <property name="use_underline">True</property>
+                <property name="focus_on_click">False</property>
+                <signal name="clicked" handler="OnClearClicked"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="stopButton">
+                <property name="label" translatable="yes">St_op</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="tooltip_text" translatable="yes">Press to stop the currently playing audio</property>
+                <property name="use_underline">True</property>
+                <property name="focus_on_click">False</property>
+                <signal name="clicked" handler="OnStopClicked"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="playButton">
+                <property name="label" translatable="yes">_Play</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="tooltip_text" translatable="yes">Press to start playing the current project</property>
+                <property name="use_underline">True</property>
+                <property name="focus_on_click">False</property>
+                <signal name="clicked" handler="OnPlayClicked"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="tapButton">
+                <property name="label" translatable="yes">_Tap</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="has_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="tooltip_text" translatable="yes">Tap this button in time with the audio playing to set the tempo (bpm)</property>
+                <property name="use_underline">True</property>
+                <signal name="clicked" handler="OnTapClicked"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="position">3</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="setButton">
+                <property name="label" translatable="yes">_Set</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="tooltip_text" translatable="yes">Sets the tempo value for the current project from the bpm currently displayed</property>
+                <property name="use_underline">True</property>
+                <property name="focus_on_click">False</property>
+                <signal name="clicked" handler="OnSetClicked"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="position">4</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="cancelButton">
+                <property name="label" translatable="yes">_Cancel</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="tooltip_text" translatable="yes">Cancels this dialog</property>
+                <property name="use_underline">True</property>
+                <property name="focus_on_click">False</property>
+                <signal name="clicked" handler="OnCancelClicked"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="position">5</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="fill">False</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
