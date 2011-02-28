@@ -19,7 +19,7 @@ class ExtensionConsole:
 	
 	EXTENSION_NAME = "Extension Console"
 	EXTENSION_DESCRIPTION = "A fully functional python console with access to the extension API and the Jokosher internals"
-	EXTENSION_VERSION = "1.0"
+	EXTENSION_VERSION = "1.1"
 	
 	CONSOLE_BANNER = "Jokosher Extension Console"
 	
@@ -35,8 +35,9 @@ class ExtensionConsole:
 		self.api = api
 		self.menuItem = self.api.add_menu_item("Extension Console", self.OnMenuItemClick)
 		
-		xmlString = pkg_resources.resource_string(__name__, "ExtensionConsole.glade")
-		self.wTree = gtk.glade.xml_new_from_buffer(xmlString, len(xmlString), "ConsoleDialog")
+		xmlString = pkg_resources.resource_string(__name__, "ConsoleDialog.ui")
+		self.gtkBuilder = gtk.Builder()
+		self.gtkBuilder.add_from_string(xmlString)
 		
 		self.savedStdin = sys.stdin
 		sys.stdin = StdinWrapper()
@@ -46,7 +47,7 @@ class ExtensionConsole:
 			"OnSearch" : self.OnSearch,
 		}
 		
-		self.wTree.signal_autoconnect(self.signals)
+		self.gtkBuilder.connect_signals(self.signals)
 		
 		#the default namespace for the console
 		self.namespace = {
@@ -54,8 +55,8 @@ class ExtensionConsole:
 				"api": self.api
 		}
 		
-		self.window = self.wTree.get_widget("ConsoleDialog")
-		self.vbox = self.wTree.get_widget("ConsoleVBox")
+		self.window = self.gtkBuilder.get_object("ConsoleDialog")
+		self.vbox = self.gtkBuilder.get_object("ConsoleVBox")
 		self.search = None
 		self.swin = gtk.ScrolledWindow()
 		self.swin.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)

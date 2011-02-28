@@ -2,7 +2,7 @@ from setuptools import setup
 import sys, os
 from shutil import copy
 
-version = "0.2"
+version = "1.1"
 setup(name="ExtensionConsole",
 	  version=version,
 	  author='Laszlo Pandy',
@@ -15,7 +15,7 @@ setup(name="ExtensionConsole",
 	  platforms='linux',
 	  packages=["ExtensionConsole"],
 	  package_dir={"ExtensionConsole":"src"},
-	  package_data={"":["pyconsole.py", "ExtensionConsole.glade"]},
+	  package_data={"":["pyconsole.py", "ConsoleDialog.ui", "SearchDialog.ui"]},
 	  entry_points="""
 		[jokosher.extensions]
 		extension = ExtensionConsole:ExtensionConsole
