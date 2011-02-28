@@ -63,17 +63,18 @@ class Minimal:
 		Parameters:
 			arg -- set by GTK
 		"""
-		xmlString = pkg_resources.resource_string(__name__,"Minimal.glade")
-		wTree = gtk.glade.xml_new_from_buffer(xmlString, len(xmlString))
+		xmlString = pkg_resources.resource_string(__name__,"Minimal.ui")
+		gtkBuilder = gtk.Builder()
+		gtkBuilder.add_from_string(xmlString)
 		
-		self.window = wTree.get_widget("MinimalDialog")
+		self.window = gtkBuilder.get_object("MinimalDialog")
 		self.API.set_window_icon(self.window)
-		self.timeLabel = wTree.get_widget("timeLabel")
-		self.hideShowButton = wTree.get_widget("hideShowButton")
-		self.abButton = wTree.get_widget("abButton")
-		self.play = wTree.get_widget("playButton")
-		self.stop = wTree.get_widget("stopButton")
-		self.record = wTree.get_widget("recordButton")
+		self.timeLabel = gtkBuilder.get_object("timeLabel")
+		self.hideShowButton = gtkBuilder.get_object("hideShowButton")
+		self.abButton = gtkBuilder.get_object("abButton")
+		self.play = gtkBuilder.get_object("playButton")
+		self.stop = gtkBuilder.get_object("stopButton")
+		self.record = gtkBuilder.get_object("recordButton")
 		
 		signals = {
 			"on_stopButton_clicked" : self.OnStop,
@@ -86,7 +87,7 @@ class Minimal:
 		}
 		
 		self.abStatus = self.abStart = self.abEnd = 0
-		wTree.signal_autoconnect(signals)
+		gtkBuilder.connect_signals(signals)
 		self.API.hide_main_window()
 		self.mainWindowHide = True
 		self.currentPosition = (-1, -1, -1, -1)
