@@ -1,13 +1,13 @@
 from setuptools import setup
 import sys, os
 from shutil import copy
-version="0.2"
+version="0.11"
 setup(name="InstrumentTypeManager",
 version=version,
 description="Adds or Removes an instrument type from jokosher",
 packages=["InstrumentTypeManager"],
 package_dir={"InstrumentTypeManager":"src"},
-package_data={"":["InstrumentTypeManager.glade"]},
+package_data={"":["InstrumentTypeManager.ui"]},
 entry_points="""
 [jokosher.extensions]
 extension = InstrumentTypeManager:InstrumentTypeManager

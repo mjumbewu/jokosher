@@ -4,7 +4,6 @@
 #	by playing it back and tapping the space bar in time with the beat.
 import Jokosher.Extension
 import gtk
-import gtk.glade
 import pkg_resources
 import time
 	
@@ -24,7 +23,7 @@ class SetTempo:
 	"""
 	EXTENSION_NAME = "Set Tempo"
 	EXTENSION_DESCRIPTION = "Sets the tempo for the current project by tapping in time with the music"
-	EXTENSION_VERSION = "0.9"
+	EXTENSION_VERSION = "0.11"
 	
 	# The number of past intervals it will store to perform a "rolling" average.
 	ROLLING_SAMPLE_SIZE = 4
@@ -61,12 +60,13 @@ class SetTempo:
 		Parameters:
 			arg -- set by GTK
 		"""
-		xmlString = pkg_resources.resource_string(__name__, "SetTempo.glade")
-		wTree = gtk.glade.xml_new_from_buffer(xmlString, len(xmlString))
+		xmlString = pkg_resources.resource_string(__name__, "SetTempo.ui")
+		gtkBuilder = gtk.Builder()
+		gtkBuilder.add_from_string(xmlString)
 		
-		self.window = wTree.get_widget("SetTempoDialog")
+		self.window = gtkBuilder.get_object("SetTempoDialog")
 		self.API.set_window_icon(self.window)
-		self.tempoLabel = wTree.get_widget("tempoLabel")
+		self.tempoLabel = gtkBuilder.get_object("tempoLabel")
 		signals = {
 			"OnClearClicked" : self.OnClear,
 			"OnStopClicked" : self.OnStop,
@@ -75,7 +75,7 @@ class SetTempo:
 			"OnSetClicked" : self.OnSet,
 			"OnCancelClicked" : self.OnCancel
 		}
-		wTree.signal_autoconnect(signals)
+		gtkBuilder.connect_signals(signals)
 		
 		self.window.set_transient_for(self.API.mainapp.window)
 		self.WriteLabel(0)

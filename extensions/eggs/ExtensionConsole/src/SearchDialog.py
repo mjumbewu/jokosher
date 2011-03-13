@@ -5,7 +5,7 @@
 #-------------------------------------------------------------------------------
 
 import inspect
-import gtk.glade
+import gtk
 import re
 import pkg_resources
 import Jokosher.Project, Jokosher.Instrument, Jokosher.Event
@@ -13,8 +13,6 @@ import Jokosher.Project, Jokosher.Instrument, Jokosher.Event
 #=========================================================================
 
 class SearchDialog:
-	
-	GLADE_FILE = "ExtensionConsole.glade"
 	
 	SEARCHABLE_MODULES = {
 		"Project" : (Jokosher.Project.Project,) ,
@@ -28,8 +26,9 @@ class SearchDialog:
 		self.parent = parent
 		self.writeCallback = writeCallback
 		
-		xmlString = pkg_resources.resource_string(__name__, "ExtensionConsole.glade")
-		self.wTree = gtk.glade.xml_new_from_buffer(xmlString, len(xmlString), "SearchDialog")
+		xmlString = pkg_resources.resource_string(__name__, "SearchDialog.ui")
+		self.gtkBuilder = gtk.Builder()
+		self.gtkBuilder.add_from_string(xmlString)
 
 		self.signals = {
 			"OnAdd" : self.OnAdd,
@@ -38,17 +37,17 @@ class SearchDialog:
 			"on_Selection_changed" : self.OnSelectionChange,
 		}
 		
-		self.wTree.signal_autoconnect(self.signals)
+		self.gtkBuilder.connect_signals(self.signals)
 		
-		self.dlg = self.wTree.get_widget("SearchDialog")
-		self.treeview = self.wTree.get_widget("ResultsTreeview")
-		self.searchCombo = self.wTree.get_widget("searchComboEntry")
-		self.moduleCombo = self.wTree.get_widget("moduleCombo")
-		self.regexCheckbox = self.wTree.get_widget("regexCheckbox")
-		self.docsCheckbox = self.wTree.get_widget("docsCheckbox")
-		self.argsCheckbox = self.wTree.get_widget("argsCheckbox")
-		self.privateCheckbox = self.wTree.get_widget("privateCheckbox")
-		self.documentationLabel = self.wTree.get_widget("documentationLabel")
+		self.dlg = self.gtkBuilder.get_object("SearchDialog")
+		self.treeview = self.gtkBuilder.get_object("ResultsTreeview")
+		self.searchCombo = self.gtkBuilder.get_object("searchComboEntry")
+		self.moduleCombo = self.gtkBuilder.get_object("moduleCombo")
+		self.regexCheckbox = self.gtkBuilder.get_object("regexCheckbox")
+		self.docsCheckbox = self.gtkBuilder.get_object("docsCheckbox")
+		self.argsCheckbox = self.gtkBuilder.get_object("argsCheckbox")
+		self.privateCheckbox = self.gtkBuilder.get_object("privateCheckbox")
+		self.documentationLabel = self.gtkBuilder.get_object("documentationLabel")
 		
 		self.model = gtk.ListStore(str, object)
 		self.treeview.set_model(self.model)

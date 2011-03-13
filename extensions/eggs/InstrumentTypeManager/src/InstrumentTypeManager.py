@@ -8,14 +8,13 @@
 
 import Jokosher.Extension
 import gtk
-import gtk.glade
 import os
 import pkg_resources
 
 class InstrumentTypeManager:
 	EXTENSION_NAME = "Instrument Type Manager"
 	EXTENSION_DESCRIPTION = "Adds or deletes an instrument type from jokosher"
-	EXTENSION_VERSION = "0.2"
+	EXTENSION_VERSION = "0.11"
 	
 	def OnOk(self, arg):
 		self.OnApply()
@@ -104,8 +103,9 @@ class InstrumentTypeManager:
 			confirm_dlg.destroy()
 		
 	def OnMenuItemClick(self, arg):
-		xmlString = pkg_resources.resource_string(__name__,"InstrumentTypeManager.glade")
-		self.wTree = gtk.glade.xml_new_from_buffer(xmlString, len(xmlString),"NewInstrumentTypeDialog")
+		xmlString = pkg_resources.resource_string(__name__,"InstrumentTypeManager.ui")
+		self.gtkBuilder = gtk.Builder()
+		self.gtkBuilder.add_from_string(xmlString)
 		
 		signals = {
 			"on_OK_clicked" : self.OnOk,
@@ -115,13 +115,13 @@ class InstrumentTypeManager:
 			"on_Instrument_changed": self.OnInstrumentChanged,
 			"on_Icon_clicked": self.OnIconClicked,
 		}
-		self.wTree.signal_autoconnect(signals)
+		self.gtkBuilder.connect_signals(signals)
 	
-		self.window = self.wTree.get_widget("NewInstrumentTypeDialog")
+		self.window = self.gtkBuilder.get_object("NewInstrumentTypeDialog")
 		self.API.set_window_icon(self.window)
-		self.icon = self.wTree.get_widget("button3")
-		self.instrument_name = self.wTree.get_widget("comboboxentry1")
-		self.icon_button = self.wTree.get_widget("button3")
+		self.icon = self.gtkBuilder.get_object("button3")
+		self.instrument_name = self.gtkBuilder.get_object("comboboxentry1")
+		self.icon_button = self.gtkBuilder.get_object("button3")
 
 		self.instrument_name.child.set_property("editable", False)
 	
@@ -129,11 +129,11 @@ class InstrumentTypeManager:
 				gtk.FILE_CHOOSER_ACTION_OPEN, (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, gtk.STOCK_OPEN, gtk.RESPONSE_OK))
 		self.filechooser.set_default_response(gtk.RESPONSE_OK)
 		
-		filter = gtk.FileFilter()
-		filter.add_pixbuf_formats()
-		filter.set_name("Images")
+		fileFilter = gtk.FileFilter()
+		fileFilter.add_pixbuf_formats()
+		fileFilter.set_name("Images")
 		
-		self.filechooser.add_filter(filter)
+		self.filechooser.add_filter(fileFilter)
 		
 		self.changes_flag = None
 	

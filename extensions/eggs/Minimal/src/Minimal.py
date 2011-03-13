@@ -8,7 +8,6 @@
 
 import Jokosher.Extension
 import gtk
-import gtk.glade
 import pkg_resources
 import time
 import gobject
@@ -29,7 +28,7 @@ class Minimal:
 	"""
 	EXTENSION_NAME = "Minimal"
 	EXTENSION_DESCRIPTION = "Replaces the normal Jokosher window with a tiny dialog"
-	EXTENSION_VERSION = "0.9"
+	EXTENSION_VERSION = "0.11"
 	
 	#_____________________________________________________________________
 	
@@ -63,17 +62,18 @@ class Minimal:
 		Parameters:
 			arg -- set by GTK
 		"""
-		xmlString = pkg_resources.resource_string(__name__,"Minimal.glade")
-		wTree = gtk.glade.xml_new_from_buffer(xmlString, len(xmlString))
+		xmlString = pkg_resources.resource_string(__name__,"Minimal.ui")
+		gtkBuilder = gtk.Builder()
+		gtkBuilder.add_from_string(xmlString)
 		
-		self.window = wTree.get_widget("MinimalDialog")
+		self.window = gtkBuilder.get_object("MinimalDialog")
 		self.API.set_window_icon(self.window)
-		self.timeLabel = wTree.get_widget("timeLabel")
-		self.hideShowButton = wTree.get_widget("hideShowButton")
-		self.abButton = wTree.get_widget("abButton")
-		self.play = wTree.get_widget("playButton")
-		self.stop = wTree.get_widget("stopButton")
-		self.record = wTree.get_widget("recordButton")
+		self.timeLabel = gtkBuilder.get_object("timeLabel")
+		self.hideShowButton = gtkBuilder.get_object("hideShowButton")
+		self.abButton = gtkBuilder.get_object("abButton")
+		self.play = gtkBuilder.get_object("playButton")
+		self.stop = gtkBuilder.get_object("stopButton")
+		self.record = gtkBuilder.get_object("recordButton")
 		
 		signals = {
 			"on_stopButton_clicked" : self.OnStop,
@@ -86,7 +86,7 @@ class Minimal:
 		}
 		
 		self.abStatus = self.abStart = self.abEnd = 0
-		wTree.signal_autoconnect(signals)
+		gtkBuilder.connect_signals(signals)
 		self.API.hide_main_window()
 		self.mainWindowHide = True
 		self.currentPosition = (-1, -1, -1, -1)
@@ -224,18 +224,17 @@ class Minimal:
 		"""
 		GTK callback when the "A-B" button is clicked.
 		"""
-		tooltip = gtk.tooltips_data_get(self.abButton)[0]
 		if self.abStatus == 0:
 			self.abStatus = 1
 			self.abButton.set_label("A-")
 			self.abButton.set_active(True)
-			tooltip.set_tip(self.abButton, _("Select the end position for looped playback"))
+			self.abButton.set_tooltip_text(_("Select the end position for looped playback"))
 			self.abStart = self.API.get_position()
 		elif self.abStatus ==1:
 			self.abStatus = 2
 			self.abButton.set_label("A-B")
 			self.abButton.set_active(True)
-			tooltip.set_tip(self.abButton, _("End looped playback"))
+			self.abButton.set_tooltip_text(_("End looped playback"))
 			self.abEnd = self.API.get_position()
 			self.API.seek(self.abStart, self.abEnd)
 		else:
@@ -273,8 +272,7 @@ class Minimal:
 		self.abStatus = self.abStart = self.abEnd = 0
 		self.abButton.set_label("A-B")
 		self.abButton.set_active(False)
-		tooltip = gtk.tooltips_data_get(self.abButton)[0]
-		tooltip.set_tip(self.abButton, _("Select the start position for looped playback"))
+		self.abButton.set_tooltip_text(_("Select the start position for looped playback"))
 		
 	#____________________________________________________________________	
 

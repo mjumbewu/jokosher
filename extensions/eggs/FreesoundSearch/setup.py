@@ -2,7 +2,7 @@ from setuptools import setup
 import sys, os
 from shutil import copy
 
-version = "0.3"
+version = "0.11"
 setup(name="FreesoundSearch",
 	  version=version,
 	  author='Stuart Langridge, David Corrales',
@@ -15,7 +15,7 @@ setup(name="FreesoundSearch",
 	  platforms='linux',
 	  packages=["FreesoundSearch"],
 	  package_dir={"FreesoundSearch":"src"},
-	  package_data={"":["FreesoundSearch.glade", "freesound.py", "images/banner.png"]},
+	  package_data={"":["FreesoundSearch.ui", "LoginDialog.ui", "freesound.py", "images/banner.png"]},
 	  entry_points="""
 		[jokosher.extensions]
 		extension = FreesoundSearch:FreesoundSearch
