@@ -704,8 +704,8 @@ DEBUG_STDOUT, DEBUG_GST = (False, False)
 
 _export_template = ("description", "extension", "pipeline", "setSampleRate", "setBitRate") 
 _export_formats = 	[
-					("Ogg Vorbis", "ogg", "vorbisenc bitrate=%d ! oggmux", True, True),
-					("MP3", "mp3", "lame bitrate=%d ", True, True),
+					("Ogg Vorbis", "ogg", "vorbisenc bitrate=%(bitrate)d ! oggmux", True, True),
+					("MP3", "mp3", "lame bitrate=%(bitrate)d ", True, True),
 					("Flac", "flac", "flacenc", True, False),
 					("WAV", "wav", "wavenc", True, False),
 					]
