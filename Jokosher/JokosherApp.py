@@ -634,19 +634,15 @@ class MainApp:
 		#Make the first item the default
 		typeCombo.set_active(0)
 
-		i = 0
-		for samplerate in Globals.SAMPLE_RATES:
+		for index, samplerate in enumerate(Globals.SAMPLE_RATES):
 			sampleRateCombo.append_text("%d Hz" % samplerate)
 			if samplerate == Globals.DEFAULT_SAMPLE_RATE:
-				sampleRateCombo.set_active(i)
-			i += 1
-			
-		i = 0	
-		for bitrate in Globals.BIT_RATES:
+				sampleRateCombo.set_active(index)
+		
+		for index, bitrate in enumerate(Globals.BIT_RATES):
 			bitRateCombo.append_text("%d kbps" % bitrate)
 			if bitrate == Globals.DEFAULT_BIT_RATE:
-				bitRateCombo.set_active(i)
-			i += 1
+				bitRateCombo.set_active(index)
 
 		extraHBox = gtk.HBox()
 		extraHBox.pack_start(sampleRateHBox, False)
