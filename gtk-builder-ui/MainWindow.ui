@@ -191,7 +191,7 @@
                     </child>
                     <child>
                       <object class="GtkImageMenuItem" id="export">
-                        <property name="label">_Export...</property>
+                        <property name="label">_Export Audio File...</property>
                         <property name="visible">True</property>
                         <property name="tooltip_text" translatable="yes">Export current project to an audio file</property>
                         <property name="use_underline">True</property>
