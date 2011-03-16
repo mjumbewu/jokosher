@@ -436,7 +436,7 @@ class Project(gobject.GObject):
 		
 	#_____________________________________________________________________
 
-	def Export(self, filename, encodeBin):
+	def Export(self, filename, encodeBin, samplerate=None, bitrate=None):
 		"""
 		Export to location filename with format specified by format variable.
 		
@@ -446,7 +446,15 @@ class Project(gobject.GObject):
 					for ogg: "vorbisenc ! oggmux"
 					for mp3: "lame"
 					for wav: "wavenc"
+			samplerate -- the sample rate to output (optional, uses project default if blank).
+			bitrate -- the target bit rate to encode at (optional, uses encoder default if blank).
 		"""
+		
+		if samplerate:
+			encodeBin = "audioresample ! audio/x-raw-float,rate=%d ! audioconvert ! %s" % (samplerate, encodeBin)
+		if bitrate:
+			encodeBin %= {'bitrate' : bitrate}
+			
 		#try to create encoder/muxer first, before modifying the main pipeline.
 		try:
 			self.encodebin = gst.parse_bin_from_description(encodeBin, True)

@@ -766,7 +766,7 @@ class ExtensionAPI:
 	#_____________________________________________________________________
 	
 	@exported_function
-	def add_export_format(self, description, extension, encodeBin, checkIfValid=True):
+	def add_export_format(self, description, extension, encodeBin, setSampleRate, setBitRate, checkIfValid=True):
 		"""
 		Adds a new format that the user can select from the filetype drop down box
 		in the 'Mixdown Project' dialog.
@@ -777,6 +777,8 @@ class ExtensionAPI:
 			encodeBin -- string used by gst.parse_bin_from_description to create
 						a bin that can encode and mux the audio when added to a
 						pipeline. i.e: 'vorbisenc ! oggmux'.
+			setSampleRate -- If True this encodeBin will allow the user to set their own sample rate.
+			setBitRate -- If True this will allow the user to set their own bit rate.
 			checkIfValid -- If True, Jokosher will check if the encodeBin string is valid before adding
 						it to the export dialog. If you know a string to be correct, this parameter
 						should be False because checking will make startup take longer.
@@ -796,7 +798,7 @@ class ExtensionAPI:
 			except gobject.GError:
 				return 3
 		
-		propslist = (description, extension, encodeBin)
+		propslist = (description, extension, encodeBin, setSampleRate, setBitRate)
 		propsdict = dict(zip(Globals._export_template, propslist))
 		if propsdict in Globals.EXPORT_FORMATS:
 			return 2

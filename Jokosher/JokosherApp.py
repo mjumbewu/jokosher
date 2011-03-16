@@ -26,7 +26,7 @@ import PreferencesDialog, ExtensionManagerDialog, RecordingView
 import ProjectManager, Globals
 import InstrumentConnectionsDialog
 import EffectPresets, Extension, ExtensionManager
-import Utils, AudioPreview, MixdownProfileDialog, MixdownActions
+import Utils, AudioPreview
 import PlatformUtils
 import ui.StatusBar as StatusBar
 import ProjectListDatabase
@@ -262,13 +262,6 @@ class MainApp:
 		EffectPresets.EffectPresets()
 		Globals.PopulateEncoders()
 		Globals.PopulateAudioBackends()
-		
-		# seems like this is the best place to instantiate RegisterMixdownActionAPI
-		# as extensions and the mixdown profile dialog can use it through mainapp
-		self.registerMixdownActionAPI = MixdownActions.RegisterMixdownActionAPI()
-		
-		# register the default MixdownActions
-		self.registerMixdownActionAPI.RegisterMixdownActions((MixdownActions.RunAScript, MixdownActions.ExportAsFileType))
 		
 		if loadExtensions:
 			# Load extensions -- this should probably go somewhere more appropriate
@@ -604,21 +597,7 @@ class MainApp:
 	
 	#_____________________________________________________________________
 	
-	def OnExport(self, widget=None, profile=None):
-		"""
-		Displays the Mixdown Profiles dialog, which allows the user to
-		(simply) export the project as ogg or mp3 (replacing the old
-		export dialog), or create a mixdown profile that does a set of
-		complicated things.
-		
-		Parameters:
-			widget -- reserved for GTK callbacks, don't use it explicitly.
-		"""
-		MixdownProfileDialog.MixdownProfileDialog(self, self.project, profile)
-		
-	#_____________________________________________________________________
-		
-	def OnExport_old(self, widget=None):
+	def OnExport(self, widget=None):
 		"""
 		Creates and shows a save file dialog which allows the user to export
 		the project as ogg or mp3.
@@ -627,7 +606,7 @@ class MainApp:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
 		buttons = (gtk.STOCK_CANCEL,gtk.RESPONSE_CANCEL,gtk.STOCK_SAVE,gtk.RESPONSE_OK)
-		chooser = gtk.FileChooserDialog(_("Mixdown Project"), self.window, gtk.FILE_CHOOSER_ACTION_SAVE, buttons)
+		chooser = gtk.FileChooserDialog(_("Export Project"), self.window, gtk.FILE_CHOOSER_ACTION_SAVE, buttons)
 		if os.path.exists(Globals.settings.general["projectfolder"]):
 			chooser.set_current_folder(Globals.settings.general["projectfolder"])
 		else:
@@ -636,17 +615,40 @@ class MainApp:
 		chooser.set_default_response(gtk.RESPONSE_OK)
 		chooser.set_current_name(self.project.name)
 
+		sampleRateHBox = gtk.HBox()
+		sampleRateLabel = gtk.Label(_("Sample rate:"))
+		sampleRateCombo = gtk.combo_box_new_text()
+		sampleRateHBox.pack_start(sampleRateLabel, False, False, 10)
+		sampleRateHBox.pack_start(sampleRateCombo, False, False, 10)
+		bitRateLabel = gtk.Label(_("Bit rate:"))
+		bitRateCombo = gtk.combo_box_new_text()
+		bitRateHBox = gtk.HBox()
+		bitRateHBox.pack_start(bitRateLabel, False, False, 10)
+		bitRateHBox.pack_start(bitRateCombo, False, False, 10)
 		saveLabel = gtk.Label(_("Save as file type:"))		
 		typeCombo = gtk.combo_box_new_text()
+		typeCombo.connect("changed", self.OnExportFormatChanged, sampleRateHBox, bitRateHBox)
 		
-		for format in Globals.EXPORT_FORMATS:
-			typeCombo.append_text("%s (.%s)" % (format["description"], format["extension"]))
+		for frmt in Globals.EXPORT_FORMATS:
+			typeCombo.append_text("%s (.%s)" % (frmt["description"], frmt["extension"]))
 		#Make the first item the default
 		typeCombo.set_active(0)
+
+		for index, samplerate in enumerate(Globals.SAMPLE_RATES):
+			sampleRateCombo.append_text("%d Hz" % samplerate)
+			if samplerate == Globals.DEFAULT_SAMPLE_RATE:
+				sampleRateCombo.set_active(index)
 		
+		for index, bitrate in enumerate(Globals.BIT_RATES):
+			bitRateCombo.append_text("%d kbps" % bitrate)
+			if bitrate == Globals.DEFAULT_BIT_RATE:
+				bitRateCombo.set_active(index)
+
 		extraHBox = gtk.HBox()
-		extraHBox.pack_start(saveLabel, False)
-		extraHBox.pack_end(typeCombo, False)
+		extraHBox.pack_start(sampleRateHBox, False)
+		extraHBox.pack_start(bitRateHBox, False)
+		extraHBox.pack_end(typeCombo, False, False, 10)
+		extraHBox.pack_end(saveLabel, False, False, 10)
 		extraHBox.show_all()
 		chooser.set_extra_widget(extraHBox)
 		
@@ -658,14 +660,45 @@ class MainApp:
 			#If they haven't already appended the extension for the 
 			#chosen file type, add it to the end of the file.
 			filetypeDict = Globals.EXPORT_FORMATS[typeCombo.get_active()]
-			if not exportFilename.lower().endswith(filetypeDict["extension"]):
+			if not exportFilename.lower().endswith("." + filetypeDict["extension"]):
 				exportFilename += "." + filetypeDict["extension"]
 		
+			if sampleRateHBox.get_property("visible"):
+				samplerate = Globals.SAMPLE_RATES[sampleRateCombo.get_active()]
+			else:
+				samplerate = None
+			if bitRateHBox.get_property("visible"):
+				bitrate = Globals.BIT_RATES[bitRateCombo.get_active()]
+				if filetypeDict["extension"] == "ogg":
+					# vorbisenc takes bit rate in bps instead of kbps
+					bitrate *= 1024
+			else:
+				bitrate = None
+
 			chooser.destroy()
-			self.project.Export(exportFilename, filetypeDict["pipeline"])
+			self.project.Export(exportFilename, filetypeDict["pipeline"], samplerate, bitrate)
 		else:
 			chooser.destroy()
 		
+	#_____________________________________________________________________
+
+	def OnExportFormatChanged(self, typeCombo, sampleRateHBox, bitRateHBox):
+		"""
+		Updates the export file chooser dialog's setting options to make sure
+		that they're appropriate for the selected format.
+		"""
+
+		format_def = Globals.EXPORT_FORMATS[typeCombo.get_active()]
+		if format_def["setSampleRate"]:
+			sampleRateHBox.show()
+		else:
+			sampleRateHBox.hide()
+
+		if format_def["setBitRate"]:
+			bitRateHBox.show()
+		else:
+			bitRateHBox.hide()
+
 	#_____________________________________________________________________
 	
 	def UpdateExportDialog(self):
@@ -1473,14 +1506,11 @@ class MainApp:
 		Parameters:
 			widget -- reserved for GTK callbacks, don't use it explicitly.
 		"""
-		self.PopulateMixdownAsMenu()
 		if self.isRecording:
 			self.export.set_sensitive(False)
 			self.addInstrumentFileMenuItem.set_sensitive(False)
 			self.addAudioFileMenuItem.set_sensitive(False)
 			self.recordingInputsFileMenuItem.set_sensitive(False)
-			if self.mixdown_as_header:
-				self.mixdown_as_header.set_sensitive(False)
 			return
 		
 		eventList = False
@@ -1493,8 +1523,6 @@ class MainApp:
 					eventList = True
 					break
 		self.export.set_sensitive(eventList)
-		if self.mixdown_as_header:
-			self.mixdown_as_header.set_sensitive(eventList)
 			
 	#_____________________________________________________________________
 	
@@ -1986,56 +2014,6 @@ class MainApp:
 		
 	#_____________________________________________________________________
 
-	def PopulateMixdownAsMenu(self):
-		"""
-		If there are any saved mixdown profiles, create a Mixdown As submenu in
-		the file menu and add links to them.
-		"""
-		self.mixdown_as_header = None
-		savefolder = os.path.join(Globals.JOKOSHER_DATA_HOME, 'mixdownprofiles') # created by Globals
-		profiles = os.listdir(savefolder)
-		if not profiles: return
-		
-		# remove any old mixdown profiles
-		for item in profiles:
-			if not item.endswith(".profile"):
-				path = os.path.join(Globals.MIXDOWN_PROFILES_PATH, item)
-				os.remove(path)
-				break
-		profiles = os.listdir(savefolder)
-			
-		filemenulist = self.filemenu.get_submenu()
-		# If there's already a Mixdown As submenu, delete it and recreate it
-		for i in filemenulist.get_children():
-			if i.get_children():
-				if i.get_children()[0].get_label() == _("Mix_down As"):
-					filemenulist.remove(i)
-					i.destroy()
-		
-		# Create a Mixdown As submenu header
-		self.mixdown_as_header = gtk.MenuItem(label=_("Mix_down As"))
-		submenu = gtk.Menu()
-		for p in profiles:
-			profilenames = p.split(".")[0]
-			menuitem = gtk.MenuItem(label=profilenames)
-			menuitem.connect("activate", self.OnExport, profilenames)
-			submenu.append(menuitem)
-		self.mixdown_as_header.set_submenu(submenu)
-		# insert it after Mixdown Project
-		counter = 0
-		insert_position = None
-		for i in filemenulist.get_children():
-			if i.get_children():
-				if i.get_children()[0].get_label() == _("_Mixdown Project..."):
-					insert_position = counter
-			counter += 1
-		if insert_position:
-			self.filemenu.get_submenu().insert(self.mixdown_as_header,insert_position + 1)
-			
-		self.filemenu.show_all()
-		
-	#_____________________________________________________________________
-	
 	def OnProjectProperties(self, widget=None):
 		"""
 		Called when the "Properties..." in the project menu is clicked.
