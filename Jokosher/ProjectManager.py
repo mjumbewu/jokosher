@@ -138,7 +138,7 @@ def DeleteProjectLocation(project):
 def ImportProject(project_uri):
 	try:
 		old_project = LoadProjectFile(project_uri)
-	except ProjectManager.OpenProjectError, e:
+	except OpenProjectError, e:
 		raise
 		
 	all_files = old_project.GetAudioAndLevelsFilenames(include_deleted=True)
