@@ -891,7 +891,7 @@ class MainApp:
 			elif e.errno == 6:
 				message = "%s %s" % (_("Unable to load required Gstreamer plugin:"), e.message)
 			
-			# show the error dialog with the relavent error message	
+			# show the error dialog with the relevant error message	
 			dlg = gtk.MessageDialog(self.dlg,
 				gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
 				gtk.MESSAGE_ERROR,
