@@ -150,14 +150,13 @@ class PreferencesDialog:
 		#Bit rate settings for lossy file formats
 		try:
 			bitRateSetting = int(Globals.settings.recording["bitrate"])
-		except ValueError:
+			if Globals.settings.recording["file_extension"] == "ogg":
+				# vorbisenc uses bps instead of kbps
+				bitRateSetting /= 1024
+		except KeyError:
 			bitRateSetting = int(Globals.DEFAULT_BIT_RATE)
 		if bitRateSetting == 0:
 			bitRateSetting = int(Globals.DEFAULT_BIT_RATE)
-
-		if Globals.settings.recording["file_extension"] == "ogg":
-			# vorbisenc uses bps instead of kbps
-			bitRateSetting /= 1024
 
 		for index, bitrate in enumerate(Globals.BIT_RATES):
 			self.bitRateCombo.append_text("%d kbps" % bitrate)
