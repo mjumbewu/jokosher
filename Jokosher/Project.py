@@ -383,16 +383,20 @@ class Project(gobject.GObject):
 			else:
 				instr = recInstruments[0]
 				event = instr.GetRecordingEvent()
-				
+			
 				encodeString = Globals.settings.recording["fileformat"]
 				recordString = Globals.settings.recording["audiosrc"]
+
+				# 0 means this encoder doesn't take a bitrate
+				if Globals.settings.recording["bitrate"] > 0:
+					encodeString %= {'bitrate' : int(Globals.settings.recording["bitrate"])}
 				
 				sampleRate = 0
 				try:
 					sampleRate = int( Globals.settings.recording["samplerate"] )
 				except ValueError:
 					pass
-				# 0 means for "autodetect", or more technically "don't use any caps".
+				# 0 means "autodetect", or more technically "don't use any caps".
 				if sampleRate > 0:
 					capsString = "audio/x-raw-int,rate=%s ! audioconvert" % sampleRate
 				else:
@@ -626,8 +630,10 @@ class Project(gobject.GObject):
 			if instr.inTrack == index:
 				event = instr.GetRecordingEvent()
 				
-				# TODO: get rid of string concatentation
 				encodeString = Globals.settings.recording["fileformat"]
+				# 0 means this encoder doesn't take a bitrate
+				if Globals.settings.recording["bitrate"] > 0:
+					encodeString %= {'bitrate' : int(Globals.settings.recording["bitrate"])}
 				pipe = "queue ! audioconvert ! level name=recordlevel ! audioconvert ! %s ! filesink name=sink"
 				pipe %= encodeString
 				

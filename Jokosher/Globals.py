@@ -91,8 +91,8 @@ class Settings:
 	
 	def __init__(self):
 		self.filename = os.path.join(JOKOSHER_CONFIG_HOME, "config")
-		
-		self.config = ConfigParser.ConfigParser()
+		# Use RawConfigParser so that parameters in pipelines don't get processed
+		self.config = ConfigParser.RawConfigParser()
 		self.read()
 
 	#_____________________________________________________________________
