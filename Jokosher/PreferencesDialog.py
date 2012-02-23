@@ -58,6 +58,8 @@ class PreferencesDialog:
 		self.recordingCustomPipeline = self.gtk_builder.get_object("recordingCustomPipeline")
 		self.recordingSoundSystem = self.gtk_builder.get_object("recordingSoundSystem")
 		self.samplingRate = self.gtk_builder.get_object("samplingRate")
+		self.bitRateCombo = self.gtk_builder.get_object("bitRate")
+		self.bitRateLabel = self.gtk_builder.get_object("bitRateLabel")
 		self.playbackDevice = self.gtk_builder.get_object("playbackDevice")
 		self.playbackSink = self.gtk_builder.get_object("playbackSink")
 		self.customSink = self.gtk_builder.get_object("customSink")
@@ -145,14 +147,31 @@ class PreferencesDialog:
 				sampleRateSettingIndex = self.sampleRateList.index( (text, value) )
 		self.samplingRate.set_active(sampleRateSettingIndex)
 		
+		#Bit rate settings for lossy file formats
+		try:
+			bitRateSetting = int(Globals.settings.recording["bitrate"])
+			if Globals.settings.recording["file_extension"] == "ogg":
+				# vorbisenc uses bps instead of kbps
+				bitRateSetting /= 1024
+		except KeyError:
+			bitRateSetting = int(Globals.DEFAULT_BIT_RATE)
+		if bitRateSetting == 0:
+			bitRateSetting = int(Globals.DEFAULT_BIT_RATE)
+
+		for index, bitrate in enumerate(Globals.BIT_RATES):
+			self.bitRateCombo.append_text("%d kbps" % bitrate)
+			if bitrate == bitRateSetting:
+				self.bitRateCombo.set_active(index)
 		
 		fileFormatSetting = Globals.settings.recording["fileformat"]
 		fileFormatSettingIndex = 0
+		setBitRate = False
 		#get all the encoders from Globals
-		for format in Globals.EXPORT_FORMATS:
-			self.recordingFileFormat.append_text("%s (.%s)" % (format["description"], format["extension"]))
-			if fileFormatSetting == format["pipeline"]:
-				fileFormatSettingIndex = Globals.EXPORT_FORMATS.index(format)
+		for exportFormat in Globals.EXPORT_FORMATS:
+			self.recordingFileFormat.append_text("%s (.%s)" % (exportFormat["description"], exportFormat["extension"]))
+			if fileFormatSetting == exportFormat["pipeline"]:
+				fileFormatSettingIndex = Globals.EXPORT_FORMATS.index(exportFormat)
+				setBitRate = exportFormat["setBitRate"]
 		
 		self.recordingFileFormat.set_active(fileFormatSettingIndex)
 		
@@ -168,6 +187,7 @@ class PreferencesDialog:
 		self.loadingSettings = False
 
 		self.dlg.show_all()
+		self.ShowBitRate(setBitRate)
 		
 	#_____________________________________________________________________
 		
@@ -222,6 +242,16 @@ class PreferencesDialog:
 			return
 		
 		exportDict = Globals.EXPORT_FORMATS[self.recordingFileFormat.get_active()]
+		self.ShowBitRate(exportDict["setBitRate"])
+		if exportDict["setBitRate"]:
+			bitrate = Globals.BIT_RATES[self.bitRateCombo.get_active()]
+			if exportDict["extension"] == "ogg":
+				# vorbisenc takes bit rate in bps instead of kbps
+				bitrate *= 1024
+		else:
+			# Indicates that this encoder doesn't take a bitrate parameter
+			bitrate = 0
+		Globals.settings.recording["bitrate"] = bitrate
 		Globals.settings.recording["fileformat"] = exportDict["pipeline"]
 		Globals.settings.recording["file_extension"] = exportDict["extension"]
 		#only get the number from "44100 Hz", not the whole string
@@ -351,4 +381,16 @@ class PreferencesDialog:
 			self.playbackDevice.set_sensitive(True)
 			self.LoadSetting(self.playbackDevice, Globals.settings.playback, "devicename")
 	
+	#_____________________________________________________________________
+
+	def ShowBitRate(self, show):
+		"""
+		Shows or hides the bit rate combo box.
+
+		Parameters:
+			show -- Boolean indicating whether to show the bit rate combo box or not.
+		"""
+		self.bitRateCombo.set_visible(show)
+		self.bitRateLabel.set_visible(show)
+
 	#_____________________________________________________________________
