@@ -45,9 +45,10 @@ class Settings:
 				}
 
 	recording = {
-				"fileformat": "flacenc",
-				"file_extension": "flac",
+				"fileformat": "vorbisenc bitrate=%(bitrate)d ! oggmux",
+				"file_extension": "ogg",
 				"samplerate": "0", # zero means, autodetect sample rate (ie use any available)
+				"bitrate": "131072",
 				"audiosrc" : "gconfaudiosrc",
 				"device" : "default"
 				}
