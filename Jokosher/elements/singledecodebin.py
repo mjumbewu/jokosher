@@ -188,6 +188,9 @@ class SingleDecodeBin(gst.Bin):
                 self.remove(element)
                 continue
 
+            # Never plug the same factory more than once (endless loop!)
+            self._factories.remove (factory)
+
             self._closeLink(element)
             element.set_state(gst.STATE_PAUSED)
 
